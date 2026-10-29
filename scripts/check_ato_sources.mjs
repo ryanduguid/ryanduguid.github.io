@@ -5,22 +5,27 @@
 // with the copy kept in --baseline from the previous weekly run.
 //
 // Failures: a page that returns an error status or no text, and a page whose
-// text changed since the previous run, other than the legal database home
-// (CHANGE_EXEMPT). A changed page needs editorial review of every file that
-// cites it; the report lists those files and the lines that differ. A dead
-// link (HTTP 404 or 410) needs its citations repointed. A cited page dated
-// after the accounting question answers citing it were checked needs those
-// answers rechecked (QUESTIONS below). A moved page that still resolves is a
-// note. The exit code is 1 when any page could not be read and 2 when every
-// failure is a changed page, a dead link or an answer to recheck, so the
-// scheduled run can tell findings to review from a broken sweep.
+// text changed substantively since the previous run, other than the legal
+// database home (CHANGE_EXEMPT). A substantive change needs editorial review of
+// every file that cites it; the report lists those files and the lines that
+// differ. A change confined to NOISE lines, or to a listing page (listing), is
+// recorded but passes. A dead link (HTTP 404 or 410) needs its citations
+// repointed. A cited page dated after the accounting question answers citing it
+// were checked needs those answers rechecked (QUESTIONS below). A moved page that still resolves is a permanent redirect when every
+// hop is 301 or 308, listed for a mechanical update, and otherwise a note. The
+// exit code (exitCode) is 1 when any page could not be read and 2 when every
+// other page was read and one changed, is a dead link, needs answers rechecked
+// or moved permanently, so
+// the scheduled run can tell findings to act on from a broken sweep. --issue FILE
+// writes the findings as a GitHub issue body that names only public URLs and
+// repository paths.
 //
 // ponytail: every run overwrites the baseline, so a change fails one run and
 // the next run compares against the changed page. The report is the record, so
 // it is saved first and a rerun the same day adds to it; keep the baseline
 // folder in git if a longer history is wanted.
 //
-// Run with: node scripts/check_ato_sources.mjs [--list] [--baseline DIR] [--out DIR] [directory ...]
+// Run with: node scripts/check_ato_sources.mjs [--list] [--baseline DIR] [--out DIR] [--issue FILE] [directory ...]
 // Directories default to this repository. --list prints the URLs and the files
 // citing them without opening a browser. A live run needs --baseline, the folder
 // holding one text file per page, and --out, the folder for the dated Markdown report.
@@ -51,7 +56,7 @@ const MIN_TEXT = 50;
 const MAX_DIFF_LINES = 40;
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', '_site', 'graft', 'tests', '.venv', 'venv', 'dist', 'vendor']);
-const TEXT_EXTENSIONS = new Set(['.html', '.md', '.py', '.json', '.mjs', '.js', '.txt', '.yml', '.yaml', '.csv', '.toml']);
+const TEXT_EXTENSIONS = new Set(['.html', '.md', '.py', '.rs', '.json', '.mjs', '.js', '.txt', '.yml', '.yaml', '.csv', '.toml']);
 const TEST_FILE = /(?:^test_)|\.test\.|\.spec\./;
 const ATO_URL = /https:\/\/www\.ato\.gov\.au\/[^\s"'<>()[\]`\\|,]*/g;
 
@@ -162,6 +167,59 @@ export function lineDiff(before, after) {
   return shown.join('\n');
 }
 
+// Text that changes without the cited content changing, removed from each line
+// before two versions are compared: the legal database's count of documents
+// citing a ruling, a listing's result count, the external link label (reworded
+// from "Opens in a new window" in October 2026) and the Last updated stamp, which
+// alone marks no change worth review. Most of the 16 changes on 19 October 2026
+// were these or a listing page.
+export const NOISE = [
+  { pattern: /^[\d,]+ related documents?$/, label: 'related documents count' },
+  { pattern: /^Showing [\d,]+ - [\d,]+ of [\d,]+$/, label: 'result count' },
+  { pattern: /(?:^| )(?:Opens in a new window|External Link)(?= |$)/g, label: 'external link label' },
+  { pattern: /^Last updated:? \d{1,2} [A-Z][a-z]+ \d{4}$/, label: 'Last updated stamp' },
+];
+
+const substance = (text) => text.split('\n')
+  .map((line) => NOISE.reduce((kept, { pattern }) => kept.replace(pattern, ''), line).trim())
+  .filter(Boolean)
+  .join('\n');
+
+const stampText = (text) => /^Last updated (.+)$/m.exec(text)?.[1];
+
+const andList = (items) => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`);
+
+// Pages that list rather than state: the ATO home and the tax rates and codes
+// hub rotate feature tiles, a newsroom lists its latest articles, and the
+// single-page applications (the calculators) give the browser only navigation
+// or a loader. A change to one needs no review; its status and removal still
+// count. Returns why the page is a listing, or undefined.
+export function listing(url) {
+  const path = new URL(url).pathname.replace(/\/$/, '');
+  if (path === '' || path === '/tax-rates-and-codes') return 'a hub page, whose feature tiles rotate';
+  if (path.endsWith('-newsroom')) return 'a newsroom, whose article list changes weekly';
+  if (path.startsWith('/single-page-applications/')) return 'a single-page application, whose text is navigation or a loader';
+  return undefined;
+}
+
+// Says whether a change needs review. url is the cited page, so a cited article
+// that now redirects to its newsroom is a change to review, every week until its
+// citations are updated, not a newsroom. A substantive change's diff leaves out
+// the noise, and a moved Last updated stamp comes with it as a hint.
+export function describeChange(url, before, after) {
+  const kind = listing(url);
+  if (kind) return { substantive: false, reason: kind, diff: lineDiff(before, after) };
+  const [was, now] = [substance(before), substance(after)];
+  if (was === now) {
+    const [had, has] = [new Set(before.split('\n')), new Set(after.split('\n'))];
+    const changed = [...had].filter((line) => !has.has(line)).concat([...has].filter((line) => !had.has(line)));
+    const labels = NOISE.filter(({ pattern }) => changed.some((line) => line.replace(pattern, '') !== line)).map(({ label }) => label);
+    return { substantive: false, reason: `only the ${andList(labels) || 'spacing'} changed`, diff: lineDiff(before, after) };
+  }
+  const [from, to] = [stampText(before), stampText(after)];
+  return { substantive: true, diff: lineDiff(was, now), hint: from && to && from !== to ? `Last updated moved from ${from} to ${to}.` : undefined };
+}
+
 // A readable prefix for browsing the baseline, and a digest of the URL so two
 // pages never share a file.
 export function baselineFile(url) {
@@ -171,15 +229,6 @@ export function baselineFile(url) {
 
 // Sorts one page read into a failure, a note or nothing, and returns the text to
 // keep as the next baseline. previous is the baseline text, when there is one.
-// 0 when every page read cleanly, 2 when every failure is a finding to review (a
-// changed page, a dead link or an answer to recheck) and 1 when any page could
-// not be read.
-export function exitCode(results) {
-  const failed = results.filter((result) => result.failure);
-  if (!failed.length) return 0;
-  return failed.every((result) => result.changed || result.dead || result.recheck) ? 2 : 1;
-}
-
 export function classify(url, page, previous) {
   if (!page) return { failure: 'no result from the browser' };
   if (page.error) return { failure: page.error };
@@ -189,7 +238,8 @@ export function classify(url, page, previous) {
   if (text.length < MIN_TEXT) return { failure: 'no page text' };
   const note = page.finalUrl && sameUrl(page.finalUrl) !== sameUrl(url) ? `now resolves to ${page.finalUrl}` : undefined;
   if (previous !== undefined && previous !== text && !CHANGE_EXEMPT.has(sameUrl(url))) {
-    return { failure: 'changed since the previous run', changed: true, diff: lineDiff(previous, text), text, note };
+    const change = describeChange(url, previous, text);
+    return { failure: change.substantive ? 'changed since the previous run' : undefined, change, text, note };
   }
   return { text, note };
 }
@@ -233,6 +283,23 @@ export function answersToRecheck(data, texts) {
     }
   }
   return stale;
+}
+
+// Follows a moved page's redirects without the browser: the ATO answers plain
+// requests from the sweep machine with real 301s. A move is permanent when every
+// hop is 301 or 308; target keeps any fragment the last Location names.
+export async function followRedirects(url, { get = fetch } = {}) {
+  let target = url;
+  let permanent = true;
+  for (let hops = 0; hops < 10; hops++) {
+    const response = await get(target, { redirect: 'manual', signal: AbortSignal.timeout(30_000) });
+    await response.body?.cancel();
+    const location = response.headers.get('location');
+    if (response.status < 300 || response.status > 399 || !location) return { target, permanent: permanent && hops > 0 };
+    permanent &&= response.status === 301 || response.status === 308;
+    target = new URL(location, target).href;
+  }
+  throw new Error('more than 10 redirects');
 }
 
 // Reads one batch with `nodriver batch`, which keeps going past a failed page and
@@ -304,6 +371,97 @@ export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) 
   return pages;
 }
 
+const cited = (files) => files.map((path) => `\`${path}\``).join(', ') || 'no file';
+const sentence = (text) => `${text[0].toUpperCase()}${text.slice(1)}.`;
+// A browser error can quote a file on the sweep machine; the issue is public.
+const publicText = (text) => text.replace(
+  /(?<![\w/.:-])(?:[A-Za-z]:[\\/]|\\\\|\/(?:Users|home|tmp|root|mnt|var|private|opt)\/)[^\s'",)]*/g,
+  '(local path)',
+);
+
+const MOVES_HELP = 'Replace each cited URL with its target in every file listed, including `scripts/src/check_links_data.rs` (keep HTTP_403_AUTOMATION_DENIAL_URLS sorted and its length current) and `scripts/src/site_contracts/data.rs`.';
+// A cited page that now redirects to a hub or newsroom was withdrawn rather than moved.
+const withdrawn = (target) => listing(target) && !new URL(target).pathname.startsWith('/single-page-applications/');
+const moveLine = ({ url, target, files }) => `- \`${url}\` → \`${target}\`${
+  withdrawn(target) ? ' (a hub or newsroom, so the cited page was probably withdrawn: review the citation rather than replace it)' : ''
+}. Cited in: ${cited(files)}`;
+
+// One page to review: what failed, where it is cited and, for a change, the lines that differ.
+const valueLines = (values) => values.map(([value, where]) => `  - \`${value}\` appears in: ${cited(where)}`);
+
+function reviewLines({ url, files, failure, change, values }, { fold = false, diffs = true } = {}) {
+  const lines = [`### ${url}`, '', `${sentence(fold ? publicText(failure) : failure)} Cited in: ${cited(files)}`, ''];
+  if (change?.hint) lines.push(change.hint, '');
+  for (const [value, where] of values) lines.push(`\`${value}\` appears in: ${cited(where)}`, '');
+  if (change && diffs) {
+    const block = ['```diff', change.diff, '```'];
+    lines.push(...(fold ? ['<details><summary>Changed lines</summary>', '', ...block, '', '</details>'] : block), '');
+  }
+  return lines;
+}
+
+// findings: date, read and seeded counts; review, the pages that failed (with
+// change set for a substantive change); quiet, the changes that need no review;
+// moves, the permanent redirects; and notes, as strings.
+export function renderReport({ date, read, seeded, review, quiet, moves, notes }) {
+  const report = [`# ATO sources check ${date}`, '', `${read} pages read, ${seeded} new to the baseline.`, '', '## To review', ''];
+  report.push(...(review.length ? review.flatMap((entry) => reviewLines(entry)) : ['None.', '']));
+  if (quiet.length) {
+    report.push('## Changed, no review needed', '');
+    for (const { url, files, change } of quiet) report.push(`### ${url}`, '', `${sentence(change.reason)} Cited in: ${cited(files)}`, '', '```diff', change.diff, '```', '');
+  }
+  if (moves.length) report.push('## Permanent redirects', '', MOVES_HELP, '', ...moves.map(moveLine), '');
+  if (notes.length) report.push('## Notes', '', ...notes.map((note) => `- ${note}`), '');
+  return report;
+}
+
+// GitHub refuses an issue body over 65,536 characters; past this the issue drops
+// its diffs and the report keeps them.
+const ISSUE_LIMIT = 60_000;
+
+// The same findings as a GitHub issue body. The repository is public, so it
+// names only the pages, the repository paths citing them and the diffs.
+export function renderIssue(findings, diffs = true) {
+  const { date, read, review, quiet, moves, notes } = findings;
+  const changed = review.filter((entry) => entry.change);
+  const dead = review.filter((entry) => entry.dead);
+  const recheck = review.filter((entry) => entry.recheck);
+  const unread = review.filter((entry) => !entry.change && !entry.dead && !entry.recheck);
+  const lines = [
+    `The weekly ATO source sweep of ${date} read ${read} pages: ${changed.length} changed substantively, ${quiet.length} changed with nothing to review, ${dead.length} returned HTTP 404 or 410 (dead links), ${recheck.length} need accounting answers rechecked, ${unread.length} could not be read and ${moves.length} cited URLs redirect permanently.`,
+    '',
+  ];
+  if (changed.length) {
+    lines.push('## Substantive changes', '', 'Review each file citing these pages against the page.', '', ...changed.flatMap((entry) => reviewLines(entry, { fold: true, diffs })));
+  }
+  if (dead.length) lines.push('## Dead links', '', 'Repoint each citation of these pages in every file listed.', '', ...dead.flatMap(({ url, files, failure, values }) => [`- ${url}: ${publicText(failure)}. Cited in: ${cited(files)}`, ...valueLines(values)]), '');
+  if (recheck.length) lines.push('## Answers to recheck', '', ...recheck.map(({ url, files, failure }) => `- ${url}: ${failure}. Cited in: ${cited(files)}`), '');
+  if (unread.length) lines.push('## Pages that could not be read', '', ...unread.flatMap(({ url, files, failure, values }) => [`- ${url}: ${publicText(failure)}. Cited in: ${cited(files)}`, ...valueLines(values)]), '');
+  if (moves.length) lines.push('## Permanent redirects', '', MOVES_HELP, '', ...moves.map(moveLine), '');
+  if (quiet.length) lines.push('## Changes that need no review', '', ...quiet.map(({ url, files, change }) => `- ${url}: ${change.reason}. Cited in: ${cited(files)}`), '');
+  if (notes.length) lines.push('## Other redirects', '', ...notes.map((note) => `- ${publicText(note)}`), '');
+  const body = lines.join('\n');
+  if (diffs && body.length > ISSUE_LIMIT) return renderIssue(findings, false);
+  // Still too long without diffs: cut it; the report on the sweep machine has the rest.
+  return body.length > ISSUE_LIMIT ? `${body.slice(0, ISSUE_LIMIT)}\n\n(Cut at ${ISSUE_LIMIT} characters; the sweep's report lists every finding.)\n` : body;
+}
+
+// Sorts the moved pages into permanent redirects and notes.
+export async function sortMoves(moved, { follow = followRedirects } = {}) {
+  const moves = [];
+  const notes = [];
+  for (const { url, files, note } of moved) {
+    try {
+      const { target, permanent } = await follow(url);
+      if (permanent) moves.push({ url, target, files });
+      else notes.push(`${url} ${note}`);
+    } catch (error) {
+      notes.push(`${url} ${note} (redirect not checked: ${error.cause?.code ?? error.message})`);
+    }
+  }
+  return { moves, notes };
+}
+
 // Save the report before any baseline moves: it is the only record of a change, so never replace an earlier one.
 export function saveResults({ out, baseline, date, report, keep }) {
   // Maintainer CLI; the output folders are its own --out and --baseline arguments.
@@ -318,7 +476,7 @@ export function saveResults({ out, baseline, date, report, keep }) {
 
 async function main() {
   const { values, positionals } = parseArgs({
-    options: { list: { type: 'boolean' }, baseline: { type: 'string' }, out: { type: 'string' } },
+    options: { list: { type: 'boolean' }, baseline: { type: 'string' }, out: { type: 'string' }, issue: { type: 'string' } },
     allowPositionals: true,
   });
   const directories = positionals.length ? positionals : [root];
@@ -338,51 +496,52 @@ async function main() {
   }
   const pages = await readPages([...sources.keys()]);
   const valueFiles = collectValues(directories);
-  const failures = [];
-  const notes = [];
   const review = [];
+  const quiet = [];
+  const moved = [];
   const keep = new Map();
   const texts = new Map();
   let seeded = 0;
-  const results = [];
   for (const [url, files] of sources) {
     const file = join(values.baseline, baselineFile(url));
     const previous = existsSync(file) ? readFileSync(file, 'utf8') : undefined;
-    const result = classify(url, pages.get(url), previous);
-    results.push(result);
-    const { failure, note, diff, text } = result;
+    const { failure, change, note, text, dead } = classify(url, pages.get(url), previous);
     if (text !== undefined) {
       keep.set(file, text);
       texts.set(url, text);
     }
     if (text !== undefined && previous === undefined) seeded++;
-    if (note) notes.push(`${url} ${note}`);
-    if (!failure) continue;
-    failures.push(`${url}: ${failure}`);
-    review.push(`### ${url}\n\n${failure}. Cited in: ${files.map((path) => `\`${path}\``).join(', ') || 'no file'}\n`);
-    for (const value of WATCHED.get(url) ?? []) {
-      review.push(`\`${value}\` appears in: ${valueFiles.get(value).map((path) => `\`${path}\``).join(', ') || 'no file'}\n`);
-    }
-    if (diff) review.push('```diff', diff, '```', '');
+    if (note) moved.push({ url, files, note });
+    if (change && !failure) quiet.push({ url, files, change });
+    if (failure) review.push({ url, files, failure, change, dead, values: (WATCHED.get(url) ?? []).map((value) => [value, valueFiles.get(value)]) });
   }
   for (const directory of directories.filter((dir) => existsSync(join(dir, QUESTIONS)))) {
     const data = JSON.parse(readFileSync(join(directory, QUESTIONS), 'utf8'));
     for (const [url, { updated, ids }] of answersToRecheck(data, texts)) {
-      const failure = `updated ${updated}, after the answers to questions ${ids.join(', ')} were checked`;
-      failures.push(`${url}: ${failure}`);
-      results.push({ failure, recheck: true });
-      review.push(`### ${url}\n\nPage ${failure}. Recheck them against the page and set their \`fact_checked\` in \`${basename(resolve(directory))}/${QUESTIONS}\`.\n`);
+      const failure = `updated ${updated}, after the answers to questions ${ids.join(', ')} were checked; recheck them against the page and set their \`fact_checked\` in \`${basename(resolve(directory))}/${QUESTIONS}\``;
+      review.push({ url, files: sources.get(url) ?? [], failure, recheck: true, values: [] });
     }
   }
-  const date = new Date().toLocaleDateString('en-CA');
-  const report = [`# ATO sources check ${date}`, '', `${sources.size} pages read, ${seeded} new to the baseline.`, '', '## To review', '', ...(review.length ? review : ['None.', ''])];
-  if (notes.length) report.push('## Notes', '', ...notes.map((note) => `- ${note}`), '');
-  saveResults({ out: values.out, baseline: values.baseline, date, report, keep });
-  for (const note of notes) console.log(`note: ${note}`);
-  for (const failure of failures) console.error(failure);
-  if (failures.length) return exitCode(results);
-  console.log(`${sources.size} sources read, ${seeded} new to the baseline`);
-  return 0;
+  const findings = { date: new Date().toLocaleDateString('en-CA'), read: sources.size, seeded, review, quiet, ...(await sortMoves(moved)) };
+  // Maintainer CLI; the issue file is its own --issue argument. It is written
+  // before any baseline moves, so a failed write leaves the changes to find again.
+  if (values.issue) writeFileSync(values.issue, renderIssue(findings)); // NOSONAR
+  saveResults({ out: values.out, baseline: values.baseline, date: findings.date, report: renderReport(findings), keep });
+  for (const { url, target } of findings.moves) console.log(`moved: ${url} -> ${target}`);
+  for (const note of findings.notes) console.log(`note: ${note}`);
+  for (const { url, failure } of review) console.error(`${url}: ${failure}`);
+  console.log(`${sources.size} sources read, ${seeded} new to the baseline, ${quiet.length} changed with nothing to review`);
+  return exitCode(findings);
+}
+
+// 1 when a page could not be read; 2 when every other page was read and a page
+// changed substantively, is a dead link (HTTP 404 or 410), needs answers
+// rechecked or a cited URL moved
+// permanently, so the scheduled task raises the issue until the citing files are
+// updated; otherwise 0.
+export function exitCode({ review, moves }) {
+  if (review.some((entry) => !entry.change && !entry.dead && !entry.recheck)) return 1;
+  return review.length || moves.length ? 2 : 0;
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

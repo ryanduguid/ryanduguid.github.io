@@ -145,15 +145,28 @@ in accounting-review-pipeline, au-fpa-pack, australian-accounting and
 australian-accounting-skills through a local Chrome (`nodriver batch`), compares
 each page's text with the copy in its `--baseline` folder and writes a dated
 Markdown report to its `--out` folder (a live run needs both). A page that
-returns an error status or no text, or whose text has changed since the previous
-run, fails the run and appears in the report with its diff and the files citing
-it. Review those files against the changed page; the next run compares against
-the new text, so the report is the record. A cited page whose 'Last updated'
+returns an error status or no text, or whose text has changed substantively
+since the previous run, fails the run and appears in the report with its diff
+and the files citing it. Review those files against the changed page; the next
+run compares against the new text, so the report is the record. A cited page
+that returns HTTP 404 or 410 is listed as a dead link whose citations need
+repointing. A cited page whose 'Last updated'
 date is after the check date of an accounting question answer citing it
 (`fact_checked`, else `facts_checked` in `_data/accounting_questions.json`) also
 fails, even on the run that first reads it; recheck those answers and set their
-`fact_checked`. The script saves the report before it moves any baseline, and a
-rerun the same day adds to that day's report. It refuses more than 500 URLs, and
+`fact_checked`. A change only to
+a legal database page's related documents count, a result count, the external
+link label or the Last updated stamp, or to a hub page, newsroom or single-page
+application, is listed as needing no review and passes; a changed Last updated
+stamp beside other changes is shown as a hint. A cited URL that redirects
+permanently (301 or 308 at every hop) is listed with its target, ready to
+replace in every citing file, including `scripts/src/check_links_data.rs` and
+`scripts/src/site_contracts/data.rs`; like a substantive change, it raises the
+issue each week until the citations are updated. With `--issue FILE` the script also
+writes these findings as the body of the GitHub issue the scheduled task opens,
+naming only public URLs and repository paths. The script saves the report before it
+moves any baseline, and a rerun the same day adds to that day's report. It
+refuses more than 500 URLs, and
 `node scripts/check_ato_sources.mjs --list` prints the URLs and citing files
 offline. Its tests run through the site check command.
 
