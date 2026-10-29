@@ -694,11 +694,12 @@
       "boundary": "This website does not collect payments or supply bank details.",
       "source": "pay",
       "tool": "",
-      "fact": "You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted only until 30 November 2026.",
+      "fact": "You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted until 30 June 2027.",
       "fact_sources": [
         "how-to-pay",
         "credit-card-change"
-      ]
+      ],
+      "fact_checked": "2026-10-29"
     },
     {
       "id": 7,
@@ -770,7 +771,8 @@
         "payday-deadlines",
         "iawo-law",
         "cpk"
-      ]
+      ],
+      "fact_checked": "2026-10-29"
     },
     {
       "id": 11,
@@ -991,7 +993,8 @@
       "fact": "Generally, a business involves continuous and repeated activities done to make a profit. The ATO asks whether you intend to and have a prospect of making a profit, whether the scale is enough to make one, and whether the activities are repeated and continuous; a hobby you don’t seek to profit from is not a business.",
       "fact_sources": [
         "in-business"
-      ]
+      ],
+      "fact_checked": "2026-10-29"
     },
     {
       "id": 24,
@@ -1305,7 +1308,8 @@
       "fact_sources": [
         "sg-rate",
         "max-base"
-      ]
+      ],
+      "fact_checked": "2026-10-29"
     },
     {
       "id": 42,
@@ -1323,7 +1327,8 @@
       "fact": "Since 1 July 2026, the fund must receive the contribution within 7 business days after payday, or within 20 business days for the first contribution for a new employee or to a new fund.",
       "fact_sources": [
         "payday-deadlines"
-      ]
+      ],
+      "fact_checked": "2026-10-29"
     },
     {
       "id": 43,
@@ -1342,7 +1347,8 @@
       "fact_sources": [
         "payday-late",
         "payday-deadlines"
-      ]
+      ],
+      "fact_checked": "2026-10-29"
     },
     {
       "id": 44,
@@ -1396,7 +1402,8 @@
       "fact_sources": [
         "stp-final",
         "stp-14-july"
-      ]
+      ],
+      "fact_checked": "2026-10-29"
     },
     {
       "id": 47,
