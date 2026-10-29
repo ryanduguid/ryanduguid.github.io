@@ -3,7 +3,8 @@
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
   'August', 'September', 'October', 'November', 'December'];
-const DAY = `(\\d{1,2}) (${MONTHS.join('|')}) (\\d{4})`;
+// A dated period: '1 July 2024 to 30 June 2025' or '1 July 2025 onwards'.
+const PERIOD = /^(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})(?: to (\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})| onwards)$/;
 const pad = (number) => String(number).padStart(2, '0');
 const isoDate = (day, month, year) => `${year}-${pad(MONTHS.indexOf(month) + 1)}-${pad(Number(day))}`;
 
@@ -25,11 +26,9 @@ export function periodOf(label) {
   }
   match = /^31 March (\d{4})$/.exec(text);
   if (match) return [`${Number(match[1]) - 1}-04-01`, `${match[1]}-03-31`];
-  match = new RegExp(`^${DAY} to ${DAY}$`).exec(text);
-  if (match) return [isoDate(match[1], match[2], match[3]), isoDate(match[4], match[5], match[6])];
-  match = new RegExp(`^${DAY} onwards$`).exec(text);
-  if (match) return [isoDate(match[1], match[2], match[3]), '9999-12-31'];
-  return null;
+  match = PERIOD.exec(text);
+  if (!match) return null;
+  return [isoDate(match[1], match[2], match[3]), match[4] ? isoDate(match[4], match[5], match[6]) : '9999-12-31'];
 }
 
 /**

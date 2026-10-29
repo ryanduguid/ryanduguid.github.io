@@ -47,7 +47,7 @@ test('every rate table row header on a page loading the script is in a known for
       const body = /<tbody\b[^>]*>([\s\S]*?)<\/tbody>/.exec(table)?.[1] ?? '';
       // The script reads each header's text, so markup inside a header is dropped here too.
       for (const [, cell] of body.matchAll(/<th\b[^>]*\bscope\s*=\s*["']?row\b[^>]*>([\s\S]*?)<\/th>/g)) {
-        const label = cell.replace(/<[^>]*>/g, '').replace(/</g, '');
+        const label = cell.split(/<[^>]*>/).join('');
         assert.notEqual(periodOf(label), null, `${page}: ${label}`);
       }
     }
