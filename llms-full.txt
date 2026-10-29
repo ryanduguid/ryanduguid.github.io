@@ -4377,6 +4377,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 
 Date | Change
 29 October 2026 | The six rate history tables mark the row in force today in words and gain a Copy for Excel button, which copies each table as tab-separated rows that paste one value per cell. A humans.txt file, linked from the footer, credits the site’s build, typefaces, portrait and checks.
+29 October 2026 | Accounting question 6 now says the ATO accepts credit card payments until 30 June 2027, following the extension announced on 9 October; it previously gave 30 November 2026. Each answer can now carry its own check date. Answers 10, 23, 41 to 43 and 46 were rechecked against ATO pages updated since 27 September and are unchanged.
 29 October 2026 | The Aus Accounting MCP page and release record name v0.7.0, verified on GitHub, PyPI and the MCP registry. It adds lodgment due-date lookup and a bundled-data freshness report. The worked example remains pinned to v0.2.8.
 29 October 2026 | The subcontract ledger page, the Adopt page and llms.txt name Australian Accounting Skills v0.5.0, published on 28 October: 76 skills under FSL-1.1-ALv2, with 72 of its 107 validation cards human-confirmed. The Adopt installation and the agent skills manifest stay on v0.4.0, and worked examples stay pinned to the releases they were run against. The profit and cash flow case links au-fpa-pack v0.4.0, the current published release.
 26 October 2026 | Accounting question 46 cites the ATO’s Finalising your STP data page for the 14 July finalisation date, since the old end-of-year finalisation address now redirects to the Single Touch Payroll landing page. Tools and the Aus Accounting MCP page link the ATO Legal Database at its current address.
@@ -5081,7 +5082,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 Practical steps, records and official guidance on tax returns.
 
-10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
+10 of 10 answers checked between 27 September 2026 and 29 October 2026. Other guidance reviewed 11 September 2026. Page updated 29 October 2026.
 
 Search or build a checklist
 
@@ -5186,7 +5187,7 @@ Link to question 5
 
 ### Which methods can I use to settle my tax bill?
 
-You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted only until 30 November 2026. Use the ATO payment instructions for the relevant account and payment reference.
+You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted until 30 June 2027. Use the ATO payment instructions for the relevant account and payment reference.
 
 - Check the amount owing and available payment methods in the official service.
 - Allow for processing time and keep the receipt; reconcile the payment when it appears.
@@ -5195,7 +5196,7 @@ This website does not collect payments or supply bank details.
 
 Paying the ATO · How to pay · Changes to credit card payments
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 29 October 2026.
 
 Link to question 6
 
@@ -5263,7 +5264,7 @@ An announcement is not evidence that a measure applied to your transaction. This
 
 Your tax return · Tax rates for Australian residents · Payment deadlines for Payday Super · $20,000 instant asset write-off, new legislation · Cents per kilometre rates on this site · Announced tax measures and enacted law
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 29 October 2026.
 
 Link to question 10
 
@@ -5599,7 +5600,7 @@ Source: https://duguid.com.au/tools/accounting-questions/business-setup/
 
 Practical steps, records and official guidance on starting a business.
 
-10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
+10 of 10 answers checked between 27 September 2026 and 29 October 2026. Other guidance reviewed 11 September 2026. Page updated 29 October 2026.
 
 Search or build a checklist
 
@@ -5662,7 +5663,7 @@ There is no single revenue figure in this guide that classifies every activity.
 
 Starting, registering or closing a business · Are you in business?
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 29 October 2026.
 
 Link to question 23
 
@@ -6112,7 +6113,7 @@ Source: https://duguid.com.au/tools/accounting-questions/payroll-super/
 
 Practical steps, records and official guidance on payroll and super.
 
-10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
+10 of 10 answers checked between 27 September 2026 and 29 October 2026. Other guidance reviewed 11 September 2026. Page updated 29 October 2026.
 
 Search or build a checklist
 
@@ -6141,7 +6142,7 @@ The old quarterly SG worksheet does not establish current Payday Super entitleme
 
 Payday Super for employers · Super guarantee rate history on this site · ATO maximum contribution base · Maximum super contribution base by year
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 29 October 2026.
 
 Link to question 41
 
@@ -6158,7 +6159,7 @@ The timing tool needs the contribution amount supplied and the correct pathway s
 
 Payday Super for employers · Payment deadlines for Payday Super · Payday Super receipt evidence example
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 29 October 2026.
 
 Link to question 42
 
@@ -6175,7 +6176,7 @@ Sending a replacement does not automatically remove a late-payment consequence.
 
 Payday Super for employers · What to do if you miss a Payday Super contribution · Payment deadlines for Payday Super · Payday Super receipt evidence example
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 29 October 2026.
 
 Link to question 43
 
@@ -6226,7 +6227,7 @@ An ordinary payroll submission and a finalisation declaration are different step
 
 Single Touch Payroll · Finalising your STP data · Finalise your STP data by 14 July · Monthly close review pack
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 29 October 2026.
 
 Link to question 46
 
