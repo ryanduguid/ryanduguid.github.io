@@ -147,6 +147,13 @@ fn rows(source: &str) -> Result<Vec<Row>, String> {
                     || format!("{CHANGELOG_URL}#tool-releases"),
                     |c| html::unescape(&c[1]),
                 );
+                // Only site changes link to a row anchor; the merge driver tells the
+                // two tables apart by it.
+                if link.starts_with(&format!("{CHANGELOG_URL}#entry-")) {
+                    return Err(format!(
+                        "changelog: the {date} release {title} links to a site change's anchor; link its release instead"
+                    ));
+                }
                 (
                     format!("{tool}: release {release}."),
                     title.clone(),

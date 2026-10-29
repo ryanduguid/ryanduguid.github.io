@@ -32,6 +32,7 @@ directory holding `_config.yml` or `scripts/`, or `SITE_ROOT` when set.
 | `encode_cash_chart_webp` | the lossless WebP copies of the cash chart PNGs |
 | `extract_xero_badge [certificate.pdf]` | the Xero badge from its certificate |
 | `favicon_render` | the favicon rasters from `assets/favicon.svg` |
+| `merge_driver <base> <current> <incoming>` | the `changelog-rows` Git merge driver (CONTRIBUTING.md) |
 | `pin_rates_dataset <checkout>` | `rates_dataset_extract.json` |
 | `release_record [--verify-live]` | release claims against `release_record.json` |
 | `serve_site` | the preview server on `127.0.0.1:4173` |
