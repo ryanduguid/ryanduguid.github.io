@@ -60,10 +60,12 @@ const homeHeightBaseline = {
   // 36px desktop. Keep the previous headroom above the new content height.
   // The Latest tool releases list of 25 October adds a measured 332px mobile
   // and 260px desktop. Keep the previous headroom above the new content height.
+  // The 29 October Skills release replaces the shorter MCP link in the latest
+  // releases list. Its extra wrapped line adds 50px on mobile; retain the margin.
   // The footer's humans.txt link of 29 October adds a measured 52px mobile and
   // 32px desktop to every page. Keep the previous headroom above the new
   // content height, here and in the route ceilings below.
-  mobile: 6598,
+  mobile: 6648,
   desktop: 4973,
 };
 

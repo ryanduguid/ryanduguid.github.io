@@ -15,7 +15,7 @@
       "cc9da02e6454eb1a0e3d4a20d952bfb75403f9f85170c340e037219696c994f1"
     ],
     "changelog/index.html": [
-      "789ec903b5f4cd76e87ffc50ea5dfaba2afa0a53218b2bf6f8b6fc8c39ccfe3e"
+      "f89ebcde6554d8accf8079a96799f196b9510c72f0469e6e034d0910ead17f30"
     ],
     "contact/index.html": [
       "5629c3ae67d2773fb460f5c66a2447c17f697f3efb3b489c0faca059dbed15e6"
@@ -39,7 +39,7 @@
       "b991e66b74bef293b5e69d3c8166b642343b922441ddd7ec68ac155f25f8e975"
     ],
     "index.html": [
-      "9742671cae855986397220e1fb2e502de8acafbfae1a6f912aeb21a13074455b"
+      "27df584bf48d6b1d5a80dacddebf0906d0cdf6a373de99fa666e3a314110914b"
     ],
     "privacy/index.html": [
       "7621dde36a8c6e5b0f04cb6d575c0acaee9e938e59b8842642f76e88a759dcef"
@@ -75,7 +75,7 @@
       "146f042435519c308dc35b057cd626d738fb3a0ba19ca93c3cfb79fd534e105f"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "90d166440c9b8c75e5653b6a76da8db1cfbd2c6e58176570334ad58f82e1411f"
+      "017c9ec5865b5cc18158e3c83ca91bddd41feb535a8a711d86f3a2276ff9f60d"
     ],
     "tools/business-calculators/index.html": [
       "6baa4a702af23924dd0d14ba8b0a7eb8cdaa461067ac096f926aace0292441b6"
@@ -123,7 +123,7 @@
       "2279ad8b3a5ce3752d020d052bac5cd75ba04aa930163b588293d786c9ef4d64"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "96285ec4719f45d0ece27365c67b6779f3605810293405e6337457d45adc3913"
+      "284693732f65c708870077edcdd13cc299d1a6b9acfe47084872080b25f41623"
     ],
     "tools/trust-distributions/index.html": [
       "d341951808e77356edcb7986cd726e8584ddf96d2cc40051b11c96a55504374d"
@@ -148,9 +148,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "76d2e42b1ffcab282f4ee40f35c1f15decfb80e5ea3e277d41b1c5b87ca34bb4",
+    "llms.txt": "30014ad80c9e64d75ae812eb6fee4d67008b223a19741eeef8b44907f3fb9e97",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
-    "sitemap.xml": "fc6db29914cec4db247ff3c965f05dc2a09fbcde1421a4b5be75a117db8ddfef"
+    "sitemap.xml": "f94d1d5f1747f0e8e0a01de71ecb40a4c15c902d5cfe6e1cfdb27114b441f355"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
