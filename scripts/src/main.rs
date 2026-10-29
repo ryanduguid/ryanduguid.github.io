@@ -1,6 +1,6 @@
 use std::process::ExitCode;
 
-const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_feed, build_llms_full, build_ozzit_reference, build_site, check_agent_files, check_design, check_links, check_publication, check_rates_register, check_seo, check_site, encode_cash_chart_webp, extract_xero_badge, favicon_render, pin_rates_dataset, release_record, serve_site, visibility_benchmark\n";
+const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_feed, build_llms_full, build_ozzit_reference, build_site, check_agent_files, check_design, check_links, check_publication, check_rates_register, check_seo, check_site, encode_cash_chart_webp, extract_xero_badge, favicon_render, merge_driver, pin_rates_dataset, release_record, serve_site, visibility_benchmark\n";
 
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -13,6 +13,8 @@ fn main() -> ExitCode {
     let result = match command.as_str() {
         // The publication gate reads GitHub only; it needs no site root.
         "check_publication" => site_tools::check_publication::run(rest),
+        // Git runs the merge driver on temporary files; it needs no site root either.
+        "merge_driver" => site_tools::merge_driver::run(rest),
         _ => site_tools::root().and_then(|root| match command.as_str() {
             "build_agent_skills_manifest" => site_tools::agent_skills::run(&root, rest),
             "build_feed" => site_tools::feed::run(&root, rest),

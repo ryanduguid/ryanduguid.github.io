@@ -81,6 +81,14 @@ fn site_entries_link_to_their_own_row() {
 }
 
 #[test]
+fn a_release_row_may_not_link_a_site_change_anchor() {
+    let release = format!(
+        "<tr><td>28 August 2026</td><td>Tool</td><td><a href=\"{CHANGELOG_URL}#entry-0123456789abcdef\">v1.0.0</a></td></tr>"
+    );
+    assert!(refusal(&release).contains("links to a site change's anchor"));
+}
+
+#[test]
 fn a_build_that_drops_a_published_id_is_refused() {
     let published = feed::anchored("<tr><td>28 August 2026</td><td>Redesign.</td></tr>").unwrap();
     let committed = feed::build(&published).unwrap();
