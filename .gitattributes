@@ -10,3 +10,12 @@ feed.xml linguist-generated
 _includes/ozzit-reference.html linguist-generated
 scripts/design_baseline.json linguist-generated
 tests/browser/*-snapshots/** linguist-generated
+
+# Concurrent pull requests each add a dated row at the top of a changelog table.
+# With the changelog-rows driver configured (CONTRIBUTING.md), a merge or rebase
+# keeps both sides' new rows in date order; unconfigured, Git merges as usual.
+changelog/index.html merge=changelog-rows
+llms-full.txt merge=changelog-rows
+llms-full-changelog-*.txt merge=changelog-rows
+changelog/index.txt merge=changelog-rows
+feed.xml merge=changelog-rows
