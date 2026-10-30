@@ -6,7 +6,10 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { answersToRecheck, baselineFile, classify, collectSources, collectValues, exitCode, extractUrls, isIsoDate, lastUpdated, lineDiff, readPages, sameUrl, saveResults, tidy, WATCHED } from './check_ato_sources.mjs';
+import {
+  answersToRecheck, baselineFile, classify, collectSources, collectValues, exitCode, extractUrls, followRedirects, isIsoDate, lastUpdated, lineDiff, readPages,
+  renderIssue, renderReport, sameUrl, saveResults, sortMoves, tidy, WATCHED,
+} from './check_ato_sources.mjs';
 
 const PAGE = 'https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates';
 const TEXT = 'General interest charge rates\nThe rate for the December quarter is 11.17%.\nThe rate for the September quarter is 11.36%.';
@@ -25,6 +28,12 @@ test('templates are skipped and percent-encoding is kept', () => {
   const encoded = 'https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001';
   const text = `f"https://www.ato.gov.au/{slug}" "https://www.ato.gov.au/%s/text" ${encoded}`;
   assert.deepEqual(extractUrls(text), [encoded]);
+});
+
+test('sources include Rust data files', () => {
+  const root = mkdtempSync(join(tmpdir(), 'ato-rust-'));
+  writeFileSync(join(root, 'check_links_data.rs'), `pub const URLS: [&str; 1] = ["${PAGE}"];`);
+  assert.match(collectSources([root]).get(PAGE)[0], /\/check_links_data\.rs$/);
 });
 
 test('sources skip generated output, tests and test files', () => {
@@ -75,9 +84,60 @@ test('a changed page fails, carries its diff and moves the baseline on', () => {
   const now = TEXT.replace('11.17%', '11.42%');
   const result = classify(PAGE, page(now), TEXT);
   assert.match(result.failure, /changed since the previous run/);
-  assert.equal(result.changed, true);
-  assert.equal(result.diff, '- The rate for the December quarter is 11.17%.\n+ The rate for the December quarter is 11.42%.');
+  assert.equal(result.change.substantive, true);
+  assert.equal(result.change.diff, '- The rate for the December quarter is 11.17%.\n+ The rate for the December quarter is 11.42%.');
   assert.equal(result.text, now);
+});
+
+test('a change confined to counters, link labels and the Last updated stamp passes and says why', () => {
+  const ruling = 'https://www.ato.gov.au/law/view/document?DocID=TXR/TR20234/NAT/ATO/00001';
+  const counted = classify(ruling, page(`${TEXT}\n138 related documents`, { finalUrl: ruling }), `${TEXT}\n139 related documents`);
+  assert.equal(counted.failure, undefined);
+  assert.equal(counted.change.reason, 'only the related documents count changed');
+  assert.equal(counted.text, `${TEXT}\n138 related documents`);
+  const before = `Last updated 4 June 2025\n${TEXT}\nPEXA guide Opens in a new window\nOpens in a new window\nShowing 1 - 10 of 32`;
+  const after = `Last updated 14 October 2026\n${TEXT}\nPEXA guide External Link\nExternal Link\nExternal Link\nShowing 1 - 10 of 33`;
+  const relabelled = classify(PAGE, page(after), before);
+  assert.equal(relabelled.failure, undefined);
+  assert.equal(relabelled.change.reason, 'only the result count, external link label and Last updated stamp changed');
+});
+
+test('a Last updated stamp is a hint beside a real change, and link labels never hide one', () => {
+  const before = `Last updated 4 June 2025\n${TEXT}\nSee the PEXA guide Opens in a new window`;
+  const after = `Last updated 14 October 2026\n${TEXT}\nSee the e-conveyancing guide External Link`;
+  const { failure, change } = classify(PAGE, page(after), before);
+  assert.match(failure, /changed since/);
+  assert.equal(change.hint, 'Last updated moved from 4 June 2025 to 14 October 2026.');
+  assert.equal(change.diff, '- See the PEXA guide\n+ See the e-conveyancing guide');
+  const colon = classify(PAGE, page(after.replace('Last updated', 'Last updated:')), before.replace('Last updated', 'Last updated:'));
+  assert.equal(colon.change.hint, 'Last updated moved from 4 June 2025 to 14 October 2026.');
+});
+
+test('hubs, newsrooms and single-page applications change without review, judged by the cited URL', () => {
+  const article = 'https://www.ato.gov.au/tax-and-super-professionals/for-superannuation-professionals/super-funds-newsroom/business-days-decoded';
+  const cases = [
+    ['https://www.ato.gov.au/', undefined, /hub page/],
+    ['https://www.ato.gov.au/tax-rates-and-codes/', undefined, /hub page/],
+    ['https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/', undefined, /newsroom/],
+    ['https://www.ato.gov.au/single-page-applications/calculatorsandtools?anchor=DIV7A', undefined, /single-page application/],
+  ];
+  for (const [url, finalUrl, reason] of cases) {
+    const { failure, change } = classify(url, page(`${TEXT}\nNew tile`, { finalUrl: finalUrl ?? url }), TEXT);
+    assert.equal(failure, undefined, url);
+    assert.match(change.reason, reason, url);
+  }
+  assert.match(classify(PAGE, page(`${TEXT}\nNew tile`), TEXT).failure, /changed since/);
+  // A cited article that now lands on its newsroom needs review, whatever the redirect.
+  const landed = classify(article, page(`${TEXT}\nNew tile`, { finalUrl: article.replace(/\/[^/]+$/, '') }), TEXT);
+  assert.match(landed.failure, /changed since/);
+  assert.match(landed.note, /now resolves to/);
+});
+
+test('only a bare Last updated stamp is noise', () => {
+  const before = `Last updated 1 July 2026\n${TEXT}`;
+  assert.equal(classify(PAGE, page(`Last updated: 2 July 2026\n${TEXT}`), before).failure, undefined);
+  const after = `Last updated 2 July 2026 - the rate is now 7%\n${TEXT}`;
+  assert.match(classify(PAGE, page(after), before).failure, /changed since/);
 });
 
 test('the legal database home may change, but other law pages may not', () => {
@@ -97,17 +157,39 @@ test('errors, bad statuses, empty text, cut-off text and missing results fail', 
   assert.match(classify(PAGE, undefined).failure, /no result/);
 });
 
-test('changed pages, dead links and answers to recheck exit 2; any unreadable page exits 1', () => {
-  const changed = classify(PAGE, page(`${TEXT} and more`), TEXT);
-  const dead = classify(PAGE, page(TEXT, { status: 404 }));
-  const gone = classify(PAGE, page(TEXT, { status: 410 }));
-  const recheck = { failure: 'updated 2026-10-15, after the answers to questions 6 were checked', recheck: true };
-  assert.equal(exitCode([classify(PAGE, page())]), 0);
-  assert.equal(exitCode([changed, dead, gone, classify(PAGE, page())]), 2);
-  assert.equal(exitCode([recheck, classify(PAGE, page())]), 2);
-  assert.equal(exitCode([recheck, classify(PAGE, page(TEXT, { status: 403 }))]), 1);
-  assert.equal(exitCode([dead, classify(PAGE, page(TEXT, { status: 403 }))]), 1);
-  assert.equal(exitCode([changed, classify(PAGE, { error: 'navigation timed out' })]), 1);
+test('changed pages and dead links exit 2; any unreadable page exits 1', () => {
+  const entry = (result) => ({ url: PAGE, files: [], values: [], ...result });
+  const changed = entry(classify(PAGE, page(`${TEXT} and more`), TEXT));
+  const dead = entry(classify(PAGE, page(TEXT, { status: 404 })));
+  const gone = entry(classify(PAGE, page(TEXT, { status: 410 })));
+  assert.equal(dead.dead, true);
+  assert.equal(gone.dead, true);
+  assert.equal(exitCode({ review: [], moves: [] }), 0);
+  assert.equal(exitCode({ review: [changed, dead, gone], moves: [] }), 2);
+  assert.equal(exitCode({ review: [dead, entry(classify(PAGE, page(TEXT, { status: 403 })))], moves: [] }), 1);
+  assert.equal(exitCode({ review: [changed, entry(classify(PAGE, { error: 'navigation timed out' }))], moves: [] }), 1);
+  const recheck = entry({ failure: 'updated 2026-10-15, after the answers to questions 6 were checked', recheck: true });
+  assert.equal(exitCode({ review: [recheck], moves: [] }), 2);
+  assert.equal(exitCode({ review: [recheck, entry(classify(PAGE, page(TEXT, { status: 403 })))], moves: [] }), 1);
+});
+
+test('the issue lists answers to recheck apart from pages that could not be read', () => {
+  const recheck = { url: PAGE, files: ['ryanduguid.github.io/_data/accounting_questions.json'], failure: 'updated 2026-10-15, after the answers to questions 6 were checked; recheck them', recheck: true, values: [] };
+  const body = renderIssue({ date: '2026-10-29', read: 1, seeded: 0, review: [recheck], quiet: [], moves: [], notes: [] });
+  assert.match(body, /1 need accounting answers rechecked, 0 could not be read/);
+  assert.match(body, /## Answers to recheck\n\n- \S+: updated 2026-10-15, after the answers to questions 6 were checked; recheck them\. Cited in:/);
+  assert.doesNotMatch(body, /## Pages that could not be read/);
+});
+
+test('the issue lists dead links apart from pages that could not be read', () => {
+  const entry = (url, result) => ({ url, files: ['tools/a/index.html'], values: [], ...result });
+  const dead = entry(`${PAGE}-gone`, classify(PAGE, page(TEXT, { status: 404 })));
+  const unread = entry(`${PAGE}-slow`, classify(PAGE, { error: 'navigation timed out' }));
+  const body = renderIssue({ date: '2026-10-29', read: 2, seeded: 0, review: [dead, unread], quiet: [], moves: [], notes: [] });
+  assert.match(body, /1 returned HTTP 404 or 410 \(dead links\), 0 need accounting answers rechecked, 1 could not be read/);
+  assert.match(body, /## Dead links\n\nRepoint each citation of these pages in every file listed\.\n\n- https:\S+-gone: HTTP 404\. Cited in: `tools\/a\/index\.html`/);
+  assert.match(body, /## Pages that could not be read\n\n- https:\S+-slow: navigation timed out\./);
+  assert.doesNotMatch(body.split('## Pages that could not be read')[1], /-gone/);
 });
 
 test('a redirect that still resolves is a note, not a failure', () => {
@@ -239,9 +321,128 @@ test('a live run without --out is refused before any page is read', () => {
   assert.match(run.stderr, /--out DIR/);
 });
 
+// A fake fetch answering from a table of url => [status, location].
+const answering = (table) => async (url, options) => {
+  assert.equal(options.redirect, 'manual');
+  const [status, location] = table[url] ?? [200];
+  return { status, headers: new Headers(location ? { location } : {}), body: null };
+};
+
+test('followRedirects calls a chain of 301 and 308 permanent and keeps the last fragment', async () => {
+  const get = answering({ [PAGE]: [301, '/rates/gic'], 'https://www.ato.gov.au/rates/gic': [308, 'https://www.ato.gov.au/rates/gic-2#now'] });
+  assert.deepEqual(await followRedirects(PAGE, { get }), { target: 'https://www.ato.gov.au/rates/gic-2#now', permanent: true });
+});
+
+test('followRedirects calls a 302 hop or no redirect at all not permanent', async () => {
+  const get = answering({ [PAGE]: [301, '/a'], 'https://www.ato.gov.au/a': [302, '/b'] });
+  assert.deepEqual(await followRedirects(PAGE, { get }), { target: 'https://www.ato.gov.au/b', permanent: false });
+  assert.deepEqual(await followRedirects(PAGE, { get: answering({}) }), { target: PAGE, permanent: false });
+});
+
+test('sortMoves lists permanent redirects and keeps the rest as notes', async () => {
+  const moved = ['permanent', 'temporary', 'unreachable'].map((kind) => ({ url: `${PAGE}/${kind}`, files: ['site/a.md'], note: `now resolves to ${PAGE}/new` }));
+  const follow = async (url) => {
+    if (url.endsWith('unreachable')) throw new Error('fetch failed', { cause: { code: 'ECONNRESET' } });
+    return { target: `${PAGE}/new`, permanent: url.endsWith('/permanent') };
+  };
+  const { moves, notes } = await sortMoves(moved, { follow });
+  assert.deepEqual(moves, [{ url: `${PAGE}/permanent`, target: `${PAGE}/new`, files: ['site/a.md'] }]);
+  assert.deepEqual(notes, [`${PAGE}/temporary now resolves to ${PAGE}/new`, `${PAGE}/unreachable now resolves to ${PAGE}/new (redirect not checked: ECONNRESET)`]);
+});
+
+const NEWSROOM = 'https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom';
+const findings = () => ({
+  date: '2026-10-19',
+  read: 370,
+  seeded: 2,
+  review: [
+    { url: PAGE, files: ['ryanduguid.github.io/rates/index.html'], failure: 'changed since the previous run', values: [], change: classify(PAGE, page(`Last updated 1 May 2026\n${TEXT}!`), `Last updated 2 May 2026\n${TEXT}`).change },
+    { url: `${PAGE}-old`, files: [], failure: String.raw`PermissionError: C:\Users\someone\AppData\Local\Temp\profile is locked`, values: [] },
+  ],
+  quiet: [{ url: NEWSROOM, files: ['au-fpa-pack/README.md'], change: classify(NEWSROOM, page(`${TEXT}\nNew article`, { finalUrl: NEWSROOM }), TEXT).change }],
+  moves: [
+    { url: 'https://www.ato.gov.au/rental', target: 'https://www.ato.gov.au/property/rental', files: ['ryanduguid.github.io/scripts/src/check_links_data.rs'] },
+    { url: `${NEWSROOM}/old-article`, target: NEWSROOM, files: [] },
+  ],
+  notes: [`${PAGE}/x now resolves to ${PAGE}/y`],
+});
+
+test('the issue body lists each finding with its citing files and names no local path', () => {
+  const body = renderIssue(findings());
+  assert.match(body, /^The weekly ATO source sweep of 2026-10-19 read 370 pages: 1 changed substantively, 1 changed with nothing to review, 0 returned HTTP 404 or 410 \(dead links\), 0 need accounting answers rechecked, 1 could not be read and 2 cited URLs redirect permanently\./);
+  assert.ok(body.includes(`### ${PAGE}\n\nChanged since the previous run. Cited in: \`ryanduguid.github.io/rates/index.html\`\n\nLast updated moved from 2 May 2026 to 1 May 2026.`));
+  assert.match(body, /<details><summary>Changed lines<\/summary>\n\n```diff\n- The rate for the September quarter is 11\.36%\.\n\+ The rate for the September quarter is 11\.36%\.!\n```\n\n<\/details>/);
+  assert.match(body, /## Pages that could not be read\n\n- \S+-old: PermissionError: \(local path\)\. Cited in: no file/);
+  assert.doesNotMatch(body, /Users|AppData|vault|ATO Watch/);
+  assert.match(body, /## Permanent redirects\n\n.*`scripts\/src\/check_links_data\.rs` \(keep HTTP_403_AUTOMATION_DENIAL_URLS sorted/);
+  assert.match(body, /- `https:\/\/www\.ato\.gov\.au\/rental` → `https:\/\/www\.ato\.gov\.au\/property\/rental`\. Cited in: `ryanduguid\.github\.io\/scripts\/src\/check_links_data\.rs`/);
+  assert.match(body, /old-article` → `\S+` \(a hub or newsroom, so the cited page was probably withdrawn/);
+  assert.match(body, /## Changes that need no review\n\n- \S+small-business-newsroom: a newsroom, whose article list changes weekly\. Cited in: `au-fpa-pack\/README\.md`/);
+  assert.match(body, /## Other redirects\n\n- \S+\/x now resolves to/);
+});
+
+test('no local path of any shape reaches the issue, and URLs keep their paths', () => {
+  const base = findings();
+  const failures = [
+    String.raw`EPERM: D:\Work\Client\file.txt locked`,
+    String.raw`share \\server\folder\x.txt missing`,
+    'ENOENT: /home/someone/profile missing',
+    'ENOENT: /root/.cache/x missing',
+    String.raw`EPERM: C:\Program Files\Client Name\file.txt`,
+    'open file:///home/someone/secret failed',
+  ];
+  base.review = failures.map((failure, i) => ({ url: `${PAGE}-${i}`, files: [], failure, values: [] }));
+  base.notes = [`${PAGE}/x now resolves to https://www.ato.gov.au/home/y (redirect not checked: C:\\Temp\\a)`];
+  const body = renderIssue(base);
+  assert.doesNotMatch(body, /Work|server|someone|\.cache|Temp|Program|Client|secret/);
+  assert.equal(body.match(/\(local path\)/g).length, 7);
+  assert.match(body, /https:\/\/www\.ato\.gov\.au\/home\/y/);
+});
+
+test('dead and unread watched sources list the files using their values', () => {
+  const base = findings();
+  base.review = [{ url: PAGE, files: [], failure: 'HTTP 404', dead: true, values: [['2.7%', ['tools/levy/index.html']]] }];
+  assert.match(renderIssue(base), /## Dead links\n\n.*\n\n- \S+: HTTP 404\. Cited in: no file\n  - `2\.7%` appears in: `tools\/levy\/index\.html`/);
+});
+
+test('an issue body too long even without diffs is cut below the GitHub limit', () => {
+  const big = findings();
+  big.quiet = Array.from({ length: 2000 }, (_, i) => ({ url: `${NEWSROOM}/${i}`, files: ['a'.repeat(60)], change: { reason: 'a newsroom' } }));
+  const body = renderIssue(big);
+  assert.ok(body.length < 65_536);
+  assert.match(body, /Cut at 60000 characters/);
+});
+
+test('an issue body too long for GitHub drops its diffs', () => {
+  const big = findings();
+  big.review[0].change.diff = 'x'.repeat(70_000);
+  const body = renderIssue(big);
+  assert.ok(body.length < 60_000);
+  assert.doesNotMatch(body, /<details>/);
+  assert.match(body, /Last updated moved/);
+});
+
+test('the report keeps every diff and adds the quiet changes and redirects', () => {
+  const report = renderReport(findings()).join('\n');
+  assert.match(report, /^# ATO sources check 2026-10-19\n\n370 pages read, 2 new to the baseline\.\n\n## To review\n\n/);
+  assert.ok(report.includes(String.raw`PermissionError: C:\Users`));
+  assert.match(report, /## Changed, no review needed\n\n### \S+newsroom\n\nA newsroom, whose article list changes weekly\. Cited in: `au-fpa-pack\/README\.md`\n\n```diff\n\+ New article\n```/);
+  assert.match(report, /## Permanent redirects\n\n/);
+  assert.match(report, /## Notes\n\n- /);
+});
+
+test('the exit code is 1 for an unread page and 2 for a substantive change or a permanent redirect', () => {
+  const { review, moves } = findings();
+  assert.equal(exitCode({ review, moves }), 1);
+  assert.equal(exitCode({ review: review.slice(0, 1), moves: [] }), 2);
+  assert.equal(exitCode({ review: [], moves }), 2);
+  assert.equal(exitCode({ review: [], moves: [] }), 0);
+});
+
 test('the ATO page date is read as an ISO date', () => {
   assert.equal(lastUpdated('Changes to credit card payments\nLast updated 15 October 2026\nPrint'), '2026-10-15');
   assert.equal(lastUpdated('Last updated 1 July 2026'), '2026-07-01');
+  assert.equal(lastUpdated('Last updated: 1 July 2026'), '2026-07-01');
   assert.equal(lastUpdated(TEXT), undefined);
   assert.equal(lastUpdated('Last updated\n15 October 2026'), '2026-10-15');
   assert.equal(lastUpdated('Last updated 31 February 2026'), undefined);
