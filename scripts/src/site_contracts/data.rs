@@ -95,7 +95,7 @@ pub const PERSON_SAME_AS: [&str; 4] = [
 ];
 pub const PERSON_REQUIRED_FIELDS: [(&str, &str); 3] = [
     ("name", "Ryan Duguid"),
-    ("jobTitle", "Senior Accountant"),
+    ("jobTitle", "Accountant"),
     ("url", "https://duguid.com.au/about/"),
 ];
 pub const PERSON_ADDRESS: [(&str, &str); 4] = [
@@ -672,7 +672,7 @@ pub const TASK_ROUTE_ENTRIES: [(&str, &str, &str); 5] = [
     HOMEPAGE_PREVIEW_ENTRIES[3],
 ];
 pub const HOMEPAGE_ANCHORS: [&str; 2] = ["adopt", "verify"];
-pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, a Senior Accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
+pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
 pub const EVIDENCE_HEADING: &str = "Evidence behind the tools";
 pub const EVIDENCE_OPENING: &str = "Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.";
 pub const HOMEPAGE_REQUIRED_TEXT: [&str; 4] = [
