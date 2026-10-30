@@ -10,7 +10,7 @@ Check workpaper packs, explore cash shortfalls and inspect the calculations.
 
 Explore the cash flow example
 
-Built by Ryan Duguid, a Senior Accountant in Newcastle, NSW. This personal site does not accept professional engagements.
+Built by Ryan Duguid, an accountant in Newcastle, NSW. This personal site does not accept professional engagements.
 
 Last reviewed 21 October 2026.
 
