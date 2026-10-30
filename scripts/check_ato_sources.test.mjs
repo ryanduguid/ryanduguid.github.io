@@ -370,7 +370,7 @@ const findings = () => ({
 test('the issue body lists each finding with its citing files and names no local path', () => {
   const body = renderIssue(findings());
   assert.match(body, /^The weekly ATO source sweep of 2026-10-19 read 370 pages: 1 changed substantively, 1 changed with nothing to review, 0 returned HTTP 404 or 410 \(dead links\), 0 need accounting answers rechecked, 1 could not be read and 2 cited URLs redirect permanently\./);
-  assert.match(body, new RegExp(`### ${PAGE}\n\nChanged since the previous run\. Cited in: \`ryanduguid\.github\.io/rates/index\.html\`\n\nLast updated moved from 2 May 2026 to 1 May 2026\.`));
+  assert.ok(body.includes(`### ${PAGE}\n\nChanged since the previous run. Cited in: \`ryanduguid.github.io/rates/index.html\`\n\nLast updated moved from 2 May 2026 to 1 May 2026.`));
   assert.match(body, /<details><summary>Changed lines<\/summary>\n\n```diff\n- The rate for the September quarter is 11\.36%\.\n\+ The rate for the September quarter is 11\.36%\.!\n```\n\n<\/details>/);
   assert.match(body, /## Pages that could not be read\n\n- \S+-old: PermissionError: \(local path\)\. Cited in: no file/);
   assert.doesNotMatch(body, /Users|AppData|vault|ATO Watch/);
