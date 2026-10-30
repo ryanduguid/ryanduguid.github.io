@@ -598,10 +598,12 @@ test('all homepage starting routes land on their targets', async ({ page }) => {
   health.assertHealthy();
 });
 
-test('public pages do not overflow at refinement acceptance widths', async ({ page }, testInfo) => {
-  test.skip(projectKind(testInfo) !== 'desktop', 'width matrix runs once');
-  const health = observePageHealth(page);
-  for (const width of [320, 390, 768, 1440]) {
+// One test per width: all four in one test made 260 navigations, which took
+// 22 to 35 seconds on a Windows CI runner against the 30-second test limit.
+for (const width of [320, 390, 768, 1440]) {
+  test(`public pages do not overflow at the ${width}px refinement acceptance width`, async ({ page }, testInfo) => {
+    test.skip(projectKind(testInfo) !== 'desktop', 'width matrix runs once');
+    const health = observePageHealth(page);
     await page.setViewportSize({ width, height: 844 });
     for (const [, route] of routes) {
       await page.goto(route);
@@ -612,9 +614,9 @@ test('public pages do not overflow at refinement acceptance widths', async ({ pa
       expect(viewport.scrollWidth, `${route} overflow at ${width}px`)
         .toBeLessThanOrEqual(viewport.clientWidth);
     }
-  }
-  health.assertHealthy();
-});
+    health.assertHealthy();
+  });
+}
 
 test('home proof image loads only when requested and decodes before capture', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
