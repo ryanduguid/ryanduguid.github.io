@@ -16,7 +16,7 @@ path = "src/main.rs"
 
 [dependencies]
 chrono = { version = "0.4.45", default-features = false, features = ["clock", "std"] }
-fancy-regex = "0.19.2"
+fancy-regex = "0.20.0"
 flate2 = { version = "1.1.10", default-features = false, features = ["zlib-rs"] }
 libwebp-sys = "0.14.4"
 num-bigint = "0.5.1"
