@@ -5,8 +5,22 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-29T00:00:00Z</updated>
+  <updated>2026-10-31T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The Payday Super timing page, Evidence page and release record name…</title>
+    <link href="https://duguid.com.au/changelog/#entry-3cbdf54c6851c50b" />
+    <id>https://duguid.com.au/changelog/#entry-3cbdf54c6851c50b</id>
+    <updated>2026-10-31T00:00:00Z</updated>
+    <summary>The Payday Super timing page, Evidence page and release record name payday-super-checker/v0.2.3, verified on GitHub and PyPI. It corrects the Employment Hero import: a row with the Beam status Reconciled is no longer read as sent to the fund, so its payday reads as unfunded, with a warning naming the status. No other check changed. Re-run any earlier review of an Employment Hero export that contains Reconciled rows. The worked example and quick trial stay pinned to their releases.</summary>
+  </entry>
+  <entry>
+    <title>Payday Super timing payday-super-checker/v0.2.3</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.3" />
+    <id>https://duguid.com.au/changelog/#entry-32eefaf138953967</id>
+    <updated>2026-10-30T00:00:00Z</updated>
+    <summary>Payday Super timing: release payday-super-checker/v0.2.3.</summary>
+  </entry>
   <entry>
     <title>The six rate history tables mark the row in force today in words and gain a…</title>
     <link href="https://duguid.com.au/changelog/#entry-3587045207f6138f" />

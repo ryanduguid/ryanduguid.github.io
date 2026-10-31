@@ -123,7 +123,7 @@ For Python packages, the MCP server and agent workflows, use the [installation g
 
 ## Known limitations
 
-- [Payday Super receipt amount rules](https://duguid.com.au/tools/payday-super/#receipt-amount): current checker v0.2.2 requires amount evidence for a timely receipt. A timely receipt date without an amount remains UNKNOWN. A late receipt without an amount remains LATE, with no shortfall reduction and an estimate measured to the as-at date. Historical reports may assume full receipt when an amount is missing. Obtain the receipt amount and rerun the current checker. Reconcile supplied matches before relying on a verdict.
+- [Payday Super receipt amount rules](https://duguid.com.au/tools/payday-super/#receipt-amount): current checker v0.2.3 requires amount evidence for a timely receipt. A timely receipt date without an amount remains UNKNOWN. A late receipt without an amount remains LATE, with no shortfall reduction and an estimate measured to the as-at date. Historical reports may assume full receipt when an amount is missing. Obtain the receipt amount and rerun the current checker. Reconcile supplied matches before relying on a verdict.
 
 A refusal is a question handed back. A limitation is an answer that rests on something the reader should be told. Each entry below is declared at runtime by the tool that carries it, and is bound to that behaviour by a test in its package. The full register is at [Known limitations](https://duguid.com.au/tools/limitations/), with a `LIMITATIONS.md` in each package. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else.
 

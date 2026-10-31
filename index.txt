@@ -102,9 +102,9 @@ Before you use a tool, check its version and limits in the setup guide.
 
 ### Latest tool releases
 
+- Payday Super receipt evidence v0.2.3 30 October 2026
 - Aus Accounting MCP v0.7.0 29 October 2026
 - Subcontractor ledger skills for construction and mining v0.5.0 28 October 2026
-- Trust distribution worksheets for professional review v0.3.2 20 October 2026
 
 ## Check the source before the result
 
@@ -130,8 +130,8 @@ Explore the recorded software checks and contributions.
 - Open the evidence register: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Payday Super receipt evidence v0.2.3: https://duguid.com.au/tools/payday-super/
 - Aus Accounting MCP v0.7.0: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Subcontractor ledger skills for construction and mining v0.5.0: https://duguid.com.au/tools/subcontractor-ledgers/
-- Trust distribution worksheets for professional review v0.3.2: https://duguid.com.au/tools/trust-distributions/
 - 5 working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/
