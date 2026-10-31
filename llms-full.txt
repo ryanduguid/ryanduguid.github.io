@@ -110,9 +110,9 @@ Before you use a tool, check its version and limits in the setup guide.
 
 ### Latest tool releases
 
+- Payday Super receipt evidence v0.2.3 30 October 2026
 - Aus Accounting MCP v0.7.0 29 October 2026
 - Subcontractor ledger skills for construction and mining v0.5.0 28 October 2026
-- Trust distribution worksheets for professional review v0.3.2 20 October 2026
 
 ## Check the source before the result
 
@@ -138,9 +138,9 @@ Explore the recorded software checks and contributions.
 - Open the evidence register: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Payday Super receipt evidence v0.2.3: https://duguid.com.au/tools/payday-super/
 - Aus Accounting MCP v0.7.0: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Subcontractor ledger skills for construction and mining v0.5.0: https://duguid.com.au/tools/subcontractor-ledgers/
-- Trust distribution worksheets for professional review v0.3.2: https://duguid.com.au/tools/trust-distributions/
 - 5 working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/
 
@@ -492,7 +492,7 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
-Last reviewed 23 October 2026.
+Last reviewed 31 October 2026.
 
 ## From monthly close to a cash forecast
 
@@ -642,7 +642,7 @@ This site | SECURITY.md | GitHub Actions
 
 Published products expose release assets through the release pages linked above. Each repository’s attestation index provides inspectable SLSA provenance and SPDX SBOM records. Live release workflow pages show current run results; pinned definitions preserve the earlier Python release process:
 
-- australian-accounting: attestations; release workflows for Aus Accounting MCP and, since the engines moved to Rust and their Python release workflows were removed, the release workflow definitions at each last Python release: Payday Super at payday-super-checker/v0.2.2, ATO benchmarks at ato-benchmark-compare/v0.2.2, trust distributions at solomons-sword/v0.3.2 and company tax at the-exchequer-tally/v0.2.0
+- australian-accounting: attestations; release workflows for Aus Accounting MCP and, since the engines moved to Rust and their Python release workflows were removed, the release workflow definitions at each last Python release: Payday Super at payday-super-checker/v0.2.3, ATO benchmarks at ato-benchmark-compare/v0.2.2, trust distributions at solomons-sword/v0.3.2 and company tax at the-exchequer-tally/v0.2.0
 - australian-accounting-skills (Hardhat Ledger included): attestations; release workflow
 - accounting-review-pipeline (Xero export): attestations; the Python release workflow was removed when the exporter moved to Rust. Its definition is preserved at the last Python release: Xero trial balance export at xero-trial-balance-export/v0.1.15
 - Shared across repositories: Release Policy workflows for releases, provenance attestations and Python package checks
@@ -768,7 +768,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - GitHub Actions: https://github.com/ryanduguid/ryanduguid.github.io/actions
 - attestations: https://github.com/ryanduguid/australian-accounting/attestations
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml
-- Payday Super at payday-super-checker/v0.2.2: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.2.2/.github/workflows/release-payday-super-checker.yml
+- Payday Super at payday-super-checker/v0.2.3: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.2.3/.github/workflows/release-payday-super-checker.yml
 - ATO benchmarks at ato-benchmark-compare/v0.2.2: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/.github/workflows/release-ato-benchmark-compare.yml
 - trust distributions at solomons-sword/v0.3.2: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/.github/workflows/release-solomons-sword.yml
 - company tax at the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/.github/workflows/release-the-exchequer-tally.yml
@@ -3052,15 +3052,15 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/payday-super/
 
-> Current release payday-super-checker v0.2.2. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid.
+> Current release payday-super-checker v0.2.3. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid.
 
 # Payday Super receipt evidence
 
-Package payday-super-checker in the australian-accounting repository. Current release v0.2.2.
+Package payday-super-checker in the australian-accounting repository. Current release v0.2.3.
 
-Current release payday-super-checker v0.2.2 (20 October 2026). The worked example below is pinned to v0.1.3. Review aid, not advice.
+Current release payday-super-checker v0.2.3 (30 October 2026). The worked example below is pinned to v0.1.3. Review aid, not advice.
 
-Current release v0.2.2 (20 October 2026). Last reviewed 21 October 2026.
+Current release v0.2.3 (30 October 2026). Last reviewed 31 October 2026.
 
 ## Synthetic worked example
 
@@ -3076,7 +3076,7 @@ Receipt amount matters. A fund receipt date alone does not establish full paymen
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 21 October 2026. The fixed evaluation stays pinned to v0.1.3; the command below stays pinned to v0.1.9 so its result remains reproducible.
+Published 24 August 2026. Last reviewed 31 October 2026. The fixed evaluation stays pinned to v0.1.3; the command below stays pinned to v0.1.9 so its result remains reproducible.
 
 ## Receipt dates and amounts
 
@@ -3085,6 +3085,8 @@ Since 1 July 2026, super must generally reach the fund within 7 business days of
 The current checker requires amount evidence for a timely receipt. A $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns UNKNOWN and exit 2. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.
 
 Historical reports may assume full receipt when an amount is missing. Obtain the receipt amount and rerun the current checker before relying on that result.
+
+Release 0.2.3 corrects the Employment Hero import. A row with the Beam status Reconciled is no longer read as sent to the fund: it gets no remitted date and its payday reads as unfunded, with a warning naming the status. No other check changed. Re-run any review made with releases 0.1.3 to 0.2.2 of an Employment Hero export that contains Reconciled rows.
 
 matched_amount is the supplied amount associated with the payday. It takes precedence over remitted_amount, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund receipt evidence does not establish receipt.
 
@@ -3159,7 +3161,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
-- v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.2
+- v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.3
 - Inspect the exact fixture: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv
 - Read the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
@@ -4376,6 +4378,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+31 October 2026 | The Payday Super timing page, Evidence page and release record name payday-super-checker/v0.2.3, verified on GitHub and PyPI. It corrects the Employment Hero import: a row with the Beam status Reconciled is no longer read as sent to the fund, so its payday reads as unfunded, with a warning naming the status. No other check changed. Re-run any review made with releases 0.1.3 to 0.2.2 of an Employment Hero export that contains Reconciled rows. The worked example and quick trial stay pinned to their releases.
 29 October 2026 | The six rate history tables mark the row in force today in words and gain a Copy for Excel button, which copies each table as tab-separated rows that paste one value per cell. A humans.txt file, linked from the footer, credits the site’s build, typefaces, portrait and checks.
 29 October 2026 | Accounting question 6 now says the ATO accepts credit card payments until 30 June 2027, following the extension announced on 9 October; it previously gave 30 November 2026. Each answer can now carry its own check date. Answers 10, 23, 41 to 43 and 46 were rechecked against ATO pages updated since 27 September and are unchanged.
 29 October 2026 | The Aus Accounting MCP page and release record name v0.7.0, verified on GitHub, PyPI and the MCP registry. It adds lodgment due-date lookup and a bundled-data freshness report. The worked example remains pinned to v0.2.8.
@@ -4451,6 +4454,7 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+30 October 2026 | Payday Super timing | payday-super-checker/v0.2.3
 29 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.7.0
 28 October 2026 | Subcontract ledger skills | v0.5.0
 20 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.6.0
@@ -4519,6 +4523,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- payday-super-checker/v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.3
 - aus-accounting-mcp/v0.7.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0
 - v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
 - aus-accounting-mcp/v0.6.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0

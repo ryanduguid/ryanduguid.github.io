@@ -35,11 +35,11 @@
     "url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0"
   },
   "payday-super": {
-    "version": "0.2.2",
-    "tag": "payday-super-checker/v0.2.2",
-    "date": "2026-10-20",
-    "dateLabel": "20 October 2026",
-    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.2"
+    "version": "0.2.3",
+    "tag": "payday-super-checker/v0.2.3",
+    "date": "2026-10-30",
+    "dateLabel": "30 October 2026",
+    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.3"
   },
   "subcontractor-ledgers": {
     "version": "0.5.0",

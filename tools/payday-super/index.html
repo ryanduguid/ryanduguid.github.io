@@ -57,7 +57,7 @@ tool: payday-super
         <h1>{{ tool.name }}</h1>
     <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
         <p class="lead-note">Current release {{ tool.package }} v{{ release.version }} ({{ release.dateLabel }}). The worked example below is pinned to v0.1.3. Review aid, not advice.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 31 October 2026.</p>
           <section id="synthetic-worked-example">
             <h2>Synthetic worked example</h2>
             <p><strong>Result: <span data-example="expected_verdict">AT_RISK</span>.</strong> Pinned deadline: <time data-example="expected_due_date" datetime="2026-08-17">17 August 2026</time>. Fund receipt unproven.</p>
@@ -67,7 +67,7 @@ tool: payday-super
           </section>
         <p class="field-note"><strong>Receipt amount matters.</strong> A fund receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. <a href="#receipt-amount">Read the version-specific receipt rules</a>.</p>
         <p class="field-note">The contribution amount this check tests is set by the <a href="/rates/super-guarantee/">super guarantee rate</a>, kept as a maintained table on this site.</p>
-        <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026. The fixed evaluation stays pinned to v0.1.3; the command below stays pinned to v0.1.9 so its result remains reproducible.</p>
+        <p class="page-meta">Published 24 August 2026. Last reviewed 31 October 2026. The fixed evaluation stays pinned to v0.1.3; the command below stays pinned to v0.1.9 so its result remains reproducible.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -87,6 +87,7 @@ tool: payday-super
             <p>Since 1 July 2026, super must generally reach the fund within 7 business days of payday. Proof of sending does not prove timely receipt. Check the applicable timing pathway; this is a review aid, not advice.</p>
             <p><strong>The current checker requires amount evidence for a timely receipt.</strong> A $120 obligation with a timely receipt date but neither <code>matched_amount</code> nor <code>remitted_amount</code> returns <code>UNKNOWN</code> and exit 2. A late receipt without an amount remains <code>LATE</code>, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.</p>
             <p>Historical reports may assume full receipt when an amount is missing. Obtain the receipt amount and rerun the current checker before relying on that result.</p>
+            <p><strong>Release 0.2.3 corrects the Employment Hero import.</strong> A row with the Beam status Reconciled is no longer read as sent to the fund: it gets no remitted date and its payday reads as unfunded, with a warning naming the status. No other check changed. Re-run any review made with releases 0.1.3 to 0.2.2 of an Employment Hero export that contains Reconciled rows.</p>
             <p><code>matched_amount</code> is the supplied amount associated with the payday. It takes precedence over <code>remitted_amount</code>, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund receipt evidence does not establish receipt.</p>
             <p>For the $120 obligation in this example, a timely $60 matched receipt returns <code>UNPAID</code>, not full payment. A timely $120 matched receipt returns <code>ON_TIME</code> only on the supplied facts. Late receipt returns <code>LATE</code>; a receipt date before the remittance date is rejected. Resolve unmatched records and contradictory evidence before relying on any result.</p>
           </section>
@@ -156,7 +157,7 @@ tool: payday-super
       "description": "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-10-21",
+      "dateModified": "2026-10-31",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -223,13 +224,13 @@ tool: payday-super
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-10-20",
+      "dateModified": "2026-10-30",
       "alternateName": [
         "Payday super due date checker",
         "payday-super-checker",
         "Payday Super timing"
       ],
-      "softwareVersion": "0.2.2",
+      "softwareVersion": "0.2.3",
       "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker",
       "sameAs": [
         "https://pypi.org/project/payday-super-checker/"

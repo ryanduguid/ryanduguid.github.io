@@ -1055,7 +1055,7 @@ fn public_contracts_homepage_and_metadata_mutations() {
         );
     }
     let payday = read_text(root(), "tools/payday-super/index.html");
-    let long = "Current release payday-super-checker v0.2.2. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid.";
+    let long = "Current release payday-super-checker v0.2.3. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid.";
     let short = "Check Payday Super timing from payroll exports and estimate the SG charge for review, with fund receipt status visible.";
     assert_eq!(payday.matches(long).count(), 3);
     let directory = tempfile::tempdir().unwrap();

@@ -16,7 +16,7 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
-Last reviewed 23 October 2026.
+Last reviewed 31 October 2026.
 
 ## From monthly close to a cash forecast
 
@@ -166,7 +166,7 @@ This site | SECURITY.md | GitHub Actions
 
 Published products expose release assets through the release pages linked above. Each repository’s attestation index provides inspectable SLSA provenance and SPDX SBOM records. Live release workflow pages show current run results; pinned definitions preserve the earlier Python release process:
 
-- australian-accounting: attestations; release workflows for Aus Accounting MCP and, since the engines moved to Rust and their Python release workflows were removed, the release workflow definitions at each last Python release: Payday Super at payday-super-checker/v0.2.2, ATO benchmarks at ato-benchmark-compare/v0.2.2, trust distributions at solomons-sword/v0.3.2 and company tax at the-exchequer-tally/v0.2.0
+- australian-accounting: attestations; release workflows for Aus Accounting MCP and, since the engines moved to Rust and their Python release workflows were removed, the release workflow definitions at each last Python release: Payday Super at payday-super-checker/v0.2.3, ATO benchmarks at ato-benchmark-compare/v0.2.2, trust distributions at solomons-sword/v0.3.2 and company tax at the-exchequer-tally/v0.2.0
 - australian-accounting-skills (Hardhat Ledger included): attestations; release workflow
 - accounting-review-pipeline (Xero export): attestations; the Python release workflow was removed when the exporter moved to Rust. Its definition is preserved at the last Python release: Xero trial balance export at xero-trial-balance-export/v0.1.15
 - Shared across repositories: Release Policy workflows for releases, provenance attestations and Python package checks
@@ -292,7 +292,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - GitHub Actions: https://github.com/ryanduguid/ryanduguid.github.io/actions
 - attestations: https://github.com/ryanduguid/australian-accounting/attestations
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml
-- Payday Super at payday-super-checker/v0.2.2: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.2.2/.github/workflows/release-payday-super-checker.yml
+- Payday Super at payday-super-checker/v0.2.3: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.2.3/.github/workflows/release-payday-super-checker.yml
 - ATO benchmarks at ato-benchmark-compare/v0.2.2: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/.github/workflows/release-ato-benchmark-compare.yml
 - trust distributions at solomons-sword/v0.3.2: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/.github/workflows/release-solomons-sword.yml
 - company tax at the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/.github/workflows/release-the-exchequer-tally.yml
