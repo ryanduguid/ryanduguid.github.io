@@ -42,7 +42,7 @@ For Python packages, the MCP server and agent workflows, use the [installation g
 
 ## For AI agents
 
-- [Aus Accounting MCP](https://duguid.com.au/tools/australian-tax-ai-agents/): local MCP server, current release v0.7.0 (29 October 2026). ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets. Runs locally, ships no ATO document library, prepares or lodges nothing; human review required. Registry name io.github.ryanduguid/aus-accounting. Separate project from ato-mcp.
+- [Aus Accounting MCP](https://duguid.com.au/tools/australian-tax-ai-agents/): local MCP server, current release v0.7.1 (31 October 2026). ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets. Runs locally, ships no ATO document library, prepares or lodges nothing; human review required. Registry name io.github.ryanduguid/aus-accounting. Separate project from ato-mcp.
 - [Agent skills manifest](https://duguid.com.au/.well-known/agent-skills/index.json): the 65 released SKILL.md files of australian-accounting-skills v0.4.0, each with its description, a URL that serves the released bytes at the release commit and a sha256 digest to check them against. Preparation-only workflows in the Agent Skills format; not advice and not lodgement.
 
 ## Person

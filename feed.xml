@@ -8,11 +8,25 @@
   <updated>2026-10-31T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The Aus Accounting MCP page and release record name v0.7.1, verified on GitHub…</title>
+    <link href="https://duguid.com.au/changelog/#entry-f07c259055db7e81" />
+    <id>https://duguid.com.au/changelog/#entry-f07c259055db7e81</id>
+    <updated>2026-10-31T00:00:00Z</updated>
+    <summary>The Aus Accounting MCP page and release record name v0.7.1, verified on GitHub and PyPI; the MCP registry still listed v0.7.0 that day. It pins payday-super-checker 0.2.3, and no tool output changes except engine_version, now 0.2.3 for the payday tools. The worked example remains pinned to v0.2.8.</summary>
+  </entry>
+  <entry>
     <title>The Payday Super timing page, Evidence page and release record name…</title>
     <link href="https://duguid.com.au/changelog/#entry-3cbdf54c6851c50b" />
     <id>https://duguid.com.au/changelog/#entry-3cbdf54c6851c50b</id>
     <updated>2026-10-31T00:00:00Z</updated>
     <summary>The Payday Super timing page, Evidence page and release record name payday-super-checker/v0.2.3, verified on GitHub and PyPI. It corrects the Employment Hero import: a row with the Beam status Reconciled is no longer read as sent to the fund, so its payday reads as unfunded, with a warning naming the status. No other check changed. Re-run any review made with releases 0.1.3 to 0.2.2 of an Employment Hero export that contains Reconciled rows. The worked example and quick trial stay pinned to their releases.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.7.1</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.1" />
+    <id>https://duguid.com.au/changelog/#entry-a49013a09a3d4e96</id>
+    <updated>2026-10-31T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.7.1.</summary>
   </entry>
   <entry>
     <title>Payday Super timing payday-super-checker/v0.2.3</title>
