@@ -44,6 +44,7 @@ test('sources skip generated output, tests and test files', () => {
   writeFileSync(join(root, 'tests', 'fixture.json'), '"https://www.ato.gov.au/fixture"');
   writeFileSync(join(root, 'scripts', 'test_links.py'), '"https://www.ato.gov.au/test-file"');
   writeFileSync(join(root, 'scripts', 'rates_tests.rs'), '"https://www.ato.gov.au/rust-tests"');
+  writeFileSync(join(root, 'src', 'tests.rs'), '"https://www.ato.gov.au/sibling-tests"');
   writeFileSync(join(root, 'examples', 'source_probe.rs'), '"https://www.ato.gov.au/probe"');
   writeFileSync(join(root, 'src', 'compat_probe.rs'), `const PAGE: &str = "${PAGE}";\n`);
   writeFileSync(join(root, 'scripts', 'transport.rs'), [
