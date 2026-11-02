@@ -890,10 +890,11 @@
       "boundary": "Check the ATO category and evidence requirements before adding an amount to the return.",
       "source": "deductions",
       "tool": "",
-      "fact": "You can claim clothing that is protective, a compulsory uniform, a registered non-compulsory uniform, or occupation-specific and not conventional. Laundry can be worked out at $1 a load of work clothing only, or 50 cents a load if mixed, and a laundry claim of $150 or less needs no written evidence.",
+      "fact": "You can claim clothing that is protective, a compulsory uniform, a registered non-compulsory uniform, or occupation-specific and not conventional. Laundry can be worked out at $1 a load of work clothing only, or 50 cents a load if mixed, and, for 2025-26 and earlier years, a laundry claim of $150 or less needs no written evidence; from 2026-27 that exception no longer applies.",
       "fact_sources": [
         "clothing"
-      ]
+      ],
+      "fact_checked": "2026-11-02"
     },
     {
       "id": 18,
@@ -924,10 +925,11 @@
       "boundary": "A bank statement or a general receipt exception does not automatically support every claim.",
       "source": "income",
       "tool": "",
-      "fact": "If your total work-related expense claim is $300 or less, you can claim it without written evidence, but you must be able to show how you worked it out. Keep any written evidence for 5 years from the date you lodge your return.",
+      "fact": "For 2025-26 and earlier years, if your total work-related expense claim is $300 or less, you can claim it without written evidence, but you must be able to show how you worked it out. From 2026-27 that exception no longer applies: eligible taxpayers are entitled to a standard deduction of up to $1,000 without records, and any work-related expense you claim in your return needs written evidence; most such claims reduce the standard deduction. Keep any written evidence for 5 years from your return's due date, or from the date you lodge it if that is later.",
       "fact_sources": [
         "records-keep"
-      ]
+      ],
+      "fact_checked": "2026-11-02"
     },
     {
       "id": 20,
