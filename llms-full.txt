@@ -949,7 +949,7 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Ozzit Excel LAMBDA library: https://duguid.com.au/tools/ozzit/#download
 - browser planning calculators: https://duguid.com.au/tools/business-calculators/
 - Monthly Close Controls guide: inputs, exception report and reproducible command: https://duguid.com.au/tools/monthly-close-controls/
-- Inspect the case, files and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/6cd77689cfee98664468a833da6961ef95b0d5c2/packages/monthly-close-control-plane/docs/manager-case-study.md
+- Inspect the case, files and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Payday Super: sent before the deadline, received when?: https://github.com/ryanduguid/australian-accounting/blob/f10086d0c99c77bb3dabd3a0fc08b9e5ab1b939a/packages/payday-super-checker/docs/manager-case-study.md
 - Division 7A: does the repayment count?: https://github.com/ryanduguid/australian-accounting/blob/f10086d0c99c77bb3dabd3a0fc08b9e5ab1b939a/packages/div7a-loan-review/docs/manager-case-study.md
 - Evaluation source: https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate
@@ -4602,7 +4602,7 @@ Source: https://duguid.com.au/tools/monthly-close-controls/
 
 Package monthly-close-control-plane in the accounting-review-pipeline repository. Current release v0.2.0.
 
-Current release monthly-close-control-plane v0.2.0 (5 October 2026). The worked example below runs the unreleased Rust source, version 1.0.0, at commit 6cd7768. Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.
+Current release monthly-close-control-plane v0.2.0 (5 October 2026). The worked example below runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5. Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.
 
 Current release v0.2.0 (5 October 2026). Last reviewed 2 November 2026.
 
@@ -4675,7 +4675,7 @@ Needs Git and Rust installed with rustup. The component pins Rust 1.99.0 in rust
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
 cd accounting-review-pipeline
-git checkout 6cd77689cfee98664468a833da6961ef95b0d5c2
+git checkout 1ce98d50f1c81d9f9873d47986a33a42f40f4e96
 cd packages/monthly-close-control-plane
 ```
 
@@ -4691,7 +4691,7 @@ Software issue using fictional data? Open an issue.
 
 ## Reproduce a refusal: output inside the checkout
 
-From the same component directory at source commit 6cd7768, repeat the fictional example with only --output changed to ./close-control-demo:
+From the same component directory at source commit 1ce98d5, repeat the fictional example with only --output changed to ./close-control-demo:
 
 ```
 cargo run --locked --release --bin close-control -- review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ./close-control-demo
@@ -4738,10 +4738,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Inspect the eight exceptions: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Download the generated exceptions.csv: https://duguid.com.au/assets/examples/monthly-close/exceptions.csv
-- complete fictional input files at the same commit: https://github.com/ryanduguid/accounting-review-pipeline/tree/6cd77689cfee98664468a833da6961ef95b0d5c2/packages/monthly-close-control-plane/examples
-- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/6cd77689cfee98664468a833da6961ef95b0d5c2/packages/monthly-close-control-plane/docs/manager-case-study.md
+- complete fictional input files at the same commit: https://github.com/ryanduguid/accounting-review-pipeline/tree/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/examples
+- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
-- pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/6cd77689cfee98664468a833da6961ef95b0d5c2/packages/monthly-close-control-plane/README.md
+- pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/README.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
 - What Monthly Close Controls refuses: https://duguid.com.au/tools/refusals/#monthly-close-controls

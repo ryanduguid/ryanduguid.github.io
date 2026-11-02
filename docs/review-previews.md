@@ -3,7 +3,7 @@
 Both captures use the unchanged fictional fixtures in
 accounting-review-pipeline. No client records or live APIs were used.
 
-Monthly Close Controls source: 6cd77689cfee98664468a833da6961ef95b0d5c2,
+Monthly Close Controls source: 1ce98d50f1c81d9f9873d47986a33a42f40f4e96,
 packages/monthly-close-control-plane, the unreleased native 1.0.0 source.
 Captured on 2 November 2026 on Linux with Rust 1.99.0, which that directory's
 rust-toolchain.toml selects. From that directory:
