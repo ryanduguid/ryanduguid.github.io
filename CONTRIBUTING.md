@@ -178,6 +178,13 @@ the report also lists every file containing each watched value, because the
 calculators and examples reuse these values without citing the page. Update the
 value in `WATCHED` with the pages that use it.
 
+The sweep also reads every `source` and `fact_sources` page behind an accounting
+question with a non-empty `fact`. These references come from
+`_data/accounting_questions.json`; relative links resolve against
+`https://duguid.com.au`. Missing references, credentials, non-default ports and
+URLs outside the script's supported public HTTPS hosts stop the run before
+fetching. New source hosts need an explicit addition to `FACT_SOURCE_HOSTS`.
+
 `scripts/design_baseline.json` pins digests of the machine-readable files, the
 rates pages and every page's JSON-LD. After a content edit, run
 `site-tools check_design --update-baseline` and check that the diff

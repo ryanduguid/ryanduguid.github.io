@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -77,6 +77,47 @@ test('watched pages are read even when nothing cites them, and their values are 
   const values = collectValues([root]);
   assert.deepEqual(values.get('2.7%').map((path) => path.split('/').slice(1).join('/')).sort(), ['assets/levy.mjs', 'index.html']);
   assert.deepEqual(values.get('5.45%'), []);
+});
+
+test('the sweep covers every source behind a fact-bearing accounting answer', () => {
+  const data = JSON.parse(readFileSync(new URL('../_data/accounting_questions.json', import.meta.url), 'utf8'));
+  const sources = collectSources([fileURLToPath(new URL('..', import.meta.url))]);
+  const missing = new Set();
+  for (const question of data.questions.filter((entry) => entry.fact)) {
+    for (const key of [question.source, ...(question.fact_sources ?? [])]) {
+      const url = new URL(data.sources[key].url, 'https://duguid.com.au').href;
+      if (!sources.has(url)) missing.add(url);
+      else assert.ok(sources.get(url).some((file) => file.endsWith('/_data/accounting_questions.json')), url);
+    }
+  }
+  assert.deepEqual([...missing], []);
+});
+
+test('fact-source discovery refuses missing and unsupported sources', (t) => {
+  const root = mkdtempSync(join(tmpdir(), 'ato-fact-sources-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  mkdirSync(join(root, '_data'));
+  for (const url of [undefined, 'http://www.ato.gov.au/rates', 'https://localhost/rates', 'https://www.ato.gov.au:8443/rates', 'https://user:password@www.ato.gov.au/rates']) {
+    const data = { sources: { rate: { url } }, questions: [{ id: 1, source: 'rate', fact: 'A checked figure.' }] };
+    writeFileSync(join(root, '_data', 'accounting_questions.json'), JSON.stringify(data));
+    assert.throws(() => collectSources([root]), /question 1 source rate/, String(url));
+  }
+});
+
+test('relative rate sources use the same URL for discovery and answer-date checks', (t) => {
+  const root = mkdtempSync(join(tmpdir(), 'ato-relative-sources-'));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  mkdirSync(join(root, '_data'));
+  const url = 'https://duguid.com.au/rates/super-guarantee/';
+  const data = {
+    facts_checked: '2026-09-27',
+    sources: { rate: { url: '/rates/super-guarantee/' } },
+    questions: [{ id: 1, source: 'rate', fact: 'A checked figure.', fact_sources: ['rate'] }],
+  };
+  writeFileSync(join(root, '_data', 'accounting_questions.json'), JSON.stringify(data));
+  assert.equal(collectSources([root]).get(url)?.length, 1);
+  const texts = new Map([[url, 'Last updated 15 October 2026']]);
+  assert.deepEqual([...answersToRecheck(data, texts)], [[url, { updated: '2026-10-15', ids: [1] }]]);
 });
 
 test('a first-seen page passes and its text becomes the baseline', () => {

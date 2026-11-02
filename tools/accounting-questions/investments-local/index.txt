@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/accounting-questions/investments-local/
 
 Practical steps, records and official guidance on investments and NSW matters.
 
-10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
+10 of 10 answers checked between 27 September 2026 and 1 November 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -147,7 +147,7 @@ Link to question 97
 
 ### When does an investment property become liable for land tax in NSW?
 
-For the 2026 land tax year, NSW land tax applies when the combined taxable value of your land, excluding exempt land such as your home, exceeds the general threshold of $1,075,000. Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land tax year.
+For owners entitled to the general threshold, NSW land tax for the 2026 land tax year applies when the combined taxable value of their non-exempt NSW land exceeds $1,075,000. Some trusts and related companies do not qualify for that threshold, and foreign-owner surcharge land tax has no tax-free threshold. Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land tax year.
 
 - Reconcile all relevant NSW landholdings, ownership interests and valuation notices.
 - Use Revenue NSW’s current assessment guidance and retain the calculation and exemption evidence.
@@ -156,7 +156,7 @@ Purchase price and one property’s value alone do not establish the full land t
 
 Land tax · Preparing for the 2026 land tax year, Revenue NSW · Land tax thresholds and rates, Revenue NSW
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 1 November 2026.
 
 Link to question 98
 

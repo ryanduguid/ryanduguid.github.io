@@ -1,5 +1,6 @@
 // Checks every ATO page the portfolio cites, and the pages outside the ATO in
-// WATCHED. The ATO answers GitHub runners with HTTP 403 and site-tools check_links can
+// WATCHED, plus every source behind a fact-bearing accounting answer. The ATO answers
+// GitHub runners with HTTP 403 and site-tools check_links can
 // only accept that denial on trust, so this sweep runs on Ryan's machine:
 // `nodriver batch` reads each page in a local Chrome and the text is compared
 // with the copy kept in --baseline from the previous weekly run.
@@ -79,6 +80,27 @@ export const WATCHED = new Map([
   ['https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/lodge-and-pay-returns/thresholds-and-rates', ['5.45%', '$1,200,000']],
 ]);
 
+const FACT_SOURCE_HOSTS = new Set([
+  'www.ato.gov.au', 'www.abr.gov.au', 'business.gov.au', 'www.fairwork.gov.au',
+  'www.revenue.nsw.gov.au', 'coallsl.com.au', 'www.tpb.gov.au', 'duguid.com.au',
+]);
+
+function questionSourceUrls(data, question) {
+  return [question.source, ...(question.fact_sources ?? [])].map((key) => {
+    const value = data.sources?.[key]?.url;
+    let url;
+    try {
+      if (typeof value !== 'string' || !/^(?:https:\/\/|\/(?!\/))/i.test(value)) throw new Error();
+      url = new URL(value, 'https://duguid.com.au');
+      if (url.protocol !== 'https:' || url.username || url.password || url.port || !FACT_SOURCE_HOSTS.has(url.hostname)) throw new Error();
+    } catch {
+      throw new Error(`${QUESTIONS}: question ${question.id} source ${key} is missing or not a supported public HTTPS URL`);
+    }
+    url.hash = '';
+    return url.href;
+  });
+}
+
 // A watched URL counts only where the next character cannot continue it.
 function citesWhole(text, url) {
   for (let at = text.indexOf(url); at !== -1; at = text.indexOf(url, at + 1)) {
@@ -120,6 +142,18 @@ export function collectSources(directories) {
       for (const url of extractUrls(extname(path) === '.rs' ? text.replace(RUST_TEST_MODULE, '') : text)) {
         if (!sources.has(url)) sources.set(url, []);
         sources.get(url).push(`${label}/${relative(directory, path).replaceAll('\\', '/')}`);
+      }
+    }
+    const questionsFile = join(directory, QUESTIONS);
+    if (existsSync(questionsFile)) {
+      const data = JSON.parse(readFileSync(questionsFile, 'utf8'));
+      for (const question of data.questions.filter((entry) => entry.fact)) {
+        for (const url of questionSourceUrls(data, question)) {
+          if (!sources.has(url)) sources.set(url, []);
+          const files = sources.get(url);
+          const citation = `${label}/${QUESTIONS}`;
+          if (!files.includes(citation)) files.push(citation);
+        }
       }
     }
   }
@@ -284,8 +318,7 @@ export function answersToRecheck(data, texts) {
     const checked = question.fact_checked ?? data.facts_checked;
     // A malformed date would compare wrongly and hide a stale answer, so it stops the run.
     if (!isIsoDate(checked)) throw new Error(`${QUESTIONS}: question ${question.id} check date ${checked} is not a YYYY-MM-DD date`);
-    for (const key of [question.source, ...(question.fact_sources ?? [])]) {
-      const url = data.sources[key]?.url;
+    for (const url of questionSourceUrls(data, question)) {
       const updated = texts.has(url) ? lastUpdated(texts.get(url)) : undefined;
       if (!updated || updated <= checked) continue;
       if (!stale.has(url)) stale.set(url, { updated, ids: [] });
