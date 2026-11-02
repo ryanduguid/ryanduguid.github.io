@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-31T00:00:00Z</updated>
+  <updated>2026-11-02T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Accounting question 8 now says most tax returns lodged online are processed…</title>
+    <link href="https://duguid.com.au/changelog/#entry-aeb0def588c29a6d" />
+    <id>https://duguid.com.au/changelog/#entry-aeb0def588c29a6d</id>
+    <updated>2026-11-02T00:00:00Z</updated>
+    <summary>Accounting question 8 now says most tax returns lodged online are processed within 10 business days, as the ATO’s Check the progress of your tax return page now states; it previously gave 12. The ATO’s How to lodge your tax return page still gives 12 business days for myTax.</summary>
+  </entry>
   <entry>
     <title>The Aus Accounting MCP page and release record name v0.7.1, verified on GitHub…</title>
     <link href="https://duguid.com.au/changelog/#entry-f07c259055db7e81" />
