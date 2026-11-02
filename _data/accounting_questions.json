@@ -730,11 +730,12 @@
       "boundary": "No refund date or processing outcome is guaranteed here.",
       "source": "returns",
       "tool": "",
-      "fact": "Most returns lodged online are processed within 12 business days. For a paper return, most refunds are issued within 50 business days.",
+      "fact": "The ATO says most returns lodged online are processed within 10 business days, though its How to lodge your tax return page still says 12 for myTax. For a paper return, most refunds are issued within 50 business days.",
       "fact_sources": [
         "return-progress",
         "how-to-lodge"
-      ]
+      ],
+      "fact_checked": "2026-11-02"
     },
     {
       "id": 9,
