@@ -43,9 +43,13 @@ test('sources skip generated output, tests and test files', () => {
   writeFileSync(join(root, '_site', 'index.html'), 'https://www.ato.gov.au/generated');
   writeFileSync(join(root, 'tests', 'fixture.json'), '"https://www.ato.gov.au/fixture"');
   writeFileSync(join(root, 'scripts', 'test_links.py'), '"https://www.ato.gov.au/test-file"');
+  writeFileSync(join(root, 'scripts', 'rates_tests.rs'), '"https://www.ato.gov.au/rust-tests"');
+  writeFileSync(join(root, 'scripts', 'source_probe.rs'), '"https://www.ato.gov.au/probe"');
+  writeFileSync(join(root, 'scripts', 'transport.rs'), `const PAGE: &str = "${PAGE}";\n\n#[cfg(test)]\nmod http_tests {\n    const URL: &str = "https://www.ato.gov.au/a";\n}\n`);
   const sources = collectSources([root]);
   assert.deepEqual([...sources.keys()].filter((url) => !WATCHED.has(url)), [PAGE]);
   assert.match(sources.get(PAGE)[0], /\/rates\/index\.html$/);
+  assert.match(sources.get(PAGE)[1], /\/scripts\/transport\.rs$/);
 });
 
 const LEVY = 'https://coallsl.com.au/employer/administer-lsl/levy';
@@ -288,6 +292,22 @@ test('readPages reads a failed page again, treats any .pdf as a PDF and reports 
   assert.deepEqual(pdfCalls, [lawPdf]);
   assert.equal(pages.get(flaky).status, 200);
   assert.equal(pages.get(broken).error, 'timed out');
+});
+
+test('readPages reads a failed PDF again after the browser batches and reports one that keeps failing', async () => {
+  const page = 'https://www.ato.gov.au/page';
+  const flaky = 'https://www.ato.gov.au/api/public/content/flaky';
+  const broken = 'https://www.ato.gov.au/api/public/content/broken';
+  const order = [];
+  const batch = (list) => { order.push('batch'); return new Map(list.map((url) => [url, { status: 200, text: url }])); };
+  const pdf = async (url) => {
+    order.push(url.split('/').pop());
+    return url === broken || order.length === 1 ? { error: 'PDF fetch failed: UND_ERR_RES_CONTENT_LENGTH_MISMATCH' } : { status: 200, text: `pdf ${url}` };
+  };
+  const pages = await readPages([page, flaky, broken], { batch, pdf });
+  assert.deepEqual(order, ['flaky', 'broken', 'batch', 'flaky', 'broken', 'broken']);
+  assert.equal(pages.get(flaky).text, `pdf ${flaky}`);
+  assert.match(pages.get(broken).error, /CONTENT_LENGTH_MISMATCH/);
 });
 
 test('saveResults saves the report before it moves any baseline', () => {

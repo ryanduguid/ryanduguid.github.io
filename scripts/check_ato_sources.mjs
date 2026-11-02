@@ -57,7 +57,12 @@ const MAX_DIFF_LINES = 40;
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', '_site', 'graft', 'tests', '.venv', 'venv', 'dist', 'vendor']);
 const TEXT_EXTENSIONS = new Set(['.html', '.md', '.py', '.rs', '.json', '.mjs', '.js', '.txt', '.yml', '.yaml', '.csv', '.toml']);
-const TEST_FILE = /(?:^test_)|\.test\.|\.spec\./;
+// Rust keeps tests in *_tests.rs or *_test.rs and offline fixtures in *_probe.rs examples.
+const TEST_FILE = /(?:^test_)|\.test\.|\.spec\.|_(?:tests?|probe)\.rs$/;
+// shortcut: a Rust test module is taken to run to the end of its file, as
+// rustfmt and convention place it; a file with code after it loses that code's
+// citations. Match the module's braces if that ever happens.
+const RUST_TEST_MODULE = /^#\[cfg\(test\)\]\s*mod \w+ \{[\s\S]*/m;
 const ATO_URL = /https:\/\/www\.ato\.gov\.au\/[^\s"'<>()[\]`\\|,]*/g;
 
 // Pages outside the ATO behind values their publishers revise: the NSW budget
@@ -107,7 +112,8 @@ export function collectSources(directories) {
   for (const directory of directories) {
     const label = basename(resolve(directory));
     for (const path of textFiles(directory)) {
-      for (const url of extractUrls(readFileSync(path, 'utf8'))) {
+      const text = readFileSync(path, 'utf8');
+      for (const url of extractUrls(extname(path) === '.rs' ? text.replace(RUST_TEST_MODULE, '') : text)) {
         if (!sources.has(url)) sources.set(url, []);
         sources.get(url).push(`${label}/${relative(directory, path).replaceAll('\\', '/')}`);
       }
@@ -350,15 +356,19 @@ async function readPdf(url) {
 // the browser in batches. JavaScript assets start with the whole-text reader;
 // they have no page containers. A page without either container is read whole, and a
 // page that errors is read again, up to three rounds in all, because Chrome
-// sometimes fails to start and a page sometimes times out once.
+// sometimes fails to start and a page sometimes times out once. A PDF that
+// errors joins the later rounds too, so the browser batches between them give
+// a dropped ATO connection minutes to recover.
 export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) {
   const pages = new Map();
-  for (const url of urls.filter(isPdf)) pages.set(url, await pdf(url));
   const args = { selector: ['--selector', PAGE_SELECTOR], main: ['--main'] };
   const mode = new Map();
+  let pdfs = urls.filter(isPdf);
   let todo = urls.filter((url) => !isPdf(url));
   for (const url of todo) mode.set(url, /[.]js$/i.test(new URL(url).pathname) ? 'main' : 'selector');
-  for (let round = 1; round <= 3 && todo.length; round++) {
+  for (let round = 1; round <= 3 && (pdfs.length || todo.length); round++) {
+    for (const url of pdfs) pages.set(url, await pdf(url));
+    pdfs = pdfs.filter((url) => pages.get(url).error);
     for (const kind of Object.keys(args)) {
       const list = todo.filter((url) => mode.get(url) === kind);
       for (let start = 0; start < list.length; start += BATCH_SIZE) {
