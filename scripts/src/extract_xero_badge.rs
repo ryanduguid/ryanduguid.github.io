@@ -5,7 +5,7 @@
 //! is kept, so the hash recorded in assets/credentials/SOURCES.md stays valid.
 use crate::favicon_render::{self as favicon, Inflated};
 use crate::py;
-use regex::bytes::Regex;
+use regex::bytes::{Regex, RegexBuilder};
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
@@ -16,8 +16,13 @@ pub const TARGET: &str = "assets/credentials/xero-certified-specialist-level-3-b
 pub const BADGE_SIZE: usize = 318;
 
 // Bytes patterns: \d and \s are ASCII, and `.` with DOTALL matches every byte.
+// The flags are builder options, not an inline `(?s-u)`, which SonarCloud's regex parser rejects.
 static OBJECT: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"(?s-u)([0-9]+)[ \t\n\r\x0b\x0c]+[0-9]+[ \t\n\r\x0b\x0c]+obj(.*?)endobj").unwrap()
+    RegexBuilder::new(r"([0-9]+)[ \t\n\r\x0b\x0c]+[0-9]+[ \t\n\r\x0b\x0c]+obj(.*?)endobj")
+        .dot_matches_new_line(true)
+        .unicode(false)
+        .build()
+        .unwrap()
 });
 static SMASK: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(r"(?-u)/SMask[ \t\n\r\x0b\x0c]+([0-9]+)[ \t\n\r\x0b\x0c]+[0-9]+[ \t\n\r\x0b\x0c]+R")
