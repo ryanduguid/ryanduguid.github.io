@@ -57,12 +57,31 @@ const MAX_DIFF_LINES = 40;
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', '_site', 'graft', 'tests', '.venv', 'venv', 'dist', 'vendor']);
 const TEXT_EXTENSIONS = new Set(['.html', '.md', '.py', '.rs', '.json', '.mjs', '.js', '.txt', '.yml', '.yaml', '.csv', '.toml']);
-// Rust keeps tests in *_tests.rs or *_test.rs and offline fixtures in *_probe.rs examples.
-const TEST_FILE = /(?:^test_)|\.test\.|\.spec\.|_(?:tests?|probe)\.rs$/;
-// shortcut: a Rust test module is taken to run to the end of its file, as
-// rustfmt and convention place it; a file with code after it loses that code's
-// citations. Match the module's braces if that ever happens.
-const RUST_TEST_MODULE = /^#\[cfg\(test\)\]\s*mod \w+ \{[\s\S]*/m;
+// Rust keeps tests in *_tests.rs or *_test.rs and offline fixtures in examples/*_probe.rs.
+const TEST_FILE = /(?:^test_)|\.test\.|\.spec\.|_tests?\.rs$/;
+const EXAMPLE_PROBE = /_probe\.rs$/;
+const RUST_TEST_MODULE = /^#\[cfg\(test\)\]\s*mod \w+ \{/gm;
+
+// Drops each inline Rust test module up to its matching brace.
+// shortcut: braces are counted without parsing strings or comments, so an
+// unbalanced brace inside a test literal moves the cut; one never closed runs to
+// the end of the file.
+function stripRustTests(text) {
+  let kept = '';
+  let from = 0;
+  for (const match of text.matchAll(RUST_TEST_MODULE)) {
+    if (match.index < from) continue;
+    let depth = 0;
+    let end = match.index + match[0].length - 1;
+    for (; end < text.length; end++) {
+      if (text[end] === '{') depth++;
+      else if (text[end] === '}' && --depth === 0) break;
+    }
+    kept += text.slice(from, match.index);
+    from = end + 1;
+  }
+  return kept + text.slice(from);
+}
 const ATO_URL = /https:\/\/www\.ato\.gov\.au\/[^\s"'<>()[\]`\\|,]*/g;
 
 // Pages outside the ATO behind values their publishers revise: the NSW budget
@@ -100,7 +119,8 @@ function* textFiles(directory) {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) {
       if (!SKIP_DIRS.has(entry.name)) yield* textFiles(path);
-    } else if (TEXT_EXTENSIONS.has(extname(entry.name)) && !TEST_FILE.test(entry.name)) {
+    } else if (TEXT_EXTENSIONS.has(extname(entry.name)) && !TEST_FILE.test(entry.name)
+      && !(basename(directory) === 'examples' && EXAMPLE_PROBE.test(entry.name))) {
       yield path;
     }
   }
@@ -113,7 +133,7 @@ export function collectSources(directories) {
     const label = basename(resolve(directory));
     for (const path of textFiles(directory)) {
       const text = readFileSync(path, 'utf8');
-      for (const url of extractUrls(extname(path) === '.rs' ? text.replace(RUST_TEST_MODULE, '') : text)) {
+      for (const url of extractUrls(extname(path) === '.rs' ? stripRustTests(text) : text)) {
         if (!sources.has(url)) sources.set(url, []);
         sources.get(url).push(`${label}/${relative(directory, path).replaceAll('\\', '/')}`);
       }
@@ -359,6 +379,8 @@ async function readPdf(url) {
 // sometimes fails to start and a page sometimes times out once. A PDF that
 // errors joins the later rounds too, so the browser batches between them give
 // a dropped ATO connection minutes to recover.
+const retryPdf = (page) => page.error || page.status === 429 || page.status >= 500;
+
 export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) {
   const pages = new Map();
   const args = { selector: ['--selector', PAGE_SELECTOR], main: ['--main'] };
@@ -368,7 +390,7 @@ export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) 
   for (const url of todo) mode.set(url, /[.]js$/i.test(new URL(url).pathname) ? 'main' : 'selector');
   for (let round = 1; round <= 3 && (pdfs.length || todo.length); round++) {
     for (const url of pdfs) pages.set(url, await pdf(url));
-    pdfs = pdfs.filter((url) => pages.get(url).error);
+    pdfs = pdfs.filter((url) => retryPdf(pages.get(url)));
     for (const kind of Object.keys(args)) {
       const list = todo.filter((url) => mode.get(url) === kind);
       for (let start = 0; start < list.length; start += BATCH_SIZE) {
