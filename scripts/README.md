@@ -2,7 +2,8 @@
 
 `site-tools` is the site's build and check tooling: one Rust binary built from
 this crate, with the toolchain pinned in `rust-toolchain.toml`. It replaced the
-Python scripts that were here up to commit c8a8239. Each subcommand is named
+Python scripts here in commit 9dd6f45, which compared each tool with its script
+at commit c8a8239. Each subcommand is named
 after the script it replaced and keeps that script's flags, exit codes, output
 bytes and written files (CRLF line endings on Windows, as Python wrote them),
 except where listed under Differences below.
