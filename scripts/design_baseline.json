@@ -45,7 +45,7 @@
       "7621dde36a8c6e5b0f04cb6d575c0acaee9e938e59b8842642f76e88a759dcef"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "8995b481e95773931623cd13b129e2ebde83d94b103493e5a6523dd2b5e21b79"
+      "bd157ada3d4b6ec01b1a731bd092d2d55755efc87ed2a872550815c4ab33116b"
     ],
     "rates/car-limit/index.html": [
       "03bb4a2d328fffc0aeebc7ac2b761aa9fe1ac45b3ae03257efb1a31f6b2bbebe"
@@ -150,7 +150,7 @@
   "protected_files": {
     "llms.txt": "266cc460c2adc60444407eb6318c21dc795f76dd5bd64bccfe7cb27ed754c8d7",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
-    "sitemap.xml": "0816c596dd9e68bd6848e4d1ae6cdfa38f729530b9968c2bf625a220c690ff54"
+    "sitemap.xml": "0e61ddb359ef36e3e11eda7844095f2b186b4834ba554614f93cd6e4ab9ad689"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

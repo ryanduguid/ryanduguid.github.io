@@ -331,7 +331,7 @@ Supporting philanthropy: deductible gift recipients | Budget 2026-27 | Various |
 Better targeting the R&D Tax Incentive | Budget 2026-27 | 1 July 2028 | TBD
 Expanding venture capital incentives | Budget 2026-27 | 1 July 2027 | TBD
 Minimum tax on discretionary trusts | Budget 2026-27 | Various | TBD
-Loss refundability reforms for businesses and start-ups (beyond the carry-back) | Budget 2026-27 | 1 July 2028 | TBD
+Loss refundability for small start-up companies (beyond the carry-back) | Budget 2026-27 | 1 July 2028 | TBD
 Dynamic PAYG instalments | Budget 2026-27 | 1 July 2027 | TBD
 Law reform to tackle fraud against the tax system | Budget 2026-27 | Royal Assent | TBD
 OECD Crypto Asset Reporting Framework and domestic reporting | MYEFO 2025-26 | 1 January 2027 | TBD
@@ -429,7 +429,7 @@ Published 20 September 2026. ATO summary and reform provisions reviewed 22 Septe
 - Better targeting the R&D Tax Incentive: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-better-targeting-the-research-and-development-tax-incentive
 - Expanding venture capital incentives: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-expanding-venture-capital-incentives
 - Minimum tax on discretionary trusts: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-introducing-a-minimum-tax-on-discretionary-trusts
-- Loss refundability reforms for businesses and start-ups (beyond the carry-back): https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-loss-refundability-reforms-for-businesses-and-start-ups
+- Loss refundability for small start-up companies (beyond the carry-back): https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-loss-refundability-reforms-for-businesses-and-start-ups
 - Dynamic PAYG instalments: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/dynamic-pay-as-you-go-instalments-making-tax-simpler-for-businesses
 - Federal Register: https://www.legislation.gov.au/C2026A00086/latest/text
 - Negative gearing and CGT discount reform: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax
