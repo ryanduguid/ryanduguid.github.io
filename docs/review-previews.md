@@ -14,8 +14,8 @@ cargo run --locked --release --bin close-control -- review --current examples/cu
 
 Expected and observed: exit 2, REVIEW, 8 exceptions and 6 draft queries.
 The same command with `--output ./close-control-demo` exits 1 with an output
-error saying the directory is inside the version-control checkout, and creates
-nothing. The website carries the generated exceptions.csv with its CRLF line
+error saying the directory is inside the version-control checkout, and writes
+no review-pack file (Cargo still writes its build directory). The website carries the generated exceptions.csv with its CRLF line
 endings normalised to the repository's LF policy; the UTF-8 byte-order mark is
 retained. The previous capture, at ae88966fc416f6f2ad618652779c50d0e348949d
 with Python 3.15.0 on 17 October 2026, gave the 5 period-variance rows the
