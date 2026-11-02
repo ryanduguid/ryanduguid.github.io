@@ -85,7 +85,7 @@
       "https://pypi.org/project/monthly-close-control-plane/"
     ],
     "delivery": "Python",
-    "needs": "Git and Python 3.10 or later",
+    "needs": "Git and Rust 1.99.0",
     "boundary": "PASS applies to the configured checks. A human approves the close."
   },
   "ozzit": {
