@@ -38,14 +38,23 @@ test('sources include Rust data files', () => {
 
 test('sources skip generated output, tests and test files', () => {
   const root = mkdtempSync(join(tmpdir(), 'ato-sources-'));
-  for (const dir of ['rates', '_site', 'tests', 'scripts']) mkdirSync(join(root, dir));
+  for (const dir of ['rates', '_site', 'tests', 'scripts', 'examples', 'src']) mkdirSync(join(root, dir));
   writeFileSync(join(root, 'rates', 'index.html'), `<a href="${PAGE}">GIC</a>`);
   writeFileSync(join(root, '_site', 'index.html'), 'https://www.ato.gov.au/generated');
   writeFileSync(join(root, 'tests', 'fixture.json'), '"https://www.ato.gov.au/fixture"');
   writeFileSync(join(root, 'scripts', 'test_links.py'), '"https://www.ato.gov.au/test-file"');
+  writeFileSync(join(root, 'scripts', 'rates_tests.rs'), '"https://www.ato.gov.au/rust-tests"');
+  writeFileSync(join(root, 'examples', 'source_probe.rs'), '"https://www.ato.gov.au/probe"');
+  writeFileSync(join(root, 'src', 'compat_probe.rs'), `const PAGE: &str = "${PAGE}";\n`);
+  writeFileSync(join(root, 'scripts', 'transport.rs'), [
+    '#[cfg(test)]', 'mod open_tests {', '    fn a() { let _ = ("{", "https://www.ato.gov.au/a"); }', '}', '',
+    `const PAGE: &str = "${PAGE}";`, '',
+    '#[cfg(test)]', 'mod close_tests {', '    // }', '    fn b() { let _ = ("}", "https://www.ato.gov.au/b"); }', '}', '',
+  ].join('\r\n'));
   const sources = collectSources([root]);
   assert.deepEqual([...sources.keys()].filter((url) => !WATCHED.has(url)), [PAGE]);
-  assert.match(sources.get(PAGE)[0], /\/rates\/index\.html$/);
+  assert.deepEqual(sources.get(PAGE).map((path) => path.split('/').slice(-2).join('/')).sort(),
+    ['rates/index.html', 'scripts/transport.rs', 'src/compat_probe.rs']);
 });
 
 const LEVY = 'https://coallsl.com.au/employer/administer-lsl/levy';
@@ -288,6 +297,39 @@ test('readPages reads a failed page again, treats any .pdf as a PDF and reports 
   assert.deepEqual(pdfCalls, [lawPdf]);
   assert.equal(pages.get(flaky).status, 200);
   assert.equal(pages.get(broken).error, 'timed out');
+});
+
+test('readPages reads a failed PDF again after the browser batches and reports one that keeps failing', async () => {
+  const page = 'https://www.ato.gov.au/page';
+  const flaky = 'https://www.ato.gov.au/api/public/content/flaky';
+  const broken = 'https://www.ato.gov.au/api/public/content/broken';
+  const order = [];
+  const batch = (list) => { order.push('batch'); return new Map(list.map((url) => [url, { status: 200, text: url }])); };
+  const pdf = async (url) => {
+    order.push(url.split('/').pop());
+    return url === broken || order.length === 1 ? { error: 'PDF fetch failed: UND_ERR_RES_CONTENT_LENGTH_MISMATCH' } : { status: 200, text: `pdf ${url}` };
+  };
+  const pages = await readPages([page, flaky, broken], { batch, pdf });
+  assert.deepEqual(order, ['flaky', 'broken', 'batch', 'flaky', 'broken', 'broken']);
+  assert.equal(pages.get(flaky).text, `pdf ${flaky}`);
+  assert.match(pages.get(broken).error, /CONTENT_LENGTH_MISMATCH/);
+});
+
+test('readPages reads a PDF again after a 503 or 429 but not after a 404', async () => {
+  const busy = 'https://www.ato.gov.au/api/public/content/busy';
+  const limited = 'https://www.ato.gov.au/api/public/content/limited';
+  const gone = 'https://www.ato.gov.au/api/public/content/gone';
+  const calls = new Map();
+  const first = { busy: 503, limited: 429, gone: 404 };
+  const pdf = async (url) => {
+    const name = url.split('/').pop();
+    calls.set(name, (calls.get(name) ?? 0) + 1);
+    return calls.get(name) === 1 ? { status: first[name] } : { status: 200, text: `pdf ${name}` };
+  };
+  const pages = await readPages([busy, limited, gone], { batch: () => new Map(), pdf });
+  assert.deepEqual(Object.fromEntries(calls), { busy: 2, limited: 2, gone: 1 });
+  assert.equal(pages.get(busy).status, 200);
+  assert.equal(pages.get(gone).status, 404);
 });
 
 test('saveResults saves the report before it moves any baseline', () => {
