@@ -256,7 +256,7 @@ the hashes below. Advance the filename version in the context data, renderer,
 page metadata and contracts when changing published artwork. Messaging apps
 may retain a cached preview until they fetch the page again.
 
-Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: FSL-1.1-ALv2; renderer: Playwright 1.63.0, Chromium 153.0.8010.12, device scale 1. Refresh when the template, context copy, embedded fonts or pinned browser changes.
+Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: FSL-1.1-ALv2; renderer: Playwright 1.64.1, Chromium 156.0.8078.4 on Windows, device scale 1; a Linux render has identical pixels but different PNG bytes. Refresh when the template, context copy, embedded fonts or pinned browser changes.
 
 | Asset | SHA-256 |
 | --- | --- |
