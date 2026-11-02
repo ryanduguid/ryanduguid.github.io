@@ -23,16 +23,20 @@ On this page:
 - [Response headers](#response-headers)
 - [Published files](#published-files)
 - [Social-card provenance](#social-card-provenance)
+- [Favicon provenance](#favicon-provenance)
+- [About portrait provenance](#about-portrait-provenance)
 - [Credential documents](#credential-documents)
+- [Licence](#licence)
 
 ## Site structure
 
 - `/tools/` groups the tool register by Extract, Calculate, Control and Inspect.
 - `/works-with/` lists existing tools by software, starting with Xero and Claude, with setup requirements and read and write boundaries.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
-- `/rates/` holds maintained Australian rate tables with primary sources and review dates, and `/rates/register/` holds the versioned machine-readable register of those figures.
+- `/rates/` holds maintained Australian rate tables with primary sources and review dates, and `/rates/register/` holds a versioned machine-readable register, which so far carries one series, the Coal LSL levy percentage.
 - `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.
 - `/tools/business-calculators/` indexes 9 planning calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario has CSV export.
+- `/tools/ozzit/` documents the Ozzit Excel function library, with one page per module under `functions/`, rendered by `site-tools build_ozzit_reference` from the function reference of the release `scripts/release_record.json` names.
 - `assets/hub-routes.mjs` forwards an old `#q12` or `#cash` bookmark on either index to the page that now holds it.
 - `/feed.xml` is an Atom feed built from the changelog tables by `site-tools build_feed`.
 
@@ -40,7 +44,7 @@ The homepage is a short adoption path into those registers. The site is a person
 
 ## Local preview
 
-The pages share a Jekyll header and footer. Install Ruby 3.3, Bundler and Python 3.14 or newer,
+The pages share a Jekyll header and footer. Install Ruby 3.3, Bundler and Python 3.15 (pinned in `.python-version`),
 then install the locked build dependencies once:
 
 ```bash
@@ -220,7 +224,7 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. All 61 canonical pages
+GitHub Pages builds the repository with Jekyll. All 64 canonical pages
 include `_includes/site-header.html` and `_includes/site-footer.html`,
 directly or through a layout in `_layouts/`; the header sets the current page
 or section from each page's URL. The count is the number of URLs in
@@ -300,7 +304,7 @@ gets gentle local contrast, an edge boost for the eyes, brows and beard line,
 and a faint floor inside the silhouette so the dark suit still reads. Each cell
 of the 120-column grid then gets its own glyph: every candidate's ink is
 measured from the site's own Spline Sans Mono in the 0.6em by 1em cell the page
-draws, in three rows by two columns of zones, and the closest glyph wins, with
+draws, in 3 rows by 2 columns of zones, and the closest glyph wins, with
 a light ordered dither so large even areas do not form blocks. The glyphs are
 23 symbols and the space, none of which needs HTML escaping or can open a
 Liquid tag. Running it again on the same photo reproduces the same text.
