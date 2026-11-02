@@ -75,7 +75,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 
 ## Checks
 
-`.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule. A `lint` job first runs `ruff check .` and `mypy` over the remaining Python (pinned to `ruff==0.16.8` and `mypy==2.3.1`, configured in `pyproject.toml`) and `cargo fmt --check` and `cargo clippy` over the Rust site tools; the Rust tests also run on Windows. Then the site checks run:
+`.github/workflows/checks.yml` runs on every push to `main`, every pull request, a weekly schedule and on demand. A `lint` job first runs `ruff check .` and `mypy` over the remaining Python (pinned to `ruff==0.16.8` and `mypy==2.3.1`, configured in `pyproject.toml`) and `cargo fmt --check` and `cargo clippy` over the Rust site tools; the Rust tests also run on Windows. Then the site checks run:
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - the rates register's shape, provenance, ordering and checksums, run with `site-tools check_rates_register` and `cargo test --test rates`
@@ -256,7 +256,7 @@ the hashes below. Advance the filename version in the context data, renderer,
 page metadata and contracts when changing published artwork. Messaging apps
 may retain a cached preview until they fetch the page again.
 
-Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: FSL-1.1-ALv2; renderer: Playwright 1.63.0, Chromium 153.0.8010.12, device scale 1. Refresh when the template, context copy, embedded fonts or pinned browser changes.
+Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: FSL-1.1-ALv2; renderer: Playwright 1.64.1, Chromium 156.0.8078.4 on Windows, device scale 1; a Linux render has identical pixels but different PNG bytes. Refresh when the template, context copy, embedded fonts or pinned browser changes.
 
 | Asset | SHA-256 |
 | --- | --- |

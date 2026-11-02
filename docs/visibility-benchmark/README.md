@@ -1,7 +1,7 @@
 # Assistant visibility and accuracy benchmark
 
 A repeatable way to record what assistants say about this work, using the
-repository's own Python and no new service. It measures 2 separate things and
+repository's own `site-tools` and no new service. It measures 2 separate things and
 never blends them:
 
 - **Visibility.** Did an answer mention the site, and did it cite a page.
@@ -76,9 +76,8 @@ recorded through this tool yet.
 ## Adoption measures that already exist
 
 These need no new dependency and stay inside the current privacy policy, which
-records that the site sets no cookies of its own and that the browser security
-policy blocks the analytics script the delivery network injects. Nothing here
-tracks a visitor.
+records that the site sets no cookies of its own and that no analytics script is
+delivered. Nothing here tracks a visitor.
 
 | Measure | Where it comes from | What it cannot tell you |
 | --- | --- | --- |

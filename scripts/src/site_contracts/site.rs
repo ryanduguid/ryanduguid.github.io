@@ -1626,7 +1626,7 @@ pub fn check_social_cards_for(root: &Path, homepage_heading: &str) -> Result<Vec
         "assets/social-card-template.svg",
         "assets/social-cards.json",
         "FSL-1.1-ALv2",
-        "Playwright 1.63.0",
+        "Playwright 1.64.1",
         "Chromium",
         "device scale 1",
         "Refresh when",
