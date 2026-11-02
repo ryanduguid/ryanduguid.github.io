@@ -1,7 +1,7 @@
 # Assistant visibility and accuracy benchmark
 
 A repeatable way to record what assistants say about this work, using the
-repository's own Python and no new service. It measures two separate things and
+repository's own Python and no new service. It measures 2 separate things and
 never blends them:
 
 - **Visibility.** Did an answer mention the site, and did it cite a page.
@@ -30,7 +30,7 @@ does not exist is a failure, not a quiet pass, and `--template`, `--check` and
 The template does not validate on its own, by design. It needs a recorder, and any
 observation you mark `complete` needs the evidence the validator requires. Leave the
 prompts you did not run as `not_run` or `blocked` with a reason: they need no result
-fields, they stay out of every denominator, and they report under the same system as
+fields, they stay out of every denominator and they report under the same system as
 the completed answers in the same file.
 
 A summary validates the files it was given before counting anything. If any selected
@@ -56,7 +56,7 @@ do so. Those remain the recorder's responsibility.
 - A mention is not a citation. An assistant can describe the work without linking
   it, and that is recorded separately.
 - A citation is not a ranking, and a search result page is not an assistant's
-  answer. Never report the two together.
+  answer. Never report the 2 together.
 - One response is one observation. Assistants vary between runs, so repeat a
   prompt across rounds before reading a trend.
 - Branded prompts, which name Ryan Duguid or a product, are summarised apart from
@@ -94,6 +94,6 @@ site's privacy position for no measurement worth having. Do not do it.
 
 Record the run, not the conclusion you wanted. If a system cannot be reached, say
 so and leave the cell empty. Do not average across systems, do not compare a
-branded count with a non-branded one, and do not describe any change in these
+branded count with a non-branded one and do not describe any change in these
 numbers as an effect of a site change unless something else rules out the
 alternatives.

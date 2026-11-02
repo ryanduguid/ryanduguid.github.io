@@ -142,7 +142,7 @@ Failure screenshots, traces and the HTML report stay in the ignored `work/`
 directory.
 
 Run 3-pass Lighthouse medians for the homepage, Tools, Evidence, the profit
-versus cash flow example, Coal LSL calculator, accounting question hub, and
+versus cash flow example, Coal LSL calculator, accounting question hub and
 business calculators:
 
 ```bash
@@ -190,7 +190,7 @@ Obfuscation is disabled so `mailto:` links work without scripts. Keep it off:
 the production check requires those links to arrive intact. Rocket Loader must
 be off as well: it re-types every script tag and runs the page through
 Cloudflare's loader instead of the markup the browser and Lighthouse checks
-test, and the production check fails while it is on.
+test, and the production check fails whilst it is on.
 `node scripts/check_production.mjs` fetches the live pages and
 fails when a documented header or redirect is missing, a `mailto:` link no
 longer arrives intact or Rocket Loader rewrites the scripts; it runs weekly from `source-freshness.yml`.
@@ -322,13 +322,13 @@ individual Level 3 badge taken from it, which the evidence register publishes at
 [`/evidence/#xero-certification`](https://duguid.com.au/evidence/#xero-certification).
 [`assets/credentials/SOURCES.md`](assets/credentials/SOURCES.md) records both
 files' hashes, how the badge is rebuilt from the certificate with
-`site-tools extract_xero_badge`, the usage limits carried into the page,
+`site-tools extract_xero_badge`, the usage limits carried into the page
 and the 4 places to update on renewal. No Xero partner badge is published; that
 note records what evidence a Payroll or Migration badge would need first.
 
 ## Licence
 
-Licensed under the Functional Source License, Version 1.1, ALv2 Future License (FSL-1.1-ALv2). You may use, modify and redistribute it for any purpose except a Competing Use as defined in LICENSE (making it available to others in a competing commercial product or service), and each version becomes available under Apache-2.0 two years after it is made available. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The licence covers this repository's own code, text and data. If you redistribute or adapt that material, keep the copyright notices in [NOTICE](NOTICE). The Privacy page states the same grant for readers, and every page's own page node in its JSON-LD carries it as `license`; software listings keep their own package licences.
+Licensed under the Functional Source License, Version 1.1, ALv2 Future License (FSL-1.1-ALv2). You may use, modify and redistribute it for any purpose except a Competing Use as defined in LICENSE (making it available to others in a competing commercial product or service), and each version becomes available under Apache-2.0 2 years after it is made available. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The licence covers this repository's own code, text and data. If you redistribute or adapt that material, keep the copyright notices in [NOTICE](NOTICE). The Privacy page states the same grant for readers, and every page's own page node in its JSON-LD carries it as `license`; software listings keep their own package licences.
 
 The FSL-1.1-ALv2 grant does not extend to third-party material published here. The Besley,
 Public Sans and Spline Sans Mono subsets under `assets/fonts/` keep the SIL
