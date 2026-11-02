@@ -46,7 +46,11 @@ test('sources skip generated output, tests and test files', () => {
   writeFileSync(join(root, 'scripts', 'rates_tests.rs'), '"https://www.ato.gov.au/rust-tests"');
   writeFileSync(join(root, 'examples', 'source_probe.rs'), '"https://www.ato.gov.au/probe"');
   writeFileSync(join(root, 'src', 'compat_probe.rs'), `const PAGE: &str = "${PAGE}";\n`);
-  writeFileSync(join(root, 'scripts', 'transport.rs'), `#[cfg(test)]\nmod http_tests {\n    fn a() { let _ = "https://www.ato.gov.au/a"; }\n}\n\nconst PAGE: &str = "${PAGE}";\n`);
+  writeFileSync(join(root, 'scripts', 'transport.rs'), [
+    '#[cfg(test)]', 'mod open_tests {', '    fn a() { let _ = ("{", "https://www.ato.gov.au/a"); }', '}', '',
+    `const PAGE: &str = "${PAGE}";`, '',
+    '#[cfg(test)]', 'mod close_tests {', '    // }', '    fn b() { let _ = ("}", "https://www.ato.gov.au/b"); }', '}', '',
+  ].join('\r\n'));
   const sources = collectSources([root]);
   assert.deepEqual([...sources.keys()].filter((url) => !WATCHED.has(url)), [PAGE]);
   assert.deepEqual(sources.get(PAGE).map((path) => path.split('/').slice(-2).join('/')).sort(),

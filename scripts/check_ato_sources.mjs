@@ -60,28 +60,12 @@ const TEXT_EXTENSIONS = new Set(['.html', '.md', '.py', '.rs', '.json', '.mjs', 
 // Rust keeps tests in *_tests.rs or *_test.rs and offline fixtures in examples/*_probe.rs.
 const TEST_FILE = /(?:^test_)|\.test\.|\.spec\.|_tests?\.rs$/;
 const EXAMPLE_PROBE = /_probe\.rs$/;
-const RUST_TEST_MODULE = /^#\[cfg\(test\)\]\s*mod \w+ \{/gm;
-
-// Drops each inline Rust test module up to its matching brace.
-// shortcut: braces are counted without parsing strings or comments, so an
-// unbalanced brace inside a test literal moves the cut; one never closed runs to
-// the end of the file.
-function stripRustTests(text) {
-  let kept = '';
-  let from = 0;
-  for (const match of text.matchAll(RUST_TEST_MODULE)) {
-    if (match.index < from) continue;
-    let depth = 0;
-    let end = match.index + match[0].length - 1;
-    for (; end < text.length; end++) {
-      if (text[end] === '{') depth++;
-      else if (text[end] === '}' && --depth === 0) break;
-    }
-    kept += text.slice(from, match.index);
-    from = end + 1;
-  }
-  return kept + text.slice(from);
-}
+// An inline test module at the top level, up to its closing brace. rustfmt
+// indents everything inside it, so its closing brace is the first line after it
+// that starts with `}`; braces in strings and comments sit on indented lines.
+// shortcut: a multi-line literal with a line starting `}` ends the cut early,
+// which only leaves fixture addresses in.
+const RUST_TEST_MODULE = /^#\[cfg\(test\)\]\s*mod \w+ \{$[\s\S]*?^\}/gm;
 const ATO_URL = /https:\/\/www\.ato\.gov\.au\/[^\s"'<>()[\]`\\|,]*/g;
 
 // Pages outside the ATO behind values their publishers revise: the NSW budget
@@ -133,7 +117,7 @@ export function collectSources(directories) {
     const label = basename(resolve(directory));
     for (const path of textFiles(directory)) {
       const text = readFileSync(path, 'utf8');
-      for (const url of extractUrls(extname(path) === '.rs' ? stripRustTests(text) : text)) {
+      for (const url of extractUrls(extname(path) === '.rs' ? text.replace(RUST_TEST_MODULE, '') : text)) {
         if (!sources.has(url)) sources.set(url, []);
         sources.get(url).push(`${label}/${relative(directory, path).replaceAll('\\', '/')}`);
       }
