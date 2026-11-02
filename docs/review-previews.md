@@ -1,21 +1,31 @@
 # Review preview provenance
 
-Captured on 17 October 2026 using Python 3.15.0 and the unchanged fictional
-fixtures in accounting-review-pipeline. No client records or live APIs were used.
-The website's existing example versions remain fixed.
+Both captures use the unchanged fictional fixtures in
+accounting-review-pipeline. No client records or live APIs were used.
 
-Monthly Close Controls source: ae88966fc416f6f2ad618652779c50d0e348949d,
-packages/monthly-close-control-plane. From that directory:
+Monthly Close Controls source: 1ce98d50f1c81d9f9873d47986a33a42f40f4e96,
+packages/monthly-close-control-plane, the unreleased native 1.0.0 source.
+Captured on 2 November 2026 on Linux with Rust 1.99.0, which that directory's
+rust-toolchain.toml selects. From that directory:
 
 ```text
-python -m closecontrol.cli review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output <directory outside version control>
+cargo run --locked --release --bin close-control -- review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output <directory outside version control>
 ```
 
 Expected and observed: exit 2, REVIEW, 8 exceptions and 6 draft queries.
-The website carries the generated exceptions.csv unchanged.
+The same command with `--output ./close-control-demo` exits 1 with an output
+error saying the directory is inside the version-control checkout, and writes
+no review-pack file (Cargo still writes its build directory). The website carries the generated exceptions.csv with its CRLF line
+endings normalised to the repository's LF policy; the UTF-8 byte-order mark is
+retained. The previous capture, at ae88966fc416f6f2ad618652779c50d0e348949d
+with Python 3.15.0 on 17 October 2026, gave the 5 period-variance rows the
+reason 'YTD net balance moved beyond both configured materiality thresholds.';
+the native command writes 'YTD net balance movement met or exceeded both
+configured materiality thresholds.' Every other cell is unchanged.
 
 Workpaper Review Gate source: tag review-ready-gate/v0.1.3, commit
-2de565b3ce3916afe718b2b895d5474930030aee, packages/review-ready-gate:
+2de565b3ce3916afe718b2b895d5474930030aee, packages/review-ready-gate,
+captured on 17 October 2026 using Python 3.15.0:
 
 ```text
 python -m reviewready.cli gate --profile bas --pack examples/bas-not-ready --output <directory outside version control>

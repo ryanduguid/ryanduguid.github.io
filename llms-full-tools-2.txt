@@ -659,9 +659,9 @@ Source: https://duguid.com.au/tools/monthly-close-controls/
 
 Package monthly-close-control-plane in the accounting-review-pipeline repository. Current release v0.2.0.
 
-Current release monthly-close-control-plane v0.2.0 (5 October 2026). The worked example below is pinned to source commit ae88966. Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.
+Current release monthly-close-control-plane v0.2.0 (5 October 2026). The worked example below runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5. Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.
 
-Current release v0.2.0 (5 October 2026). Last reviewed 21 October 2026.
+Current release v0.2.0 (5 October 2026). Last reviewed 2 November 2026.
 
 Delivery
 
@@ -669,7 +669,7 @@ Python
 
 Needs
 
-Git and Python 3.10 or later
+Git and Rust 1.99.0
 
 Boundary
 
@@ -677,9 +677,9 @@ PASS applies to the configured checks. A human approves the close.
 
 Inspect the eight exceptions Run the example
 
-Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Python.
+Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Rust.
 
-Published 11 September 2026. Last reviewed 21 October 2026.
+Published 11 September 2026. Last reviewed 2 November 2026.
 
 ## Worked example: balanced trial balance, unfinished review
 
@@ -694,7 +694,7 @@ current_trial_balance.csv | YTDCredit | 65000.00
 subledger_balances.csv | SubledgerBalance | -64750.00
 exceptions.csv | difference | -250.00
 
-The engine compares -65000.00 with -64750.00 and writes subledger_reconciliation,REVIEW. Download the generated exceptions.csv with all 8 exceptions, or inspect the complete fictional input files at the same commit. Reproduced on 17 October 2026.
+The engine compares -65000.00 with -64750.00 and writes subledger_reconciliation,REVIEW. Download the generated exceptions.csv with all 8 exceptions, or inspect the complete fictional input files at the same commit. Reproduced on 2 November 2026.
 
 Exception | Result | Reviewer action
 Creditors reconciliation | Trial balance less supplied subledger: −$250. | Trace the reconciling items and document their cause.
@@ -727,20 +727,20 @@ PASS means the configured checks passed on the supplied files. REVIEW or BLOCKED
 
 ## Run the example
 
-Needs Git and Python 3.10 or later. The pinned source command uses Python’s standard library. It needs no Xero account, API access or client files.
+Needs Git and Rust installed with rustup. The component pins Rust 1.99.0 in rust-toolchain.toml, which rustup uses in that directory. The first build downloads the crates locked in Cargo.lock. It needs no Xero account, API access or client files.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
 cd accounting-review-pipeline
-git checkout ae88966fc416f6f2ad618652779c50d0e348949d
+git checkout 1ce98d50f1c81d9f9873d47986a33a42f40f4e96
 cd packages/monthly-close-control-plane
 ```
 
 ```
-python -m closecontrol.cli review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ../../../close-control-demo
+cargo run --locked --release --bin close-control -- review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ../../../close-control-demo
 ```
 
-Expect exit code 2 and REVIEW; 8 exception(s); 6 client query(ies) drafted. The output directory is beside the checkout. Keep review packs outside version control; the command refuses an output directory inside a checkout.
+After Cargo’s build messages, expect exit code 2 and close-control: REVIEW; 8 exception(s); 6 client query(ies) drafted, followed by the absolute path of each of the 4 pack files. The output directory is beside the checkout. Keep review packs outside version control; the command refuses an output directory inside a checkout.
 
 Source on GitHub
 
@@ -748,13 +748,13 @@ Software issue using fictional data? Open an issue.
 
 ## Reproduce a refusal: output inside the checkout
 
-From the same component directory at source commit ae88966, repeat the fictional example with only --output changed to ./close-control-demo:
+From the same component directory at source commit 1ce98d5, repeat the fictional example with only --output changed to ./close-control-demo:
 
 ```
-python -m closecontrol.cli review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ./close-control-demo
+cargo run --locked --release --bin close-control -- review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ./close-control-demo
 ```
 
-Expect exit code 1 and an output error saying the directory is inside the version-control checkout. The command creates no pack. This guard runs before reading the input files, because review packs can contain client accounts and balances.
+Expect exit code 1 and an output error saying the directory is inside the version-control checkout and naming that checkout. The command creates no pack. This guard runs before reading the input files, because review packs can contain client accounts and balances.
 
 Use a new access-controlled directory outside version control for an actual review. The example proves this output-path refusal; it does not test every malformed input or establish that a close is acceptable.
 
@@ -795,10 +795,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Inspect the eight exceptions: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Download the generated exceptions.csv: https://duguid.com.au/assets/examples/monthly-close/exceptions.csv
-- complete fictional input files at the same commit: https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/examples
-- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
+- complete fictional input files at the same commit: https://github.com/ryanduguid/accounting-review-pipeline/tree/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/examples
+- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
-- pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md
+- pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/README.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
 - What Monthly Close Controls refuses: https://duguid.com.au/tools/refusals/#monthly-close-controls
