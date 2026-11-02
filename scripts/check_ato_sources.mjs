@@ -57,8 +57,8 @@ const MAX_DIFF_LINES = 40;
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', '_site', 'graft', 'tests', '.venv', 'venv', 'dist', 'vendor']);
 const TEXT_EXTENSIONS = new Set(['.html', '.md', '.py', '.rs', '.json', '.mjs', '.js', '.txt', '.yml', '.yaml', '.csv', '.toml']);
-// Rust keeps tests in *_tests.rs or *_test.rs and offline fixtures in examples/*_probe.rs.
-const TEST_FILE = /(?:^test_)|(?:\.test\.)|(?:\.spec\.)|(?:_tests?\.rs$)/;
+// Rust keeps tests in tests.rs, *_tests.rs or *_test.rs and offline fixtures in examples/*_probe.rs.
+const TEST_FILE = /(?:^test_)|(?:\.test\.)|(?:\.spec\.)|(?:_tests?\.rs$)|(?:^tests\.rs$)/;
 const EXAMPLE_PROBE = /_probe\.rs$/;
 // An inline test module at the top level, up to its closing brace. rustfmt
 // indents everything inside it, so its closing brace is the first line after it
