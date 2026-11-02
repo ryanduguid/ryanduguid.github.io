@@ -1286,7 +1286,7 @@ Link to question 7
 
 ### How long will the tax return process take?
 
-Most returns lodged online are processed within 10 business days. For a paper return, most refunds are issued within 50 business days. Separate your preparation time from the ATO’s processing time. Missing records, amendments and reviews can extend the overall process.
+The ATO says most returns lodged online are processed within 10 business days, though its How to lodge your tax return page still says 12 for myTax. For a paper return, most refunds are issued within 50 business days. Separate your preparation time from the ATO’s processing time. Missing records, amendments and reviews can extend the overall process.
 
 - Complete the record checklist before setting a preparation deadline.
 - After lodgement, use the official progress service and respond to any information request.
