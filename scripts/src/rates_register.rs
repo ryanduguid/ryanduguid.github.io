@@ -6,7 +6,8 @@
 //! `verified_at` is neither in the future nor before `period_start`; a superseded row is
 //! named by exactly one replacement; register.json lists every series file once;
 //! SHA256SUMS covers every file and matches LF bytes on disk; professional review names a
-//! person.
+//! person. Beside the register, every row of each rate CSV under `rates/` names an https
+//! `source_url` on a primary host and a `checked_at` date that is not in the future.
 use crate::py::{self, Date};
 use crate::pyformat::py_str;
 use crate::pyjson::{self, Json};
@@ -788,21 +789,102 @@ pub fn check_register(register: &Path, today: Option<Date>) -> Result<Vec<String
     Ok(failures)
 }
 
+/// The rate CSVs, `rates/<table>/<name>.csv`, sorted, with a failure for each table
+/// directory that holds none. The announced measures record a status rather than a rate
+/// and carry their own `checked_at` and source columns; `register` holds no CSV.
+fn rate_tables(rates: &Path, failures: &mut Vec<String>) -> Result<Vec<PathBuf>> {
+    // Directory and metadata errors name their path; `metadata` follows a link, so a
+    // linked table is read and a dangling one is an error rather than a skipped file.
+    let at = |path: &Path| {
+        let shown = path.to_string_lossy().into_owned();
+        move |e: std::io::Error| py::oserror_str(&e, &shown, py::OsStyle::Native)
+    };
+    let mut tables = Vec::new();
+    for entry in std::fs::read_dir(rates).map_err(at(rates))? {
+        let directory = entry.map_err(at(rates))?.path();
+        let name = directory.file_name().unwrap_or_default().to_string_lossy();
+        if name == "announced-not-yet-law"
+            || name == "register"
+            || !std::fs::metadata(&directory)
+                .map_err(at(&directory))?
+                .is_dir()
+        {
+            continue;
+        }
+        let before = tables.len();
+        for file in std::fs::read_dir(&directory).map_err(at(&directory))? {
+            let path = file.map_err(at(&directory))?.path();
+            if path
+                .file_name()
+                .is_some_and(|n| crate::glob_suffix(&n.to_string_lossy(), ".csv"))
+                && std::fs::metadata(&path).map_err(at(&path))?.is_file()
+            {
+                tables.push(path);
+            }
+        }
+        if tables.len() == before {
+            failures.push(format!("{name}: no rate CSV"));
+        }
+    }
+    tables.sort();
+    Ok(tables)
+}
+
+/// Every failure in the rate CSVs under `rates`: each table has a row, and each row names
+/// an https `source_url` on a primary host and a real `checked_at` date that is not after
+/// `today`. An unreadable directory is an error, not a pass.
+pub fn check_tables(rates: &Path, today: Date) -> Result<Vec<String>> {
+    let mut failures = Vec::new();
+    for path in rate_tables(rates, &mut failures)? {
+        let name = posix_rel(&path, rates);
+        let rows = crate::pycsv::dict_reader(&crate::read(&path)?)?;
+        if rows.is_empty() {
+            failures.push(format!("{name}: no rows"));
+        }
+        for (index, row) in rows.iter().enumerate() {
+            let at = format!("{name} row {}", index + 1);
+            let get = |key: &str| {
+                row.iter()
+                    .find(|(k, _)| k == key)
+                    .and_then(|(_, v)| v.clone())
+                    .map(Json::Str)
+            };
+            let url = get("source_url");
+            https_host(
+                url.as_ref(),
+                &format!("{at} source_url"),
+                &mut failures,
+                true,
+            )?;
+            let checked = get("checked_at");
+            let at = format!("{at} checked_at");
+            if date(checked.as_ref(), &at, &mut failures).is_some_and(|d| d > today) {
+                failures.push(format!("{at}: {} is in the future", repr(checked.as_ref())));
+            }
+        }
+    }
+    Ok(failures)
+}
+
 /// The register directory as Python names it: `ROOT / "rates" / "register"`.
 pub fn register_dir(root: &Path) -> PathBuf {
     py::resolve(root).join("rates").join("register")
 }
 
 pub fn run(root: &Path) -> Result<u8> {
-    let failures = check_register(&register_dir(root), None)?;
+    let register = check_register(&register_dir(root), None)?;
+    let tables = check_tables(&py::resolve(root).join("rates"), today())?;
     let say = |text: &str| crate::print_text(text, false).map_err(|e| e.to_string());
-    for failure in &failures {
+    for failure in &register {
         say(&format!("rates register: {failure}\n"))?;
     }
-    if !failures.is_empty() {
+    for failure in &tables {
+        say(&format!("rate tables: {failure}\n"))?;
+    }
+    if !register.is_empty() || !tables.is_empty() {
         return Ok(1);
     }
-    say("rates register: checks passed\n")?;
+    say("rates register and rate tables: checks passed\n")?;
     Ok(0)
 }
 

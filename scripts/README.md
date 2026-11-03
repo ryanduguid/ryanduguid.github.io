@@ -27,7 +27,7 @@ directory holding `_config.yml` or `scripts/`, or `SITE_ROOT` when set.
 | `check_design [--update-baseline]` | the design contract and shipped assets |
 | `check_links [--offline]` | links and content in every page |
 | `check_publication --repository R --commit C [--wait-seconds N]` | the deployment gate |
-| `check_rates_register` | the rates register |
+| `check_rates_register` | the rates register, and each rate CSV row's source and check date |
 | `check_seo` | metadata, structured data (against the pinned schema.org vocabulary in `schemaorg/`), sitemap and site contracts |
 | `check_site [--offline] [--ci] [--ci-metadata-only]` | every check, in order |
 | `encode_cash_chart_webp` | the lossless WebP copies of the cash chart PNGs |

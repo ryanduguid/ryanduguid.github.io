@@ -19,7 +19,7 @@ Income year | Rate (cents per km) | Set by
 
 Earlier years were set the same way, each determination repealing the one before it. The 2024 determination repealed the 2023 determination, and the 2026 determination repealed the 2024 one. Rates for those earlier years are not listed here because they were not read from the instruments themselves.
 
-Download the table as CSV. Cite as Duguid, R. (2026). Cents per kilometre car deduction rate by year [Data set]. https://duguid.com.au/rates/cents-per-kilometre/. 91 cents is for 2026-27 only; it does not carry forward the way 88 cents did.
+Download the table as CSV. Each row of the CSV gives the determination that sets its rate (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Cents per kilometre car deduction rate by year [Data set]. https://duguid.com.au/rates/cents-per-kilometre/. 91 cents is for 2026-27 only; it does not carry forward the way 88 cents did.
 
 ## Why 2025-26 did not move, and why 2026-27 is different
 
@@ -73,7 +73,7 @@ General reference only, not tax, legal or financial advice, and using it creates
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 24 September 2026.
+Published 24 August 2026. Last reviewed 3 November 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 

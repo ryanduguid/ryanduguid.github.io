@@ -78,7 +78,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 `.github/workflows/checks.yml` runs on every push to `main`, every pull request, a weekly schedule and on demand. A `lint` job first runs `ruff check .` and `mypy` over the remaining Python (pinned to `ruff==0.16.8` and `mypy==2.3.1`, configured in `pyproject.toml`) and `cargo fmt --check` and `cargo clippy` over the Rust site tools; the Rust tests also run on Windows. Then the site checks run:
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
-- the rates register's shape, provenance, ordering and checksums, run with `site-tools check_rates_register` and `cargo test --test rates`
+- the rates register's shape, provenance, ordering and checksums, and a primary `source_url` and a `checked_at` date on every row of the rate CSVs, run with `site-tools check_rates_register` and `cargo test --test rates`
 - the business planning arithmetic, run with `node --test scripts/business-calculators.test.mjs`
 - every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `site-tools check_agent_files` and `cargo test --test agent_files`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)

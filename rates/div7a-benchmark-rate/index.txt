@@ -26,7 +26,7 @@ Income year | Benchmark rate
 
 The table starts at 2019-20 and covers companies with a 30 June year end. Confirm the figure against the ATO table for the year you are relying on. For a substituted accounting period, use the last relevant Reserve Bank rate published before that period starts; these table values may not apply.
 
-Download the table as CSV. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. For a 30 June year end, the rate is the May Reserve Bank figure, not the June one.
+Download the table as CSV. Each row of the CSV gives the Reserve Bank F5 data its rate is derived from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. For a 30 June year end, the rate is the May Reserve Bank figure, not the June one.
 
 ## How to work it out yourself
 
@@ -74,7 +74,7 @@ General reference only, not tax, legal or financial advice, and using it creates
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 22 September 2026.
+Published 24 August 2026. Last reviewed 3 November 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 

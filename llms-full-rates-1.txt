@@ -18,9 +18,9 @@ Seven maintained Australian reference tables with the current value, source-revi
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page’s editorial check.
 
-Last reviewed 17 October 2026.
+Last reviewed 3 November 2026.
 
-Each rate page keeps its own source verification date. The Excel instructions below do not renew those checks.
+Each rate page keeps its own source verification date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
 Use these tables in Excel
 
@@ -37,13 +37,15 @@ let
         {"period_start", type date},
         {"period_end", type date},
         {"general_sg_rate_percent", type number},
-        {"notes", type text}
+        {"notes", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
 ```
 
-Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained.
+Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained. The source_url and checked_at columns were added on 3 November 2026 and have not been loaded in Excel since.
 
 This imports the full SG history. A rate of 12.00 means 12%; divide by 100 if a formula needs a fraction. A blank end date remains blank. Select the period that applies to your work; the latest row does not apply to every year.
 
@@ -64,7 +66,9 @@ let
         {"income_year", type text},
         {"benchmark_rate_percent", type number},
         {"rba_series_month", type text},
-        {"notes", type text}
+        {"notes", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -84,7 +88,9 @@ let
         {"cents_per_km", Int64.Type},
         {"instrument", type text},
         {"register_id", type text},
-        {"scope", type text}
+        {"scope", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -104,7 +110,9 @@ let
         {"basis", type text},
         {"maximum_contribution_base", type number},
         {"maximum_sg_per_period", type number},
-        {"notes", type text}
+        {"notes", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -122,7 +130,9 @@ let
     Rates = Table.TransformColumnTypes(Headers, {
         {"income_year", type text},
         {"car_limit", Int64.Type},
-        {"source", type text}
+        {"source", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -142,7 +152,9 @@ let
         {"fbt_rate_percent", type number},
         {"type_1_gross_up", type number},
         {"type_2_gross_up", type number},
-        {"source", type text}
+        {"source", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -174,7 +186,7 @@ in
     Measures
 ```
 
-Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors.
+Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The source_url and checked_at columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads.
 
 Follow updates with the Atom feed. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.
 
@@ -476,7 +488,7 @@ For periods before 2002-03, see former sections 20 and 21 of the Superannuation 
 
 These are the general rates. Norfolk Island has a separate transitional rate that has been stepping up since 1 July 2016 and reaches 12% on 1 July 2027; the ATO publishes it in a second column of the same table.
 
-Download the table as CSV. Cite as Duguid, R. (2026). Super guarantee rate history (2002-03 to today) [Data set]. https://duguid.com.au/rates/super-guarantee/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Super guarantee rate history (2002-03 to today) [Data set]. https://duguid.com.au/rates/super-guarantee/. Verify against current ATO guidance before relying on a figure.
 
 ## Common questions
 
@@ -511,7 +523,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Staff cost calculator
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 3 November 2026.
 
 ## Links
 
@@ -559,7 +571,7 @@ Income year | Benchmark rate
 
 The table starts at 2019-20 and covers companies with a 30 June year end. Confirm the figure against the ATO table for the year you are relying on. For a substituted accounting period, use the last relevant Reserve Bank rate published before that period starts; these table values may not apply.
 
-Download the table as CSV. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. For a 30 June year end, the rate is the May Reserve Bank figure, not the June one.
+Download the table as CSV. Each row of the CSV gives the Reserve Bank F5 data its rate is derived from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. For a 30 June year end, the rate is the May Reserve Bank figure, not the June one.
 
 ## How to work it out yourself
 
@@ -607,7 +619,7 @@ General reference only, not tax, legal or financial advice, and using it creates
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 22 September 2026.
+Published 24 August 2026. Last reviewed 3 November 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -646,7 +658,7 @@ Income year | Rate (cents per km) | Set by
 
 Earlier years were set the same way, each determination repealing the one before it. The 2024 determination repealed the 2023 determination, and the 2026 determination repealed the 2024 one. Rates for those earlier years are not listed here because they were not read from the instruments themselves.
 
-Download the table as CSV. Cite as Duguid, R. (2026). Cents per kilometre car deduction rate by year [Data set]. https://duguid.com.au/rates/cents-per-kilometre/. 91 cents is for 2026-27 only; it does not carry forward the way 88 cents did.
+Download the table as CSV. Each row of the CSV gives the determination that sets its rate (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Cents per kilometre car deduction rate by year [Data set]. https://duguid.com.au/rates/cents-per-kilometre/. 91 cents is for 2026-27 only; it does not carry forward the way 88 cents did.
 
 ## Why 2025-26 did not move, and why 2026-27 is different
 
@@ -700,7 +712,7 @@ General reference only, not tax, legal or financial advice, and using it creates
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 24 September 2026.
+Published 24 August 2026. Last reviewed 3 November 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -749,7 +761,7 @@ Income year | Base per quarter | Maximum SG per quarter
 
 The base is indexed to average weekly ordinary time earnings. Earlier years are on the ATO page and are not listed here because they were not read from it.
 
-Download the table as CSV. Cite as Duguid, R. (2026). Maximum super contribution base by year [Data set]. https://duguid.com.au/rates/maximum-contribution-base/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Maximum super contribution base by year [Data set]. https://duguid.com.au/rates/maximum-contribution-base/. Verify against current ATO guidance before relying on a figure.
 
 ## Common questions
 
@@ -781,7 +793,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Division 7A benchmark interest rate
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 24 September 2026.
+Published 20 September 2026. Last reviewed 3 November 2026.
 
 ## Links
 
@@ -823,7 +835,7 @@ Income year | Car limit | Read from
 
 The limit applies in the income year the car is first used or leased. Before applying it, reduce the car’s cost by any GST credit you are entitled to claim. GST you cannot claim stays in the cost, including all GST if you are not registered. The ATO no longer publishes an annual determination for the limit; the figure is indexed and announced on its website each June.
 
-Download the table as CSV. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
 
 ## GST credit and luxury car tax
 
@@ -859,7 +871,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Division 7A benchmark interest rate
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 22 September 2026.
+Published 20 September 2026. Last reviewed 3 November 2026.
 
 ## Links
 
@@ -906,7 +918,7 @@ FBT year ending | FBT rate | Type 1 gross-up | Type 2 gross-up
 
 Type 1 applies where the provider is entitled to a GST credit for providing the benefit; Type 2 applies where it is not. Reportable fringe benefits on an employee’s income statement are always grossed up at the Type 2 rate. For the years ending 31 March 2023 to 2027 the reporting threshold is a taxable value above $2,000, a grossed-up minimum of $3,773.
 
-Download the table as CSV. Cite as Duguid, R. (2026). FBT rate and gross-up rates by FBT year [Data set]. https://duguid.com.au/rates/fbt-rate/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). FBT rate and gross-up rates by FBT year [Data set]. https://duguid.com.au/rates/fbt-rate/. Verify against current ATO guidance before relying on a figure.
 
 ## How the rate and the gross-up fit together
 
@@ -942,7 +954,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Payroll and super questions
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 22 September 2026. This review corrects the rate-setting Act citation. The historical table was verified on 20 September 2026.
+Published 20 September 2026. Last reviewed 3 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
 
 ## Links
 

@@ -4,7 +4,7 @@ mod common;
 
 use site_tools::py::Date;
 use site_tools::pyjson::{self, Dump, Json};
-use site_tools::rates_register::{check_register, today};
+use site_tools::rates_register::{check_register, check_tables, today};
 use std::path::{Path, PathBuf};
 
 fn committed() -> PathBuf {
@@ -402,4 +402,131 @@ fn an_unvalidated_series_in_a_subdirectory_is_refused() {
     std::fs::copy(register.series(), nested.join("made-up.json")).unwrap();
     register.resum();
     assert!(any(&register.check(), "does not match the files"));
+}
+
+/// A rate table with one row, as `rates/car-limit/car-limit.csv` in a private copy.
+fn table_failures(header: &str, row: &str) -> Vec<String> {
+    let rates = tempfile::tempdir().unwrap();
+    std::fs::create_dir(rates.path().join("car-limit")).unwrap();
+    std::fs::write(
+        rates.path().join("car-limit/car-limit.csv"),
+        format!("{header}\n{row}\n"),
+    )
+    .unwrap();
+    let today = Date::fromisoformat("2026-11-03").unwrap();
+    check_tables(rates.path(), today).unwrap()
+}
+
+#[test]
+fn committed_rate_tables_name_a_source_and_check_date() {
+    let rates = Path::new(env!("CARGO_MANIFEST_DIR")).join("../rates");
+    assert_eq!(check_tables(&rates, today()).unwrap(), Vec::<String>::new());
+}
+
+#[test]
+fn a_rate_row_without_a_source_or_check_date_is_refused() {
+    let header = "income_year,car_limit,source_url,checked_at";
+    let source = "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/car-thresholds-from-1-july";
+    assert_eq!(
+        table_failures(header, &format!("2026-27,69883,{source},2026-11-03")),
+        Vec::<String>::new()
+    );
+    for (row, expected) in [
+        (
+            "2026-27,69883,,2026-11-03".to_owned(),
+            "car-limit/car-limit.csv row 1 source_url: '' must be an https URL",
+        ),
+        (
+            format!("2026-27,69883,{source},"),
+            "row 1 checked_at: '' is not a YYYY-MM-DD date",
+        ),
+        (
+            "2026-27,69883".to_owned(),
+            "source_url: None must be an https URL",
+        ),
+        (
+            "2026-27,69883".to_owned(),
+            "checked_at: None is not a YYYY-MM-DD date",
+        ),
+        (
+            "2026-27,69883,https://duguid.com.au/rates/car-limit/,2026-11-03".to_owned(),
+            "duguid.com.au is not a primary source host",
+        ),
+        (
+            format!("2026-27,69883,{source},2026-02-30"),
+            "'2026-02-30' is not a real calendar date",
+        ),
+        (
+            format!("2026-27,69883,{source},2026-11-04"),
+            "checked_at: '2026-11-04' is in the future",
+        ),
+    ] {
+        let failures = table_failures(header, &row);
+        assert!(any(&failures, expected), "{row}: {failures:?}");
+    }
+    // A table without the columns fails on every row.
+    let failures = table_failures("income_year,car_limit", "2026-27,69883");
+    assert!(any(&failures, "source_url: None must be"), "{failures:?}");
+    assert!(any(&failures, "checked_at: None is not"), "{failures:?}");
+}
+
+#[test]
+fn a_lookalike_host_credentials_or_an_empty_table_is_refused() {
+    let header = "income_year,car_limit,source_url,checked_at";
+    for (row, expected) in [
+        (
+            "2026-27,69883,https://www.ato.gov.au.evil.example/x,2026-11-03",
+            "www.ato.gov.au.evil.example is not a primary source host",
+        ),
+        (
+            "2026-27,69883,https://www.ato.gov.au@evil.example/x,2026-11-03",
+            "carries credentials in the authority",
+        ),
+        ("", "car-limit/car-limit.csv: no rows"),
+    ] {
+        let failures = table_failures(header, row);
+        assert!(any(&failures, expected), "{row}: {failures:?}");
+    }
+}
+
+#[test]
+fn a_table_directory_without_a_csv_or_an_unreadable_rates_directory_fails() {
+    let rates = tempfile::tempdir().unwrap();
+    std::fs::create_dir(rates.path().join("car-limit")).unwrap();
+    std::fs::create_dir(rates.path().join("register")).unwrap();
+    assert_eq!(
+        check_tables(rates.path(), today()).unwrap(),
+        ["car-limit: no rate CSV"]
+    );
+    assert!(check_tables(&rates.path().join("missing"), today()).is_err());
+}
+
+/// An unreadable entry beside a valid table is an error, not a skipped file.
+#[cfg(unix)]
+#[test]
+fn a_dangling_rate_csv_beside_a_valid_one_is_an_error() {
+    let rates = tempfile::tempdir().unwrap();
+    let table = rates.path().join("car-limit");
+    std::fs::create_dir(&table).unwrap();
+    std::fs::write(
+        table.join("car-limit.csv"),
+        "income_year,car_limit,source_url,checked_at\n\
+         2026-27,69883,https://www.ato.gov.au/x,2026-11-03\n",
+    )
+    .unwrap();
+    std::os::unix::fs::symlink(table.join("missing.csv"), table.join("extra.csv")).unwrap();
+    let error = check_tables(rates.path(), today()).unwrap_err();
+    assert!(error.contains("extra.csv"), "{error}");
+}
+
+#[test]
+fn the_announced_measures_keep_their_own_source_columns() {
+    let rates = tempfile::tempdir().unwrap();
+    let announced = rates.path().join("announced-not-yet-law");
+    std::fs::create_dir(&announced).unwrap();
+    std::fs::write(announced.join("announced-measures.csv"), "measure\nA\n").unwrap();
+    assert_eq!(
+        check_tables(rates.path(), today()).unwrap(),
+        Vec::<String>::new()
+    );
 }
