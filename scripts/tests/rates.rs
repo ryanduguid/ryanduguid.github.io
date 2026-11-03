@@ -491,6 +491,24 @@ fn a_table_directory_without_a_csv_or_an_unreadable_rates_directory_fails() {
     assert!(check_tables(&rates.path().join("missing"), today()).is_err());
 }
 
+/// An unreadable entry beside a valid table is an error, not a skipped file.
+#[cfg(unix)]
+#[test]
+fn a_dangling_rate_csv_beside_a_valid_one_is_an_error() {
+    let rates = tempfile::tempdir().unwrap();
+    let table = rates.path().join("car-limit");
+    std::fs::create_dir(&table).unwrap();
+    std::fs::write(
+        table.join("car-limit.csv"),
+        "income_year,car_limit,source_url,checked_at\n\
+         2026-27,69883,https://www.ato.gov.au/x,2026-11-03\n",
+    )
+    .unwrap();
+    std::os::unix::fs::symlink(table.join("missing.csv"), table.join("extra.csv")).unwrap();
+    let error = check_tables(rates.path(), today()).unwrap_err();
+    assert!(error.contains("extra.csv"), "{error}");
+}
+
 #[test]
 fn the_announced_measures_keep_their_own_source_columns() {
     let rates = tempfile::tempdir().unwrap();

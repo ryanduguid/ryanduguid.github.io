@@ -793,30 +793,37 @@ pub fn check_register(register: &Path, today: Option<Date>) -> Result<Vec<String
 /// directory that holds none. The announced measures record a status rather than a rate
 /// and carry their own `checked_at` and source columns; `register` holds no CSV.
 fn rate_tables(rates: &Path, failures: &mut Vec<String>) -> Result<Vec<PathBuf>> {
-    let io = |e: std::io::Error| e.to_string();
+    // Directory and metadata errors name their path; `metadata` follows a link, so a
+    // linked table is read and a dangling one is an error rather than a skipped file.
+    let at = |path: &Path| {
+        let shown = path.to_string_lossy().into_owned();
+        move |e: std::io::Error| py::oserror_str(&e, &shown, py::OsStyle::Native)
+    };
     let mut tables = Vec::new();
-    for entry in std::fs::read_dir(rates).map_err(io)? {
-        let entry = entry.map_err(io)?;
-        let name = entry.file_name();
-        if !entry.file_type().map_err(io)?.is_dir()
-            || name == "announced-not-yet-law"
+    for entry in std::fs::read_dir(rates).map_err(at(rates))? {
+        let directory = entry.map_err(at(rates))?.path();
+        let name = directory.file_name().unwrap_or_default().to_string_lossy();
+        if name == "announced-not-yet-law"
             || name == "register"
+            || !std::fs::metadata(&directory)
+                .map_err(at(&directory))?
+                .is_dir()
         {
             continue;
         }
         let before = tables.len();
-        for file in std::fs::read_dir(entry.path()).map_err(io)? {
-            let path = file.map_err(io)?.path();
-            if path.is_file()
-                && path
-                    .file_name()
-                    .is_some_and(|n| crate::glob_suffix(&n.to_string_lossy(), ".csv"))
+        for file in std::fs::read_dir(&directory).map_err(at(&directory))? {
+            let path = file.map_err(at(&directory))?.path();
+            if path
+                .file_name()
+                .is_some_and(|n| crate::glob_suffix(&n.to_string_lossy(), ".csv"))
+                && std::fs::metadata(&path).map_err(at(&path))?.is_file()
             {
                 tables.push(path);
             }
         }
         if tables.len() == before {
-            failures.push(format!("{}: no rate CSV", name.to_string_lossy()));
+            failures.push(format!("{name}: no rate CSV"));
         }
     }
     tables.sort();
