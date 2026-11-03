@@ -1145,7 +1145,7 @@ This verifies the published command’s behaviour on fictional inputs. Confirm r
 
 ## Limits
 
-The examples assume supplied facts, and nothing this engine produces is an assessment, a determination or confirmation of entitlement, liability or compliance. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity’s facts before acting, have a registered tax agent review the tax treatment, and leave lodgement decisions with a registered practitioner.
+The examples assume supplied facts, and nothing this engine produces is an assessment, a determination or confirmation of entitlement, liability or compliance. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity’s facts before acting, have a registered tax agent verify the supplied facts and review their tax treatment, and leave lodgement decisions with a registered practitioner.
 
 Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
@@ -1238,7 +1238,7 @@ It builds the statement fields a dividend distribution statement needs, too. Tha
 
 ## Limits
 
-The examples assume supplied facts, and nothing this engine produces is an assessment, a determination or confirmation of entitlement, liability or compliance. Outputs are review aids: confirm every rate, threshold and consequence against the current law and the entity’s facts before acting, have a registered tax agent review the tax treatment, and leave lodgement decisions with a registered practitioner.
+The examples assume supplied facts, and nothing this engine produces is an assessment, a determination or confirmation of entitlement, liability or compliance. Outputs are review aids: confirm every rate, threshold and consequence against the current law and the entity’s facts before acting, have a registered tax agent verify the supplied facts and review their tax treatment, and leave lodgement decisions with a registered practitioner.
 
 ## Get it
 
