@@ -155,7 +155,6 @@ strong {
 code,
 pre,
 .technical-label,
-.article-crumb,
 .comparison-value {
   font-family: var(--font-mono);
 }
@@ -266,9 +265,7 @@ pre code {
   flex-wrap: wrap;
   align-items: center;
   gap: clamp(var(--space-3), 1.8vw, var(--space-6));
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: 0.02em;
+  font-size: var(--text-small);
   line-height: 1.2;
 }
 
@@ -312,7 +309,7 @@ button {
   color: var(--colour-ink);
   background: var(--colour-stamp);
   font-family: var(--font-body);
-  font-size: var(--text-small);
+  font-size: var(--text-body);
   font-weight: 600;
   line-height: 1.2;
   text-decoration: none;
@@ -550,16 +547,14 @@ main p {
   gap: var(--space-2);
   padding-top: var(--space-3);
   border-top: var(--rule-strong) solid var(--colour-stamp);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
   line-height: 1.45;
 }
 
-/* The label sets apart from the mono links by face and weight, not capitals. */
+/* The label sets apart from the links by weight and ink, not capitals. */
 .article-toc p {
   margin-bottom: var(--space-2);
   color: var(--colour-ink);
-  font-family: var(--font-body);
   font-weight: 600;
 }
 
@@ -1231,8 +1226,7 @@ caption {
 .collection-entry__note {
   grid-column: 2;
   color: var(--colour-ink);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
 }
 
 .collection-entry > dl {
@@ -1347,13 +1341,14 @@ caption {
   grid-column: 2 / -1;
   flex-wrap: wrap;
   gap: var(--space-2) var(--space-5);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
 }
 
 /* Sits on the links row but is a fact about the source, not an action. */
 .collection-entry__stamp {
   color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
 }
 
 .route-actions.route-actions--mail > a > strong {
@@ -1423,8 +1418,7 @@ caption {
   border-color: var(--colour-rule-strong);
   color: var(--colour-ink-soft);
   background: var(--colour-code);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-body);
   font-weight: 400;
 }
 
@@ -1477,8 +1471,7 @@ caption {
   gap: var(--space-2) var(--space-5);
   padding-bottom: var(--space-4);
   border-bottom: var(--rule-thin) solid var(--colour-rule);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
 }
 
 .site-footer__nav a {
@@ -1523,8 +1516,7 @@ caption {
 .site-footer__links {
   display: grid;
   gap: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
   text-align: right;
 }
 
@@ -1859,7 +1851,6 @@ caption {
   border-radius: var(--radius-control);
   color: var(--colour-ink-soft);
   background: transparent;
-  font-family: var(--font-mono);
   font-size: var(--text-small);
   text-align: center;
   cursor: pointer;
@@ -2058,7 +2049,6 @@ caption {
 .more-index__links a {
   padding: var(--space-3) var(--space-4) var(--space-3) 0;
   border-bottom: var(--rule-thin) solid var(--colour-rule);
-  font-family: var(--font-mono);
   font-size: var(--text-small);
   text-decoration: none;
 }
@@ -3029,9 +3019,10 @@ input[type="checkbox"] {
   font-size: var(--text-body);
 }
 
-/* Human/Machine view switch, matching the requested Cloudflare Connect
-   control. It sits in the sticky header at every width, on the shell's right
-   edge, so it never covers page text while scrolling. */
+/* Human/Machine view switch, requested on 12 September 2026. It sits in the
+   sticky header at every width, on the shell's right edge, so it never covers
+   page text while scrolling. Since 4 November it uses the site's control
+   shape, strong rule and inks: no pill, blur or shadow. */
 .view-mode[hidden],
 .machine-view[hidden],
 .machine-view [hidden] {
@@ -3047,14 +3038,12 @@ input[type="checkbox"] {
   align-items: center;
   gap: 2px;
   padding: 3px;
-  border: 1px solid var(--colour-mode-rule);
-  border-radius: 9999px;
-  background: var(--colour-mode-surface);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px var(--colour-mode-shadow);
-  font: 12px / 1 var(--font-mono);
-  letter-spacing: 0.02em;
+  border: var(--rule-thin) solid var(--colour-rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--colour-canvas);
+  /* Fixed, as before, so enlarged text still leaves the site name room. */
+  font-size: 12px;
+  line-height: 1;
 }
 
 .view-mode__option {
@@ -3064,8 +3053,8 @@ input[type="checkbox"] {
   min-height: 44px;
   margin: 0;
   padding: 0 12px;
-  border-radius: 9999px;
-  color: var(--colour-mode-muted);
+  border-radius: var(--radius-control);
+  color: var(--colour-ink-soft);
   font-weight: 400;
   cursor: pointer;
   transition: background var(--motion-standard), color var(--motion-standard);
@@ -3073,15 +3062,15 @@ input[type="checkbox"] {
 
 .view-mode__option:hover,
 .view-mode__option:has(:checked) {
-  color: var(--colour-mode-ink);
+  color: var(--colour-ink);
 }
 
 .view-mode__option:has(:checked) {
-  background: var(--colour-mode-selected);
+  background: var(--colour-stamp-wash);
 }
 
 .view-mode__option:has(:focus-visible) {
-  outline: 2px solid var(--colour-mode-ink);
+  outline: 2px solid var(--colour-ink);
   outline-offset: 3px;
 }
 
@@ -3095,14 +3084,14 @@ input[type="checkbox"] {
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--colour-mode-dot);
+  background: var(--colour-rule-strong);
   outline: none;
   cursor: inherit;
 }
 
 .view-mode__option input:checked {
-  background: var(--colour-mode-accent);
-  outline: 1px solid var(--colour-mode-ink);
+  background: var(--colour-stamp);
+  outline: 1px solid var(--colour-ink);
 }
 
 @supports selector(:has(*)) {
@@ -3176,7 +3165,7 @@ html[data-view-mode="machine"] body {
     top: var(--space-2);
     padding: 0;
     border: 0;
-    outline: 1px solid var(--colour-mode-rule);
+    outline: var(--rule-thin) solid var(--colour-rule-strong);
     outline-offset: -1px;
   }
 

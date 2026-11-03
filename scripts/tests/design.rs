@@ -267,18 +267,25 @@ fn design_contracts_text_mutations() {
     );
     let mutations: Vec<(&str, &str, &str, &str, &str)> = vec![
         (
-            "view switch shadow exception stays scoped",
+            "view switch shadow restored",
             "assets/site.css",
-            "body {",
-            "body {\n  box-shadow: 0 4px 16px var(--colour-mode-shadow);",
+            ".view-mode {",
+            ".view-mode {\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);",
             "banned CSS pattern box-shadow",
         ),
         (
-            "view switch blur exception stays scoped",
+            "view switch blur restored",
             "assets/site.css",
-            "body {",
-            "body {\n  backdrop-filter: blur(10px);",
+            ".view-mode {",
+            ".view-mode {\n  backdrop-filter: blur(10px);",
             "banned CSS pattern backdrop-filter",
+        ),
+        (
+            "view switch pill restored",
+            "assets/site.css",
+            ".view-mode {",
+            ".view-mode {\n  border-radius: 9999px;",
+            "banned CSS pattern 9999px",
         ),
         (
             "view switch still rejects gradients",

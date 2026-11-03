@@ -67,12 +67,14 @@ const MAX_FONT_BYTES: u64 = 25_000;
 const MAX_TOTAL_FONT_BYTES: u64 = 135_000;
 const FAVICON_COLOURS: [&str; 3] = ["#000000", "#ffd32a", "#990024"];
 const FAVICON_GEOMETRY_ATTRIBUTES: [&str; 6] = ["x", "y", "width", "height", "rx", "ry"];
-const BANNED_CSS_PATTERNS: [&str; 8] = [
+const BANNED_CSS_PATTERNS: [&str; 9] = [
     "linear-gradient",
     "radial-gradient",
     "conic-gradient",
     "backdrop-filter",
     "box-shadow",
+    // A pill radius; controls use --radius-control.
+    "9999px",
     "#04001f",
     "#5c2d91",
     "#9f6fd8",
@@ -711,14 +713,8 @@ pub fn check_stylesheets(root: &Path, baseline: &Json) -> Result<Vec<String>, St
         failures.push("assets/site.css: token import creates a serial request chain".into());
     }
     let combined = format!("{site_css}\n{tokens_css}").to_lowercase();
-    let without_view_mode = re(r"(?m)^\.view-mode\s*\{[^}]*\}", 0).sub("", &combined);
     for pattern in BANNED_CSS_PATTERNS {
-        let checked = if pattern == "backdrop-filter" || pattern == "box-shadow" {
-            &without_view_mode
-        } else {
-            &combined
-        };
-        if checked.contains(pattern) {
+        if combined.contains(pattern) {
             failures.push(format!("banned CSS pattern {pattern}"));
         }
     }
