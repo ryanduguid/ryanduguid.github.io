@@ -203,11 +203,14 @@ export async function checkReleases(html, lookup = fetchReleases) {
 // must name the current release too, so a reader who installs from the page
 // knows which version they are getting. The page passes when its release-meta
 // tag is current, or when the current tag appears somewhere in the page text.
+// Pages that render _includes/tool-meta.html link the release snapshot there.
 export async function checkToolReleases(pages, lookup = fetchReleases) {
   const failures = [];
   const repositories = new Map();
   for (const [rel, html] of pages) {
-    let meta = /<p class="release-meta">([\s\S]*?)<\/p>/.exec(html)?.[1];
+    let meta = html.includes('{% include tool-meta.html')
+      ? '<a href="{{ release.url }}">'
+      : /<p class="release-meta">([\s\S]*?)<\/p>/.exec(html)?.[1];
     if (meta?.includes('{{ release.url }}')) {
       const slug = rel.split('/')[1];
       const snapshot = JSON.parse(readFileSync(join(root, '_data/tool_releases.json'), 'utf8'))[slug];

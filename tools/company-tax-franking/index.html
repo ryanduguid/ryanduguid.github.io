@@ -58,12 +58,9 @@ tool: company-tax-franking
       </ol>
     </nav>
     <h1>{{ tool.name }}</h1>
-    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
-    <p class="lead-note">A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account and checks the Division 203 benchmark rule.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+    <p class="lead-note">This tool runs the base rate entity test, tracks the franking account and checks the Division 203 benchmark rule.</p>
+    {% include tool-meta.html published="24 August 2026" reviewed="21 October 2026" %}
 {% include tool-facts.html %}
-
-    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -76,6 +73,7 @@ tool: company-tax-franking
           <a href="#related">Related</a>
         </nav>
         <div class="article-body">
+    <p>A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate.</p>
     <p>
       This tool runs the base rate entity test and tracks a franking account
       ledger covering PAYG instalments, company tax paid, dividends paid and

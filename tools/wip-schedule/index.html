@@ -58,16 +58,12 @@ tool: wip-schedule
       </ol>
     </nav>
     <h1>{{ tool.name }}</h1>
-    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
     <p class="lead-note">TheWIPTally reads one row per unit of account and produces a cost-to-cost
       work-in-progress schedule: earned revenue after AASB 15 para B19
       exclusions, constrained unapproved variations, and a contract asset or
-      contract liability per job. Assets and liabilities are never netted.
-      Review aid, not a determination.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+      contract liability per job.</p>
+    {% include tool-meta.html published="25 August 2026" reviewed="21 October 2026" %}
 {% include tool-facts.html %}
-
-    <p class="page-meta">Published 25 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -80,6 +76,7 @@ tool: wip-schedule
           <a href="#related">Related</a>
         </nav>
         <div class="article-body">
+    <p>Assets and liabilities are never netted. Review aid, not a determination.</p>
     <p>
       Construction month-end turns on the WIP schedule. The formula is easy.
       Applying it the same way every month is the work: strip waste from

@@ -1,0 +1,7 @@
+{%- comment -%}
+  A tool page's one metadata line: the current release and its date, the
+  source repository and the page's own dates. Pass published and reviewed.
+  A tool without tagged releases names its source revision instead.
+{%- endcomment -%}
+{%- assign repository = tool.repository | remove: 'ryanduguid/' -%}
+    <p class="page-meta">{% if tool.tagPrefix %}Current release <code>{{ tool.package }}</code> <a href="{{ release.url }}">v{{ release.version }}</a>, {{ release.dateLabel }}, from the <a href="{{ tool.codeRepository }}">{{ repository }}</a> repository.{% else %}Source <code>{{ tool.package }}</code> at revision <a href="{{ release.url }}">{{ release.version | truncate: 7, '' }}</a> in the <a href="{{ tool.codeRepository }}">{{ repository }}</a> repository.{% endif %} Published {{ include.published }}. Last reviewed {{ include.reviewed }}.</p>

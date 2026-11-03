@@ -6,11 +6,9 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 # ATO small business benchmark comparison tool
 
-Package ato-benchmark-compare in the australian-accounting repository. Current release v0.2.2.
+This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
 
-Current release ato-benchmark-compare v0.2.2 (20 October 2026). The worked example below is pinned to v0.1.6. The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
-
-Current release v0.2.2 (20 October 2026). Last reviewed 21 October 2026.
+Current release ato-benchmark-compare v0.2.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
 Delivery
 
@@ -24,7 +22,7 @@ Boundary
 
 A comparison is not an audit finding or compliance conclusion.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. Sitting outside a range is not a finding that anything is wrong.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
 
@@ -113,8 +111,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2
+- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
 - uv: https://docs.astral.sh/uv/
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks

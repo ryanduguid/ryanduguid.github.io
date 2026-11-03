@@ -61,9 +61,8 @@ tool: coal-lsl-levy
       </ol>
     </nav>
     <h1>{{ tool.name }}</h1>
-    <p class="field-note">Source <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Source revision <a href="{{ release.url }}">{{ release.version | truncate: 7, '' }}</a>.</p>
     <p class="short-answer">The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
+{% include tool-meta.html published="24 August 2026" reviewed="21 October 2026" %}
     </header>
 
     <div class="calculator-workspace site-shell">

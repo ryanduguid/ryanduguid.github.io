@@ -644,11 +644,9 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 # Coal LSL levy calculator
 
-Source assets/levy.mjs in the ryanduguid.github.io repository. Source revision 9218822.
-
 The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+Source assets/levy.mjs at revision 9218822 in the ryanduguid.github.io repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
 Load the synthetic example
 
@@ -784,8 +782,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - 9218822: https://github.com/ryanduguid/ryanduguid.github.io/commit/92188225f42df20c14817af0ded3842f7911fb51
+- ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - contact page: https://duguid.com.au/contact/
 - Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages
@@ -809,11 +807,9 @@ Source: https://duguid.com.au/tools/payday-super/
 
 # Payday Super receipt evidence
 
-Package payday-super-checker in the australian-accounting repository. Current release v0.2.3.
+The checker keeps each super contribution at risk until its fund receipt evidence proves it arrived on time.
 
-Current release payday-super-checker v0.2.3 (30 October 2026). The worked example below is pinned to v0.1.3.
-
-Current release v0.2.3 (30 October 2026). Last reviewed 31 October 2026.
+Current release payday-super-checker v0.2.3, 30 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 31 October 2026.
 
 ## Synthetic worked example
 
@@ -829,7 +825,7 @@ Receipt amount matters. A fund receipt date alone does not establish full paymen
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 31 October 2026. The fixed evaluation stays pinned to v0.1.3; the command below stays pinned to v0.1.9 so its result remains reproducible.
+The fixed evaluation stays pinned to v0.1.3; the command below stays pinned to v0.1.9 so its result remains reproducible.
 
 ## Receipt dates and amounts
 
@@ -913,8 +909,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.3
+- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - Inspect the exact fixture: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv
 - Read the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
@@ -943,11 +939,9 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 # ATO small business benchmark comparison tool
 
-Package ato-benchmark-compare in the australian-accounting repository. Current release v0.2.2.
+This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
 
-Current release ato-benchmark-compare v0.2.2 (20 October 2026). The worked example below is pinned to v0.1.6. The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
-
-Current release v0.2.2 (20 October 2026). Last reviewed 21 October 2026.
+Current release ato-benchmark-compare v0.2.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
 Delivery
 
@@ -961,7 +955,7 @@ Boundary
 
 A comparison is not an audit finding or compliance conclusion.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. Sitting outside a range is not a finding that anything is wrong.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
 
@@ -1050,8 +1044,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2
+- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
 - uv: https://docs.astral.sh/uv/
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
@@ -1073,11 +1067,9 @@ Source: https://duguid.com.au/tools/trust-distributions/
 
 # Trust distribution worksheets for professional review
 
-Package solomons-sword in the australian-accounting repository. Current release v0.3.2.
+The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.
 
-PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.
-
-Current release v0.3.2 (20 October 2026). Last reviewed 21 October 2026.
+Current release solomons-sword v0.3.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
 Delivery
 
@@ -1091,7 +1083,7 @@ Boundary
 
 Does not invent arrangements, intentions or beneficiary facts.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software does not establish the underlying facts or give tax clearance.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary’s own rate. The ATO’s finalised guideline PCG 2022/2 says where the risk sits.
 
@@ -1181,8 +1173,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
+- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
 - Published package: https://pypi.org/project/solomons-sword/0.1.9/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart
@@ -1206,11 +1198,9 @@ Source: https://duguid.com.au/tools/company-tax-franking/
 
 # Company tax and franking worksheets
 
-Package the-exchequer-tally in the australian-accounting repository. Current release v0.2.0.
+This tool runs the base rate entity test, tracks the franking account and checks the Division 203 benchmark rule.
 
-A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account and checks the Division 203 benchmark rule.
-
-Current release v0.2.0 (19 October 2026). Last reviewed 21 October 2026.
+Current release the-exchequer-tally v0.2.0, 19 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
 Delivery
 
@@ -1224,7 +1214,7 @@ Boundary
 
 Requires verified income composition, distributions and ledger inputs.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate.
 
 This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and checks the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
 
@@ -1304,8 +1294,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
+- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - Published package: https://pypi.org/project/the-exchequer-tally/0.1.7/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/README.md#quickstart
 - ATO company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates
@@ -1329,11 +1319,9 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 # Subcontractor ledger skills for construction and mining
 
-Package australian-accounting-skills in the australian-accounting-skills repository. Current release v0.5.0.
+These Claude Code skills cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-The subcontract ledger workflows are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
-
-Current release v0.5.0 (28 October 2026). Last reviewed 29 October 2026.
+Current release australian-accounting-skills v0.5.0, 28 October 2026, from the australian-accounting-skills repository. Published 24 August 2026. Last reviewed 29 October 2026.
 
 Delivery
 
@@ -1347,7 +1335,7 @@ Boundary
 
 Requires human review of contracts, classifications and source records.
 
-Published 24 August 2026. Last reviewed 29 October 2026.
+The subcontract ledger workflows are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -1408,8 +1396,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
 - v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
+- australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install

@@ -519,6 +519,13 @@ fn design_contracts_text_mutations() {
             "index.html: decorative ordinal technical label: 01 / Extract",
         ),
         (
+            "repeated release statement in a tool header",
+            "tools/payday-super/index.html",
+            "<p class=\"page-meta\">",
+            "<p>The worked example is pinned to v0.1.3.</p><p class=\"page-meta\">",
+            "tools/payday-super/index.html: expected at most one release statement before the first h2, found 2",
+        ),
+        (
             "font URL broken",
             "assets/tokens.css",
             "/assets/fonts/Besley-Regular.woff2",

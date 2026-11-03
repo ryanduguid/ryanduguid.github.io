@@ -929,11 +929,9 @@ Source: https://duguid.com.au/tools/ozzit/
 
 # Ozzit
 
-Package Ozzit in the Ozzit repository. Current release v3.5.0.
+The Ozzit workbook holds 143 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
 
-143 functions and 5 help tables for GST, financial years, depreciation, loans and leases. Open the workbook and try a formula; every definition is visible in Excel.
-
-Current release v3.5.0 (19 October 2026). Last reviewed 21 October 2026.
+Current release Ozzit v3.5.0, 19 October 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 21 October 2026.
 
 Delivery
 
@@ -950,8 +948,6 @@ Calculates only. The reviewer decides the accounting treatment and the tax posit
 Download Ozzit v3.5.0 Browse worked formulas
 
 XLSX, 462,490 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
-
-Published 18 September 2026. Last reviewed 21 October 2026.
 
 ## Extract GST from $1,100
 
@@ -1412,8 +1408,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Ozzit: https://github.com/ryanduguid/Ozzit/tree/main
 - v3.5.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0
+- Ozzit: https://github.com/ryanduguid/Ozzit/tree/main
 - Download Ozzit v3.5.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx
 - Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
 - Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example

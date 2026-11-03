@@ -938,6 +938,50 @@ pub fn check_copy(root: &Path) -> Result<Vec<String>, String> {
     Ok(failures)
 }
 
+/// A tool page states its current release once before its first section;
+/// pins and release history sit under the section they describe.
+pub fn check_release_statements(root: &Path) -> Result<Vec<String>, String> {
+    let mut failures = Vec::new();
+    for path in core::html_files(root) {
+        let rel = core::rel(&path, root);
+        let html = crate::read(&path)?;
+        if !rel.starts_with("tools/")
+            || !re(r#"class="(?:article|calculator)-header\b"#, 0).is_match(&html)
+        {
+            continue;
+        }
+        let found = release_statements_before_first_section(&html);
+        if found > 1 {
+            failures.push(format!(
+                "{rel}: expected at most one release statement before the first h2, found {found}"
+            ));
+        }
+    }
+    Ok(failures)
+}
+
+/// Visible sentences in main, before its first h2, that name a version and
+/// call it a release or a pin. Navigation labels name sections, so they are
+/// not statements.
+fn release_statements_before_first_section(html: &str) -> usize {
+    let visible = core::visible_html(html);
+    let Some(main) = re(r"<main\b", I).search(&visible) else {
+        return 0;
+    };
+    let opening = &visible[main.get(0).expect("group 0").start()..];
+    let end = re(r"<h2\b", I)
+        .search(opening)
+        .map_or(opening.len(), |m| m.get(0).expect("group 0").start());
+    let prose = re(r"<nav\b.*?</nav>", S | I).sub(" ", &opening[..end]);
+    let release = re(r"\b(?:release|released|pinned)\b", I);
+    let version = re(r"\bv?\d+\.\d+\.\d+\b", 0);
+    re(r"(?<=[.!?])\s+", 0)
+        .split(&core::stripped_text(&prose))
+        .into_iter()
+        .filter(|sentence| release.is_match(sentence) && version.is_match(sentence))
+        .count()
+}
+
 /// Keep visible opening review dates aligned with structured freshness.
 pub fn check_opening_review_dates(root: &Path) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
@@ -1465,6 +1509,7 @@ pub fn check_repository(root: &Path) -> Result<Vec<String>, String> {
     failures.extend(check_homepage_refinement(root)?);
     failures.extend(check_copy(root)?);
     failures.extend(check_opening_review_dates(root)?);
+    failures.extend(check_release_statements(root)?);
     Ok(failures)
 }
 

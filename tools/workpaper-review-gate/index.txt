@@ -6,11 +6,9 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 # Workpaper Review Gate
 
-Package review-ready-gate in the accounting-review-pipeline repository. Current release v0.3.0.
+This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
 
-Current release review-ready-gate v0.3.0 (14 October 2026). The worked example below is pinned to v0.1.3. This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
-
-Current release v0.3.0 (14 October 2026). Last reviewed 21 October 2026.
+Current release review-ready-gate v0.3.0, 14 October 2026, from the accounting-review-pipeline repository. Published 25 August 2026. Last reviewed 21 October 2026.
 
 Delivery
 
@@ -24,7 +22,7 @@ Boundary
 
 READY means ready for human review, not approved or signed off.
 
-Published 25 August 2026. Last reviewed 21 October 2026.
+A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
 ## Inspect a fictional BAS pack
 
@@ -104,8 +102,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - v0.3.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0
+- accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
 - corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready

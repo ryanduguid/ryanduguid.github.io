@@ -328,10 +328,12 @@ fn payday_super_receipts_workbooks_and_qualifications() {
     ] {
         assert!(text.contains(term), "{term}");
     }
-    let main = by_id(&tree, "main");
-    let header = tree.descendants(main, Some("header"), false)[0];
+    // The receipt qualification sits with the fixed example it qualifies,
+    // directly after the header and ahead of the page navigation.
+    let example = tree.by_id("synthetic-worked-example");
+    assert_eq!(example.len(), 1);
     assert!(
-        links(&tree, header)
+        links(&tree, example[0])
             .iter()
             .any(|h| h.as_deref() == Some("#receipt-amount"))
     );

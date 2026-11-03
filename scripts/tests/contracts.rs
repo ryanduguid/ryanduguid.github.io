@@ -1272,8 +1272,8 @@ fn public_contracts_structure_and_assets() {
     contract_mutation(
         "tool review date outside header",
         &xero,
-        "<p class=\"page-meta\">Published 24 August 2026. Last reviewed 25 October 2026.</p>",
-        "<p class=\"moved-page-meta\">Published 24 August 2026. Last reviewed 13 October 2026.</p>",
+        "<p class=\"page-meta\">Current release ",
+        "<p class=\"moved-page-meta\">Current release ",
         |html, found| {
             contracts::check_header_review_date(html, "tools/xero-trial-balance/index.html", found)
         },
