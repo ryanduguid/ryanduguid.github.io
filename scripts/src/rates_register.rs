@@ -789,35 +789,51 @@ pub fn check_register(register: &Path, today: Option<Date>) -> Result<Vec<String
     Ok(failures)
 }
 
-/// The rate CSVs, `rates/<table>/<name>.csv`, sorted. The announced measures record a
-/// status rather than a rate and carry their own `checked_at` and source columns.
-fn rate_tables(rates: &Path) -> Vec<PathBuf> {
-    let mut tables: Vec<PathBuf> = std::fs::read_dir(rates)
-        .into_iter()
-        .flatten()
-        .flatten()
-        .filter(|e| {
-            e.file_type().is_ok_and(|t| t.is_dir()) && e.file_name() != "announced-not-yet-law"
-        })
-        .flat_map(|e| std::fs::read_dir(e.path()).into_iter().flatten().flatten())
-        .map(|e| e.path())
-        .filter(|p| {
-            p.is_file()
-                && p.file_name()
+/// The rate CSVs, `rates/<table>/<name>.csv`, sorted, with a failure for each table
+/// directory that holds none. The announced measures record a status rather than a rate
+/// and carry their own `checked_at` and source columns; `register` holds no CSV.
+fn rate_tables(rates: &Path, failures: &mut Vec<String>) -> Result<Vec<PathBuf>> {
+    let io = |e: std::io::Error| e.to_string();
+    let mut tables = Vec::new();
+    for entry in std::fs::read_dir(rates).map_err(io)? {
+        let entry = entry.map_err(io)?;
+        let name = entry.file_name();
+        if !entry.file_type().map_err(io)?.is_dir()
+            || name == "announced-not-yet-law"
+            || name == "register"
+        {
+            continue;
+        }
+        let before = tables.len();
+        for file in std::fs::read_dir(entry.path()).map_err(io)? {
+            let path = file.map_err(io)?.path();
+            if path.is_file()
+                && path
+                    .file_name()
                     .is_some_and(|n| crate::glob_suffix(&n.to_string_lossy(), ".csv"))
-        })
-        .collect();
+            {
+                tables.push(path);
+            }
+        }
+        if tables.len() == before {
+            failures.push(format!("{}: no rate CSV", name.to_string_lossy()));
+        }
+    }
     tables.sort();
-    tables
+    Ok(tables)
 }
 
-/// Every failure in the rate CSVs under `rates`: each row names an https `source_url` on
-/// a primary host and a real `checked_at` date that is not after `today`.
+/// Every failure in the rate CSVs under `rates`: each table has a row, and each row names
+/// an https `source_url` on a primary host and a real `checked_at` date that is not after
+/// `today`. An unreadable directory is an error, not a pass.
 pub fn check_tables(rates: &Path, today: Date) -> Result<Vec<String>> {
     let mut failures = Vec::new();
-    for path in rate_tables(rates) {
+    for path in rate_tables(rates, &mut failures)? {
         let name = posix_rel(&path, rates);
         let rows = crate::pycsv::dict_reader(&crate::read(&path)?)?;
+        if rows.is_empty() {
+            failures.push(format!("{name}: no rows"));
+        }
         for (index, row) in rows.iter().enumerate() {
             let at = format!("{name} row {}", index + 1);
             let get = |key: &str| {

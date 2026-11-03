@@ -95,14 +95,14 @@ pages read "Last reviewed 2 September 2026". Only the super guarantee page carri
 per-table verification sentence ("Verified 30 August 2026 against the ATO's
 super guarantee rate table", going on to name the Payday Superannuation Act
 and the SGAA compilation); the other 2 carry primary-source links but no
-separate verification date. The CSVs have no provenance columns beyond the
-notes below.
+separate verification date. At that date the CSVs had no provenance columns
+beyond the notes below.
 
 Since 3 November 2026 every row of the 6 rate CSVs under `rates/` ends with
 `source_url`, the primary page, instrument or Reserve Bank table it was checked
 against, and `checked_at`, the date of that check. `site-tools
 check_rates_register` refuses a row without both. The inventory below is as at
-5 September 2026.
+5 September 2026 and lists each CSV's columns before these 2 were added.
 
 | Table | CSV columns | Rows | Coverage as recorded | Primary sources linked on the page |
 |---|---|---|---|---|

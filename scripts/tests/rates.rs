@@ -460,6 +460,15 @@ fn a_rate_row_without_a_source_or_check_date_is_refused() {
             format!("2026-27,69883,{source},2026-11-04"),
             "checked_at: '2026-11-04' is in the future",
         ),
+        (
+            "2026-27,69883,https://www.ato.gov.au.evil.example/x,2026-11-03".to_owned(),
+            "www.ato.gov.au.evil.example is not a primary source host",
+        ),
+        (
+            "2026-27,69883,https://www.ato.gov.au@evil.example/x,2026-11-03".to_owned(),
+            "carries credentials in the authority",
+        ),
+        (String::new(), "car-limit/car-limit.csv: no rows"),
     ] {
         let failures = table_failures(header, &row);
         assert!(any(&failures, expected), "{row}: {failures:?}");
@@ -468,6 +477,18 @@ fn a_rate_row_without_a_source_or_check_date_is_refused() {
     let failures = table_failures("income_year,car_limit", "2026-27,69883");
     assert!(any(&failures, "source_url: None must be"), "{failures:?}");
     assert!(any(&failures, "checked_at: None is not"), "{failures:?}");
+}
+
+#[test]
+fn a_table_directory_without_a_csv_or_an_unreadable_rates_directory_fails() {
+    let rates = tempfile::tempdir().unwrap();
+    std::fs::create_dir(rates.path().join("car-limit")).unwrap();
+    std::fs::create_dir(rates.path().join("register")).unwrap();
+    assert_eq!(
+        check_tables(rates.path(), today()).unwrap(),
+        ["car-limit: no rate CSV"]
+    );
+    assert!(check_tables(&rates.path().join("missing"), today()).is_err());
 }
 
 #[test]
