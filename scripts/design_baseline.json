@@ -141,14 +141,14 @@
       "394dd3d9c6afca45fff611cae4b875bea28cc1163d169474959d31d3929f09ee"
     ],
     "works-with/index.html": [
-      "260a4e84da69d8bf8eba5490988fff3b4b22bb2b8c7027d33f3816a7f54d4110"
+      "29fe78fac43ade6315795180e85e2f61ce01a56d8da20634b99880147743e688"
     ],
     "works-with/xero/index.html": [
       "a18e24a48059a90fc90755cc491ef0a4bad78974ed32b909a4b61da9c6a49f1d"
     ]
   },
   "protected_files": {
-    "llms.txt": "39e1ce3f328607a0fdc04b4166b93eb1370a9d4dea6448f89a267975e6467406",
+    "llms.txt": "58b4ad965a091f2b9c5d6895e8e6fb551eccd03003262f8d406503434d2ba7c7",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
     "sitemap.xml": "061c1852b881fc65f8e74a8e8e18f884d2fd8e90e9fcab7d560bed014a58c689"
   },

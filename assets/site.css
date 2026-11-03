@@ -61,10 +61,11 @@ a {
     text-decoration-color var(--motion-standard) var(--ease-standard);
 }
 
+/* One hue per link: the crimson underline becomes a crimson fill. */
 a:hover,
 a:active {
   color: var(--colour-ink);
-  background: var(--colour-stamp-strong);
+  background: var(--colour-stamp);
   text-decoration-color: currentColor;
 }
 
