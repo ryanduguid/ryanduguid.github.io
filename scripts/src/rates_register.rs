@@ -6,7 +6,8 @@
 //! `verified_at` is neither in the future nor before `period_start`; a superseded row is
 //! named by exactly one replacement; register.json lists every series file once;
 //! SHA256SUMS covers every file and matches LF bytes on disk; professional review names a
-//! person.
+//! person. Beside the register, every row of each rate CSV under `rates/` names an https
+//! `source_url` on a primary host and a `checked_at` date that is not in the future.
 use crate::py::{self, Date};
 use crate::pyformat::py_str;
 use crate::pyjson::{self, Json};
@@ -788,21 +789,79 @@ pub fn check_register(register: &Path, today: Option<Date>) -> Result<Vec<String
     Ok(failures)
 }
 
+/// The rate CSVs, `rates/<table>/<name>.csv`, sorted. The announced measures record a
+/// status rather than a rate and carry their own `checked_at` and source columns.
+fn rate_tables(rates: &Path) -> Vec<PathBuf> {
+    let mut tables: Vec<PathBuf> = std::fs::read_dir(rates)
+        .into_iter()
+        .flatten()
+        .flatten()
+        .filter(|e| {
+            e.file_type().is_ok_and(|t| t.is_dir()) && e.file_name() != "announced-not-yet-law"
+        })
+        .flat_map(|e| std::fs::read_dir(e.path()).into_iter().flatten().flatten())
+        .map(|e| e.path())
+        .filter(|p| {
+            p.is_file()
+                && p.file_name()
+                    .is_some_and(|n| crate::glob_suffix(&n.to_string_lossy(), ".csv"))
+        })
+        .collect();
+    tables.sort();
+    tables
+}
+
+/// Every failure in the rate CSVs under `rates`: each row names an https `source_url` on
+/// a primary host and a real `checked_at` date that is not after `today`.
+pub fn check_tables(rates: &Path, today: Date) -> Result<Vec<String>> {
+    let mut failures = Vec::new();
+    for path in rate_tables(rates) {
+        let name = posix_rel(&path, rates);
+        let rows = crate::pycsv::dict_reader(&crate::read(&path)?)?;
+        for (index, row) in rows.iter().enumerate() {
+            let at = format!("{name} row {}", index + 1);
+            let get = |key: &str| {
+                row.iter()
+                    .find(|(k, _)| k == key)
+                    .and_then(|(_, v)| v.clone())
+                    .map(Json::Str)
+            };
+            let url = get("source_url");
+            https_host(
+                url.as_ref(),
+                &format!("{at} source_url"),
+                &mut failures,
+                true,
+            )?;
+            let checked = get("checked_at");
+            let at = format!("{at} checked_at");
+            if date(checked.as_ref(), &at, &mut failures).is_some_and(|d| d > today) {
+                failures.push(format!("{at}: {} is in the future", repr(checked.as_ref())));
+            }
+        }
+    }
+    Ok(failures)
+}
+
 /// The register directory as Python names it: `ROOT / "rates" / "register"`.
 pub fn register_dir(root: &Path) -> PathBuf {
     py::resolve(root).join("rates").join("register")
 }
 
 pub fn run(root: &Path) -> Result<u8> {
-    let failures = check_register(&register_dir(root), None)?;
+    let register = check_register(&register_dir(root), None)?;
+    let tables = check_tables(&py::resolve(root).join("rates"), today())?;
     let say = |text: &str| crate::print_text(text, false).map_err(|e| e.to_string());
-    for failure in &failures {
+    for failure in &register {
         say(&format!("rates register: {failure}\n"))?;
     }
-    if !failures.is_empty() {
+    for failure in &tables {
+        say(&format!("rate tables: {failure}\n"))?;
+    }
+    if !register.is_empty() || !tables.is_empty() {
         return Ok(1);
     }
-    say("rates register: checks passed\n")?;
+    say("rates register and rate tables: checks passed\n")?;
     Ok(0)
 }
 

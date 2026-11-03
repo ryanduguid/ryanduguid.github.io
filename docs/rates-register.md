@@ -98,6 +98,12 @@ and the SGAA compilation); the other 2 carry primary-source links but no
 separate verification date. The CSVs have no provenance columns beyond the
 notes below.
 
+Since 3 November 2026 every row of the 6 rate CSVs under `rates/` ends with
+`source_url`, the primary page, instrument or Reserve Bank table it was checked
+against, and `checked_at`, the date of that check. `site-tools
+check_rates_register` refuses a row without both. The inventory below is as at
+5 September 2026.
+
 | Table | CSV columns | Rows | Coverage as recorded | Primary sources linked on the page |
 |---|---|---|---|---|
 | Super guarantee rate history | `period_start`, `period_end`, `general_sg_rate_percent`, `notes` | 8 | 2002-07-01 onward; last row 2025-07-01 open-ended, 12.00% | SGAA 1992 compilation (legislation.gov.au C2004A04402), *Treasury Laws Amendment (Payday Superannuation) Act 2025* (C2025A00057), ATO super guarantee rate table |
