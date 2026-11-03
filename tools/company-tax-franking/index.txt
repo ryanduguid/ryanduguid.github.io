@@ -24,8 +24,6 @@ Boundary
 
 Requires verified income composition, distributions and ledger inputs.
 
-Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
-
 Published 24 August 2026. Last reviewed 21 October 2026.
 
 This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and checks the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
@@ -40,7 +38,7 @@ It builds the statement fields a dividend distribution statement needs, too. Tha
 
 ## Limits
 
-Nothing this engine produces is tax, legal or financial advice, an assessment or a determination. Outputs are review aids: confirm every rate, threshold and consequence against the current law and the entity’s facts before acting, and leave lodgement decisions with a registered practitioner.
+The examples assume supplied facts, and nothing this engine produces is an assessment, a determination or confirmation of entitlement, liability or compliance. Outputs are review aids: confirm every rate, threshold and consequence against the current law and the entity’s facts before acting, have a registered tax agent review the tax treatment, and leave lodgement decisions with a registered practitioner.
 
 ## Get it
 

@@ -41,7 +41,7 @@ Related work: XeroAPI accepted my correction to its command-line report flags. I
 
 Read-only (accounting.reports.trialbalance.read); this tool cannot write to any ledger.
 
-MIT-licensed utility code, no warranty; outputs feed professional review like any other workpaper input. Not affiliated with or endorsed by Xero.
+MIT-licensed utility code, no warranty; outputs feed professional review like any other workpaper input.
 
 ## Get it
 
@@ -81,7 +81,7 @@ Unbalanced, CSV refused | Cash (090) has $100.00 movement and YTD debits. Equity
 
 The tagged balanced-output test pins the CSV bytes. The tagged unbalanced-YTD test pins the refusal and warning. Refused means no CSV file output; the diagnostic warning is still printed.
 
-The tool remains read-only and cannot write to a ledger. Its output is a review aid, not advice or a compliance result. It does not post entries, approve work, lodge returns or lock periods.
+The tool remains read-only and cannot write to a ledger. Its output is a review aid, not a compliance result. It does not post entries, approve work, lodge returns or lock periods.
 
 ## Common questions
 

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/ato-benchmarks/
 
-> Current release ato-benchmark-compare v0.2.2. Compare profit and loss with ATO benchmark ranges locally. Review aid, not advice.
+> Current release ato-benchmark-compare v0.2.2. Compare profit and loss with ATO benchmark ranges locally. Review aid.
 
 # ATO small business benchmark comparison tool
 
@@ -66,7 +66,7 @@ Expected: one passing test and exit 0. The test asserts the figures above. The b
 
 ## Limits
 
-It is not tax advice, and sitting outside a range is not a finding that anything is wrong. The ATO publishes ranges because businesses differ.
+Sitting outside a range is not a finding that anything is wrong. The ATO publishes ranges because businesses differ.
 
 ## Get it
 

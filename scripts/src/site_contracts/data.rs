@@ -134,7 +134,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "aus-accounting-mcp",
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.7.1 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and synthetic SBR fixtures. Not advice.",
+        "Local MCP server v0.7.1 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and synthetic SBR fixtures.",
     ),
     (
         "australian-accounting-skills",
@@ -146,7 +146,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "review-ready-gate",
         "review-ready-gate",
         "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
-        "Stop incomplete workpapers reaching manager review. Deterministic readiness gate for Australian public practice packs. Not advice.",
+        "Stop incomplete workpapers reaching manager review. Deterministic readiness gate for Australian public practice packs.",
     ),
     (
         "australian-accounting-power-bi",
@@ -674,7 +674,7 @@ pub const TASK_ROUTE_ENTRIES: [(&str, &str, &str); 5] = [
 pub const HOMEPAGE_ANCHORS: [&str; 2] = ["adopt", "verify"];
 pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
 pub const EVIDENCE_HEADING: &str = "Evidence behind the tools";
-pub const EVIDENCE_OPENING: &str = "Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.";
+pub const EVIDENCE_OPENING: &str = "Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.";
 pub const HOMEPAGE_REQUIRED_TEXT: [&str; 4] = [
     HOMEPAGE_HEADING,
     HOMEPAGE_SUPPORT,

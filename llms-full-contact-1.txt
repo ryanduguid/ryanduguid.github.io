@@ -18,10 +18,6 @@ Email feedback on any tool, example or evaluation, including a result you could 
 
 For professional connections, find me on LinkedIn. You can also review my accounting work samples.
 
-I am not a registered tax agent or BAS agent. I do not take requests for advice, return preparation, confirmation of tax treatment or lodgement.
-
-I build these open source accounting tools in my own time, on my own equipment. This is not a practice, and I do not accept professional engagements through this site.
-
 ## Feedback on a tool or example
 
 Tell me which tool or page you used, what you expected and what happened, or where the working is unclear. A useful report names the input, the output and the source behind the figure you expected. Use fictional or supplied synthetic figures only.
@@ -37,6 +33,8 @@ Website issues | Report a website issue on GitHub
 GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
+
+I build these open source accounting tools in my own time, on my own equipment. This is not a practice: I do not accept professional engagements through this site or take requests for advice, return preparation or lodgement.
 
 Published 30 August 2026. Last reviewed 26 September 2026.
 

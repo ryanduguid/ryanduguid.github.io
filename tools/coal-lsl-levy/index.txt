@@ -42,7 +42,7 @@ Calculate
 
 ## Result
 
-This calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and disclaimer on this page still apply.
+This calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and limits on this page still apply.
 
 Ready to calculate
 
@@ -71,20 +71,6 @@ Your figures are not sent to a server. To check, disconnect from the internet on
 Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN or other direct identifier. Calculate first, then add the result and choose Download CSV.
 
 Download CSV before leaving. This table is not saved and clears when you reload or close the page. While it has changes you have not downloaded, the browser asks before you leave.
-
-## Disclaimer
-
-Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter. It is general information, not legal, tax, accounting or financial advice. Using it creates no adviser relationship.
-
-The levy rate applied is 2.7%, checked on 18 September 2026. It applies to eligible wages paid on or after 1 July 2023; reporting months before July 2023 are refused because the earlier rate is not implemented. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
-
-This is not a lodgement channel. Your monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL. Where anything here is inconsistent with the Acts, the Regulations or the approved form, those prevail.
-
-This tool does not decide whether an employee is an eligible employee, does not calculate long service leave accrual or reimbursements, and does not calculate additional levy on late payments. The Coal Mining Industry (Long Service Leave) Legislation Amendment Act 2026, assented to on 6 July 2026, added an unpaid levy payment arrangement and changed the additional levy for late payment. Neither change touches section 3B or the 2.7% rate, and this tool calculates neither.
-
-Eligible wages vary each month. Do not set a fixed or automatic levy payment from any figure produced here.
-
-The output may be inaccurate, out of date or incomplete. Verify against Coal LSL.
 
 ## What this tool does not resolve
 
@@ -144,16 +130,24 @@ Software issue using fictional data? Open an issue or email with the tool named 
 - Evidence and Assurance
 - About Ryan Duguid
 
+## Limits
+
+Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter.
+
+The levy rate applied is 2.7%, checked on 18 September 2026. It applies to eligible wages paid on or after 1 July 2023; reporting months before July 2023 are refused because the earlier rate is not implemented. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
+
+This is not a lodgement channel. Your monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL. Where anything here is inconsistent with the Acts, the Regulations or the approved form, those prevail.
+
+This tool does not decide whether an employee is an eligible employee, does not calculate long service leave accrual or reimbursements, and does not calculate additional levy on late payments. The Coal Mining Industry (Long Service Leave) Legislation Amendment Act 2026, assented to on 6 July 2026, added an unpaid levy payment arrangement and changed the additional levy for late payment. Neither change touches section 3B or the 2.7% rate, and this tool calculates neither.
+
+Eligible wages vary each month. Do not set a fixed or automatic levy payment from any figure produced here. Verify against Coal LSL.
+
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - 9218822: https://github.com/ryanduguid/ryanduguid.github.io/commit/92188225f42df20c14817af0ded3842f7911fb51
-- Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992: https://www.legislation.gov.au/C2004A04352/latest/text
-- Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018: https://www.legislation.gov.au/F2018L00217/latest/text
-- Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992: https://www.legislation.gov.au/C2004A04353/latest/text
-- Coal LSL: https://coallsl.com.au
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - contact page: https://duguid.com.au/contact/
 - Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages
@@ -162,3 +156,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/
 - About Ryan Duguid: https://duguid.com.au/about/
+- Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992: https://www.legislation.gov.au/C2004A04352/latest/text
+- Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018: https://www.legislation.gov.au/F2018L00217/latest/text
+- Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992: https://www.legislation.gov.au/C2004A04353/latest/text
+- Coal LSL: https://coallsl.com.au

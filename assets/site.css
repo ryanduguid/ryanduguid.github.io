@@ -1499,6 +1499,11 @@ caption {
   max-width: var(--reading-width);
 }
 
+/* The site's one advice disclaimer is small print; About holds the full boundary. */
+.site-footer__legal {
+  font-size: var(--text-caption);
+}
+
 /* The motto and the ABN line close the footer as one sign-off, so the space
    sits above the pair, not inside it. Screen readers get the hidden copy, in
    mixed case with its meaning; the tracked capitals and the tooltip belong to

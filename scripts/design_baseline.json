@@ -39,7 +39,7 @@
       "b991e66b74bef293b5e69d3c8166b642343b922441ddd7ec68ac155f25f8e975"
     ],
     "index.html": [
-      "46400c7df881f78097ffaea12a3f7e97bc696374da7ca3c49435c61b03c6b63d"
+      "5c41fea247791881b8736975396fabdbc58f72e98bd3b809e102f91e21050c99"
     ],
     "privacy/index.html": [
       "7621dde36a8c6e5b0f04cb6d575c0acaee9e938e59b8842642f76e88a759dcef"
@@ -81,7 +81,7 @@
       "6baa4a702af23924dd0d14ba8b0a7eb8cdaa461067ac096f926aace0292441b6"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "4682db41e14bafad5abeab6024c03250f25d685d5ed1a7b215f7a4eaeaf5bfcf"
+      "ccad29654ad8ee897ed56e31e814cb8beae5f9b4728d12e56bd14a8f46834de1"
     ],
     "tools/company-tax-franking/index.html": [
       "920bcb48a97382a6b5e8d2eacf4f3ca918b4a93af995b08fc222741fce3ce65b"
@@ -148,7 +148,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "72d443b8b738222c147450802e4c9d6721e9713f42946041b53dfb62780e6add",
+    "llms.txt": "39e1ce3f328607a0fdc04b4166b93eb1370a9d4dea6448f89a267975e6467406",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
     "sitemap.xml": "d0bc0a90f6c5687e93e91c84e16203d2d09fa61b951c962353ee34705dcbdc07"
   },
@@ -205,12 +205,12 @@
     ]
   },
   "protected_main_text": {
-    "rates/cents-per-kilometre/index.html": "77c2f1b788dfe6406bd14ce996eb36edf66b08c158bba8276c4a9323e9ad9ef6",
-    "rates/div7a-benchmark-rate/index.html": "e0645d6aa99f61bd1b4dfaa1d400aa7e9a89772db8bd68efc76f0f6172f7a779",
-    "rates/super-guarantee/index.html": "db282a9f2bfe92bc2a3fc6c1042c983e7ac36cd75eab360659b8c610ed7b0c62"
+    "rates/cents-per-kilometre/index.html": "16d00d7e973ea8ac872b7c33acf34d4bbf96c1d87bab38950dfe18e8119e4f38",
+    "rates/div7a-benchmark-rate/index.html": "8ae8749c7f558be448d99760ecacf0a1722a356ff7075fb77b506c5c73675643",
+    "rates/super-guarantee/index.html": "aa7870b9f02e555565f1c4b6459dd1a170bf1ef4fa62bb15d2f660608bab22b3"
   },
   "protected_text": {
-    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 65,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 65,
     "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

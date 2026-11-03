@@ -504,8 +504,8 @@ test('print media keeps the working and hides interactive records', async ({ pag
   await expect(page.getByLabel('Employee reference', { exact: true })).toBeHidden();
   await expect(page.locator('#employee-table')).toBeHidden();
   // The printed working keeps the footer's advice boundary and ends with a blank sign-off.
-  await expect(page.locator('.site-footer__inner > p').first()).toContainText('not a registered tax agent');
-  await expect(page.locator('.site-footer__inner > p').first()).toBeVisible();
+  await expect(page.locator('.site-footer__legal')).toContainText('not a registered tax or BAS agent');
+  await expect(page.locator('.site-footer__legal')).toBeVisible();
   await expect(page.locator('.site-footer__links')).toBeHidden();
   expect(await page.locator('.site-footer__inner').evaluate((element) =>
     getComputedStyle(element, '::after').content)).toContain('Review date:');

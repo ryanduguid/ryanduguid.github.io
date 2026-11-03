@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-03T00:00:00Z</updated>
+  <updated>2026-11-04T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The advice disclaimer now appears once on each page, as a small line at the…</title>
+    <link href="https://duguid.com.au/changelog/#entry-354437c3855da5a7" />
+    <id>https://duguid.com.au/changelog/#entry-354437c3855da5a7</id>
+    <updated>2026-11-04T00:00:00Z</updated>
+    <summary>The advice disclaimer now appears once on each page, as a small line at the foot that links to the full advice and review boundary, now at the end of About. The repeated copies at the top of the homepage, Evidence, Contact and tool pages, on the rate pages and in the question guides are gone, and each tool page keeps only its own specific limits.</summary>
+  </entry>
   <entry>
     <title>Every row of the six rate CSVs now names the ATO page, Federal Register…</title>
     <link href="https://duguid.com.au/changelog/#entry-39c6492e4f12f5d0" />

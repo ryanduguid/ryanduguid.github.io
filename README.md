@@ -40,7 +40,7 @@ On this page:
 - `assets/hub-routes.mjs` forwards an old `#q12` or `#cash` bookmark on either index to the page that now holds it.
 - `/feed.xml` is an Atom feed built from the changelog tables by `site-tools build_feed`.
 
-The homepage is a short adoption path into those registers. The site is a personal open source index, not a practice, and does not accept professional engagements.
+The homepage is a short adoption path into those registers.
 
 ## Local preview
 
@@ -336,7 +336,7 @@ Open Font License 1.1 in one `assets/fonts/OFL-*.txt` file per family. The certi
 are Xero's document and artwork, published as a factual record of Ryan Duguid's
 own certification under the terms in `assets/credentials/SOURCES.md`.
 
-Nothing on the site is tax, legal or financial advice. Outputs of the tools it links are review aids for a qualified professional, not compliance determinations.
+<sub>The site is a personal open source index, not a practice, and does not accept professional engagements. Nothing on it is tax, legal or financial advice; outputs of the tools it links are review aids for a qualified professional, not compliance determinations.</sub>
 
 ---
 

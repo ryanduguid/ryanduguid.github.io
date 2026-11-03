@@ -48,7 +48,7 @@ See Claude setup and access
 
 ## Before you connect
 
-These guides list existing tools and their supported routes. They do not establish certification or endorsement by Xero or Anthropic.
+These guides list existing tools and their supported routes.
 
 Read the data and privacy boundary before supplying information. Installation may download packages, and an AI host may send supplied figures and tool results to its model provider. Posting, payment, lodgement, approval and period lock require human review.
 
