@@ -253,7 +253,7 @@ pub fn check_evidence_page(root: &Path) -> Result<Vec<String>, String> {
         ));
     }
     for (label, pattern) in [
-        ("synthetic", r"\bsynthetic\b"),
+        ("fictional", r"\bfictional\b"),
         ("versioned", r"\bversion(?:ed|ing|s)?\b"),
         ("local", r"\blocal\b"),
         ("human review", r"\bhuman\b.{0,80}\breview\w*\b"),
@@ -815,7 +815,7 @@ pub fn check_payday_example(html: &str, record: &Json) -> Vec<String> {
     failures
 }
 
-/// Keep each synthetic example visible and tied to tagged test evidence.
+/// Keep each fictional worked example visible and tied to tagged test evidence.
 pub fn check_worked_examples(root: &Path) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
     for example in &WORKED_EXAMPLES {
@@ -823,7 +823,7 @@ pub fn check_worked_examples(root: &Path) -> Result<Vec<String>, String> {
         let html = crate::read(&site_path(root, rel))?;
         let visible = strip_non_rendered(&html);
         let heading = re(
-            r"<h([1-6])\b[^>]*>.*?\bsynthetic\s+worked\s+example\b.*?</h\1>",
+            r"<h([1-6])\b[^>]*>.*?\bfictional\s+worked\s+example\b.*?</h\1>",
             S | I,
         )
         .search(&visible)
@@ -834,7 +834,7 @@ pub fn check_worked_examples(root: &Path) -> Result<Vec<String>, String> {
         let example_html = match heading {
             None => {
                 failures.push(format!(
-                    "{rel}: no visible Synthetic worked example heading"
+                    "{rel}: no visible Fictional worked example heading"
                 ));
                 String::new()
             }

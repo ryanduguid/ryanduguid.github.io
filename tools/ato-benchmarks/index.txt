@@ -38,7 +38,7 @@ The workflow is 2 steps on purpose. First, the tool drafts a mapping from the pr
 
 ## Worked example: cost of sales excluding wages
 
-This synthetic example comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
+This fictional example comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
 
 - Turnover: $100,000.
 - Cost of sales excluding wages: $30,000.

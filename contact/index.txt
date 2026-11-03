@@ -12,7 +12,7 @@ For professional connections, find me on LinkedIn. You can also review my accoun
 
 ## Feedback on a tool or example
 
-Tell me which tool or page you used, what you expected and what happened, or where the working is unclear. A useful report names the input, the output and the source behind the figure you expected. Use fictional or supplied synthetic figures only.
+Tell me which tool or page you used, what you expected and what happened, or where the working is unclear. A useful report names the input, the output and the source behind the figure you expected. Use fictional figures only.
 
 For the fictional Newcastle cash flow case, include your Excel version, receipt delay setting and the step you took. Email ryan@duguid.com.au.
 

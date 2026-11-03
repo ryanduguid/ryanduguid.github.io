@@ -561,7 +561,7 @@ fn quarter_close_case_matches_its_native_evidence() {
     assert_eq!(visible, expected);
     let text = tree.text(section);
     for boundary in [
-        "All business data, transactions and reviewers are fabricated",
+        "All business data, transactions and reviewers are fictional",
         "compare within a checkpoint and do not sum across checkpoints",
         "cash shortfall remains unattributed",
         "close marked REVIEW",

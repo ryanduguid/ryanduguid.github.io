@@ -20,9 +20,9 @@ Last reviewed 31 October 2026.
 
 ## From monthly close to a cash forecast
 
-Fabricated October to December 2026 case. Verified locally on 4 October 2026.
+Fictional October to December 2026 case. Verified locally on 4 October 2026.
 
-October closes with $22,000 cash against a $24,000 budget. The arithmetic reconciles, but close exceptions remain and a fabricated reviewer requests changes.
+October closes with $22,000 cash against a $24,000 budget. The arithmetic reconciles, but close exceptions remain and a fictional reviewer requests changes.
 
 ### Closed-month cash against the original budget
 
@@ -37,19 +37,19 @@ December | $29,500.00 | $24,000.00 | $5,500.00 | REVIEW
 
 October cash rises from $20,000 to $22,000 while finishing $2,000 below budget. These are different comparisons: movement between closed balances and actual cash against the original budget. Revenue exceeds its zero budget by $4,000 and net income by $1,500. Selected transactions explain arithmetic contributions; the cash shortfall remains unattributed. Those contributions and the cash bridge do not establish a business cause or clear a close finding.
 
-I separate calculation, close and review decisions. All three checkpoints have a RECONCILED calculation, a close marked REVIEW and an original receipt marked UNREVIEWED. A later fabricated reviewer requests changes. The source remains provisional and grants no action authority.
+I separate calculation, close and review decisions. All three checkpoints have a RECONCILED calculation, a close marked REVIEW and an original receipt marked UNREVIEWED. A later fictional reviewer requests changes. The source remains provisional and grants no action authority.
 
 The workflow preserves the original budget, freezes closed months and revises the remaining forecast as each month closes. It includes known invoices only; future sales, purchases, tax and funding are excluded.
 
 ### What was verified
 
-Three forecast packs and reader reports recomputed from retained fabricated evidence. An altered receipt was rejected. A separate native Power BI view matched all 9 monthly rows and 135 supplied value and state fields. Amounts remain exact decimal text, with no financial formulas or aggregation. The full producer workflow was reused from its recorded run.
+Three forecast packs and reader reports recomputed from retained fictional evidence. An altered receipt was rejected. A separate native Power BI view matched all 9 monthly rows and 135 supplied value and state fields. Amounts remain exact decimal text, with no financial formulas or aggregation. The full producer workflow was reused from its recorded run.
 
 This verifies local import and displayed values. Integration with the existing financial dashboard, source or reviewer authenticity, live business accuracy, statutory currency and client suitability remain unverified.
 
 ### Inspect the evidence
 
-The CSV contains all nine checkpoint/month rows and their review states, with amounts in AUD. Months recur as the forecast changes; compare within a checkpoint and do not sum across checkpoints. The JSON reports also retain the cash bridge, close exceptions and source digests. All business data, transactions and reviewers are fabricated.
+The CSV contains all nine checkpoint/month rows and their review states, with amounts in AUD. Months recur as the forecast changes; compare within a checkpoint and do not sum across checkpoints. The JSON reports also retain the cash bridge, close exceptions and source digests. All business data, transactions and reviewers are fictional.
 
 - Monthly values and review states (CSV, AUD)
 - October reader report (JSON)
@@ -140,7 +140,7 @@ The calculation engines and MCP server run locally. Installation downloads packa
 
 The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
 
-No client, taxpayer or production-ledger data appears in public examples. Business fixtures are synthetic; dated official-source snapshots are identified separately and do not establish current law. Client data belongs in a controlled local directory, never a public issue, repository or enquiry email.
+No client, taxpayer or production-ledger data appears in public examples. Business fixtures are fictional; dated official-source snapshots are identified separately and do not establish current law. Client data belongs in a controlled local directory, never a public issue, repository or enquiry email.
 
 - The ATO benchmark client data control records the zero-network runtime boundary.
 - The Payday Super local file boundary, TheWIPTally local file boundary and Workpaper Review Gate data boundary state how client files are separated from public fixtures.

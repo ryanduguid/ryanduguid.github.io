@@ -10,7 +10,7 @@ The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible w
 
 Source assets/levy.mjs at revision 9218822 in the ryanduguid.github.io repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
-Load the synthetic example
+Load the fictional example
 
 Replaces the current inputs with fictional figures. No client data.
 

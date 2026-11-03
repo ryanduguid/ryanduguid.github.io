@@ -44,7 +44,7 @@ This tool does the arithmetic. Install the Python engine, point it at a contract
 
 ## Worked example: a $50,000 contract asset
 
-This synthetic example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
+This fictional example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
 
 - Transaction price: $1,000,000.
 - Costs incurred: $400,000. Estimated cost to complete: $400,000.
@@ -199,19 +199,19 @@ python export_tb.py --date 2026-06-30
 # writes a CSV such as demo-company-au-...-tb-2026-06-30-accrual.csv, only when both balance checks pass
 ```
 
-These commands install the current release, v0.1.15 (its source). The default branch below is newer, unreleased work. The synthetic worked example stays pinned to v0.1.6, the release its evaluation tests.
+These commands install the current release, v0.1.15 (its source). The default branch below is newer, unreleased work. The fictional worked example stays pinned to v0.1.6, the release its evaluation tests.
 
 Source on GitHub
 
 Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
-## Synthetic worked example
+## Fictional worked example
 
 Reproduce the Xero trial balance integrity evaluation
 
-These release xero-trial-balance-export/v0.1.6 tests use mocked Xero API behaviour and synthetic account rows. They do not contain a live organisation’s data.
+These release xero-trial-balance-export/v0.1.6 tests use mocked Xero API behaviour and fictional account rows. They do not contain a live organisation’s data.
 
-Outcome | Synthetic facts | Test-backed result
+Outcome | Fictional facts | Test-backed result
 Balanced, CSV written | Business Bank Account (090) has a $1,200.00 movement debit and $15,234.50 YTD debit. Trade Debtors (610) has equal credits. | Both pairs balance and the exact expected CSV bytes are written.
 Unbalanced, CSV refused | Cash (090) has $100.00 movement and YTD debits. Equity (960) has a $100.00 movement credit but only a $90.00 YTD credit. | The movement balances, but the $10.00 YTD difference causes exit code 1 and no CSV file output.
 
@@ -252,7 +252,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
 - Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
 - its source: https://github.com/ryanduguid/accounting-review-pipeline/tree/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export
-- synthetic worked example: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
+- fictional worked example: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
 - Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
@@ -318,7 +318,7 @@ The table leaves out one job: researching a technical question across rulings, c
 - Reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. Division 7A review is experimental and requires human review.
 - The pinned v0.2.8 example calculates 7 experimental tax worksheets through calculate_tax_worksheet, with explicit scope and period checks.
 - Searches and reads a configured local Markdown library with file and line citations. This is optional; the package includes no library.
-- Emits synthetic SBR fixtures for agent tests, labelled synthetic: true.
+- Emits fictional SBR fixtures for agent tests, labelled synthetic: true.
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
 
@@ -332,7 +332,7 @@ Payday Super timing draws on the Superannuation Guarantee (Administration) Act 1
 
 Each engine’s source review and release record state what was checked. Verify current sources and the supplied facts before using an output.
 
-## Try two synthetic tool calls
+## Try two tool calls
 
 With uv installed, run the published demonstration without configuring an AI client:
 
@@ -358,7 +358,7 @@ No install
 
 Open the browser calculator with fictional figures. Nothing to install, and this site’s code does not send the figures you enter to a server.
 
-Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
+Open the fictional Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
 
 Claude Code
 
@@ -416,7 +416,7 @@ python scripts/validate_skills.py --strict
 
 A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project’s matching directory.
 
-The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
+The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
 
 The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the published v0.4.0 tag. The current Skills release is v0.5.0, published on 28 October 2026, with 76 workflows under FSL-1.1-ALv2. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
@@ -432,7 +432,7 @@ The optional LodgeiT calculator adapter is separate, unreleased development code
 
 Published MCP 0.2.8 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains UNKNOWN; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. Review the version-specific receipt rules before interpreting a result.
 
-The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant’s context. Public fixtures use synthetic data only.
+The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant’s context. Public fixtures use fictional data only.
 
 ## Common questions
 
@@ -450,7 +450,7 @@ Aus Accounting MCP reviews s 109E minimum yearly repayments for one supplied ama
 
 ### Does it lodge with the ATO?
 
-No. It does not lodge, declare or replace a registered agent. SBR payloads it can emit are synthetic test fixtures.
+No. It does not lodge, declare or replace a registered agent. SBR payloads it can emit are fictional test fixtures.
 
 ### When is a Payday Super contribution on time?
 
@@ -503,7 +503,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Excel cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - reproducible evaluation: https://duguid.com.au/evaluate/
-- Try two synthetic tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- Try two tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest

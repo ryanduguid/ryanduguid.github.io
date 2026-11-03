@@ -73,6 +73,47 @@ fn copy_reporting() {
 }
 
 #[test]
+fn fictional_wording_reporting() {
+    let directory = tempfile::tempdir().unwrap();
+    let root = directory.path();
+    let page = concat!(
+        "<head><meta property=\"og:description\" content=\"A Fabricated case\" />",
+        "<meta property=\"og:image:alt\" content=\"Card: Fabricated inputs.\" /></head>",
+        "<main><a href=\"#synthetic-worked-example\">Fictional worked example</a>",
+        "<code>synthetic: true</code><pre>--beneficiary \"Fabricated Beneficiary\"</pre>",
+        "<p>'fictional' in place of \u{2018}fabricated\u{2019}; generate_synthetic_sbr_fixture.</p>",
+        "<div role=\"region\" aria-label=\"Synthetic excerpt\"></div></main>",
+    );
+    std::fs::write(root.join("index.html"), page).unwrap();
+    std::fs::write(
+        root.join("llms.txt"),
+        "Synthetic rows at /tools/x/#fabricated-inputs",
+    )
+    .unwrap();
+    assert_eq!(
+        design::check_fictional_wording(root).unwrap(),
+        [
+            "index.html: accessible name copy says 'synthetic'; write 'fictional' for invented data",
+            "index.html: description copy says 'fabricated'; write 'fictional' for invented data",
+            "llms.txt: text copy says 'synthetic'; write 'fictional' for invented data",
+        ]
+    );
+    std::fs::write(
+        root.join("index.html"),
+        "<main>Synthetic data. A fabrication.</main>",
+    )
+    .unwrap();
+    assert_eq!(
+        design::check_fictional_wording(root).unwrap(),
+        [
+            "index.html: visible copy says 'fabrication'; write 'fictional' for invented data",
+            "index.html: visible copy says 'synthetic'; write 'fictional' for invented data",
+            "llms.txt: text copy says 'synthetic'; write 'fictional' for invented data",
+        ]
+    );
+}
+
+#[test]
 fn font_repetitive_text() {
     let directory = tempfile::tempdir().unwrap();
     let root = directory.path();
@@ -531,6 +572,27 @@ fn design_contracts_text_mutations() {
             "<p class=\"page-meta\">",
             "<p>The worked example is pinned to v0.1.3.</p><p class=\"page-meta\">",
             "tools/payday-super/index.html: expected at most one release statement before the first h2, found 2",
+        ),
+        (
+            "synthetic restored in visible copy",
+            "about/index.html",
+            "<strong>Fictional data in public.</strong>",
+            "<strong>Synthetic data in public.</strong>",
+            "about/index.html: visible copy says 'synthetic'; write 'fictional' for invented data",
+        ),
+        (
+            "fabricated restored in a page description",
+            "tools/payday-super/index.html",
+            "Inspect a fictional $120 contribution",
+            "Inspect a fabricated $120 contribution",
+            "tools/payday-super/index.html: description copy says 'fabricated'; write 'fictional' for invented data",
+        ),
+        (
+            "synthetic restored in an accessible name",
+            "evaluate/index.html",
+            "aria-label=\"Fictional month-end exception excerpt\"",
+            "aria-label=\"Synthetic month-end exception excerpt\"",
+            "evaluate/index.html: accessible name copy says 'synthetic'; write 'fictional' for invented data",
         ),
         (
             "font URL broken",

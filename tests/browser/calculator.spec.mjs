@@ -126,7 +126,7 @@ test('every calculator branch and added bonus rejects oversized amounts and reco
   await bonus.fill('1e308');
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(bonus).toHaveAttribute('aria-invalid', 'true');
-  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+  await page.getByRole('button', { name: 'Load the fictional example', exact: true }).click();
   await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText(COAL_LSL_PROOF.expected.levy);
   health.assertHealthy();
 });
@@ -161,7 +161,7 @@ test('Calculate focuses the result heading and brings it into view on wide layou
   for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 720 }]) {
     await page.setViewportSize(viewport);
     await page.goto('/tools/coal-lsl-levy/');
-    await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+    await page.getByRole('button', { name: 'Load the fictional example', exact: true }).click();
     await page.getByRole('button', { name: 'Calculate', exact: true }).click();
     const title = page.locator('#result-title');
     await expect(title, `${viewport.width}px`).toBeFocused();
@@ -409,7 +409,7 @@ test('the calculator still works offline once the page has loaded', async ({ pag
   await page.goto('/tools/coal-lsl-levy/');
   await waitForVisualFonts(page);
   await context.setOffline(true);
-  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+  await page.getByRole('button', { name: 'Load the fictional example', exact: true }).click();
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(page.locator('[data-result-kind="eligible-wages"]'))
     .toContainText(COAL_LSL_PROOF.expected.eligibleWages);
@@ -780,7 +780,7 @@ test('mobile calculations move keyboard focus to the result', async ({ page }, t
   test.skip(projectKind(testInfo) !== 'mobile', 'stacked result only');
   await calculateFormulaB(page);
   await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
-  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).press('Enter');
+  await page.getByRole('button', { name: 'Load the fictional example', exact: true }).press('Enter');
   await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
 });
 

@@ -75,7 +75,7 @@ I use sources such as the Australian Taxation Office’s super guarantee rate ta
 - Primary sources only. Rates, thresholds and tests come from Commonwealth legislation, the regulator’s published guidance or the accounting standard, never from a summary of one.
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
 - Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 marks a receipt as unknown when it has an on-time date but no amount. Version 0.1.6 assumed the full amount arrived. Check the version-specific receipt rules before relying on a result.
-- Synthetic data in public. Every public fixture, test and example uses fictional data. Client information stays out of public repositories entirely.
+- Fictional data in public. Every public fixture, test and example uses fictional data. Client information stays out of public repositories entirely.
 - A person signs off. The tools calculate and check; a person makes the judgement and lodges.
 
 ## Citing this work

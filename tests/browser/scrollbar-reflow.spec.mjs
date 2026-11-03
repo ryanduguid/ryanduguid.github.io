@@ -60,9 +60,9 @@ test('narrow pages reflow inside a traditional scrollbar gutter', async ({ page 
             expect(control.right, control.label).toBeLessThanOrEqual(available);
           }
         };
-        await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+        await page.getByRole('button', { name: 'Load the fictional example', exact: true }).click();
         await expect(page.locator('#result-actions')).toBeVisible();
-        await checkControls('Synthetic result', '#result-actions input, #result-actions button');
+        await checkControls('Fictional result', '#result-actions input, #result-actions button');
         await page.getByRole('button', { name: 'Print working', exact: true }).focus();
         await page.keyboard.press('Tab');
         await expect(page.getByLabel('Employee reference', { exact: true })).toBeFocused();

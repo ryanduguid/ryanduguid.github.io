@@ -12,10 +12,10 @@ tool: payday-super
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Payday Super: sent on time, received on time?</title>
-  <meta name="description" content="Current release payday-super-checker v{{ release.version }}. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid." />
+  <meta name="description" content="Current release payday-super-checker v{{ release.version }}. Inspect a fictional $120 contribution, its AT_RISK result and fund receipt evidence. Review aid." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Payday Super: sent on time, received on time?" />
-  <meta property="og:description" content="Current release payday-super-checker v{{ release.version }}. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid." />
+  <meta property="og:description" content="Current release payday-super-checker v{{ release.version }}. Inspect a fictional $120 contribution, its AT_RISK result and fund receipt evidence. Review aid." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -27,7 +27,7 @@ tool: payday-super
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Payday Super: sent on time, received on time?" />
-  <meta name="twitter:description" content="Current release payday-super-checker v{{ release.version }}. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid." />
+  <meta name="twitter:description" content="Current release payday-super-checker v{{ release.version }}. Inspect a fictional $120 contribution, its AT_RISK result and fund receipt evidence. Review aid." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/payday-super/" />
@@ -52,14 +52,14 @@ tool: payday-super
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol>
           <li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li>
-          <li aria-current="page">Payday Super timing</li>
+          <li aria-current="page">Payday Super receipt evidence</li>
         </ol></nav>
         <h1>{{ tool.name }}</h1>
         <p class="lead-note">The checker keeps each super contribution at risk until its fund receipt evidence proves it arrived on time.</p>
         {% include tool-meta.html published="24 August 2026" reviewed="31 October 2026" %}
       </header>
       <section id="synthetic-worked-example" class="site-shell">
-        <h2>Synthetic worked example</h2>
+        <h2>Fictional worked example</h2>
         <p><strong>Result: <span data-example="expected_verdict">AT_RISK</span>.</strong> Pinned deadline: <time data-example="expected_due_date" datetime="2026-08-17">17 August 2026</time>. Fund receipt unproven.</p>
         <p><strong>Human decision:</strong> Confirm fund receipt evidence and the timing pathway.</p>
         <p>Employee <span data-example="employee_id">SYN001</span>. Payday <time data-example="payment_date" datetime="2026-08-06">6 August 2026</time>. Contribution <span data-example="sg_amount">$120.00</span>, supplied by the preparer. Remitted <time data-example="remitted_date" datetime="2026-08-14">14 August 2026</time>. Fund received: <span data-example="fund_received_date">no date recorded</span>. Review date <time data-example="as_at" datetime="2026-08-20">20 August 2026</time>. Ordinary timing pathway. First contribution: <span data-example="first_contribution">no</span>. Out-of-cycle: <span data-example="out_of_cycle">no</span>.</p>
@@ -71,7 +71,7 @@ tool: payday-super
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
-          <a href="#synthetic-worked-example">Synthetic worked example</a>
+          <a href="#synthetic-worked-example">Fictional worked example</a>
           <a href="/evaluate/payday-super-evidence/">Reproduce the evaluation</a>
           <a href="#receipt-amount">Receipt dates and amounts</a>
           <a href="#workbook-versions">Workbook versions and limits</a>
@@ -99,7 +99,7 @@ tool: payday-super
 
           <section id="try-example">
             <h2>Try the CSV without cloning</h2>
-            <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, <a href="/assets/examples/payday/timely_remittance_no_receipt.csv" download>download the synthetic CSV</a> as <code>timely_remittance_no_receipt.csv</code>. Open a terminal in that folder and run:</p>
+            <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, <a href="/assets/examples/payday/timely_remittance_no_receipt.csv" download>download the fictional CSV</a> as <code>timely_remittance_no_receipt.csv</code>. Open a terminal in that folder and run:</p>
             <pre class="copyable" tabindex="0" role="region" aria-label="Pinned Payday Super example command"><code>uvx --from payday-super-checker==0.1.9 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv</code></pre>
             <p>The command downloads the pinned checker from PyPI and writes <code>payday-report.csv</code>, replacing that file if it exists. Open it to find one <code>AT_RISK</code> contribution with due date <code>2026-08-17</code>. The current release needs Python 3.14 or later and is Apache-2.0.</p>
             <p><strong>Check the matching evidence before relying on the exported file.</strong> If employee identifiers or pay period columns are missing, the join degrades and which super payment matches which payday can change. The current checker carries structural matching warnings into the report’s <code>caveats</code> column. Keep the console output with a historical report that omits them. Reconcile affected matches before using a verdict; a row labelled <code>ON_TIME</code> is not reliable evidence of the match itself. See <a href="/tools/limitations/">Known limitations</a> (PSC-2).</p>
@@ -153,7 +153,7 @@ tool: payday-super
       "@id": "https://duguid.com.au/tools/payday-super/#webpage",
       "url": "https://duguid.com.au/tools/payday-super/",
       "name": "Payday Super: sent on time, received on time?",
-      "description": "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision.",
+      "description": "See why a fictional $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
       "dateModified": "2026-10-31",
@@ -197,7 +197,7 @@ tool: payday-super
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Payday Super timing",
+          "name": "Payday Super receipt evidence",
           "item": "https://duguid.com.au/tools/payday-super/"
         }
       ]
@@ -209,7 +209,7 @@ tool: payday-super
         "SoftwareSourceCode"
       ],
       "name": "Payday Super receipt evidence",
-      "description": "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision.",
+      "description": "See why a fictional $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision.",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Windows, macOS, Linux",
       "url": "https://duguid.com.au/tools/payday-super/",

@@ -164,6 +164,15 @@ pub const BANNED_VISIBLE_PATTERNS: [(&str, &str); 79] = [
     ("Get started", r"\bget started\b"),
 ];
 const COPY_TEXT_FILES: [&str; 1] = ["llms.txt"];
+/// 'synthetic' or 'fabricated' as a word of prose. Slugs, identifiers and a
+/// quoted mention of the old word ('fabricated') keep their spelling.
+const INVENTED_DATA_PATTERN: &str =
+    r"(?<![\w#/'‘-])(synthetic|fabricat(?:e|es|ed|ing|ion))(?![\w'’-])";
+const DESCRIPTION_META_PATTERN: &str = concat!(
+    r#"<meta\b(?=[^>]*\b(?:name|property)\s*=\s*"(?:description|og:description|twitter:description)")"#,
+    r#"[^>]*\bcontent\s*=\s*"([^"]*)""#
+);
+const ACCESSIBLE_NAME_PATTERN: &str = r#"\b(?:aria-label|alt)\s*=\s*"([^"]*)""#;
 const META_CONTENT_PATTERN: &str = r#"<meta\b[^>]*\bcontent\s*=\s*"([^"]*)""#;
 const OPENING_REVIEW_DATE_CONTEXTS: [(&str, &str); 3] = [
     ("index.html", "home-hero__copy"),
@@ -934,6 +943,62 @@ pub fn check_copy(root: &Path) -> Result<Vec<String>, String> {
     Ok(failures)
 }
 
+/// Invented data is 'fictional' in reader copy (4 November 2026): visible text,
+/// accessible names, page descriptions, JSON-LD and llms.txt. Code shows
+/// commands and identifiers, so it keeps fixture names such as `synthetic: true`.
+pub fn check_fictional_wording(root: &Path) -> Result<Vec<String>, String> {
+    let mut failures = Vec::new();
+    let mut documents = Vec::new();
+    for path in core::html_files(root) {
+        let rel = core::rel(&path, root);
+        let html = crate::read(&path)?;
+        let prose = re(r"<(code|pre)\b[^>]*>.*?</\1>", I | S).sub(" ", &html);
+        let values = |pattern: &str, source: &str| {
+            re(pattern, I)
+                .findall(source)
+                .iter()
+                .map(|v| unescape(v))
+                .collect::<Vec<_>>()
+                .join(" ")
+        };
+        let mut strings = Vec::new();
+        for block in core::json_ld_blocks(&html, &rel, &mut Vec::new()) {
+            json_ld_strings(&block, &mut strings);
+        }
+        let surfaces = vec![
+            ("visible", core::raw_text(&prose)),
+            ("accessible name", values(ACCESSIBLE_NAME_PATTERN, &prose)),
+            ("description", values(DESCRIPTION_META_PATTERN, &html)),
+            ("JSON-LD", strings.join(" ")),
+        ];
+        documents.push((rel, surfaces));
+    }
+    for rel in COPY_TEXT_FILES {
+        let path = site_path(root, rel);
+        if path.is_file() {
+            documents.push((rel.to_owned(), vec![("text", crate::read(&path)?)]));
+        }
+    }
+    let invented = re(INVENTED_DATA_PATTERN, I);
+    for (rel, surfaces) in documents {
+        for (surface, text) in surfaces {
+            let mut words: Vec<String> = invented
+                .findall(&text)
+                .iter()
+                .map(|w| w.to_lowercase())
+                .collect();
+            words.sort();
+            words.dedup();
+            for word in words {
+                failures.push(format!(
+                    "{rel}: {surface} copy says '{word}'; write 'fictional' for invented data"
+                ));
+            }
+        }
+    }
+    Ok(failures)
+}
+
 /// A tool page states its current release once before its first section;
 /// pins and release history sit under the section they describe.
 pub fn check_release_statements(root: &Path) -> Result<Vec<String>, String> {
@@ -1504,6 +1569,7 @@ pub fn check_repository(root: &Path) -> Result<Vec<String>, String> {
     }
     failures.extend(check_homepage_refinement(root)?);
     failures.extend(check_copy(root)?);
+    failures.extend(check_fictional_wording(root)?);
     failures.extend(check_opening_review_dates(root)?);
     failures.extend(check_release_statements(root)?);
     Ok(failures)

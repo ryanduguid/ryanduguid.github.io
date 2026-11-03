@@ -136,7 +136,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "aus-accounting-mcp",
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.7.1 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and synthetic SBR fixtures.",
+        "Local MCP server v0.7.1 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and fictional SBR fixtures.",
     ),
     (
         "australian-accounting-skills",
@@ -485,7 +485,7 @@ pub const ARTICLE_TOC_EXTERNAL_LINKS: [(&str, (&str, &str, &str)); 1] = [(
     (
         "/evaluate/payday-super-evidence/",
         "Reproduce the evaluation",
-        "Synthetic worked example",
+        "Fictional worked example",
     ),
 )];
 
@@ -521,7 +521,10 @@ pub const BREADCRUMB_LEAF_NAMES: [(&str, &str); 13] = [
         "tools/company-tax-franking/index.html",
         "Company tax and franking checks",
     ),
-    ("tools/payday-super/index.html", "Payday Super timing"),
+    (
+        "tools/payday-super/index.html",
+        "Payday Super receipt evidence",
+    ),
     (
         "tools/subcontractor-ledgers/index.html",
         "Subcontract ledger skills",

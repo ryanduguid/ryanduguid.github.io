@@ -133,7 +133,7 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
     ));
     expect(downloadOffset).toBeLessThan(500);
     const downloadPromise = page.waitForEvent('download');
-    await page.getByRole('link', { name: 'Download the synthetic Excel forecast', exact: true }).click();
+    await page.getByRole('link', { name: 'Download the fictional Excel forecast', exact: true }).click();
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe('lumbridge.xlsx');
     expect(await download.failure()).toBeNull();
@@ -141,7 +141,7 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   await page.goto('/about/');
   await page.locator('#work-samples').getByRole('link', { name: 'accounting review pipeline', exact: true }).click();
   await expect(page).toHaveURL(/\/evaluate\/#month-end-preview$/);
-  const excerpt = page.getByRole('region', { name: 'Synthetic month-end exception excerpt' });
+  const excerpt = page.getByRole('region', { name: 'Fictional month-end exception excerpt' });
   await expect(excerpt.getByRole('row')).toHaveCount(4);
   if (page.viewportSize().width < 704) {
     await excerpt.focus();

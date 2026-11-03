@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/payday-super/
 
-> Current release payday-super-checker v0.2.3. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid.
+> Current release payday-super-checker v0.2.3. Inspect a fictional $120 contribution, its AT_RISK result and fund receipt evidence. Review aid.
 
 # Payday Super receipt evidence
 
@@ -10,7 +10,7 @@ The checker keeps each super contribution at risk until its fund receipt evidenc
 
 Current release payday-super-checker v0.2.3, 30 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 31 October 2026.
 
-## Synthetic worked example
+## Fictional worked example
 
 Result: AT_RISK. Pinned deadline: 17 August 2026. Fund receipt unproven.
 
@@ -48,7 +48,7 @@ The current source workbook withholds rate-dependent totals if any row needs an 
 
 ## Try the CSV without cloning
 
-With uv installed, download the synthetic CSV as timely_remittance_no_receipt.csv. Open a terminal in that folder and run:
+With uv installed, download the fictional CSV as timely_remittance_no_receipt.csv. Open a terminal in that folder and run:
 
 ```
 uvx --from payday-super-checker==0.1.9 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
@@ -116,7 +116,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - current source workbook: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker/workbooks
 - 22 September verification record: https://github.com/ryanduguid/australian-accounting/blob/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/docs/release-parity-review-2026-09-22.md
 - uv installed: https://docs.astral.sh/uv/
-- download the synthetic CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv
+- download the fictional CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv
 - Known limitations: https://duguid.com.au/tools/limitations/
 - recorded public evaluation: https://duguid.com.au/evaluate/payday-super-evidence/#reproduce
 - CLI change: https://github.com/ryanduguid/australian-accounting/pull/147

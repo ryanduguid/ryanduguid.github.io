@@ -106,7 +106,7 @@ Whether the business should defer the purchase, arrange finance or accept the ri
 
 Needs desktop Excel with automatic calculation. No Xero login, add-in, macro or AI agent is used, and the workbook contains no macros and no external links.
 
-- Download the synthetic Excel forecast (23,506 bytes).
+- Download the fictional Excel forecast (23,506 bytes).
 - Download the sample pack: the same workbook, the 6 source files, model notes, the management briefing, the trial guide, the fixed CSV exports and the source MIT licence.
 - Read the sample record for the source commit, hash and verification.
 - Open the Model and Cash 13 weeks sheets and find quarterly profit and December closing cash.
@@ -180,7 +180,7 @@ No. Lumbridge Services, its customers, invoices and balances are fictional. No c
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
-Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set]. https://duguid.com.au/examples/profit-vs-cash-flow/. Figures are fictional and no client outcome is claimed.
+Cite as Duguid, R. (2026). Lumbridge Services fictional cash flow case [Data set]. https://duguid.com.au/examples/profit-vs-cash-flow/. Figures are fictional and no client outcome is claimed.
 
 ## Links
 
