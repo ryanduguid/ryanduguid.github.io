@@ -828,6 +828,9 @@ test('calculator result and employee table do not overflow at 320 CSS pixels', a
 test('Formula B result matches the mobile visual baseline', async ({ page, browserName }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'mobile' || browserName !== 'chromium', 'the committed baseline is a mobile Chromium render');
   const health = observePageHealth(page);
+  // The form defaults its reporting month to today, and the baseline shows
+  // October 2026: 15 October 2026 at 10:00 in Sydney.
+  await page.clock.setFixedTime(new Date('2026-10-14T23:00:00Z'));
 
   await calculateFormulaB(page, { visualSnapshot: true });
   const result = page.locator('#result');
