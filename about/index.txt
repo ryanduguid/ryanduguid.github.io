@@ -8,9 +8,11 @@ Source: https://duguid.com.au/about/
 
 I’m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
 
+I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools. My LinkedIn profile is linkedin.com/in/ryan-duguid.
+
 See my accounting work samples, including a cash forecast, month-end checks and Excel functions.
 
-Last reviewed 23 October 2026.
+Last reviewed 4 November 2026.
 
 ## The short facts
 
@@ -90,13 +92,13 @@ I write and maintain this site in my own time and on my own equipment.
 
 ## Links
 
+- Xero Certified Specialist, Level 3: https://duguid.com.au/evidence/#xero-certification
+- linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
 - See my accounting work samples: https://duguid.com.au/about/#work-samples
 - Financial Accounting (FI): https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - Management Accounting (CO): https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
-- Read the certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
-- linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
 - Lumbridge case: https://duguid.com.au/examples/profit-vs-cash-flow/
 - accounting review pipeline: https://duguid.com.au/evaluate/#month-end-preview
 - Ozzit: https://github.com/ryanduguid/Ozzit
