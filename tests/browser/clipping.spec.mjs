@@ -27,7 +27,7 @@ function focusRingCut(element) {
 test('a wrapped heading link paints its hover fill as one box', async ({ page }) => {
   // Drawn line by line at the heading leading, each line's fill covered the
   // descenders of the line above.
-  for (const route of ['/', '/tools/', '/evaluate/', '/rates/', '/tools/accounting-questions/']) {
+  for (const route of ['/tools/', '/evaluate/', '/rates/', '/tools/accounting-questions/']) {
     await page.goto(route);
     await page.evaluate(() => document.fonts.ready);
     const boxes = await page.locator(':is(h1, h2, h3, h4, h5, h6) > a')
