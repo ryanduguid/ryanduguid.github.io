@@ -1,7 +1,11 @@
 {%- comment -%}
   A tool page's one metadata line: the current release and its date, the
   source repository and the page's own dates. Pass published and reviewed.
-  A tool without tagged releases names its source revision instead.
+  A tool without tagged releases names its source revision instead. Each date
+  keeps its punctuation inside its nowrap span, so visible text reads
+  'Published 24 August 2026.' with no space before the stop. The version link
+  is an inline block, which allows a break before a comma, so it shares a
+  span with its comma.
 {%- endcomment -%}
 {%- assign repository = tool.repository | remove: 'ryanduguid/' -%}
-    <p class="page-meta">{% if tool.tagPrefix %}Current release <code>{{ tool.package }}</code> <a href="{{ release.url }}">v{{ release.version }}</a>, {{ release.dateLabel }}, from the <a href="{{ tool.codeRepository }}">{{ repository }}</a> repository.{% else %}Source <code>{{ tool.package }}</code> at revision <a href="{{ release.url }}">{{ release.version | truncate: 7, '' }}</a> in the <a href="{{ tool.codeRepository }}">{{ repository }}</a> repository.{% endif %} Published {{ include.published }}. Last reviewed {{ include.reviewed }}.</p>
+    <p class="page-meta">{% if tool.tagPrefix %}Current release <code>{{ tool.package }}</code> <span class="nowrap"><a href="{{ release.url }}">v{{ release.version }}</a>,</span> <span class="nowrap">{{ release.dateLabel }},</span> from the <a href="{{ tool.codeRepository }}">{{ repository }}</a> repository.{% else %}Source <code>{{ tool.package }}</code> at revision <a href="{{ release.url }}">{{ release.version | truncate: 7, '' }}</a> in the <a href="{{ tool.codeRepository }}">{{ repository }}</a> repository.{% endif %} Published <span class="nowrap">{{ include.published }}.</span> Last reviewed <span class="nowrap">{{ include.reviewed }}.</span></p>
