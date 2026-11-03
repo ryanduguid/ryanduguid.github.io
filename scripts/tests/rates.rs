@@ -460,15 +460,6 @@ fn a_rate_row_without_a_source_or_check_date_is_refused() {
             format!("2026-27,69883,{source},2026-11-04"),
             "checked_at: '2026-11-04' is in the future",
         ),
-        (
-            "2026-27,69883,https://www.ato.gov.au.evil.example/x,2026-11-03".to_owned(),
-            "www.ato.gov.au.evil.example is not a primary source host",
-        ),
-        (
-            "2026-27,69883,https://www.ato.gov.au@evil.example/x,2026-11-03".to_owned(),
-            "carries credentials in the authority",
-        ),
-        (String::new(), "car-limit/car-limit.csv: no rows"),
     ] {
         let failures = table_failures(header, &row);
         assert!(any(&failures, expected), "{row}: {failures:?}");
@@ -477,6 +468,25 @@ fn a_rate_row_without_a_source_or_check_date_is_refused() {
     let failures = table_failures("income_year,car_limit", "2026-27,69883");
     assert!(any(&failures, "source_url: None must be"), "{failures:?}");
     assert!(any(&failures, "checked_at: None is not"), "{failures:?}");
+}
+
+#[test]
+fn a_lookalike_host_credentials_or_an_empty_table_is_refused() {
+    let header = "income_year,car_limit,source_url,checked_at";
+    for (row, expected) in [
+        (
+            "2026-27,69883,https://www.ato.gov.au.evil.example/x,2026-11-03",
+            "www.ato.gov.au.evil.example is not a primary source host",
+        ),
+        (
+            "2026-27,69883,https://www.ato.gov.au@evil.example/x,2026-11-03",
+            "carries credentials in the authority",
+        ),
+        ("", "car-limit/car-limit.csv: no rows"),
+    ] {
+        let failures = table_failures(header, row);
+        assert!(any(&failures, expected), "{row}: {failures:?}");
+    }
 }
 
 #[test]
