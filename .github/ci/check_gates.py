@@ -74,9 +74,13 @@ def literal_name(text: str) -> str | None:
         match = re.fullmatch(r"'((?:[^']|'')*)'\s*(?:#.*)?", text)
         return match[1].replace("''", "'") if match and match[1] else None
     text = without_comment(text)
-    if (not text or text[0] in "!&*[]{}>|%@`#.+-0123456789" or re.search(r":\s|[\r\n]", text)
-            or text.lower() in {"null", "true", "false", "yes", "no", "on", "off", "~"}
-            or re.fullmatch(r"[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?", text)):
+    if (
+        not text
+        or text[0] in "!&*[]{}>|%@`#.+-0123456789"
+        or re.search(r":\s|[\r\n]", text)
+        or text.lower() in {"null", "true", "false", "yes", "no", "on", "off", "~"}
+        or re.fullmatch(r"[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?", text)
+    ):
         return None
     return text
 
@@ -84,7 +88,8 @@ def literal_name(text: str) -> str | None:
 def block(lines: list[str], key: str, indent: int) -> list[str] | None:
     """Read one plain block property, retaining unsupported structures as unknown."""
     positions = [
-        i for i, line in enumerate(lines)
+        i
+        for i, line in enumerate(lines)
         if line.startswith(" " * indent) and job_key(line[indent:]) == key
     ]
     if len(positions) != 1:
@@ -100,7 +105,7 @@ def block(lines: list[str], key: str, indent: int) -> list[str] | None:
             if len(line) - len(line.lstrip(" ")) <= indent:
                 break
         end += 1
-    return lines[start + 1:end]
+    return lines[start + 1 : end]
 
 
 def matrix_values(lines: list[str], key: str) -> set[str] | None:
@@ -143,14 +148,20 @@ def reported_names(name: str | None, lines: list[str], job: str) -> set[str] | N
         if values is not None:
             names = values
     conditional = re.fullmatch(
-        r"\$\{\{\s*matrix\.[A-Za-z_][A-Za-z_0-9]*\s*==\s*" + EXPRESSION_STRING
-        + r"\s*&&\s*" + EXPRESSION_STRING + r"\s*\|\|\s*" + EXPRESSION_STRING + r"\s*\}\}",
+        r"\$\{\{\s*matrix\.[A-Za-z_][A-Za-z_0-9]*\s*==\s*"
+        + EXPRESSION_STRING
+        + r"\s*&&\s*"
+        + EXPRESSION_STRING
+        + r"\s*\|\|\s*"
+        + EXPRESSION_STRING
+        + r"\s*\}\}",
         name,
     )
     if conditional and conditional[2] and conditional[3]:
         names = {conditional[2].replace("''", "'"), conditional[3].replace("''", "'")}
     properties = {
-        job_key(line[4:]) for line in lines
+        job_key(line[4:])
+        for line in lines
         if line.startswith("    ") and line[4:5] not in ("", " ")
     }
     if "name" not in properties and "strategy" in properties:
@@ -161,8 +172,9 @@ def reported_names(name: str | None, lines: list[str], job: str) -> set[str] | N
     return names
 
 
-def start_job(line: str, names: dict[str, str | None], bodies: dict[str, list[str]],
-              unreadable: list[str]) -> tuple[str | None, bool]:
+def start_job(
+    line: str, names: dict[str, str | None], bodies: dict[str, list[str]], unreadable: list[str]
+) -> tuple[str | None, bool]:
     """Record a job-key line; return its id (None if unreadable) and whether its value is unknown."""
     job = job_key(line[2:])
     if job is None:
@@ -245,7 +257,11 @@ def possible_context(names: set[str] | None, context: str) -> bool:
             if "}}" not in expression:
                 return True
             suffix = expression.rsplit("}}", 1)[1]
-            if len(context) >= len(prefix) + len(suffix) and context.startswith(prefix) and context.endswith(suffix):
+            if (
+                len(context) >= len(prefix) + len(suffix)
+                and context.startswith(prefix)
+                and context.endswith(suffix)
+            ):
                 return True
     return False
 
@@ -290,8 +306,9 @@ def gate_kept(path: str, gate: str) -> bool:
     return parsed is not None and not parsed[1] and gate in parsed[0]
 
 
-def context_sources(path: str, jobs: dict[str, set[str] | None], base_modes: set[str] | None,
-                    context: str) -> int:
+def context_sources(
+    path: str, jobs: dict[str, set[str] | None], base_modes: set[str] | None, context: str
+) -> int:
     """Count the jobs in a base workflow that can report CONTEXT; unresolvable ones fail."""
     count = 0
     for names in jobs.values():
@@ -336,15 +353,15 @@ def base_jobs(workflow: str, gate: str, head: str) -> set[str]:
                 same_id.append(set(parsed[0]))
             candidates += [set(parsed[0])] * context_sources(path, parsed[0], base_modes, context)
     if len(candidates) > 1:
-        sys.exit(
-            f"More than one base job can precede {gate}; the gate check needs updating"
-        )
+        sys.exit(f"More than one base job can precede {gate}; the gate check needs updating")
     if candidates:
         required.update(candidates[0])
     elif gate not in destination:
         # A gate that kept its id but changed file and context still owes the base jobs.
         if len(same_id) > 1:
-            sys.exit(f"More than one base workflow can precede {gate}; the gate check needs updating")
+            sys.exit(
+                f"More than one base workflow can precede {gate}; the gate check needs updating"
+            )
         if same_id:
             required.update(same_id[0])
     return required
@@ -365,13 +382,16 @@ def base_workflow_paths() -> list[str]:
     """Preserve pathname bytes, including CR and LF, before strict UTF-8 decoding."""
     listing = subprocess.run(
         ["git", "ls-tree", "-r", "--name-only", "-z", "HEAD^1", "--", ".github/workflows/"],
-        capture_output=True, check=True,
+        capture_output=True,
+        check=True,
     ).stdout
     return listing.decode("utf-8").split("\0")
 
 
 def git(*args: str) -> str:
-    return subprocess.run(["git", *args], capture_output=True, text=True, encoding="utf-8", check=True).stdout  # nosec B607
+    return subprocess.run(
+        ["git", *args], capture_output=True, text=True, encoding="utf-8", check=True
+    ).stdout  # nosec B607
 
 
 def main(argv: list[str]) -> None:
@@ -414,7 +434,9 @@ def main(argv: list[str]) -> None:
     # the merge was made against. A missing parent fails the check rather than
     # skipping it; a workflow and gate both new in this pull request have no base.
     base = (
-        base_jobs(workflow, gate, text) if os.environ.get("GITHUB_EVENT_NAME") == "pull_request" else None
+        base_jobs(workflow, gate, text)
+        if os.environ.get("GITHUB_EVENT_NAME") == "pull_request"
+        else None
     )
     if base is not None:
         removed = base - jobs
@@ -436,5 +458,12 @@ def main(argv: list[str]) -> None:
 if __name__ == "__main__":
     try:
         main(sys.argv[1:])
-    except (OSError, ValueError, KeyError, TypeError, AttributeError, subprocess.CalledProcessError) as error:
+    except (
+        OSError,
+        ValueError,
+        KeyError,
+        TypeError,
+        AttributeError,
+        subprocess.CalledProcessError,
+    ) as error:
         sys.exit(f"{type(error).__name__}: {error}")

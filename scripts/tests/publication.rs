@@ -493,30 +493,9 @@ fn only_deploy_and_fuzzing_are_exempt_from_the_actual_aggregate() {
     assert_ne!(gate(), Some(0));
 }
 
-/// A pull request that renames checks.yml and keeps the checks-gates context must
-/// still account for the jobs the old file's gate required. The gate reads the base
-/// copy from the merge commit's first parent, so this builds one in a real Git
-/// repository.
-#[test]
-fn a_renamed_workflow_cannot_drop_the_jobs_its_gate_required() {
-    let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
-    let workflow =
-        std::fs::read_to_string(repository.join(".github/workflows/checks.yml")).unwrap();
-    let python = if cfg!(windows) { "python" } else { "python3" };
-    let available = |program: &str| {
-        std::process::Command::new(program)
-            .arg("--version")
-            .output()
-            .is_ok()
-    };
-    if !available(python) || !available("git") {
-        eprintln!("skipped: the rename check needs Python and Git");
-        return;
-    }
-    let root = tempfile::tempdir().unwrap();
-    let repo = root.path().join("repo");
-    let workflows = repo.join(".github/workflows");
-    std::fs::create_dir_all(&workflows).unwrap();
+/// Variables the fixture's Git and gate runs see: the system essentials plus an empty
+/// home and no global Git configuration, as a pull request's CI run.
+fn fixture_env(home: &Path) -> Vec<(String, String)> {
     let mut env: Vec<(String, String)> = ["PATH", "SYSTEMROOT", "TEMP", "TMP"]
         .iter()
         .filter_map(|key| {
@@ -525,7 +504,7 @@ fn a_renamed_workflow_cannot_drop_the_jobs_its_gate_required() {
                 .map(|value| ((*key).to_owned(), value))
         })
         .collect();
-    let home = root.path().to_string_lossy().into_owned();
+    let home = home.to_string_lossy().into_owned();
     let null = if cfg!(windows) { "NUL" } else { "/dev/null" };
     env.extend(
         [
@@ -538,26 +517,36 @@ fn a_renamed_workflow_cannot_drop_the_jobs_its_gate_required() {
         ]
         .map(|(key, value)| (key.to_owned(), value.to_owned())),
     );
-    let git = |args: &[&str]| {
-        let status = std::process::Command::new("git")
-            .env_clear()
-            .envs(env.iter().cloned())
-            .args([
-                "-c",
-                "user.name=Fixture",
-                "-c",
-                "user.email=fixture@example.invalid",
-                "-c",
-                "commit.gpgsign=false",
-            ])
-            .args(args)
-            .current_dir(&repo)
-            .status()
-            .unwrap();
-        assert!(status.success(), "git {args:?} failed");
-    };
+    env
+}
+
+fn fixture_git(repo: &Path, env: &[(String, String)], args: &[&str]) {
+    let status = std::process::Command::new("git")
+        .env_clear()
+        .envs(env.iter().cloned())
+        .args([
+            "-c",
+            "user.name=Fixture",
+            "-c",
+            "user.email=fixture@example.invalid",
+            "-c",
+            "commit.gpgsign=false",
+        ])
+        .args(args)
+        .current_dir(repo)
+        .status()
+        .unwrap();
+    assert!(status.success(), "git {args:?} failed");
+}
+
+/// Builds a merge commit whose first parent holds `workflow` as checks.yml and whose
+/// second parent renames it to renamed.yml with only a `replacement` job left.
+fn renamed_workflow_merge(repo: &Path, env: &[(String, String)], workflow: &str) {
+    let workflows = repo.join(".github/workflows");
+    std::fs::create_dir_all(&workflows).unwrap();
+    let git = |args: &[&str]| fixture_git(repo, env, args);
     git(&["init", "--quiet", "--initial-branch=main"]);
-    std::fs::write(workflows.join("checks.yml"), &workflow).unwrap();
+    std::fs::write(workflows.join("checks.yml"), workflow).unwrap();
     git(&["add", "--all"]);
     git(&["commit", "--quiet", "-m", "Base fixture"]);
     git(&["checkout", "--quiet", "-b", "change"]);
@@ -581,6 +570,37 @@ fn a_renamed_workflow_cannot_drop_the_jobs_its_gate_required() {
         "-m",
         "Merge fixture",
     ]);
+}
+
+/// A pull request that renames checks.yml and keeps the checks-gates context must
+/// still account for the jobs the old file's gate required. The gate reads the base
+/// copy from the merge commit's first parent, so this builds one in a real Git
+/// repository.
+#[test]
+fn a_renamed_workflow_cannot_drop_the_jobs_its_gate_required() {
+    let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let workflow =
+        std::fs::read_to_string(repository.join(".github/workflows/checks.yml")).unwrap();
+    let python = if cfg!(windows) { "python" } else { "python3" };
+    let available = |program: &str| {
+        std::process::Command::new(program)
+            .arg("--version")
+            .output()
+            .is_ok()
+    };
+    if !available(python) || !available("git") {
+        // CI installs both, so a missing one there is a broken runner, not a skip.
+        assert!(
+            std::env::var_os("CI").is_none(),
+            "the rename check needs Python and Git"
+        );
+        eprintln!("skipped: the rename check needs Python and Git");
+        return;
+    }
+    let root = tempfile::tempdir().unwrap();
+    let repo = root.path().join("repo");
+    let env = fixture_env(root.path());
+    renamed_workflow_merge(&repo, &env, &workflow);
     let output = std::process::Command::new(python)
         .env_clear()
         .envs(env.iter().cloned())
