@@ -194,6 +194,7 @@ test.describe('on a touch tablet', () => {
     for (const [path, selector] of [
       ['/', '.home-tool-preview__entry li a'],
       ['/', '.site-footer__nav a'],
+      ['/rates/', '#excel > summary'],
       ['/tools/', '.collection-entry__links a'],
       ['/tools/ozzit/', '.article-actions > a:not(.button)'],
       ['/evidence/', '.credential-card__links a'],
