@@ -198,7 +198,9 @@ jobs:
         run: node scripts/check_production.mjs
 
   stamp:
-    if: github.event.schedule != '0 6 * * 0,2-6' && (github.event_name != 'workflow_dispatch' || !inputs.releases_only)
+    # Only main: a manual run from another branch would otherwise carry that
+    # branch's commits into the stamp pull request opened against main.
+    if: github.ref == 'refs/heads/main' && github.event.schedule != '0 6 * * 0,2-6' && (github.event_name != 'workflow_dispatch' || !inputs.releases_only)
     timeout-minutes: 30
     runs-on: ubuntu-24.04
     permissions:
