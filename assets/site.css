@@ -1168,31 +1168,27 @@ caption {
 }
 
 .latest-releases__title {
-  margin-top: var(--space-4);
-  color: var(--colour-ink-soft);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-weight: 400;
-  line-height: 1.5;
+  padding-block: var(--space-4) var(--space-3);
+  border-top: var(--rule-strong) solid var(--colour-ink);
 }
 
 .latest-releases {
   display: grid;
-  gap: 0;
-  margin: var(--space-2) 0 var(--space-4);
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* Plain body links, not the large route links around them; the block keeps a 44px target. */
-.route-section .latest-releases li a {
-  display: inline-block;
-  min-height: 2.75rem;
-  padding-block: var(--space-2);
-  border-bottom: 0;
-  font-family: inherit;
-  font-size: inherit;
-  text-decoration-line: underline;
+/* One ruled row per release: the tool and version lead, the date trails. */
+.latest-releases li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-5);
+  margin: 0;
+  padding-block: var(--space-3);
+  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
 .latest-releases time {
@@ -1577,16 +1573,6 @@ caption {
   max-width: 58ch;
 }
 
-.page-home .technical-label {
-  font-family: var(--font-body);
-  letter-spacing: normal;
-  text-transform: none;
-}
-
-.page-home .route-actions {
-  border-top-width: var(--rule-thin);
-}
-
 .home-hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -1714,8 +1700,7 @@ caption {
 
 .home-hero__note {
   max-width: 58ch;
-  color: var(--colour-ink-soft);
-  font-size: var(--text-small);
+  color: var(--colour-ink-mid);
 }
 
 .home-tool-preview {
@@ -1740,62 +1725,47 @@ caption {
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
-.home-tool-preview__entry h3 a {
-  color: var(--colour-ink);
-  text-decoration: none;
-}
-
-.home-tool-preview__entry h3 a:hover {
-  color: var(--colour-ink);
-  text-decoration: underline;
-}
-
 .home-tool-preview__entry p {
   color: var(--colour-ink-soft);
 }
 
-.home-tool-preview__entry > a {
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
-}
-
-.authority-routes {
-  border-bottom: var(--rule-strong) solid var(--colour-ink);
-}
-
-.route-section {
+.home-tool-preview__entry ul {
   display: grid;
-  gap: var(--space-5);
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-tool-preview__entry li + li {
+  margin-top: 0;
+}
+
+/* The release register: the statement and its 2 links on the leading edge,
+   the newest releases as ruled rows beside it. */
+.home-register {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-6) var(--space-8);
   align-items: start;
-  padding-block: var(--space-6);
-  border-top: var(--rule-thin) solid var(--colour-rule-strong);
+  padding-block: var(--space-7) var(--space-8);
 }
 
-.route-content {
+.home-register__lead {
   display: grid;
-  min-width: 0;
   gap: var(--space-5);
 }
 
-.route-statement {
-  max-width: 22ch;
-  font-size: var(--text-heading);
-  line-height: 1.02;
-}
-
-.route-content > p:not(.technical-label):not(.route-note) {
-  max-width: 58ch;
+.home-register__lead > p:not(.home-register__links) {
   color: var(--colour-ink-mid);
 }
 
-.route-actions {
-  display: grid;
-  min-width: 0;
-  gap: 0;
-  border-top: var(--rule-strong) solid var(--colour-ink);
+.home-register__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
 }
 
-.route-actions > a,
 .adoption-links > a {
   display: grid;
   grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.15fr);
@@ -1808,30 +1778,9 @@ caption {
 }
 
 @media (hover: hover) {
-  .route-actions > a:hover,
   .adoption-links > a:hover {
     color: var(--colour-ink);
     background: var(--colour-stamp-wash);
-  }
-}
-
-/* A button inside the action register is the section's control, not one of
-   its rows, so it keeps the button geometry and sits on the leading edge. */
-.route-actions > .button {
-  display: inline-flex;
-  align-items: center;
-  justify-self: start;
-  margin-block: var(--space-3);
-  padding: var(--space-2) var(--space-4);
-  border-bottom: var(--rule-thin) solid var(--colour-stamp-strong);
-  color: var(--colour-ink);
-}
-
-@media (hover: hover) {
-  .route-actions > .button:hover {
-    border-color: var(--colour-ink);
-    color: var(--colour-ink);
-    background: var(--colour-stamp-strong);
   }
 }
 
@@ -1843,18 +1792,6 @@ caption {
   text-underline-offset: var(--space-2);
 }
 
-/* A row with no title element is a plain secondary link, so it takes the
-   ordinary link cue rather than relying on hover, which touch never shows. */
-.route-actions > a:not(.button):not(:has(> *)) {
-  display: block;
-  color: var(--colour-ink);
-  text-decoration: underline;
-  text-decoration-color: var(--colour-stamp);
-  text-decoration-thickness: var(--link-underline-thickness);
-  text-underline-offset: var(--link-underline-offset);
-}
-
-.route-actions > a span,
 .adoption-links > a span {
   color: var(--colour-ink-soft);
   font-size: var(--text-small);
@@ -1871,18 +1808,10 @@ caption {
   border-left-color: var(--colour-alert);
 }
 
-.page-home .route-note {
-  padding-left: 0;
-  border-left: 0;
-}
-
 /* Notes, captions and the install intro keep the reading measure that the
    route paragraphs already have. */
 .route-note,
-.install-band > p,
-.proof-calc__note,
-.proof-capture > summary,
-.proof-feature figcaption {
+.install-band > p {
   max-width: var(--reading-width);
 }
 
@@ -1891,8 +1820,7 @@ caption {
   border-top: 0;
 }
 
-.install-band h3,
-.proof-feature h3 {
+.install-band h3 {
   font-family: var(--font-display);
   font-size: var(--text-lead);
   line-height: var(--leading-heading);
@@ -2066,154 +1994,9 @@ caption {
   min-width: 0;
 }
 
-.route-section ul {
-  display: grid;
-  gap: var(--space-2);
-  padding: 0;
-  list-style: none;
-}
-
-.route-section li + li {
-  margin-top: 0;
-}
-
-.route-section li a {
-  display: block;
-  padding-block: var(--space-3);
-  border-bottom: var(--rule-thin) solid var(--colour-rule);
-  font-family: var(--font-display);
-  font-size: var(--text-lead);
-  text-decoration: none;
-}
-
 .principles-section,
 .more-index {
   padding-block: var(--space-8);
-}
-
-/* The proof band bleeds to the viewport edges like the trust band above it,
-   with its content padded back to the shell width; the trust band's bottom
-   rule already separates the two, so the band's own top rule is dropped. */
-.proof-feature {
-  border-block: var(--rule-strong) solid var(--colour-ink);
-  background: var(--colour-paper);
-}
-
-.proof-feature.site-shell {
-  width: 100%;
-  padding-inline: max(var(--gutter), calc((100% - var(--site-width)) / 2));
-}
-
-.proof-feature__layout {
-  display: grid;
-  min-width: 0;
-  gap: var(--space-6);
-}
-
-.proof-feature__copy {
-  display: grid;
-  gap: var(--space-5);
-}
-
-.proof-feature__copy > p {
-  max-width: var(--reading-width);
-}
-
-.proof-feature__links {
-  display: grid;
-  justify-items: start;
-  gap: var(--space-3);
-}
-
-.proof-feature figure {
-  min-width: 0;
-  margin-inline: 0;
-  border: var(--rule-thin) solid var(--colour-rule-strong);
-  background: var(--colour-paper-raised);
-}
-
-.proof-capture > summary {
-  padding-block: var(--space-3);
-  cursor: pointer;
-  color: var(--colour-ink);
-}
-
-.proof-capture[open] > summary {
-  margin-bottom: var(--space-4);
-}
-
-.proof-calc {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-4);
-  min-width: 0;
-  padding: var(--space-5);
-  border: var(--rule-thin) solid var(--colour-rule-strong);
-  background: var(--colour-paper-raised);
-}
-
-.proof-calc__fields {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(8rem, 100%), 1fr));
-  gap: var(--space-3);
-}
-
-/* When one label in a row wraps, each label stays on its input and the
-   inputs share one top edge. */
-.proof-calc__fields > .field {
-  align-content: end;
-}
-
-.proof-calc__result {
-  display: grid;
-  gap: var(--space-1);
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
-}
-
-.proof-calc__result[hidden] {
-  display: none;
-}
-
-.proof-calc__result > div {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--space-3);
-  padding: var(--space-2) var(--space-3);
-}
-
-/* Which formula won is the whole point of the section, so the applied row is
-   marked rather than merely listed among the others. */
-.proof-calc__result .is-applied {
-  background: var(--colour-stamp);
-}
-
-.proof-calc__result dt {
-  color: var(--colour-ink-soft);
-}
-
-.proof-calc__result .is-applied dt,
-.proof-calc__result .is-applied dd {
-  color: var(--colour-ink);
-}
-
-.proof-calc__result dd {
-  margin: 0;
-  font-variant-numeric: tabular-nums;
-}
-
-.proof-calc__note {
-  color: var(--colour-ink-soft);
-  font-size: var(--text-small);
-}
-
-.proof-feature figcaption {
-  padding: var(--space-3);
-  border-top: var(--rule-thin) solid var(--colour-rule);
-  color: var(--colour-ink-soft);
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
 }
 
 .principles-section > h2,
@@ -2774,8 +2557,12 @@ input[type="checkbox"] {
     grid-template-columns: minmax(11rem, 0.7fr) minmax(0, 1.4fr);
   }
 
-  .home-tool-preview__entry > a {
+  .home-tool-preview__entry ul {
     grid-column: 2;
+  }
+
+  .home-register {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .more-index__links {
@@ -2887,9 +2674,8 @@ input[type="checkbox"] {
     padding-block: var(--space-4);
   }
 
-  .proof-feature figure {
-    width: calc(100% + (2 * var(--gutter)));
-    margin-inline: calc(-1 * var(--gutter));
+  .home-register {
+    padding-block: var(--space-6);
   }
 
   .article-header {
@@ -2933,11 +2719,10 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
-  .home-tool-preview__entry > a {
+  .home-tool-preview__entry ul {
     grid-column: 1;
   }
 
-  .route-actions > a,
   .route-actions.route-actions--mail > a,
   .adoption-links > a,
   .credential-card {
@@ -3001,7 +2786,7 @@ input[type="checkbox"] {
 @media (max-width: 40rem), (pointer: coarse) {
   .home-hero__actions a,
   .home-tool-preview__entry a,
-  .proof-feature__links a,
+  .home-register a,
   .collection-entry__title,
   .collection-entry__links a,
   .article-toc a,
@@ -3052,13 +2837,8 @@ input[type="checkbox"] {
     margin: 12mm;
   }
 
-  .proof-capture::details-content,
   .work-chooser details::details-content {
     content-visibility: visible;
-  }
-
-  .proof-capture > summary {
-    display: none;
   }
 
   /* Printers drop background colours, so every ink token must read on white. */

@@ -45,21 +45,6 @@ test('printing hides an open chart viewer and restores it afterwards', async ({ 
   }
 });
 
-test('printing opens the fixed proof and closes it again afterwards', async ({ page }) => {
-  await page.goto('/');
-  const disclosure = page.locator('.proof-capture');
-  await expect(disclosure).not.toHaveAttribute('open');
-  // A print session fires beforeprint as well as the media change.
-  await page.evaluate(() => dispatchEvent(new Event('beforeprint')));
-  await page.emulateMedia({ media: 'print' });
-  await expect(disclosure).toHaveAttribute('open', '');
-  await expect(disclosure.locator('figure')).toBeVisible();
-  await expect(disclosure.locator('figcaption')).toBeVisible();
-  await page.evaluate(() => dispatchEvent(new Event('afterprint')));
-  await page.emulateMedia({ media: null });
-  await expect(disclosure).not.toHaveAttribute('open');
-});
-
 test('printing keeps the full tool register available without a duplicate task list', async ({ page }) => {
   await page.goto('/tools/');
   await expect(page.locator('.work-chooser')).toHaveCount(0);
@@ -100,15 +85,6 @@ test('mobile visitors can open the cash-flow example from the first screen', asy
   });
   const bounds = await link.boundingBox();
   expect(bounds.y + bounds.height).toBeLessThanOrEqual(844);
-
-  const disclosure = page.locator('.proof-capture');
-  const summary = disclosure.locator('summary');
-  await expect(disclosure).not.toHaveAttribute('open');
-  await summary.focus();
-  await page.keyboard.press('Enter');
-  await expect(disclosure).toHaveAttribute('open', '');
-  await page.keyboard.press('Space');
-  await expect(disclosure).not.toHaveAttribute('open');
 });
 
 test('cash-flow entry points reach the workbook and About reaches review evidence', async ({ page, browserName, isMobile }) => {

@@ -565,7 +565,7 @@ fn public_contracts_install_and_adoption_routes() {
             "homepage setup guide route",
             "href=\"/tools/australian-tax-ai-agents/#install\">Set up AI tools",
             "href=\"/tools/australian-tax-ai-agents/\">Set up AI tools",
-            "index.html: #adopt must link to the integration guide",
+            "index.html: authority section #adopt must link to /tools/australian-tax-ai-agents/#install",
         ),
     ] {
         let site = copied_site();
@@ -939,6 +939,18 @@ fn public_contracts_routes_privacy_and_evaluations() {
 }
 
 #[test]
+fn homepage_first_route_lists_the_task_routes() {
+    // The hero opens the cash case; the first reader route lists the rest,
+    // so the homepage ItemList and llms.txt describe routes a reader can see.
+    let (_, first) = contracts::HOMEPAGE_ROUTES[0];
+    let tasks: Vec<&str> = contracts::TASK_ROUTE_ENTRIES[1..]
+        .iter()
+        .map(|(_, url)| *url)
+        .collect();
+    assert_eq!(&first[..tasks.len()], tasks.as_slice());
+}
+
+#[test]
 fn public_contracts_homepage_and_metadata_mutations() {
     if !rendered() {
         return;
@@ -970,10 +982,10 @@ fn public_contracts_homepage_and_metadata_mutations() {
             "index.html: homepage actions are",
         ),
         (
-            "homepage category anchor",
-            "href=\"/tools/workpaper-review-gate/\"",
-            "href=\"/tools/missing-workpaper-review-gate/\"",
-            "index.html: category preview is",
+            "homepage reader route destination",
+            "href=\"/tools/accounting-questions/\"",
+            "href=\"/tools/missing-accounting-questions/\"",
+            "index.html: reader routes are",
         ),
         (
             "homepage Adopt anchor",
@@ -982,10 +994,10 @@ fn public_contracts_homepage_and_metadata_mutations() {
             "index.html: expected exactly one valid #adopt anchor",
         ),
         (
-            "proof evidence route",
-            "<a href=\"/evidence/\">Open the evidence register</a>",
-            "<a href=\"/missing-evidence/\">Open the evidence register</a>",
-            "proof feature is missing required link /evidence/",
+            "homepage route order",
+            "<div id=\"verify\" class=\"home-tool-preview__entry\">",
+            "<div class=\"home-tool-preview__entry\">",
+            "index.html: content order must be the reader routes, then Adopt",
         ),
     ] {
         contract_mutation(

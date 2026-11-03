@@ -45,15 +45,9 @@ const JSON_LD_TYPE_PATTERN: &str = r#"\btype\s*=\s*["\']application/ld\+json["\'
 pub const SECURITY_TXT: &str = ".well-known/security.txt";
 const SECURITY_TXT_CANONICAL: &str = "https://duguid.com.au/.well-known/security.txt";
 const JEKYLL_CONFIG: &str = "_config.yml";
-const PROOF_IMAGE_PATTERN: &str =
-    r#"<img\b(?=[^>]*\bsrc="/assets/coal-lsl-calculator\.webp")[^>]*>"#;
-const PROOF_WIDTH: &str = "868";
-const PROOF_HEIGHT: &str = "580";
 const MAX_PROOF_BYTES: usize = 80_000;
 pub const PROOF_ASSET: &str = "assets/coal-lsl-calculator.webp";
 pub const PROOF_MOBILE_ASSET: &str = "assets/coal-lsl-calculator-mobile.webp";
-const PROOF_MOBILE_SOURCE: &str =
-    "<source media=\"(max-width: 40rem)\" srcset=\"/assets/coal-lsl-calculator-mobile.webp\"";
 const HOMEPAGE_ANCHOR_IDS: [&str; 2] = ["adopt", "verify"];
 const HOMEPAGE_REQUIRED_CLASSES: [&str; 2] = ["home-hero__actions", "home-tool-preview"];
 const HERO_PREVIEW_ADJACENCY_PATTERN: &str = concat!(
@@ -808,42 +802,13 @@ pub fn check_stylesheets(root: &Path, baseline: &Json) -> Result<Vec<String>, St
             ));
         }
     }
-    let route_rules = re(r"\.route-section\s*\{(.*?)\}", S | I).findall(&site_css);
-    if route_rules.iter().any(|r| {
-        re(
-            r"\bmin-height\s*:\s*[^;]*(?:var\(--route-min-height\)|[sd]?vh)",
-            I,
-        )
-        .is_match(r)
-    }) {
-        failures.push("route sections must not use viewport-based minimum heights".into());
-    }
-    let label_rules =
-        re(r"\.route-section\s*>\s*\.route-label\s*\{(.*?)\}", S | I).findall(&site_css);
-    if label_rules
-        .iter()
-        .any(|r| re(r"\bposition\s*:\s*sticky\s*;", I).is_match(r))
-    {
-        failures.push("route labels must not be sticky".into());
-    }
     let min_width = |r: &str| re(r"\bmin-width\s*:\s*0\s*;", I).is_match(r);
-    if !rule(r"\.route-content\s*\{(.*?)\}").is_some_and(|r| min_width(&r)) {
-        failures
-            .push("route content must allow internal overflow without widening the page".into());
-    }
-    for selector in ["route-actions", "install-band"] {
-        let rules = re(&format!(r"\.{selector}\s*\{{(.*?)\}}"), S | I).findall(&site_css);
-        if !rules.iter().any(|r| min_width(r)) {
-            failures.push("route action groups must contain intrinsic-width content".into());
-            break;
-        }
-    }
-    let figure_rules = re(r"\.proof-feature\s+figure\s*\{(.*?)\}", S | I).findall(&site_css);
-    if !figure_rules
+    if !re(r"\.install-band\s*\{(.*?)\}", S | I)
+        .findall(&site_css)
         .iter()
-        .any(|r| min_width(r) && re(r"\bmargin-inline\s*:\s*0\s*;", I).is_match(r))
+        .any(|r| min_width(r))
     {
-        failures.push("proof media must not widen the fallback viewport".into());
+        failures.push("install bands must contain intrinsic-width content".into());
     }
     let mut declared: Vec<String> = re(FONT_URL_PATTERN, 0)
         .findall(&tokens_css)
@@ -1111,9 +1076,6 @@ pub fn check_homepage_refinement(root: &Path) -> Result<Vec<String>, String> {
     if !re(HERO_PREVIEW_ADJACENCY_PATTERN, I | S).is_match(&main) {
         failures.push("index.html: tool preview must follow home hero".into());
     }
-    if class_count(&main, "technical-label") != 1 {
-        failures.push("index.html: expected exactly one evidence-bearing technical label".into());
-    }
     let label_pattern = re(
         concat!(
             r#"<p\b(?=[^>]*class\s*=\s*(["\'])[^"\']*\btechnical-label\b"#,
@@ -1324,37 +1286,9 @@ pub fn check_document_delivery(root: &Path, baseline: &Json) -> Result<Vec<Strin
             break;
         }
     }
-    let homepage_path = root.join("index.html");
-    if !homepage_path.is_file() {
-        return Ok(failures);
-    }
-    let homepage = crate::read(&homepage_path)?;
-    match re(PROOF_IMAGE_PATTERN, I).search(&homepage) {
-        None => failures.push("index.html: Coal LSL proof image is missing".into()),
-        Some(m) => {
-            let image = m[0].to_owned();
-            for (marker, message) in [
-                ("loading=\"lazy\"".to_owned(), "load lazily"),
-                ("decoding=\"async\"".to_owned(), "decode asynchronously"),
-                (format!("width=\"{PROOF_WIDTH}\""), "keep its width"),
-                (format!("height=\"{PROOF_HEIGHT}\""), "keep its height"),
-            ] {
-                if !image.contains(&marker) {
-                    failures.push(format!("index.html: Coal LSL proof image must {message}"));
-                }
-            }
-            let alt = re(r#"\balt\s*=\s*(["\'])(.*?)\1"#, I | S)
-                .search(&image)
-                .map(|m| m[2].to_owned());
-            if alt.is_none_or(|a| py::char_len(&core::raw_text(&a)) < 12) {
-                failures
-                    .push("index.html: Coal LSL proof image must have descriptive alt text".into());
-            }
-        }
-    }
-    if !homepage.contains(PROOF_MOBILE_SOURCE) {
-        failures.push("index.html: Coal LSL proof picture must offer the mobile source".into());
-    }
+    // The Coal LSL proof left the homepage on 4 November 2026; its published
+    // images keep their URLs, format and budget, and the capture tests keep
+    // them matching the calculator.
     for asset in [PROOF_ASSET, PROOF_MOBILE_ASSET] {
         let path = site_path(root, asset);
         if !path.is_file() {

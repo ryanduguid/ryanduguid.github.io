@@ -493,8 +493,8 @@ fn design_contracts_text_mutations() {
         (
             "Tools browse link drift",
             "index.html",
-            "href=\"/tools/\">Browse tools by accounting task",
-            "href=\"/missing-tools/\">Browse tools by accounting task",
+            "href=\"/tools/\">All tools by accounting task",
+            "href=\"/missing-tools/\">All tools by accounting task",
             "index.html: expected exactly one /tools/ homepage action",
         ),
         (
@@ -512,39 +512,11 @@ fn design_contracts_text_mutations() {
             "index.html: expected one home-tool-preview",
         ),
         (
-            "extra technical label",
+            "decorative ordinal technical label",
             "index.html",
             "</main>",
-            "<p class=\"technical-label\">Extra context</p></main>",
-            "index.html: expected exactly one evidence-bearing technical label",
-        ),
-        (
-            "proof loaded eagerly",
-            "index.html",
-            "width=\"868\" height=\"580\" loading=\"lazy\"",
-            "width=\"868\" height=\"580\" loading=\"eager\"",
-            "index.html: Coal LSL proof image must load lazily",
-        ),
-        (
-            "proof dimensions drift",
-            "index.html",
-            "height=\"580\"",
-            "height=\"581\"",
-            "index.html: Coal LSL proof image must keep its height",
-        ),
-        (
-            "proof mobile source removed",
-            "index.html",
-            "<source media=\"(max-width: 40rem)\" srcset=\"/assets/coal-lsl-calculator-mobile.webp\"",
-            "<source media=\"(max-width: 40rem)\" srcset=\"/assets/missing-mobile.webp\"",
-            "index.html: Coal LSL proof picture must offer the mobile source",
-        ),
-        (
-            "proof alternative removed",
-            "index.html",
-            "alt=\"Coal LSL calculator result showing Formula B, eligible wages, levy and the applied section 3B branch for a synthetic example\"",
-            "alt=\"\"",
-            "index.html: Coal LSL proof image must have descriptive alt text",
+            "<p class=\"technical-label\">01 / Extract</p></main>",
+            "index.html: decorative ordinal technical label: 01 / Extract",
         ),
         (
             "font URL broken",
@@ -788,17 +760,6 @@ fn design_contracts_review_dates_and_assets() {
         "protected font removed",
         &repository(site.path()),
         "protected font missing: assets/fonts/Besley-Regular.woff2",
-    );
-    let site = copied_site();
-    append_file(
-        site.path(),
-        "assets/site.css",
-        "\n.route-section > .route-label { position: sticky; }\n",
-    );
-    expect_failure(
-        "sticky route rail restored",
-        &repository(site.path()),
-        "route labels must not be sticky",
     );
     let site = copied_site();
     std::fs::remove_file(site.path().join(".well-known/security.txt")).unwrap();

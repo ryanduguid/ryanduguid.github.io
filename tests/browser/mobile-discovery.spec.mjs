@@ -4,7 +4,7 @@ import { projectKind } from './project-kind.mjs';
 test('mobile discovery links have room to tap without horizontal scrolling', async ({ page }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'mobile', 'Mobile layout coverage');
   const routes = [
-    ['/', '.home-hero__actions a, .home-tool-preview a, .proof-feature__links a'],
+    ['/', '.home-hero__actions a, .home-tool-preview a, .home-register a'],
     ['/tools/', '.task-routes a, .collection-entry__title, .collection-entry__links a'],
     ['/tools/ozzit/', '.article-toc a'],
     ['/evaluate/manager-review-gate/', '.article-toc a'],

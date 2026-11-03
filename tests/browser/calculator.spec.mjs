@@ -96,56 +96,6 @@ test('calculator privacy blocks direct native submission after normal keyboard c
     HTMLFormElement.prototype.submit.call(form)));
 });
 
-test('home proof rejects invalid amounts and recovers without stale results', async ({ page }) => {
-  const health = observePageHealth(page);
-  await page.goto('/');
-  const result = page.locator('.proof-calc__result');
-  for (const name of ['Base rate of pay', 'Overtime and penalty', 'Allowances']) {
-    const field = page.getByRole('spinbutton', { name, exact: true });
-    const original = await field.inputValue();
-    for (const value of ['-1', '0.001', '', '1e308']) {
-      await field.fill(value);
-      await expect(field).toHaveAttribute('aria-invalid', 'true');
-      await expect(result).toBeHidden();
-      await expect(page.locator('#home-levy-error')).toBeVisible();
-      await expect(field).toHaveAccessibleDescription(/Enter an amount of \$0\.00 or more/);
-    }
-    await field.fill(original);
-    await expect(field).not.toHaveAttribute('aria-invalid', 'true');
-    await expect(field).not.toHaveAccessibleDescription(/Enter an amount of \$0\.00 or more/);
-    await expect(page.locator('#home-levy-error')).toBeHidden();
-    await expect(result).toBeVisible();
-    await expect(result.locator('[data-out="levy"]')).toHaveText(COAL_LSL_PROOF.expected.levy);
-  }
-  for (const input of await page.locator('#home-levy input').all()) await input.fill('0');
-  await expect(result.locator('[data-out="levy"]')).toHaveText('$0.00');
-  await page.locator('#calc-base').fill('10000');
-  await expect(result.locator('[data-out="levy"]')).toHaveText('$270.00');
-  health.assertHealthy();
-});
-
-test('home proof announces the applied formula and rejects an oversized combined result', async ({ page }) => {
-  const health = observePageHealth(page);
-  await page.goto('/');
-  const announcement = page.locator('#home-levy [aria-live="polite"]');
-  await expect(announcement).toContainText('Formula B applies.');
-  await page.locator('#calc-overtime').fill('0');
-  await page.locator('#calc-allowances').fill('0');
-  await expect(announcement).toContainText('Formula A applies.');
-  await page.locator('#calc-base').fill('3');
-  await page.locator('#calc-overtime').fill('1');
-  await expect(announcement).toContainText('Formula A applies.');
-  await page.locator('#calc-overtime').fill('2');
-  await expect(announcement).toContainText('Formula B applies.');
-  for (const input of await page.locator('#home-levy input').all()) await input.fill('500000000000');
-  await expect(page.locator('.proof-calc__result')).toBeHidden();
-  await expect(page.locator('#home-levy-error')).toContainText('The total is too large');
-  for (const input of await page.locator('#home-levy input').all()) await input.fill('0');
-  await expect(announcement).toContainText('Formula A applies.');
-  await expect(announcement).toContainText('$0.00');
-  health.assertHealthy();
-});
-
 test('a negative amount gets the page wording, not the browser validation text', async ({ page }) => {
   await page.goto('/tools/coal-lsl-levy/');
   const field = page.getByRole('spinbutton', { name: 'Base rate of pay', exact: true });
@@ -202,14 +152,6 @@ test('oversized calculations and employee totals recover without changing saved 
   await page.locator('#add-employee').click();
   await expect(page.locator('#table-status')).toContainText('Reference 1 added');
   health.assertHealthy();
-});
-
-test('loaded synthetic example matches the homepage default proof', async ({ page }) => {
-  await page.goto('/');
-  const expected = await page.locator('[data-out="levy"]').textContent();
-  await page.goto('/tools/coal-lsl-levy/');
-  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
-  await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText(expected);
 });
 
 test('blank monetary inputs produce an explained zero result', async ({ page }) => {

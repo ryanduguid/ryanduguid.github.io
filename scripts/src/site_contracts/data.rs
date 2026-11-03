@@ -15,9 +15,11 @@ pub const PERSON_ID: &str = "https://duguid.com.au/about/#person";
 pub const EVIDENCE_REL: &str = "evidence/index.html";
 pub const EVIDENCE_URL: &str = "https://duguid.com.au/evidence/";
 pub const AUTHORITY_PATHS: [(&str, &str); 2] = [("adopt", "Adopt"), ("verify", "Verify")];
+/// The heading each authority route opens with: #adopt is the release
+/// register, #verify the reader route to About and Evidence.
 pub const AUTHORITY_STATEMENTS: [(&str, &str); 2] = [
     ("adopt", "Try each tool with fictional data first"),
-    ("verify", "Check the source before the result"),
+    ("verify", "Review my work"),
 ];
 pub const AUTHORITY_URLS: [(&str, &str); 2] = [
     (
@@ -638,59 +640,58 @@ pub const HOMEPAGE_ACTIONS: [(&str, &str); 1] = [(
     "/examples/profit-vs-cash-flow/",
     "Explore the cash flow example",
 )];
-pub const HOMEPAGE_PREVIEW_ENTRIES: [(&str, &str, &str); 4] = [
-    (
-        "Use accounting functions in Excel",
-        "/tools/ozzit/",
-        "/tools/ozzit/#functions",
-    ),
-    (
-        "Review a month-end close",
-        "/tools/monthly-close-controls/",
-        "/tools/monthly-close-controls/#get-it",
-    ),
-    (
-        "Calculate a Coal LSL levy",
-        "/tools/coal-lsl-levy/",
-        "/tools/coal-lsl-levy/",
-    ),
-    (
-        "Check a BAS pack before manager review",
-        "/evaluate/manager-review-gate/",
-        "/tools/workpaper-review-gate/",
-    ),
-];
-pub const TASK_ROUTE_ENTRIES: [(&str, &str, &str); 5] = [
+/// The five starting routes: the homepage hero opens the first, its first
+/// reader route lists the other four, and Tools and llms.txt list all five.
+pub const TASK_ROUTE_ENTRIES: [(&str, &str); 5] = [
     (
         "Understand why profit and cash differ",
         "/examples/profit-vs-cash-flow/",
-        "/evaluate/#five-minute-cases",
     ),
-    HOMEPAGE_PREVIEW_ENTRIES[0],
-    HOMEPAGE_PREVIEW_ENTRIES[1],
-    HOMEPAGE_PREVIEW_ENTRIES[2],
-    HOMEPAGE_PREVIEW_ENTRIES[3],
+    ("Use accounting functions in Excel", "/tools/ozzit/"),
+    ("Review a month-end close", "/tools/monthly-close-controls/"),
+    ("Calculate a Coal LSL levy", "/tools/coal-lsl-levy/"),
+    (
+        "Check a BAS pack before manager review",
+        "/evaluate/manager-review-gate/",
+    ),
+];
+/// The homepage router, one row per reader: its heading and the destinations
+/// it lists, in order. The first row lists TASK_ROUTE_ENTRIES after the cash
+/// case, then the full Tools register.
+pub const HOMEPAGE_ROUTES: [(&str, &[&str]); 3] = [
+    (
+        "Check a pack or calculate",
+        &[
+            "/tools/ozzit/",
+            "/tools/monthly-close-controls/",
+            "/tools/coal-lsl-levy/",
+            "/evaluate/manager-review-gate/",
+            "/tools/",
+        ],
+    ),
+    (
+        "Answer a tax or payroll question",
+        &["/tools/accounting-questions/", "/rates/"],
+    ),
+    ("Review my work", &["/about/", "/evidence/"]),
 ];
 pub const HOMEPAGE_ANCHORS: [&str; 2] = ["adopt", "verify"];
 pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
 pub const EVIDENCE_HEADING: &str = "Evidence behind the tools";
 pub const EVIDENCE_OPENING: &str = "Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.";
-pub const HOMEPAGE_REQUIRED_TEXT: [&str; 4] = [
+pub const HOMEPAGE_REQUIRED_TEXT: [&str; 3] = [
     HOMEPAGE_HEADING,
     HOMEPAGE_SUPPORT,
     "Try each tool with fictional data first",
-    "Check the source before the result",
 ];
 pub const HOMEPAGE_TITLE: &str = "Open source tools for Australian accountants";
 pub const HOMEPAGE_DESCRIPTION: &str = "Personal index of open source Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.";
-pub const HOMEPAGE_REQUIRED_HREFS: [&str; 5] = [
+pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/evidence/",
     "/examples/profit-vs-cash-flow/",
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
-    "/tools/workpaper-review-gate/",
 ];
-pub const HOMEPAGE_PROOF_HREFS: [&str; 2] = ["/tools/coal-lsl-levy/", "/evidence/"];
 pub const ARTICLE_PATTERN_PAGES: [&str; 35] = [
     "works-with/index.html",
     "works-with/xero/index.html",

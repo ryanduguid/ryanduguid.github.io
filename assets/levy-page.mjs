@@ -153,8 +153,9 @@ calcForm.querySelectorAll('input[name="branch"]').forEach((r) =>
 );
 showBranch(calcForm.elements.branch.value);
 
-// Fills the form with the same fabricated figures as the home-page
-// worked proof, so a visitor sees a full result before typing anything.
+// Fills the form with the fictional figures of the published Coal LSL proof
+// (scripts/coal-lsl-proof-fixture.mjs), so a visitor sees a full result
+// before typing anything.
 document.getElementById('load-example').addEventListener('click', () => {
   calcForm.elements.branch.value = 'baseRate';
   showBranch('baseRate');

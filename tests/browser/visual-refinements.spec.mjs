@@ -84,7 +84,7 @@ test('the eight compact calculators put the result beside the inputs on wide scr
 
 test('ordinary links carry an accent underline at least 2px thick', async ({ page }) => {
   await page.goto('/');
-  for (const selector of ['.case-preview figcaption a', '.home-tool-preview__entry > a']) {
+  for (const selector of ['.case-preview figcaption a', '.home-tool-preview__entry li a']) {
     const underline = await page.locator(selector).first().evaluate((link) => {
       const style = getComputedStyle(link);
       return { colour: style.textDecorationColor, thickness: parseFloat(style.textDecorationThickness) };
@@ -192,7 +192,7 @@ test.describe('on a touch tablet', () => {
     const shell = await page.locator('.home-hero').evaluate((hero) => hero.getBoundingClientRect().width);
     expect(chart).toBeGreaterThan(shell * 0.8);
     for (const [path, selector] of [
-      ['/', '.home-tool-preview__entry > a'],
+      ['/', '.home-tool-preview__entry li a'],
       ['/', '.site-footer__nav a'],
       ['/tools/', '.collection-entry__links a'],
       ['/tools/ozzit/', '.article-actions > a:not(.button)'],

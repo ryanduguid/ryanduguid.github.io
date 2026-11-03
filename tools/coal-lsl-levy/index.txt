@@ -14,7 +14,7 @@ Published 24 August 2026. Last reviewed 21 October 2026.
 
 Load the synthetic example
 
-Uses the homepage’s fictional figures and replaces the current inputs. No client data.
+Replaces the current inputs with fictional figures. No client data.
 
 How is this employee paid?
 

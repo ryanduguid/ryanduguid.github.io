@@ -338,48 +338,41 @@ pub fn check_mcp_review_dates(html: &str) -> Vec<String> {
     failures
 }
 
-fn class_tag(class: &str) -> String {
-    format!(r#"<[a-z][\w:-]*\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\b{class}\b[^"\']*["\'])[^>]*>"#)
-}
-
-/// Require one route thought, one action group and one visible boundary.
+/// Require an authority route to open with its statement and link to its
+/// destination. The element carrying the identifier may be any tag: #adopt
+/// is the release register section, #verify a row of the reader routes.
 pub fn check_authority_section(
-    section_html: &str,
+    html: &str,
     identifier: &str,
     statement: &str,
+    destination: &str,
 ) -> Vec<String> {
     let mut failures = Vec::new();
-    let rendered = core::visible_html(section_html);
-    if re(r"<h2\b[^>]*>(.*?)</h2\s*>", S | I)
-        .findall(&rendered)
-        .len()
-        != 1
+    let tree = core::parse_structure(html);
+    let Some(section) = rendered(&tree, None)
+        .into_iter()
+        .find(|e| tree.attr(*e, "id") == Some(identifier))
+    else {
+        return vec![format!(
+            "index.html: missing visible authority section #{identifier}"
+        )];
+    };
+    let opening = tree
+        .descendants(section, None, true)
+        .into_iter()
+        .find(|e| matches!(tree.tag(*e), "h2" | "h3"));
+    if opening.is_none_or(|h| tree.text(h) != statement) {
+        failures.push(format!(
+            "index.html: authority section #{identifier} must open with {statement}"
+        ));
+    }
+    if !tree
+        .descendants(section, Some("a"), true)
+        .into_iter()
+        .any(|a| tree.attr(a, "href") == Some(destination))
     {
         failures.push(format!(
-            "index.html: authority section #{identifier} must have exactly one h2"
-        ));
-    }
-    let statements = re(
-        concat!(
-            r#"<h2\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-statement\b[^"\']*["\'])"#,
-            r"[^>]*>(.*?)</h2\s*>"
-        ),
-        S | I,
-    )
-    .findall(&rendered);
-    if statements.len() != 1 || core::visible_text(&statements[0]) != statement {
-        failures.push(format!(
-            "index.html: authority section #{identifier} statement must be {statement}"
-        ));
-    }
-    if re(&class_tag("route-actions"), I).findall(&rendered).len() != 1 {
-        failures.push(format!(
-            "index.html: authority section #{identifier} needs one action group"
-        ));
-    }
-    if re(&class_tag("route-note"), I).findall(&rendered).len() != 1 {
-        failures.push(format!(
-            "index.html: authority section #{identifier} needs one boundary or verification note"
+            "index.html: authority section #{identifier} must link to {destination}"
         ));
     }
     failures
@@ -432,20 +425,13 @@ pub fn check_authority_surface(root: &Path) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
     let home = read_if_file(&root.join("index.html"))?;
     let rendered_home = core::visible_html(&home);
-    let sections: Vec<(&str, String)> = AUTHORITY_PATHS
-        .iter()
-        .map(|(identifier, _)| (*identifier, core::section_html(&home, identifier)))
-        .collect();
-    for (identifier, section) in &sections {
-        if section.is_empty() {
-            failures.push(format!(
-                "index.html: missing visible authority section #{identifier}"
-            ));
-        }
+    for (identifier, _) in AUTHORITY_PATHS {
+        let destination = lookup(&AUTHORITY_URLS, identifier);
         failures.extend(check_authority_section(
-            section,
+            &home,
             identifier,
             lookup(&AUTHORITY_STATEMENTS, identifier),
+            destination.strip_prefix(SITE).unwrap_or(destination),
         ));
     }
     let home_text = core::visible_text(&rendered_home);
@@ -456,12 +442,6 @@ pub fn check_authority_surface(root: &Path) -> Result<Vec<String>, String> {
         failures.push("index.html: install commands belong in the integration guide".into());
     }
     let install_route = "/tools/australian-tax-ai-agents/#install";
-    if !core::anchor_hrefs(&sections[0].1)
-        .iter()
-        .any(|h| h == install_route)
-    {
-        failures.push("index.html: #adopt must link to the integration guide".into());
-    }
     if re(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, I).is_match(&home_text) {
         failures.push("index.html: retired GitHub-source install command".into());
     }
@@ -1666,10 +1646,7 @@ pub fn check_canonical_identity_urls(
 /// Keep the five starting routes identical for readers and for engines.
 pub fn check_task_routes(root: &Path) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
-    let expected: Vec<(&str, &str)> = TASK_ROUTE_ENTRIES
-        .iter()
-        .map(|(l, p, _)| (*l, *p))
-        .collect();
+    let expected: Vec<(&str, &str)> = TASK_ROUTE_ENTRIES.to_vec();
     let tools_html = read_if_file(&site_path(root, TASK_ROUTES_REL))?;
     let tree = core::parse_structure(&tools_html);
     let navs = rendered_with_class(&tree, Tree::ROOT, Some("nav"), "task-routes");
@@ -1749,7 +1726,7 @@ pub fn check_task_routes(root: &Path) -> Result<Vec<String>, String> {
     failures.extend(parse_failures);
     let home_expected: Vec<(String, String)> = TASK_ROUTE_ENTRIES
         .iter()
-        .map(|(l, p, _)| ((*l).to_owned(), format!("{SITE}{p}")))
+        .map(|(l, p)| ((*l).to_owned(), format!("{SITE}{p}")))
         .collect();
     let same = listed.len() == home_expected.len()
         && listed
