@@ -67,3 +67,15 @@ updates:
         update-types:
           - version-update:semver-major
           - version-update:semver-minor
+  # requirements-lint.txt pins the CI linters with hashes. Its Ruff pin matches
+  # the ruff-pre-commit rev in .pre-commit-config.yaml; move both together.
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      lint-tools:
+        patterns:
+          - "*"
