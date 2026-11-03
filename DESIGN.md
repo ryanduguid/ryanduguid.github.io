@@ -56,8 +56,9 @@ where something needs action. Its rules:
 - Reader copy writes 'fictional' for invented data. IDs, anchors, fixture names
   and code keep 'synthetic' or 'fabricated', so `#synthetic-worked-example`
   and `#fabricated-inputs` still resolve. `check_fictional_wording` enforces
-  this; the evaluations social card still reads 'Fabricated inputs' until the
-  next card set replaces its artwork.
+  this, including the social-card alt text, now that the `-20261104` set's
+  evaluations card reads 'Fictional inputs'. The other 4 cards render byte
+  for byte as before.
 - Every page title is the page's own name, with no site suffix.
 - The About lead states 'Provisional CA ANZ Member', 'Xero Certified
   Specialist, Level 3', the LinkedIn profile and the CA ANZ non-endorsement

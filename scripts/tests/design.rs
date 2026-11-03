@@ -95,6 +95,7 @@ fn fictional_wording_reporting() {
         [
             "index.html: accessible name copy says 'synthetic'; write 'fictional' for invented data",
             "index.html: description copy says 'fabricated'; write 'fictional' for invented data",
+            "index.html: image description copy says 'fabricated'; write 'fictional' for invented data",
             "llms.txt: text copy says 'synthetic'; write 'fictional' for invented data",
         ]
     );
