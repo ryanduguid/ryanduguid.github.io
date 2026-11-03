@@ -10,7 +10,7 @@ Package monthly-close-control-plane in the accounting-review-pipeline repository
 
 Current release monthly-close-control-plane v0.2.0 (5 October 2026). The worked example below runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5. Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.
 
-Current release v0.2.0 (5 October 2026). Last reviewed 2 November 2026.
+Current release v0.2.0 (5 October 2026). Last reviewed 3 November 2026.
 
 Delivery
 
@@ -28,7 +28,7 @@ Inspect the eight exceptions Run the example
 
 Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Rust.
 
-Published 11 September 2026. Last reviewed 2 November 2026.
+Published 11 September 2026. Last reviewed 3 November 2026.
 
 ## Worked example: balanced trial balance, unfinished review
 
@@ -43,7 +43,7 @@ current_trial_balance.csv | YTDCredit | 65000.00
 subledger_balances.csv | SubledgerBalance | -64750.00
 exceptions.csv | difference | -250.00
 
-The engine compares -65000.00 with -64750.00 and writes subledger_reconciliation,REVIEW. Download the generated exceptions.csv with all 8 exceptions, or inspect the complete fictional input files at the same commit. Reproduced on 2 November 2026.
+The engine compares -65000.00 with -64750.00 and writes subledger_reconciliation,REVIEW. Download the generated exceptions.csv with all 8 exceptions, or inspect the complete fictional input files at the same commit. Reproduced on 3 November 2026.
 
 Exception | Result | Reviewer action
 Creditors reconciliation | Trial balance less supplied subledger: −$250. | Trace the reconciling items and document their cause.
@@ -51,6 +51,18 @@ Account mapping | Operating Expenses, account 6000, has no supplied mapping. | C
 Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.
 
 Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
+
+### From an exception to a draft client query
+
+Download the generated client-queries.csv with all 6 draft queries from the same fictional run. A preparer must review them before sending anything. A client answer does not clear an exception or approve the close.
+
+One generated query, traced to its control, fictional tenant and account.
+
+Field | Generated value
+Query ID | Q-368abd6aff22
+Source finding | period_variance for Varrock Ventures Pty Ltd, account ID 100, code 1000, Operating Bank.
+Question | What drove the year-to-date movement in this account against the prior period?
+Evidence requested | The transactions or documents behind the movement, and confirmation that no part of it belongs to another period. This comparison crosses a 30 June year-to-date reset, so confirm the movement is real before putting this query to anyone: a profit-and-loss account restarts at nil on 1 July.
 
 The captured manager case study explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fictional.
 
@@ -145,6 +157,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Download the generated exceptions.csv: https://duguid.com.au/assets/examples/monthly-close/exceptions.csv
 - complete fictional input files at the same commit: https://github.com/ryanduguid/accounting-review-pipeline/tree/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/examples
+- Download the generated client-queries.csv: https://duguid.com.au/assets/examples/monthly-close/client-queries.csv
 - captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/README.md

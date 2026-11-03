@@ -60,7 +60,7 @@ tool: monthly-close-controls
         <h1>{{ tool.name }}</h1>
     <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
         <p class="lead-note">Current release {{ tool.package }} v{{ release.version }} ({{ release.dateLabel }}). The worked example below runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5. Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 2 November 2026.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 3 November 2026.</p>
 {% include tool-facts.html %}
         <div class="article-actions">
           <a class="button" href="#worked-example">Inspect the eight exceptions</a>
@@ -68,7 +68,7 @@ tool: monthly-close-controls
         </div>
         <p class="field-note">Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Rust.</p>
 
-        <p class="page-meta">Published 11 September 2026. Last reviewed 2 November 2026.</p>
+        <p class="page-meta">Published 11 September 2026. Last reviewed 3 November 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -98,7 +98,7 @@ tool: monthly-close-controls
                 </tbody>
               </table>
             </div>
-            <p>The engine compares <code>-65000.00</code> with <code>-64750.00</code> and writes <code>subledger_reconciliation,REVIEW</code>. <a href="/assets/examples/monthly-close/exceptions.csv" download>Download the generated exceptions.csv</a> with all 8 exceptions, or inspect the <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/examples">complete fictional input files at the same commit</a>. Reproduced on 2 November 2026.</p>
+            <p>The engine compares <code>-65000.00</code> with <code>-64750.00</code> and writes <code>subledger_reconciliation,REVIEW</code>. <a href="/assets/examples/monthly-close/exceptions.csv" download>Download the generated exceptions.csv</a> with all 8 exceptions, or inspect the <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/examples">complete fictional input files at the same commit</a>. Reproduced on 3 November 2026.</p>
             <div class="table-scroll" role="region" aria-label="Selected monthly close exceptions" tabindex="0">
               <table class="tool-table--wide">
                 <thead><tr><th>Exception</th><th>Result</th><th>Reviewer action</th></tr></thead>
@@ -110,6 +110,20 @@ tool: monthly-close-controls
               </table>
             </div>
             <p>Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at <code>REVIEW</code>.</p>
+            <h3>From an exception to a draft client query</h3>
+            <p><a href="/assets/examples/monthly-close/client-queries.csv" download>Download the generated client-queries.csv</a> with all 6 draft queries from the same fictional run. A preparer must review them before sending anything. A client answer does not clear an exception or approve the close.</p>
+            <div class="table-scroll" role="region" aria-label="Selected draft client query" tabindex="0">
+              <table>
+                <caption>One generated query, traced to its control, fictional tenant and account.</caption>
+                <thead><tr><th>Field</th><th>Generated value</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Query ID</th><td><code>Q-368abd6aff22</code></td></tr>
+                  <tr><th scope="row">Source finding</th><td><code>period_variance</code> for Varrock Ventures Pty Ltd, account ID <code>100</code>, code <code>1000</code>, Operating Bank.</td></tr>
+                  <tr><th scope="row">Question</th><td>What drove the year-to-date movement in this account against the prior period?</td></tr>
+                  <tr><th scope="row">Evidence requested</th><td>The transactions or documents behind the movement, and confirmation that no part of it belongs to another period. This comparison crosses a 30 June year-to-date reset, so confirm the movement is real before putting this query to anyone: a profit-and-loss account restarts at nil on 1 July.</td></tr>
+                </tbody>
+              </table>
+            </div>
             <p>The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/docs/manager-case-study.md">captured manager case study</a> explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fictional.</p>
           </section>
           <section id="inputs">
@@ -196,7 +210,7 @@ tool: monthly-close-controls
       "description": "Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-11-02",
+      "dateModified": "2026-11-03",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
