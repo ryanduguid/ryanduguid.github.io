@@ -23,6 +23,14 @@ reason 'YTD net balance moved beyond both configured materiality thresholds.';
 the native command writes 'YTD net balance movement met or exceeded both
 configured materiality thresholds.' Every other cell is unchanged.
 
+Reproduced on 3 November 2026 at the same source revision with Rust 1.99.0:
+exit 2, REVIEW, 8 exceptions and 6 draft queries. The exception cells match the
+published capture. The website also carries that run's client-queries.csv,
+with line endings normalised to LF and its UTF-8 byte-order mark retained.
+The preview selects query Q-368abd6aff22 and reproduces its control, tenant,
+account, question and evidence request. These are drafts for a preparer to
+review; an answer does not clear an exception or approve the close.
+
 Workpaper Review Gate source: tag review-ready-gate/v0.1.3, commit
 2de565b3ce3916afe718b2b895d5474930030aee, packages/review-ready-gate,
 captured on 17 October 2026 using Python 3.15.0:

@@ -102,6 +102,9 @@ test('task shortcuts expose Excel compatibility and both browser calculator rout
 });
 
 test('review previews expose their captured reports before installation', async ({ page, request }) => {
+  if (page.viewportSize().width < 600) {
+    await page.setViewportSize({ width: 360, height: page.viewportSize().height });
+  }
   await page.goto('/tools/monthly-close-controls/');
   await expect(page.locator('.article-body > section').first()).toHaveAttribute('id', 'worked-example');
   await expect(page.getByRole('region', { name: 'Fictional creditors inputs and generated difference' })).toContainText('-250.00');
@@ -109,6 +112,21 @@ test('review previews expose their captured reports before installation', async 
   const monthly = await request.get('/assets/examples/monthly-close/exceptions.csv');
   expect(monthly.ok()).toBe(true);
   expect(await monthly.text()).toContain('subledger_reconciliation,REVIEW');
+
+  await expect(page.getByRole('link', { name: 'Download the generated client-queries.csv' }))
+    .toHaveAttribute('href', '/assets/examples/monthly-close/client-queries.csv');
+  const queries = await request.get('/assets/examples/monthly-close/client-queries.csv');
+  expect(queries.ok()).toBe(true);
+  const queryCsv = await queries.text();
+  expect(queryCsv.trimEnd().split(/\r?\n/)).toHaveLength(7);
+  expect(queryCsv).toContain('Q-368abd6aff22,period_variance,Varrock Ventures Pty Ltd,100,1000,Operating Bank');
+  const queryPreview = page.getByRole('region', { name: 'Selected draft client query' });
+  await expect(queryPreview).toContainText('Q-368abd6aff22');
+  await expect(queryPreview).toContainText('What drove the year-to-date movement in this account against the prior period?');
+  await expect(queryPreview).toContainText('This comparison crosses a 30 June year-to-date reset');
+  await queryPreview.focus();
+  await expect(queryPreview).toBeFocused();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
 
   await page.goto('/tools/workpaper-review-gate/');
   await expect(page.locator('.article-body > section').first()).toHaveAttribute('id', 'worked-example');
