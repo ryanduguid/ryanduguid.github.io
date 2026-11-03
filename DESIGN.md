@@ -43,9 +43,9 @@ where something needs action. Its rules:
 - Each Rates entry leads with its current value, in Spline Sans Mono at the
   small heading size, above the table name. The byline, verification note,
   Excel steps and feed link follow the register.
-- Spline Sans Mono sets values only: rates, amounts, versions, dates, commands
-  and code. Navigation, breadcrumbs, contents, notes, links and buttons use
-  Public Sans; buttons set at body size.
+- Actions and wayfinding leave mono: navigation, breadcrumbs, contents, notes,
+  links and buttons use Public Sans, and buttons set at body size. Spline Sans
+  Mono keeps values, commands and the short labels of fact lists and stamps.
 - The Human and Machine view switch is square, with the control radius, a thin
   strong rule on the canvas, soft-ink labels and the selected option on the
   stamp wash in full ink. Its labels stay at a fixed 12px, so enlarged text
@@ -135,7 +135,7 @@ The page behaves like a public workpaper register.
 
 - large serif statements carry the judgement or pain
 - sans body copy explains the action in one reading pass
-- mono sets values only: rates, amounts, versions, dates and commands
+- mono labels carry source, date, version, rate and status
 - rules organise records; rounded containers do not organise the page
 - crimson marks what needs action; no colour is a glow or decorative gradient
 - every evidence claim keeps its source beside it
@@ -200,8 +200,8 @@ the passing pairings on the live pages at 1440, 1280, 390 and 320 pixels.
 - Public Sans Regular, Italic and SemiBold: navigation, breadcrumbs, contents,
   links, buttons, body copy, controls, tables and explanatory text. Its `tnum` feature gives the body-font tables
   and calculator results aligned figures.
-- Spline Sans Mono Regular: values only, that is rates, amounts, commands,
-  versions, dates and tabular figures. It sets at the width IBM Plex Mono did, and it has no
+- Spline Sans Mono Regular: rates, commands, versions, dates, evidence labels
+  and tabular figures. It sets at the width IBM Plex Mono did, and it has no
   ligatures that would rewrite `--` or `==` in a command.
 - Ozzit's lambda symbol uses Cambria Math, STIX Two Math or DejaVu Serif, with
   the browser's serif fallback last. These native fonts need no download.
