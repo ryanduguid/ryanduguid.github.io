@@ -492,3 +492,105 @@ fn only_deploy_and_fuzzing_are_exempt_from_the_actual_aggregate() {
     .unwrap();
     assert_ne!(gate(), Some(0));
 }
+
+/// A pull request that renames checks.yml and keeps the checks-gates context must
+/// still account for the jobs the old file's gate required. The gate reads the base
+/// copy from the merge commit's first parent, so this builds one in a real Git
+/// repository.
+#[test]
+fn a_renamed_workflow_cannot_drop_the_jobs_its_gate_required() {
+    let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let workflow =
+        std::fs::read_to_string(repository.join(".github/workflows/checks.yml")).unwrap();
+    let python = if cfg!(windows) { "python" } else { "python3" };
+    let available = |program: &str| {
+        std::process::Command::new(program)
+            .arg("--version")
+            .output()
+            .is_ok()
+    };
+    if !available(python) || !available("git") {
+        eprintln!("skipped: the rename check needs Python and Git");
+        return;
+    }
+    let root = tempfile::tempdir().unwrap();
+    let repo = root.path().join("repo");
+    let workflows = repo.join(".github/workflows");
+    std::fs::create_dir_all(&workflows).unwrap();
+    let mut env: Vec<(String, String)> = ["PATH", "SYSTEMROOT", "TEMP", "TMP"]
+        .iter()
+        .filter_map(|key| {
+            std::env::var(key)
+                .ok()
+                .map(|value| ((*key).to_owned(), value))
+        })
+        .collect();
+    let home = root.path().to_string_lossy().into_owned();
+    let null = if cfg!(windows) { "NUL" } else { "/dev/null" };
+    env.extend(
+        [
+            ("HOME", home.as_str()),
+            ("USERPROFILE", home.as_str()),
+            ("GIT_CONFIG_NOSYSTEM", "1"),
+            ("GIT_CONFIG_GLOBAL", null),
+            ("GITHUB_EVENT_NAME", "pull_request"),
+            ("RESULTS", "{}"),
+        ]
+        .map(|(key, value)| (key.to_owned(), value.to_owned())),
+    );
+    let git = |args: &[&str]| {
+        let status = std::process::Command::new("git")
+            .env_clear()
+            .envs(env.iter().cloned())
+            .args([
+                "-c",
+                "user.name=Fixture",
+                "-c",
+                "user.email=fixture@example.invalid",
+                "-c",
+                "commit.gpgsign=false",
+            ])
+            .args(args)
+            .current_dir(&repo)
+            .status()
+            .unwrap();
+        assert!(status.success(), "git {args:?} failed");
+    };
+    git(&["init", "--quiet", "--initial-branch=main"]);
+    std::fs::write(workflows.join("checks.yml"), &workflow).unwrap();
+    git(&["add", "--all"]);
+    git(&["commit", "--quiet", "-m", "Base fixture"]);
+    git(&["checkout", "--quiet", "-b", "change"]);
+    std::fs::remove_file(workflows.join("checks.yml")).unwrap();
+    std::fs::write(
+        workflows.join("renamed.yml"),
+        "name: Checks\n\non: pull_request\n\njobs:\n  replacement:\n    name: checks-gates\n    runs-on: ubuntu-latest\n    steps: [{run: 'true'}]\n",
+    )
+    .unwrap();
+    git(&["add", "--all"]);
+    git(&["commit", "--quiet", "-m", "Rename fixture"]);
+    git(&["checkout", "--quiet", "main"]);
+    std::fs::write(repo.join(".github/control.txt"), "base advances\n").unwrap();
+    git(&["add", "--all"]);
+    git(&["commit", "--quiet", "-m", "Advance base fixture"]);
+    git(&[
+        "merge",
+        "--quiet",
+        "--no-ff",
+        "change",
+        "-m",
+        "Merge fixture",
+    ]);
+    let output = std::process::Command::new(python)
+        .env_clear()
+        .envs(env.iter().cloned())
+        .arg(repository.join(".github/ci/check_gates.py"))
+        .args([".github/workflows/renamed.yml", "replacement"])
+        .current_dir(&repo)
+        .output()
+        .unwrap();
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert_eq!(output.status.code(), Some(1), "{stderr}");
+    assert!(stderr.contains("These jobs were removed"), "{stderr}");
+    assert!(stderr.contains("lint"), "{stderr}");
+}
