@@ -54,7 +54,7 @@ foreach ($line in Get-Content $tokensPath) {
     $tokens[$Matches[1]] = $Matches[2]
   }
 }
-foreach ($name in 'canvas', 'rule', 'rule-strong', 'ink', 'ink-soft', 'pass', 'alert') {
+foreach ($name in 'canvas', 'rule', 'rule-strong', 'ink', 'ink-soft', 'machine-ink', 'alert') {
   if (-not $tokens.ContainsKey($name)) { throw "tokens.css has no --colour-$name" }
 }
 
@@ -63,7 +63,8 @@ $rule = Rgb $tokens['rule']
 $ruleStrong = Rgb $tokens['rule-strong']
 $ink = Rgb $tokens['ink']
 $inkSoft = Rgb $tokens['ink-soft']
-$pass = Rgb $tokens['pass']
+# The closing-cash line takes platinum, the Machine view's ink, at 16.53:1 on black.
+$platinum = Rgb $tokens['machine-ink']
 $alert = Rgb $tokens['alert']
 
 Add-Type -Namespace Win32 -Name Native -MemberDefinition @'
@@ -147,12 +148,12 @@ try {
   $cax.Format.Line.ForeColor.RGB = $ruleStrong
   $cax.HasMajorGridlines = $false
 
-  $s1.Format.Line.ForeColor.RGB = $pass
+  $s1.Format.Line.ForeColor.RGB = $platinum
   $s1.Format.Line.Weight = 4
   $s1.MarkerStyle = 8
   $s1.MarkerSize = 8
   $s1.MarkerForegroundColor = $ink
-  $s1.MarkerBackgroundColor = $pass
+  $s1.MarkerBackgroundColor = $platinum
 
   $s2.Format.Line.ForeColor.RGB = $alert
   $s2.Format.Line.Weight = 3
