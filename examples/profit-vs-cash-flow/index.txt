@@ -133,7 +133,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Limits
 
-This is a fictional demonstration, not advice and not a client result. No forecast accuracy, client outcome or time saving has been measured.
+This is a fictional demonstration, not a client result. No forecast accuracy, client outcome or time saving has been measured.
 
 - The only supported scenario is the receipt delay, from 0 to 120 whole calendar days. Revenue, wages and operating assumptions are fixed.
 - Payment dates, PAYG withholding, workers compensation, the tax instalment and the loan terms are supplied scenario assumptions, not statutory calculations. PAYG withholding is a flat $5,000 a month, not a withholding table result.

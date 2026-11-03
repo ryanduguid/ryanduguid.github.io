@@ -64,7 +64,7 @@ Expected: one passing test and exit 0. The test asserts the figures above. The b
 
 ## Limits
 
-This is an educational tool, not tax, legal or financial advice, and using it creates no professional relationship. Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determination. Confirm the operative compilation at standards.aasb.gov.au before citing a paragraph number, and leave sign-off with a registered practitioner.
+Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determination. Confirm the operative compilation at standards.aasb.gov.au before citing a paragraph number, and leave sign-off with a registered practitioner.
 
 ## Get it
 

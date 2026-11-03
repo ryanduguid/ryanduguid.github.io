@@ -704,12 +704,23 @@ test('the footer signs off with the motto above the ABN line', async ({ page }) 
   await expect(motto.locator('.visually-hidden [lang="la"]')).toHaveText('Ex fide fiducia');
   // Text extractors read both copies, so a space keeps them separate words.
   expect(await motto.textContent()).toBe('Ex fide fiducia Ex fide fiducia, Latin for from faith comes confidence');
+  // The site's one advice disclaimer is a single small-print footer line that
+  // links to the full boundary on About.
+  const legal = page.locator('.site-footer__legal');
+  await expect(legal).toHaveCount(1);
+  await expect(legal).toContainText('not a registered tax or BAS agent');
+  await expect(legal.getByRole('link', { name: 'Advice and review boundary' })).toHaveAttribute('href', '/about/#advice-boundary');
   const geometry = await page.evaluate(() => {
     const inner = document.querySelector('.site-footer__inner');
     const box = (element) => element.getBoundingClientRect();
-    const [disclaimer] = inner.querySelectorAll(':scope > p');
+    const size = (element) => parseFloat(getComputedStyle(element).fontSize);
+    const disclaimer = inner.querySelector(':scope > .site-footer__legal');
     return {
       last: inner.lastElementChild.textContent,
+      firstNote: inner.querySelector(':scope > p') === disclaimer,
+      disclaimerSize: size(disclaimer),
+      mottoSize: size(inner.querySelector('.site-footer__motto')),
+      bodySize: size(document.body),
       disclaimerLeft: box(disclaimer).left,
       mottoLeft: box(inner.querySelector('.site-footer__motto')).left,
       mottoBottom: box(inner.querySelector('.site-footer__motto')).bottom,
@@ -718,6 +729,9 @@ test('the footer signs off with the motto above the ABN line', async ({ page }) 
     };
   });
   expect(geometry.last).toBe('Ryan Duguid, ABN 59 834 031 764');
+  expect(geometry.firstNote).toBe(true);
+  expect(geometry.disclaimerSize).toBe(geometry.mottoSize);
+  expect(geometry.disclaimerSize).toBeLessThan(geometry.bodySize);
   expect(geometry.mottoLeft).toBe(geometry.disclaimerLeft);
   expect(geometry.abnLeft).toBe(geometry.disclaimerLeft);
   expect(geometry.abnTop).toBeGreaterThan(geometry.mottoBottom);

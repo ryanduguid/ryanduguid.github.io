@@ -449,7 +449,7 @@ Those checks establish that the workbook calculates what its definitions say. Th
 
 ## Limits
 
-Not tax, legal or financial advice. The functions calculate; a person decides the accounting treatment and signs off.
+The functions calculate; a person decides the accounting treatment and signs off.
 
 - The GST helpers apply 10% unless you supply another rate. They do not classify a supply, test registration or prepare a BAS.
 - The ATO benchmark ratio helpers restate the ATO’s arithmetic for amounts you supply. They ship no benchmark ranges and do not read a tax return.

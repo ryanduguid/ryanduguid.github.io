@@ -216,7 +216,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Management reporting
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -480,7 +480,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Management reporting
 - Companies and trusts
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -1372,7 +1372,7 @@ Those checks establish that the workbook calculates what its definitions say. Th
 
 ## Limits
 
-Not tax, legal or financial advice. The functions calculate; a person decides the accounting treatment and signs off.
+The functions calculate; a person decides the accounting treatment and signs off.
 
 - The GST helpers apply 10% unless you supply another rate. They do not classify a supply, test registration or prepare a BAS.
 - The ATO benchmark ratio helpers restate the ATO’s arithmetic for amounts you supply. They ship no benchmark ranges and do not read a tax return.

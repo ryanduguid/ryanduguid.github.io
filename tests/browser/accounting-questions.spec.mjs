@@ -359,9 +359,9 @@ test('printed business calculator working keeps the boundary and a blank sign-of
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await page.emulateMedia({ media: 'print' });
   await expect(form.locator('output')).toContainText('GST: $11.00');
-  const [boundary, abn] = [page.locator('.site-footer__inner > p').first(), page.locator('.site-footer__inner > p').last()];
+  const [boundary, abn] = [page.locator('.site-footer__legal'), page.locator('.site-footer__inner > p').last()];
   await expect(boundary).toBeVisible();
-  await expect(boundary).toContainText('not a registered tax agent');
+  await expect(boundary).toContainText('not a registered tax or BAS agent');
   await expect(abn).toHaveText('Ryan Duguid, ABN 59 834 031 764');
   for (const chrome of ['.site-footer__nav', '.site-footer__links', '.site-footer__motto']) {
     await expect(page.locator(chrome)).toBeHidden();

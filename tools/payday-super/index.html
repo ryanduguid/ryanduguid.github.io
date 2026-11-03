@@ -56,7 +56,7 @@ tool: payday-super
         </ol></nav>
         <h1>{{ tool.name }}</h1>
     <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
-        <p class="lead-note">Current release {{ tool.package }} v{{ release.version }} ({{ release.dateLabel }}). The worked example below is pinned to v0.1.3. Review aid, not advice.</p>
+        <p class="lead-note">Current release {{ tool.package }} v{{ release.version }} ({{ release.dateLabel }}). The worked example below is pinned to v0.1.3.</p>
     <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 31 October 2026.</p>
           <section id="synthetic-worked-example">
             <h2>Synthetic worked example</h2>
@@ -84,7 +84,7 @@ tool: payday-super
 
           <section id="receipt-amount">
             <h2>Receipt dates and amounts</h2>
-            <p>Since 1 July 2026, super must generally reach the fund within 7 business days of payday. Proof of sending does not prove timely receipt. Check the applicable timing pathway; this is a review aid, not advice.</p>
+            <p>Since 1 July 2026, super must generally reach the fund within 7 business days of payday. Proof of sending does not prove timely receipt. Check the applicable timing pathway.</p>
             <p><strong>The current checker requires amount evidence for a timely receipt.</strong> A $120 obligation with a timely receipt date but neither <code>matched_amount</code> nor <code>remitted_amount</code> returns <code>UNKNOWN</code> and exit 2. A late receipt without an amount remains <code>LATE</code>, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.</p>
             <p>Historical reports may assume full receipt when an amount is missing. Obtain the receipt amount and rerun the current checker before relying on that result.</p>
             <p><strong>Release 0.2.3 corrects the Employment Hero import.</strong> A row with the Beam status Reconciled is no longer read as sent to the fund: it gets no remitted date and its payday reads as unfunded, with a warning naming the status. No other check changed. Re-run any review made with releases 0.1.3 to 0.2.2 of an Employment Hero export that contains Reconciled rows.</p>

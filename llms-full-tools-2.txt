@@ -72,7 +72,7 @@ Expected: one passing test and exit 0. The test asserts the figures above. The b
 
 ## Limits
 
-This is an educational tool, not tax, legal or financial advice, and using it creates no professional relationship. Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determination. Confirm the operative compilation at standards.aasb.gov.au before citing a paragraph number, and leave sign-off with a registered practitioner.
+Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determination. Confirm the operative compilation at standards.aasb.gov.au before citing a paragraph number, and leave sign-off with a registered practitioner.
 
 ## Get it
 
@@ -181,7 +181,7 @@ Related work: XeroAPI accepted my correction to its command-line report flags. I
 
 Read-only (accounting.reports.trialbalance.read); this tool cannot write to any ledger.
 
-MIT-licensed utility code, no warranty; outputs feed professional review like any other workpaper input. Not affiliated with or endorsed by Xero.
+MIT-licensed utility code, no warranty; outputs feed professional review like any other workpaper input.
 
 ## Get it
 
@@ -221,7 +221,7 @@ Unbalanced, CSV refused | Cash (090) has $100.00 movement and YTD debits. Equity
 
 The tagged balanced-output test pins the CSV bytes. The tagged unbalanced-YTD test pins the refusal and warning. Refused means no CSV file output; the diagnostic warning is still printed.
 
-The tool remains read-only and cannot write to a ledger. Its output is a review aid, not advice or a compliance result. It does not post entries, approve work, lodge returns or lock periods.
+The tool remains read-only and cannot write to a ledger. Its output is a review aid, not a compliance result. It does not post entries, approve work, lodge returns or lock periods.
 
 ## Common questions
 
@@ -276,7 +276,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Aus Accounting MCP v0.7.1: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids, not advice.
+> Aus Accounting MCP v0.7.1: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids.
 
 # Aus Accounting MCP
 
@@ -436,7 +436,7 @@ The optional LodgeiT calculator adapter is separate, unreleased development code
 
 Published MCP 0.2.8 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains UNKNOWN; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. Review the version-specific receipt rules before interpreting a result.
 
-Not tax, legal or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant’s context. Public fixtures use synthetic data only.
+The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant’s context. Public fixtures use synthetic data only.
 
 ## Common questions
 
@@ -583,7 +583,7 @@ Point the CLI at a pack directory. It checks that the required artefacts are pre
 
 Local files only. No Xero connection, no lodgement, no LLM, no period lock. A READY result is not sign-off.
 
-MIT-licensed utility code, no warranty. Not affiliated with or endorsed by the ATO or Xero. Not tax advice.
+MIT-licensed utility code, no warranty.
 
 ## Get it
 
@@ -986,7 +986,7 @@ Reviewed 11 September 2026. Use the relevant disposal, income or NSW assessment 
 - Does a Hunter Valley coal mining employer pay the Coal LSL levy?
 - How do I choose a Newcastle accountant who can help with Xero and cash flow reporting?
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -1360,7 +1360,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Companies and trusts
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 

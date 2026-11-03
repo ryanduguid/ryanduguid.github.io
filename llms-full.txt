@@ -18,7 +18,7 @@ Check workpaper packs, explore cash shortfalls and inspect the calculations.
 
 Explore the cash flow example
 
-Built by Ryan Duguid, an accountant in Newcastle, NSW. This personal site does not accept professional engagements.
+Built by Ryan Duguid, an accountant in Newcastle, NSW.
 
 Last reviewed 21 October 2026.
 
@@ -224,19 +224,15 @@ I use sources such as the Australian Taxation Office’s super guarantee rate ta
 - Synthetic data in public. Every public fixture, test and example uses fictional data. Client information stays out of public repositories entirely.
 - A person signs off. The tools calculate and check; a person makes the judgement and lodges.
 
-## Advice and review boundary
-
-I am not a registered tax agent or BAS agent. Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.
-
-## Site boundary
-
-This is a personal index of open source accounting tools I build. It is not a practice, and I am not accepting professional engagements through this site.
-
-This site does not offer tax or BAS agent services or take requests for tax advice or lodgement. Do not post taxpayer information or client files to public repositories.
-
 ## Citing this work
 
 Duguid, R. (2026). Australian computational accounting tools. https://duguid.com.au/. Each tool page names the source it is grounded in, and each linked repository carries its own licence and disclaimer.
+
+## Advice and review boundary
+
+I am not a registered tax agent or BAS agent. Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations. Lodgement decisions stay with a human. Outputs may be inaccurate, out of date or incomplete, and using a tool creates no professional relationship. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.
+
+This is a personal index of open source accounting tools I build. It is not a practice, and I am not accepting professional engagements through this site. This site does not offer tax or BAS agent services or take requests for tax advice or lodgement. Do not post taxpayer information or client files to public repositories.
 
 I write and maintain this site in my own time and on my own equipment.
 
@@ -393,7 +389,7 @@ The date is an as-at date. The API does not reproduce Xero’s separate Trial Ba
 
 Check the release record, the worked outcomes and the fixed-release evaluation before relying on an export. The evaluation’s version differs from the current installation.
 
-This utility is not affiliated with or endorsed by Xero. Return to Works with for the other supported software route.
+Return to Works with for the other supported software route.
 
 ## Links
 
@@ -456,13 +452,13 @@ Installation downloads packages. The standard calculation engines and MCP server
 
 ## Refusals and human review
 
-Review required: calculations and prepared workpapers require human review before posting, payment, lodgement, approval or period lock. These tools provide no tax, legal or financial advice.
+Review required: calculations and prepared workpapers require human review before posting, payment, lodgement, approval or period lock.
 
 Aus Accounting MCP is separate from the hosted ATO retrieval project, ato-mcp. It ships no ATO document library and does not fetch legislation or rulings from the web. A configured local library sends its retrieved excerpts back into Claude’s context.
 
 Division 7A support is experimental. The server provides benchmark interest rate lookup and reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus. Read the refusal register and the tool’s period and scope checks with each result.
 
-These projects are not endorsed by Anthropic. For Xero report access, use the separate Xero exporter guide. Return to Works with for the hub.
+For Xero report access, use the separate Xero exporter guide. Return to Works with for the hub.
 
 ## Links
 
@@ -490,7 +486,7 @@ Source: https://duguid.com.au/evidence/
 
 # Evidence behind the tools
 
-Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
+Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.
 
 Last reviewed 31 October 2026.
 
@@ -534,7 +530,7 @@ The CSV contains all nine checkpoint/month rows and their review states, with am
 - Native Power BI verification (JSON)
 - File checksums (SHA-256)
 
-This is a local software case. It is not tax, legal or financial advice, accounting approval, a posting instruction or a compliance determination.
+This is a local software case. It is not accounting approval, a posting instruction or a compliance determination.
 
 ## Accepted upstream work
 
@@ -1704,7 +1700,7 @@ TBD is the development status reported in the ATO summary. That entry alone does
 
 At the events in the rates register’s review cadence: the 1 July rollover, the May Budget, the December MYEFO and each sitting of Parliament, plus any reader report.
 
-General reference only, not tax, legal or financial advice. Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
+Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -1800,7 +1796,7 @@ No. Payday Super changed the timing from that date: pay within 7 business days o
 
 The last increase was to 12% on 1 July 2025. Earlier steps were annual each 1 July: 11.5% (2024), 11% (2023), 10.5% (2022), 10% (2021).
 
-General reference only, not tax, legal or financial advice. Rates here reflect the ATO page as at the verification date above. Check current ATO guidance before relying on a figure.
+Rates here reflect the ATO page as at the verification date above. Check current ATO guidance before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -1901,7 +1897,7 @@ Yes. The minimum yearly repayment uses that year’s benchmark rate, the unpaid 
 
 Seven years, or 25 years where the loan is fully secured by a registered mortgage over real property whose value, less prior liabilities, is at least 110% of the loan when it is first made.
 
-General reference only, not tax, legal or financial advice, and using it creates no professional relationship. These figures are derived from the Reserve Bank series the Act names, on the date above. The ATO publishes the benchmark rate for each year, and a loan agreement is worth checking against a practitioner rather than a table.
+These figures are derived from the Reserve Bank series the Act names, on the date above. The ATO publishes the benchmark rate for each year, and a loan agreement is worth checking against a practitioner rather than a table.
 
 ## Related
 
@@ -1995,7 +1991,7 @@ No. A single rate applies to every car for the income year. The engine capacity 
 
 No. The Commissioner sets the rate by having regard to average operating costs, and the Act names registration, insurance, depreciation, fuel and maintenance as examples of those costs. They are already inside the rate.
 
-General reference only, not tax, legal or financial advice, and using it creates no professional relationship. Rates here were read from the determinations on the date above. Check the current instrument on the Federal Register of Legislation, or current ATO guidance, before relying on a figure.
+Rates here were read from the determinations on the date above. Check the current instrument on the Federal Register of Legislation, or current ATO guidance, before relying on a figure.
 
 ## Related
 
@@ -2073,7 +2069,7 @@ Concessional contributions cap, multiplied by 100, divided by the super guarante
 
 12% of $270,830, which is $32,499.60 for the year, before any salary sacrifice or additional contributions the employer chooses to make.
 
-General reference only, not tax, legal or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -2151,7 +2147,7 @@ Passenger vehicles designed to carry a load of less than one tonne and fewer tha
 
 Generally one-eleventh of the car limit: $6,353 for 2026-27. Luxury car tax paid on the car is not creditable.
 
-General reference only, not tax, legal or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -2234,7 +2230,7 @@ The FBT year runs from 1 April to 31 March, so the year ending 31 March 2027 beg
 
 The lower Type 2 rate, whether or not the benefit itself was Type 1. The reporting threshold is a taxable value above $2,000, which grosses up to $3,773.
 
-General reference only, not tax, legal or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -2937,7 +2933,7 @@ Calculate
 
 ## Result
 
-This calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and disclaimer on this page still apply.
+This calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and limits on this page still apply.
 
 Ready to calculate
 
@@ -2966,20 +2962,6 @@ Your figures are not sent to a server. To check, disconnect from the internet on
 Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN or other direct identifier. Calculate first, then add the result and choose Download CSV.
 
 Download CSV before leaving. This table is not saved and clears when you reload or close the page. While it has changes you have not downloaded, the browser asks before you leave.
-
-## Disclaimer
-
-Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter. It is general information, not legal, tax, accounting or financial advice. Using it creates no adviser relationship.
-
-The levy rate applied is 2.7%, checked on 18 September 2026. It applies to eligible wages paid on or after 1 July 2023; reporting months before July 2023 are refused because the earlier rate is not implemented. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
-
-This is not a lodgement channel. Your monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL. Where anything here is inconsistent with the Acts, the Regulations or the approved form, those prevail.
-
-This tool does not decide whether an employee is an eligible employee, does not calculate long service leave accrual or reimbursements, and does not calculate additional levy on late payments. The Coal Mining Industry (Long Service Leave) Legislation Amendment Act 2026, assented to on 6 July 2026, added an unpaid levy payment arrangement and changed the additional levy for late payment. Neither change touches section 3B or the 2.7% rate, and this tool calculates neither.
-
-Eligible wages vary each month. Do not set a fixed or automatic levy payment from any figure produced here.
-
-The output may be inaccurate, out of date or incomplete. Verify against Coal LSL.
 
 ## What this tool does not resolve
 
@@ -3039,16 +3021,24 @@ Software issue using fictional data? Open an issue or email with the tool named 
 - Evidence and Assurance
 - About Ryan Duguid
 
+## Limits
+
+Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter.
+
+The levy rate applied is 2.7%, checked on 18 September 2026. It applies to eligible wages paid on or after 1 July 2023; reporting months before July 2023 are refused because the earlier rate is not implemented. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
+
+This is not a lodgement channel. Your monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL. Where anything here is inconsistent with the Acts, the Regulations or the approved form, those prevail.
+
+This tool does not decide whether an employee is an eligible employee, does not calculate long service leave accrual or reimbursements, and does not calculate additional levy on late payments. The Coal Mining Industry (Long Service Leave) Legislation Amendment Act 2026, assented to on 6 July 2026, added an unpaid levy payment arrangement and changed the additional levy for late payment. Neither change touches section 3B or the 2.7% rate, and this tool calculates neither.
+
+Eligible wages vary each month. Do not set a fixed or automatic levy payment from any figure produced here. Verify against Coal LSL.
+
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - 9218822: https://github.com/ryanduguid/ryanduguid.github.io/commit/92188225f42df20c14817af0ded3842f7911fb51
-- Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992: https://www.legislation.gov.au/C2004A04352/latest/text
-- Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018: https://www.legislation.gov.au/F2018L00217/latest/text
-- Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992: https://www.legislation.gov.au/C2004A04353/latest/text
-- Coal LSL: https://coallsl.com.au
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - contact page: https://duguid.com.au/contact/
 - Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages
@@ -3057,6 +3047,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/
 - About Ryan Duguid: https://duguid.com.au/about/
+- Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992: https://www.legislation.gov.au/C2004A04352/latest/text
+- Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018: https://www.legislation.gov.au/F2018L00217/latest/text
+- Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992: https://www.legislation.gov.au/C2004A04353/latest/text
+- Coal LSL: https://coallsl.com.au
 
 ---
 
@@ -3070,7 +3064,7 @@ Source: https://duguid.com.au/tools/payday-super/
 
 Package payday-super-checker in the australian-accounting repository. Current release v0.2.3.
 
-Current release payday-super-checker v0.2.3 (30 October 2026). The worked example below is pinned to v0.1.3. Review aid, not advice.
+Current release payday-super-checker v0.2.3 (30 October 2026). The worked example below is pinned to v0.1.3.
 
 Current release v0.2.3 (30 October 2026). Last reviewed 31 October 2026.
 
@@ -3092,7 +3086,7 @@ Published 24 August 2026. Last reviewed 31 October 2026. The fixed evaluation st
 
 ## Receipt dates and amounts
 
-Since 1 July 2026, super must generally reach the fund within 7 business days of payday. Proof of sending does not prove timely receipt. Check the applicable timing pathway; this is a review aid, not advice.
+Since 1 July 2026, super must generally reach the fund within 7 business days of payday. Proof of sending does not prove timely receipt. Check the applicable timing pathway.
 
 The current checker requires amount evidence for a timely receipt. A $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns UNKNOWN and exit 2. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.
 
@@ -3198,7 +3192,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/ato-benchmarks/
 
-> Current release ato-benchmark-compare v0.2.2. Compare profit and loss with ATO benchmark ranges locally. Review aid, not advice.
+> Current release ato-benchmark-compare v0.2.2. Compare profit and loss with ATO benchmark ranges locally. Review aid.
 
 # ATO small business benchmark comparison tool
 
@@ -3262,7 +3256,7 @@ Expected: one passing test and exit 0. The test asserts the figures above. The b
 
 ## Limits
 
-It is not tax advice, and sitting outside a range is not a finding that anything is wrong. The ATO publishes ranges because businesses differ.
+Sitting outside a range is not a finding that anything is wrong. The ATO publishes ranges because businesses differ.
 
 ## Get it
 
@@ -3350,8 +3344,6 @@ Boundary
 
 Does not invent arrangements, intentions or beneficiary facts.
 
-Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
-
 Published 24 August 2026. Last reviewed 21 October 2026.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary’s own rate. The ATO’s finalised guideline PCG 2022/2 says where the risk sits.
@@ -3406,7 +3398,7 @@ This verifies the published command’s behaviour on fictional inputs. Confirm r
 
 ## Limits
 
-Nothing this engine produces is tax, legal or financial advice, an assessment or a determination. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity’s facts before acting, and leave lodgement decisions with a registered practitioner.
+The examples assume supplied facts, and nothing this engine produces is an assessment, a determination or confirmation of entitlement, liability or compliance. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity’s facts before acting, have a registered tax agent verify the supplied facts and review their tax treatment, and leave lodgement decisions with a registered practitioner.
 
 Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
@@ -3485,8 +3477,6 @@ Boundary
 
 Requires verified income composition, distributions and ledger inputs.
 
-Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
-
 Published 24 August 2026. Last reviewed 21 October 2026.
 
 This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and checks the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
@@ -3501,7 +3491,7 @@ It builds the statement fields a dividend distribution statement needs, too. Tha
 
 ## Limits
 
-Nothing this engine produces is tax, legal or financial advice, an assessment or a determination. Outputs are review aids: confirm every rate, threshold and consequence against the current law and the entity’s facts before acting, and leave lodgement decisions with a registered practitioner.
+The examples assume supplied facts, and nothing this engine produces is an assessment, a determination or confirmation of entitlement, liability or compliance. Outputs are review aids: confirm every rate, threshold and consequence against the current law and the entity’s facts before acting, have a registered tax agent verify the supplied facts and review their tax treatment, and leave lodgement decisions with a registered practitioner.
 
 ## Get it
 
@@ -3624,7 +3614,7 @@ For work in progress, the skills assemble the contract CSV. The arithmetic lives
 
 ## Limits
 
-These skills prepare and check. They do not serve a payment claim, lodge a return or sign anything. Contract interpretation, eligibility conclusions and professional judgement stay with a person. Nothing here is tax, accounting or legal advice.
+These skills prepare and check. They do not serve a payment claim, lodge a return or sign anything. Contract interpretation, eligibility conclusions and professional judgement stay with a person.
 
 ## Repeat the agent evaluation procedure
 
@@ -3754,7 +3744,7 @@ Expected: one passing test and exit 0. The test asserts the figures above. The b
 
 ## Limits
 
-This is an educational tool, not tax, legal or financial advice, and using it creates no professional relationship. Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determination. Confirm the operative compilation at standards.aasb.gov.au before citing a paragraph number, and leave sign-off with a registered practitioner.
+Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determination. Confirm the operative compilation at standards.aasb.gov.au before citing a paragraph number, and leave sign-off with a registered practitioner.
 
 ## Get it
 
@@ -3863,7 +3853,7 @@ Related work: XeroAPI accepted my correction to its command-line report flags. I
 
 Read-only (accounting.reports.trialbalance.read); this tool cannot write to any ledger.
 
-MIT-licensed utility code, no warranty; outputs feed professional review like any other workpaper input. Not affiliated with or endorsed by Xero.
+MIT-licensed utility code, no warranty; outputs feed professional review like any other workpaper input.
 
 ## Get it
 
@@ -3903,7 +3893,7 @@ Unbalanced, CSV refused | Cash (090) has $100.00 movement and YTD debits. Equity
 
 The tagged balanced-output test pins the CSV bytes. The tagged unbalanced-YTD test pins the refusal and warning. Refused means no CSV file output; the diagnostic warning is still printed.
 
-The tool remains read-only and cannot write to a ledger. Its output is a review aid, not advice or a compliance result. It does not post entries, approve work, lodge returns or lock periods.
+The tool remains read-only and cannot write to a ledger. Its output is a review aid, not a compliance result. It does not post entries, approve work, lodge returns or lock periods.
 
 ## Common questions
 
@@ -3958,7 +3948,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Aus Accounting MCP v0.7.1: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids, not advice.
+> Aus Accounting MCP v0.7.1: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids.
 
 # Aus Accounting MCP
 
@@ -4118,7 +4108,7 @@ The optional LodgeiT calculator adapter is separate, unreleased development code
 
 Published MCP 0.2.8 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains UNKNOWN; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. Review the version-specific receipt rules before interpreting a result.
 
-Not tax, legal or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant’s context. Public fixtures use synthetic data only.
+The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant’s context. Public fixtures use synthetic data only.
 
 ## Common questions
 
@@ -4265,7 +4255,7 @@ Point the CLI at a pack directory. It checks that the required artefacts are pre
 
 Local files only. No Xero connection, no lodgement, no LLM, no period lock. A READY result is not sign-off.
 
-MIT-licensed utility code, no warranty. Not affiliated with or endorsed by the ATO or Xero. Not tax advice.
+MIT-licensed utility code, no warranty.
 
 ## Get it
 
@@ -4343,10 +4333,6 @@ Email feedback on any tool, example or evaluation, including a result you could 
 
 For professional connections, find me on LinkedIn. You can also review my accounting work samples.
 
-I am not a registered tax agent or BAS agent. I do not take requests for advice, return preparation, confirmation of tax treatment or lodgement.
-
-I build these open source accounting tools in my own time, on my own equipment. This is not a practice, and I do not accept professional engagements through this site.
-
 ## Feedback on a tool or example
 
 Tell me which tool or page you used, what you expected and what happened, or where the working is unclear. A useful report names the input, the output and the source behind the figure you expected. Use fictional or supplied synthetic figures only.
@@ -4362,6 +4348,8 @@ Website issues | Report a website issue on GitHub
 GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
+
+I build these open source accounting tools in my own time, on my own equipment. This is not a practice: I do not accept professional engagements through this site or take requests for advice, return preparation or lodgement.
 
 Published 30 August 2026. Last reviewed 26 September 2026.
 
@@ -4390,6 +4378,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+4 November 2026 | The advice disclaimer now appears once on each page, as a small line at the foot that links to the full advice and review boundary, now at the end of About. The repeated copies at the top of the homepage, Evidence, Contact and tool pages, on the rate pages and in the question guides are gone, and each tool page keeps only its own specific limits.
 3 November 2026 | Every row of the six rate CSVs now names the ATO page, Federal Register instrument or Reserve Bank table its figure was checked against, in a new source_url column, and the date of that check, in checked_at. Every figure was rechecked against those sources on 3 November 2026 and none changed. The Division 7A rows each say they are derived from the Reserve Bank’s F5 series, and the Excel queries on Rates type the 2 new columns.
 2 November 2026 | Accounting question 8 now gives the ATO’s figure of 10 business days for processing most returns lodged online, from its Check the progress of your tax return page, and notes that its How to lodge your tax return page still says 12 for myTax; the answer previously gave 12 alone.
 2 November 2026 | Accounting questions 17 and 19 now say the $150 laundry and $300 work-related expense written-evidence exceptions apply to 2025-26 and earlier years only, as the ATO’s standard deduction page states from 1 July 2026, and that written evidence is kept for 5 years from the return’s due date, or from lodgment if later (ITAA 1997 s 900-25).
@@ -4944,7 +4933,7 @@ Reviewed 11 September 2026. Use the relevant disposal, income or NSW assessment 
 - Does a Hunter Valley coal mining employer pay the Coal LSL levy?
 - How do I choose a Newcastle accountant who can help with Xero and cash flow reporting?
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -5318,7 +5307,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Companies and trusts
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -5582,7 +5571,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Companies and trusts
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -5836,7 +5825,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Companies and trusts
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -6093,7 +6082,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Companies and trusts
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -6349,7 +6338,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Companies and trusts
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -6593,7 +6582,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Companies and trusts
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -6824,7 +6813,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Companies and trusts
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -7049,7 +7038,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Companies and trusts
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -7299,7 +7288,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Management reporting
 - Investments and NSW
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -7563,7 +7552,7 @@ One of 10 topics in the 100 Australian accounting questions.
 - Management reporting
 - Companies and trusts
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -8056,7 +8045,7 @@ If an AI answer misquotes this site, email ryan@duguid.com.au with the page addr
 
 ## Using this site
 
-Read the advice and review boundary and the site boundary before relying on a tool or example. Check each page’s assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
+Read the advice and review boundary before relying on a tool or example. Check each page’s assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
 
 The website's own text, data and source code are available under its Functional Source License, Version 1.1, ALv2 Future License (FSL-1.1-ALv2), which includes its warranty terms and makes each version available under the Apache License 2.0 two years after publication; each page's structured data names that licence. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
 
@@ -8077,7 +8066,6 @@ Automated checks find only some barriers. I have not tested the site with screen
 - machine-readable index: https://duguid.com.au/llms.txt
 - full page text: https://duguid.com.au/llms-full.txt
 - advice and review boundary: https://duguid.com.au/about/#advice-boundary
-- site boundary: https://duguid.com.au/about/#contact
 - Functional Source License, Version 1.1, ALv2 Future License: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
 
 ---
@@ -8217,7 +8205,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Limits
 
-This is a fictional demonstration, not advice and not a client result. No forecast accuracy, client outcome or time saving has been measured.
+This is a fictional demonstration, not a client result. No forecast accuracy, client outcome or time saving has been measured.
 
 - The only supported scenario is the receipt delay, from 0 to 120 whole calendar days. Revenue, wages and operating assumptions are fixed.
 - Payment dates, PAYG withholding, workers compensation, the tax instalment and the loan terms are supplied scenario assumptions, not statutory calculations. PAYG withholding is a flat $5,000 a month, not a withholding table result.
@@ -8731,7 +8719,7 @@ Those checks establish that the workbook calculates what its definitions say. Th
 
 ## Limits
 
-Not tax, legal or financial advice. The functions calculate; a person decides the accounting treatment and signs off.
+The functions calculate; a person decides the accounting treatment and signs off.
 
 - The GST helpers apply 10% unless you supply another rate. They do not classify a supply, test registration or prepare a BAS.
 - The ATO benchmark ratio helpers restate the ATO’s arithmetic for amounts you supply. They ship no benchmark ranges and do not read a tax return.

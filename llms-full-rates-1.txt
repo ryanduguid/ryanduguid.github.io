@@ -412,7 +412,7 @@ TBD is the development status reported in the ATO summary. That entry alone does
 
 At the events in the rates register’s review cadence: the 1 July rollover, the May Budget, the December MYEFO and each sitting of Parliament, plus any reader report.
 
-General reference only, not tax, legal or financial advice. Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
+Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -508,7 +508,7 @@ No. Payday Super changed the timing from that date: pay within 7 business days o
 
 The last increase was to 12% on 1 July 2025. Earlier steps were annual each 1 July: 11.5% (2024), 11% (2023), 10.5% (2022), 10% (2021).
 
-General reference only, not tax, legal or financial advice. Rates here reflect the ATO page as at the verification date above. Check current ATO guidance before relying on a figure.
+Rates here reflect the ATO page as at the verification date above. Check current ATO guidance before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -609,7 +609,7 @@ Yes. The minimum yearly repayment uses that year’s benchmark rate, the unpaid 
 
 Seven years, or 25 years where the loan is fully secured by a registered mortgage over real property whose value, less prior liabilities, is at least 110% of the loan when it is first made.
 
-General reference only, not tax, legal or financial advice, and using it creates no professional relationship. These figures are derived from the Reserve Bank series the Act names, on the date above. The ATO publishes the benchmark rate for each year, and a loan agreement is worth checking against a practitioner rather than a table.
+These figures are derived from the Reserve Bank series the Act names, on the date above. The ATO publishes the benchmark rate for each year, and a loan agreement is worth checking against a practitioner rather than a table.
 
 ## Related
 
@@ -703,7 +703,7 @@ No. A single rate applies to every car for the income year. The engine capacity 
 
 No. The Commissioner sets the rate by having regard to average operating costs, and the Act names registration, insurance, depreciation, fuel and maintenance as examples of those costs. They are already inside the rate.
 
-General reference only, not tax, legal or financial advice, and using it creates no professional relationship. Rates here were read from the determinations on the date above. Check the current instrument on the Federal Register of Legislation, or current ATO guidance, before relying on a figure.
+Rates here were read from the determinations on the date above. Check the current instrument on the Federal Register of Legislation, or current ATO guidance, before relying on a figure.
 
 ## Related
 
@@ -781,7 +781,7 @@ Concessional contributions cap, multiplied by 100, divided by the super guarante
 
 12% of $270,830, which is $32,499.60 for the year, before any salary sacrifice or additional contributions the employer chooses to make.
 
-General reference only, not tax, legal or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -859,7 +859,7 @@ Passenger vehicles designed to carry a load of less than one tonne and fewer tha
 
 Generally one-eleventh of the car limit: $6,353 for 2026-27. Luxury car tax paid on the car is not creditable.
 
-General reference only, not tax, legal or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -942,7 +942,7 @@ The FBT year runs from 1 April to 31 March, so the year ending 31 March 2027 beg
 
 The lower Type 2 rate, whether or not the benefit itself was Type 1. The reporting threshold is a taxable value above $2,000, which grosses up to $3,773.
 
-General reference only, not tax, legal or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 

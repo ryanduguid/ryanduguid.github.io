@@ -55,7 +55,7 @@ Point the CLI at a pack directory. It checks that the required artefacts are pre
 
 Local files only. No Xero connection, no lodgement, no LLM, no period lock. A READY result is not sign-off.
 
-MIT-licensed utility code, no warranty. Not affiliated with or endorsed by the ATO or Xero. Not tax advice.
+MIT-licensed utility code, no warranty.
 
 ## Get it
 

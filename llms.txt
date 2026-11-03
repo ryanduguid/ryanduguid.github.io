@@ -10,11 +10,11 @@ Licence: the site's own text, data and source code are FSL-1.1-ALv2, the Functio
 
 Identical discovery copy: https://duguid.com.au/.well-known/llms.txt
 
-Ryan Duguid is not a registered tax agent or BAS agent. Project support is limited to software issues reproduced with fictional data. Do not send taxpayer information or request advice, return preparation, tax-treatment confirmation or lodgement.
+Ryan Duguid is not a registered tax agent or BAS agent, and nothing here is tax, legal or financial advice. This site is a personal index of open source accounting tools built in Ryan Duguid's own time and on his own equipment. It is not a practice and is not accepting professional engagements through this site. Project support is limited to software issues reproduced with fictional data. Do not send taxpayer information or client files, or request advice, return preparation, tax-treatment confirmation or lodgement.
 
-He is distinct from the United States software product executive Ryan Duguid whose LinkedIn URL has no hyphen. This site is a personal index of open source accounting tools built in Ryan Duguid's own time and on his own equipment. It is not a practice and is not accepting professional engagements through this site. It does not offer tax or BAS agent services and does not accept taxpayer information or client files.
+He is distinct from the United States software product executive Ryan Duguid whose LinkedIn URL has no hyphen.
 
-Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculation methods and rounding rules are documented with each tool. The browser business loan calculator uses fixed monthly rates and rounds each result to the nearest cent. Lender rounding and daily accrual can differ. Public fixtures and examples use fictional or synthetic data. Calculation engines run locally. A cloud-backed AI host may send supplied arguments, tool results and library excerpts to its model provider; optional integrations have separate network boundaries. Human review remains mandatory before posting, payment, lodgement, approval or period lock. Nothing here is tax, legal or financial advice. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
+Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculation methods and rounding rules are documented with each tool. The browser business loan calculator uses fixed monthly rates and rounds each result to the nearest cent. Lender rounding and daily accrual can differ. Public fixtures and examples use fictional or synthetic data. Calculation engines run locally. A cloud-backed AI host may send supplied arguments, tool results and library excerpts to its model provider; optional integrations have separate network boundaries. Human review remains mandatory before posting, payment, lodgement, approval or period lock. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
 
 ## Choose a route
 
@@ -43,7 +43,7 @@ For Python packages, the MCP server and agent workflows, use the [installation g
 ## For AI agents
 
 - [Aus Accounting MCP](https://duguid.com.au/tools/australian-tax-ai-agents/): local MCP server, current release v0.7.1 (31 October 2026). ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets. Runs locally, ships no ATO document library, prepares or lodges nothing; human review required. Registry name io.github.ryanduguid/aus-accounting. Separate project from ato-mcp.
-- [Agent skills manifest](https://duguid.com.au/.well-known/agent-skills/index.json): the 65 released SKILL.md files of australian-accounting-skills v0.4.0, each with its description, a URL that serves the released bytes at the release commit and a sha256 digest to check them against. v0.4.0 is the latest release under Apache-2.0, the licence the manifest declares; the current release, v0.5.0 (28 October 2026), is under FSL-1.1-ALv2. Preparation-only workflows in the Agent Skills format; not advice and not lodgement.
+- [Agent skills manifest](https://duguid.com.au/.well-known/agent-skills/index.json): the 65 released SKILL.md files of australian-accounting-skills v0.4.0, each with its description, a URL that serves the released bytes at the release commit and a sha256 digest to check them against. v0.4.0 is the latest release under Apache-2.0, the licence the manifest declares; the current release, v0.5.0 (28 October 2026), is under FSL-1.1-ALv2. Preparation-only workflows in the Agent Skills format; not lodgement.
 
 ## Person
 
@@ -138,7 +138,7 @@ A refusal is a question handed back. A limitation is an answer that rests on som
 
 ## Contact and history
 
-- [Contact](https://duguid.com.au/contact/): project and identity links. This site is not a practice and does not accept professional engagements.
+- [Contact](https://duguid.com.au/contact/): project and identity links.
 - [Changelog](https://duguid.com.au/changelog/): dated register of site changes and tagged tool releases.
 - [Atom feed](https://duguid.com.au/feed.xml): the changelog rows as a feed for freshness monitors.
 

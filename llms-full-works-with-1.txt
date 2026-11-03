@@ -123,7 +123,7 @@ The date is an as-at date. The API does not reproduce Xero’s separate Trial Ba
 
 Check the release record, the worked outcomes and the fixed-release evaluation before relying on an export. The evaluation’s version differs from the current installation.
 
-This utility is not affiliated with or endorsed by Xero. Return to Works with for the other supported software route.
+Return to Works with for the other supported software route.
 
 ## Links
 
@@ -186,13 +186,13 @@ Installation downloads packages. The standard calculation engines and MCP server
 
 ## Refusals and human review
 
-Review required: calculations and prepared workpapers require human review before posting, payment, lodgement, approval or period lock. These tools provide no tax, legal or financial advice.
+Review required: calculations and prepared workpapers require human review before posting, payment, lodgement, approval or period lock.
 
 Aus Accounting MCP is separate from the hosted ATO retrieval project, ato-mcp. It ships no ATO document library and does not fetch legislation or rulings from the web. A configured local library sends its retrieved excerpts back into Claude’s context.
 
 Division 7A support is experimental. The server provides benchmark interest rate lookup and reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus. Read the refusal register and the tool’s period and scope checks with each result.
 
-These projects are not endorsed by Anthropic. For Xero report access, use the separate Xero exporter guide. Return to Works with for the hub.
+For Xero report access, use the separate Xero exporter guide. Return to Works with for the hub.
 
 ## Links
 

@@ -14,7 +14,7 @@ Source: https://duguid.com.au/evidence/
 
 # Evidence behind the tools
 
-Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
+Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.
 
 Last reviewed 31 October 2026.
 
@@ -58,7 +58,7 @@ The CSV contains all nine checkpoint/month rows and their review states, with am
 - Native Power BI verification (JSON)
 - File checksums (SHA-256)
 
-This is a local software case. It is not tax, legal or financial advice, accounting approval, a posting instruction or a compliance determination.
+This is a local software case. It is not accounting approval, a posting instruction or a compliance determination.
 
 ## Accepted upstream work
 

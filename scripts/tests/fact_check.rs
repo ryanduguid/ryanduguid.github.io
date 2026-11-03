@@ -565,7 +565,7 @@ fn quarter_close_case_matches_its_native_evidence() {
         "close marked REVIEW",
         "original receipt marked UNREVIEWED",
         "grants no action authority",
-        "not tax, legal or financial advice",
+        "not accounting approval, a posting instruction or a compliance determination",
     ] {
         assert!(text.contains(boundary), "{boundary}");
     }

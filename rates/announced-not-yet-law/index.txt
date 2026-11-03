@@ -95,7 +95,7 @@ TBD is the development status reported in the ATO summary. That entry alone does
 
 At the events in the rates register’s review cadence: the 1 July rollover, the May Budget, the December MYEFO and each sitting of Parliament, plus any reader report.
 
-General reference only, not tax, legal or financial advice. Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
+Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 

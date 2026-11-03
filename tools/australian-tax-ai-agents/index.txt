@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Aus Accounting MCP v0.7.1: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids, not advice.
+> Aus Accounting MCP v0.7.1: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids.
 
 # Aus Accounting MCP
 
@@ -162,7 +162,7 @@ The optional LodgeiT calculator adapter is separate, unreleased development code
 
 Published MCP 0.2.8 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains UNKNOWN; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. Review the version-specific receipt rules before interpreting a result.
 
-Not tax, legal or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant’s context. Public fixtures use synthetic data only.
+The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant’s context. Public fixtures use synthetic data only.
 
 ## Common questions
 
