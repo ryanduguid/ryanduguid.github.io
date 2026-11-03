@@ -10,9 +10,9 @@ Seven maintained Australian reference tables with the current value, source-revi
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page’s editorial check.
 
-Last reviewed 17 October 2026.
+Last reviewed 3 November 2026.
 
-Each rate page keeps its own source verification date. The Excel instructions below do not renew those checks.
+Each rate page keeps its own source verification date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
 Use these tables in Excel
 
@@ -29,13 +29,15 @@ let
         {"period_start", type date},
         {"period_end", type date},
         {"general_sg_rate_percent", type number},
-        {"notes", type text}
+        {"notes", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
 ```
 
-Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained.
+Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained. The source_url and checked_at columns were added on 3 November 2026 and have not been loaded in Excel since.
 
 This imports the full SG history. A rate of 12.00 means 12%; divide by 100 if a formula needs a fraction. A blank end date remains blank. Select the period that applies to your work; the latest row does not apply to every year.
 
@@ -56,7 +58,9 @@ let
         {"income_year", type text},
         {"benchmark_rate_percent", type number},
         {"rba_series_month", type text},
-        {"notes", type text}
+        {"notes", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -76,7 +80,9 @@ let
         {"cents_per_km", Int64.Type},
         {"instrument", type text},
         {"register_id", type text},
-        {"scope", type text}
+        {"scope", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -96,7 +102,9 @@ let
         {"basis", type text},
         {"maximum_contribution_base", type number},
         {"maximum_sg_per_period", type number},
-        {"notes", type text}
+        {"notes", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -114,7 +122,9 @@ let
     Rates = Table.TransformColumnTypes(Headers, {
         {"income_year", type text},
         {"car_limit", Int64.Type},
-        {"source", type text}
+        {"source", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -134,7 +144,9 @@ let
         {"fbt_rate_percent", type number},
         {"type_1_gross_up", type number},
         {"type_2_gross_up", type number},
-        {"source", type text}
+        {"source", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
     }, "en-AU")
 in
     Rates
@@ -166,7 +178,7 @@ in
     Measures
 ```
 
-Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors.
+Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The source_url and checked_at columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads.
 
 Follow updates with the Atom feed. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.
 

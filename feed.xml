@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-02T00:00:00Z</updated>
+  <updated>2026-11-03T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Every row of the six rate CSVs now names the ATO page, Federal Register…</title>
+    <link href="https://duguid.com.au/changelog/#entry-39c6492e4f12f5d0" />
+    <id>https://duguid.com.au/changelog/#entry-39c6492e4f12f5d0</id>
+    <updated>2026-11-03T00:00:00Z</updated>
+    <summary>Every row of the six rate CSVs now names the ATO page, Federal Register instrument or Reserve Bank table its figure was checked against, in a new source_url column, and the date of that check, in checked_at. Every figure was rechecked against those sources on 3 November 2026 and none changed. The Division 7A rows each say they are derived from the Reserve Bank’s F5 series, and the Excel queries on Rates type the 2 new columns.</summary>
+  </entry>
   <entry>
     <title>Accounting question 8 now gives the ATO’s figure of 10 business days for…</title>
     <link href="https://duguid.com.au/changelog/#entry-aeb0def588c29a6d" />

@@ -48,25 +48,25 @@
       "bd157ada3d4b6ec01b1a731bd092d2d55755efc87ed2a872550815c4ab33116b"
     ],
     "rates/car-limit/index.html": [
-      "03bb4a2d328fffc0aeebc7ac2b761aa9fe1ac45b3ae03257efb1a31f6b2bbebe"
+      "67a11a38280e1dd53c458f0108e95bfadc1af7fba0f29f27d71c3f31cbc42ef2"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "98d1bd2330259541f0cd49d532f661b5ccd615b66ad1e4b5c087777037be4e94"
+      "84cfb7808fd33b6a88c81c9ffd0c7147c3af530a807b3b547479ab117f986606"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "44e4304c8e41dcb3e54e345f90fe527d83bd62ed70f02004ca6fdd7229fbe223"
+      "09daf0606c3287120e7a13c6f7005ca42b4800b8046b44117b72986161fe3879"
     ],
     "rates/fbt-rate/index.html": [
-      "10731c007bfbf23f7f534bd36e0697668f257edf793053ec822565041188e641"
+      "2b45483aa8cfc58a75283aede6d9c27d1c7e9eebc05958de0076f3f2756de2d0"
     ],
     "rates/index.html": [
-      "56abd9d3017aae8c3c95e60ff93c03ede0ba46ecfd8b876df10071e3a9596cbd"
+      "834fc1aa2d0ca3672d61987a268882560d9968ff773338a001c595bc58d2c0a1"
     ],
     "rates/maximum-contribution-base/index.html": [
-      "3c04a41450a64e45bb6ce504a6f679930b9c25c230c3badac4ff2d942077532f"
+      "48cc93a0237d2fae28311b2f3425ccb68d205ecdf6bef00a5343073a1a087914"
     ],
     "rates/super-guarantee/index.html": [
-      "4c2ef6c169c8cabe288bbdf1a0a8f957ccacf49a1b51eeb13ffe817fca09883d"
+      "fa36e47aa4c17b77c6ce4f332db85a2ada98f569f7bcab48a13126ca16b874f2"
     ],
     "tools/accounting-questions/index.html": [
       "a1344c95e2d5c671b55fb0e3b84ee7789ad6b15251d4a1dc9088f08629ec4606"
@@ -148,9 +148,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "52c2d68a1b367bdacbb9fa21093a1d46701ad2d928168f2f253f04707a849343",
+    "llms.txt": "72d443b8b738222c147450802e4c9d6721e9713f42946041b53dfb62780e6add",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
-    "sitemap.xml": "3f319281db438f101a6c71c3b4884cc8e42ef0902bf58a6c9663e58c8f929a39"
+    "sitemap.xml": "d0bc0a90f6c5687e93e91c84e16203d2d09fa61b951c962353ee34705dcbdc07"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -205,9 +205,9 @@
     ]
   },
   "protected_main_text": {
-    "rates/cents-per-kilometre/index.html": "673bf6163da0ad1cd69c80b034d05ccdc849d7444b37edcca26987a8d1b4f53c",
-    "rates/div7a-benchmark-rate/index.html": "01836c220cd719659b9d303a7e0747f851e2ce1fd66a1b9c5acafc783a5282c4",
-    "rates/super-guarantee/index.html": "09fda554c85d0d4eada4b18da824e7e62be6b7570147e98c152d9a00f3ead45b"
+    "rates/cents-per-kilometre/index.html": "77c2f1b788dfe6406bd14ce996eb36edf66b08c158bba8276c4a9323e9ad9ef6",
+    "rates/div7a-benchmark-rate/index.html": "e0645d6aa99f61bd1b4dfaa1d400aa7e9a89772db8bd68efc76f0f6172f7a779",
+    "rates/super-guarantee/index.html": "db282a9f2bfe92bc2a3fc6c1042c983e7ac36cd75eab360659b8c610ed7b0c62"
   },
   "protected_text": {
     "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 65,

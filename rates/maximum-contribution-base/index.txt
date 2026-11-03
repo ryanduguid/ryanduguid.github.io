@@ -30,7 +30,7 @@ Income year | Base per quarter | Maximum SG per quarter
 
 The base is indexed to average weekly ordinary time earnings. Earlier years are on the ATO page and are not listed here because they were not read from it.
 
-Download the table as CSV. Cite as Duguid, R. (2026). Maximum super contribution base by year [Data set]. https://duguid.com.au/rates/maximum-contribution-base/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Maximum super contribution base by year [Data set]. https://duguid.com.au/rates/maximum-contribution-base/. Verify against current ATO guidance before relying on a figure.
 
 ## Common questions
 
@@ -62,7 +62,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Division 7A benchmark interest rate
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 24 September 2026.
+Published 20 September 2026. Last reviewed 3 November 2026.
 
 ## Links
 
