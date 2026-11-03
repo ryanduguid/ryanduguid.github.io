@@ -154,6 +154,21 @@ test('oversized calculations and employee totals recover without changing saved 
   health.assertHealthy();
 });
 
+// The wide layout's sticky result can sit above the viewport once a reader
+// scrolls down to Calculate, so the result heading must come back into view.
+test('Calculate focuses the result heading and brings it into view on wide layouts', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'desktop', 'wide viewports run once');
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 720 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/tools/coal-lsl-levy/');
+    await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+    await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+    const title = page.locator('#result-title');
+    await expect(title, `${viewport.width}px`).toBeFocused();
+    await expect(title, `${viewport.width}px`).toBeInViewport();
+  }
+});
+
 test('blank monetary inputs produce an explained zero result', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/tools/coal-lsl-levy/');

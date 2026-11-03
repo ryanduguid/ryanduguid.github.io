@@ -968,10 +968,12 @@ states that loading the example replaces the current inputs.
 Adding a bonus focuses its amount. Removing a bonus focuses the next amount,
 then the previous amount, then Add a bonus when none remain. Monthly-table
 removal follows the same order through the remaining Remove buttons and
-returns to Employee reference when the table is empty. On stacked layouts,
-Calculate and Load the synthetic example focus and reveal the Result heading
-without animated scrolling. Invalid submissions keep focus on the first
-invalid input.
+returns to Employee reference when the table is empty. Calculate and Load
+the synthetic example focus the Result heading without animated scrolling.
+Stacked layouts keep Calculate in view with the result below it; wide layouts
+scroll the heading into view, because the sticky result can sit above the
+viewport once a reader scrolls down to Calculate (4 November 2026). Invalid
+submissions keep focus on the first invalid input.
 
 Once a result exists, edits to amounts, branches or bonuses show
 'Inputs changed. Calculate again.' beside that result. The notice clears
