@@ -258,7 +258,7 @@ Python
 
 Needs
 
-Python 3.11 or later and a free Xero developer app
+Python 3.11 or later and a Xero developer app (free Starter plan: up to 5 organisations, 1,000 API calls a day each)
 
 Boundary
 

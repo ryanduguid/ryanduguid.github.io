@@ -211,7 +211,7 @@
       "https://pypi.org/project/xero-trial-balance-export/"
     ],
     "delivery": "Python",
-    "needs": "Python 3.11 or later and a free Xero developer app",
+    "needs": "Python 3.11 or later and a Xero developer app (free Starter plan: up to 5 organisations, 1,000 API calls a day each)",
     "boundary": "Read-only Xero scope; no ledger writes."
   }
 }
