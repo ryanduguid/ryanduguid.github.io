@@ -8,6 +8,13 @@
   <updated>2026-11-04T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The Works with Xero guide now names Xero’s hosted Developer Remote MCP Server…</title>
+    <link href="https://duguid.com.au/changelog/#entry-cff0a16b6a392551" />
+    <id>https://duguid.com.au/changelog/#entry-cff0a16b6a392551</id>
+    <updated>2026-11-04T00:00:00Z</updated>
+    <summary>The Works with Xero guide now names Xero’s hosted Developer Remote MCP Server, which lets an AI agent read and write accounting data without asking the user to confirm, and Xero’s read-only connector in Claude, with the scopes, gaps and plan access Xero’s pages gave on 4 November 2026. It also gives the free Starter developer plan’s limit of 5 organisations at 1,000 API calls a day each and Xero’s exemption for practice integrations. The trial balance exporter is unchanged.</summary>
+  </entry>
+  <entry>
     <title>The homepage now offers 3 routes, to check a pack or calculate, answer a tax or…</title>
     <link href="https://duguid.com.au/changelog/#entry-73d5a62d65d184da" />
     <id>https://duguid.com.au/changelog/#entry-73d5a62d65d184da</id>

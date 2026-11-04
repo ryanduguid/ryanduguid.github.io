@@ -144,13 +144,13 @@
       "29fe78fac43ade6315795180e85e2f61ce01a56d8da20634b99880147743e688"
     ],
     "works-with/xero/index.html": [
-      "a18e24a48059a90fc90755cc491ef0a4bad78974ed32b909a4b61da9c6a49f1d"
+      "60161ed1f345c9296fbe89e7e4149618352159ea5a1f5c3bc36b424d7bb3cca0"
     ]
   },
   "protected_files": {
     "llms.txt": "71667a5cc203e3ac73d54fb6ad4950a0d942aadc51df447ddf99f44fdee8baec",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
-    "sitemap.xml": "3b6b81c19193409d8acac17cd5580198d252a7f5ac3b529a53bdea2e8bd54c5a"
+    "sitemap.xml": "f68944210d2c5c8f12b54e00ab904f04f79b26a66dc9333c5596c08d5bc4caf5"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

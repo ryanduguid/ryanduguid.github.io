@@ -85,7 +85,7 @@ Source: https://duguid.com.au/works-with/xero/
 
 Export a Xero trial balance to a local CSV for review in Excel, Power BI or pandas. Both monthly movement and year-to-date totals must balance before the exporter writes the file.
 
-Published 25 October 2026. Last reviewed 25 October 2026.
+Published 25 October 2026. Last reviewed 4 November 2026.
 
 ## Export a trial balance
 
@@ -98,7 +98,7 @@ Open the Xero installation and first run guide
 ## What you need
 
 - Python 3.11 or later, Git and a local working directory for the released exporter.
-- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine.
+- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app connect up to 5 organisations, at 1,000 API calls a day each; Core allows 50 for A$35 a month excluding tax. An integration an accountant or bookkeeper builds for their own practice or a single client is exempt from this pricing, as Xero determines.
 - A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.
 - An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.
 
@@ -115,6 +115,20 @@ Excel or Power BI | You import the resulting CSV into your chosen application. |
 
 The exporter contacts Xero for authentication and the requested report. The resulting CSV contains organisation and account data; protect it and any copies you import into other systems.
 
+## Xero’s MCP server and Claude connector
+
+For an AI agent that works inside Xero rather than on an exported file, Xero runs a hosted Developer Remote MCP Server at https://api.xero.com/mcp/v1. Xero has documented its setup for Claude Desktop, Claude Code, Cursor and VS Code. The user signs in through Xero’s OAuth 2.0 flow, which Xero recommends with PKCE, and the agent can then read and write accounting data in the organisations the user authorises.
+
+Each tool runs only under a scope the app has approved. list_trial_balance reads the trial balance with accounting.reports.trialbalance.read, the scope this exporter requests. Tools whose names start with create_, update_, authorise_ or void_ write to the organisation. They include create_payment, create_manual_journal and void_invoice, which need the write scopes accounting.payments, accounting.manualjournals and accounting.invoices.
+
+Xero’s Remote MCP questions say these version 1 tools do not ask the user to confirm before writing; Xero advises asking the agent to confirm with you first. Xero logs each API call in the Developer Portal, but not the tool calls or prompts behind them. The documented tools cover no payroll or activity statements, and their journal tools handle manual journals only.
+
+The server is included on Xero’s Core developer plan or above. Apps on the free Starter plan can use it with the demo organisation only, and Custom Connection apps cannot use it. An accountant or bookkeeper building an integration for their own practice or a client can apply for Xero’s API fee exemption, which includes this access.
+
+Xero’s connector in Claude is a separate, read-only route for questions about live figures. Xero says Claude can’t create, edit, approve, reconcile or pay in Xero through it, and it needs an active Xero subscription and a Claude account but no developer setup.
+
+This section follows Xero’s pages as read on 4 November 2026; neither route was tested for this guide. The trial balance exporter on this page remains separate and read-only.
+
 ## Limits and evidence
 
 Boundary: the exporter cannot post journals, edit transactions or lodge returns. A balanced trial balance still needs professional review.
@@ -130,7 +144,12 @@ Return to Works with for the other supported software route.
 - Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
 - released Python exporter, v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
 - Open the Xero installation and first run guide: https://duguid.com.au/tools/xero-trial-balance/#get-it
+- Starter plan: https://developer.xero.com/pricing
+- exempt from this pricing: https://developer.xero.com/faq/pricing-and-policy-updates
 - reproduce the trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Developer Remote MCP Server: https://developer.xero.com/documentation/guides/remote-mcp/overview/
+- Remote MCP questions: https://developer.xero.com/faq/remote-mcp
+- connector in Claude: https://www.xero.com/au/ai-in-accounting/claude/
 - exporter’s refusals: https://duguid.com.au/tools/refusals/#xero-trial-balance
 - worked outcomes: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
 - Works with: https://duguid.com.au/works-with/
