@@ -205,6 +205,8 @@ fn rental_expense_qualifications_reach_each_answer_format() {
             vec![
                 "capital works rules separately",
                 "CGT cost base",
+                "acquired after 7.30 pm (ACT time) on 13 May 1997",
+                "after 30 June 1999 on property acquired earlier",
                 "capital works deductions claimed or claimable",
                 "does not automatically produce a deduction",
             ],
