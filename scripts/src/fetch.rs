@@ -1,6 +1,3 @@
-// Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
-
 //! `urllib.request.urlopen(Request(url, headers=...), timeout=...)` for the scripts that
 //! read public URLs: a GET with the script's User-Agent, redirects followed, and an HTTP
 //! error status reported as urllib's HTTPError.
