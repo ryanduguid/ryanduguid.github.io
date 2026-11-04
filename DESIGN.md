@@ -59,6 +59,9 @@ where something needs action. Its rules:
   this, including the social-card alt text, now that the `-20261104` set's
   evaluations card reads 'Fictional inputs'. The other 4 cards render byte
   for byte as before.
+- The cash case's captions and plotted-value note write negative amounts
+  in parentheses, as the chart labels do: '($25,160)'. Tables and
+  calculator results keep the minus sign.
 - Every page title is the page's own name, with no site suffix.
 - The About lead states 'Provisional CA ANZ Member', 'Xero Certified
   Specialist, Level 3', the LinkedIn profile and the CA ANZ non-endorsement
