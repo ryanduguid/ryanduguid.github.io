@@ -96,6 +96,17 @@ test('ordinary links carry a red underline at least 2px thick', async ({ page })
   }
 });
 
+test('the checked setup tab and the targeted changelog row are marked in red', async ({ page }) => {
+  await page.goto('/tools/australian-tax-ai-agents/');
+  const tab = page.locator('.adopt-input:checked + .adopt-tab').first();
+  expect(await tab.evaluate((element) => getComputedStyle(element).borderTopColor)).toBe('rgb(231, 22, 47)');
+  await page.goto('/changelog/');
+  const id = await page.locator('.changelog-section tbody tr[id]').first().getAttribute('id');
+  await page.goto(`/changelog/#${id}`);
+  const mark = await page.locator(`[id="${id}"] > th`).evaluate((element) => getComputedStyle(element).textDecorationColor);
+  expect(mark).toBe('rgb(231, 22, 47)');
+});
+
 test('no text asks for a bold the shipped mono face does not have', async ({ page }) => {
   for (const path of ['/', '/about/', '/rates/super-guarantee/', '/tools/business-calculators/gst/', '/changelog/']) {
     await page.goto(path);

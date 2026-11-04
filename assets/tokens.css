@@ -72,7 +72,7 @@
   /* True-black OLED register: every surface is #000000 except the raised
      field and the emphasis wash, the greys carry no hue and the main ink is
      ivory. Crimson and deep purple supply the accents; ivory keeps text and focus readable.
-     Red strokes only link underlines and accent rules: 4.55:1 on black. */
+     Red strokes only link underlines, accent rules and selection marks: 4.55:1 on black. */
   --colour-canvas: #000000;
   --colour-paper: #000000;
   --colour-paper-raised: #0a0a0a;

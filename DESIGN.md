@@ -78,8 +78,9 @@ where something needs action. Its rules:
   strokes: `--colour-stroke` draws link underlines and the accent rules
   above the contents, evaluation summaries and calculator results, at
   4.55:1 on black against the 3:1 non-text minimum. Crimson `#990024`
-  measured 2.38:1 in those roles. Fills, the changelog target mark and the
-  checked setup tab stay crimson; link text stays ivory at 20.81:1.
+  measured 2.38:1 in those roles. The changelog target underline and the
+  checked setup tab border are strokes too, so they draw in red; fills stay
+  crimson and link text stays ivory at 20.81:1.
 - Dark gold and lavender stay out of the site.
 
 The brand exceptions stand: a true-black, dark-only canvas; Besley as the
@@ -174,9 +175,9 @@ and no system preference creates a second branded state.
 | Ink soft | `#9A9A9A` | Supporting copy and metadata | 7.46:1 |
 | Rule | `#262626` | Hairlines and table rows | n/a |
 | Rule strong | `#606060` | Structural boundaries and field borders | 3.34:1 |
-| Stamp | `#990024` | Fills, link hover fills and selected-state marks | 2.38:1 (8.74:1 ivory on stamp) |
+| Stamp | `#990024` | Fills and link hover fills | 2.38:1 (8.74:1 ivory on stamp) |
 | Stamp strong | `#66023C` | Button hover fills and secondary emphasis with ivory text | 12.70:1 (ivory on stamp) |
-| Stroke | `#E7162F` (red) | Link underlines and accent rules only, from 4 November 2026 | 4.55:1 |
+| Stroke | `#E7162F` (red) | Link underlines, accent rules and selection marks only, from 4 November 2026 | 4.55:1 |
 | Stamp wash | `#161616` | Applied formula and interactive emphasis | n/a |
 | Pass | `#0F4B32` (Rhodesian green) | Passed-result labels with ivory text | 2.07:1 |
 | Machine ink | `#E5E4E2` (platinum) | Machine view text and the cash chart line | 16.53:1 |
