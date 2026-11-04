@@ -85,10 +85,42 @@
       },
       "author": {
         "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au{{ page.url }}#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://duguid.com.au{{ page.url }}#calculator"
+      }
+    },
+    {
+      "@type": [
+        "WebApplication",
+        "SoftwareSourceCode"
+      ],
+      "@id": "https://duguid.com.au{{ page.url }}#calculator",
+      "name": {{ page.heading | jsonify }},
+      "description": {{ page.lead | jsonify }},
+      "url": "https://duguid.com.au{{ page.url }}",
+      "applicationCategory": "BusinessApplication",
+      "browserRequirements": "Requires JavaScript.",
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU",
+      "codeRepository": "https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
       }
     },
     {
       "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au{{ page.url }}#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",

@@ -272,11 +272,11 @@ fn geo_leftovers_surface() {
         ("Applebot-Extended", "Allow: /"),
         ("CCBot", "Allow: /"),
         ("Bytespider", "Allow: /"),
-        ("Amazonbot", "Disallow: /"),
-        ("cohere-ai", "Disallow: /"),
-        ("Diffbot", "Disallow: /"),
-        ("FacebookBot", "Disallow: /"),
-        ("meta-externalagent", "Disallow: /"),
+        ("Amazonbot", "Allow: /"),
+        ("cohere-ai", "Allow: /"),
+        ("Diffbot", "Allow: /"),
+        ("FacebookBot", "Allow: /"),
+        ("meta-externalagent", "Allow: /"),
     ]
     .iter()
     .map(|(a, d)| ((*a).to_owned(), vec![(*d).to_owned()]))
@@ -940,11 +940,11 @@ fn public_contracts_routes_privacy_and_evaluations() {
     }
     let robots = read_text(root(), "robots.txt");
     expect_failure(
-        "training crawler opened",
+        "named crawler blocked",
         &contracts::check_robots_policy(&changed_text(
             &robots,
-            "User-agent: Amazonbot\nDisallow: /",
             "User-agent: Amazonbot\nAllow: /",
+            "User-agent: Amazonbot\nDisallow: /",
         )),
         "robots.txt: Amazonbot must have exactly",
     );
