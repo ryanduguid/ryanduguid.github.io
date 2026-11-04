@@ -51,7 +51,7 @@ select {
 
 a {
   color: var(--colour-ink);
-  text-decoration-color: var(--colour-stamp);
+  text-decoration-color: var(--colour-stroke);
   text-decoration-thickness: var(--link-underline-thickness);
   text-underline-offset: var(--link-underline-offset);
   -webkit-tap-highlight-color: transparent;
@@ -61,7 +61,7 @@ a {
     text-decoration-color var(--motion-standard) var(--ease-standard);
 }
 
-/* One hue per link: the crimson underline becomes a crimson fill. */
+/* The red underline becomes a crimson fill. */
 a:hover,
 a:active {
   color: var(--colour-ink);
@@ -547,7 +547,7 @@ main p {
   display: grid;
   gap: var(--space-2);
   padding-top: var(--space-3);
-  border-top: var(--rule-strong) solid var(--colour-stamp);
+  border-top: var(--rule-strong) solid var(--colour-stroke);
   font-size: var(--text-small);
   line-height: 1.45;
 }
@@ -597,7 +597,7 @@ main p {
 .evaluation-summary {
   display: grid;
   margin: 0;
-  border-top: var(--rule-strong) solid var(--colour-stamp);
+  border-top: var(--rule-strong) solid var(--colour-stroke);
 }
 
 .evaluation-summary > div {
@@ -2265,7 +2265,7 @@ input[type="checkbox"] {
   position: sticky;
   top: calc(var(--header-height) + var(--space-5));
   padding-top: var(--space-4);
-  border-top: var(--rule-strong) solid var(--colour-stamp);
+  border-top: var(--rule-strong) solid var(--colour-stroke);
 }
 
 .calculator-result h2 {
@@ -2334,7 +2334,7 @@ input[type="checkbox"] {
 
 .result-row[data-result-kind="levy"] {
   padding-top: var(--space-4);
-  border-top: var(--rule-strong) solid var(--colour-stamp);
+  border-top: var(--rule-strong) solid var(--colour-stroke);
 }
 
 /* The fill keeps a little room either side of the figure it highlights. */
@@ -2885,6 +2885,7 @@ input[type="checkbox"] {
     --colour-rule-strong: var(--colour-print-ink);
     --colour-stamp: var(--colour-print-ink);
     --colour-stamp-strong: var(--colour-print-ink);
+    --colour-stroke: var(--colour-print-ink);
     --colour-stamp-wash: var(--colour-print-paper);
     --colour-pass: var(--colour-print-paper);
     --colour-alert: var(--colour-print-ink);

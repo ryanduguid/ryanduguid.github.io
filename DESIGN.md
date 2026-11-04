@@ -51,8 +51,8 @@ where something needs action. Its rules:
   stamp wash in full ink. Its labels stay at a fixed 12px, so enlarged text
   does not push it over the navigation. It has no shadow, blur or pill shape,
   and the Machine option tells screen readers what it shows.
-- A link keeps one hue: its crimson underline becomes a crimson fill with ivory
-  text on hover. Buttons keep the deep purple hover.
+- A link's red underline becomes a crimson fill with ivory text on hover.
+  Buttons keep the deep purple hover.
 - Reader copy writes 'fictional' for invented data. IDs, anchors, fixture names
   and code keep 'synthetic' or 'fabricated', so `#synthetic-worked-example`
   and `#fabricated-inputs` still resolve. `check_fictional_wording` enforces
@@ -68,7 +68,14 @@ where something needs action. Its rules:
   statement within the first screen at 1440 by 900.
 - The cash chart's closing-cash line is platinum (`#E5E4E2`), 16.53:1 against
   black; the green line it replaces measured 2.07:1.
-- Dark gold, lavender and red `#E7162F` stay out of the site.
+- Red `#E7162F` is no longer reserved for diagrams. Ryan decided on
+  4 November 2026 that the site may use it, limited to link and rule
+  strokes: `--colour-stroke` draws link underlines and the accent rules
+  above the contents, evaluation summaries and calculator results, at
+  4.55:1 on black against the 3:1 non-text minimum. Crimson `#990024`
+  measured 2.38:1 in those roles. Fills, the changelog target mark and the
+  checked setup tab stay crimson; link text stays ivory at 20.81:1.
+- Dark gold and lavender stay out of the site.
 
 The brand exceptions stand: a true-black, dark-only canvas; Besley as the
 display face; crimson and deep purple accents; square register surfaces; 2px
@@ -162,8 +169,9 @@ and no system preference creates a second branded state.
 | Ink soft | `#9A9A9A` | Supporting copy and metadata | 7.46:1 |
 | Rule | `#262626` | Hairlines and table rows | n/a |
 | Rule strong | `#606060` | Structural boundaries and field borders | 3.34:1 |
-| Stamp | `#990024` | Fills, rules, link underlines and link hover fills | 2.38:1 (8.74:1 ivory on stamp) |
+| Stamp | `#990024` | Fills, link hover fills and selected-state marks | 2.38:1 (8.74:1 ivory on stamp) |
 | Stamp strong | `#66023C` | Button hover fills and secondary emphasis with ivory text | 12.70:1 (ivory on stamp) |
+| Stroke | `#E7162F` (red) | Link underlines and accent rules only, from 4 November 2026 | 4.55:1 |
 | Stamp wash | `#161616` | Applied formula and interactive emphasis | n/a |
 | Pass | `#0F4B32` (Rhodesian green) | Passed-result labels with ivory text | 2.07:1 |
 | Machine ink | `#E5E4E2` (platinum) | Machine view text and the cash chart line | 16.53:1 |
@@ -303,7 +311,7 @@ The footer holds the site's one advice disclaimer: a single small line, `.site-f
 ### Buttons and links
 
 - primary actions are crimson rectangles with ivory text and 2px radius; they fill deep purple on hover
-- links underline in crimson and fill crimson with ivory text on hover
+- links underline in red and fill crimson with ivory text on hover
 - secondary actions are underlined text with a directional phrase
 - labels describe the destination or action; no `Get started`
 - one label maps to one intent across a page

@@ -71,7 +71,8 @@
 
   /* True-black OLED register: every surface is #000000 except the raised
      field and the emphasis wash, the greys carry no hue and the main ink is
-     ivory. Crimson and deep purple supply the accents; ivory keeps text and focus readable. */
+     ivory. Crimson and deep purple supply the accents; ivory keeps text and focus readable.
+     Red strokes only link underlines and accent rules: 4.55:1 on black. */
   --colour-canvas: #000000;
   --colour-paper: #000000;
   --colour-paper-raised: #0a0a0a;
@@ -82,6 +83,7 @@
   --colour-rule-strong: #606060;
   --colour-stamp: #990024;
   --colour-stamp-strong: #66023c;
+  --colour-stroke: #e7162f;
   --colour-stamp-wash: #161616;
   --colour-pass: #0f4b32;
   --colour-alert: #ff9c91;

@@ -522,6 +522,8 @@ pub fn check_oled_tokens(tokens_css: &str) -> Vec<String> {
     for (token, colour) in [
         ("--colour-stamp", "#990024"),
         ("--colour-stamp-strong", "#66023c"),
+        // Link underlines and accent rules only: 4.55:1 on the black canvas.
+        ("--colour-stroke", "#e7162f"),
         ("--colour-pass", "#0f4b32"),
     ] {
         if get(token) != Some(colour) {

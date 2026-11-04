@@ -82,14 +82,16 @@ test('the eight compact calculators put the result beside the inputs on wide scr
   }
 });
 
-test('ordinary links carry an accent underline at least 2px thick', async ({ page }) => {
+// Red #E7162F reaches 4.55:1 on black, above the 3:1 non-text minimum;
+// crimson #990024 reached 2.38:1 (Ryan, 4 November 2026).
+test('ordinary links carry a red underline at least 2px thick', async ({ page }) => {
   await page.goto('/');
   for (const selector of ['.case-preview figcaption a', '.home-tool-preview__entry li a']) {
     const underline = await page.locator(selector).first().evaluate((link) => {
       const style = getComputedStyle(link);
       return { colour: style.textDecorationColor, thickness: parseFloat(style.textDecorationThickness) };
     });
-    expect(underline.colour, selector).toBe('rgb(153, 0, 36)');
+    expect(underline.colour, selector).toBe('rgb(231, 22, 47)');
     expect(underline.thickness, selector).toBeGreaterThanOrEqual(2);
   }
 });

@@ -491,6 +491,13 @@ fn design_contracts_text_mutations() {
             "--colour-stamp-strong must be #66023c",
         ),
         (
+            "red stroke drift",
+            "assets/tokens.css",
+            "--colour-stroke: #e7162f;",
+            "--colour-stroke: #990024;",
+            "--colour-stroke must be #e7162f",
+        ),
+        (
             "low contrast accent text",
             "assets/tokens.css",
             "--colour-ink: #fffff0;",
