@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 117] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 119] = [
     "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation",
     "https://www.ato.gov.au/",
     "https://www.ato.gov.au/about-ato/new-legislation/guidance-on-tax-and-superannuation-measures",
@@ -134,6 +134,8 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 117] = [
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return",
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return/lodge-your-tax-return-online-with-mytax/pre-fill-availability",
     "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-27",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-80",
     "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
     "https://www.ato.gov.au/single-page-applications/legaldatabase",
     "https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/tax-time/tax-time-toolkits/tax-time-toolkit-small-business/small-business-guides/using-business-money-and-assets",
