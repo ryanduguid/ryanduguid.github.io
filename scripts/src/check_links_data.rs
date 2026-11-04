@@ -1,6 +1,3 @@
-// Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
-
 //! Generated from base check_links.py: the retired names and the exact allow-listed URLs.
 
 pub const RETIRED_NAMES: [&str; 11] = [

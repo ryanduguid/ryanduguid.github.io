@@ -1,6 +1,3 @@
-// Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
-
 //! Format probe for the Hub harness: each stdin line is a JSON array
 //! `[template, [args...], total]`; each output line is the formatted text or the
 //! exception type, as JSON, for comparison with CPython's `str.format`.

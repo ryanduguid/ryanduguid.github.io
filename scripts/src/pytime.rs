@@ -1,6 +1,3 @@
-// Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
-
 //! The `datetime` parsing the checks use: two `strptime` formats and `fromisoformat`.
 //!
 //! `strptime` builds a regex from its format and accepts the first match only when it
