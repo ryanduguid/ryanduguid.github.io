@@ -55,7 +55,17 @@ function* typed(value) {
     for (const [key, item] of Object.entries(value)) if (key !== '@type') yield* typed(item);
   }
 }
-const text = html => html.replace(/<[^>]+>/g, '').replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+// Tags are removed until none is left, so text that only forms a tag once another
+// is removed (such as '<<a>b>') cannot survive one pass.
+const withoutTags = html => {
+  let previous;
+  do {
+    previous = html;
+    html = html.replace(/<[^>]+>/g, '');
+  } while (html !== previous);
+  return html;
+};
+const text = html => withoutTags(html).replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
   .replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 const routes = [...readFileSync(new URL('../../sitemap.xml', import.meta.url), 'utf8')
   .matchAll(/<loc>https:\/\/duguid\.com\.au(\/[^<]*)<\/loc>/g)].map(m => m[1]);
