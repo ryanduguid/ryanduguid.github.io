@@ -118,9 +118,7 @@ for (const route of routes) {
       expect(apps[0].isAccessibleForFree).toBe(true);
     }
 
-    // shortcut: the announced-measures page is being rewritten on another branch;
-    // drop this exemption once its Dataset gains the catalogue and free-access fields.
-    const datasets = route === '/rates/announced-not-yet-law/' ? [] : nodes.filter(n => typesOf(n).includes('Dataset'));
+    const datasets = nodes.filter(n => typesOf(n).includes('Dataset'));
     for (const dataset of datasets) {
       for (const key of ['name', 'description', 'temporalCoverage', 'spatialCoverage']) {
         expect(dataset[key], `Dataset ${key}`).toBeTruthy();
