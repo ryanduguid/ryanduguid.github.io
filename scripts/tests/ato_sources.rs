@@ -5,9 +5,9 @@ use serde_json::{Value, json};
 use site_tools::ato_sources::{
     Change, Entry, Findings, Move, Moved, Options, Page, QUESTIONS, Quiet, Sources, WATCHED,
     answers_to_recheck, baseline_file, classify, collect_sources, collect_values, dead_confirmed,
-    dead_marker, exit_code, extract_urls, follow_redirects, get_unfollowed, is_iso_date, last_updated, line_diff,
-    parse_args, read_pages, read_pdf, render_issue, render_report, same_url, save_results,
-    sort_moves, tidy,
+    dead_marker, exit_code, extract_urls, follow_redirects, get_unfollowed, is_iso_date,
+    last_updated, line_diff, parse_args, read_pages, read_pdf, render_issue, render_report,
+    same_url, save_results, sort_moves, tidy,
 };
 // Only the Unix-only batch tests start the browser runner directly.
 #[cfg(unix)]
@@ -1724,11 +1724,14 @@ fn a_dead_link_fails_a_sweep_only_when_a_later_read_agrees() {
         "{PAGE} read as dead on {today}; held until a read at least 3 days later agrees"
     )));
     let body = std::fs::read_to_string(&issue).unwrap();
-    assert!(body.contains("0 returned HTTP 404 or 410 (dead links)"), "{body}");
+    assert!(
+        body.contains("0 returned HTTP 404 or 410 (dead links)"),
+        "{body}"
+    );
 
     // A read within the hold changes nothing, and the first date stays.
     let today = site_tools::py::Date::fromisoformat(&today).unwrap();
-    let days_ago = |days| today.add_days(-days).unwrap().isoformat();
+    let days_ago = |days: i64| today.add_days(-days).unwrap().isoformat();
     std::fs::write(&marker, days_ago(2)).unwrap();
     assert_eq!(run("410").status.code(), Some(0));
     assert_eq!(std::fs::read_to_string(&marker).unwrap(), days_ago(2));
