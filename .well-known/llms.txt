@@ -159,7 +159,7 @@ Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is 
 
 ## Optional
 
-- [Crawler policy](https://duguid.com.au/robots.txt): search and user-requested citation fetches remain allowed, including Google-Extended. Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot and Applebot-Extended may crawl for training. Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent remain blocked. Permission does not guarantee a crawl, dataset inclusion or use by a model.
+- [Crawler policy](https://duguid.com.au/robots.txt): search and user-requested citation fetches remain allowed, including Google-Extended. Every other crawler it names may also crawl, training crawlers included: Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot, Applebot-Extended, Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent. Permission does not guarantee a crawl, dataset inclusion or use by a model.
 
 - [Australian tax legislation corpus](https://github.com/ryanduguid/au-tax-legislation-corpus): Commonwealth tax legislation prepared for retrieval.
 - [Release policy](https://github.com/ryanduguid/release-policy): the shared release workflow every repository above uses.
