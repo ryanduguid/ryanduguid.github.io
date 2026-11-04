@@ -45,7 +45,7 @@
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "bd157ada3d4b6ec01b1a731bd092d2d55755efc87ed2a872550815c4ab33116b"
+      "a7e4b64fc0943c0b656ab7a90e819b6cb59dfdb74863b45129370666e02715b9"
     ],
     "rates/car-limit/index.html": [
       "87f6f363ca6120c18337d00cbb0365db3817e6788e670ebfc9ec7b0f89576d84"
@@ -60,7 +60,7 @@
       "0900f95f6a5fd4345490c8c73e09f6cc4cc18acf3add1339e0d1aba8a76a5be7"
     ],
     "rates/index.html": [
-      "f04d35bfcd12f3ee9e2c4dd5787edc349fff5a8dbd930c75d791d3c48bec7c40"
+      "9a54d13e77adf9ccd845a89a927f762ebb81f4d7a8ea5c435c20a369d8d27ec4"
     ],
     "rates/maximum-contribution-base/index.html": [
       "42b85ba06b403b8cad29fec1c8d5d95d841b42d70fa640a6e03efa1fb8ae22ab"
@@ -144,13 +144,13 @@
       "29fe78fac43ade6315795180e85e2f61ce01a56d8da20634b99880147743e688"
     ],
     "works-with/xero/index.html": [
-      "a18e24a48059a90fc90755cc491ef0a4bad78974ed32b909a4b61da9c6a49f1d"
+      "60161ed1f345c9296fbe89e7e4149618352159ea5a1f5c3bc36b424d7bb3cca0"
     ]
   },
   "protected_files": {
-    "llms.txt": "5735ecb650684f490f4e63bbf94685f3a3a5a95282aa997dc78017fe304c9e94",
+    "llms.txt": "19977880cba53ae7fca607b3b38d83fc23490f5c2a70c662d0ec9bcbc8217516",
     "robots.txt": "190377e5d6679854538ded34c738c55ad8f64bc8b88a6dfd691121d847119609",
-    "sitemap.xml": "922f8fb479cb1ebc63f144dc0612b0927be12a9a2ed3c012b205430965dc7d47"
+    "sitemap.xml": "75c1d32fd196bfebc5b0fe27269befffb2dfc37ebf4bff11565271cc62f35f95"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

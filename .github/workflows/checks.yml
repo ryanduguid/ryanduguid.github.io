@@ -477,13 +477,11 @@ jobs:
       group: pages-main
       cancel-in-progress: false
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Built by the read-only tools job; this job compiles nothing.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
-          persist-credentials: false
-          sparse-checkout: scripts
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: "24"
+          name: site-tools-Linux
+          path: ${{ runner.temp }}/site-tools
       - name: Download the validated artifact from this run
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
@@ -496,17 +494,12 @@ jobs:
           mkdir "$RUNNER_TEMP/validated-site"
           tar --extract --file "$RUNNER_TEMP/pages-artifact/artifact.tar" --directory "$RUNNER_TEMP/validated-site"
           python3 -c 'import json,os,pathlib; assert json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"validated-site/.well-known/deployment.json").read_text())["sha"] == os.environ["GITHUB_SHA"]'
-          node scripts/check_production.mjs --source-root "$RUNNER_TEMP/validated-site" --source-only
-      # Built by the read-only tools job; this job compiles nothing.
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
-        with:
-          name: site-tools-Linux
-          path: ${{ runner.temp }}/site-tools
+          chmod +x "$RUNNER_TEMP/site-tools/site-tools"
+          "$RUNNER_TEMP/site-tools/site-tools" check_production --source-root "$RUNNER_TEMP/validated-site" --source-only
       - name: Revalidate main and external results after environment admission
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          chmod +x "$RUNNER_TEMP/site-tools/site-tools"
           "$RUNNER_TEMP/site-tools/site-tools" check_publication --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
       - name: Deploy the artifact from this run
         id: deployment
@@ -523,4 +516,4 @@ jobs:
             "${PAGE_URL%/}/.well-known/deployment.json?revision=$GITHUB_SHA" \
             -o "$RUNNER_TEMP/deployment.json"
           python3 -c 'import json,os,pathlib; assert json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"deployment.json").read_text())["sha"] == os.environ["GITHUB_SHA"]'
-          node scripts/check_production.mjs --source-root "$RUNNER_TEMP/validated-site"
+          "$RUNNER_TEMP/site-tools/site-tools" check_production --source-root "$RUNNER_TEMP/validated-site"

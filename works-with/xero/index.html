@@ -58,7 +58,7 @@
         </nav>
         <h1>Works with Xero</h1>
         <p class="short-answer">Export a Xero trial balance to a local CSV for review in Excel, Power BI or pandas. Both monthly movement and year-to-date totals must balance before the exporter writes the file.</p>
-        <p class="page-meta">Published 25 October 2026. Last reviewed 25 October 2026.</p>
+        <p class="page-meta">Published 25 October 2026. Last reviewed 4 November 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -66,6 +66,7 @@
           <a href="#tool">Export a trial balance</a>
           <a href="#setup">What you need</a>
           <a href="#access">Read and write access</a>
+          <a href="#xero-ai">Xero’s MCP server and Claude connector</a>
           <a href="#limits">Limits and evidence</a>
         </nav>
         <div class="article-body">
@@ -79,7 +80,7 @@
             <h2>What you need</h2>
             <ol>
               <li>Python 3.11 or later, Git and a local working directory for the released exporter.</li>
-              <li>A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine.</li>
+              <li>A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free <a href="https://developer.xero.com/pricing">Starter plan</a> lets an app connect up to 5 organisations, at 1,000 API calls a day each. Core allows up to 50 for A$35 a month excluding tax, including 10 GB of API data egress, then A$2.40 a GB. An integration an accountant or bookkeeper builds for their own practice or a single client is <a href="https://developer.xero.com/faq/pricing-and-policy-updates">exempt from this pricing</a>, as Xero determines.</li>
               <li>A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.</li>
               <li>An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.</li>
             </ol>
@@ -99,6 +100,15 @@
               </table>
             </div>
             <p>The exporter contacts Xero for authentication and the requested report. The resulting CSV contains organisation and account data; protect it and any copies you import into other systems.</p>
+          </section>
+          <section id="xero-ai">
+            <h2>Xero’s MCP server and Claude connector</h2>
+            <p>For an AI agent that works inside Xero rather than on an exported file, Xero runs a hosted <a href="https://developer.xero.com/documentation/guides/remote-mcp/overview/">Developer Remote MCP Server</a> at <code>https://api.xero.com/mcp/v1</code>. Xero has documented its setup for Claude Desktop, Claude Code, Cursor and VS Code. The user signs in through Xero’s OAuth 2.0 flow, which Xero recommends with PKCE, and the agent can then read and write accounting data in the organisations the user authorises.</p>
+            <p>Each tool needs the scope Xero lists for it, which the user approves when connecting the app; only <code>get_connected_tenants</code> needs none. <code>list_trial_balance</code> reads the trial balance with <code>accounting.reports.trialbalance.read</code>, the scope this exporter requests. Tools whose names start with <code>create_</code>, <code>update_</code>, <code>authorise_</code> or <code>void_</code> write to the organisation. They include <code>create_payment</code>, <code>create_manual_journal</code> and <code>void_invoice</code>, which need the write scopes <code>accounting.payments</code>, <code>accounting.manualjournals</code> and <code>accounting.invoices</code>.</p>
+            <p>Xero’s <a href="https://developer.xero.com/faq/remote-mcp">Remote MCP questions</a> say these version 1 tools do not ask the user to confirm before writing; Xero advises asking the agent to confirm with you first. Xero logs each API call in the Developer Portal, but not the tool calls or prompts behind them. The documented tools cover no payroll or activity statements, and their journal tools handle manual journals only.</p>
+            <p>The server is included on Xero’s Core developer plan or above. Apps on the free Starter plan can use it with the demo organisation only, and Custom Connection apps cannot use it. An accountant or bookkeeper building an integration for their own practice or a client can apply for Xero’s API fee exemption, which includes this access.</p>
+            <p>Xero’s <a href="https://www.xero.com/au/ai-in-accounting/claude/">connector in Claude</a> is a separate, read-only route for questions about live figures. Xero says Claude can’t create, edit, approve, reconcile or pay in Xero through it, and it needs an active Xero subscription and a Claude account but no developer setup.</p>
+            <p>This section follows Xero’s pages as read on 4 November 2026; neither route was tested for this guide. The trial balance exporter on this page remains separate and read-only.</p>
           </section>
           <section id="limits">
             <h2>Limits and evidence</h2>
@@ -124,7 +134,7 @@
       "description": "Export a Xero trial balance to a checked CSV. See prerequisites, read-only report scope, local file output, a credential-free evaluation and limits.",
       "inLanguage": "en-AU",
       "datePublished": "2026-10-25",
-      "dateModified": "2026-10-25",
+      "dateModified": "2026-11-04",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
