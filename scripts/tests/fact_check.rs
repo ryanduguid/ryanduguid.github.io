@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/test_fact_check.py: offline checks for source attribution, evidence
 //! qualifications and the rates dataset values, against the rendered checked tree.
 mod common;
@@ -161,6 +164,79 @@ fn fbt_attribution(html: &str) -> bool {
                 && tree.text(a) == "Fringe Benefits Tax Act 1986"
         })
         && html.contains("Fringe Benefits Tax Act 1986, section 6")
+}
+
+#[test]
+fn rental_expense_qualifications_reach_each_answer_format() {
+    assert!(rendered(), "rental qualifications require a rendered site");
+    let topic = "tools/accounting-questions/investments-local/index";
+    let tree = parse_structure(&read(&format!("{topic}.html")));
+    let mut answers = Vec::new();
+    for script in tree.descendants(Tree::ROOT, Some("script"), false) {
+        if tree.attr(script, "type") != Some("application/ld+json") {
+            continue;
+        }
+        let graph = pyjson::loads(&tree.text(script)).unwrap();
+        let Json::Array(items) = get(&graph, "@graph") else {
+            panic!("@graph")
+        };
+        for item in items {
+            if text_of(get(item, "@type")) == "FAQPage" {
+                let Json::Array(questions) = get(item, "mainEntity") else {
+                    panic!("mainEntity")
+                };
+                answers.extend(questions.iter().cloned());
+            }
+        }
+    }
+    let machine_topic = read(&format!("{topic}.txt"));
+    let machine_full = read("llms-full.txt");
+    for (id, qualifications) in [
+        (
+            "q91",
+            vec![
+                "$300 or less",
+                "predominantly",
+                "non-business assessable income",
+                "set and identical or substantially identical asset cost tests",
+                "second-hand residential asset restrictions",
+                "private use",
+            ],
+        ),
+        (
+            "q92",
+            vec![
+                "capital works rules separately",
+                "CGT cost base",
+                "acquired after 7.30 pm (ACT time) on 13 May 1997",
+                "after 30 June 1999 on property acquired earlier",
+                "capital works deductions claimed or claimable",
+                "does not automatically produce a deduction",
+            ],
+        ),
+    ] {
+        let question = by_id(&tree, id);
+        let bold = tree.descendants(question, Some("strong"), false)[0];
+        let fact = tree.text(bold);
+        let matching: Vec<_> = answers
+            .iter()
+            .filter(|q| text_of(get(q, "url")).ends_with(&format!("#{id}")))
+            .collect();
+        assert_eq!(matching.len(), 1, "one structured answer for {id}");
+        let structured = text_of(get(get(matching[0], "acceptedAnswer"), "text"));
+        for qualification in qualifications {
+            assert!(
+                fact.contains(qualification),
+                "{id} visible: {qualification}"
+            );
+            assert!(
+                structured.contains(qualification),
+                "{id} structured: {qualification}"
+            );
+        }
+        assert!(machine_topic.contains(&fact), "{id} topic machine copy");
+        assert!(machine_full.contains(&fact), "{id} full machine copy");
+    }
 }
 
 #[test]

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/test_feed.py and the fuzz harness's checks, plus the build_feed command line.
 use site_tools::feed::{self, CHANGELOG_URL};
 use std::path::{Path, PathBuf};

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/check_design.py: protect the site's factual surface and shipped design assets.
 use crate::cash_chart_webp;
 use crate::favicon_render::{self, RenderError};

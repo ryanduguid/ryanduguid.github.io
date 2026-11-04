@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! The changelog-rows merge driver: which conflicts it resolves and which it leaves.
 use site_tools::merge_driver::{resolve, resolve_conflicts};
 use std::process::Command;

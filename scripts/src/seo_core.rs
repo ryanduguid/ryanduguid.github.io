@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/seo_core.py: reusable HTML, metadata, structured-data and sitemap checks.
 //!
 //! Site policy belongs in site_contracts. Messages, `repr` renderings and

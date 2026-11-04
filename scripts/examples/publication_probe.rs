@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Publication probe for the Hub harness: each stdin line is a JSON case
 //! `{"repository", "commit", "responses": {endpoint: [response, ...]}}`; each output line
 //! is `["ok", bool]`, `["value", message]` or `["external", null]` from `evaluate`.

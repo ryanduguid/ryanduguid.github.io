@@ -60,7 +60,7 @@ foreach ($hostToCheck in $hostsToCheck) {
 foreach ($urlToCheck in @('http://www.duguid.com.au/', 'http://www.duguid.com.au/tools/coal-lsl-levy/?audit=redirect%20check', 'https://www.duguid.com.au/tools/coal-lsl-levy/?audit=redirect%20check')) {
   rtk proxy curl.exe -sS -L -o NUL --max-redirs 3 --max-time 20 -w 'status=%{http_code} redirects=%{num_redirects} final=%{url_effective}\n' $urlToCheck
 }
-node scripts/check_production.mjs
+site-tools check_production
 ```
 
 Require a 301 or 308 to the exact HTTPS apex destination, intact path and

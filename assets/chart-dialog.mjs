@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // Opens a linked chart in a modal dialog. Without JavaScript, or with a
 // modifier key, the link still opens the image itself.
 for (const link of document.querySelectorAll('.case-preview > a[href$=".png"]')) {

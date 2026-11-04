@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 import { expect, test } from '@playwright/test';
 
 test('public pages omit external reviewer requests', async ({ page }) => {

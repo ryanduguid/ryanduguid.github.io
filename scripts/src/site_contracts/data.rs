@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! The site policy tables of scripts/site_contracts.py at base c8a8239.
 use std::sync::LazyLock;
 

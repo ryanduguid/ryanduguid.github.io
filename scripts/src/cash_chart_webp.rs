@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Encode the Lumbridge cash chart exports as lossless WebP for the pages.
 //!
 //! The PNGs that scripts/export-cash-chart.ps1 writes stay the record and the

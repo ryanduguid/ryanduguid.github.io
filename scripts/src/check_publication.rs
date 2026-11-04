@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/check_publication.py: require current main and successful external producers
 //! before Pages publication.
 use crate::py;

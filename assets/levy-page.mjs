@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // Page wiring for the Coal LSL levy calculator: branch switching, bonus
 // rows, result rendering, the per-employee table and CSV export. The levy
 // arithmetic stays in levy.mjs, levy-form.mjs and levy-explanation.mjs.

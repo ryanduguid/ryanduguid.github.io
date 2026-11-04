@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Cross-page contracts: identity graph, evidence, routes, evaluations, robots and cards.
 use super::*;
 use crate::html::unescape;

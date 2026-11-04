@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Agent-file probe for the Hub harness: each stdin line is a JSON case
 //! `{"text", "prose", "versions": [[registry, version], ...], "shlex"}`; each output line
 //! holds the installs found, the version verdicts and the shlex split, for comparison
