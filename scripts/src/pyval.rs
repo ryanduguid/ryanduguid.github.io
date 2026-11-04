@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Python values the checks quote with `repr`: tuples, lists and dicts of strings,
 //! integers, booleans, `None` and decoded JSON.
 use crate::py;

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Diagnostic aid: time each check_design stage against a checked site tree.
 use site_tools::check_design as design;
 use site_tools::pyjson;

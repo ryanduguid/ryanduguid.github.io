@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/check_site.py: run every repository-defined site check through one command.
 //!
 //! The Python checks it ran are now `site-tools` commands and the Rust suites in

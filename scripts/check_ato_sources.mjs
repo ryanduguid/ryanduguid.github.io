@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // Checks every ATO page the portfolio cites, and the pages outside the ATO in
 // WATCHED, plus every source behind a fact-bearing accounting answer. The ATO answers
 // GitHub runners with HTTP 403 and site-tools check_links can

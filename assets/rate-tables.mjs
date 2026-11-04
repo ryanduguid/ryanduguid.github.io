@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // Marks the row of each rate table in force today and adds a Copy for Excel
 // control under each table. Pages work unchanged without JavaScript.
 

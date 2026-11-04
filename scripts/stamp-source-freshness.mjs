@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // Stamps every tool card with the last commit date of the source it links to,
 // so the register shows real maintenance instead of a hand-typed date. The
 // dates are baked into the HTML, which keeps the site's connect-src at 'self'

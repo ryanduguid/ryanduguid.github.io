@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/test_check_publication.py: publication refusals using fabricated GitHub results.
 use site_tools::check_publication::{
     AUDIT_JOB, AUDIT_WORKFLOW, Clock, Refusal, evaluate, items, main_with, stable_items,

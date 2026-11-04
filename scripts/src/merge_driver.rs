@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! A Git merge driver for the changelog and the text files built from it.
 //!
 //! Concurrent pull requests each add a dated row at the top of a changelog table, so

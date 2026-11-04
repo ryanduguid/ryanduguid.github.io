@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/extract_xero_badge.py: rebuild the Xero Level 3 badge from its certificate PDF.
 //!
 //! The certificate stores the badge as an RGB image XObject with a separate soft mask;

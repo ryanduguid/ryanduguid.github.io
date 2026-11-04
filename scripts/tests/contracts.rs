@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! The seo_core and site_contracts parts of scripts/test_contracts.py: focused mutation
 //! tests for the site's public contracts, run against a copy of the committed site.
 use site_tools::pyjson::{self, Json};

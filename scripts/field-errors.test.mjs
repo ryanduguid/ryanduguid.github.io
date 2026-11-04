@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { fieldErrorMessage } from '../assets/field-errors.mjs';

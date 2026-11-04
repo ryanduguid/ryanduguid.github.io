@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 use std::process::ExitCode;
 
 const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_feed, build_llms_full, build_ozzit_reference, build_site, check_agent_files, check_design, check_links, check_publication, check_rates_register, check_seo, check_site, encode_cash_chart_webp, extract_xero_badge, favicon_render, merge_driver, pin_rates_dataset, release_record, serve_site, visibility_benchmark\n";

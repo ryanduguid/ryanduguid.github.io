@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Python operations on decoded JSON values, as the scripts apply them to files they
 //! read: type names in messages, hashability, `len`, iteration, subscripts, and dicts and
 //! sets that compare with Python's `==` (so `1 == 1.0 == True`).

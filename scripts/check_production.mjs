@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // Checks the public site as delivered, which the repository's own checks
 // cannot see: they run against _site or the local preview, while Cloudflare
 // sits in front of GitHub Pages and rewrites what visitors receive.

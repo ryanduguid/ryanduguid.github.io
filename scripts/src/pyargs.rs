@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! argparse for the scripts whose parsers take only `store_true` flags: abbreviations,
 //! `--` handling, an optional mutually exclusive group and argparse's error order
 //! (conflicts and explicit values as they are met, help as it is met, then a required

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/serve_site.py: serve the built site over loopback with stable JavaScript MIME
 //! types and GitHub Pages' text compression.
 //!

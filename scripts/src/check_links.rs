@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/check_links.py: link and content checks for every HTML file in the site.
 //!
 //! Per file: own-repository links must resolve to that exact repository (a rename

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/visibility_benchmark.py: validate and summarise assistant-visibility captures.
 //!
 //! Visibility (did an assistant mention or cite the site) and accuracy (were its facts

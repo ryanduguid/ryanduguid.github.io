@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! CPython 3.15 `mimetypes._types_map_default`: the strict extension table, copied
 //! from the interpreter and sorted by extension for binary search. 3.14 differs in a few entries.
 pub static TYPES: &[(&str, &str)] = &[

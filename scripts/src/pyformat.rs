@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! `str.format(*args, **kwargs)` of CPython 3.15 over decoded JSON values.
 //!
 //! Ported from Objects/stringlib/unicode_format.h (fields, conversions, nested specs),

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! The Ozzit module reference pages: one page per module, each documenting
 //! every named formula with its signature, parameters, notes and worked
 //! examples.

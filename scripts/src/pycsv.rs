@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! `csv.DictReader` over a file opened with `encoding="utf-8-sig", newline=""`, as
 //! CPython 3.15's _csv reader parses the excel dialect (comma, double quote, doubled
 //! quotes, no escape character, not strict).
