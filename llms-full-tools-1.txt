@@ -617,7 +617,7 @@ Human step. Map an account to every bucket the ratios you intend to read require
 
 ## Method and corrections
 
-Sources. A rate or threshold cites a primary source: each row of a rate table carries its own source_url on a primary host and a checked_at date, and the site checks fail on a row without them. A page states its claim, the source or released artefact behind it, the date or version reviewed and where a person has to decide.
+Sources. A rate or threshold cites a primary source: each row of a rate table carries its own source_url on a primary host and a checked_at date, and the site checks fail on a row without them. An evidence record states its claim, the source or released artefact behind it, the date or version reviewed and where a person has to decide.
 
 Tests. The calculator engines have their own test suites, run on every pull request. Each entry on this page is bound by a test in its package. Evaluations reproduce results against fixed releases with fabricated inputs.
 
