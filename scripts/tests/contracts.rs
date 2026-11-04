@@ -567,6 +567,18 @@ fn public_contracts_install_and_adoption_routes() {
             "href=\"/tools/australian-tax-ai-agents/\">Set up AI tools",
             "index.html: authority section #adopt must link to /tools/australian-tax-ai-agents/#install",
         ),
+        (
+            "homepage version and limits guidance",
+            "<p>Use the sample files to check what each tool accepts, refuses and explains before using it in a firm. Check its version and limits in the setup guide before you install it.</p>",
+            "",
+            "index.html: authority section #adopt must keep its guidance",
+        ),
+        (
+            "homepage review guidance",
+            "<p>Read my background and credentials, then check the releases, source reviews and tests behind each tool.</p>",
+            "",
+            "index.html: authority section #verify must keep its guidance",
+        ),
     ] {
         let site = copied_site();
         replace_file(site.path(), "index.html", before, after);

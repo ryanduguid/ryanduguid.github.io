@@ -21,6 +21,19 @@ pub const AUTHORITY_STATEMENTS: [(&str, &str); 2] = [
     ("adopt", "Try each tool with fictional data first"),
     ("verify", "Review my work"),
 ];
+/// The sentence of reader guidance each authority route keeps in a visible
+/// paragraph: check a tool's version and limits before installing it, and
+/// check the evidence behind each tool.
+pub const AUTHORITY_GUIDANCE: [(&str, &str); 2] = [
+    (
+        "adopt",
+        "Check its version and limits in the setup guide before you install it.",
+    ),
+    (
+        "verify",
+        "Read my background and credentials, then check the releases, source reviews and tests behind each tool.",
+    ),
+];
 pub const AUTHORITY_URLS: [(&str, &str); 2] = [
     (
         "adopt",

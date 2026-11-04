@@ -338,13 +338,15 @@ pub fn check_mcp_review_dates(html: &str) -> Vec<String> {
     failures
 }
 
-/// Require an authority route to open with its statement and link to its
-/// destination. The element carrying the identifier may be any tag: #adopt
-/// is the release register section, #verify a row of the reader routes.
+/// Require an authority route to open with its statement, keep its guidance
+/// sentence in a visible paragraph and link to its destination. The element
+/// carrying the identifier may be any tag: #adopt is the release register
+/// section, #verify a row of the reader routes.
 pub fn check_authority_section(
     html: &str,
     identifier: &str,
     statement: &str,
+    guidance: &str,
     destination: &str,
 ) -> Vec<String> {
     let mut failures = Vec::new();
@@ -364,6 +366,15 @@ pub fn check_authority_section(
     if opening.is_none_or(|h| tree.text(h) != statement) {
         failures.push(format!(
             "index.html: authority section #{identifier} must open with {statement}"
+        ));
+    }
+    if !tree
+        .descendants(section, Some("p"), true)
+        .into_iter()
+        .any(|p| tree.text(p).contains(guidance))
+    {
+        failures.push(format!(
+            "index.html: authority section #{identifier} must keep its guidance: {guidance}"
         ));
     }
     if !tree
@@ -431,6 +442,7 @@ pub fn check_authority_surface(root: &Path) -> Result<Vec<String>, String> {
             &home,
             identifier,
             lookup(&AUTHORITY_STATEMENTS, identifier),
+            lookup(&AUTHORITY_GUIDANCE, identifier),
             destination.strip_prefix(SITE).unwrap_or(destination),
         ));
     }
