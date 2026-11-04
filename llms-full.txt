@@ -1586,22 +1586,22 @@ Measures with TBD, Various or a bill in the ATO summary
 
 Measure | Announced in | ATO start date | ATO development status | Stage on 4 November 2026
 Electric car discount: changes to the FBT treatment of electric cars | Budget 2026-27 | 1 April 2027 | Treasury Laws Amendment (Tax Reform No. 4) Bill 2026 | Third reading agreed in the House 29 October 2026
-Global minimum tax (Pillar Two): side-by-side package | Budget 2026-27 | 1 January 2026 | TBD | Not in a bill before Parliament
+Global minimum tax (Pillar Two): side-by-side package | Budget 2026-27 | 1 January 2026 | TBD | No bill identified in the material checked
 Foreign resident CGT regime: transitional arrangements | Budget 2026-27 | First quarter after Royal Assent | TBD | Act No. 86 of 2026, Royal Assent 15 September 2026
-Foreign investment: extending the ban on foreign purchases of established dwellings | Budget 2026-27 | 1 April 2027 | TBD | Not in a bill before Parliament
+Foreign investment: extending the ban on foreign purchases of established dwellings | Budget 2026-27 | 1 April 2027 | TBD | No bill identified in the material checked
 Modernising private health | Budget 2026-27 | 1 April 2027 | Private Health Insurance Amendment (Modernising the Private Health Insurance Rebate) Bill 2026 [No. 2] | Second reading moved in the House 15 October 2026
-Supporting philanthropy: deductible gift recipients | Budget 2026-27 | Various | TBD | Not in a bill before Parliament
+Supporting philanthropy: deductible gift recipients | Budget 2026-27 | Various | TBD | No bill identified in the material checked
 Better targeting the R&D Tax Incentive | Budget 2026-27 | 1 July 2028 | Treasury Laws Amendment (Tax Reform No. 4) Bill 2026 | Third reading agreed in the House 29 October 2026
 Expanding venture capital incentives | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 4) Bill 2026 | Third reading agreed in the House 29 October 2026
 Minimum tax on discretionary trusts | Budget 2026-27 | Various | Treasury Laws Amendment (Tax Reform No. 3) Bill 2026 and Income Tax Rates Amendment (Minimum Tax on Discretionary Trusts) Bill 2026 | Third reading agreed in the House 29 October 2026; Senate Economics Legislation Committee report due 13 November 2026
-Loss refundability for small start-up companies (beyond the carry-back) | Budget 2026-27 | 1 July 2028 | TBD | Not in a bill before Parliament
+Loss refundability for small start-up companies (beyond the carry-back) | Budget 2026-27 | 1 July 2028 | TBD | No bill identified in the material checked
 Dynamic PAYG instalments | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 4) Bill 2026 | Third reading agreed in the House 29 October 2026
 Law reform to tackle fraud against the tax system | Budget 2026-27 | Royal Assent | TBD | Treasury consultation on the design of the law opened 14 October 2026 (closes 27 November 2026)
 OECD Crypto Asset Reporting Framework and domestic reporting | MYEFO 2025-26 | 1 January 2027 | TBD | Exposure draft released for Treasury consultation 15 October 2026 (closed 28 October 2026)
-Tax treaties with Ukraine and Croatia | MYEFO 2025-26 | To be determined | TBD | Not in a bill before Parliament
-Supporting philanthropy | MYEFO 2025-26 | Various | Various | Not in a bill before Parliament; components not identified
+Tax treaties with Ukraine and Croatia | MYEFO 2025-26 | To be determined | TBD | No bill identified in the material checked
+Supporting philanthropy | MYEFO 2025-26 | Various | Various | Components not identified; legislative stage not established
 
-The stage column was read on 4 November 2026 from each bill’s page on the Parliament website, the Federal Register and Treasury’s consultation pages; the CSV’s stage_source_url column links each source. ‘Not in a bill before Parliament’ means none of the 127 bills before Parliament that day carried the measure, judged by bill titles and the schedule headings of the Tax Reform No. 3 and No. 4 Bills. A bill can still change or lapse; check its page before relying on a stage.
+The stage column was read on 4 November 2026 from each bill’s page on the Parliament website, the Federal Register and Treasury’s consultation pages; the CSV’s stage_source_url column links each source. ‘No bill identified in the material checked’ means none was found in the titles of the 127 bills before Parliament that day, the schedule headings of the Tax Reform No. 3 and No. 4 Bills or the titles of Acts made since 1 September 2026; it does not establish that no bill exists. A bill can still change or lapse; check its page before relying on a stage.
 
 Later report for the foreign resident CGT row: the ATO measure page, updated 9 October 2026, says the Treasury Laws Amendment (Strengthening Accountability for Tax Adviser Misconduct and Other Measures) Act 2026 is law and the changes commenced on 1 October 2026. The Federal Register gives assent on 15 September 2026. The ATO summary, last updated 2 November 2026, still showed TBD when checked on 4 November 2026, so the row repeats it.
 

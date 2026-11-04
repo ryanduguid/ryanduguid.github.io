@@ -856,6 +856,10 @@ fn rates_hub_queries_type_every_csv_column() {
         let url = &urls[0];
         let header = pycsv::reader(&read(url)).unwrap().remove(0);
         assert_eq!(re(r#"\{"(\w+)", "#, 0).findall(block), header, "{url}");
+        // Csv.Document loads every column unless a Columns option caps or renames them.
+        for columns in re(r"\bColumns\s*=\s*([^,\]]*)", 0).findall(block) {
+            assert_eq!(columns.trim(), header.len().to_string(), "{url}");
+        }
         queried.push(url.clone());
     }
     queried.sort();
