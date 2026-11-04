@@ -662,11 +662,15 @@ fn check_sums(register: &Path, failures: &mut Vec<String>) -> Result<()> {
     Ok(())
 }
 
-/// Today in Sydney, where the rows are written: AEST (UTC+10), or AEDT (UTC+11) from
-/// 2 am on the first Sunday of October to 3 am on the first Sunday of April.
+/// Today in Sydney, where the rows are written.
 pub fn today() -> Date {
+    sydney_date(chrono::Utc::now().naive_utc())
+}
+
+/// The date in Sydney at the UTC time `now`: AEST (UTC+10), or AEDT (UTC+11) from
+/// 2 am on the first Sunday of October to 3 am on the first Sunday of April.
+pub fn sydney_date(now: chrono::NaiveDateTime) -> Date {
     use chrono::{Datelike, Duration, NaiveDate, Weekday};
-    let now = chrono::Utc::now().naive_utc();
     let first_sunday = |year: i32, month: u32| {
         let first = NaiveDate::from_ymd_opt(year, month, 1).expect("a date");
         let offset = (7 + Weekday::Sun.num_days_from_monday() as i64

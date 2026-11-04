@@ -87,6 +87,58 @@ pub fn get(port: u16, path: &str, headers: &[(&str, &str)]) -> Response {
     request(&mut connect(port), "GET", path, headers)
 }
 
+/// A canned response: status, headers and body.
+pub type Reply = (u16, Vec<(String, String)>, Vec<u8>);
+
+/// Serve `reply(path, request headers)` on a free loopback port, one request per
+/// connection, for the rest of the test process. Header names reach `reply` in lower
+/// case.
+pub fn fixture(reply: impl Fn(&str, &[(String, String)]) -> Reply + Send + Sync + 'static) -> u16 {
+    let listener = std::net::TcpListener::bind(("127.0.0.1", 0)).unwrap();
+    let port = listener.local_addr().unwrap().port();
+    let reply = std::sync::Arc::new(reply);
+    std::thread::spawn(move || {
+        for stream in listener.incoming().flatten() {
+            let reply = reply.clone();
+            std::thread::spawn(move || {
+                let mut reader = BufReader::new(stream);
+                let mut line = String::new();
+                if reader.read_line(&mut line).is_err() {
+                    return;
+                }
+                let path = line.split(' ').nth(1).unwrap_or("/").to_owned();
+                let mut headers = Vec::new();
+                loop {
+                    let mut line = String::new();
+                    if reader.read_line(&mut line).unwrap_or(0) == 0 {
+                        break;
+                    }
+                    let line = line.trim_end_matches(['\r', '\n']);
+                    if line.is_empty() {
+                        break;
+                    }
+                    if let Some((name, value)) = line.split_once(':') {
+                        headers.push((name.to_ascii_lowercase(), value.trim().to_owned()));
+                    }
+                }
+                let (status, extra, body) = reply(&path, &headers);
+                let mut head = format!(
+                    "HTTP/1.1 {status} Fixture\r\nContent-Length: {}\r\nConnection: close\r\n",
+                    body.len()
+                );
+                for (name, value) in extra {
+                    head.push_str(&format!("{name}: {value}\r\n"));
+                }
+                head.push_str("\r\n");
+                let stream = reader.get_mut();
+                let _ = stream.write_all(head.as_bytes());
+                let _ = stream.write_all(&body);
+            });
+        }
+    });
+    port
+}
+
 pub fn gunzip(bytes: &[u8]) -> Vec<u8> {
     let mut out = Vec::new();
     flate2::read::GzDecoder::new(bytes)
