@@ -43,7 +43,7 @@ MIT-licensed utility code, no warranty; outputs feed professional review like an
 
 ## Get it
 
-Needs Python 3.11 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free Starter plan lets an app connect up to 5 organisations, at 1,000 API calls a day each; Works with Xero covers the paid plans and the exemption for your own practice. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -65,7 +65,7 @@ These commands install the current release, v0.1.15 (its source). The default br
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Fictional worked example
 
@@ -113,14 +113,16 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
 - Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
+- Starter plan: https://developer.xero.com/pricing
+- Works with Xero: https://duguid.com.au/works-with/xero/
 - its source: https://github.com/ryanduguid/accounting-review-pipeline/tree/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export
 - fictional worked example: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - tagged balanced-output test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210
 - tagged unbalanced-YTD test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433
-- Works with Xero: setup and access: https://duguid.com.au/works-with/xero/
 - Turn trial balance CSVs into a monthly close exception report: https://duguid.com.au/tools/monthly-close-controls/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
 - When is payday super due: https://duguid.com.au/tools/payday-super/

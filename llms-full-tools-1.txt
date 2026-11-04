@@ -545,7 +545,7 @@ Source: https://duguid.com.au/tools/limitations/
 
 A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
-Published 16 September 2026. Last reviewed 1 October 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
+Published 16 September 2026. Last reviewed 5 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
 ## What belongs here
 
@@ -615,9 +615,25 @@ Do not read the two payloads as interchangeable.
 
 Human step. Map an account to every bucket the ratios you intend to read require, including a deliberate nil where the business genuinely has none. Where a figure must not be shown unless it was established, read the library payload: a not_supplied status is the honest answer that a command line 0.0000 cannot give. Where a business genuinely has no cost of sales, the fallback is the ATO’s own behaviour and the result stands.
 
+## Method and corrections
+
+Sources. A rate or threshold cites a primary source: each row of a rate table carries its own source_url on a primary host and a checked_at date, and the site checks fail on a row without them. A page states its claim, the source or released artefact behind it, the date or version reviewed and where a person has to decide.
+
+Tests. The calculator engines have their own test suites, run on every pull request. Each entry on this page is bound by a test in its package. Evaluations reproduce results against fixed releases with fabricated inputs.
+
+Freshness. A daily job compares the release references on these pages with published releases. A weekly sweep reads every ATO page the site cites and fails when one changes substantively or stops loading, and each changed page then needs a review of the files citing it. Dates on a page record when it was last reviewed; the changelog records what changed.
+
+Recent corrections, from the changelog
+
+Date | Type | Correction
+2 November 2026 | Figure | Accounting question 8 gave 12 business days alone for returns lodged online; it now gives the ATO’s 10.
+31 October 2026 | Software | payday-super-checker v0.2.3 no longer reads an Employment Hero row with the Beam status Reconciled as sent to the fund.
+29 October 2026 | Date | Accounting question 6 gave 30 November 2026 as the end of ATO credit card payments; it now gives 30 June 2027.
+26 October 2026 | Scope | Accounting question 16 now limits the instant asset write-off to small businesses using the simplified depreciation rules.
+
 ## Telling me a number is wrong
 
-The most useful report carries the command you ran, the output it produced, the figure you expected and where that expectation comes from. A primary source, a worked example from the regulator or a second implementation all work. Open an issue on the repository that carries the tool, or use the contact page.
+The most useful report carries the command you ran, the output it produced, the figure you expected and where that expectation comes from. A primary source, a worked example from the regulator or a second implementation all work. Open an issue on the repository that carries the tool, or use the contact page. For a wrong rate, date or rule in a page’s text, use the correction form.
 
 Two implementations disagreeing is the cheapest way to find a defect, and the disagreement is worth reporting even when you are not certain which side is right.
 
@@ -630,8 +646,14 @@ This is a register of limitations found and confirmed, not a proof that none rem
 - What these tools refuse: https://duguid.com.au/tools/refusals/
 - workbook version note: https://duguid.com.au/tools/payday-super/#workbook-versions
 - receipt amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Evaluations: https://duguid.com.au/evaluate/
+- changelog: https://duguid.com.au/changelog/
+- 2 November 2026: https://duguid.com.au/changelog/#entry-aeb0def588c29a6d
+- 31 October 2026: https://duguid.com.au/changelog/#entry-3cbdf54c6851c50b
+- 29 October 2026: https://duguid.com.au/changelog/#entry-b52ad24c6adfe1ca
+- 26 October 2026: https://duguid.com.au/changelog/#entry-1961271e7e413d31
 - contact page: https://duguid.com.au/contact/
-- evaluations: https://duguid.com.au/evaluate/
+- correction form: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Evidence and Assurance: https://duguid.com.au/evidence/
 
 ---
@@ -752,7 +774,7 @@ Half up to the nearest cent, once, at the final step. The Act, the Regulations a
 
 No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Sources
 
@@ -786,6 +808,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages
 - Coal LSL, governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Subcontract ledger workflows for construction and mining: https://duguid.com.au/tools/subcontractor-ledgers/
@@ -1013,7 +1036,7 @@ Source on GitHub · Primary source: the ATO’s small business benchmarks.
 
 One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it not_supplied. The two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads not_supplied on both. That is separate from a profit and loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See Known limitations.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -1052,6 +1075,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Known limitations: https://duguid.com.au/tools/limitations/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - A Xero trial balance export that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -1141,7 +1165,7 @@ The examples assume supplied facts, and nothing this engine produces is an asses
 
 Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -1182,6 +1206,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
@@ -1242,7 +1267,7 @@ Published package and release instructions.
 
 Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Fictional worked example
 
@@ -1302,111 +1327,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - uv installed: https://docs.astral.sh/uv/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
-- Evidence and Assurance: https://duguid.com.au/evidence/
-- About Ryan Duguid: https://duguid.com.au/about/
-
----
-
-# Subcontract ledger skills for construction, mining
-
-Source: https://duguid.com.au/tools/subcontractor-ledgers/
-
-> Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.
-
-# Subcontractor ledger skills for construction and mining
-
-These Claude Code skills cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
-
-Current release australian-accounting-skills v0.5.0, 28 October 2026, from the australian-accounting-skills repository. Published 24 August 2026. Last reviewed 29 October 2026.
-
-Delivery
-
-Agent skills
-
-Needs
-
-An AI coding agent such as Claude Code or Codex, and Node
-
-Boundary
-
-Requires human review of contracts, classifications and source records.
-
-The subcontract ledger workflows are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first.
-
-Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
-
-For work in progress, the skills assemble the contract CSV. The arithmetic lives in TheWIPTally, which produces a deterministic AASB 15 schedule. Do not ask the agent to invent cost-to-cost progress, constrained variations or the contract-asset versus contract-liability split.
-
-## What this tool does
-
-- The contracting core: progress claim preparation, retention schedules, work in progress and overbilling and underbilling under AASB 15, and contract cost tracking.
-- Mining services and earthmoving: fuel tax credit claims, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
-- Paying subcontractors: super guarantee under the extended definition, TPAR and a shared reference skill for the exports these workflows need.
-
-## Limits
-
-These skills prepare and check. They do not serve a payment claim, lodge a return or sign anything. Contract interpretation, eligibility conclusions and professional judgement stay with a person.
-
-## Repeat the agent evaluation procedure
-
-Use the evaluation method and its linked validation cards at the same revision. Install that revision, start a fresh session with the target skills loaded and supply the selected card unchanged. Keep the deliberately missing evidence unavailable.
-
-Check the full response against the card’s required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools and result; retain the response with the working evidence.
-
-This method measures adherence to visible instructions. It does not test independent error discovery or promise identical wording between runs. Model results require human confirmation before publication; static validation alone does not establish agent behaviour.
-
-## Get it
-
-Needs an AI coding agent such as Claude Code or Codex, and Node.
-
-Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. The current release, v0.5.0, has 76 skills, still including these 10 workflows, and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence; 72 of its 107 validation cards have human-confirmed verdicts, and none of the 24 added since v0.4.0 has one. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 tagged installation or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
-
-Source on GitHub
-
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
-
-## Common questions
-
-### Do I need Claude Code to use these skills?
-
-You need a compatible AI coding agent, such as Claude Code or Codex. These are agent skills, not a standalone program.
-
-### Will they tell me whether a contract is covered by a security of payment Act?
-
-No. Both that conclusion and whether a worker is a contractor or an employee stay with a person. The skills refuse both.
-
-### Do the skills hard-code rates and thresholds?
-
-Not as working figures. Each skill encodes the workflow, the tie-outs and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only.
-
-## Related
-
-- Works with Claude: MCP and skills
-- Construction WIP schedule under AASB 15
-- Coal LSL levy calculator
-- When is payday super due
-- Evidence and Assurance
-- About Ryan Duguid
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
-- australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
-- TheWIPTally: https://duguid.com.au/tools/wip-schedule/
-- evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
-- Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- v0.4.0 installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034/docs/installation.md#tagged-65-workflow-release
-- Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
-- Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
-- contact page: https://duguid.com.au/contact/
-- Works with Claude: MCP and skills: https://duguid.com.au/works-with/claude/
-- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
-- When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/
 - About Ryan Duguid: https://duguid.com.au/about/

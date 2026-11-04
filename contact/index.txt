@@ -22,6 +22,7 @@ Do not email taxpayer information, client records, credentials or confidential f
 
 Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
+Corrections | Report a wrong rate, date or rule
 GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
@@ -36,4 +37,5 @@ Published 30 August 2026. Last reviewed 26 September 2026.
 - review my accounting work samples: https://duguid.com.au/about/#work-samples
 - fictional Newcastle cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
+- Report a wrong rate, date or rule: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - github.com/ryanduguid: https://github.com/ryanduguid

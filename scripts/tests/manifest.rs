@@ -85,6 +85,7 @@ fn broken_manifest_reports_each_finding() {
     let text = std::fs::read_to_string(repository().join(MANIFEST)).unwrap();
     let mut manifest = pyjson::loads(&text).unwrap();
     *member(&mut manifest, "format") = Json::str_obj("x");
+    *member(&mut manifest, "note") = Json::str_obj("x");
     *member(member(&mut manifest, "source"), "release") = Json::str_obj("v0");
     *member(skill(&mut manifest, 0), "name") = Json::str_obj("Bad_Name");
     *member(skill(&mut manifest, 1), "description") = Json::str_obj(" ");
@@ -108,6 +109,7 @@ fn broken_manifest_reports_each_finding() {
         stdout,
         "agent-skills manifest: format is 'x', expected 'duguid.com.au/agent-skills-index/1'
 agent-skills manifest: source.release is not v0.4.0
+agent-skills manifest: note does not say why v0.4.0 is pinned
 agent-skills manifest: skill names repeat
 agent-skills manifest: 'Bad_Name': name breaks the Agent Skills name rule
 agent-skills manifest: Bad_Name: url is not the file at the pinned commit

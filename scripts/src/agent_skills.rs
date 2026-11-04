@@ -121,6 +121,11 @@ fn check(root: &Path) -> Result<Vec<String>> {
     if !get(&source, "release")?.is_some_and(|r| r.py_eq(&Json::str_obj(RELEASE))) {
         failures.push(format!("source.release is not {RELEASE}"));
     }
+    // A pin behind the current release needs its reason where a reader of the file sees it.
+    let note = py_str(get(&manifest, "note")?.as_ref())?;
+    if !note.contains(&format!("{RELEASE} is pinned because")) {
+        failures.push(format!("note does not say why {RELEASE} is pinned"));
+    }
     let commit = match get(&source, "commit")? {
         Some(Json::Str(commit)) if matches(COMMIT_PATTERN, &commit) => commit,
         _ => {
@@ -347,7 +352,9 @@ fn build() -> Result<Json> {
             s(concat!(
                 "Preparation-only accounting workflows for review by an authorised human. ",
                 "Not tax advice and not lodgement. Each url serves the released bytes; ",
-                "check the digest before use."
+                "check the digest before use. v0.4.0 is pinned because it is the latest ",
+                "release under Apache-2.0, the licence declared here; the current release, ",
+                "v0.5.0 (28 October 2026), is under FSL-1.1-ALv2."
             )),
         ),
         ("skills".into(), Json::Array(skills)),
