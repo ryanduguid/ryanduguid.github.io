@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 const currencyFormat = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
 // Page copy writes negatives with the minus sign, U+2212; the CSV keeps ASCII.

@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 // Coal LSL payroll levy: eligible wages under s 3B of the Coal Mining Industry
 // (Long Service Leave) Payroll Levy Collection Act 1992, Compilation No 12

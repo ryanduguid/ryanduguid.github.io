@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! scripts/build_llms_full.py: build llms-full.txt, its section parts, the per-page
 //! index.txt copies, the closing part index of llms.txt and the identical

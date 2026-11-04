@@ -418,7 +418,7 @@ Install the git hooks once with `python -m pip install "pre-commit==4.6.2" && pr
 
 ## Pull requests
 
-Contributions are accepted under FSL-1.1-ALv2, this repository's licence; see
+Contributions are accepted under the Ryan Duguid Public Attribution Licence 1.0, this repository's licence; see
 [LICENSE](LICENSE).
 
 Suggested resources should support Australian accounting work, have clear

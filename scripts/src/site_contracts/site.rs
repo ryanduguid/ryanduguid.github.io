@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! Cross-page contracts: identity graph, evidence, routes, evaluations, robots and cards.
 use super::*;
@@ -1615,7 +1615,7 @@ pub fn check_social_cards_for(root: &Path, homepage_heading: &str) -> Result<Vec
     for required in [
         "assets/social-card-template.svg",
         "assets/social-cards.json",
-        "FSL-1.1-ALv2",
+        "Ryan Duguid Public Attribution Licence 1.0",
         "Playwright 1.64.1",
         "Chromium",
         "device scale 1",

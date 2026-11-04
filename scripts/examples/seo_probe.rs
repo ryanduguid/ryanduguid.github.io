@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! Differential aid: reads a JSON array of cases on stdin and writes, for each, what the
 //! seo_core functions return, as JSON lines; seo_probe.py computes the same with Python.
