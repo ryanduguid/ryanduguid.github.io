@@ -95,13 +95,13 @@ Browser CI fails when a test passes only on retry. Failed attempts keep their
 traces for diagnosis, even if a retry passes.
 
 The source-freshness workflow checks the changelog's release links every day with
-`node scripts/stamp-source-freshness.mjs --check-releases`; its date-refresh and
+`site-tools stamp_source_freshness --check-releases`; its date-refresh and
 production jobs run on Mondays only. This uses the GitHub
 CLI to read releases and compares stable version numbers within
 each package's tag prefix. API failures fail the check. A newer release needs
 editorial review of the changelog and capability descriptions; the check does
 not rewrite pages or evaluation pins. Install `gh` and sign in with `gh auth login`
-for a local live check. Actions supplies its read-only token to `gh`; the script
+for a local live check. Actions supplies its read-only token to `gh`; the command
 does not read or print the token. Its offline tests run through the site
 check command above. The same run reads every tool page's `release-meta` line:
 a page may keep a worked example pinned to an older release, but then the page
@@ -131,15 +131,15 @@ Its client ID is the repository variable `SOURCE_FRESHNESS_APP_CLIENT_ID` and it
 private key the secret `SOURCE_FRESHNESS_APP_PRIVATE_KEY`; the job requests a
 token limited to those 2 permissions.
 
-The same workflow runs `node scripts/check_production.mjs`, which fetches the
+The same workflow runs `site-tools check_production`, which fetches the
 live pages and holds them to the delivery promises in the README: the five
 Cloudflare response headers, the two edge redirects, and `mailto:` links that
 arrive intact. Injected inline scripts and the analytics tag are printed as
 notes because the page's Content Security Policy blocks them.
 
 The ATO refuses GitHub runners, so a scheduled task on the maintainer's machine
-reads its pages every week instead of this workflow. The script
-`scripts/check_ato_sources.mjs` reads every ATO page cited in this repository and
+reads its pages every week instead of this workflow. The command
+`site-tools check_ato_sources` reads every ATO page cited in this repository and
 in accounting-review-pipeline, au-fpa-pack, australian-accounting and
 australian-accounting-skills through a local Chrome (`nodriver batch`), compares
 each page's text with the copy in its `--baseline` folder and writes a dated
@@ -161,18 +161,18 @@ stamp beside other changes is shown as a hint. A cited URL that redirects
 permanently (301 or 308 at every hop) is listed with its target, ready to
 replace in every citing file, including `scripts/src/check_links_data.rs` and
 `scripts/src/site_contracts/data.rs`; like a substantive change, it raises the
-issue each week until the citations are updated. With `--issue FILE` the script also
+issue each week until the citations are updated. With `--issue FILE` the command also
 writes these findings as the body of the GitHub issue the scheduled task opens,
-naming only public URLs and repository paths. The script saves the report before it
+naming only public URLs and repository paths. The command saves the report before it
 moves any baseline, and a rerun the same day adds to that day's report. It
 refuses more than 500 URLs, and
-`node scripts/check_ato_sources.mjs --list` prints the URLs and citing files
+`site-tools check_ato_sources --list` prints the URLs and citing files
 offline. Its tests run through the site check command.
 
 The same sweep reads three pages outside the ATO whose figures their publishers
-revise, listed in `WATCHED` in that script: the Coal LSL levy (2.7%), NSW land
-tax thresholds ($1,075,000) and NSW payroll tax thresholds and rates (5.45% above
-$1,200,000). It reads them whether or not a file cites them. When one changes,
+revise, listed in `WATCHED` in `scripts/src/ato_sources.rs`: the Coal LSL levy
+(2.7%), NSW land tax thresholds ($1,075,000) and NSW payroll tax thresholds and
+rates (5.45% above $1,200,000). It reads them whether or not a file cites them. When one changes,
 the report also lists every file containing each watched value, because the
 calculators and examples reuse these values without citing the page. Update the
 value in `WATCHED` with the pages that use it.
@@ -181,7 +181,7 @@ The sweep also reads every `source` and `fact_sources` page behind an accounting
 question with a non-empty `fact`. These references come from
 `_data/accounting_questions.json`; relative links resolve against
 `https://duguid.com.au`. Missing references, credentials, non-default ports and
-URLs outside the script's supported public HTTPS hosts stop the run before
+URLs outside the sweep's supported public HTTPS hosts stop the run before
 fetching. New source hosts need an explicit addition to `FACT_SOURCE_HOSTS`.
 
 `scripts/design_baseline.json` pins digests of the machine-readable files, the
@@ -481,4 +481,4 @@ they do not establish billed minutes or savings.
 
 ## Current tool releases
 
-Run `node scripts/stamp-source-freshness.mjs --write-tool-releases` to read published stable GitHub release tags and refresh `_data/tool_releases.json`, the twelve tool pages' software JSON-LD, `sitemap.xml`, names in `tools/index.html` and the current MCP version in `llms.txt`. `--build` performs the same source refresh and then runs the ordinary Jekyll build. Review capability prose and update each changed document's review date before committing; the refresh preserves document dates and uses them for sitemap `lastmod`, whilst software entries use the release date. Each tagged release in `_data/tool_releases.json` needs a Tool releases row in `changelog/index.html` with the same date and release link; write it by hand, since `site-tools build_feed` refuses the changelog without one. Regenerate text mirrors with `site-tools build_llms_full --write`. Offline builds use the checked snapshot. Tool identity and source paths live in `_data/tools.json`; the browser Coal LSL calculator has no release tag and records its own source revision instead. Dates use Australia/Sydney.
+Run `site-tools stamp_source_freshness --write-tool-releases` to read published stable GitHub release tags and refresh `_data/tool_releases.json`, the twelve tool pages' software JSON-LD, `sitemap.xml`, names in `tools/index.html` and the current MCP version in `llms.txt`. `--build` performs the same source refresh and then runs the ordinary Jekyll build. Review capability prose and update each changed document's review date before committing; the refresh preserves document dates and uses them for sitemap `lastmod`, whilst software entries use the release date. Each tagged release in `_data/tool_releases.json` needs a Tool releases row in `changelog/index.html` with the same date and release link; write it by hand, since `site-tools build_feed` refuses the changelog without one. Regenerate text mirrors with `site-tools build_llms_full --write`. Offline builds use the checked snapshot. Tool identity and source paths live in `_data/tools.json`; the browser Coal LSL calculator has no release tag and records its own source revision instead. Dates use Australia/Sydney.
