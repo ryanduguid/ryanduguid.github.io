@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! Generator: the code points where Python's str `\w` and the regex crate's `\w` disagree,
 //! as a Rust range table for src/pyunicode.rs (WORD_DIFF).

@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 // Tests branch on what a project can do, not on its name, so the manual WebKit
 // project runs the same mobile and desktop checks as the Chromium projects.

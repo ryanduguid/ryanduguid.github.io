@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! scripts/build_ozzit_reference.py: build the Ozzit page's ten worked examples and its
 //! index of every named formula from the release the record says the page documents,

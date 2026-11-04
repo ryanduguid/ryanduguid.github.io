@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 export const money = (cents) =>
   (cents / 100).toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });

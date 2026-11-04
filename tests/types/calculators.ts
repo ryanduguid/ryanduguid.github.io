@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 // Compile only. Runtime validation and rounding have separate Node tests.
 import * as calculate from '../../assets/business-calculators.mjs';

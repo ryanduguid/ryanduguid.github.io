@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 // The questions and calculators indexes once held every answer and form under
 // a fragment id. Each old id is still on the index entry that links to the new
