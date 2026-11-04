@@ -297,7 +297,7 @@ Source: https://duguid.com.au/works-with/xero/
 
 Export a Xero trial balance to a local CSV for review in Excel, Power BI or pandas. Both monthly movement and year-to-date totals must balance before the exporter writes the file.
 
-Published 25 October 2026. Last reviewed 25 October 2026.
+Published 25 October 2026. Last reviewed 4 November 2026.
 
 ## Export a trial balance
 
@@ -310,7 +310,7 @@ Open the Xero installation and first run guide
 ## What you need
 
 - Python 3.11 or later, Git and a local working directory for the released exporter.
-- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine.
+- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app connect up to 5 organisations, at 1,000 API calls a day each. Core allows up to 50 for A$35 a month excluding tax, including 10 GB of API data egress, then A$2.40 a GB. An integration an accountant or bookkeeper builds for their own practice or a single client is exempt from this pricing, as Xero determines.
 - A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.
 - An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.
 
@@ -327,6 +327,20 @@ Excel or Power BI | You import the resulting CSV into your chosen application. |
 
 The exporter contacts Xero for authentication and the requested report. The resulting CSV contains organisation and account data; protect it and any copies you import into other systems.
 
+## Xero’s MCP server and Claude connector
+
+For an AI agent that works inside Xero rather than on an exported file, Xero runs a hosted Developer Remote MCP Server at https://api.xero.com/mcp/v1. Xero has documented its setup for Claude Desktop, Claude Code, Cursor and VS Code. The user signs in through Xero’s OAuth 2.0 flow, which Xero recommends with PKCE, and the agent can then read and write accounting data in the organisations the user authorises.
+
+Each tool needs the scope Xero lists for it, which the user approves when connecting the app; only get_connected_tenants needs none. list_trial_balance reads the trial balance with accounting.reports.trialbalance.read, the scope this exporter requests. Tools whose names start with create_, update_, authorise_ or void_ write to the organisation. They include create_payment, create_manual_journal and void_invoice, which need the write scopes accounting.payments, accounting.manualjournals and accounting.invoices.
+
+Xero’s Remote MCP questions say these version 1 tools do not ask the user to confirm before writing; Xero advises asking the agent to confirm with you first. Xero logs each API call in the Developer Portal, but not the tool calls or prompts behind them. The documented tools cover no payroll or activity statements, and their journal tools handle manual journals only.
+
+The server is included on Xero’s Core developer plan or above. Apps on the free Starter plan can use it with the demo organisation only, and Custom Connection apps cannot use it. An accountant or bookkeeper building an integration for their own practice or a client can apply for Xero’s API fee exemption, which includes this access.
+
+Xero’s connector in Claude is a separate, read-only route for questions about live figures. Xero says Claude can’t create, edit, approve, reconcile or pay in Xero through it, and it needs an active Xero subscription and a Claude account but no developer setup.
+
+This section follows Xero’s pages as read on 4 November 2026; neither route was tested for this guide. The trial balance exporter on this page remains separate and read-only.
+
 ## Limits and evidence
 
 Boundary: the exporter cannot post journals, edit transactions or lodge returns. A balanced trial balance still needs professional review.
@@ -342,7 +356,12 @@ Return to Works with for the other supported software route.
 - Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
 - released Python exporter, v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
 - Open the Xero installation and first run guide: https://duguid.com.au/tools/xero-trial-balance/#get-it
+- Starter plan: https://developer.xero.com/pricing
+- exempt from this pricing: https://developer.xero.com/faq/pricing-and-policy-updates
 - reproduce the trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Developer Remote MCP Server: https://developer.xero.com/documentation/guides/remote-mcp/overview/
+- Remote MCP questions: https://developer.xero.com/faq/remote-mcp
+- connector in Claude: https://www.xero.com/au/ai-in-accounting/claude/
 - exporter’s refusals: https://duguid.com.au/tools/refusals/#xero-trial-balance
 - worked outcomes: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
 - Works with: https://duguid.com.au/works-with/
@@ -4326,6 +4345,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+4 November 2026 | The Works with Xero guide now names Xero’s hosted Developer Remote MCP Server, which lets an AI agent read and write accounting data without asking the user to confirm, and Xero’s read-only connector in Claude, with the scopes, gaps and plan access Xero’s pages gave on 4 November 2026. It also gives the free Starter developer plan’s limit of 5 organisations at 1,000 API calls a day each and Xero’s exemption for practice integrations. The trial balance exporter is unchanged.
+4 November 2026 | robots.txt now allows every crawler it names, so Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent may crawl the site as GPTBot, ClaudeBot and Applebot-Extended already could; the Privacy page and llms.txt say so. In the structured data, each tool links the LICENSE file of its current release, every page names its author and publisher and matches its visible breadcrumb, the rate tables belong to a Rates data catalogue and each calculator is described as a free web application. Apart from the Privacy crawler summary no visible text changed, and no rate, calculation or release changed.
 4 November 2026 | The homepage now offers 3 routes, to check a pack or calculate, answer a tax or payroll question or review my work, in place of the embedded Coal LSL calculator. Each tool page opens with one sentence and one line naming its current release and dates, each rate leads with its current value, and the About opening states my CA ANZ and Xero credentials and LinkedIn profile. Copy says 'fictional' for invented data, links fill crimson on hover, the view switch is square and the cash chart’s closing-cash line is platinum. No rate, calculation or release changed.
 4 November 2026 | The advice disclaimer now appears once on each page, as a small line at the foot that links to the full advice and review boundary, now at the end of About. The repeated copies at the top of the homepage, Evidence, Contact and tool pages, on the rate pages and in the question guides are gone, and each tool page keeps only its own specific limits.
 3 November 2026 | Every row of the six rate CSVs now names the ATO page, Federal Register instrument or Reserve Bank table its figure was checked against, in a new source_url column, and the date of that check, in checked_at. Every figure was rechecked against those sources on 3 November 2026 and none changed. The Division 7A rows each say they are derived from the Reserve Bank’s F5 series, and the Excel queries on Rates type the 2 new columns.
@@ -7952,7 +7973,7 @@ Source: https://duguid.com.au/privacy/
 
 The duguid.com.au privacy notice explains how the site handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 16 October 2026.
+Published 12 September 2026. Last reviewed 4 November 2026.
 
 ## Browser calculations
 
@@ -7988,7 +8009,7 @@ For questions about this notice or information you have sent me, email ryan@dugu
 
 ## AI crawlers and citation
 
-The site’s robots.txt names each crawler and its treatment. Search indexing and the fetches an assistant makes to answer or cite for a user are allowed for the agents it names, and Google-Extended is allowed so Gemini grounding can cite the site. Training crawlers from Common Crawl (CCBot), Bytespider, OpenAI (GPTBot), Anthropic (ClaudeBot) and Apple (Applebot-Extended) are allowed, while the other training crawlers it names, Amazonbot among them, are disallowed. The machine-readable index and the full page text are published for citation, and robots.txt is the current policy if this summary and the file ever differ.
+The site’s robots.txt names each crawler and its treatment. Search indexing and the fetches an assistant makes to answer or cite for a user are allowed for the agents it names, and Google-Extended is allowed so Gemini grounding can cite the site. No crawler it names is blocked: training crawlers are allowed too, including those from Common Crawl (CCBot), Bytespider, OpenAI (GPTBot), Anthropic (ClaudeBot), Apple (Applebot-Extended), Amazon (Amazonbot) and Meta (meta-externalagent). The machine-readable index and the full page text are published for citation, and robots.txt is the current policy if this summary and the file ever differ.
 
 If an AI answer misquotes this site, email ryan@duguid.com.au with the page address and the quoted text. Use fictional examples only; do not send client records or taxpayer information.
 

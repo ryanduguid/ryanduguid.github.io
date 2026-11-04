@@ -1283,7 +1283,7 @@ pub fn check_xero_evaluation_summary(root: &Path) -> Result<Vec<String>, String>
     Ok(vec![])
 }
 
-/// Allow retrieval and open-web crawl while retaining named training blocks.
+/// Allow retrieval, training and other crawl for every named crawler.
 pub fn check_robots_policy(robots: &str) -> Vec<String> {
     let mut failures = Vec::new();
     if CRAWLER_POLICY_COMMENTS.iter().any(|c| !robots.contains(c)) {
@@ -1296,11 +1296,6 @@ pub fn check_robots_policy(robots: &str) -> Vec<String> {
     let mut expected: Vec<(&str, &str)> = vec![("*", "Allow: /")];
     expected.extend(RETRIEVAL_CRAWLERS.iter().map(|a| (*a, "Allow: /")));
     expected.extend(ALLOWED_TRAINING_CRAWLERS.iter().map(|a| (*a, "Allow: /")));
-    expected.extend(
-        BLOCKED_TRAINING_CRAWLERS
-            .iter()
-            .map(|a| (*a, "Disallow: /")),
-    );
     for (agent, directive) in &expected {
         let actual = groups.iter().find(|(a, _)| a == agent).map(|(_, d)| d);
         if actual.is_none_or(|d| d.len() != 1 || d[0] != *directive) {

@@ -55,7 +55,7 @@
         </nav>
         <h1>Privacy and site use</h1>
         <p class="short-answer">The duguid.com.au privacy notice explains how the site handles browser calculations, hosting and feedback.</p>
-        <p class="page-meta">Published 12 September 2026. Last reviewed 16 October 2026.</p>
+        <p class="page-meta">Published 12 September 2026. Last reviewed 4 November 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -95,7 +95,7 @@
           </section>
           <section id="ai-crawlers">
             <h2>AI crawlers and citation</h2>
-            <p>The site’s <a href="/robots.txt">robots.txt</a> names each crawler and its treatment. Search indexing and the fetches an assistant makes to answer or cite for a user are allowed for the agents it names, and Google-Extended is allowed so Gemini grounding can cite the site. Training crawlers from Common Crawl (CCBot), Bytespider, OpenAI (GPTBot), Anthropic (ClaudeBot) and Apple (Applebot-Extended) are allowed, while the other training crawlers it names, Amazonbot among them, are disallowed. The <a href="/llms.txt">machine-readable index</a> and the <a href="/llms-full.txt">full page text</a> are published for citation, and robots.txt is the current policy if this summary and the file ever differ.</p>
+            <p>The site’s <a href="/robots.txt">robots.txt</a> names each crawler and its treatment. Search indexing and the fetches an assistant makes to answer or cite for a user are allowed for the agents it names, and Google-Extended is allowed so Gemini grounding can cite the site. No crawler it names is blocked: training crawlers are allowed too, including those from Common Crawl (CCBot), Bytespider, OpenAI (GPTBot), Anthropic (ClaudeBot), Apple (Applebot-Extended), Amazon (Amazonbot) and Meta (meta-externalagent). The <a href="/llms.txt">machine-readable index</a> and the <a href="/llms-full.txt">full page text</a> are published for citation, and robots.txt is the current policy if this summary and the file ever differ.</p>
             <p>If an AI answer misquotes this site, email <a href="mailto:ryan@duguid.com.au">ryan@duguid.com.au</a> with the page address and the quoted text. Use fictional examples only; do not send client records or taxpayer information.</p>
           </section>
           <section id="site-use">
@@ -116,21 +116,49 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://duguid.com.au/privacy/#webpage",
-  "url": "https://duguid.com.au/privacy/",
-  "name": "Privacy and site use",
-  "description": "How duguid.com.au handles browser calculations, cookies, hosting and feedback, with the site’s advice boundaries and software licence links.",
-  "inLanguage": "en-AU",
-  "datePublished": "2026-09-12",
-  "dateModified": "2026-10-16",
-  "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
-  "isPartOf": {
-    "@id": "https://duguid.com.au/#website"
-  },
-  "author": {
-    "@id": "https://duguid.com.au/about/#person"
-  }
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/privacy/#webpage",
+      "url": "https://duguid.com.au/privacy/",
+      "name": "Privacy and site use",
+      "description": "How duguid.com.au handles browser calculations, cookies, hosting and feedback, with the site’s advice boundaries and software licence links.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-09-12",
+      "dateModified": "2026-11-04",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/privacy/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/privacy/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Privacy and site use",
+          "item": "https://duguid.com.au/privacy/"
+        }
+      ]
+    }
+  ]
 }
   </script>
 </body>
