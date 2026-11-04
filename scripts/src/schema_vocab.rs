@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! JSON-LD terms checked against the pinned schema.org vocabulary in `scripts/schemaorg/`.
 //!
 //! Every `@type` must be a schema.org class and every property a schema.org property

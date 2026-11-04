@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Fabricated changelogs to the Atom feed builder: every refusal names the changelog and
 //! every built feed is well-formed XML.
 #![no_main]

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/check_agent_files.py: check what an agent can be made to run from this site's
 //! machine-readable files.
 //!

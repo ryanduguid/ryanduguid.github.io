@@ -1,3 +1,6 @@
+# Copyright 2026 Ryan Duguid
+# SPDX-License-Identifier: FSL-1.1-ALv2
+
 """Dependency-free tests for the Search Console decision-loop core."""
 
 from __future__ import annotations

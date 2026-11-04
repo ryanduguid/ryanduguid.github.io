@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/test_visibility_benchmark.py: the validator, summariser and command line.
 use site_tools::pyjson::{self, Json};
 use site_tools::visibility::{

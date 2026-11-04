@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Serve one directory on a free loopback port without building the site, printing the
 //! port first: the Rust side of the serve_site differential harness.
 fn main() -> std::io::Result<()> {

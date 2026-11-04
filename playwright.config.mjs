@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 import { defineConfig } from '@playwright/test';
 
 // Since Chromium 141, on Windows 11 22H2 and later, Chromium sets SO_RANDOMIZE_PORT

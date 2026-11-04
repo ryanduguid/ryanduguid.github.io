@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // WebMCP tool descriptors for the business calculators (pilot: GST only).
 // Tools compute in the page, read nothing from the form and send nothing anywhere.
 // https://webmachinelearning.github.io/webmcp/

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Release-record live probe for the Hub harness: each stdin line is a JSON case
 //! `{"component", "responses": {url: answer}, "default": answer, "asset": answer}` where
 //! an answer is `{"json": value}`, `{"http": code}` or `{"error": [type, message]}`.
