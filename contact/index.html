@@ -96,7 +96,16 @@
         "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
-        "publisher": { "@id": "https://duguid.com.au/about/#person" }
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "breadcrumb": { "@id": "https://duguid.com.au/contact/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/contact/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
+          { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://duguid.com.au/contact/" }
+        ]
       }
     ]
   }

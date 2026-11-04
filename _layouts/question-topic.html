@@ -130,10 +130,20 @@
       },
       "author": {
         "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au{{ page.url }}#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://duguid.com.au{{ page.url }}#questions"
       }
     },
     {
       "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au{{ page.url }}#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",

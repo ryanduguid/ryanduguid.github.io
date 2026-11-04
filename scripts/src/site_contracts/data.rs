@@ -227,14 +227,13 @@ pub const RETRIEVAL_CRAWLERS: [&str; 13] = [
     "Claude-Web",
     "Google-Extended",
 ];
-pub const ALLOWED_TRAINING_CRAWLERS: [&str; 5] = [
+/// Training and other crawlers, every one allowed since 4 November 2026.
+pub const ALLOWED_TRAINING_CRAWLERS: [&str; 10] = [
     "CCBot",
     "Bytespider",
     "GPTBot",
     "ClaudeBot",
     "Applebot-Extended",
-];
-pub const BLOCKED_TRAINING_CRAWLERS: [&str; 5] = [
     "Amazonbot",
     "cohere-ai",
     "Diffbot",
@@ -243,8 +242,8 @@ pub const BLOCKED_TRAINING_CRAWLERS: [&str; 5] = [
 ];
 pub const CRAWLER_POLICY_COMMENTS: [&str; 5] = [
     "Search indexing and user-requested citation fetches are allowed.",
-    "Training crawl by Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot and Applebot-Extended is allowed.",
-    "The other named training crawlers below remain blocked.",
+    "Training and other crawl is allowed for every crawler named below: CCBot, Bytespider, GPTBot, ClaudeBot, Applebot-Extended, Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent.",
+    "No named crawler is blocked.",
     "Unnamed agents must not silently redefine this policy; named rows state the intended treatment.",
     "Google-Extended is allowed so Gemini and Vertex AI grounding can cite this site; it is not a search crawler.",
 ];
