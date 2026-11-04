@@ -98,7 +98,7 @@ Open the Xero installation and first run guide
 ## What you need
 
 - Python 3.11 or later, Git and a local working directory for the released exporter.
-- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app connect up to 5 organisations, at 1,000 API calls a day each; Core allows 50 for A$35 a month excluding tax. An integration an accountant or bookkeeper builds for their own practice or a single client is exempt from this pricing, as Xero determines.
+- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app connect up to 5 organisations, at 1,000 API calls a day each. Core allows up to 50 for A$35 a month excluding tax, including 10 GB of API data egress, then A$2.40 a GB. An integration an accountant or bookkeeper builds for their own practice or a single client is exempt from this pricing, as Xero determines.
 - A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.
 - An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.
 
@@ -119,7 +119,7 @@ The exporter contacts Xero for authentication and the requested report. The resu
 
 For an AI agent that works inside Xero rather than on an exported file, Xero runs a hosted Developer Remote MCP Server at https://api.xero.com/mcp/v1. Xero has documented its setup for Claude Desktop, Claude Code, Cursor and VS Code. The user signs in through Xero’s OAuth 2.0 flow, which Xero recommends with PKCE, and the agent can then read and write accounting data in the organisations the user authorises.
 
-Each tool runs only under a scope the app has approved. list_trial_balance reads the trial balance with accounting.reports.trialbalance.read, the scope this exporter requests. Tools whose names start with create_, update_, authorise_ or void_ write to the organisation. They include create_payment, create_manual_journal and void_invoice, which need the write scopes accounting.payments, accounting.manualjournals and accounting.invoices.
+Each tool needs the scope Xero lists for it, which the user approves when connecting the app; only get_connected_tenants needs none. list_trial_balance reads the trial balance with accounting.reports.trialbalance.read, the scope this exporter requests. Tools whose names start with create_, update_, authorise_ or void_ write to the organisation. They include create_payment, create_manual_journal and void_invoice, which need the write scopes accounting.payments, accounting.manualjournals and accounting.invoices.
 
 Xero’s Remote MCP questions say these version 1 tools do not ask the user to confirm before writing; Xero advises asking the agent to confirm with you first. Xero logs each API call in the Developer Portal, but not the tool calls or prompts behind them. The documented tools cover no payroll or activity statements, and their journal tools handle manual journals only.
 
