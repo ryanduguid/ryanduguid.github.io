@@ -67,7 +67,7 @@ function validateCards(value) {
     ) {
       throw new TypeError(`Social-card ${id} heading must contain two or three fitted lines`);
     }
-    const expectedOutput = `social-card-${id}-20261104.png`;
+    const expectedOutput = `social-card-${id}-20261104b.png`;
     if (card.output !== expectedOutput) {
       throw new Error(`Social-card ${id} output must be ${expectedOutput}`);
     }
@@ -93,13 +93,65 @@ function replacePlaceholder(source, placeholder, replacement) {
   return source.slice(0, first) + replacement + source.slice(first + placeholder.length);
 }
 
+// Text column geometry, relative to the label's baseline; the page layout centres the column.
+const HEADING_X = 442;
+const HEADING_RIGHT = 1104;
+const HEADING_TOP = 96;
+const HEADING_LEAD = 58;
+
 function headingMarkup(lines) {
-  const baselines = lines.length === 3 ? [290, 370, 450] : [330, 414];
   return lines
     .map((line, index) => (
-      `<tspan x="128" y="${baselines[index]}">${xmlEscape(line)}</tspan>`
+      `<tspan x="${HEADING_X}" y="${HEADING_TOP + index * HEADING_LEAD}">${xmlEscape(line)}</tspan>`
     ))
     .join('');
+}
+
+// Runs in the page once the fonts load: sizes the frame tabs to their text, places the cursor
+// after the last heading line and centres the text column on the frame.
+function layoutCard({ headingTop, headingRight, lead }) {
+  const pad = 16;
+  const bracket = 4;
+  const clear = 8;
+  for (const tab of document.querySelectorAll('g.tab')) {
+    const text = tab.querySelector('text');
+    const [gap, left, right] = tab.querySelectorAll('rect');
+    const width = Math.ceil(text.getComputedTextLength());
+    const span = 2 * bracket + 2 * pad + width;
+    const anchor = Number(tab.dataset.x);
+    const middle = Number(tab.dataset.y);
+    const start = tab.dataset.anchor === 'end' ? anchor - span : anchor;
+    gap.setAttribute('x', String(start - clear));
+    gap.setAttribute('y', String(middle - 10));
+    gap.setAttribute('width', String(span + 2 * clear));
+    left.setAttribute('x', String(start));
+    right.setAttribute('x', String(start + span - bracket));
+    for (const edge of [left, right]) edge.setAttribute('y', String(middle - 18));
+    text.setAttribute('x', String(start + bracket + pad));
+    text.setAttribute('y', String(middle + 10));
+  }
+
+  // Every line must leave room for the cursor before the right margin.
+  const cursor = document.getElementById('cursor');
+  const room = headingRight - 12 - Number(cursor.getAttribute('width'));
+  const lines = [...document.querySelectorAll('#heading tspan')];
+  for (const line of lines) {
+    if (Number(line.getAttribute('x')) + line.getComputedTextLength() > room) {
+      throw new Error(`Heading line is too wide: ${line.textContent}`);
+    }
+  }
+  const last = lines.at(-1);
+  const lastBaseline = headingTop + (lines.length - 1) * lead;
+  cursor.setAttribute(
+    'x',
+    String(Math.round(Number(last.getAttribute('x')) + last.getComputedTextLength() + 12)),
+  );
+  cursor.setAttribute('y', String(lastBaseline - 34));
+  document.getElementById('prompt').setAttribute('y', String(headingTop));
+
+  // The column runs from the label's capitals (about 22px above its baseline) to the last baseline.
+  const offset = Math.round(315 - (lastBaseline - 22) / 2);
+  document.getElementById('column').setAttribute('transform', `translate(0,${offset})`);
 }
 
 function renderSvg(template, fonts, card) {
@@ -202,6 +254,11 @@ export async function renderSocialCards(browser, outputDirectory) {
         && document.fonts.check('24px "Spline Sans Mono"')
       ));
       if (!fontsReady) throw new Error(`${card.id} fonts did not load`);
+      await page.evaluate(layoutCard, {
+        headingTop: HEADING_TOP,
+        headingRight: HEADING_RIGHT,
+        lead: HEADING_LEAD,
+      });
       const bounds = await page.locator('svg').boundingBox();
       if (!bounds || Math.round(bounds.width) !== WIDTH || Math.round(bounds.height) !== HEIGHT) {
         throw new Error(`${card.id} SVG bounds changed: ${JSON.stringify(bounds)}`);

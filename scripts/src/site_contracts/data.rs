@@ -854,40 +854,42 @@ pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 5] = [
         label: "Australian accounting",
         heading: &["Open source tools for", "Australian accountants"],
         host: "duguid.com.au",
-        output: "social-card-site-20261104.png",
+        output: "social-card-site-20261104b.png",
     },
     SocialCard {
         id: "tools",
         label: "Open source tools",
         heading: &["Accounting checks that", "show their working."],
         host: "duguid.com.au/tools/",
-        output: "social-card-tools-20261104.png",
+        output: "social-card-tools-20261104b.png",
     },
     SocialCard {
         id: "evaluations",
         label: "Reproducible evaluations",
         heading: &["Fictional inputs.", "Expected results.", "Visible limits."],
         host: "duguid.com.au/evaluate/",
-        output: "social-card-evaluations-20261104.png",
+        output: "social-card-evaluations-20261104b.png",
     },
     SocialCard {
         id: "rates",
         label: "Maintained reference tables",
         heading: &["Australian rates,", "sources, and review dates."],
         host: "duguid.com.au/rates/",
-        output: "social-card-rates-20261104.png",
+        output: "social-card-rates-20261104b.png",
     },
     SocialCard {
         id: "evidence",
         label: "Evidence register",
         heading: &["Claims linked to sources,", "releases, and tests."],
         host: "duguid.com.au/evidence/",
-        output: "social-card-evidence-20261104.png",
+        output: "social-card-evidence-20261104b.png",
     },
 ];
 pub const SOCIAL_CARD_DIMENSIONS: (u32, u32) = (1200, 630);
 pub const SOCIAL_CARD_MAX_BYTES: usize = 50_000;
-pub const SOCIAL_CARD_COLOURS: [&str; 5] = ["#000000", "#ffd32a", "#fffff0", "#990024", "#dadada"];
+pub const SOCIAL_CARD_COLOURS: [&str; 7] = [
+    "#000000", "#ffd32a", "#9b7735", "#fffff0", "#e5e4e2", "#990024", "#dadada",
+];
 pub const SOCIAL_CARD_TEMPLATE_PLACEHOLDERS: [&str; 8] = [
     "{{FONT_SERIF}}",
     "{{FONT_SANS}}",
