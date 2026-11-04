@@ -1269,7 +1269,7 @@ Source: https://duguid.com.au/rates/
 
 Seven maintained Australian reference tables with the current value, source-reviewed date and primary material kept together.
 
-Last reviewed 3 November 2026.
+Last reviewed 4 November 2026.
 
 ## Super guarantee rate history
 
@@ -1369,13 +1369,13 @@ Primary source Download CSV
 
 ## Announced tax measures and enacted law
 
-14 TBD
+8 TBD
 
-The ATO summary lists 14 selected measures as TBD and one as Various. The page separates those source statuses from enacted measures, application dates and transition rules.
+The ATO summary lists 8 selected measures as TBD, one as Various and 6 with a bill. The page separates those source statuses and each bill’s stage from enacted measures, application dates and transition rules.
 
 Verified
 
-22 September 2026
+4 November 2026
 
 Scope
 
@@ -1545,13 +1545,16 @@ let
         {"checked_at", type date},
         {"status_source_url", type text},
         {"review_scope", type text},
-        {"application_note", type text}
+        {"application_note", type text},
+        {"bill_stage", type text},
+        {"stage_date", type date},
+        {"stage_source_url", type text}
     }, "en-AU")
 in
     Measures
 ```
 
-Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The source_url and checked_at columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads.
+Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The source_url and checked_at columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads. Nor were the announced measures’ bill_stage, stage_date and stage_source_url columns added on 4 November 2026; stage_date is blank for measures without a stage date.
 
 Follow updates with the Atom feed. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.
 
@@ -1586,38 +1589,40 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 
 Source: https://duguid.com.au/rates/announced-not-yet-law/
 
-> ATO development statuses for selected tax and super measures, with enacted-law application dates, transition rules and sources checked on 22 September 2026.
+> ATO statuses and bill stages for selected tax and super measures, with enacted-law application dates and transition rules. Bill stages checked 4 November 2026.
 
 # Announced tax measures and enacted law
 
-Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 14 as TBD and one as Various. It names legislation for the other 12: 3 with later application dates and 9 with earlier dates. These are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
+Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 8 as TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates. TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Read 22 September 2026 from the ATO’s latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
+Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026, after the ATO’s update of 2 November 2026, and the legislated tables on 22 September 2026, after its update of 18 September 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
-## ATO development status unresolved
+## Not yet legislated in the ATO summary
 
-An announcement does not amend the law. Do not automatically apply a proposal in a current-law calculation. Clearly labelled planning scenarios may model proposed changes. The ATO’s guidance on announced measures explains options and consequences for taxpayers who follow existing law or anticipate a change. The Treasury consultation index (archived 6 October 2026) is a historical reference whilst Treasury’s site is unavailable. Check the measure’s current consultation material, parliamentary record and Federal Register entry before assigning a legal status; the archived index does not establish current law. Fourteen selected rows show TBD; the MYEFO philanthropy package shows Various and needs component-level checking.
+An announcement does not amend the law. Do not automatically apply a proposal in a current-law calculation. Clearly labelled planning scenarios may model proposed changes. The ATO’s guidance on announced measures explains options and consequences for taxpayers who follow existing law or anticipate a change. The Treasury consultation index (archived 6 October 2026) is a historical reference. Check the measure’s current consultation material, parliamentary record and Federal Register entry before assigning a legal status; the archived index does not establish current law. Eight selected rows show TBD and 6 name a bill; the MYEFO philanthropy package shows Various and needs component-level checking.
 
-Measures with TBD or Various in the ATO summary
+Measures with TBD, Various or a bill in the ATO summary
 
-Measure | Announced in | ATO start date | ATO development status
-Electric car discount: changes to the FBT treatment of electric cars | Budget 2026-27 | 1 April 2027 | TBD
-Global minimum tax (Pillar Two): side-by-side package | Budget 2026-27 | 1 January 2026 | TBD
-Foreign resident CGT regime: transitional arrangements | Budget 2026-27 | First quarter after Royal Assent | TBD
-Foreign investment: extending the ban on foreign purchases of established dwellings | Budget 2026-27 | 1 April 2027 | TBD
-Modernising private health | Budget 2026-27 | 1 April 2027 | TBD
-Supporting philanthropy: deductible gift recipients | Budget 2026-27 | Various | TBD
-Better targeting the R&D Tax Incentive | Budget 2026-27 | 1 July 2028 | TBD
-Expanding venture capital incentives | Budget 2026-27 | 1 July 2027 | TBD
-Minimum tax on discretionary trusts | Budget 2026-27 | Various | TBD
-Loss refundability for small start-up companies (beyond the carry-back) | Budget 2026-27 | 1 July 2028 | TBD
-Dynamic PAYG instalments | Budget 2026-27 | 1 July 2027 | TBD
-Law reform to tackle fraud against the tax system | Budget 2026-27 | Royal Assent | TBD
-OECD Crypto Asset Reporting Framework and domestic reporting | MYEFO 2025-26 | 1 January 2027 | TBD
-Tax treaties with Ukraine and Croatia | MYEFO 2025-26 | To be determined | TBD
-Supporting philanthropy | MYEFO 2025-26 | Various | Various
+Measure | Announced in | ATO start date | ATO development status | Stage on 4 November 2026
+Electric car discount: changes to the FBT treatment of electric cars | Budget 2026-27 | 1 April 2027 | Treasury Laws Amendment (Tax Reform No. 4) Bill 2026 | Third reading agreed in the House 29 October 2026
+Global minimum tax (Pillar Two): side-by-side package | Budget 2026-27 | 1 January 2026 | TBD | No bill identified in the material checked
+Foreign resident CGT regime: transitional arrangements | Budget 2026-27 | First quarter after Royal Assent | TBD | Act No. 86 of 2026, Royal Assent 15 September 2026
+Foreign investment: extending the ban on foreign purchases of established dwellings | Budget 2026-27 | 1 April 2027 | TBD | No bill identified in the material checked
+Modernising private health | Budget 2026-27 | 1 April 2027 | Private Health Insurance Amendment (Modernising the Private Health Insurance Rebate) Bill 2026 [No. 2] | Second reading moved in the House 15 October 2026
+Supporting philanthropy: deductible gift recipients | Budget 2026-27 | Various | TBD | No bill identified in the material checked
+Better targeting the R&D Tax Incentive | Budget 2026-27 | 1 July 2028 | Treasury Laws Amendment (Tax Reform No. 4) Bill 2026 | Third reading agreed in the House 29 October 2026
+Expanding venture capital incentives | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 4) Bill 2026 | Third reading agreed in the House 29 October 2026
+Minimum tax on discretionary trusts | Budget 2026-27 | Various | Treasury Laws Amendment (Tax Reform No. 3) Bill 2026 and Income Tax Rates Amendment (Minimum Tax on Discretionary Trusts) Bill 2026 | Third reading agreed in the House 29 October 2026; Senate Economics Legislation Committee report due 13 November 2026
+Loss refundability for small start-up companies (beyond the carry-back) | Budget 2026-27 | 1 July 2028 | TBD | No bill identified in the material checked
+Dynamic PAYG instalments | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 4) Bill 2026 | Third reading agreed in the House 29 October 2026
+Law reform to tackle fraud against the tax system | Budget 2026-27 | Royal Assent | TBD | Treasury consultation on the design of the law opened 14 October 2026 (closes 27 November 2026)
+OECD Crypto Asset Reporting Framework and domestic reporting | MYEFO 2025-26 | 1 January 2027 | TBD | Exposure draft released for Treasury consultation 15 October 2026 (closed 28 October 2026)
+Tax treaties with Ukraine and Croatia | MYEFO 2025-26 | To be determined | TBD | No bill identified in the material checked
+Supporting philanthropy | MYEFO 2025-26 | Various | Various | Components not identified; legislative stage not established
 
-Later report for the foreign resident CGT row: the ATO measure page, updated 9 October 2026, says the Treasury Laws Amendment (Strengthening Accountability for Tax Adviser Misconduct and Other Measures) Act 2026 is law and the changes commenced on 1 October 2026. The Federal Register gives assent on 15 September 2026. The ATO summary still showed TBD when checked on 13 October 2026, so the row repeats it.
+The stage column was read on 4 November 2026 from each bill’s page on the Parliament website, the Federal Register and Treasury’s consultation pages; the CSV’s stage_source_url column links each source. ‘No bill identified in the material checked’ means none was found in the titles of the 127 bills before Parliament that day, the schedule headings of the Tax Reform No. 3 and No. 4 Bills or the titles of Acts made since 1 September 2026; it does not establish that no bill exists. A bill can still change or lapse; check its page before relying on a stage.
+
+Later report for the foreign resident CGT row: the ATO measure page, updated 9 October 2026, says the Treasury Laws Amendment (Strengthening Accountability for Tax Adviser Misconduct and Other Measures) Act 2026 is law and the changes commenced on 1 October 2026. The Federal Register gives assent on 15 September 2026. The ATO summary, last updated 2 November 2026, still showed TBD when checked on 4 November 2026, so the row repeats it.
 
 Left out on purpose: the Budget and MYEFO rows that fund administration rather than change tax or super law (child support systems, the foreign investment framework, the Consumer Data Right, ABN authentication and lookup services, Digital ID, the counter-fraud and NDIS taskforces, director identification number linking and the wind-down of cheques).
 
@@ -1692,7 +1697,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 20 September 2026. ATO summary and reform provisions reviewed 22 September 2026; other measures retain source-reported status.
+Published 20 September 2026. Pending measures and their stages reviewed 4 November 2026; legislated measures and reform provisions reviewed 22 September 2026.
 
 ## Links
 

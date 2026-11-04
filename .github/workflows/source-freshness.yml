@@ -42,8 +42,8 @@ env:
   BRANCH: automation/source-freshness
 
 jobs:
-  # Builds site-tools for the release check with read-only access, so the job that
-  # writes the tracking issue compiles nothing.
+  # Builds site-tools for the release and production checks with read-only access,
+  # so the job that writes the tracking issue compiles nothing.
   release-tools:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
@@ -87,9 +87,6 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: "24"
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: site-tools-release-check
@@ -101,7 +98,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set +e
-          node scripts/stamp-source-freshness.mjs --check-releases 2> "$RUNNER_TEMP/drift.txt"
+          chmod +x "$RUNNER_TEMP/site-tools/site-tools"
+          "$RUNNER_TEMP/site-tools/site-tools" stamp_source_freshness --check-releases 2> "$RUNNER_TEMP/drift.txt"
           status=$?
           cat "$RUNNER_TEMP/drift.txt" >&2
           echo "status=$status" >> "$GITHUB_OUTPUT"
@@ -183,6 +181,7 @@ jobs:
   # pages and holds them to the delivery promises README.md records.
   production:
     if: github.event.schedule != '0 6 * * 0,2-6' && (github.event_name != 'workflow_dispatch' || !inputs.releases_only)
+    needs: release-tools
     timeout-minutes: 10
     runs-on: ubuntu-24.04
     permissions:
@@ -191,11 +190,14 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
-          node-version: "24"
+          name: site-tools-release-check
+          path: ${{ runner.temp }}/site-tools
       - name: Check the site as delivered
-        run: node scripts/check_production.mjs
+        run: |
+          chmod +x "$RUNNER_TEMP/site-tools/site-tools"
+          "$RUNNER_TEMP/site-tools/site-tools" check_production
 
   stamp:
     # Only main: a manual run from another branch would otherwise carry that
@@ -239,7 +241,7 @@ jobs:
         run: cargo build --locked
 
       - name: Refresh the stamps
-        run: node scripts/stamp-source-freshness.mjs --write
+        run: scripts/target/debug/site-tools stamp_source_freshness --write
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -1,0 +1,30 @@
+---
+# Opengrep's audit rules fire on the browser tests in tests/ and the Node tests
+# beside the scripts they cover, which build regular expressions from fixed
+# values and serve fake redirects on purpose; the Python test and the Rust
+# tests and fuzz harness under scripts/ are test code too.
+#
+# Lizard and Prospector measure function and file size and complexity. Tests
+# are long by design, one case per assertion block, and package-lock.json and
+# Cargo.lock files are generated, so neither is measured; production code
+# still is.
+engines:
+  opengrep:
+    exclude_paths:
+      - "tests/**"
+      - "**/tests/**"
+      - "**/fuzz/**"
+      - "scripts/*.test.mjs"
+      - "scripts/test_*.py"
+  lizard:
+    exclude_paths:
+      - "tests/**"
+      - "**/tests/**"
+      - "**/fuzz/**"
+      - "scripts/*.test.mjs"
+      - "scripts/test_*.py"
+      - "package-lock.json"
+      - "**/Cargo.lock"
+  prospector:
+    exclude_paths:
+      - "scripts/test_*.py"
