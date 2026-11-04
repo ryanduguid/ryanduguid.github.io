@@ -543,7 +543,7 @@ Source: https://duguid.com.au/tools/business-calculators/gst/
 
 Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -558,6 +558,17 @@ Calculate Enter the inputs and calculate.
 For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.
 
 ATO: How GST works
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: GST calculator
+
+Case | Inputs | Result
+A round GST-inclusive amount | $110.00 including GST | Exclusive $100.00, GST $10.00, inclusive $110.00
+Half a cent of GST rounds up | $0.05 excluding GST | Exclusive $0.05, GST $0.01, inclusive $0.06
+GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST $0.00, inclusive $0.01
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -582,7 +593,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-use/
 
 Apportion an eligible cost by its business use share. It does not decide deductibility, depreciation or records.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -599,6 +610,17 @@ Eligible cost × supported business use percentage / 100. This apportions the am
 For car expenses under the cents per kilometre method, the rate by income year is kept as a maintained table on this site.
 
 Phone and internet record checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Business use share calculator
+
+Case | Inputs | Result
+An exact half cent rounds up | $20.15 at 50% | Business share $10.08
+No business use | $100.00 at 0% | Business share $0.00
+A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -624,7 +646,7 @@ Source: https://duguid.com.au/tools/business-calculators/margin/
 
 Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -639,6 +661,17 @@ Calculate Enter the inputs and calculate.
 Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
 
 business.gov.au: pricing
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Margin and markup calculator
+
+Case | Inputs | Result
+Margin uses sales, markup uses cost | Sales $100.00, cost $80.00 | Profit $20.00, margin 20.00%, markup 25.00%
+Nil sales give no margin | Sales $0.00, cost $50.00 | Profit -$50.00, no margin, markup -100.00%
+Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.00%, no markup
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -663,7 +696,7 @@ Source: https://duguid.com.au/tools/business-calculators/break-even/
 
 Whole units and sales required to cover fixed costs from price and variable cost per unit.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -678,6 +711,16 @@ Calculate Enter the inputs and calculate.
 Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.
 
 business.gov.au: pricing
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Break-even sales calculator
+
+Case | Inputs | Result
+Part of a unit rounds up to a whole unit | Fixed $1,000.00, price $30.00, variable $18.00 | Contribution $12.00, 84 units, sales $2,520.00
+A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00, variable $18.00 | Refused: price must exceed variable cost per unit to reach break-even
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -702,7 +745,7 @@ Source: https://duguid.com.au/tools/business-calculators/hourly/
 
 Required hourly rate before GST from annual costs, target profit and billable hours.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -717,6 +760,16 @@ Calculate Enter the inputs and calculate.
 Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
 
 business.gov.au: pricing
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Hourly pricing calculator
+
+Case | Inputs | Result
+An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
+A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -741,7 +794,7 @@ Source: https://duguid.com.au/tools/business-calculators/variance/
 
 Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -760,6 +813,17 @@ Difference = actual − budget. Percentage = difference / absolute budget × 100
 Budget explanation checklist
 
 Monthly Close Controls compares trial balance CSVs and lists material movements for review.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Budget variance calculator
+
+Case | Inputs | Result
+Income above budget is favourable | Actual $110.00, budget $100.00, income | Difference $10.00, 10.00%, Favourable
+Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
+A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -785,7 +849,7 @@ Source: https://duguid.com.au/tools/business-calculators/loan/
 
 Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -800,6 +864,17 @@ Calculate Enter the inputs and calculate.
 For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.
 
 Loan reconciliation checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Monthly loan payment calculator
+
+Case | Inputs | Result
+A 30-year amortising loan | $100,000.00 at 6% over 360 months | Payment $599.55, first interest $500.00, first principal $99.55, total interest $115,838.19
+One month repays the balance and one month’s interest | $1,000.00 at 12% over 1 month | Payment $1,010.00, first interest $10.00, first principal $1,000.00, total interest $10.00
+Nil interest divides the balance | $20.15 at 0% over 2 months | Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -824,7 +899,7 @@ Source: https://duguid.com.au/tools/business-calculators/staff/
 
 Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -839,6 +914,16 @@ Calculate Enter the inputs and calculate.
 Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
 
 Staff cost checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Staff cost calculator
+
+Case | Inputs | Result
+A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
+Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -863,7 +948,7 @@ Source: https://duguid.com.au/tools/business-calculators/cash/
 
 Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -910,6 +995,16 @@ business.gov.au: cash flow
 
 The Lumbridge cash flow case works the same question with a 45-day receipt delay.
 
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: 13-week cash forecast
+
+Case | Inputs | Result
+A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
+A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
+
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
@@ -921,680 +1016,3 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Ozzit: Excel LAMBDA functions for Australian modelling
-
-Source: https://duguid.com.au/tools/ozzit/
-
-> A free Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
-
-# Ozzit
-
-The Ozzit workbook holds 143 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
-
-Current release Ozzit v3.5.0, 19 October 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 21 October 2026.
-
-Delivery
-
-Excel workbook
-
-Needs
-
-Microsoft 365 or Excel 2024 or later
-
-Boundary
-
-Calculates only. The reviewer decides the accounting treatment and the tax position.
-
-Download Ozzit v3.5.0 Browse worked formulas
-
-XLSX, 462,490 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
-
-## Extract GST from $1,100
-
-```
-=oz.GSTExtractλ(1100)
-```
-
-100.00 displayed to two decimal places
-
-Assumes a wholly taxable, GST-inclusive amount at 10%. Read the workings, the Excel check and the limits.
-
-## What Ozzit is
-
-An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native LAMBDA stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.
-
-The v3.5.0 workbook carries 148 named formulas: 143 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s src/ folder and indexed in functions.csv.
-
-The Australian helpers are deliberately small: GST addition and extraction with a 10% default rate, a 1 July financial year label, 5 helpers for the ATO’s small business benchmark ratios, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
-
-## Who it is for and what it needs
-
-Ozzit suits an accountant or analyst who builds models in Excel and wants the working visible rather than hidden in an add-in or a macro. It is not a bookkeeping tool, and it never touches a ledger.
-
-What the workbook needs. Scroll sideways on small screens.
-
-Requires | Microsoft 365 or Excel 2024 or later, with LAMBDA and dynamic arrays
-Does not run in | LibreOffice and Excel versions before 2024, which cannot evaluate the functions
-Contains | No VBA, no macros, no add-in and no external link
-Licence | Apache License 2.0 from v3.5.0, covering the workbook, the formula source and the function index. v3.4.2 and earlier releases stay under MIT
-Author | Ryan Duguid. Built from scratch, with provenance recorded in the repository
-
-## Ten worked formulas
-
-Open an example for its arguments, formula, expected display and limits. These examples describe v3.5.0 and need Microsoft 365 or Excel 2024 or later. Enter them in the Ozzit workbook with space for any spilled result.
-
-All ten were evaluated in Excel 16.0 build 20527 on 19 October 2026 against the unchanged released workbook. Read the inputs and raw results. The check verifies these calculations, not an accounting treatment.
-
-### Extract GST from an inclusive amount
-
-oz.GSTExtractλ: Returns the GST contained in one or more GST-inclusive amounts.
-
-Signature: GSTExtractλ(Amounts, [Rate]). Square brackets mark optional arguments.
-
-```
-=oz.GSTExtractλ(1100)
-```
-
-Expected display: 100.00, displayed to two decimal places.
-
-Limits: Assumes the whole amount is taxable at 10%. The function returns an unrounded binary floating-point result. Use ROUND(...,2) where cent rounding is required; the reviewer decides the treatment.
-
-Link to this example · Released formula source
-
-### Add GST to an exclusive amount
-
-oz.GSTAddλ: Adds GST to one or more GST-exclusive amounts.
-
-Signature: GSTAddλ(Amounts, [Rate]). Square brackets mark optional arguments.
-
-```
-=oz.GSTAddλ(1000)
-```
-
-Expected display: 1,100.00, displayed to two decimal places.
-
-Limits: Assumes a wholly taxable amount and the default 10% rate. This does not classify a supply or establish a credit entitlement.
-
-Link to this example · Released formula source
-
-### Label an Australian financial year
-
-oz.FinancialYearλ: Labels dates with their Australian financial year, which starts on 1 July
-
-Signature: FinancialYearλ(Dates, [StartMonth]). Square brackets mark optional arguments.
-
-```
-=oz.FinancialYearλ(DATE(2026,8,15))
-```
-
-Expected display: FY2027.
-
-Limits: The default start month is July. Supply StartMonth for another year end; the function labels a date and does not determine a reporting obligation.
-
-Link to this example · Released formula source
-
-### Build a straight-line modelling schedule
-
-oz.PrimeCostλ: Straight-line depreciation schedule for one asset or asset class, in whole years. A modelling schedule, not a tax calculation.
-
-Signature: PrimeCostλ(Cost, Life). Square brackets mark optional arguments.
-
-```
-=oz.PrimeCostλ(1000,5)
-```
-
-Expected display: 200.00, 200.00, 200.00, 200.00 and 200.00; total 1,000.00.
-
-Limits: Cost and life are supplied assumptions. This is a modelling schedule, not an ATO Division 40 tax calculation.
-
-Link to this example · Released formula source
-
-### Build a diminishing-balance modelling schedule
-
-oz.DiminishingValueλ: Diminishing-balance depreciation schedule at 200% of the straight-line rate, writing the residual off in the final period. A modelling schedule, not a tax calculation.
-
-Signature: DiminishingValueλ(Cost, Life). Square brackets mark optional arguments.
-
-```
-=oz.DiminishingValueλ(1000,5)
-```
-
-Expected display: 400.00, 240.00, 144.00, 86.40 and 129.60; total 1,000.00.
-
-Limits: Uses 200% of the straight-line rate and writes off the remaining balance in the final year. It does not establish a tax deduction.
-
-Link to this example · Released formula source
-
-### Inspect the first month of a loan schedule
-
-oz.Amortiseλ: Creates a corkscrew amortisation schedule
-
-Signature: Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd]). Square brackets mark optional arguments.
-
-```
-=TAKE(oz.Amortiseλ(100000,0.05,60,DATE(2026,7,1)),,1)
-```
-
-Expected display: Debt issued 100,000.00; opening 100,000.00; interest 416.67; payment -1,887.12; closing 98,529.54; principal repaid 1,470.46. Each figure is displayed to two decimals.
-
-Limits: A 100,000 loan at 5% over 60 monthly payments. TAKE selects the first column of the six-row schedule. Remove TAKE to spill the full schedule; confirm the loan terms and timing separately.
-
-Link to this example · Released formula source
-
-### Discount three unpaid lease payments
-
-oz.LeaseLiabilityλ: Present value of the lease payments that are not paid at the commencement date
-
-Signature: LeaseLiabilityλ(Payments, Rate, [InAdvance]). Square brackets mark optional arguments.
-
-```
-=oz.LeaseLiabilityλ({100,100,100},0.05)
-```
-
-Expected display: 272.32, displayed to two decimal places.
-
-Limits: The 5% rate is per payment period and the payments are in arrears. The reviewer establishes the lease term, included payments and applicable discount rate.
-
-Link to this example · Released formula source
-
-### Convert an effective annual rate
-
-oz.PeriodRateλ: Converts an effective annual rate to the equivalent rate per period, the rate the lease functions take
-
-Signature: PeriodRateλ(AnnualRate, [PeriodsPerYear]). Square brackets mark optional arguments.
-
-```
-=oz.PeriodRateλ(0.05,12)
-```
-
-Expected display: Approximately 0.4074% per month.
-
-Limits: The input is a 5% effective annual rate. This conversion is not the same as dividing a nominal annual rate by 12.
-
-Link to this example · Released formula source
-
-### Calculate rates for dated periods
-
-oz.DayCountRateλ: Interest rate for each period of a timeline under a day count convention: 30/360, Actual/360, Actual/365 or Actual/Actual
-
-Signature: DayCountRateλ(Timeline, APR, [Convention], [EndDates]). Square brackets mark optional arguments.
-
-```
-=oz.DayCountRateλ(EDATE(DATE(2026,7,1),{0,1,2}),0.073)
-```
-
-Expected display: 0.0062, 0.0062 and 0.0060 for the three periods.
-
-Limits: The default is Actual/365. Supply the required convention and check how the final period is inferred; the function does not choose a contractual day count basis.
-
-Link to this example · Released formula source
-
-### Calculate an annual return from dated cash flows
-
-oz.IRRλ: Calculates IRR, correcting for when the first investment is not in the first period
-
-Signature: IRRλ( Values, Dates). Square brackets mark optional arguments.
-
-```
-=oz.IRRλ({-1000,1100},HSTACK(DATE(2026,7,1),DATE(2027,7,1)))
-```
-
-Expected display: 10.00%, displayed to two decimal places.
-
-Limits: One outflow of 1,000 followed by an inflow of 1,100 one year later. Other cash flow patterns may have multiple or no solutions; inspect the inputs and validate the result.
-
-Link to this example · Released formula source
-
-## All 148 named formulas
-
-Each module below lists the names its source file defines in the v3.5.0 workbook, with the released signature of each. Square brackets mark optional arguments. Each name links to its entry on a module page with its parameters, notes and worked examples: Dates, Essentials, Financial, Ratios, Utilities and Debt.
-
-Download the full v3.5.0 function index (CSV) for a one-line description of each, or read it on GitHub.
-
-### Ratios, 48 named formulas
-
-- oz.ATOBenchmarkRatioλ(Amount, Turnover)
-- oz.ATOCostOfSalesRatioλ(CostOfSales, Turnover, [IncludedWages])
-- oz.ATOLabourRatioλ(SalaryWages, Contractors, Turnover, [AssociatePayments], [W1])
-- oz.ATOTotalExpensesRatioλ(TotalExpenses, Turnover, [AssociatePayments])
-- oz.ATOTurnoverλ(OtherSales, TotalBusinessIncome)
-- oz.AboutRatiosλ
-- oz.AssetTurnoverRatioλ( NetSales, TotalAssets)
-- oz.BVPSλ( ShareholdersEquity, PreferredStock, AverageSharesOutstanding )
-- oz.CAPERatioλ( SharePrice, TenYearAverageEarningsInflationAdjusted )
-- oz.CashConversionCycleλ(InventoryDays, ReceivableDays, PayableDays, [WIPDays])
-- oz.CashFlowMarginλ( CashFlowFromOperatingActivities, Revenue)
-- oz.CashRatioλ( Cash, Liabilities)
-- oz.CurrentRatioλ( Assets, Liabilities)
-- oz.DPRλ( DividendsPaid, NetIncome )
-- oz.DSCRλ( NetOperatingIncome, TotalDebtService)
-- oz.DSIλ( AverageInventory, CostOfGoodsSold)
-- oz.DebtRatioλ( TotalDebt, TotalAssets)
-- oz.DebtToAssetRatioλ( TotalDebt, TotalAssets)
-- oz.DebtToCapitalRatioλ( Debt, ShareholdersEquity)
-- oz.DebtToEquityRatioλ( TotalLiabilities, ShareholdersEquity)
-- oz.DividendYieldRatioλ( AnnualDividendsPerShare, SharePrice)
-- oz.EBITDAMarginλ( EBITDA, TotalRevenue)
-- oz.EPSλ( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding)
-- oz.EquityMultiplierλ( TotalAssets, TotalShareholdersEquity)
-- oz.EquityRatioλ( ShareholdersEquity, TotalAssets, IntangibleAssets)
-- oz.GrossMarginλ( GrossProfit, NetSales)
-- oz.InterestCoverageRatioλ( OperatingIncome, InterestExpenses)
-- oz.InventoryTurnoverRatioλ( CostOfGoodsSold, AverageInventory)
-- oz.NetProfitMarginλ( NetIncome, Revenue)
-- oz.OperatingCashFlowRatioλ( OperatingCashFlow, Liabilities)
-- oz.OperatingMarginλ( OperatingEarnings, Revenue)
-- oz.OperatingRatioλ( OperatingExpenses, CostOfGoodsSold, NetSales)
-- oz.PayableDaysλ(Payables, Purchases, [Days])
-- oz.PretaxMarginλ( PretaxEarnings, Revenue)
-- oz.PriceEarningsRatioλ( SharePrice, EarningsPerShare)
-- oz.PriceToBookRatioλ( MarketPricePerShare, BookValuePerShare)
-- oz.PriceToCashRatioλ( MarketPricePerShare, OperatingCashFlowPerShare)
-- oz.PriceToSalesRatioλ( MarketPricePerShare, SalesPerShare)
-- oz.QuickRatioλ( QuickAssets, Liabilities)
-- oz.ROAλ( NetIncome, TotalAssets)
-- oz.ROEλ( NetIncome, ShareholdersEquity, [OpeningEquity])
-- oz.ROICλ( NetOperatingProfitAfterTax, InvestedCapital)
-- oz.ROIλ( NetReturnonInvestment, CostofInvestment)
-- oz.ReceivableDaysλ(Receivables, Sales, [Days])
-- oz.ReceivablesTurnoverRatioλ( NetCreditSales, AverageAccountsReceivable)
-- oz.RetentionRatioλ( RetainedEarnings, NetIncome )
-- oz.WIPDaysλ(WIP, RelatedFlow, [Days])
-- oz.WorkingCapitalTurnoverRatioλ( NetAnnualSales, WorkingCapital)
-
-Released Ratios source
-
-### Financial, 46 named formulas
-
-- oz.AboutFinancialλ
-- oz.Allocateλ(Amounts, [FromInterval], [ToInterval])
-- oz.Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd])
-- oz.AmortiseλDV
-- oz.AnnualRateλ(PeriodRate, [PeriodsPerYear])
-- oz.CorkScrewReversalλ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4])
-- oz.Corkscrewλ( Opening, Flow1, [Flow2], [Flow3], [Flow4])
-- oz.CorkscrewλDV
-- oz.Cumulativeλ( Totals, [OpeningBalance])
-- oz.DBλ(Cost, Salvage, Life, [Months])
-- oz.DDBλ(Cost, Salvage, Life, [Factor])
-- oz.DayCountRateλ(Timeline, APR, [Convention], [EndDates])
-- oz.Depreciateλ(InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors])
-- oz.DepreciateλDV
-- oz.DiminishingValueλ(Cost, Life)
-- oz.FilterContainsλ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] )
-- oz.GSTAddλ(Amounts, [Rate])
-- oz.GSTExtractλ(Amounts, [Rate])
-- oz.IRRλ( Values, Dates)
-- oz.IntOnIntλ( Principal, Rate)
-- oz.LabelAmortiseλ(LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms])
-- oz.LabelDepreciateλ( AssetNames)
-- oz.LeaseLiabilityλ(Payments, Rate, [InAdvance])
-- oz.LeaseRemeasureλ(RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance])
-- oz.LeaseScheduleλ(Payments, Rate, [InAdvance])
-- oz.Movementλ( [BeginningValues], Values)
-- oz.PeriodDiffλ(StartDate, EndDate, Interval)
-- oz.PeriodRateλ(AnnualRate, [PeriodsPerYear])
-- oz.PeriodStartλ(AnyPeriodStart, MonthsPerPeriod, DateOfInterest)
-- oz.PrimeCostλ(Cost, Life)
-- oz.ROUScheduleλ(Cost, Periods)
-- oz.RangeToDAλ( Cell, [Rows], [Columns])
-- oz.Reversalλ( [OpeningValue], RowToReverse)
-- oz.RollingAvgλ( Values, Size)
-- oz.RollingMaxλ( Values, Size)
-- oz.RollingMinλ( Values, Size)
-- oz.RollingSumλ( Values, Size)
-- oz.SLNλ(Cost, Salvage, Life)
-- oz.SYDλ(Cost, Salvage, Life)
-- oz.SumAmortiseλ(AmortisationSchedule)
-- oz.SumContainsλ(ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?])
-- oz.SumDepreciateλ(DepreciationSchedule)
-- oz.SumPeriodsλ( Values, Dates, PeriodStarts)
-- oz.TimelineOffsetλ(Date, Timeline)
-- oz.TimelinePositionλ(Array, Timeline, Offset)
-- oz.VDBλ(Cost, Salvage, Life, [Factor], [No_Switch])
-
-Released Financial source
-
-### Essentials, 17 named formulas
-
-- oz.AboutEssentialsλ
-- oz.AvgColsλ( Array)
-- oz.AvgRowsλ( Array)
-- oz.CountAColsλ( Array )
-- oz.CountARowsλ( Array)
-- oz.CountColsλ( Array)
-- oz.CountCλ( Text, Characters)
-- oz.CountRowsλ( Array)
-- oz.IsBetweenEλ( Value, Low, Hi, [Inclusive])
-- oz.IsInListλ( Value, List)
-- oz.MaxColsλ( Array)
-- oz.MaxRowsλ( Array)
-- oz.MinColsλ( Array)
-- oz.MinRowsλ( Array)
-- oz.RangeToDAEλ(Range, [Rows], [Columns])
-- oz.SumColsλ( Array)
-- oz.SumRowsλ( Array)
-
-Released Essentials source
-
-### Utilities, 17 named formulas
-
-- oz.AboutUtilitiesλ
-- oz.AvgColsUλ( Array)
-- oz.AvgRowsUλ( Array)
-- oz.CountAColsUλ( Array )
-- oz.CountARowsUλ( Array)
-- oz.CountCUλ( Text, Characters)
-- oz.CountColsUλ( Array)
-- oz.CountRowsUλ( Array)
-- oz.IsBetweenUλ( Value, Low, Hi, [Inclusive])
-- oz.IsInListUλ( Value, List)
-- oz.MaxColsUλ( Array)
-- oz.MaxRowsUλ( Array)
-- oz.MinColsUλ( Array)
-- oz.MinRowsUλ( Array)
-- oz.RangeToDAUλ(Range, [Rows], [Columns])
-- oz.SumColsUλ( Array)
-- oz.SumRowsUλ( Array)
-
-Released Utilities source
-
-### Dates, 15 named formulas
-
-- oz.AboutDatesλ
-- oz.CountDOWλ(Starts, Ends, DayOfWeek)
-- oz.DateDifλ(StartDate, EndDate, [Unit])
-- oz.FinancialYearλ(Dates, [StartMonth])
-- oz.IsBetweenλ(Values, Low, High, [Inclusive])
-- oz.IsOccurrenceDateλ(Dates, FirstOccurrence, [LastOccurrence], [Repeats])
-- oz.OverLapDaysλ(Period1Start, Period1End, Period2Start, Period2End)
-- oz.PeriodLabelλ(Date, [Interval])
-- oz.Periodsλ(Starts, Ends, [Intervals])
-- oz.RateAtDateλ(EffectiveDates, Rates, Dates)
-- oz.ScheduleRatesByItemsλ(PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList)
-- oz.ScheduleRatesλ(PeriodEnds, RateStarts, Rates)
-- oz.ScheduleValuesByItemsλ(PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList)
-- oz.ScheduleValuesλ(PeriodStarts, PeriodEnds, Values, EffectiveDates)
-- oz.Timelineλ(StartDate, Periods, Interval, PeriodStarts?)
-
-Released Dates source
-
-### Debt, 5 named formulas
-
-- oz.AmortiseBλ(Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod])
-- oz.DebtSculptFixedλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod])
-- oz.DebtSculptVariableLRVλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])
-- oz.DebtSculptVariableλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])
-- oz.InterestLRVλ(CFADS, DSCR, Principal, InterestRate)
-
-Released Debt source
-
-## One worked example
-
-Take $1,100 that is assumed to be wholly taxable and GST-inclusive at 10%. Enter this formula in a cell of the Ozzit workbook:
-
-```
-=oz.GSTExtractλ(1100)
-```
-
-The result is 100.00. Check: 1100 / 11 = 100.00.
-
-That is the whole of the function’s contribution: 10% arithmetic on an amount you supply.
-
-Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.
-
-The 19 October 2026 native Excel record evaluates this formula against the exact v3.5.0 release workbook. It returned 99.999999999999986 before display rounding. The file hash was unchanged after the check. The repository also retains its historical v3.2.0 screenshot record.
-
-## Download and use it
-
-Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.
-
-- Download the v3.5.0 workbook. The release page also publishes SHA256SUMS and a provenance record.
-- Check the file before you trust it: the v3.5.0 asset is 462,490 bytes with SHA-256 76d3722c785abd3813ffffffc5fbb2d6ab80628da10fb7f36cea7c67fd171330.
-- Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
-
-To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.5.0 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
-
-## Release verification
-
-Release v3.5.0 was built from a signed tag and gated before publication. On 19 October 2026, in Excel 16.0 build 20527:
-
-- 1,129 formulas recalculated with 0 in error.
-- 1,065 assertions ran with 0 failures: 741 written by hand, 23 of them randomised against independent formulas, and 324 generated from the workbook’s own help.
-- 19,446 cached values were confirmed to equal what their formulas produce.
-- The published formula source reproduced all 148 named formulas, and the workbook was byte-identical before and after the Excel checks.
-
-Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct.
-
-## Limits
-
-The functions calculate; a person decides the accounting treatment and signs off.
-
-- The GST helpers apply 10% unless you supply another rate. They do not classify a supply, test registration or prepare a BAS.
-- The ATO benchmark ratio helpers restate the ATO’s arithmetic for amounts you supply. They ship no benchmark ranges and do not read a tax return.
-- oz.PrimeCostλ and oz.DiminishingValueλ are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.
-- The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.
-- The library contains no individual income tax, Medicare levy, Division 7A interest or tax rate cards.
-- The 13-week cash flow, practice calculator and retention reconciliation workbooks in the repository’s templates folder are separate templates, not functions in this library.
-- Known defects are listed in the repository’s changelog and issues. Check a schedule against an independent calculation before relying on it.
-
-## Common questions
-
-### What is Ozzit?
-
-An Excel workbook containing 143 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Apache License 2.0. It has no add-in, macro or external dependency.
-
-### Which Excel versions can run it?
-
-Microsoft 365 or Excel 2024 or later, which support LAMBDA and dynamic arrays. LibreOffice and earlier Excel versions cannot evaluate the functions.
-
-### Does Ozzit calculate Australian tax?
-
-No. It performs 10% GST arithmetic and labels Australian financial years, and its depreciation and lease functions are modelling schedules rather than ATO or standard-setting methods. It contains no income tax, Medicare levy or Division 7A calculations.
-
-### Where do I get the current release?
-
-Release v3.5.0, published on 19 October 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use.
-
-## Related
-
-- Profit vs cash flow: an Australian Excel worked example
-- Browser calculators, nothing to install
-- Construction WIP schedule
-- All tools
-- Evidence and Assurance
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- v3.5.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0
-- Ozzit: https://github.com/ryanduguid/Ozzit/tree/main
-- Download Ozzit v3.5.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx
-- Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
-- Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example
-- Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.5.0.json
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract
-- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Financial.txt
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstadd
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-financialyear
-- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Dates.txt
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-primecost
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-diminishingvalue
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-amortise
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-leaseliability
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-periodrate
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-daycountrate
-- Link to this example: https://duguid.com.au/tools/ozzit/#fn-irr
-- Dates: https://duguid.com.au/tools/ozzit/functions/dates/
-- Essentials: https://duguid.com.au/tools/ozzit/functions/essentials/
-- Financial: https://duguid.com.au/tools/ozzit/functions/financial/
-- Ratios: https://duguid.com.au/tools/ozzit/functions/ratios/
-- Utilities: https://duguid.com.au/tools/ozzit/functions/utilities/
-- Debt: https://duguid.com.au/tools/ozzit/functions/debt/
-- Download the full v3.5.0 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.5.0.csv
-- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/functions.csv
-- oz.ATOBenchmarkRatio λ (Amount, Turnover): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atobenchmarkratio
-- oz.ATOCostOfSalesRatio λ (CostOfSales, Turnover, [IncludedWages]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atocostofsalesratio
-- oz.ATOLabourRatio λ (SalaryWages, Contractors, Turnover, [AssociatePayments], [W1]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atolabourratio
-- oz.ATOTotalExpensesRatio λ (TotalExpenses, Turnover, [AssociatePayments]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atototalexpensesratio
-- oz.ATOTurnover λ (OtherSales, TotalBusinessIncome): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atoturnover
-- oz.AboutRatios λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-aboutratios
-- oz.AssetTurnoverRatio λ ( NetSales, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-assetturnoverratio
-- oz.BVPS λ ( ShareholdersEquity, PreferredStock, AverageSharesOutstanding ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-bvps
-- oz.CAPERatio λ ( SharePrice, TenYearAverageEarningsInflationAdjusted ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-caperatio
-- oz.CashConversionCycle λ (InventoryDays, ReceivableDays, PayableDays, [WIPDays]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashconversioncycle
-- oz.CashFlowMargin λ ( CashFlowFromOperatingActivities, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashflowmargin
-- oz.CashRatio λ ( Cash, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashratio
-- oz.CurrentRatio λ ( Assets, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-currentratio
-- oz.DPR λ ( DividendsPaid, NetIncome ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dpr
-- oz.DSCR λ ( NetOperatingIncome, TotalDebtService): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dscr
-- oz.DSI λ ( AverageInventory, CostOfGoodsSold): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dsi
-- oz.DebtRatio λ ( TotalDebt, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debtratio
-- oz.DebtToAssetRatio λ ( TotalDebt, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoassetratio
-- oz.DebtToCapitalRatio λ ( Debt, ShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttocapitalratio
-- oz.DebtToEquityRatio λ ( TotalLiabilities, ShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoequityratio
-- oz.DividendYieldRatio λ ( AnnualDividendsPerShare, SharePrice): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dividendyieldratio
-- oz.EBITDAMargin λ ( EBITDA, TotalRevenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-ebitdamargin
-- oz.EPS λ ( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-eps
-- oz.EquityMultiplier λ ( TotalAssets, TotalShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equitymultiplier
-- oz.EquityRatio λ ( ShareholdersEquity, TotalAssets, IntangibleAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equityratio
-- oz.GrossMargin λ ( GrossProfit, NetSales): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-grossmargin
-- oz.InterestCoverageRatio λ ( OperatingIncome, InterestExpenses): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-interestcoverageratio
-- oz.InventoryTurnoverRatio λ ( CostOfGoodsSold, AverageInventory): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-inventoryturnoverratio
-- oz.NetProfitMargin λ ( NetIncome, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-netprofitmargin
-- oz.OperatingCashFlowRatio λ ( OperatingCashFlow, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingcashflowratio
-- oz.OperatingMargin λ ( OperatingEarnings, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingmargin
-- oz.OperatingRatio λ ( OperatingExpenses, CostOfGoodsSold, NetSales): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingratio
-- oz.PayableDays λ (Payables, Purchases, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-payabledays
-- oz.PretaxMargin λ ( PretaxEarnings, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pretaxmargin
-- oz.PriceEarningsRatio λ ( SharePrice, EarningsPerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-priceearningsratio
-- oz.PriceToBookRatio λ ( MarketPricePerShare, BookValuePerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetobookratio
-- oz.PriceToCashRatio λ ( MarketPricePerShare, OperatingCashFlowPerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetocashratio
-- oz.PriceToSalesRatio λ ( MarketPricePerShare, SalesPerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetosalesratio
-- oz.QuickRatio λ ( QuickAssets, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-quickratio
-- oz.ROA λ ( NetIncome, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roa
-- oz.ROE λ ( NetIncome, ShareholdersEquity, [OpeningEquity]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roe
-- oz.ROIC λ ( NetOperatingProfitAfterTax, InvestedCapital): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roic
-- oz.ROI λ ( NetReturnonInvestment, CostofInvestment): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roi
-- oz.ReceivableDays λ (Receivables, Sales, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivabledays
-- oz.ReceivablesTurnoverRatio λ ( NetCreditSales, AverageAccountsReceivable): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivablesturnoverratio
-- oz.RetentionRatio λ ( RetainedEarnings, NetIncome ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-retentionratio
-- oz.WIPDays λ (WIP, RelatedFlow, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-wipdays
-- oz.WorkingCapitalTurnoverRatio λ ( NetAnnualSales, WorkingCapital): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-workingcapitalturnoverratio
-- Released Ratios source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt
-- oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
-- oz.Allocate λ (Amounts, [FromInterval], [ToInterval]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-allocate
-- oz.Amortise λ ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortise
-- oz.Amortise λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortisedv
-- oz.AnnualRate λ (PeriodRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-annualrate
-- oz.CorkScrewReversal λ ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewreversal
-- oz.Corkscrew λ ( Opening, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew
-- oz.Corkscrew λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewdv
-- oz.Cumulative λ ( Totals, [OpeningBalance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-cumulative
-- oz.DB λ (Cost, Salvage, Life, [Months]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-db
-- oz.DDB λ (Cost, Salvage, Life, [Factor]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-ddb
-- oz.DayCountRate λ (Timeline, APR, [Convention], [EndDates]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-daycountrate
-- oz.Depreciate λ (InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciate
-- oz.Depreciate λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciatedv
-- oz.DiminishingValue λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-diminishingvalue
-- oz.FilterContains λ ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] ): https://duguid.com.au/tools/ozzit/functions/financial/#oz-filtercontains
-- oz.GSTAdd λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstadd
-- oz.GSTExtract λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstextract
-- oz.IRR λ ( Values, Dates): https://duguid.com.au/tools/ozzit/functions/financial/#oz-irr
-- oz.IntOnInt λ ( Principal, Rate): https://duguid.com.au/tools/ozzit/functions/financial/#oz-intonint
-- oz.LabelAmortise λ (LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labelamortise
-- oz.LabelDepreciate λ ( AssetNames): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labeldepreciate
-- oz.LeaseLiability λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseliability
-- oz.LeaseRemeasure λ (RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseremeasure
-- oz.LeaseSchedule λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseschedule
-- oz.Movement λ ( [BeginningValues], Values): https://duguid.com.au/tools/ozzit/functions/financial/#oz-movement
-- oz.PeriodDiff λ (StartDate, EndDate, Interval): https://duguid.com.au/tools/ozzit/functions/financial/#oz-perioddiff
-- oz.PeriodRate λ (AnnualRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodrate
-- oz.PeriodStart λ (AnyPeriodStart, MonthsPerPeriod, DateOfInterest): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodstart
-- oz.PrimeCost λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-primecost
-- oz.ROUSchedule λ (Cost, Periods): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rouschedule
-- oz.RangeToDA λ ( Cell, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rangetoda
-- oz.Reversal λ ( [OpeningValue], RowToReverse): https://duguid.com.au/tools/ozzit/functions/financial/#oz-reversal
-- oz.RollingAvg λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingavg
-- oz.RollingMax λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmax
-- oz.RollingMin λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmin
-- oz.RollingSum λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingsum
-- oz.SLN λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sln
-- oz.SYD λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-syd
-- oz.SumAmortise λ (AmortisationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumamortise
-- oz.SumContains λ (ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumcontains
-- oz.SumDepreciate λ (DepreciationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumdepreciate
-- oz.SumPeriods λ ( Values, Dates, PeriodStarts): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumperiods
-- oz.TimelineOffset λ (Date, Timeline): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineoffset
-- oz.TimelinePosition λ (Array, Timeline, Offset): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineposition
-- oz.VDB λ (Cost, Salvage, Life, [Factor], [No_Switch]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-vdb
-- oz.AboutEssentials λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-aboutessentials
-- oz.AvgCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgcols
-- oz.AvgRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgrows
-- oz.CountACols λ ( Array ): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countacols
-- oz.CountARows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countarows
-- oz.CountCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countcols
-- oz.CountC λ ( Text, Characters): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countc
-- oz.CountRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countrows
-- oz.IsBetweenE λ ( Value, Low, Hi, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isbetweene
-- oz.IsInList λ ( Value, List): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isinlist
-- oz.MaxCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxcols
-- oz.MaxRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxrows
-- oz.MinCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-mincols
-- oz.MinRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-minrows
-- oz.RangeToDAE λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-rangetodae
-- oz.SumCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumcols
-- oz.SumRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumrows
-- Released Essentials source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Essentials.txt
-- oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
-- oz.AvgColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgcolsu
-- oz.AvgRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgrowsu
-- oz.CountAColsU λ ( Array ): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countacolsu
-- oz.CountARowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countarowsu
-- oz.CountCU λ ( Text, Characters): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcu
-- oz.CountColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcolsu
-- oz.CountRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countrowsu
-- oz.IsBetweenU λ ( Value, Low, Hi, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isbetweenu
-- oz.IsInListU λ ( Value, List): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isinlistu
-- oz.MaxColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxcolsu
-- oz.MaxRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxrowsu
-- oz.MinColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-mincolsu
-- oz.MinRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-minrowsu
-- oz.RangeToDAU λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-rangetodau
-- oz.SumColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumcolsu
-- oz.SumRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumrowsu
-- Released Utilities source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Utilities.txt
-- oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
-- oz.CountDOW λ (Starts, Ends, DayOfWeek): https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
-- oz.DateDif λ (StartDate, EndDate, [Unit]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
-- oz.FinancialYear λ (Dates, [StartMonth]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialyear
-- oz.IsBetween λ (Values, Low, High, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isbetween
-- oz.IsOccurrenceDate λ (Dates, FirstOccurrence, [LastOccurrence], [Repeats]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isoccurrencedate
-- oz.OverLapDays λ (Period1Start, Period1End, Period2Start, Period2End): https://duguid.com.au/tools/ozzit/functions/dates/#oz-overlapdays
-- oz.PeriodLabel λ (Date, [Interval]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periodlabel
-- oz.Periods λ (Starts, Ends, [Intervals]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periods
-- oz.RateAtDate λ (EffectiveDates, Rates, Dates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-rateatdate
-- oz.ScheduleRatesByItems λ (PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-scheduleratesbyitems
-- oz.ScheduleRates λ (PeriodEnds, RateStarts, Rates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulerates
-- oz.ScheduleValuesByItems λ (PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevaluesbyitems
-- oz.ScheduleValues λ (PeriodStarts, PeriodEnds, Values, EffectiveDates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevalues
-- oz.Timeline λ (StartDate, Periods, Interval, PeriodStarts?): https://duguid.com.au/tools/ozzit/functions/dates/#oz-timeline
-- oz.AmortiseB λ (Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-amortiseb
-- oz.DebtSculptFixed λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptfixed
-- oz.DebtSculptVariableLRV λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariablelrv
-- oz.DebtSculptVariable λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariable
-- oz.InterestLRV λ (CFADS, DSCR, Principal, InterestRate): https://duguid.com.au/tools/ozzit/functions/debt/#oz-interestlrv
-- Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Debt.txt
-- historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/docs/native-gst-capture.md
-- Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
-- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/docs/workbook-use.md
-- the v3.5.0 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/CITATION.cff
-- Profit vs cash flow: an Australian Excel worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Browser calculators, nothing to install: https://duguid.com.au/tools/business-calculators/
-- Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
-- All tools: https://duguid.com.au/tools/
-- Evidence and Assurance: https://duguid.com.au/evidence/

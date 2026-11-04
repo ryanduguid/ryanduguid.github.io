@@ -53,11 +53,25 @@
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li><a href="/tools/business-calculators/">Business calculators</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        <p class="page-meta">Published 20 September 2026. Last reviewed 27 September 2026.</p>
+        <p class="page-meta">Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.</p></noscript>
 {% include calculators/{{ page.calculator }}.html %}
+{% assign boundary = site.data.calculator_cases[page.calculator] %}
+        <section aria-labelledby="boundary-cases">
+          <h2 id="boundary-cases">Boundary cases</h2>
+          <p>Each row is a test: <code>scripts/business-calculators.test.mjs</code> runs this calculator on these fictional inputs and fails if the result differs from the one shown.</p>
+          <div class="table-scroll" role="region" aria-label="Boundary cases: {{ page.heading }}" tabindex="0">
+            <table class="facts">
+              <caption>Boundary cases: {{ page.heading }}</caption>
+              <thead><tr><th scope="col">Case</th><th scope="col">Inputs</th><th scope="col">Result</th></tr></thead>
+              <tbody>
+{% for row in boundary.rows %}                <tr><th scope="row">{{ row.case }}</th><td>{{ row.input }}</td><td>{{ row.output }}</td></tr>
+{% endfor %}              </tbody>
+            </table>
+          </div>
+        </section>
         <p>One of the <a href="/tools/business-calculators/">nine business calculators</a>. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.{% if page.calculator == "cash" %} Use Save inputs to download a local scenario file, then Load inputs to resume it.{% endif %}</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up{% if page.calculator == "hourly" %}; the required hourly rate rounds up to the next cent{% endif %}{% if page.calculator == "margin" or page.calculator == "variance" %}; percentages round to two decimal places, with exact halves rounded away from zero{% endif %}.</p>
       <p class="byline">
@@ -78,7 +92,7 @@
       "description": "{{ page.description }}",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-20",
-      "dateModified": "2026-09-27",
+      "dateModified": "2026-11-05",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
