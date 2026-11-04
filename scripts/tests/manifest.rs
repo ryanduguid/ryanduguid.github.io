@@ -1,6 +1,6 @@
 //! build_agent_skills_manifest --check and pin_rates_dataset: the committed manifest
-//! passes, a broken one reports each finding as the Python script does, and the pin
-//! command keeps its usage contract.
+//! passes and is an Agent Skills Discovery v0.2.0 index, a broken one reports each
+//! finding as the Python script does, and the pin command keeps its usage contract.
 use site_tools::pyjson::{self, Dump, Json};
 use std::path::Path;
 use std::process::Command;
@@ -48,6 +48,30 @@ fn committed_manifest_passes() {
     let (code, stdout, _) = run(repository(), &["build_agent_skills_manifest", "--check"]);
     assert_eq!(code, Some(0), "{stdout}");
     assert_eq!(stdout, "agent-skills manifest: checks passed\n");
+}
+
+/// Agent Skills Discovery v0.2.0 (github.com/cloudflare/agent-skills-discovery-rfc):
+/// a top-level `$schema` and `skills`, and on every entry `name`, `type`, `description`,
+/// `url` and `digest`. Every entry here is a single SKILL.md, so its type is `skill-md`.
+#[test]
+fn committed_manifest_is_a_discovery_v0_2_0_index() {
+    let text = std::fs::read_to_string(repository().join(MANIFEST)).unwrap();
+    let index: serde_json::Value = serde_json::from_str(&text).unwrap();
+    assert_eq!(
+        index["$schema"],
+        "https://schemas.agentskills.io/discovery/0.2.0/schema.json"
+    );
+    let skills = index["skills"].as_array().expect("skills is a list");
+    assert!(!skills.is_empty());
+    for skill in skills {
+        for field in ["name", "type", "description", "url", "digest"] {
+            assert!(
+                skill[field].as_str().is_some_and(|value| !value.is_empty()),
+                "{field} missing from {skill}"
+            );
+        }
+        assert_eq!(skill["type"], "skill-md", "{}", skill["name"]);
+    }
 }
 
 #[test]

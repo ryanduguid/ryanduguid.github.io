@@ -17,6 +17,10 @@ const REPOSITORY: &str = "ryanduguid/australian-accounting-skills";
 const RELEASE: &str = "v0.4.0";
 const SKILLS_DIR: &str = ".claude/skills";
 const FORMAT: &str = "duguid.com.au/agent-skills-index/1";
+/// The `$schema` identifier of Agent Skills Discovery v0.2.0
+/// (github.com/cloudflare/agent-skills-discovery-rfc), whose clients must ignore the
+/// fields it does not define.
+const DISCOVERY_SCHEMA: &str = "https://schemas.agentskills.io/discovery/0.2.0/schema.json";
 const NAME_PATTERN: &str = r"^[a-z0-9]+(?:-[a-z0-9]+)*$";
 const DIGEST_PATTERN: &str = r"^sha256:[0-9a-f]{64}$";
 const COMMIT_PATTERN: &str = r"^[0-9a-f]{40}$";
@@ -286,6 +290,7 @@ fn build() -> Result<Json> {
         }
         skills.push(Json::Object(vec![
             ("name".into(), Json::Str(name.clone())),
+            ("type".into(), Json::str_obj("skill-md")),
             (
                 "description".into(),
                 Json::Str(frontmatter_field(&text, "description")?),
@@ -299,6 +304,7 @@ fn build() -> Result<Json> {
     }
     let s = Json::str_obj;
     Ok(Json::Object(vec![
+        ("$schema".into(), s(DISCOVERY_SCHEMA)),
         ("format".into(), s(FORMAT)),
         ("generated".into(), Json::Str(py::Date::today().isoformat())),
         (
