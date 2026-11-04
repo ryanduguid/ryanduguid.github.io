@@ -1046,9 +1046,9 @@ fn public_contracts_homepage_and_metadata_mutations() {
         ),
         (
             "social-card context",
-            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-site-20261104.png\" />",
-            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-tools-20261104.png\" />",
-            "og:image is 'https://duguid.com.au/assets/social-card-tools-20261104.png'",
+            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-site-20261104b.png\" />",
+            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-tools-20261104b.png\" />",
+            "og:image is 'https://duguid.com.au/assets/social-card-tools-20261104b.png'",
         ),
         (
             "referrer policy",
@@ -1332,7 +1332,7 @@ fn public_contracts_structure_and_assets() {
         "tools/index.html: ItemList count does not match visible entries",
     );
 
-    let card = "assets/social-card-site-20261104.png";
+    let card = "assets/social-card-site-20261104b.png";
     let site = copied_site();
     let path = site.path().join(card);
     let mut bytes = std::fs::read(&path).unwrap();

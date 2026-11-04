@@ -56,9 +56,17 @@ where something needs action. Its rules:
 - Reader copy writes 'fictional' for invented data. IDs, anchors, fixture names
   and code keep 'synthetic' or 'fabricated', so `#synthetic-worked-example`
   and `#fabricated-inputs` still resolve. `check_fictional_wording` enforces
-  this, including the social-card alt text, now that the `-20261104` set's
-  evaluations card reads 'Fictional inputs'. The other 4 cards render byte
-  for byte as before.
+  this, including the social-card alt text, now that the evaluations card
+  reads 'Fictional inputs'.
+- The 5 social cards (the `-20261104b` set) match the social previews of
+  Ryan's GitHub repositories: a double dark gold (`#9B7735`) frame whose
+  tabs carry the page address and Ryan Duguid between crimson brackets, the
+  laptop emblem of the README banner, the context label in `#DADADA`, a gold
+  rule, and the ivory Besley heading after a gold `>` prompt and before a
+  gold block cursor. The emblem keeps the banner's colours, so dark gold and
+  platinum (`#E5E4E2`) join the card palette. Ryan approved dark gold on
+  4 November 2026 because it is in his diagram palette, where it draws
+  subgraph frames (5.08:1 on black); it stays off the pages.
 - The cash case's captions and plotted-value note write negative amounts
   in parentheses, as the chart labels do: '($25,160)'. Tables and
   calculator results keep the minus sign.
@@ -201,9 +209,9 @@ label are `#DADADA`. Increased-contrast and print styles retain their overrides.
 Printers drop background colours, so print maps the page's ink tokens, mid ink,
 masthead and code ink included, to black on white, and a test holds every
 visible text colour on every page to 4.5:1 against white paper.
-The favicon seal and the social-card template draw lines in gold (`#FFD32A`)
-and social-card text in ivory, so their rasters are re-rendered whenever those
-values change.
+The favicon seal and the social-card template draw lines in gold (`#FFD32A`),
+the social-card frame in dark gold (`#9B7735`) and social-card text in ivory,
+so their rasters are re-rendered whenever those values change.
 
 ## Typography and licence
 
