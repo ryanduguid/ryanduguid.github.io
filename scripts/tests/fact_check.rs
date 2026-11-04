@@ -270,6 +270,34 @@ fn measure_csv_matches_visible_tables() {
         assert!(field(record, "status_source_url").starts_with("https://www.ato.gov.au/"));
         assert!(!field(record, "review_scope").is_empty());
         assert!(!field(record, "application_note").is_empty());
+
+        // A pending row shows its stage; the CSV dates the stage and links its source.
+        let stage = field(record, "bill_stage");
+        let stage_date = field(record, "stage_date");
+        let stage_url = field(record, "stage_source_url");
+        if cells.len() < 5 {
+            assert!(stage.is_empty() && stage_date.is_empty() && stage_url.is_empty());
+            continue;
+        }
+        assert_eq!(cells[4], stage);
+        assert!(!stage.is_empty() && stage_url.starts_with("https://"));
+        if status == "ATO-reported bill" {
+            assert!(stage_url.starts_with(
+                "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation/Bills_Search_Results/Result?bId="
+            ));
+        }
+        let shown = re(r"\d{1,2} [A-Z][a-z]+ \d{4}", 0)
+            .search(stage)
+            .and_then(|m| site_tools::pytime::strptime_day_month_year(&m[0]));
+        if stage_date.is_empty() {
+            assert!(shown.is_none(), "{stage}");
+        } else {
+            let date = site_tools::py::Date::fromisoformat(stage_date).unwrap();
+            assert_eq!(shown, Some(date), "{stage}");
+            assert!(
+                date <= site_tools::py::Date::fromisoformat(field(record, "checked_at")).unwrap()
+            );
+        }
     }
     let count = |status: &str| {
         records
@@ -283,6 +311,7 @@ fn measure_csv_matches_visible_tables() {
     assert!(summary.contains(&format!("{} as TBD", count("TBD"))));
     assert_eq!(count("Various"), 1);
     assert!(summary.contains("one as Various"));
+    assert!(summary.contains(&format!("a bill for {}", count("ATO-reported bill"))));
     let sizes: Vec<usize> = re(r"<table\b.*?</table>", S)
         .findall(&html)
         .iter()
@@ -827,6 +856,10 @@ fn rates_hub_queries_type_every_csv_column() {
         let url = &urls[0];
         let header = pycsv::reader(&read(url)).unwrap().remove(0);
         assert_eq!(re(r#"\{"(\w+)", "#, 0).findall(block), header, "{url}");
+        // Csv.Document loads every column unless a Columns option caps or renames them.
+        for columns in re(r"\bColumns\s*=\s*([^,\]]*)", 0).findall(block) {
+            assert_eq!(columns.trim(), header.len().to_string(), "{url}");
+        }
         queried.push(url.clone());
     }
     queried.sort();
