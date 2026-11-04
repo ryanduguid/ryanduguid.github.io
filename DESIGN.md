@@ -516,18 +516,38 @@ evidence. It does not mean keyword stuffing or a Google ranking campaign.
 - ordinary crawlability remains available to people, search systems and answer
   systems
 - search and user-retrieval crawlers remain allowed, including Google-Extended
-- Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot and Applebot-Extended are
-  allowed for training crawl. Amazonbot, cohere-ai, Diffbot, FacebookBot and
-  meta-externalagent remain blocked
+- every named crawler is allowed, training crawlers included: Common Crawl
+  (CCBot), Bytespider, GPTBot, ClaudeBot, Applebot-Extended, Amazonbot,
+  cohere-ai, Diffbot, FacebookBot and meta-externalagent
 - `llms.txt` is the canonical machine index; `.well-known/llms.txt` is an
   identical generated copy. The existing build script maintains that copy and
   `llms-full.txt`. The XML sitemap contains indexable HTML only
 - `llms.txt`, JSON-LD, rates, disclaimers and refusal boundaries remain the
   factual source of truth
+- every page's document node names the canonical Person as author and
+  publisher, with its published and modified dates, and every visible
+  breadcrumb has one matching `BreadcrumbList`
+- a tool's software node links the LICENSE file at its current release tag,
+  because a release keeps the licence it shipped under; repository nodes
+  without a version link the default branch's LICENSE. No node names a licence
+  by SPDX URL
+- each rate table's `Dataset` is free to access and belongs to the Rates
+  `DataCatalog`; each calculator page carries a free `WebApplication`
 
 The 11 September 2026 crawl-policy change authorises these crawler rules,
 machine-index copies, and static source and definition improvements. It keeps
 rate values, CSVs, engine behaviour, and release source-review dates intact.
+
+On 4 November 2026 Ryan asked for the site to be 'as optimised for GEO as much
+as practically possible'. That pass opens the 5 crawlers that were blocked,
+which Meta, Amazon, Cohere and Diffbot document as follows on that date:
+Amazonbot may train Amazon models; meta-externalagent may train foundation
+models; Cohere says it runs no crawler at present; Diffbot says its crawler
+serves search and its Knowledge Graph, not AI training; and Meta's crawler page
+no longer lists FacebookBot. It also completes the structured data above
+without changing visible page dates, except Privacy, whose crawler summary
+changed. `tests/browser/geo-metadata.spec.mjs` holds every indexable page to
+these rules.
 Page review dates record editorial review, not renewed legal certification.
 
 The 11 September 2026 capability pass records MCP 0.2.0's bounded worksheets

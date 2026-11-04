@@ -15,6 +15,13 @@
     <summary>The Works with Xero guide now names Xero’s hosted Developer Remote MCP Server, which lets an AI agent read and write accounting data without asking the user to confirm, and Xero’s read-only connector in Claude, with the scopes, gaps and plan access Xero’s pages gave on 4 November 2026. It also gives the free Starter developer plan’s limit of 5 organisations at 1,000 API calls a day each and Xero’s exemption for practice integrations. The trial balance exporter is unchanged.</summary>
   </entry>
   <entry>
+    <title>robots.txt now allows every crawler it names, so Amazonbot, cohere-ai, Diffbot…</title>
+    <link href="https://duguid.com.au/changelog/#entry-cb4989ed778d344c" />
+    <id>https://duguid.com.au/changelog/#entry-cb4989ed778d344c</id>
+    <updated>2026-11-04T00:00:00Z</updated>
+    <summary>robots.txt now allows every crawler it names, so Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent may crawl the site as GPTBot, ClaudeBot and Applebot-Extended already could; the Privacy page and llms.txt say so. In the structured data, each tool links the LICENSE file of its current release, every page names its author and publisher and matches its visible breadcrumb, the rate tables belong to a Rates data catalogue and each calculator is described as a free web application. Apart from the Privacy crawler summary no visible text changed, and no rate, calculation or release changed.</summary>
+  </entry>
+  <entry>
     <title>The homepage now offers 3 routes, to check a pack or calculate, answer a tax or…</title>
     <link href="https://duguid.com.au/changelog/#entry-73d5a62d65d184da" />
     <id>https://duguid.com.au/changelog/#entry-73d5a62d65d184da</id>
