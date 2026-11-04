@@ -4,8 +4,8 @@ mod common;
 use serde_json::{Value, json};
 use site_tools::ato_sources::{
     Change, Entry, Findings, Move, Moved, Options, Page, QUESTIONS, Quiet, Sources, WATCHED,
-    answers_to_recheck, baseline_file, classify, collect_sources, collect_values, exit_code,
-    extract_urls, follow_redirects, get_unfollowed, is_iso_date, last_updated, line_diff,
+    answers_to_recheck, baseline_file, classify, collect_sources, collect_values, dead_confirmed,
+    dead_marker, exit_code, extract_urls, follow_redirects, get_unfollowed, is_iso_date, last_updated, line_diff,
     parse_args, read_pages, read_pdf, render_issue, render_report, same_url, save_results,
     sort_moves, tidy,
 };
@@ -1616,7 +1616,8 @@ fn a_redirect_is_read_without_following_it() {
 }
 
 /// A stand-in for `nodriver batch`: every URL in the list is read with the text in
-/// `$PAGE_TEXT`, a fixed page otherwise, and its arguments go to `$ARGS_FILE` when set.
+/// `$PAGE_TEXT`, a fixed page otherwise, at status `$PAGE_STATUS`, 200 otherwise, and its
+/// arguments go to `$ARGS_FILE` when set.
 #[cfg(unix)]
 const FAKE_NODRIVER: &str = r#"#!/bin/sh
 list="$3"; out="$5"; mkdir -p "$out"; i=0; sep=''
@@ -1625,7 +1626,7 @@ printf '[' > "$out/index.json"
 while IFS= read -r url || [ -n "$url" ]; do
   i=$((i + 1))
   printf '%s' "${PAGE_TEXT-A fixed page, long enough to count as the text of a page.}" > "$out/$i.txt"
-  printf '%s{"url": "%s", "status": 200, "final_url": "%s", "truncated": false, "file": "%s.txt"}' "$sep" "$url" "$url" "$i" >> "$out/index.json"
+  printf '%s{"url": "%s", "status": %s, "final_url": "%s", "truncated": false, "file": "%s.txt"}' "$sep" "$url" "${PAGE_STATUS-200}" "$url" "$i" >> "$out/index.json"
   sep=','
 done < "$list"
 printf ']' >> "$out/index.json"
@@ -1670,6 +1671,77 @@ fn a_batch_is_read_from_the_index_nodriver_writes() {
         failing,
         "nodriver batch wrote no index (exit 3); see its output above"
     );
+}
+
+#[test]
+fn a_dead_read_needs_one_at_least_three_days_old_to_agree() {
+    assert!(!dead_confirmed("2026-11-05", "2026-11-05"));
+    assert!(!dead_confirmed("2026-11-03\n", "2026-11-05"));
+    assert!(dead_confirmed("2026-11-02", "2026-11-05"));
+    assert!(dead_confirmed("2026-10-31", "2026-11-05"));
+    assert!(dead_confirmed("not a date", "2026-11-05"));
+}
+
+#[cfg(unix)]
+#[test]
+fn a_dead_link_fails_a_sweep_only_when_a_later_read_agrees() {
+    let bin = fake_nodriver(site_tools::ato_sources::NODRIVER[0]);
+    let root = tempfile::tempdir().unwrap();
+    let site = root.path().join("site");
+    write(
+        &site.join("rates/index.html"),
+        &format!(r#"<a href="{PAGE}">GIC</a>"#),
+    );
+    let (baseline, out, issue) = (
+        root.path().join("baseline"),
+        root.path().join("out"),
+        root.path().join("issue.md"),
+    );
+    let path = format!("{}:/usr/bin:/bin", bin.path().display());
+    let marker = baseline.join(dead_marker(PAGE));
+    let run = |status: &str| {
+        Command::new(env!("CARGO_BIN_EXE_site-tools"))
+            .args(["check_ato_sources", "--baseline"])
+            .arg(&baseline)
+            .arg("--out")
+            .arg(&out)
+            .arg("--issue")
+            .arg(&issue)
+            .arg(&site)
+            .env("PATH", &path)
+            .env("PAGE_TEXT", TEXT)
+            .env("PAGE_STATUS", status)
+            .output()
+            .unwrap()
+    };
+    assert_eq!(run("200").status.code(), Some(0));
+
+    // The first dead read is noted and held, with its date on file.
+    let first = run("404");
+    assert_eq!(first.status.code(), Some(0));
+    let today = std::fs::read_to_string(&marker).unwrap();
+    assert!(String::from_utf8_lossy(&first.stdout).contains(&format!(
+        "{PAGE} read as dead on {today}; held until a read at least 3 days later agrees"
+    )));
+    let body = std::fs::read_to_string(&issue).unwrap();
+    assert!(body.contains("0 returned HTTP 404 or 410 (dead links)"), "{body}");
+
+    // A read within the hold changes nothing, and the first date stays.
+    let today = site_tools::py::Date::fromisoformat(&today).unwrap();
+    let days_ago = |days| today.add_days(-days).unwrap().isoformat();
+    std::fs::write(&marker, days_ago(2)).unwrap();
+    assert_eq!(run("410").status.code(), Some(0));
+    assert_eq!(std::fs::read_to_string(&marker).unwrap(), days_ago(2));
+
+    // A read 3 days after the first agrees, so the link fails the run from then on.
+    std::fs::write(&marker, days_ago(3)).unwrap();
+    let confirmed = run("404");
+    assert_eq!(confirmed.status.code(), Some(2));
+    assert!(String::from_utf8_lossy(&confirmed.stderr).contains(&format!("{PAGE}: HTTP 404\n")));
+
+    // A page that reads again clears its hold.
+    assert_eq!(run("200").status.code(), Some(0));
+    assert!(!marker.exists());
 }
 
 #[cfg(unix)]
