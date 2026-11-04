@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/release_record.py: check the site's release claims against one reviewed record.
 //!
 //! `scripts/release_record.json` states what a page can mean by a version: the release a

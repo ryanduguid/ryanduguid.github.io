@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // Filters the Tools register by keyword and delivery. Without JavaScript the
 // form stays hidden and every tool shows.
 const form = document.querySelector('#tool-filter');

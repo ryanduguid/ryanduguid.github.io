@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/test_check_links.py: deterministic transport tests for the link checker.
 use site_tools::check_links::{
     Checker, Clock, NetError, Opened, Opener, github_blob_raw_url, is_accepted_automation_denial,

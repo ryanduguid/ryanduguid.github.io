@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // Lists every flaky test in the GitHub job summary. failOnFlakyTests turns a
 // run red when a test passes only on retry, and until now finding which test
 // meant downloading the browser evidence. Outside Actions it writes nothing.

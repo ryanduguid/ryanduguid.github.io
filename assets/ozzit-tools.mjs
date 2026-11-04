@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 // WebMCP: offer the Ozzit function reference to the browser's agent on the module pages.
 // The draft spec puts modelContext on document; early Chrome builds used navigator.
 // Other browsers skip the import, and a failure leaves the page untouched.

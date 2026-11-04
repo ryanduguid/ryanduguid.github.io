@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 import { chromium, expect, test } from '@playwright/test';
 
 test('Chromium gets one feature list, with Windows port randomisation off', async ({ browserName }, testInfo) => {

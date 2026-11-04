@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 pub mod agent_files;
 pub mod agent_skills;
 pub mod ato_sources;

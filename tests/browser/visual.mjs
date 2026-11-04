@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 const visualFonts = [
   '400 16px "Public Sans"',
   '600 16px "Public Sans"',

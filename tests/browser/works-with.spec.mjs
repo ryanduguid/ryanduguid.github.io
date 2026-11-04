@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 import { expect, test } from '@playwright/test';
 
 test('software guides reflow and access tables can scroll at narrow widths', async ({ page }) => {

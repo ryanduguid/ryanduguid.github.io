@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 import { expect, test } from '@playwright/test';
 
 // 20 October 2026 at 09:00 in Canberra: the 2026-27 income year and the FBT

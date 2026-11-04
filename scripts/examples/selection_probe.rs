@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! CI-selection probe for the Hub harness: each stdin line is a JSON case, one of
 //! `{"paragraph": source}`, `{"skip": [event, paths, diff]}` or `{"metadata": [event, paths]}`,
 //! and each output line the function's JSON result.

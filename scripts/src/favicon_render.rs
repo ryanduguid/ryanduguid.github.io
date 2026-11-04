@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/favicon_render.py: render the register seal into the site's raster favicons.
 //!
 //! The seal is read from assets/favicon.svg at whole-pixel coordinates; the 180px

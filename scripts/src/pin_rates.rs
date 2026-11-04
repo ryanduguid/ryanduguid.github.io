@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/pin_rates_dataset.py: write scripts/rates_dataset_extract.json from a checkout
 //! of ryanduguid/australian-accounting.
 //!

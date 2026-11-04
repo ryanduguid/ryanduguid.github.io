@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/test_build_site.py: the rendered site and preview against a small Jekyll fixture.
 mod common;
 
