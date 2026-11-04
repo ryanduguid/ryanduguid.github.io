@@ -589,7 +589,7 @@ pub fn baseline_file(url: &str) -> String {
         .into_owned();
     let slug = slug.strip_prefix('-').unwrap_or(&slug);
     let slug = node::slice(slug.strip_suffix('-').unwrap_or(slug), 60);
-    let digest: String = Sha1::digest(url.as_bytes())[..4]
+    let digest: String = Sha1::digest(url.as_bytes())[..4] // NOSONAR: SHA-1 only names baseline files, as the Node script did; not a security use
         .iter()
         .map(|b| format!("{b:02x}"))
         .collect();
