@@ -83,32 +83,33 @@ pub fn locale_compare(a: &str, b: &str) -> Ordering {
 }
 
 /// `a.localeCompare(b, 'en', { numeric: true })`: as [`locale_compare`], with each run of
-/// digits compared as one number.
+/// digits compared as one number. ICU drops leading zeroes at every level, so 'v1.01.0'
+/// equals 'v1.1.0'.
 pub fn numeric_compare(a: &str, b: &str) -> Ordering {
-    fn primaries(s: &str) -> Vec<(u32, usize, &str)> {
-        let mut keys = Vec::new();
+    // Each key's primary weight, a digit run's being its number, and whether it is an
+    // upper-case letter.
+    fn keys(s: &str) -> (Vec<(u32, usize, &str)>, Vec<bool>) {
+        let (mut primaries, mut cases) = (Vec::new(), Vec::new());
         let mut rest = s;
         while let Some(c) = rest.chars().next() {
             let digits = rest.len() - rest.trim_start_matches(|d: char| d.is_ascii_digit()).len();
             if digits > 0 {
                 let number = rest[..digits].trim_start_matches('0');
-                keys.push((primary('0'), number.len(), number));
+                primaries.push((primary('0'), number.len(), number));
+                cases.push(false);
                 rest = &rest[digits..];
             } else {
-                keys.push((primary(c), 0, ""));
+                primaries.push((primary(c), 0, ""));
+                cases.push(c.is_ascii_uppercase());
                 rest = &rest[c.len_utf8()..];
             }
         }
-        keys
+        (primaries, cases)
     }
-    let cases = |s: &str| {
-        s.chars()
-            .map(|c| c.is_ascii_uppercase())
-            .collect::<Vec<_>>()
-    };
-    primaries(a)
-        .cmp(&primaries(b))
-        .then_with(|| cases(a).cmp(&cases(b)))
+    let ((a_primaries, a_cases), (b_primaries, b_cases)) = (keys(a), keys(b));
+    a_primaries
+        .cmp(&b_primaries)
+        .then_with(|| a_cases.cmp(&b_cases))
 }
 
 /// `encodeURIComponent`.
@@ -318,11 +319,20 @@ pub fn wait(
     child: &mut std::process::Child,
     timeout: Option<std::time::Duration>,
 ) -> Option<std::process::ExitStatus> {
+    wait_unless(child, timeout, || false)
+}
+
+/// As [`wait`], also killing `child` as soon as `stop` holds.
+fn wait_unless(
+    child: &mut std::process::Child,
+    timeout: Option<std::time::Duration>,
+    stop: impl Fn() -> bool,
+) -> Option<std::process::ExitStatus> {
     let deadline = timeout.map(|t| std::time::Instant::now() + t);
     loop {
         match child.try_wait() {
             Ok(Some(status)) => return Some(status),
-            Ok(None) if deadline.is_some_and(|d| std::time::Instant::now() >= d) => {
+            Ok(None) if stop() || deadline.is_some_and(|d| std::time::Instant::now() >= d) => {
                 let _ = child.kill();
                 let _ = child.wait();
                 return None;
@@ -331,6 +341,69 @@ pub fn wait(
             Err(_) => return None,
         }
     }
+}
+
+/// `spawnSync`'s default `maxBuffer`: more than this on stdout and stderr together
+/// stops the child.
+pub const MAX_BUFFER: usize = 1024 * 1024;
+
+/// How a [`capture`]d child ended.
+#[derive(Debug)]
+pub enum Ended {
+    Exited(std::process::ExitStatus),
+    /// Killed at the timeout or not waitable: ETIMEDOUT.
+    TimedOut,
+    /// Killed for passing [`MAX_BUFFER`]: ENOBUFS.
+    Overflowed,
+}
+
+/// Runs `child`, whose stdout and stderr are piped, to its end as `spawnSync` does:
+/// killed at `timeout` or once its output passes [`MAX_BUFFER`]. Returns how it ended
+/// and the stdout and stderr read by then.
+pub fn capture(
+    mut child: std::process::Child,
+    timeout: Option<std::time::Duration>,
+) -> (Ended, Vec<u8>, Vec<u8>) {
+    use std::io::Read;
+    use std::sync::Arc;
+    use std::sync::atomic::{AtomicUsize, Ordering::SeqCst};
+    let total = Arc::new(AtomicUsize::new(0));
+    let collect = |mut pipe: Box<dyn Read + Send>| {
+        let total = Arc::clone(&total);
+        std::thread::spawn(move || {
+            let mut kept = Vec::new();
+            let mut chunk = [0; 65_536];
+            loop {
+                match pipe.read(&mut chunk) {
+                    Ok(0) => break,
+                    Ok(read) => {
+                        kept.extend_from_slice(&chunk[..read]);
+                        if total.fetch_add(read, SeqCst) + read > MAX_BUFFER {
+                            break;
+                        }
+                    }
+                    Err(e) if e.kind() == io::ErrorKind::Interrupted => {}
+                    Err(_) => break,
+                }
+            }
+            kept
+        })
+    };
+    let out = collect(Box::new(child.stdout.take().expect("piped stdout")));
+    let err = collect(Box::new(child.stderr.take().expect("piped stderr")));
+    let overflowed = || total.load(SeqCst) > MAX_BUFFER;
+    let status = wait_unless(&mut child, timeout, overflowed);
+    let (stdout, stderr) = (
+        out.join().unwrap_or_default(),
+        err.join().unwrap_or_default(),
+    );
+    // Output past the limit fails the run even when the child had already exited.
+    let ended = match status {
+        _ if overflowed() => Ended::Overflowed,
+        Some(status) => Ended::Exited(status),
+        None => Ended::TimedOut,
+    };
+    (ended, stdout, stderr)
 }
 
 /// `readFileSync(path, 'utf8')`.

@@ -271,6 +271,35 @@ fn release_check_flags_a_newer_stable_version_within_each_package() {
 }
 
 #[test]
+fn numeric_collation_drops_leading_zeroes_and_weighs_case_on_letters_only() {
+    use site_tools::node::numeric_compare;
+    use std::cmp::Ordering::{Equal, Greater, Less};
+    // `a.localeCompare(b, 'en', { numeric: true })` in Node 26.12.1.
+    for (a, b, node) in [
+        ("v1.01.0", "v1.1.0", Equal),
+        ("v01", "v1", Equal),
+        ("v1.0010", "v1.10", Equal),
+        ("v0", "v00", Equal),
+        ("V1.0", "v1.0", Greater),
+        ("a01B", "a1b", Greater),
+        ("A01b", "a1B", Greater),
+        ("v1.9.0", "v1.10.0", Less),
+        ("tool/v2.0.0", "tool/v10.0.0", Less),
+        ("v1.0.0-rc1", "v1.0.0", Greater),
+    ] {
+        assert_eq!(numeric_compare(a, b), node, "{a} against {b}");
+        assert_eq!(numeric_compare(b, a), node.reverse(), "{b} against {a}");
+    }
+}
+
+#[test]
+fn release_check_takes_tags_differing_only_in_leading_zeroes_as_one_version() {
+    // Equal tags keep their order in the stable sort, so the later one is the latest.
+    let list = releases(&["v1.01.0", "v1.1.0"]);
+    assert!(check(&release_table(&["v1.1.0"]), &list).is_empty());
+}
+
+#[test]
 fn release_check_accepts_current_plain_tags_and_ignores_unrelated_packages() {
     let list = [
         release("v1.2.0"),
@@ -1139,6 +1168,37 @@ fn a_release_check_that_cannot_reach_gh_exits_2_not_1() {
         String::from_utf8_lossy(&output.stderr),
         "spawnSync gh ENOENT\n"
     );
+}
+
+#[cfg(unix)]
+#[test]
+fn gh_output_past_node_max_buffer_is_an_outage() {
+    use std::os::unix::fs::PermissionsExt;
+    // execFileSync stops gh once stdout and stderr together pass 1 MiB (ENOBUFS). The
+    // list stays valid JSON however far it is padded, so only that limit can fail it.
+    let check = |kib: u32| {
+        let (root, _, _) = cli_fixture(&[]);
+        let bin = tempfile::tempdir().unwrap();
+        let gh = bin.path().join("gh");
+        let script = format!(
+            "#!/bin/sh\nprintf '%s' '{}'\ni=0\nwhile [ \"$i\" -lt {kib} ]; do printf '%1024s' ''; i=$((i+1)); done\n",
+            release_json(&["v1.0.0"])
+        );
+        std::fs::write(&gh, script).unwrap();
+        std::fs::set_permissions(&gh, std::fs::Permissions::from_mode(0o755)).unwrap();
+        let output = std::process::Command::new(env!("CARGO_BIN_EXE_site-tools"))
+            .args(["stamp_source_freshness", "--check-releases"])
+            .env("SITE_ROOT", root.path())
+            .env("PATH", bin.path())
+            .output()
+            .unwrap();
+        (
+            output.status.code(),
+            String::from_utf8_lossy(&output.stderr).into_owned(),
+        )
+    };
+    assert_eq!(check(1000), (Some(0), String::new()));
+    assert_eq!(check(1025), (Some(2), "spawnSync gh ENOBUFS\n".to_owned()));
 }
 
 #[cfg(unix)]

@@ -14,7 +14,6 @@
 use crate::node;
 use regex::{NoExpand, Regex};
 use serde_json::{Map, Value};
-use std::io::Read;
 use std::path::Path;
 use std::process::{Command, Stdio};
 use std::sync::LazyLock;
@@ -934,32 +933,20 @@ pub struct System;
 
 impl Host for System {
     fn gh(&mut self, args: &[&str], timeout: Option<Duration>) -> Result<String, String> {
-        let mut child = Command::new("gh")
+        let child = Command::new("gh")
             .args(args)
             .stdin(Stdio::null())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .spawn()
             .map_err(|e| node::spawn_error(&e, "gh"))?;
-        let mut stdout = child.stdout.take().expect("piped");
-        let mut stderr = child.stderr.take().expect("piped");
-        let out = std::thread::spawn(move || {
-            let mut buffer = Vec::new();
-            let _ = stdout.read_to_end(&mut buffer);
-            buffer
-        });
-        let err = std::thread::spawn(move || {
-            let mut buffer = Vec::new();
-            let _ = stderr.read_to_end(&mut buffer);
-            buffer
-        });
-        let status = node::wait(&mut child, timeout);
-        let stdout = out.join().unwrap_or_default();
-        let stderr = err.join().unwrap_or_default();
+        let (ended, stdout, stderr) = node::capture(child, timeout);
         // execFileSync passes the child's error output on whatever happens.
         let _ = std::io::Write::write_all(&mut std::io::stderr(), &stderr);
-        let Some(status) = status else {
-            return Err("spawnSync gh ETIMEDOUT".into());
+        let status = match ended {
+            node::Ended::Exited(status) => status,
+            node::Ended::TimedOut => return Err("spawnSync gh ETIMEDOUT".into()),
+            node::Ended::Overflowed => return Err("spawnSync gh ENOBUFS".into()),
         };
         if !status.success() {
             let mut message = format!("Command failed: gh {}", args.join(" "));

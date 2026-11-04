@@ -134,8 +134,9 @@ token limited to those 2 permissions.
 The same workflow runs `site-tools check_production`, which fetches the
 live pages and holds them to the delivery promises in the README: the five
 Cloudflare response headers, the two edge redirects, and `mailto:` links that
-arrive intact. Injected inline scripts and the analytics tag are printed as
-notes because the page's Content Security Policy blocks them.
+arrive intact. Injected inline scripts are printed as notes because the page's
+Content Security Policy blocks them; an analytics tag fails the check, because
+the Privacy page says no analytics script is delivered.
 
 The ATO refuses GitHub runners, so a scheduled task on the maintainer's machine
 reads its pages every week instead of this workflow. The command
