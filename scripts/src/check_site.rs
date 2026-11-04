@@ -66,7 +66,6 @@ pub const CHECKS: &[Check] = &[
     Check::External(&["node", "--test", "scripts/business-calculators.test.mjs"]),
     Check::External(&["node", "--test", "scripts/field-errors.test.mjs"]),
     Check::External(&["node", "--test", "scripts/webmcp-tools.test.mjs"]),
-    Check::External(&["node", "--test", "scripts/home-levy.test.mjs"]),
     Check::External(&["node", "--test", "scripts/stamp-source-freshness.test.mjs"]),
     Check::External(&["node", "--test", "scripts/check_production.test.mjs"]),
     Check::External(&["node", "--test", "scripts/check_ato_sources.test.mjs"]),

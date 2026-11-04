@@ -20,7 +20,7 @@ tool: ozzit
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/ozzit/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: ozzit
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Ozzit: Excel LAMBDA functions for Australian modelling" />
   <meta name="twitter:description" content="A free Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/ozzit/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -59,17 +59,14 @@ tool: ozzit
         </nav>
         <div class="article-intro">
           <h1>{{ tool.name }}</h1>
-    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
-          <p class="lead-note">143 functions and 5 help tables for GST, financial years, depreciation, loans and leases. Open the workbook and try a formula; every definition is visible in Excel.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+          <p class="lead-note">The Ozzit workbook holds 143 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.</p>
+    {% include tool-meta.html published="18 September 2026" reviewed="21 October 2026" %}
 {% include tool-facts.html %}
           <div class="article-actions">
             <a class="button" href="https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx">Download Ozzit v3.5.0</a>
             <a href="#functions">Browse worked formulas</a>
           </div>
           <p class="field-note">XLSX, 462,490 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.</p>
-
-          <p class="page-meta">Published 18 September 2026. Last reviewed 21 October 2026.</p>
         </div>
         <section class="article-preview" aria-labelledby="gst-preview-title">
           <h2 id="gst-preview-title">Extract GST from $1,100</h2>

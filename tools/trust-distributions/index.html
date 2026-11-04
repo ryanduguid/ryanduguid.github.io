@@ -20,7 +20,7 @@ tool: trust-distributions
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/trust-distributions/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: trust-distributions
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Trust distribution worksheets for professional review" />
   <meta name="twitter:description" content="Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/trust-distributions/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -58,12 +58,9 @@ tool: trust-distributions
       </ol>
     </nav>
     <h1>{{ tool.name }}</h1>
-    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
-    <p class="lead-note">PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+    <p class="lead-note">The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.</p>
+    {% include tool-meta.html published="24 August 2026" reviewed="21 October 2026" %}
 {% include tool-facts.html %}
-
-    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -76,6 +73,7 @@ tool: trust-distributions
           <a href="#related">Related</a>
         </nav>
         <div class="article-body">
+    <p>PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software does not establish the underlying facts or give tax clearance.</p>
     <p>
       Section 100A can treat a trust distribution as a reimbursement agreement
       and tax it at the top rate instead of the beneficiary’s own rate. The

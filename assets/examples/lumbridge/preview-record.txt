@@ -30,7 +30,10 @@ exports carried IBM Plex Sans, the face the site served before that change.
 On 4 October 2026 the closing cash series changed to Royal Purple (#990024),
 with ivory marker edges and an ivory closing-cash label for contrast. On
 13 October 2026 it changed to Rhodesian green (#0F4B32), the site's pass
-colour, and both variants were exported again.
+colour, and both variants were exported again. On 4 November 2026 it changed
+to platinum (#E5E4E2), the Machine view's ink, because the green line
+measured 2.07:1 against black and platinum measures 16.53:1; both variants
+were exported again with Excel 16.0 on Windows.
 No value, date or series was altered.
 
 Two variants were exported with Excel Chart.Export as PNG at this display
@@ -50,17 +53,18 @@ Weekly closing cash values in the exported chart, AUD:
 36480, 79280, 67320, 67320.
 The second series is the assumed 15000 cash buffer.
 
-cash-preview.png SHA-256: 139a5f42ca02f4e321a878f83c0dd331fa16f7e90f90c54367e35c14bcd2fcbb
-cash-preview-narrow.png SHA-256: c324de0437ed7ca94d63f08ad4fd8a09c169c4da5eb12597e74caaddd3d35180
+cash-preview.png SHA-256: 6cf0ac59f02e7d19e0285fe13c93bdd6704808e36210a2fdeaade55e99f09835
+cash-preview-narrow.png SHA-256: dbcd7b6a2d5e65b86c4b9c205369b393817cfdab74e1846d35f866aec9450612
 
 The pages show lossless WebP copies of both PNGs, encoded on 13 October 2026
 by the Pillow script scripts/encode_cash_chart_webp.py, since removed. Each
 decodes to the same pixels as its PNG; the script checked this. Since 25 October 2026 the Rust
 `site-tools encode_cash_chart_webp` writes the same bytes, and
 `site-tools check_design` fails when a copy no longer matches its PNG.
+The 4 November 2026 copies come from `site-tools encode_cash_chart_webp`.
 The full-size link stays the wide PNG.
-cash-preview.webp SHA-256: fa679d8a1b3cd7f3aee7c2af810e371173155318cee2a7cee76e4d6155453719
-cash-preview-narrow.webp SHA-256: 804974499d164496b0abd56786a188fc52ecf91401f1b844a3d147d83bb3cbc3
+cash-preview.webp SHA-256: 43ba4e63d8daccf8d6e87b2e474e6eec13f91298c8a4ad7548e063a878e4440d
+cash-preview-narrow.webp SHA-256: 32a54e67cd310028454ade7cb4ce1be38ea623883de72efccfca3b5da05fd7d5
 
 Each is an export of a workbook chart, not a screenshot of the entire
 worksheet. It stays fixed when a reader edits a downloaded workbook.

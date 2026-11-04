@@ -96,56 +96,6 @@ test('calculator privacy blocks direct native submission after normal keyboard c
     HTMLFormElement.prototype.submit.call(form)));
 });
 
-test('home proof rejects invalid amounts and recovers without stale results', async ({ page }) => {
-  const health = observePageHealth(page);
-  await page.goto('/');
-  const result = page.locator('.proof-calc__result');
-  for (const name of ['Base rate of pay', 'Overtime and penalty', 'Allowances']) {
-    const field = page.getByRole('spinbutton', { name, exact: true });
-    const original = await field.inputValue();
-    for (const value of ['-1', '0.001', '', '1e308']) {
-      await field.fill(value);
-      await expect(field).toHaveAttribute('aria-invalid', 'true');
-      await expect(result).toBeHidden();
-      await expect(page.locator('#home-levy-error')).toBeVisible();
-      await expect(field).toHaveAccessibleDescription(/Enter an amount of \$0\.00 or more/);
-    }
-    await field.fill(original);
-    await expect(field).not.toHaveAttribute('aria-invalid', 'true');
-    await expect(field).not.toHaveAccessibleDescription(/Enter an amount of \$0\.00 or more/);
-    await expect(page.locator('#home-levy-error')).toBeHidden();
-    await expect(result).toBeVisible();
-    await expect(result.locator('[data-out="levy"]')).toHaveText(COAL_LSL_PROOF.expected.levy);
-  }
-  for (const input of await page.locator('#home-levy input').all()) await input.fill('0');
-  await expect(result.locator('[data-out="levy"]')).toHaveText('$0.00');
-  await page.locator('#calc-base').fill('10000');
-  await expect(result.locator('[data-out="levy"]')).toHaveText('$270.00');
-  health.assertHealthy();
-});
-
-test('home proof announces the applied formula and rejects an oversized combined result', async ({ page }) => {
-  const health = observePageHealth(page);
-  await page.goto('/');
-  const announcement = page.locator('#home-levy [aria-live="polite"]');
-  await expect(announcement).toContainText('Formula B applies.');
-  await page.locator('#calc-overtime').fill('0');
-  await page.locator('#calc-allowances').fill('0');
-  await expect(announcement).toContainText('Formula A applies.');
-  await page.locator('#calc-base').fill('3');
-  await page.locator('#calc-overtime').fill('1');
-  await expect(announcement).toContainText('Formula A applies.');
-  await page.locator('#calc-overtime').fill('2');
-  await expect(announcement).toContainText('Formula B applies.');
-  for (const input of await page.locator('#home-levy input').all()) await input.fill('500000000000');
-  await expect(page.locator('.proof-calc__result')).toBeHidden();
-  await expect(page.locator('#home-levy-error')).toContainText('The total is too large');
-  for (const input of await page.locator('#home-levy input').all()) await input.fill('0');
-  await expect(announcement).toContainText('Formula A applies.');
-  await expect(announcement).toContainText('$0.00');
-  health.assertHealthy();
-});
-
 test('a negative amount gets the page wording, not the browser validation text', async ({ page }) => {
   await page.goto('/tools/coal-lsl-levy/');
   const field = page.getByRole('spinbutton', { name: 'Base rate of pay', exact: true });
@@ -176,7 +126,7 @@ test('every calculator branch and added bonus rejects oversized amounts and reco
   await bonus.fill('1e308');
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(bonus).toHaveAttribute('aria-invalid', 'true');
-  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+  await page.getByRole('button', { name: 'Load the fictional example', exact: true }).click();
   await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText(COAL_LSL_PROOF.expected.levy);
   health.assertHealthy();
 });
@@ -204,12 +154,19 @@ test('oversized calculations and employee totals recover without changing saved 
   health.assertHealthy();
 });
 
-test('loaded synthetic example matches the homepage default proof', async ({ page }) => {
-  await page.goto('/');
-  const expected = await page.locator('[data-out="levy"]').textContent();
-  await page.goto('/tools/coal-lsl-levy/');
-  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
-  await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText(expected);
+// The wide layout's sticky result can sit above the viewport once a reader
+// scrolls down to Calculate, so the result heading must come back into view.
+test('Calculate focuses the result heading and brings it into view on wide layouts', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'desktop', 'wide viewports run once');
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 720 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/tools/coal-lsl-levy/');
+    await page.getByRole('button', { name: 'Load the fictional example', exact: true }).click();
+    await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+    const title = page.locator('#result-title');
+    await expect(title, `${viewport.width}px`).toBeFocused();
+    await expect(title, `${viewport.width}px`).toBeInViewport();
+  }
 });
 
 test('blank monetary inputs produce an explained zero result', async ({ page }) => {
@@ -452,7 +409,7 @@ test('the calculator still works offline once the page has loaded', async ({ pag
   await page.goto('/tools/coal-lsl-levy/');
   await waitForVisualFonts(page);
   await context.setOffline(true);
-  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+  await page.getByRole('button', { name: 'Load the fictional example', exact: true }).click();
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(page.locator('[data-result-kind="eligible-wages"]'))
     .toContainText(COAL_LSL_PROOF.expected.eligibleWages);
@@ -823,7 +780,7 @@ test('mobile calculations move keyboard focus to the result', async ({ page }, t
   test.skip(projectKind(testInfo) !== 'mobile', 'stacked result only');
   await calculateFormulaB(page);
   await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
-  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).press('Enter');
+  await page.getByRole('button', { name: 'Load the fictional example', exact: true }).press('Enter');
   await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
 });
 
@@ -871,6 +828,9 @@ test('calculator result and employee table do not overflow at 320 CSS pixels', a
 test('Formula B result matches the mobile visual baseline', async ({ page, browserName }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'mobile' || browserName !== 'chromium', 'the committed baseline is a mobile Chromium render');
   const health = observePageHealth(page);
+  // The form defaults its reporting month to today, and the baseline shows
+  // October 2026: 15 October 2026 at 10:00 in Sydney.
+  await page.clock.setFixedTime(new Date('2026-10-14T23:00:00Z'));
 
   await calculateFormulaB(page, { visualSnapshot: true });
   const result = page.locator('#result');

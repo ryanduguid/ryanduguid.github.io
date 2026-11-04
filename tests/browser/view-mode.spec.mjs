@@ -38,6 +38,12 @@ test('mobile view switch stays inside the header and clear of its links', async 
   }
 });
 
+test('the Machine option says what it shows, beyond its tooltip', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('radio', { name: 'Machine', exact: true }))
+    .toHaveAccessibleDescription('Shows the agent-readable text of this page.');
+});
+
 test('view mode defaults to Human and preserves the page when switching back', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/');

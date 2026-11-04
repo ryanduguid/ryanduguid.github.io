@@ -71,7 +71,8 @@
 
   /* True-black OLED register: every surface is #000000 except the raised
      field and the emphasis wash, the greys carry no hue and the main ink is
-     ivory. Crimson and deep purple supply the accents; ivory keeps text and focus readable. */
+     ivory. Crimson and deep purple supply the accents; ivory keeps text and focus readable.
+     Red strokes only link underlines, accent rules and selection marks: 4.55:1 on black. */
   --colour-canvas: #000000;
   --colour-paper: #000000;
   --colour-paper-raised: #0a0a0a;
@@ -82,6 +83,7 @@
   --colour-rule-strong: #606060;
   --colour-stamp: #990024;
   --colour-stamp-strong: #66023c;
+  --colour-stroke: #e7162f;
   --colour-stamp-wash: #161616;
   --colour-pass: #0f4b32;
   --colour-alert: #ff9c91;
@@ -92,15 +94,6 @@
   --colour-print-paper: #ffffff;
   --colour-print-ink: #000000;
 
-  /* The requested Cloudflare-style view switch has its own neutral palette. */
-  --colour-mode-surface: rgba(20, 20, 20, 0.85);
-  --colour-mode-rule: rgba(255, 255, 255, 0.12);
-  --colour-mode-ink: #ffffff;
-  --colour-mode-muted: rgba(255, 255, 255, 0.55);
-  --colour-mode-selected: rgba(255, 255, 255, 0.08);
-  --colour-mode-dot: rgba(255, 255, 255, 0.25);
-  --colour-mode-accent: var(--colour-stamp);
-  --colour-mode-shadow: rgba(0, 0, 0, 0.25);
   --colour-machine-canvas: #000000;
   --colour-machine-ink: #e5e4e2;
 
@@ -161,7 +154,6 @@
   .page-home {
     --colour-ink-mid: #e5e4e2;
     --colour-ink-soft: #dadada;
-    --colour-mode-muted: #dadada;
   }
 }
 

@@ -6,11 +6,9 @@ Source: https://duguid.com.au/tools/trust-distributions/
 
 # Trust distribution worksheets for professional review
 
-Package solomons-sword in the australian-accounting repository. Current release v0.3.2.
+The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.
 
-PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.
-
-Current release v0.3.2 (20 October 2026). Last reviewed 21 October 2026.
+Current release solomons-sword v0.3.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
 Delivery
 
@@ -24,7 +22,7 @@ Boundary
 
 Does not invent arrangements, intentions or beneficiary facts.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software does not establish the underlying facts or give tax clearance.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary’s own rate. The ATO’s finalised guideline PCG 2022/2 says where the risk sits.
 
@@ -114,8 +112,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
+- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
 - Published package: https://pypi.org/project/solomons-sword/0.1.9/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart

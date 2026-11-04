@@ -20,7 +20,7 @@ tool: ato-benchmarks
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/ato-benchmarks/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: ato-benchmarks
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="How does this business compare to ATO benchmarks?" />
   <meta name="twitter:description" content="Current release ato-benchmark-compare v{{ release.version }}. Compare profit and loss with ATO benchmark ranges locally. Review aid." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/ato-benchmarks/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -58,12 +58,9 @@ tool: ato-benchmarks
       </ol>
     </nav>
     <h1>{{ tool.name }}</h1>
-    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
-    <p class="lead-note">Current release {{ tool.package }} v{{ release.version }} ({{ release.dateLabel }}). The worked example below is pinned to v0.1.6. The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+    <p class="lead-note">This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.</p>
+    {% include tool-meta.html published="24 August 2026" reviewed="21 October 2026" %}
 {% include tool-facts.html %}
-
-    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -76,6 +73,7 @@ tool: ato-benchmarks
           <a href="#related">Related</a>
         </nav>
         <div class="article-body">
+    <p>The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. Sitting outside a range is not a finding that anything is wrong.</p>
     <p>
       Checking a business against the benchmarks before lodgement is a useful
       review step, and it is usually done by hand: find the industry page, work
@@ -105,7 +103,7 @@ tool: ato-benchmarks
     </section>
     <section id="worked-example">
     <h2>Worked example: cost of sales excluding wages</h2>
-    <p>This synthetic example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py">ratio tests in ato-benchmark-compare v0.1.6</a>. It starts with mapped totals:</p>
+    <p>This fictional example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py">ratio tests in ato-benchmark-compare v0.1.6</a>. It starts with mapped totals:</p>
     <ul>
       <li>Turnover: $100,000.</li>
       <li>Cost of sales excluding wages: $30,000.</li>

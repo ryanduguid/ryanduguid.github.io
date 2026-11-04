@@ -73,6 +73,48 @@ fn copy_reporting() {
 }
 
 #[test]
+fn fictional_wording_reporting() {
+    let directory = tempfile::tempdir().unwrap();
+    let root = directory.path();
+    let page = concat!(
+        "<head><meta property=\"og:description\" content=\"A Fabricated case\" />",
+        "<meta property=\"og:image:alt\" content=\"Card: Fabricated inputs.\" /></head>",
+        "<main><a href=\"#synthetic-worked-example\">Fictional worked example</a>",
+        "<code>synthetic: true</code><pre>--beneficiary \"Fabricated Beneficiary\"</pre>",
+        "<p>'fictional' in place of \u{2018}fabricated\u{2019}; generate_synthetic_sbr_fixture.</p>",
+        "<div role=\"region\" aria-label=\"Synthetic excerpt\"></div></main>",
+    );
+    std::fs::write(root.join("index.html"), page).unwrap();
+    std::fs::write(
+        root.join("llms.txt"),
+        "Synthetic rows at /tools/x/#fabricated-inputs",
+    )
+    .unwrap();
+    assert_eq!(
+        design::check_fictional_wording(root).unwrap(),
+        [
+            "index.html: accessible name copy says 'synthetic'; write 'fictional' for invented data",
+            "index.html: description copy says 'fabricated'; write 'fictional' for invented data",
+            "index.html: image description copy says 'fabricated'; write 'fictional' for invented data",
+            "llms.txt: text copy says 'synthetic'; write 'fictional' for invented data",
+        ]
+    );
+    std::fs::write(
+        root.join("index.html"),
+        "<main>Synthetic data. A fabrication.</main>",
+    )
+    .unwrap();
+    assert_eq!(
+        design::check_fictional_wording(root).unwrap(),
+        [
+            "index.html: visible copy says 'fabrication'; write 'fictional' for invented data",
+            "index.html: visible copy says 'synthetic'; write 'fictional' for invented data",
+            "llms.txt: text copy says 'synthetic'; write 'fictional' for invented data",
+        ]
+    );
+}
+
+#[test]
 fn font_repetitive_text() {
     let directory = tempfile::tempdir().unwrap();
     let root = directory.path();
@@ -267,18 +309,25 @@ fn design_contracts_text_mutations() {
     );
     let mutations: Vec<(&str, &str, &str, &str, &str)> = vec![
         (
-            "view switch shadow exception stays scoped",
+            "view switch shadow restored",
             "assets/site.css",
-            "body {",
-            "body {\n  box-shadow: 0 4px 16px var(--colour-mode-shadow);",
+            ".view-mode {",
+            ".view-mode {\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);",
             "banned CSS pattern box-shadow",
         ),
         (
-            "view switch blur exception stays scoped",
+            "view switch blur restored",
             "assets/site.css",
-            "body {",
-            "body {\n  backdrop-filter: blur(10px);",
+            ".view-mode {",
+            ".view-mode {\n  backdrop-filter: blur(10px);",
             "banned CSS pattern backdrop-filter",
+        ),
+        (
+            "view switch pill restored",
+            "assets/site.css",
+            ".view-mode {",
+            ".view-mode {\n  border-radius: 9999px;",
+            "banned CSS pattern 9999px",
         ),
         (
             "view switch still rejects gradients",
@@ -442,6 +491,13 @@ fn design_contracts_text_mutations() {
             "--colour-stamp-strong must be #66023c",
         ),
         (
+            "red stroke drift",
+            "assets/tokens.css",
+            "--colour-stroke: #e7162f;",
+            "--colour-stroke: #990024;",
+            "--colour-stroke must be #e7162f",
+        ),
+        (
             "low contrast accent text",
             "assets/tokens.css",
             "--colour-ink: #fffff0;",
@@ -493,8 +549,8 @@ fn design_contracts_text_mutations() {
         (
             "Tools browse link drift",
             "index.html",
-            "href=\"/tools/\">Browse tools by accounting task",
-            "href=\"/missing-tools/\">Browse tools by accounting task",
+            "href=\"/tools/\">All tools by accounting task",
+            "href=\"/missing-tools/\">All tools by accounting task",
             "index.html: expected exactly one /tools/ homepage action",
         ),
         (
@@ -512,39 +568,39 @@ fn design_contracts_text_mutations() {
             "index.html: expected one home-tool-preview",
         ),
         (
-            "extra technical label",
+            "decorative ordinal technical label",
             "index.html",
             "</main>",
-            "<p class=\"technical-label\">Extra context</p></main>",
-            "index.html: expected exactly one evidence-bearing technical label",
+            "<p class=\"technical-label\">01 / Extract</p></main>",
+            "index.html: decorative ordinal technical label: 01 / Extract",
         ),
         (
-            "proof loaded eagerly",
-            "index.html",
-            "width=\"868\" height=\"580\" loading=\"lazy\"",
-            "width=\"868\" height=\"580\" loading=\"eager\"",
-            "index.html: Coal LSL proof image must load lazily",
+            "repeated release statement in a tool header",
+            "tools/payday-super/index.html",
+            "<p class=\"page-meta\">",
+            "<p>The worked example is pinned to v0.1.3.</p><p class=\"page-meta\">",
+            "tools/payday-super/index.html: expected at most one release statement before the first h2, found 2",
         ),
         (
-            "proof dimensions drift",
-            "index.html",
-            "height=\"580\"",
-            "height=\"581\"",
-            "index.html: Coal LSL proof image must keep its height",
+            "synthetic restored in visible copy",
+            "about/index.html",
+            "<strong>Fictional data in public.</strong>",
+            "<strong>Synthetic data in public.</strong>",
+            "about/index.html: visible copy says 'synthetic'; write 'fictional' for invented data",
         ),
         (
-            "proof mobile source removed",
-            "index.html",
-            "<source media=\"(max-width: 40rem)\" srcset=\"/assets/coal-lsl-calculator-mobile.webp\"",
-            "<source media=\"(max-width: 40rem)\" srcset=\"/assets/missing-mobile.webp\"",
-            "index.html: Coal LSL proof picture must offer the mobile source",
+            "fabricated restored in a page description",
+            "tools/payday-super/index.html",
+            "Inspect a fictional $120 contribution",
+            "Inspect a fabricated $120 contribution",
+            "tools/payday-super/index.html: description copy says 'fabricated'; write 'fictional' for invented data",
         ),
         (
-            "proof alternative removed",
-            "index.html",
-            "alt=\"Coal LSL calculator result showing Formula B, eligible wages, levy and the applied section 3B branch for a synthetic example\"",
-            "alt=\"\"",
-            "index.html: Coal LSL proof image must have descriptive alt text",
+            "synthetic restored in an accessible name",
+            "evaluate/index.html",
+            "aria-label=\"Fictional month-end exception excerpt\"",
+            "aria-label=\"Synthetic month-end exception excerpt\"",
+            "evaluate/index.html: accessible name copy says 'synthetic'; write 'fictional' for invented data",
         ),
         (
             "font URL broken",
@@ -788,17 +844,6 @@ fn design_contracts_review_dates_and_assets() {
         "protected font removed",
         &repository(site.path()),
         "protected font missing: assets/fonts/Besley-Regular.woff2",
-    );
-    let site = copied_site();
-    append_file(
-        site.path(),
-        "assets/site.css",
-        "\n.route-section > .route-label { position: sticky; }\n",
-    );
-    expect_failure(
-        "sticky route rail restored",
-        &repository(site.path()),
-        "route labels must not be sticky",
     );
     let site = copied_site();
     std::fs::remove_file(site.path().join(".well-known/security.txt")).unwrap();

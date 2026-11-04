@@ -12,93 +12,45 @@ Explore the cash flow example
 
 Built by Ryan Duguid, an accountant in Newcastle, NSW.
 
-Last reviewed 21 October 2026.
+Last reviewed 4 November 2026.
 
 ## Compare profit with cash flow
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter’s profit stays the same.
 
-13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. Exported from the supplied workbook in Excel 16.0 on 13 October 2026. Capture record.
+13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to ($25,160) against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. Exported from the supplied workbook in Excel 16.0 on 4 November 2026. Capture record.
 
-## Choose a task
+## Choose a route
 
-### Use accounting functions in Excel
+### Check a pack or calculate
 
-Ozzit provides worked GST, financial year, depreciation and loan formulas. Try them in Microsoft 365 or Excel 2024 or later.
+Each tool runs on a fictional example first and keeps its working visible.
 
-Browse ten worked formulas
+- Use accounting functions in Excel
+- Review a month-end close
+- Calculate a Coal LSL levy
+- Check a BAS pack before manager review
+- All tools by accounting task
 
-### Review a month-end close
+### Answer a tax or payroll question
 
-Accounting Review Pipeline includes a fictional July close with eight exceptions and a $250 creditors difference. Read the report here or rerun it with Git and Rust.
+Find the records, calculations and steps for a question, then check the current rate against its primary source.
 
-Reproduce the sample report
+- 100 accounting questions
+- Maintained rate tables
 
-### Calculate a Coal LSL levy
+### Review my work
 
-Calculate eligible wages and see which formula applies. It runs in your browser with nothing to install.
+Read my background and credentials, then check the releases, source reviews and tests behind each tool.
 
-Open the Coal LSL calculator
-
-### Check a BAS pack before manager review
-
-Accounting Review Pipeline checks a fabricated BAS pack for missing work and unresolved items. Read the findings here or rerun the checks with Python.
-
-Open the Workpaper Review Gate
-
-Browse tools by accounting task
-
-## See how the Coal LSL levy is calculated
-
-Coal LSL / fictional result
-
-The browser calculator applies section 3B, names the formula and rounds only at the final step.
-
-One employee, one month. Enter each amount, including zero, to see which formula applies. The full calculator treats a blank amount as $0.00.
-
-Base rate of pay
-
-Overtime and penalty
-
-Allowances
-
-This example needs JavaScript to recalculate. With scripts off, the result shows the fictional amounts above.
-
-Formula A, base rate plus bonuses
-
-$6,000.00
-
-Formula B, 75% of the aggregate
-
-$7,125.00
-
-Eligible wages, the greater of the two
-
-$7,125.00
-
-Levy at 2.7%, before rounding
-
-$192.3750
-
-Formula B applies. Levy payable, rounded once at the end
-
-$192.38
-
-Fictional figures, calculated in your browser. This site’s code sends and stores none of them; the Privacy page covers what Cloudflare adds when it delivers pages. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual and bonus frequency.
-
-Open the Coal LSL calculator Open the evidence register
-
-View the fixed calculator example
-
-Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 allowances. This screenshot stays fixed when you edit the figures above.
+- About Ryan Duguid
+- Evidence behind the tools
 
 ## Try each tool with fictional data first
 
-Use the sample files to check what each tool accepts, refuses and explains before using it in a firm.
+Use the sample files to check what each tool accepts, refuses and explains before using it in a firm. Check its version and limits in the setup guide before you install it.
 
 Browse reproducible evaluations Set up AI tools
-
-Before you use a tool, check its version and limits in the setup guide.
 
 ### Latest tool releases
 
@@ -106,32 +58,21 @@ Before you use a tool, check its version and limits in the setup guide.
 - Payday Super receipt evidence v0.2.3 30 October 2026
 - Subcontractor ledger skills for construction and mining v0.5.0 28 October 2026
 
-## Check the source before the result
-
-The evidence register links each claim to identity records, releases, primary source reviews and tests. The About page sets out the 5 working rules behind every tool.
-
-Open the evidence register Maintained rates
-
-Explore the recorded software checks and contributions.
-
 ## Links
 
 - Explore the cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
-- Browse ten worked formulas: https://duguid.com.au/tools/ozzit/#functions
 - Review a month-end close: https://duguid.com.au/tools/monthly-close-controls/
-- Reproduce the sample report: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Calculate a Coal LSL levy: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: https://duguid.com.au/evaluate/manager-review-gate/
-- Open the Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
-- Browse tools by accounting task: https://duguid.com.au/tools/
-- Privacy page: https://duguid.com.au/privacy/
-- Open the evidence register: https://duguid.com.au/evidence/
+- All tools by accounting task: https://duguid.com.au/tools/
+- 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Maintained rate tables: https://duguid.com.au/rates/
+- About Ryan Duguid: https://duguid.com.au/about/
+- Evidence behind the tools: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Aus Accounting MCP v0.7.1: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Payday Super receipt evidence v0.2.3: https://duguid.com.au/tools/payday-super/
 - Subcontractor ledger skills for construction and mining v0.5.0: https://duguid.com.au/tools/subcontractor-ledgers/
-- 5 working rules: https://duguid.com.au/about/#grounding
-- Maintained rates: https://duguid.com.au/rates/

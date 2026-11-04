@@ -216,7 +216,7 @@
   padding: var(--space-4);
   margin-block: var(--space-4);
   border: var(--rule-thin) solid var(--colour-rule-strong);
-  border-top: var(--rule-strong) solid var(--colour-stamp);
+  border-top: var(--rule-strong) solid var(--colour-stroke);
   font-variant-numeric: tabular-nums;
 }
 

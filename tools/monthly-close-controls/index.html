@@ -20,7 +20,7 @@ tool: monthly-close-controls
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/monthly-close-controls/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: monthly-close-controls
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Monthly Close Controls: Xero close exception report" />
   <meta name="twitter:description" content="Current release monthly-close-control-plane v{{ release.version }}. Compare Xero trial balance CSVs locally and flag exceptions for human review." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/monthly-close-controls/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -58,17 +58,14 @@ tool: monthly-close-controls
           </ol>
         </nav>
         <h1>{{ tool.name }}</h1>
-    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
-        <p class="lead-note">Current release {{ tool.package }} v{{ release.version }} ({{ release.dateLabel }}). The worked example below runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5. Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 3 November 2026.</p>
+        <p class="lead-note">Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer.</p>
+    {% include tool-meta.html published="11 September 2026" reviewed="3 November 2026" %}
 {% include tool-facts.html %}
         <div class="article-actions">
           <a class="button" href="#worked-example">Inspect the eight exceptions</a>
           <a href="#get-it">Run the example</a>
         </div>
         <p class="field-note">Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Rust.</p>
-
-        <p class="page-meta">Published 11 September 2026. Last reviewed 3 November 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -83,8 +80,10 @@ tool: monthly-close-controls
           <a href="#related">Related</a>
         </nav>
         <div class="article-body">
+          <p>It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.</p>
           <section id="worked-example">
             <h2>Worked example: balanced trial balance, unfinished review</h2>
+            <p>This example runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5.</p>
             <p>The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is <code>REVIEW</code>: 8 exceptions, none blocked, and 6 draft client queries.</p>
             <h3>From supplied balances to an exception</h3>
             <div class="table-scroll" role="region" aria-label="Fictional creditors inputs and generated difference" tabindex="0">

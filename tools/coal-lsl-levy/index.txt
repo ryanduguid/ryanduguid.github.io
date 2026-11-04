@@ -6,15 +6,13 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 # Coal LSL levy calculator
 
-Source assets/levy.mjs in the ryanduguid.github.io repository. Source revision 9218822.
-
 The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+Source assets/levy.mjs at revision 9218822 in the ryanduguid.github.io repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
-Load the synthetic example
+Load the fictional example
 
-Uses the homepage’s fictional figures and replaces the current inputs. No client data.
+Replaces the current inputs with fictional figures. No client data.
 
 How is this employee paid?
 
@@ -146,8 +144,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - 9218822: https://github.com/ryanduguid/ryanduguid.github.io/commit/92188225f42df20c14817af0ded3842f7911fb51
+- ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - contact page: https://duguid.com.au/contact/
 - Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages

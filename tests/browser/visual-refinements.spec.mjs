@@ -82,16 +82,29 @@ test('the eight compact calculators put the result beside the inputs on wide scr
   }
 });
 
-test('ordinary links carry an accent underline at least 2px thick', async ({ page }) => {
+// Red #E7162F reaches 4.55:1 on black, above the 3:1 non-text minimum;
+// crimson #990024 reached 2.38:1 (Ryan, 4 November 2026).
+test('ordinary links carry a red underline at least 2px thick', async ({ page }) => {
   await page.goto('/');
-  for (const selector of ['.case-preview figcaption a', '.home-tool-preview__entry > a']) {
+  for (const selector of ['.case-preview figcaption a', '.home-tool-preview__entry li a']) {
     const underline = await page.locator(selector).first().evaluate((link) => {
       const style = getComputedStyle(link);
       return { colour: style.textDecorationColor, thickness: parseFloat(style.textDecorationThickness) };
     });
-    expect(underline.colour, selector).toBe('rgb(153, 0, 36)');
+    expect(underline.colour, selector).toBe('rgb(231, 22, 47)');
     expect(underline.thickness, selector).toBeGreaterThanOrEqual(2);
   }
+});
+
+test('the checked setup tab and the targeted changelog row are marked in red', async ({ page }) => {
+  await page.goto('/tools/australian-tax-ai-agents/');
+  const tab = page.locator('.adopt-input:checked + .adopt-tab').first();
+  expect(await tab.evaluate((element) => getComputedStyle(element).borderTopColor)).toBe('rgb(231, 22, 47)');
+  await page.goto('/changelog/');
+  const id = await page.locator('.changelog-section tbody tr[id]').first().getAttribute('id');
+  await page.goto(`/changelog/#${id}`);
+  const mark = await page.locator(`[id="${id}"] > th`).evaluate((element) => getComputedStyle(element).textDecorationColor);
+  expect(mark).toBe('rgb(231, 22, 47)');
 });
 
 test('no text asks for a bold the shipped mono face does not have', async ({ page }) => {
@@ -192,8 +205,9 @@ test.describe('on a touch tablet', () => {
     const shell = await page.locator('.home-hero').evaluate((hero) => hero.getBoundingClientRect().width);
     expect(chart).toBeGreaterThan(shell * 0.8);
     for (const [path, selector] of [
-      ['/', '.home-tool-preview__entry > a'],
+      ['/', '.home-tool-preview__entry li a'],
       ['/', '.site-footer__nav a'],
+      ['/rates/', '#excel > summary'],
       ['/tools/', '.collection-entry__links a'],
       ['/tools/ozzit/', '.article-actions > a:not(.button)'],
       ['/evidence/', '.credential-card__links a'],

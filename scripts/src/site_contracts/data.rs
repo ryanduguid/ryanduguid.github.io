@@ -15,9 +15,24 @@ pub const PERSON_ID: &str = "https://duguid.com.au/about/#person";
 pub const EVIDENCE_REL: &str = "evidence/index.html";
 pub const EVIDENCE_URL: &str = "https://duguid.com.au/evidence/";
 pub const AUTHORITY_PATHS: [(&str, &str); 2] = [("adopt", "Adopt"), ("verify", "Verify")];
+/// The heading each authority route opens with: #adopt is the release
+/// register, #verify the reader route to About and Evidence.
 pub const AUTHORITY_STATEMENTS: [(&str, &str); 2] = [
     ("adopt", "Try each tool with fictional data first"),
-    ("verify", "Check the source before the result"),
+    ("verify", "Review my work"),
+];
+/// The sentence of reader guidance each authority route keeps in a visible
+/// paragraph: check a tool's version and limits before installing it, and
+/// check the evidence behind each tool.
+pub const AUTHORITY_GUIDANCE: [(&str, &str); 2] = [
+    (
+        "adopt",
+        "Check its version and limits in the setup guide before you install it.",
+    ),
+    (
+        "verify",
+        "Read my background and credentials, then check the releases, source reviews and tests behind each tool.",
+    ),
 ];
 pub const AUTHORITY_URLS: [(&str, &str); 2] = [
     (
@@ -134,7 +149,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "aus-accounting-mcp",
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.7.1 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and synthetic SBR fixtures.",
+        "Local MCP server v0.7.1 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and fictional SBR fixtures.",
     ),
     (
         "australian-accounting-skills",
@@ -483,17 +498,18 @@ pub const ARTICLE_TOC_EXTERNAL_LINKS: [(&str, (&str, &str, &str)); 1] = [(
     (
         "/evaluate/payday-super-evidence/",
         "Reproduce the evaluation",
-        "Synthetic worked example",
+        "Fictional worked example",
     ),
 )];
 
-pub const PRIMARY_NAV_LINKS: [(&str, &str); 6] = [
+/// The 5 primary links Ryan chose on 4 November 2026. Evaluations and
+/// Contact stay live and linked from the footer, and About links Contact.
+pub const PRIMARY_NAV_LINKS: [(&str, &str); 5] = [
     ("/tools/", "Tools"),
+    ("/tools/accounting-questions/", "Questions"),
     ("/rates/", "Rates"),
-    ("/evaluate/", "Evaluations"),
     ("/evidence/", "Evidence"),
     ("/about/", "About"),
-    ("/contact/", "Contact"),
 ];
 
 pub const BREADCRUMB_LEAF_NAMES: [(&str, &str); 13] = [
@@ -519,7 +535,10 @@ pub const BREADCRUMB_LEAF_NAMES: [(&str, &str); 13] = [
         "tools/company-tax-franking/index.html",
         "Company tax and franking checks",
     ),
-    ("tools/payday-super/index.html", "Payday Super timing"),
+    (
+        "tools/payday-super/index.html",
+        "Payday Super receipt evidence",
+    ),
     (
         "tools/subcontractor-ledgers/index.html",
         "Subcontract ledger skills",
@@ -638,59 +657,58 @@ pub const HOMEPAGE_ACTIONS: [(&str, &str); 1] = [(
     "/examples/profit-vs-cash-flow/",
     "Explore the cash flow example",
 )];
-pub const HOMEPAGE_PREVIEW_ENTRIES: [(&str, &str, &str); 4] = [
-    (
-        "Use accounting functions in Excel",
-        "/tools/ozzit/",
-        "/tools/ozzit/#functions",
-    ),
-    (
-        "Review a month-end close",
-        "/tools/monthly-close-controls/",
-        "/tools/monthly-close-controls/#get-it",
-    ),
-    (
-        "Calculate a Coal LSL levy",
-        "/tools/coal-lsl-levy/",
-        "/tools/coal-lsl-levy/",
-    ),
-    (
-        "Check a BAS pack before manager review",
-        "/evaluate/manager-review-gate/",
-        "/tools/workpaper-review-gate/",
-    ),
-];
-pub const TASK_ROUTE_ENTRIES: [(&str, &str, &str); 5] = [
+/// The five starting routes: the homepage hero opens the first, its first
+/// reader route lists the other four, and Tools and llms.txt list all five.
+pub const TASK_ROUTE_ENTRIES: [(&str, &str); 5] = [
     (
         "Understand why profit and cash differ",
         "/examples/profit-vs-cash-flow/",
-        "/evaluate/#five-minute-cases",
     ),
-    HOMEPAGE_PREVIEW_ENTRIES[0],
-    HOMEPAGE_PREVIEW_ENTRIES[1],
-    HOMEPAGE_PREVIEW_ENTRIES[2],
-    HOMEPAGE_PREVIEW_ENTRIES[3],
+    ("Use accounting functions in Excel", "/tools/ozzit/"),
+    ("Review a month-end close", "/tools/monthly-close-controls/"),
+    ("Calculate a Coal LSL levy", "/tools/coal-lsl-levy/"),
+    (
+        "Check a BAS pack before manager review",
+        "/evaluate/manager-review-gate/",
+    ),
+];
+/// The homepage router, one row per reader: its heading and the destinations
+/// it lists, in order. The first row lists TASK_ROUTE_ENTRIES after the cash
+/// case, then the full Tools register.
+pub const HOMEPAGE_ROUTES: [(&str, &[&str]); 3] = [
+    (
+        "Check a pack or calculate",
+        &[
+            "/tools/ozzit/",
+            "/tools/monthly-close-controls/",
+            "/tools/coal-lsl-levy/",
+            "/evaluate/manager-review-gate/",
+            "/tools/",
+        ],
+    ),
+    (
+        "Answer a tax or payroll question",
+        &["/tools/accounting-questions/", "/rates/"],
+    ),
+    ("Review my work", &["/about/", "/evidence/"]),
 ];
 pub const HOMEPAGE_ANCHORS: [&str; 2] = ["adopt", "verify"];
 pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
 pub const EVIDENCE_HEADING: &str = "Evidence behind the tools";
 pub const EVIDENCE_OPENING: &str = "Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.";
-pub const HOMEPAGE_REQUIRED_TEXT: [&str; 4] = [
+pub const HOMEPAGE_REQUIRED_TEXT: [&str; 3] = [
     HOMEPAGE_HEADING,
     HOMEPAGE_SUPPORT,
     "Try each tool with fictional data first",
-    "Check the source before the result",
 ];
 pub const HOMEPAGE_TITLE: &str = "Open source tools for Australian accountants";
 pub const HOMEPAGE_DESCRIPTION: &str = "Personal index of open source Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.";
-pub const HOMEPAGE_REQUIRED_HREFS: [&str; 5] = [
+pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/evidence/",
     "/examples/profit-vs-cash-flow/",
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
-    "/tools/workpaper-review-gate/",
 ];
-pub const HOMEPAGE_PROOF_HREFS: [&str; 2] = ["/tools/coal-lsl-levy/", "/evidence/"];
 pub const ARTICLE_PATTERN_PAGES: [&str; 35] = [
     "works-with/index.html",
     "works-with/xero/index.html",
@@ -836,35 +854,35 @@ pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 5] = [
         label: "Australian accounting",
         heading: &["Open source tools for", "Australian accountants"],
         host: "duguid.com.au",
-        output: "social-card-site-20261016.png",
+        output: "social-card-site-20261104.png",
     },
     SocialCard {
         id: "tools",
         label: "Open source tools",
         heading: &["Accounting checks that", "show their working."],
         host: "duguid.com.au/tools/",
-        output: "social-card-tools-20261016.png",
+        output: "social-card-tools-20261104.png",
     },
     SocialCard {
         id: "evaluations",
         label: "Reproducible evaluations",
-        heading: &["Fabricated inputs.", "Expected results.", "Visible limits."],
+        heading: &["Fictional inputs.", "Expected results.", "Visible limits."],
         host: "duguid.com.au/evaluate/",
-        output: "social-card-evaluations-20261016.png",
+        output: "social-card-evaluations-20261104.png",
     },
     SocialCard {
         id: "rates",
         label: "Maintained reference tables",
         heading: &["Australian rates,", "sources, and review dates."],
         host: "duguid.com.au/rates/",
-        output: "social-card-rates-20261016.png",
+        output: "social-card-rates-20261104.png",
     },
     SocialCard {
         id: "evidence",
         label: "Evidence register",
         heading: &["Claims linked to sources,", "releases, and tests."],
         host: "duguid.com.au/evidence/",
-        output: "social-card-evidence-20261016.png",
+        output: "social-card-evidence-20261104.png",
     },
 ];
 pub const SOCIAL_CARD_DIMENSIONS: (u32, u32) = (1200, 630);

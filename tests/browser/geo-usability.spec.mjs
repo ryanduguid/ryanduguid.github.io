@@ -45,21 +45,6 @@ test('printing hides an open chart viewer and restores it afterwards', async ({ 
   }
 });
 
-test('printing opens the fixed proof and closes it again afterwards', async ({ page }) => {
-  await page.goto('/');
-  const disclosure = page.locator('.proof-capture');
-  await expect(disclosure).not.toHaveAttribute('open');
-  // A print session fires beforeprint as well as the media change.
-  await page.evaluate(() => dispatchEvent(new Event('beforeprint')));
-  await page.emulateMedia({ media: 'print' });
-  await expect(disclosure).toHaveAttribute('open', '');
-  await expect(disclosure.locator('figure')).toBeVisible();
-  await expect(disclosure.locator('figcaption')).toBeVisible();
-  await page.evaluate(() => dispatchEvent(new Event('afterprint')));
-  await page.emulateMedia({ media: null });
-  await expect(disclosure).not.toHaveAttribute('open');
-});
-
 test('printing keeps the full tool register available without a duplicate task list', async ({ page }) => {
   await page.goto('/tools/');
   await expect(page.locator('.work-chooser')).toHaveCount(0);
@@ -100,15 +85,6 @@ test('mobile visitors can open the cash-flow example from the first screen', asy
   });
   const bounds = await link.boundingBox();
   expect(bounds.y + bounds.height).toBeLessThanOrEqual(844);
-
-  const disclosure = page.locator('.proof-capture');
-  const summary = disclosure.locator('summary');
-  await expect(disclosure).not.toHaveAttribute('open');
-  await summary.focus();
-  await page.keyboard.press('Enter');
-  await expect(disclosure).toHaveAttribute('open', '');
-  await page.keyboard.press('Space');
-  await expect(disclosure).not.toHaveAttribute('open');
 });
 
 test('cash-flow entry points reach the workbook and About reaches review evidence', async ({ page, browserName, isMobile }) => {
@@ -157,7 +133,7 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
     ));
     expect(downloadOffset).toBeLessThan(500);
     const downloadPromise = page.waitForEvent('download');
-    await page.getByRole('link', { name: 'Download the synthetic Excel forecast', exact: true }).click();
+    await page.getByRole('link', { name: 'Download the fictional Excel forecast', exact: true }).click();
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe('lumbridge.xlsx');
     expect(await download.failure()).toBeNull();
@@ -165,7 +141,7 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   await page.goto('/about/');
   await page.locator('#work-samples').getByRole('link', { name: 'accounting review pipeline', exact: true }).click();
   await expect(page).toHaveURL(/\/evaluate\/#month-end-preview$/);
-  const excerpt = page.getByRole('region', { name: 'Synthetic month-end exception excerpt' });
+  const excerpt = page.getByRole('region', { name: 'Fictional month-end exception excerpt' });
   await expect(excerpt.getByRole('row')).toHaveCount(4);
   if (page.viewportSize().width < 704) {
     await excerpt.focus();

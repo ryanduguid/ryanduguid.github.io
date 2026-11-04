@@ -45,15 +45,9 @@ const JSON_LD_TYPE_PATTERN: &str = r#"\btype\s*=\s*["\']application/ld\+json["\'
 pub const SECURITY_TXT: &str = ".well-known/security.txt";
 const SECURITY_TXT_CANONICAL: &str = "https://duguid.com.au/.well-known/security.txt";
 const JEKYLL_CONFIG: &str = "_config.yml";
-const PROOF_IMAGE_PATTERN: &str =
-    r#"<img\b(?=[^>]*\bsrc="/assets/coal-lsl-calculator\.webp")[^>]*>"#;
-const PROOF_WIDTH: &str = "868";
-const PROOF_HEIGHT: &str = "580";
 const MAX_PROOF_BYTES: usize = 80_000;
 pub const PROOF_ASSET: &str = "assets/coal-lsl-calculator.webp";
 pub const PROOF_MOBILE_ASSET: &str = "assets/coal-lsl-calculator-mobile.webp";
-const PROOF_MOBILE_SOURCE: &str =
-    "<source media=\"(max-width: 40rem)\" srcset=\"/assets/coal-lsl-calculator-mobile.webp\"";
 const HOMEPAGE_ANCHOR_IDS: [&str; 2] = ["adopt", "verify"];
 const HOMEPAGE_REQUIRED_CLASSES: [&str; 2] = ["home-hero__actions", "home-tool-preview"];
 const HERO_PREVIEW_ADJACENCY_PATTERN: &str = concat!(
@@ -73,12 +67,14 @@ const MAX_FONT_BYTES: u64 = 25_000;
 const MAX_TOTAL_FONT_BYTES: u64 = 135_000;
 const FAVICON_COLOURS: [&str; 3] = ["#000000", "#ffd32a", "#990024"];
 const FAVICON_GEOMETRY_ATTRIBUTES: [&str; 6] = ["x", "y", "width", "height", "rx", "ry"];
-const BANNED_CSS_PATTERNS: [&str; 8] = [
+const BANNED_CSS_PATTERNS: [&str; 9] = [
     "linear-gradient",
     "radial-gradient",
     "conic-gradient",
     "backdrop-filter",
     "box-shadow",
+    // A pill radius; controls use --radius-control.
+    "9999px",
     "#04001f",
     "#5c2d91",
     "#9f6fd8",
@@ -168,6 +164,19 @@ pub const BANNED_VISIBLE_PATTERNS: [(&str, &str); 79] = [
     ("Get started", r"\bget started\b"),
 ];
 const COPY_TEXT_FILES: [&str; 1] = ["llms.txt"];
+/// 'synthetic' or 'fabricated' as a word of prose. Slugs, identifiers and a
+/// quoted mention of the old word ('fabricated') keep their spelling.
+const INVENTED_DATA_PATTERN: &str =
+    r"(?<![\w#/'‘-])(synthetic|fabricat(?:e|es|ed|ing|ion))(?![\w'’-])";
+const DESCRIPTION_META_PATTERN: &str = concat!(
+    r#"<meta\b(?=[^>]*\b(?:name|property)\s*=\s*"(?:description|og:description|twitter:description)")"#,
+    r#"[^>]*\bcontent\s*=\s*"([^"]*)""#
+);
+const IMAGE_DESCRIPTION_META_PATTERN: &str = concat!(
+    r#"<meta\b(?=[^>]*\b(?:name|property)\s*=\s*"(?:og:image:alt|twitter:image:alt)")"#,
+    r#"[^>]*\bcontent\s*=\s*"([^"]*)""#
+);
+const ACCESSIBLE_NAME_PATTERN: &str = r#"\b(?:aria-label|alt)\s*=\s*"([^"]*)""#;
 const META_CONTENT_PATTERN: &str = r#"<meta\b[^>]*\bcontent\s*=\s*"([^"]*)""#;
 const OPENING_REVIEW_DATE_CONTEXTS: [(&str, &str); 3] = [
     ("index.html", "home-hero__copy"),
@@ -513,6 +522,8 @@ pub fn check_oled_tokens(tokens_css: &str) -> Vec<String> {
     for (token, colour) in [
         ("--colour-stamp", "#990024"),
         ("--colour-stamp-strong", "#66023c"),
+        // Link underlines and accent rules only: 4.55:1 on the black canvas.
+        ("--colour-stroke", "#e7162f"),
         ("--colour-pass", "#0f4b32"),
     ] {
         if get(token) != Some(colour) {
@@ -717,14 +728,8 @@ pub fn check_stylesheets(root: &Path, baseline: &Json) -> Result<Vec<String>, St
         failures.push("assets/site.css: token import creates a serial request chain".into());
     }
     let combined = format!("{site_css}\n{tokens_css}").to_lowercase();
-    let without_view_mode = re(r"(?m)^\.view-mode\s*\{[^}]*\}", 0).sub("", &combined);
     for pattern in BANNED_CSS_PATTERNS {
-        let checked = if pattern == "backdrop-filter" || pattern == "box-shadow" {
-            &without_view_mode
-        } else {
-            &combined
-        };
-        if checked.contains(pattern) {
+        if combined.contains(pattern) {
             failures.push(format!("banned CSS pattern {pattern}"));
         }
     }
@@ -808,42 +813,13 @@ pub fn check_stylesheets(root: &Path, baseline: &Json) -> Result<Vec<String>, St
             ));
         }
     }
-    let route_rules = re(r"\.route-section\s*\{(.*?)\}", S | I).findall(&site_css);
-    if route_rules.iter().any(|r| {
-        re(
-            r"\bmin-height\s*:\s*[^;]*(?:var\(--route-min-height\)|[sd]?vh)",
-            I,
-        )
-        .is_match(r)
-    }) {
-        failures.push("route sections must not use viewport-based minimum heights".into());
-    }
-    let label_rules =
-        re(r"\.route-section\s*>\s*\.route-label\s*\{(.*?)\}", S | I).findall(&site_css);
-    if label_rules
-        .iter()
-        .any(|r| re(r"\bposition\s*:\s*sticky\s*;", I).is_match(r))
-    {
-        failures.push("route labels must not be sticky".into());
-    }
     let min_width = |r: &str| re(r"\bmin-width\s*:\s*0\s*;", I).is_match(r);
-    if !rule(r"\.route-content\s*\{(.*?)\}").is_some_and(|r| min_width(&r)) {
-        failures
-            .push("route content must allow internal overflow without widening the page".into());
-    }
-    for selector in ["route-actions", "install-band"] {
-        let rules = re(&format!(r"\.{selector}\s*\{{(.*?)\}}"), S | I).findall(&site_css);
-        if !rules.iter().any(|r| min_width(r)) {
-            failures.push("route action groups must contain intrinsic-width content".into());
-            break;
-        }
-    }
-    let figure_rules = re(r"\.proof-feature\s+figure\s*\{(.*?)\}", S | I).findall(&site_css);
-    if !figure_rules
+    if !re(r"\.install-band\s*\{(.*?)\}", S | I)
+        .findall(&site_css)
         .iter()
-        .any(|r| min_width(r) && re(r"\bmargin-inline\s*:\s*0\s*;", I).is_match(r))
+        .any(|r| min_width(r))
     {
-        failures.push("proof media must not widen the fallback viewport".into());
+        failures.push("install bands must contain intrinsic-width content".into());
     }
     let mut declared: Vec<String> = re(FONT_URL_PATTERN, 0)
         .findall(&tokens_css)
@@ -971,6 +947,110 @@ pub fn check_copy(root: &Path) -> Result<Vec<String>, String> {
         }
     }
     Ok(failures)
+}
+
+/// Invented data is 'fictional' in reader copy (4 November 2026): visible text,
+/// accessible names, page descriptions, JSON-LD and llms.txt. Code shows
+/// commands and identifiers, so it keeps fixture names such as `synthetic: true`.
+pub fn check_fictional_wording(root: &Path) -> Result<Vec<String>, String> {
+    let mut failures = Vec::new();
+    let mut documents = Vec::new();
+    for path in core::html_files(root) {
+        let rel = core::rel(&path, root);
+        let html = crate::read(&path)?;
+        let prose = re(r"<(code|pre)\b[^>]*>.*?</\1>", I | S).sub(" ", &html);
+        let values = |pattern: &str, source: &str| {
+            re(pattern, I)
+                .findall(source)
+                .iter()
+                .map(|v| unescape(v))
+                .collect::<Vec<_>>()
+                .join(" ")
+        };
+        let mut strings = Vec::new();
+        for block in core::json_ld_blocks(&html, &rel, &mut Vec::new()) {
+            json_ld_strings(&block, &mut strings);
+        }
+        let surfaces = vec![
+            ("visible", core::raw_text(&prose)),
+            ("accessible name", values(ACCESSIBLE_NAME_PATTERN, &prose)),
+            ("description", values(DESCRIPTION_META_PATTERN, &html)),
+            (
+                "image description",
+                values(IMAGE_DESCRIPTION_META_PATTERN, &html),
+            ),
+            ("JSON-LD", strings.join(" ")),
+        ];
+        documents.push((rel, surfaces));
+    }
+    for rel in COPY_TEXT_FILES {
+        let path = site_path(root, rel);
+        if path.is_file() {
+            documents.push((rel.to_owned(), vec![("text", crate::read(&path)?)]));
+        }
+    }
+    let invented = re(INVENTED_DATA_PATTERN, I);
+    for (rel, surfaces) in documents {
+        for (surface, text) in surfaces {
+            let mut words: Vec<String> = invented
+                .findall(&text)
+                .iter()
+                .map(|w| w.to_lowercase())
+                .collect();
+            words.sort();
+            words.dedup();
+            for word in words {
+                failures.push(format!(
+                    "{rel}: {surface} copy says '{word}'; write 'fictional' for invented data"
+                ));
+            }
+        }
+    }
+    Ok(failures)
+}
+
+/// A tool page states its current release once before its first section;
+/// pins and release history sit under the section they describe.
+pub fn check_release_statements(root: &Path) -> Result<Vec<String>, String> {
+    let mut failures = Vec::new();
+    for path in core::html_files(root) {
+        let rel = core::rel(&path, root);
+        let html = crate::read(&path)?;
+        if !rel.starts_with("tools/")
+            || !re(r#"class="(?:article|calculator)-header\b"#, 0).is_match(&html)
+        {
+            continue;
+        }
+        let found = release_statements_before_first_section(&html);
+        if found > 1 {
+            failures.push(format!(
+                "{rel}: expected at most one release statement before the first h2, found {found}"
+            ));
+        }
+    }
+    Ok(failures)
+}
+
+/// Visible sentences in main, before its first h2, that name a version and
+/// call it a release or a pin. Navigation labels name sections, so they are
+/// not statements.
+fn release_statements_before_first_section(html: &str) -> usize {
+    let visible = core::visible_html(html);
+    let Some(main) = re(r"<main\b", I).search(&visible) else {
+        return 0;
+    };
+    let opening = &visible[main.get(0).expect("group 0").start()..];
+    let end = re(r"<h2\b", I)
+        .search(opening)
+        .map_or(opening.len(), |m| m.get(0).expect("group 0").start());
+    let prose = re(r"<nav\b.*?</nav>", S | I).sub(" ", &opening[..end]);
+    let release = re(r"\b(?:release|released|pinned)\b", I);
+    let version = re(r"\bv?\d+\.\d+\.\d+\b", 0);
+    re(r"(?<=[.!?])\s+", 0)
+        .split(&core::stripped_text(&prose))
+        .into_iter()
+        .filter(|sentence| release.is_match(sentence) && version.is_match(sentence))
+        .count()
 }
 
 /// Keep visible opening review dates aligned with structured freshness.
@@ -1110,9 +1190,6 @@ pub fn check_homepage_refinement(root: &Path) -> Result<Vec<String>, String> {
     }
     if !re(HERO_PREVIEW_ADJACENCY_PATTERN, I | S).is_match(&main) {
         failures.push("index.html: tool preview must follow home hero".into());
-    }
-    if class_count(&main, "technical-label") != 1 {
-        failures.push("index.html: expected exactly one evidence-bearing technical label".into());
     }
     let label_pattern = re(
         concat!(
@@ -1324,37 +1401,9 @@ pub fn check_document_delivery(root: &Path, baseline: &Json) -> Result<Vec<Strin
             break;
         }
     }
-    let homepage_path = root.join("index.html");
-    if !homepage_path.is_file() {
-        return Ok(failures);
-    }
-    let homepage = crate::read(&homepage_path)?;
-    match re(PROOF_IMAGE_PATTERN, I).search(&homepage) {
-        None => failures.push("index.html: Coal LSL proof image is missing".into()),
-        Some(m) => {
-            let image = m[0].to_owned();
-            for (marker, message) in [
-                ("loading=\"lazy\"".to_owned(), "load lazily"),
-                ("decoding=\"async\"".to_owned(), "decode asynchronously"),
-                (format!("width=\"{PROOF_WIDTH}\""), "keep its width"),
-                (format!("height=\"{PROOF_HEIGHT}\""), "keep its height"),
-            ] {
-                if !image.contains(&marker) {
-                    failures.push(format!("index.html: Coal LSL proof image must {message}"));
-                }
-            }
-            let alt = re(r#"\balt\s*=\s*(["\'])(.*?)\1"#, I | S)
-                .search(&image)
-                .map(|m| m[2].to_owned());
-            if alt.is_none_or(|a| py::char_len(&core::raw_text(&a)) < 12) {
-                failures
-                    .push("index.html: Coal LSL proof image must have descriptive alt text".into());
-            }
-        }
-    }
-    if !homepage.contains(PROOF_MOBILE_SOURCE) {
-        failures.push("index.html: Coal LSL proof picture must offer the mobile source".into());
-    }
+    // The Coal LSL proof left the homepage on 4 November 2026; its published
+    // images keep their URLs, format and budget, and the capture tests keep
+    // them matching the calculator.
     for asset in [PROOF_ASSET, PROOF_MOBILE_ASSET] {
         let path = site_path(root, asset);
         if !path.is_file() {
@@ -1530,7 +1579,9 @@ pub fn check_repository(root: &Path) -> Result<Vec<String>, String> {
     }
     failures.extend(check_homepage_refinement(root)?);
     failures.extend(check_copy(root)?);
+    failures.extend(check_fictional_wording(root)?);
     failures.extend(check_opening_review_dates(root)?);
+    failures.extend(check_release_statements(root)?);
     Ok(failures)
 }
 

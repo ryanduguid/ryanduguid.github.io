@@ -140,6 +140,15 @@ test('review previews expose their captured reports before installation', async 
   expect(await summary.text()).toContain('A human must still decide whether the file is acceptable.');
 });
 
+test('Rates leads each table with its value and shows the first one on a laptop screen', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/rates/');
+  const values = page.locator('.rate-entry__value');
+  await expect(values).toHaveCount(7);
+  await expect(values.first()).toBeInViewport();
+  expect(await values.first().evaluate((value) => getComputedStyle(value).fontFamily)).toMatch(/^"Spline Sans Mono"/);
+});
+
 test('rates offer an Excel import and the existing update feed', async ({ page, request }) => {
   await page.goto('/rates/');
   await page.locator('#excel summary').click();

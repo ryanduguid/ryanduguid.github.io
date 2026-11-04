@@ -301,6 +301,16 @@ test('a tool page may pin an older release only if it names the current one', as
   assert.deepEqual(await freshness.checkToolReleases([['tools/b/index.html', '<p>No release-meta here</p>']], lookup), []);
 });
 
+test('a tool page that renders the shared metadata line is checked against its release snapshot', async () => {
+  const snapshot = JSON.parse(readFileSync(new URL('../_data/tool_releases.json', import.meta.url), 'utf8'))['payday-super'];
+  const prefix = snapshot.tag.slice(0, snapshot.tag.lastIndexOf('/v') + 2);
+  const page = ['tools/payday-super/index.html', '{% include tool-meta.html published="1 July 2026" reviewed="2 July 2026" %}'];
+  assert.deepEqual(await freshness.checkToolReleases([page], async () => [release(snapshot.tag)]), []);
+  assert.deepEqual(await freshness.checkToolReleases([page], async () => [release(snapshot.tag), release(prefix + '99.0.0')]), [
+    `tools/payday-super/index.html: pins ${snapshot.tag} but does not name the current release ${prefix}99.0.0`,
+  ]);
+});
+
 // The workflow opens a drift issue on exit 1 only, so an outage must not share
 // that code. With PATH holding only an empty directory, gh cannot be found and
 // the lookup fails before any request. (Dropping PATH is not enough: on Windows

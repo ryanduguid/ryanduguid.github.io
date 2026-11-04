@@ -41,23 +41,23 @@ Subcontract ledger skills | Agent evaluation procedure | Declared checks and pro
 Construction WIP schedule | Pinned source test | 50% progress and a $50,000 contract asset.
 Payday Super timing | Pinned package trial | AT_RISK while fund receipt is missing.
 ATO benchmark comparison | Pinned source test | 30% cost of sales after excluding the separately mapped wages.
-Coal LSL levy calculator | Browser calculator | Choose Load the synthetic example, then Calculate; compare the inputs and formula with the fixed homepage proof.
+Coal LSL levy calculator | Browser calculator | Choose Load the fictional example, then Calculate; expect Formula B, eligible wages of $7,125.00 and a levy of $192.38.
 Trust distribution checks | Pinned package trial | $100,000 on the declared section 99B assumptions, plus a refusal case.
 Company tax and franking checks | Pinned package trial | 25.0% on the declared base rate entity inputs, plus an unsupported-year refusal.
 Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
 Monthly Close Controls | Pinned source case | REVIEW with 8 exceptions in the supplied July close.
-Australian tax tools for AI agents | Pinned package demonstration | Two synthetic tool calls, without an agent session or credentials.
+Australian tax tools for AI agents | Pinned package demonstration | Two tool calls with fictional facts, without an agent session or credentials.
 Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.5.0, check the published SHA-256 and confirm one LAMBDA result in desktop Excel.
 
 The Excel cash flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
 ## Short accounting cases
 
-Start with a review question and inspect the synthetic inputs, command and output. These are maintainer-prepared examples, not independent firm evaluations.
+Start with a review question and inspect the fictional inputs, command and output. These are maintainer-prepared examples, not independent firm evaluations.
 
 ### Balanced trial balance, unfinished review
 
-The synthetic July close returns REVIEW: 8 exceptions, none blocked. Three findings explain why the balanced trial balance still needs attention.
+The fictional July close returns REVIEW: 8 exceptions, none blocked. Three findings explain why the balanced trial balance still needs attention.
 
 Three findings from the supplied case. The 8 exceptions are not 8 accounting errors.
 

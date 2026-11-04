@@ -20,7 +20,7 @@ tool: wip-schedule
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/wip-schedule/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: wip-schedule
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Construction WIP under AASB 15: over- or under-billed?" />
   <meta name="twitter:description" content="AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/wip-schedule/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -58,16 +58,12 @@ tool: wip-schedule
       </ol>
     </nav>
     <h1>{{ tool.name }}</h1>
-    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
     <p class="lead-note">TheWIPTally reads one row per unit of account and produces a cost-to-cost
       work-in-progress schedule: earned revenue after AASB 15 para B19
       exclusions, constrained unapproved variations, and a contract asset or
-      contract liability per job. Assets and liabilities are never netted.
-      Review aid, not a determination.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+      contract liability per job.</p>
+    {% include tool-meta.html published="25 August 2026" reviewed="21 October 2026" %}
 {% include tool-facts.html %}
-
-    <p class="page-meta">Published 25 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -80,6 +76,7 @@ tool: wip-schedule
           <a href="#related">Related</a>
         </nav>
         <div class="article-body">
+    <p>Assets and liabilities are never netted. Review aid, not a determination.</p>
     <p>
       Construction month-end turns on the WIP schedule. The formula is easy.
       Applying it the same way every month is the work: strip waste from
@@ -105,7 +102,7 @@ tool: wip-schedule
     </section>
     <section id="worked-example">
     <h2>Worked example: a $50,000 contract asset</h2>
-    <p>This synthetic example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py">cost-to-cost underbilling test in the-wip-tally v0.1.2</a>. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.</p>
+    <p>This fictional example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py">cost-to-cost underbilling test in the-wip-tally v0.1.2</a>. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.</p>
     <ul>
       <li>Transaction price: $1,000,000.</li>
       <li>Costs incurred: $400,000. Estimated cost to complete: $400,000.</li>

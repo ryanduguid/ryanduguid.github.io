@@ -14,13 +14,13 @@ const routes = [
   ['not-found page', '/404.html'],
 ];
 
+// Ryan cut the primary navigation to 5 links on 4 November 2026.
 const primaryNavigation = [
   ['/tools/', 'Tools'],
+  ['/tools/accounting-questions/', 'Questions'],
   ['/rates/', 'Rates'],
-  ['/evaluate/', 'Evaluations'],
   ['/evidence/', 'Evidence'],
   ['/about/', 'About'],
-  ['/contact/', 'Contact'],
 ];
 
 const currentNavigationCases = [
@@ -31,19 +31,23 @@ const currentNavigationCases = [
   ['/works-with/claude/', 'Tools', 'location'],
   ['/rates/', 'Rates', 'page'],
   ['/rates/super-guarantee/', 'Rates', 'location'],
-  ['/evaluate/', 'Evaluations', 'page'],
-  ['/evaluate/manager-review-gate/', 'Evaluations', 'location'],
-  ['/contact/', 'Contact', 'page'],
+  ['/tools/accounting-questions/', 'Questions', 'page'],
+  ['/tools/accounting-questions/payroll-super/', 'Questions', 'location'],
+  ['/evaluate/', 'Tools', 'location'],
+  ['/evaluate/manager-review-gate/', 'Tools', 'location'],
 ];
 
-// Worked examples sit under Home, so no primary link claims the current
-// location on those routes.
-const noCurrentNavigationRoutes = ['/examples/profit-vs-cash-flow/'];
+// Worked examples sit under Home, and Contact has no primary link, so no
+// primary link claims the current location on those routes.
+const noCurrentNavigationRoutes = ['/examples/profit-vs-cash-flow/', '/contact/'];
 
+// One destination from each reader route, plus the task routes they lead with.
 const homepagePreviewRoutes = [
   ['Calculate a Coal LSL levy', '/tools/coal-lsl-levy/', 'calc-form'],
   ['Check a BAS pack before manager review', '/evaluate/manager-review-gate/', 'accounting-problem'],
   ['Use accounting functions in Excel', '/tools/ozzit/', 'worked-example'],
+  ['Maintained rate tables', '/rates/', 'excel'],
+  ['Evidence behind the tools', '/evidence/', 'identity-and-credentials'],
 ];
 
 const homeHeightBaseline = {
@@ -65,8 +69,11 @@ const homeHeightBaseline = {
   // The footer's humans.txt link of 29 October adds a measured 52px mobile and
   // 32px desktop to every page. Keep the previous headroom above the new
   // content height, here and in the route ceilings below.
-  mobile: 6648,
-  desktop: 4973,
+  // On 4 November reader routes and one release register replace the Coal
+  // LSL proof and the 3 closing sections. Home measures 3,626px mobile and
+  // 2,136px desktop; both ceilings drop to that plus the 234px guard.
+  mobile: 3860,
+  desktop: 2370,
 };
 
 const representativeHeightBaseline = {
@@ -150,22 +157,6 @@ const representativeHeightBaseline = {
     ['/evidence/', 11302],
   ]),
 };
-
-async function decodedHomeProof(page) {
-  const disclosure = page.locator('.proof-capture');
-  if ((await disclosure.getAttribute('open')) === null) {
-    await disclosure.locator('summary').click();
-  }
-  const proof = page.getByRole('img', {
-    name: /Coal LSL calculator result showing Formula B/,
-  });
-  await proof.scrollIntoViewIfNeeded();
-  await expect.poll(() => proof.evaluate((image) => (
-    image.complete && image.naturalWidth > 0
-  ))).toBe(true);
-  await proof.evaluate((image) => image.decode());
-  return proof;
-}
 
 for (const [label, route] of routes) {
   test(`${label} has a healthy, accessible page shell`, async ({ page }) => {
@@ -314,15 +305,6 @@ test('wide tables show every column where the content column has room', async ({
   expect(rail.top).toBeLessThanOrEqual(rail.header + 48);
 });
 
-test('homepage levy inputs share one top edge when a label wraps', async ({ page }, testInfo) => {
-  test.skip(projectKind(testInfo) !== 'mobile', 'the overtime label wraps only at phone width');
-  await page.goto('/');
-  await waitForVisualFonts(page);
-  const tops = await page.locator('.proof-calc__fields input').evaluateAll((inputs) => inputs
-    .map((input) => Math.round(input.getBoundingClientRect().top + window.scrollY)));
-  expect(Math.abs(tops[0] - tops[1])).toBeLessThanOrEqual(1);
-});
-
 test('health collector catches a non-success response', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/definitely-missing-agent-test');
@@ -339,7 +321,7 @@ test('known missing-route response is explicitly allowed', async ({ page }) => {
   expect(() => health.assertHealthy()).not.toThrow();
 });
 
-test('home leads with adoption actions and a shorter tool preview', async ({ page }, testInfo) => {
+test('home leads with one action, then 3 reader routes and the release register', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
   await page.goto('/');
   await waitForVisualFonts(page);
@@ -355,7 +337,7 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   ]);
   await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/examples/profit-vs-cash-flow/');
   await expect(page.locator('.home-tool-preview a[href="/tools/"]')).toHaveText([
-    'Browse tools by accounting task',
+    'All tools by accounting task',
   ]);
 
   await expect(page.locator('main > section, main > aside').first()).toHaveClass(/home-hero/);
@@ -367,25 +349,17 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
 
   const categories = page.getByRole('navigation', { name: 'Starting routes' });
   await expect(categories.getByRole('heading', { level: 3 })).toHaveText([
-    'Use accounting functions in Excel',
-    'Review a month-end close',
-    'Calculate a Coal LSL levy',
-    'Check a BAS pack before manager review',
+    'Check a pack or calculate',
+    'Answer a tax or payroll question',
+    'Review my work',
   ]);
-  expect(await page.evaluate(() => {
-    const preview = document.querySelector('.home-tool-preview');
-    const proof = document.querySelector('.proof-feature');
-    return Boolean(preview && proof
-      && (preview.compareDocumentPosition(proof) & Node.DOCUMENT_POSITION_FOLLOWING));
-  })).toBe(true);
+  await expect(page.locator('.home-tool-preview + section')).toHaveId('adopt');
   for (const identifier of ['adopt', 'verify']) {
     await expect(page.locator(`#${identifier}`)).toHaveCount(1);
   }
   await expect(page.locator('#engage')).toHaveCount(0);
-  expect(await page.locator('.route-section').evaluateAll((sections) =>
-    sections.map((section) => getComputedStyle(section).minHeight)
-  )).toEqual(['0px', '0px', '0px']);
-  await decodedHomeProof(page);
+  await expect(page.locator('script[src="/assets/home-levy.mjs"], link[href="/assets/levy.mjs"]'))
+    .toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollHeight))
     .toBeLessThan(homeHeightBaseline[projectKind(testInfo)]);
   health.assertHealthy();
@@ -407,7 +381,6 @@ test('representative routes stay within their height limits', async ({ page }, t
   for (const [route, baseline] of representativeHeightBaseline[projectKind(testInfo)]) {
     await page.goto(route);
     await waitForVisualFonts(page);
-    if (route === '/') await decodedHomeProof(page);
     const height = await page.evaluate(() => document.documentElement.scrollHeight);
     expect(height, `${route} ${testInfo.project.name}`).toBeLessThan(baseline);
   }
@@ -451,7 +424,7 @@ test('homepage supporting text respects contrast and print overrides while stayi
   for (const colorScheme of ['light', 'dark']) {
     await page.emulateMedia({ colorScheme });
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)');
-    await expect(note).toHaveCSS('color', 'rgb(218, 218, 218)');
+    await expect(note).toHaveCSS('color', 'rgb(229, 228, 226)');
   }
   await page.emulateMedia({ contrast: 'more' });
   await expect(note).toHaveCSS('color', 'rgb(255, 255, 240)');
@@ -515,13 +488,13 @@ test('primary navigation order and current states match the collection hierarchy
   health.assertHealthy();
 });
 
-test('all six primary navigation links fit the smallest mobile width', async ({ page, browserName }, testInfo) => {
+test('all five primary navigation links fit the smallest mobile width', async ({ page, browserName }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'mobile', 'mobile contract only');
   const health = observePageHealth(page);
   await page.setViewportSize({ width: 320, height: 844 });
   await page.goto('/');
   const primary = page.getByRole('navigation', { name: 'Primary' });
-  // Every link, Contact included, must be visible without horizontal
+  // Every link, About included, must be visible without horizontal
   // scrolling: a clipped nav item with no scroll cue is an invisible route.
   // Below 360 px the row may wrap instead.
   const geometry = await primary.evaluate((navigation) => {
@@ -540,16 +513,16 @@ test('all six primary navigation links fit the smallest mobile width', async ({ 
     };
   });
   expect(geometry.scrollWidth, JSON.stringify(geometry)).toBeLessThanOrEqual(geometry.clientWidth);
-  expect(geometry.links).toHaveLength(6);
+  expect(geometry.links).toHaveLength(5);
   for (const link of geometry.links) {
     expect(link.fullyVisible, `${link.label} is clipped`).toBe(true);
   }
   // WebKit, like Safari, leaves links out of the Tab order by default, so the
   // keyboard traversal is a Chromium check.
   if (browserName === 'chromium') {
-    const lastPrimaryLink = primary.getByRole('link', { name: 'Contact' });
+    const lastPrimaryLink = primary.getByRole('link', { name: 'About' });
     await primary.getByRole('link', { name: 'Tools' }).focus();
-    for (let index = 0; index < 5; index += 1) {
+    for (let index = 0; index < 4; index += 1) {
       await page.keyboard.press('Tab');
     }
     await expect(lastPrimaryLink).toBeFocused();
@@ -618,63 +591,10 @@ for (const width of [320, 390, 768, 1440]) {
   });
 }
 
-test('home proof image loads only when requested and decodes before capture', async ({ page }, testInfo) => {
-  const health = observePageHealth(page);
-  await page.goto('/');
-  const proof = page.getByRole('img', {
-    name: /Coal LSL calculator result showing Formula B/,
-    includeHidden: true,
-  });
-  await expect(proof).toHaveAttribute('loading', 'lazy');
-  await decodedHomeProof(page);
-  // The mobile breakpoint serves the 390-CSS-px render at twice the density
-  // so the ledger text stays legible; wider viewports keep the desktop asset.
-  const expectedNatural = projectKind(testInfo) === 'mobile'
-    ? { width: 780, height: 1360 }
-    : { width: 868, height: 580 };
-  expect(await proof.evaluate((image) => ({
-    width: image.naturalWidth,
-    height: image.naturalHeight,
-  }))).toEqual(expectedNatural);
-  health.assertHealthy();
-});
-
-test('home proof uses practical inspection width without page overflow', async ({ page }, testInfo) => {
-  const health = observePageHealth(page);
-  await page.goto('/');
-  const proof = await decodedHomeProof(page);
-  const geometry = await proof.evaluate((image) => {
-    const rect = image.getBoundingClientRect();
-    return {
-      left: rect.left,
-      right: rect.right,
-      width: rect.width,
-      viewportWidth: document.documentElement.clientWidth,
-      scrollWidth: document.documentElement.scrollWidth,
-    };
-  });
-  const minimumProofWidth = projectKind(testInfo) === 'mobile'
-    ? 380
-    : 680;
-
-  expect(geometry.width, `${testInfo.project.name} proof width`)
-    .toBeGreaterThanOrEqual(minimumProofWidth);
-  expect(geometry.left, `${testInfo.project.name} proof left edge`)
-    .toBeGreaterThanOrEqual(0);
-  expect(geometry.right, `${testInfo.project.name} proof right edge`)
-    .toBeLessThanOrEqual(geometry.viewportWidth);
-  expect(geometry.scrollWidth, `${testInfo.project.name} document overflow`)
-    .toBeLessThanOrEqual(geometry.viewportWidth);
-  health.assertHealthy();
-});
-
 test('home matches its viewport visual baseline', async ({ page, browserName }, testInfo) => {
   test.skip(browserName !== 'chromium', 'the committed baselines are Chromium renders');
   const health = observePageHealth(page);
   await gotoForVisualSnapshot(page, '/');
-  // This baseline shows the disclosure closed. The proof tests above cover
-  // opening and decoding each responsive image.
-  await expect(page.locator('.proof-capture')).not.toHaveAttribute('open');
   await page.evaluate(() => scrollTo(0, 0));
 
   const viewport = projectKind(testInfo) === 'mobile'

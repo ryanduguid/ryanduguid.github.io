@@ -84,43 +84,36 @@ pub fn check_homepage_contract(html: &str, failures: &mut Vec<String>) {
     }
 
     let previews = rendered_with_class(&tree, Tree::ROOT, None, "home-tool-preview");
-    let mut actual_preview: Vec<(String, Option<String>, Option<String>)> = Vec::new();
+    let mut actual_routes: Vec<(String, Vec<Option<String>>)> = Vec::new();
     if previews.len() == 1 {
         for entry in rendered_with_class(&tree, previews[0], None, "home-tool-preview__entry") {
             let headings = tree.descendants(entry, Some("h3"), true);
-            let links = tree.descendants(entry, Some("a"), true);
-            actual_preview.push((
+            actual_routes.push((
                 if headings.len() == 1 {
                     tree.text(headings[0])
                 } else {
                     String::new()
                 },
-                links
-                    .first()
-                    .and_then(|l| tree.attr(*l, "href"))
-                    .map(str::to_owned),
-                links
-                    .get(1)
-                    .and_then(|l| tree.attr(*l, "href"))
-                    .map(str::to_owned),
+                tree.descendants(entry, Some("a"), true)
+                    .into_iter()
+                    .map(|l| tree.attr(l, "href").map(str::to_owned))
+                    .collect(),
             ));
         }
     }
-    let expected_preview: Vec<(String, Option<String>, Option<String>)> = HOMEPAGE_PREVIEW_ENTRIES
+    let expected_routes: Vec<(String, Vec<Option<String>>)> = HOMEPAGE_ROUTES
         .iter()
-        .map(|(a, b, c)| {
+        .map(|(heading, hrefs)| {
             (
-                (*a).to_owned(),
-                Some((*b).to_owned()),
-                Some((*c).to_owned()),
+                (*heading).to_owned(),
+                hrefs.iter().map(|h| Some((*h).to_owned())).collect(),
             )
         })
         .collect();
-    if actual_preview != expected_preview {
+    if actual_routes != expected_routes {
         failures.push(format!(
-            "index.html: category preview is {}, expected {}",
-            repr_list(actual_preview),
-            repr_list(HOMEPAGE_PREVIEW_ENTRIES)
+            "index.html: reader routes are {:?}, expected {:?}",
+            actual_routes, expected_routes
         ));
     }
 
@@ -140,12 +133,11 @@ pub fn check_homepage_contract(html: &str, failures: &mut Vec<String>) {
     let visible = core::visible_html(html);
     let sequence = [
         find(&visible, "class=\"home-tool-preview"),
-        find(&visible, "class=\"route-section proof-feature"),
-        find(&visible, "id=\"adopt\""),
         find(&visible, "id=\"verify\""),
+        find(&visible, "id=\"adopt\""),
     ];
     if sequence.iter().any(|p| *p < 0) || !sequence.is_sorted() {
-        failures.push("index.html: content order must be preview, proof, Adopt, Verify".into());
+        failures.push("index.html: content order must be the reader routes, then Adopt".into());
     }
 
     let hrefs: Vec<Option<&str>> = rendered(&tree, Some("a"))
@@ -155,27 +147,6 @@ pub fn check_homepage_contract(html: &str, failures: &mut Vec<String>) {
     for href in HOMEPAGE_REQUIRED_HREFS {
         if !hrefs.contains(&Some(href)) {
             failures.push(format!("index.html: missing visible homepage route {href}"));
-        }
-    }
-
-    let proof_features = rendered_with_class(&tree, Tree::ROOT, None, "proof-feature");
-    if proof_features.len() != 1 {
-        failures.push(format!(
-            "index.html: expected exactly one proof feature, found {}",
-            proof_features.len()
-        ));
-        return;
-    }
-    let proof_hrefs: Vec<Option<&str>> = tree
-        .descendants(proof_features[0], Some("a"), true)
-        .into_iter()
-        .map(|l| tree.attr(l, "href"))
-        .collect();
-    for href in HOMEPAGE_PROOF_HREFS {
-        if !proof_hrefs.contains(&Some(href)) {
-            failures.push(format!(
-                "index.html: proof feature is missing required link {href}"
-            ));
         }
     }
 }
@@ -843,20 +814,23 @@ pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
             repr_list(PRIMARY_NAV_LINKS)
         ));
     }
+    // Evaluations sit with the tools they evaluate; Contact has no
+    // primary link, so no link claims it.
     let expected_current: Vec<(&str, &str)> = if rel == "tools/index.html" {
         vec![("/tools/", "page")]
-    } else if rel.starts_with("tools/") || rel.starts_with("works-with/") {
+    } else if rel == "tools/accounting-questions/index.html" {
+        vec![("/tools/accounting-questions/", "page")]
+    } else if rel.starts_with("tools/accounting-questions/") {
+        vec![("/tools/accounting-questions/", "location")]
+    } else if rel.starts_with("tools/")
+        || rel.starts_with("works-with/")
+        || rel.starts_with("evaluate/")
+    {
         vec![("/tools/", "location")]
-    } else if rel == "contact/index.html" {
-        vec![("/contact/", "page")]
     } else if rel == "rates/index.html" {
         vec![("/rates/", "page")]
     } else if rel.starts_with("rates/") {
         vec![("/rates/", "location")]
-    } else if rel == "evaluate/index.html" {
-        vec![("/evaluate/", "page")]
-    } else if rel.starts_with("evaluate/") {
-        vec![("/evaluate/", "location")]
     } else if rel == EVIDENCE_REL {
         vec![("/evidence/", "page")]
     } else if rel == "about/index.html" {

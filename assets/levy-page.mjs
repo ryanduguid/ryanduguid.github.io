@@ -153,8 +153,9 @@ calcForm.querySelectorAll('input[name="branch"]').forEach((r) =>
 );
 showBranch(calcForm.elements.branch.value);
 
-// Fills the form with the same fabricated figures as the home-page
-// worked proof, so a visitor sees a full result before typing anything.
+// Fills the form with the fictional figures of the published Coal LSL proof
+// (scripts/coal-lsl-proof-fixture.mjs), so a visitor sees a full result
+// before typing anything.
 document.getElementById('load-example').addEventListener('click', () => {
   calcForm.elements.branch.value = 'baseRate';
   showBranch('baseRate');
@@ -223,11 +224,15 @@ function calculate() {
 }
 
 function revealResult() {
-  // Focus the result and keep Calculate fully below the sticky header.
+  // Focus the result heading. Stacked layouts keep Calculate fully below the
+  // sticky header with the result after it; on wide layouts the sticky result
+  // can sit above the viewport, so its heading scrolls into view.
+  const title = document.getElementById('result-title');
+  title.focus({ preventScroll: true });
   if (matchMedia('(max-width: 56rem)').matches) {
-    const title = document.getElementById('result-title');
-    title.focus({ preventScroll: true });
     calcForm.querySelector('button[type="submit"]').scrollIntoView({ block: 'start', behavior: 'instant' });
+  } else {
+    title.scrollIntoView({ block: 'start', behavior: 'instant' });
   }
 }
 

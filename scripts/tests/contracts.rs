@@ -565,7 +565,19 @@ fn public_contracts_install_and_adoption_routes() {
             "homepage setup guide route",
             "href=\"/tools/australian-tax-ai-agents/#install\">Set up AI tools",
             "href=\"/tools/australian-tax-ai-agents/\">Set up AI tools",
-            "index.html: #adopt must link to the integration guide",
+            "index.html: authority section #adopt must link to /tools/australian-tax-ai-agents/#install",
+        ),
+        (
+            "homepage version and limits guidance",
+            "<p>Use the sample files to check what each tool accepts, refuses and explains before using it in a firm. Check its version and limits in the setup guide before you install it.</p>",
+            "",
+            "index.html: authority section #adopt must keep its guidance",
+        ),
+        (
+            "homepage review guidance",
+            "<p>Read my background and credentials, then check the releases, source reviews and tests behind each tool.</p>",
+            "",
+            "index.html: authority section #verify must keep its guidance",
         ),
     ] {
         let site = copied_site();
@@ -939,6 +951,18 @@ fn public_contracts_routes_privacy_and_evaluations() {
 }
 
 #[test]
+fn homepage_first_route_lists_the_task_routes() {
+    // The hero opens the cash case; the first reader route lists the rest,
+    // so the homepage ItemList and llms.txt describe routes a reader can see.
+    let (_, first) = contracts::HOMEPAGE_ROUTES[0];
+    let tasks: Vec<&str> = contracts::TASK_ROUTE_ENTRIES[1..]
+        .iter()
+        .map(|(_, url)| *url)
+        .collect();
+    assert_eq!(&first[..tasks.len()], tasks.as_slice());
+}
+
+#[test]
 fn public_contracts_homepage_and_metadata_mutations() {
     if !rendered() {
         return;
@@ -970,10 +994,10 @@ fn public_contracts_homepage_and_metadata_mutations() {
             "index.html: homepage actions are",
         ),
         (
-            "homepage category anchor",
-            "href=\"/tools/workpaper-review-gate/\"",
-            "href=\"/tools/missing-workpaper-review-gate/\"",
-            "index.html: category preview is",
+            "homepage reader route destination",
+            "href=\"/tools/accounting-questions/\">100 accounting questions",
+            "href=\"/tools/missing-accounting-questions/\">100 accounting questions",
+            "index.html: reader routes are",
         ),
         (
             "homepage Adopt anchor",
@@ -982,10 +1006,10 @@ fn public_contracts_homepage_and_metadata_mutations() {
             "index.html: expected exactly one valid #adopt anchor",
         ),
         (
-            "proof evidence route",
-            "<a href=\"/evidence/\">Open the evidence register</a>",
-            "<a href=\"/missing-evidence/\">Open the evidence register</a>",
-            "proof feature is missing required link /evidence/",
+            "homepage route order",
+            "<div id=\"verify\" class=\"home-tool-preview__entry\">",
+            "<div class=\"home-tool-preview__entry\">",
+            "index.html: content order must be the reader routes, then Adopt",
         ),
     ] {
         contract_mutation(
@@ -1022,9 +1046,9 @@ fn public_contracts_homepage_and_metadata_mutations() {
         ),
         (
             "social-card context",
-            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-site-20261016.png\" />",
-            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-tools-20261016.png\" />",
-            "og:image is 'https://duguid.com.au/assets/social-card-tools-20261016.png'",
+            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-site-20261104.png\" />",
+            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-tools-20261104.png\" />",
+            "og:image is 'https://duguid.com.au/assets/social-card-tools-20261104.png'",
         ),
         (
             "referrer policy",
@@ -1055,7 +1079,7 @@ fn public_contracts_homepage_and_metadata_mutations() {
         );
     }
     let payday = read_text(root(), "tools/payday-super/index.html");
-    let long = "Current release payday-super-checker v0.2.3. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid.";
+    let long = "Current release payday-super-checker v0.2.3. Inspect a fictional $120 contribution, its AT_RISK result and fund receipt evidence. Review aid.";
     let short = "Check Payday Super timing from payroll exports and estimate the SG charge for review, with fund receipt status visible.";
     assert_eq!(payday.matches(long).count(), 3);
     let directory = tempfile::tempdir().unwrap();
@@ -1077,10 +1101,10 @@ fn public_contracts_homepage_and_metadata_mutations() {
         "expected exactly one .skip-link targeting #main",
     );
     contract_mutation(
-        "contact dropped from primary navigation",
+        "questions dropped from primary navigation",
         &home,
-        "<a href=\"/contact/\">Contact</a>",
-        "<a href=\"/contact-us/\">Contact</a>",
+        "<a href=\"/tools/accounting-questions/\">Questions</a>",
+        "<a href=\"/tools/accounting-questions-old/\">Questions</a>",
         |html, found| contracts::check_shared_shell(html, "index.html", found),
         "index.html: primary navigation is",
     );
@@ -1260,8 +1284,8 @@ fn public_contracts_structure_and_assets() {
     contract_mutation(
         "tool review date outside header",
         &xero,
-        "<p class=\"page-meta\">Published 24 August 2026. Last reviewed 25 October 2026.</p>",
-        "<p class=\"moved-page-meta\">Published 24 August 2026. Last reviewed 13 October 2026.</p>",
+        "<p class=\"page-meta\">Current release ",
+        "<p class=\"moved-page-meta\">Current release ",
         |html, found| {
             contracts::check_header_review_date(html, "tools/xero-trial-balance/index.html", found)
         },
@@ -1308,7 +1332,7 @@ fn public_contracts_structure_and_assets() {
         "tools/index.html: ItemList count does not match visible entries",
     );
 
-    let card = "assets/social-card-site-20261016.png";
+    let card = "assets/social-card-site-20261104.png";
     let site = copied_site();
     let path = site.path().join(card);
     let mut bytes = std::fs::read(&path).unwrap();
