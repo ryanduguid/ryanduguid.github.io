@@ -62,6 +62,11 @@ where something needs action. Its rules:
 - The cash case's captions and plotted-value note write negative amounts
   in parentheses, as the chart labels do: '($25,160)'. Tables and
   calculator results keep the minus sign.
+- The primary navigation has 5 links: Tools, Questions
+  (`/tools/accounting-questions/`), Rates, Evidence and About. Ryan
+  decided this on 4 November 2026. Evaluations and Contact leave the header
+  but keep their pages, URLs and footer links; the About lead links
+  Contact, and evaluation pages mark Tools as their location.
 - Every page title is the page's own name, with no site suffix.
 - The About lead states 'Provisional CA ANZ Member', 'Xero Certified
   Specialist, Level 3', the LinkedIn profile and the CA ANZ non-endorsement
@@ -302,7 +307,7 @@ Motion communicates feedback and location only.
 
 ### Header
 
-At the default desktop text size, the header is sticky, one line and at most 72px tall. It reflows when enlarged text or a narrow viewport needs more room. Up to 40rem it is not sticky, so its 2 or 3 rows scroll away with the page. Ryan Duguid appears as a text identity at left. Existing navigation labels and destinations remain exact. The Human and Machine view switch sits at the right end of the header at every width; it is a square control with a thin strong rule, and its selected option sits on the stamp wash. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
+At the default desktop text size, the header is sticky, one line and at most 72px tall. It reflows when enlarged text or a narrow viewport needs more room. Up to 40rem it is not sticky, so its 2 or 3 rows scroll away with the page. Ryan Duguid appears as a text identity at left. The primary navigation is Tools, Questions, Rates, Evidence and About, exactly. The Human and Machine view switch sits at the right end of the header at every width; it is a square control with a thin strong rule, and its selected option sits on the stamp wash. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
 
 ### Footer
 

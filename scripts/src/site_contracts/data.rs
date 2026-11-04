@@ -502,13 +502,14 @@ pub const ARTICLE_TOC_EXTERNAL_LINKS: [(&str, (&str, &str, &str)); 1] = [(
     ),
 )];
 
-pub const PRIMARY_NAV_LINKS: [(&str, &str); 6] = [
+/// The 5 primary links Ryan chose on 4 November 2026. Evaluations and
+/// Contact stay live and linked from the footer, and About links Contact.
+pub const PRIMARY_NAV_LINKS: [(&str, &str); 5] = [
     ("/tools/", "Tools"),
+    ("/tools/accounting-questions/", "Questions"),
     ("/rates/", "Rates"),
-    ("/evaluate/", "Evaluations"),
     ("/evidence/", "Evidence"),
     ("/about/", "About"),
-    ("/contact/", "Contact"),
 ];
 
 pub const BREADCRUMB_LEAF_NAMES: [(&str, &str); 13] = [

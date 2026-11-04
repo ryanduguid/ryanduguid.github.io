@@ -814,20 +814,23 @@ pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
             repr_list(PRIMARY_NAV_LINKS)
         ));
     }
+    // Evaluations sit with the tools they evaluate; Contact has no
+    // primary link, so no link claims it.
     let expected_current: Vec<(&str, &str)> = if rel == "tools/index.html" {
         vec![("/tools/", "page")]
-    } else if rel.starts_with("tools/") || rel.starts_with("works-with/") {
+    } else if rel == "tools/accounting-questions/index.html" {
+        vec![("/tools/accounting-questions/", "page")]
+    } else if rel.starts_with("tools/accounting-questions/") {
+        vec![("/tools/accounting-questions/", "location")]
+    } else if rel.starts_with("tools/")
+        || rel.starts_with("works-with/")
+        || rel.starts_with("evaluate/")
+    {
         vec![("/tools/", "location")]
-    } else if rel == "contact/index.html" {
-        vec![("/contact/", "page")]
     } else if rel == "rates/index.html" {
         vec![("/rates/", "page")]
     } else if rel.starts_with("rates/") {
         vec![("/rates/", "location")]
-    } else if rel == "evaluate/index.html" {
-        vec![("/evaluate/", "page")]
-    } else if rel.starts_with("evaluate/") {
-        vec![("/evaluate/", "location")]
     } else if rel == EVIDENCE_REL {
         vec![("/evidence/", "page")]
     } else if rel == "about/index.html" {

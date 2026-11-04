@@ -995,8 +995,8 @@ fn public_contracts_homepage_and_metadata_mutations() {
         ),
         (
             "homepage reader route destination",
-            "href=\"/tools/accounting-questions/\"",
-            "href=\"/tools/missing-accounting-questions/\"",
+            "href=\"/tools/accounting-questions/\">100 accounting questions",
+            "href=\"/tools/missing-accounting-questions/\">100 accounting questions",
             "index.html: reader routes are",
         ),
         (
@@ -1101,10 +1101,10 @@ fn public_contracts_homepage_and_metadata_mutations() {
         "expected exactly one .skip-link targeting #main",
     );
     contract_mutation(
-        "contact dropped from primary navigation",
+        "questions dropped from primary navigation",
         &home,
-        "<a href=\"/contact/\">Contact</a>",
-        "<a href=\"/contact-us/\">Contact</a>",
+        "<a href=\"/tools/accounting-questions/\">Questions</a>",
+        "<a href=\"/tools/accounting-questions-old/\">Questions</a>",
         |html, found| contracts::check_shared_shell(html, "index.html", found),
         "index.html: primary navigation is",
     );

@@ -18,6 +18,8 @@ I’m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools th
 
 I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools. My LinkedIn profile is linkedin.com/in/ryan-duguid.
 
+To send feedback on a tool or example, use the Contact page.
+
 See my accounting work samples, including a cash forecast, month-end checks and Excel functions.
 
 Last reviewed 4 November 2026.
@@ -102,6 +104,7 @@ I write and maintain this site in my own time and on my own equipment.
 
 - Xero Certified Specialist, Level 3: https://duguid.com.au/evidence/#xero-certification
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
+- Contact page: https://duguid.com.au/contact/
 - See my accounting work samples: https://duguid.com.au/about/#work-samples
 - Financial Accounting (FI): https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - Management Accounting (CO): https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url

@@ -53,10 +53,10 @@ for (const width of [320, 390]) {
       await page.evaluate(() => document.documentElement.style.setProperty('font-size', '200%', 'important'));
       await page.evaluate(() => document.fonts.ready);
       expect(await page.evaluate(() => document.documentElement.scrollWidth), route).toBeLessThanOrEqual(width);
-      const contact = page.locator('.site-nav').getByRole('link', { name: 'Contact', exact: true });
-      await contact.evaluate((link) => link.scrollIntoView({ block: 'nearest', inline: 'end', behavior: 'instant' }));
+      const last = page.locator('.site-nav').getByRole('link', { name: 'About', exact: true });
+      await last.evaluate((link) => link.scrollIntoView({ block: 'nearest', inline: 'end', behavior: 'instant' }));
       await expect.poll(async () => {
-        const position = await contact.boundingBox();
+        const position = await last.boundingBox();
         return position.x >= 0 && position.x + position.width <= width;
       }).toBe(true);
       const geometry = await page.evaluate(() => {
