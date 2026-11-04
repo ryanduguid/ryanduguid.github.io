@@ -6,7 +6,7 @@ Canonical machine index: https://duguid.com.au/llms.txt
 
 Last reviewed 23 October 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
 
-Licence: the site's own text, data and source code are FSL-1.1-ALv2, the Functional Source License with Apache-2.0 as the future licence (https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE); third-party material named on the pages keeps its own terms.
+Licence: the site's own text, data and source code are under the Ryan Duguid Public Attribution Licence 1.0, the FSL-1.1-ALv2 text with a public attribution condition and Apache-2.0 as the future licence (https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE); third-party material named on the pages keeps its own terms.
 
 Identical discovery copy: https://duguid.com.au/.well-known/llms.txt
 
@@ -159,7 +159,7 @@ Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is 
 
 ## Reuse
 
-- [Reusing this code](https://github.com/ryanduguid/ryanduguid.github.io/blob/main/AGENTS.md#reusing-this-code): Ryan Duguid's work under FSL-1.1-ALv2; keep its notices and licence; public credit is requested.
+- [Reusing this code](https://github.com/ryanduguid/ryanduguid.github.io/blob/main/AGENTS.md#reusing-this-code): Ryan Duguid's work under the Ryan Duguid Public Attribution Licence, Version 1.0 (LicenseRef-Duguid-Public-Attribution-1.0), which is FSL-1.1-ALv2 plus a public attribution condition; keep its notices and licence; a copy or port made available to others must credit Ryan Duguid publicly.
 
 ## Optional
 

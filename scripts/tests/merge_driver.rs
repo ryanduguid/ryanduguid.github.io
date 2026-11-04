@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! The changelog-rows merge driver: which conflicts it resolves and which it leaves.
 use site_tools::merge_driver::{resolve, resolve_conflicts};

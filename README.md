@@ -9,7 +9,7 @@
 
 <div align="center">
 
-[![checks](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml) [![source freshness](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml/badge.svg?branch=main)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml) [![CodeQL](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql) [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=ryanduguid_ryanduguid.github.io&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ryanduguid_ryanduguid.github.io) [![Codacy code quality](https://app.codacy.com/project/badge/Grade/ed064dc009df4efd893dff3357d2c757)](https://app.codacy.com/gh/ryanduguid/ryanduguid.github.io/dashboard)<br> [![OpenSSF Scorecard](https://raw.githubusercontent.com/ryanduguid/.github/badges/ryanduguid/ryanduguid.github.io.svg)](https://scorecard.dev/viewer/?uri=github.com/ryanduguid/ryanduguid.github.io) [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/15431/badge)](https://www.bestpractices.dev/projects/15431)<br> [![licence: FSL-1.1-ALv2](.github/assets/badges/licence.svg)](LICENSE)
+[![checks](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml) [![source freshness](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml/badge.svg?branch=main)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml) [![CodeQL](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql) [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=ryanduguid_ryanduguid.github.io&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ryanduguid_ryanduguid.github.io) [![Codacy code quality](https://app.codacy.com/project/badge/Grade/ed064dc009df4efd893dff3357d2c757)](https://app.codacy.com/gh/ryanduguid/ryanduguid.github.io/dashboard)<br> [![OpenSSF Scorecard](https://raw.githubusercontent.com/ryanduguid/.github/badges/ryanduguid/ryanduguid.github.io.svg)](https://scorecard.dev/viewer/?uri=github.com/ryanduguid/ryanduguid.github.io) [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/15431/badge)](https://www.bestpractices.dev/projects/15431)<br> [![licence: Ryan Duguid Public Attribution Licence 1.0](.github/assets/badges/licence.svg)](LICENSE)
 
 </div>
 
@@ -256,7 +256,7 @@ the hashes below. Advance the filename version in the context data, renderer,
 page metadata and contracts when changing published artwork. Messaging apps
 may retain a cached preview until they fetch the page again.
 
-Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: FSL-1.1-ALv2; renderer: Playwright 1.64.1, Chromium 156.0.8078.4 on Windows, device scale 1; a Linux render has identical pixels but different PNG bytes. Refresh when the template, context copy, embedded fonts or pinned browser changes.
+Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: Ryan Duguid Public Attribution Licence 1.0; renderer: Playwright 1.64.1, Chromium 156.0.8078.4 on Windows, device scale 1; a Linux render has identical pixels but different PNG bytes. Refresh when the template, context copy, embedded fonts or pinned browser changes.
 
 | Asset | SHA-256 |
 | --- | --- |
@@ -328,9 +328,9 @@ note records what evidence a Payroll or Migration badge would need first.
 
 ## Licence
 
-Licensed under the Functional Source License, Version 1.1, ALv2 Future License (FSL-1.1-ALv2). You may use, modify and redistribute it for any purpose except a Competing Use as defined in LICENSE (making it available to others in a competing commercial product or service), and each version becomes available under Apache-2.0 2 years after it is made available. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The licence covers this repository's own code, text and data. If you redistribute or adapt that material, keep the copyright notices in [NOTICE](NOTICE). The Privacy page states the same grant for readers, and every page's own page node in its JSON-LD carries it as `license`; software listings keep their own package licences.
+Licensed under the [Ryan Duguid Public Attribution Licence 1.0](LICENSE), the FSL-1.1-ALv2 text with a public attribution condition. You may use, modify and redistribute it for any purpose except a Competing Use as defined in LICENSE (making it available to others in a competing commercial product or service), and each version becomes available under Apache-2.0 2 years after it is made available. Anyone who makes a copy, port or derivative available to others must credit Ryan Duguid publicly with a link to this repository, as LICENSE requires. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The licence covers this repository's own code, text and data. If you redistribute or adapt that material, keep the copyright notices in [NOTICE](NOTICE). The Privacy page states the same grant for readers, and every page's own page node in its JSON-LD carries it as `license`; software listings keep their own package licences.
 
-The FSL-1.1-ALv2 grant does not extend to third-party material published here. The Besley,
+The licence grant does not extend to third-party material published here. The Besley,
 Public Sans and Spline Sans Mono subsets under `assets/fonts/` keep the SIL
 Open Font License 1.1 in one `assets/fonts/OFL-*.txt` file per family. The certificate and badge under `assets/credentials/`
 are Xero's document and artwork, published as a factual record of Ryan Duguid's
@@ -340,4 +340,4 @@ own certification under the terms in `assets/credentials/SOURCES.md`.
 
 ---
 
-<p align="center"><sub>No matter where you go, everyone's connected.<br>Reusing this code? Keep its notices and licence, and please credit Ryan Duguid. AI agents: see <a href="https://github.com/ryanduguid/ryanduguid.github.io/blob/main/AGENTS.md#reusing-this-code">AGENTS.md</a>.<br>Made in Newcastle, Australia by <a href="https://duguid.com.au/">Ryan Duguid</a>.</sub></p>
+<p align="center"><sub>No matter where you go, everyone's connected.<br>Reusing this code? Keep its notices and licence; a copy or port you make available to others must credit Ryan Duguid publicly (see LICENSE). AI agents: see <a href="https://github.com/ryanduguid/ryanduguid.github.io/blob/main/AGENTS.md#reusing-this-code">AGENTS.md</a>.<br>Made in Newcastle, Australia by <a href="https://duguid.com.au/">Ryan Duguid</a>.</sub></p>

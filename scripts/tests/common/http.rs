@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! A minimal HTTP/1.1 client for the server tests, which need to see framing and reuse.
 use std::io::{BufRead, BufReader, Read, Write};

@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: FSL-1.1-ALv2
+// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! scripts/build_site.py: build the public HTML with the same Jekyll version as GitHub Pages.
 use std::ffi::OsString;
