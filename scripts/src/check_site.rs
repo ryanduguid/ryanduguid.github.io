@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/check_site.py: run every repository-defined site check through one command.
 //!
 //! The Python checks it ran are now `site-tools` commands and the Rust suites in
@@ -66,9 +69,7 @@ pub const CHECKS: &[Check] = &[
     Check::External(&["node", "--test", "scripts/business-calculators.test.mjs"]),
     Check::External(&["node", "--test", "scripts/field-errors.test.mjs"]),
     Check::External(&["node", "--test", "scripts/webmcp-tools.test.mjs"]),
-    Check::External(&["node", "--test", "scripts/stamp-source-freshness.test.mjs"]),
-    Check::External(&["node", "--test", "scripts/check_production.test.mjs"]),
-    Check::External(&["node", "--test", "scripts/check_ato_sources.test.mjs"]),
+    Check::Tests(&["source_freshness", "production", "ato_sources"]),
     Check::External(&["node", "--test", "scripts/rate-tables.test.mjs"]),
 ];
 

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! Link-checker transport probe for the Hub harness: each stdin line is a JSON case
 //! `{"hrefs": [...], "answers": {url: [answer, ...]}, "now": seconds, "actions": bool}`
 //! where an answer is `{"ok": [status, final_url, body]}`, `{"http": [code, reason,

@@ -191,7 +191,7 @@ the production check requires those links to arrive intact. Rocket Loader must
 be off as well: it re-types every script tag and runs the page through
 Cloudflare's loader instead of the markup the browser and Lighthouse checks
 test, and the production check fails whilst it is on.
-`node scripts/check_production.mjs` fetches the live pages and
+`site-tools check_production` fetches the live pages and
 fails when a documented header or redirect is missing, a `mailto:` link no
 longer arrives intact or Rocket Loader rewrites the scripts; it runs weekly from `source-freshness.yml`.
 
@@ -340,4 +340,4 @@ own certification under the terms in `assets/credentials/SOURCES.md`.
 
 ---
 
-<p align="center"><sub>No matter where you go, everyone's connected.<br>Made in Newcastle, Australia by <a href="https://duguid.com.au/">Ryan Duguid</a>.</sub></p>
+<p align="center"><sub>No matter where you go, everyone's connected.<br>Reusing this code? Keep its notices and licence, and please credit Ryan Duguid. AI agents: see <a href="https://github.com/ryanduguid/ryanduguid.github.io/blob/main/AGENTS.md#reusing-this-code">AGENTS.md</a>.<br>Made in Newcastle, Australia by <a href="https://duguid.com.au/">Ryan Duguid</a>.</sub></p>

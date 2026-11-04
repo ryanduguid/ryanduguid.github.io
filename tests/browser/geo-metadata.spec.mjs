@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 const tools = JSON.parse(readFileSync(new URL('../../_data/tools.json', import.meta.url), 'utf8'));

@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/check_seo.py: discover pages, run SEO checks and report their results.
 use crate::schema_vocab::Vocabulary;
 use crate::seo_core::{self as core, MetadataContext};

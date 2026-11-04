@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/build_ozzit_reference.py: build the Ozzit page's ten worked examples and its
 //! index of every named formula from the release the record says the page documents,
 //! and check every count a page states for the library against that index.

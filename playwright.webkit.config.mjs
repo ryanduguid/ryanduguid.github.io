@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 import { defineConfig, devices } from '@playwright/test';
 import base from './playwright.config.mjs';
 

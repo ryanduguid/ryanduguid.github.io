@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 //! scripts/site_contracts.py: Ryan Duguid site-specific SEO and content contracts.
 //!
 //! Each check keeps the Python function's name, order of findings and

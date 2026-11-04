@@ -1,3 +1,6 @@
+// Copyright 2026 Ryan Duguid
+// SPDX-License-Identifier: FSL-1.1-ALv2
+
 import { readFileSync } from 'node:fs';
 
 import AxeBuilder from '@axe-core/playwright';
@@ -366,7 +369,7 @@ test('home leads with one action, then 3 reader routes and the release register'
 });
 
 // The retired /engage/ path itself is a 301 at the Cloudflare edge, checked by
-// scripts/check_production.mjs; the local preview only sees the hash form.
+// site-tools check_production; the local preview only sees the hash form.
 test('the retired Engage hash redirects quietly to the homepage', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/#engage');
