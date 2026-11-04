@@ -55,7 +55,7 @@
         </nav>
         <h1>Rates</h1>
         <p class="short-answer">Seven maintained Australian reference tables with the current value, source-reviewed date and primary material kept together.</p>
-        <p class="page-meta">Last reviewed 3 November 2026.</p>
+        <p class="page-meta">Last reviewed 4 November 2026.</p>
       </header>
       <div class="site-shell collection-layout">
         <div class="collection-register">
@@ -134,11 +134,11 @@
           <section class="collection-entry rate-entry">
             <div class="rate-entry__head">
               <h2><a class="collection-entry__title" href="/rates/announced-not-yet-law/">Announced tax measures and enacted law</a></h2>
-              <p class="rate-entry__value">14 TBD</p>
+              <p class="rate-entry__value">8 TBD</p>
             </div>
-            <p>The ATO summary lists 14 selected measures as TBD and one as Various. The page separates those source statuses from enacted measures, application dates and transition rules.</p>
+            <p>The ATO summary lists 8 selected measures as TBD, one as Various and 6 with a bill. The page separates those source statuses and each bill’s stage from enacted measures, application dates and transition rules.</p>
             <dl>
-              <div><dt>Verified</dt><dd>22 September 2026</dd></div>
+              <div><dt>Verified</dt><dd>4 November 2026</dd></div>
               <div><dt>Scope</dt><dd>Tax and super measures on the ATO’s Budget 2026-27 and MYEFO 2025-26 lists, by status.</dd></div>
             </dl>
             <p class="collection-entry__links"><a href="https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy">Primary source<span class="visually-hidden">, announced measures</span></a><a href="/rates/announced-not-yet-law/announced-measures.csv">Download CSV<span class="visually-hidden">, announced measures</span></a></p>
@@ -277,11 +277,14 @@ in
         {"checked_at", type date},
         {"status_source_url", type text},
         {"review_scope", type text},
-        {"application_note", type text}
+        {"application_note", type text},
+        {"bill_stage", type text},
+        {"stage_date", type date},
+        {"stage_source_url", type text}
     }, "en-AU")
 in
     Measures</code></pre>
-            <p class="field-note">Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The <code>source_url</code> and <code>checked_at</code> columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads.</p>
+            <p class="field-note">Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The <code>source_url</code> and <code>checked_at</code> columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads. Nor were the announced measures’ <code>bill_stage</code>, <code>stage_date</code> and <code>stage_source_url</code> columns added on 4 November 2026; <code>stage_date</code> is blank for measures without a stage date.</p>
           </div>
         </details>
         <p><a href="/feed.xml">Follow updates with the Atom feed</a>. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.</p>
@@ -302,7 +305,7 @@ in
         "description": "Maintained Australian super guarantee, contribution base, Division 7A, cents-per-kilometre, car limit and FBT rates with verified dates and primary sources.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-29",
-        "dateModified": "2026-11-03",
+        "dateModified": "2026-11-04",
         "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
