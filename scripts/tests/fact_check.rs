@@ -956,7 +956,7 @@ fn calculator_pages_show_every_boundary_case_the_node_tests_run() {
         return;
     }
     let cases: serde_json::Value =
-        serde_json::from_str(&read("_data/calculator_cases.json")).unwrap();
+        serde_json::from_str(include_str!("../../_data/calculator_cases.json")).unwrap();
     for (page, calculator) in cases.as_object().unwrap() {
         let html = read(&format!("tools/business-calculators/{page}/index.html"));
         let rows = calculator["rows"].as_array().unwrap();
