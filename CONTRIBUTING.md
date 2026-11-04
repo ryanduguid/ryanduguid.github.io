@@ -92,8 +92,7 @@ dependencies, and fails on high or critical advisories. Lighthouse reports are
 retained for 7 days after successful and failed runs.
 
 Browser CI fails when a test passes only on retry. Failed attempts keep their
-traces for diagnosis, even if a retry passes. Homepage snapshots keep the proof disclosure closed;
-separate proof tests check both responsive images after opening it.
+traces for diagnosis, even if a retry passes.
 
 The source-freshness workflow checks the changelog's release links every day with
 `node scripts/stamp-source-freshness.mjs --check-releases`; its date-refresh and

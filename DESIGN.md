@@ -408,7 +408,7 @@ Every changed visible sentence must pass these 5 principles:
 
 1. One reading pass. A visitor can finish the claim without rereading it.
 2. Pain first. Name the incomplete pack, late contribution, unbalanced trial balance or unsupported AI answer before the solution.
-3. One ask per screen. The hero opens the cash flow case; Choose a task, Adopt and Verify follow.
+3. One ask per screen. The hero opens the cash flow case; the 3 routes and the release register follow.
 4. One viewport, one thought. Hero identifies; each route explains one action; catalogue indexes.
 5. Visualise in the line. Prefer `READY is not sign-off` and `fund receipt within seven business days` to abstract quality claims.
 

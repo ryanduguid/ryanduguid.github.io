@@ -49,7 +49,7 @@ Subcontract ledger skills | Agent evaluation procedure | Declared checks and pro
 Construction WIP schedule | Pinned source test | 50% progress and a $50,000 contract asset.
 Payday Super timing | Pinned package trial | AT_RISK while fund receipt is missing.
 ATO benchmark comparison | Pinned source test | 30% cost of sales after excluding the separately mapped wages.
-Coal LSL levy calculator | Browser calculator | Choose Load the fictional example, then Calculate; compare the inputs and formula with the fixed homepage proof.
+Coal LSL levy calculator | Browser calculator | Choose Load the fictional example, then Calculate; expect Formula B, eligible wages of $7,125.00 and a levy of $192.38.
 Trust distribution checks | Pinned package trial | $100,000 on the declared section 99B assumptions, plus a refusal case.
 Company tax and franking checks | Pinned package trial | 25.0% on the declared base rate entity inputs, plus an unsupported-year refusal.
 Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
