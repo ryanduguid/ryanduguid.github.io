@@ -232,7 +232,25 @@ test('every business calculator shows its boundary cases', () => {
   assert.deepEqual(Object.keys(shownCases).sort(), pages);
 });
 
-for (const [page, { function: name, rows }] of Object.entries(shownCases)) {
+const assertShown = (actual, { result, output }) => {
+  for (const [field, value] of Object.entries(result)) {
+    assert.equal(actual[field], value, field);
+    if (value === null) assert.match(output, /\bno /);
+    else if (typeof value === 'string') assert.ok(output.includes(value), field);
+    else if (PERCENT_FIELDS.has(field)) assert.ok(output.includes(`${value.toFixed(2)}%`), field);
+    else if (field === 'units') assert.ok(output.includes(`${value} units`), field);
+    else assert.ok(output.includes(dollars(value)), `${field}: ${dollars(value)}`);
+  }
+};
+
+for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
+  if (peer) {
+    test(`${page} official comparison states what this calculator returns`, () => {
+      assert.match(peer.url, /^https:\/\/moneysmart\.gov\.au\//);
+      assert.match(peer.checked, /^\d{1,2} [A-Z][a-z]+ \d{4}$/);
+      assertShown(calculations[name](...peer.call), peer);
+    });
+  }
   for (const row of rows) {
     test(`${page} boundary case returns what its page shows: ${row.case}`, () => {
       if (row.refused) {
@@ -240,15 +258,7 @@ for (const [page, { function: name, rows }] of Object.entries(shownCases)) {
         assert.match(row.output, /^Refused: /);
         return;
       }
-      const actual = calculations[name](...row.call);
-      for (const [field, value] of Object.entries(row.result)) {
-        assert.equal(actual[field], value, field);
-        if (value === null) assert.match(row.output, /\bno /);
-        else if (typeof value === 'string') assert.ok(row.output.includes(value), field);
-        else if (PERCENT_FIELDS.has(field)) assert.ok(row.output.includes(`${value.toFixed(2)}%`), field);
-        else if (field === 'units') assert.ok(row.output.includes(`${value} units`), field);
-        else assert.ok(row.output.includes(dollars(value)), `${field}: ${dollars(value)}`);
-      }
+      assertShown(calculations[name](...row.call), row);
     });
   }
 }

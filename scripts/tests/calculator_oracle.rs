@@ -19,9 +19,11 @@ use std::process::{Command, Stdio};
 
 const LOAN_CASES: usize = 120;
 const LEVY_CASES: usize = 120;
-/// Months in a year times the 1,000,000 units in one per cent per annum point scale:
-/// a rate typed to 4 places is a whole number of 1/12,000,000ths a month.
+/// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
+/// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
+/// The largest amount a calculator field accepts, $1,000,000,000.00, in cents.
+const MAX_PRINCIPAL: u64 = 100_000_000_000;
 /// 2.7% of a quarter cent, as a fraction of a cent: 27 / 4,000.
 const LEVY_NUMERATOR: u128 = 27;
 const LEVY_DENOMINATOR: u128 = 4_000;
@@ -147,9 +149,11 @@ fn dollars(cents: u64) -> String {
 
 /// A case for Node and what the engine must return for it.
 fn loan_case(rng: &mut Seeded) -> (Value, Value) {
-    let principal = rng.pick(&[1, 100, rng_cents_max()]).min(rng.cents(rng_cents_max()) + 1);
-    let rate = rng.pick(&[0, 1, 50_000, 65_000, 1_000_000, rng.below(1_000_001)]);
-    let months = rng.pick(&[1, 2, 12, 60, 360, 600, 1 + rng.below(600)]) as u32;
+    let principal = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let any_rate = rng.below(1_000_001);
+    let rate = rng.pick(&[0, 1, 50_000, 65_000, 1_000_000, any_rate, any_rate]);
+    let any_term = 1 + rng.below(600);
+    let months = rng.pick(&[1, 2, 12, 60, 360, 600, any_term, any_term]) as u32;
     let [payment, first_interest, first_principal, total_interest] =
         loan_oracle(principal, rate, months);
     (
@@ -166,10 +170,6 @@ fn loan_case(rng: &mut Seeded) -> (Value, Value) {
             "totalInterest": shown(total_interest),
         }),
     )
-}
-
-const fn rng_cents_max() -> u64 {
-    100_000_000_000
 }
 
 /// A cent amount as a JavaScript number prints it.
@@ -272,10 +272,7 @@ fn engines(cases: &[Value]) -> Vec<Value> {
 #[test]
 fn the_oracle_works_a_known_loan_and_levy_by_hand() {
     // A one-month loan repays the balance and one month's interest: 1% on $100.
-    assert_eq!(
-        loan_oracle(10_000, 120_000, 1),
-        [10_100, 100, 10_000, 100]
-    );
+    assert_eq!(loan_oracle(10_000, 120_000, 1), [10_100, 100, 10_000, 100]);
     // $1,000 at 0% over 3 months: a third of the balance, half up.
     assert_eq!(loan_oracle(100_000, 0, 3), [33_333, 0, 33_333, 0]);
     // $100,000 at 6% over 30 years, the worked case in the Node tests.

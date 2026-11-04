@@ -35,6 +35,8 @@ A 30-year amortising loan | $100,000.00 at 6% over 360 months | Payment $599.55,
 One month repays the balance and one month’s interest | $1,000.00 at 12% over 1 month | Payment $1,010.00, first interest $10.00, first principal $1,000.00, total interest $10.00
 Nil interest divides the balance | $20.15 at 0% over 2 months | Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00
 
+Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
+
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
@@ -44,4 +46,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
+- Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
 - nine business calculators: https://duguid.com.au/tools/business-calculators/

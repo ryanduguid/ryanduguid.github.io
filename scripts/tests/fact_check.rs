@@ -955,11 +955,27 @@ fn calculator_pages_show_every_boundary_case_the_node_tests_run() {
     if !rendered() {
         return;
     }
-    let cases: serde_json::Value = serde_json::from_str(&read("_data/calculator_cases.json")).unwrap();
+    let cases: serde_json::Value =
+        serde_json::from_str(&read("_data/calculator_cases.json")).unwrap();
     for (page, calculator) in cases.as_object().unwrap() {
         let html = read(&format!("tools/business-calculators/{page}/index.html"));
         let rows = calculator["rows"].as_array().unwrap();
         assert!(rows.len() >= 2, "{page}");
+        if let Some(peer) = calculator["peer"].as_object() {
+            let cell = |name: &str| peer[name].as_str().unwrap();
+            assert!(
+                html.contains(&format!(
+                    r#"for {}, the <a href="{}">{}</a> gave {}, and this calculator gave {}. {}."#,
+                    cell("input"),
+                    cell("url"),
+                    cell("name"),
+                    cell("peer_result"),
+                    cell("output"),
+                    cell("verdict")
+                )),
+                "{page}"
+            );
+        }
         for row in rows {
             let cell = |name: &str| row[name].as_str().unwrap();
             let shown = format!(
