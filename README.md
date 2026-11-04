@@ -340,4 +340,4 @@ own certification under the terms in `assets/credentials/SOURCES.md`.
 
 ---
 
-<p align="center"><sub>No matter where you go, everyone's connected.<br>Made in Newcastle, Australia by <a href="https://duguid.com.au/">Ryan Duguid</a>.</sub></p>
+<p align="center"><sub>No matter where you go, everyone's connected.<br>Reusing this code? Keep its notices and licence, and please credit Ryan Duguid. AI agents: see <a href="https://github.com/ryanduguid/ryanduguid.github.io/blob/main/AGENTS.md#reusing-this-code">AGENTS.md</a>.<br>Made in Newcastle, Australia by <a href="https://duguid.com.au/">Ryan Duguid</a>.</sub></p>

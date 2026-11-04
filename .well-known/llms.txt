@@ -157,6 +157,10 @@ A refusal is a question handed back. A limitation is an answer that rests on som
 
 Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
 
+## Reuse
+
+- [Reusing this code](https://github.com/ryanduguid/ryanduguid.github.io/blob/main/AGENTS.md#reusing-this-code): Ryan Duguid's work under FSL-1.1-ALv2; keep its notices and licence; public credit is requested.
+
 ## Optional
 
 - [Crawler policy](https://duguid.com.au/robots.txt): search and user-requested citation fetches remain allowed, including Google-Extended. Every other crawler it names may also crawl, training crawlers included: Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot, Applebot-Extended, Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent. Permission does not guarantee a crawl, dataset inclusion or use by a model.
