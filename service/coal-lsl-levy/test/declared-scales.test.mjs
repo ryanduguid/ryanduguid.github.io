@@ -41,6 +41,16 @@ test('representative wrong scales on 4 declared figures and a JSON number fail',
     'a JSON number is not a decimal string');
 });
 
+test('a leading zero fails the declared decimal form', () => {
+  assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.levy = '0192.38'; })), false);
+});
+
+test('a pattern or type this checker cannot read fails instead of passing', () => {
+  assert.equal(declaredScalesHold({ type: 'string', pattern: '^x$' }, 'x'), false);
+  assert.equal(declaredScalesHold({ type: 'string', pattern: '^[0-9]+$' }, '12'), false);
+  assert.equal(declaredScalesHold({ type: 'constructor' }, 'x'), false);
+});
+
 test('a figure the schema does not declare fails, wherever it sits', () => {
   assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.levy_total = 192.38; })), false,
     'an undeclared JSON number');

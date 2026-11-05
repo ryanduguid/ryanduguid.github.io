@@ -41,12 +41,14 @@ function matchesExpected(actual, expected) {
 }
 
 async function run(base) {
-  const json = async (path, init) => {
-    const response = await fetch(`${base}${path}`, { ...init, redirect: 'error', signal: AbortSignal.timeout(15000) });
+  const exchange = async (request) => {
+    const response = await fetch(request);
     let body = null;
     try { body = await response.clone().json(); } catch { /* not JSON */ }
     return { response, body, bytes: Buffer.from(await response.arrayBuffer()) };
   };
+  const json = (path, init) => exchange(
+    new Request(`${base}${path}`, { ...init, redirect: 'error', signal: AbortSignal.timeout(15000) }));
 
   // 1. Describe yourself
   const listing = await json('/v1/calculators');

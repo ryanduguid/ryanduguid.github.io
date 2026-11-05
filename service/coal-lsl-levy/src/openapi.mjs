@@ -53,9 +53,11 @@ const money = (description) => ({
   description: `${description} AUD as a decimal string with at most 2 decimal places, for example "6000.00", and at most ${MAX_AMOUNT} (the limits.max_amount the discovery listing publishes). JSON numbers are rejected. Send "0.00" for nil; a missing amount is not nil.`,
 });
 // A response figure at its fixed, declared scale (see SCALE in money.mjs).
+export const decimalPattern = (scale) => `^(0|[1-9][0-9]*)\\.[0-9]{${scale}}$`;
+
 const decimalAt = (scale, description) => ({
   type: 'string',
-  pattern: `^(0|[1-9][0-9]*)\\.[0-9]{${scale}}$`,
+  pattern: decimalPattern(scale),
   description: `${description} Decimal string at a fixed scale of ${scale} decimal places.`,
 });
 // Bonus entries as the workings and the excluded list report them.
