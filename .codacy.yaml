@@ -1,8 +1,10 @@
 ---
-# Opengrep's audit rules fire on the browser tests in tests/ and the Node tests
-# beside the scripts they cover, which build regular expressions from fixed
-# values and serve fake redirects on purpose; the Python test and the Rust
-# tests and fuzz harness under scripts/ are test code too.
+# Opengrep's audit rules fire on the browser tests in tests/, the levy service
+# tests and the Node tests beside the scripts they cover, which build regular
+# expressions from fixed values and serve fake redirects on purpose; the Python
+# test and the Rust tests and fuzz harness under scripts/ are test code too.
+# The levy conformance client fetches the base URL its operator names, which is
+# its purpose.
 #
 # Lizard and Prospector measure function and file size and complexity. Tests
 # are long by design, one case per assertion block, and package-lock.json and
@@ -13,17 +15,21 @@ engines:
     exclude_paths:
       - "tests/**"
       - "**/tests/**"
+      - "service/coal-lsl-levy/test/**"
       - "**/fuzz/**"
       - "scripts/*.test.mjs"
       - "scripts/test_*.py"
+      - "service/coal-lsl-levy/conformance/**"
   lizard:
     exclude_paths:
       - "tests/**"
       - "**/tests/**"
+      - "service/coal-lsl-levy/test/**"
       - "**/fuzz/**"
       - "scripts/*.test.mjs"
       - "scripts/test_*.py"
       - "package-lock.json"
+      - "**/package-lock.json"
       - "**/Cargo.lock"
   prospector:
     exclude_paths:

@@ -111,7 +111,7 @@ check_rates_register` refuses a row without both. The inventory below is as at
 | Cents per kilometre | `income_year`, `cents_per_km`, `instrument`, `register_id`, `scope` | 3 | 2024-25 to 2026-27; 2026-27 recorded as 91 cents under F2026L00785 | Determinations F2024L00697 and F2026L00785 on legislation.gov.au |
 
 A fourth rate lives outside `rates/`: the Coal LSL levy in
-`assets/levy.mjs`, held as `27 / 1000` with `LEVY_RATE_AS_AT = '2026-09-18'`
+`assets/levy.mjs`, held as `27 / 1000` with `LEVY_RATE_AS_AT = '2026-11-05'`
 and a source constant matching the register row (checked by `scripts/levy.test.mjs`), and repeated in prose on `tools/coal-lsl-levy/`.
 
 ### 1.3 Engines: `ryanduguid/australian-accounting`

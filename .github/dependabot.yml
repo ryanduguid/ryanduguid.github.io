@@ -43,6 +43,16 @@ updates:
       browser-test-tools:
         patterns:
           - "*"
+  - package-ecosystem: npm
+    directory: /service/coal-lsl-levy
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      coal-lsl-service-tools:
+        patterns:
+          - "*"
   - package-ecosystem: bundler
     directory: /
     schedule:
