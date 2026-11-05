@@ -105,7 +105,7 @@ After Cargo’s build messages, expect exit code 2 and close-control: REVIEW; 8 
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue.
+Software issue using fictional data? Open an issue. Wrong rate, date or rule on this page? Report a correction.
 
 ## Reproduce a refusal: output inside the checkout
 
@@ -162,6 +162,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/README.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
 - What Monthly Close Controls refuses: https://duguid.com.au/tools/refusals/#monthly-close-controls
 - Reproducible examples and evaluations: https://duguid.com.au/evaluate/

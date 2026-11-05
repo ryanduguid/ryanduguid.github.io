@@ -6,6 +6,7 @@
 mod common;
 
 use common::{rendered, root};
+use site_tools::htmlparser::{self, Event};
 use site_tools::pycsv;
 use site_tools::pyjson::{self, Json};
 use site_tools::pyre::{S, re};
@@ -957,6 +958,127 @@ fn money_formats_like_decimal() {
     assert_eq!(money("-1234.565"), "-$1,234.56");
     assert_eq!(money("0.125"), "$0.12");
     assert_eq!(money("1000000"), "$1,000,000.00");
+}
+
+/// Whether the page's software issue paragraph has an anchor to `form` with link text.
+fn issue_paragraph_links(html: &str, form: &str) -> bool {
+    let (mut inside_p, mut in_paragraph, mut in_anchor) = (false, false, false);
+    for positioned in htmlparser::parse(html, true) {
+        match positioned.event {
+            Event::StartTag(tag, _) if tag == "p" => inside_p = true,
+            Event::Data(text)
+                if inside_p && text.starts_with("Software issue using fictional data? ") =>
+            {
+                in_paragraph = true;
+            }
+            Event::Data(text) if in_anchor && !text.trim().is_empty() => return true,
+            Event::StartTag(tag, attributes) if in_paragraph && tag == "a" => {
+                in_anchor = attributes
+                    .iter()
+                    .any(|(name, value)| name == "href" && value.as_deref() == Some(form));
+            }
+            Event::EndTag(tag) if tag == "a" => in_anchor = false,
+            Event::EndTag(tag) if tag == "p" => (inside_p, in_paragraph) = (false, false),
+            _ => {}
+        }
+    }
+    false
+}
+
+const CORRECTION_FORM: &str =
+    "https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml";
+
+fn issue_line(body: &str) -> String {
+    format!("<p>Software issue using fictional data? {body}</p>")
+}
+
+#[test]
+fn a_form_address_in_an_inert_span_is_not_a_link() {
+    let form = CORRECTION_FORM;
+    assert!(issue_paragraph_links(
+        &issue_line(&format!(r#"<a href="{form}">Report it</a>"#)),
+        form
+    ));
+    assert!(!issue_paragraph_links(
+        &issue_line(&format!("<span>{form}</span>")),
+        form
+    ));
+}
+
+#[test]
+fn the_sentence_and_link_outside_a_paragraph_are_not_the_paragraph() {
+    let form = CORRECTION_FORM;
+    assert!(!issue_paragraph_links(
+        &format!(
+            r#"<div>Software issue using fictional data? <a href="{form}">Report it</a></div>"#
+        ),
+        form
+    ));
+}
+
+#[test]
+fn a_commented_out_anchor_is_not_a_link() {
+    let form = CORRECTION_FORM;
+    assert!(!issue_paragraph_links(
+        &issue_line(&format!(r#"<!-- <a href="{form}">Report it</a> -->"#)),
+        form
+    ));
+}
+
+#[test]
+fn an_empty_anchor_before_unlinked_text_is_not_a_link() {
+    let form = CORRECTION_FORM;
+    assert!(!issue_paragraph_links(
+        &issue_line(&format!(r#"<a href="{form}"></a> Report it"#)),
+        form
+    ));
+}
+
+#[test]
+fn a_reader_can_reach_the_correction_form_from_each_tool_and_the_contact_page() {
+    let form = CORRECTION_FORM;
+    assert!(read("contact/index.html").contains(&format!(
+        r#"<a href="{form}">Report a wrong rate, date or rule</a>"#
+    )));
+    assert!(read("tools/limitations/index.html").contains(&format!(r#"<a href="{form}">"#)));
+    assert!(read("contact/index.html").contains(
+        "The form is public: leave out tax file numbers and other taxpayer identifiers, \
+         client records, credentials and confidential attachments."
+    ));
+    for tool in [
+        "ato-benchmarks",
+        "australian-tax-ai-agents",
+        "coal-lsl-levy",
+        "company-tax-franking",
+        "monthly-close-controls",
+        "subcontractor-ledgers",
+        "trust-distributions",
+        "wip-schedule",
+        "workpaper-review-gate",
+        "xero-trial-balance",
+    ] {
+        assert!(
+            issue_paragraph_links(&read(&format!("tools/{tool}/index.html")), form),
+            "{tool}"
+        );
+    }
+}
+
+#[test]
+fn the_method_section_states_the_hold_on_a_dead_ato_page() {
+    let days = site_tools::ato_sources::DEAD_HOLD_DAYS;
+    assert!(
+        read("tools/limitations/index.html")
+            .contains(&format!("a read at least {days} days later agrees"))
+    );
+}
+
+#[test]
+fn the_xero_install_note_states_the_starter_limits_and_the_paid_plans_page() {
+    let html = read("tools/xero-trial-balance/index.html");
+    assert!(html.contains("up to 5 connections, at 1,000 API calls a day per organisation"));
+    assert!(html.contains(r#"<a href="/works-with/xero/">"#));
+    assert!(!html.contains("a free Xero developer app"));
 }
 
 #[test]

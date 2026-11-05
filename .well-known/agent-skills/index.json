@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
   "format": "duguid.com.au/agent-skills-index/1",
-  "generated": "2026-11-04",
+  "generated": "2026-11-05",
   "publisher": {
     "name": "Ryan Duguid",
     "url": "https://duguid.com.au/"
@@ -18,7 +18,7 @@
       "npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy"
     ]
   },
-  "note": "Preparation-only accounting workflows for review by an authorised human. Not tax advice and not lodgement. Each url serves the released bytes; check the digest before use.",
+  "note": "Preparation-only accounting workflows for review by an authorised human. Not tax advice and not lodgement. Each url serves the released bytes; check the digest before use. Read on 5 November 2026, v0.4.0 was the latest release under Apache-2.0, the licence declared here, so it is pinned; the current release was v0.5.0 (28 October 2026), under FSL-1.1-ALv2. That is a dated observation: the site check holds it to the declared licence, not to later releases.",
   "skills": [
     {
       "name": "au-aml-ctf-client-coverage",

@@ -90,7 +90,7 @@
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
     ],
     "tools/limitations/index.html": [
-      "c5c87468f8231ee482d06771695fc3fffc47fdb4a4394d180f04aaf48d52f620"
+      "2c7deb2d11b010494b523ecd13bd7535e64448bd227e6150a4746257755addaf"
     ],
     "tools/monthly-close-controls/index.html": [
       "dc16d368fea6d1b8c483c3ae2dccf8f4b84bdaff12e834f0f4e7422a19ea2fff"
@@ -148,9 +148,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "404b187c43da5929f804b742c26d33ffef7b3eaab406760d13185f53030a77b7",
+    "llms.txt": "066b33dfeb559ca8fad7ac3a6862075cd927f5aaf9899983d44af5c8f001d2a8",
     "robots.txt": "190377e5d6679854538ded34c738c55ad8f64bc8b88a6dfd691121d847119609",
-    "sitemap.xml": "41c710a1a1b64960985f42c3429849bd9244f52a30308a693148b44fdce3fca6"
+    "sitemap.xml": "43198e4b75599849ede97c472b619ac30dc582ec26cee9bc8244a1dbed80214c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

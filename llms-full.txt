@@ -310,7 +310,7 @@ Open the Xero installation and first run guide
 ## What you need
 
 - Python 3.11 or later, Git and a local working directory for the released exporter.
-- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app connect up to 5 organisations, at 1,000 API calls a day each. Core allows up to 50 for A$35 a month excluding tax, including 10 GB of API data egress, then A$2.40 a GB. An integration an accountant or bookkeeper builds for their own practice or a single client is exempt from this pricing, as Xero determines.
+- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation. Core allows up to 50 for A$35 a month excluding tax, including 10 GB of API data egress, then A$2.40 a GB. An integration an accountant or bookkeeper builds solely for their own practice or a single client is exempt from this pricing, as Xero determines.
 - A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.
 - An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.
 
@@ -1628,7 +1628,7 @@ Left out on purpose: the Budget and MYEFO rows that fund administration rather t
 
 ## Legislated: later application
 
-The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. The stage column in this table and the next was read on 5 November 2026 from the Federal Register of Legislation; the CSV’s stage_source_url column links the first Act or instrument named. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
+The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. The stage column in this table and the next was read on 5 November 2026 from the Federal Register of Legislation; the CSV’s stage_source_url column links the first Act or instrument named, and the stage cites each by its Act number or Register ID. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
 
 ATO-reported legislation with later application
 
@@ -2782,7 +2782,7 @@ Source: https://duguid.com.au/tools/limitations/
 
 A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
-Published 16 September 2026. Last reviewed 1 October 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
+Published 16 September 2026. Last reviewed 5 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
 ## What belongs here
 
@@ -2852,9 +2852,25 @@ Do not read the two payloads as interchangeable.
 
 Human step. Map an account to every bucket the ratios you intend to read require, including a deliberate nil where the business genuinely has none. Where a figure must not be shown unless it was established, read the library payload: a not_supplied status is the honest answer that a command line 0.0000 cannot give. Where a business genuinely has no cost of sales, the fallback is the ATO’s own behaviour and the result stands.
 
+## Method and corrections
+
+Sources. A rate or threshold cites a primary source: each row of a rate table carries its own source_url on a primary host and a checked_at date, and the site checks fail on a row without them. An evidence record states its claim, the source or released artefact behind it, the date or version reviewed and where a person has to decide.
+
+Tests. The calculator engines have their own test suites, run on every pull request. Each entry on this page is bound by a test in its package. Evaluations reproduce results against fixed releases with fictional inputs.
+
+Freshness. A daily job compares the release references on these pages with published releases. A weekly sweep on Ryan’s machine reads the ATO addresses in the site’s source files, and its report lists the files to review. It fails at once on a response it cannot read or a substantive change in the text. A 404 or 410 is held instead: the report notes it, and the sweep fails only when a read at least 3 days later agrees. The change test leaves out the legal database home and hub and listing pages. Dates on a page record when it was last reviewed; the changelog records what changed.
+
+Recent corrections, from the changelog
+
+Date | Type | Correction
+2 November 2026 | Figure | Accounting question 8 gave 12 business days alone for returns lodged online; it now gives the ATO’s 10.
+31 October 2026 | Software | payday-super-checker v0.2.3 no longer reads an Employment Hero row with the Beam status Reconciled as sent to the fund.
+29 October 2026 | Date | Accounting question 6 gave 30 November 2026 as the end of ATO credit card payments; it now gives 30 June 2027.
+26 October 2026 | Scope | Accounting question 16 now limits the instant asset write-off to small businesses using the simplified depreciation rules.
+
 ## Telling me a number is wrong
 
-The most useful report carries the command you ran, the output it produced, the figure you expected and where that expectation comes from. A primary source, a worked example from the regulator or a second implementation all work. Open an issue on the repository that carries the tool, or use the contact page.
+The most useful report carries the command you ran, the output it produced, the figure you expected and where that expectation comes from. A primary source, a worked example from the regulator or a second implementation all work. Open an issue on the repository that carries the tool, or use the contact page. For a wrong rate, date or rule in a page’s text, use the correction form.
 
 Two implementations disagreeing is the cheapest way to find a defect, and the disagreement is worth reporting even when you are not certain which side is right.
 
@@ -2867,8 +2883,14 @@ This is a register of limitations found and confirmed, not a proof that none rem
 - What these tools refuse: https://duguid.com.au/tools/refusals/
 - workbook version note: https://duguid.com.au/tools/payday-super/#workbook-versions
 - receipt amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Evaluations: https://duguid.com.au/evaluate/
+- changelog: https://duguid.com.au/changelog/
+- 2 November 2026: https://duguid.com.au/changelog/#entry-aeb0def588c29a6d
+- 31 October 2026: https://duguid.com.au/changelog/#entry-3cbdf54c6851c50b
+- 29 October 2026: https://duguid.com.au/changelog/#entry-b52ad24c6adfe1ca
+- 26 October 2026: https://duguid.com.au/changelog/#entry-1961271e7e413d31
 - contact page: https://duguid.com.au/contact/
-- evaluations: https://duguid.com.au/evaluate/
+- correction form: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Evidence and Assurance: https://duguid.com.au/evidence/
 
 ---
@@ -2989,7 +3011,7 @@ Half up to the nearest cent, once, at the final step. The Act, the Regulations a
 
 No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Sources
 
@@ -3023,6 +3045,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages
 - Coal LSL, governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Subcontract ledger workflows for construction and mining: https://duguid.com.au/tools/subcontractor-ledgers/
@@ -3250,7 +3273,7 @@ Source on GitHub · Primary source: the ATO’s small business benchmarks.
 
 One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it not_supplied. The two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads not_supplied on both. That is separate from a profit and loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See Known limitations.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -3289,6 +3312,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Known limitations: https://duguid.com.au/tools/limitations/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - A Xero trial balance export that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -3378,7 +3402,7 @@ The examples assume supplied facts, and nothing this engine produces is an asses
 
 Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -3419,6 +3443,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
@@ -3479,7 +3504,7 @@ Published package and release instructions.
 
 Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Fictional worked example
 
@@ -3539,6 +3564,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - uv installed: https://docs.astral.sh/uv/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/
@@ -3604,7 +3630,7 @@ Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 7
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -3642,6 +3668,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Works with Claude: MCP and skills: https://duguid.com.au/works-with/claude/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
@@ -3734,7 +3761,7 @@ wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o
 
 Source on GitHub · Use it from the subcontractor workflows
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -3773,6 +3800,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - uv: https://docs.astral.sh/uv/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -3798,7 +3826,7 @@ Python
 
 Needs
 
-Python 3.11 or later and a free Xero developer app
+Python 3.11 or later and a Xero developer app (free Starter plan: up to 5 connections, 1,000 API calls a day per organisation)
 
 Boundary
 
@@ -3825,7 +3853,7 @@ MIT-licensed utility code, no warranty; outputs feed professional review like an
 
 ## Get it
 
-Needs Python 3.11 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation; Works with Xero covers the paid plans and Xero’s exemption for an integration built solely for your own practice or a single client. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -3847,7 +3875,7 @@ These commands install the current release, v0.1.15 (its source). The default br
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Fictional worked example
 
@@ -3895,14 +3923,16 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
 - Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
+- Starter plan: https://developer.xero.com/pricing
+- Works with Xero: https://duguid.com.au/works-with/xero/
 - its source: https://github.com/ryanduguid/accounting-review-pipeline/tree/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export
 - fictional worked example: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - tagged balanced-output test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210
 - tagged unbalanced-YTD test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433
-- Works with Xero: setup and access: https://duguid.com.au/works-with/xero/
 - Turn trial balance CSVs into a monthly close exception report: https://duguid.com.au/tools/monthly-close-controls/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
@@ -4066,7 +4096,7 @@ The Skills commands pin the installer to version 1.5.22. The primary Skills inst
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Limits
 
@@ -4154,6 +4184,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PyPI: https://pypi.org/project/payday-super-checker/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
 - Website hosting and browser data handling: https://duguid.com.au/privacy/
 - Review the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
@@ -4242,7 +4273,7 @@ The output goes outside the clone on purpose. A readiness pack names a client’
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -4280,6 +4311,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - How to export a Xero trial balance to CSV that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - What Workpaper Review Gate refuses: https://duguid.com.au/tools/refusals/#workpaper-review-gate
@@ -4312,6 +4344,7 @@ Do not email taxpayer information, client records, credentials or confidential f
 
 Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
+Corrections | Report a wrong rate, date or rule. The form is public: leave out tax file numbers and other taxpayer identifiers, client records, credentials and confidential attachments.
 GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
@@ -4326,6 +4359,7 @@ Published 30 August 2026. Last reviewed 26 September 2026.
 - review my accounting work samples: https://duguid.com.au/about/#work-samples
 - fictional Newcastle cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
+- Report a wrong rate, date or rule: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - github.com/ryanduguid: https://github.com/ryanduguid
 
 ---
@@ -4673,7 +4707,7 @@ After Cargo’s build messages, expect exit code 2 and close-control: REVIEW; 8 
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue.
+Software issue using fictional data? Open an issue. Wrong rate, date or rule on this page? Report a correction.
 
 ## Reproduce a refusal: output inside the checkout
 
@@ -4730,6 +4764,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/README.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
 - What Monthly Close Controls refuses: https://duguid.com.au/tools/refusals/#monthly-close-controls
 - Reproducible examples and evaluations: https://duguid.com.au/evaluate/
