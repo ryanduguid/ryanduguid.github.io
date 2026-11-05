@@ -351,10 +351,7 @@ fn measure_csv_matches_visible_tables() {
         let stage = field(record, "bill_stage");
         let stage_date = field(record, "stage_date");
         let stage_url = field(record, "stage_source_url");
-        if cells.len() < 5 {
-            assert!(stage.is_empty() && stage_date.is_empty() && stage_url.is_empty());
-            continue;
-        }
+        assert_eq!(cells.len(), 5, "{cells:?}");
         assert_eq!(cells[4], stage);
         assert!(!stage.is_empty() && stage_url.starts_with("https://"));
         if status == "ATO-reported bill" {
@@ -365,6 +362,18 @@ fn measure_csv_matches_visible_tables() {
         let shown = re(r"\d{1,2} [A-Z][a-z]+ \d{4}", 0)
             .search(stage)
             .and_then(|m| site_tools::pytime::strptime_day_month_year(&m[0]));
+        if status.starts_with("ATO-reported legislation") {
+            assert!(
+                stage_url.starts_with("https://www.legislation.gov.au/"),
+                "{stage_url}"
+            );
+            // The stage's date is the first assent or registration date the row shows.
+            let assent = re(r"\d{1,2} [A-Z][a-z]+ \d{4}", 0)
+                .search(field(record, "royal_assent"))
+                .and_then(|m| site_tools::pytime::strptime_day_month_year(&m[0]));
+            assert!(shown.is_some(), "{stage}");
+            assert_eq!(shown, assent, "{stage}");
+        }
         if stage_date.is_empty() {
             assert!(shown.is_none(), "{stage}");
         } else {
