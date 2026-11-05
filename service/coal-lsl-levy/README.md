@@ -59,6 +59,12 @@ Money and rates are decimal strings. Every amount is required, including
 unknown fields are rejected. Unknown facts needed for the selected branch and
 pay components it would discard are refused.
 
+A bonus `frequency` takes the engine's 6 values: `weekly`, `fortnightly`,
+`monthly`, `quarterly`, `halfYearly` and `annually`. Anything else, including
+`daily`, fails with 422 `invalid_enum`. The method record counts bonuses paid at
+least monthly as `assets/levy.mjs` implements that test, and the engine has no
+daily value, so the service refuses one rather than guessing.
+
 Response figures have fixed scales, which the OpenAPI document publishes as
 patterns. Money has 2 decimal places and rates and factors have 4 (`"2.7000"`,
 `"0.7500"`). Eligible wages and Formula B have 4 because they keep exact
@@ -83,15 +89,21 @@ method and a verified rate row checked through month-end. The register's
 later check. Coverage does not roll forward on its own: each new month needs the
 sources re-read, the register updated and the Worker redeployed.
 
-The [23 synthetic fixtures](fixtures/cases.json) cover 8 computed results,
-5 factual refusals, 8 validation failures and 2 unsupported periods. Expected
+The [24 synthetic fixtures](fixtures/cases.json) cover 8 computed results,
+5 factual refusals, 8 validation failures and 3 unsupported periods. Expected
 figures include independent arithmetic derivations. The conformance runner
 checks every expected value, served hashes and raw response bytes on repeat
 calls. Passing it does not constitute LodgeiT approval.
 
 See [deployment and operations](deploy/README.md), the
 [contract record](docs/contract-snapshot.md) and the
-[listing request](docs/listing-request-draft.md).
+[listing request template](docs/listing-request-draft.md).
+
+## Licence
+
+This directory is under the repository's
+[Ryan Duguid Public Attribution Licence 1.0](../../LICENSE). Revision 53ba9b8 was
+released under the MIT licence, and that grant stands for that version.
 
 ## Correction
 
