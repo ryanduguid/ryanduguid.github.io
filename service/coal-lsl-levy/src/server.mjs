@@ -242,9 +242,9 @@ export function createApp(options = {}) {
     let status;
     try {
       status = await route(request, response, cors, requestId);
-    } catch (issue) {
-      // Never echo the error; the request id links the log line to the response.
-      config.log(JSON.stringify({ level: 'error', request_id: requestId, message: issue?.message ?? String(issue) }));
+    } catch {
+      // Neither echo nor log the error: its text can carry caller input. The
+      // request id links the response to the one log line every request gets.
       status = send(response, 500, { error: 'internal_error', request_id: requestId }, { 'X-Request-Id': requestId });
     }
     const ms = Number(process.hrtime.bigint() - started) / 1e6;

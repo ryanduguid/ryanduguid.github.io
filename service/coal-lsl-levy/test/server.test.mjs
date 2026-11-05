@@ -281,16 +281,23 @@ test('X-Forwarded-For is ignored unless the proxy is trusted', async () => {
   }
 });
 
+const LOG_FIELDS = ['method', 'ms', 'path', 'request_id', 'status'];
+
 test('logs carry only the permitted fields, never bodies, amounts, queries or client addresses', async () => {
+  const before = logs.length;
   const response = await post(`/v1/calculators/${CALC}/${PERIOD}?probe=query-sentinel`, {
     reporting_month: '2026-06', branch: 'annual_salary', employee: { eligible_employee: true },
     pay: { annual_salary_paid: '7654321.09', salary_sacrificed: '0.00', bonuses: [] },
   }, { 'x-forwarded-for': '203.0.113.77', 'user-agent': 'agent-sentinel' });
   assert.equal(response.status, 200);
   await response.text();
-  const lines = logs.map((line) => JSON.parse(line));
-  assert.ok(lines.length > 0);
-  for (const line of lines) assert.deepEqual(Object.keys(line).sort(), ['method', 'ms', 'path', 'request_id', 'status']);
+  const own = logs.slice(before).filter((line) => {
+    const { method, status, path } = JSON.parse(line);
+    return method === 'POST' && status === 200 && path === `/v1/calculators/${CALC}/${PERIOD}`;
+  });
+  assert.equal(own.length, 1, 'the request logged one line of its own');
+  assert.deepEqual(Object.keys(JSON.parse(own[0])).sort(), LOG_FIELDS);
+  for (const line of logs) assert.deepEqual(Object.keys(JSON.parse(line)).sort(), LOG_FIELDS);
   const joined = logs.join('\n');
   for (const secret of ['7654321.09', '6000.00', '127.0.0.1', '203.0.113.77', 'annual_salary_paid', 'base_rate_of_pay', 'query-sentinel', 'agent-sentinel']) {
     assert.ok(!joined.includes(secret), secret);
@@ -345,6 +352,28 @@ test('the throttle map does not grow across windows', () => {
   for (let i = 0; i < 5; i += 1) assert.equal(throttle.take('key-0').allowed, true);
   assert.equal(throttle.size, 1, 'the expired keys are gone');
   assert.equal(throttle.take('key-0').allowed, false);
+});
+
+test('a fault logs the permitted fields and none of its message', async () => {
+  const seen = [];
+  const secret = '7654321.09 from a caller';
+  const faulty = createApp({
+    port: 0, log: (line) => seen.push(line), throttle: { take() { throw new Error(secret); } },
+  });
+  await new Promise((resolve) => faulty.server.listen(0, '127.0.0.1', resolve));
+  try {
+    const response = await fetch(`http://127.0.0.1:${faulty.server.address().port}/healthz`);
+    assert.equal(response.status, 500);
+    const body = await response.text();
+    assert.ok(!body.includes(secret), 'the response does not echo it');
+    assert.equal(seen.length, 1);
+    assert.deepEqual(Object.keys(JSON.parse(seen[0])).sort(), LOG_FIELDS);
+    assert.equal(JSON.parse(seen[0]).status, 500);
+    assert.equal(JSON.parse(seen[0]).request_id, JSON.parse(body).request_id);
+    assert.ok(!seen[0].includes(secret), 'the log does not carry it');
+  } finally {
+    faulty.server.close();
+  }
 });
 
 test('the logged path is the route that ran, not the raw target', async () => {
