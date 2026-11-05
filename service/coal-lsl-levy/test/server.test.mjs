@@ -453,6 +453,18 @@ test('an oversized chunked body gets the documented 413, not a dropped connectio
   assert.equal((await response.json()).max_body_bytes, 16384);
 });
 
+test('a chunked body within the limit is answered as usual', async () => {
+  const response = await fetch(`${base}/v1/calculators/${CALC}/${PERIOD}`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: new ReadableStream({
+      start(controller) { controller.enqueue(new TextEncoder().encode(JSON.stringify(fixtures.cases[0].request))); controller.close(); },
+    }),
+    duplex: 'half',
+  });
+  assert.equal(response.status, 200);
+});
+
 test('a 413 closes the connection instead of holding the unread upload', async () => {
   const { port } = app.server.address();
   const target = `/v1/calculators/${CALC}/${PERIOD}`;
