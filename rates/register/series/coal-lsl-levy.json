@@ -28,11 +28,12 @@
       },
       "cross_checks": [
         "https://duguid.com.au/tools/coal-lsl-levy/",
-        "https://coallsl.com.au/guidance-notes/eligible-wages"
+        "https://coallsl.com.au/guidance-notes/eligible-wages",
+        "https://coallsl.com.au/employer/administer-lsl/levy"
       ],
-      "verified_at": "2026-09-18",
-      "verified_by": "automated retrieval (Claude Code session, 18 September 2026); no professional review recorded",
-      "verification_note": "The compilation shows s 6 as amended by F2023L00772 (commenced 1 July 2023). The rate text in force before 1 July 2023 was not read in this session, so no row covers earlier months. A later compilation supersedes this row; check the Register before relying on it."
+      "verified_at": "2026-11-05",
+      "verified_by": "automated retrieval, 5 November 2026 (first read 18 September 2026); no professional review recorded",
+      "verification_note": "The compilation shows s 6 as amended by F2023L00772 (commenced 1 July 2023). The rate text in force before 1 July 2023 was not read in this session, so no row covers earlier months. Rechecked 5 November 2026: the Register shows Compilation No. 1 as the latest version, with no unincorporated amendment and no later amending instrument, and Coal LSL's levy page states a current rate of 2.7%. A later compilation supersedes this row; check the Register before relying on it."
     }
   ]
 }

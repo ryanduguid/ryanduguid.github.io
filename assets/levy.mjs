@@ -16,7 +16,7 @@ export const LEVY_RATE_DENOMINATOR = 1000; // 2.7%
 export const MAX_WAGES_CENTS = Math.floor(Number.MAX_SAFE_INTEGER / (4 * LEVY_RATE_NUMERATOR));
 // Mirrors the latest row of rates/register/series/coal-lsl-levy.json; levy.test.mjs
 // fails when the two disagree.
-export const LEVY_RATE_AS_AT = '2026-09-18';
+export const LEVY_RATE_AS_AT = '2026-11-05';
 export const LEVY_RATE_SOURCE = 'https://www.legislation.gov.au/F2018L00217/latest/text';
 
 // The casual method changed for reporting months on or after January 2024.

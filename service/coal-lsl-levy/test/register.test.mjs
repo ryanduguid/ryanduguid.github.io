@@ -16,13 +16,13 @@ test('supported months run from the amended method start to the rate source-chec
   const register = loadRegister();
   const months = register.supportedMonths();
   assert.equal(months[0], '2024-01');
-  assert.equal(months.at(-1), '2026-08');
-  assert.equal(months.length, 32);
+  assert.equal(months.at(-1), '2026-10');
+  assert.equal(months.length, 34);
   assert.equal(register.isSupported('2023-12'), false);
-  assert.equal(register.isSupported('2026-09'), false, 'the 18 September check does not cover the whole month');
-  assert.equal(register.isSupported('2026-10'), false);
-  assert.equal(register.rateFor('2026-08').row_id, '2023-07-01');
-  assert.equal(register.rateFor('2026-09'), null, 'a month the check does not wholly cover has no rate');
+  assert.equal(register.isSupported('2026-11'), false, 'the 5 November check does not cover the whole month');
+  assert.equal(register.isSupported('2026-12'), false);
+  assert.equal(register.rateFor('2026-10').row_id, '2023-07-01');
+  assert.equal(register.rateFor('2026-11'), null, 'a month the check does not wholly cover has no rate');
 });
 
 test('the committed SHA256SUMS agrees with the register files the service hashes', () => {

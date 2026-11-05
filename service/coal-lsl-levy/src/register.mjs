@@ -85,8 +85,8 @@ export function createRegister({ rateBytes, methodBytes, engineBytes }) {
   const methodRows = methods.records.filter((row) => row.service_supported === true);
 
   // A month is served only where the check covers the whole of it. A row read
-  // on 18 September 2026 does not vouch for wages paid on 30 September, so
-  // September is not served: the last served month is August. Comparing
+  // on 5 November 2026 does not vouch for wages paid on 30 November, so
+  // November is not served: the last served month is October. Comparing
   // months alone let part of the served range sit after the check, which is
   // the staleness this rule exists to prevent.
   function lastDayOf(month) {

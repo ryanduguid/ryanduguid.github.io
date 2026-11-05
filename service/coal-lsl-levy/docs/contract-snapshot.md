@@ -35,9 +35,14 @@ Read from the Federal Register on 26 September 2026:
   dated 1 July 2023. Section 6 prescribes 2.7%; section 8 applies the 2023
   amendment to wages paid on or after 1 July 2023.
 
-The methods record names this source check. The shared rate register retains
-its 18 September check; a 26 September reading does not extend whole-month
-coverage. January 2024 to August 2026 remains the served range.
+The methods record names this source check. The shared rate register retained
+its 18 September check then; a 26 September reading did not extend whole-month
+coverage, so January 2024 to August 2026 was the served range.
+
+On 5 November 2026 the Regulations, the Collection Act and Coal LSL's levy page
+were read again. No compilation had changed and the rate stood at 2.7%. The
+register's check date moved to 5 November, so the served range is now
+January 2024 to October 2026.
 Source retrieval and arithmetic tests do not constitute professional review.
 
 The API calculates from supplied facts. It does not decide employee coverage,

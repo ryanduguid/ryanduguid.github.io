@@ -299,7 +299,7 @@ fn one_series_check_date_does_not_travel_to_another() {
         };
         rows[0].get("verified_at").unwrap().clone()
     };
-    assert_eq!(verified(&first), s("2026-09-18"));
+    assert_eq!(verified(&first), s("2026-11-05"));
     assert_eq!(verified(&second), s("2026-01-05"));
 }
 
@@ -308,12 +308,12 @@ fn todays_date_is_what_bounds_a_check_date() {
     let register = Register::new();
     let payload = register.load(&register.series());
     register.rewrite(&register.series(), &payload);
-    let day = |d| Some(Date::new(2026, 9, d).unwrap());
+    let day = |d| Some(Date::new(2026, 11, d).unwrap());
     assert_eq!(
-        check_register(&register.root, day(18)).unwrap(),
+        check_register(&register.root, day(5)).unwrap(),
         Vec::<String>::new()
     );
-    let failures = check_register(&register.root, day(17)).unwrap();
+    let failures = check_register(&register.root, day(4)).unwrap();
     assert!(any(&failures, "is in the future"), "{failures:?}");
 }
 

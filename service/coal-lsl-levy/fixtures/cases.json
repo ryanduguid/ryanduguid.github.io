@@ -225,7 +225,7 @@
     {
       "id": "F7-formula-b-fractional-cents",
       "request": {
-        "reporting_month": "2026-08",
+        "reporting_month": "2026-10",
         "branch": "base_rate",
         "employee": {
           "eligible_employee": true
@@ -252,7 +252,7 @@
           "differs": true
         }
       },
-      "derivation": "Aggregate = 100.03 + 300.00 = 400.03. Formula B = 0.75 x 400.03 = 300.0225 (a quarter cent, kept). Formula A = 100.03. Levy before rounding = 300.0225 x 0.027 = 8.1006075; half up to 8.10. August 2026 is the last supported month: the rate row was checked on 18 September 2026, which does not cover the whole of September, so September is refused."
+      "derivation": "Aggregate = 100.03 + 300.00 = 400.03. Formula B = 0.75 x 400.03 = 300.0225 (a quarter cent, kept). Formula A = 100.03. Levy before rounding = 300.0225 x 0.027 = 8.1006075; half up to 8.10. October 2026 is the last supported month: the rate row was checked on 5 November 2026, which does not cover the whole of November, so November is refused."
     },
     {
       "id": "F8-base-rate-exact-tie-goes-to-formula-a",

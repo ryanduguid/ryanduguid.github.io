@@ -39,8 +39,8 @@ test('discovery lists the calculator, its periods, limits and refusal classes', 
   assert.equal(entry.calc_uri, CALC);
   assert.deepEqual(entry.calc_uri_aliases, ['urn:sbrm:calc:coal-lsl-levy', 'urn:sbrm:calculator:coal-lsl-levy']);
   assert.equal(entry.supported_periods[0], 'urn:sbrm:period:coal-lsl-levy:2024-01');
-  assert.equal(entry.supported_periods.at(-1), 'urn:sbrm:period:coal-lsl-levy:2026-08');
-  assert.equal(entry.supported_periods.length, 32);
+  assert.equal(entry.supported_periods.at(-1), 'urn:sbrm:period:coal-lsl-levy:2026-10');
+  assert.equal(entry.supported_periods.length, 34);
   assert.ok(entry.refusal_classes.includes('unsupported_period'));
   assert.equal(entry.limits.max_body_bytes, 16384);
 });

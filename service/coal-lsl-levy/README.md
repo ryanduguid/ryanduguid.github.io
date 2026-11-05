@@ -77,10 +77,11 @@ engine source hash, version and code revision. A dirty build is labelled
 `-dirty`; an archive without Git metadata reports null. No calculation fetches
 external data or uses the current date.
 
-Supported months are January 2024 to August 2026. Each month needs a supported
+Supported months are January 2024 to October 2026. Each month needs a supported
 method and a verified rate row checked through month-end. The register's
-18 September check does not cover all of September. Re-reading the sources on
-26 September still does not extend whole-month coverage.
+5 November check does not cover all of November, so November is refused until a
+later check. Coverage does not roll forward on its own: each new month needs the
+sources re-read, the register updated and the Worker redeployed.
 
 The [23 synthetic fixtures](fixtures/cases.json) cover 8 computed results,
 5 factual refusals, 8 validation failures and 2 unsupported periods. Expected
