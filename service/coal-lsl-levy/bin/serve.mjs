@@ -14,7 +14,7 @@ function codeRevision() {
   const fromEnv = env('COAL_LSL_CODE_REVISION', null);
   if (fromEnv) return fromEnv;
   try {
-    return execFileSync('git', ['-C', REPO_ROOT, 'rev-parse', '--short=12', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+    return execFileSync('git', ['-C', REPO_ROOT, 'rev-parse', '--short=12', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); // NOSONAR: git's install path differs by host, so PATH finds it; this runs as the operator, and a failure only leaves the revision null
   } catch {
     return null;
   }

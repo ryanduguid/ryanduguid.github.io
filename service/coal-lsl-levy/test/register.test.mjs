@@ -56,6 +56,15 @@ test('the committed SHA256SUMS agrees with the register files the service hashes
   assert.ok(sums.includes(`${register.rateSha256}  series/coal-lsl-levy.json`), 'series hash listed');
 });
 
+test('the supported range comes from the earliest start and latest check, in any row order', () => {
+  const series = JSON.parse(readFileSync(RATE_SERIES_PATH, 'utf8'));
+  const [earlier, later] = series.rows;
+  series.rows = [{ ...later, period_start: '2024-02-01' }, { ...earlier, status: 'verified' }];
+  const reordered = join(mkdtempSync(join(tmpdir(), 'coal-lsl-register-')), 'reordered.json');
+  writeFileSync(reordered, JSON.stringify(series));
+  assert.deepEqual(loadRegister({ rateSeriesPath: reordered }).supportedMonths(), loadRegister().supportedMonths());
+});
+
 test('a series with no verified row, or a row checked before the method start, supports nothing', () => {
   const dir = mkdtempSync(join(tmpdir(), 'coal-lsl-register-'));
   const series = JSON.parse(readFileSync(RATE_SERIES_PATH, 'utf8'));

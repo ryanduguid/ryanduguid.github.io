@@ -366,7 +366,14 @@ export function createApp(options = {}) {
     return send(response, 405, { error: 'method_not_allowed' }, { ...headers, Allow: 'GET, POST, OPTIONS' });
   }
 
-  const server = createServer((request, response) => { handle(request, response); });
+  // handle answers every route fault itself, so this sees only a failure past
+  // that: a 500 that cannot be written over a started response, or a log sink
+  // that throws. Drop an unfinished answer and leave the service running.
+  const server = createServer((request, response) => {
+    handle(request, response).catch(() => {
+      if (!response.writableEnded) response.destroy();
+    });
+  });
   server.requestTimeout = 10000;
   server.headersTimeout = 5000;
   return { server, config, register, openapi, listing };

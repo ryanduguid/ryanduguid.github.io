@@ -139,13 +139,13 @@ function casual(pay, reportingMonth) {
   // settles the question on its own and the other answer changes nothing.
   // Refusing anyway produced a 400 whose stated reason, that the levy cannot
   // be calculated until both are established, was untrue for those inputs.
-  const unresolved = [];
+  let field = null;
   if (pay.instrumentSpecifiesLoading === 'unknown' && pay.loadingQuantifiable !== false) {
-    unresolved.push(['instrumentSpecifiesLoading', 'pay.instrument_specifies_loading']);
+    field = 'pay.instrument_specifies_loading';
   } else if (pay.instrumentSpecifiesLoading === true && pay.loadingQuantifiable === 'unknown') {
-    unresolved.push(['loadingQuantifiable', 'pay.loading_quantifiable']);
+    field = 'pay.loading_quantifiable';
   }
-  for (const [, field] of unresolved) {
+  if (field) {
     throw new Refusal('insufficient_facts',
       `${field} is "unknown", and on the answers supplied it is what selects between s 3B(3)(a) and s 3B(3)(b). The levy cannot be calculated until it is established.`,
       { field });

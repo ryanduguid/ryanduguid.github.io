@@ -38,7 +38,7 @@ jobs:
           node-version: "24"
           cache: npm
           cache-dependency-path: service/coal-lsl-levy/package-lock.json
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: npm test
       - run: npm run conformance
       - run: npm run check:worker

@@ -18,6 +18,13 @@ function monthOf(isoDate) {
   return isoDate.slice(0, 7);
 }
 
+// Code-unit order, the same as the default sort. On fixed-width YYYY-MM text
+// that is date order.
+function byMonth(left, right) {
+  if (left === right) return 0;
+  return left < right ? -1 : 1;
+}
+
 // Does a record whose period is [period_start, period_end] (dates, end may
 // be null) cover the whole of a reporting month? A record that starts
 // mid-month does not cover that month.
@@ -112,8 +119,8 @@ export function createRegister({ rateBytes, methodBytes, engineBytes }) {
   // need not be contiguous, which is why discovery publishes every month
   // rather than a first-to-last range.
   function supportedMonths() {
-    const starts = [...rateRows, ...methodRows].map((row) => monthOf(row.period_start)).sort();
-    const ends = rateRows.map((row) => monthOf(row.verified_at)).sort();
+    const starts = [...rateRows, ...methodRows].map((row) => monthOf(row.period_start)).sort(byMonth);
+    const ends = rateRows.map((row) => monthOf(row.verified_at)).sort(byMonth);
     if (!starts.length || !ends.length) return [];
     const months = [];
     for (let month = starts[0]; month <= ends[ends.length - 1]; month = nextMonth(month)) {

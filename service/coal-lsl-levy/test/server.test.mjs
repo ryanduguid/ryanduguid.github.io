@@ -380,6 +380,37 @@ test('a fault logs the permitted fields and none of its message', async () => {
   }
 });
 
+test('a log sink that throws costs the log line, not the answer or the service', async () => {
+  let attempts = 0;
+  const faulty = createApp({ port: 0, log: () => { attempts += 1; throw new Error('sink down'); } });
+  await new Promise((resolve) => faulty.server.listen(0, '127.0.0.1', resolve));
+  try {
+    const health = `http://127.0.0.1:${faulty.server.address().port}/healthz`;
+    assert.equal((await fetch(health)).status, 200);
+    assert.equal((await fetch(health)).status, 200, 'the service survived the first failure');
+    assert.equal(attempts, 2);
+  } finally {
+    faulty.server.close();
+  }
+});
+
+test('a failure over a started response closes that connection and leaves the service up', async () => {
+  const seen = [];
+  // Passes the Content-Length read, then makes response.end throw after writeHead.
+  const register = { ...loadRegister(), rateBytes: { length: 1 } };
+  const faulty = createApp({ port: 0, log: (line) => seen.push(line), register });
+  await new Promise((resolve) => faulty.server.listen(0, '127.0.0.1', resolve));
+  try {
+    const { port } = faulty.server.address();
+    const { closed } = await rawExchange(port, `GET /v1/rates/${PERIOD}/levy-rate HTTP/1.1\r\nHost: x\r\n\r\n`);
+    assert.equal(closed, true, 'the caller is not left waiting');
+    assert.equal(seen.length, 0, 'the fault went past the log line');
+    assert.equal((await fetch(`http://127.0.0.1:${port}/healthz`)).status, 200);
+  } finally {
+    faulty.server.close();
+  }
+});
+
 test('the logged path is the route that ran, not the raw target', async () => {
   const seen = [];
   const app2 = createApp({ port: 0, rateLimitPerMinute: 1000, log: (line) => seen.push(JSON.parse(line)) });

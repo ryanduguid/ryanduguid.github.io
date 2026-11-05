@@ -9,7 +9,7 @@ const files = {
   methodBytes: 'service/coal-lsl-levy/methods.json',
   engineBytes: 'assets/levy.mjs',
 };
-const git = (...args) => execFileSync('git', ['-C', fileURLToPath(root), ...args], {
+const git = (...args) => execFileSync('git', ['-C', fileURLToPath(root), ...args], { // NOSONAR: git's install path differs by host, so PATH finds it; this runs as the operator, and a failure only leaves the revision null
   encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
 }).trim();
 let revision = null;
