@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 const REPO_ROOT = fileURLToPath(new URL('../../../', import.meta.url));
 const RATE_SERIES_PATH = join(REPO_ROOT, 'rates/register/series/coal-lsl-levy.json');
 const METHODS_PATH = fileURLToPath(new URL('../methods.json', import.meta.url));
+const RECHECK_ROW = '2023-07-01-rechecked-2026-11-05';
 
 test('supported months run from the amended method start to the rate source-check month', () => {
   const register = loadRegister();
@@ -21,8 +22,26 @@ test('supported months run from the amended method start to the rate source-chec
   assert.equal(register.isSupported('2023-12'), false);
   assert.equal(register.isSupported('2026-11'), false, 'the 5 November check does not cover the whole month');
   assert.equal(register.isSupported('2026-12'), false);
-  assert.equal(register.rateFor('2026-10').row_id, '2023-07-01');
+  assert.equal(register.rateFor('2026-10').row_id, RECHECK_ROW);
   assert.equal(register.rateFor('2026-11'), null, 'a month the check does not wholly cover has no rate');
+});
+
+test('the published row stands superseded and only its replacement is served', () => {
+  const [published, recheck] = JSON.parse(readFileSync(RATE_SERIES_PATH, 'utf8')).rows;
+  assert.equal(published.row_id, '2023-07-01');
+  assert.equal(published.status, 'superseded');
+  assert.equal(published.verified_at, '2026-09-18', 'the first check stays on the record');
+  assert.equal(recheck.row_id, RECHECK_ROW);
+  assert.equal(recheck.supersedes, published.row_id);
+  assert.equal(recheck.status, 'verified');
+  assert.equal(recheck.value, published.value);
+  assert.equal(recheck.period_start, published.period_start);
+
+  const register = loadRegister();
+  assert.equal(register.rateFor('2024-01').row_id, RECHECK_ROW);
+  assert.equal(register.rateFor('2026-09').verified_at, '2026-11-05');
+  assert.equal(register.rateFor('2026-10').verified_at, '2026-11-05');
+  assert.equal(register.rateFor('2026-11'), null);
 });
 
 test('the committed SHA256SUMS agrees with the register files the service hashes', () => {
@@ -34,14 +53,14 @@ test('the committed SHA256SUMS agrees with the register files the service hashes
 test('a series with no verified row, or a row checked before the method start, supports nothing', () => {
   const dir = mkdtempSync(join(tmpdir(), 'coal-lsl-register-'));
   const series = JSON.parse(readFileSync(RATE_SERIES_PATH, 'utf8'));
-  series.rows[0].status = 'unverified';
-  series.rows[0].verification_note = 'test';
+  series.rows.at(-1).status = 'unverified';
+  series.rows.at(-1).verification_note = 'test';
   const unverified = join(dir, 'unverified.json');
   writeFileSync(unverified, JSON.stringify(series));
   assert.deepEqual(loadRegister({ rateSeriesPath: unverified }).supportedMonths(), []);
 
   const stale = JSON.parse(readFileSync(RATE_SERIES_PATH, 'utf8'));
-  stale.rows[0].verified_at = '2023-08-01';
+  stale.rows.at(-1).verified_at = '2023-08-01';
   const stalePath = join(dir, 'stale.json');
   writeFileSync(stalePath, JSON.stringify(stale));
   assert.deepEqual(loadRegister({ rateSeriesPath: stalePath }).supportedMonths(), [], 'checked before the method existed');
@@ -78,13 +97,13 @@ test('a verified row the engine does not implement is recorded and never served'
   // what the response CLAIMED the levy was computed at, which is the figure
   // and its provenance disagreeing inside one response.
   const series = JSON.parse(readFileSync(RATE_SERIES_PATH, 'utf8'));
-  const row = JSON.parse(JSON.stringify(series.rows[0]));
+  const row = JSON.parse(JSON.stringify(series.rows.at(-1)));
   row.row_id = '2026-07-01';
   row.value = '3.1';
   row.period_start = '2026-07-01';
   row.period_end = null;
   row.verified_at = '2026-09-18';
-  series.rows[0].period_end = '2026-06-30';
+  series.rows.at(-1).period_end = '2026-06-30';
   series.rows.push(row);
 
   const directory = mkdtempSync(join(tmpdir(), 'coal-lsl-rate-'));

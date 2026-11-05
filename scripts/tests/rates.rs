@@ -35,6 +35,19 @@ impl Register {
         pyjson::loads(&std::fs::read_to_string(path).unwrap()).unwrap()
     }
 
+    /// The committed series cut back to its one live row, for a test that builds its own
+    /// correction around that row.
+    fn live_series(&self) -> Json {
+        let mut payload = self.load(&self.series());
+        rows(&mut payload).retain(|row| {
+            !matches!(row.get("status"), Some(Json::Str(status)) if status == "superseded")
+        });
+        if let Json::Object(pairs) = &mut rows(&mut payload)[0] {
+            pairs.retain(|(k, _)| k != "supersedes");
+        }
+        payload
+    }
+
     /// `json.dumps(payload, indent=2) + "\n"` with LF endings, then the sums refreshed.
     fn rewrite(&self, path: &Path, payload: &Json) {
         let text = pyjson::dumps(
@@ -212,7 +225,7 @@ fn a_check_date_before_the_period_start_is_refused() {
 #[test]
 fn overlapping_rows_are_refused() {
     let register = Register::new();
-    let mut payload = register.load(&register.series());
+    let mut payload = register.live_series();
     let mut extra = rows(&mut payload)[0].clone();
     *member(&mut extra, "row_id") = s("2024-07-01");
     *member(&mut extra, "period_start") = s("2024-07-01");
@@ -249,7 +262,7 @@ fn an_unverified_row_must_explain_itself() {
 #[test]
 fn a_superseded_row_must_be_named_by_its_replacement() {
     let register = Register::new();
-    let mut payload = register.load(&register.series());
+    let mut payload = register.live_series();
     *member(&mut rows(&mut payload)[0], "status") = s("superseded");
     register.rewrite(&register.series(), &payload);
     assert!(any(&register.check(), "no row names it in supersedes"));
@@ -299,7 +312,7 @@ fn one_series_check_date_does_not_travel_to_another() {
         };
         rows[0].get("verified_at").unwrap().clone()
     };
-    assert_eq!(verified(&first), s("2026-11-05"));
+    assert_eq!(verified(&first), s("2026-09-18"));
     assert_eq!(verified(&second), s("2026-01-05"));
 }
 
@@ -355,7 +368,7 @@ fn a_row_cannot_supersede_itself() {
 #[test]
 fn only_one_replacement_may_name_a_superseded_row() {
     let register = Register::new();
-    let mut payload = register.load(&register.series());
+    let mut payload = register.live_series();
     let original = rows(&mut payload)[0].clone();
     *member(&mut rows(&mut payload)[0], "status") = s("superseded");
     *member(&mut rows(&mut payload)[0], "period_end") = s("2023-12-31");
@@ -378,7 +391,7 @@ fn only_one_replacement_may_name_a_superseded_row() {
 #[test]
 fn a_live_row_cannot_be_superseded() {
     let register = Register::new();
-    let mut payload = register.load(&register.series());
+    let mut payload = register.live_series();
     let original = rows(&mut payload)[0].clone();
     *member(&mut rows(&mut payload)[0], "period_end") = s("2023-12-31");
     let mut replacement = original.clone();

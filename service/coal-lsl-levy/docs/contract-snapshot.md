@@ -40,9 +40,9 @@ its 18 September check then; a 26 September reading did not extend whole-month
 coverage, so January 2024 to August 2026 was the served range.
 
 On 5 November 2026 the Regulations, the Collection Act and Coal LSL's levy page
-were read again. No compilation had changed and the rate stood at 2.7%. The
-register's check date moved to 5 November, so the served range is now
-January 2024 to October 2026.
+were read again. No compilation had changed and the rate stood at 2.7%. A
+superseding register row records that check and keeps the 18 September row, so
+the served range is now January 2024 to October 2026.
 Source retrieval and arithmetic tests do not constitute professional review.
 
 The API calculates from supplied facts. It does not decide employee coverage,
