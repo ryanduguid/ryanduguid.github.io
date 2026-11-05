@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/variance/
 
 Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -27,6 +27,17 @@ Difference = actual − budget. Percentage = difference / absolute budget × 100
 Budget explanation checklist
 
 Monthly Close Controls compares trial balance CSVs and lists material movements for review.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Budget variance calculator
+
+Case | Inputs | Result
+Income above budget is favourable | Actual $110.00, budget $100.00, income | Difference $10.00, 10.00%, Favourable
+Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
+A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 

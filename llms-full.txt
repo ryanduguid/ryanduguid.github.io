@@ -1595,7 +1595,7 @@ Source: https://duguid.com.au/rates/announced-not-yet-law/
 
 Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 8 as TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates. TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026, after the ATO’s update of 2 November 2026, and the legislated tables on 22 September 2026, after its update of 18 September 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
+Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026 and the legislated tables on 5 November 2026, both after the ATO’s update of 2 November 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
 ## Not yet legislated in the ATO summary
 
@@ -1628,14 +1628,14 @@ Left out on purpose: the Budget and MYEFO rows that fund administration rather t
 
 ## Legislated: later application
 
-The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
+The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. The stage column in this table and the next was read on 5 November 2026 from the Federal Register of Legislation; the CSV’s stage_source_url column links the first Act or instrument named. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
 
 ATO-reported legislation with later application
 
-Measure | Announced in | ATO start date | Legislation and assent or registration
-Negative gearing and CGT discount reform | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
-Working Australians Tax Offset | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
-Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
+Measure | Announced in | ATO start date | Legislation and assent or registration | Stage
+Negative gearing and CGT discount reform | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026 | Act No. 49 of 2026 and Act No. 50 of 2026, Royal Assent 26 June 2026
+Working Australians Tax Offset | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026 | Act No. 49 of 2026 and Act No. 50 of 2026, Royal Assent 26 June 2026
+Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026 | Act No. 8 of 2026 and Act No. 9 of 2026, Royal Assent 13 March 2026
 
 ### Negative gearing: application and acquisition cut-off
 
@@ -1653,16 +1653,16 @@ For these 9 measures the ATO summary names an Act or instrument and an applicati
 
 ATO-reported legislation with earlier application
 
-Measure | Announced in | ATO start date | Legislation and assent or registration
-$1,000 instant tax deduction for work-related expenses | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
-Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
-Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
-Medicare levy low-income threshold increase | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026, Royal Assent 30 June 2026
-Better Targeted Superannuation Concessions: practical changes | MYEFO 2025-26 | 1 July 2026 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
-Temporary reduction of fuel excise and the heavy vehicle road user charge | Budget 2026-27 | 1 April 2026 | Treasury Laws Amendment (Fuel Excise Relief No. 2) Act 2026 and Fuel Tax (Road User Charge) Determination 2026; Act Royal Assent 30 June 2026, Determination registered 25 June 2026
-Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
-Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026
-Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026
+Measure | Announced in | ATO start date | Legislation and assent or registration | Stage
+$1,000 instant tax deduction for work-related expenses | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026 | Act No. 49 of 2026 and Act No. 50 of 2026, Royal Assent 26 June 2026
+Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026 | Act No. 71 of 2026, Royal Assent 26 August 2026
+Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026 | Act No. 71 of 2026, Royal Assent 26 August 2026
+Medicare levy low-income threshold increase | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026, Royal Assent 30 June 2026 | Act No. 58 of 2026, Royal Assent 30 June 2026
+Better Targeted Superannuation Concessions: practical changes | MYEFO 2025-26 | 1 July 2026 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026 | Act No. 8 of 2026 and Act No. 9 of 2026, Royal Assent 13 March 2026
+Temporary reduction of fuel excise and the heavy vehicle road user charge | Budget 2026-27 | 1 April 2026 | Treasury Laws Amendment (Fuel Excise Relief No. 2) Act 2026 and Fuel Tax (Road User Charge) Determination 2026; Act Royal Assent 30 June 2026, Determination registered 25 June 2026 | Act No. 59 of 2026, Royal Assent 30 June 2026; F2026L00789 registered 25 June 2026
+Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026 | Act No. 71 of 2026, Royal Assent 26 August 2026
+Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026 | Act No. 82 of 2026, Royal Assent 26 August 2026
+Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026 | F2026L00831, registered 26 June 2026; automatically repealed 17 September 2026 under s 48A of the Legislation Act 2003
 
 Download the three tables as CSV. Cite as Duguid, R. (2026). Announced Australian tax measures and enacted law [Data set]. https://duguid.com.au/rates/announced-not-yet-law/. Verify a measure’s status against the ATO page before relying on it; the list changes every sitting.
 
@@ -1697,7 +1697,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 20 September 2026. Pending measures and their stages reviewed 4 November 2026; legislated measures and reform provisions reviewed 22 September 2026.
+Published 20 September 2026. Pending measures and their stages reviewed 4 November 2026; legislated measures and their stages reviewed 5 November 2026; reform provisions reviewed 22 September 2026.
 
 ## Links
 
@@ -7620,7 +7620,7 @@ Source: https://duguid.com.au/tools/business-calculators/gst/
 
 Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7636,6 +7636,19 @@ For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusi
 
 ATO: How GST works
 
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: GST calculator
+
+Case | Inputs | Result
+A round GST-inclusive amount | $110.00 including GST | Exclusive $100.00, GST $10.00, inclusive $110.00
+Half a cent of GST rounds up | $0.05 excluding GST | Exclusive $0.05, GST $0.01, inclusive $0.06
+GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST $0.00, inclusive $0.01
+
+Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
+
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
@@ -7645,6 +7658,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
+- Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -7659,7 +7673,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-use/
 
 Apportion an eligible cost by its business use share. It does not decide deductibility, depreciation or records.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7676,6 +7690,17 @@ Eligible cost × supported business use percentage / 100. This apportions the am
 For car expenses under the cents per kilometre method, the rate by income year is kept as a maintained table on this site.
 
 Phone and internet record checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Business use share calculator
+
+Case | Inputs | Result
+An exact half cent rounds up | $20.15 at 50% | Business share $10.08
+No business use | $100.00 at 0% | Business share $0.00
+A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7701,7 +7726,7 @@ Source: https://duguid.com.au/tools/business-calculators/margin/
 
 Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7716,6 +7741,17 @@ Calculate Enter the inputs and calculate.
 Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
 
 business.gov.au: pricing
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Margin and markup calculator
+
+Case | Inputs | Result
+Margin uses sales, markup uses cost | Sales $100.00, cost $80.00 | Profit $20.00, margin 20.00%, markup 25.00%
+Nil sales give no margin | Sales $0.00, cost $50.00 | Profit -$50.00, no margin, markup -100.00%
+Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.00%, no markup
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7740,7 +7776,7 @@ Source: https://duguid.com.au/tools/business-calculators/break-even/
 
 Whole units and sales required to cover fixed costs from price and variable cost per unit.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7755,6 +7791,16 @@ Calculate Enter the inputs and calculate.
 Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.
 
 business.gov.au: pricing
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Break-even sales calculator
+
+Case | Inputs | Result
+Part of a unit rounds up to a whole unit | Fixed $1,000.00, price $30.00, variable $18.00 | Contribution $12.00, 84 units, sales $2,520.00
+A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00, variable $18.00 | Refused: price must exceed variable cost per unit to reach break-even
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7779,7 +7825,7 @@ Source: https://duguid.com.au/tools/business-calculators/hourly/
 
 Required hourly rate before GST from annual costs, target profit and billable hours.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7794,6 +7840,16 @@ Calculate Enter the inputs and calculate.
 Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
 
 business.gov.au: pricing
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Hourly pricing calculator
+
+Case | Inputs | Result
+An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
+A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7818,7 +7874,7 @@ Source: https://duguid.com.au/tools/business-calculators/variance/
 
 Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7837,6 +7893,17 @@ Difference = actual − budget. Percentage = difference / absolute budget × 100
 Budget explanation checklist
 
 Monthly Close Controls compares trial balance CSVs and lists material movements for review.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Budget variance calculator
+
+Case | Inputs | Result
+Income above budget is favourable | Actual $110.00, budget $100.00, income | Difference $10.00, 10.00%, Favourable
+Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
+A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7862,7 +7929,7 @@ Source: https://duguid.com.au/tools/business-calculators/loan/
 
 Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7874,9 +7941,22 @@ Calculate Enter the inputs and calculate.
 
 ## How it works
 
-For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.
+For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45.
 
 Loan reconciliation checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Monthly loan payment calculator
+
+Case | Inputs | Result
+A 30-year amortising loan | $100,000.00 at 6% over 360 months | Payment $599.55, first interest $500.00, first principal $99.55, total interest $115,838.19
+One month repays the balance and one month’s interest | $1,000.00 at 12% over 1 month | Payment $1,010.00, first interest $10.00, first principal $1,000.00, total interest $10.00
+Nil interest divides the balance | $20.15 at 0% over 2 months | Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00
+
+Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7887,6 +7967,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
+- Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -7901,7 +7982,7 @@ Source: https://duguid.com.au/tools/business-calculators/staff/
 
 Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7916,6 +7997,16 @@ Calculate Enter the inputs and calculate.
 Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
 
 Staff cost checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Staff cost calculator
+
+Case | Inputs | Result
+A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
+Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7940,7 +8031,7 @@ Source: https://duguid.com.au/tools/business-calculators/cash/
 
 Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7986,6 +8077,16 @@ Weekly closing cash = opening cash + receipts − payments. Each closing balance
 business.gov.au: cash flow
 
 The Lumbridge cash flow case works the same question with a 45-day receipt delay.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: 13-week cash forecast
+
+Case | Inputs | Result
+A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
+A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 

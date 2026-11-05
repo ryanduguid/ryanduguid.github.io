@@ -351,10 +351,7 @@ fn measure_csv_matches_visible_tables() {
         let stage = field(record, "bill_stage");
         let stage_date = field(record, "stage_date");
         let stage_url = field(record, "stage_source_url");
-        if cells.len() < 5 {
-            assert!(stage.is_empty() && stage_date.is_empty() && stage_url.is_empty());
-            continue;
-        }
+        assert_eq!(cells.len(), 5, "{cells:?}");
         assert_eq!(cells[4], stage);
         assert!(!stage.is_empty() && stage_url.starts_with("https://"));
         if status == "ATO-reported bill" {
@@ -365,6 +362,18 @@ fn measure_csv_matches_visible_tables() {
         let shown = re(r"\d{1,2} [A-Z][a-z]+ \d{4}", 0)
             .search(stage)
             .and_then(|m| site_tools::pytime::strptime_day_month_year(&m[0]));
+        if status.starts_with("ATO-reported legislation") {
+            assert!(
+                stage_url.starts_with("https://www.legislation.gov.au/"),
+                "{stage_url}"
+            );
+            // The stage's date is the first assent or registration date the row shows.
+            let assent = re(r"\d{1,2} [A-Z][a-z]+ \d{4}", 0)
+                .search(field(record, "royal_assent"))
+                .and_then(|m| site_tools::pytime::strptime_day_month_year(&m[0]));
+            assert!(shown.is_some(), "{stage}");
+            assert_eq!(shown, assent, "{stage}");
+        }
         if stage_date.is_empty() {
             assert!(shown.is_none(), "{stage}");
         } else {
@@ -987,4 +996,43 @@ fn the_xero_install_note_states_the_starter_limits_and_the_paid_plans_page() {
     assert!(html.contains("up to 5 connections, at 1,000 API calls a day per organisation"));
     assert!(html.contains(r#"<a href="/works-with/xero/">"#));
     assert!(!html.contains("a free Xero developer app"));
+}
+
+#[test]
+fn calculator_pages_show_every_boundary_case_the_node_tests_run() {
+    if !rendered() {
+        return;
+    }
+    let cases: serde_json::Value =
+        serde_json::from_str(include_str!("../../_data/calculator_cases.json")).unwrap();
+    for (page, calculator) in cases.as_object().unwrap() {
+        let html = read(&format!("tools/business-calculators/{page}/index.html"));
+        let rows = calculator["rows"].as_array().unwrap();
+        assert!(rows.len() >= 2, "{page}");
+        if let Some(peer) = calculator["peer"].as_object() {
+            let cell = |name: &str| peer[name].as_str().unwrap();
+            assert!(
+                html.contains(&format!(
+                    r#"for {}, the <a href="{}">{}</a> gave {}, and this calculator gave {}. {}."#,
+                    cell("input"),
+                    cell("url"),
+                    cell("name"),
+                    cell("peer_result"),
+                    cell("output"),
+                    cell("verdict")
+                )),
+                "{page}"
+            );
+        }
+        for row in rows {
+            let cell = |name: &str| row[name].as_str().unwrap();
+            let shown = format!(
+                r#"<tr><th scope="row">{}</th><td>{}</td><td>{}</td></tr>"#,
+                cell("case"),
+                cell("input"),
+                cell("output")
+            );
+            assert!(html.contains(&shown), "{page}: {shown}");
+        }
+    }
 }

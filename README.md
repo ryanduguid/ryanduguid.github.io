@@ -68,7 +68,9 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - the rates register's shape, provenance, ordering and checksums, and a primary `source_url` and a `checked_at` date on every row of the rate CSVs, run with `site-tools check_rates_register` and `cargo test --test rates`
-- the business planning arithmetic, run with `node --test scripts/business-calculators.test.mjs`
+- the business planning arithmetic and the boundary cases each calculator page shows from `_data/calculator_cases.json`, run with `node --test scripts/business-calculators.test.mjs`
+- 26 named money errors applied to a temporary copy of the Coal LSL and business engines, each of which must fail an assertion in those engines' tests, run with `node scripts/mutation-check.mjs`
+- 240 seeded fictional loan and Coal LSL cases worked by a different route in exact integers, which the engines must match, run with `cargo test --test calculator_oracle`
 - every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `site-tools check_agent_files` and `cargo test --test agent_files`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)
 - every same-origin link, absolute or root-relative, must resolve to a file on disk

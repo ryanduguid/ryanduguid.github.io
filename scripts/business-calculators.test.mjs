@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 import assert from 'node:assert/strict';
+import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
@@ -138,8 +139,9 @@ test('a percentage that rounds to zero is never negative zero', () => {
 
 test('break-even rounds units up and refuses non-positive contributions', () => {
   assert.deepEqual(breakEven('1000', '30', '18'), { contribution: 12, units: 84, sales: 2520 });
-  assert.throws(() => breakEven('1000', '18', '18'));
-  assert.throws(() => breakEven('1000', '17', '18'));
+  const refusal = { message: 'Price must exceed variable cost per unit to reach break-even.' };
+  assert.throws(() => breakEven('1000', '18', '18'), refusal);
+  assert.throws(() => breakEven('1000', '17', '18'), refusal);
   assert.throws(() => breakEven('1000000000', '1000000000', '999999999.99'));
 });
 
@@ -209,7 +211,65 @@ test('cash keeps out-of-horizon receipts visible and includes opening deficits',
   assert.throws(() => cashForecast('0', rows, '0', { week: 13, amount: '1001', delay: 1 }));
   assert.throws(() => cashForecast('0', rows.slice(1), '0'));
   assert.equal(cashForecast('0', rows, '0', { week: 13, amount: '0', delay: 13 }).closing, 1000);
+  const landing = cashForecast('0', rows, '0', { week: 12, amount: '0', delay: 1 });
+  assert.equal(landing.deferred, 0);
+  rows[11].receipts = '700';
+  const lastWeek = cashForecast('0', rows, '0', { week: 12, amount: '700', delay: 1 });
+  assert.equal(lastWeek.deferred, 0);
+  assert.equal(lastWeek.closing, 1700);
 });
+
+// The boundary cases each calculator page shows are data this test runs, so a page
+// cannot state a result the engine does not return.
+const shownCases = JSON.parse(readFileSync(new URL('../_data/calculator_cases.json', import.meta.url), 'utf8'));
+const dollars = (value) => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-AU',
+  { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+// How each result reads on a page, so a value shown under the wrong label fails.
+const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'business share', profit: 'profit',
+  contribution: 'contribution', sales: 'sales', rate: 'rate', difference: 'difference', payment: 'payment',
+  firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
+  annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
+  deferred: 'deferred' };
+const shownField = (field, value) => {
+  if (field === 'effect') return value;
+  if (field === 'units') return `${value} units`;
+  if (field === 'percent') return value === null ? 'no percentage' : `${value.toFixed(2)}%`;
+  if (field === 'margin' || field === 'markup') return value === null ? `no ${field}` : `${field} ${value.toFixed(2)}%`;
+  return `${LABELS[field]} ${dollars(value)}`;
+};
+
+test('every business calculator shows its boundary cases', () => {
+  const pages = readdirSync(new URL('../tools/business-calculators/', import.meta.url), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
+  assert.deepEqual(Object.keys(shownCases).sort(), pages);
+});
+
+const assertShown = (actual, { result, output }) => {
+  const fields = Object.entries(result);
+  for (const [field, value] of fields) assert.equal(actual[field], value, field);
+  assert.equal(output.replace(/ on the \S+ borrowed$/, '').toLowerCase(),
+    fields.map(([field, value]) => shownField(field, value)).join(', ').toLowerCase());
+};
+
+for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
+  if (peer) {
+    test(`${page} official comparison states what this calculator returns`, () => {
+      assert.match(peer.url, /^https:\/\/moneysmart\.gov\.au\//);
+      assert.match(peer.checked, /^\d{1,2} [A-Z][a-z]+ \d{4}$/);
+      assertShown(calculations[name](...peer.call), peer);
+    });
+  }
+  for (const row of rows) {
+    test(`${page} boundary case returns what its page shows: ${row.case}`, () => {
+      if (row.refused) {
+        assert.throws(() => calculations[name](...row.call), { message: row.refused });
+        assert.equal(row.output, `Refused: ${row.refused[0].toLowerCase()}${row.refused.slice(1, -1)}`);
+        return;
+      }
+      assertShown(calculations[name](...row.call), row);
+    });
+  }
+}
 
 test('blank, non-finite, over-precise and unsafe amounts cannot become a zero result', () => {
   for (const value of ['', ' ', 'NaN', 'Infinity', '1e10', '100.001', '-1', '1000000001', null]) {
