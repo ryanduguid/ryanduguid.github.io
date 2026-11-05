@@ -962,10 +962,13 @@ fn money_formats_like_decimal() {
 
 /// Whether the page's software issue paragraph has an anchor to `form` with link text.
 fn issue_paragraph_links(html: &str, form: &str) -> bool {
-    let (mut in_paragraph, mut in_anchor) = (false, false);
+    let (mut inside_p, mut in_paragraph, mut in_anchor) = (false, false, false);
     for positioned in htmlparser::parse(html, true) {
         match positioned.event {
-            Event::Data(text) if text.starts_with("Software issue using fictional data? ") => {
+            Event::StartTag(tag, _) if tag == "p" => inside_p = true,
+            Event::Data(text)
+                if inside_p && text.starts_with("Software issue using fictional data? ") =>
+            {
                 in_paragraph = true;
             }
             Event::Data(text) if in_anchor && !text.trim().is_empty() => return true,
@@ -975,7 +978,7 @@ fn issue_paragraph_links(html: &str, form: &str) -> bool {
                     .any(|(name, value)| name == "href" && value.as_deref() == Some(form));
             }
             Event::EndTag(tag) if tag == "a" => in_anchor = false,
-            Event::EndTag(tag) if tag == "p" => in_paragraph = false,
+            Event::EndTag(tag) if tag == "p" => (inside_p, in_paragraph) = (false, false),
             _ => {}
         }
     }
@@ -998,6 +1001,17 @@ fn a_form_address_in_an_inert_span_is_not_a_link() {
     ));
     assert!(!issue_paragraph_links(
         &issue_line(&format!("<span>{form}</span>")),
+        form
+    ));
+}
+
+#[test]
+fn the_sentence_and_link_outside_a_paragraph_are_not_the_paragraph() {
+    let form = CORRECTION_FORM;
+    assert!(!issue_paragraph_links(
+        &format!(
+            r#"<div>Software issue using fictional data? <a href="{form}">Report it</a></div>"#
+        ),
         form
     ));
 }
