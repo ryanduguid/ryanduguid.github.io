@@ -1023,7 +1023,10 @@ fn evidence_results_name_published_releases_limits_and_read_dates() {
         ),
         "12,800 fictional cases with no repayments".to_owned(),
         "covers the repayment figure only".to_owned(),
-        "not a registered tax or BAS agent, does not lodge and holds no certification".to_owned(),
+        "not a registered tax or BAS agent, does not lodge and holds no third-party certification"
+            .to_owned(),
+        "not rerun on later releases or the unreleased Rust port".to_owned(),
+        "a Coal LSL calculator that I built and host as an external contributor".to_owned(),
     ] {
         assert!(text.contains(&claim), "{claim}");
     }
