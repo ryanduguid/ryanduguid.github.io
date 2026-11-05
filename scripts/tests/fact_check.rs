@@ -6,6 +6,7 @@
 mod common;
 
 use common::{rendered, root};
+use site_tools::htmlparser::{self, Event};
 use site_tools::pycsv;
 use site_tools::pyjson::{self, Json};
 use site_tools::pyre::{S, re};
@@ -959,26 +960,62 @@ fn money_formats_like_decimal() {
     assert_eq!(money("1000000"), "$1,000,000.00");
 }
 
-/// Whether the page's software issue paragraph holds an anchor to `form`.
+/// Whether the page's software issue paragraph has an anchor to `form` with link text.
 fn issue_paragraph_links(html: &str, form: &str) -> bool {
-    html.split_once("<p>Software issue using fictional data? ")
-        .and_then(|(_, rest)| rest.split_once("</p>"))
-        .is_some_and(|(line, _)| line.contains(&format!(r#"<a href="{form}">"#)))
+    let (mut in_paragraph, mut in_anchor) = (false, false);
+    for positioned in htmlparser::parse(html, true) {
+        match positioned.event {
+            Event::Data(text) if text.starts_with("Software issue using fictional data? ") => {
+                in_paragraph = true;
+            }
+            Event::Data(text) if in_anchor && !text.trim().is_empty() => return true,
+            Event::StartTag(tag, attributes) if in_paragraph && tag == "a" => {
+                in_anchor = attributes
+                    .iter()
+                    .any(|(name, value)| name == "href" && value.as_deref() == Some(form));
+            }
+            Event::EndTag(tag) if tag == "a" => in_anchor = false,
+            Event::EndTag(tag) if tag == "p" => in_paragraph = false,
+            _ => {}
+        }
+    }
+    false
 }
 
 const CORRECTION_FORM: &str =
     "https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml";
 
+fn issue_line(body: &str) -> String {
+    format!("<p>Software issue using fictional data? {body}</p>")
+}
+
 #[test]
 fn a_form_address_in_an_inert_span_is_not_a_link() {
-    let line = |body: &str| format!("<p>Software issue using fictional data? {body}</p>");
     let form = CORRECTION_FORM;
     assert!(issue_paragraph_links(
-        &line(&format!(r#"<a href="{form}">Report it</a>"#)),
+        &issue_line(&format!(r#"<a href="{form}">Report it</a>"#)),
         form
     ));
     assert!(!issue_paragraph_links(
-        &line(&format!("<span>{form}</span>")),
+        &issue_line(&format!("<span>{form}</span>")),
+        form
+    ));
+}
+
+#[test]
+fn a_commented_out_anchor_is_not_a_link() {
+    let form = CORRECTION_FORM;
+    assert!(!issue_paragraph_links(
+        &issue_line(&format!(r#"<!-- <a href="{form}">Report it</a> -->"#)),
+        form
+    ));
+}
+
+#[test]
+fn an_empty_anchor_before_unlinked_text_is_not_a_link() {
+    let form = CORRECTION_FORM;
+    assert!(!issue_paragraph_links(
+        &issue_line(&format!(r#"<a href="{form}"></a> Report it"#)),
         form
     ));
 }

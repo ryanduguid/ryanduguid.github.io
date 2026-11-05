@@ -271,6 +271,25 @@ const PEER_INPUTS = {
     `$${Number(principal).toLocaleString('en-AU')} at ${rate}% over ${months / 12} years, repaid monthly, no fees`,
 };
 
+// peer_result and verdict are dated manual observations of the official calculator. This
+// binds the published verdict to the recorded observation; it does not reread the official site.
+const PEER_READINGS = {
+  gst: { form: /^GST \$(\d+\.\d{2}), price including GST \$(\d+\.\d{2})$/,
+    own: (result) => [result.gst, result.gross] },
+  loan: { form: /^repayments of \$([\d,]+) a month, total repayments \$([\d,]+)$/,
+    own: (result, [principal]) => [result.payment, Number(principal) + result.totalInterest] },
+};
+const assertPeerReading = (name, peer, result) => {
+  const { form, own } = PEER_READINGS[name];
+  assert.match(peer.peer_result, form);
+  const seen = peer.peer_result.match(form).slice(1);
+  const inCents = seen.every((figure) => figure.includes('.'));
+  assert.deepEqual(seen.map((figure) => Number(figure.replaceAll(',', ''))),
+    own(result, peer.call).map((figure) => (inCents ? figure : Math.round(figure))));
+  assert.equal(peer.verdict, inCents ? 'Both give the same cents on this input'
+    : 'Moneysmart shows whole dollars, and the 2 agree to the dollar on this input');
+};
+
 const assertShown = (actual, { result, output }) => {
   const fields = Object.entries(result);
   for (const [field, value] of fields) assert.equal(actual[field], value, field);
@@ -285,6 +304,7 @@ for (const [page, { function: name, peer, rows }] of Object.entries(shownCases))
       assert.match(peer.checked, /^\d{1,2} [A-Z][a-z]+ \d{4}$/);
       assert.equal((PEER_INPUTS[name] ?? INPUTS[name])(...peer.call), peer.input);
       assertShown(calculations[name](...peer.call), peer);
+      assertPeerReading(name, peer, calculations[name](...peer.call));
     });
   }
   for (const row of rows) {
