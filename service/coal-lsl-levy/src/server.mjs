@@ -85,6 +85,9 @@ export function createThrottle(limitPerMinute, now = Date.now) {
       }
       return { allowed: true };
     },
+    get size() {
+      return windows.size;
+    },
   };
 }
 

@@ -438,6 +438,26 @@
       "derivation": "December 2026 is after the month the rate row was last checked. A checked-once rate does not vouch for later months."
     },
     {
+      "id": "R8-first-month-after-source-check",
+      "request": {
+        "reporting_month": "2026-11",
+        "branch": "annual_salary",
+        "employee": {
+          "eligible_employee": true
+        },
+        "pay": {
+          "annual_salary_paid": "10000.00",
+          "salary_sacrificed": "0.00",
+          "bonuses": []
+        }
+      },
+      "expected_status": 404,
+      "expected": {
+        "error": "not_found"
+      },
+      "derivation": "November 2026 is the first refused month. The rate row was checked on 5 November 2026, which does not cover the whole of November."
+    },
+    {
       "id": "V1-json-number-rejected",
       "request": {
         "reporting_month": "2026-06",

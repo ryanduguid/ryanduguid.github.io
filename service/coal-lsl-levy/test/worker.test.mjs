@@ -13,6 +13,11 @@ const call = (url, init = {}) => harness.fetch(url, {
   ...init, headers: { 'cf-connecting-ip': '192.0.2.1', ...init.headers },
 });
 
+const boundaryRequest = (month) => ({
+  reporting_month: month, branch: 'annual_salary', employee: { eligible_employee: true },
+  pay: { annual_salary_paid: '10000.00', salary_sacrificed: '0.00', bonuses: [] },
+});
+
 test('the Worker serves discovery and the expected fixture results in workerd', async () => {
   const listing = await (await call('/v1/calculators')).json();
   assert.equal(listing[0].module, 'urn:sbrm:module:coal-lsl');
@@ -37,13 +42,41 @@ test('the Worker serves discovery and the expected fixture results in workerd', 
   }
 });
 
-test('bundled evidence hashes match the bytes the Worker serves', async () => {
+test('the Worker serves and cites the committed evidence files, hashed here', async () => {
+  const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
+  const committed = (file) => sha256(readFileSync(new URL(file, import.meta.url)));
+  const expected = {
+    'levy-rate': committed('../../../rates/register/series/coal-lsl-levy.json'),
+    'eligible-wages-method': committed('../methods.json'),
+  };
   const period = 'urn:sbrm:period:coal-lsl-levy:2026-06';
   const rates = await (await call(`/v1/rates/${period}`)).json();
-  for (const entry of rates.entries) {
-    const response = await call(`/v1/rates/${period}/${entry.rate_id}`);
-    const bytes = Buffer.from(await response.arrayBuffer());
-    assert.equal(createHash('sha256').update(bytes).digest('hex'), entry.content_hash);
+  assert.deepEqual(Object.fromEntries(rates.entries.map((entry) => [entry.rate_id, entry.content_hash])), expected);
+  for (const [id, hash] of Object.entries(expected)) {
+    const response = await call(`/v1/rates/${period}/${id}`);
+    assert.equal(response.status, 200, id);
+    assert.equal(sha256(Buffer.from(await response.arrayBuffer())), hash, id);
+  }
+  const { manifest } = await (await call(path + period, {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(boundaryRequest('2026-06')),
+  })).json();
+  assert.equal(manifest.rate_table_uris[0].sha256, expected['levy-rate']);
+  assert.equal(manifest.method.sha256, expected['eligible-wages-method']);
+  assert.equal(manifest.engine.module_sha256, committed('../../../assets/levy.mjs'));
+});
+
+test('September and October 2026 are served and November is refused, by GET and POST', async () => {
+  const headers = { 'cf-connecting-ip': '192.0.2.4' };
+  for (const [month, status] of [['2026-09', 200], ['2026-10', 200], ['2026-11', 404]]) {
+    const period = `urn:sbrm:period:coal-lsl-levy:${month}`;
+    const listing = await call(`/v1/rates/${period}`, { headers });
+    assert.equal(listing.status, status, `GET ${month}`);
+    await listing.text();
+    const result = await call(path + period, {
+      method: 'POST', headers: { ...headers, 'content-type': 'application/json' }, body: JSON.stringify(boundaryRequest(month)),
+    });
+    assert.equal(result.status, status, `POST ${month}`);
+    await result.text();
   }
 });
 

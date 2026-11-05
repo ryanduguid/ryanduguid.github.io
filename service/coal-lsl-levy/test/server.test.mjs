@@ -93,6 +93,18 @@ test('openapi.json is served and every request property it declares is one the v
   }
 });
 
+test('September and October 2026 are served and November is refused, by GET and POST', async () => {
+  for (const [month, status] of [['2026-09', 200], ['2026-10', 200], ['2026-11', 404]]) {
+    const period = `urn:sbrm:period:coal-lsl-levy:${month}`;
+    assert.equal((await fetch(`${base}/v1/rates/${period}`)).status, status, `GET ${month}`);
+    const response = await post(`/v1/calculators/${CALC}/${period}`, {
+      reporting_month: month, branch: 'annual_salary', employee: { eligible_employee: true },
+      pay: { annual_salary_paid: '10000.00', salary_sacrificed: '0.00', bonuses: [] },
+    });
+    assert.equal(response.status, status, `POST ${month}`);
+  }
+});
+
 test('rate listing hashes equal the SHA-256 of the exact bytes the rate routes serve', async () => {
   const listing = await (await fetch(`${base}/v1/rates/${PERIOD}`)).json();
   assert.equal(listing.entries.length, 2);
@@ -267,9 +279,11 @@ test('the throttle map does not grow across windows', () => {
   let now = 1_000_000;
   const throttle = createThrottle(5, () => now);
   for (let i = 0; i < 20000; i += 1) throttle.take(`key-${i}`);
+  assert.equal(throttle.size, 20000);
   // A key from the previous window starts fresh rather than accumulating.
   now += 60000;
   for (let i = 0; i < 5; i += 1) assert.equal(throttle.take('key-0').allowed, true);
+  assert.equal(throttle.size, 1, 'the expired keys are gone');
   assert.equal(throttle.take('key-0').allowed, false);
 });
 
