@@ -229,11 +229,11 @@ test('bodies above the limit are refused before parsing, with and without Conten
   assert.equal((await declared.json()).max_body_bytes, 16384);
   const chunked = await fetch(`${base}/v1/calculators/${CALC}/${PERIOD}`, {
     method: 'POST',
-    headers: { 'content-type': 'application/json', 'transfer-encoding': 'chunked' },
+    headers: { 'content-type': 'application/json' },
     body: new ReadableStream({ start(controller) { controller.enqueue(new TextEncoder().encode(`{"pad":"${padding}"}`)); controller.close(); } }),
     duplex: 'half',
-  }).catch((issue) => ({ status: 'aborted', issue }));
-  assert.ok(chunked.status === 413 || chunked.status === 'aborted');
+  });
+  assert.equal(chunked.status, 413);
 });
 
 test('CORS headers appear only for an allowed origin, and CORS is not authentication', async () => {
