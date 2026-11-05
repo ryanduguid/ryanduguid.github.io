@@ -39,9 +39,9 @@ impl Register {
     /// correction around that row.
     fn live_series(&self) -> Json {
         let mut payload = self.load(&self.series());
-        rows(&mut payload).retain(|row| {
-            !matches!(row.get("status"), Some(Json::Str(status)) if status == "superseded")
-        });
+        rows(&mut payload).retain(
+            |row| !matches!(row.get("status"), Some(Json::Str(status)) if status == "superseded"),
+        );
         if let Json::Object(pairs) = &mut rows(&mut payload)[0] {
             pairs.retain(|(k, _)| k != "supersedes");
         }
