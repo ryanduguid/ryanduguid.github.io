@@ -1008,15 +1008,21 @@ fn evidence_results_name_published_releases_limits_and_read_dates() {
         .unwrap();
     let text = tree.text(section);
     let record = json("scripts/release_record.json");
-    let published = |name: &str| {
-        let component = get(get(&record, "components"), name);
-        text_of(get(get(component, "published"), "version"))
-    };
+    let components = get(&record, "components");
+    let published = |name: &str| text_of(get(get(get(components, name), "published"), "version"));
+    let div7a = text_of(get(
+        get(get(components, "aus-accounting-mcp"), "pinned_engines"),
+        "div7a-loan-review",
+    ));
+    // The tool counts are dated readings of a package outside this repository: this holds their
+    // wording and date, not the counts.
     for claim in [
         format!(
             "Aus Accounting MCP {}, the published release",
             published("aus-accounting-mcp")
         ),
+        format!("Its repayment code and rate table are unchanged to the published {div7a}"),
+        "listed 22 local tools on 5 November 2026".to_owned(),
         format!(
             "payday-super-check {} gives a due date of 11 August 2026",
             published("payday-super-checker")
