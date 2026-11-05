@@ -190,35 +190,29 @@ function casual(pay, reportingMonth) {
   };
 }
 
-export function calculate(request, register, config) {
-  const { reportingMonth } = request;
+// Refuse a request this calculator does not answer, before any figure is built.
+function requireCalculable({ reportingMonth, eligibleEmployee }, register) {
   if (!register.isSupported(reportingMonth)) {
     const months = register.supportedMonths();
     throw new Refusal('unsupported_period',
       `Reporting month ${reportingMonth} is not supported. First supported month ${months[0]}; last supported month ${months[months.length - 1]}. GET /v1/calculators lists the exact supported months.`,
       { supported_months: { first: months[0], last: months[months.length - 1] } });
   }
-  if (request.eligibleEmployee === 'unknown') {
+  if (eligibleEmployee === 'unknown') {
     throw new Refusal('insufficient_facts',
       'employee.eligible_employee is "unknown". Eligibility under s 4 of the Administration Act is a coverage decision this calculator does not make; establish it first.',
       { field: 'employee.eligible_employee' });
   }
-  if (request.eligibleEmployee === false) {
+  if (eligibleEmployee === false) {
     throw new Refusal('out_of_scope_employee',
       'employee.eligible_employee is false. The levy is imposed on eligible wages of eligible employees, so no levy is calculated.',
       { field: 'employee.eligible_employee' });
   }
+}
 
-  const rateRow = register.rateFor(reportingMonth);
-  const method = register.methodFor(reportingMonth);
-  let selected;
-  if (request.branch === 'base_rate') selected = baseRate(request.pay);
-  else if (request.branch === 'annual_salary') selected = annualSalary(request.pay);
-  else selected = casual(request.pay, reportingMonth);
-
-  let roundedCents;
+function roundedLevyCents(eligibleWagesCents) {
   try {
-    roundedCents = levyCents(selected.eligibleWagesCents);
+    return levyCents(eligibleWagesCents);
   } catch (issue) {
     if (issue instanceof RangeError) {
       throw new ValidationError('pay', 'amount_out_of_range',
@@ -226,6 +220,61 @@ export function calculate(request, register, config) {
     }
     throw issue;
   }
+}
+
+function selectBranch({ branch, pay, reportingMonth }) {
+  if (branch === 'base_rate') return baseRate(pay);
+  if (branch === 'annual_salary') return annualSalary(pay);
+  return casual(pay, reportingMonth);
+}
+
+function manifestFor(config, register, { periodUrn, rateUri, method, rateRow }) {
+  return {
+    calculator: config.calculatorUrn,
+    period: periodUrn,
+    schema: config.requestSchemaId,
+    engine: {
+      name: 'coal-lsl-levy',
+      version: config.version,
+      module: 'assets/levy.mjs',
+      module_sha256: register.engineSha256,
+      code_revision: config.codeRevision,
+    },
+    method: {
+      record_id: method.record_id,
+      uri: `${config.methodUrnPrefix}${method.record_id}`,
+      sha256: register.methodsSha256,
+      citation: method.citation,
+    },
+    rate_table_uris: [{ uri: rateUri, sha256: register.rateSha256, row_id: rateRow.row_id }],
+    rounding_policy: ROUNDING_POLICY,
+    citation: 'Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, s 3B; Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018, s 6',
+  };
+}
+
+function advisoryFor(rateRow) {
+  return {
+    figure_type: 'payroll_levy_estimate',
+    notes: [
+      'Review aid for a qualified person; not a lodgement figure and not a compliance determination.',
+      'Eligibility under s 4 of the Coal Mining Industry (Long Service Leave) Administration Act 1992 is asserted by the caller, not tested here.',
+      'Eligible wages are built from the supplied components only; the caller has separated expense reimbursements, insurer-paid amounts and pay outside the payroll weeks ending in the month.',
+      'Rounding is the calculator\'s choice, not a statutory rule. Reconcile the monthly return to payroll before relying on this figure.',
+      'LodgeiT publishing standard, section 4 rounding rules: rule 3 applies to the levy, which is rounded once to cents, ties away from zero, from its exact integer value. Rates and factors carry 4 decimal places; eligible_wages (4) and levy_before_rounding (8) are exact working figures at the scales the OpenAPI declares. Rules 5, 6 and 7 do not apply: no rounded lines are totalled, nothing is apportioned into posted periods and no schedule is produced.',
+      `Rate row ${rateRow.row_id} carries review status "${rateRow.review}". A source-check date does not establish currency after that date.`,
+    ],
+  };
+}
+
+export function calculate(request, register, config) {
+  const { reportingMonth } = request;
+  requireCalculable(request, register);
+
+  const rateRow = register.rateFor(reportingMonth);
+  const method = register.methodFor(reportingMonth);
+  const selected = selectBranch(request);
+
+  const roundedCents = roundedLevyCents(selected.eligibleWagesCents);
   const quarters = toQuarterCents(selected.eligibleWagesCents);
   // Levy before rounding = quarters * 27 / 4000 cents, or / 400000 dollars.
   const exactLevy = quarters * BigInt(LEVY_RATE_NUMERATOR);
@@ -257,37 +306,7 @@ export function calculate(request, register, config) {
       intermediates: 'Eligible wages keep exact quarter cents at 4 decimal places (Formula B is three quarters of an aggregate); levy_before_rounding is exact at 8.',
       differs: exactLevy !== BigInt(roundedCents) * 4n * BigInt(LEVY_RATE_DENOMINATOR),
     },
-    manifest: {
-      calculator: config.calculatorUrn,
-      period: periodUrn,
-      schema: config.requestSchemaId,
-      engine: {
-        name: 'coal-lsl-levy',
-        version: config.version,
-        module: 'assets/levy.mjs',
-        module_sha256: register.engineSha256,
-        code_revision: config.codeRevision,
-      },
-      method: {
-        record_id: method.record_id,
-        uri: `${config.methodUrnPrefix}${method.record_id}`,
-        sha256: register.methodsSha256,
-        citation: method.citation,
-      },
-      rate_table_uris: [{ uri: rateUri, sha256: register.rateSha256, row_id: rateRow.row_id }],
-      rounding_policy: ROUNDING_POLICY,
-      citation: 'Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, s 3B; Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018, s 6',
-    },
-    advisory: {
-      figure_type: 'payroll_levy_estimate',
-      notes: [
-        'Review aid for a qualified person; not a lodgement figure and not a compliance determination.',
-        'Eligibility under s 4 of the Coal Mining Industry (Long Service Leave) Administration Act 1992 is asserted by the caller, not tested here.',
-        'Eligible wages are built from the supplied components only; the caller has separated expense reimbursements, insurer-paid amounts and pay outside the payroll weeks ending in the month.',
-        'Rounding is the calculator\'s choice, not a statutory rule. Reconcile the monthly return to payroll before relying on this figure.',
-        'LodgeiT publishing standard, section 4 rounding rules: rule 3 applies to the levy, which is rounded once to cents, ties away from zero, from its exact integer value. Rates and factors carry 4 decimal places; eligible_wages (4) and levy_before_rounding (8) are exact working figures at the scales the OpenAPI declares. Rules 5, 6 and 7 do not apply: no rounded lines are totalled, nothing is apportioned into posted periods and no schedule is produced.',
-        `Rate row ${rateRow.row_id} carries review status "${rateRow.review}". A source-check date does not establish currency after that date.`,
-      ],
-    },
+    manifest: manifestFor(config, register, { periodUrn, rateUri, method, rateRow }),
+    advisory: advisoryFor(rateRow),
   };
 }

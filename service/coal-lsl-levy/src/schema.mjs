@@ -127,6 +127,47 @@ function parseBonuses(object, field) {
   });
 }
 
+// Each branch reads its own pay shape, in the order the fields are reported.
+function parsePay(branch, pay) {
+  if (branch === 'base_rate') {
+    rejectUnknownKeys(pay, [
+      'base_rate_of_pay', 'salary_sacrificed', 'overtime_and_penalty_rates', 'allowances',
+      'allowances_exclude_expense_reimbursements', 'bonuses',
+    ], 'pay');
+    return {
+      baseRateOfPayCents: requireMoney(pay, 'base_rate_of_pay', 'pay'),
+      salarySacrificedCents: requireMoney(pay, 'salary_sacrificed', 'pay'),
+      overtimeAndPenaltyCents: requireMoney(pay, 'overtime_and_penalty_rates', 'pay'),
+      allowancesCents: requireMoney(pay, 'allowances', 'pay'),
+      allowancesExcludeExpenseReimbursements: requireTristate(
+        pay, 'allowances_exclude_expense_reimbursements', 'pay',
+      ),
+      bonuses: parseBonuses(pay, 'pay'),
+    };
+  }
+  if (branch === 'annual_salary') {
+    rejectUnknownKeys(pay, ['annual_salary_paid', 'salary_sacrificed', 'bonuses'], 'pay');
+    return {
+      annualSalaryPaidCents: requireMoney(pay, 'annual_salary_paid', 'pay'),
+      salarySacrificedCents: requireMoney(pay, 'salary_sacrificed', 'pay'),
+      bonuses: parseBonuses(pay, 'pay'),
+    };
+  }
+  rejectUnknownKeys(pay, [
+    'instrument_specifies_loading', 'loading_quantifiable', 'base_rate_of_pay',
+    'casual_loading', 'ordinary_rate_of_pay', 'salary_sacrificed', 'bonuses',
+  ], 'pay');
+  return {
+    instrumentSpecifiesLoading: requireTristate(pay, 'instrument_specifies_loading', 'pay'),
+    loadingQuantifiable: requireTristate(pay, 'loading_quantifiable', 'pay'),
+    baseRateOfPayCents: requireMoney(pay, 'base_rate_of_pay', 'pay'),
+    casualLoadingCents: requireMoney(pay, 'casual_loading', 'pay'),
+    ordinaryRateOfPayCents: requireMoney(pay, 'ordinary_rate_of_pay', 'pay'),
+    salarySacrificedCents: requireMoney(pay, 'salary_sacrificed', 'pay'),
+    bonuses: parseBonuses(pay, 'pay'),
+  };
+}
+
 export function validateRequest(body) {
   requireObject(body, 'body');
   rejectUnknownKeys(body, ['reporting_month', 'branch', 'employee', 'pay'], 'body');
@@ -146,45 +187,6 @@ export function validateRequest(body) {
   if (!('pay' in body)) {
     throw new ValidationError('pay', 'missing_required_field', 'pay is required.');
   }
-  const pay = requireObject(body.pay, 'pay');
-  const result = { reportingMonth, branch, eligibleEmployee, pay: null };
-
-  if (branch === 'base_rate') {
-    rejectUnknownKeys(pay, [
-      'base_rate_of_pay', 'salary_sacrificed', 'overtime_and_penalty_rates', 'allowances',
-      'allowances_exclude_expense_reimbursements', 'bonuses',
-    ], 'pay');
-    result.pay = {
-      baseRateOfPayCents: requireMoney(pay, 'base_rate_of_pay', 'pay'),
-      salarySacrificedCents: requireMoney(pay, 'salary_sacrificed', 'pay'),
-      overtimeAndPenaltyCents: requireMoney(pay, 'overtime_and_penalty_rates', 'pay'),
-      allowancesCents: requireMoney(pay, 'allowances', 'pay'),
-      allowancesExcludeExpenseReimbursements: requireTristate(
-        pay, 'allowances_exclude_expense_reimbursements', 'pay',
-      ),
-      bonuses: parseBonuses(pay, 'pay'),
-    };
-  } else if (branch === 'annual_salary') {
-    rejectUnknownKeys(pay, ['annual_salary_paid', 'salary_sacrificed', 'bonuses'], 'pay');
-    result.pay = {
-      annualSalaryPaidCents: requireMoney(pay, 'annual_salary_paid', 'pay'),
-      salarySacrificedCents: requireMoney(pay, 'salary_sacrificed', 'pay'),
-      bonuses: parseBonuses(pay, 'pay'),
-    };
-  } else {
-    rejectUnknownKeys(pay, [
-      'instrument_specifies_loading', 'loading_quantifiable', 'base_rate_of_pay',
-      'casual_loading', 'ordinary_rate_of_pay', 'salary_sacrificed', 'bonuses',
-    ], 'pay');
-    result.pay = {
-      instrumentSpecifiesLoading: requireTristate(pay, 'instrument_specifies_loading', 'pay'),
-      loadingQuantifiable: requireTristate(pay, 'loading_quantifiable', 'pay'),
-      baseRateOfPayCents: requireMoney(pay, 'base_rate_of_pay', 'pay'),
-      casualLoadingCents: requireMoney(pay, 'casual_loading', 'pay'),
-      ordinaryRateOfPayCents: requireMoney(pay, 'ordinary_rate_of_pay', 'pay'),
-      salarySacrificedCents: requireMoney(pay, 'salary_sacrificed', 'pay'),
-      bonuses: parseBonuses(pay, 'pay'),
-    };
-  }
-  return result;
+  const pay = parsePay(branch, requireObject(body.pay, 'pay'));
+  return { reportingMonth, branch, eligibleEmployee, pay };
 }

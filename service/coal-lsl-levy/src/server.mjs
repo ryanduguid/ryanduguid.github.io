@@ -149,16 +149,8 @@ export function resolvePath(requestUrl) {
   return { pathname: `/${segments.join('/')}`, segments };
 }
 
-export function createApp(options = {}) {
-  const config = { ...DEFAULTS, ...options };
-  const register = options.register ?? loadRegister();
-  const throttle = options.throttle ?? createThrottle(config.rateLimitPerMinute, options.now);
-  const months = register.supportedMonths();
-  const periodUrns = new Set(months.map((month) => `${config.periodUrnPrefix}${month}`));
-  const calculatorUrns = new Set([config.calculatorUrn, ...config.calculatorUrnAliases]);
-  const openapi = buildOpenApi(config, register);
-  const openapiText = `${JSON.stringify(openapi, null, 2)}\n`;
-  const listing = [{
+function calculatorListing(config, register, periodUrns) {
+  return [{
     calc_uri: config.calculatorUrn,
     calc_uri_aliases: config.calculatorUrnAliases,
     module: config.moduleUrn,
@@ -186,36 +178,48 @@ export function createApp(options = {}) {
     // months should be able to see why a month is absent.
     unimplemented_rate_rows: register.unimplementedRows,
   }];
+}
+
+function rateListing(config, register, periodUrn) {
+  const month = periodUrn.slice(config.periodUrnPrefix.length);
+  return {
+    period_uri: periodUrn,
+    entries: [
+      {
+        rate_id: 'levy-rate',
+        uri: `${config.rateUrnPrefix}${month}:levy-rate`,
+        content_hash: register.rateSha256,
+        hash_algorithm: 'sha256',
+        hashed_bytes: 'the exact body of GET /v1/rates/{period_uri}/levy-rate, which is rates/register/series/coal-lsl-levy.json as committed',
+        row_id: register.rateFor(month).row_id,
+      },
+      {
+        rate_id: 'eligible-wages-method',
+        uri: `${config.methodUrnPrefix}${register.methodFor(month).record_id}`,
+        content_hash: register.methodsSha256,
+        hash_algorithm: 'sha256',
+        hashed_bytes: 'the exact body of GET /v1/rates/{period_uri}/eligible-wages-method, which is service/coal-lsl-levy/methods.json as committed',
+      },
+    ],
+  };
+}
+
+export function createApp(options = {}) {
+  const config = { ...DEFAULTS, ...options };
+  const register = options.register ?? loadRegister();
+  const throttle = options.throttle ?? createThrottle(config.rateLimitPerMinute, options.now);
+  const months = register.supportedMonths();
+  const periodUrns = new Set(months.map((month) => `${config.periodUrnPrefix}${month}`));
+  const calculatorUrns = new Set([config.calculatorUrn, ...config.calculatorUrnAliases]);
+  const openapi = buildOpenApi(config, register);
+  const openapiText = `${JSON.stringify(openapi, null, 2)}\n`;
+  const listing = calculatorListing(config, register, periodUrns);
   const listingText = `${JSON.stringify(listing)}\n`;
   const modules = [{
     module: config.moduleUrn,
     description: 'Australian coal industry long service leave payroll levy.',
     calculators: [config.calculatorUrn],
   }];
-
-  function rateListing(periodUrn) {
-    const month = periodUrn.slice(config.periodUrnPrefix.length);
-    return {
-      period_uri: periodUrn,
-      entries: [
-        {
-          rate_id: 'levy-rate',
-          uri: `${config.rateUrnPrefix}${month}:levy-rate`,
-          content_hash: register.rateSha256,
-          hash_algorithm: 'sha256',
-          hashed_bytes: 'the exact body of GET /v1/rates/{period_uri}/levy-rate, which is rates/register/series/coal-lsl-levy.json as committed',
-          row_id: register.rateFor(month).row_id,
-        },
-        {
-          rate_id: 'eligible-wages-method',
-          uri: `${config.methodUrnPrefix}${register.methodFor(month).record_id}`,
-          content_hash: register.methodsSha256,
-          hash_algorithm: 'sha256',
-          hashed_bytes: 'the exact body of GET /v1/rates/{period_uri}/eligible-wages-method, which is service/coal-lsl-levy/methods.json as committed',
-        },
-      ],
-    };
-  }
 
   function corsHeaders(request) {
     const origin = request.headers.origin;
@@ -252,9 +256,106 @@ export function createApp(options = {}) {
     config.log(JSON.stringify({ request_id: requestId, method: request.method, path: logPath, status, ms: Math.round(ms) }));
   }
 
+  function routeRead(request, response, headers, { pathname: path, segments }) {
+    if (path === '/healthz' || path === '/livez') {
+      return send(response, 200, { status: 'ok', service: 'coal-lsl-levy', version: config.version }, headers);
+    }
+    if (path === '/openapi.json') return send(response, 200, openapiText, headers);
+    if (path === '/v1/modules') return send(response, 200, modules, headers);
+    if (path === '/v1/calculators') {
+      const module = new URL(request.url, 'http://localhost').searchParams.get('module');
+      return send(response, 200, module === null || module === config.moduleUrn ? listingText : [], headers);
+    }
+    if (segments[0] === 'v1' && segments[1] === 'rates' && segments.length === 3) {
+      if (!periodUrns.has(segments[2])) {
+        return send(response, 404, { error: 'not_found', message: 'Unsupported period URN.', accepted: { periods: [...periodUrns] } }, headers);
+      }
+      return send(response, 200, rateListing(config, register, segments[2]), headers);
+    }
+    if (segments[0] === 'v1' && segments[1] === 'rates' && segments.length === 4) {
+      if (!periodUrns.has(segments[2])) {
+        return send(response, 404, { error: 'not_found', message: 'Unsupported period URN.', accepted: { periods: [...periodUrns] } }, headers);
+      }
+      if (segments[3] === 'levy-rate') {
+        response.writeHead(200, { ...headers, 'Content-Type': JSON_TYPE, 'Content-Length': register.rateBytes.length, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
+        response.end(register.rateBytes);
+        return 200;
+      }
+      if (segments[3] === 'eligible-wages-method') {
+        response.writeHead(200, { ...headers, 'Content-Type': JSON_TYPE, 'Content-Length': register.methodBytes.length, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
+        response.end(register.methodBytes);
+        return 200;
+      }
+      return send(response, 404, { error: 'not_found', message: 'Unknown rate id.', accepted: { rate_ids: ['levy-rate', 'eligible-wages-method'] } }, headers);
+    }
+    if (segments[0] === 'v1' && segments[1] === 'calculators' && segments.length === 4) {
+      return send(response, 405, { error: 'method_not_allowed', message: 'Use POST to invoke the calculator.' }, { ...headers, Allow: 'POST, OPTIONS' });
+    }
+    return send(response, 404, { error: 'not_found', message: 'No such route.' }, headers);
+  }
+
+  async function routeCalculation(request, response, headers, { segments }) {
+    if (!(segments[0] === 'v1' && segments[1] === 'calculators' && segments.length === 4)) {
+      return send(response, 404, { error: 'not_found', message: 'No such route.' }, headers);
+    }
+    const [, , calculatorUrn, periodUrn] = segments;
+    if (!calculatorUrns.has(calculatorUrn)) {
+      return send(response, 404, { error: 'not_found', message: 'Unknown calculator URN.', accepted: { calculators: [...calculatorUrns] } }, headers);
+    }
+    if (!periodUrns.has(periodUrn)) {
+      return send(response, 404, {
+        error: 'not_found',
+        message: 'This calculator does not accept that period URN.',
+        accepted: { period_urn_pattern: `${config.periodUrnPrefix}YYYY-MM`, first: [...periodUrns][0], last: [...periodUrns][periodUrns.size - 1] },
+      }, headers);
+    }
+    const contentType = String(request.headers['content-type'] ?? '').split(';')[0].trim().toLowerCase();
+    if (contentType !== 'application/json') {
+      return send(response, 415, { error: 'unsupported_media_type', message: 'Send Content-Type: application/json.' }, headers);
+    }
+    // The rest of the upload stays unread, so the connection cannot carry
+    // another request: close it once the 413 is out.
+    const bodyTooLarge = () => send(response, 413, { error: 'body_too_large', max_body_bytes: config.maxBodyBytes }, { ...headers, Connection: 'close' });
+    const declared = Number(request.headers['content-length'] ?? 0);
+    if (declared > config.maxBodyBytes) return bodyTooLarge();
+    let bytes;
+    try {
+      bytes = await readBody(request, config.maxBodyBytes);
+    } catch (issue) {
+      if (issue.code === 'body_too_large') return bodyTooLarge();
+      throw issue;
+    }
+    let body;
+    try {
+      body = JSON.parse(bytes.toString('utf8'));
+    } catch {
+      return send(response, 422, { error: 'validation_error', field: 'body', code: 'invalid_json', message: 'The body is not valid JSON.' }, headers);
+    }
+    return answerCalculation(response, body, periodUrn, headers);
+  }
+
+  function answerCalculation(response, body, periodUrn, headers) {
+    try {
+      const validated = validateRequest(body);
+      const expectedMonth = periodUrn.slice(config.periodUrnPrefix.length);
+      if (validated.reportingMonth !== expectedMonth) {
+        return send(response, 422, {
+          error: 'validation_error', field: 'reporting_month', code: 'period_mismatch',
+          message: `reporting_month ${validated.reportingMonth} does not match the period URN month ${expectedMonth}.`,
+        }, headers);
+      }
+      const result = calculate(validated, register, config);
+      return send(response, 200, result, headers);
+    } catch (issue) {
+      if (issue instanceof ValidationError) return send(response, 422, issue.toJSON(), headers);
+      if (issue instanceof Refusal) return send(response, 400, issue.toJSON(), headers);
+      throw issue;
+    }
+  }
+
   async function route(request, response, cors, requestId) {
     const headers = { ...cors, 'X-Request-Id': requestId };
-    const { pathname: path, segments } = resolvePath(request.url);
+    const target = resolvePath(request.url);
 
     // Throttle first, for every method. A preflight is a request the service
     // answers, so it spends budget like any other; skipping it left a method
@@ -271,98 +372,8 @@ export function createApp(options = {}) {
       return Object.keys(cors).length ? 204 : 404;
     }
 
-    if (request.method === 'GET' || request.method === 'HEAD') {
-      if (path === '/healthz' || path === '/livez') {
-        return send(response, 200, { status: 'ok', service: 'coal-lsl-levy', version: config.version }, headers);
-      }
-      if (path === '/openapi.json') return send(response, 200, openapiText, headers);
-      if (path === '/v1/modules') return send(response, 200, modules, headers);
-      if (path === '/v1/calculators') {
-        const module = new URL(request.url, 'http://localhost').searchParams.get('module');
-        return send(response, 200, module === null || module === config.moduleUrn ? listingText : [], headers);
-      }
-      if (segments[0] === 'v1' && segments[1] === 'rates' && segments.length === 3) {
-        if (!periodUrns.has(segments[2])) {
-          return send(response, 404, { error: 'not_found', message: 'Unsupported period URN.', accepted: { periods: [...periodUrns] } }, headers);
-        }
-        return send(response, 200, rateListing(segments[2]), headers);
-      }
-      if (segments[0] === 'v1' && segments[1] === 'rates' && segments.length === 4) {
-        if (!periodUrns.has(segments[2])) {
-          return send(response, 404, { error: 'not_found', message: 'Unsupported period URN.', accepted: { periods: [...periodUrns] } }, headers);
-        }
-        if (segments[3] === 'levy-rate') {
-          response.writeHead(200, { ...headers, 'Content-Type': JSON_TYPE, 'Content-Length': register.rateBytes.length, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
-          response.end(register.rateBytes);
-          return 200;
-        }
-        if (segments[3] === 'eligible-wages-method') {
-          response.writeHead(200, { ...headers, 'Content-Type': JSON_TYPE, 'Content-Length': register.methodBytes.length, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
-          response.end(register.methodBytes);
-          return 200;
-        }
-        return send(response, 404, { error: 'not_found', message: 'Unknown rate id.', accepted: { rate_ids: ['levy-rate', 'eligible-wages-method'] } }, headers);
-      }
-      if (segments[0] === 'v1' && segments[1] === 'calculators' && segments.length === 4) {
-        return send(response, 405, { error: 'method_not_allowed', message: 'Use POST to invoke the calculator.' }, { ...headers, Allow: 'POST, OPTIONS' });
-      }
-      return send(response, 404, { error: 'not_found', message: 'No such route.' }, headers);
-    }
-
-    if (request.method === 'POST') {
-      if (!(segments[0] === 'v1' && segments[1] === 'calculators' && segments.length === 4)) {
-        return send(response, 404, { error: 'not_found', message: 'No such route.' }, headers);
-      }
-      const [, , calculatorUrn, periodUrn] = segments;
-      if (!calculatorUrns.has(calculatorUrn)) {
-        return send(response, 404, { error: 'not_found', message: 'Unknown calculator URN.', accepted: { calculators: [...calculatorUrns] } }, headers);
-      }
-      if (!periodUrns.has(periodUrn)) {
-        return send(response, 404, {
-          error: 'not_found',
-          message: 'This calculator does not accept that period URN.',
-          accepted: { period_urn_pattern: `${config.periodUrnPrefix}YYYY-MM`, first: [...periodUrns][0], last: [...periodUrns][periodUrns.size - 1] },
-        }, headers);
-      }
-      const contentType = String(request.headers['content-type'] ?? '').split(';')[0].trim().toLowerCase();
-      if (contentType !== 'application/json') {
-        return send(response, 415, { error: 'unsupported_media_type', message: 'Send Content-Type: application/json.' }, headers);
-      }
-      // The rest of the upload stays unread, so the connection cannot carry
-      // another request: close it once the 413 is out.
-      const bodyTooLarge = () => send(response, 413, { error: 'body_too_large', max_body_bytes: config.maxBodyBytes }, { ...headers, Connection: 'close' });
-      const declared = Number(request.headers['content-length'] ?? 0);
-      if (declared > config.maxBodyBytes) return bodyTooLarge();
-      let bytes;
-      try {
-        bytes = await readBody(request, config.maxBodyBytes);
-      } catch (issue) {
-        if (issue.code === 'body_too_large') return bodyTooLarge();
-        throw issue;
-      }
-      let body;
-      try {
-        body = JSON.parse(bytes.toString('utf8'));
-      } catch {
-        return send(response, 422, { error: 'validation_error', field: 'body', code: 'invalid_json', message: 'The body is not valid JSON.' }, headers);
-      }
-      try {
-        const validated = validateRequest(body);
-        const expectedMonth = periodUrn.slice(config.periodUrnPrefix.length);
-        if (validated.reportingMonth !== expectedMonth) {
-          return send(response, 422, {
-            error: 'validation_error', field: 'reporting_month', code: 'period_mismatch',
-            message: `reporting_month ${validated.reportingMonth} does not match the period URN month ${expectedMonth}.`,
-          }, headers);
-        }
-        const result = calculate(validated, register, config);
-        return send(response, 200, result, headers);
-      } catch (issue) {
-        if (issue instanceof ValidationError) return send(response, 422, issue.toJSON(), headers);
-        if (issue instanceof Refusal) return send(response, 400, issue.toJSON(), headers);
-        throw issue;
-      }
-    }
+    if (request.method === 'GET' || request.method === 'HEAD') return routeRead(request, response, headers, target);
+    if (request.method === 'POST') return routeCalculation(request, response, headers, target);
     return send(response, 405, { error: 'method_not_allowed' }, { ...headers, Allow: 'GET, POST, OPTIONS' });
   }
 

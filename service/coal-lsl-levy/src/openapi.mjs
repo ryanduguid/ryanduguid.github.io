@@ -172,181 +172,192 @@ REQUEST_SCHEMA.allOf = REQUEST_SCHEMA.properties.pay.oneOf.map((variant) => ({
   then: { properties: { pay: variant } },
 }));
 
-export function buildOpenApi(config, register) {
-  const months = register.supportedMonths();
+const COMPONENT_SCHEMAS = {
+  CoalLslLevyInput: REQUEST_SCHEMA,
+  CoalLslLevyResult: {
+    type: 'object',
+    required: ['calculator', 'period', 'reporting_month', 'branch', 'eligible_wages', 'levy', 'levy_before_rounding', 'rate', 'workings', 'excluded', 'rounding', 'manifest', 'advisory'],
+    properties: {
+      calculator: { type: 'string' },
+      period: { type: 'string' },
+      reporting_month: { type: 'string' },
+      branch: { type: 'object', properties: { code: { type: 'string' }, label: { type: 'string' } } },
+      eligible_wages: decimalAt(SCALE.quarterCents, 'Eligible wages, exact to the quarter cent (Formula B is three quarters of an aggregate).'),
+      levy: decimalAt(SCALE.money, 'The levy, rounded once, half up, to the cent.'),
+      levy_before_rounding: decimalAt(SCALE.levyBeforeRounding, 'The exact levy before the final rounding. The value never needs more than 7 places, so no digit is rounded away.'),
+      rate: {
+        type: 'object',
+        required: ['value_percent', 'as_fraction'],
+        properties: {
+          value_percent: decimalAt(SCALE.rate, 'The prescribed percentage the engine applies.'),
+          as_fraction: { type: 'string', description: 'The same rate as an exact fraction, for example "27/1000".' },
+        },
+      },
+      workings: {
+        type: 'object',
+        description: `Branch-specific workings. Money has ${SCALE.money} decimal places, quarter-cent figures ${SCALE.quarterCents} and factors ${SCALE.rate}.`,
+        properties: {
+          base_rate_of_pay_grossed_up: decimalAt(SCALE.money, 'Base rate of pay with the salary sacrifice added back.'),
+          annual_salary_paid_grossed_up: decimalAt(SCALE.money, 'Annual salary paid with the salary sacrifice added back.'),
+          bonuses_counted: bonusEntries('Bonuses paid at least monthly, which count.'),
+          formula_a: decimalAt(SCALE.money, 'Formula A.'),
+          formula_b: decimalAt(SCALE.quarterCents, 'Formula B, exact to the quarter cent.'),
+          formula_b_basis: {
+            type: 'object',
+            required: ['aggregate', 'factor'],
+            properties: {
+              aggregate: decimalAt(SCALE.money, 'The aggregate Formula B takes three quarters of.'),
+              factor: decimalAt(SCALE.rate, 'The Formula B factor.'),
+            },
+          },
+        },
+      },
+      excluded: bonusEntries('Bonuses paid less often than monthly, which do not count.', {
+        reason: { type: 'string', description: 'Why the bonus does not count, citing s 3B(4)(c) and (d).' },
+      }),
+      rounding: { type: 'object' },
+      manifest: {
+        type: 'object',
+        description: 'calculator, period, schema, engine, method, rate_table_uris with SHA-256 content hashes, rounding_policy and citation.',
+        required: ['rounding_policy'],
+        properties: {
+          rounding_policy: {
+            type: 'string',
+            const: ROUNDING_POLICY,
+            description: 'Stable identifier of the rounding in force: the levy is rounded once, half up (ties away from zero) to the cent, at the final step, in exact integer arithmetic from the exact levy_before_rounding.',
+          },
+        },
+      },
+      advisory: { type: 'object', properties: { figure_type: { type: 'string' }, notes: { type: 'array', items: { type: 'string' } } } },
+    },
+  },
+  CalculatorListing: {
+    type: 'array',
+    items: {
+      type: 'object',
+      required: ['calc_uri', 'module', 'description', 'selection', 'supported_periods', 'input_schema_ref', 'invocation', 'limits'],
+      properties: {
+        calc_uri: { type: 'string' }, label: { type: 'string' }, method: { type: 'string' },
+        module: { type: 'string' }, description: { type: 'string' },
+        selection: { type: 'object', properties: { kind: { type: 'string', enum: ['fact', 'election', 'statutory_default'] } } },
+        invocation: { type: 'object', properties: { method: { type: 'string', const: 'POST' }, path: { type: 'string' } } },
+        supported_periods: { type: 'array', items: { type: 'string' } },
+        input_schema_ref: { type: 'string' }, jurisdiction: { type: 'string' },
+        limits: { type: 'object' }, refusal_classes: { type: 'array', items: { type: 'string' } },
+        status: { type: 'string' }, attestation: { type: 'string' },
+      },
+    },
+  },
+  ValidationError: {
+    type: 'object',
+    required: ['error', 'field', 'code', 'message'],
+    properties: { error: { type: 'string', const: 'validation_error' }, field: { type: 'string' }, code: { type: 'string' }, message: { type: 'string' } },
+  },
+  Refusal: {
+    type: 'object',
+    required: ['refusal_class', 'reason'],
+    properties: { refusal_class: { type: 'string', enum: Object.keys(REFUSAL_CLASSES) }, reason: { type: 'string' } },
+  },
+  NotFound: {
+    type: 'object',
+    required: ['error', 'message'],
+    properties: { error: { type: 'string', const: 'not_found' }, message: { type: 'string' }, accepted: { type: 'object' } },
+  },
+};
+
+function apiInfo(config) {
+  return {
+    title: 'Coal LSL levy calculator',
+    version: config.version,
+    summary: 'Coal Mining Industry (Long Service Leave) payroll levy on eligible wages under s 3B, as a deterministic HTTP calculator.',
+    description: [
+      'Same arithmetic as https://duguid.com.au/tools/coal-lsl-levy/ (assets/levy.mjs). Money in and out is decimal strings.',
+      'Refusals are a feature: 422 names a malformed or missing field, 400 carries a refusal_class, 404 names the calculator or period URNs this service accepts.',
+      `Refusal classes: ${Object.entries(REFUSAL_CLASSES).map(([key, text]) => `${key} (${text})`).join(' ')}`,
+      `Rounding: half up to the cent at the final step only, from the exact integer value, named in each manifest as rounding_policy "${ROUNDING_POLICY}". Output scales are fixed and published as patterns: money ${SCALE.money} decimal places, rates and factors ${SCALE.rate}, eligible wages and Formula B ${SCALE.quarterCents} (exact quarter cents) and levy_before_rounding ${SCALE.levyBeforeRounding} (exact). Not advice; review aid only.`,
+      'No external conformance approval or practitioner attestation is claimed.',
+    ].join('\n\n'),
+    license: {
+      name: 'Ryan Duguid Public Attribution Licence 1.0',
+      url: 'https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE',
+    },
+  };
+}
+
+function calculateOperation(config, months) {
+  return {
+    summary: 'Calculate the levy for one employee for one reporting month',
+    parameters: [{
+      name: 'period_uri', in: 'path', required: true,
+      schema: { type: 'string', enum: months.map((month) => `${config.periodUrnPrefix}${month}`) },
+      description: 'Period URN for the reporting month. The listing is the authority for which months are supported.',
+    }],
+    requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/CoalLslLevyInput' } } } },
+    responses: {
+      200: { description: 'Computed', content: { 'application/json': { schema: { $ref: '#/components/schemas/CoalLslLevyResult' } } } },
+      400: { description: 'Well-formed but outside what this calculator answers', content: { 'application/json': { schema: { $ref: '#/components/schemas/Refusal' } } } },
+      404: { description: 'Unknown calculator or period URN', content: { 'application/json': { schema: { $ref: '#/components/schemas/NotFound' } } } },
+      413: { description: 'Body larger than the configured limit' },
+      415: { description: 'Content-Type is not application/json' },
+      422: { description: 'Malformed or incomplete request', content: { 'application/json': { schema: { $ref: '#/components/schemas/ValidationError' } } } },
+      429: { description: 'Throttled; Retry-After is set in seconds' },
+      500: { description: 'Service fault. The body contains a request identifier and no internal error details.' },
+    },
+  };
+}
+
+function apiPaths(config, months) {
   const calculatorPath = `/v1/calculators/${config.calculatorUrn}/{period_uri}`;
   return {
+    '/v1/calculators': {
+      get: {
+        summary: 'List calculators with their period URNs',
+        parameters: [{ name: 'module', in: 'query', schema: { type: 'string' }, description: 'Filter by module URN. An unknown module returns an empty array.' }],
+        responses: { 200: { description: 'Calculator listing', content: { 'application/json': { schema: { $ref: '#/components/schemas/CalculatorListing' } } } } },
+      },
+    },
+    '/v1/modules': {
+      get: {
+        summary: 'List modules and the calculator URNs they contain',
+        responses: { 200: { description: 'Modules', content: { 'application/json': { schema: {
+          type: 'array', items: { type: 'object', required: ['module', 'description', 'calculators'], properties: {
+            module: { type: 'string' }, description: { type: 'string' }, calculators: { type: 'array', items: { type: 'string' } },
+          } },
+        } } } } },
+      },
+    },
+    [calculatorPath]: {
+      post: calculateOperation(config, months),
+    },
+    '/v1/rates/{period_uri}': {
+      get: {
+        summary: 'Rate tables registered for a period, each with the SHA-256 of the bytes served by /v1/rates/{period_uri}/{rate_id}',
+        parameters: [{ name: 'period_uri', in: 'path', required: true, schema: { type: 'string' } }],
+        responses: { 200: { description: 'Rate table listing' }, 404: { description: 'Unsupported period' } },
+      },
+    },
+    '/v1/rates/{period_uri}/{rate_id}': {
+      get: {
+        summary: 'The exact bytes of a rate table (the rates register series file)',
+        parameters: [
+          { name: 'period_uri', in: 'path', required: true, schema: { type: 'string' } },
+          { name: 'rate_id', in: 'path', required: true, schema: { type: 'string', enum: ['levy-rate', 'eligible-wages-method'] } },
+        ],
+        responses: { 200: { description: 'The document whose SHA-256 the manifest cites' }, 404: { description: 'Unknown period or rate id' } },
+      },
+    },
+    '/healthz': { get: { summary: 'Liveness', responses: { 200: { description: 'ok' } } } },
+    '/livez': { get: { summary: 'Liveness (alias)', responses: { 200: { description: 'ok' } } } },
+    '/openapi.json': { get: { summary: 'This document', responses: { 200: { description: 'OpenAPI 3.1' } } } },
+  };
+}
+
+export function buildOpenApi(config, register) {
+  return {
     openapi: '3.1.0',
-    info: {
-      title: 'Coal LSL levy calculator',
-      version: config.version,
-      summary: 'Coal Mining Industry (Long Service Leave) payroll levy on eligible wages under s 3B, as a deterministic HTTP calculator.',
-      description: [
-        'Same arithmetic as https://duguid.com.au/tools/coal-lsl-levy/ (assets/levy.mjs). Money in and out is decimal strings.',
-        'Refusals are a feature: 422 names a malformed or missing field, 400 carries a refusal_class, 404 names the calculator or period URNs this service accepts.',
-        `Refusal classes: ${Object.entries(REFUSAL_CLASSES).map(([key, text]) => `${key} (${text})`).join(' ')}`,
-        `Rounding: half up to the cent at the final step only, from the exact integer value, named in each manifest as rounding_policy "${ROUNDING_POLICY}". Output scales are fixed and published as patterns: money ${SCALE.money} decimal places, rates and factors ${SCALE.rate}, eligible wages and Formula B ${SCALE.quarterCents} (exact quarter cents) and levy_before_rounding ${SCALE.levyBeforeRounding} (exact). Not advice; review aid only.`,
-        'No external conformance approval or practitioner attestation is claimed.',
-      ].join('\n\n'),
-      license: {
-        name: 'Ryan Duguid Public Attribution Licence 1.0',
-        url: 'https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE',
-      },
-    },
+    info: apiInfo(config),
     servers: [{ url: config.publicBaseUrl ?? 'http://127.0.0.1:8787' }],
-    paths: {
-      '/v1/calculators': {
-        get: {
-          summary: 'List calculators with their period URNs',
-          parameters: [{ name: 'module', in: 'query', schema: { type: 'string' }, description: 'Filter by module URN. An unknown module returns an empty array.' }],
-          responses: { 200: { description: 'Calculator listing', content: { 'application/json': { schema: { $ref: '#/components/schemas/CalculatorListing' } } } } },
-        },
-      },
-      '/v1/modules': {
-        get: {
-          summary: 'List modules and the calculator URNs they contain',
-          responses: { 200: { description: 'Modules', content: { 'application/json': { schema: {
-            type: 'array', items: { type: 'object', required: ['module', 'description', 'calculators'], properties: {
-              module: { type: 'string' }, description: { type: 'string' }, calculators: { type: 'array', items: { type: 'string' } },
-            } },
-          } } } } },
-        },
-      },
-      [calculatorPath]: {
-        post: {
-          summary: 'Calculate the levy for one employee for one reporting month',
-          parameters: [{
-            name: 'period_uri', in: 'path', required: true,
-            schema: { type: 'string', enum: months.map((month) => `${config.periodUrnPrefix}${month}`) },
-            description: 'Period URN for the reporting month. The listing is the authority for which months are supported.',
-          }],
-          requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/CoalLslLevyInput' } } } },
-          responses: {
-            200: { description: 'Computed', content: { 'application/json': { schema: { $ref: '#/components/schemas/CoalLslLevyResult' } } } },
-            400: { description: 'Well-formed but outside what this calculator answers', content: { 'application/json': { schema: { $ref: '#/components/schemas/Refusal' } } } },
-            404: { description: 'Unknown calculator or period URN', content: { 'application/json': { schema: { $ref: '#/components/schemas/NotFound' } } } },
-            413: { description: 'Body larger than the configured limit' },
-            415: { description: 'Content-Type is not application/json' },
-            422: { description: 'Malformed or incomplete request', content: { 'application/json': { schema: { $ref: '#/components/schemas/ValidationError' } } } },
-            429: { description: 'Throttled; Retry-After is set in seconds' },
-            500: { description: 'Service fault. The body contains a request identifier and no internal error details.' },
-          },
-        },
-      },
-      '/v1/rates/{period_uri}': {
-        get: {
-          summary: 'Rate tables registered for a period, each with the SHA-256 of the bytes served by /v1/rates/{period_uri}/{rate_id}',
-          parameters: [{ name: 'period_uri', in: 'path', required: true, schema: { type: 'string' } }],
-          responses: { 200: { description: 'Rate table listing' }, 404: { description: 'Unsupported period' } },
-        },
-      },
-      '/v1/rates/{period_uri}/{rate_id}': {
-        get: {
-          summary: 'The exact bytes of a rate table (the rates register series file)',
-          parameters: [
-            { name: 'period_uri', in: 'path', required: true, schema: { type: 'string' } },
-            { name: 'rate_id', in: 'path', required: true, schema: { type: 'string', enum: ['levy-rate', 'eligible-wages-method'] } },
-          ],
-          responses: { 200: { description: 'The document whose SHA-256 the manifest cites' }, 404: { description: 'Unknown period or rate id' } },
-        },
-      },
-      '/healthz': { get: { summary: 'Liveness', responses: { 200: { description: 'ok' } } } },
-      '/livez': { get: { summary: 'Liveness (alias)', responses: { 200: { description: 'ok' } } } },
-      '/openapi.json': { get: { summary: 'This document', responses: { 200: { description: 'OpenAPI 3.1' } } } },
-    },
-    components: {
-      schemas: {
-        CoalLslLevyInput: REQUEST_SCHEMA,
-        CoalLslLevyResult: {
-          type: 'object',
-          required: ['calculator', 'period', 'reporting_month', 'branch', 'eligible_wages', 'levy', 'levy_before_rounding', 'rate', 'workings', 'excluded', 'rounding', 'manifest', 'advisory'],
-          properties: {
-            calculator: { type: 'string' },
-            period: { type: 'string' },
-            reporting_month: { type: 'string' },
-            branch: { type: 'object', properties: { code: { type: 'string' }, label: { type: 'string' } } },
-            eligible_wages: decimalAt(SCALE.quarterCents, 'Eligible wages, exact to the quarter cent (Formula B is three quarters of an aggregate).'),
-            levy: decimalAt(SCALE.money, 'The levy, rounded once, half up, to the cent.'),
-            levy_before_rounding: decimalAt(SCALE.levyBeforeRounding, 'The exact levy before the final rounding. The value never needs more than 7 places, so no digit is rounded away.'),
-            rate: {
-              type: 'object',
-              required: ['value_percent', 'as_fraction'],
-              properties: {
-                value_percent: decimalAt(SCALE.rate, 'The prescribed percentage the engine applies.'),
-                as_fraction: { type: 'string', description: 'The same rate as an exact fraction, for example "27/1000".' },
-              },
-            },
-            workings: {
-              type: 'object',
-              description: `Branch-specific workings. Money has ${SCALE.money} decimal places, quarter-cent figures ${SCALE.quarterCents} and factors ${SCALE.rate}.`,
-              properties: {
-                base_rate_of_pay_grossed_up: decimalAt(SCALE.money, 'Base rate of pay with the salary sacrifice added back.'),
-                annual_salary_paid_grossed_up: decimalAt(SCALE.money, 'Annual salary paid with the salary sacrifice added back.'),
-                bonuses_counted: bonusEntries('Bonuses paid at least monthly, which count.'),
-                formula_a: decimalAt(SCALE.money, 'Formula A.'),
-                formula_b: decimalAt(SCALE.quarterCents, 'Formula B, exact to the quarter cent.'),
-                formula_b_basis: {
-                  type: 'object',
-                  required: ['aggregate', 'factor'],
-                  properties: {
-                    aggregate: decimalAt(SCALE.money, 'The aggregate Formula B takes three quarters of.'),
-                    factor: decimalAt(SCALE.rate, 'The Formula B factor.'),
-                  },
-                },
-              },
-            },
-            excluded: bonusEntries('Bonuses paid less often than monthly, which do not count.', {
-              reason: { type: 'string', description: 'Why the bonus does not count, citing s 3B(4)(c) and (d).' },
-            }),
-            rounding: { type: 'object' },
-            manifest: {
-              type: 'object',
-              description: 'calculator, period, schema, engine, method, rate_table_uris with SHA-256 content hashes, rounding_policy and citation.',
-              required: ['rounding_policy'],
-              properties: {
-                rounding_policy: {
-                  type: 'string',
-                  const: ROUNDING_POLICY,
-                  description: 'Stable identifier of the rounding in force: the levy is rounded once, half up (ties away from zero) to the cent, at the final step, in exact integer arithmetic from the exact levy_before_rounding.',
-                },
-              },
-            },
-            advisory: { type: 'object', properties: { figure_type: { type: 'string' }, notes: { type: 'array', items: { type: 'string' } } } },
-          },
-        },
-        CalculatorListing: {
-          type: 'array',
-          items: {
-            type: 'object',
-            required: ['calc_uri', 'module', 'description', 'selection', 'supported_periods', 'input_schema_ref', 'invocation', 'limits'],
-            properties: {
-              calc_uri: { type: 'string' }, label: { type: 'string' }, method: { type: 'string' },
-              module: { type: 'string' }, description: { type: 'string' },
-              selection: { type: 'object', properties: { kind: { type: 'string', enum: ['fact', 'election', 'statutory_default'] } } },
-              invocation: { type: 'object', properties: { method: { type: 'string', const: 'POST' }, path: { type: 'string' } } },
-              supported_periods: { type: 'array', items: { type: 'string' } },
-              input_schema_ref: { type: 'string' }, jurisdiction: { type: 'string' },
-              limits: { type: 'object' }, refusal_classes: { type: 'array', items: { type: 'string' } },
-              status: { type: 'string' }, attestation: { type: 'string' },
-            },
-          },
-        },
-        ValidationError: {
-          type: 'object',
-          required: ['error', 'field', 'code', 'message'],
-          properties: { error: { type: 'string', const: 'validation_error' }, field: { type: 'string' }, code: { type: 'string' }, message: { type: 'string' } },
-        },
-        Refusal: {
-          type: 'object',
-          required: ['refusal_class', 'reason'],
-          properties: { refusal_class: { type: 'string', enum: Object.keys(REFUSAL_CLASSES) }, reason: { type: 'string' } },
-        },
-        NotFound: {
-          type: 'object',
-          required: ['error', 'message'],
-          properties: { error: { type: 'string', const: 'not_found' }, message: { type: 'string' }, accepted: { type: 'object' } },
-        },
-      },
-    },
+    paths: apiPaths(config, register.supportedMonths()),
+    components: { schemas: COMPONENT_SCHEMAS },
   };
 }
