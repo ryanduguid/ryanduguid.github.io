@@ -119,7 +119,9 @@ const representativeHeightBaseline = {
     // three cash rows and six evidence downloads. It measures 14,555px at
     // 390px; retain the existing 234px allowance above the content height.
     // The 29 October footer link adds 52px.
-    ['/evidence/', 14841],
+    // 'Results you can check' and the dated nearby products measure 16,743px;
+    // retain the 234px allowance.
+    ['/evidence/', 16977],
   ]),
   desktop: new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -157,7 +159,9 @@ const representativeHeightBaseline = {
     // The same quarter case measures 11,036px at 1440px. Retain the 234px
     // allowance; the new content accounts for this increase.
     // The 29 October footer link adds 32px.
-    ['/evidence/', 11302],
+    // 'Results you can check' and the dated nearby products measure 12,662px;
+    // retain the 234px allowance.
+    ['/evidence/', 12896],
   ]),
 };
 

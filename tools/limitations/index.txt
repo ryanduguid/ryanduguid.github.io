@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/limitations/
 
 A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
-Published 16 September 2026. Last reviewed 1 October 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
+Published 16 September 2026. Last reviewed 5 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
 ## What belongs here
 
@@ -78,9 +78,25 @@ Do not read the two payloads as interchangeable.
 
 Human step. Map an account to every bucket the ratios you intend to read require, including a deliberate nil where the business genuinely has none. Where a figure must not be shown unless it was established, read the library payload: a not_supplied status is the honest answer that a command line 0.0000 cannot give. Where a business genuinely has no cost of sales, the fallback is the ATO’s own behaviour and the result stands.
 
+## Method and corrections
+
+Sources. A rate or threshold cites a primary source: each row of a rate table carries its own source_url on a primary host and a checked_at date, and the site checks fail on a row without them. An evidence record states its claim, the source or released artefact behind it, the date or version reviewed and where a person has to decide.
+
+Tests. The calculator engines have their own test suites, run on every pull request. Each entry on this page is bound by a test in its package. Evaluations reproduce results against fixed releases with fictional inputs.
+
+Freshness. A daily job compares the release references on these pages with published releases. A weekly sweep on Ryan’s machine reads the ATO addresses in the site’s source files, and its report lists the files to review. It fails at once on a response it cannot read or a substantive change in the text. A 404 or 410 is held instead: the report notes it, and the sweep fails only when a read at least 3 days later agrees. The change test leaves out the legal database home and hub and listing pages. Dates on a page record when it was last reviewed; the changelog records what changed.
+
+Recent corrections, from the changelog
+
+Date | Type | Correction
+2 November 2026 | Figure | Accounting question 8 gave 12 business days alone for returns lodged online; it now gives the ATO’s 10.
+31 October 2026 | Software | payday-super-checker v0.2.3 no longer reads an Employment Hero row with the Beam status Reconciled as sent to the fund.
+29 October 2026 | Date | Accounting question 6 gave 30 November 2026 as the end of ATO credit card payments; it now gives 30 June 2027.
+26 October 2026 | Scope | Accounting question 16 now limits the instant asset write-off to small businesses using the simplified depreciation rules.
+
 ## Telling me a number is wrong
 
-The most useful report carries the command you ran, the output it produced, the figure you expected and where that expectation comes from. A primary source, a worked example from the regulator or a second implementation all work. Open an issue on the repository that carries the tool, or use the contact page.
+The most useful report carries the command you ran, the output it produced, the figure you expected and where that expectation comes from. A primary source, a worked example from the regulator or a second implementation all work. Open an issue on the repository that carries the tool, or use the contact page. For a wrong rate, date or rule in a page’s text, use the correction form.
 
 Two implementations disagreeing is the cheapest way to find a defect, and the disagreement is worth reporting even when you are not certain which side is right.
 
@@ -93,6 +109,12 @@ This is a register of limitations found and confirmed, not a proof that none rem
 - What these tools refuse: https://duguid.com.au/tools/refusals/
 - workbook version note: https://duguid.com.au/tools/payday-super/#workbook-versions
 - receipt amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Evaluations: https://duguid.com.au/evaluate/
+- changelog: https://duguid.com.au/changelog/
+- 2 November 2026: https://duguid.com.au/changelog/#entry-aeb0def588c29a6d
+- 31 October 2026: https://duguid.com.au/changelog/#entry-3cbdf54c6851c50b
+- 29 October 2026: https://duguid.com.au/changelog/#entry-b52ad24c6adfe1ca
+- 26 October 2026: https://duguid.com.au/changelog/#entry-1961271e7e413d31
 - contact page: https://duguid.com.au/contact/
-- evaluations: https://duguid.com.au/evaluate/
+- correction form: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Evidence and Assurance: https://duguid.com.au/evidence/

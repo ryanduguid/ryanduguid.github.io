@@ -114,7 +114,7 @@ Half up to the nearest cent, once, at the final step. The Act, the Regulations a
 
 No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Sources
 
@@ -148,6 +148,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages
 - Coal LSL, governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Subcontract ledger workflows for construction and mining: https://duguid.com.au/tools/subcontractor-ledgers/

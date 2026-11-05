@@ -73,7 +73,7 @@ The output goes outside the clone on purpose. A readiness pack names a client’
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -111,6 +111,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - How to export a Xero trial balance to CSV that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - What Workpaper Review Gate refuses: https://duguid.com.au/tools/refusals/#workpaper-review-gate
