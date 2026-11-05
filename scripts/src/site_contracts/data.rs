@@ -397,7 +397,7 @@ pub const EVALUATION_PACKS: [EvaluationPack; 3] = [
         ],
         contract_text: &[
             "The production tool reads trial balance data directly from Xero\u{2019}s Accounting API Reports endpoint.",
-            "This pack is for a reviewer who wants to reproduce the offline integrity gate without connecting to Xero or handling client data.",
+            "The evaluation pack is for a reviewer who wants to reproduce the offline integrity gate without connecting to Xero or handling client data.",
             "The 3 CSV files are fictional output-shape fixtures.",
             "They are not Xero API responses or client records, and no OAuth flow runs in this evaluation.",
             "No Xero tenant credentials or tenant data are used.",
@@ -410,7 +410,7 @@ pub const EVALUATION_PACKS: [EvaluationPack; 3] = [
             "failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.",
             "The evaluation runner calls the production check_balanced gate before any CSV write.",
             "A balanced export passes this integrity control only; a human still decides completeness, classification, accounting treatment and fitness for review.",
-            "This control does not prove completeness, classification, accounting treatment or client approval.",
+            "The integrity control does not prove completeness, classification, accounting treatment or client approval.",
             "It does not assess source data accuracy, reporting period suitability or fitness for a particular client review.",
         ],
         product_evidence_urls: &[

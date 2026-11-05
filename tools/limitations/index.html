@@ -56,7 +56,10 @@
         </nav>
         <h1>Known limitations</h1>
         <p class="lead-note">
-          A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct and the step that settles it.
+          A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it.
+        </p>
+        <p class="lead-note">
+          Each entry names the trigger, what it affects, what stays correct and the step that settles it.
         </p>
         <p class="page-meta">Published 16 September 2026. Last reviewed 1 October 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.</p>
       </header>
@@ -239,6 +242,7 @@
             <p>
               Parity at the row level is narrower, and needs two conditions together. First, the ratio’s own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set plus payments to associated persons once <code>w1</code> is supplied, and the rest need their own field. Second, <em>both</em> income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library. Where both conditions hold, the row carries the same value in both against the same published range.
             </p>
+            <h3>What diverges, and when</h3>
             <p>
               Three things diverge independently, and running them together overstates the effect.
             </p>
@@ -287,7 +291,7 @@
           <section id="boundary">
             <h2>What this page is not</h2>
             <p>
-              This is a register of limitations found and confirmed, not a proof that none remain. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else. Each entry is bound to the behaviour it describes by a test in its package, so a fix fails the test and forces the entry to be updated, but the register cannot report what has not been found. The <a href="/evaluate/">evaluations</a> reproduce the passing cases against fixed releases, and <a href="/evidence/">Evidence and Assurance</a> records the review boundaries and the absence of third-party review.
+              The page is a register of limitations found and confirmed, not a proof that none remain. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else. Each entry is bound to the behaviour it describes by a test in its package, so a fix fails the test and forces the entry to be updated, but the register cannot report what has not been found. The <a href="/evaluate/">evaluations</a> reproduce the passing cases against fixed releases, and <a href="/evidence/">Evidence and Assurance</a> records the review boundaries and the absence of third-party review.
             </p>
           </section>
         </div>
