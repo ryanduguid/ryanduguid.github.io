@@ -186,7 +186,10 @@ export function buildOpenApi(config, register) {
         `Rounding: half up to the cent at the final step only, from the exact integer value, named in each manifest as rounding_policy "${ROUNDING_POLICY}". Output scales are fixed and published as patterns: money ${SCALE.money} decimal places, rates and factors ${SCALE.rate}, eligible wages and Formula B ${SCALE.quarterCents} (exact quarter cents) and levy_before_rounding ${SCALE.levyBeforeRounding} (exact). Not advice; review aid only.`,
         'No external conformance approval or practitioner attestation is claimed.',
       ].join('\n\n'),
-      license: { name: 'MIT' },
+      license: {
+        name: 'Ryan Duguid Public Attribution Licence 1.0',
+        url: 'https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE',
+      },
     },
     servers: [{ url: config.publicBaseUrl ?? 'http://127.0.0.1:8787' }],
     paths: {

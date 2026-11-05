@@ -5,8 +5,12 @@ month. It uses the same `assets/levy.mjs` engine as the
 [browser calculator](https://duguid.com.au/tools/coal-lsl-levy/).
 The caller establishes employee eligibility and pay facts.
 
-Prepared for Cloudflare Workers. Deployment and LodgeiT listing are separate
-steps; neither is claimed by this source tree. Jekyll excludes `service/`.
+Deployed on Cloudflare Workers at
+<https://coal-lsl-levy.coal-lsl-levy-service.workers.dev>.
+[LodgeiT lists it](https://lodgeit.org/coal-lsl.html) as an external calculator,
+tier `conformance-passed`, pinned at revision 53ba9b8. That tier is LodgeiT's
+statement about the contract and reproducible numbers, not a practitioner's
+review of the law. Jekyll excludes `service/`.
 
 ## Run and check
 
@@ -86,4 +90,15 @@ calls. Passing it does not constitute LodgeiT approval.
 
 See [deployment and operations](deploy/README.md), the
 [contract record](docs/contract-snapshot.md) and the
-[unsent listing request](docs/listing-request-draft.md).
+[listing request](docs/listing-request-draft.md).
+
+## Correction
+
+Commit 460d021 (#295, 27 September 2026) deleted this directory as
+'never-deployed'. That was wrong. The Worker had been live since 26 September
+2026, and 53ba9b8 had been deployed about 2 hours before the deletion. The
+Worker kept running, so the source LodgeiT cites left `main` whilst the service
+stayed live. This directory was restored from 53ba9b8 on 5 November 2026.
+
+The earlier removal, 65a7c93 (#185, 20 September 2026), used the same words and
+was accurate then: the first deployment came 6 days later.

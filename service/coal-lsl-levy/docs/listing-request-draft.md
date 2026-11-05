@@ -1,7 +1,8 @@
 # Listing request draft
 
-Unsent. Complete the base URL, published source revision and live check result
-before sending. No listing or external conformance approval is claimed.
+Kept as the record of the request. The request was sent on 26 September 2026
+with the base URL and source revision completed. LodgeiT's listing is at
+<https://lodgeit.org/coal-lsl.html>.
 
 To: andrew@lodgeit.net.au
 Subject: Coal LSL levy API for the LodgeiT constellation
