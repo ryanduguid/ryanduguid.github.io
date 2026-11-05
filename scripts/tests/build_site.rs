@@ -22,6 +22,7 @@ fn site_selection_rules() {
         ("graft/INDEX.md", false),
         ("graft/scripts/component.md", false),
         ("graft/graph.json", false),
+        ("service/coal-lsl-levy/src/server.mjs", false),
         ("vendor/bundle/gem.css", false),
         ("_site/index.html", false),
         ("assets/work/report.css", true),

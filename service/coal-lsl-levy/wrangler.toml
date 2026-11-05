@@ -1,0 +1,18 @@
+name = "coal-lsl-levy"
+main = "src/worker.mjs"
+compatibility_date = "2026-09-25"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+preview_urls = false
+send_metrics = false
+
+[build]
+command = "node deploy/build-worker.mjs"
+
+[[ratelimits]]
+name = "COAL_LSL_RATE_LIMITER"
+namespace_id = "2026092601"
+simple = { limit = 60, period = 60 }
+
+[observability]
+enabled = false
