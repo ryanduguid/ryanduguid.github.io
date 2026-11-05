@@ -2856,7 +2856,7 @@ Human step. Map an account to every bucket the ratios you intend to read require
 
 Sources. A rate or threshold cites a primary source: each row of a rate table carries its own source_url on a primary host and a checked_at date, and the site checks fail on a row without them. An evidence record states its claim, the source or released artefact behind it, the date or version reviewed and where a person has to decide.
 
-Tests. The calculator engines have their own test suites, run on every pull request. Each entry on this page is bound by a test in its package. Evaluations reproduce results against fixed releases with fabricated inputs.
+Tests. The calculator engines have their own test suites, run on every pull request. Each entry on this page is bound by a test in its package. Evaluations reproduce results against fixed releases with fictional inputs.
 
 Freshness. A daily job compares the release references on these pages with published releases. A weekly sweep reads every ATO page the site cites and fails when one changes substantively or stops loading, and each changed page then needs a review of the files citing it. Dates on a page record when it was last reviewed; the changelog records what changed.
 
