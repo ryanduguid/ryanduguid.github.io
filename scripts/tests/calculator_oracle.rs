@@ -8,6 +8,10 @@
 //! the closed annuity form; the levy works from section 3B of the Coal Mining Industry
 //! (Long Service Leave) Payroll Levy Collection Act 1992 in quarter cents.
 //!
+//! The route is independent; the conventions are not. The oracle takes the same 12 equal
+//! months, payment count, unrounded total interest and half-up final rounding as the
+//! engines, so it cannot show those are the right conventions.
+//!
 //! Nothing here imports an engine or a constant from one, and a change to the case seed
 //! needs no change to the expected values, which are never stored.
 mod common;
@@ -286,6 +290,39 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
     // 2.7% of $1.85 is 4.995 cents, and of 18.75 cents is 0.50625 cents: both round up.
     assert_eq!(levy_oracle(4 * 185), 5);
     assert_eq!(levy_oracle(75), 1);
+}
+
+/// A schedule in whole cents: interest rounds half up each month, and the last payment
+/// clears the balance. Returns (total interest, last payment).
+fn cent_schedule(principal: u64, rate: u64, months: u32, payment: u64) -> (u64, u64) {
+    let (mut balance, mut total) = (u128::from(principal), 0);
+    let scale = 12_000_000_u128;
+    for _ in 1..months {
+        let interest = (balance * u128::from(rate) * 2 + scale) / (2 * scale);
+        total += interest;
+        balance = balance + interest - u128::from(payment);
+    }
+    let interest = (balance * u128::from(rate) * 2 + scale) / (2 * scale);
+    (
+        u64::try_from(total + interest).unwrap(),
+        u64::try_from(balance + interest).unwrap(),
+    )
+}
+
+#[test]
+fn the_loan_page_states_its_total_against_a_cent_by_cent_schedule() {
+    assert_eq!(
+        cent_schedule(10_000_000, 60_000, 360, 59_955),
+        (11_583_845, 60_000)
+    );
+    if !common::rendered() {
+        return;
+    }
+    let html = common::read_text(common::root(), "tools/business-calculators/loan/index.html");
+    assert!(html.contains(
+        "it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest \
+         rounded each month and a final payment of $600.00, gives $115,838.45."
+    ));
 }
 
 #[test]

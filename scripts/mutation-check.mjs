@@ -3,8 +3,9 @@
 
 // Do the calculator tests notice a wrong engine? Each named mutation below is one
 // plausible money error. It is applied to a temporary copy of the engines, never to
-// assets/, and the engine's own Node tests must then fail. A mutation that survives
-// fails this script unless it carries a `survives` reason a reviewer has accepted.
+// assets/, and the engine's own Node tests must then fail on an assertion. A mutation
+// that survives fails this script, and so does a run that ends any other way, such as
+// a module that will not load: that shows nothing about the tests. CONTROLS prove it.
 // A `find` that no longer matches exactly once also fails, so the list cannot go stale.
 //
 // Run with: node scripts/mutation-check.mjs
@@ -49,6 +50,12 @@ const MUTATIONS = [
   { ...business, name: 'a receipt landing in week 13 counts as deferred', find: 'week + delay >= rows.length ? delayed', replace: 'week + delay >= rows.length - 1 ? delayed' },
 ];
 
+// Runs that must read as invalid, not as caught.
+const CONTROLS = [
+  { ...business, name: 'a broken import', find: '// Planning arithmetic.',
+    replace: "import './no-such-module.mjs';\n// Planning arithmetic." },
+];
+
 const work = mkdtempSync(join(tmpdir(), 'mutation-check-'));
 let failures = 0;
 try {
@@ -62,28 +69,35 @@ try {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
-  const passes = (test) => spawnSync(process.execPath, ['--test', test], { cwd: work, encoding: 'utf8' }).status === 0;
+  const verdict = (test) => {
+    const run = spawnSync(process.execPath, ['--test', '--test-reporter=tap', test], { cwd: work, encoding: 'utf8' });
+    if (run.status === 0) return 'survived';
+    return run.status === 1 && run.stdout.includes("code: 'ERR_ASSERTION'") ? 'caught' : 'invalid';
+  };
   for (const { test } of [levy, business]) {
-    if (!passes(test)) throw new Error(`${test} fails before any mutation`);
+    if (verdict(test) !== 'survived') throw new Error(`${test} fails before any mutation`);
   }
-  for (const { file, test, name, find, replace, survives } of MUTATIONS) {
+  const mutated = ({ file, test, find, replace }) => {
+    writeFileSync(join(work, file), readFileSync(join(root, file), 'utf8').replace(find, replace));
+    const result = verdict(test);
+    copyFileSync(join(root, file), join(work, file));
+    return result;
+  };
+  for (const control of CONTROLS) {
+    const result = mutated(control);
+    console.log(`control   ${control.name}: ${result}`);
+    if (result !== 'invalid') failures += 1;
+  }
+  for (const { file, name, find, ...mutation } of MUTATIONS) {
     const source = readFileSync(join(root, file), 'utf8');
     if (source.split(find).length !== 2) {
       console.log(`STALE     ${name}: the text to change is not in ${file} exactly once`);
       failures += 1;
       continue;
     }
-    writeFileSync(join(work, file), source.replace(find, replace));
-    const survived = passes(test);
-    copyFileSync(join(root, file), join(work, file));
-    if (!survived) {
-      console.log(`caught    ${name}`);
-    } else if (survives) {
-      console.log(`accepted  ${name}: ${survives}`);
-    } else {
-      console.log(`SURVIVED  ${name}`);
-      failures += 1;
-    }
+    const result = mutated({ file, find, ...mutation });
+    console.log(`${result === 'caught' ? 'caught   ' : result.toUpperCase()} ${name}`);
+    if (result !== 'caught') failures += 1;
   }
 } finally {
   rmSync(work, { recursive: true, force: true });

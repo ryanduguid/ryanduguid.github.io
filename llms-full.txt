@@ -7906,7 +7906,7 @@ Calculate Enter the inputs and calculate.
 
 ## How it works
 
-For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.
+For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45.
 
 Loan reconciliation checklist
 
