@@ -215,19 +215,27 @@ pub static AUTHORED_SOFTWARE: LazyLock<Vec<Software>> = LazyLock::new(|| {
         .collect()
 });
 
-pub const RETRIEVAL_CRAWLERS: [&str; 13] = [
+/// Search crawlers and fetchers that answer or cite for a user. Each operator's own page
+/// names the token and says so: scripts/ai-robots/README.md lists them.
+pub const RETRIEVAL_CRAWLERS: [&str; 19] = [
     "Googlebot",
     "Bingbot",
     "OAI-SearchBot",
     "ChatGPT-User",
     "Claude-SearchBot",
-    "Claude-Search",
     "Claude-User",
     "PerplexityBot",
+    "Perplexity-User",
     "Applebot",
     "YouBot",
-    "anthropic-ai",
-    "Claude-Web",
+    "MistralAI-Index",
+    "MistralAI-User",
+    "DuckAssistBot",
+    "meta-webindexer",
+    "meta-externalfetcher",
+    "Amzn-SearchBot",
+    "Amzn-User",
+    "Google-GeminiNotebook",
     "Google-Extended",
 ];
 /// Training and other crawlers, every one allowed since 4 November 2026.
@@ -245,11 +253,15 @@ pub const ALLOWED_TRAINING_CRAWLERS: [&str; 10] = [
 ];
 pub const CRAWLER_POLICY_COMMENTS: [&str; 5] = [
     "Search indexing and user-requested citation fetches are allowed.",
-    "Training and other crawl is allowed for every crawler named below: CCBot, Bytespider, GPTBot, ClaudeBot, Applebot-Extended, Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent.",
-    "No named crawler is blocked.",
+    "Training crawl is allowed: the crawlers named below, and any other through the * group.",
+    "No crawler is blocked, named or not.",
     "Unnamed agents must not silently redefine this policy; named rows state the intended treatment.",
     "Google-Extended is allowed so Gemini and Vertex AI grounding can cite this site; it is not a search crawler.",
 ];
+pub const AI_ROBOTS_LIST_REL: &str = "scripts/ai-robots/robots.json";
+pub const AI_ROBOTS_LIST_SHA256: &str =
+    "532f315b083ac5b5e830c0f59a8e87cee8b08924dbaffd3bc48114bd54710e7c";
+pub const AI_ROBOTS_CLASSES_REL: &str = "scripts/ai-robots/left-to-wildcard.json";
 
 pub struct WorkedExample {
     pub rel: &'static str,

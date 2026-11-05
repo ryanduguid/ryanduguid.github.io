@@ -261,20 +261,26 @@ fn geo_leftovers_surface() {
         ("Bingbot", "Allow: /"),
         ("OAI-SearchBot", "Allow: /"),
         ("ChatGPT-User", "Allow: /"),
-        ("Claude-User", "Allow: /"),
-        ("Claude-Search", "Allow: /"),
         ("Claude-SearchBot", "Allow: /"),
+        ("Claude-User", "Allow: /"),
         ("PerplexityBot", "Allow: /"),
+        ("Perplexity-User", "Allow: /"),
         ("Applebot", "Allow: /"),
         ("YouBot", "Allow: /"),
-        ("anthropic-ai", "Allow: /"),
-        ("Claude-Web", "Allow: /"),
-        ("GPTBot", "Allow: /"),
-        ("ClaudeBot", "Allow: /"),
+        ("MistralAI-Index", "Allow: /"),
+        ("MistralAI-User", "Allow: /"),
+        ("DuckAssistBot", "Allow: /"),
+        ("meta-webindexer", "Allow: /"),
+        ("meta-externalfetcher", "Allow: /"),
+        ("Amzn-SearchBot", "Allow: /"),
+        ("Amzn-User", "Allow: /"),
+        ("Google-GeminiNotebook", "Allow: /"),
         ("Google-Extended", "Allow: /"),
-        ("Applebot-Extended", "Allow: /"),
         ("CCBot", "Allow: /"),
         ("Bytespider", "Allow: /"),
+        ("GPTBot", "Allow: /"),
+        ("ClaudeBot", "Allow: /"),
+        ("Applebot-Extended", "Allow: /"),
         ("Amazonbot", "Allow: /"),
         ("cohere-ai", "Allow: /"),
         ("Diffbot", "Allow: /"),
@@ -337,6 +343,45 @@ fn geo_leftovers_surface() {
         1,
         "{levy}"
     );
+}
+
+/// Every agent on the pinned list has a recorded class, and the list cannot drift.
+#[test]
+fn crawler_classes_cover_the_pinned_list() {
+    const LIST: &str = "scripts/ai-robots/robots.json";
+    const CLASSES: &str = "scripts/ai-robots/left-to-wildcard.json";
+    let site = tempfile::tempdir().unwrap();
+    std::fs::create_dir_all(site.path().join("scripts/ai-robots")).unwrap();
+    std::fs::copy(root().join(LIST), site.path().join(LIST)).unwrap();
+    let classes = read_text(root(), CLASSES);
+    let check = |text: &str| {
+        std::fs::write(site.path().join(CLASSES), text).unwrap();
+        contracts::check_crawler_classes(site.path()).unwrap()
+    };
+    assert_clean("crawler classes", &check(&classes));
+    let cases = [
+        (
+            classes.replace("    \"AI2Bot\",\n", ""),
+            "ai2bot is not classified",
+        ),
+        (
+            classes.replace("\"AI2Bot\",", "\"AI2Bot\",\n    \"NoSuchBot\","),
+            "NoSuchBot is not on the pinned list",
+        ),
+        (
+            classes.replace("\"AI2Bot\",", "\"AI2Bot\",\n    \"ClaudeBot\","),
+            "ClaudeBot is classified twice",
+        ),
+    ];
+    for (text, message) in cases {
+        let found = check(&text);
+        assert!(found.iter().any(|f| f.contains(message)), "{found:?}");
+    }
+    let mut changed = std::fs::read(site.path().join(LIST)).unwrap();
+    changed.push(b'\n');
+    std::fs::write(site.path().join(LIST), changed).unwrap();
+    let found = check(&classes);
+    assert!(found[0].contains("not the pinned value"), "{found:?}");
 }
 
 #[test]
