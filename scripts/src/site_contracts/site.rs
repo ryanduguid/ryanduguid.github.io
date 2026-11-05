@@ -1357,8 +1357,19 @@ pub fn check_crawler_classes(root: &Path) -> Result<Vec<String>, String> {
             "{AI_ROBOTS_CLASSES_REL}: classes are {class_names:?}, not {AI_ROBOTS_CLASSES:?}"
         ));
     }
+    failures.extend(classification_failures(&classes, &named, &listed));
+    Ok(failures)
+}
+
+/// Every listed agent is named or classified once, and every classified agent is listed.
+fn classification_failures(
+    classes: &BTreeMap<String, Vec<String>>,
+    named: &BTreeSet<String>,
+    listed: &BTreeSet<String>,
+) -> Vec<String> {
+    let mut failures = Vec::new();
     let mut classified = named.clone();
-    for (class, agents) in &classes {
+    for (class, agents) in classes {
         for agent in agents {
             let key = crawler_key(agent);
             if !classified.insert(key.clone()) {
@@ -1379,7 +1390,7 @@ pub fn check_crawler_classes(root: &Path) -> Result<Vec<String>, String> {
              to {AI_ROBOTS_CLASSES_REL}"
         ));
     }
-    Ok(failures)
+    failures
 }
 
 /// Require each collection hub's visible register and ItemList to agree.

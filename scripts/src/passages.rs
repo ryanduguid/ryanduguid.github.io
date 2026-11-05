@@ -181,6 +181,60 @@ fn sections(entry: &str) -> Vec<Section> {
     found
 }
 
+/// Add a section's dangling-reference failures; returns its passages and how many dangle.
+fn passage_failures(page: &str, section: &Section, failures: &mut Vec<String>) -> (usize, usize) {
+    let heading = &section.heading;
+    let (mut passages, mut dangling) = (0, 0);
+    let mut first_passage = true;
+    for block in &section.blocks {
+        if block_kind(block) == "text" && words(block) >= MIN_PASSAGE_WORDS {
+            passages += 1;
+            if opens_with(block, &DANGLING) {
+                dangling += 1;
+                if first_passage {
+                    failures.push(format!(
+                        "{page}: section {heading:?} opens on a dangling reference: {}",
+                        first_sentence(block)
+                    ));
+                }
+            }
+            first_passage = false;
+        }
+    }
+    (passages, dangling)
+}
+
+/// Add the failures of a section's opening block.
+fn lead_failures(page: &str, section: &Section, failures: &mut Vec<String>) {
+    let heading = &section.heading;
+    let Some(lead) = section.blocks.first() else {
+        return;
+    };
+    if section.level == 1 {
+        let count = words(lead);
+        if block_kind(lead) == "text" && count > LEAD_WORDS {
+            failures.push(format!(
+                "{page}: lead has {count} words, limit {LEAD_WORDS}"
+            ));
+        }
+    } else if (2..=3).contains(&section.level) {
+        let lead = lead.lines().next().unwrap_or(lead);
+        let count = words(first_sentence(lead.trim_start_matches("- ")));
+        if count > LEAD_WORDS {
+            failures.push(format!(
+                "{page}: section {heading:?} leads with a {count} word sentence, \
+                 limit {LEAD_WORDS}"
+            ));
+        }
+        if opens_with(lead, &FILLER) {
+            failures.push(format!(
+                "{page}: section {heading:?} opens on filler: {}",
+                first_sentence(lead)
+            ));
+        }
+    }
+}
+
 /// Where one page's `index.txt` entry breaks a passage rule.
 pub fn page_failures(page: &str, entry: &str) -> Vec<String> {
     let mut failures = Vec::new();
@@ -195,55 +249,16 @@ pub fn page_failures(page: &str, entry: &str) -> Vec<String> {
     let mut passages = 0;
     let mut dangling = 0;
     for section in &sections {
-        let heading = &section.heading;
         if section.words > SECTION_WORDS {
             failures.push(format!(
-                "{page}: section {heading:?} has {} words, limit {SECTION_WORDS}",
-                section.words
+                "{page}: section {:?} has {} words, limit {SECTION_WORDS}",
+                section.heading, section.words
             ));
         }
-        let mut first_passage = true;
-        for block in &section.blocks {
-            if block_kind(block) == "text" && words(block) >= MIN_PASSAGE_WORDS {
-                passages += 1;
-                if opens_with(block, &DANGLING) {
-                    dangling += 1;
-                    if first_passage {
-                        failures.push(format!(
-                            "{page}: section {heading:?} opens on a dangling reference: {}",
-                            first_sentence(block)
-                        ));
-                    }
-                }
-                first_passage = false;
-            }
-        }
-        let Some(lead) = section.blocks.first() else {
-            continue;
-        };
-        if section.level == 1 {
-            let count = words(lead);
-            if block_kind(lead) == "text" && count > LEAD_WORDS {
-                failures.push(format!(
-                    "{page}: lead has {count} words, limit {LEAD_WORDS}"
-                ));
-            }
-        } else if (2..=3).contains(&section.level) {
-            let lead = lead.lines().next().unwrap_or(lead);
-            let count = words(first_sentence(lead.trim_start_matches("- ")));
-            if count > LEAD_WORDS {
-                failures.push(format!(
-                    "{page}: section {heading:?} leads with a {count} word sentence, \
-                     limit {LEAD_WORDS}"
-                ));
-            }
-            if opens_with(lead, &FILLER) {
-                failures.push(format!(
-                    "{page}: section {heading:?} opens on filler: {}",
-                    first_sentence(lead)
-                ));
-            }
-        }
+        let (found, dangle) = passage_failures(page, section, &mut failures);
+        passages += found;
+        dangling += dangle;
+        lead_failures(page, section, &mut failures);
     }
     // Word counts stay far below 2^52, so these casts are exact.
     if passages > 0 && (passages - dangling) as f64 / (passages as f64) < MIN_SELF_CONTAINED {
