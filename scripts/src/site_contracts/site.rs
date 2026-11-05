@@ -1351,6 +1351,12 @@ pub fn check_crawler_classes(root: &Path) -> Result<Vec<String>, String> {
         .map(|a| crawler_key(a))
         .collect();
     let mut failures = Vec::new();
+    let class_names: Vec<&str> = classes.keys().map(String::as_str).collect();
+    if class_names != AI_ROBOTS_CLASSES {
+        failures.push(format!(
+            "{AI_ROBOTS_CLASSES_REL}: classes are {class_names:?}, not {AI_ROBOTS_CLASSES:?}"
+        ));
+    }
     let mut classified = named.clone();
     for (class, agents) in &classes {
         for agent in agents {

@@ -69,5 +69,8 @@ intent and may not control the fetch.
 Replace `robots.json` with the file from a newer commit, update the commit, date,
 count and SHA-256 here and `AI_ROBOTS_LIST_SHA256` in
 `scripts/src/site_contracts/data.rs`, then run `site-tools check_seo`. The check
-names each new agent to classify and each entry the list has dropped. Do this in
-one reviewed pull request, on a schedule of your choosing: the list changes weekly.
+names each new agent to classify and each `left-to-wildcard.json` entry the list has
+dropped. It does not catch the removal of an agent named in `RETRIEVAL_CRAWLERS` or
+`ALLOWED_TRAINING_CRAWLERS`, which stay classified whether or not the list carries
+them, so compare those 2 lists with the new file by hand. Do this in one reviewed
+pull request, on a schedule of your choosing: the list changes weekly.

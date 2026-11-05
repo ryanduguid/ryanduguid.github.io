@@ -372,6 +372,10 @@ fn crawler_classes_cover_the_pinned_list() {
             classes.replace("\"AI2Bot\",", "\"AI2Bot\",\n    \"ClaudeBot\","),
             "ClaudeBot is classified twice",
         ),
+        (
+            classes.replace("\"training\":", "\"blocked\":"),
+            "classes are [\"blocked\", \"other\", \"search_unverified\"]",
+        ),
     ];
     for (text, message) in cases {
         let found = check(&text);

@@ -263,6 +263,8 @@ pub const AI_ROBOTS_LIST_REL: &str = "scripts/ai-robots/robots.json";
 pub const AI_ROBOTS_LIST_SHA256: &str =
     "532f315b083ac5b5e830c0f59a8e87cee8b08924dbaffd3bc48114bd54710e7c";
 pub const AI_ROBOTS_CLASSES_REL: &str = "scripts/ai-robots/left-to-wildcard.json";
+/// The classes `scripts/ai-robots/README.md` documents, in the file's sorted order.
+pub const AI_ROBOTS_CLASSES: [&str; 3] = ["other", "search_unverified", "training"];
 
 pub struct WorkedExample {
     pub rel: &'static str,
