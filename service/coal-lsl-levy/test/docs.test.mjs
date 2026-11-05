@@ -13,8 +13,15 @@ test('the README counts the fixtures as they stand', () => {
 });
 
 test('the listing template states no fixture count or month range that can go stale', () => {
-  const [, ...message] = read('../docs/listing-request-draft.md').split('To: ');
-  const body = message.join('');
+  const template = read('../docs/listing-request-draft.md').replace(/\s+/g, ' ');
+  const start = template.indexOf('To: ');
+  assert.notEqual(start, -1, 'the template holds a message');
+  const body = template.slice(start);
+  for (const field of [
+    'verified deployed URL', 'published source revision', 'date and result',
+    'fixture count', 'computed count', 'first and last supported months',
+  ]) assert.ok(body.includes(`[insert ${field}]`), field);
   assert.doesNotMatch(body, /\b\d+ synthetic cases/);
-  assert.doesNotMatch(body, /\b(January|February|March|April|May|June|July|August|September|October|November|December) 20\d\d\b/);
+  assert.doesNotMatch(body, /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* 20\d\d\b/);
+  assert.doesNotMatch(body, /\b20\d\d-(0[1-9]|1[0-2])\s*(to|through|until|-|\u2013|\.\.)\s*20\d\d-(0[1-9]|1[0-2])\b/);
 });
