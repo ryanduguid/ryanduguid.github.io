@@ -217,6 +217,27 @@ pub fn is_release_asset_redirect(href: &str, final_url: &str) -> bool {
         )
 }
 
+/// Accept GitHub's sign-in page for an anonymous visit to an own repository's new issue form.
+/// `return_to` must name the same link, so a moved or renamed repository still fails.
+pub fn is_sign_in_redirect(href: &str, final_url: &str) -> bool {
+    let Ok(destination) = pyurl::urlsplit(final_url) else {
+        return false;
+    };
+    let encoded = href
+        .replace(':', "%3A")
+        .replace('/', "%2F")
+        .replace('?', "%3F")
+        .replace('=', "%3D");
+    fullmatch(
+        r"https://github\.com/ryanduguid/[^/]+/issues/new(\?[^#]*)?",
+        0,
+        href,
+    ) && destination.scheme == "https"
+        && destination.netloc == "github.com"
+        && destination.path == "/login"
+        && destination.query == format!("return_to={encoded}")
+}
+
 pub type Fetched = Result<(u16, String), NetError>;
 pub type Verdict = Result<bool, String>;
 /// A replacement for fetch_final_url or repository_is_archived, as tests patch them.
@@ -735,6 +756,7 @@ impl<'a> Checker<'a> {
                 if final_name.as_deref() != Some(name.as_str())
                     && !direct_file
                     && !is_release_asset_redirect(href, &final_url)
+                    && !is_sign_in_redirect(href, &final_url)
                 {
                     // Signed download query strings do not belong in public check logs.
                     let destination = pyurl::urlsplit(&final_url)

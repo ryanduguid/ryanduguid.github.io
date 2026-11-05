@@ -80,7 +80,7 @@ The examples assume supplied facts, and nothing this engine produces is an asses
 
 Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -121,6 +121,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
