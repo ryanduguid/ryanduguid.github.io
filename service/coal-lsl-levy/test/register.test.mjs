@@ -12,13 +12,18 @@ const REPO_ROOT = fileURLToPath(new URL('../../../', import.meta.url));
 const RATE_SERIES_PATH = join(REPO_ROOT, 'rates/register/series/coal-lsl-levy.json');
 const METHODS_PATH = fileURLToPath(new URL('../methods.json', import.meta.url));
 const RECHECK_ROW = '2023-07-01-rechecked-2026-11-05';
+// SHA-256 of JSON.stringify(row) for row 2023-07-01 as published in register 2026.09.18.
+const PUBLISHED_ROW_SHA256 = '5692c9e254fdbd1be19b6da1afc5821d1b22e5182a83ec5d9c2da76d75cf7975';
 
 test('supported months run from the amended method start to the rate source-check month', () => {
   const register = loadRegister();
   const months = register.supportedMonths();
-  assert.equal(months[0], '2024-01');
-  assert.equal(months.at(-1), '2026-10');
-  assert.equal(months.length, 34);
+  const expected = [2024, 2025, 2026]
+    .flatMap((year) => Array.from({ length: 12 }, (_, index) => `${year}-${String(index + 1).padStart(2, '0')}`))
+    .filter((month) => month <= '2026-10');
+  assert.equal(expected.length, 34);
+  assert.deepEqual(months, expected);
+  for (const month of expected) assert.equal(register.rateFor(month).row_id, RECHECK_ROW, month);
   assert.equal(register.isSupported('2023-12'), false);
   assert.equal(register.isSupported('2026-11'), false, 'the 5 November check does not cover the whole month');
   assert.equal(register.isSupported('2026-12'), false);
@@ -30,7 +35,8 @@ test('the published row stands superseded and only its replacement is served', (
   const [published, recheck] = JSON.parse(readFileSync(RATE_SERIES_PATH, 'utf8')).rows;
   assert.equal(published.row_id, '2023-07-01');
   assert.equal(published.status, 'superseded');
-  assert.equal(published.verified_at, '2026-09-18', 'the first check stays on the record');
+  const asPublished = JSON.stringify({ ...published, status: 'verified' });
+  assert.equal(createHash('sha256').update(asPublished).digest('hex'), PUBLISHED_ROW_SHA256, 'only status changed');
   assert.equal(recheck.row_id, RECHECK_ROW);
   assert.equal(recheck.supersedes, published.row_id);
   assert.equal(recheck.status, 'verified');

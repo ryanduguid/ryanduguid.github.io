@@ -389,6 +389,17 @@ fn only_one_replacement_may_name_a_superseded_row() {
 }
 
 #[test]
+fn a_recheck_cannot_leave_the_row_it_replaces_live() {
+    let register = Register::new();
+    let mut payload = register.live_series();
+    let mut recheck = rows(&mut payload)[0].clone();
+    *member(&mut recheck, "row_id") = s("recheck");
+    rows(&mut payload).push(recheck);
+    register.rewrite(&register.series(), &payload);
+    assert!(any(&register.check(), "overlap"));
+}
+
+#[test]
 fn a_live_row_cannot_be_superseded() {
     let register = Register::new();
     let mut payload = register.live_series();

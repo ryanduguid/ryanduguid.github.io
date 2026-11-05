@@ -328,17 +328,16 @@ export function createApp(options = {}) {
       if (contentType !== 'application/json') {
         return send(response, 415, { error: 'unsupported_media_type', message: 'Send Content-Type: application/json.' }, headers);
       }
+      // The rest of the upload stays unread, so the connection cannot carry
+      // another request: close it once the 413 is out.
+      const bodyTooLarge = () => send(response, 413, { error: 'body_too_large', max_body_bytes: config.maxBodyBytes }, { ...headers, Connection: 'close' });
       const declared = Number(request.headers['content-length'] ?? 0);
-      if (declared > config.maxBodyBytes) {
-        return send(response, 413, { error: 'body_too_large', max_body_bytes: config.maxBodyBytes }, headers);
-      }
+      if (declared > config.maxBodyBytes) return bodyTooLarge();
       let bytes;
       try {
         bytes = await readBody(request, config.maxBodyBytes);
       } catch (issue) {
-        if (issue.code === 'body_too_large') {
-          return send(response, 413, { error: 'body_too_large', max_body_bytes: config.maxBodyBytes }, headers);
-        }
+        if (issue.code === 'body_too_large') return bodyTooLarge();
         throw issue;
       }
       let body;

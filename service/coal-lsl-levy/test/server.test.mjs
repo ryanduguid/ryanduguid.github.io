@@ -1,12 +1,15 @@
 import { test, after, before } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { connect } from 'node:net';
+import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import { clientKey, createApp, createThrottle } from '../src/server.mjs';
 import { REQUEST_SCHEMA } from '../src/openapi.mjs';
+import { loadRegister } from '../src/load-register.mjs';
 import { validateRequest } from '../src/schema.mjs';
 import { centsToString, MoneyError, parseMoney } from '../src/money.mjs';
 import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
@@ -31,6 +34,20 @@ const post = (path, body, headers = {}) => fetch(`${base}${path}`, {
   headers: { 'content-type': 'application/json', ...headers },
   body: typeof body === 'string' ? body : JSON.stringify(body),
 });
+
+// Writes bytes as given, because fetch rewrites a target's dot segments and
+// hides what the connection does. Settles when the server closes the socket,
+// or after `waitMs` with closed: false.
+const rawExchange = (port, text, waitMs = 2000) => new Promise((resolve) => {
+  let received = '';
+  const socket = connect(port, '127.0.0.1');
+  const timer = setTimeout(() => { resolve({ received, closed: false }); socket.destroy(); }, waitMs);
+  socket.on('data', (chunk) => { received += chunk; });
+  socket.on('error', () => {});
+  socket.on('close', () => { clearTimeout(timer); resolve({ received, closed: true }); });
+  socket.write(text);
+});
+const statusOf = (received) => Number(received.split(' ')[1]);
 
 test('discovery lists the calculator, its periods, limits and refusal classes', async () => {
   const response = await fetch(`${base}/v1/calculators`);
@@ -103,6 +120,41 @@ test('September and October 2026 are served and November is refused, by GET and 
     });
     assert.equal(response.status, status, `POST ${month}`);
   }
+});
+
+test('the served months follow the register row, not a fixed list', async () => {
+  const series = JSON.parse(readFileSync(join(here, '..', '..', '..', 'rates', 'register', 'series', 'coal-lsl-levy.json'), 'utf8'));
+  const directory = mkdtempSync(join(tmpdir(), 'coal-lsl-boundary-'));
+  const statusesWith = async (verifiedAt) => {
+    series.rows.at(-1).verified_at = verifiedAt;
+    const rateSeriesPath = join(directory, `${verifiedAt}.json`);
+    writeFileSync(rateSeriesPath, JSON.stringify(series));
+    const moved = createApp({ port: 0, rateLimitPerMinute: 1000, log: () => {}, register: loadRegister({ rateSeriesPath }) });
+    await new Promise((resolve) => moved.server.listen(0, '127.0.0.1', resolve));
+    try {
+      const root = `http://127.0.0.1:${moved.server.address().port}`;
+      const statuses = [];
+      for (const month of ['2026-09', '2026-10', '2026-11']) {
+        const period = `urn:sbrm:period:coal-lsl-levy:${month}`;
+        const listing = await fetch(`${root}/v1/rates/${period}`);
+        const result = await fetch(`${root}/v1/calculators/${CALC}/${period}`, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            reporting_month: month, branch: 'annual_salary', employee: { eligible_employee: true },
+            pay: { annual_salary_paid: '10000.00', salary_sacrificed: '0.00', bonuses: [] },
+          }),
+        });
+        assert.equal(result.status, listing.status, `GET and POST agree on ${month}`);
+        statuses.push(result.status);
+      }
+      return statuses;
+    } finally {
+      moved.server.close();
+    }
+  };
+  assert.deepEqual(await statusesWith('2026-10-30'), [200, 404, 404], 'a check before month end drops October');
+  assert.deepEqual(await statusesWith('2026-11-30'), [200, 200, 200], 'a check at month end admits November');
 });
 
 test('rate listing hashes equal the SHA-256 of the exact bytes the rate routes serve', async () => {
@@ -229,12 +281,20 @@ test('X-Forwarded-For is ignored unless the proxy is trusted', async () => {
   }
 });
 
-test('logs carry no request bodies, amounts or client addresses', () => {
+test('logs carry only the permitted fields, never bodies, amounts, queries or client addresses', async () => {
+  const response = await post(`/v1/calculators/${CALC}/${PERIOD}?probe=query-sentinel`, {
+    reporting_month: '2026-06', branch: 'annual_salary', employee: { eligible_employee: true },
+    pay: { annual_salary_paid: '7654321.09', salary_sacrificed: '0.00', bonuses: [] },
+  }, { 'x-forwarded-for': '203.0.113.77', 'user-agent': 'agent-sentinel' });
+  assert.equal(response.status, 200);
+  await response.text();
+  const lines = logs.map((line) => JSON.parse(line));
+  assert.ok(lines.length > 0);
+  for (const line of lines) assert.deepEqual(Object.keys(line).sort(), ['method', 'ms', 'path', 'request_id', 'status']);
   const joined = logs.join('\n');
-  assert.ok(logs.length > 0);
-  assert.ok(!joined.includes('6000.00'));
-  assert.ok(!joined.includes('127.0.0.1'));
-  assert.ok(!joined.includes('base_rate_of_pay'));
+  for (const secret of ['7654321.09', '6000.00', '127.0.0.1', '203.0.113.77', 'annual_salary_paid', 'base_rate_of_pay', 'query-sentinel', 'agent-sentinel']) {
+    assert.ok(!joined.includes(secret), secret);
+  }
 });
 
 
@@ -292,14 +352,17 @@ test('the logged path is the route that ran, not the raw target', async () => {
   const app2 = createApp({ port: 0, rateLimitPerMinute: 1000, log: (line) => seen.push(JSON.parse(line)) });
   await new Promise((resolve) => app2.server.listen(0, '127.0.0.1', resolve));
   try {
-    const root = `http://127.0.0.1:${app2.server.address().port}`;
+    const { port } = app2.server.address();
+    const get = (target) => rawExchange(port, `GET ${target} HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n`);
     // Dot segments resolve before routing, so this runs the liveness handler.
-    const traversed = await fetch(`${root}/v1/rates/urn:sbrm:period:coal-lsl-levy:2026-06/../../../healthz`);
-    assert.equal(traversed.status, 200);
+    const traversed = await get('/v1/rates/urn:sbrm:period:coal-lsl-levy:2026-06/../../../healthz');
+    assert.equal(statusOf(traversed.received), 200);
+    assert.ok(traversed.received.includes('"status":"ok"'), 'the liveness handler answered');
     assert.equal(seen.at(-1).path, '/healthz', 'the log names the handler that ran');
     // A percent-encoded segment routes decoded, and the log says so too.
-    await fetch(`${root}/v1/%72ates/urn:sbrm:period:coal-lsl-levy:2026-06`);
-    assert.ok(!seen.at(-1).path.includes('%72'), 'the log is not the caller\'s spelling');
+    const encoded = await get('/v1/%72ates/urn:sbrm:period:coal-lsl-levy:2026-06');
+    assert.equal(statusOf(encoded.received), 200);
+    assert.equal(seen.at(-1).path, '/v1/rates/urn:sbrm:period:coal-lsl-levy:2026-06', 'the log is not the caller\'s spelling');
   } finally {
     app2.server.close();
   }
@@ -317,6 +380,21 @@ test('an oversized chunked body gets the documented 413, not a dropped connectio
   });
   assert.equal(response.status, 413);
   assert.equal((await response.json()).max_body_bytes, 16384);
+});
+
+test('a 413 closes the connection instead of holding the unread upload', async () => {
+  const { port } = app.server.address();
+  const target = `/v1/calculators/${CALC}/${PERIOD}`;
+  const head = `POST ${target} HTTP/1.1\r\nHost: localhost\r\nContent-Type: application/json\r\n`;
+  // Both clients stop part way and keep the socket open.
+  const declared = await rawExchange(port, `${head}Content-Length: 40000\r\n\r\n{"pad":"`);
+  const chunk = 'x'.repeat(20000);
+  const chunked = await rawExchange(port, `${head}Transfer-Encoding: chunked\r\n\r\n${chunk.length.toString(16)}\r\n${chunk}\r\n`);
+  for (const [name, exchange] of Object.entries({ declared, chunked })) {
+    assert.equal(statusOf(exchange.received), 413, name);
+    assert.match(exchange.received, /\r\nConnection: close\r\n/i, name);
+    assert.equal(exchange.closed, true, `${name}: the server closed the socket`);
+  }
 });
 
 test('discovery publishes the real money ceiling, not a rounded one', async () => {
