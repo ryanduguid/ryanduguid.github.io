@@ -3931,7 +3931,7 @@ Software issue using fictional data? Open an issue or email with the tool named 
 
 Reproduce the Xero trial balance integrity evaluation
 
-These release xero-trial-balance-export/v0.1.6 tests use mocked Xero API behaviour and fictional account rows. They do not contain a live organisation’s data.
+The xero-trial-balance-export/v0.1.6 release tests use mocked Xero API behaviour and fictional account rows. They do not contain a live organisation’s data.
 
 Outcome | Fictional facts | Test-backed result
 Balanced, CSV written | Business Bank Account (090) has a $1,200.00 movement debit and $15,234.50 YTD debit. Trade Debtors (610) has equal credits. | Both pairs balance and the exact expected CSV bytes are written.

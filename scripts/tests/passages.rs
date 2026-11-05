@@ -113,6 +113,44 @@ fn the_first_passage_of_a_section_keeps_its_subject() {
     assert_eq!(failures(&word_start), Vec::<String>::new());
 }
 
+/// The rule reads the first passage of 12 or more words, wherever a short block puts it.
+#[test]
+fn a_short_introduction_does_not_excuse_the_first_passage() {
+    let plain = "The calculator works out GST on a wholly taxable supply of goods at 10%.";
+    let loose = "This tool works out the amount of GST in a wholly taxable supply.";
+    let page = |first: &str, second: &str| {
+        let rest = [plain; 6].join("\n\n");
+        format!(
+            "# Heading\n\nA lead.\n\n## Part\n\nAn introduction.\n\n{first}\n\n{second}\n\n{rest}"
+        )
+    };
+    assert_eq!(
+        failures(&page(loose, plain)),
+        [format!(
+            "page: section \"Part\" opens on a dangling reference: {loose}"
+        )]
+    );
+    assert_eq!(failures(&page(plain, loose)), Vec::<String>::new());
+}
+
+/// A page with no paragraph after its H1 has no lead, whatever follows it.
+#[test]
+fn a_page_needs_a_lead() {
+    for main in [
+        "# Heading",
+        "# Heading\n\n## Part\n\n### Detail",
+        "# Heading\n\n## Part\n\nThe calculator works out GST.",
+        "# Heading\n\n- A list item",
+        "The calculator works out GST.",
+    ] {
+        assert_eq!(
+            failures(main),
+            ["page: no lead paragraph after the H1"],
+            "{main}"
+        );
+    }
+}
+
 #[test]
 fn a_page_keeps_its_passages_self_contained() {
     let plain = "The calculator works out GST on a wholly taxable supply of goods at 10%.";

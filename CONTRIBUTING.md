@@ -404,7 +404,7 @@ files still tell agents to install it.
 
 | Rule | Limit |
 | --- | --- |
-| The page's lead, the first paragraph after the H1 | at most 45 words |
+| The page's lead, the first paragraph after the H1 | required, at most 45 words |
 | The first sentence under an H2 or H3 | at most 45 words, and no filler opener such as 'In this guide' |
 | Prose and list items under one heading, H1 to H4; tables and code do not count | at most 400 words |
 | The first passage of 12 or more words under a heading | no dangling opener such as 'This', 'It' or 'However' |

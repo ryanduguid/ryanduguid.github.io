@@ -175,6 +175,13 @@ fn sections(entry: &str) -> Vec<Section> {
 pub fn page_failures(page: &str, entry: &str) -> Vec<String> {
     let mut failures = Vec::new();
     let sections = sections(entry);
+    let lead = sections
+        .iter()
+        .find(|section| section.level == 1)
+        .and_then(|section| section.blocks.first());
+    if !lead.is_some_and(|lead| block_kind(lead) == "text") {
+        failures.push(format!("{page}: no lead paragraph after the H1"));
+    }
     let mut passages = 0;
     let mut dangling = 0;
     for section in &sections {
@@ -185,18 +192,20 @@ pub fn page_failures(page: &str, entry: &str) -> Vec<String> {
                 section.words
             ));
         }
-        for (position, block) in section.blocks.iter().enumerate() {
+        let mut first_passage = true;
+        for block in &section.blocks {
             if block_kind(block) == "text" && words(block) >= MIN_PASSAGE_WORDS {
                 passages += 1;
                 if opens_with(block, &DANGLING) {
                     dangling += 1;
-                    if position == 0 {
+                    if first_passage {
                         failures.push(format!(
                             "{page}: section {heading:?} opens on a dangling reference: {}",
                             first_sentence(block)
                         ));
                     }
                 }
+                first_passage = false;
             }
         }
         let Some(lead) = section.blocks.first() else {
