@@ -985,6 +985,33 @@ fn favicon_rasters_match_the_committed_files() {
     }
 }
 
+/// A rate page's source has no main or JSON-LD, so its digests come from the build.
+#[test]
+fn update_baseline_reads_layout_pages_from_the_build() {
+    if !rendered() {
+        return;
+    }
+    let site = copied_site();
+    let rel = "rates/super-guarantee/index.html";
+    let built = site.path().join("_site").join(rel);
+    std::fs::create_dir_all(built.parent().unwrap()).unwrap();
+    std::fs::copy(site.path().join(rel), &built).unwrap();
+    std::fs::write(site.path().join(rel), "---\nlayout: rate\n---\n").unwrap();
+    let committed = baseline(site.path());
+    assert!(design::update_baseline(site.path()).is_ok());
+    let updated = baseline(site.path());
+    for section in ["protected_main_text", "protected_main_links", "json_ld"] {
+        assert!(
+            committed
+                .get(section)
+                .and_then(|s| s.get(rel))
+                .unwrap()
+                .py_eq(updated.get(section).and_then(|s| s.get(rel)).unwrap()),
+            "{section}"
+        );
+    }
+}
+
 /// `--update-baseline` restores what it can derive: protected-text counts and
 /// the JSON-LD of a page missing from the baseline.
 #[test]

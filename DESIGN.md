@@ -41,8 +41,11 @@ where something needs action. Its rules:
   release statement before the first `h2`; pins and release history sit under
   the section they describe.
 - Each Rates entry leads with its current value, in Spline Sans Mono at the
-  small heading size, above the table name. The byline, verification note,
-  Excel steps and feed link follow the register.
+  small heading size, above the table name. The byline, source check note,
+  Excel steps and feed link follow the register. Each rate page repeats that
+  value above its `h1`, then its short answer, then its dates: Published,
+  Last reviewed for a person's review and Source checked for the CSV's
+  `checked_at`, each in `<time>`. `_layouts/rate.html` renders all 7.
 - Actions and wayfinding leave mono: navigation, breadcrumbs, contents, notes,
   links and buttons use Public Sans, and buttons set at body size. Spline Sans
   Mono keeps values, commands and the short labels of fact lists and stamps.

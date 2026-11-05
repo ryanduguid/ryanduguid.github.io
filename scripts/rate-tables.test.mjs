@@ -39,7 +39,8 @@ test('every rate table row header on a page loading the script is in a known for
   const pages = readdirSync('rates', { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && existsSync(`rates/${entry.name}/index.html`))
     .map((entry) => `rates/${entry.name}/index.html`)
-    .filter((page) => readFileSync(page, 'utf8').includes('/assets/rate-tables.mjs'));
+    // A source page sets the flag; the layout turns it into the script on a rendered page.
+    .filter((page) => /\/assets\/rate-tables\.mjs|^rate_figures: true$/m.test(readFileSync(page, 'utf8')));
   assert.ok(pages.length >= 6, `expected the 6 rate pages, found ${pages.length}`);
   for (const page of pages) {
     const html = readFileSync(page, 'utf8');

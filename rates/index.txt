@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/rates/
 
-> Maintained Australian super guarantee, contribution base, Division 7A, cents-per-kilometre, car limit and FBT rates with verified dates and primary sources.
+> Maintained Australian super guarantee, contribution base, Division 7A, cents-per-kilometre, car limit and FBT rates with source-checked dates and primary sources.
 
 # Rates
 
-Seven maintained Australian reference tables with the current value, source-reviewed date and primary material kept together.
+Seven maintained Australian reference tables with the current value, source-checked date and primary material kept together.
 
 Last reviewed 4 November 2026.
 
@@ -16,9 +16,9 @@ Last reviewed 4 November 2026.
 
 The general super guarantee rate is 12% from 1 July 2025, with no further percentage steps scheduled.
 
-Verified
+Source checked
 
-14 September 2026
+3 November 2026
 
 Scope
 
@@ -32,9 +32,9 @@ Primary source Download CSV
 
 For companies with a 30 June year end, the benchmark rate is 8.77% for 2026-27 and 8.37% for 2025-26.
 
-Verified
+Source checked
 
-14 September 2026
+3 November 2026
 
 Scope
 
@@ -48,9 +48,9 @@ Primary source Download CSV
 
 The rate is 91 cents for 2026-27 and applies to the first 5,000 business kilometres per car.
 
-Verified
+Source checked
 
-14 September 2026
+3 November 2026
 
 Scope
 
@@ -64,9 +64,9 @@ $270,830
 
 $270,830 a year for 2026-27 under Payday Super; quarterly bases apply to 30 June 2026.
 
-Verified
+Source checked
 
-20 September 2026
+3 November 2026
 
 Scope
 
@@ -80,9 +80,9 @@ $69,883
 
 $69,883 for a car first used or leased in 2026-27, and $69,674 for the two years before it.
 
-Verified
+Source checked
 
-20 September 2026
+3 November 2026
 
 Scope
 
@@ -96,9 +96,9 @@ Primary source Download CSV
 
 47%, with gross-up rates of 2.0802 and 1.8868, for every FBT year ending 31 March 2018 to 2027.
 
-Verified
+Source checked
 
-20 September 2026
+3 November 2026
 
 Scope
 
@@ -112,9 +112,9 @@ Primary source Download CSV
 
 The ATO summary lists 8 selected measures as TBD, one as Various and 6 with a bill. The page separates those source statuses and each bill’s stage from enacted measures, application dates and transition rules.
 
-Verified
+Source checked
 
-4 November 2026
+4 November 2026 for pending measures and 5 November 2026 for legislated measures
 
 Scope
 
@@ -122,9 +122,9 @@ Tax and super measures on the ATO’s Budget 2026-27 and MYEFO 2025-26 lists, by
 
 Primary source Download CSV
 
-Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page’s editorial check.
+Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Source checked is the date a table was last checked against its primary source, from the CSV’s checked_at; last reviewed is the date a person reviewed the page.
 
-Each rate page keeps its own source verification date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
+Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
 Use these tables in Excel
 
@@ -153,7 +153,7 @@ Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows,
 
 This imports the full SG history. A rate of 12.00 means 12%; divide by 100 if a formula needs a fraction. A blank end date remains blank. Select the period that applies to your work; the latest row does not apply to every year.
 
-Use Data, Refresh All to fetch the current CSV again. A successful refresh confirms retrieval, not source verification. Check the linked rate page’s verified date and primary source. For a completed workpaper, keep a dated values-only copy of the table and its source verification date; a live query can change on refresh.
+Use Data, Refresh All to fetch the current CSV again. A successful refresh confirms retrieval, not a source check. Check the linked rate page’s Source checked date and primary source. For a completed workpaper, keep a dated values-only copy of the table and its Source checked date; a live query can change on refresh.
 
 The other six tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.
 

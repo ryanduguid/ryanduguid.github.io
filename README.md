@@ -22,7 +22,7 @@ Source for [duguid.com.au](https://duguid.com.au/), the open source accounting t
 - `/tools/` groups the tool register by Extract, Calculate, Control and Inspect.
 - `/works-with/` lists existing tools by software, starting with Xero and Claude, with setup requirements and read and write boundaries.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
-- `/rates/` holds maintained Australian rate tables with primary sources and review dates, and `/rates/register/` holds a versioned machine-readable register, which so far carries one series, the Coal LSL levy percentage.
+- `/rates/` holds maintained Australian rate tables with primary sources and review dates, each rendered by `_layouts/rate.html` from its front matter, and `/rates/register/` holds a versioned machine-readable register, which so far carries one series, the Coal LSL levy percentage.
 - `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.
 - `/tools/business-calculators/` indexes 9 planning calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario has CSV export.
 - `/tools/ozzit/` documents the Ozzit Excel function library, with one page per module under `functions/`, rendered by `site-tools build_ozzit_reference` from the function reference of the release `scripts/release_record.json` names.

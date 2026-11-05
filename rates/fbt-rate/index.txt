@@ -1,4 +1,4 @@
-# FBT rate and gross-up rates by FBT year
+# What is the FBT rate for the year ending 31 March 2027? 47%
 
 Source: https://duguid.com.au/rates/fbt-rate/
 
@@ -6,9 +6,13 @@ Source: https://duguid.com.au/rates/fbt-rate/
 
 # FBT rate and gross-up rates
 
+47%
+
 The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868. The FBT year runs from 1 April to 31 March.
 
-Verified 20 September 2026 against the ATO’s FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The 47% rate is set by section 6 of the Fringe Benefits Tax Act 1986, checked 22 September 2026. This citation check does not renew the historical table review.
+Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
+
+Read on 20 September 2026 from the ATO’s FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The 47% rate is set by section 6 of the Fringe Benefits Tax Act 1986, checked 22 September 2026. This citation check does not renew the historical table review.
 
 ## Rate and gross-up rates, by FBT year
 
@@ -50,7 +54,7 @@ The FBT year runs from 1 April to 31 March, so the year ending 31 March 2027 beg
 
 The lower Type 2 rate, whether or not the benefit itself was Type 1. The reporting threshold is a taxable value above $2,000, which grosses up to $3,773.
 
-Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -61,8 +65,6 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Company tax and franking checks
 - Payroll and super questions
 - About Ryan Duguid
-
-Published 20 September 2026. Last reviewed 3 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
 
 ## Links
 

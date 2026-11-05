@@ -1600,6 +1600,16 @@ impl From<String> for UpdateError {
     }
 }
 
+/// A page as built: a page that uses a layout has its main and JSON-LD only in `_site`.
+fn rendered_page(root: &Path, rel: &str) -> PathBuf {
+    let built = root.join("_site").join(rel);
+    if built.is_file() {
+        built
+    } else {
+        site_path(root, rel)
+    }
+}
+
 /// Re-derive every digest in the design baseline from the current tree.
 pub fn update_baseline(root: &Path) -> Result<PathBuf, UpdateError> {
     let path = root.join("scripts").join("design_baseline.json");
@@ -1626,7 +1636,11 @@ pub fn update_baseline(root: &Path) -> Result<PathBuf, UpdateError> {
             return Err(format!("TypeError: section {key} is not a dict").into());
         };
         for (rel, entry) in entries.iter_mut() {
-            let file = site_path(root, rel);
+            let file = if key == "protected_files" {
+                site_path(root, rel)
+            } else {
+                rendered_page(root, rel)
+            };
             *entry = match key {
                 "protected_files" => Json::Str(normalised_text_digest(&file)?),
                 "protected_main_text" => match main_visible_digest(&file)? {

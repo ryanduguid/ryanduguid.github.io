@@ -10,7 +10,9 @@ use site_tools::htmlparser::{self, Event};
 use site_tools::pycsv;
 use site_tools::pyjson::{self, Json};
 use site_tools::pyre::{S, re};
-use site_tools::seo_core::{Tree, parse_structure};
+use site_tools::seo_core::{TITLE_MAX, Tree, parse_structure};
+use site_tools::site_contracts::RATE_PAGES;
+use site_tools::source_freshness::format_date;
 
 const ANNOUNCED: &str = "rates/announced-not-yet-law";
 const CASE: &str = "assets/examples/quarter-close-to-forecast";
@@ -510,7 +512,7 @@ fn payday_super_receipts_workbooks_and_qualifications() {
         read("evaluate/payday-super-evidence/index.html").contains("payday-super-checker/v0.1.3")
     );
     let fbt = read("rates/fbt-rate/index.html");
-    assert!(fbt.contains("Verified 20 September 2026 against the ATO"));
+    assert!(fbt.contains("Read on 20 September 2026 from the ATO"));
     assert!(fbt.contains("citation check does not renew the historical table review"));
 
     // The join qualification keeps the other evidence limits.
@@ -950,6 +952,341 @@ fn rates_hub_queries_type_every_csv_column() {
     }
     queried.sort();
     assert_eq!(queried, csvs);
+}
+
+/// What a rate page must state, from the latest row of its CSV.
+struct RateFact {
+    year: String,
+    value: String,
+    /// Every distinct `checked_at`, sorted.
+    checked: Vec<String>,
+}
+
+/// The Australian income year holding an ISO date: 2026-11-03 is in 2026-27.
+fn income_year(date: &str) -> String {
+    let year: u32 = date[..4].parse().unwrap();
+    let start = if &date[5..7] >= "07" { year } else { year - 1 };
+    format!("{start}-{:02}", (start + 1) % 100)
+}
+
+fn percent(value: &str) -> String {
+    let value = if value.contains('.') {
+        value.trim_end_matches('0').trim_end_matches('.')
+    } else {
+        value
+    };
+    format!("{value}%")
+}
+
+fn latest<'a>(
+    rows: &'a [Vec<(String, Option<String>)>],
+    column: &str,
+) -> &'a [(String, Option<String>)] {
+    rows.iter()
+        .max_by_key(|r| field(r, column).to_owned())
+        .unwrap()
+}
+
+fn rate_fact(slug: &str) -> RateFact {
+    let by_income_year =
+        |rows: &[Vec<(String, Option<String>)>], column: &str, shown: fn(&str) -> String| {
+            let row = latest(rows, "income_year");
+            (
+                field(row, "income_year").to_owned(),
+                shown(field(row, column)),
+            )
+        };
+    let dollars = |value: &str| money(value).trim_end_matches(".00").to_owned();
+    let (rows, (year, value)) = match slug {
+        "super-guarantee" => {
+            let rows = csv_rows("rates/super-guarantee/super-guarantee-rates.csv");
+            let row = latest(&rows, "period_start");
+            // An open-ended row reaches the year it was last checked in.
+            let last = match field(row, "period_end") {
+                "" => field(row, "checked_at"),
+                end => end,
+            };
+            let fact = (
+                income_year(last),
+                percent(field(row, "general_sg_rate_percent")),
+            );
+            (rows, fact)
+        }
+        "div7a-benchmark-rate" => {
+            let rows = csv_rows("rates/div7a-benchmark-rate/div7a-benchmark-rates.csv");
+            let fact = by_income_year(&rows, "benchmark_rate_percent", percent);
+            (rows, fact)
+        }
+        "cents-per-kilometre" => {
+            let rows = csv_rows("rates/cents-per-kilometre/cents-per-kilometre-rates.csv");
+            let fact = by_income_year(&rows, "cents_per_km", |v| format!("{v} cents"));
+            (rows, fact)
+        }
+        "maximum-contribution-base" => {
+            let rows = csv_rows("rates/maximum-contribution-base/maximum-contribution-base.csv");
+            let fact = by_income_year(&rows, "maximum_contribution_base", dollars);
+            (rows, fact)
+        }
+        "car-limit" => {
+            let rows = csv_rows("rates/car-limit/car-limit.csv");
+            let fact = by_income_year(&rows, "car_limit", dollars);
+            (rows, fact)
+        }
+        "fbt-rate" => {
+            let rows = csv_rows("rates/fbt-rate/fbt-rates.csv");
+            let row = latest(&rows, "fbt_year_ending");
+            let fact = (
+                format_date(field(row, "fbt_year_ending")),
+                percent(field(row, "fbt_rate_percent")),
+            );
+            (rows, fact)
+        }
+        "announced-not-yet-law" => {
+            let rows = csv_rows("rates/announced-not-yet-law/announced-measures.csv");
+            let tbd = rows.iter().filter(|r| field(r, "status") == "TBD").count();
+            let budget = rows
+                .iter()
+                .map(|r| field(r, "announced_in").rsplit(' ').next().unwrap())
+                .max()
+                .unwrap()
+                .to_owned();
+            (rows, (budget, format!("{tbd} TBD")))
+        }
+        other => panic!("no CSV rule for {other}"),
+    };
+    let mut checked: Vec<String> = rows
+        .iter()
+        .map(|r| field(r, "checked_at").to_owned())
+        .collect();
+    checked.sort();
+    checked.dedup();
+    RateFact {
+        year,
+        value,
+        checked,
+    }
+}
+
+/// Each `<time>` under `parent`, as its datetime, or a failure if its text shows another date.
+fn shown_dates(tree: &Tree, parent: usize, failures: &mut Vec<String>) -> Vec<String> {
+    let mut dates = Vec::new();
+    for time in tree.descendants(parent, Some("time"), false) {
+        let iso = tree.attr(time, "datetime").unwrap_or_default().to_owned();
+        if tree.text(time) != format_date(&iso) {
+            failures.push(format!("{iso} is shown as {}", tree.text(time)));
+        }
+        dates.push(iso);
+    }
+    dates
+}
+
+/// The labelled date in a page-meta line, as its datetime.
+fn labelled_dates(meta: &str, label: &str) -> Vec<String> {
+    re(&format!(r#"{label} <time datetime="([^"]*)""#), 0).findall(meta)
+}
+
+/// Where a rate page or its index entry disagrees with the facts from its CSV.
+fn rate_page_failures(slug: &str, html: &str, index: &str, fact: &RateFact) -> Vec<String> {
+    let mut failures = Vec::new();
+    let title = re(r"<title>(.*?)</title>", S)
+        .search(html)
+        .map_or(String::new(), |m| m[1].to_owned());
+    for part in [&fact.year, &fact.value] {
+        if !title.contains(part.as_str()) {
+            failures.push(format!("title lacks {part}: {title}"));
+        }
+    }
+    if !title.contains('?') || title.chars().count() > TITLE_MAX {
+        failures.push(format!(
+            "title must be a question within {TITLE_MAX}: {title}"
+        ));
+    }
+
+    let tree = parse_structure(html);
+    let classed = |tree: &Tree, parent: usize, class: &str| -> Vec<usize> {
+        tree.descendants(parent, None, false)
+            .into_iter()
+            .filter(|e| tree.has_class(*e, class))
+            .collect()
+    };
+    let headlines: Vec<String> = classed(&tree, Tree::ROOT, "rate-entry__value")
+        .into_iter()
+        .map(|e| tree.text(e))
+        .collect();
+    if headlines != [fact.value.as_str()] {
+        failures.push(format!("headline is {headlines:?}, not {}", fact.value));
+    }
+
+    let structured = |key: &str| -> Vec<String> {
+        site_tools::seo_core::json_ld_blocks(html, slug, &mut Vec::new())
+            .iter()
+            .flat_map(site_tools::seo_core::nodes)
+            .filter_map(|n| n.get(key))
+            .map(text_of)
+            .collect()
+    };
+    let metas = classed(&tree, Tree::ROOT, "page-meta");
+    let Some(raw) = re(r#"<p class="page-meta">(.*?)</p>"#, S).search(html) else {
+        failures.push("no page-meta line".to_owned());
+        return failures;
+    };
+    if metas.len() != 1 {
+        failures.push(format!(
+            "expected one page-meta line, found {}",
+            metas.len()
+        ));
+    }
+    shown_dates(&tree, metas[0], &mut failures);
+    let source_checked = labelled_dates(&raw[1], "Source checked");
+    if source_checked != fact.checked {
+        failures.push(format!(
+            "Source checked {source_checked:?} disagrees with the CSV's checked_at {:?}",
+            fact.checked
+        ));
+    }
+    let reviewed = labelled_dates(&raw[1], "Last reviewed");
+    if reviewed.len() != 1 || structured("dateModified").iter().any(|d| *d != reviewed[0]) {
+        failures.push(format!(
+            "Last reviewed {reviewed:?} differs from dateModified"
+        ));
+    }
+    if labelled_dates(&raw[1], "Published") != structured("datePublished") {
+        failures.push("Published differs from datePublished".to_owned());
+    }
+
+    let text = site_tools::seo_core::visible_text(html);
+    let shown: Vec<String> = fact.checked.iter().map(|d| format_date(d)).collect();
+    for date in re(r"every row was rechecked on (\d{1,2} [A-Z][a-z]+ \d{4})", 0).findall(&text) {
+        if !shown.contains(&date) {
+            failures.push(format!("CSV note says {date}, not {shown:?}"));
+        }
+    }
+    if text.contains("Verified") || text.contains("verification date") {
+        failures.push("page still says Verified".to_owned());
+    }
+
+    let href = format!("/rates/{slug}/");
+    let tree = parse_structure(index);
+    let entries: Vec<usize> = classed(&tree, Tree::ROOT, "rate-entry")
+        .into_iter()
+        .filter(|e| links(&tree, *e).contains(&Some(href.clone())))
+        .collect();
+    let [entry] = entries[..] else {
+        failures.push(format!("expected one index entry, found {}", entries.len()));
+        return failures;
+    };
+    let values: Vec<String> = classed(&tree, entry, "rate-entry__value")
+        .into_iter()
+        .map(|e| tree.text(e))
+        .collect();
+    if values != [fact.value.as_str()] {
+        failures.push(format!("index value is {values:?}, not {}", fact.value));
+    }
+    let dates = shown_dates(&tree, entry, &mut failures);
+    if dates != fact.checked {
+        failures.push(format!(
+            "index dates {dates:?} disagree with the CSV's checked_at {:?}",
+            fact.checked
+        ));
+    }
+    failures
+}
+
+#[test]
+fn rate_pages_state_their_csv_year_value_and_dates() {
+    if !rendered() {
+        return;
+    }
+    let index = read("rates/index.html");
+    let mut failures = Vec::new();
+    if site_tools::seo_core::visible_text(&index).contains("Verified") {
+        failures.push("rates index still says Verified".to_owned());
+    }
+    for rel in RATE_PAGES {
+        let slug = rel.split('/').nth(1).unwrap();
+        for failure in rate_page_failures(slug, &read(rel), &index, &rate_fact(slug)) {
+            failures.push(format!("{slug}: {failure}"));
+        }
+    }
+    assert!(failures.is_empty(), "{failures:#?}");
+}
+
+#[test]
+fn rate_page_contract_catches_a_stale_title_or_date() {
+    if !rendered() {
+        return;
+    }
+    let slug = "super-guarantee";
+    let (page, index) = (
+        read("rates/super-guarantee/index.html"),
+        read("rates/index.html"),
+    );
+    let fact = rate_fact(slug);
+    let (year, value, iso) = (&fact.year, &fact.value, &fact.checked[0]);
+    let shown = format_date(iso);
+    let stamp = format!(r#"<time datetime="{iso}">{shown}</time>"#);
+    let wrong = r#"<time datetime="2001-01-02">2 January 2001</time>"#;
+    let cases = [
+        (
+            format!("{year}? {value}</title>"),
+            format!("2001-02? {value}</title>"),
+            format!("title lacks {year}"),
+        ),
+        (
+            format!("{year}? {value}</title>"),
+            format!("{year}? 1%</title>"),
+            format!("title lacks {value}"),
+        ),
+        (
+            format!(r#"rate-entry__value">{value}</p>"#),
+            r#"rate-entry__value">1%</p>"#.to_owned(),
+            "headline is".to_owned(),
+        ),
+        (
+            format!("Source checked {stamp}"),
+            format!("Source checked {wrong}"),
+            "disagrees with the CSV".to_owned(),
+        ),
+        (
+            format!("Source checked {stamp}"),
+            format!(r#"Source checked <time datetime="{iso}">2 January 2001</time>"#),
+            "is shown as 2 January 2001".to_owned(),
+        ),
+        (
+            format!("every row was rechecked on {shown}"),
+            "every row was rechecked on 2 January 2001".to_owned(),
+            "CSV note says 2 January 2001".to_owned(),
+        ),
+    ];
+    for (from, to, expected) in &cases {
+        assert!(page.contains(from.as_str()), "{from}");
+        let failures = rate_page_failures(slug, &page.replace(from, to), &index, &fact);
+        assert!(
+            failures.iter().any(|f| f.contains(expected.as_str())),
+            "{expected}: {failures:#?}"
+        );
+    }
+
+    // A new CSV row moves the facts: the unchanged page and index then fail.
+    let moved = RateFact {
+        year: "2099-00".to_owned(),
+        value: "99%".to_owned(),
+        checked: vec!["2099-07-01".to_owned()],
+    };
+    let failures = rate_page_failures(slug, &page, &index, &moved);
+    for expected in [
+        "title lacks 2099-00",
+        "title lacks 99%",
+        "headline is",
+        "disagrees with the CSV",
+        "index value is",
+        "index dates",
+    ] {
+        assert!(
+            failures.iter().any(|f| f.contains(expected)),
+            "{expected}: {failures:#?}"
+        );
+    }
 }
 
 #[test]

@@ -1,4 +1,4 @@
-# Super guarantee rate history (2002-03 to today)
+# What is the super guarantee rate for 2026-27? 12%
 
 Source: https://duguid.com.au/rates/super-guarantee/
 
@@ -6,9 +6,13 @@ Source: https://duguid.com.au/rates/super-guarantee/
 
 # Super guarantee rate history
 
+12%
+
 The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and no further increases are scheduled. Payday super, from 1 July 2026, changed when contributions must be paid, generally within 7 business days of each payday, and left the rate alone.
 
-Verified 30 August 2026 against the ATO’s super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992. The general SG rate table was rechecked against the ATO on 14 September 2026.
+Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
+
+Read on 30 August 2026 from the ATO’s super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992. The general SG rate table was rechecked against the ATO on 14 September 2026.
 
 ## Current rate
 
@@ -48,7 +52,7 @@ No. Payday Super changed the timing from that date: pay within 7 business days o
 
 The last increase was to 12% on 1 July 2025. Earlier steps were annual each 1 July: 11.5% (2024), 11% (2023), 10.5% (2022), 10% (2021).
 
-Rates here reflect the ATO page as at the verification date above. Check current ATO guidance before relying on a figure.
+Rates here reflect the ATO page as at the Source checked date above. Check current ATO guidance before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -62,8 +66,6 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Coal LSL levy calculator
 - Staff cost calculator
 - About Ryan Duguid
-
-Published 24 August 2026. Last reviewed 3 November 2026.
 
 ## Links
 

@@ -1,4 +1,4 @@
-# Maximum super contribution base by year
+# What is the maximum super contribution base for 2026-27? $270,830
 
 Source: https://duguid.com.au/rates/maximum-contribution-base/
 
@@ -6,9 +6,13 @@ Source: https://duguid.com.au/rates/maximum-contribution-base/
 
 # Maximum super contribution base
 
+$270,830
+
 The maximum contribution base is $270,830 for 2026-27. It is now an annual figure that applies to each employer separately: once the qualifying earnings an employer has paid an employee for the year pass it, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
 
-Verified 20 September 2026 against the ATO’s super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), read with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
+Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
+
+Read on 20 September 2026 from the ATO’s super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
 
 ## Current base
 
@@ -50,7 +54,7 @@ Concessional contributions cap, multiplied by 100, divided by the super guarante
 
 12% of $270,830, which is $32,499.60 for the year, before any salary sacrifice or additional contributions the employer chooses to make.
 
-Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
@@ -61,8 +65,6 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Staff cost calculator
 - Division 7A benchmark interest rate
 - About Ryan Duguid
-
-Published 20 September 2026. Last reviewed 3 November 2026.
 
 ## Links
 
