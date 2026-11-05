@@ -163,6 +163,21 @@ fn the_command_reports_each_failing_page() {
     );
 }
 
+/// `check_site` runs the rules against the built pages and these tests in its suite.
+#[test]
+fn check_site_runs_the_passage_rules() {
+    use site_tools::check_site::{CHECKS, Check};
+    let runs = |wanted: &str| {
+        CHECKS.iter().any(|check| match check {
+            Check::Tool(args) => args.contains(&wanted),
+            Check::Tests(names) => names.contains(&wanted),
+            Check::External(_) => false,
+        })
+    };
+    assert!(runs("check_passages"));
+    assert!(runs("passages"));
+}
+
 /// `build_llms_full --check` proves these entries match the pages.
 #[test]
 fn the_committed_pages_keep_the_passage_rules() {

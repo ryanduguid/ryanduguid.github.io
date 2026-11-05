@@ -166,6 +166,7 @@ fn machine_index_copy() {
         "{stdout}"
     );
     // The committed copies match the rendered pages, as check_site.py's --check requires.
+    std::fs::write(&canonical, &written).unwrap();
     assert_eq!(run(root, &["--write"]).0, Some(0));
     let (code, stdout) = run(root, &["--check"]);
     assert_eq!(code, Some(0), "{stdout}");

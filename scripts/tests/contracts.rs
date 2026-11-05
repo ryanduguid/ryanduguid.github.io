@@ -384,6 +384,24 @@ fn crawler_classes_cover_the_pinned_list() {
     assert!(found[0].contains("not the pinned value"), "{found:?}");
 }
 
+/// The site contracts run the class check, so `check_seo` fails on an unclassified agent.
+#[test]
+fn site_contracts_run_the_crawler_classes() {
+    if !rendered() {
+        return;
+    }
+    const CLASSES: &str = "scripts/ai-robots/left-to-wildcard.json";
+    let site = copied_site();
+    let text = read_text(site.path(), CLASSES);
+    let changed = changed_text(&text, "    \"AI2Bot\",\n", "");
+    std::fs::write(site.path().join(CLASSES), changed).unwrap();
+    let found = contracts::check_site_contracts(&[], site.path()).unwrap();
+    assert!(
+        found.iter().any(|f| f.contains("ai2bot is not classified")),
+        "{found:?}"
+    );
+}
+
 #[test]
 fn indexable_robots_metadata() {
     if !rendered() {
