@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/loan/
 
 Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -26,9 +26,22 @@ No statutory rate or external source is applied. The interest rate is yours, not
 
 ## What the monthly loan payment calculator leaves out
 
-The monthly loan payment calculator assumes payments in arrears, with no fees or balloon, and a rate that does not change. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ. The result is not a lender’s quote.
+The monthly loan payment calculator assumes payments in arrears, with no fees or balloon, and a rate that does not change. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45. The result is not a lender’s quote.
 
 Loan reconciliation checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Monthly loan payment calculator
+
+Case | Inputs | Result
+A 30-year amortising loan | $100,000.00 at 6% over 360 months | Payment $599.55, first interest $500.00, first principal $99.55, total interest $115,838.19
+One month repays the balance and one month’s interest | $1,000.00 at 12% over 1 month | Payment $1,010.00, first interest $10.00, first principal $1,000.00, total interest $10.00
+Nil interest divides the balance | $20.15 at 0% over 2 months | Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00
+
+Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -39,4 +52,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
+- Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
 - nine business calculators: https://duguid.com.au/tools/business-calculators/

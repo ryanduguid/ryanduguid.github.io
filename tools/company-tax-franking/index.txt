@@ -50,7 +50,7 @@ Published package and release instructions.
 
 Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Fictional worked example
 
@@ -110,6 +110,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - uv installed: https://docs.astral.sh/uv/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/

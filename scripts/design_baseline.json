@@ -33,7 +33,7 @@
       "2654ce566cbdc5c0ddb9b353f3b01863c00e51345f81974f80520318d6a6fb24"
     ],
     "evidence/index.html": [
-      "f02b9e05c12d3ec7e7b31678cc8a617c7b2877fe57cdb730f8d2be97fdae789d"
+      "8d4eb0251aa4dffaff5b6af5fd1fe3bbc2f41119d1de88953e33488a42e6ae46"
     ],
     "examples/profit-vs-cash-flow/index.html": [
       "b991e66b74bef293b5e69d3c8166b642343b922441ddd7ec68ac155f25f8e975"
@@ -45,7 +45,7 @@
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "d9e1cec87b0ee76bd40b48974949b6b7340c2e72bc5da9f2a3dd3212fea20a0c"
+      "d06f77659122ef42315f240e7faddfbc55d27882fe72f7303d9e866c7b0cd8bb"
     ],
     "rates/car-limit/index.html": [
       "87f6f363ca6120c18337d00cbb0365db3817e6788e670ebfc9ec7b0f89576d84"
@@ -90,7 +90,7 @@
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
     ],
     "tools/limitations/index.html": [
-      "c5c87468f8231ee482d06771695fc3fffc47fdb4a4394d180f04aaf48d52f620"
+      "2c7deb2d11b010494b523ecd13bd7535e64448bd227e6150a4746257755addaf"
     ],
     "tools/monthly-close-controls/index.html": [
       "dc16d368fea6d1b8c483c3ae2dccf8f4b84bdaff12e834f0f4e7422a19ea2fff"
@@ -148,9 +148,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "693d4926f3098dbc1cc144cdb8dbe6a5a2f106167bcf7d7b703eed68eb03f731",
+    "llms.txt": "f058e4dea4d22023854700f90937ca04e13c69d8bafcad5d71e11ad90b256654",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
-    "sitemap.xml": "75c1d32fd196bfebc5b0fe27269befffb2dfc37ebf4bff11565271cc62f35f95"
+    "sitemap.xml": "74beb1641ba1f32e5c621567d3159fd7585bf1e23a067931962e017e7e33da5a"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

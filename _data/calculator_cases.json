@@ -1,0 +1,72 @@
+{
+  "gst": {
+    "function": "gst",
+    "peer": {"name": "Moneysmart GST calculator", "url": "https://moneysmart.gov.au/work-and-tax/gst-calculator", "checked": "5 November 2026", "input": "$20.15 excluding GST", "peer_result": "GST $2.02, price including GST $22.17", "call": ["20.15", false], "result": {"gst": 2.02, "gross": 22.17}, "output": "GST $2.02, inclusive $22.17", "verdict": "Both give the same cents on this input"},
+    "rows": [
+      {"case": "A round GST-inclusive amount", "input": "$110.00 including GST", "call": ["110", true], "result": {"net": 100, "gst": 10, "gross": 110}, "output": "Exclusive $100.00, GST $10.00, inclusive $110.00"},
+      {"case": "Half a cent of GST rounds up", "input": "$0.05 excluding GST", "call": ["0.05", false], "result": {"net": 0.05, "gst": 0.01, "gross": 0.06}, "output": "Exclusive $0.05, GST $0.01, inclusive $0.06"},
+      {"case": "GST below half a cent rounds to nil", "input": "$0.01 including GST", "call": ["0.01", true], "result": {"net": 0.01, "gst": 0, "gross": 0.01}, "output": "Exclusive $0.01, GST $0.00, inclusive $0.01"}
+    ]
+  },
+  "business-use": {
+    "function": "businessUse",
+    "rows": [
+      {"case": "An exact half cent rounds up", "input": "$20.15 at 50%", "call": ["20.15", "50"], "result": {"share": 10.08}, "output": "Business share $10.08"},
+      {"case": "No business use", "input": "$100.00 at 0%", "call": ["100", "0"], "result": {"share": 0}, "output": "Business share $0.00"},
+      {"case": "A share over 100% is refused", "input": "$100.00 at 100.01%", "call": ["100", "100.01"], "refused": "Enter an amount between 0 and 100.", "output": "Refused: enter an amount between 0 and 100"}
+    ]
+  },
+  "margin": {
+    "function": "margin",
+    "rows": [
+      {"case": "Margin uses sales, markup uses cost", "input": "Sales $100.00, cost $80.00", "call": ["100", "80"], "result": {"profit": 20, "margin": 20, "markup": 25}, "output": "Profit $20.00, margin 20.00%, markup 25.00%"},
+      {"case": "Nil sales give no margin", "input": "Sales $0.00, cost $50.00", "call": ["0", "50"], "result": {"profit": -50, "margin": null, "markup": -100}, "output": "Profit -$50.00, no margin, markup -100.00%"},
+      {"case": "Nil cost gives no markup", "input": "Sales $50.00, cost $0.00", "call": ["50", "0"], "result": {"profit": 50, "margin": 100, "markup": null}, "output": "Profit $50.00, margin 100.00%, no markup"}
+    ]
+  },
+  "break-even": {
+    "function": "breakEven",
+    "rows": [
+      {"case": "Part of a unit rounds up to a whole unit", "input": "Fixed $1,000.00, price $30.00, variable $18.00", "call": ["1000", "30", "18"], "result": {"contribution": 12, "units": 84, "sales": 2520}, "output": "Contribution $12.00, 84 units, sales $2,520.00"},
+      {"case": "A price equal to variable cost never breaks even", "input": "Fixed $1,000.00, price $18.00, variable $18.00", "call": ["1000", "18", "18"], "refused": "Price must exceed variable cost per unit to reach break-even.", "output": "Refused: price must exceed variable cost per unit to reach break-even"}
+    ]
+  },
+  "hourly": {
+    "function": "hourlyRate",
+    "rows": [
+      {"case": "An exact half cent rounds up", "input": "Costs $20.15, profit $0.00, 2 hours", "call": ["20.15", "0", "2"], "result": {"rate": 10.08}, "output": "Rate $10.08"},
+      {"case": "A rate rounds up so the hours cover the total", "input": "Costs $100.00, profit $0.00, 3 hours", "call": ["100", "0", "3"], "result": {"rate": 33.34}, "output": "Rate $33.34"}
+    ]
+  },
+  "variance": {
+    "function": "variance",
+    "rows": [
+      {"case": "Income above budget is favourable", "input": "Actual $110.00, budget $100.00, income", "call": ["110", "100", "income"], "result": {"difference": 10, "percent": 10, "effect": "Favourable"}, "output": "Difference $10.00, 10.00%, Favourable"},
+      {"case": "Cost above budget is unfavourable", "input": "Actual $110.00, budget $100.00, cost", "call": ["110", "100", "cost"], "result": {"difference": 10, "percent": 10, "effect": "Unfavourable"}, "output": "Difference $10.00, 10.00%, Unfavourable"},
+      {"case": "A nil budget has no percentage", "input": "Actual $10.00, budget $0.00, income", "call": ["10", "0", "income"], "result": {"difference": 10, "percent": null, "effect": "Favourable"}, "output": "Difference $10.00, no percentage, Favourable"}
+    ]
+  },
+  "loan": {
+    "function": "loan",
+    "peer": {"name": "Moneysmart mortgage calculator", "url": "https://moneysmart.gov.au/home-loans/mortgage-calculator", "checked": "5 November 2026", "input": "$100,000 at 6% over 30 years, repaid monthly, no fees", "peer_result": "repayments of $600 a month, total repayments $215,838", "call": ["100000", "6", "360"], "result": {"payment": 599.55, "totalInterest": 115838.19}, "output": "payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed", "verdict": "Moneysmart shows whole dollars, and the 2 agree to the dollar on this input"},
+    "rows": [
+      {"case": "A 30-year amortising loan", "input": "$100,000.00 at 6% over 360 months", "call": ["100000", "6", "360"], "result": {"payment": 599.55, "firstInterest": 500, "firstPrincipal": 99.55, "totalInterest": 115838.19}, "output": "Payment $599.55, first interest $500.00, first principal $99.55, total interest $115,838.19"},
+      {"case": "One month repays the balance and one month’s interest", "input": "$1,000.00 at 12% over 1 month", "call": ["1000", "12", "1"], "result": {"payment": 1010, "firstInterest": 10, "firstPrincipal": 1000, "totalInterest": 10}, "output": "Payment $1,010.00, first interest $10.00, first principal $1,000.00, total interest $10.00"},
+      {"case": "Nil interest divides the balance", "input": "$20.15 at 0% over 2 months", "call": ["20.15", "0", "2"], "result": {"payment": 10.08, "firstInterest": 0, "firstPrincipal": 10.08, "totalInterest": 0}, "output": "Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00"}
+    ]
+  },
+  "staff": {
+    "function": "staffCost",
+    "rows": [
+      {"case": "A month’s share rounds half up", "input": "Wages $51.30, super $0.00, other $0.00", "call": ["51.30", "0", "0"], "result": {"annual": 51.3, "monthly": 4.28}, "output": "Annual $51.30, monthly $4.28"},
+      {"case": "Annual costs add before spreading", "input": "Wages $80,000.00, super $9,600.00, other $1,000.00", "call": ["80000", "9600", "1000"], "result": {"annual": 90600, "monthly": 7550}, "output": "Annual $90,600.00, monthly $7,550.00"}
+    ]
+  },
+  "cash": {
+    "function": "cashForecast",
+    "rows": [
+      {"case": "A receipt delayed past week 13 stays visible as deferred", "input": "Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week", "call": ["-50", [{"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "1000", "payments": "0"}], "100", {"week": 13, "amount": "600", "delay": 1}], "result": {"closing": 350, "minimum": -50, "funding": 150, "deferred": 600}, "output": "Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00"},
+      {"case": "A receipt delayed into week 13 is not deferred", "input": "Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week", "call": ["-50", [{"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "1000", "payments": "0"}, {"receipts": "0", "payments": "0"}], "100", {"week": 12, "amount": "600", "delay": 1}], "result": {"closing": 950, "minimum": -50, "funding": 150, "deferred": 0}, "output": "Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00"}
+    ]
+  }
+}

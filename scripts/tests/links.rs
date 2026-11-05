@@ -4,7 +4,7 @@
 //! scripts/test_check_links.py: deterministic transport tests for the link checker.
 use site_tools::check_links::{
     Checker, Clock, NetError, Opened, Opener, github_blob_raw_url, is_accepted_automation_denial,
-    is_release_asset_redirect, own_repository,
+    is_release_asset_redirect, is_sign_in_redirect, own_repository,
 };
 use std::cell::RefCell;
 use std::collections::VecDeque;
@@ -361,6 +361,33 @@ fn pinned_release_download_accepts_only_github_asset_hosts() {
     assert!(!is_release_asset_redirect(
         "https://github.com/ryanduguid/Ozzit/blob/main/README.md",
         "https://release-assets.githubusercontent.com/asset"
+    ));
+}
+
+#[test]
+fn only_the_sign_in_page_for_the_same_issue_form_is_accepted() {
+    let form = "https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml";
+    let sign_in = "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fryanduguid%2Fryanduguid.github.io%2Fissues%2Fnew%3Ftemplate%3Dcontent_correction.yml";
+    assert!(is_sign_in_redirect(form, sign_in));
+    let harness = Harness::new(vec![]);
+    let failures = harness.run(|c| {
+        c.fetch_hook = Some(Box::new(move |_| Ok((200, sign_in.into()))));
+        c.lookup_hook = Some(Box::new(|_| Ok(false)));
+        c.check_hrefs("contact/index.html", &strings(&[form]), false)
+            .unwrap()
+    });
+    assert!(failures.is_empty(), "{failures:?}");
+    for final_url in [
+        "https://github.com/login",
+        "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fryanduguid%2Frenamed%2Fissues%2Fnew",
+        "http://github.com/login?return_to=x",
+        "https://github.com.example.invalid/login",
+    ] {
+        assert!(!is_sign_in_redirect(form, final_url), "{final_url}");
+    }
+    assert!(!is_sign_in_redirect(
+        "https://github.com/ryanduguid/Ozzit",
+        "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fryanduguid%2FOzzit"
     ));
 }
 

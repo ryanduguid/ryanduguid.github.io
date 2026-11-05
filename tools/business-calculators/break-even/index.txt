@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/break-even/
 
 Whole units and sales required to cover fixed costs from price and variable cost per unit.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -27,6 +27,16 @@ No statutory rate or threshold is applied. The definitions follow business.gov.a
 ## What the break-even calculator does not decide
 
 The break-even sales calculator does not forecast demand or say that the units can be sold. It uses one price and one variable cost, so use one product or a stable representative mix and a consistent GST basis.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Break-even sales calculator
+
+Case | Inputs | Result
+Part of a unit rounds up to a whole unit | Fixed $1,000.00, price $30.00, variable $18.00 | Contribution $12.00, 84 units, sales $2,520.00
+A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00, variable $18.00 | Refused: price must exceed variable cost per unit to reach break-even
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 

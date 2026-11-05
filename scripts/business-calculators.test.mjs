@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 import assert from 'node:assert/strict';
+import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
@@ -138,8 +139,9 @@ test('a percentage that rounds to zero is never negative zero', () => {
 
 test('break-even rounds units up and refuses non-positive contributions', () => {
   assert.deepEqual(breakEven('1000', '30', '18'), { contribution: 12, units: 84, sales: 2520 });
-  assert.throws(() => breakEven('1000', '18', '18'));
-  assert.throws(() => breakEven('1000', '17', '18'));
+  const refusal = { message: 'Price must exceed variable cost per unit to reach break-even.' };
+  assert.throws(() => breakEven('1000', '18', '18'), refusal);
+  assert.throws(() => breakEven('1000', '17', '18'), refusal);
   assert.throws(() => breakEven('1000000000', '1000000000', '999999999.99'));
 });
 
@@ -209,7 +211,114 @@ test('cash keeps out-of-horizon receipts visible and includes opening deficits',
   assert.throws(() => cashForecast('0', rows, '0', { week: 13, amount: '1001', delay: 1 }));
   assert.throws(() => cashForecast('0', rows.slice(1), '0'));
   assert.equal(cashForecast('0', rows, '0', { week: 13, amount: '0', delay: 13 }).closing, 1000);
+  const landing = cashForecast('0', rows, '0', { week: 12, amount: '0', delay: 1 });
+  assert.equal(landing.deferred, 0);
+  rows[11].receipts = '700';
+  const lastWeek = cashForecast('0', rows, '0', { week: 12, amount: '700', delay: 1 });
+  assert.equal(lastWeek.deferred, 0);
+  assert.equal(lastWeek.closing, 1700);
 });
+
+// The boundary cases each calculator page shows are data this test runs, so a page
+// cannot state a result the engine does not return.
+const shownCases = JSON.parse(readFileSync(new URL('../_data/calculator_cases.json', import.meta.url), 'utf8'));
+const dollars = (value) => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-AU',
+  { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+// How each result reads on a page, so a value shown under the wrong label fails.
+const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'business share', profit: 'profit',
+  contribution: 'contribution', sales: 'sales', rate: 'rate', difference: 'difference', payment: 'payment',
+  firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
+  annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
+  deferred: 'deferred' };
+const shownField = (field, value) => {
+  if (field === 'effect') return value;
+  if (field === 'units') return `${value} units`;
+  if (field === 'percent') return value === null ? 'no percentage' : `${value.toFixed(2)}%`;
+  if (field === 'margin' || field === 'markup') return value === null ? `no ${field}` : `${field} ${value.toFixed(2)}%`;
+  return `${LABELS[field]} ${dollars(value)}`;
+};
+
+test('every business calculator shows its boundary cases', () => {
+  const pages = readdirSync(new URL('../tools/business-calculators/', import.meta.url), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
+  assert.deepEqual(Object.keys(shownCases).sort(), pages);
+});
+
+// How each calculator's arguments read as a page's input, so a displayed input cannot
+// describe anything but the arguments its row runs.
+const INPUTS = {
+  gst: (amount, inclusive) => `${dollars(amount)} ${inclusive ? 'including' : 'excluding'} GST`,
+  businessUse: (amount, percent) => `${dollars(amount)} at ${percent}%`,
+  margin: (sales, cost) => `Sales ${dollars(sales)}, cost ${dollars(cost)}`,
+  breakEven: (fixed, price, variable) =>
+    `Fixed ${dollars(fixed)}, price ${dollars(price)}, variable ${dollars(variable)}`,
+  hourlyRate: (costs, profit, hours) => `Costs ${dollars(costs)}, profit ${dollars(profit)}, ${hours} hours`,
+  variance: (actual, budget, kind) => `Actual ${dollars(actual)}, budget ${dollars(budget)}, ${kind}`,
+  loan: (principal, rate, months) =>
+    `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`,
+  staffCost: (wages, superannuation, other) =>
+    `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
+  cashForecast: (opening, weeks, buffer, delayed) => {
+    const week = weeks.findIndex(({ receipts }) => receipts !== '0');
+    assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
+    assert.equal(delayed.week, week + 1);
+    return `Opening ${dollars(opening)}, buffer ${dollars(buffer)}, ${dollars(weeks[week].receipts)} received in `
+      + `week ${week + 1}, ${dollars(delayed.amount)} of it delayed ${delayed.delay} week`;
+  },
+};
+const PEER_INPUTS = {
+  loan: (principal, rate, months) =>
+    `$${Number(principal).toLocaleString('en-AU')} at ${rate}% over ${months / 12} years, repaid monthly, no fees`,
+};
+
+// peer_result and verdict are dated manual observations of the official calculator. This
+// binds the published verdict to the recorded observation; it does not reread the official site.
+const PEER_READINGS = {
+  gst: { form: /^GST \$(\d+\.\d{2}), price including GST \$(\d+\.\d{2})$/,
+    own: (result) => [result.gst, result.gross] },
+  loan: { form: /^repayments of \$([\d,]+) a month, total repayments \$([\d,]+)$/,
+    own: (result, [principal]) => [result.payment, Number(principal) + result.totalInterest] },
+};
+const assertPeerReading = (name, peer, result) => {
+  const { form, own } = PEER_READINGS[name];
+  assert.match(peer.peer_result, form);
+  const seen = peer.peer_result.match(form).slice(1);
+  const inCents = seen.every((figure) => figure.includes('.'));
+  assert.deepEqual(seen.map((figure) => Number(figure.replaceAll(',', ''))),
+    own(result, peer.call).map((figure) => (inCents ? figure : Math.round(figure))));
+  assert.equal(peer.verdict, inCents ? 'Both give the same cents on this input'
+    : 'Moneysmart shows whole dollars, and the 2 agree to the dollar on this input');
+};
+
+const assertShown = (actual, { result, output }) => {
+  const fields = Object.entries(result);
+  for (const [field, value] of fields) assert.equal(actual[field], value, field);
+  assert.equal(output.replace(/ on the \S+ borrowed$/, '').toLowerCase(),
+    fields.map(([field, value]) => shownField(field, value)).join(', ').toLowerCase());
+};
+
+for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
+  if (peer) {
+    test(`${page} official comparison states what this calculator returns`, () => {
+      assert.match(peer.url, /^https:\/\/moneysmart\.gov\.au\//);
+      assert.match(peer.checked, /^\d{1,2} [A-Z][a-z]+ \d{4}$/);
+      assert.equal((PEER_INPUTS[name] ?? INPUTS[name])(...peer.call), peer.input);
+      assertShown(calculations[name](...peer.call), peer);
+      assertPeerReading(name, peer, calculations[name](...peer.call));
+    });
+  }
+  for (const row of rows) {
+    test(`${page} boundary case returns what its page shows: ${row.case}`, () => {
+      assert.equal(INPUTS[name](...row.call), row.input);
+      if (row.refused) {
+        assert.throws(() => calculations[name](...row.call), { message: row.refused });
+        assert.equal(row.output, `Refused: ${row.refused[0].toLowerCase()}${row.refused.slice(1, -1)}`);
+        return;
+      }
+      assertShown(calculations[name](...row.call), row);
+    });
+  }
+}
 
 test('blank, non-finite, over-precise and unsafe amounts cannot become a zero result', () => {
   for (const value of ['', ' ', 'NaN', 'Infinity', '1e10', '100.001', '-1', '1000000001', null]) {

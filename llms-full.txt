@@ -310,7 +310,7 @@ Open the Xero installation and first run guide
 ## What you need
 
 - Python 3.11 or later, Git and a local working directory for the released exporter.
-- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app connect up to 5 organisations, at 1,000 API calls a day each. Core allows up to 50 for A$35 a month excluding tax, including 10 GB of API data egress, then A$2.40 a GB. An integration an accountant or bookkeeper builds for their own practice or a single client is exempt from this pricing, as Xero determines.
+- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation. Core allows up to 50 for A$35 a month excluding tax, including 10 GB of API data egress, then A$2.40 a GB. An integration an accountant or bookkeeper builds solely for their own practice or a single client is exempt from this pricing, as Xero determines.
 - A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.
 - An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.
 
@@ -453,7 +453,23 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.
 
-Last reviewed 31 October 2026.
+Last reviewed 5 November 2026.
+
+## Results you can check
+
+Australian Accounting’s Division 7A, Payday Super and MCP results below each carry a date, because sources and releases move. The repository README gives commands for the last 2.
+
+- Division 7A. On 7 October 2026 the minimum yearly repayment function of the ATO’s Division 7A calculator and decision tool and the div7a-loan-review Python 0.2.0 source agreed to the cent on 12,800 fictional cases with no repayments, for 2019-20 to 2026-27. Its repayment code and rate table are unchanged to the published 0.3.2, but the comparison was not rerun on later releases or the unreleased Rust port. It covers the repayment figure only, not the calculator’s interest or closing balance (record and limits).
+- Payday Super. For wages paid on 30 July 2026, payday-super-check 0.2.3 gives a due date of 11 August 2026, because NT Picnic Day on 3 August is not a business day. The ATO’s worked example gives the same date on the usual 7 business day path. Run and read 5 November 2026.
+- MCP tools. Aus Accounting MCP 0.7.1, the published release, listed 22 local tools on 5 November 2026. The source on main defines 24: validate_abn and validate_acn are not yet released.
+
+### Nearby products
+
+- Nagaris: a hosted practice platform for Australian accounting firms, with proposals, AML/CTF checks, e-signing, job tracking and an AI assistant on one client file. It publishes browser calculators, including Division 7A and Payday Super due dates, and the page for the second also states 11 August 2026 for a 30 July 2026 payday. Its AI Accounting Index, which tested third-party AI models with each question answered once, reports that none of the 14 setups that answered that question reached 11 August, and says Ask Nagaris adds lookup tables for business days. Read 5 November 2026.
+- Lodgeit: a hosted platform that prepares and lodges returns, BAS and financial reports. Its home page calls it an ‘Official ATO Standard Business Reporting platform’ and states ISO 27001:2022 certification. Read 5 November 2026.
+- LodgeiT Labs: a public HTTP gateway for deterministic calculators with no key or signup, which its page describes as ‘Not stable yet’. Its listing showed 23 calculators, with Division 7A periods fy2025 and fy2026 and FBT period fy2026. Its page also lists a Coal LSL calculator that I built and host as an external contributor, and Australian Accounting has an optional adapter for the gateway. Read 5 November 2026.
+
+The Australian Accounting repository offers none of those hosted services. It is not a registered tax or BAS agent, does not lodge and holds no third-party certification such as ISO 27001.
 
 ## From monthly close to a cash forecast
 
@@ -636,6 +652,18 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
+- repository README: https://github.com/ryanduguid/australian-accounting#readme
+- Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
+- record and limits: https://github.com/ryanduguid/australian-accounting/blob/main/packages/div7a-loan-review/docs/ato-calculator-comparison-2026-10-07.md
+- ATO’s worked example: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
+- Nagaris: https://nagaris.com/llms.txt
+- Division 7A: https://nagaris.com/division-7a-calculator
+- Payday Super due dates: https://nagaris.com/payday-super-due-date-calculator
+- AI Accounting Index: https://nagaris.com/ai-accounting-index
+- Lodgeit: https://lodgeit.net.au/
+- prepares and lodges: https://lodgeit.net.au/for-accountants/
+- LodgeiT Labs: https://lodgeit.org/calculators.html
+- listing: https://fbt-calculator-api-qkp3j5bjnq-ts.a.run.app/v1/calculators
 - Monthly values and review states (CSV, AUD): https://duguid.com.au/assets/examples/quarter-close-to-forecast/quarter-monthly.csv
 - October reader report (JSON): https://duguid.com.au/assets/examples/quarter-close-to-forecast/2026-10-31.json
 - November reader report (JSON): https://duguid.com.au/assets/examples/quarter-close-to-forecast/2026-11-30.json
@@ -1601,7 +1629,7 @@ Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 8 as T
 
 TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026, after the ATO’s update of 2 November 2026, and the legislated tables on 22 September 2026, after its update of 18 September 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
+Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026 and the legislated tables on 5 November 2026, both after the ATO’s update of 2 November 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
 ## Not yet legislated in the ATO summary
 
@@ -1634,14 +1662,14 @@ Left out on purpose: the Budget and MYEFO rows that fund administration rather t
 
 ## Legislated: later application
 
-The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
+The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. The stage column in this table and the next was read on 5 November 2026 from the Federal Register of Legislation; the CSV’s stage_source_url column links the first Act or instrument named, and the stage cites each by its Act number or Register ID. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
 
 ATO-reported legislation with later application
 
-Measure | Announced in | ATO start date | Legislation and assent or registration
-Negative gearing and CGT discount reform | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
-Working Australians Tax Offset | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
-Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
+Measure | Announced in | ATO start date | Legislation and assent or registration | Stage
+Negative gearing and CGT discount reform | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026 | Act No. 49 of 2026 and Act No. 50 of 2026, Royal Assent 26 June 2026
+Working Australians Tax Offset | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026 | Act No. 49 of 2026 and Act No. 50 of 2026, Royal Assent 26 June 2026
+Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026 | Act No. 8 of 2026 and Act No. 9 of 2026, Royal Assent 13 March 2026
 
 ### Negative gearing: application and acquisition cut-off
 
@@ -1659,16 +1687,16 @@ For these 9 measures the ATO summary names an Act or instrument and an applicati
 
 ATO-reported legislation with earlier application
 
-Measure | Announced in | ATO start date | Legislation and assent or registration
-$1,000 instant tax deduction for work-related expenses | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
-Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
-Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
-Medicare levy low-income threshold increase | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026, Royal Assent 30 June 2026
-Better Targeted Superannuation Concessions: practical changes | MYEFO 2025-26 | 1 July 2026 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
-Temporary reduction of fuel excise and the heavy vehicle road user charge | Budget 2026-27 | 1 April 2026 | Treasury Laws Amendment (Fuel Excise Relief No. 2) Act 2026 and Fuel Tax (Road User Charge) Determination 2026; Act Royal Assent 30 June 2026, Determination registered 25 June 2026
-Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
-Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026
-Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026
+Measure | Announced in | ATO start date | Legislation and assent or registration | Stage
+$1,000 instant tax deduction for work-related expenses | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026 | Act No. 49 of 2026 and Act No. 50 of 2026, Royal Assent 26 June 2026
+Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026 | Act No. 71 of 2026, Royal Assent 26 August 2026
+Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026 | Act No. 71 of 2026, Royal Assent 26 August 2026
+Medicare levy low-income threshold increase | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026, Royal Assent 30 June 2026 | Act No. 58 of 2026, Royal Assent 30 June 2026
+Better Targeted Superannuation Concessions: practical changes | MYEFO 2025-26 | 1 July 2026 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026 | Act No. 8 of 2026 and Act No. 9 of 2026, Royal Assent 13 March 2026
+Temporary reduction of fuel excise and the heavy vehicle road user charge | Budget 2026-27 | 1 April 2026 | Treasury Laws Amendment (Fuel Excise Relief No. 2) Act 2026 and Fuel Tax (Road User Charge) Determination 2026; Act Royal Assent 30 June 2026, Determination registered 25 June 2026 | Act No. 59 of 2026, Royal Assent 30 June 2026; F2026L00789 registered 25 June 2026
+Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026 | Act No. 71 of 2026, Royal Assent 26 August 2026
+Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026 | Act No. 82 of 2026, Royal Assent 26 August 2026
+Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026 | F2026L00831, registered 26 June 2026; automatically repealed 17 September 2026 under s 48A of the Legislation Act 2003
 
 Download the three tables as CSV. Cite as Duguid, R. (2026). Announced Australian tax measures and enacted law [Data set]. https://duguid.com.au/rates/announced-not-yet-law/. Verify a measure’s status against the ATO page before relying on it; the list changes every sitting.
 
@@ -1703,7 +1731,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 20 September 2026. Pending measures and their stages reviewed 4 November 2026; legislated measures and reform provisions reviewed 22 September 2026.
+Published 20 September 2026. Pending measures and their stages reviewed 4 November 2026; legislated measures and their stages reviewed 5 November 2026; reform provisions reviewed 22 September 2026.
 
 ## Links
 
@@ -2802,7 +2830,7 @@ A refusal is a question handed back. A limitation is an answer you should not re
 
 Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
-Published 16 September 2026. Last reviewed 1 October 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
+Published 16 September 2026. Last reviewed 5 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
 ## What belongs here
 
@@ -2874,9 +2902,25 @@ Do not read the two payloads as interchangeable.
 
 Human step. Map an account to every bucket the ratios you intend to read require, including a deliberate nil where the business genuinely has none. Where a figure must not be shown unless it was established, read the library payload: a not_supplied status is the honest answer that a command line 0.0000 cannot give. Where a business genuinely has no cost of sales, the fallback is the ATO’s own behaviour and the result stands.
 
+## Method and corrections
+
+Sources. A rate or threshold cites a primary source: each row of a rate table carries its own source_url on a primary host and a checked_at date, and the site checks fail on a row without them. An evidence record states its claim, the source or released artefact behind it, the date or version reviewed and where a person has to decide.
+
+Tests. The calculator engines have their own test suites, run on every pull request. Each entry on this page is bound by a test in its package. Evaluations reproduce results against fixed releases with fictional inputs.
+
+Freshness. A daily job compares the release references on these pages with published releases. A weekly sweep on Ryan’s machine reads the ATO addresses in the site’s source files, and its report lists the files to review. It fails at once on a response it cannot read or a substantive change in the text. A 404 or 410 is held instead: the report notes it, and the sweep fails only when a read at least 3 days later agrees. The change test leaves out the legal database home and hub and listing pages. Dates on a page record when it was last reviewed; the changelog records what changed.
+
+Recent corrections, from the changelog
+
+Date | Type | Correction
+2 November 2026 | Figure | Accounting question 8 gave 12 business days alone for returns lodged online; it now gives the ATO’s 10.
+31 October 2026 | Software | payday-super-checker v0.2.3 no longer reads an Employment Hero row with the Beam status Reconciled as sent to the fund.
+29 October 2026 | Date | Accounting question 6 gave 30 November 2026 as the end of ATO credit card payments; it now gives 30 June 2027.
+26 October 2026 | Scope | Accounting question 16 now limits the instant asset write-off to small businesses using the simplified depreciation rules.
+
 ## Telling me a number is wrong
 
-The most useful report carries the command you ran, the output it produced, the figure you expected and where that expectation comes from. A primary source, a worked example from the regulator or a second implementation all work. Open an issue on the repository that carries the tool, or use the contact page.
+The most useful report carries the command you ran, the output it produced, the figure you expected and where that expectation comes from. A primary source, a worked example from the regulator or a second implementation all work. Open an issue on the repository that carries the tool, or use the contact page. For a wrong rate, date or rule in a page’s text, use the correction form.
 
 Two implementations disagreeing is the cheapest way to find a defect, and the disagreement is worth reporting even when you are not certain which side is right.
 
@@ -2889,8 +2933,14 @@ The page is a register of limitations found and confirmed, not a proof that none
 - What these tools refuse: https://duguid.com.au/tools/refusals/
 - workbook version note: https://duguid.com.au/tools/payday-super/#workbook-versions
 - receipt amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Evaluations: https://duguid.com.au/evaluate/
+- changelog: https://duguid.com.au/changelog/
+- 2 November 2026: https://duguid.com.au/changelog/#entry-aeb0def588c29a6d
+- 31 October 2026: https://duguid.com.au/changelog/#entry-3cbdf54c6851c50b
+- 29 October 2026: https://duguid.com.au/changelog/#entry-b52ad24c6adfe1ca
+- 26 October 2026: https://duguid.com.au/changelog/#entry-1961271e7e413d31
 - contact page: https://duguid.com.au/contact/
-- evaluations: https://duguid.com.au/evaluate/
+- correction form: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Evidence and Assurance: https://duguid.com.au/evidence/
 
 ---
@@ -3011,7 +3061,7 @@ Half up to the nearest cent, once, at the final step. The Act, the Regulations a
 
 No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Sources
 
@@ -3045,6 +3095,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages
 - Coal LSL, governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Subcontract ledger workflows for construction and mining: https://duguid.com.au/tools/subcontractor-ledgers/
@@ -3272,7 +3323,7 @@ Source on GitHub · Primary source: the ATO’s small business benchmarks.
 
 One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it not_supplied. The two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads not_supplied on both. That is separate from a profit and loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See Known limitations.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -3311,6 +3362,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Known limitations: https://duguid.com.au/tools/limitations/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - A Xero trial balance export that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -3400,7 +3452,7 @@ The examples assume supplied facts, and nothing this engine produces is an asses
 
 Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -3441,6 +3493,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
@@ -3501,7 +3554,7 @@ Published package and release instructions.
 
 Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Fictional worked example
 
@@ -3561,6 +3614,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - uv installed: https://docs.astral.sh/uv/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/
@@ -3626,7 +3680,7 @@ Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 7
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -3664,6 +3718,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Works with Claude: MCP and skills: https://duguid.com.au/works-with/claude/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
@@ -3756,7 +3811,7 @@ wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o
 
 Source on GitHub · Use it from the subcontractor workflows
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -3795,6 +3850,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - uv: https://docs.astral.sh/uv/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -3820,7 +3876,7 @@ Python
 
 Needs
 
-Python 3.11 or later and a free Xero developer app
+Python 3.11 or later and a Xero developer app (free Starter plan: up to 5 connections, 1,000 API calls a day per organisation)
 
 Boundary
 
@@ -3847,7 +3903,7 @@ MIT-licensed utility code, no warranty; outputs feed professional review like an
 
 ## Get it
 
-Needs Python 3.11 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation; Works with Xero covers the paid plans and Xero’s exemption for an integration built solely for your own practice or a single client. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -3869,7 +3925,7 @@ The commands below install the current release, v0.1.15 (its source). The defaul
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Fictional worked example
 
@@ -3917,14 +3973,16 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
 - Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
+- Starter plan: https://developer.xero.com/pricing
+- Works with Xero: https://duguid.com.au/works-with/xero/
 - its source: https://github.com/ryanduguid/accounting-review-pipeline/tree/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export
 - fictional worked example: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - tagged balanced-output test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210
 - tagged unbalanced-YTD test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433
-- Works with Xero: setup and access: https://duguid.com.au/works-with/xero/
 - Turn trial balance CSVs into a monthly close exception report: https://duguid.com.au/tools/monthly-close-controls/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
@@ -4090,7 +4148,7 @@ The Skills commands pin the installer to version 1.5.22. The primary Skills inst
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Limits
 
@@ -4178,6 +4236,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PyPI: https://pypi.org/project/payday-super-checker/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
 - Website hosting and browser data handling: https://duguid.com.au/privacy/
 - Review the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
@@ -4266,7 +4325,7 @@ The output goes outside the clone on purpose. A readiness pack names a client’
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -4304,6 +4363,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - How to export a Xero trial balance to CSV that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - What Workpaper Review Gate refuses: https://duguid.com.au/tools/refusals/#workpaper-review-gate
@@ -4336,6 +4396,7 @@ Do not email taxpayer information, client records, credentials or confidential f
 
 Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
+Corrections | Report a wrong rate, date or rule. The form is public: leave out tax file numbers and other taxpayer identifiers, client records, credentials and confidential attachments.
 GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
@@ -4350,6 +4411,7 @@ Published 30 August 2026. Last reviewed 26 September 2026.
 - review my accounting work samples: https://duguid.com.au/about/#work-samples
 - fictional Newcastle cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
+- Report a wrong rate, date or rule: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - github.com/ryanduguid: https://github.com/ryanduguid
 
 ---
@@ -4697,7 +4759,7 @@ After Cargo’s build messages, expect exit code 2 and close-control: REVIEW; 8 
 
 Source on GitHub
 
-Software issue using fictional data? Open an issue.
+Software issue using fictional data? Open an issue. Wrong rate, date or rule on this page? Report a correction.
 
 ## Reproduce a refusal: output inside the checkout
 
@@ -4754,6 +4816,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/README.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
 - What Monthly Close Controls refuses: https://duguid.com.au/tools/refusals/#monthly-close-controls
 - Reproducible examples and evaluations: https://duguid.com.au/evaluate/
@@ -7609,7 +7672,7 @@ Source: https://duguid.com.au/tools/business-calculators/gst/
 
 Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7629,6 +7692,19 @@ The 10% rate and the one-eleventh fraction come from ATO: How GST works and the 
 
 The GST calculator does not decide whether a supply is taxable, whether you must be registered for GST or what a BAS should report. Mixed, GST-free and input-taxed supplies need classification first.
 
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: GST calculator
+
+Case | Inputs | Result
+A round GST-inclusive amount | $110.00 including GST | Exclusive $100.00, GST $10.00, inclusive $110.00
+Half a cent of GST rounds up | $0.05 excluding GST | Exclusive $0.05, GST $0.01, inclusive $0.06
+GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST $0.00, inclusive $0.01
+
+Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
+
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
@@ -7639,6 +7715,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
+- Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -7653,7 +7730,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-use/
 
 Apportion an eligible cost by its business use share. It does not decide deductibility, depreciation or records.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7674,6 +7751,17 @@ The business use share calculator does not determine deductibility, depreciation
 For car expenses under the cents per kilometre method, the rate by income year is kept as a maintained table on this site.
 
 Phone and internet record checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Business use share calculator
+
+Case | Inputs | Result
+An exact half cent rounds up | $20.15 at 50% | Business share $10.08
+No business use | $100.00 at 0% | Business share $0.00
+A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7699,7 +7787,7 @@ Source: https://duguid.com.au/tools/business-calculators/margin/
 
 Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7718,6 +7806,17 @@ No statutory rate or threshold is applied. The definitions follow business.gov.a
 ## What the margin and markup calculator does not decide
 
 The margin and markup calculator does not set a price, test whether direct cost is complete or adjust for GST. Use a consistent GST basis and matching period for both figures.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Margin and markup calculator
+
+Case | Inputs | Result
+Margin uses sales, markup uses cost | Sales $100.00, cost $80.00 | Profit $20.00, margin 20.00%, markup 25.00%
+Nil sales give no margin | Sales $0.00, cost $50.00 | Profit -$50.00, no margin, markup -100.00%
+Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.00%, no markup
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7742,7 +7841,7 @@ Source: https://duguid.com.au/tools/business-calculators/break-even/
 
 Whole units and sales required to cover fixed costs from price and variable cost per unit.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7761,6 +7860,16 @@ No statutory rate or threshold is applied. The definitions follow business.gov.a
 ## What the break-even calculator does not decide
 
 The break-even sales calculator does not forecast demand or say that the units can be sold. It uses one price and one variable cost, so use one product or a stable representative mix and a consistent GST basis.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Break-even sales calculator
+
+Case | Inputs | Result
+Part of a unit rounds up to a whole unit | Fixed $1,000.00, price $30.00, variable $18.00 | Contribution $12.00, 84 units, sales $2,520.00
+A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00, variable $18.00 | Refused: price must exceed variable cost per unit to reach break-even
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7785,7 +7894,7 @@ Source: https://duguid.com.au/tools/business-calculators/hourly/
 
 Required hourly rate before GST from annual costs, target profit and billable hours.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7804,6 +7913,16 @@ No statutory rate or threshold is applied. The definitions follow business.gov.a
 ## What the hourly pricing calculator does not decide
 
 The hourly pricing calculator does not test whether customers will pay the rate, compare it with an award or market rate, or add GST to it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Hourly pricing calculator
+
+Case | Inputs | Result
+An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
+A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7828,7 +7947,7 @@ Source: https://duguid.com.au/tools/business-calculators/variance/
 
 Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7854,6 +7973,17 @@ Budget explanation checklist
 
 Monthly Close Controls compares trial balance CSVs and lists material movements for review.
 
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Budget variance calculator
+
+Case | Inputs | Result
+Income above budget is favourable | Actual $110.00, budget $100.00, income | Difference $10.00, 10.00%, Favourable
+Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
+A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
+
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
@@ -7878,7 +8008,7 @@ Source: https://duguid.com.au/tools/business-calculators/loan/
 
 Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7896,9 +8026,22 @@ No statutory rate or external source is applied. The interest rate is yours, not
 
 ## What the monthly loan payment calculator leaves out
 
-The monthly loan payment calculator assumes payments in arrears, with no fees or balloon, and a rate that does not change. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ. The result is not a lender’s quote.
+The monthly loan payment calculator assumes payments in arrears, with no fees or balloon, and a rate that does not change. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45. The result is not a lender’s quote.
 
 Loan reconciliation checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Monthly loan payment calculator
+
+Case | Inputs | Result
+A 30-year amortising loan | $100,000.00 at 6% over 360 months | Payment $599.55, first interest $500.00, first principal $99.55, total interest $115,838.19
+One month repays the balance and one month’s interest | $1,000.00 at 12% over 1 month | Payment $1,010.00, first interest $10.00, first principal $1,000.00, total interest $10.00
+Nil interest divides the balance | $20.15 at 0% over 2 months | Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00
+
+Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7909,6 +8052,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
+- Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -7923,7 +8067,7 @@ Source: https://duguid.com.au/tools/business-calculators/staff/
 
 Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7944,6 +8088,16 @@ No statutory rate or threshold is applied.
 The staff cost calculator does not work out super, payroll tax or award pay. The super amount is the figure you enter; the super guarantee rate is a separate table and is not applied by this calculator.
 
 Staff cost checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Staff cost calculator
+
+Case | Inputs | Result
+A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
+Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -7969,7 +8123,7 @@ Source: https://duguid.com.au/tools/business-calculators/cash/
 
 Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -8019,6 +8173,16 @@ No statutory rate or threshold is applied. The layout follows business.gov.au: c
 The funding gap is a planning gap, not a lending decision. The 13-week cash forecast does not predict receipts or payments, and weekly totals can hide a shortage within the week. A receipt delayed beyond week 13 is reported separately and does not enter the closing balance.
 
 The Lumbridge cash flow case works the same question with a 45-day receipt delay.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: 13-week cash forecast
+
+Case | Inputs | Result
+A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
+A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 

@@ -346,7 +346,7 @@ Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 8 as T
 
 TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026, after the ATO’s update of 2 November 2026, and the legislated tables on 22 September 2026, after its update of 18 September 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
+Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026 and the legislated tables on 5 November 2026, both after the ATO’s update of 2 November 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
 ## Not yet legislated in the ATO summary
 
@@ -379,14 +379,14 @@ Left out on purpose: the Budget and MYEFO rows that fund administration rather t
 
 ## Legislated: later application
 
-The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
+The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. The stage column in this table and the next was read on 5 November 2026 from the Federal Register of Legislation; the CSV’s stage_source_url column links the first Act or instrument named, and the stage cites each by its Act number or Register ID. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
 
 ATO-reported legislation with later application
 
-Measure | Announced in | ATO start date | Legislation and assent or registration
-Negative gearing and CGT discount reform | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
-Working Australians Tax Offset | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
-Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
+Measure | Announced in | ATO start date | Legislation and assent or registration | Stage
+Negative gearing and CGT discount reform | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026 | Act No. 49 of 2026 and Act No. 50 of 2026, Royal Assent 26 June 2026
+Working Australians Tax Offset | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026 | Act No. 49 of 2026 and Act No. 50 of 2026, Royal Assent 26 June 2026
+Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026 | Act No. 8 of 2026 and Act No. 9 of 2026, Royal Assent 13 March 2026
 
 ### Negative gearing: application and acquisition cut-off
 
@@ -404,16 +404,16 @@ For these 9 measures the ATO summary names an Act or instrument and an applicati
 
 ATO-reported legislation with earlier application
 
-Measure | Announced in | ATO start date | Legislation and assent or registration
-$1,000 instant tax deduction for work-related expenses | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
-Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
-Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
-Medicare levy low-income threshold increase | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026, Royal Assent 30 June 2026
-Better Targeted Superannuation Concessions: practical changes | MYEFO 2025-26 | 1 July 2026 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
-Temporary reduction of fuel excise and the heavy vehicle road user charge | Budget 2026-27 | 1 April 2026 | Treasury Laws Amendment (Fuel Excise Relief No. 2) Act 2026 and Fuel Tax (Road User Charge) Determination 2026; Act Royal Assent 30 June 2026, Determination registered 25 June 2026
-Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
-Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026
-Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026
+Measure | Announced in | ATO start date | Legislation and assent or registration | Stage
+$1,000 instant tax deduction for work-related expenses | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026 | Act No. 49 of 2026 and Act No. 50 of 2026, Royal Assent 26 June 2026
+Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026 | Act No. 71 of 2026, Royal Assent 26 August 2026
+Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026 | Act No. 71 of 2026, Royal Assent 26 August 2026
+Medicare levy low-income threshold increase | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026, Royal Assent 30 June 2026 | Act No. 58 of 2026, Royal Assent 30 June 2026
+Better Targeted Superannuation Concessions: practical changes | MYEFO 2025-26 | 1 July 2026 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026 | Act No. 8 of 2026 and Act No. 9 of 2026, Royal Assent 13 March 2026
+Temporary reduction of fuel excise and the heavy vehicle road user charge | Budget 2026-27 | 1 April 2026 | Treasury Laws Amendment (Fuel Excise Relief No. 2) Act 2026 and Fuel Tax (Road User Charge) Determination 2026; Act Royal Assent 30 June 2026, Determination registered 25 June 2026 | Act No. 59 of 2026, Royal Assent 30 June 2026; F2026L00789 registered 25 June 2026
+Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026 | Act No. 71 of 2026, Royal Assent 26 August 2026
+Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026 | Act No. 82 of 2026, Royal Assent 26 August 2026
+Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026 | F2026L00831, registered 26 June 2026; automatically repealed 17 September 2026 under s 48A of the Legislation Act 2003
 
 Download the three tables as CSV. Cite as Duguid, R. (2026). Announced Australian tax measures and enacted law [Data set]. https://duguid.com.au/rates/announced-not-yet-law/. Verify a measure’s status against the ATO page before relying on it; the list changes every sitting.
 
@@ -448,7 +448,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 20 September 2026. Pending measures and their stages reviewed 4 November 2026; legislated measures and reform provisions reviewed 22 September 2026.
+Published 20 September 2026. Pending measures and their stages reviewed 4 November 2026; legislated measures and their stages reviewed 5 November 2026; reform provisions reviewed 22 September 2026.
 
 ## Links
 

@@ -75,6 +75,8 @@ pub const CHECKS: &[Check] = &[
     Check::Tool(&["check_links"]),
     Check::External(&["node", "--test", "scripts/levy.test.mjs"]),
     Check::External(&["node", "--test", "scripts/business-calculators.test.mjs"]),
+    Check::External(&["node", "scripts/mutation-check.mjs"]),
+    Check::Tests(&["calculator_oracle"]),
     Check::External(&["node", "--test", "scripts/field-errors.test.mjs"]),
     Check::External(&["node", "--test", "scripts/webmcp-tools.test.mjs"]),
     Check::Tests(&["source_freshness", "production", "ato_sources"]),

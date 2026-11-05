@@ -80,7 +80,7 @@ Source on GitHub · Primary source: the ATO’s small business benchmarks.
 
 One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it not_supplied. The two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads not_supplied on both. That is separate from a profit and loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See Known limitations.
 
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
 
 ## Common questions
 
@@ -119,6 +119,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Known limitations: https://duguid.com.au/tools/limitations/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - A Xero trial balance export that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Evidence and Assurance: https://duguid.com.au/evidence/

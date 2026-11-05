@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/staff/
 
 Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -29,6 +29,16 @@ No statutory rate or threshold is applied.
 The staff cost calculator does not work out super, payroll tax or award pay. The super amount is the figure you enter; the super guarantee rate is a separate table and is not applied by this calculator.
 
 Staff cost checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Staff cost calculator
+
+Case | Inputs | Result
+A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
+Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 

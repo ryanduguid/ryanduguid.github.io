@@ -11,24 +11,11 @@
 
 [![checks](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml) [![source freshness](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml/badge.svg?branch=main)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml) [![CodeQL](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql) [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=ryanduguid_ryanduguid.github.io&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ryanduguid_ryanduguid.github.io) [![Codacy code quality](https://app.codacy.com/project/badge/Grade/ed064dc009df4efd893dff3357d2c757)](https://app.codacy.com/gh/ryanduguid/ryanduguid.github.io/dashboard)<br> [![OpenSSF Scorecard](https://raw.githubusercontent.com/ryanduguid/.github/badges/ryanduguid/ryanduguid.github.io.svg)](https://scorecard.dev/viewer/?uri=github.com/ryanduguid/ryanduguid.github.io) [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/15431/badge)](https://www.bestpractices.dev/projects/15431)<br> [![licence: Ryan Duguid Public Attribution Licence 1.0](.github/assets/badges/licence.svg)](LICENSE)
 
+[Site structure](#site-structure) · [Questions about the site](#questions-about-the-site) · [Alternatives](#alternatives) · [Local preview](#local-preview) · [Checks](#checks) · [Response headers](#response-headers) · [Published files](#published-files) · [Social-card provenance](#social-card-provenance) · [Favicon provenance](#favicon-provenance) · [About portrait provenance](#about-portrait-provenance) · [Credential documents](#credential-documents) · [Licence](#licence)
+
 </div>
 
 [duguid.com.au](https://duguid.com.au/) is [Ryan Duguid](https://duguid.com.au/)'s open source tool library for Australian accountants: calculators, rate tables with primary sources, engines, MCP servers, Excel LAMBDAs and agent workflows. This repository holds its source.
-
-On this page:
-
-- [Site structure](#site-structure)
-- [Questions about the site](#questions-about-the-site)
-- [Alternatives](#alternatives)
-- [Local preview](#local-preview)
-- [Checks](#checks)
-- [Response headers](#response-headers)
-- [Published files](#published-files)
-- [Social-card provenance](#social-card-provenance)
-- [Favicon provenance](#favicon-provenance)
-- [About portrait provenance](#about-portrait-provenance)
-- [Credential documents](#credential-documents)
-- [Licence](#licence)
 
 ## Site structure
 
@@ -95,11 +82,13 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 
 ## Checks
 
-`.github/workflows/checks.yml` runs on every push to `main`, every pull request, a weekly schedule and on demand. A `lint` job first runs `ruff check .` and `mypy` over the remaining Python (pinned to `ruff==0.16.8` and `mypy==2.3.1`, configured in `pyproject.toml`) and `cargo fmt --check` and `cargo clippy` over the Rust site tools; the Rust tests also run on Windows. Then the site checks run:
+`.github/workflows/checks.yml` runs on every push to `main`, every pull request, a weekly schedule and on demand. A `lint` job first runs `ruff check .` and `mypy` over the remaining Python (pinned to `ruff==0.17.3` and `mypy==2.4.0`, configured in `pyproject.toml`) and `cargo fmt --check` and `cargo clippy` over the Rust site tools; the Rust tests also run on Windows. Then the site checks run:
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - the rates register's shape, provenance, ordering and checksums, and a primary `source_url` and a `checked_at` date on every row of the rate CSVs, run with `site-tools check_rates_register` and `cargo test --test rates`
-- the business planning arithmetic, run with `node --test scripts/business-calculators.test.mjs`
+- the business planning arithmetic and the boundary cases each calculator page shows from `_data/calculator_cases.json`, run with `node --test scripts/business-calculators.test.mjs`
+- 26 named money errors applied to a temporary copy of the Coal LSL and business engines, each of which must fail an assertion in those engines' tests, run with `node scripts/mutation-check.mjs`
+- 240 seeded fictional loan and Coal LSL cases worked by a different route in exact integers, which the engines must match, run with `cargo test --test calculator_oracle`
 - every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `site-tools check_agent_files` and `cargo test --test agent_files`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)
 - every same-origin link, absolute or root-relative, must resolve to a file on disk
@@ -148,7 +137,7 @@ npm run test:browser
 
 Playwright starts the site with `cargo run --release` and waits 60 seconds for it, which a first release build can outlast. Set `SITE_TOOLS` to the path of an installed `site-tools` binary to skip that build, as CI does.
 
-Run the same journeys in mobile WebKit, the closest local stand-in for iOS Safari, after a layout or form change. Every spec runs in one iPhone-sized project, so the 4 desktop-only checks skip as they do in mobile Chromium, and the 2 screenshot comparisons skip because their committed baselines are Chromium renders. CI does not run this pass:
+Run the same journeys in mobile WebKit, the closest local stand-in for iOS Safari, after a layout or form change. Every spec runs in one iPhone-sized project, so the desktop-only checks skip as they do in mobile Chromium, and the 2 screenshot comparisons skip because their committed baselines are Chromium renders. CI does not run this pass:
 
 ```bash
 npx playwright install webkit
@@ -189,8 +178,9 @@ adding one would have no effect on the origin.
 The origin therefore sends none of `Strict-Transport-Security`,
 `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options` /
 `frame-ancestors` or `Permissions-Policy`, and sets
-`Access-Control-Allow-Origin: *`. GitHub Pages does enforce HTTPS with a
-permanent redirect, and `Referrer-Policy` is carried in the document as
+`Access-Control-Allow-Origin: *`. The origin does not enforce HTTPS: a direct plain
+HTTP request gets the page, and the permanent redirect at the public address comes
+from Cloudflare. `Referrer-Policy` is carried in the document as
 `<meta name="referrer" content="strict-origin-when-cross-origin">` because that
 directive is honoured in markup.
 

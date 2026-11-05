@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/gst/
 
 Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -28,6 +28,19 @@ The 10% rate and the one-eleventh fraction come from ATO: How GST works and the 
 
 The GST calculator does not decide whether a supply is taxable, whether you must be registered for GST or what a BAS should report. Mixed, GST-free and input-taxed supplies need classification first.
 
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: GST calculator
+
+Case | Inputs | Result
+A round GST-inclusive amount | $110.00 including GST | Exclusive $100.00, GST $10.00, inclusive $110.00
+Half a cent of GST rounds up | $0.05 excluding GST | Exclusive $0.05, GST $0.01, inclusive $0.06
+GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST $0.00, inclusive $0.01
+
+Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
+
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
@@ -38,4 +51,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
+- Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
 - nine business calculators: https://duguid.com.au/tools/business-calculators/

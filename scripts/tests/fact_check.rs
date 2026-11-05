@@ -6,6 +6,7 @@
 mod common;
 
 use common::{rendered, root};
+use site_tools::htmlparser::{self, Event};
 use site_tools::pycsv;
 use site_tools::pyjson::{self, Json};
 use site_tools::pyre::{S, re};
@@ -351,10 +352,7 @@ fn measure_csv_matches_visible_tables() {
         let stage = field(record, "bill_stage");
         let stage_date = field(record, "stage_date");
         let stage_url = field(record, "stage_source_url");
-        if cells.len() < 5 {
-            assert!(stage.is_empty() && stage_date.is_empty() && stage_url.is_empty());
-            continue;
-        }
+        assert_eq!(cells.len(), 5, "{cells:?}");
         assert_eq!(cells[4], stage);
         assert!(!stage.is_empty() && stage_url.starts_with("https://"));
         if status == "ATO-reported bill" {
@@ -365,6 +363,18 @@ fn measure_csv_matches_visible_tables() {
         let shown = re(r"\d{1,2} [A-Z][a-z]+ \d{4}", 0)
             .search(stage)
             .and_then(|m| site_tools::pytime::strptime_day_month_year(&m[0]));
+        if status.starts_with("ATO-reported legislation") {
+            assert!(
+                stage_url.starts_with("https://www.legislation.gov.au/"),
+                "{stage_url}"
+            );
+            // The stage's date is the first assent or registration date the row shows.
+            let assent = re(r"\d{1,2} [A-Z][a-z]+ \d{4}", 0)
+                .search(field(record, "royal_assent"))
+                .and_then(|m| site_tools::pytime::strptime_day_month_year(&m[0]));
+            assert!(shown.is_some(), "{stage}");
+            assert_eq!(shown, assent, "{stage}");
+        }
         if stage_date.is_empty() {
             assert!(shown.is_none(), "{stage}");
         } else {
@@ -948,4 +958,215 @@ fn money_formats_like_decimal() {
     assert_eq!(money("-1234.565"), "-$1,234.56");
     assert_eq!(money("0.125"), "$0.12");
     assert_eq!(money("1000000"), "$1,000,000.00");
+}
+
+/// Whether the page's software issue paragraph has an anchor to `form` with link text.
+fn issue_paragraph_links(html: &str, form: &str) -> bool {
+    let (mut inside_p, mut in_paragraph, mut in_anchor) = (false, false, false);
+    for positioned in htmlparser::parse(html, true) {
+        match positioned.event {
+            Event::StartTag(tag, _) if tag == "p" => inside_p = true,
+            Event::Data(text)
+                if inside_p && text.starts_with("Software issue using fictional data? ") =>
+            {
+                in_paragraph = true;
+            }
+            Event::Data(text) if in_anchor && !text.trim().is_empty() => return true,
+            Event::StartTag(tag, attributes) if in_paragraph && tag == "a" => {
+                in_anchor = attributes
+                    .iter()
+                    .any(|(name, value)| name == "href" && value.as_deref() == Some(form));
+            }
+            Event::EndTag(tag) if tag == "a" => in_anchor = false,
+            Event::EndTag(tag) if tag == "p" => (inside_p, in_paragraph) = (false, false),
+            _ => {}
+        }
+    }
+    false
+}
+
+const CORRECTION_FORM: &str =
+    "https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml";
+
+fn issue_line(body: &str) -> String {
+    format!("<p>Software issue using fictional data? {body}</p>")
+}
+
+#[test]
+fn a_form_address_in_an_inert_span_is_not_a_link() {
+    let form = CORRECTION_FORM;
+    assert!(issue_paragraph_links(
+        &issue_line(&format!(r#"<a href="{form}">Report it</a>"#)),
+        form
+    ));
+    assert!(!issue_paragraph_links(
+        &issue_line(&format!("<span>{form}</span>")),
+        form
+    ));
+}
+
+#[test]
+fn the_sentence_and_link_outside_a_paragraph_are_not_the_paragraph() {
+    let form = CORRECTION_FORM;
+    assert!(!issue_paragraph_links(
+        &format!(
+            r#"<div>Software issue using fictional data? <a href="{form}">Report it</a></div>"#
+        ),
+        form
+    ));
+}
+
+#[test]
+fn a_commented_out_anchor_is_not_a_link() {
+    let form = CORRECTION_FORM;
+    assert!(!issue_paragraph_links(
+        &issue_line(&format!(r#"<!-- <a href="{form}">Report it</a> -->"#)),
+        form
+    ));
+}
+
+#[test]
+fn an_empty_anchor_before_unlinked_text_is_not_a_link() {
+    let form = CORRECTION_FORM;
+    assert!(!issue_paragraph_links(
+        &issue_line(&format!(r#"<a href="{form}"></a> Report it"#)),
+        form
+    ));
+}
+
+#[test]
+fn a_reader_can_reach_the_correction_form_from_each_tool_and_the_contact_page() {
+    let form = CORRECTION_FORM;
+    assert!(read("contact/index.html").contains(&format!(
+        r#"<a href="{form}">Report a wrong rate, date or rule</a>"#
+    )));
+    assert!(read("tools/limitations/index.html").contains(&format!(r#"<a href="{form}">"#)));
+    assert!(read("contact/index.html").contains(
+        "The form is public: leave out tax file numbers and other taxpayer identifiers, \
+         client records, credentials and confidential attachments."
+    ));
+    for tool in [
+        "ato-benchmarks",
+        "australian-tax-ai-agents",
+        "coal-lsl-levy",
+        "company-tax-franking",
+        "monthly-close-controls",
+        "subcontractor-ledgers",
+        "trust-distributions",
+        "wip-schedule",
+        "workpaper-review-gate",
+        "xero-trial-balance",
+    ] {
+        assert!(
+            issue_paragraph_links(&read(&format!("tools/{tool}/index.html")), form),
+            "{tool}"
+        );
+    }
+}
+
+#[test]
+fn the_method_section_states_the_hold_on_a_dead_ato_page() {
+    let days = site_tools::ato_sources::DEAD_HOLD_DAYS;
+    assert!(
+        read("tools/limitations/index.html")
+            .contains(&format!("a read at least {days} days later agrees"))
+    );
+}
+
+#[test]
+fn the_xero_install_note_states_the_starter_limits_and_the_paid_plans_page() {
+    let html = read("tools/xero-trial-balance/index.html");
+    assert!(html.contains("up to 5 connections, at 1,000 API calls a day per organisation"));
+    assert!(html.contains(r#"<a href="/works-with/xero/">"#));
+    assert!(!html.contains("a free Xero developer app"));
+}
+
+#[test]
+fn calculator_pages_show_every_boundary_case_the_node_tests_run() {
+    if !rendered() {
+        return;
+    }
+    let cases: serde_json::Value =
+        serde_json::from_str(include_str!("../../_data/calculator_cases.json")).unwrap();
+    for (page, calculator) in cases.as_object().unwrap() {
+        let html = read(&format!("tools/business-calculators/{page}/index.html"));
+        let rows = calculator["rows"].as_array().unwrap();
+        assert!(rows.len() >= 2, "{page}");
+        if let Some(peer) = calculator["peer"].as_object() {
+            let cell = |name: &str| peer[name].as_str().unwrap();
+            assert!(
+                html.contains(&format!(
+                    r#"for {}, the <a href="{}">{}</a> gave {}, and this calculator gave {}. {}."#,
+                    cell("input"),
+                    cell("url"),
+                    cell("name"),
+                    cell("peer_result"),
+                    cell("output"),
+                    cell("verdict")
+                )),
+                "{page}"
+            );
+        }
+        for row in rows {
+            let cell = |name: &str| row[name].as_str().unwrap();
+            let shown = format!(
+                r#"<tr><th scope="row">{}</th><td>{}</td><td>{}</td></tr>"#,
+                cell("case"),
+                cell("input"),
+                cell("output")
+            );
+            assert!(html.contains(&shown), "{page}: {shown}");
+        }
+    }
+}
+
+#[test]
+fn evidence_results_name_published_releases_limits_and_read_dates() {
+    let tree = parse_structure(&read("evidence/index.html"));
+    let section = tree
+        .descendants(Tree::ROOT, Some("section"), true)
+        .into_iter()
+        .find(|s| tree.attr(*s, "aria-labelledby") == Some("results-you-can-check"))
+        .unwrap();
+    let text = tree.text(section);
+    let record = json("scripts/release_record.json");
+    let components = get(&record, "components");
+    let published = |name: &str| text_of(get(get(get(components, name), "published"), "version"));
+    let div7a = text_of(get(
+        get(get(components, "aus-accounting-mcp"), "pinned_engines"),
+        "div7a-loan-review",
+    ));
+    // The tool counts are dated readings of a package outside this repository: this holds their
+    // wording and date, not the counts.
+    for claim in [
+        format!(
+            "Aus Accounting MCP {}, the published release",
+            published("aus-accounting-mcp")
+        ),
+        format!("Its repayment code and rate table are unchanged to the published {div7a}"),
+        "listed 22 local tools on 5 November 2026. The source on main defines 24: validate_abn and validate_acn are not yet released".to_owned(),
+        format!(
+            "payday-super-check {} gives a due date of 11 August 2026",
+            published("payday-super-checker")
+        ),
+        "12,800 fictional cases with no repayments".to_owned(),
+        "covers the repayment figure only".to_owned(),
+        "not a registered tax or BAS agent, does not lodge and holds no third-party certification"
+            .to_owned(),
+        "not rerun on later releases or the unreleased Rust port".to_owned(),
+        "a Coal LSL calculator that I built and host as an external contributor".to_owned(),
+    ] {
+        assert!(text.contains(&claim), "{claim}");
+    }
+    let lists = tree.descendants(section, Some("ul"), false);
+    assert_eq!(lists.len(), 2);
+    let rivals = tree.descendants(lists[1], Some("li"), false);
+    assert_eq!(rivals.len(), 3);
+    for rival in rivals {
+        let line = tree.text(rival);
+        assert!(
+            re(r"Read \d{1,2} [A-Z][a-z]+ \d{4}\.\s*$", 0).is_match(&line),
+            "{line}"
+        );
+    }
 }

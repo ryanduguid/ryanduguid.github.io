@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-use/
 
 Apportion an eligible cost by its business use share. It does not decide deductibility, depreciation or records.
 
-Published 20 September 2026. Last reviewed 27 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -29,6 +29,17 @@ The business use share calculator does not determine deductibility, depreciation
 For car expenses under the cents per kilometre method, the rate by income year is kept as a maintained table on this site.
 
 Phone and internet record checklist
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Business use share calculator
+
+Case | Inputs | Result
+An exact half cent rounds up | $20.15 at 50% | Business share $10.08
+No business use | $100.00 at 0% | Business share $0.00
+A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
