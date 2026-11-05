@@ -958,3 +958,42 @@ fn money_formats_like_decimal() {
     assert_eq!(money("0.125"), "$0.12");
     assert_eq!(money("1000000"), "$1,000,000.00");
 }
+
+#[test]
+fn calculator_pages_show_every_boundary_case_the_node_tests_run() {
+    if !rendered() {
+        return;
+    }
+    let cases: serde_json::Value =
+        serde_json::from_str(include_str!("../../_data/calculator_cases.json")).unwrap();
+    for (page, calculator) in cases.as_object().unwrap() {
+        let html = read(&format!("tools/business-calculators/{page}/index.html"));
+        let rows = calculator["rows"].as_array().unwrap();
+        assert!(rows.len() >= 2, "{page}");
+        if let Some(peer) = calculator["peer"].as_object() {
+            let cell = |name: &str| peer[name].as_str().unwrap();
+            assert!(
+                html.contains(&format!(
+                    r#"for {}, the <a href="{}">{}</a> gave {}, and this calculator gave {}. {}."#,
+                    cell("input"),
+                    cell("url"),
+                    cell("name"),
+                    cell("peer_result"),
+                    cell("output"),
+                    cell("verdict")
+                )),
+                "{page}"
+            );
+        }
+        for row in rows {
+            let cell = |name: &str| row[name].as_str().unwrap();
+            let shown = format!(
+                r#"<tr><th scope="row">{}</th><td>{}</td><td>{}</td></tr>"#,
+                cell("case"),
+                cell("input"),
+                cell("output")
+            );
+            assert!(html.contains(&shown), "{page}: {shown}");
+        }
+    }
+}

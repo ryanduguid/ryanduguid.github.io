@@ -348,7 +348,7 @@ test('N140 months before July 2023 are refused, not priced at 2.7%', () => {
 });
 
 test('N141 the July 2023 boundary month is supported and prices at 2.7%', () => {
-  assertReportingMonthSupported('2023-07');
+  assert.doesNotThrow(() => assertReportingMonthSupported('2023-07'));
   assert.equal(LEVY_RATE_FROM_MONTH, '2023-07');
   const r = casualWages({ reportingMonth: '2023-07', ordinaryRatePayCents: d(10000) });
   assert.equal(r.branch, 'pre-2024');
