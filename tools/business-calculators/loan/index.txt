@@ -18,9 +18,15 @@ Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the monthly loan payment calculator works
 
-For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.
+The monthly loan payment calculator works out a fixed monthly payment, the interest and principal in the first payment, and estimated total interest. For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n.
+
+No statutory rate or external source is applied. The interest rate is yours, not a market or lender rate.
+
+## What the monthly loan payment calculator leaves out
+
+The monthly loan payment calculator assumes payments in arrears, with no fees or balloon, and a rate that does not change. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ. The result is not a lender’s quote.
 
 Loan reconciliation checklist
 

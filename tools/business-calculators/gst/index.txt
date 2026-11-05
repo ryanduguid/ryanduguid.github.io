@@ -18,11 +18,15 @@ Amount (AUD) Amount includes GST
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the GST calculator works
 
-For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.
+The GST calculator takes one amount for a wholly taxable supply and works out the GST, the GST-exclusive amount and the GST-inclusive amount. For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents.
 
-ATO: How GST works
+The 10% rate and the one-eleventh fraction come from ATO: How GST works and the A New Tax System (Goods and Services Tax) Act 1999.
+
+## What the GST calculator does not decide
+
+The GST calculator does not decide whether a supply is taxable, whether you must be registered for GST or what a BAS should report. Mixed, GST-free and input-taxed supplies need classification first.
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -33,4 +37,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
+- A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - nine business calculators: https://duguid.com.au/tools/business-calculators/

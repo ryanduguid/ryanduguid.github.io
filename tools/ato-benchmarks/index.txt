@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 # ATO small business benchmark comparison tool
 
-This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
+The ATO small business benchmark comparison tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
 
 Current release ato-benchmark-compare v0.2.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
@@ -38,7 +38,7 @@ The workflow is 2 steps on purpose. First, the tool drafts a mapping from the pr
 
 ## Worked example: cost of sales excluding wages
 
-This fictional example comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
+The fictional example below comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
 
 - Turnover: $100,000.
 - Cost of sales excluding wages: $30,000.

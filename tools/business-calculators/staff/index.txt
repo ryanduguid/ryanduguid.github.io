@@ -18,9 +18,15 @@ Annual wages (AUD) Annual super amount (AUD) Other annual costs (AUD)
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the staff cost calculator works
 
-Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
+The staff cost calculator adds up the annual cost of one staff member from figures you supply. Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
+
+No statutory rate or threshold is applied.
+
+## What the staff cost calculator does not decide
+
+The staff cost calculator does not work out super, payroll tax or award pay. The super amount is the figure you enter; the super guarantee rate is a separate table and is not applied by this calculator.
 
 Staff cost checklist
 
@@ -32,5 +38,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
 - nine business calculators: https://duguid.com.au/tools/business-calculators/

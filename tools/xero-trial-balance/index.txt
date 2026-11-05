@@ -24,7 +24,7 @@ Read-only Xero scope; no ledger writes.
 
 The export asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
-This tool reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
+The export reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
 
 Before anything is written to disk, it runs a balance check: both the current month’s movement and the year-to-date figures must balance, or no file is written. One limit: --date is an as-at date, not a range. Xero’s Trial Balance endpoint accepts only a date, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range: the current month.
 
@@ -61,7 +61,7 @@ python export_tb.py --date 2026-06-30
 # writes a CSV such as demo-company-au-...-tb-2026-06-30-accrual.csv, only when both balance checks pass
 ```
 
-These commands install the current release, v0.1.15 (its source). The default branch below is newer, unreleased work. The fictional worked example stays pinned to v0.1.6, the release its evaluation tests.
+The commands below install the current release, v0.1.15 (its source). The default branch below is newer, unreleased work. The fictional worked example stays pinned to v0.1.6, the release its evaluation tests.
 
 Source on GitHub
 

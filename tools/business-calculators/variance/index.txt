@@ -20,9 +20,15 @@ Figure type Income Cost
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the budget variance calculator works
 
-Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.
+The budget variance calculator compares one actual figure with one budget figure. Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable.
+
+No statutory rate or external source is applied. The favourability convention is the usual management-accounting one.
+
+## What the budget variance calculator does not decide
+
+The budget variance calculator does not say why a difference arose or whether it matters. Explain causes from the records.
 
 Budget explanation checklist
 

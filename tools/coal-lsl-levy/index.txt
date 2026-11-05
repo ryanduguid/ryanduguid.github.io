@@ -40,7 +40,7 @@ Calculate
 
 ## Result
 
-This calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and limits on this page still apply.
+The Coal LSL calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and limits on this page still apply.
 
 Ready to calculate
 
@@ -96,7 +96,7 @@ The Act, the Regulations and the guidance note publish no rounding rule. This to
 
 ### What does the 75% in Formula B apply to?
 
-For a non-casual employee paid a base rate, section 3B(1)(b) applies 75% to the base rate of pay, incentive payments and bonuses paid at least once a month, overtime and penalty rates, and allowances other than expense reimbursements, added together, not to the base rate alone. The paragraph reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). With $6,000 base pay, $3,000 overtime and penalty rates, and $500 of allowances that are not expense reimbursements, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. The annual salary and casual branches use their own formulas. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 18 September 2026.
+For a non-casual employee paid a base rate, section 3B(1)(b) applies 75% to a total, not to the base rate alone. The total adds the base rate of pay, incentive payments and bonuses paid at least once a month, overtime and penalty rates, and allowances other than expense reimbursements. The paragraph reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). With $6,000 base pay, $3,000 overtime and penalty rates, and $500 of allowances that are not expense reimbursements, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. The annual salary and casual branches use their own formulas. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 18 September 2026.
 
 ### Which bonuses count towards eligible wages?
 

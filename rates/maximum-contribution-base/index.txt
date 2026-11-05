@@ -6,7 +6,9 @@ Source: https://duguid.com.au/rates/maximum-contribution-base/
 
 # Maximum super contribution base
 
-The maximum contribution base is $270,830 for 2026-27. It is now an annual figure that applies to each employer separately: once the qualifying earnings an employer has paid an employee for the year pass it, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
+The maximum contribution base is $270,830 for 2026-27, now an annual figure that applies to each employer separately.
+
+Once the qualifying earnings an employer has paid an employee for the year pass the base, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
 
 Verified 20 September 2026 against the ATO’s super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), read with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
 

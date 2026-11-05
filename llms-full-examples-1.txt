@@ -14,7 +14,9 @@ Source: https://duguid.com.au/examples/profit-vs-cash-flow/
 
 # Profit vs cash flow: an Australian Excel worked example
 
-How can a business report a profit and still run short of cash? Because profit records the sale and cash records the day the money arrives. This worked example moves one receipt by 45 days: quarterly profit stays at $35,957.55 and the bank account falls $25,160 below zero.
+How can a business report a profit and still run short of cash? Because profit records the sale and cash records the day the money arrives.
+
+The worked example moves one receipt by 45 days: quarterly profit stays at $35,957.55 and the bank account falls $25,160 below zero.
 
 Download the Excel example Compare the two cases
 
@@ -141,7 +143,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Limits
 
-This is a fictional demonstration, not a client result. No forecast accuracy, client outcome or time saving has been measured.
+The Lumbridge case is a fictional demonstration, not a client result. No forecast accuracy, client outcome or time saving has been measured.
 
 - The only supported scenario is the receipt delay, from 0 to 120 whole calendar days. Revenue, wages and operating assumptions are fixed.
 - Payment dates, PAYG withholding, workers compensation, the tax instalment and the loan terms are supplied scenario assumptions, not statutory calculations. PAYG withholding is a flat $5,000 a month, not a withholding table result.

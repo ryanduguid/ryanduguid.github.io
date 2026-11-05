@@ -18,11 +18,15 @@ Annual costs (AUD) Target annual profit (AUD) Annual billable hours
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the hourly pricing calculator works
 
-Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
+The hourly pricing calculator works out the hourly rate that covers your annual costs and target profit. Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
 
-business.gov.au: pricing
+No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+
+## What the hourly pricing calculator does not decide
+
+The hourly pricing calculator does not test whether customers will pay the rate, compare it with an award or market rate, or add GST to it.
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 

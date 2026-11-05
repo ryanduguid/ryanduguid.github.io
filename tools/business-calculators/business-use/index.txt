@@ -18,9 +18,13 @@ Eligible cost (AUD) Business use (%)
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the business use calculator works
 
-Eligible cost × supported business use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.
+The business use share calculator splits one cost you supply by one percentage you supply: eligible cost × supported business use percentage / 100, rounded to cents. No statutory rate or threshold is applied.
+
+## What the business use calculator does not decide
+
+The business use share calculator does not determine deductibility, depreciation or record sufficiency. It does not work out the percentage, and it does not test whether your records support it.
 
 For car expenses under the cents per kilometre method, the rate by income year is kept as a maintained table on this site.
 

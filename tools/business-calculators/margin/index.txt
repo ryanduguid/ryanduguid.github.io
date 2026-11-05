@@ -18,11 +18,15 @@ Sales (AUD) Direct cost (AUD)
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the margin and markup calculator works
 
-Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
+The margin and markup calculator works out gross profit, margin and markup from one sales figure and one direct cost figure. Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. A zero denominator leaves that percentage undefined.
 
-business.gov.au: pricing
+No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+
+## What the margin and markup calculator does not decide
+
+The margin and markup calculator does not set a price, test whether direct cost is complete or adjust for GST. Use a consistent GST basis and matching period for both figures.
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
