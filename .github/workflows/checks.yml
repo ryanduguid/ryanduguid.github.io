@@ -23,6 +23,27 @@ env:
   RUST_TOOLCHAIN: "1.99"
 
 jobs:
+  coal-lsl-service:
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: service/coal-lsl-levy
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: service/coal-lsl-levy/package-lock.json
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: npm run conformance
+      - run: npm run check:worker
+      - run: npm audit --audit-level=high
+
   lint:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
@@ -423,7 +444,7 @@ jobs:
     # unless every job it needs succeeded, when a job in this file is missing
     # from needs, or when a pull request removes a job without adding a
     # "# removed-jobs: <job>" comment to this file.
-    needs: [lint, tools, rust-windows, checks, browser, lighthouse]
+    needs: [coal-lsl-service, lint, tools, rust-windows, checks, browser, lighthouse]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 15

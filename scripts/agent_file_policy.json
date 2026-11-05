@@ -53,6 +53,11 @@
     "owner": "microsoft",
     "local_dependency": true,
     "note": "package.json pins it, npm ci installs it, and npx then runs that local copy rather than resolving the registry."
+   },
+   "wrangler": {
+    "owner": "cloudflare",
+    "local_dependency": true,
+    "note": "service/coal-lsl-levy/package.json pins it, npm ci installs it there, and the deploy guide's npx line runs that local copy."
    }
   }
  }

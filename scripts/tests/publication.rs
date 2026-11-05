@@ -455,7 +455,7 @@ fn only_deploy_and_fuzzing_are_exempt_from_the_actual_aggregate() {
     std::fs::create_dir_all(&workflows).unwrap();
     let path = workflows.join("checks.yml");
     std::fs::write(&path, &workflow).unwrap();
-    let results = r#"{"lint": {"result": "success"}, "tools": {"result": "success"}, "rust-windows": {"result": "success"}, "checks": {"result": "success"}, "browser": {"result": "success"}, "lighthouse": {"result": "success"}}"#;
+    let results = r#"{"coal-lsl-service": {"result": "success"}, "lint": {"result": "success"}, "tools": {"result": "success"}, "rust-windows": {"result": "success"}, "checks": {"result": "success"}, "browser": {"result": "success"}, "lighthouse": {"result": "success"}}"#;
     // As the Python test did, only these variables pass through: in a pull request's
     // CI, GITHUB_EVENT_NAME would make the gate compare against Git history that this
     // temporary folder does not have.
