@@ -244,6 +244,33 @@ test('every business calculator shows its boundary cases', () => {
   assert.deepEqual(Object.keys(shownCases).sort(), pages);
 });
 
+// How each calculator's arguments read as a page's input, so a displayed input cannot
+// describe anything but the arguments its row runs.
+const INPUTS = {
+  gst: (amount, inclusive) => `${dollars(amount)} ${inclusive ? 'including' : 'excluding'} GST`,
+  businessUse: (amount, percent) => `${dollars(amount)} at ${percent}%`,
+  margin: (sales, cost) => `Sales ${dollars(sales)}, cost ${dollars(cost)}`,
+  breakEven: (fixed, price, variable) =>
+    `Fixed ${dollars(fixed)}, price ${dollars(price)}, variable ${dollars(variable)}`,
+  hourlyRate: (costs, profit, hours) => `Costs ${dollars(costs)}, profit ${dollars(profit)}, ${hours} hours`,
+  variance: (actual, budget, kind) => `Actual ${dollars(actual)}, budget ${dollars(budget)}, ${kind}`,
+  loan: (principal, rate, months) =>
+    `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`,
+  staffCost: (wages, superannuation, other) =>
+    `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
+  cashForecast: (opening, weeks, buffer, delayed) => {
+    const week = weeks.findIndex(({ receipts }) => receipts !== '0');
+    assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
+    assert.equal(delayed.week, week + 1);
+    return `Opening ${dollars(opening)}, buffer ${dollars(buffer)}, ${dollars(weeks[week].receipts)} received in `
+      + `week ${week + 1}, ${dollars(delayed.amount)} of it delayed ${delayed.delay} week`;
+  },
+};
+const PEER_INPUTS = {
+  loan: (principal, rate, months) =>
+    `$${Number(principal).toLocaleString('en-AU')} at ${rate}% over ${months / 12} years, repaid monthly, no fees`,
+};
+
 const assertShown = (actual, { result, output }) => {
   const fields = Object.entries(result);
   for (const [field, value] of fields) assert.equal(actual[field], value, field);
@@ -256,11 +283,13 @@ for (const [page, { function: name, peer, rows }] of Object.entries(shownCases))
     test(`${page} official comparison states what this calculator returns`, () => {
       assert.match(peer.url, /^https:\/\/moneysmart\.gov\.au\//);
       assert.match(peer.checked, /^\d{1,2} [A-Z][a-z]+ \d{4}$/);
+      assert.equal((PEER_INPUTS[name] ?? INPUTS[name])(...peer.call), peer.input);
       assertShown(calculations[name](...peer.call), peer);
     });
   }
   for (const row of rows) {
     test(`${page} boundary case returns what its page shows: ${row.case}`, () => {
+      assert.equal(INPUTS[name](...row.call), row.input);
       if (row.refused) {
         assert.throws(() => calculations[name](...row.call), { message: row.refused });
         assert.equal(row.output, `Refused: ${row.refused[0].toLowerCase()}${row.refused.slice(1, -1)}`);

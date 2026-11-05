@@ -310,7 +310,7 @@ Open the Xero installation and first run guide
 ## What you need
 
 - Python 3.11 or later, Git and a local working directory for the released exporter.
-- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation. Core allows up to 50 for A$35 a month excluding tax, including 10 GB of API data egress, then A$2.40 a GB. An integration an accountant or bookkeeper builds for their own practice or a single client is exempt from this pricing, as Xero determines.
+- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation. Core allows up to 50 for A$35 a month excluding tax, including 10 GB of API data egress, then A$2.40 a GB. An integration an accountant or bookkeeper builds solely for their own practice or a single client is exempt from this pricing, as Xero determines.
 - A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.
 - An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.
 
@@ -1628,7 +1628,7 @@ Left out on purpose: the Budget and MYEFO rows that fund administration rather t
 
 ## Legislated: later application
 
-The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. The stage column in this table and the next was read on 5 November 2026 from the Federal Register of Legislation; the CSV’s stage_source_url column links the first Act or instrument named. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
+The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. The stage column in this table and the next was read on 5 November 2026 from the Federal Register of Legislation; the CSV’s stage_source_url column links the first Act or instrument named, and the stage cites each by its Act number or Register ID. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
 
 ATO-reported legislation with later application
 
@@ -2858,7 +2858,7 @@ Sources. A rate or threshold cites a primary source: each row of a rate table ca
 
 Tests. The calculator engines have their own test suites, run on every pull request. Each entry on this page is bound by a test in its package. Evaluations reproduce results against fixed releases with fictional inputs.
 
-Freshness. A daily job compares the release references on these pages with published releases. A weekly sweep on Ryan’s machine reads the ATO addresses in the site’s source files and fails when one stops loading or its text changes substantively, and its report lists the files to review. The change test leaves out the legal database home and hub and listing pages. Dates on a page record when it was last reviewed; the changelog records what changed.
+Freshness. A daily job compares the release references on these pages with published releases. A weekly sweep on Ryan’s machine reads the ATO addresses in the site’s source files, and its report lists the files to review. It fails at once on a response it cannot read or a substantive change in the text. A 404 or 410 is held instead: the report notes it, and the sweep fails only when a read at least 3 days later agrees. The change test leaves out the legal database home and hub and listing pages. Dates on a page record when it was last reviewed; the changelog records what changed.
 
 Recent corrections, from the changelog
 
@@ -3853,7 +3853,7 @@ MIT-licensed utility code, no warranty; outputs feed professional review like an
 
 ## Get it
 
-Needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation; Works with Xero covers the paid plans and the exemption for your own practice. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation; Works with Xero covers the paid plans and Xero’s exemption for an integration built solely for your own practice or a single client. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git

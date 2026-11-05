@@ -148,6 +148,16 @@ fn a_pin_reason_must_match_the_declared_licence() {
         "wrong reason"
     );
 
+    // Nor is one that outlives its date: nothing here reads upstream.
+    let mut undated = pyjson::loads(&text).unwrap();
+    *member(&mut undated, "note") = Json::str_obj(
+        "v0.4.0 is pinned because it is the latest release under Apache-2.0, the licence declared here.",
+    );
+    assert!(
+        check(&undated).contains("note does not say v0.4.0 is pinned as the latest release"),
+        "undated reason"
+    );
+
     // Nor is a reason naming a licence the file does not declare.
     let mut wrong_licence = pyjson::loads(&text).unwrap();
     *member(member(&mut wrong_licence, "source"), "license") = Json::str_obj("MIT");

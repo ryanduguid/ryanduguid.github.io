@@ -62,7 +62,7 @@ fn install_commands(commit: &str) -> Vec<String> {
 
 fn note_gives_pin_reason(note: &str, license: &str) -> bool {
     note.contains(&format!(
-        "{RELEASE} is pinned because it is the latest release under {license}, the licence declared here"
+        "Read on 5 November 2026, {RELEASE} was the latest release under {license}, the licence declared here, so it is pinned"
     ))
 }
 
@@ -129,7 +129,7 @@ fn check(root: &Path) -> Result<Vec<String>> {
     }
     // A pin behind the current release needs its reason where a reader of the file sees
     // it. This ties the reason to the licence the file declares; it does not read upstream,
-    // so the note dates what it says about later releases.
+    // so the note gives the reason as a dated observation, not a continuing claim.
     let license = py_str(get(&source, "license")?.as_ref())?;
     if !note_gives_pin_reason(&py_str(get(&manifest, "note")?.as_ref())?, &license) {
         failures.push(format!(
@@ -362,10 +362,11 @@ fn build() -> Result<Json> {
             s(concat!(
                 "Preparation-only accounting workflows for review by an authorised human. ",
                 "Not tax advice and not lodgement. Each url serves the released bytes; ",
-                "check the digest before use. v0.4.0 is pinned because it is the latest ",
-                "release under Apache-2.0, the licence declared here. Read on 5 November 2026, ",
-                "the current release was v0.5.0 (28 October 2026), under FSL-1.1-ALv2. The site ",
-                "check holds this reason to the declared licence, not to later releases."
+                "check the digest before use. Read on 5 November 2026, v0.4.0 was the latest ",
+                "release under Apache-2.0, the licence declared here, so it is pinned; the ",
+                "current release was v0.5.0 (28 October 2026), under FSL-1.1-ALv2. That is a ",
+                "dated observation: the site check holds it to the declared licence, not to ",
+                "later releases."
             )),
         ),
         ("skills".into(), Json::Array(skills)),

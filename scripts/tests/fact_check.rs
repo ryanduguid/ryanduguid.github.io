@@ -959,9 +959,33 @@ fn money_formats_like_decimal() {
     assert_eq!(money("1000000"), "$1,000,000.00");
 }
 
+/// Whether the page's software issue paragraph holds an anchor to `form`.
+fn issue_paragraph_links(html: &str, form: &str) -> bool {
+    html.split_once("<p>Software issue using fictional data? ")
+        .and_then(|(_, rest)| rest.split_once("</p>"))
+        .is_some_and(|(line, _)| line.contains(&format!(r#"<a href="{form}">"#)))
+}
+
+const CORRECTION_FORM: &str =
+    "https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml";
+
+#[test]
+fn a_form_address_in_an_inert_span_is_not_a_link() {
+    let line = |body: &str| format!("<p>Software issue using fictional data? {body}</p>");
+    let form = CORRECTION_FORM;
+    assert!(issue_paragraph_links(
+        &line(&format!(r#"<a href="{form}">Report it</a>"#)),
+        form
+    ));
+    assert!(!issue_paragraph_links(
+        &line(&format!("<span>{form}</span>")),
+        form
+    ));
+}
+
 #[test]
 fn a_reader_can_reach_the_correction_form_from_each_tool_and_the_contact_page() {
-    let form = "https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml";
+    let form = CORRECTION_FORM;
     assert!(read("contact/index.html").contains(&format!(
         r#"<a href="{form}">Report a wrong rate, date or rule</a>"#
     )));
@@ -982,12 +1006,20 @@ fn a_reader_can_reach_the_correction_form_from_each_tool_and_the_contact_page() 
         "workpaper-review-gate",
         "xero-trial-balance",
     ] {
-        let html = read(&format!("tools/{tool}/index.html"));
-        let (_, line) = html
-            .split_once("<p>Software issue using fictional data? ")
-            .expect(tool);
-        assert!(line.split_once("</p>").unwrap().0.contains(form), "{tool}");
+        assert!(
+            issue_paragraph_links(&read(&format!("tools/{tool}/index.html")), form),
+            "{tool}"
+        );
     }
+}
+
+#[test]
+fn the_method_section_states_the_hold_on_a_dead_ato_page() {
+    let days = site_tools::ato_sources::DEAD_HOLD_DAYS;
+    assert!(
+        read("tools/limitations/index.html")
+            .contains(&format!("a read at least {days} days later agrees"))
+    );
 }
 
 #[test]
