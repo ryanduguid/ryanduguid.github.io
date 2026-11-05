@@ -1,7 +1,8 @@
-# Listing request draft
+# Listing request template
 
-Kept as the record of the request. The request was sent on 26 September 2026
-with the base URL and source revision completed. LodgeiT's listing is at
+This is the template, not the message sent. Ryan confirmed on 26 September 2026
+that he sent a listing request; the sent text was not kept, so the bracketed
+fields and figures below do not show what it said. LodgeiT's listing is at
 <https://lodgeit.org/coal-lsl.html>.
 
 To: andrew@lodgeit.net.au
