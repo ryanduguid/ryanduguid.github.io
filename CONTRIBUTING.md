@@ -396,6 +396,22 @@ drift. It changes nothing. A name of Ryan's that stops being published is the
 finding that matters: the name is then free for someone else to claim while these
 files still tell agents to install it.
 
+## Passage rules
+
+`site-tools check_passages` holds each page in `sitemap.xml` to the rules below, so a passage quoted alone keeps its subject and a page answers before it explains. It reads each page's `index.txt`, the visible main text, so run `site-tools build_site` and `site-tools build_llms_full --write` first. `site-tools check_site` runs it.
+
+| Rule | Limit |
+| --- | --- |
+| The page's lead, the first paragraph after the H1 | at most 45 words |
+| The first sentence under an H2 or H3 | at most 45 words, and no filler opener such as 'In this guide' |
+| Prose and list items under one heading, H1 to H4; tables and code do not count | at most 400 words |
+| The first passage of 12 or more words under a heading | no dangling opener such as 'This', 'It' or 'However' |
+| The page's passages of 12 or more words without a dangling opener | at least 85% |
+
+The limits, phrase lists and first-sentence rule come from `thresholds.json` in [seo-skills/geo-audit-skill](https://github.com/seo-skills/geo-audit-skill) 1.2.1 (MIT). They are that project's heuristics; no study shows that meeting them causes a citation. The site differs in 3 ways. The page lead limit covers the whole paragraph, which is stricter. A section ends at the next heading, not the next H2, because a question or Ozzit page holds many short H3 answers and each answer is the passage a reader lifts. The dangling opener is a failure for a section's first passage, where the 85% share alone would let a section open on 'It'.
+
+Fix a failure by rewording, splitting a paragraph or adding a heading that names the topic. Change a limit only with a stated reason in the pull request.
+
 ## Visibility benchmark
 
 `docs/visibility-benchmark/` holds the reviewed prompts and any recorded captures,

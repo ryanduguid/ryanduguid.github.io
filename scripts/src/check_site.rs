@@ -38,7 +38,14 @@ pub enum Check {
 pub const CHECKS: &[Check] = &[
     Check::Tests(&["ozzit"]),
     Check::Tests(&["fact_check"]),
-    Check::Tests(&["contracts", "design", "llms", "manifest", "release"]),
+    Check::Tests(&[
+        "contracts",
+        "design",
+        "llms",
+        "manifest",
+        "passages",
+        "release",
+    ]),
     Check::Tests(&["server"]),
     Check::Tool(&["check_design"]),
     Check::Tests(&["links"]),
@@ -61,6 +68,7 @@ pub const CHECKS: &[Check] = &[
     Check::Tests(&["visibility"]),
     Check::Tool(&["visibility_benchmark", "--check"]),
     Check::Tool(&["build_llms_full", "--check"]),
+    Check::Tool(&["check_passages"]),
     Check::Tool(&["build_feed", "--check"]),
     Check::Tests(&["feed", "merge_driver"]),
     Check::Tool(&["build_agent_skills_manifest", "--check"]),
