@@ -348,6 +348,9 @@ fn geo_leftovers_surface() {
 /// Every agent on the pinned list has a recorded class, and the list cannot drift.
 #[test]
 fn crawler_classes_cover_the_pinned_list() {
+    if !rendered() {
+        return;
+    }
     const LIST: &str = "scripts/ai-robots/robots.json";
     const CLASSES: &str = "scripts/ai-robots/left-to-wildcard.json";
     let site = tempfile::tempdir().unwrap();

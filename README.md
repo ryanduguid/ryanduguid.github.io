@@ -82,7 +82,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 
 ## Checks
 
-`.github/workflows/checks.yml` runs on every push to `main`, every pull request, a weekly schedule and on demand. A `lint` job first runs `ruff check .` and `mypy` over the remaining Python (pinned to `ruff==0.17.3` and `mypy==2.4.0`, configured in `pyproject.toml`) and `cargo fmt --check` and `cargo clippy` over the Rust site tools; the Rust tests also run on Windows. Then the site checks run:
+`.github/workflows/checks.yml` runs on every push to `main`, every pull request, a weekly schedule and on demand. A `lint` job first runs `ruff check .` and `mypy` over the remaining Python (pinned to `ruff==0.17.3` and `mypy==2.4.1`, configured in `pyproject.toml`) and `cargo fmt --check` and `cargo clippy` over the Rust site tools; the Rust tests also run on Windows. Then the site checks run:
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - the rates register's shape, provenance, ordering and checksums, and a primary `source_url` and a `checked_at` date on every row of the rate CSVs, run with `site-tools check_rates_register` and `cargo test --test rates`
