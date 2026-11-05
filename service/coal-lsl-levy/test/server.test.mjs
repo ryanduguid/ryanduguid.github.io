@@ -86,6 +86,13 @@ test('modules, filtering and schema discovery describe a usable first call', asy
   assert.equal((await post(route, fixtures.cases[0].request)).status, 200);
 });
 
+test('an app owns its OpenAPI document, so changing one leaves the next untouched', () => {
+  const first = createApp({ port: 0, log: () => {} });
+  first.openapi.components.schemas.CoalLslLevyResult.required.push('changed');
+  const second = createApp({ port: 0, log: () => {} });
+  assert.ok(!second.openapi.components.schemas.CoalLslLevyResult.required.includes('changed'));
+});
+
 test('openapi.json is served and every request property it declares is one the validator reads', async () => {
   const response = await fetch(`${base}/openapi.json`);
   assert.equal(response.status, 200);

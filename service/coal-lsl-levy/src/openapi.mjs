@@ -358,6 +358,6 @@ export function buildOpenApi(config, register) {
     info: apiInfo(config),
     servers: [{ url: config.publicBaseUrl ?? 'http://127.0.0.1:8787' }],
     paths: apiPaths(config, register.supportedMonths()),
-    components: { schemas: COMPONENT_SCHEMAS },
+    components: { schemas: structuredClone(COMPONENT_SCHEMAS) },
   };
 }
