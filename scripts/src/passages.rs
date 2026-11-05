@@ -83,6 +83,8 @@ const FILLER: [&str; 18] = [
 struct Section {
     level: usize,
     heading: String,
+    /// What the first block under the heading is, tables and code included.
+    first_kind: Option<&'static str>,
     /// Paragraphs and lists, in order, without tables or code.
     blocks: Vec<String>,
     words: usize,
@@ -162,10 +164,18 @@ fn sections(entry: &str) -> Vec<Section> {
                 heading: block[level + 1..].to_owned(),
                 ..Section::default()
             });
-        } else if !block.starts_with("```") && block_kind(&block) != "row" {
+        } else {
             let section = found.last_mut().expect("starts with one section");
-            section.words += words(&block);
-            section.blocks.push(block);
+            let kind = if block.starts_with("```") {
+                "code"
+            } else {
+                block_kind(&block)
+            };
+            section.first_kind.get_or_insert(kind);
+            if kind != "code" && kind != "row" {
+                section.words += words(&block);
+                section.blocks.push(block);
+            }
         }
     }
     found
@@ -178,8 +188,8 @@ pub fn page_failures(page: &str, entry: &str) -> Vec<String> {
     let lead = sections
         .iter()
         .find(|section| section.level == 1)
-        .and_then(|section| section.blocks.first());
-    if !lead.is_some_and(|lead| block_kind(lead) == "text") {
+        .and_then(|section| section.first_kind);
+    if lead != Some("text") {
         failures.push(format!("{page}: no lead paragraph after the H1"));
     }
     let mut passages = 0;

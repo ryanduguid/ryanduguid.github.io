@@ -141,6 +141,8 @@ fn a_page_needs_a_lead() {
         "# Heading\n\n## Part\n\n### Detail",
         "# Heading\n\n## Part\n\nThe calculator works out GST.",
         "# Heading\n\n- A list item",
+        "# Heading\n\n```\nlet total = 1;\n```\n\nThe calculator works out GST.",
+        "# Heading\n\nInput | Result\n1 | 2\n\nThe calculator works out GST.",
         "The calculator works out GST.",
     ] {
         assert_eq!(
