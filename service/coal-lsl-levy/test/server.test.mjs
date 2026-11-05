@@ -291,12 +291,14 @@ test('logs carry only the permitted fields, never bodies, amounts, queries or cl
   }, { 'x-forwarded-for': '203.0.113.77', 'user-agent': 'agent-sentinel' });
   assert.equal(response.status, 200);
   await response.text();
-  const own = logs.slice(before).filter((line) => {
-    const { method, status, path } = JSON.parse(line);
-    return method === 'POST' && status === 200 && path === `/v1/calculators/${CALC}/${PERIOD}`;
-  });
-  assert.equal(own.length, 1, 'the request logged one line of its own');
-  assert.deepEqual(Object.keys(JSON.parse(own[0])).sort(), LOG_FIELDS);
+  const added = logs.slice(before);
+  assert.equal(added.length, 1, 'the request logged exactly one line');
+  const entry = JSON.parse(added[0]);
+  assert.deepEqual(Object.keys(entry).sort(), LOG_FIELDS);
+  assert.equal(entry.method, 'POST');
+  assert.equal(entry.status, 200);
+  assert.equal(entry.path, `/v1/calculators/${CALC}/${PERIOD}`);
+  assert.equal(entry.request_id, response.headers.get('x-request-id'));
   for (const line of logs) assert.deepEqual(Object.keys(JSON.parse(line)).sort(), LOG_FIELDS);
   const joined = logs.join('\n');
   for (const secret of ['7654321.09', '6000.00', '127.0.0.1', '203.0.113.77', 'annual_salary_paid', 'base_rate_of_pay', 'query-sentinel', 'agent-sentinel']) {
@@ -357,13 +359,15 @@ test('the throttle map does not grow across windows', () => {
 test('a fault logs the permitted fields and none of its message', async () => {
   const seen = [];
   const secret = '7654321.09 from a caller';
+  let takes = 0;
   const faulty = createApp({
-    port: 0, log: (line) => seen.push(line), throttle: { take() { throw new Error(secret); } },
+    port: 0, log: (line) => seen.push(line), throttle: { take() { takes += 1; throw new Error(secret); } },
   });
   await new Promise((resolve) => faulty.server.listen(0, '127.0.0.1', resolve));
   try {
     const response = await fetch(`http://127.0.0.1:${faulty.server.address().port}/healthz`);
     assert.equal(response.status, 500);
+    assert.equal(takes, 1, 'the fault fired once');
     const body = await response.text();
     assert.ok(!body.includes(secret), 'the response does not echo it');
     assert.equal(seen.length, 1);
