@@ -348,15 +348,13 @@ fn geo_leftovers_surface() {
 /// Every agent on the pinned list has a recorded class, and the list cannot drift.
 #[test]
 fn crawler_classes_cover_the_pinned_list() {
-    if !rendered() {
-        return;
-    }
     const LIST: &str = "scripts/ai-robots/robots.json";
     const CLASSES: &str = "scripts/ai-robots/left-to-wildcard.json";
+    let repository = repository();
     let site = tempfile::tempdir().unwrap();
     std::fs::create_dir_all(site.path().join("scripts/ai-robots")).unwrap();
-    std::fs::copy(root().join(LIST), site.path().join(LIST)).unwrap();
-    let classes = read_text(root(), CLASSES);
+    std::fs::copy(repository.join(LIST), site.path().join(LIST)).unwrap();
+    let classes = read_text(&repository, CLASSES);
     let check = |text: &str| {
         std::fs::write(site.path().join(CLASSES), text).unwrap();
         contracts::check_crawler_classes(site.path()).unwrap()
