@@ -77,7 +77,8 @@ pub const CA_ANZ_NON_ENDORSEMENT: &str =
 pub const MCP_REL: &str = "tools/australian-tax-ai-agents/index.html";
 pub const MCP_REVIEW_DATE: &str = "2026-10-31";
 pub const MCP_VISIBLE_REVIEW_DATE: &str = "31 October 2026";
-pub const ASSURANCE_ANCHORS: [(&str, &str); 10] = [
+pub const ASSURANCE_ANCHORS: [(&str, &str); 11] = [
+    ("results-you-can-check", "Results you can check"),
     (
         "quarter-close-to-forecast",
         "From monthly close to a cash forecast",
