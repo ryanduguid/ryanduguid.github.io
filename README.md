@@ -13,11 +13,13 @@
 
 </div>
 
-Source for [duguid.com.au](https://duguid.com.au/), the open source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
+[duguid.com.au](https://duguid.com.au/) is [Ryan Duguid](https://duguid.com.au/)'s open source tool library for Australian accountants: calculators, rate tables with primary sources, engines, MCP servers, Excel LAMBDAs and agent workflows. This repository holds its source.
 
 On this page:
 
 - [Site structure](#site-structure)
+- [Questions about the site](#questions-about-the-site)
+- [Alternatives](#alternatives)
 - [Local preview](#local-preview)
 - [Checks](#checks)
 - [Response headers](#response-headers)
@@ -30,6 +32,8 @@ On this page:
 
 ## Site structure
 
+The site publishes its pages as registers, each under one top-level path.
+
 - `/tools/` groups the tool register by Extract, Calculate, Control and Inspect.
 - `/works-with/` lists existing tools by software, starting with Xero and Claude, with setup requirements and read and write boundaries.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
@@ -41,6 +45,22 @@ On this page:
 - `/feed.xml` is an Atom feed built from the changelog tables by `site-tools build_feed`.
 
 The homepage is a short adoption path into those registers.
+
+## Questions about the site
+
+**Does the site lodge anything?** No. The website is static pages, and its calculators run in the browser, so it lodges nothing with the ATO or any other agency. Ryan Duguid is not a registered tax agent or BAS agent. Outputs are review aids for a qualified professional, not compliance determinations.
+
+**What does a calculator need?** A browser with JavaScript and the figures you enter. There is nothing to install and no account. The Python packages, MCP server and agent workflows list their own requirements in the [installation guide](https://duguid.com.au/tools/australian-tax-ai-agents/#install).
+
+**What data leaves the browser?** The calculators do not send the figures you enter to a server or save them in browser storage. The accounting-question search places its term and topic in the page address, so they appear in browser history and in any address you pass on. GitHub Pages and Cloudflare process technical information about visits, which may include IP addresses and request details. The [privacy notice](https://duguid.com.au/privacy/) gives the full account.
+
+**How is the site licensed?** The site's text, data and source code are under the [Ryan Duguid Public Attribution Licence 1.0](LICENSE). The [Licence](#licence) section gives its terms and the third-party material it does not cover.
+
+## Alternatives
+
+The ATO's own tools remain the authority on their topics, such as its [Division 7A calculator and decision tool](https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool). duguid.com.au publishes its formulas, primary source links and tests in this repository, so a reader can check a result, but it is not an ATO tool.
+
+Other Australian options include [soletrader-kit-au](https://github.com/christransformers/soletrader-kit-au), a GST calculator, invoice and ABN checker, and [calcmate](https://github.com/iambenslater/calcmate), JavaScript calculators with a Division 7A page. This comparison was made on 5 November 2026 from public repository listings, not from using those tools.
 
 ## Local preview
 
@@ -98,6 +118,9 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 - the self-hosted Besley, Public Sans and Spline Sans Mono subsets retain their licences, hashes, visible-glyph coverage and byte budget
 - contextual social cards retain their fixed copy, dimensions, byte budget, deterministic render and recorded provenance
 - the shipped favicon rasters and `favicon.ico` match a fresh render of `assets/favicon.svg`, and every styled page declares the shipped 48px and 96px icons
+- `llms.txt` keeps the [llms.txt format](https://llmstxt.org/): one H1, a blockquote summary, details, then H2 sections of `- [name](url): note` items with `## Optional` last, run with `site-tools build_llms_full --check`
+- every page keeps the [passage rules](CONTRIBUTING.md#passage-rules), run with `site-tools check_passages`
+- every agent on the pinned list in `scripts/ai-robots/` is named in `robots.txt` or recorded as left to its default group, and the list's hash matches its pin
 
 Run locally:
 
@@ -123,12 +146,16 @@ Run the adoption path, collection hubs, navigation, overflow, accessibility and 
 npm run test:browser
 ```
 
+Playwright starts the site with `cargo run --release` and waits 60 seconds for it, which a first release build can outlast. Set `SITE_TOOLS` to the path of an installed `site-tools` binary to skip that build, as CI does.
+
 Run the same journeys in mobile WebKit, the closest local stand-in for iOS Safari, after a layout or form change. Every spec runs in one iPhone-sized project, so the 4 desktop-only checks skip as they do in mobile Chromium, and the 2 screenshot comparisons skip because their committed baselines are Chromium renders. CI does not run this pass:
 
 ```bash
 npx playwright install webkit
 npm run test:browser:webkit
 ```
+
+On Linux, Playwright can stop with 'Host system is missing dependencies' until `sudo npx playwright install-deps` has run.
 
 The Windows pass on 5 October 2026 reported 192 passed, 11 skipped and zero failures. Recovery retries the required modules directly. Its regression tests cover repeated failures, retained inputs and focus. The earlier reload failure and the repair are recorded under WebKit differences in [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md). Physical Safari remains untested.
 
@@ -213,7 +240,7 @@ so entered figures cannot leave through the form's default GET request.
 It holds because the site carries no inline `<style>`, no `style` attribute
 and no inline script other than JSON-LD data blocks. The Coal LSL calculator's
 page wiring lives in `assets/levy-page.mjs` for that reason, and
-`site-tools check_design` fails if a page drops the policy or gains an inline
+`site-tools check_site` fails if a page drops the policy or gains an inline
 script.
 
 The remainder are response-header-only controls: a `<meta http-equiv>` copy
@@ -283,7 +310,7 @@ The register seal is drawn once, in `assets/favicon.svg`, as square-cornered rec
 site-tools favicon_render
 ```
 
-`site-tools check_design` fails if a shipped raster falls behind the SVG or a page drops an icon link. `assets/favicon-180.png` is the Apple touch icon at the 180px size iOS asks for and is regenerated with the other icons.
+`site-tools check_site` fails if a shipped raster falls behind the SVG or a page drops an icon link. `assets/favicon-180.png` is the Apple touch icon at the 180px size iOS asks for and is regenerated with the other icons.
 
 ## About portrait provenance
 
@@ -328,7 +355,7 @@ note records what evidence a Payroll or Migration badge would need first.
 
 ## Licence
 
-Licensed under the [Ryan Duguid Public Attribution Licence 1.0](LICENSE), the FSL-1.1-ALv2 text with a public attribution condition. You may use, modify and redistribute it for any purpose except a Competing Use as defined in LICENSE (making it available to others in a competing commercial product or service), and each version becomes available under Apache-2.0 2 years after it is made available. For versions made available from 4 November 2026, LICENSE's Public Attribution Condition applies to the FSL grant: anyone who makes a copy, port or derivative available outside their organisation must credit Ryan Duguid publicly, with a link to this repository. Internal use is exempt, and the condition does not apply to each version's Apache-2.0 licence. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The licence covers this repository's own code, text and data. If you redistribute or adapt that material, keep the copyright notices in [NOTICE](NOTICE). The Privacy page states the same grant for readers, and every page's own page node in its JSON-LD carries it as `license`; software listings keep their own package licences.
+The site is licensed under the [Ryan Duguid Public Attribution Licence 1.0](LICENSE), the FSL-1.1-ALv2 text with a public attribution condition. You may use, modify and redistribute it for any purpose except a Competing Use as defined in LICENSE (making it available to others in a competing commercial product or service), and each version becomes available under Apache-2.0 2 years after it is made available. For versions made available from 4 November 2026, LICENSE's Public Attribution Condition applies to the FSL grant: anyone who makes a copy, port or derivative available outside their organisation must credit Ryan Duguid publicly, with a link to this repository. Internal use is exempt, and the condition does not apply to each version's Apache-2.0 licence. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The licence covers this repository's own code, text and data. If you redistribute or adapt that material, keep the copyright notices in [NOTICE](NOTICE). The Privacy page states the same grant for readers, and every page's own page node in its JSON-LD carries it as `license`; software listings keep their own package licences.
 
 The licence grant does not extend to third-party material published here. The Besley,
 Public Sans and Spline Sans Mono subsets under `assets/fonts/` keep the SIL
