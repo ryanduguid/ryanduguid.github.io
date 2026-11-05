@@ -1119,3 +1119,54 @@ fn calculator_pages_show_every_boundary_case_the_node_tests_run() {
         }
     }
 }
+
+#[test]
+fn evidence_results_name_published_releases_limits_and_read_dates() {
+    let tree = parse_structure(&read("evidence/index.html"));
+    let section = tree
+        .descendants(Tree::ROOT, Some("section"), true)
+        .into_iter()
+        .find(|s| tree.attr(*s, "aria-labelledby") == Some("results-you-can-check"))
+        .unwrap();
+    let text = tree.text(section);
+    let record = json("scripts/release_record.json");
+    let components = get(&record, "components");
+    let published = |name: &str| text_of(get(get(get(components, name), "published"), "version"));
+    let div7a = text_of(get(
+        get(get(components, "aus-accounting-mcp"), "pinned_engines"),
+        "div7a-loan-review",
+    ));
+    // The tool counts are dated readings of a package outside this repository: this holds their
+    // wording and date, not the counts.
+    for claim in [
+        format!(
+            "Aus Accounting MCP {}, the published release",
+            published("aus-accounting-mcp")
+        ),
+        format!("Its repayment code and rate table are unchanged to the published {div7a}"),
+        "listed 22 local tools on 5 November 2026. The source on main defines 24: validate_abn and validate_acn are not yet released".to_owned(),
+        format!(
+            "payday-super-check {} gives a due date of 11 August 2026",
+            published("payday-super-checker")
+        ),
+        "12,800 fictional cases with no repayments".to_owned(),
+        "covers the repayment figure only".to_owned(),
+        "not a registered tax or BAS agent, does not lodge and holds no third-party certification"
+            .to_owned(),
+        "not rerun on later releases or the unreleased Rust port".to_owned(),
+        "a Coal LSL calculator that I built and host as an external contributor".to_owned(),
+    ] {
+        assert!(text.contains(&claim), "{claim}");
+    }
+    let lists = tree.descendants(section, Some("ul"), false);
+    assert_eq!(lists.len(), 2);
+    let rivals = tree.descendants(lists[1], Some("li"), false);
+    assert_eq!(rivals.len(), 3);
+    for rival in rivals {
+        let line = tree.text(rival);
+        assert!(
+            re(r"Read \d{1,2} [A-Z][a-z]+ \d{4}\.\s*$", 0).is_match(&line),
+            "{line}"
+        );
+    }
+}

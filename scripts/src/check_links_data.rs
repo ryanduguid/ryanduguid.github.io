@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 120] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 121] = [
     "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation",
     "https://www.ato.gov.au/",
     "https://www.ato.gov.au/about-ato/new-legislation/guidance-on-tax-and-superannuation-measures",
@@ -94,6 +94,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 120] = [
     "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/work-out-if-you-have-to-pay-super/super-for-independent-contractors",
     "https://www.ato.gov.au/businesses-and-organisations/trusts",
     "https://www.ato.gov.au/businesses-and-organisations/trusts/trust-income-losses-and-capital-gains/resolutions-checklist",
+    "https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool",
     "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim",
