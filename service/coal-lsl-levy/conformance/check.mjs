@@ -22,6 +22,7 @@ import assert from 'node:assert/strict';
 const here = dirname(fileURLToPath(import.meta.url));
 const fixtures = JSON.parse(readFileSync(join(here, '..', 'fixtures', 'cases.json'), 'utf8'));
 const CALC = 'urn:sbrm:calculator:coal-lsl:levy';
+const isHash = (value) => typeof value === 'string' && /^[0-9a-f]{64}$/.test(value);
 
 const results = [];
 const check = (section, name, ok, detail = '') => results.push({ section, name, ok, detail });
@@ -77,14 +78,20 @@ async function run(base) {
   check('1 discovery', 'GET /healthz answers 200', health.response.status === 200);
   const period = entry.supported_periods?.at(-1);
   const rates = await json(`/v1/rates/${period}`);
-  check('1 discovery', 'GET /v1/rates/{period_uri} lists rate tables with content hashes',
-    rates.response.status === 200 && rates.body?.entries?.every((item) => /^[0-9a-f]{64}$/.test(item.content_hash ?? '')));
+  const entries = Array.isArray(rates.body?.entries) ? rates.body.entries : [];
+  const rateEntry = entries.find((item) => item.rate_id === 'levy-rate');
+  const methodEntry = entries.find((item) => item.rate_id === 'eligible-wages-method');
+  // Every check below compares against these two, so an empty listing proves nothing.
+  const evidenceListed = rates.response.status === 200
+    && isHash(rateEntry?.content_hash) && isHash(methodEntry?.content_hash);
+  check('1 discovery', 'GET /v1/rates/{period_uri} lists rate tables with content hashes', evidenceListed);
 
   // 3. Name what you consumed: the hash must be of the bytes actually served.
-  let hashesMatch = true;
-  for (const item of rates.body?.entries ?? []) {
+  let hashesMatch = evidenceListed;
+  for (const item of entries) {
     const served = await json(`/v1/rates/${period}/${item.rate_id}`);
-    if (createHash('sha256').update(served.bytes).digest('hex') !== item.content_hash) hashesMatch = false;
+    if (served.response.status !== 200
+      || createHash('sha256').update(served.bytes).digest('hex') !== item.content_hash) hashesMatch = false;
   }
   check('3 manifest', 'each declared content hash equals the SHA-256 of the bytes the rate route serves', hashesMatch);
 
@@ -125,11 +132,13 @@ async function run(base) {
         decimalStrings = false;
       }
       const manifest = body.manifest ?? {};
-      if (!(manifest.calculator && manifest.period && manifest.engine?.version && Array.isArray(manifest.rate_table_uris)
-        && manifest.rate_table_uris.every((item) => /^[0-9a-f]{64}$/.test(item.sha256 ?? '')) && manifest.citation)) manifestComplete = false;
+      if (!(manifest.calculator && manifest.period && manifest.engine?.version
+        && Array.isArray(manifest.rate_table_uris) && manifest.rate_table_uris.length > 0
+        && manifest.rate_table_uris.every((item) => isHash(item.sha256))
+        && isHash(manifest.method?.sha256) && manifest.citation)) manifestComplete = false;
       if (manifest.calculator !== CALC || manifest.period !== periodUrn
-        || manifest.rate_table_uris?.[0]?.sha256 !== rates.body?.entries?.[0]?.content_hash
-        || manifest.method?.sha256 !== rates.body?.entries?.[1]?.content_hash) manifestComplete = false;
+        || manifest.rate_table_uris?.[0]?.sha256 !== rateEntry?.content_hash
+        || manifest.method?.sha256 !== methodEntry?.content_hash) manifestComplete = false;
       if (manifest.rounding_policy !== documentedPolicy) roundingNamed = false;
       if (!(body.advisory?.figure_type && Array.isArray(body.advisory?.notes) && body.advisory.notes.length)) advisoryPresent = false;
       const repeat = await post(periodUrn, fixture.request);
@@ -152,10 +161,10 @@ async function run(base) {
   check('2 refusals', `the fixture set exercises 200, 400, 422 and 404`,
     computed > 0 && refusals > 0 && validations > 0 && notFound > 0,
     `${computed} computed, ${refusals} refused, ${validations} rejected, ${notFound} not found`);
-  check('4 numbers', 'money and rates are decimal strings at the scales the OpenAPI declares, never JSON numbers', decimalStrings);
-  check('3 manifest', 'every 200 carries a complete manifest', manifestComplete);
-  check('3 manifest', 'every 200 names the rounding policy its OpenAPI documents', roundingNamed, documentedPolicy ?? 'undocumented');
-  check('3 manifest', 'every 200 carries an advisory block', advisoryPresent);
+  check('4 numbers', 'money and rates are decimal strings at the scales the OpenAPI declares, never JSON numbers', computed > 0 && decimalStrings);
+  check('3 manifest', 'every 200 carries a complete manifest', computed > 0 && manifestComplete);
+  check('3 manifest', 'every 200 names the rounding policy its OpenAPI documents', computed > 0 && roundingNamed, documentedPolicy ?? 'undocumented');
+  check('3 manifest', 'every 200 carries an advisory block', computed > 0 && advisoryPresent);
 
   // 6. Access and cost: limits are declared and enforced.
   check('6 limits', 'discovery declares the body and rate limits',

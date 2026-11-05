@@ -32,13 +32,32 @@ test('real responses pass at their declared scales', () => {
   assert.equal(declaredScalesHold(schema, bonuses), true);
 });
 
-test('a wrong scale anywhere the schema declares one fails', () => {
+test('representative wrong scales on 4 declared figures and a JSON number fail', () => {
   assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.levy_before_rounding = '192.375'; })), false);
   assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.rate.value_percent = '2.7'; })), false);
   assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.workings.formula_b_basis.factor = '0.75'; })), false);
   assert.equal(declaredScalesHold(schema, changed(bonuses, (body) => { body.excluded[0].amount += '0'; })), false);
   assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.levy = 192.38; })), false,
     'a JSON number is not a decimal string');
+});
+
+test('a figure the schema does not declare fails, wherever it sits', () => {
+  assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.levy_total = 192.38; })), false,
+    'an undeclared JSON number');
+  assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.rate.effective_rate = 2.7; })), false,
+    'an undeclared number beside declared members');
+  assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.rounding.difference = 0.01; })), false,
+    'a number in an object with no declared members');
+  assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.manifest.engine.levy = '192.4'; })), false,
+    'an undeclared decimal string, nested');
+  assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.rate.as_fraction = '0.027'; })), false,
+    'a figure in a declared string with no pattern');
+});
+
+test('a declared type is enforced where no pattern or members apply', () => {
+  assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.rounding = 'half up'; })), false);
+  assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.branch.label = true; })), false);
+  assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.advisory.notes = [null]; })), false);
 });
 
 test('a declared array or object must arrive with its declared shape', () => {
