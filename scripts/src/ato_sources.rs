@@ -12,7 +12,9 @@
 //! [`NOISE`] lines, or to a listing page ([`listing`]), is recorded but passes. A dead
 //! link (HTTP 404 or 410) needs its citations repointed once a read at least
 //! [`DEAD_HOLD_DAYS`] days after the first agrees; until then the report notes it and
-//! a marker file beside the baseline text holds the first date. A cited page dated after the
+//! a marker file beside the baseline text holds the first date. The hold is per URL and
+//! a page that reads again clears it, so 3 days is the least wait, not a deadline. A cited
+//! page dated after the
 //! accounting question answers citing it were checked needs those answers rechecked
 //! ([`QUESTIONS`]). A moved page that still resolves is a permanent redirect when every
 //! hop is 301 or 308, listed for a mechanical update, and otherwise a note. The exit code
@@ -641,7 +643,10 @@ fn failed(failure: impl Into<String>) -> Outcome {
 /// The days a dead read waits for a second one: a single 404 can be a publisher's slip.
 pub const DEAD_HOLD_DAYS: i64 = 3;
 
-/// The file beside a page's baseline text holding the date it first read as dead.
+/// The file beside a page's baseline text holding the date it first read as dead. It
+/// lasts as long as the baseline folder, which the scheduled sweep keeps between runs.
+/// Holds are per URL: replacing a citation is a reviewed edit, and a new URL starts its
+/// own hold.
 pub fn dead_marker(url: &str) -> String {
     format!("{}.dead", baseline_file(url))
 }
@@ -1540,7 +1545,8 @@ fn sweep(args: &[String]) -> Result<u8, String> {
                 ));
                 continue;
             }
-        } else if outcome.failure.is_none() && marker.exists() {
+        } else if outcome.text.is_some() && marker.exists() {
+            // A read page ends the hold; a change or stale answer on it still reports below.
             recovered.push(marker);
         }
         if let Some(text) = &outcome.text {

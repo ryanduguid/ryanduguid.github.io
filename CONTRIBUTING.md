@@ -151,7 +151,8 @@ and the files citing it. Review those files against the changed page; the next
 run compares against the new text, so the report is the record. A cited page
 that returns HTTP 404 or 410 is noted and held, with its first date in a `.dead`
 file in the baseline folder, until a read at least 3 days later agrees; it is then
-listed as a dead link whose citations need repointing. A cited page whose 'Last updated'
+listed as a dead link whose citations need repointing. The hold is per URL, so a
+replaced citation starts its own, and a page that reads again clears it. A cited page whose 'Last updated'
 date is after the check date of an accounting question answer citing it
 (`fact_checked`, else `facts_checked` in `_data/accounting_questions.json`) also
 fails, even on the run that first reads it; recheck those answers and set their

@@ -1617,7 +1617,8 @@ fn a_redirect_is_read_without_following_it() {
 
 /// A stand-in for `nodriver batch`: every URL in the list is read with the text in
 /// `$PAGE_TEXT`, a fixed page otherwise, at status `$PAGE_STATUS`, 200 otherwise, and its
-/// arguments go to `$ARGS_FILE` when set.
+/// arguments go to `$ARGS_FILE` when set. A line `URL STATUS TEXT_FILE` in the `$PAGES` file
+/// answers for that URL instead.
 #[cfg(unix)]
 const FAKE_NODRIVER: &str = r#"#!/bin/sh
 list="$3"; out="$5"; mkdir -p "$out"; i=0; sep=''
@@ -1625,8 +1626,14 @@ list="$3"; out="$5"; mkdir -p "$out"; i=0; sep=''
 printf '[' > "$out/index.json"
 while IFS= read -r url || [ -n "$url" ]; do
   i=$((i + 1))
+  status="${PAGE_STATUS-200}"
   printf '%s' "${PAGE_TEXT-A fixed page, long enough to count as the text of a page.}" > "$out/$i.txt"
-  printf '%s{"url": "%s", "status": %s, "final_url": "%s", "truncated": false, "file": "%s.txt"}' "$sep" "$url" "${PAGE_STATUS-200}" "$url" "$i" >> "$out/index.json"
+  line=$(grep -F "$url " "${PAGES:-/dev/null}")
+  if [ -n "$line" ]; then
+    status=${line#* }; status=${status%% *}
+    cp "${line##* }" "$out/$i.txt"
+  fi
+  printf '%s{"url": "%s", "status": %s, "final_url": "%s", "truncated": false, "file": "%s.txt"}' "$sep" "$url" "$status" "$url" "$i" >> "$out/index.json"
   sep=','
 done < "$list"
 printf ']' >> "$out/index.json"
@@ -1745,6 +1752,162 @@ fn a_dead_link_fails_a_sweep_only_when_a_later_read_agrees() {
     // A page that reads again clears its hold.
     assert_eq!(run("200").status.code(), Some(0));
     assert!(!marker.exists());
+}
+
+/// A site citing `links`, swept by separate processes that share only the baseline
+/// folder, as the weekly scheduled runs do.
+#[cfg(unix)]
+struct Sweep {
+    bin: tempfile::TempDir,
+    root: tempfile::TempDir,
+}
+
+#[cfg(unix)]
+impl Sweep {
+    fn new(links: &[&str], questions: Option<Value>) -> Self {
+        let root = tempfile::tempdir().unwrap();
+        let site = root.path().join("site");
+        let html: Vec<String> = links
+            .iter()
+            .map(|link| format!(r#"<a href="{link}">Source</a>"#))
+            .collect();
+        write(&site.join("rates/index.html"), &html.join("\n"));
+        if let Some(questions) = questions {
+            write(
+                &site.join("_data/accounting_questions.json"),
+                &questions.to_string(),
+            );
+        }
+        let bin = fake_nodriver(site_tools::ato_sources::NODRIVER[0]);
+        Self { bin, root }
+    }
+
+    fn marker(&self, url: &str) -> PathBuf {
+        self.root.path().join("baseline").join(dead_marker(url))
+    }
+
+    /// One process over `pages`: (URL, status, page text).
+    fn run(&self, pages: &[(&str, &str, &str)]) -> Output {
+        let root = self.root.path();
+        let mut lines = String::new();
+        for (i, (url, status, text)) in pages.iter().enumerate() {
+            let file = root.join(format!("page-{i}.txt"));
+            std::fs::write(&file, text).unwrap();
+            lines.push_str(&format!("{url} {status} {}\n", file.display()));
+        }
+        let list = root.join("pages.txt");
+        std::fs::write(&list, lines).unwrap();
+        Command::new(env!("CARGO_BIN_EXE_site-tools"))
+            .arg("check_ato_sources")
+            .arg("--baseline")
+            .arg(root.join("baseline"))
+            .arg("--out")
+            .arg(root.join("out"))
+            .arg("--issue")
+            .arg(root.join("issue.md"))
+            .arg(root.join("site"))
+            .env(
+                "PATH",
+                format!("{}:/usr/bin:/bin", self.bin.path().display()),
+            )
+            .env("PAGES", &list)
+            .output()
+            .unwrap()
+    }
+}
+
+#[cfg(unix)]
+#[test]
+fn a_page_that_reads_again_ends_a_dead_hold_even_when_its_text_changed() {
+    let sweep = Sweep::new(&[PAGE], None);
+    assert_eq!(sweep.run(&[(PAGE, "200", TEXT)]).status.code(), Some(0));
+    assert_eq!(sweep.run(&[(PAGE, "404", TEXT)]).status.code(), Some(0));
+    let marker = sweep.marker(PAGE);
+    let today = std::fs::read_to_string(&marker).unwrap();
+    std::fs::write(&marker, "2026-01-01").unwrap();
+
+    // The read clears the old date and still reports the change.
+    let changed = TEXT.replace("11.17%", "12.34%");
+    let recovered = sweep.run(&[(PAGE, "200", &changed)]);
+    assert_eq!(recovered.status.code(), Some(2));
+    let stderr = String::from_utf8_lossy(&recovered.stderr);
+    assert!(stderr.contains(&format!("{PAGE}: changed since the previous run")));
+    assert!(!marker.exists());
+
+    // So a later dead read starts a new hold instead of agreeing with the old date.
+    assert_eq!(sweep.run(&[(PAGE, "404", TEXT)]).status.code(), Some(0));
+    assert_eq!(std::fs::read_to_string(&marker).unwrap(), today);
+}
+
+#[cfg(unix)]
+#[test]
+fn a_page_that_cannot_be_read_keeps_a_dead_hold() {
+    let sweep = Sweep::new(&[PAGE], None);
+    assert_eq!(sweep.run(&[(PAGE, "200", TEXT)]).status.code(), Some(0));
+    assert_eq!(sweep.run(&[(PAGE, "404", TEXT)]).status.code(), Some(0));
+    assert_eq!(sweep.run(&[(PAGE, "500", TEXT)]).status.code(), Some(1));
+    assert!(sweep.marker(PAGE).exists());
+    assert_eq!(sweep.run(&[(PAGE, "200", "short")]).status.code(), Some(1));
+    assert!(sweep.marker(PAGE).exists());
+}
+
+#[cfg(unix)]
+#[test]
+fn a_held_dead_link_leaves_every_other_finding_its_report_and_exit_code() {
+    let held = "https://www.ato.gov.au/held-page";
+    let broken = "https://www.ato.gov.au/broken-page";
+    let changing = "https://www.ato.gov.au/changing-page";
+    let stale = "https://www.ato.gov.au/stale-page";
+    let questions = json!({
+        "facts_checked": "2026-09-27",
+        "sources": {"stale": {"url": stale}},
+        "questions": [{"id": 6, "source": "stale", "fact": "A checked fact.", "fact_sources": []}],
+    });
+    let sweep = Sweep::new(&[held, broken, changing], Some(questions));
+    let changed = TEXT.replace("11.17%", "12.34%");
+    let again = TEXT.replace("11.17%", "13.57%");
+    let dated = format!("{TEXT}\nLast updated 3 November 2026");
+    let seed = [
+        (held, "200", TEXT),
+        (broken, "200", TEXT),
+        (changing, "200", TEXT),
+        (stale, "200", TEXT),
+    ];
+    assert_eq!(sweep.run(&seed).status.code(), Some(0));
+
+    // A 500 is a broken read, so the run exits 1 whatever else it found.
+    let first = sweep.run(&[
+        (held, "404", TEXT),
+        (broken, "500", TEXT),
+        (changing, "200", &changed),
+        (stale, "200", &dated),
+    ]);
+    assert_eq!(first.status.code(), Some(1));
+    let stdout = String::from_utf8_lossy(&first.stdout);
+    let stderr = String::from_utf8_lossy(&first.stderr);
+    let recheck = format!("{stale}: updated 2026-11-03, after the answers to questions 6");
+    assert!(stdout.contains(&format!("{held} read as dead on ")));
+    assert!(stderr.contains(&format!("{broken}: HTTP 500\n")));
+    assert!(stderr.contains(&format!("{changing}: changed since the previous run\n")));
+    assert!(stderr.contains(&recheck));
+    assert!(!stderr.contains(&format!("{held}:")));
+    assert!(sweep.marker(held).exists());
+
+    // Without the 500 the same findings exit 2, and the link stays held.
+    let second = sweep.run(&[
+        (held, "404", TEXT),
+        (broken, "200", TEXT),
+        (changing, "200", &again),
+        (stale, "200", &dated),
+    ]);
+    assert_eq!(second.status.code(), Some(2));
+    let stdout = String::from_utf8_lossy(&second.stdout);
+    let stderr = String::from_utf8_lossy(&second.stderr);
+    assert!(stdout.contains(&format!("{held} read as dead on ")));
+    assert!(stderr.contains(&format!("{changing}: changed since the previous run\n")));
+    assert!(stderr.contains(&recheck));
+    assert!(!stderr.contains(&format!("{held}:")));
+    assert!(!stderr.contains(&format!("{broken}:")));
 }
 
 #[cfg(unix)]
