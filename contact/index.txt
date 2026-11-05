@@ -22,7 +22,7 @@ Do not email taxpayer information, client records, credentials or confidential f
 
 Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
-Corrections | Report a wrong rate, date or rule
+Corrections | Report a wrong rate, date or rule. The form is public: leave out tax file numbers and other taxpayer identifiers, client records, credentials and confidential attachments.
 GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid

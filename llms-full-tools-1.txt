@@ -621,7 +621,7 @@ Sources. A rate or threshold cites a primary source: each row of a rate table ca
 
 Tests. The calculator engines have their own test suites, run on every pull request. Each entry on this page is bound by a test in its package. Evaluations reproduce results against fixed releases with fictional inputs.
 
-Freshness. A daily job compares the release references on these pages with published releases. A weekly sweep reads every ATO page the site cites and fails when one changes substantively or stops loading, and each changed page then needs a review of the files citing it. Dates on a page record when it was last reviewed; the changelog records what changed.
+Freshness. A daily job compares the release references on these pages with published releases. A weekly sweep on Ryan’s machine reads the ATO addresses in the site’s source files and fails when one stops loading or its text changes substantively, and its report lists the files to review. The change test leaves out the legal database home and hub and listing pages. Dates on a page record when it was last reviewed; the changelog records what changed.
 
 Recent corrections, from the changelog
 

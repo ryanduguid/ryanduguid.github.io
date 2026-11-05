@@ -109,7 +109,7 @@ fn broken_manifest_reports_each_finding() {
         stdout,
         "agent-skills manifest: format is 'x', expected 'duguid.com.au/agent-skills-index/1'
 agent-skills manifest: source.release is not v0.4.0
-agent-skills manifest: note does not say why v0.4.0 is pinned
+agent-skills manifest: note does not say v0.4.0 is pinned as the latest release under Apache-2.0
 agent-skills manifest: skill names repeat
 agent-skills manifest: 'Bad_Name': name breaks the Agent Skills name rule
 agent-skills manifest: Bad_Name: url is not the file at the pinned commit
@@ -122,6 +122,39 @@ agent-skills manifest: au-capital-gains: url is not the file at the pinned commi
     let (code, stdout, _) = run(site.path(), &["build_agent_skills_manifest", "--check"]);
     assert_eq!(code, Some(1));
     assert!(stdout.contains("No such file or directory"), "{stdout}");
+}
+
+#[test]
+fn a_pin_reason_must_match_the_declared_licence() {
+    let site = tempfile::tempdir().unwrap();
+    std::fs::write(site.path().join("_config.yml"), "").unwrap();
+    std::fs::create_dir_all(site.path().join(".well-known/agent-skills")).unwrap();
+    let text = std::fs::read_to_string(repository().join(MANIFEST)).unwrap();
+    let check = |manifest: &Json| {
+        let dump = Dump {
+            indent: Some(2),
+            ..Dump::default()
+        };
+        std::fs::write(site.path().join(MANIFEST), pyjson::dumps(manifest, dump)).unwrap();
+        run(site.path(), &["build_agent_skills_manifest", "--check"]).1
+    };
+
+    // The phrase alone is not a reason.
+    let mut wrong_reason = pyjson::loads(&text).unwrap();
+    *member(&mut wrong_reason, "note") =
+        Json::str_obj("v0.4.0 is pinned because it was convenient.");
+    assert!(
+        check(&wrong_reason).contains("note does not say v0.4.0 is pinned as the latest release"),
+        "wrong reason"
+    );
+
+    // Nor is a reason naming a licence the file does not declare.
+    let mut wrong_licence = pyjson::loads(&text).unwrap();
+    *member(member(&mut wrong_licence, "source"), "license") = Json::str_obj("MIT");
+    assert!(
+        check(&wrong_licence).contains("latest release under MIT"),
+        "wrong licence"
+    );
 }
 
 #[test]

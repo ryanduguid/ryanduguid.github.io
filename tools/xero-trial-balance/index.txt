@@ -16,7 +16,7 @@ Python
 
 Needs
 
-Python 3.11 or later and a Xero developer app (free Starter plan: up to 5 organisations, 1,000 API calls a day each)
+Python 3.11 or later and a Xero developer app (free Starter plan: up to 5 connections, 1,000 API calls a day per organisation)
 
 Boundary
 
@@ -43,7 +43,7 @@ MIT-licensed utility code, no warranty; outputs feed professional review like an
 
 ## Get it
 
-Needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free Starter plan lets an app connect up to 5 organisations, at 1,000 API calls a day each; Works with Xero covers the paid plans and the exemption for your own practice. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation; Works with Xero covers the paid plans and the exemption for your own practice. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git

@@ -957,22 +957,34 @@ fn a_reader_can_reach_the_correction_form_from_each_tool_and_the_contact_page() 
         r#"<a href="{form}">Report a wrong rate, date or rule</a>"#
     )));
     assert!(read("tools/limitations/index.html").contains(&format!(r#"<a href="{form}">"#)));
-    for entry in std::fs::read_dir(root().join("tools")).unwrap() {
-        let page = entry.unwrap().path().join("index.html");
-        let Ok(html) = std::fs::read_to_string(&page) else {
-            continue;
-        };
-        if let Some((_, line)) = html.split_once("<p>Software issue using fictional data? ") {
-            let line = line.split_once("</p>").unwrap().0;
-            assert!(line.contains(form), "{}", page.display());
-        }
+    assert!(read("contact/index.html").contains(
+        "The form is public: leave out tax file numbers and other taxpayer identifiers, \
+         client records, credentials and confidential attachments."
+    ));
+    for tool in [
+        "ato-benchmarks",
+        "australian-tax-ai-agents",
+        "coal-lsl-levy",
+        "company-tax-franking",
+        "monthly-close-controls",
+        "subcontractor-ledgers",
+        "trust-distributions",
+        "wip-schedule",
+        "workpaper-review-gate",
+        "xero-trial-balance",
+    ] {
+        let html = read(&format!("tools/{tool}/index.html"));
+        let (_, line) = html
+            .split_once("<p>Software issue using fictional data? ")
+            .expect(tool);
+        assert!(line.split_once("</p>").unwrap().0.contains(form), "{tool}");
     }
 }
 
 #[test]
 fn the_xero_install_note_states_the_starter_limits_and_the_paid_plans_page() {
     let html = read("tools/xero-trial-balance/index.html");
-    assert!(html.contains("up to 5 organisations, at 1,000 API calls a day each"));
+    assert!(html.contains("up to 5 connections, at 1,000 API calls a day per organisation"));
     assert!(html.contains(r#"<a href="/works-with/xero/">"#));
     assert!(!html.contains("a free Xero developer app"));
 }

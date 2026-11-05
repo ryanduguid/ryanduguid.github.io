@@ -60,6 +60,12 @@ fn install_commands(commit: &str) -> Vec<String> {
     ]
 }
 
+fn note_gives_pin_reason(note: &str, license: &str) -> bool {
+    note.contains(&format!(
+        "{RELEASE} is pinned because it is the latest release under {license}, the licence declared here"
+    ))
+}
+
 /// URLs pin the commit, not the tag: a tag can be moved, a commit cannot.
 fn raw_prefix(commit: &str) -> String {
     format!("https://raw.githubusercontent.com/{REPOSITORY}/{commit}/{SKILLS_DIR}/")
@@ -121,10 +127,14 @@ fn check(root: &Path) -> Result<Vec<String>> {
     if !get(&source, "release")?.is_some_and(|r| r.py_eq(&Json::str_obj(RELEASE))) {
         failures.push(format!("source.release is not {RELEASE}"));
     }
-    // A pin behind the current release needs its reason where a reader of the file sees it.
-    let note = py_str(get(&manifest, "note")?.as_ref())?;
-    if !note.contains(&format!("{RELEASE} is pinned because")) {
-        failures.push(format!("note does not say why {RELEASE} is pinned"));
+    // A pin behind the current release needs its reason where a reader of the file sees
+    // it. This ties the reason to the licence the file declares; it does not read upstream,
+    // so the note dates what it says about later releases.
+    let license = py_str(get(&source, "license")?.as_ref())?;
+    if !note_gives_pin_reason(&py_str(get(&manifest, "note")?.as_ref())?, &license) {
+        failures.push(format!(
+            "note does not say {RELEASE} is pinned as the latest release under {license}"
+        ));
     }
     let commit = match get(&source, "commit")? {
         Some(Json::Str(commit)) if matches(COMMIT_PATTERN, &commit) => commit,
@@ -353,8 +363,9 @@ fn build() -> Result<Json> {
                 "Preparation-only accounting workflows for review by an authorised human. ",
                 "Not tax advice and not lodgement. Each url serves the released bytes; ",
                 "check the digest before use. v0.4.0 is pinned because it is the latest ",
-                "release under Apache-2.0, the licence declared here; the current release, ",
-                "v0.5.0 (28 October 2026), is under FSL-1.1-ALv2."
+                "release under Apache-2.0, the licence declared here. Read on 5 November 2026, ",
+                "the current release was v0.5.0 (28 October 2026), under FSL-1.1-ALv2. The site ",
+                "check holds this reason to the declared licence, not to later releases."
             )),
         ),
         ("skills".into(), Json::Array(skills)),
