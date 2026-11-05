@@ -34,3 +34,7 @@ see the OFL files beside them.
 scripts/schemaorg/schemaorg-all-https.jsonld is the schema.org 30.1 vocabulary
 from https://github.com/schemaorg/schemaorg, unmodified, under the Apache
 License, Version 2.0; see the LICENSE file beside it.
+
+scripts/ai-robots/robots.json is the agent list from
+https://github.com/ai-robots-txt/ai.robots.txt, unmodified, under the MIT
+License; see the LICENSE file beside it.

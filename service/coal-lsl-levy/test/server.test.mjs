@@ -229,11 +229,11 @@ test('bodies above the limit are refused before parsing, with and without Conten
   assert.equal((await declared.json()).max_body_bytes, 16384);
   const chunked = await fetch(`${base}/v1/calculators/${CALC}/${PERIOD}`, {
     method: 'POST',
-    headers: { 'content-type': 'application/json', 'transfer-encoding': 'chunked' },
+    headers: { 'content-type': 'application/json' },
     body: new ReadableStream({ start(controller) { controller.enqueue(new TextEncoder().encode(`{"pad":"${padding}"}`)); controller.close(); } }),
     duplex: 'half',
-  }).catch((issue) => ({ status: 'aborted', issue }));
-  assert.ok(chunked.status === 413 || chunked.status === 'aborted');
+  });
+  assert.equal(chunked.status, 413);
 });
 
 test('CORS headers appear only for an allowed origin, and CORS is not authentication', async () => {
@@ -451,6 +451,18 @@ test('an oversized chunked body gets the documented 413, not a dropped connectio
   });
   assert.equal(response.status, 413);
   assert.equal((await response.json()).max_body_bytes, 16384);
+});
+
+test('a chunked body within the limit is answered as usual', async () => {
+  const response = await fetch(`${base}/v1/calculators/${CALC}/${PERIOD}`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: new ReadableStream({
+      start(controller) { controller.enqueue(new TextEncoder().encode(JSON.stringify(fixtures.cases[0].request))); controller.close(); },
+    }),
+    duplex: 'half',
+  });
+  assert.equal(response.status, 200);
 });
 
 test('a 413 closes the connection instead of holding the unread upload', async () => {

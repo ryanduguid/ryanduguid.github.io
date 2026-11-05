@@ -81,7 +81,7 @@
       "4b0199c75076e5d6db1f0cbe9a6fcf8679bf23687dd499f75e7d1b293d3189d0"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "75bb8334c51a5eac8950a9412c2dff9d518fad03f60dacaa2ec083cdda951886"
+      "6e1bf5b2edc04f534ef0b18ddab9a185e45e6059382fdc0fc4b19438970ebaa2"
     ],
     "tools/company-tax-franking/index.html": [
       "8de5b99aaef6ecb86e6698d7c0bb09e28fb65223c0979d57ffc43e0c9e5deaad"
@@ -148,8 +148,8 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "066b33dfeb559ca8fad7ac3a6862075cd927f5aaf9899983d44af5c8f001d2a8",
-    "robots.txt": "190377e5d6679854538ded34c738c55ad8f64bc8b88a6dfd691121d847119609",
+    "llms.txt": "f058e4dea4d22023854700f90937ca04e13c69d8bafcad5d71e11ad90b256654",
+    "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
     "sitemap.xml": "74beb1641ba1f32e5c621567d3159fd7585bf1e23a067931962e017e7e33da5a"
   },
   "protected_main_links": {

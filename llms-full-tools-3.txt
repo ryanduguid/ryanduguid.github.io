@@ -189,7 +189,7 @@ Link to question 9
 
 ### Which tax rules changed from 1 July 2026?
 
-From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally requires contributions to reach the fund within 7 business days of payday, the $20,000 instant asset write-off became permanent for small businesses and the cents per kilometre rate rose to 91 cents. Most changes start on 1 July, so compare 2025-26 with 2026-27 rather than calendar years.
+From 1 July 2026, the 16% personal tax rate fell to 15% and the cents per kilometre rate rose to 91 cents. From the same date, Payday Super generally requires contributions to reach the fund within 7 business days of payday, and the $20,000 instant asset write-off became permanent for small businesses. Most changes start on 1 July, so compare 2025-26 with 2026-27 rather than calendar years.
 
 - Use the ATO 'Before you prepare your tax return' guidance for each year.
 - Record each changed rate or rule, effective date, source and affected calculation in a change log.
@@ -1203,7 +1203,7 @@ Link to question 48
 
 ### Do contractor payments count towards NSW payroll tax?
 
-Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies, such as for some services provided for 90 days or less in a financial year, or services the contractor provides to the public. Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
+Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies. Exemptions include some services provided for 90 days or less in a financial year and services the contractor provides to the public. Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
 
 - Keep the contract, services, days worked and evidence for any exclusion claimed.
 - Reconcile reviewed contractor amounts to the payroll tax workpaper.

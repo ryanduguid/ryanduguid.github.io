@@ -300,7 +300,7 @@ Link to question 82
 
 ### Does taking money out of my company create a Division 7A problem?
 
-It can. A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day. Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
+A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day. Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
 
 - Reconcile the person’s account and gather agreements, dates and repayment evidence.
 - Use the existing review case to organise the evidence and identify unresolved legal questions.
@@ -385,7 +385,7 @@ Link to question 87
 
 ### Does providing a company car or paying an employee’s private expenses create FBT?
 
-It can. FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
+FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
 
 - Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.
 - Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper.
@@ -783,11 +783,15 @@ Amount (AUD) Amount includes GST
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the GST calculator works
 
-For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.
+The GST calculator takes one amount for a wholly taxable supply and works out the GST, the GST-exclusive amount and the GST-inclusive amount. For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents.
 
-ATO: How GST works
+The 10% rate and the one-eleventh fraction come from ATO: How GST works and the A New Tax System (Goods and Services Tax) Act 1999.
+
+## What the GST calculator does not decide
+
+The GST calculator does not decide whether a supply is taxable, whether you must be registered for GST or what a BAS should report. Mixed, GST-free and input-taxed supplies need classification first.
 
 ## Boundary cases
 
@@ -811,6 +815,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
+- A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
 
@@ -836,9 +841,13 @@ Eligible cost (AUD) Business use (%)
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the business use calculator works
 
-Eligible cost × supported business use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.
+The business use share calculator splits one cost you supply by one percentage you supply: eligible cost × supported business use percentage / 100, rounded to cents. No statutory rate or threshold is applied.
+
+## What the business use calculator does not decide
+
+The business use share calculator does not determine deductibility, depreciation or record sufficiency. It does not work out the percentage, and it does not test whether your records support it.
 
 For car expenses under the cents per kilometre method, the rate by income year is kept as a maintained table on this site.
 
@@ -889,11 +898,15 @@ Sales (AUD) Direct cost (AUD)
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the margin and markup calculator works
 
-Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
+The margin and markup calculator works out gross profit, margin and markup from one sales figure and one direct cost figure. Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. A zero denominator leaves that percentage undefined.
 
-business.gov.au: pricing
+No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+
+## What the margin and markup calculator does not decide
+
+The margin and markup calculator does not set a price, test whether direct cost is complete or adjust for GST. Use a consistent GST basis and matching period for both figures.
 
 ## Boundary cases
 
@@ -939,11 +952,15 @@ Fixed costs for the period (AUD) Selling price per unit (AUD) Variable cost per 
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the break-even calculator works
 
-Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.
+The break-even sales calculator works out how many whole units, and how much in sales, cover the fixed costs for a period. Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Price must exceed variable cost per unit, or no break-even exists.
 
-business.gov.au: pricing
+No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+
+## What the break-even calculator does not decide
+
+The break-even sales calculator does not forecast demand or say that the units can be sold. It uses one price and one variable cost, so use one product or a stable representative mix and a consistent GST basis.
 
 ## Boundary cases
 
@@ -988,11 +1005,15 @@ Annual costs (AUD) Target annual profit (AUD) Annual billable hours
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the hourly pricing calculator works
 
-Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
+The hourly pricing calculator works out the hourly rate that covers your annual costs and target profit. Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
 
-business.gov.au: pricing
+No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+
+## What the hourly pricing calculator does not decide
+
+The hourly pricing calculator does not test whether customers will pay the rate, compare it with an award or market rate, or add GST to it.
 
 ## Boundary cases
 
@@ -1039,9 +1060,15 @@ Figure type Income Cost
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the budget variance calculator works
 
-Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.
+The budget variance calculator compares one actual figure with one budget figure. Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable.
+
+No statutory rate or external source is applied. The favourability convention is the usual management-accounting one.
+
+## What the budget variance calculator does not decide
+
+The budget variance calculator does not say why a difference arose or whether it matters. Explain causes from the records.
 
 Budget explanation checklist
 
@@ -1092,9 +1119,15 @@ Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the monthly loan payment calculator works
 
-For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45.
+The monthly loan payment calculator works out a fixed monthly payment, the interest and principal in the first payment, and estimated total interest. For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n.
+
+No statutory rate or external source is applied. The interest rate is yours, not a market or lender rate.
+
+## What the monthly loan payment calculator leaves out
+
+The monthly loan payment calculator assumes payments in arrears, with no fees or balloon, and a rate that does not change. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45. The result is not a lender’s quote.
 
 Loan reconciliation checklist
 
@@ -1145,9 +1178,15 @@ Annual wages (AUD) Annual super amount (AUD) Other annual costs (AUD)
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the staff cost calculator works
 
-Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
+The staff cost calculator adds up the annual cost of one staff member from figures you supply. Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
+
+No statutory rate or threshold is applied.
+
+## What the staff cost calculator does not decide
+
+The staff cost calculator does not work out super, payroll tax or award pay. The super amount is the figure you enter; the super guarantee rate is a separate table and is not applied by this calculator.
 
 Staff cost checklist
 
@@ -1169,6 +1208,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
 
@@ -1223,11 +1263,15 @@ Save inputs to a file on this device and load it later to continue. The file is 
 
 Save inputs Load inputs (replaces the current forecast)
 
-## How it works
+## How the 13-week cash forecast works
 
-Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.
+The 13-week cash forecast works out closing cash for each week and the funding gap against a buffer you set. Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero.
 
-business.gov.au: cash flow
+No statutory rate or threshold is applied. The layout follows business.gov.au: cash flow.
+
+## What the 13-week cash forecast does not decide
+
+The funding gap is a planning gap, not a lending decision. The 13-week cash forecast does not predict receipts or payments, and weekly totals can hide a shortage within the week. A receipt delayed beyond week 13 is reported separately and does not enter the closing balance.
 
 The Lumbridge cash flow case works the same question with a 45-day receipt delay.
 

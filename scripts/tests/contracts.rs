@@ -261,20 +261,26 @@ fn geo_leftovers_surface() {
         ("Bingbot", "Allow: /"),
         ("OAI-SearchBot", "Allow: /"),
         ("ChatGPT-User", "Allow: /"),
-        ("Claude-User", "Allow: /"),
-        ("Claude-Search", "Allow: /"),
         ("Claude-SearchBot", "Allow: /"),
+        ("Claude-User", "Allow: /"),
         ("PerplexityBot", "Allow: /"),
+        ("Perplexity-User", "Allow: /"),
         ("Applebot", "Allow: /"),
         ("YouBot", "Allow: /"),
-        ("anthropic-ai", "Allow: /"),
-        ("Claude-Web", "Allow: /"),
-        ("GPTBot", "Allow: /"),
-        ("ClaudeBot", "Allow: /"),
+        ("MistralAI-Index", "Allow: /"),
+        ("MistralAI-User", "Allow: /"),
+        ("DuckAssistBot", "Allow: /"),
+        ("meta-webindexer", "Allow: /"),
+        ("meta-externalfetcher", "Allow: /"),
+        ("Amzn-SearchBot", "Allow: /"),
+        ("Amzn-User", "Allow: /"),
+        ("Google-GeminiNotebook", "Allow: /"),
         ("Google-Extended", "Allow: /"),
-        ("Applebot-Extended", "Allow: /"),
         ("CCBot", "Allow: /"),
         ("Bytespider", "Allow: /"),
+        ("GPTBot", "Allow: /"),
+        ("ClaudeBot", "Allow: /"),
+        ("Applebot-Extended", "Allow: /"),
         ("Amazonbot", "Allow: /"),
         ("cohere-ai", "Allow: /"),
         ("Diffbot", "Allow: /"),
@@ -336,6 +342,68 @@ fn geo_leftovers_surface() {
         core::sitemap_lastmods(levy, root()).unwrap().len(),
         1,
         "{levy}"
+    );
+}
+
+/// Every agent on the pinned list has a recorded class, and the list cannot drift.
+#[test]
+fn crawler_classes_cover_the_pinned_list() {
+    const LIST: &str = "scripts/ai-robots/robots.json";
+    const CLASSES: &str = "scripts/ai-robots/left-to-wildcard.json";
+    let repository = repository();
+    let site = tempfile::tempdir().unwrap();
+    std::fs::create_dir_all(site.path().join("scripts/ai-robots")).unwrap();
+    std::fs::copy(repository.join(LIST), site.path().join(LIST)).unwrap();
+    let classes = read_text(&repository, CLASSES);
+    let check = |text: &str| {
+        std::fs::write(site.path().join(CLASSES), text).unwrap();
+        contracts::check_crawler_classes(site.path()).unwrap()
+    };
+    assert_clean("crawler classes", &check(&classes));
+    let cases = [
+        (
+            classes.replace("    \"AI2Bot\",\n", ""),
+            "ai2bot is not classified",
+        ),
+        (
+            classes.replace("\"AI2Bot\",", "\"AI2Bot\",\n    \"NoSuchBot\","),
+            "NoSuchBot is not on the pinned list",
+        ),
+        (
+            classes.replace("\"AI2Bot\",", "\"AI2Bot\",\n    \"ClaudeBot\","),
+            "ClaudeBot is classified twice",
+        ),
+        (
+            classes.replace("\"training\":", "\"blocked\":"),
+            "classes are [\"blocked\", \"other\", \"search_unverified\"]",
+        ),
+    ];
+    for (text, message) in cases {
+        let found = check(&text);
+        assert!(found.iter().any(|f| f.contains(message)), "{found:?}");
+    }
+    let mut changed = std::fs::read(site.path().join(LIST)).unwrap();
+    changed.push(b'\n');
+    std::fs::write(site.path().join(LIST), changed).unwrap();
+    let found = check(&classes);
+    assert!(found[0].contains("not the pinned value"), "{found:?}");
+}
+
+/// The site contracts run the class check, so `check_seo` fails on an unclassified agent.
+#[test]
+fn site_contracts_run_the_crawler_classes() {
+    if !rendered() {
+        return;
+    }
+    const CLASSES: &str = "scripts/ai-robots/left-to-wildcard.json";
+    let site = copied_site();
+    let text = read_text(site.path(), CLASSES);
+    let changed = changed_text(&text, "    \"AI2Bot\",\n", "");
+    std::fs::write(site.path().join(CLASSES), changed).unwrap();
+    let found = contracts::check_site_contracts(&[], site.path()).unwrap();
+    assert!(
+        found.iter().any(|f| f.contains("ai2bot is not classified")),
+        "{found:?}"
     );
 }
 

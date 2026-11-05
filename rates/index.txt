@@ -126,7 +126,9 @@ Verify a figure against current guidance before relying on it. Historical and cu
 
 Each rate page keeps its own source verification date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
-Use these tables in Excel
+## Use these tables in Excel
+
+Show the Power Query steps
 
 In Excel for Windows with Power Query, choose Data, Get Data, From Other Sources, Blank Query. Open Advanced Editor, replace its contents with this query and choose Done, then Close & Load. If prompted, choose Anonymous access for this public source. Microsoft’s Text/CSV guide explains the connector.
 

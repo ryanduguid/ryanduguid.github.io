@@ -38,7 +38,7 @@ The production tool reads trial balance data directly from Xero’s Accounting A
 
 ## Intended reviewer
 
-This pack is for a reviewer who wants to reproduce the offline integrity gate without connecting to Xero or handling client data.
+The evaluation pack is for a reviewer who wants to reproduce the offline integrity gate without connecting to Xero or handling client data.
 
 ## Fictional inputs
 
@@ -96,7 +96,7 @@ The integrity result does not approve the export or replace professional review.
 
 ## Limitations
 
-This control does not prove completeness, classification, accounting treatment or client approval. It does not assess source data accuracy, reporting period suitability or fitness for a particular client review. See Evidence and Assurance for the common assurance record and boundaries.
+The integrity control does not prove completeness, classification, accounting treatment or client approval. It does not assess source data accuracy, reporting period suitability or fitness for a particular client review. See Evidence and Assurance for the common assurance record and boundaries.
 
 ## Related
 

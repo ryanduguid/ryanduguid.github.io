@@ -36,7 +36,7 @@ This tool does the arithmetic. Install the Python engine, point it at a contract
 
 ## Worked example: a $50,000 contract asset
 
-This fictional example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
+The fictional example below comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
 
 - Transaction price: $1,000,000.
 - Costs incurred: $400,000. Estimated cost to complete: $400,000.

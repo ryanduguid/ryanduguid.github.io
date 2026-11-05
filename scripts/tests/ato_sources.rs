@@ -5,13 +5,13 @@ use serde_json::{Value, json};
 use site_tools::ato_sources::{
     Change, Entry, Findings, Move, Moved, Options, Page, QUESTIONS, Quiet, Sources, WATCHED,
     answers_to_recheck, baseline_file, classify, collect_sources, collect_values, dead_confirmed,
-    dead_marker, exit_code, extract_urls, follow_redirects, get_unfollowed, is_iso_date,
-    last_updated, line_diff, parse_args, read_pages, read_pdf, render_issue, render_report,
-    same_url, save_results, sort_moves, tidy,
+    exit_code, extract_urls, follow_redirects, get_unfollowed, is_iso_date, last_updated,
+    line_diff, parse_args, read_pages, read_pdf, render_issue, render_report, same_url,
+    save_results, sort_moves, tidy,
 };
 // Only the Unix-only batch tests start the browser runner directly.
 #[cfg(unix)]
-use site_tools::ato_sources::run_batch_with;
+use site_tools::ato_sources::{dead_marker, run_batch_with};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output};

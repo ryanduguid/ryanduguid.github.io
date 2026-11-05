@@ -148,8 +148,9 @@
       <div class="site-shell rates-notes">
         <p class="byline">Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page’s editorial check.</p>
         <p class="field-note">Each rate page keeps its own source verification date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in <code>source_url</code> and the date of that check in <code>checked_at</code>.</p>
+        <h2>Use these tables in Excel</h2>
         <details id="excel">
-          <summary>Use these tables in Excel</summary>
+          <summary>Show the Power Query steps</summary>
           <div class="article-body">
             <p>In Excel for Windows with Power Query, choose Data, Get Data, From Other Sources, Blank Query. Open Advanced Editor, replace its contents with this query and choose Done, then Close &amp; Load. If prompted, choose Anonymous access for this public source. <a href="https://learn.microsoft.com/en-us/power-query/connectors/text-csv">Microsoft’s Text/CSV guide</a> explains the connector.</p>
             <pre class="copyable" tabindex="0" role="region" aria-label="Power Query import for super guarantee rates"><code>let

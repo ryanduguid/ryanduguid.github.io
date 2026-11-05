@@ -1,6 +1,6 @@
 # Search indexing and user-requested citation fetches are allowed.
-# Training and other crawl is allowed for every crawler named below: CCBot, Bytespider, GPTBot, ClaudeBot, Applebot-Extended, Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent.
-# No named crawler is blocked.
+# Training crawl is allowed: the crawlers named below, and any other through the * group.
+# No crawler is blocked, named or not.
 # Unnamed agents must not silently redefine this policy; named rows state the intended treatment.
 # Google-Extended is allowed so Gemini and Vertex AI grounding can cite this site; it is not a search crawler.
 # Canonical machine index: https://duguid.com.au/llms.txt
@@ -8,6 +8,7 @@
 User-agent: *
 Allow: /
 
+# Search and citation
 User-agent: Googlebot
 Allow: /
 User-agent: Bingbot
@@ -16,25 +17,38 @@ User-agent: OAI-SearchBot
 Allow: /
 User-agent: ChatGPT-User
 Allow: /
-User-agent: Claude-User
-Allow: /
-User-agent: Claude-Search
-Allow: /
 User-agent: Claude-SearchBot
 Allow: /
+User-agent: Claude-User
+Allow: /
 User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
 Allow: /
 User-agent: Applebot
 Allow: /
 User-agent: YouBot
 Allow: /
-User-agent: anthropic-ai
+User-agent: MistralAI-Index
 Allow: /
-User-agent: Claude-Web
+User-agent: MistralAI-User
+Allow: /
+User-agent: DuckAssistBot
+Allow: /
+User-agent: meta-webindexer
+Allow: /
+User-agent: meta-externalfetcher
+Allow: /
+User-agent: Amzn-SearchBot
+Allow: /
+User-agent: Amzn-User
+Allow: /
+User-agent: Google-GeminiNotebook
 Allow: /
 User-agent: Google-Extended
 Allow: /
 
+# Training and other crawl
 User-agent: CCBot
 Allow: /
 User-agent: Bytespider

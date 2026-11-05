@@ -778,7 +778,7 @@
       "boundary": "An announcement is not evidence that a measure applied to your transaction. This is a review procedure, not an exhaustive legislative history.",
       "source": "returns",
       "tool": "announced",
-      "fact": "From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally requires contributions to reach the fund within 7 business days of payday, the $20,000 instant asset write-off became permanent for small businesses and the cents per kilometre rate rose to 91 cents.",
+      "fact": "From 1 July 2026, the 16% personal tax rate fell to 15% and the cents per kilometre rate rose to 91 cents. From the same date, Payday Super generally requires contributions to reach the fund within 7 business days of payday, and the $20,000 instant asset write-off became permanent for small businesses.",
       "fact_sources": [
         "ato-rates",
         "payday-deadlines",
@@ -1463,7 +1463,7 @@
       "boundary": "An invoice, ABN or GST registration alone does not establish an exclusion.",
       "source": "nsw-payroll",
       "tool": "",
-      "fact": "Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies, such as for some services provided for 90 days or less in a financial year, or services the contractor provides to the public.",
+      "fact": "Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies. Exemptions include some services provided for 90 days or less in a financial year and services the contractor provides to the public.",
       "fact_sources": [
         "nsw-contractors"
       ]
@@ -1942,7 +1942,7 @@
       "boundary": "The repayment worksheet does not decide whether a loan is complying or whether a deemed dividend arises.",
       "source": "div7a-source",
       "tool": "div7a",
-      "fact": "It can. A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day.",
+      "fact": "A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day.",
       "fact_sources": [
         "div7a-loans"
       ]
@@ -2027,7 +2027,7 @@
       "boundary": "The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.",
       "source": "fbt-source",
       "tool": "tax",
-      "fact": "It can. FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March.",
+      "fact": "FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March.",
       "fact_sources": [
         "fbt-rate",
         "fbt-cars",

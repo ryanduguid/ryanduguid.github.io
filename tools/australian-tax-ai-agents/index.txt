@@ -146,6 +146,8 @@ python scripts/validate_skills.py --strict
 
 A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project’s matching directory.
 
+### Pinned and unpinned installs
+
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
 
 The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the published v0.4.0 tag. The current Skills release is v0.5.0, published on 28 October 2026, with 76 workflows under FSL-1.1-ALv2. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.

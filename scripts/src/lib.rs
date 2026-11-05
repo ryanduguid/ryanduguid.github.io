@@ -25,6 +25,7 @@ pub mod mimetypes;
 pub mod node;
 pub mod ozzit_functions;
 pub mod ozzit_reference;
+pub mod passages;
 pub mod pin_rates;
 pub mod py;
 pub mod pyargs;

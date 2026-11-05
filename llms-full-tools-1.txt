@@ -303,7 +303,9 @@ Source: https://duguid.com.au/tools/refusals/
 
 # What these tools refuse
 
-A refusal is an output too. This page lists each one the tools give, the fictional input that triggers it, the exact text and exit code where a command exists, and the human step that follows. One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
+A refusal is an output too. This page lists each one the tools give, the fictional input that triggers it, the exact text and exit code where a command exists, and the human step that follows.
+
+One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
 
 Each refusal below is recorded against the release named beside it. Where a newer release exists, the refusal was not rechecked against it; the changelog lists current releases.
 
@@ -543,7 +545,9 @@ Source: https://duguid.com.au/tools/limitations/
 
 # Known limitations
 
-A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct and the step that settles it.
+A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it.
+
+Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
 Published 16 September 2026. Last reviewed 5 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
@@ -604,6 +608,8 @@ What stays correct. The comparison behind both. Each path renders one comparison
 
 Parity at the row level is narrower, and needs two conditions together. First, the ratio’s own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set plus payments to associated persons once w1 is supplied, and the rest need their own field. Second, both income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library. Where both conditions hold, the row carries the same value in both against the same published range.
 
+### What diverges, and when
+
 Three things diverge independently, and running them together overstates the effect.
 
 What | When it diverges
@@ -639,7 +645,7 @@ Two implementations disagreeing is the cheapest way to find a defect, and the di
 
 ## What this page is not
 
-This is a register of limitations found and confirmed, not a proof that none remain. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else. Each entry is bound to the behaviour it describes by a test in its package, so a fix fails the test and forces the entry to be updated, but the register cannot report what has not been found. The evaluations reproduce the passing cases against fixed releases, and Evidence and Assurance records the review boundaries and the absence of third-party review.
+The page is a register of limitations found and confirmed, not a proof that none remain. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else. Each entry is bound to the behaviour it describes by a test in its package, so a fix fails the test and forces the entry to be updated, but the register cannot report what has not been found. The evaluations reproduce the passing cases against fixed releases, and Evidence and Assurance records the review boundaries and the absence of third-party review.
 
 ## Links
 
@@ -700,7 +706,7 @@ Calculate
 
 ## Result
 
-This calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and limits on this page still apply.
+The Coal LSL calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and limits on this page still apply.
 
 Ready to calculate
 
@@ -756,7 +762,7 @@ The Act, the Regulations and the guidance note publish no rounding rule. This to
 
 ### What does the 75% in Formula B apply to?
 
-For a non-casual employee paid a base rate, section 3B(1)(b) applies 75% to the base rate of pay, incentive payments and bonuses paid at least once a month, overtime and penalty rates, and allowances other than expense reimbursements, added together, not to the base rate alone. The paragraph reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). With $6,000 base pay, $3,000 overtime and penalty rates, and $500 of allowances that are not expense reimbursements, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. The annual salary and casual branches use their own formulas. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 5 November 2026.
+For a non-casual employee paid a base rate, section 3B(1)(b) applies 75% to a total, not to the base rate alone. The total adds the base rate of pay, incentive payments and bonuses paid at least once a month, overtime and penalty rates, and allowances other than expense reimbursements. The paragraph reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). With $6,000 base pay, $3,000 overtime and penalty rates, and $500 of allowances that are not expense reimbursements, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. The annual salary and casual branches use their own formulas. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 5 November 2026.
 
 ### Which bonuses count towards eligible wages?
 
@@ -962,7 +968,7 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 # ATO small business benchmark comparison tool
 
-This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
+The ATO small business benchmark comparison tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
 
 Current release ato-benchmark-compare v0.2.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
@@ -994,7 +1000,7 @@ The workflow is 2 steps on purpose. First, the tool drafts a mapping from the pr
 
 ## Worked example: cost of sales excluding wages
 
-This fictional example comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
+The fictional example below comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
 
 - Turnover: $100,000.
 - Cost of sales excluding wages: $30,000.
@@ -1223,7 +1229,7 @@ Source: https://duguid.com.au/tools/company-tax-franking/
 
 # Company tax and franking worksheets
 
-This tool runs the base rate entity test, tracks the franking account and checks the Division 203 benchmark rule.
+The company tax and franking worksheets run the base rate entity test, track the franking account and check the Division 203 benchmark rule.
 
 Current release the-exchequer-tally v0.2.0, 19 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
@@ -1241,9 +1247,9 @@ Requires verified income composition, distributions and ledger inputs.
 
 A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate.
 
-This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and checks the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
+The worksheets run the base rate entity test and track a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. They work out franking deficit tax and check the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. They also check distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
 
-It builds the statement fields a dividend distribution statement needs, too. That is a review helper for the statement, not a lodgement or a compliance certificate.
+The worksheets also build the statement fields a dividend distribution statement needs. That is a review helper for the statement, not a lodgement or a compliance certificate.
 
 ## What this tool does
 

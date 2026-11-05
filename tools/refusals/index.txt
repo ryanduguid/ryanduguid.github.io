@@ -6,7 +6,9 @@ Source: https://duguid.com.au/tools/refusals/
 
 # What these tools refuse
 
-A refusal is an output too. This page lists each one the tools give, the fictional input that triggers it, the exact text and exit code where a command exists, and the human step that follows. One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
+A refusal is an output too. This page lists each one the tools give, the fictional input that triggers it, the exact text and exit code where a command exists, and the human step that follows.
+
+One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
 
 Each refusal below is recorded against the release named beside it. Where a newer release exists, the refusal was not rechecked against it; the changelog lists current releases.
 
