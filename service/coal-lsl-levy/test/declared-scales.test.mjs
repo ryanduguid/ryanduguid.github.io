@@ -52,6 +52,9 @@ test('a figure the schema does not declare fails, wherever it sits', () => {
     'an undeclared decimal string, nested');
   assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.rate.as_fraction = '0.027'; })), false,
     'a figure in a declared string with no pattern');
+  for (const figure of ['2.7e0', '1E+2', '.5', '+2.7', ' 2.7 ']) {
+    assert.equal(declaredScalesHold(schema, changed(formulaB, (body) => { body.manifest.levy = figure; })), false, figure);
+  }
 });
 
 test('a declared type is enforced where no pattern or members apply', () => {

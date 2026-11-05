@@ -13,7 +13,7 @@ const TYPES = {
 };
 
 function carriesFigure(value) {
-  if (typeof value === 'string') return /^-?[0-9]+(\.[0-9]+)?$/.test(value);
+  if (typeof value === 'string') return value.trim() !== '' && Number.isFinite(Number(value));
   if (typeof value === 'object' && value !== null) return Object.values(value).some(carriesFigure);
   return typeof value === 'number';
 }

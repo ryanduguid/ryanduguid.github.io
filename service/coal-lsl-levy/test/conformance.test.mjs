@@ -85,6 +85,7 @@ test('a listing that omits the method fails even when the manifest omits it too'
     return undefined;
   });
   assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'lists rate tables with content hashes'), stdout);
   assert.ok(failed(stdout, 'every 200 carries a complete manifest'), stdout);
 });
 
