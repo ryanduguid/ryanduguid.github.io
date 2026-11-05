@@ -68,8 +68,8 @@ function bonusWorkings(bonuses) {
 
 // The engine's bonus API takes dollars and converts with toCents(), so the
 // cents parsed here are divided by 100 and rounded straight back. That round
-// trip is exact for every integer cent count this service accepts, which
-// `test/money.test.mjs` checks across the range rather than asserting. It is
+// trip is exact for every integer cent count this service accepts:
+// `test/money.test.mjs` samples the range and asserts the error bound. It is
 // the one place a dollar figure is a Number, and it is the engine's boundary
 // rather than the request's: nothing parsed from a request body goes through
 // a float.
@@ -195,7 +195,7 @@ export function calculate(request, register, config) {
   if (!register.isSupported(reportingMonth)) {
     const months = register.supportedMonths();
     throw new Refusal('unsupported_period',
-      `Reporting month ${reportingMonth} is not supported. Supported months run from ${months[0]} to ${months[months.length - 1]}; GET /v1/calculators lists them.`,
+      `Reporting month ${reportingMonth} is not supported. First supported month ${months[0]}; last supported month ${months[months.length - 1]}. GET /v1/calculators lists the exact supported months.`,
       { supported_months: { first: months[0], last: months[months.length - 1] } });
   }
   if (request.eligibleEmployee === 'unknown') {

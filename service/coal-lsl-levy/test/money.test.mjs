@@ -54,11 +54,14 @@ test('rendering is exact and terminates', () => {
   assert.throws(() => toQuarterCents(0.3), RangeError);
 });
 
-test('cents to dollars and back through the engine is exact across the accepted range', () => {
+test('cents to dollars and back is exact on both end bands and a sampled middle', () => {
   // The one Number in the money path: the engine's bonus API takes dollars and
-  // converts back with toCents(). calculate.mjs and README.md say
-  // this test checks the round trip across the range, so it does: every cent
-  // count in a dense band at each end, and a stride across the middle.
+  // converts back with toCents(). The test runs every cent count in a band at
+  // each end and a stride across the middle. Unsampled values rest on the
+  // bound: the division and the multiplication each err by at most 2^-53
+  // relative, so toCents() lands within a quarter cent of an integer below the
+  // ceiling and rounds back to it.
+  assert.ok(MAX_WAGES_CENTS * 2 ** -52 < 0.25);
   const check = (cents) => {
     if (toCents(cents / 100) !== cents) {
       throw new assert.AssertionError({ message: `round trip lost a cent at ${cents}` });

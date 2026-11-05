@@ -60,6 +60,7 @@ test('the two unsupported months refuse at the calculation layer too', () => {
     assert.equal(body.refusal_class, 'unsupported_period');
     assert.equal(body.supported_months.first, '2024-01');
     assert.equal(body.supported_months.last, '2026-10');
+    assert.equal(body.reason, `Reporting month ${month} is not supported. First supported month 2024-01; last supported month 2026-10. GET /v1/calculators lists the exact supported months.`);
   }
 });
 
