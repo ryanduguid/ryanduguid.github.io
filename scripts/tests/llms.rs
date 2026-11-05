@@ -136,7 +136,13 @@ fn machine_index_copy() {
         "{stdout}"
     );
     // A hand edit inside the generated part index is stale.
-    std::fs::write(&canonical, format!("{changed}- [extra.txt](x): y\n")).unwrap();
+    let inside = changed.replacen(
+        "\n\n## Optional\n",
+        "\n- [extra.txt](x): y\n\n## Optional\n",
+        1,
+    );
+    assert_ne!(inside, changed);
+    std::fs::write(&canonical, inside).unwrap();
     let (code, stdout) = run(root, &["--check"]);
     assert!(
         code == Some(1) && stdout.contains("llms.txt part index is stale"),
@@ -146,6 +152,12 @@ fn machine_index_copy() {
     assert_eq!(
         std::fs::read(&alias).unwrap(),
         std::fs::read(&canonical).unwrap()
+    );
+    // The kept note is prose inside a section, so a fresh index still fails the format.
+    let (code, stdout) = run(root, &["--check"]);
+    assert!(
+        code == Some(1) && stdout.contains("a section holds only"),
+        "{stdout}"
     );
     std::fs::remove_file(&alias).unwrap();
     let (code, stdout) = run(root, &["--check"]);
@@ -228,6 +240,73 @@ fn part_index_lists_each_parts_pages() {
     assert!(built.ends_with(": Tool A; Tool B\n"), "{built}");
     assert_eq!(with_part_index(&built, &parts).unwrap(), built);
     assert!(with_part_index("# Site\n", &parts).is_err());
+}
+
+/// The generated section keeps its place, so `## Optional` can stay last.
+#[test]
+fn part_index_keeps_the_sections_after_it() {
+    use site_tools::llms_full::{section_parts, with_part_index};
+    let entries = vec![(
+        format!("{SITE}about/"),
+        format!("# About\n\nSource: {SITE}about/\n\n> About.\n"),
+    )];
+    let parts = section_parts(&entries).unwrap();
+    let optional = "## Optional\n\n- [Policy](https://example.com/): skip it.\n";
+    let index = format!("# Site\n\n## Full text by section\n\n- old\n\n{optional}");
+    let built = with_part_index(&index, &parts).unwrap();
+    assert!(!built.contains("- old"), "{built}");
+    assert!(
+        built.ends_with(&format!(": About\n\n{optional}")),
+        "{built}"
+    );
+    assert_eq!(with_part_index(&built, &parts).unwrap(), built);
+}
+
+/// llms.txt keeps the shape of the format at https://llmstxt.org/.
+#[test]
+fn machine_index_keeps_the_llms_txt_shape() {
+    use site_tools::llms_full::shape_failures;
+    let llms = std::fs::read_to_string(common::repository().join("llms.txt")).unwrap();
+    assert_eq!(shape_failures(&llms), Vec::<String>::new());
+    let good = "# Site\n\n> Summary.\n\nDetails.\n\n## Docs\n\n- [A](https://a.example/): note\n\n\
+                ## Optional\n\n- [B](https://b.example/)\n";
+    assert_eq!(shape_failures(good), Vec::<String>::new());
+    let cases = [
+        ("# Site\n", "Site\n", "line 1 must be the H1"),
+        (
+            "> Summary.\n",
+            "Summary.\n",
+            "a blockquote summary must follow",
+        ),
+        (
+            "Details.\n",
+            "### Details\n",
+            "only one H1, then H2 sections",
+        ),
+        (
+            "- [A](https://a.example/): note",
+            "Prose here.",
+            "holds only",
+        ),
+        (
+            "- [A](https://a.example/): note",
+            "- A: https://a.example/",
+            "holds only",
+        ),
+        (
+            "(https://b.example/)\n",
+            "(https://b.example/)\n\n## Late\n",
+            "must come last",
+        ),
+    ];
+    for (from, to, message) in cases {
+        let bad = good.replace(from, to);
+        let found = shape_failures(&bad);
+        assert!(
+            found.iter().any(|f| f.contains(message)),
+            "{bad}: {found:?}"
+        );
+    }
 }
 
 /// Page text that looks like a separator neither hides nor invents a title.
