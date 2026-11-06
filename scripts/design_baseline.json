@@ -78,13 +78,13 @@
       "cbfb0f38556e365081604183e355285045468169a0918d64380bf15c972df782"
     ],
     "tools/accounting-questions/company-compliance/index.html": [
-      "d1018a595e11abe4029109a1459e0ad1f4beb00c5f4bfb34eff51437dea972b8"
+      "8292405cc2a69cee9e4b8786e52e325187470032d5a40eaa08a08adf90a41bdd"
     ],
     "tools/accounting-questions/deductions/index.html": [
       "0bb20b9b7a5ead5d62e3b706d89528ab081ac06138d3b76d1774a1e53849d237"
     ],
     "tools/accounting-questions/general-tax/index.html": [
-      "68132a340bddb573ae52c6765778328447c812000a565c476ff582592e1ee6eb"
+      "46fce77af212aec4f3649f2ce508f125091ad050d5d352f06ceb7d82b1626e79"
     ],
     "tools/accounting-questions/gst-bas/index.html": [
       "726b375514198487bc67850f2584735ac2c0256c5cf3a9fe848424462e0a9aac"
@@ -99,7 +99,7 @@
       "2d91f2c0088b2cfa245baa6fc5cc68eb28404ec6b2b9d081f78d8116e7b12a58"
     ],
     "tools/accounting-questions/payroll-super/index.html": [
-      "af3166568d323c8abf7a93862bfb9e68da91f9fd5edc89366dfab0f5ea4d2847"
+      "c481a71bd273881b7b2125880ac784e305f40e9e9ef852ca93258bc17f457015"
     ],
     "tools/ato-benchmarks/index.html": [
       "bd6cc13554d28ff5319d0491cd030e1ea3206009f4f1946795e70c71f9705ca0"
@@ -138,7 +138,7 @@
       "6a48c36f77989e48272b08700d96fd58afc344d1824fec7557ca1342420b05a8"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "75bb8334c51a5eac8950a9412c2dff9d518fad03f60dacaa2ec083cdda951886"
+      "6e1bf5b2edc04f534ef0b18ddab9a185e45e6059382fdc0fc4b19438970ebaa2"
     ],
     "tools/company-tax-franking/index.html": [
       "8de5b99aaef6ecb86e6698d7c0bb09e28fb65223c0979d57ffc43e0c9e5deaad"
@@ -205,8 +205,8 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "3dff002efe8f44a5eaa3fb865899ebc17d2fbeafe5e7177a05b6f7b4b03a8eed",
-    "robots.txt": "190377e5d6679854538ded34c738c55ad8f64bc8b88a6dfd691121d847119609",
+    "llms.txt": "8f84ea714c028de0a7c1d0c51a4fddcbcb8c9a515c9abb2518e7577dee4712a9",
+    "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
     "sitemap.xml": "5a27af7210216338b698d59920e2bb971db107f729b765a9d7c780f285aa5b2a"
   },
   "protected_main_links": {
@@ -262,9 +262,9 @@
     ]
   },
   "protected_main_text": {
-    "rates/cents-per-kilometre/index.html": "77cbdbe5794e02547b8aaaa6a004d056335e675521fa5b707432da7057c9aca8",
-    "rates/div7a-benchmark-rate/index.html": "12c294c0a5c32f626d0da902b3f6b972f7084b0319e585cf36583d5901259da4",
-    "rates/super-guarantee/index.html": "ce22d5698ffdcf62593cbe5e0087cec1fa36710cf5a5fdc44805987a4067d6b1"
+    "rates/cents-per-kilometre/index.html": "031cb702b35aef3180d1e0e7c4a74f38b5223b385a7916cde40d7b19107aefa0",
+    "rates/div7a-benchmark-rate/index.html": "6d2758084c4dc41caf096e0db67a948644c72fa4f08535ca7086535168792e99",
+    "rates/super-guarantee/index.html": "814c412393016ec72ac4393832f4365527aa781bd20c5174c10a3452a826047a"
   },
   "protected_text": {
     "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 65,

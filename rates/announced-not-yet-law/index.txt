@@ -4,11 +4,13 @@ Source: https://duguid.com.au/rates/announced-not-yet-law/
 
 > ATO statuses and bill stages for selected tax and super measures: 8 TBD. Enacted-law application dates and transition rules. Bill stages checked 4 November 2026.
 
-# Announced tax measures and enacted law
-
 8 TBD
 
-Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates. TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
+# Announced tax measures and enacted law
+
+Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates.
+
+TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
 Published 20 September 2026. Last reviewed 5 November 2026. Source checked 4 November 2026 for pending measures. Source checked 5 November 2026 for legislated measures. Reform provisions reviewed 22 September 2026.
 

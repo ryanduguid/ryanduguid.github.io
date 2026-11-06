@@ -145,6 +145,7 @@ pub fn check_site_contracts(paths: &[PathBuf], root: &Path) -> Result<Vec<String
     failures.extend(check_collection_hubs(root)?);
     failures.extend(check_social_cards(root)?);
     failures.extend(check_robots_policy(&robots));
+    failures.extend(check_crawler_classes(root)?);
     failures.extend(check_canonical_identity_urls(paths, root)?);
     Ok(failures)
 }

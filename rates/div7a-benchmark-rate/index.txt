@@ -4,11 +4,13 @@ Source: https://duguid.com.au/rates/div7a-benchmark-rate/
 
 > For companies with a 30 June year end: 8.77% for 2026-27 and 8.37% for 2025-26. How section 109N(2) sets the rate, including for substituted accounting periods.
 
-# Division 7A benchmark interest rate
-
 8.77%
 
-The benchmark interest rate for the 2026-27 income year is 8.77% for companies with a 30 June year end. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
+# Division 7A benchmark interest rate
+
+The benchmark interest rate for the 2026-27 income year is 8.77% for companies with a 30 June year end.
+
+Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
 
 Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 

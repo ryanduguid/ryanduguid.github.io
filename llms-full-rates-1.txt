@@ -134,7 +134,9 @@ Verify a figure against current guidance before relying on it. Historical and cu
 
 Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
-Use these tables in Excel
+## Use these tables in Excel
+
+Show the Power Query steps
 
 In Excel for Windows with Power Query, choose Data, Get Data, From Other Sources, Blank Query. Open Advanced Editor, replace its contents with this query and choose Done, then Close & Load. If prompted, choose Anonymous access for this public source. Microsoft’s Text/CSV guide explains the connector.
 
@@ -338,11 +340,13 @@ Source: https://duguid.com.au/rates/announced-not-yet-law/
 
 > ATO statuses and bill stages for selected tax and super measures: 8 TBD. Enacted-law application dates and transition rules. Bill stages checked 4 November 2026.
 
-# Announced tax measures and enacted law
-
 8 TBD
 
-Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates. TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
+# Announced tax measures and enacted law
+
+Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates.
+
+TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
 Published 20 September 2026. Last reviewed 5 November 2026. Source checked 4 November 2026 for pending measures. Source checked 5 November 2026 for legislated measures. Reform provisions reviewed 22 September 2026.
 
@@ -485,9 +489,9 @@ Source: https://duguid.com.au/rates/super-guarantee/
 
 > Every general super guarantee rate since 2002-03, with dates. It has been 12% since 1 July 2025, and payday super changed the timing, not the rate.
 
-# Super guarantee rate history
-
 12%
+
+# Super guarantee rate history
 
 The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and no further increases are scheduled. Payday super, from 1 July 2026, changed when contributions must be paid, generally within 7 business days of each payday, and left the rate alone.
 
@@ -572,11 +576,13 @@ Source: https://duguid.com.au/rates/div7a-benchmark-rate/
 
 > For companies with a 30 June year end: 8.77% for 2026-27 and 8.37% for 2025-26. How section 109N(2) sets the rate, including for substituted accounting periods.
 
-# Division 7A benchmark interest rate
-
 8.77%
 
-The benchmark interest rate for the 2026-27 income year is 8.77% for companies with a 30 June year end. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
+# Division 7A benchmark interest rate
+
+The benchmark interest rate for the 2026-27 income year is 8.77% for companies with a 30 June year end.
+
+Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
 
 Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
@@ -668,11 +674,13 @@ Source: https://duguid.com.au/rates/cents-per-kilometre/
 
 > 91 cents for 2026-27, 88 cents for the 2 years before it, capped at 5,000 business kilometres. Each rate cites the determination that sets it.
 
-# Cents per kilometre rate for car expenses
-
 91 cents
 
-The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further. One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves. This is the rate for the cents per kilometre method, one of the car expense methods: it is a rate table, not a determination that a particular taxpayer, car or business kilometre is eligible, and the choice between methods is not made here.
+# Cents per kilometre rate for car expenses
+
+The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further.
+
+One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves. This is the rate for the cents per kilometre method, one of the car expense methods: it is a rate table, not a determination that a particular taxpayer, car or business kilometre is eligible, and the choice between methods is not made here.
 
 Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
@@ -762,11 +770,13 @@ Source: https://duguid.com.au/rates/maximum-contribution-base/
 
 > $270,830 a year for 2026-27 under Payday Super, and the quarterly bases back to 2021-22. The formula, the SG ceiling it sets and the ATO source.
 
-# Maximum super contribution base
-
 $270,830
 
-The maximum contribution base is $270,830 for 2026-27. It is now an annual figure that applies to each employer separately: once the qualifying earnings an employer has paid an employee for the year pass it, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
+# Maximum super contribution base
+
+The maximum contribution base is $270,830 for 2026-27, now an annual figure that applies to each employer separately.
+
+Once the qualifying earnings an employer has paid an employee for the year pass the base, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
 
 Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
@@ -844,11 +854,13 @@ Source: https://duguid.com.au/rates/car-limit/
 
 > $69,883 for 2026-27 and every car limit back to 2019-20, with the ATO page each figure was read from. One-eleventh of the limit caps the GST credit.
 
-# Car limit for depreciation
-
 $69,883
 
-The car limit is $69,883 for a car first used or leased in 2026-27. It caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid. It was $69,674 for both 2025-26 and 2024-25.
+# Car limit for depreciation
+
+The car limit is $69,883 for a car first used or leased in 2026-27. It was $69,674 for both 2025-26 and 2024-25.
+
+The limit caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid.
 
 Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
@@ -927,11 +939,13 @@ Source: https://duguid.com.au/rates/fbt-rate/
 
 > 47% with Type 1 gross-up 2.0802 and Type 2 gross-up 1.8868 for FBT years ending 31 March 2018 to 31 March 2027, from the ATO’s current and historical tables.
 
-# FBT rate and gross-up rates
-
 47%
 
-The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868. The FBT year runs from 1 April to 31 March.
+# FBT rate and gross-up rates
+
+The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868.
+
+The FBT year runs from 1 April to 31 March.
 
 Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
 

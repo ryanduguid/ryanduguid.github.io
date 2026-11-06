@@ -10,7 +10,7 @@ use crate::pyre::{self, I, S, re};
 use crate::pyurl;
 use crate::pyval::{Val, counter_sub, repr_list};
 use crate::seo_core::{self as core, Tree};
-use std::collections::HashSet;
+use std::collections::{BTreeMap, BTreeSet, HashSet};
 
 fn not_indexed() -> HashSet<String> {
     NOT_INDEXED.iter().map(|s| (*s).to_owned()).collect()
@@ -1319,6 +1319,75 @@ pub fn check_robots_policy(robots: &str) -> Vec<String> {
         failures.push(format!(
             "robots.txt: unclassified crawler groups are not allowed: {}",
             unexpected.join(", ")
+        ));
+    }
+    failures
+}
+
+/// A robots.txt name, as RFC 9309 matches it: no version suffix, any case.
+fn crawler_key(agent: &str) -> String {
+    agent.split('/').next().unwrap_or(agent).to_lowercase()
+}
+
+/// Give every agent on the pinned ai.robots.txt list one reviewed treatment.
+pub fn check_crawler_classes(root: &Path) -> Result<Vec<String>, String> {
+    let raw = std::fs::read(root.join(AI_ROBOTS_LIST_REL)).map_err(|e| e.to_string())?;
+    let digest = crate::sha256(&raw);
+    if digest != AI_ROBOTS_LIST_SHA256 {
+        return Ok(vec![format!(
+            "{AI_ROBOTS_LIST_REL}: SHA-256 is {digest}, not the pinned value; \
+             update it as scripts/ai-robots/README.md describes"
+        )]);
+    }
+    let list: BTreeMap<String, serde_json::Value> =
+        serde_json::from_slice(&raw).map_err(|e| format!("{AI_ROBOTS_LIST_REL}: {e}"))?;
+    let classes: BTreeMap<String, Vec<String>> =
+        serde_json::from_str(&crate::read(&root.join(AI_ROBOTS_CLASSES_REL))?)
+            .map_err(|e| format!("{AI_ROBOTS_CLASSES_REL}: {e}"))?;
+    let listed: BTreeSet<String> = list.keys().map(|a| crawler_key(a)).collect();
+    let named: BTreeSet<String> = RETRIEVAL_CRAWLERS
+        .iter()
+        .chain(&ALLOWED_TRAINING_CRAWLERS)
+        .map(|a| crawler_key(a))
+        .collect();
+    let mut failures = Vec::new();
+    let class_names: Vec<&str> = classes.keys().map(String::as_str).collect();
+    if class_names != AI_ROBOTS_CLASSES {
+        failures.push(format!(
+            "{AI_ROBOTS_CLASSES_REL}: classes are {class_names:?}, not {AI_ROBOTS_CLASSES:?}"
+        ));
+    }
+    failures.extend(classification_failures(&classes, &named, &listed));
+    Ok(failures)
+}
+
+/// Every listed agent is named or classified once, and every classified agent is listed.
+fn classification_failures(
+    classes: &BTreeMap<String, Vec<String>>,
+    named: &BTreeSet<String>,
+    listed: &BTreeSet<String>,
+) -> Vec<String> {
+    let mut failures = Vec::new();
+    let mut classified = named.clone();
+    for (class, agents) in classes {
+        for agent in agents {
+            let key = crawler_key(agent);
+            if !classified.insert(key.clone()) {
+                failures.push(format!(
+                    "{AI_ROBOTS_CLASSES_REL}: {agent} is classified twice"
+                ));
+            }
+            if !listed.contains(&key) {
+                failures.push(format!(
+                    "{AI_ROBOTS_CLASSES_REL}: {class} agent {agent} is not on the pinned list"
+                ));
+            }
+        }
+    }
+    for key in listed.difference(&classified) {
+        failures.push(format!(
+            "{AI_ROBOTS_LIST_REL}: {key} is not classified; name it in robots.txt or add it \
+             to {AI_ROBOTS_CLASSES_REL}"
         ));
     }
     failures

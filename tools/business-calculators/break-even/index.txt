@@ -18,11 +18,15 @@ Fixed costs for the period (AUD) Selling price per unit (AUD) Variable cost per 
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the break-even calculator works
 
-Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.
+The break-even sales calculator works out how many whole units, and how much in sales, cover the fixed costs for a period. Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Price must exceed variable cost per unit, or no break-even exists.
 
-business.gov.au: pricing
+No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+
+## What the break-even calculator does not decide
+
+The break-even sales calculator does not forecast demand or say that the units can be sold. It uses one price and one variable cost, so use one product or a stable representative mix and a consistent GST basis.
 
 ## Boundary cases
 

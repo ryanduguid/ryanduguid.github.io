@@ -62,7 +62,7 @@ Link to question 82
 
 ### Does taking money out of my company create a Division 7A problem?
 
-It can. A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day. Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
+A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day. Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
 
 - Reconcile the person’s account and gather agreements, dates and repayment evidence.
 - Use the existing review case to organise the evidence and identify unresolved legal questions.
@@ -147,7 +147,7 @@ Link to question 87
 
 ### Does providing a company car or paying an employee’s private expenses create FBT?
 
-It can. FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
+FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
 
 - Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.
 - Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper.

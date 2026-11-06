@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 # Workpaper Review Gate
 
-This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
+The Workpaper Review Gate inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
 
 Current release review-ready-gate v0.3.0, 14 October 2026, from the accounting-review-pipeline repository. Published 25 August 2026. Last reviewed 21 October 2026.
 

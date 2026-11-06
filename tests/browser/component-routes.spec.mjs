@@ -149,7 +149,11 @@ test('Rates leads each table with its value and shows the first one on a laptop 
   const values = page.locator('.rate-entry__value');
   await expect(values).toHaveCount(7);
   await expect(values.first()).toBeInViewport();
-  expect(await values.first().evaluate((value) => getComputedStyle(value).fontFamily)).toMatch(/^"Spline Sans Mono"/);
+  // Browsers serialize optional font-family quotes differently.
+  const family = await values.first().evaluate((value) =>
+    getComputedStyle(value).fontFamily.split(',')[0].trim().replace(/^["']|["']$/g, ''),
+  );
+  expect(family).toBe('Spline Sans Mono');
 });
 
 test('rates offer an Excel import and the existing update feed', async ({ page, request }) => {

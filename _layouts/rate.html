@@ -53,10 +53,11 @@
           </ol>
         </nav>
         <div class="rate-entry__head">
-          <h1>{{ page.heading }}</h1>
           <p class="rate-entry__value">{{ page.headline }}</p>
+          <h1>{{ page.heading }}</h1>
         </div>
         <p class="short-answer">{{ page.lead }}</p>
+        {% if page.lead_note %}<p class="lead-note">{{ page.lead_note }}</p>{% endif %}
         <p class="page-meta">Published <time datetime="{{ page.date_published | date: "%Y-%m-%d" }}">{{ page.date_published | date: "%-d %B %Y" }}</time>. Last reviewed <time datetime="{{ page.last_reviewed | date: "%Y-%m-%d" }}">{{ page.last_reviewed | date: "%-d %B %Y" }}</time>.{% for check in page.source_checked %} Source checked <time datetime="{{ check.date | date: "%Y-%m-%d" }}">{{ check.date | date: "%-d %B %Y" }}</time>{% if check.scope %} for {{ check.scope }}{% endif %}.{% endfor %}{% if page.dates_note %} {{ page.dates_note }}{% endif %}</p>
         <p class="byline">{{ page.byline }}</p>
       </header>

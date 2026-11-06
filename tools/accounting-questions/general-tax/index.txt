@@ -181,7 +181,7 @@ Link to question 9
 
 ### Which tax rules changed from 1 July 2026?
 
-From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally requires contributions to reach the fund within 7 business days of payday, the $20,000 instant asset write-off became permanent for small businesses and the cents per kilometre rate rose to 91 cents. Most changes start on 1 July, so compare 2025-26 with 2026-27 rather than calendar years.
+From 1 July 2026, the 16% personal tax rate fell to 15% and the cents per kilometre rate rose to 91 cents. From the same date, Payday Super generally requires contributions to reach the fund within 7 business days of payday, and the $20,000 instant asset write-off became permanent for small businesses. Most changes start on 1 July, so compare 2025-26 with 2026-27 rather than calendar years.
 
 - Use the ATO 'Before you prepare your tax return' guidance for each year.
 - Record each changed rate or rule, effective date, source and affected calculation in a change log.

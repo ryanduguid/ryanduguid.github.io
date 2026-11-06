@@ -164,7 +164,7 @@ Link to question 48
 
 ### Do contractor payments count towards NSW payroll tax?
 
-Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies, such as for some services provided for 90 days or less in a financial year, or services the contractor provides to the public. Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
+Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies. Exemptions include some services provided for 90 days or less in a financial year and services the contractor provides to the public. Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
 
 - Keep the contract, services, days worked and evidence for any exclusion claimed.
 - Reconcile reviewed contractor amounts to the payroll tax workpaper.

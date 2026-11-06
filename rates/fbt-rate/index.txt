@@ -4,11 +4,13 @@ Source: https://duguid.com.au/rates/fbt-rate/
 
 > 47% with Type 1 gross-up 2.0802 and Type 2 gross-up 1.8868 for FBT years ending 31 March 2018 to 31 March 2027, from the ATO’s current and historical tables.
 
-# FBT rate and gross-up rates
-
 47%
 
-The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868. The FBT year runs from 1 April to 31 March.
+# FBT rate and gross-up rates
+
+The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868.
+
+The FBT year runs from 1 April to 31 March.
 
 Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
 

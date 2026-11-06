@@ -31,6 +31,7 @@ directory holding `_config.yml` or `scripts/`, or `SITE_ROOT` when set.
 | `check_ato_sources [--list] [--baseline DIR] [--out DIR] [--issue FILE] [directory ...]` | the weekly sweep of cited ATO and watched pages (CONTRIBUTING.md) |
 | `check_design [--update-baseline]` | the design contract and shipped assets |
 | `check_links [--offline]` | links and content in every page |
+| `check_passages` | each page's leads, section sizes and openers (CONTRIBUTING.md) |
 | `check_production [--base URL] [--source-root DIR] [--source-only]` | the public site as Cloudflare delivers it |
 | `check_publication --repository R --commit C [--wait-seconds N]` | the deployment gate |
 | `check_rates_register` | the rates register, and each rate CSV row's source and check date |

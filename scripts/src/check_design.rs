@@ -1600,13 +1600,19 @@ impl From<String> for UpdateError {
     }
 }
 
-/// A page as built: a page that uses a layout has its main and JSON-LD only in `_site`.
-fn rendered_page(root: &Path, rel: &str) -> PathBuf {
-    let built = root.join("_site").join(rel);
-    if built.is_file() {
-        built
+/// Only layout sources need `_site`; complete source HTML may be newer than a build.
+fn rendered_page(root: &Path, rel: &str) -> Result<PathBuf, String> {
+    let source = site_path(root, rel);
+    let text = crate::read(&source)?;
+    let mut lines = text.lines();
+    let uses_layout = lines.next() == Some("---")
+        && lines
+            .take_while(|line| *line != "---")
+            .any(|line| line.starts_with("layout:"));
+    if uses_layout {
+        Ok(root.join("_site").join(rel))
     } else {
-        site_path(root, rel)
+        Ok(source)
     }
 }
 
@@ -1639,7 +1645,7 @@ pub fn update_baseline(root: &Path) -> Result<PathBuf, UpdateError> {
             let file = if key == "protected_files" {
                 site_path(root, rel)
             } else {
-                rendered_page(root, rel)
+                rendered_page(root, rel)?
             };
             *entry = match key {
                 "protected_files" => Json::Str(normalised_text_digest(&file)?),
@@ -1733,7 +1739,7 @@ fn refresh_page_entries(root: &Path, sections: &mut [(String, Json)]) -> Result<
             if entries.iter().any(|(k, _)| *k == rel) {
                 continue;
             }
-            let (values, parse_failures) = json_ld_digests(&rendered_page(root, &rel))?;
+            let (values, parse_failures) = json_ld_digests(&rendered_page(root, &rel)?)?;
             if !parse_failures.is_empty() {
                 return Err(UpdateError::Exit(parse_failures.join("; ")));
             }

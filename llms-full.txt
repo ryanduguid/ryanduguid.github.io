@@ -268,7 +268,7 @@ See Claude setup and access
 
 ## Before you connect
 
-These guides list existing tools and their supported routes. They do not establish certification or endorsement by Xero or Anthropic.
+The Works with guides list existing tools and their supported routes. They do not establish certification or endorsement by Xero or Anthropic.
 
 Read the data and privacy boundary before supplying information. Installation may download packages, and an AI host may send supplied figures and tool results to its model provider. Posting, payment, lodgement, approval and period lock require human review.
 
@@ -524,6 +524,8 @@ Meltano SDK, a framework for Singer taps and targets. Pull request 3727 retains 
 Xero command line, XeroAPI’s command-line tool for the Xero Accounting API. Pull request 44 passes the --standard-layout and --payments-only flags of the balance sheet and profit and loss reports to the matching Xero SDK parameters. The two had been swapped, so --standard-layout returned a cash-basis report with different amounts. It merged on 17 September 2026, changed 3 files and added regression tests for both reports.
 
 PyXero, a Python client for the Xero accounting API. Pull request 440 adds client-credentials authentication for Xero custom connections. It merged on 10 September 2026 and changed 4 files. Pull request 439 raises an error when a Xero call expecting JSON receives a non-JSON page with a 200 status, which the client had passed back to callers as raw bytes. It merged on 9 September 2026 and changed 5 files.
+
+### ERP, ledger and HTTP software
 
 Odoo Community Association, accounting modules for Odoo. Three pull requests for Odoo 19 merged after review. Pull request 1565 stops the financial report module's link hook acting on other reports and on frames that have not loaded. It merged on 7 September 2026 and changed 2 files. Pull request 1003 fixes three online bank statement import tests that failed in the first hour after midnight UTC. It merged on 31 August 2026 and changed 1 file. Pull request 1029 adds regression coverage for automatic reconciliation of an existing statement line. It merged on 31 August 2026 and changed 1 file.
 
@@ -974,7 +976,7 @@ The evaluation uses the repository fixtures examples/bas-not-ready and examples/
 
 ## Expected result
 
-These results describe readiness for review; a manager still decides whether work may progress.
+The gate’s results describe readiness for review; a manager still decides whether work may progress.
 
 Pack | Released expectation
 Incomplete BAS | Exit 2 with NOT_READY.
@@ -1021,7 +1023,7 @@ review-ready-gate/v0.1.3 is the first release from the Accounting Review Pipelin
 
 ## Limitations
 
-This evaluates configured gates against fictional inputs. It does not establish that a pack is correct, approve work, provide advice or authorise lodgement. See Evidence and Assurance for the common assurance record and boundaries.
+The evaluation tests configured gates against fictional inputs. It does not establish that a pack is correct, approve work, provide advice or authorise lodgement. See Evidence and Assurance for the common assurance record and boundaries.
 
 ## Related
 
@@ -1084,7 +1086,7 @@ The production tool reads trial balance data directly from Xero’s Accounting A
 
 ## Intended reviewer
 
-This pack is for a reviewer who wants to reproduce the offline integrity gate without connecting to Xero or handling client data.
+The evaluation pack is for a reviewer who wants to reproduce the offline integrity gate without connecting to Xero or handling client data.
 
 ## Fictional inputs
 
@@ -1142,7 +1144,7 @@ The integrity result does not approve the export or replace professional review.
 
 ## Limitations
 
-This control does not prove completeness, classification, accounting treatment or client approval. It does not assess source data accuracy, reporting period suitability or fitness for a particular client review. See Evidence and Assurance for the common assurance record and boundaries.
+The integrity control does not prove completeness, classification, accounting treatment or client approval. It does not assess source data accuracy, reporting period suitability or fitness for a particular client review. See Evidence and Assurance for the common assurance record and boundaries.
 
 ## Related
 
@@ -1183,7 +1185,7 @@ For Payday Super, the operational record can show when money was remitted, but t
 
 ## Intended reviewer
 
-This pack is for an accountant, payroll reviewer or technical evaluator who wants to reproduce the evidence classifications without handling a client payroll export.
+The evaluation pack is for an accountant, payroll reviewer or technical evaluator who wants to reproduce the evidence classifications without handling a client payroll export.
 
 ## Fictional inputs
 
@@ -1191,7 +1193,7 @@ The 4 CSV fixtures contain fictional dates and amounts for a supported due date 
 
 ## Reproduce
 
-This historical run remains pinned to 0.1.3. Checker 0.1.6 treats a receipt date without an amount as full receipt, with a caveat. Published 0.1.7 corrects that assumption. Check the version-specific receipt rules; these historical outputs do not establish a fix.
+The historical run remains pinned to 0.1.3. Checker 0.1.6 treats a receipt date without an amount as full receipt, with a caveat. Published 0.1.7 corrects that assumption. Check the version-specific receipt rules; these historical outputs do not establish a fix.
 
 Needs Git, and uv with Python 3.12; the commands are the same on Windows, macOS and Linux. Clone the australian-accounting monorepo at tag payday-super-checker/v0.1.3 (commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182) and run these commands from packages/payday-super-checker. The first 4 commands write the 4 reports; the final command runs the evaluation contract test.
 
@@ -1415,7 +1417,9 @@ Verify a figure against current guidance before relying on it. Historical and cu
 
 Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
-Use these tables in Excel
+## Use these tables in Excel
+
+Show the Power Query steps
 
 In Excel for Windows with Power Query, choose Data, Get Data, From Other Sources, Blank Query. Open Advanced Editor, replace its contents with this query and choose Done, then Close & Load. If prompted, choose Anonymous access for this public source. Microsoft’s Text/CSV guide explains the connector.
 
@@ -1619,11 +1623,13 @@ Source: https://duguid.com.au/rates/announced-not-yet-law/
 
 > ATO statuses and bill stages for selected tax and super measures: 8 TBD. Enacted-law application dates and transition rules. Bill stages checked 4 November 2026.
 
-# Announced tax measures and enacted law
-
 8 TBD
 
-Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates. TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
+# Announced tax measures and enacted law
+
+Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates.
+
+TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
 Published 20 September 2026. Last reviewed 5 November 2026. Source checked 4 November 2026 for pending measures. Source checked 5 November 2026 for legislated measures. Reform provisions reviewed 22 September 2026.
 
@@ -1766,9 +1772,9 @@ Source: https://duguid.com.au/rates/super-guarantee/
 
 > Every general super guarantee rate since 2002-03, with dates. It has been 12% since 1 July 2025, and payday super changed the timing, not the rate.
 
-# Super guarantee rate history
-
 12%
+
+# Super guarantee rate history
 
 The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and no further increases are scheduled. Payday super, from 1 July 2026, changed when contributions must be paid, generally within 7 business days of each payday, and left the rate alone.
 
@@ -1853,11 +1859,13 @@ Source: https://duguid.com.au/rates/div7a-benchmark-rate/
 
 > For companies with a 30 June year end: 8.77% for 2026-27 and 8.37% for 2025-26. How section 109N(2) sets the rate, including for substituted accounting periods.
 
-# Division 7A benchmark interest rate
-
 8.77%
 
-The benchmark interest rate for the 2026-27 income year is 8.77% for companies with a 30 June year end. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
+# Division 7A benchmark interest rate
+
+The benchmark interest rate for the 2026-27 income year is 8.77% for companies with a 30 June year end.
+
+Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
 
 Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
@@ -1949,11 +1957,13 @@ Source: https://duguid.com.au/rates/cents-per-kilometre/
 
 > 91 cents for 2026-27, 88 cents for the 2 years before it, capped at 5,000 business kilometres. Each rate cites the determination that sets it.
 
-# Cents per kilometre rate for car expenses
-
 91 cents
 
-The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further. One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves. This is the rate for the cents per kilometre method, one of the car expense methods: it is a rate table, not a determination that a particular taxpayer, car or business kilometre is eligible, and the choice between methods is not made here.
+# Cents per kilometre rate for car expenses
+
+The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further.
+
+One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves. This is the rate for the cents per kilometre method, one of the car expense methods: it is a rate table, not a determination that a particular taxpayer, car or business kilometre is eligible, and the choice between methods is not made here.
 
 Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
@@ -2043,11 +2053,13 @@ Source: https://duguid.com.au/rates/maximum-contribution-base/
 
 > $270,830 a year for 2026-27 under Payday Super, and the quarterly bases back to 2021-22. The formula, the SG ceiling it sets and the ATO source.
 
-# Maximum super contribution base
-
 $270,830
 
-The maximum contribution base is $270,830 for 2026-27. It is now an annual figure that applies to each employer separately: once the qualifying earnings an employer has paid an employee for the year pass it, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
+# Maximum super contribution base
+
+The maximum contribution base is $270,830 for 2026-27, now an annual figure that applies to each employer separately.
+
+Once the qualifying earnings an employer has paid an employee for the year pass the base, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
 
 Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
@@ -2125,11 +2137,13 @@ Source: https://duguid.com.au/rates/car-limit/
 
 > $69,883 for 2026-27 and every car limit back to 2019-20, with the ATO page each figure was read from. One-eleventh of the limit caps the GST credit.
 
-# Car limit for depreciation
-
 $69,883
 
-The car limit is $69,883 for a car first used or leased in 2026-27. It caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid. It was $69,674 for both 2025-26 and 2024-25.
+# Car limit for depreciation
+
+The car limit is $69,883 for a car first used or leased in 2026-27. It was $69,674 for both 2025-26 and 2024-25.
+
+The limit caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid.
 
 Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
@@ -2208,11 +2222,13 @@ Source: https://duguid.com.au/rates/fbt-rate/
 
 > 47% with Type 1 gross-up 2.0802 and Type 2 gross-up 1.8868 for FBT years ending 31 March 2018 to 31 March 2027, from the ATO’s current and historical tables.
 
-# FBT rate and gross-up rates
-
 47%
 
-The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868. The FBT year runs from 1 April to 31 March.
+# FBT rate and gross-up rates
+
+The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868.
+
+The FBT year runs from 1 April to 31 March.
 
 Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
 
@@ -2582,7 +2598,9 @@ Source: https://duguid.com.au/tools/refusals/
 
 # What these tools refuse
 
-A refusal is an output too. This page lists each one the tools give, the fictional input that triggers it, the exact text and exit code where a command exists, and the human step that follows. One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
+A refusal is an output too. This page lists each one the tools give, the fictional input that triggers it, the exact text and exit code where a command exists, and the human step that follows.
+
+One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
 
 Each refusal below is recorded against the release named beside it. Where a newer release exists, the refusal was not rechecked against it; the changelog lists current releases.
 
@@ -2822,7 +2840,9 @@ Source: https://duguid.com.au/tools/limitations/
 
 # Known limitations
 
-A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct and the step that settles it.
+A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it.
+
+Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
 Published 16 September 2026. Last reviewed 5 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
@@ -2883,6 +2903,8 @@ What stays correct. The comparison behind both. Each path renders one comparison
 
 Parity at the row level is narrower, and needs two conditions together. First, the ratio’s own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set plus payments to associated persons once w1 is supplied, and the rest need their own field. Second, both income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library. Where both conditions hold, the row carries the same value in both against the same published range.
 
+### What diverges, and when
+
 Three things diverge independently, and running them together overstates the effect.
 
 What | When it diverges
@@ -2918,7 +2940,7 @@ Two implementations disagreeing is the cheapest way to find a defect, and the di
 
 ## What this page is not
 
-This is a register of limitations found and confirmed, not a proof that none remain. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else. Each entry is bound to the behaviour it describes by a test in its package, so a fix fails the test and forces the entry to be updated, but the register cannot report what has not been found. The evaluations reproduce the passing cases against fixed releases, and Evidence and Assurance records the review boundaries and the absence of third-party review.
+The page is a register of limitations found and confirmed, not a proof that none remain. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else. Each entry is bound to the behaviour it describes by a test in its package, so a fix fails the test and forces the entry to be updated, but the register cannot report what has not been found. The evaluations reproduce the passing cases against fixed releases, and Evidence and Assurance records the review boundaries and the absence of third-party review.
 
 ## Links
 
@@ -2979,7 +3001,7 @@ Calculate
 
 ## Result
 
-This calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and limits on this page still apply.
+The Coal LSL calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and limits on this page still apply.
 
 Ready to calculate
 
@@ -3035,7 +3057,7 @@ The Act, the Regulations and the guidance note publish no rounding rule. This to
 
 ### What does the 75% in Formula B apply to?
 
-For a non-casual employee paid a base rate, section 3B(1)(b) applies 75% to the base rate of pay, incentive payments and bonuses paid at least once a month, overtime and penalty rates, and allowances other than expense reimbursements, added together, not to the base rate alone. The paragraph reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). With $6,000 base pay, $3,000 overtime and penalty rates, and $500 of allowances that are not expense reimbursements, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. The annual salary and casual branches use their own formulas. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 5 November 2026.
+For a non-casual employee paid a base rate, section 3B(1)(b) applies 75% to a total, not to the base rate alone. The total adds the base rate of pay, incentive payments and bonuses paid at least once a month, overtime and penalty rates, and allowances other than expense reimbursements. The paragraph reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). With $6,000 base pay, $3,000 overtime and penalty rates, and $500 of allowances that are not expense reimbursements, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. The annual salary and casual branches use their own formulas. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 5 November 2026.
 
 ### Which bonuses count towards eligible wages?
 
@@ -3241,7 +3263,7 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 # ATO small business benchmark comparison tool
 
-This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
+The ATO small business benchmark comparison tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
 
 Current release ato-benchmark-compare v0.2.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
@@ -3273,7 +3295,7 @@ The workflow is 2 steps on purpose. First, the tool drafts a mapping from the pr
 
 ## Worked example: cost of sales excluding wages
 
-This fictional example comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
+The fictional example below comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
 
 - Turnover: $100,000.
 - Cost of sales excluding wages: $30,000.
@@ -3502,7 +3524,7 @@ Source: https://duguid.com.au/tools/company-tax-franking/
 
 # Company tax and franking worksheets
 
-This tool runs the base rate entity test, tracks the franking account and checks the Division 203 benchmark rule.
+The company tax and franking worksheets run the base rate entity test, track the franking account and check the Division 203 benchmark rule.
 
 Current release the-exchequer-tally v0.2.0, 19 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
@@ -3520,9 +3542,9 @@ Requires verified income composition, distributions and ledger inputs.
 
 A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate.
 
-This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and checks the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
+The worksheets run the base rate entity test and track a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. They work out franking deficit tax and check the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. They also check distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
 
-It builds the statement fields a dividend distribution statement needs, too. That is a review helper for the statement, not a lodgement or a compliance certificate.
+The worksheets also build the statement fields a dividend distribution statement needs. That is a review helper for the statement, not a lodgement or a compliance certificate.
 
 ## What this tool does
 
@@ -3624,7 +3646,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 # Subcontractor ledger skills for construction and mining
 
-These Claude Code skills cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
+The subcontractor ledger skills for Claude Code cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
 Current release australian-accounting-skills v0.5.0, 28 October 2026, from the australian-accounting-skills repository. Published 24 August 2026. Last reviewed 29 October 2026.
 
@@ -3654,7 +3676,7 @@ For work in progress, the skills assemble the contract CSV. The arithmetic lives
 
 ## Limits
 
-These skills prepare and check. They do not serve a payment claim, lodge a return or sign anything. Contract interpretation, eligibility conclusions and professional judgement stay with a person.
+The skills prepare and check. They do not serve a payment claim, lodge a return or sign anything. Contract interpretation, eligibility conclusions and professional judgement stay with a person.
 
 ## Repeat the agent evaluation procedure
 
@@ -3757,7 +3779,7 @@ This tool does the arithmetic. Install the Python engine, point it at a contract
 
 ## Worked example: a $50,000 contract asset
 
-This fictional example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
+The fictional example below comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
 
 - Transaction price: $1,000,000.
 - Costs incurred: $400,000. Estimated cost to complete: $400,000.
@@ -3876,7 +3898,7 @@ Read-only Xero scope; no ledger writes.
 
 The export asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
-This tool reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
+The export reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
 
 Before anything is written to disk, it runs a balance check: both the current month’s movement and the year-to-date figures must balance, or no file is written. One limit: --date is an as-at date, not a range. Xero’s Trial Balance endpoint accepts only a date, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range: the current month.
 
@@ -3913,7 +3935,7 @@ python export_tb.py --date 2026-06-30
 # writes a CSV such as demo-company-au-...-tb-2026-06-30-accrual.csv, only when both balance checks pass
 ```
 
-These commands install the current release, v0.1.15 (its source). The default branch below is newer, unreleased work. The fictional worked example stays pinned to v0.1.6, the release its evaluation tests.
+The commands below install the current release, v0.1.15 (its source). The default branch below is newer, unreleased work. The fictional worked example stays pinned to v0.1.6, the release its evaluation tests.
 
 Source on GitHub
 
@@ -3923,7 +3945,7 @@ Software issue using fictional data? Open an issue or email with the tool named 
 
 Reproduce the Xero trial balance integrity evaluation
 
-These release xero-trial-balance-export/v0.1.6 tests use mocked Xero API behaviour and fictional account rows. They do not contain a live organisation’s data.
+The xero-trial-balance-export/v0.1.6 release tests use mocked Xero API behaviour and fictional account rows. They do not contain a live organisation’s data.
 
 Outcome | Fictional facts | Test-backed result
 Balanced, CSV written | Business Bank Account (090) has a $1,200.00 movement debit and $15,234.50 YTD debit. Trade Debtors (610) has equal credits. | Both pairs balance and the exact expected CSV bytes are written.
@@ -4132,6 +4154,8 @@ python scripts/validate_skills.py --strict
 
 A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project’s matching directory.
 
+### Pinned and unpinned installs
+
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
 
 The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the published v0.4.0 tag. The current Skills release is v0.5.0, published on 28 October 2026, with 76 workflows under FSL-1.1-ALv2. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
@@ -4248,7 +4272,7 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 # Workpaper Review Gate
 
-This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
+The Workpaper Review Gate inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
 
 Current release review-ready-gate v0.3.0, 14 October 2026, from the accounting-review-pipeline repository. Published 25 August 2026. Last reviewed 21 October 2026.
 
@@ -4674,7 +4698,7 @@ It flags material movements, missing mappings and supplied subledger differences
 
 ## Worked example: balanced trial balance, unfinished review
 
-This example runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5.
+The worked example runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5.
 
 The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
 
@@ -5327,7 +5351,7 @@ Link to question 9
 
 ### Which tax rules changed from 1 July 2026?
 
-From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally requires contributions to reach the fund within 7 business days of payday, the $20,000 instant asset write-off became permanent for small businesses and the cents per kilometre rate rose to 91 cents. Most changes start on 1 July, so compare 2025-26 with 2026-27 rather than calendar years.
+From 1 July 2026, the 16% personal tax rate fell to 15% and the cents per kilometre rate rose to 91 cents. From the same date, Payday Super generally requires contributions to reach the fund within 7 business days of payday, and the $20,000 instant asset write-off became permanent for small businesses. Most changes start on 1 July, so compare 2025-26 with 2026-27 rather than calendar years.
 
 - Use the ATO 'Before you prepare your tax return' guidance for each year.
 - Record each changed rate or rule, effective date, source and affected calculation in a change log.
@@ -6341,7 +6365,7 @@ Link to question 48
 
 ### Do contractor payments count towards NSW payroll tax?
 
-Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies, such as for some services provided for 90 days or less in a financial year, or services the contractor provides to the public. Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
+Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies. Exemptions include some services provided for 90 days or less in a financial year and services the contractor provides to the public. Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
 
 - Keep the contract, services, days worked and evidence for any exclusion claimed.
 - Reconcile reviewed contractor amounts to the payroll tax workpaper.
@@ -7189,7 +7213,7 @@ Link to question 82
 
 ### Does taking money out of my company create a Division 7A problem?
 
-It can. A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day. Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
+A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day. Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
 
 - Reconcile the person’s account and gather agreements, dates and repayment evidence.
 - Use the existing review case to organise the evidence and identify unresolved legal questions.
@@ -7274,7 +7298,7 @@ Link to question 87
 
 ### Does providing a company car or paying an employee’s private expenses create FBT?
 
-It can. FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
+FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
 
 - Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.
 - Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper.
@@ -7672,11 +7696,15 @@ Amount (AUD) Amount includes GST
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the GST calculator works
 
-For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.
+The GST calculator takes one amount for a wholly taxable supply and works out the GST, the GST-exclusive amount and the GST-inclusive amount. For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents.
 
-ATO: How GST works
+The 10% rate and the one-eleventh fraction come from ATO: How GST works and the A New Tax System (Goods and Services Tax) Act 1999.
+
+## What the GST calculator does not decide
+
+The GST calculator does not decide whether a supply is taxable, whether you must be registered for GST or what a BAS should report. Mixed, GST-free and input-taxed supplies need classification first.
 
 ## Boundary cases
 
@@ -7700,6 +7728,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
+- A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
 
@@ -7725,9 +7754,13 @@ Eligible cost (AUD) Business use (%)
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the business use calculator works
 
-Eligible cost × supported business use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.
+The business use share calculator splits one cost you supply by one percentage you supply: eligible cost × supported business use percentage / 100, rounded to cents. No statutory rate or threshold is applied.
+
+## What the business use calculator does not decide
+
+The business use share calculator does not determine deductibility, depreciation or record sufficiency. It does not work out the percentage, and it does not test whether your records support it.
 
 For car expenses under the cents per kilometre method, the rate by income year is kept as a maintained table on this site.
 
@@ -7778,11 +7811,15 @@ Sales (AUD) Direct cost (AUD)
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the margin and markup calculator works
 
-Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
+The margin and markup calculator works out gross profit, margin and markup from one sales figure and one direct cost figure. Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. A zero denominator leaves that percentage undefined.
 
-business.gov.au: pricing
+No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+
+## What the margin and markup calculator does not decide
+
+The margin and markup calculator does not set a price, test whether direct cost is complete or adjust for GST. Use a consistent GST basis and matching period for both figures.
 
 ## Boundary cases
 
@@ -7828,11 +7865,15 @@ Fixed costs for the period (AUD) Selling price per unit (AUD) Variable cost per 
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the break-even calculator works
 
-Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.
+The break-even sales calculator works out how many whole units, and how much in sales, cover the fixed costs for a period. Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Price must exceed variable cost per unit, or no break-even exists.
 
-business.gov.au: pricing
+No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+
+## What the break-even calculator does not decide
+
+The break-even sales calculator does not forecast demand or say that the units can be sold. It uses one price and one variable cost, so use one product or a stable representative mix and a consistent GST basis.
 
 ## Boundary cases
 
@@ -7877,11 +7918,15 @@ Annual costs (AUD) Target annual profit (AUD) Annual billable hours
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the hourly pricing calculator works
 
-Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
+The hourly pricing calculator works out the hourly rate that covers your annual costs and target profit. Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
 
-business.gov.au: pricing
+No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+
+## What the hourly pricing calculator does not decide
+
+The hourly pricing calculator does not test whether customers will pay the rate, compare it with an award or market rate, or add GST to it.
 
 ## Boundary cases
 
@@ -7928,9 +7973,15 @@ Figure type Income Cost
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the budget variance calculator works
 
-Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.
+The budget variance calculator compares one actual figure with one budget figure. Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable.
+
+No statutory rate or external source is applied. The favourability convention is the usual management-accounting one.
+
+## What the budget variance calculator does not decide
+
+The budget variance calculator does not say why a difference arose or whether it matters. Explain causes from the records.
 
 Budget explanation checklist
 
@@ -7981,9 +8032,15 @@ Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the monthly loan payment calculator works
 
-For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45.
+The monthly loan payment calculator works out a fixed monthly payment, the interest and principal in the first payment, and estimated total interest. For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n.
+
+No statutory rate or external source is applied. The interest rate is yours, not a market or lender rate.
+
+## What the monthly loan payment calculator leaves out
+
+The monthly loan payment calculator assumes payments in arrears, with no fees or balloon, and a rate that does not change. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45. The result is not a lender’s quote.
 
 Loan reconciliation checklist
 
@@ -8034,9 +8091,15 @@ Annual wages (AUD) Annual super amount (AUD) Other annual costs (AUD)
 
 Calculate Enter the inputs and calculate.
 
-## How it works
+## How the staff cost calculator works
 
-Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
+The staff cost calculator adds up the annual cost of one staff member from figures you supply. Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
+
+No statutory rate or threshold is applied.
+
+## What the staff cost calculator does not decide
+
+The staff cost calculator does not work out super, payroll tax or award pay. The super amount is the figure you enter; the super guarantee rate is a separate table and is not applied by this calculator.
 
 Staff cost checklist
 
@@ -8058,6 +8121,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
 
@@ -8112,11 +8176,15 @@ Save inputs to a file on this device and load it later to continue. The file is 
 
 Save inputs Load inputs (replaces the current forecast)
 
-## How it works
+## How the 13-week cash forecast works
 
-Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.
+The 13-week cash forecast works out closing cash for each week and the funding gap against a buffer you set. Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero.
 
-business.gov.au: cash flow
+No statutory rate or threshold is applied. The layout follows business.gov.au: cash flow.
+
+## What the 13-week cash forecast does not decide
+
+The funding gap is a planning gap, not a lending decision. The 13-week cash forecast does not predict receipts or payments, and weekly totals can hide a shortage within the week. A receipt delayed beyond week 13 is reported separately and does not enter the closing balance.
 
 The Lumbridge cash flow case works the same question with a 45-day receipt delay.
 
@@ -8190,7 +8258,7 @@ For questions about this notice or information you have sent me, email ryan@dugu
 
 ## AI crawlers and citation
 
-The site’s robots.txt names each crawler and its treatment. Search indexing and the fetches an assistant makes to answer or cite for a user are allowed for the agents it names, and Google-Extended is allowed so Gemini grounding can cite the site. No crawler it names is blocked: training crawlers are allowed too, including those from Common Crawl (CCBot), Bytespider, OpenAI (GPTBot), Anthropic (ClaudeBot), Apple (Applebot-Extended), Amazon (Amazonbot) and Meta (meta-externalagent). The machine-readable index and the full page text are published for citation, and robots.txt is the current policy if this summary and the file ever differ.
+The site’s robots.txt names the main search, citation and training crawlers, and its default group allows every other agent. Search indexing and the fetches an assistant makes to answer or cite for a user are allowed, and Google-Extended is allowed so Gemini grounding can cite the site. No crawler is blocked: training crawlers are allowed too, including those from Common Crawl (CCBot), Bytespider, OpenAI (GPTBot), Anthropic (ClaudeBot), Apple (Applebot-Extended), Amazon (Amazonbot) and Meta (meta-externalagent). The machine-readable index and the full page text are published for citation, and robots.txt is the current policy if this summary and the file ever differ.
 
 If an AI answer misquotes this site, email ryan@duguid.com.au with the page address and the quoted text. Use fictional examples only; do not send client records or taxpayer information.
 
@@ -8229,7 +8297,9 @@ Source: https://duguid.com.au/examples/profit-vs-cash-flow/
 
 # Profit vs cash flow: an Australian Excel worked example
 
-How can a business report a profit and still run short of cash? Because profit records the sale and cash records the day the money arrives. This worked example moves one receipt by 45 days: quarterly profit stays at $35,957.55 and the bank account falls $25,160 below zero.
+How can a business report a profit and still run short of cash? Because profit records the sale and cash records the day the money arrives.
+
+The worked example moves one receipt by 45 days: quarterly profit stays at $35,957.55 and the bank account falls $25,160 below zero.
 
 Download the Excel example Compare the two cases
 
@@ -8356,7 +8426,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Limits
 
-This is a fictional demonstration, not a client result. No forecast accuracy, client outcome or time saving has been measured.
+The Lumbridge case is a fictional demonstration, not a client result. No forecast accuracy, client outcome or time saving has been measured.
 
 - The only supported scenario is the receipt delay, from 0 to 120 whole calendar days. Revenue, wages and operating assumptions are fixed.
 - Payment dates, PAYG withholding, workers compensation, the tax instalment and the loan terms are supplied scenario assumptions, not statutory calculations. PAYG withholding is a flat $5,000 a month, not a withholding table result.

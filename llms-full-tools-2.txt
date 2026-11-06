@@ -14,7 +14,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 # Subcontractor ledger skills for construction and mining
 
-These Claude Code skills cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
+The subcontractor ledger skills for Claude Code cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
 Current release australian-accounting-skills v0.5.0, 28 October 2026, from the australian-accounting-skills repository. Published 24 August 2026. Last reviewed 29 October 2026.
 
@@ -44,7 +44,7 @@ For work in progress, the skills assemble the contract CSV. The arithmetic lives
 
 ## Limits
 
-These skills prepare and check. They do not serve a payment claim, lodge a return or sign anything. Contract interpretation, eligibility conclusions and professional judgement stay with a person.
+The skills prepare and check. They do not serve a payment claim, lodge a return or sign anything. Contract interpretation, eligibility conclusions and professional judgement stay with a person.
 
 ## Repeat the agent evaluation procedure
 
@@ -147,7 +147,7 @@ This tool does the arithmetic. Install the Python engine, point it at a contract
 
 ## Worked example: a $50,000 contract asset
 
-This fictional example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
+The fictional example below comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
 
 - Transaction price: $1,000,000.
 - Costs incurred: $400,000. Estimated cost to complete: $400,000.
@@ -266,7 +266,7 @@ Read-only Xero scope; no ledger writes.
 
 The export asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
-This tool reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
+The export reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
 
 Before anything is written to disk, it runs a balance check: both the current month’s movement and the year-to-date figures must balance, or no file is written. One limit: --date is an as-at date, not a range. Xero’s Trial Balance endpoint accepts only a date, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range: the current month.
 
@@ -303,7 +303,7 @@ python export_tb.py --date 2026-06-30
 # writes a CSV such as demo-company-au-...-tb-2026-06-30-accrual.csv, only when both balance checks pass
 ```
 
-These commands install the current release, v0.1.15 (its source). The default branch below is newer, unreleased work. The fictional worked example stays pinned to v0.1.6, the release its evaluation tests.
+The commands below install the current release, v0.1.15 (its source). The default branch below is newer, unreleased work. The fictional worked example stays pinned to v0.1.6, the release its evaluation tests.
 
 Source on GitHub
 
@@ -313,7 +313,7 @@ Software issue using fictional data? Open an issue or email with the tool named 
 
 Reproduce the Xero trial balance integrity evaluation
 
-These release xero-trial-balance-export/v0.1.6 tests use mocked Xero API behaviour and fictional account rows. They do not contain a live organisation’s data.
+The xero-trial-balance-export/v0.1.6 release tests use mocked Xero API behaviour and fictional account rows. They do not contain a live organisation’s data.
 
 Outcome | Fictional facts | Test-backed result
 Balanced, CSV written | Business Bank Account (090) has a $1,200.00 movement debit and $15,234.50 YTD debit. Trade Debtors (610) has equal credits. | Both pairs balance and the exact expected CSV bytes are written.
@@ -522,6 +522,8 @@ python scripts/validate_skills.py --strict
 
 A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project’s matching directory.
 
+### Pinned and unpinned installs
+
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
 
 The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the published v0.4.0 tag. The current Skills release is v0.5.0, published on 28 October 2026, with 76 workflows under FSL-1.1-ALv2. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
@@ -638,7 +640,7 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 # Workpaper Review Gate
 
-This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
+The Workpaper Review Gate inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
 
 Current release review-ready-gate v0.3.0, 14 October 2026, from the accounting-review-pipeline repository. Published 25 August 2026. Last reviewed 21 October 2026.
 
@@ -784,7 +786,7 @@ It flags material movements, missing mappings and supplied subledger differences
 
 ## Worked example: balanced trial balance, unfinished review
 
-This example runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5.
+The worked example runs the unreleased Rust source, version 1.0.0, at commit 1ce98d5.
 
 The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
 
