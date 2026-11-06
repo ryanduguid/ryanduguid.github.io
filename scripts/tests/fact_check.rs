@@ -1385,6 +1385,50 @@ fn rate_pages_state_their_csv_year_value_and_dates() {
 }
 
 #[test]
+fn rates_hub_modification_date_covers_content_changes() {
+    assert!(rendered(), "rates hub dates require a rendered site");
+    let page = read("rates/index.html");
+    let mut failures = Vec::new();
+    let blocks = site_tools::seo_core::json_ld_blocks(&page, "rates/index.html", &mut failures);
+    assert!(failures.is_empty(), "{failures:?}");
+    let dates: Vec<_> = blocks
+        .iter()
+        .flat_map(site_tools::seo_core::nodes)
+        .filter(|node| {
+            node.get("@type")
+                .is_some_and(|value| text_of(value) == "WebPage")
+        })
+        .map(|node| text_of(get(node, "dateModified")))
+        .collect();
+    assert_eq!(dates.len(), 1, "rates hub modification dates: {dates:?}");
+    // The editorial explanation changed on 7 November in Australia/Sydney.
+    assert!(
+        dates[0].as_str() >= "2026-11-07",
+        "dateModified {} predates the rates hub content changes",
+        dates[0]
+    );
+    let sitemap = read("sitemap.xml");
+    let sitemap = roxmltree::Document::parse(&sitemap).unwrap();
+    let entry = sitemap
+        .descendants()
+        .find(|node| {
+            node.has_tag_name("loc") && node.text() == Some("https://duguid.com.au/rates/")
+        })
+        .unwrap()
+        .parent()
+        .unwrap();
+    let lastmod = entry
+        .children()
+        .find(|node| node.has_tag_name("lastmod"))
+        .and_then(|node| node.text())
+        .unwrap();
+    assert_eq!(
+        lastmod, dates[0],
+        "sitemap and rates hub modification dates"
+    );
+}
+
+#[test]
 fn rate_page_list_matches_the_pages_on_disk() {
     if !rendered() {
         return;

@@ -60,7 +60,7 @@
       "c6542659bcd30eed44223f93ca409fe9d2c8ce84d290b69852af5474721fbf54"
     ],
     "rates/index.html": [
-      "aad7dcb72a0afe12670e818ddd3f2c3e41ebcce4376c9ab1932d6606e65faba8"
+      "1f838a23f846a30c98dcdce301de4ec299528ce4f0f99961061074b67b71df57"
     ],
     "rates/maximum-contribution-base/index.html": [
       "5faec167b8bf427078144978bbbd0ed6dfbc2e6e8f1e0d5e02f063539ceab025"
@@ -207,7 +207,7 @@
   "protected_files": {
     "llms.txt": "8f84ea714c028de0a7c1d0c51a4fddcbcb8c9a515c9abb2518e7577dee4712a9",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
-    "sitemap.xml": "5a27af7210216338b698d59920e2bb971db107f729b765a9d7c780f285aa5b2a"
+    "sitemap.xml": "23fb088e161db83dde75b268b582e6bc01208bcb7dae239c11f6765404ea245b"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

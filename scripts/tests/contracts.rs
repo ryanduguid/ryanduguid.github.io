@@ -293,8 +293,8 @@ fn geo_leftovers_surface() {
     expected.sort();
     assert_eq!(groups, expected);
 
-    // Each page's visible review date, its JSON-LD dateModified and its
-    // sitemap lastmod must agree; the dates themselves move with each edit.
+    // The rates hub keeps editorial review separate from content modification.
+    // Both pages' sitemap dates track their content modification dates.
     for (rel, url) in [
         ("rates/index.html", "https://duguid.com.au/rates/"),
         ("evaluate/index.html", "https://duguid.com.au/evaluate/"),
@@ -314,16 +314,24 @@ fn geo_leftovers_surface() {
             .strip_prefix("Last reviewed ")
             .and_then(|d| d.strip_suffix('.'))
             .unwrap_or_else(|| panic!("{rel}: page-meta is {line:?}"));
-        let modified = site_tools::pytime::strptime_day_month_year(review)
+        let reviewed = site_tools::pytime::strptime_day_month_year(review)
             .unwrap_or_else(|| panic!("{rel}: {review:?} is not a date"))
             .isoformat();
-        assert!(
-            web_page(&html, rel)
-                .get("dateModified")
-                .unwrap()
-                .py_eq(&s(&modified)),
-            "{rel}: dateModified differs from {review}"
+        let page = web_page(&html, rel);
+        let modified = page.get("dateModified").and_then(Json::as_str).unwrap();
+        assert_eq!(
+            site_tools::py::Date::fromisoformat(modified)
+                .unwrap_or_else(|| panic!("{rel}: dateModified {modified:?} is not a date"))
+                .isoformat(),
+            modified,
+            "{rel}: dateModified is not canonical"
         );
+        if rel == "evaluate/index.html" {
+            assert_eq!(
+                modified, reviewed,
+                "{rel}: dateModified differs from {review}"
+            );
+        }
         assert_eq!(core::sitemap_lastmods(url, root()).unwrap(), [modified]);
     }
     let tables = core::markdown_section(&read_text(root(), "llms.txt"), "Reference tables");
