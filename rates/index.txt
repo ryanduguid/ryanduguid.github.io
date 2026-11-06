@@ -122,7 +122,7 @@ Tax and super measures on the ATO’s Budget 2026-27 and MYEFO 2025-26 lists, by
 
 Primary source Download CSV
 
-Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Source checked is the date a table was last checked against its primary source, from the CSV’s checked_at; last reviewed is the date a person reviewed the page.
+Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Source checked is the date a table was last checked against its primary source, from the CSV’s checked_at; last reviewed is this page’s editorial check.
 
 Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 

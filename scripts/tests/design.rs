@@ -1012,6 +1012,32 @@ fn update_baseline_reads_layout_pages_from_the_build() {
     }
 }
 
+/// A new layout page's source holds no JSON-LD, so only the build can pin it.
+#[test]
+fn update_baseline_pins_a_new_layout_page_from_the_build() {
+    if !rendered() {
+        return;
+    }
+    let site = copied_site();
+    let rel = "rates/a-new-table/index.html";
+    let built = site.path().join("_site").join(rel);
+    std::fs::create_dir_all(built.parent().unwrap()).unwrap();
+    std::fs::create_dir_all(site.path().join("rates/a-new-table")).unwrap();
+    std::fs::write(
+        &built,
+        r#"<script type="application/ld+json">{"@type": "WebPage"}</script>"#,
+    )
+    .unwrap();
+    std::fs::write(site.path().join(rel), "---\nlayout: rate\n---\n").unwrap();
+    assert!(design::update_baseline(site.path()).is_ok());
+    assert!(
+        baseline(site.path())
+            .get("json_ld")
+            .and_then(|s| s.get(rel))
+            .is_some()
+    );
+}
+
 /// `--update-baseline` restores what it can derive: protected-text counts and
 /// the JSON-LD of a page missing from the baseline.
 #[test]

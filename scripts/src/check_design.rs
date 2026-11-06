@@ -1733,7 +1733,7 @@ fn refresh_page_entries(root: &Path, sections: &mut [(String, Json)]) -> Result<
             if entries.iter().any(|(k, _)| *k == rel) {
                 continue;
             }
-            let (values, parse_failures) = json_ld_digests(path)?;
+            let (values, parse_failures) = json_ld_digests(&rendered_page(root, &rel))?;
             if !parse_failures.is_empty() {
                 return Err(UpdateError::Exit(parse_failures.join("; ")));
             }

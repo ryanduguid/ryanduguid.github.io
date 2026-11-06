@@ -193,8 +193,8 @@ suite reads the latest row of the page's CSV and fails if the title lacks that
 year and value, if the headline or the `/rates/` entry shows another value, or if
 a Source checked date differs from `checked_at`. After a new row or a recheck,
 update the front matter, the page's CSV note and the `/rates/` entry together.
-Last reviewed is the date a person reviewed the page; it sets `dateModified`, so
-the sitemap date moves with it.
+Last reviewed is this page's editorial check. `date_modified` is the day the
+content last changed; it sets `dateModified`, and the sitemap date matches it.
 
 `scripts/design_baseline.json` pins digests of the machine-readable files, the
 rates pages and every page's JSON-LD. After a content edit, run
@@ -202,7 +202,8 @@ rates pages and every page's JSON-LD. After a content edit, run
 touches only the pages you changed. It also pins the JSON-LD of a new page, and
 after `site-tools build_site` it recounts the protected footer text in `_site`;
 without a build it leaves those counts unchanged. Build first after a rate page
-edit: the digests of a page that uses a layout come from `_site`.
+edit: the digests and the JSON-LD pin of a page that uses a layout come from
+`_site`.
 
 ## Ozzit reference examples
 

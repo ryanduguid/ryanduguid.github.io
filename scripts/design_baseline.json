@@ -45,31 +45,61 @@
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "d61748948090725b1660e7fd2705c8484d2f77e1bcec42d69f1cc49d74aa2055"
+      "5f2da2f35ed074499e903bc67838a550421f1d4dffdc0bdaaf38060e119d9b03"
     ],
     "rates/car-limit/index.html": [
-      "aa0d77661e2605938619d33664451b7038f06066566802917d3859a111e1b0b3"
+      "f82305ad21b582f80b8a3d0fda17f79a91a09f5cf3a4fcf460c7b28e56758791"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "4d63c6e3dbcbcfea5bf1c4d6ecaa2522366881383dd3b2b7bc152a2702b31c9f"
+      "c50a626b8beaa3b999fa19b2eaaf1e119079e5cbf6688d658568b29d0e312c19"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "7bf5b9efa83b73a7887ca5775cbc7131899e5483da1b91546fc607166a3c500c"
+      "dbc599435200baec356b33dc8526e2957dcc343dacb72ad16da094bcbf59f60c"
     ],
     "rates/fbt-rate/index.html": [
-      "290f94ab4d5a24be9e1e686bbcdb827700cfd5312abe7b4bfcf2ed87fa722a9e"
+      "c6542659bcd30eed44223f93ca409fe9d2c8ce84d290b69852af5474721fbf54"
     ],
     "rates/index.html": [
       "aad7dcb72a0afe12670e818ddd3f2c3e41ebcce4376c9ab1932d6606e65faba8"
     ],
     "rates/maximum-contribution-base/index.html": [
-      "92b4ea666320132afb91377b122428251c5acf620239519627ace2ce3cb0e190"
+      "5faec167b8bf427078144978bbbd0ed6dfbc2e6e8f1e0d5e02f063539ceab025"
     ],
     "rates/super-guarantee/index.html": [
-      "8e3c550d691fd55e6c855e096ddd26c863c9a1ece6a9be6df25d35754717fd8c"
+      "5c9d01374897cdb02ae31c075b0ff209fe7118ce9142f8f6a2219b11cbe211f9"
+    ],
+    "tools/accounting-questions/bookkeeping-close/index.html": [
+      "a23f00f4d35ff39dc2d112dbf6aee5549d8abd2e74a76820f5ac7af5087fee61"
+    ],
+    "tools/accounting-questions/business-setup/index.html": [
+      "93a9ca66022182e6f07ea273f1f536bf2406208da09b1b436db3a57b5443365c"
+    ],
+    "tools/accounting-questions/cash-flow/index.html": [
+      "cbfb0f38556e365081604183e355285045468169a0918d64380bf15c972df782"
+    ],
+    "tools/accounting-questions/company-compliance/index.html": [
+      "d1018a595e11abe4029109a1459e0ad1f4beb00c5f4bfb34eff51437dea972b8"
+    ],
+    "tools/accounting-questions/deductions/index.html": [
+      "0bb20b9b7a5ead5d62e3b706d89528ab081ac06138d3b76d1774a1e53849d237"
+    ],
+    "tools/accounting-questions/general-tax/index.html": [
+      "68132a340bddb573ae52c6765778328447c812000a565c476ff582592e1ee6eb"
+    ],
+    "tools/accounting-questions/gst-bas/index.html": [
+      "726b375514198487bc67850f2584735ac2c0256c5cf3a9fe848424462e0a9aac"
     ],
     "tools/accounting-questions/index.html": [
       "71f1cda119cff14f103484d66c812006f6665bbf8912b72d2fd823c64ba43a60"
+    ],
+    "tools/accounting-questions/investments-local/index.html": [
+      "93ad0b88c2d461e072855fd2d656f7538fe88255523b4fce63cc018d97d338a3"
+    ],
+    "tools/accounting-questions/management-reporting/index.html": [
+      "2d91f2c0088b2cfa245baa6fc5cc68eb28404ec6b2b9d081f78d8116e7b12a58"
+    ],
+    "tools/accounting-questions/payroll-super/index.html": [
+      "af3166568d323c8abf7a93862bfb9e68da91f9fd5edc89366dfab0f5ea4d2847"
     ],
     "tools/ato-benchmarks/index.html": [
       "bd6cc13554d28ff5319d0491cd030e1ea3206009f4f1946795e70c71f9705ca0"
@@ -77,8 +107,35 @@
     "tools/australian-tax-ai-agents/index.html": [
       "d595beab59adf477634e7fd43770a71fb3a33181bb7aeb8a2f3c17731983ce08"
     ],
+    "tools/business-calculators/break-even/index.html": [
+      "e4d491a7e7aa2b9e9911c2bc5b75a080c65b5dea483bef8933fb6f90fb96ce91"
+    ],
+    "tools/business-calculators/business-use/index.html": [
+      "9f07c184b7d349817e6c2b1d06818935e0c71e23f4ea8e0e345993f593b6f6d0"
+    ],
+    "tools/business-calculators/cash/index.html": [
+      "090f7145bed1d6d357585465de46c80dbaf2d574ed5fe2fe0d8bdb70c355a182"
+    ],
+    "tools/business-calculators/gst/index.html": [
+      "5a6217e323ee6ebf0937afac7815586ad177e6729d04f9ddf5bc48a01c3270f1"
+    ],
+    "tools/business-calculators/hourly/index.html": [
+      "e50070cd239cbe7c8d25a29dd9fc45c092999853ea20e738e1c32e254f98c595"
+    ],
     "tools/business-calculators/index.html": [
       "4b0199c75076e5d6db1f0cbe9a6fcf8679bf23687dd499f75e7d1b293d3189d0"
+    ],
+    "tools/business-calculators/loan/index.html": [
+      "fc1456c8eeab0bd6691e1cc0d8a97987e9cf126d1181b66d94803b8ca0693253"
+    ],
+    "tools/business-calculators/margin/index.html": [
+      "23a7cfc6f1788431325427616b3e9c0deadd0299a4443112e84128183e6674f0"
+    ],
+    "tools/business-calculators/staff/index.html": [
+      "87edbd27f902bf492c37f43353ed49b2ac234547686f63971a65c1877f19e5a5"
+    ],
+    "tools/business-calculators/variance/index.html": [
+      "6a48c36f77989e48272b08700d96fd58afc344d1824fec7557ca1342420b05a8"
     ],
     "tools/coal-lsl-levy/index.html": [
       "75bb8334c51a5eac8950a9412c2dff9d518fad03f60dacaa2ec083cdda951886"
@@ -148,9 +205,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "02978da7eea9ee85715de0d322ae48fe622846dc442271d54a919a2cf225e164",
+    "llms.txt": "3dff002efe8f44a5eaa3fb865899ebc17d2fbeafe5e7177a05b6f7b4b03a8eed",
     "robots.txt": "190377e5d6679854538ded34c738c55ad8f64bc8b88a6dfd691121d847119609",
-    "sitemap.xml": "74beb1641ba1f32e5c621567d3159fd7585bf1e23a067931962e017e7e33da5a"
+    "sitemap.xml": "5a27af7210216338b698d59920e2bb971db107f729b765a9d7c780f285aa5b2a"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -206,7 +263,7 @@
   },
   "protected_main_text": {
     "rates/cents-per-kilometre/index.html": "77cbdbe5794e02547b8aaaa6a004d056335e675521fa5b707432da7057c9aca8",
-    "rates/div7a-benchmark-rate/index.html": "8f8b9a561a3920cdd8fc4120fc5cdf36533b42d4873ff9c528bcbfd9d802adaa",
+    "rates/div7a-benchmark-rate/index.html": "12c294c0a5c32f626d0da902b3f6b972f7084b0319e585cf36583d5901259da4",
     "rates/super-guarantee/index.html": "ce22d5698ffdcf62593cbe5e0087cec1fa36710cf5a5fdc44805987a4067d6b1"
   },
   "protected_text": {

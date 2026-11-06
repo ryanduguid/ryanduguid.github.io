@@ -1411,7 +1411,7 @@ Tax and super measures on the ATO’s Budget 2026-27 and MYEFO 2025-26 lists, by
 
 Primary source Download CSV
 
-Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Source checked is the date a table was last checked against its primary source, from the CSV’s checked_at; last reviewed is the date a person reviewed the page.
+Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Source checked is the date a table was last checked against its primary source, from the CSV’s checked_at; last reviewed is this page’s editorial check.
 
 Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
@@ -1613,17 +1613,17 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 
 ---
 
-# Which selected tax measures are TBD after Budget 2026-27? 8 TBD
+# How many selected measures are TBD after Budget 2026-27? 8 TBD
 
 Source: https://duguid.com.au/rates/announced-not-yet-law/
 
-> ATO statuses and bill stages for selected tax and super measures, with enacted-law application dates and transition rules. Bill stages checked 4 November 2026.
+> ATO statuses and bill stages for selected tax and super measures: 8 TBD. Enacted-law application dates and transition rules. Bill stages checked 4 November 2026.
 
 # Announced tax measures and enacted law
 
 8 TBD
 
-Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 8 as TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates. TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
+Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates. TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
 Published 20 September 2026. Last reviewed 5 November 2026. Source checked 4 November 2026 for pending measures. Source checked 5 November 2026 for legislated measures. Reform provisions reviewed 22 September 2026.
 
@@ -1861,7 +1861,7 @@ The benchmark interest rate for the 2026-27 income year is 8.77% for companies w
 
 Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
-Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%. The rates for 2021-22 to 2026-27 were rechecked against the ATO benchmark rate table on 14 September 2026; the earlier rows retain their original review date.
+Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%. The rates for 2021-22 to 2026-27 were rechecked against the ATO benchmark rate table on 14 September 2026.
 
 ## The rate, by income year
 
@@ -7399,7 +7399,7 @@ Source: https://duguid.com.au/tools/accounting-questions/investments-local/
 
 Practical steps, records and official guidance on investments and NSW matters.
 
-10 of 10 answers checked between 27 September 2026 and 4 November 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
+10 of 10 answers checked between 27 September 2026 and 4 November 2026. Other guidance reviewed 11 September 2026. Page updated 4 November 2026.
 
 Search or build a checklist
 
