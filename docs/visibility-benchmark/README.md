@@ -37,7 +37,13 @@ A summary validates the files it was given before counting anything. If any sele
 file fails, the metrics are withheld and the diagnostics are what you get, because a
 partial report of a partly invalid round would misstate it.
 
-One file per system per round. Send each prompt exactly as `prompts.json` records
+Names must be unique within each JSON object in a capture, including unknown and
+nested members, even when the repeated values are identical. Names are compared
+after JSON escape decoding, without case folding or Unicode normalisation.
+
+One file per system per round, with at most one observation per prompt. A
+repeated prompt ID fails validation even when the statuses differ or the answers
+match; repeat a prompt across rounds in separate files. Send each prompt exactly as `prompts.json` records
 it: the validator rejects a reworded prompt, because a reworded prompt is a
 different measurement. Use a fresh session for each prompt and say so in the
 capture. Record the search-enabled state, because an answer composed without
@@ -52,6 +58,11 @@ exists or judge whether the answer was right, and it never reaches the network t
 do so. Those remain the recorder's responsibility.
 
 ## What the numbers mean
+
+Site citations count the site's hostname and its subdomains, with or without
+one terminal DNS root dot. Empty labels, such as `.duguid.com.au` or
+`docs..duguid.com.au`, do not count as site subdomains. A similarly named host
+such as `duguid.com.au.example.org` also stays outside the site count.
 
 - A mention is not a citation. An assistant can describe the work without linking
   it, and that is recorded separately.

@@ -101,7 +101,7 @@ pub fn load_capture(path: &Path) -> std::result::Result<Json, String> {
     let text = py::decode_utf8(&bytes)
         .map(|t| py::universal_newlines(&t))
         .map_err(|e| format!("is not UTF-8 text: {e}"))?;
-    let capture = pyjson::loads(&text).map_err(|e| format!("is not valid JSON: {e}"))?;
+    let capture = pyjson::loads_unique(&text).map_err(|e| format!("is not valid JSON: {e}"))?;
     if !matches!(capture, Json::Object(_)) {
         return Err(format!("is a {}, expected an object", type_name(&capture)));
     }
@@ -164,8 +164,11 @@ fn usable_host(url: Option<&Json>) -> Option<String> {
 /// True only when a usable URL's host is the site or one of its subdomains.
 pub fn site_cited_url(url: Option<&Json>) -> bool {
     usable_host(url).is_some_and(|host| {
+        // DNS allows one terminal root dot; empty labels do not name subdomains.
         let host = host.to_lowercase();
-        host == SITE_HOST || host.ends_with(&format!(".{SITE_HOST}"))
+        let host = host.strip_suffix('.').unwrap_or(&host);
+        host.split('.').all(|label| !label.is_empty())
+            && (host == SITE_HOST || host.ends_with(&format!(".{SITE_HOST}")))
     })
 }
 
@@ -385,8 +388,20 @@ pub fn check_capture_data(label: &str, capture: &Json, prompts: &Prompts) -> Res
             return Ok(failures);
         }
     };
+    let mut seen_prompt_ids: Vec<&str> = Vec::new();
     for (index, observation) in observations.iter().enumerate() {
         failures.extend(check_observation(label, index + 1, observation, prompts)?);
+        // One round holds one observation per prompt; repeat a prompt across rounds.
+        if let Some(Json::Str(id)) = observation.get("prompt_id") {
+            if seen_prompt_ids.contains(&id.as_str()) {
+                failures.push(format!(
+                    "{label} observation {}: repeated prompt_id {} in one round",
+                    index + 1,
+                    py::repr_str(id)
+                ));
+            }
+            seen_prompt_ids.push(id);
+        }
     }
     // One file is one system per round.
     let systems = named_systems(capture)?;

@@ -800,3 +800,175 @@ fn release_based_facts_require_review_after_a_release() {
         }
     }
 }
+
+/// Serialised captures that repeat a name; each surviving value would validate.
+fn repeated_captures() -> Vec<(String, String, &'static str)> {
+    let plain = pyjson::dumps(&base_capture(), Default::default());
+    let replaced = |target: &str, fragment: &str| {
+        assert_eq!(plain.matches(target).count(), 1, "{target}");
+        plain.replacen(target, fragment, 1)
+    };
+    let extra = |members: &str| format!("{}, \"extra\": {members}}}", &plain[..plain.len() - 1]);
+    let mut cases: Vec<(String, String, &'static str)> =
+        ["null", "false", r#""""#, r#"["E1-namesake"]"#, "[]"]
+            .iter()
+            .enumerate()
+            .map(|(index, value)| {
+                (
+                    format!("factual-first-{index}"),
+                    replaced(
+                        r#""factual_errors": []"#,
+                        &format!(r#""factual_errors": {value}, "factual_errors": []"#),
+                    ),
+                    "factual_errors",
+                )
+            })
+            .collect();
+    cases.extend([
+        (
+            "recorder".into(),
+            format!(r#"{{"recorded_by": "",{}"#, &plain[1..]),
+            "recorded_by",
+        ),
+        (
+            "answer-key".into(),
+            format!(r#"{{"answer_key_sha256": "wrong",{}"#, &plain[1..]),
+            "answer_key_sha256",
+        ),
+        (
+            "schema".into(),
+            format!(r#"{{"schema": false,{}"#, &plain[1..]),
+            "schema",
+        ),
+        (
+            "status".into(),
+            replaced(
+                r#""status": "complete""#,
+                r#""status": "blocked", "status": "complete""#,
+            ),
+            "status",
+        ),
+        (
+            "identical-mention".into(),
+            replaced(
+                r#""mentioned": true"#,
+                r#""mentioned": true, "mentioned": true"#,
+            ),
+            "mentioned",
+        ),
+        (
+            "escaped-first".into(),
+            replaced(
+                r#""factual_errors": []"#,
+                r#""factual_errors": ["E1-namesake"], "factual_errors": []"#,
+            ),
+            "factual_errors",
+        ),
+        (
+            "escaped-last".into(),
+            replaced(
+                r#""factual_errors": []"#,
+                r#""factual_errors": [], "factual_errors": ["E1-namesake"]"#,
+            ),
+            "factual_errors",
+        ),
+        (
+            "unknown-object".into(),
+            extra(r#"{"result": 1, "result": 2}"#),
+            "result",
+        ),
+        ("unknown-array".into(), extra(r#"[{"x": 1, "x": 1}]"#), "x"),
+        ("empty-name".into(), extra(r#"{"": 1, "": 2}"#), ""),
+        ("unicode-name".into(), extra(r#"{"é": 1, "é": 2}"#), "é"),
+    ]);
+    cases
+}
+
+#[test]
+fn repeated_json_names_are_rejected_not_collapsed() {
+    let dir = tempfile::tempdir().unwrap();
+    let good = written(&base_capture(), dir.path(), "good.json");
+    for (name, text, member) in repeated_captures() {
+        let path = dir.path().join(format!("{name}.json"));
+        std::fs::write(&path, &text).unwrap();
+        let expected = format!(
+            "repeated JSON object name {}",
+            site_tools::py::repr_str(member)
+        );
+        let error = load_capture(&path).expect_err(&name);
+        assert!(error.contains(&expected), "{name}: {error}");
+        let failures = check_capture(&path, &prompts()).unwrap();
+        assert_eq!(failures.len(), 1, "{name}: {failures:?}");
+        assert!(failures[0].contains(&format!("{name}.json")) && failures[0].contains(&expected));
+        let (loaded, failures) =
+            validated(&[named(good.clone()), named(path.clone())], &prompts()).unwrap();
+        assert_eq!(loaded.len(), 1, "{name}");
+        assert_eq!(failures.len(), 1, "{name}: {failures:?}");
+        let shown = path.to_string_lossy().into_owned();
+        let (code, stdout, _) = run_cli(&["--summary", &good.to_string_lossy(), &shown]);
+        assert_eq!(code, Some(1), "{name}: {stdout}");
+        assert!(
+            stdout.contains(&expected) && !stdout.contains("mentions:"),
+            "{stdout}"
+        );
+    }
+}
+
+#[test]
+fn a_prompt_is_observed_once_per_round() {
+    let mut unrun = complete_observation(BRANDED_ID);
+    for key in ["system", "mentioned", "site_cited", "cited_urls"] {
+        unset(&mut unrun, key);
+    }
+    set(&mut unrun, "status", Json::Str("not_run".into()));
+    set(&mut unrun, "reason", Json::Str("rate limited".into()));
+    for second in [complete_observation(BRANDED_ID), unrun] {
+        let mut capture = base_capture();
+        push_observation(&mut capture, second);
+        let failures = failures_for(&capture);
+        assert_eq!(failures.len(), 1, "{failures:?}");
+        expect(
+            "repeated prompt",
+            &failures,
+            &format!("observation 2: repeated prompt_id '{BRANDED_ID}' in one round"),
+        );
+    }
+    let mut capture = base_capture();
+    push_observation(&mut capture, complete_observation(UNBRANDED_ID));
+    assert!(failures_for(&capture).is_empty());
+}
+
+#[test]
+fn site_hosts_allow_one_root_dot_and_no_empty_labels() {
+    for url in [
+        "https://duguid.com.au./about/",
+        "https://www.duguid.com.au./about/",
+        "http://DOCS.DUGUID.COM.AU.:8443/about/",
+    ] {
+        assert!(site_cited_url(Some(&Json::Str(url.into()))), "{url}");
+        let mut capture = base_capture();
+        set(
+            observation(&mut capture, 0),
+            "cited_urls",
+            json(&format!("[\"{url}\"]")),
+        );
+        assert!(failures_for(&capture).is_empty(), "{url}");
+    }
+    for url in [
+        "https://.duguid.com.au/about/",
+        "https://docs..duguid.com.au/about/",
+        "https://..duguid.com.au/about/",
+        "https://duguid.com.au../about/",
+        "https://www.duguid.com.au../about/",
+        "https://duguid.com.au.example.org./about/",
+    ] {
+        assert!(!site_cited_url(Some(&Json::Str(url.into()))), "{url}");
+        let mut capture = base_capture();
+        set(
+            observation(&mut capture, 0),
+            "cited_urls",
+            json(&format!("[\"{url}\"]")),
+        );
+        expect(url, &failures_for(&capture), "no cited URL is on");
+    }
+}

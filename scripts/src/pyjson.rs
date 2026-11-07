@@ -2,7 +2,8 @@
 //!
 //! Documents are read with Python's C scanner semantics, so a refusal names
 //! the same position, and a repeated key keeps its first position and last
-//! value as a dict does. Output matches `json.dumps` with the given options.
+//! value as a dict does; [`loads_unique`] refuses one instead. Output matches
+//! `json.dumps` with the given options.
 
 use num_bigint::BigInt;
 
@@ -223,6 +224,16 @@ pub fn loads_bytes(raw: &[u8]) -> Result<Json, DecodeError> {
 
 /// `json.loads(text)`.
 pub fn loads(text: &str) -> Result<Json, DecodeError> {
+    parse(text, false)
+}
+
+/// `json.loads(text)`, refusing an object that repeats a name (compared after escape
+/// decoding) rather than keeping its last value.
+pub fn loads_unique(text: &str) -> Result<Json, DecodeError> {
+    parse(text, true)
+}
+
+fn parse(text: &str, unique: bool) -> Result<Json, DecodeError> {
     let s: Vec<char> = text.chars().collect();
     if s.first() == Some(&'\u{feff}') {
         return Err(decode_error(
@@ -369,7 +380,11 @@ pub fn loads(text: &str) -> Result<Json, DecodeError> {
                         let Some(Frame::Object(pairs, _)) = stack.pop() else {
                             unreachable!()
                         };
-                        value = Json::Object(dict(pairs));
+                        value = Json::Object(if unique {
+                            no_repeats(pairs)?
+                        } else {
+                            dict(pairs)
+                        });
                         continue;
                     }
                     if idx >= len || s[idx] != ',' {
@@ -553,6 +568,19 @@ fn dict(pairs: Vec<(String, Json)>) -> Vec<(String, Json)> {
         }
     }
     out
+}
+
+fn no_repeats(pairs: Vec<(String, Json)>) -> Result<Vec<(String, Json)>, DecodeError> {
+    let mut names = std::collections::HashSet::with_capacity(pairs.len());
+    for (name, _) in &pairs {
+        if !names.insert(name.as_str()) {
+            return Err(DecodeError(format!(
+                "repeated JSON object name {}",
+                py::repr_str(name)
+            )));
+        }
+    }
+    Ok(pairs)
 }
 
 /// The `json.dumps` options this tooling uses.

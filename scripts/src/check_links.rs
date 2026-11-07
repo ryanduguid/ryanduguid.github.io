@@ -27,7 +27,6 @@ pub const MAX_FETCH_ATTEMPTS: u32 = 5;
 const MAX_RETRY_WAIT_SECONDS: f64 = 30.0;
 const SELF_ORIGIN: &str = "https://duguid.com.au";
 const GITHUB_API: &str = "https://api.github.com/repos/ryanduguid/";
-const FRAGMENT_TARGET: &str = r#"\s(?:id|name)=(["'])([^"']+)\1"#;
 const OWN_REPO: &str = r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)";
 const MARKDOWN_LINK: &str = r"\]\((https?://[^)\s]+)\)";
 const USAGE: &str = include_str!("help/check_links.usage");
@@ -835,17 +834,44 @@ fn join(root: &Path, rel: &str) -> PathBuf {
         .fold(root.to_path_buf(), |path, part| path.join(part))
 }
 
-/// True when an HTML target declares an element with that id or name; other targets
+/// Every element id, and every `<a>` name, a page declares; the first of a repeated
+/// attribute counts, as a browser's does.
+fn fragment_targets(html: &str) -> Vec<String> {
+    let mut targets = Vec::new();
+    for positioned in htmlparser::parse(html, true) {
+        if let Event::StartTag(tag, attrs) | Event::StartEndTag(tag, attrs) = positioned.event {
+            let first = |wanted: &str| {
+                attrs
+                    .iter()
+                    .find(|(name, _)| name == wanted)
+                    .and_then(|(_, value)| value.clone())
+                    .filter(|value| !value.is_empty())
+            };
+            targets.extend(first("id"));
+            if tag == "a" {
+                targets.extend(first("name"));
+            }
+        }
+    }
+    targets
+}
+
+/// True when an HTML target declares an element whose id or name is the fragment,
+/// literally or percent-decoded, or the fragment is the document top; other targets
 /// and Liquid-templated pages pass.
 fn fragment_exists(target: &Path, fragment: &str) -> Result<bool, String> {
     let suffix = crate::suffix(target).to_lowercase();
     if suffix != ".html" && suffix != ".htm" {
         return Ok(true);
     }
+    let decoded = pyurl::unquote(fragment, false).expect("replace never fails");
+    if decoded.eq_ignore_ascii_case("top") {
+        return Ok(true);
+    }
     let text = crate::read(target)?;
-    if re(FRAGMENT_TARGET, 0)
-        .captures_iter(&text)
-        .any(|m| m.get(2).is_some_and(|g| g.as_str() == fragment))
+    if fragment_targets(&text)
+        .iter()
+        .any(|t| *t == fragment || *t == decoded)
     {
         return Ok(true);
     }

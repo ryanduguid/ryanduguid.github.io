@@ -1263,3 +1263,110 @@ fn prefetched_archive_verdicts_replay_exactly() {
     assert_eq!(sequential.0[1], Ok(true));
     assert!(sequential.1.iter().any(|l| l.starts_with("retry 1/4 old")));
 }
+
+/// Each fragment href checked offline against one page; the failures it produced.
+fn fragment_failures(html: &str, hrefs: &[&str]) -> Vec<(String, Vec<String>)> {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(dir.path().join("index.html"), html).unwrap();
+    std::fs::write(dir.path().join("notes.txt"), "Notes").unwrap();
+    let harness = Harness::new(vec![]);
+    harness.with(dir.path().to_path_buf(), |c| {
+        c.fetch_hook = Some(Box::new(|_| panic!("no fetch offline")));
+        c.lookup_hook = Some(Box::new(|_| panic!("no lookup offline")));
+        hrefs
+            .iter()
+            .map(|href| {
+                let failures = c.check_hrefs("index.html", &strings(&[href]), true);
+                ((*href).to_owned(), failures.unwrap())
+            })
+            .collect()
+    })
+}
+
+fn assert_fragments(html: &str, cases: &[(&str, bool)]) {
+    let hrefs: Vec<&str> = cases.iter().map(|(href, _)| *href).collect();
+    for ((href, failures), (_, valid)) in fragment_failures(html, &hrefs).iter().zip(cases) {
+        if *valid {
+            assert!(failures.is_empty(), "{html} {href}: {failures:?}");
+        } else {
+            assert_eq!(failures.len(), 1, "{html} {href}: {failures:?}");
+            assert!(failures[0].contains("no element"), "{href}: {failures:?}");
+        }
+    }
+}
+
+#[test]
+fn fragments_match_literal_and_decoded_browser_targets() {
+    let html = concat!(
+        r#"<h1 id="target">Target</h1><h2 id="caf&eacute;">Cafe</h2>"#,
+        "<a name='legacy&amp;anchor'>Legacy</a>",
+        r#"<p id="percent%20">Percent</p><p id="plus+sign">Plus</p>"#,
+    );
+    assert_fragments(
+        html,
+        &[
+            ("/#target", true),
+            ("/#%74arget", true),
+            ("/#caf%C3%A9", true),
+            ("/#café", true),
+            ("/#legacy%26anchor", true),
+            ("/#legacy&anchor", true),
+            ("/#percent%2520", true),
+            ("/#percent%20", true),
+            ("/#plus+sign", true),
+            ("/#plus%2Bsign", true),
+            ("/#%54arget", false),
+            ("/#%6Dissing", false),
+            ("/notes.txt#absent", true),
+            ("/#top", true),
+            ("/#ToP", true),
+            ("/#%74op", true),
+            ("/#top%2520", false),
+            ("/#percent%252520", false),
+        ],
+    );
+}
+
+#[test]
+fn fragments_use_parsed_element_attributes() {
+    for (html, fragment, valid) in [
+        (r#"<h1 id = "spaced">Heading</h1>"#, "spaced", true),
+        ("<h1 id=unquoted>Heading</h1>", "unquoted", true),
+        (r#"<h1 ID="upper">Heading</h1>"#, "upper", true),
+        ("<h1 id\t=\n\"whitespace\">Heading</h1>", "whitespace", true),
+        (r#"<!-- <h1 id="comment">Ghost</h1> -->"#, "comment", false),
+        (
+            r#"<script>const html = '<h1 id="script">Ghost</h1>';</script>"#,
+            "script",
+            false,
+        ),
+        (
+            r#"<style>p::before { content: ' id="style"'; }</style>"#,
+            "style",
+            false,
+        ),
+        (
+            r#"<meta name="metadata" content="description">"#,
+            "metadata",
+            false,
+        ),
+        (r#"<p name="paragraph">Text</p>"#, "paragraph", false),
+        (r#"<a name="legacy">Legacy</a>"#, "legacy", true),
+        ("<A NAME=uppercase>Legacy</A>", "uppercase", true),
+        (r#"<h1 id="first" id="second">Heading</h1>"#, "first", true),
+        (
+            r#"<h1 id="first" id="second">Heading</h1>"#,
+            "second",
+            false,
+        ),
+        (r#"<a name="first" name="second">Legacy</a>"#, "first", true),
+        (
+            r#"<a name="first" name="second">Legacy</a>"#,
+            "second",
+            false,
+        ),
+        (r#"<h1 id="">Heading</h1>"#, "missing", false),
+    ] {
+        assert_fragments(html, &[(&format!("/#{fragment}"), valid)]);
+    }
+}
