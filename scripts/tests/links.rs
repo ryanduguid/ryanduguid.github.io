@@ -1514,3 +1514,15 @@ fn scheme_relative_external_links_are_prefetched() {
         strings(&["https://example.org/a", "https://example.org/b"])
     );
 }
+
+#[test]
+fn prefetch_follows_the_checked_schemes_in_any_case() {
+    use site_tools::check_links::fetch_targets;
+    assert_eq!(
+        fetch_targets(
+            &strings(&["HTTP://example.org/c", "httpx:foo", "mailto:a@example.org"]),
+            false
+        ),
+        strings(&["HTTP://example.org/c"])
+    );
+}

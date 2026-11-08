@@ -291,14 +291,14 @@ const WORKERS: usize = 8;
 pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
     let mut targets: Vec<String> = Vec::new();
     for href in hrefs {
+        if !pyurl::urlsplit(href).is_ok_and(|parts| web_scheme(&parts.scheme)) {
+            continue;
+        }
         // A scheme-relative link takes the site's https; a relative one stays on the site.
         let Ok(href) = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), href) else {
             continue;
         };
-        if !href.starts_with("http")
-            || (actions && CI_MANUAL_URLS.contains(&href.as_str()))
-            || targets.contains(&href)
-        {
+        if (actions && CI_MANUAL_URLS.contains(&href.as_str())) || targets.contains(&href) {
             continue;
         }
         let Ok(parts) = pyurl::urlsplit(&href) else {
@@ -309,6 +309,12 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
         }
     }
     targets
+}
+
+/// True for the schemes the checker follows: http, https or none (relative); urlsplit
+/// has lowercased it.
+fn web_scheme(scheme: &str) -> bool {
+    matches!(scheme, "" | "http" | "https")
 }
 
 /// Fetch `urls` concurrently, at most [`PER_HOST`] at a time per host, recording what
@@ -683,7 +689,7 @@ impl<'a> Checker<'a> {
             let scheme = pyurl::urlsplit(href)
                 .map_err(|e| format!("ValueError: {e}"))?
                 .scheme;
-            if !scheme.is_empty() && scheme != "http" && scheme != "https" {
+            if !web_scheme(&scheme) {
                 continue;
             }
             // Relative and scheme-relative links are checked where a browser would go.

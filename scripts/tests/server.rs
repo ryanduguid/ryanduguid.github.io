@@ -179,3 +179,41 @@ fn standard_handler_responses() {
     );
     assert_eq!(offset.status, 200, "only UTC dates are compared");
 }
+
+/// A file path with a trailing slash, literal or encoded, names no file.
+#[test]
+fn file_paths_with_a_trailing_slash_are_not_found() {
+    let site = tempfile::tempdir().unwrap();
+    std::fs::write(site.path().join("index.html"), "<p>Home</p>").unwrap();
+    std::fs::write(site.path().join("robots.txt"), "User-agent: *\n").unwrap();
+    let port = start(site.path());
+    let response = get(port, "/robots.txt?q=/", &[("Accept-Encoding", "gzip")]);
+    assert_eq!(response.status, 200);
+    assert_eq!(response.header("Content-Encoding"), Some("gzip"));
+    assert_eq!(gunzip(&response.body), b"User-agent: *\n");
+    for method in ["GET", "HEAD"] {
+        for target in [
+            "/robots.txt/",
+            "/robots.txt/?q=1",
+            "/robots.txt%2F",
+            "/robots.txt%2f",
+            "/index.html/",
+        ] {
+            let response = request(
+                &mut connect(port),
+                method,
+                target,
+                &[("Accept-Encoding", "gzip")],
+            );
+            assert_eq!(response.status, 404, "{method} {target}");
+            assert_eq!(
+                response.header("Content-Encoding"),
+                None,
+                "{method} {target}"
+            );
+            if method == "HEAD" {
+                assert!(response.body.is_empty(), "{target}");
+            }
+        }
+    }
+}

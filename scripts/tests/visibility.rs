@@ -860,7 +860,7 @@ fn repeated_captures() -> Vec<(String, String, &'static str)> {
             "escaped-first".into(),
             replaced(
                 r#""factual_errors": []"#,
-                r#""factual_errors": ["E1-namesake"], "factual_errors": []"#,
+                r#""\u0066actual_errors": ["E1-namesake"], "factual_errors": []"#,
             ),
             "factual_errors",
         ),
@@ -868,7 +868,7 @@ fn repeated_captures() -> Vec<(String, String, &'static str)> {
             "escaped-last".into(),
             replaced(
                 r#""factual_errors": []"#,
-                r#""factual_errors": [], "factual_errors": ["E1-namesake"]"#,
+                r#""factual_errors": [], "\u0066actual_errors": ["E1-namesake"]"#,
             ),
             "factual_errors",
         ),
@@ -879,7 +879,16 @@ fn repeated_captures() -> Vec<(String, String, &'static str)> {
         ),
         ("unknown-array".into(), extra(r#"[{"x": 1, "x": 1}]"#), "x"),
         ("empty-name".into(), extra(r#"{"": 1, "": 2}"#), ""),
-        ("unicode-name".into(), extra(r#"{"é": 1, "é": 2}"#), "é"),
+        (
+            "unicode-name".into(),
+            extra(r#"{"\u00e9": 1, "\u00e9": 2}"#),
+            "é",
+        ),
+        (
+            "mixed-unicode-name".into(),
+            extra(r#"{"é": 1, "\u00e9": 2}"#),
+            "é",
+        ),
     ]);
     cases
 }
@@ -998,6 +1007,28 @@ fn session_rounds() -> [Json; 2] {
     [base_capture(), reused]
 }
 
+/// The fresh group's block, with its excluded count, and the reused group's block.
+fn session_blocks(excluded: usize) -> [String; 2] {
+    let block = |lines: &[&str]| lines.iter().map(|line| format!("{line}\n")).collect();
+    [
+        block(&[
+            "Test Assistant, branded prompts, search on",
+            "  mentions:   1/1 completed answers",
+            "  citations:  1/1 completed answers",
+            "  no declared factual error: 1/1",
+            &format!("  excluded (not run or blocked): {excluded}"),
+        ]),
+        block(&[
+            "Test Assistant, branded prompts, search on, without a fresh session",
+            "  mentions:   0/1 completed answers",
+            "  citations:  0/1 completed answers",
+            "  no declared factual error: 0/1",
+            "  excluded (not run or blocked): 0",
+            "  recorded without a fresh session: 1/1, not comparable with the rest",
+        ]),
+    ]
+}
+
 #[test]
 fn reused_sessions_keep_their_own_denominators() {
     for (fixture, include_fixtures) in [(false, false), (true, true)] {
@@ -1006,25 +1037,15 @@ fn reused_sessions_keep_their_own_denominators() {
         let reversed = [rounds[1].clone(), rounds[0].clone()];
         for ordered in [&rounds, &reversed] {
             let summary = summary_of(ordered, include_fixtures);
-            for line in [
-                "mentions:   1/1 completed answers",
-                "mentions:   0/1 completed answers",
-                "citations:  1/1 completed answers",
-                "citations:  0/1 completed answers",
-                "no declared factual error: 1/1",
-                "no declared factual error: 0/1",
-                "search on, without a fresh session",
-                "recorded without a fresh session: 1/1",
-            ] {
-                assert!(summary.contains(line), "{line}: {summary}");
+            for block in session_blocks(0) {
+                assert!(summary.contains(&block), "{block}\n{summary}");
             }
-            assert!(!summary.contains("/2 completed answers"), "{summary}");
         }
     }
     let mut rounds = session_rounds();
     set(&mut rounds[1], "fixture", Json::Bool(true));
     let summary = summary_of(&rounds, false);
-    assert!(summary.contains("mentions:   1/1 completed answers"));
+    assert!(summary.contains(&session_blocks(0)[0]), "{summary}");
     assert!(!summary.contains("without a fresh session"), "{summary}");
     for status in ["not_run", "blocked"] {
         let mut unrun = base_capture();
@@ -1034,15 +1055,11 @@ fn reused_sessions_keep_their_own_denominators() {
         set(observation, "fresh_session", Json::Bool(false));
         let [fresh, reused] = session_rounds();
         let summary = summary_of(&[fresh, reused, unrun], false);
-        for line in [
-            "mentions:   1/1 completed answers",
-            "mentions:   0/1 completed answers",
-            "excluded (not run or blocked): 1",
-            "recorded without a fresh session: 1/1",
-        ] {
-            assert!(summary.contains(line), "{status} {line}: {summary}");
+        let [fresh_block, _] = session_blocks(1);
+        let [_, reused_block] = session_blocks(0);
+        for block in [fresh_block, reused_block] {
+            assert!(summary.contains(&block), "{status} {block}\n{summary}");
         }
-        assert!(!summary.contains("/2 completed answers"), "{summary}");
     }
 }
 

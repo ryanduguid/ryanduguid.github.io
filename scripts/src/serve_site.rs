@@ -653,18 +653,20 @@ impl Handler {
 
     /// The site handler's send_head: gzip text responses, else SimpleHTTPRequestHandler's.
     fn send_head(&mut self) -> io::Result<Option<Body>> {
-        // pathlib drops a trailing slash, so `/robots.txt%2f` names robots.txt here.
-        let mut path: PathBuf = Path::new(&translate_path(&self.directory, &self.path))
-            .components()
-            .collect();
-        if path.is_dir()
-            && split_path(&self.path)?.ends_with('/')
-            && let Some(index) = ["index.html", "index.htm"]
+        let translated = translate_path(&self.directory, &self.path);
+        let mut path: PathBuf = Path::new(&translated).components().collect();
+        if path.is_dir() && split_path(&self.path)?.ends_with('/') {
+            if let Some(index) = ["index.html", "index.htm"]
                 .iter()
                 .map(|name| path.join(name))
                 .find(|p| p.is_file())
-        {
-            path = index;
+            {
+                path = index;
+            }
+        } else if translated.ends_with('/') {
+            // `path` has lost the slash, so `/robots.txt/` and `/robots.txt%2f` would name
+            // robots.txt; the standard handler answers them 404.
+            return self.simple_send_head();
         }
         if !self.accepts_gzip()?
             || self.header("If-Modified-Since").is_some()
