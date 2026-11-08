@@ -1105,3 +1105,36 @@ fn prompts_with_a_repeated_name_are_refused() {
         "{error}"
     );
 }
+
+#[test]
+fn prompts_with_a_repeated_id_are_refused() {
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("docs/visibility-benchmark/prompts.json");
+    std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+    let mut data = pyjson::loads(
+        &std::fs::read_to_string(repository().join("docs/visibility-benchmark/prompts.json"))
+            .unwrap(),
+    )
+    .unwrap();
+    let Json::Object(pairs) = &mut data else {
+        panic!("prompts.json is an object")
+    };
+    let Some((_, Json::Array(entries))) = pairs.iter_mut().find(|(k, _)| k == "prompts") else {
+        panic!("prompts list")
+    };
+    let mut changed = entries[0].clone();
+    set(
+        &mut changed,
+        "prompt",
+        Json::Str("A different question".into()),
+    );
+    entries.push(changed);
+    std::fs::write(&path, pyjson::dumps(&data, Default::default())).unwrap();
+    let error = load_prompts(dir.path()).unwrap_err();
+    assert!(
+        error.contains(&format!(
+            "repeated prompt id '{BRANDED_ID}' in prompts.json"
+        )),
+        "{error}"
+    );
+}

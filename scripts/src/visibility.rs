@@ -71,10 +71,13 @@ pub fn load_prompts(root: &Path) -> Result<Prompts> {
                 ));
             }
         };
-        match prompts.iter_mut().find(|(k, _)| *k == id) {
-            Some(slot) => slot.1 = entry,
-            None => prompts.push((id, entry)),
+        if prompts.iter().any(|(k, _)| *k == id) {
+            return Err(format!(
+                "ValueError: repeated prompt id {} in prompts.json",
+                py::repr_str(&id)
+            ));
         }
+        prompts.push((id, entry));
     }
     Ok(prompts)
 }
