@@ -26,6 +26,7 @@ pub const USER_AGENT: &str = "duguid-link-check/1.0";
 pub const MAX_FETCH_ATTEMPTS: u32 = 5;
 const MAX_RETRY_WAIT_SECONDS: f64 = 30.0;
 const SELF_ORIGIN: &str = "https://duguid.com.au";
+const SELF_HOST: &str = "duguid.com.au";
 const GITHUB_API: &str = "https://api.github.com/repos/ryanduguid/";
 const OWN_REPO: &str = r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)";
 const MARKDOWN_LINK: &str = r"\]\((https?://[^)\s]+)\)";
@@ -305,7 +306,7 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
         let Ok(parts) = pyurl::urlsplit(&href) else {
             continue;
         };
-        if format!("{}://{}", parts.scheme, parts.netloc) != SELF_ORIGIN {
+        if !is_self_origin(&parts) {
             targets.push(href);
         }
     }
@@ -316,6 +317,19 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
 /// has lowercased it.
 fn web_scheme(scheme: &str) -> bool {
     matches!(scheme, "" | "http" | "https")
+}
+
+/// True when a split URL has this site's origin: https, the site's host in any case and
+/// the default port, written or not.
+fn is_self_origin(parts: &Split) -> bool {
+    let hostinfo = parts
+        .netloc
+        .rsplit_once('@')
+        .map_or(parts.netloc.as_str(), |(_, host)| host);
+    let port = hostinfo.split_once(':').map_or("", |(_, port)| port);
+    parts.scheme == "https"
+        && pyurl::hostname(&parts.netloc).as_deref() == Some(SELF_HOST)
+        && (port.is_empty() || port == "443")
 }
 
 /// Fetch `urls` concurrently, at most [`PER_HOST`] at a time per host, recording what
@@ -706,7 +720,7 @@ impl<'a> Checker<'a> {
                 continue;
             }
             let parts = pyurl::urlsplit(href).map_err(|e| format!("ValueError: {e}"))?;
-            if format!("{}://{}", parts.scheme, parts.netloc) == SELF_ORIGIN {
+            if is_self_origin(&parts) {
                 let target = self.self_origin_target(&parts.path);
                 let shown = self.rel_to_root(&target);
                 if !target.is_file() {

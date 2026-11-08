@@ -217,3 +217,28 @@ fn file_paths_with_a_trailing_slash_are_not_found() {
         }
     }
 }
+
+/// An encoded trailing slash on a real directory keeps the standard handler's index and
+/// listing; only the unslashed name redirects.
+#[test]
+fn directories_with_an_encoded_trailing_slash_keep_standard_behaviour() {
+    let site = tempfile::tempdir().unwrap();
+    std::fs::create_dir(site.path().join("tools")).unwrap();
+    std::fs::create_dir(site.path().join("empty")).unwrap();
+    std::fs::write(site.path().join("tools/index.html"), "<p>Tools</p>").unwrap();
+    let port = start(site.path());
+    for target in ["/tools%2F", "/tools%2f", "/tools/"] {
+        let response = get(port, target, &[]);
+        assert_eq!(response.status, 200, "{target}");
+        assert_eq!(response.body, b"<p>Tools</p>", "{target}");
+    }
+    let listing = get(port, "/empty%2F", &[]);
+    assert_eq!(listing.status, 200);
+    assert!(
+        String::from_utf8_lossy(&listing.body).contains("Directory listing"),
+        "listing"
+    );
+    let redirect = get(port, "/tools", &[]);
+    assert_eq!(redirect.status, 301);
+    assert_eq!(redirect.header("Location"), Some("/tools/"));
+}

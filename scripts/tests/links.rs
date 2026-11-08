@@ -1453,6 +1453,7 @@ fn scheme_relative_links_use_their_origin() {
         "https://duguid.com.au/#home",
         "#home",
         "//duguid.com.au/missing/",
+        "//DUGUID.COM.AU/missing/",
     ]);
     for (offline, status) in [(false, 200), (false, 404), (true, 200)] {
         let harness = Harness::new(vec![]);
@@ -1474,14 +1475,20 @@ fn scheme_relative_links_use_their_origin() {
         assert_eq!(*fetched.borrow(), expected, "{offline} {status}");
         assert_eq!(
             failures.len(),
-            if status == 404 { 2 } else { 1 },
+            if status == 404 { 3 } else { 2 },
             "{failures:?}"
         );
-        assert!(
-            failures
-                .iter()
-                .any(|f| f.contains("no file at missing/index.html"))
-        );
+        // The host's case does not make a link external: both spellings are checked on disk.
+        for href in [
+            "https://duguid.com.au/missing/",
+            "https://DUGUID.COM.AU/missing/",
+        ] {
+            let diagnostic = format!("{href} -> no file at missing/index.html");
+            assert!(
+                failures.iter().any(|f| f.contains(&diagnostic)),
+                "{failures:?}"
+            );
+        }
         if status == 404 {
             assert!(
                 failures
@@ -1490,12 +1497,16 @@ fn scheme_relative_links_use_their_origin() {
             );
         }
         let printed = harness.printed.borrow().join("\n");
-        assert!(printed.contains("3 links scanned"), "{printed}");
+        assert!(printed.contains("4 links scanned"), "{printed}");
         assert!(
             printed.contains(&format!("{} external links skipped", u8::from(offline))),
             "{printed}"
         );
     }
+    assert_eq!(
+        site_tools::check_links::fetch_targets(&hrefs, false),
+        strings(&["https://example.org/index.html"])
+    );
 }
 
 #[test]
