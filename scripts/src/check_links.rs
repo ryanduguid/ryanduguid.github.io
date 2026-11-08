@@ -287,7 +287,8 @@ const PER_HOST: usize = 3;
 const WORKERS: usize = 8;
 
 /// The external URLs the sequential pass fetches, in first-use order: every
-/// `http` link that is not same-origin and, on CI, not left to manual verification.
+/// `http` or `https` link (scheme in any case) that is not same-origin and, on
+/// CI, not left to manual verification.
 pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
     let mut targets: Vec<String> = Vec::new();
     for href in hrefs {
