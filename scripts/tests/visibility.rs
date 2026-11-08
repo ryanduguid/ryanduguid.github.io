@@ -972,3 +972,136 @@ fn site_hosts_allow_one_root_dot_and_no_empty_labels() {
         expect(url, &failures_for(&capture), "no cited URL is on");
     }
 }
+
+/// A fresh round that mentions and cites the site, and a reused-session round that
+/// does neither and declares a factual error.
+fn session_rounds() -> [Json; 2] {
+    let first_error = prompts()
+        .into_iter()
+        .find(|(k, _)| k == BRANDED_ID)
+        .and_then(|(_, p)| match p.get("common_errors") {
+            Some(Json::Array(errors)) => errors[0].get("id").cloned(),
+            _ => None,
+        })
+        .unwrap();
+    let mut reused = base_capture();
+    let observation = observation(&mut reused, 0);
+    set(observation, "fresh_session", Json::Bool(false));
+    set(observation, "mentioned", Json::Bool(false));
+    set(observation, "site_cited", Json::Bool(false));
+    set(observation, "cited_urls", Json::Array(vec![]));
+    set(
+        observation,
+        "factual_errors",
+        Json::Array(vec![first_error]),
+    );
+    [base_capture(), reused]
+}
+
+#[test]
+fn reused_sessions_keep_their_own_denominators() {
+    for (fixture, include_fixtures) in [(false, false), (true, true)] {
+        let mut rounds = session_rounds();
+        set(&mut rounds[1], "fixture", Json::Bool(fixture));
+        let reversed = [rounds[1].clone(), rounds[0].clone()];
+        for ordered in [&rounds, &reversed] {
+            let summary = summary_of(ordered, include_fixtures);
+            for line in [
+                "mentions:   1/1 completed answers",
+                "mentions:   0/1 completed answers",
+                "citations:  1/1 completed answers",
+                "citations:  0/1 completed answers",
+                "no declared factual error: 1/1",
+                "no declared factual error: 0/1",
+                "search on, without a fresh session",
+                "recorded without a fresh session: 1/1",
+            ] {
+                assert!(summary.contains(line), "{line}: {summary}");
+            }
+            assert!(!summary.contains("/2 completed answers"), "{summary}");
+        }
+    }
+    let mut rounds = session_rounds();
+    set(&mut rounds[1], "fixture", Json::Bool(true));
+    let summary = summary_of(&rounds, false);
+    assert!(summary.contains("mentions:   1/1 completed answers"));
+    assert!(!summary.contains("without a fresh session"), "{summary}");
+    for status in ["not_run", "blocked"] {
+        let mut unrun = base_capture();
+        let observation = observation(&mut unrun, 0);
+        set(observation, "status", Json::Str(status.into()));
+        set(observation, "reason", Json::Str("not attempted".into()));
+        set(observation, "fresh_session", Json::Bool(false));
+        let [fresh, reused] = session_rounds();
+        let summary = summary_of(&[fresh, reused, unrun], false);
+        for line in [
+            "mentions:   1/1 completed answers",
+            "mentions:   0/1 completed answers",
+            "excluded (not run or blocked): 1",
+            "recorded without a fresh session: 1/1",
+        ] {
+            assert!(summary.contains(line), "{status} {line}: {summary}");
+        }
+        assert!(!summary.contains("/2 completed answers"), "{summary}");
+    }
+}
+
+#[test]
+fn a_capture_selected_twice_counts_once() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::create_dir(dir.path().join("nested")).unwrap();
+    let path = written(&base_capture(), dir.path(), "round.json");
+    let parent = dir.path().join("nested").join("..").join("round.json");
+    let spelt = |p: &Path, shown: &str| Named {
+        shown: shown.to_owned(),
+        path: p.to_path_buf(),
+    };
+    let (loaded, failures) = validated(
+        &[spelt(&path, "a"), spelt(&path, "b"), spelt(&parent, "c")],
+        &prompts(),
+    )
+    .unwrap();
+    assert!(failures.is_empty(), "{failures:?}");
+    assert_eq!(loaded.len(), 1);
+    let (shown, again) = (path.to_string_lossy(), parent.to_string_lossy());
+    let (code, single, _) = run_cli(&["--summary", &shown]);
+    let (code_twice, twice, _) = run_cli(&["--summary", &shown, &again, &shown]);
+    assert_eq!((code, code_twice), (Some(0), Some(0)));
+    assert_eq!(twice, single);
+    let (code, checked, _) = run_cli(&["--check", &shown, &again]);
+    assert_eq!(code, Some(0));
+    assert!(checked.contains("1 file(s)"), "{checked}");
+
+    let bad = dir.path().join("bad.json");
+    std::fs::write(&bad, "{ not JSON").unwrap();
+    let (_, failures) = validated(&[named(bad.clone()), named(bad.clone())], &prompts()).unwrap();
+    assert_eq!(failures.len(), 1, "{failures:?}");
+
+    let second = written(&base_capture(), dir.path(), "second.json");
+    let (loaded, failures) = validated(
+        &[named(path.clone()), named(second), named(path)],
+        &prompts(),
+    )
+    .unwrap();
+    assert!(failures.is_empty());
+    assert_eq!(loaded.len(), 2, "separate files stay separate rounds");
+}
+
+#[test]
+fn prompts_with_a_repeated_name_are_refused() {
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("docs/visibility-benchmark/prompts.json");
+    std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+    let text = std::fs::read_to_string(repository().join("docs/visibility-benchmark/prompts.json"))
+        .unwrap();
+    assert!(load_prompts(dir.path()).is_err());
+    std::fs::write(&path, &text).unwrap();
+    assert_eq!(load_prompts(dir.path()).unwrap(), prompts());
+    let repeated = text.replacen('{', r#"{"prompts": [], "#, 1);
+    std::fs::write(&path, repeated).unwrap();
+    let error = load_prompts(dir.path()).unwrap_err();
+    assert!(
+        error.contains("repeated JSON object name 'prompts'"),
+        "{error}"
+    );
+}

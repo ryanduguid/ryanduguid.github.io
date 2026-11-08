@@ -58,7 +58,7 @@ fn captures_dir(root: &Path) -> PathBuf {
 
 /// The reviewed prompt set, keyed by its stable identifier.
 pub fn load_prompts(root: &Path) -> Result<Prompts> {
-    let data = pyjson::loads(&crate::read(&prompts_path(root))?)
+    let data = pyjson::loads_unique(&crate::read(&prompts_path(root))?)
         .map_err(|e| format!("json.decoder.JSONDecodeError: {e}"))?;
     let mut prompts: Prompts = Vec::new();
     for entry in crate::pyobj::iterate(item(&data, "prompts")?)? {
@@ -470,11 +470,18 @@ fn selected(root: &Path, names: &[String]) -> Vec<Named> {
 pub fn validated(paths: &[Named], prompts: &Prompts) -> Result<(Vec<Json>, Vec<String>)> {
     let mut captures = Vec::new();
     let mut failures = Vec::new();
+    let mut seen: Vec<PathBuf> = Vec::new();
     for named in paths {
         if !named.path.is_file() {
             failures.push(format!("{}: no such capture file", named.shown));
             continue;
         }
+        // A round named twice, by any spelling or link, is still one round.
+        let resolved = py::resolve(&named.path);
+        if seen.contains(&resolved) {
+            continue;
+        }
+        seen.push(resolved);
         let capture = match load_capture(&named.path) {
             Ok(capture) => capture,
             Err(error) => {
@@ -499,12 +506,11 @@ struct Bucket {
     cited: usize,
     clean: usize,
     excluded: usize,
-    not_fresh: usize,
 }
 
 /// Report visibility and accuracy separately, with explicit denominators.
 pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -> Result<String> {
-    let mut counts: Vec<((String, bool, String), Bucket)> = Vec::new();
+    let mut counts: Vec<((String, bool, String, bool), Bucket)> = Vec::new();
     let mut fixtures_skipped = 0;
     for capture in captures {
         if matches!(capture.get("fixture"), Some(Json::Bool(true))) && !include_fixtures {
@@ -534,7 +540,13 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
                 Some(search) => py_str(search)?,
                 None => "unknown".into(),
             };
-            let key = (system, item(prompt, "branded")?.truthy(), search);
+            // Completed answers from reused sessions keep their own rates; an unrun
+            // answer has no result or session to compare.
+            let complete =
+                matches!(observation.get("status"), Some(Json::Str(s)) if s == "complete");
+            let not_fresh =
+                complete && matches!(observation.get("fresh_session"), Some(Json::Bool(false)));
+            let key = (system, item(prompt, "branded")?.truthy(), search, not_fresh);
             let index = match counts.iter().position(|(k, _)| *k == key) {
                 Some(i) => i,
                 None => {
@@ -543,7 +555,7 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
                 }
             };
             let bucket = &mut counts[index].1;
-            if !matches!(observation.get("status"), Some(Json::Str(s)) if s == "complete") {
+            if !complete {
                 bucket.excluded += 1;
                 continue;
             }
@@ -558,10 +570,6 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
             ));
             bucket.clean +=
                 usize::from(!observation.get("factual_errors").is_some_and(Json::truthy));
-            bucket.not_fresh += usize::from(!matches!(
-                observation.get("fresh_session"),
-                Some(Json::Bool(true))
-            ));
         }
     }
     counts.sort_by(|a, b| a.0.cmp(&b.0));
@@ -572,10 +580,17 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
     if counts.is_empty() {
         lines.push("No observations to summarise.".into());
     }
-    for ((system, branded, search), bucket) in &counts {
+    for ((system, branded, search, not_fresh), bucket) in &counts {
         let group = if *branded { "branded" } else { "non-branded" };
         let total = bucket.complete;
-        lines.push(format!("{system}, {group} prompts, search {search}"));
+        let session = if *not_fresh {
+            ", without a fresh session"
+        } else {
+            ""
+        };
+        lines.push(format!(
+            "{system}, {group} prompts, search {search}{session}"
+        ));
         if total == 0 {
             lines.push(format!(
                 "  no completed observations ({} excluded)",
@@ -599,10 +614,10 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
             "  excluded (not run or blocked): {}",
             bucket.excluded
         ));
-        if bucket.not_fresh > 0 {
+        if *not_fresh {
+            // A reused session can carry context from an earlier prompt.
             lines.push(format!(
-                "  recorded without a fresh session: {}/{total}, not comparable with the rest",
-                bucket.not_fresh
+                "  recorded without a fresh session: {total}/{total}, not comparable with the rest"
             ));
         }
     }

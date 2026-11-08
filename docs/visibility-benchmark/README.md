@@ -37,6 +37,11 @@ A summary validates the files it was given before counting anything. If any sele
 file fails, the metrics are withheld and the diagnostics are what you get, because a
 partial report of a partly invalid round would misstate it.
 
+Each selected resolved path is counted once, including repeated arguments,
+relative spellings and symbolic links. The first spelling is retained for
+diagnostics. Separate files remain separate rounds even when their recorded
+answers are identical.
+
 Names must be unique within each JSON object in a capture, including unknown and
 nested members, even when the repeated values are identical. Names are compared
 after JSON escape decoding, without case folding or Unicode normalisation.
@@ -46,8 +51,10 @@ repeated prompt ID fails validation even when the statuses differ or the answers
 match; repeat a prompt across rounds in separate files. Send each prompt exactly as `prompts.json` records
 it: the validator rejects a reworded prompt, because a reworded prompt is a
 different measurement. Use a fresh session for each prompt and say so in the
-capture. Record the search-enabled state, because an answer composed without
-retrieval says nothing about whether a page is reachable.
+capture. Reused sessions have their own summary group and denominators, labelled
+as not comparable with fresh sessions. Unrun and blocked answers stay excluded.
+Record the search-enabled state, because an answer composed without retrieval says
+nothing about whether a page is reachable.
 
 Keep a copy of `prompts.json` beside each round and record the repository commit in `run_notes`. The template records `answer_key_sha256`, a fingerprint of the exact prompts, sourced facts and error definitions. A changed or missing fingerprint blocks real summaries. To review a historical round, use its retained answer key with the repository revision that recorded it; do not replace the fingerprint to force a pass. Fixtures remain labelled test data and are exempt from this historical-key check.
 

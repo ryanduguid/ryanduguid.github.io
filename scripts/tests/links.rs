@@ -1370,3 +1370,147 @@ fn fragments_use_parsed_element_attributes() {
         assert_fragments(html, &[(&format!("/#{fragment}"), valid)]);
     }
 }
+
+/// A site with a home page and a tools section holding a sibling page.
+fn tools_site() -> tempfile::TempDir {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::create_dir(dir.path().join("tools")).unwrap();
+    for (rel, id) in [
+        ("index.html", "home"),
+        ("tools/index.html", "here"),
+        ("tools/sibling.html", "ok"),
+    ] {
+        std::fs::write(dir.path().join(rel), format!(r#"<h1 id="{id}">Page</h1>"#)).unwrap();
+    }
+    dir
+}
+
+#[test]
+fn relative_links_resolve_against_their_page_on_disk() {
+    let dir = tools_site();
+    let cases: [(&str, Option<&str>); 10] = [
+        ("missing.html", Some("no file")),
+        ("#missing", Some("no element")),
+        ("../missing.html", Some("no file")),
+        ("sibling.html#missing", Some("no element")),
+        ("sibling.html#ok", None),
+        ("./sibling.html#ok", None),
+        ("../index.html#home", None),
+        ("../#home", None),
+        ("#here", None),
+        ("?mode=test#here", None),
+    ];
+    for (href, error) in cases {
+        let harness = Harness::new(vec![]);
+        let failures = harness.with(dir.path().to_path_buf(), |c| {
+            c.fetch_hook = Some(Box::new(|_| panic!("no fetch offline")));
+            c.lookup_hook = Some(Box::new(|_| panic!("no lookup offline")));
+            c.check_hrefs("tools/index.html", &strings(&[href]), true)
+                .unwrap()
+        });
+        match error {
+            Some(error) => {
+                assert_eq!(failures.len(), 1, "{href}: {failures:?}");
+                assert!(failures[0].contains(error), "{href}: {failures:?}");
+            }
+            None => assert!(failures.is_empty(), "{href}: {failures:?}"),
+        }
+        let printed = harness.printed.borrow().join("\n");
+        assert!(printed.contains("1 links scanned"), "{href}: {printed}");
+    }
+    for (hrefs, scanned) in [
+        (vec!["sibling.html#ok", "./sibling.html#ok"], 1),
+        (
+            vec![
+                "mailto:test@example.org",
+                "tel:12345",
+                "data:text/plain,test",
+            ],
+            0,
+        ),
+    ] {
+        let harness = Harness::new(vec![]);
+        let failures = harness.with(dir.path().to_path_buf(), |c| {
+            c.check_hrefs("tools/index.html", &strings(&hrefs), true)
+                .unwrap()
+        });
+        assert!(failures.is_empty(), "{hrefs:?}: {failures:?}");
+        let printed = harness.printed.borrow().join("\n");
+        assert!(
+            printed.contains(&format!("{scanned} links scanned")),
+            "{printed}"
+        );
+    }
+}
+
+#[test]
+fn scheme_relative_links_use_their_origin() {
+    let dir = tools_site();
+    let hrefs = strings(&[
+        "//example.org/index.html",
+        "//duguid.com.au/#home",
+        "/#home",
+        "https://duguid.com.au/#home",
+        "#home",
+        "//duguid.com.au/missing/",
+    ]);
+    for (offline, status) in [(false, 200), (false, 404), (true, 200)] {
+        let harness = Harness::new(vec![]);
+        let fetched = Rc::new(RefCell::new(Vec::new()));
+        let failures = harness.with(dir.path().to_path_buf(), |c| {
+            let log = fetched.clone();
+            c.fetch_hook = Some(Box::new(move |url| {
+                log.borrow_mut().push(url.to_owned());
+                Ok((status, "https://example.org/index.html".into()))
+            }));
+            c.lookup_hook = Some(Box::new(|_| panic!("no own repository here")));
+            c.check_hrefs("index.html", &hrefs, offline).unwrap()
+        });
+        let expected: Vec<String> = if offline {
+            vec![]
+        } else {
+            strings(&["https://example.org/index.html"])
+        };
+        assert_eq!(*fetched.borrow(), expected, "{offline} {status}");
+        assert_eq!(
+            failures.len(),
+            if status == 404 { 2 } else { 1 },
+            "{failures:?}"
+        );
+        assert!(
+            failures
+                .iter()
+                .any(|f| f.contains("no file at missing/index.html"))
+        );
+        if status == 404 {
+            assert!(
+                failures
+                    .iter()
+                    .any(|f| f.contains("https://example.org/index.html -> HTTP 404"))
+            );
+        }
+        let printed = harness.printed.borrow().join("\n");
+        assert!(printed.contains("3 links scanned"), "{printed}");
+        assert!(
+            printed.contains(&format!("{} external links skipped", u8::from(offline))),
+            "{printed}"
+        );
+    }
+}
+
+#[test]
+fn scheme_relative_external_links_are_prefetched() {
+    use site_tools::check_links::fetch_targets;
+    assert_eq!(
+        fetch_targets(
+            &strings(&[
+                "//example.org/a",
+                "/local",
+                "relative.html",
+                "https://example.org/b",
+            ]),
+            false
+        ),
+        strings(&["https://example.org/a", "https://example.org/b"])
+    );
+}

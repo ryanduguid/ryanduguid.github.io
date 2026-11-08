@@ -291,17 +291,21 @@ const WORKERS: usize = 8;
 pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
     let mut targets: Vec<String> = Vec::new();
     for href in hrefs {
+        // A scheme-relative link takes the site's https; a relative one stays on the site.
+        let Ok(href) = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), href) else {
+            continue;
+        };
         if !href.starts_with("http")
             || (actions && CI_MANUAL_URLS.contains(&href.as_str()))
-            || targets.contains(href)
+            || targets.contains(&href)
         {
             continue;
         }
-        let Ok(parts) = pyurl::urlsplit(href) else {
+        let Ok(parts) = pyurl::urlsplit(&href) else {
             continue;
         };
         if format!("{}://{}", parts.scheme, parts.netloc) != SELF_ORIGIN {
-            targets.push(href.clone());
+            targets.push(href);
         }
     }
     targets
@@ -671,17 +675,23 @@ impl<'a> Checker<'a> {
         offline: bool,
     ) -> Result<Vec<String>, String> {
         let mut failures = Vec::new();
-        let mut seen: Vec<&str> = Vec::new();
+        let mut seen: Vec<String> = Vec::new();
         let mut skipped = 0;
         let mut resolved_own = Vec::new();
+        let page = crate::seo_core::site_url(rel, SELF_ORIGIN);
         for href in hrefs {
-            if seen.contains(&href.as_str()) {
+            let scheme = pyurl::urlsplit(href)
+                .map_err(|e| format!("ValueError: {e}"))?
+                .scheme;
+            if !scheme.is_empty() && scheme != "http" && scheme != "https" {
                 continue;
             }
-            if !(href.starts_with("http") || href.starts_with('/')) {
+            // Relative and scheme-relative links are checked where a browser would go.
+            let href = &pyurl::urljoin(&page, href).map_err(|e| format!("ValueError: {e}"))?;
+            if seen.contains(href) {
                 continue;
             }
-            seen.push(href);
+            seen.push(href.clone());
             if self.actions && CI_MANUAL_URLS.contains(&href.as_str()) {
                 self.say(&format!(
                     "manual verification {rel}: {href} (runner access unavailable; see CONTRIBUTING.md)"
@@ -689,9 +699,7 @@ impl<'a> Checker<'a> {
                 continue;
             }
             let parts = pyurl::urlsplit(href).map_err(|e| format!("ValueError: {e}"))?;
-            if href.starts_with('/')
-                || format!("{}://{}", parts.scheme, parts.netloc) == SELF_ORIGIN
-            {
+            if format!("{}://{}", parts.scheme, parts.netloc) == SELF_ORIGIN {
                 let target = self.self_origin_target(&parts.path);
                 let shown = self.rel_to_root(&target);
                 if !target.is_file() {
