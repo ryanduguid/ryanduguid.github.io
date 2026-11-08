@@ -134,28 +134,14 @@ fn sorted_repr(members: &[&str]) -> String {
     )
 }
 
-/// `SplitResult.port` validation: digits only and within 0 to 65535.
-fn port_ok(netloc: &str) -> bool {
-    let hostinfo = netloc.rsplit_once('@').map_or(netloc, |(_, h)| h);
-    let port = match hostinfo.split_once('[') {
-        Some((_, bracketed)) => bracketed
-            .split_once(']')
-            .map_or("", |(_, rest)| rest.split_once(':').map_or("", |(_, p)| p)),
-        None => hostinfo.split_once(':').map_or("", |(_, p)| p),
-    };
-    if port.is_empty() {
-        return true;
-    }
-    port.bytes().all(|b| b.is_ascii_digit()) && port.parse::<u64>().is_ok_and(|p| p <= 65535)
-}
-
 /// One usable http or https URL's host, or None when the value cannot be one.
 fn usable_host(url: Option<&Json>) -> Option<String> {
     let Some(Json::Str(url)) = url.filter(|u| is_text(Some(u))) else {
         return None;
     };
     let split = crate::pyurl::urlsplit(url).ok()?;
-    if !port_ok(&split.netloc) {
+    // `SplitResult.port` raises for a port that is not a number from 0 to 65535.
+    if crate::pyurl::port(&split.netloc).is_err() {
         return None;
     }
     if !matches!(split.scheme.to_lowercase().as_str(), "http" | "https") {

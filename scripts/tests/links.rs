@@ -1537,3 +1537,66 @@ fn prefetch_follows_the_checked_schemes_in_any_case() {
         strings(&["HTTP://example.org/c"])
     );
 }
+
+/// Same origin means https, the site's host and port 443 by value; anything else is
+/// external, and a malformed port is reported rather than fetched or coerced.
+#[test]
+fn origin_boundary_compares_scheme_host_and_port_value() {
+    let dir = tools_site();
+    let same = [
+        "https://duguid.com.au:443/missing/",
+        "https://duguid.com.au:0443/missing/",
+        "https://duguid.com.au:/missing/",
+    ];
+    let external = [
+        "https://duguid.com.au:80/x",
+        "http://duguid.com.au/x",
+        "https://duguid.com.au./x",
+    ];
+    let malformed = [
+        "https://duguid.com.au:abc/x",
+        "https://duguid.com.au:99999/x",
+    ];
+    let hrefs: Vec<String> = strings(&same)
+        .into_iter()
+        .chain(strings(&external))
+        .chain(strings(&malformed))
+        .collect();
+    let harness = Harness::new(vec![]);
+    let fetched = Rc::new(RefCell::new(Vec::new()));
+    let failures = harness.with(dir.path().to_path_buf(), |c| {
+        let log = fetched.clone();
+        c.fetch_hook = Some(Box::new(move |url| {
+            log.borrow_mut().push(url.to_owned());
+            Ok((200, url.to_owned()))
+        }));
+        c.lookup_hook = Some(Box::new(|_| panic!("no own repository here")));
+        c.check_hrefs("index.html", &hrefs, false).unwrap()
+    });
+    assert_eq!(*fetched.borrow(), strings(&external));
+    assert_eq!(failures.len(), same.len() + malformed.len(), "{failures:?}");
+    for href in same {
+        let diagnostic = format!("{href} -> no file at missing/index.html");
+        assert!(
+            failures.iter().any(|f| f.contains(&diagnostic)),
+            "{failures:?}"
+        );
+    }
+    for (href, error) in [
+        (
+            malformed[0],
+            "invalid port: Port could not be cast to integer value as 'abc'",
+        ),
+        (malformed[1], "invalid port: Port out of range 0-65535"),
+    ] {
+        let diagnostic = format!("{href} -> {error}");
+        assert!(
+            failures.iter().any(|f| f.contains(&diagnostic)),
+            "{failures:?}"
+        );
+    }
+    assert_eq!(
+        site_tools::check_links::fetch_targets(&hrefs, false),
+        strings(&external)
+    );
+}

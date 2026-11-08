@@ -332,6 +332,36 @@ fn check_bracketed_netloc(netloc: &str) -> Result<(), String> {
     Ok(())
 }
 
+/// `.port` of a split URL: None when absent or empty, else its value, or CPython's
+/// `ValueError` text for a port that is not all ASCII digits or exceeds 65535.
+pub fn port(netloc: &str) -> Result<Option<u16>, String> {
+    let hostinfo = netloc.rsplit_once('@').map_or(netloc, |(_, h)| h);
+    let port = match hostinfo.split_once('[') {
+        Some((_, bracketed)) => bracketed
+            .split_once(']')
+            .map_or("", |(_, rest)| rest.split_once(':').map_or("", |(_, p)| p)),
+        None => hostinfo.split_once(':').map_or("", |(_, p)| p),
+    };
+    if port.is_empty() {
+        return Ok(None);
+    }
+    if !port.bytes().all(|b| b.is_ascii_digit()) {
+        return Err(format!(
+            "Port could not be cast to integer value as {}",
+            crate::py::repr_str(port)
+        ));
+    }
+    let digits = port.trim_start_matches('0');
+    match digits.len() {
+        0 => Ok(Some(0)),
+        1..=5 => digits
+            .parse::<u16>()
+            .map(Some)
+            .map_err(|_| "Port out of range 0-65535".to_owned()),
+        _ => Err("Port out of range 0-65535".to_owned()),
+    }
+}
+
 /// `.hostname` of a split URL: lower-cased, without user information, port or brackets.
 pub fn hostname(netloc: &str) -> Option<String> {
     if netloc.is_empty() {

@@ -306,7 +306,8 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
         let Ok(parts) = pyurl::urlsplit(&href) else {
             continue;
         };
-        if !is_self_origin(&parts) {
+        // A malformed port is reported by the link pass, never fetched.
+        if is_self_origin(&parts) == Ok(false) {
             targets.push(href);
         }
     }
@@ -319,17 +320,13 @@ fn web_scheme(scheme: &str) -> bool {
     matches!(scheme, "" | "http" | "https")
 }
 
-/// True when a split URL has this site's origin: https, the site's host in any case and
-/// the default port, written or not.
-fn is_self_origin(parts: &Split) -> bool {
-    let hostinfo = parts
-        .netloc
-        .rsplit_once('@')
-        .map_or(parts.netloc.as_str(), |(_, host)| host);
-    let port = hostinfo.split_once(':').map_or("", |(_, port)| port);
-    parts.scheme == "https"
+/// Whether a split URL has this site's origin: https, the site's host in any case and
+/// port 443 by value, written or not; the urlsplit error text for a malformed port.
+fn is_self_origin(parts: &Split) -> Result<bool, String> {
+    let port = pyurl::port(&parts.netloc)?;
+    Ok(parts.scheme == "https"
         && pyurl::hostname(&parts.netloc).as_deref() == Some(SELF_HOST)
-        && (port.is_empty() || port == "443")
+        && port.unwrap_or(443) == 443)
 }
 
 /// Fetch `urls` concurrently, at most [`PER_HOST`] at a time per host, recording what
@@ -720,7 +717,14 @@ impl<'a> Checker<'a> {
                 continue;
             }
             let parts = pyurl::urlsplit(href).map_err(|e| format!("ValueError: {e}"))?;
-            if is_self_origin(&parts) {
+            let same_origin = match is_self_origin(&parts) {
+                Ok(same_origin) => same_origin,
+                Err(error) => {
+                    failures.push(format!("{rel}: {href} -> invalid port: {error}"));
+                    continue;
+                }
+            };
+            if same_origin {
                 let target = self.self_origin_target(&parts.path);
                 let shown = self.rel_to_root(&target);
                 if !target.is_file() {
