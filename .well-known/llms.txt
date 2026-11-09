@@ -125,7 +125,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Refusals
 
-- [What these tools refuse](https://duguid.com.au/tools/refusals/): each send-back and refusal the tools give, with the exact command output and exit code from fictional fixtures at the released versions where a command exists, the human step that follows and the refusal scenarios quoted from the external llm-tax-guardrails (DrDebits) guide on GitHub, which is not one of the site's tools.
+- [What these tools refuse](https://duguid.com.au/tools/refusals/): each send-back and refusal the tools give, with the exact command output and exit code from fictional fixtures at the released versions where a command exists, the human step that follows and the refusal scenarios quoted from the external DrDebits guide on GitHub, which is not one of the site's tools.
 
 ## Known limitations
 
