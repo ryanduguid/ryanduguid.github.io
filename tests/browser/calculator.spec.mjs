@@ -199,11 +199,16 @@ test('the sticky result stays within a 1280 by 720 window and scrolls by keyboar
   expect(stuck.length, 'the result sticks below the header').toBeGreaterThan(0);
   for (const bottom of stuck) expect(bottom).toBeLessThanOrEqual(720);
 
-  if (await result.evaluate((element) => element.scrollHeight > element.clientHeight)) {
-    await result.focus();
-    await page.keyboard.press('End');
-    await expect.poll(() => result.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
-  }
+  // The result is taller than its box here, so a keyboard user must reach it,
+  // by Tab from Calculate, and End must scroll it.
+  expect(await result.evaluate((element) => element.scrollHeight > element.clientHeight), 'the result overflows its box')
+    .toBe(true);
+  await page.getByRole('button', { name: 'Calculate', exact: true }).focus();
+  await page.keyboard.press('Tab');
+  await expect(result).toBeFocused();
+  const before = await result.evaluate((element) => element.scrollTop);
+  await page.keyboard.press('End');
+  await expect.poll(() => result.evaluate((element) => element.scrollTop)).toBeGreaterThan(before);
 });
 
 test('blank monetary inputs produce an explained zero result', async ({ page }) => {

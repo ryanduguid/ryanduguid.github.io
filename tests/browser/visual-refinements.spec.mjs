@@ -204,12 +204,14 @@ test('figure comparison tables right-align their values', async ({ page }) => {
     await expect(table.locator('.nowrap', { hasText: '7 October' })).toHaveCount(1);
   }
 
-  // Every cell, header and total included, in the named money columns.
+  // Every cell, header and total included, in the named money columns. A name
+  // with no column is reported, not skipped, so a renamed header fails.
   const notRight = (table, columns) => table.evaluate((element, names) => {
-    const indexes = [...element.tHead.rows[0].cells]
-      .filter((cell) => names.includes(cell.textContent.trim())).map((cell) => cell.cellIndex);
-    return [...element.rows].flatMap((row) => indexes.map((index) => row.cells[index]))
-      .filter((cell) => getComputedStyle(cell).textAlign !== 'right').map((cell) => cell.textContent.trim());
+    const headers = [...element.tHead.rows[0].cells].map((cell) => cell.textContent.trim());
+    const missing = names.filter((name) => !headers.includes(name)).map((name) => `no ${name} column`);
+    const indexes = names.map((name) => headers.indexOf(name)).filter((index) => index >= 0);
+    return missing.concat([...element.rows].flatMap((row) => indexes.map((index) => row.cells[index]))
+      .filter((cell) => getComputedStyle(cell).textAlign !== 'right').map((cell) => cell.textContent.trim()));
   }, columns);
 
   await calculateCashForecast(page);
