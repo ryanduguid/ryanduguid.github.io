@@ -239,14 +239,22 @@ async function run(base, expectedMonth, expectedRevision) {
   return failed.length === 0;
 }
 
-const { values: options } = parseArgs({
-  options: {
-    base: { type: 'string' },
-    'expect-month': { type: 'string' },
-    'expect-revision': { type: 'string' },
-  },
-});
+// Usage errors exit 2, so they cannot be mistaken for a failed check (exit 1).
+let options;
+try {
+  ({ values: options } = parseArgs({
+    options: {
+      base: { type: 'string' },
+      'expect-month': { type: 'string' },
+      'expect-revision': { type: 'string' },
+    },
+  }));
+} catch (error) {
+  console.error(error.message);
+  process.exit(2);
+}
 const { base: target, 'expect-month': expectedMonth, 'expect-revision': expectedRevision } = options;
+if (target === '') { console.error('--base needs a URL'); process.exit(2); }
 if ((expectedMonth !== undefined || expectedRevision !== undefined)
   && !(target && /^\d{4}-(0[1-9]|1[0-2])$/.test(expectedMonth ?? '')
     && /^[0-9a-f]{40}$/.test(expectedRevision ?? ''))) {

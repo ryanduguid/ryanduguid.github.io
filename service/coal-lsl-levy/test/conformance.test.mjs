@@ -109,6 +109,28 @@ test('a wrong levy with valid scales and provenance fails for the expected relea
   assert.match(stdout, /levy: expected \d+\.\d{2}, received 999\.99/);
 });
 
+test('a computation citing another rate row fails for the expected release month', async () => {
+  const month = loadRegister().supportedMonths().at(-1);
+  const { code, stdout } = await checkThrough(({ method, url, status, bytes, requestBody }) => {
+    if (!isComputed(method, status) || !url.endsWith(month)
+      || JSON.parse(requestBody).pay?.base_rate_of_pay !== '6000.00') return undefined;
+    const body = JSON.parse(bytes);
+    body.manifest.rate_table_uris[0].row_id = 'another-row';
+    return { body };
+  }, releaseArgs(month));
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'cites the expected period’s verified rate and method'), stdout);
+});
+
+test('malformed arguments are usage errors, not failed checks', async () => {
+  for (const args of [['--base'], ['--base='], ['--unknown'], ['--base', 'http://127.0.0.1:9', '--expect-month', '2026-13']]) {
+    const code = await new Promise((resolve) => {
+      execFile(process.execPath, [CHECKER, ...args], { timeout: 20000 }, (error) => resolve(error?.code ?? 0));
+    });
+    assert.equal(code, 2, args.join(' '));
+  }
+});
+
 test('no listed evidence and no cited hashes fail each evidence check', async () => {
   const { code, stdout } = await checkThrough(({ method, url, status, bytes }) => {
     if (isListing(url)) return { body: { ...JSON.parse(bytes), entries: [] } };
