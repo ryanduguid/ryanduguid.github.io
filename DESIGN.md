@@ -339,6 +339,7 @@ The footer holds the site's one advice disclaimer: a single small line, `.site-f
 - rules appear between rows, not around every cell
 - the first and current rates receive typographic emphasis, not a coloured progress bar
 - wide tables use labelled horizontal scroll regions at narrow widths
+- scroll regions with hidden columns show a caption-style scroll cue in browsers that support scroll timelines
 - no statutory value, date, source or citation changes in this redesign
 
 ### Code and install blocks

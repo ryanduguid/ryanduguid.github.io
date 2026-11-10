@@ -709,6 +709,37 @@ blockquote,
   max-width: 100cqi;
 }
 
+/* An inline scroll timeline is active only when its region can scroll.
+   Keep the cue box at zero height until then so its animation can run. */
+@supports (scroll-timeline: --table-scroll inline) and (animation-timeline: --table-scroll) {
+  .table-scroll,
+  .employee-table-scroll {
+    scroll-timeline: --table-scroll inline;
+  }
+
+  :is(.table-scroll, .employee-table-scroll)::before {
+    display: block;
+    block-size: 0;
+    overflow: hidden;
+    visibility: hidden;
+    color: var(--colour-ink-soft);
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    content: "Scroll sideways for more columns" / "";
+    animation: table-scroll-cue linear both;
+    animation-timeline: --table-scroll;
+  }
+
+  @keyframes table-scroll-cue {
+    from,
+    to {
+      block-size: auto;
+      padding-block: var(--space-2);
+      visibility: visible;
+    }
+  }
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -775,6 +806,15 @@ th {
   overflow-wrap: normal;
 }
 
+/* In a scroll region a cell wraps between words, never inside one. The body's
+   anywhere let a column shrink below its longest word, so a phone printed
+   '$68,108' as '$68,1' over '08'; such a table now scrolls in its labelled
+   region instead. A table outside a scroll region keeps anywhere, so a long
+   address in it still fits the page at 200% text. */
+:is(.table-scroll, .employee-table-scroll) td {
+  overflow-wrap: break-word;
+}
+
 caption {
   padding-block: var(--space-2);
   color: var(--colour-ink-soft);
@@ -830,8 +870,12 @@ caption {
 }
 
 /* Tables that compare figures across columns right-align every value column,
-   so cents and thousands line up down each column. */
-.facts--figures :is(th, td):not(:first-child) {
+   so cents and thousands line up down each column. The cash forecast's money
+   columns are its last 4; the Coal LSL employee table's are Eligible wages
+   and Levy. */
+.facts--figures :is(th, td):not(:first-child),
+#cash-results :is(th, td):nth-child(n + 3),
+#employee-table :is(th, td):is(:nth-child(4), :nth-child(5)) {
   text-align: right;
 }
 
@@ -871,7 +915,7 @@ caption {
   .case-comparison :is(th, td) {
     padding-inline: var(--space-1);
     font-size: var(--text-small);
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   .receipt-sensitivity thead {
@@ -1185,11 +1229,15 @@ caption {
   margin-top: 0;
 }
 
-/* The shared radio outline outranks the global focus ring, so the chip
-   carries the site's 3px focus ring itself. */
+/* The chip carries the site's 3px focus ring, so its radio keeps the thin
+   outline rather than drawing a second ring inside the chip. */
 .tool-filter fieldset label:has(input:focus-visible) {
   outline: 0.1875rem solid var(--colour-ink);
   outline-offset: 0.1875rem;
+}
+
+.tool-filter input[type="radio"]:focus-visible {
+  outline-width: var(--rule-thin);
 }
 
 .tool-filter p {
@@ -2108,6 +2156,12 @@ input[type="checkbox"] {
   outline: var(--rule-thin) solid var(--colour-ink);
 }
 
+/* The rule above is as specific as the global focus ring and comes later, so
+   it thinned a focused box to 1px; this restores the 3px ring. */
+input:is([type="radio"], [type="checkbox"]):focus-visible {
+  outline-width: 0.1875rem;
+}
+
 .field {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -2187,6 +2241,19 @@ input[type="checkbox"] {
   top: calc(var(--header-height) + var(--space-5));
   padding-top: var(--space-4);
   border-top: var(--rule-strong) solid var(--colour-stroke);
+}
+
+/* Where the result sticks, one taller than the window scrolls inside itself,
+   so its end stays in reach whilst the form scrolls past; at 1280 by 720 a
+   Formula B result ended 39px below the window. The section takes keyboard
+   focus to scroll, and its inline padding keeps the focused heading's ring
+   inside the scroll box. */
+@media screen and (min-width: 56.0625rem) and (min-height: 30.0625rem) {
+  .calculator-result {
+    max-height: calc(100vh - var(--header-height) - var(--space-5));
+    overflow-y: auto;
+    padding-inline: var(--space-2);
+  }
 }
 
 .calculator-result h2 {
@@ -2730,6 +2797,8 @@ input[type="checkbox"] {
   .legal-content .sources > li > a,
   .install-panel > p > a,
   .business-calculator > p > a,
+  .question-links > a,
+  .function-reference > p > a,
   .question-group h2 a,
   .question-index a,
   .site-footer__nav a,
