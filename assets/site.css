@@ -839,8 +839,12 @@ caption {
 }
 
 /* Tables that compare figures across columns right-align every value column,
-   so cents and thousands line up down each column. */
-.facts--figures :is(th, td):not(:first-child) {
+   so cents and thousands line up down each column. The cash forecast's money
+   columns are its last 4; the Coal LSL employee table's are Eligible wages
+   and Levy. */
+.facts--figures :is(th, td):not(:first-child),
+#cash-results :is(th, td):nth-child(n + 3),
+#employee-table :is(th, td):is(:nth-child(4), :nth-child(5)) {
   text-align: right;
 }
 

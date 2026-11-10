@@ -55,7 +55,7 @@ test('calculator results show labelled rows and keep the exact sentence text', a
   }
 });
 
-test('the cash forecast result keeps its sentence and stays one column', async ({ page }) => {
+async function calculateCashForecast(page) {
   await page.goto('/tools/business-calculators/cash/');
   const data = { version: 1, currency: 'AUD', startDate: '2026-09-28', opening: '200.00', buffer: '100',
     week: '1', amount: '100', delay: '2', weeks: Array.from({ length: 13 }, () => ({ receipts: '1000', payments: '300' })) };
@@ -64,6 +64,11 @@ test('the cash forecast result keeps its sentence and stays one column', async (
   });
   const form = page.locator('#cash form');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  return form;
+}
+
+test('the cash forecast result keeps its sentence and stays one column', async ({ page }) => {
+  const form = await calculateCashForecast(page);
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
     'Inputs: week 1 from 28 Sept 2026, opening cash $200.00, buffer $100.00, receipt of $100.00 in week 1 delayed 2 weeks. Closing cash: $9,300.00. Lowest opening or weekly closing balance: $200.00. Funding gap to the buffer: $0.00. Receipts deferred beyond week 13: $0.00.'
   );
@@ -184,7 +189,9 @@ test('register title underlines stay clear of the next line', async ({ page }) =
 });
 
 // Tables that compare figures right-align every value column so the cents and
-// thousands line up; dates after an amount stay on one line.
+// thousands line up; dates after an amount stay on one line. The money columns
+// of the cash forecast and Coal LSL employee tables were left-aligned until
+// 10 November 2026.
 test('figure comparison tables right-align their values', async ({ page }) => {
   for (const path of ['/examples/profit-vs-cash-flow/', '/evaluate/']) {
     await page.goto(path);
@@ -196,6 +203,29 @@ test('figure comparison tables right-align their values', async ({ page }) => {
     expect(misaligned, path).toEqual([]);
     await expect(table.locator('.nowrap', { hasText: '7 October' })).toHaveCount(1);
   }
+
+  // Every cell, header and total included, in the named money columns.
+  const notRight = (table, columns) => table.evaluate((element, names) => {
+    const indexes = [...element.tHead.rows[0].cells]
+      .filter((cell) => names.includes(cell.textContent.trim())).map((cell) => cell.cellIndex);
+    return [...element.rows].flatMap((row) => indexes.map((index) => row.cells[index]))
+      .filter((cell) => getComputedStyle(cell).textAlign !== 'right').map((cell) => cell.textContent.trim());
+  }, columns);
+
+  await calculateCashForecast(page);
+  const cash = page.locator('#cash-results');
+  await expect(cash.locator('tbody tr')).toHaveCount(13);
+  expect(await notRight(cash, ['Opening', 'Receipts', 'Payments', 'Closing'])).toEqual([]);
+
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.getByRole('radio', { name: 'A base rate of pay (section 3B(1))', exact: true }).check();
+  await page.getByRole('spinbutton', { name: 'Base rate of pay', exact: true }).fill('1000');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await page.getByLabel('Employee reference', { exact: true }).fill('EMP-001');
+  await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
+  const employees = page.locator('#employee-table');
+  await expect(employees.locator('tbody tr')).toHaveCount(1);
+  expect(await notRight(employees, ['Eligible wages', 'Levy'])).toEqual([]);
 });
 
 // A focused radio or checkbox kept a 1px outline (10 November 2026): the shared
