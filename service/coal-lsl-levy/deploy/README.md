@@ -44,15 +44,17 @@ With the deployment approved and the account signed in:
 ```sh
 npx wrangler login
 npm run deploy:worker
-node conformance/check.mjs --base https://REAL-WORKER-HOST
+node conformance/check.mjs --base https://REAL-WORKER-HOST --expect-month YYYY-MM --expect-revision FULL_GIT_SHA
 ```
 
 Keep Wrangler's assigned `workers.dev` URL, Worker name and account subdomain
 stable. A custom domain is optional. The rate-limit namespace in `wrangler.toml`
 belongs to this API; do not reuse it for an unrelated limiter in the account.
 
-Use synthetic inputs for the live check. Verify its revision and served hashes
-before completing the [listing request](../docs/listing-request-draft.md).
+Use the newest month in the approved release and the full SHA of its clean
+checkout. The check submits a synthetic calculation for that month and
+verifies the revision, rate row and served evidence hashes before the
+[listing request](../docs/listing-request-draft.md) can be completed.
 Local tests do not verify production routing, CPU limits or account quotas.
 
 ## Privacy and maintenance

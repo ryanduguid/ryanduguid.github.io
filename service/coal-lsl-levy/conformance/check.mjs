@@ -10,11 +10,13 @@
 // Usage:
 //   node conformance/check.mjs                 # starts a loopback server
 //   node conformance/check.mjs --base <url>    # checks a running service
+//   node conformance/check.mjs --base <url> --expect-month <YYYY-MM> --expect-revision <git-sha>
 
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { parseArgs } from 'node:util';
 import { createApp } from '../src/server.mjs';
 import { declaredScalesHold } from './declared-scales.mjs';
 import assert from 'node:assert/strict';
@@ -40,7 +42,7 @@ function matchesExpected(actual, expected) {
   }
 }
 
-async function run(base) {
+async function run(base, expectedMonth, expectedRevision) {
   const exchange = async (request) => {
     const response = await fetch(request);
     let body = null;
@@ -111,6 +113,8 @@ async function run(base) {
   const headline = ['eligible_wages', 'levy', 'levy_before_rounding', 'rate.value_percent'];
   const valueAt = (node, path) => path.split('.').reduce((value, key) => value?.[key], node);
   const patternAt = (path) => valueAt(resultSchema, `properties.${path.split('.').join('.properties.')}`)?.pattern;
+  const computedScalesHold = (body) => headline.every((path) => typeof valueAt(body, path) === 'string')
+    && declaredScalesHold(resultSchema, body);
   let decimalStrings = headline.every((path) => typeof patternAt(path) === 'string');
   let manifestComplete = true;
   let advisoryPresent = true;
@@ -130,7 +134,7 @@ async function run(base) {
     }
     if (response.status === 200) {
       computed += 1;
-      if (!headline.every((path) => typeof valueAt(body, path) === 'string') || !declaredScalesHold(resultSchema, body)) {
+      if (!computedScalesHold(body)) {
         decimalStrings = false;
       }
       const manifest = body.manifest ?? {};
@@ -168,6 +172,26 @@ async function run(base) {
   check('3 manifest', 'every 200 names the rounding policy its OpenAPI documents', computed > 0 && roundingNamed, documentedPolicy ?? 'undocumented');
   check('3 manifest', 'every 200 carries an advisory block', computed > 0 && advisoryPresent);
 
+  if (expectedMonth) {
+    const expectedPeriod = `${fixtures.period_urn_prefix}${expectedMonth}`;
+    check('release', 'the newest advertised period is the expected period',
+      period === expectedPeriod, period ?? 'none');
+    const fixture = fixtures.cases.find((item) => item.expected_status === 200);
+    const { response, body } = await post(expectedPeriod, { ...fixture.request, reporting_month: expectedMonth });
+    const manifest = body?.manifest;
+    check('release', 'the expected period computes on the expected revision',
+      response.status === 200 && computedScalesHold(body)
+        && manifest?.calculator === CALC && manifest.period === expectedPeriod
+        && manifest.engine?.code_revision === expectedRevision,
+      `HTTP ${response.status}, revision ${manifest?.engine?.code_revision ?? 'none'}`);
+    const citedRate = manifest?.rate_table_uris?.[0];
+    check('release', 'the computation cites the expected period’s verified rate and method',
+      period === expectedPeriod && rates.body?.period_uri === expectedPeriod && hashesMatch
+        && Boolean(rateEntry?.row_id) && citedRate?.row_id === rateEntry.row_id
+        && citedRate?.uri === rateEntry.uri && citedRate?.sha256 === rateEntry.content_hash
+        && manifest?.method?.uri === methodEntry.uri && manifest.method.sha256 === methodEntry.content_hash);
+  }
+
   // 6. Access and cost: limits are declared and enforced.
   check('6 limits', 'discovery declares the body and rate limits',
     Boolean(entry.limits?.max_body_bytes && entry.limits?.requests_per_minute_per_client));
@@ -183,19 +207,29 @@ async function run(base) {
   return failed.length === 0;
 }
 
-const baseFlag = process.argv.indexOf('--base');
+const { values: options } = parseArgs({
+  options: {
+    base: { type: 'string' },
+    'expect-month': { type: 'string' },
+    'expect-revision': { type: 'string' },
+  },
+});
+const { base: target, 'expect-month': expectedMonth, 'expect-revision': expectedRevision } = options;
+if ((expectedMonth !== undefined || expectedRevision !== undefined)
+  && !(target && /^\d{4}-(0[1-9]|1[0-2])$/.test(expectedMonth ?? '')
+    && /^[0-9a-f]{40}$/.test(expectedRevision ?? ''))) {
+  console.error('A release check requires --base, --expect-month YYYY-MM and --expect-revision with a full Git SHA.');
+  process.exit(2);
+}
 let app = null;
-let base;
-if (baseFlag >= 0) {
-  base = process.argv[baseFlag + 1];
-  if (!base) { console.error('--base needs a URL'); process.exit(2); }
-} else {
+let base = target;
+if (base === undefined) {
   app = createApp({ port: 0, log: () => {} });
   await new Promise((resolve) => app.server.listen(0, '127.0.0.1', resolve));
   base = `http://127.0.0.1:${app.server.address().port}`;
 }
 try {
-  process.exit(await run(base) ? 0 : 1);
+  process.exit(await run(base, expectedMonth, expectedRevision) ? 0 : 1);
 } finally {
   app?.server.close();
 }
