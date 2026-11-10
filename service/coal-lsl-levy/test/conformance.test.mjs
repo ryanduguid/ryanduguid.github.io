@@ -123,7 +123,7 @@ test('a computation citing another rate row fails for the expected release month
 });
 
 test('malformed arguments are usage errors, not failed checks', async () => {
-  for (const args of [['--base'], ['--base='], ['--unknown'], ['--base', 'http://127.0.0.1:9', '--expect-month', '2026-13']]) {
+  for (const args of [['--base'], ['--base='], ['--unknown'], ['--base', 'http://127.0.0.1:9', '--expect-month', '2026-13', '--expect-revision', 'a'.repeat(40)]]) {
     const code = await new Promise((resolve) => {
       execFile(process.execPath, [CHECKER, ...args], { timeout: 20000 }, (error) => resolve(error?.code ?? 0));
     });
