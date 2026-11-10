@@ -198,6 +198,44 @@ test('figure comparison tables right-align their values', async ({ page }) => {
   }
 });
 
+// A focused radio or checkbox kept a 1px outline (10 November 2026): the shared
+// control rule was as specific as the global 3px focus ring and came later.
+test('radios and checkboxes reached by keyboard take the 3px focus ring', async ({ page }) => {
+  const ring = (control) => control.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return `${style.outlineStyle} ${style.outlineWidth}`;
+  });
+  // Leave each control and come back to it with the keyboard.
+  const tabBackTo = async (control) => {
+    await control.focus();
+    await page.keyboard.press('Shift+Tab');
+    await page.keyboard.press('Tab');
+  };
+
+  await page.goto('/tools/coal-lsl-levy/');
+  await tabBackTo(page.getByRole('radio', { name: 'A base rate of pay (section 3B(1))', exact: true }));
+  const branch = page.locator('#calc-form input[type="radio"]:focus-visible');
+  await expect(branch).toHaveCount(1);
+  expect(await ring(branch)).toBe('solid 3px');
+
+  await page.goto('/tools/accounting-questions/gst-bas/');
+  const question = page.locator('details.question').first();
+  await question.locator('summary').click();
+  const checkbox = question.getByRole('checkbox');
+  await expect(checkbox).toBeVisible();
+  await tabBackTo(checkbox);
+  await expect(checkbox).toBeFocused();
+  expect(await ring(checkbox)).toBe('solid 3px');
+
+  // A Tools filter chip draws the ring around its label; its radio stays thin.
+  await page.goto('/tools/');
+  await tabBackTo(page.locator('.tool-filter input[type="radio"]:checked'));
+  const chip = page.locator('.tool-filter input[type="radio"]:focus-visible');
+  await expect(chip).toHaveCount(1);
+  expect(await ring(chip)).toBe('solid 1px');
+  expect(await ring(chip.locator('xpath=ancestor::label'))).toBe('solid 3px');
+});
+
 test.describe('on a touch tablet', () => {
   test.use({ viewport: { width: 768, height: 1024 }, isMobile: true, hasTouch: true });
 
