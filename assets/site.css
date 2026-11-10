@@ -2766,6 +2766,8 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   .legal-content .sources > li > a,
   .install-panel > p > a,
   .business-calculator > p > a,
+  .question-links > a,
+  .function-reference > p > a,
   .question-group h2 a,
   .question-index a,
   .site-footer__nav a,

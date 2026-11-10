@@ -12,11 +12,16 @@ test('mobile discovery links have room to tap without horizontal scrolling', asy
     ['/tools/ozzit/', '.article-toc a'],
     ['/evaluate/manager-review-gate/', '.article-toc a'],
     ['/examples/profit-vs-cash-flow/', '.article-toc a'],
+    // Source link rows sit in closed disclosures; at 375px 18 of 28 on this
+    // topic page were under 24px high (10 November 2026).
+    ['/tools/accounting-questions/gst-bas/', '.question-links > a', 'details.question'],
+    ['/tools/ozzit/', '.function-reference > p > a', 'details.function-reference'],
   ];
   for (const width of [320, 390, 640]) {
     await page.setViewportSize({ width, height: 844 });
-    for (const [route, selector] of routes) {
+    for (const [route, selector, closed] of routes) {
       await page.goto(route);
+      if (closed) await page.locator(closed).evaluateAll((all) => all.forEach((details) => { details.open = true; }));
       await page.evaluate(() => document.fonts.ready);
       const targets = await page.locator(selector).evaluateAll((links) => links.map((link) => {
         const rect = link.getBoundingClientRect();
