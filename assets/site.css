@@ -709,6 +709,37 @@ blockquote,
   max-width: 100cqi;
 }
 
+/* An inline scroll timeline is active only when its region can scroll.
+   Keep the cue box at zero height until then so its animation can run. */
+@supports (scroll-timeline: --table-scroll inline) and (animation-timeline: --table-scroll) {
+  .table-scroll,
+  .employee-table-scroll {
+    scroll-timeline: --table-scroll inline;
+  }
+
+  :is(.table-scroll, .employee-table-scroll)::before {
+    display: block;
+    block-size: 0;
+    overflow: hidden;
+    visibility: hidden;
+    color: var(--colour-ink-soft);
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    content: "Scroll sideways for more columns" / "";
+    animation: table-scroll-cue linear both;
+    animation-timeline: --table-scroll;
+  }
+
+  @keyframes table-scroll-cue {
+    from,
+    to {
+      block-size: auto;
+      padding-block: var(--space-2);
+      visibility: visible;
+    }
+  }
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

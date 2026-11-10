@@ -631,6 +631,48 @@ test('table cells keep each figure and result code on one line', async ({ page }
   expect(broken).toEqual([]);
 });
 
+const cueStates = (page) => page.evaluate(() => new Promise((resolve) => {
+  // The scroll timeline settles after layout.
+  requestAnimationFrame(() => requestAnimationFrame(() => resolve(
+    [...document.querySelectorAll('main :is(.table-scroll, .employee-table-scroll)')].map((region) => {
+      const style = getComputedStyle(region, '::before');
+      return {
+        label: region.getAttribute('aria-label'),
+        scrolls: region.scrollWidth > region.clientWidth,
+        cue: style.content.includes('Scroll sideways for more columns') &&
+          style.visibility === 'visible' && style.display !== 'none' && style.blockSize !== '0px',
+      };
+    }),
+  )));
+}));
+
+test('a table region says it scrolls exactly when it can', async ({ page }, testInfo) => {
+  const supportsCue = await page.evaluate(() =>
+    CSS.supports('(scroll-timeline: --table-scroll inline) and (animation-timeline: --table-scroll)'));
+  const wrong = [];
+  for (const [, route] of routes) {
+    await page.goto(route);
+    await page.evaluate(() => document.fonts.ready);
+    for (const region of await cueStates(page)) {
+      if (region.cue !== (supportsCue && region.scrolls)) {
+        wrong.push(`${route} ${region.label}: scrolls ${region.scrolls}, cue ${region.cue}`);
+      }
+    }
+  }
+  expect(wrong).toEqual([]);
+
+  if (projectKind(testInfo) !== 'mobile') return;
+  await page.goto('/tools/refusals/');
+  await page.evaluate(() => document.fonts.ready);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const reduced = await cueStates(page);
+  expect(reduced.some((region) => region.scrolls)).toBe(true);
+  expect(reduced.map((region) => region.cue)).toEqual(reduced.map((region) => supportsCue && region.scrolls));
+  await page.emulateMedia({ media: 'print' });
+  const paper = await cueStates(page);
+  expect(paper.every((region) => !region.cue)).toBe(true);
+});
+
 test('home matches its viewport visual baseline', async ({ page, browserName }, testInfo) => {
   test.skip(browserName !== 'chromium', 'the committed baselines are Chromium renders');
   const health = observePageHealth(page);
