@@ -125,7 +125,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Refusals
 
-- [What these tools refuse](https://duguid.com.au/tools/refusals/): each send-back and refusal the tools give, with the exact command output and exit code from fictional fixtures at the released versions where a command exists, the human step that follows and the refusal scenarios quoted from the external llm-tax-guardrails (DrDebits) guide on GitHub, which is not one of the site's tools.
+- [What these tools refuse](https://duguid.com.au/tools/refusals/): each send-back and refusal the tools give, with the exact command output and exit code from fictional fixtures at the released versions where a command exists, the human step that follows and the refusal scenarios quoted from the external DrDebits guide on GitHub, which is not one of the site's tools.
 
 ## Known limitations
 
@@ -154,7 +154,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [Australian Accounting](https://github.com/ryanduguid/australian-accounting): maintained home for the local MCP application and the independently versioned Australian accounting engines.
 - [Accounting Review Pipeline](https://github.com/ryanduguid/accounting-review-pipeline): maintained home for Xero exports, readiness and close-review controls, the Excel toolkit and the Power BI project. Each component keeps its own distribution, commands and licence.
 - [Australian Accounting Skills](https://github.com/ryanduguid/australian-accounting-skills): current release v0.5.0 (28 October 2026) contains 76 workflows under FSL-1.1-ALv2, with Apache-2.0 as the future licence, including the 10 construction and mining subcontractor workflows. Of its 107 validation cards, 72 have human-confirmed results; none of the 24 added since v0.4.0 has one. The recorded whole-card runs measure adherence to visible instructions, not source retrieval. Development also has task-only observations whose human verdicts remain pending. Adopt installs v0.4.0, which contains 65 workflows under Apache-2.0, including 9 public practice and 10 construction and mining subcontractor workflows, and 83 validation cards. The contracting workflows are included in this unified pack.
-- [llm-tax-guardrails](https://github.com/ryanduguid/llm-tax-guardrails): external guide repository, not in the site tool register and with no page on this site. It holds the DrDebits prompt guide, APES 110 and TPB guardrails, refusal scenarios and recorded model evaluations. An authorised human remains responsible for professional judgements and actions.
+- [DrDebits](https://github.com/ryanduguid/DrDebits): external guide repository, not in the site tool register and with no page on this site. It holds the DrDebits prompt guide, APES 110 and TPB guardrails, refusal scenarios and recorded model evaluations. An authorised human remains responsible for professional judgements and actions.
 - [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library and the Power Query utilities.
 - [Related resources](https://duguid.com.au/tools/#related-resources): third-party libraries, ATO guidance and Commonwealth legislation sources this work depends on or sits beside.
 
@@ -187,5 +187,5 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 - [Crawler policy](https://duguid.com.au/robots.txt): search and user-requested citation fetches remain allowed, including Google-Extended. No crawler is blocked. Every other agent may also crawl, training crawlers included, whether the file names them or not; it names Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot, Applebot-Extended, Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent. Permission does not guarantee a crawl, dataset inclusion or use by a model.
 
-- [Australian tax legislation corpus](https://github.com/ryanduguid/au-tax-legislation-corpus): Commonwealth tax legislation prepared for retrieval.
+- [Australian tax legislation corpus](https://github.com/ryanduguid/PaulGoodman): Commonwealth tax legislation prepared for retrieval.
 - [Release policy](https://github.com/ryanduguid/release-policy): the shared release workflow every repository above uses.

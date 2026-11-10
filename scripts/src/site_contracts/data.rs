@@ -180,9 +180,9 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "Deterministic monthly close controls for Xero-shaped trial balance exports, exception packs and human review.",
     ),
     (
+        "PaulGoodman",
         "au-tax-legislation-corpus",
-        "au-tax-legislation-corpus",
-        "https://github.com/ryanduguid/au-tax-legislation-corpus",
+        "https://github.com/ryanduguid/PaulGoodman",
         "Provenance-rich corpus of in-force Commonwealth tax legislation.",
     ),
 ];
