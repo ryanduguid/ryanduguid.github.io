@@ -732,6 +732,7 @@ fn accepts_only_runner_confirmed_denials() {
         "https://www.ato.gov.au/individuals-and-families/your-tax-return",
         "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works",
         "https://www.ato.gov.au/",
+        "https://www.oaic.gov.au/",
     ] {
         assert!(is_accepted_automation_denial(url, 403), "{url}");
         for status in [401, 404, 408, 429, 500, 503, 999] {
