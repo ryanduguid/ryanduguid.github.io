@@ -8,6 +8,7 @@ import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 
 import { createApp } from '../src/server.mjs';
+import { loadRegister } from '../src/load-register.mjs';
 
 const CHECKER = fileURLToPath(new URL('../conformance/check.mjs', import.meta.url));
 const isListing = (url) => /^\/v1\/rates\/[^/]+$/.test(url);
@@ -18,26 +19,31 @@ const listen = (server) => new Promise((resolve) => {
 });
 
 // `rewrite` sees each response and returns the fields to replace, if any.
-async function checkThrough(rewrite = () => undefined) {
-  const app = createApp({ port: 0, rateLimitPerMinute: 100000, log: () => {} });
+const revision = 'a'.repeat(40);
+const releaseArgs = (month = loadRegister().supportedMonths().at(-1)) =>
+  ['--expect-month', month, '--expect-revision', revision];
+
+async function checkThrough(rewrite = () => undefined, args = []) {
+  const app = createApp({ port: 0, rateLimitPerMinute: 100000, codeRevision: revision, log: () => {} });
   const upstream = await listen(app.server);
   const proxy = createServer(async (request, response) => {
     const chunks = [];
     for await (const chunk of request) chunks.push(chunk);
+    const requestBody = request.method === 'POST' ? Buffer.concat(chunks) : undefined;
     const answer = await fetch(`${upstream}${request.url}`, {
       method: request.method,
       headers: { 'content-type': 'application/json' },
-      body: request.method === 'POST' ? Buffer.concat(chunks) : undefined,
+      body: requestBody,
     });
     const bytes = Buffer.from(await answer.arrayBuffer());
-    const replaced = rewrite({ method: request.method, url: request.url, status: answer.status, bytes }) ?? {};
+    const replaced = rewrite({ method: request.method, url: request.url, status: answer.status, bytes, requestBody }) ?? {};
     response.writeHead(replaced.status ?? answer.status, { 'content-type': 'application/json' });
     response.end(replaced.body ? JSON.stringify(replaced.body) : bytes);
   });
   const base = await listen(proxy);
   try {
     return await new Promise((resolve) => {
-      execFile(process.execPath, [CHECKER, '--base', base], (error, stdout) => {
+      execFile(process.execPath, [CHECKER, '--base', base, ...args], { timeout: 20000 }, (error, stdout) => {
         resolve({ code: error ? error.code : 0, stdout });
       });
     });
@@ -52,6 +58,77 @@ const failed = (stdout, name) => stdout.split('\n').some((line) => line.startsWi
 test('the service as built passes every check', async () => {
   const { code, stdout } = await checkThrough();
   assert.equal(code, 0, stdout);
+});
+
+test('the release check verifies the requested month on the requested revision', async () => {
+  const { code, stdout } = await checkThrough(undefined, releaseArgs());
+  assert.equal(code, 0, stdout);
+  assert.match(stdout, /PASS +release +the expected period computes on the expected revision/);
+});
+
+test('a healthy service without the expected newest month fails the release check', async () => {
+  const { code, stdout } = await checkThrough(undefined, releaseArgs('2999-01'));
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'newest advertised period'), stdout);
+});
+
+test('a stale revision fails even when the expected month computes', async () => {
+  const { code, stdout } = await checkThrough(({ method, status, bytes }) => {
+    if (!isComputed(method, status)) return undefined;
+    const body = JSON.parse(bytes);
+    body.manifest.engine.code_revision = 'b'.repeat(40);
+    return { body };
+  }, releaseArgs());
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'the expected period computes on the expected revision'), stdout);
+});
+
+test('a manifest without a calculation fails for the expected release month', async () => {
+  const month = loadRegister().supportedMonths().at(-1);
+  const { code, stdout } = await checkThrough(({ method, url, status, bytes, requestBody }) => {
+    if (!isComputed(method, status) || !url.endsWith(month)
+      || JSON.parse(requestBody).pay?.base_rate_of_pay !== '6000.00') return undefined;
+    return { body: { manifest: JSON.parse(bytes).manifest } };
+  }, releaseArgs(month));
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'the expected period computes on the expected revision'), stdout);
+});
+
+test('a wrong levy with valid scales and provenance fails for the expected release month', async () => {
+  const month = loadRegister().supportedMonths().at(-1);
+  const { code, stdout } = await checkThrough(({ method, url, status, bytes, requestBody }) => {
+    if (!isComputed(method, status) || !url.endsWith(month)
+      || JSON.parse(requestBody).pay?.base_rate_of_pay !== '6000.00') return undefined;
+    const body = JSON.parse(bytes);
+    body.levy = '999.99';
+    body.levy_before_rounding = '999.99000000';
+    return { body };
+  }, releaseArgs(month));
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'the expected period returns the expected levy'), stdout);
+  assert.match(stdout, /levy: expected \d+\.\d{2}, received 999\.99/);
+});
+
+test('a computation citing another rate row fails for the expected release month', async () => {
+  const month = loadRegister().supportedMonths().at(-1);
+  const { code, stdout } = await checkThrough(({ method, url, status, bytes, requestBody }) => {
+    if (!isComputed(method, status) || !url.endsWith(month)
+      || JSON.parse(requestBody).pay?.base_rate_of_pay !== '6000.00') return undefined;
+    const body = JSON.parse(bytes);
+    body.manifest.rate_table_uris[0].row_id = 'another-row';
+    return { body };
+  }, releaseArgs(month));
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'cites the expected period’s verified rate and method'), stdout);
+});
+
+test('malformed arguments are usage errors, not failed checks', async () => {
+  for (const args of [['--base'], ['--base='], ['--unknown'], ['--base', 'http://127.0.0.1:9', '--expect-month', '2026-13', '--expect-revision', 'a'.repeat(40)]]) {
+    const code = await new Promise((resolve) => {
+      execFile(process.execPath, [CHECKER, ...args], { timeout: 20000 }, (error) => resolve(error?.code ?? 0));
+    });
+    assert.equal(code, 2, args.join(' '));
+  }
 });
 
 test('no listed evidence and no cited hashes fail each evidence check', async () => {
