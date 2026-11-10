@@ -18,6 +18,8 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { createApp } from '../src/server.mjs';
+import { loadRegister } from '../src/load-register.mjs';
+import { atScale, SCALE } from '../src/money.mjs';
 import { declaredScalesHold } from './declared-scales.mjs';
 import assert from 'node:assert/strict';
 
@@ -40,6 +42,23 @@ function matchesExpected(actual, expected) {
       assert.deepEqual(actual?.[key], value, key);
     }
   }
+}
+
+function releaseFigures(wages, percent) {
+  const [whole, fraction = ''] = percent.split('.');
+  const rate = BigInt(whole + fraction);
+  const rateScale = 10n ** BigInt(fraction.length);
+  // The fixture fixes eligible wages independently of the engine. Convert
+  // the register percentage to a fraction and round once, at the final cent.
+  const numerator = BigInt(wages.replace('.', '')) * rate;
+  const denominator = 10n ** BigInt(SCALE.quarterCents) * rateScale * 100n;
+  const cents = (numerator * 100n + denominator / 2n) / denominator;
+  return {
+    eligible_wages: wages,
+    levy: atScale(cents, 100n, SCALE.money),
+    levy_before_rounding: atScale(numerator, denominator, SCALE.levyBeforeRounding),
+    'rate.value_percent': atScale(rate, rateScale, SCALE.rate),
+  };
 }
 
 async function run(base, expectedMonth, expectedRevision) {
@@ -176,7 +195,7 @@ async function run(base, expectedMonth, expectedRevision) {
     const expectedPeriod = `${fixtures.period_urn_prefix}${expectedMonth}`;
     check('release', 'the newest advertised period is the expected period',
       period === expectedPeriod, period ?? 'none');
-    const fixture = fixtures.cases.find((item) => item.expected_status === 200);
+    const fixture = fixtures.cases.find((item) => item.id === 'F1-base-rate-formula-a-wins');
     const { response, body } = await post(expectedPeriod, { ...fixture.request, reporting_month: expectedMonth });
     const manifest = body?.manifest;
     check('release', 'the expected period computes on the expected revision',
@@ -184,10 +203,23 @@ async function run(base, expectedMonth, expectedRevision) {
         && manifest?.calculator === CALC && manifest.period === expectedPeriod
         && manifest.engine?.code_revision === expectedRevision,
       `HTTP ${response.status}, revision ${manifest?.engine?.code_revision ?? 'none'}`);
+    const approved = loadRegister();
+    const approvedRate = approved.rateFor(expectedMonth);
+    const expected = approvedRate && releaseFigures(fixture.expected.eligible_wages, approvedRate.value);
+    const mismatch = expected && Object.entries(expected).find(([path, value]) => valueAt(body, path) !== value);
+    let detail = expected ? '' : 'no approved rate for this month';
+    if (mismatch) {
+      const [path, value] = mismatch;
+      detail = `${path}: expected ${value}, received ${valueAt(body, path) ?? 'none'}`;
+    }
+    check('release', 'the expected period returns the expected levy',
+      response.status === 200 && expected !== null && !mismatch, detail);
     const citedRate = manifest?.rate_table_uris?.[0];
     check('release', 'the computation cites the expected period’s verified rate and method',
       period === expectedPeriod && rates.body?.period_uri === expectedPeriod && hashesMatch
-        && Boolean(rateEntry?.row_id) && citedRate?.row_id === rateEntry.row_id
+        && approvedRate !== null && rateEntry?.row_id === approvedRate.row_id
+        && rateEntry.content_hash === approved.rateSha256 && methodEntry.content_hash === approved.methodsSha256
+        && citedRate?.row_id === rateEntry.row_id
         && citedRate?.uri === rateEntry.uri && citedRate?.sha256 === rateEntry.content_hash
         && manifest?.method?.uri === methodEntry.uri && manifest.method.sha256 === methodEntry.content_hash);
   }

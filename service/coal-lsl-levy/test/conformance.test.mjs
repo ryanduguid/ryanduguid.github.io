@@ -94,6 +94,21 @@ test('a manifest without a calculation fails for the expected release month', as
   assert.ok(failed(stdout, 'the expected period computes on the expected revision'), stdout);
 });
 
+test('a wrong levy with valid scales and provenance fails for the expected release month', async () => {
+  const month = loadRegister().supportedMonths().at(-1);
+  const { code, stdout } = await checkThrough(({ method, url, status, bytes, requestBody }) => {
+    if (!isComputed(method, status) || !url.endsWith(month)
+      || JSON.parse(requestBody).pay?.base_rate_of_pay !== '6000.00') return undefined;
+    const body = JSON.parse(bytes);
+    body.levy = '999.99';
+    body.levy_before_rounding = '999.99000000';
+    return { body };
+  }, releaseArgs(month));
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'the expected period returns the expected levy'), stdout);
+  assert.match(stdout, /levy: expected \d+\.\d{2}, received 999\.99/);
+});
+
 test('no listed evidence and no cited hashes fail each evidence check', async () => {
   const { code, stdout } = await checkThrough(({ method, url, status, bytes }) => {
     if (isListing(url)) return { body: { ...JSON.parse(bytes), entries: [] } };

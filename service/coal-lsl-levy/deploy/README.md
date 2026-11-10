@@ -53,7 +53,8 @@ belongs to this API; do not reuse it for an unrelated limiter in the account.
 
 Use the newest month in the approved release and the full SHA of its clean
 checkout. The check submits a synthetic calculation for that month and
-verifies the revision, rate row and served evidence hashes before the
+checks the levy against the approved checkout's rate. It verifies the
+revision, rate row and served evidence hashes before the
 [listing request](../docs/listing-request-draft.md) can be completed.
 Local tests do not verify production routing, CPU limits or account quotas.
 
