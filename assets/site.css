@@ -775,6 +775,15 @@ th {
   overflow-wrap: normal;
 }
 
+/* In a scroll region a cell wraps between words, never inside one. The body's
+   anywhere let a column shrink below its longest word, so a phone printed
+   '$68,108' as '$68,1' over '08'; such a table now scrolls in its labelled
+   region instead. A table outside a scroll region keeps anywhere, so a long
+   address in it still fits the page at 200% text. */
+:is(.table-scroll, .employee-table-scroll) td {
+  overflow-wrap: break-word;
+}
+
 caption {
   padding-block: var(--space-2);
   color: var(--colour-ink-soft);
@@ -871,7 +880,7 @@ caption {
   .case-comparison :is(th, td) {
     padding-inline: var(--space-1);
     font-size: var(--text-small);
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   .receipt-sensitivity thead {

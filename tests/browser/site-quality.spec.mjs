@@ -598,6 +598,39 @@ for (const width of [320, 390, 768, 1440]) {
   });
 }
 
+// A figure or result code broken across lines can be misread. On 10 November
+// 2026 a phone showed '$68,108' as '$68,1' over '08' on the car limit page, and
+// desktop split 'NOT_READY' on Workpaper Review Gate: the body's
+// overflow-wrap: anywhere let table columns shrink below a whole word.
+test('table cells keep each figure and result code on one line', async ({ page }) => {
+  const broken = [];
+  for (const [, route] of routes) {
+    await page.goto(route);
+    await page.evaluate(() => document.fonts.ready);
+    const tokens = await page.evaluate(() => {
+      const whole = /^\(?[-−]?\$?\d[\d,.]*%?\)?[,.;:]?$|^[A-Z][A-Z_]{3,}[A-Z]$/;
+      const found = [];
+      for (const cell of document.querySelectorAll('main td')) {
+        const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+          for (const match of node.nodeValue.matchAll(/\S+/g)) {
+            if (!whole.test(match[0])) continue;
+            const range = document.createRange();
+            range.setStart(node, match.index);
+            range.setEnd(node, match.index + match[0].length);
+            const lines = new Set([...range.getClientRects()].filter((rect) => rect.width > 0)
+              .map((rect) => Math.round(rect.top)));
+            if (lines.size > 1) found.push(match[0]);
+          }
+        }
+      }
+      return found;
+    });
+    broken.push(...tokens.map((token) => `${route} ${token}`));
+  }
+  expect(broken).toEqual([]);
+});
+
 test('home matches its viewport visual baseline', async ({ page, browserName }, testInfo) => {
   test.skip(browserName !== 'chromium', 'the committed baselines are Chromium renders');
   const health = observePageHealth(page);
