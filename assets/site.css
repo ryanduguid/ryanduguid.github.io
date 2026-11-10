@@ -2212,6 +2212,19 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   border-top: var(--rule-strong) solid var(--colour-stroke);
 }
 
+/* Where the result sticks, one taller than the window scrolls inside itself,
+   so its end stays in reach whilst the form scrolls past; at 1280 by 720 a
+   Formula B result ended 39px below the window. The section takes keyboard
+   focus to scroll, and its inline padding keeps the focused heading's ring
+   inside the scroll box. */
+@media screen and (min-width: 56.0625rem) and (min-height: 30.0625rem) {
+  .calculator-result {
+    max-height: calc(100vh - var(--header-height) - var(--space-5));
+    overflow-y: auto;
+    padding-inline: var(--space-2);
+  }
+}
+
 .calculator-result h2 {
   margin-bottom: var(--space-4);
 }
