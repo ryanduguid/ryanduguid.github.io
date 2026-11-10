@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 121] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 122] = [
     "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation",
     "https://www.ato.gov.au/",
     "https://www.ato.gov.au/about-ato/new-legislation/guidance-on-tax-and-superannuation-measures",
@@ -148,6 +148,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 121] = [
     "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
     "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
     "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+    "https://www.oaic.gov.au/",
 ];
 
 pub const LINKEDIN_AUTOMATION_DENIAL_URLS: [&str; 1] = ["https://www.linkedin.com/in/ryan-duguid"];

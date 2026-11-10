@@ -216,7 +216,7 @@ Ozzit: functions, compatibility and release Download Ozzit (Excel workbook) Ozzi
 
 ## Related resources
 
-Tax prompt guide and refusal examples: documented scenarios from the external llm-tax-guardrails guide.
+Tax prompt guide and refusal examples: documented scenarios from the external DrDebits guide.
 
 Fictional cash flow example: a worked forecast using au-fpa-pack, built on openfpa.
 
