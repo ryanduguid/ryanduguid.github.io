@@ -9,8 +9,7 @@
 //! failures, HTTP 429 and 5xx; hrefs must not be empty; retired names and em or en dashes
 //! must not appear; and no own-repository link may point at an archived repository.
 //! With `--transient-warnings`, links still failing with HTTP 429, 5xx or a timeout
-//! after their retries are reported as warnings instead. HTTP 403 from a host in
-//! [`CI_BLOCKED_HOSTS`] is a warning on every run; every other failure still fails.
+//! after their retries are reported as warnings instead.
 //! Transport, clock and output are passed in so tests can answer for the network.
 use crate::check_links_data::*;
 use crate::htmlparser::{self, Event};
@@ -174,29 +173,6 @@ pub fn is_accepted_automation_denial(url: &str, status: u16) -> bool {
         || (status == 999 && LINKEDIN_AUTOMATION_DENIAL_URLS.contains(&url))
 }
 
-/// Hosts known to block CI. GitHub-hosted runners receive HTTP 403 from the
-/// Office of the Australian Information Commissioner (`oaic.gov.au` and
-/// `www.oaic.gov.au`); the privacy page's link to that office is valid. Only
-/// HTTP 403 from these exact hosts is a warning. Any other status from them,
-/// and HTTP 403 from every other host, still fails the check.
-pub const CI_BLOCKED_HOSTS: &[&str] = &["oaic.gov.au", "www.oaic.gov.au"];
-
-/// HTTP 403 from a host in [`CI_BLOCKED_HOSTS`]. The comparison uses the URL's
-/// hostname only, so a port, user or path does not add another host, and a
-/// lookalike name does not match.
-pub fn is_ci_blocked_host_denial(url: &str, status: u16) -> bool {
-    if status != 403 {
-        return false;
-    }
-    let Ok(parts) = pyurl::urlsplit(url) else {
-        return false;
-    };
-    if parts.scheme != "http" && parts.scheme != "https" {
-        return false;
-    }
-    pyurl::hostname(&parts.netloc).is_some_and(|host| CI_BLOCKED_HOSTS.contains(&host.as_str()))
-}
-
 /// Map an own-repository file view to its exact public file endpoint.
 pub fn github_blob_raw_url(url: &str) -> Option<String> {
     let parts = pyurl::urlsplit(url).ok()?;
@@ -283,8 +259,6 @@ pub struct Checker<'a> {
     pub transient_warnings: bool,
     /// The transient link failures `transient_warnings` reported.
     pub warnings: Vec<String>,
-    /// HTTP 403 responses from [`CI_BLOCKED_HOSTS`], reported as warnings.
-    pub host_denial_warnings: Vec<String>,
     /// Replace fetch_final_url, as the Python tests patch it.
     pub fetch_hook: Hook<'a, Fetched>,
     /// Replace repository_is_archived, as the Python tests patch it.
@@ -457,7 +431,6 @@ impl<'a> Checker<'a> {
             token: None,
             transient_warnings: false,
             warnings: Vec::new(),
-            host_denial_warnings: Vec::new(),
             fetch_hook: None,
             lookup_hook: None,
             archived_allowlist: ARCHIVED_TARGET_ALLOWLIST
@@ -762,9 +735,6 @@ impl<'a> Checker<'a> {
                         self.say(&format!(
                             "accepted allow-listed failure {rel}: {href} -> HTTP {code} (exact allow-listed URL)"
                         ));
-                    } else if is_ci_blocked_host_denial(href, code) {
-                        self.host_denial_warnings
-                            .push(format!("{rel}: {href} -> HTTP {code}"));
                     } else {
                         failures.push(format!("{rel}: {href} -> HTTP {code}"));
                     }
@@ -950,23 +920,6 @@ pub fn annotation(message: &str) -> String {
         .replace('\n', "%0A")
 }
 
-/// Append `warnings` as `WARN` lines, with an Actions annotation when `actions`.
-fn write_warnings(text: &mut String, warnings: &[String], label: &str, title: &str, actions: bool) {
-    if warnings.is_empty() {
-        return;
-    }
-    text.push_str(&format!("\n{} {label}:\n", warnings.len()));
-    for warning in warnings {
-        text.push_str(&format!("  WARN {warning}\n"));
-        if actions {
-            text.push_str(&format!(
-                "::warning title={title}::{}\n",
-                annotation(warning)
-            ));
-        }
-    }
-}
-
 pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let parser = crate::pyargs::Parser {
         prog: "site-tools check_links",
@@ -1006,24 +959,25 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let llms = llms_hrefs(&root)?;
     failures.extend(checker.check_hrefs("llms.txt", &llms, offline)?);
     let mut text = String::new();
-    write_warnings(
-        &mut text,
-        &checker.warnings,
-        "transient failure(s) reported as warnings",
-        "Transient link failure",
-        checker.actions,
-    );
-    write_warnings(
-        &mut text,
-        &checker.host_denial_warnings,
-        "HTTP 403 response(s) from CI-blocked hosts reported as warnings",
-        "CI-blocked host",
-        checker.actions,
-    );
+    if !checker.warnings.is_empty() {
+        text.push_str(&format!(
+            "\n{} transient failure(s) reported as warnings:\n",
+            checker.warnings.len()
+        ));
+        for warning in &checker.warnings {
+            text.push_str(&format!("  WARN {warning}\n"));
+            if checker.actions {
+                text.push_str(&format!(
+                    "::warning title=Transient link failure::{}\n",
+                    annotation(warning)
+                ));
+            }
+        }
+    }
     if failures.is_empty() {
         text.push_str(if offline {
             "\noffline checks passed; external links were skipped\n"
-        } else if checker.warnings.is_empty() && checker.host_denial_warnings.is_empty() {
+        } else if checker.warnings.is_empty() {
             "\nall clear\n"
         } else {
             "\nno other failures\n"
