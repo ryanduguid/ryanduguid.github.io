@@ -578,13 +578,59 @@ test('all homepage starting routes land on their targets', async ({ page }) => {
   health.assertHealthy();
 });
 
+// A figure or result code broken across lines can be misread. On 10 November
+// 2026 a phone showed '$68,108' as '$68,1' over '08' on the car limit page, and
+// desktop split 'NOT_READY' on Workpaper Review Gate: the body's
+// overflow-wrap: anywhere let table columns shrink below a whole word.
+const splitFigures = (page) => page.evaluate(() => {
+  const whole = /^\(?[-−]?\$?\d[\d,.]*%?\)?[,.;:]?$|^[A-Z][A-Z_]{3,}[A-Z]$/;
+  const found = [];
+  for (const cell of document.querySelectorAll('main td')) {
+    const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      for (const match of node.nodeValue.matchAll(/\S+/g)) {
+        if (!whole.test(match[0])) continue;
+        const range = document.createRange();
+        range.setStart(node, match.index);
+        range.setEnd(node, match.index + match[0].length);
+        const lines = new Set([...range.getClientRects()].filter((rect) => rect.width > 0)
+          .map((rect) => Math.round(rect.top)));
+        if (lines.size > 1) found.push(match[0]);
+      }
+    }
+  }
+  return found;
+});
+
+const supportsCue = (page) => page.evaluate(() =>
+  CSS.supports('(scroll-timeline: --table-scroll inline) and (animation-timeline: --table-scroll)'));
+
+const cueStates = (page) => page.evaluate(() => new Promise((resolve) => {
+  // The scroll timeline settles after layout.
+  requestAnimationFrame(() => requestAnimationFrame(() => resolve(
+    [...document.querySelectorAll('main :is(.table-scroll, .employee-table-scroll)')].map((region) => {
+      const style = getComputedStyle(region, '::before');
+      return {
+        label: region.getAttribute('aria-label'),
+        scrolls: region.scrollWidth > region.clientWidth,
+        cue: style.content.includes('Scroll sideways for more columns') &&
+          style.visibility === 'visible' && style.display !== 'none' && style.blockSize !== '0px',
+      };
+    }),
+  )));
+}));
+
 // One test per width: all four in one test made 260 navigations, which took
 // 22 to 35 seconds on a Windows CI runner against the 30-second test limit.
+// Each route loads once per width for every check below.
 for (const width of [320, 390, 768, 1440]) {
   test(`public pages do not overflow at the ${width}px refinement acceptance width`, async ({ page }, testInfo) => {
     test.skip(projectKind(testInfo) !== 'desktop', 'width matrix runs once');
     const health = observePageHealth(page);
     await page.setViewportSize({ width, height: 844 });
+    const cueSupported = await supportsCue(page);
+    const broken = [];
+    const miscued = [];
     for (const [, route] of routes) {
       await page.goto(route);
       const viewport = await page.evaluate(() => ({
@@ -593,10 +639,35 @@ for (const width of [320, 390, 768, 1440]) {
       }));
       expect(viewport.scrollWidth, `${route} overflow at ${width}px`)
         .toBeLessThanOrEqual(viewport.clientWidth);
+      await page.evaluate(() => document.fonts.ready);
+      broken.push(...(await splitFigures(page)).map((token) => `${route} ${token}`));
+      for (const region of await cueStates(page)) {
+        if (region.cue !== (cueSupported && region.scrolls)) {
+          miscued.push(`${route} ${region.label}: scrolls ${region.scrolls}, cue ${region.cue}`);
+        }
+      }
     }
+    expect(broken, `figures and result codes split across lines at ${width}px`).toEqual([]);
+    expect(miscued, `scroll cues that disagree with scrolling at ${width}px`).toEqual([]);
     health.assertHealthy();
   });
 }
+
+// The reduced-motion rule shortens every animation, and paper does not scroll.
+test('the scroll cue holds with reduced motion and stays off paper', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'mobile', 'phone tables scroll');
+  const cueSupported = await supportsCue(page);
+  await page.goto('/tools/refusals/');
+  await page.evaluate(() => document.fonts.ready);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const reduced = await cueStates(page);
+  expect(reduced.some((region) => region.scrolls)).toBe(true);
+  expect(reduced.map((region) => region.cue)).toEqual(reduced.map((region) => cueSupported && region.scrolls));
+  await page.emulateMedia({ media: 'print' });
+  const paper = await cueStates(page);
+  expect(paper.length).toBeGreaterThan(0);
+  expect(paper.every((region) => !region.cue)).toBe(true);
+});
 
 test('home matches its viewport visual baseline', async ({ page, browserName }, testInfo) => {
   test.skip(browserName !== 'chromium', 'the committed baselines are Chromium renders');
