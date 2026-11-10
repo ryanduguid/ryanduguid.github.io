@@ -46,10 +46,12 @@ HTTP errors still fail the live check, except on pull requests that run live
 link checks: there `check_site --ci` passes `--transient-warnings`, and a link
 still failing with HTTP 429, 5xx or a timeout after its retries is reported as a
 warning (a `WARN` line and an Actions annotation) instead. HTTP 4xx other than
-the allow-listed denials below, DNS and other transport failures still fail pull
-requests, and an own-repository link that warns still gets its identity and
-archive lookup. The weekly scheduled and manual runs keep
-every failure strict, so a host that stays down fails within a week.
+the allow-listed denials and the CI-blocked hosts below, DNS and other transport
+failures still fail pull requests, and an own-repository link that warns still
+gets its identity and archive lookup. The weekly scheduled and manual runs keep
+transient failures strict, so a host that stays down fails within a week. HTTP
+403 from a CI-blocked host stays a warning on those runs as well, because those
+hosts block GitHub-hosted runners on every run.
 
 On a server error from a `github.com/ryanduguid/<repo>/blob/<ref>/<path>` file
 view, remaining attempts use `raw.githubusercontent.com/ryanduguid/<repo>/<ref>/<path>`.
@@ -340,6 +342,14 @@ Camofox returned HTTP 200 and the expected content for both on 22 September 2026
 The same exact-URL, HTTP-403 rule applies to them; other statuses and neighbouring
 URLs still fail. Recheck them in a browser when editing their citations and remove
 the exceptions when automated access works again.
+
+`oaic.gov.au` and `www.oaic.gov.au` answer GitHub-hosted runners with HTTP 403.
+The privacy page's link to the Office of the Australian Information Commissioner
+is the office's real home page. Those two hosts are `CI_BLOCKED_HOSTS` in
+`scripts/src/check_links.rs`. HTTP 403 from either host is reported as a warning
+(a `WARN` line, and an Actions annotation when the check runs in GitHub Actions).
+Any other status from those hosts still fails, as does HTTP 403 from every other
+host. Remove a host from the list when runner access works again.
 
 ## Release claims
 

@@ -15,7 +15,10 @@ transport failures and HTTP 5xx responses are retried up to five times; HTTP
 429 also retries with Retry-After or exponential backoff, capped at 30 seconds
 of total waiting per fetch. Other HTTP 4xx responses do not retry. HTTP 403
 from exact allow-listed source URLs and HTTP 999 from the LinkedIn profile are
-accepted. Exact external URLs require manual verification in GitHub Actions
+accepted. HTTP 403 from oaic.gov.au and www.oaic.gov.au, which block
+GitHub-hosted runners, is reported as a warning; any other status from those
+hosts, and HTTP 403 from every other host, still fails. Exact external URLs
+require manual verification in GitHub Actions
 when runner access is unavailable; local runs still fetch them. A server error
 on a ryanduguid GitHub file view switches subsequent attempts to the exact
 public raw file, preserving its ref and path. A successful raw fetch validates
