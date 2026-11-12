@@ -65,7 +65,7 @@ try {
     copyFileSync(join(root, 'assets', name), join(work, 'assets', name));
   }
   for (const { test } of [levy, business]) copyFileSync(join(root, test), join(work, test));
-  for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators']) {
+  for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators', '_includes/calculators']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
