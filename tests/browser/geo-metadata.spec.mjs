@@ -123,7 +123,12 @@ for (const route of routes) {
       for (const key of ['name', 'description', 'temporalCoverage', 'spatialCoverage']) {
         expect(dataset[key], `Dataset ${key}`).toBeTruthy();
       }
-      expect(dataset.creator).toEqual(person);
+      expect(dataset.creator).toEqual({
+        ...person,
+        '@type': 'Person',
+        name: 'Ryan Duguid',
+        url: `${site}/about/`,
+      });
       expect(dataset.license).toMatch(licenceFile);
       expect(dataset.dateModified).toMatch(date);
       expect(dataset.isAccessibleForFree).toBe(true);
