@@ -66,10 +66,11 @@ Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determi
 
 ## Get it
 
-Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install release 0.2.0, the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
+git -C australian-accounting checkout the-wip-tally/v0.2.0
 cd australian-accounting/packages/the-wip-tally && pip install .
 wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31
 ```
@@ -77,7 +78,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31
 The sample raises review flags by design. Exit code 2 means a person needs to look; it is not a crash. Then:
 
 ```
-wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o practitioner-review.md
+wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv --as-at 2026-08-31 -o practitioner-review.md
 ```
 
 Source on GitHub · Use it from the subcontractor workflows
@@ -119,6 +120,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
 - uv: https://docs.astral.sh/uv/
+- Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/the-wip-tally/v0.2.0/packages/the-wip-tally
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
