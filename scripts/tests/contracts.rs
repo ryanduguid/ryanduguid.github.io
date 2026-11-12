@@ -2090,3 +2090,55 @@ fn schema_vocabulary_page_mutation() {
         "contact/index.html: JSON-LD property favouriteColour on ContactPage is not a schema.org 30.1 property",
     );
 }
+
+#[test]
+fn calculator_dates_are_not_older_than_what_they_depend_on() {
+    if !rendered() {
+        return;
+    }
+    assert_clean(
+        "calculator dates",
+        &contracts::check_calculator_dates(root()).unwrap(),
+    );
+    let gst = "tools/business-calculators/gst/index.html";
+    let loan = "tools/business-calculators/loan/index.html";
+    let hub = contracts::CALCULATOR_HUB_REL;
+    for (label, rel, old, new, expected) in [
+        (
+            "a source read after the check",
+            gst,
+            "read 13 November 2026",
+            "read 14 November 2026",
+            "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is older than 'read 14 November 2026'",
+        ),
+        (
+            "an official comparison after the check",
+            loan,
+            "Official comparison on 5 November 2026",
+            "Official comparison on 6 November 2026",
+            "tools/business-calculators/loan/index.html: Last checked 2026-11-05 is older than 'Official comparison on 6 November 2026'",
+        ),
+        (
+            "a hub checked before a calculator",
+            hub,
+            r#"Last checked <time datetime="2026-11-13">"#,
+            r#"Last checked <time datetime="2026-09-27">"#,
+            "tools/business-calculators/index.html: Last checked is older than tools/business-calculators/cash/index.html's 2026-11-13",
+        ),
+        (
+            "a hub modified before a calculator",
+            hub,
+            r#""dateModified": "2026-11-13""#,
+            r#""dateModified": "2026-09-27""#,
+            "tools/business-calculators/index.html: dateModified 2026-09-27 is older than tools/business-calculators/break-even/index.html's 2026-11-13",
+        ),
+    ] {
+        let site = copied_site();
+        replace_file(site.path(), rel, old, new);
+        expect_failure(
+            label,
+            &contracts::check_calculator_dates(site.path()).unwrap(),
+            expected,
+        );
+    }
+}

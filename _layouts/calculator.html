@@ -53,12 +53,12 @@
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li><a href="/tools/business-calculators/">Business calculators</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        <p class="page-meta">Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.</p>
+        {% assign boundary = site.data.calculator_cases[page.calculator] %}
+        <p class="page-meta">Published 20 September 2026. Last checked <time datetime="{{ boundary.checked }}">{{ boundary.checked | date: "%-d %B %Y" }}</time>. Boundary cases added 5 November 2026.</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.</p></noscript>
 {% include calculators/{{ page.calculator }}.html %}
-{% assign boundary = site.data.calculator_cases[page.calculator] %}
         <section aria-labelledby="boundary-cases">
           <h2 id="boundary-cases">Boundary cases</h2>
           <p>Each row is a test: <code>scripts/business-calculators.test.mjs</code> runs this calculator on these fictional inputs and fails if the result differs from the one shown.</p>
@@ -93,7 +93,7 @@
       "description": "{{ page.description }}",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-20",
-      "dateModified": "2026-11-05",
+      "dateModified": "2026-11-13",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

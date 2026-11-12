@@ -11,6 +11,7 @@ use crate::pyurl;
 use crate::pyval::{Val, counter_sub, repr_list};
 use crate::seo_core::{self as core, Tree};
 use std::collections::{BTreeMap, BTreeSet, HashSet};
+use std::sync::LazyLock;
 
 fn not_indexed() -> HashSet<String> {
     NOT_INDEXED.iter().map(|s| (*s).to_owned()).collect()
@@ -1852,6 +1853,71 @@ pub fn check_privacy_delivery_claims(root: &Path) -> Result<Vec<String>, String>
                     py::repr_str(phrase)
                 ));
             }
+        }
+    }
+    Ok(failures)
+}
+
+pub const CALCULATOR_HUB_REL: &str = "tools/business-calculators/index.html";
+
+/// The page's 'Last checked' date (its page-meta `<time datetime>`) and its WebPage
+/// `dateModified`, each as YYYY-MM-DD.
+fn page_dates(html: &str, rel: &str, failures: &mut Vec<String>) -> (Option<String>, Option<String>) {
+    static CHECKED: LazyLock<regex::Regex> = LazyLock::new(|| {
+        regex::Regex::new(r#"class="page-meta">[^<]*Last checked <time datetime="(\d{4}-\d{2}-\d{2})">"#).unwrap()
+    });
+    let checked: Vec<String> = CHECKED.captures_iter(html).map(|c| c[1].to_owned()).collect();
+    if checked.len() != 1 {
+        failures.push(format!("{rel}: expected one Last checked date in the page header, found {}", checked.len()));
+    }
+    let blocks = core::json_ld_blocks(html, rel, failures);
+    let modified: Vec<String> = blocks
+        .iter()
+        .flat_map(core::nodes)
+        .filter(|n| core::has_type(n, "WebPage"))
+        .filter_map(|n| n.get("dateModified").map(Json::py_str))
+        .collect();
+    if modified.len() != 1 {
+        failures.push(format!("{rel}: expected one WebPage dateModified, found {}", modified.len()));
+    }
+    (checked.into_iter().next(), modified.into_iter().next())
+}
+
+/// No business calculator page or hub may carry a date older than its newest dependency:
+/// a calculator's Last checked date is on or after each source it says it read and its
+/// official comparison, and the hub's Last checked date and dateModified are on or after
+/// every calculator's.
+pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
+    static DEPENDENCY: LazyLock<regex::Regex> = LazyLock::new(|| {
+        regex::Regex::new(r"\b(read|Official comparison on) (\d{1,2} [A-Z][a-z]+ \d{4})").unwrap()
+    });
+    let mut failures = Vec::new();
+    let hub_path = site_path(root, CALCULATOR_HUB_REL);
+    if !hub_path.is_file() {
+        return Ok(vec![format!("{CALCULATOR_HUB_REL}: missing calculator hub")]);
+    }
+    let (hub_checked, hub_modified) = page_dates(&crate::read(&hub_path)?, CALCULATOR_HUB_REL, &mut failures);
+    for path in glob_children(root, "tools/business-calculators", "index.html") {
+        let rel = core::rel(&path, root);
+        let html = crate::read(&path)?;
+        let (checked, modified) = page_dates(&html, &rel, &mut failures);
+        let Some(checked) = checked else { continue };
+        let text = core::parse_structure(&html).text(Tree::ROOT);
+        for found in DEPENDENCY.captures_iter(&text) {
+            match crate::feed::parse_date(&found[2]) {
+                Ok(date) if date.format("%Y-%m-%d").to_string() > checked => failures
+                    .push(format!("{rel}: Last checked {checked} is older than '{}'", &found[0])),
+                Ok(_) => {}
+                Err(_) => failures.push(format!("{rel}: unreadable date in '{}'", &found[0])),
+            }
+        }
+        if hub_checked.as_deref().is_some_and(|hub| hub < checked.as_str()) {
+            failures.push(format!("{CALCULATOR_HUB_REL}: Last checked is older than {rel}'s {checked}"));
+        }
+        if let (Some(hub), Some(page)) = (&hub_modified, &modified)
+            && hub < page
+        {
+            failures.push(format!("{CALCULATOR_HUB_REL}: dateModified {hub} is older than {rel}'s {page}"));
         }
     }
     Ok(failures)
