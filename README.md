@@ -24,7 +24,7 @@ The site publishes its pages as registers, each under one top-level path.
 - `/tools/` groups the tool register by Extract, Calculate, Control and Inspect.
 - `/works-with/` lists existing tools by software, starting with Xero and Claude, with setup requirements and read and write boundaries.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
-- `/rates/` holds maintained Australian rate tables with primary sources and review dates, each rendered by `_layouts/rate.html` from its front matter, and `/rates/register/` holds a versioned machine-readable register, which so far carries one series, the Coal LSL levy percentage.
+- `/rates/` holds maintained Australian rate tables with primary sources and review dates, each rendered by `_layouts/rate.html` from its front matter, and `/rates/register/register.json` is a versioned machine-readable register, which so far carries one series, the Coal LSL levy percentage. The folder has no index page.
 - `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.
 - `/tools/business-calculators/` indexes 9 planning calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario has CSV export.
 - `/tools/ozzit/` documents the Ozzit Excel function library, with one page per module under `functions/`, rendered by `site-tools build_ozzit_reference` from the function reference of the release `scripts/release_record.json` names.
@@ -47,7 +47,15 @@ The homepage is a short adoption path into those registers.
 
 The ATO's own tools remain the authority on their topics, such as its [Division 7A calculator and decision tool](https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool). duguid.com.au publishes its formulas, primary source links and tests in this repository, so a reader can check a result, but it is not an ATO tool.
 
-Other Australian options include [soletrader-kit-au](https://github.com/christransformers/soletrader-kit-au), a GST calculator, invoice and ABN checker, and [calcmate](https://github.com/iambenslater/calcmate), JavaScript calculators with a Division 7A page. This comparison was made on 5 November 2026 from public repository listings, not from using those tools.
+Compared from their public pages on 13 November 2026, not by using them:
+
+- The [ATO's calculators and tools](https://www.ato.gov.au/calculators-and-tools) include a simple tax calculator, tax withheld calculator, income tax estimator and Medicare levy calculator. This site has no individual tax or pay calculator.
+- [Nagaris](https://nagaris.com/llms.txt) lists 12 free calculators, including Division 7A minimum repayments by the loan's income year, the super guarantee charge, Payday Super due dates, FBT car, and stamp duty and land tax for 5 states. Its [Division 7A page](https://nagaris.com/division-7a-calculator) opens on a worked example and says 'Reviewed 18 October 2026'. This site offers none of those 12 in a browser.
+- [LodgeiT Labs](https://lodgeit.org/calculators.html) serves 23 calculators over HTTP and MCP with no key or sign-up, 19 of them for FBT, so an AI agent can call them directly. This site's only such service is the Coal LSL levy API, which LodgeiT Labs lists as an external calculator. LodgeiT Labs has no browser forms, and its FBT and Division 7A calculators stop at 2025-26.
+- [eCalculators](https://ecalculators.com/) covers take-home pay, salary sacrifice, Division 293 and other personal tax and super questions, shows the answer on arrival on its pages for set salaries, and states 'Rates verified against the ATO on 12 Nov 2026' on every page.
+- [AusCalc](https://auscalc.com.au/) shows a GST or sole trader result on arrival, can be added to ChatGPT and Claude, and publishes its figures as one CC BY 4.0 JSON file checked on 12 November 2026.
+
+What this site adds: its formulas, primary source links and tests are public here, each calculator page shows boundary cases those tests run, and the rate tables keep each year's figure with a source and check date per row. None of the 4 non-government sites above offers its margin, break-even, staff cost, 13-week cash or variance calculators. Open source options on GitHub include [soletrader-kit-au](https://github.com/christransformers/soletrader-kit-au), a GST calculator, invoice and ABN checker, and [calcmate](https://github.com/iambenslater/calcmate), JavaScript calculators with a Division 7A page (repository listings, 5 November 2026).
 
 ## Local preview
 
