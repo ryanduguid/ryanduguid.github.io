@@ -7,7 +7,7 @@ use site_tools::ato_sources::{
     answers_to_recheck, baseline_file, classify, collect_sources, collect_values, dead_confirmed,
     exit_code, extract_urls, follow_redirects, get_unfollowed, is_iso_date, last_updated,
     line_diff, parse_args, read_pages, read_pdf, render_issue, render_report, same_url,
-    save_results, select_sources, sort_moves, tidy,
+    save_results, select_sources, sort_moves, standing_findings, tidy,
 };
 // Only the Unix-only batch tests start the browser runner directly.
 #[cfg(unix)]
@@ -1210,6 +1210,28 @@ fn over_the_limit_a_run_takes_watched_then_new_then_longest_unread_pages() {
     );
     let every: Vec<String> = sources.iter().map(|(url, _)| url.clone()).collect();
     assert_eq!(urls(6), (every, 0));
+}
+
+#[test]
+fn standing_findings_are_the_permanent_redirects_and_the_answers_to_recheck() {
+    let mut findings = findings();
+    findings.review.push(Entry {
+        url: format!("{PAGE}-stale"),
+        recheck: true,
+        ..Entry::default()
+    });
+    let standing: Vec<String> = standing_findings(&findings)
+        .into_iter()
+        .map(str::to_owned)
+        .collect();
+    assert_eq!(
+        standing,
+        [
+            "https://www.ato.gov.au/rental".to_owned(),
+            format!("{NEWSROOM}/old-article"),
+            format!("{PAGE}-stale"),
+        ]
+    );
 }
 
 /// The first run over one URL too many leaves 1 for later; the second reads it, because

@@ -171,7 +171,7 @@ moves any baseline, and a rerun the same day adds to that day's report. A run
 reads at most 1,000 URLs: over that it takes the watched pages, then those new to
 the baseline, then those read longest ago, and the report says how many it left for
 a later run. A page with a permanent redirect or answers to recheck counts as read
-longest ago, so its finding is raised every run. `site-tools check_ato_sources --list` prints the URLs and citing files
+longest ago, so its finding is raised every run unless new pages fill the run. `site-tools check_ato_sources --list` prints the URLs and citing files
 offline. Its tests run through the site check command.
 
 The same sweep reads three pages outside the ATO whose figures their publishers

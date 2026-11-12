@@ -19,10 +19,11 @@
 //! accounting question answers citing it were checked needs those answers rechecked
 //! ([`QUESTIONS`]). A moved page that still resolves is a permanent redirect when every
 //! hop is 301 or 308, listed for a mechanical update, and otherwise a note. The exit code
-//! ([`exit_code`]) is 1 when any page could not be read and 2 when every other page was
-//! read and one changed, is a dead link, needs answers rechecked or moved permanently, so
-//! the scheduled run can tell findings to act on from a broken sweep. --issue FILE writes
-//! the findings as a GitHub issue body that names only public URLs and repository paths.
+//! ([`exit_code`]) is 1 when any page could not be read and 2 when every other page the
+//! run took was read and one changed, is a dead link, needs answers rechecked or moved
+//! permanently, so the scheduled run can tell findings to act on from a broken sweep.
+//! --issue FILE writes the findings as a GitHub issue body that names only public URLs
+//! and repository paths.
 //!
 //! ponytail: every run overwrites the baseline, so a change fails one run and the next
 //! run compares against the changed page. The report is the record, so it is saved first
@@ -1096,6 +1097,23 @@ pub struct Findings {
     pub deferred: usize,
 }
 
+/// The pages whose findings stand until their citations or answers change: permanent
+/// redirects and answers to recheck. A run reads them again before other read pages.
+pub fn standing_findings(findings: &Findings) -> Vec<&str> {
+    findings
+        .moves
+        .iter()
+        .map(|m| m.url.as_str())
+        .chain(
+            findings
+                .review
+                .iter()
+                .filter(|e| e.recheck)
+                .map(|e| e.url.as_str()),
+        )
+        .collect()
+}
+
 /// The sentence on URLs left for a later run, or nothing when every URL was read.
 fn deferred_sentence(deferred: usize) -> String {
     if deferred == 0 {
@@ -1691,15 +1709,9 @@ fn sweep(args: &[String]) -> Result<u8, String> {
     for marker in &recovered {
         std::fs::remove_file(marker).map_err(|e| node::fs_error(&e, "unlink", marker))?;
     }
-    // A page whose finding stands until its citations change (a permanent redirect or
-    // answers to recheck) was read and rewritten above; dating its file to the epoch puts
-    // it first in the next run's turn, so the finding is raised every week.
-    let open = findings
-        .moves
-        .iter()
-        .map(|m| &m.url)
-        .chain(findings.review.iter().filter(|e| e.recheck).map(|e| &e.url));
-    for url in open {
+    // Each standing finding's page was read and rewritten above; dating its file to the
+    // epoch puts it first in the next run's turn after the watched and new pages.
+    for url in standing_findings(&findings) {
         let file = Path::new(&baseline).join(baseline_file(url));
         if file.exists() {
             std::fs::File::options()
