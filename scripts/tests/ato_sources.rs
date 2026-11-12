@@ -3,11 +3,11 @@
 mod common;
 use serde_json::{Value, json};
 use site_tools::ato_sources::{
-    Change, Entry, Findings, Move, Moved, Options, Page, QUESTIONS, Quiet, Sources, WATCHED,
-    answers_to_recheck, baseline_file, classify, collect_sources, collect_values, dead_confirmed,
-    exit_code, extract_urls, follow_redirects, get_unfollowed, is_iso_date, last_updated,
-    line_diff, parse_args, read_pages, read_pdf, render_issue, render_report, same_url,
-    save_results, sort_moves, tidy,
+    Change, Entry, Findings, MAX_URLS, Move, Moved, Options, Page, QUESTIONS, Quiet, Sources,
+    WATCHED, answers_to_recheck, baseline_file, classify, collect_sources, collect_values,
+    dead_confirmed, exit_code, extract_urls, follow_redirects, get_unfollowed, is_iso_date,
+    last_updated, line_diff, parse_args, read_pages, read_pdf, render_issue, render_report,
+    same_url, save_results, sort_moves, tidy,
 };
 // Only the Unix-only batch tests start the browser runner directly.
 #[cfg(unix)]
@@ -1138,6 +1138,40 @@ fn a_live_run_without_out_is_refused_before_any_page_is_read() {
     assert!(!baseline.exists());
 }
 
+/// Distinct cited ATO URLs that, with the watched pages, make `count` sources.
+fn cited_urls(count: usize) -> Vec<String> {
+    (WATCHED.len()..count)
+        .map(|i| format!("https://www.ato.gov.au/sweep-size/page-{i}"))
+        .collect()
+}
+
+#[test]
+fn a_sweep_over_the_url_limit_is_refused_before_any_page_is_read() {
+    let root = tempfile::tempdir().unwrap();
+    let site = root.path().join("site");
+    write(
+        &site.join("sources.md"),
+        &cited_urls(MAX_URLS + 1).join("\n"),
+    );
+    let (baseline, out) = (root.path().join("baseline"), root.path().join("out"));
+    let run = sweep(
+        &[
+            "--baseline",
+            baseline.to_str().unwrap(),
+            "--out",
+            out.to_str().unwrap(),
+            site.to_str().unwrap(),
+        ],
+        None,
+    );
+    assert_eq!(run.status.code(), Some(1));
+    assert_eq!(
+        String::from_utf8_lossy(&run.stderr),
+        format!("{} URLs exceed the limit of {MAX_URLS}\n", MAX_URLS + 1)
+    );
+    assert!(!baseline.exists() && !out.exists());
+}
+
 #[test]
 fn list_prints_each_url_with_the_files_citing_it() {
     let root = tempfile::tempdir().unwrap();
@@ -1908,6 +1942,31 @@ fn a_held_dead_link_leaves_every_other_finding_its_report_and_exit_code() {
     assert!(stderr.contains(&recheck));
     assert!(!stderr.contains(&format!("{held}:")));
     assert!(!stderr.contains(&format!("{broken}:")));
+}
+
+/// The sources the 5 swept repositories cited on 11 November 2026; 561 of them on
+/// 9 November stopped the weekly sweep at the old limit of 500.
+#[cfg(unix)]
+const SOURCES_2026_11_11: usize = 562;
+
+#[cfg(unix)]
+#[test]
+fn a_sweep_of_562_sources_is_read() {
+    let urls = cited_urls(SOURCES_2026_11_11);
+    let links: Vec<&str> = urls.iter().map(String::as_str).collect();
+    let run = Sweep::new(&links, None).run(&[]);
+    assert_eq!(
+        run.status.code(),
+        Some(0),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+    assert_eq!(
+        String::from_utf8_lossy(&run.stdout),
+        format!(
+            "{SOURCES_2026_11_11} sources read, {SOURCES_2026_11_11} new to the baseline, 0 changed with nothing to review\n"
+        )
+    );
 }
 
 #[cfg(unix)]

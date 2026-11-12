@@ -47,9 +47,12 @@ pub const NODRIVER: [&str; 2] = [
     r"C:\Tools\nodriver-browser\.venv\Scripts\python.exe",
     r"C:\Tools\nodriver-browser\server.py",
 ];
-// A sanity bound rather than a spend limit: a page takes about four seconds, so 500
-// pages fill about 35 minutes of the scheduled task's 90.
-pub const MAX_URLS: usize = 500;
+// A sanity bound rather than a spend limit: an oversized run is refused up front, where
+// otherwise the scheduled task's 90-minute limit would kill it silently. Whole weekly runs
+// have taken 3.8 to 5.6 seconds a page, so 750 pages take about 70 minutes at the slowest
+// rate seen, leaving about one BATCH_TIMEOUT of the 90. A higher bound needs a longer
+// limit on the task too.
+pub const MAX_URLS: usize = 750;
 // nodriver stops a batch after 15 minutes and refuses more than 100 URLs.
 const BATCH_SIZE: usize = 50;
 const BATCH_TIMEOUT: Duration = Duration::from_secs(20 * 60);
