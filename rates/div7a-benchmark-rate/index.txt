@@ -12,7 +12,7 @@ The benchmark interest rate for the 2026-27 income year is 8.77% for companies w
 
 Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
 
-Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
+Published 24 August 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
 
 Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%. The rates for 2021-22 to 2026-27 were rechecked against the ATO benchmark rate table on 14 September 2026.
 
@@ -32,7 +32,7 @@ Income year | Benchmark rate
 
 The table starts at 2019-20 and covers companies with a 30 June year end. Confirm the figure against the ATO table for the year you are relying on. For a substituted accounting period, use the last relevant Reserve Bank rate published before that period starts; these table values may not apply.
 
-Download the table as CSV. Each row of the CSV gives the Reserve Bank F5 data its rate is derived from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. For a 30 June year end, the rate is the May Reserve Bank figure, not the June one.
+Download the table as CSV. Each row of the CSV gives the Reserve Bank F5 data its rate is derived from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 13 November 2026. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. For a 30 June year end, the rate is the May Reserve Bank figure, not the June one.
 
 ## How to work it out yourself
 
