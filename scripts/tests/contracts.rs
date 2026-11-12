@@ -808,10 +808,14 @@ fn public_contracts_payday_example() {
 
 #[test]
 fn rate_datasets_identify_licence_and_creator() {
-    let source = repository();
+    // The rate pages take their JSON-LD from `_layouts/rate.html`, so read them rendered.
+    if !rendered() {
+        return;
+    }
+    let source = root();
     let mut failures = Vec::new();
     let about = core::json_ld_blocks(
-        &read_text(&source, "about/index.html"),
+        &read_text(source, "about/index.html"),
         "about/index.html",
         &mut failures,
     );
@@ -821,7 +825,7 @@ fn rate_datasets_identify_licence_and_creator() {
         .find(|node| core::has_type(node, "Person"))
         .expect("canonical Person");
     for rel in contracts::RATE_PAGES {
-        let blocks = core::json_ld_blocks(&read_text(&source, rel), rel, &mut failures);
+        let blocks = core::json_ld_blocks(&read_text(source, rel), rel, &mut failures);
         let datasets: Vec<&Json> = blocks
             .iter()
             .flat_map(core::nodes)
