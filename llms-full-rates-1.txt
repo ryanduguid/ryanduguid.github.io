@@ -26,7 +26,7 @@ The general super guarantee rate is 12% from 1 July 2025, with no further percen
 
 Source checked
 
-3 November 2026
+13 November 2026
 
 Scope
 
@@ -42,7 +42,7 @@ For companies with a 30 June year end, the benchmark rate is 8.77% for 2026-27 a
 
 Source checked
 
-3 November 2026
+13 November 2026
 
 Scope
 
@@ -58,7 +58,7 @@ The rate is 91 cents for 2026-27 and applies to the first 5,000 business kilomet
 
 Source checked
 
-3 November 2026
+13 November 2026
 
 Scope
 
@@ -74,7 +74,7 @@ $270,830 a year for 2026-27 under Payday Super; quarterly bases apply to 30 June
 
 Source checked
 
-3 November 2026
+13 November 2026
 
 Scope
 
@@ -90,7 +90,7 @@ $69,883 for a car first used or leased in 2026-27, and $69,674 for the two years
 
 Source checked
 
-3 November 2026
+13 November 2026
 
 Scope
 
@@ -106,7 +106,7 @@ Primary source Download CSV
 
 Source checked
 
-3 November 2026
+13 November 2026
 
 Scope
 
@@ -122,7 +122,7 @@ The ATO summary lists 8 selected measures as TBD, one as Various and 6 with a bi
 
 Source checked
 
-4 November 2026 for pending measures and 5 November 2026 for legislated measures
+4 November 2026 for pending measures and 13 November 2026 for legislated measures
 
 Scope
 
@@ -348,9 +348,9 @@ Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD 
 
 TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Published 20 September 2026. Last reviewed 5 November 2026. Source checked 4 November 2026 for pending measures. Source checked 5 November 2026 for legislated measures. Reform provisions reviewed 22 September 2026.
+Published 20 September 2026. Last reviewed 5 November 2026. Source checked 4 November 2026 for pending measures. Source checked 13 November 2026 for legislated measures. Reform provisions reviewed 22 September 2026.
 
-Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026 and the legislated tables on 5 November 2026, both after the ATO’s update of 2 November 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
+Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026, after the ATO’s update of 2 November 2026, and the legislated tables on 13 November 2026, after its update of 9 November 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
 ## Not yet legislated in the ATO summary
 
@@ -383,7 +383,7 @@ Left out on purpose: the Budget and MYEFO rows that fund administration rather t
 
 ## Legislated: later application
 
-The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. The stage column in this table and the next was read on 5 November 2026 from the Federal Register of Legislation; the CSV’s stage_source_url column links the first Act or instrument named, and the stage cites each by its Act number or Register ID. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
+The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. The stage column in this table and the next was read on 13 November 2026 from the Federal Register of Legislation; the CSV’s stage_source_url column links the first Act or instrument named, and the stage cites each by its Act number or Register ID. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
 
 ATO-reported legislation with later application
 
@@ -495,7 +495,7 @@ Source: https://duguid.com.au/rates/super-guarantee/
 
 The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and no further increases are scheduled. Payday super, from 1 July 2026, changed when contributions must be paid, generally within 7 business days of each payday, and left the rate alone.
 
-Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
+Published 24 August 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
 
 Read on 30 August 2026 from the ATO’s super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992. The general SG rate table was rechecked against the ATO on 14 September 2026.
 
@@ -517,7 +517,7 @@ For periods before 2002-03, see former sections 20 and 21 of the Superannuation 
 
 These are the general rates. Norfolk Island has a separate transitional rate that has been stepping up since 1 July 2016 and reaches 12% on 1 July 2027; the ATO publishes it in a second column of the same table.
 
-Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Super guarantee rate history (2002-03 to today) [Data set]. https://duguid.com.au/rates/super-guarantee/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 13 November 2026. Cite as Duguid, R. (2026). Super guarantee rate history (2002-03 to today) [Data set]. https://duguid.com.au/rates/super-guarantee/. Verify against current ATO guidance before relying on a figure.
 
 ## Common questions
 
@@ -584,7 +584,7 @@ The benchmark interest rate for the 2026-27 income year is 8.77% for companies w
 
 Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
 
-Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
+Published 24 August 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
 
 Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%. The rates for 2021-22 to 2026-27 were rechecked against the ATO benchmark rate table on 14 September 2026.
 
@@ -604,7 +604,7 @@ Income year | Benchmark rate
 
 The table starts at 2019-20 and covers companies with a 30 June year end. Confirm the figure against the ATO table for the year you are relying on. For a substituted accounting period, use the last relevant Reserve Bank rate published before that period starts; these table values may not apply.
 
-Download the table as CSV. Each row of the CSV gives the Reserve Bank F5 data its rate is derived from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. For a 30 June year end, the rate is the May Reserve Bank figure, not the June one.
+Download the table as CSV. Each row of the CSV gives the Reserve Bank F5 data its rate is derived from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 13 November 2026. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. For a 30 June year end, the rate is the May Reserve Bank figure, not the June one.
 
 ## How to work it out yourself
 
@@ -682,7 +682,7 @@ The rate is 91 cents per kilometre for the income year commencing 1 July 2026, s
 
 One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves. This is the rate for the cents per kilometre method, one of the car expense methods: it is a rate table, not a determination that a particular taxpayer, car or business kilometre is eligible, and the choice between methods is not made here.
 
-Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
+Published 24 August 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
 
 Each rate below is taken from the determination that sets it, read on 14 September 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
 
@@ -695,7 +695,7 @@ Income year | Rate (cents per km) | Set by
 
 Earlier years were set the same way, each determination repealing the one before it. The 2024 determination repealed the 2023 determination, and the 2026 determination repealed the 2024 one. Rates for those earlier years are not listed here because they were not read from the instruments themselves.
 
-Download the table as CSV. Each row of the CSV gives the determination that sets its rate (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Cents per kilometre car deduction rate by year [Data set]. https://duguid.com.au/rates/cents-per-kilometre/. 91 cents is for 2026-27 only; it does not carry forward the way 88 cents did.
+Download the table as CSV. Each row of the CSV gives the determination that sets its rate (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 13 November 2026. Cite as Duguid, R. (2026). Cents per kilometre car deduction rate by year [Data set]. https://duguid.com.au/rates/cents-per-kilometre/. 91 cents is for 2026-27 only; it does not carry forward the way 88 cents did.
 
 ## Why 2025-26 did not move, and why 2026-27 is different
 
@@ -778,7 +778,7 @@ The maximum contribution base is $270,830 for 2026-27, now an annual figure that
 
 Once the qualifying earnings an employer has paid an employee for the year pass the base, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
+Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
 
 Read on 20 September 2026 from the ATO’s super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
 
@@ -802,7 +802,7 @@ Income year | Base per quarter | Maximum SG per quarter
 
 The base is indexed to average weekly ordinary time earnings. Earlier years are on the ATO page and are not listed here because they were not read from it.
 
-Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Maximum super contribution base by year [Data set]. https://duguid.com.au/rates/maximum-contribution-base/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 13 November 2026. Cite as Duguid, R. (2026). Maximum super contribution base by year [Data set]. https://duguid.com.au/rates/maximum-contribution-base/. Verify against current ATO guidance before relying on a figure.
 
 ## Common questions
 
@@ -862,7 +862,7 @@ The car limit is $69,883 for a car first used or leased in 2026-27. It was $69,6
 
 The limit caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
+Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
 
 Each figure below was read on 20 September 2026 from an ATO page: the 2026-27 car thresholds notice, the car limit list for 2021-22 to 2025-26 and the accelerated depreciation page for 2019-20 and 2020-21. The limit itself is section 40-230 of the Income Tax Assessment Act 1997.
 
@@ -880,7 +880,7 @@ Income year | Car limit | Read from
 
 The limit applies in the income year the car is first used or leased. Before applying it, reduce the car’s cost by any GST credit you are entitled to claim. GST you cannot claim stays in the cost, including all GST if you are not registered. The ATO no longer publishes an annual determination for the limit; the figure is indexed and announced on its website each June.
 
-Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 13 November 2026. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
 
 ## GST credit and luxury car tax
 
@@ -947,7 +947,7 @@ The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it
 
 The FBT year runs from 1 April to 31 March.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
+Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
 
 Read on 20 September 2026 from the ATO’s FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The 47% rate is set by section 6 of the Fringe Benefits Tax Act 1986, checked 22 September 2026. This citation check does not renew the historical table review.
 
@@ -967,7 +967,7 @@ FBT year ending | FBT rate | Type 1 gross-up | Type 2 gross-up
 
 Type 1 applies where the provider is entitled to a GST credit for providing the benefit; Type 2 applies where it is not. Reportable fringe benefits on an employee’s income statement are always grossed up at the Type 2 rate. For the years ending 31 March 2023 to 2027 the reporting threshold is a taxable value above $2,000, a grossed-up minimum of $3,773.
 
-Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). FBT rate and gross-up rates by FBT year [Data set]. https://duguid.com.au/rates/fbt-rate/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 13 November 2026. Cite as Duguid, R. (2026). FBT rate and gross-up rates by FBT year [Data set]. https://duguid.com.au/rates/fbt-rate/. Verify against current ATO guidance before relying on a figure.
 
 ## How the rate and the gross-up fit together
 
