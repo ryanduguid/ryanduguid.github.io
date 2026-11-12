@@ -60,38 +60,42 @@ fn keys(node: &Json) -> Vec<&str> {
     }
 }
 
-/// Check that a Person outside About is a homepage stub restating the canonical node.
+/// Check that homepage and rate-page Person stubs restate the canonical node.
 pub fn check_person_stub(rel: &str, stub: &Json, canonical: &Json) -> Vec<String> {
-    if rel != "index.html" {
+    let required_fields: &[&str] = if rel == "index.html" {
+        &PERSON_STUB_FIELDS
+    } else if RATE_PAGES.contains(&rel) {
+        &["@type", "@id", "name", "url"]
+    } else {
         return vec![format!(
-            "person graph: {rel} must not define a Person node; only index.html may carry a stub"
+            "person graph: {rel} must not define a Person node; only index.html and rate pages may carry a stub"
         )];
-    }
+    };
     let mut failures = Vec::new();
     let mut fields = keys(stub);
-    let set_matches = fields.len() == PERSON_STUB_FIELDS.len()
-        && PERSON_STUB_FIELDS.iter().all(|f| fields.contains(f));
+    let set_matches =
+        fields.len() == required_fields.len() && required_fields.iter().all(|f| fields.contains(f));
     if !set_matches {
         fields.sort();
         failures.push(format!(
-            "person graph: index.html Person stub must carry exactly {}, found {}",
-            repr_list(PERSON_STUB_FIELDS),
+            "person graph: {rel} Person stub must carry exactly {}, found {}",
+            repr_list(required_fields.iter().copied()),
             repr_list(fields)
         ));
     }
-    for field in PERSON_STUB_FIELDS {
+    for field in required_fields.iter().copied() {
         if let Some(value) = stub.get(field)
             && !value.py_eq(canonical.get(field).unwrap_or(&Json::Null))
         {
             failures.push(format!(
-                "person graph: index.html Person stub {field} differs from the canonical Person"
+                "person graph: {rel} Person stub {field} differs from the canonical Person"
             ));
         }
     }
     failures
 }
 
-/// Check that index.html carries exactly one stub and no other page carries any.
+/// Require one homepage stub and validate any rate-page creator stubs.
 pub fn check_person_stubs(people: &[(String, Json)], canonical: &Json) -> Vec<String> {
     let mut failures = Vec::new();
     let stubs: Vec<&(String, Json)> = people
@@ -107,7 +111,7 @@ pub fn check_person_stubs(people: &[(String, Json)], canonical: &Json) -> Vec<St
     failures
 }
 
-/// About owns the canonical Person, index.html may restate it, and the authored works.
+/// About owns the canonical Person; homepage and rate-page stubs may restate it.
 pub fn check_person_graph(paths: &[PathBuf], root: &Path) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
     let graph = core::indexed_nodes(paths, &mut failures, &not_indexed(), root)?;

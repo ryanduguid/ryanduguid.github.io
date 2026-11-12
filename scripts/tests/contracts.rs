@@ -799,6 +799,57 @@ fn public_contracts_payday_example() {
 }
 
 #[test]
+fn rate_datasets_identify_licence_and_creator() {
+    let source = repository();
+    let mut failures = Vec::new();
+    let about = core::json_ld_blocks(
+        &read_text(&source, "about/index.html"),
+        "about/index.html",
+        &mut failures,
+    );
+    let canonical = about
+        .iter()
+        .flat_map(core::nodes)
+        .find(|node| core::has_type(node, "Person"))
+        .expect("canonical Person");
+    for rel in contracts::RATE_PAGES {
+        let blocks = core::json_ld_blocks(&read_text(&source, rel), rel, &mut failures);
+        let datasets: Vec<&Json> = blocks
+            .iter()
+            .flat_map(core::nodes)
+            .filter(|node| core::has_type(node, "Dataset"))
+            .collect();
+        assert_eq!(datasets.len(), 1, "{rel}: Dataset count");
+        let dataset = datasets[0];
+        assert_eq!(
+            dataset.get("license").and_then(Json::as_str),
+            Some("https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE"),
+            "{rel}: Dataset licence"
+        );
+        let creator = dataset.get("creator").expect("Dataset creator");
+        assert_eq!(
+            creator.get("@type").and_then(Json::as_str),
+            Some("Person"),
+            "{rel}: Dataset creator must identify a Person on this page"
+        );
+        assert_clean(
+            &format!("{rel}: Dataset creator"),
+            &contracts::check_person_stub(rel, creator, canonical),
+        );
+        expect_failure(
+            "Dataset creator identity drift",
+            &contracts::check_person_stub(
+                rel,
+                &set(creator, "name", Json::str_obj("R. Duguid")),
+                canonical,
+            ),
+            "stub name differs from the canonical Person",
+        );
+    }
+    assert_clean("Dataset JSON-LD", &failures);
+}
+
+#[test]
 fn public_contracts_person_graph() {
     if !rendered() {
         return;
