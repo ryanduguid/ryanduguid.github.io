@@ -7,11 +7,11 @@ use site_tools::ato_sources::{
     answers_to_recheck, baseline_file, classify, collect_sources, collect_values, dead_confirmed,
     exit_code, extract_urls, follow_redirects, get_unfollowed, is_iso_date, last_updated,
     line_diff, parse_args, read_pages, read_pdf, render_issue, render_report, same_url,
-    save_results, sort_moves, tidy,
+    save_results, select_sources, sort_moves, standing_findings, tidy,
 };
 // Only the Unix-only batch tests start the browser runner directly.
 #[cfg(unix)]
-use site_tools::ato_sources::{dead_marker, run_batch_with};
+use site_tools::ato_sources::{MAX_URLS, dead_marker, run_batch_with};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output};
@@ -664,6 +664,7 @@ fn findings() -> Findings {
             },
         ],
         notes: vec![format!("{PAGE}/x now resolves to {PAGE}/y")],
+        deferred: 0,
     }
 }
 
@@ -1136,6 +1137,166 @@ fn a_live_run_without_out_is_refused_before_any_page_is_read() {
         "--baseline DIR and --out DIR are required for a live run\n"
     );
     assert!(!baseline.exists());
+}
+
+/// Distinct cited ATO URLs that, with the watched pages, make `count` sources.
+#[cfg(unix)]
+fn cited_urls(count: usize) -> Vec<String> {
+    (WATCHED.len()..count)
+        .map(|i| format!("https://www.ato.gov.au/sweep-size/page-{i}"))
+        .collect()
+}
+
+#[test]
+fn over_the_limit_a_run_takes_watched_then_new_then_longest_unread_pages() {
+    let baseline = tempfile::tempdir().unwrap();
+    let page = |name: &str| format!("https://www.ato.gov.au/turns/{name}");
+    let written = |url: &str, seconds: u64| {
+        let file = baseline.path().join(baseline_file(url));
+        write(&file, TEXT);
+        std::fs::File::options()
+            .write(true)
+            .open(&file)
+            .unwrap()
+            .set_modified(std::time::UNIX_EPOCH + std::time::Duration::from_secs(seconds))
+            .unwrap();
+    };
+    written(&page("newest"), 3_000);
+    written(&page("oldest"), 1_000);
+    written(&page("middle"), 2_000);
+    // Read most recently of all, so only its being watched puts it first.
+    let watched = WATCHED[0].0.to_owned();
+    written(&watched, 4_000);
+    let sources: Sources = [
+        watched.clone(),
+        page("newest"),
+        page("new-1"),
+        page("oldest"),
+        page("middle"),
+        page("new-2"),
+    ]
+    .into_iter()
+    .map(|url| (url, vec!["site/a.md".to_owned()]))
+    .collect();
+    let urls = |limit: usize| {
+        let (chosen, deferred) = select_sources(&sources, baseline.path(), limit);
+        let urls: Vec<String> = chosen.into_iter().map(|(url, _)| url).collect();
+        (urls, deferred)
+    };
+    assert_eq!(
+        urls(4),
+        (
+            vec![
+                watched.clone(),
+                page("new-1"),
+                page("oldest"),
+                page("new-2")
+            ],
+            2
+        )
+    );
+    assert_eq!(
+        urls(5),
+        (
+            vec![
+                watched.clone(),
+                page("new-1"),
+                page("oldest"),
+                page("middle"),
+                page("new-2")
+            ],
+            1
+        )
+    );
+    let every: Vec<String> = sources.iter().map(|(url, _)| url.clone()).collect();
+    assert_eq!(urls(6), (every, 0));
+}
+
+#[test]
+fn standing_findings_are_the_permanent_redirects_and_the_answers_to_recheck() {
+    let mut findings = findings();
+    findings.review.push(Entry {
+        url: format!("{PAGE}-stale"),
+        recheck: true,
+        ..Entry::default()
+    });
+    let standing: Vec<String> = standing_findings(&findings)
+        .into_iter()
+        .map(str::to_owned)
+        .collect();
+    assert_eq!(
+        standing,
+        [
+            "https://www.ato.gov.au/rental".to_owned(),
+            format!("{NEWSROOM}/old-article"),
+            format!("{PAGE}-stale"),
+        ]
+    );
+}
+
+/// The first run over one URL too many leaves 1 for later; the second reads it, because
+/// it is new to the baseline, and leaves 1 it read before.
+#[cfg(unix)]
+#[test]
+fn a_sweep_over_the_url_limit_reads_the_limit_and_leaves_the_rest_for_a_later_run() {
+    let urls = cited_urls(MAX_URLS + 1);
+    let links: Vec<&str> = urls.iter().map(String::as_str).collect();
+    let sweep = Sweep::new(&links, None);
+    for seeded in [MAX_URLS, 1] {
+        let run = sweep.run(&[]);
+        assert_eq!(
+            run.status.code(),
+            Some(0),
+            "{}",
+            String::from_utf8_lossy(&run.stderr)
+        );
+        assert_eq!(
+            String::from_utf8_lossy(&run.stdout),
+            format!(
+                "{MAX_URLS} sources read, {seeded} new to the baseline, 0 changed with nothing to review, 1 left for a later run\n"
+            )
+        );
+    }
+    let out = sweep.root.path().join("out");
+    let report = std::fs::read_dir(&out)
+        .unwrap()
+        .next()
+        .unwrap()
+        .unwrap()
+        .path();
+    assert!(
+        std::fs::read_to_string(report).unwrap().contains(&format!(
+            "{MAX_URLS} pages read, 1 new to the baseline. Cited URLs left for a later run: 1 (a run reads at most {MAX_URLS})."
+        ))
+    );
+}
+
+/// A page whose answers need rechecking was read, but its finding stands until the answers
+/// change, so its baseline file is dated to put it first in the next run's turn.
+#[cfg(unix)]
+#[test]
+fn a_page_with_answers_to_recheck_goes_first_in_the_next_turn() {
+    let stale = "https://www.ato.gov.au/stale-page";
+    let questions = json!({
+        "facts_checked": "2026-09-27",
+        "sources": {"stale": {"url": stale}},
+        "questions": [{"id": 6, "source": "stale", "fact": "A checked fact.", "fact_sources": []}],
+    });
+    let sweep = Sweep::new(&[PAGE], Some(questions));
+    let dated = format!("{TEXT}\nLast updated 3 November 2026");
+    let run = sweep.run(&[(PAGE, "200", TEXT), (stale, "200", &dated)]);
+    assert_eq!(
+        run.status.code(),
+        Some(2),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+    let written = |url: &str| {
+        let file = sweep.root.path().join("baseline").join(baseline_file(url));
+        std::fs::metadata(file).unwrap().modified().unwrap()
+    };
+    assert_eq!(written(stale), std::time::UNIX_EPOCH);
+    assert_ne!(written(PAGE), std::time::UNIX_EPOCH);
 }
 
 #[test]
@@ -1908,6 +2069,31 @@ fn a_held_dead_link_leaves_every_other_finding_its_report_and_exit_code() {
     assert!(stderr.contains(&recheck));
     assert!(!stderr.contains(&format!("{held}:")));
     assert!(!stderr.contains(&format!("{broken}:")));
+}
+
+/// The sources the 5 swept repositories cited on 11 November 2026; 561 of them on
+/// 9 November stopped the weekly sweep at the old limit of 500.
+#[cfg(unix)]
+const SOURCES_2026_11_11: usize = 562;
+
+#[cfg(unix)]
+#[test]
+fn a_sweep_of_562_sources_is_read() {
+    let urls = cited_urls(SOURCES_2026_11_11);
+    let links: Vec<&str> = urls.iter().map(String::as_str).collect();
+    let run = Sweep::new(&links, None).run(&[]);
+    assert_eq!(
+        run.status.code(),
+        Some(0),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+    assert_eq!(
+        String::from_utf8_lossy(&run.stdout),
+        format!(
+            "{SOURCES_2026_11_11} sources read, {SOURCES_2026_11_11} new to the baseline, 0 changed with nothing to review\n"
+        )
+    );
 }
 
 #[cfg(unix)]

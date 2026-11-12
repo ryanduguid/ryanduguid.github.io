@@ -1,6 +1,7 @@
 //! scripts/check_ato_sources.mjs: check every ATO page the portfolio cites, the pages
 //! outside the ATO in [`WATCHED`], and every source behind a fact-bearing accounting
-//! answer. The ATO answers GitHub runners with HTTP 403 and `site-tools check_links` can
+//! answer, at most [`MAX_URLS`] a run and in turns beyond that ([`select_sources`]).
+//! The ATO answers GitHub runners with HTTP 403 and `site-tools check_links` can
 //! only accept that denial on trust, so this sweep runs on Ryan's machine: `nodriver
 //! batch` reads each page in a local Chrome and the text is compared with the copy kept
 //! in --baseline from the previous weekly run.
@@ -18,10 +19,11 @@
 //! accounting question answers citing it were checked needs those answers rechecked
 //! ([`QUESTIONS`]). A moved page that still resolves is a permanent redirect when every
 //! hop is 301 or 308, listed for a mechanical update, and otherwise a note. The exit code
-//! ([`exit_code`]) is 1 when any page could not be read and 2 when every other page was
-//! read and one changed, is a dead link, needs answers rechecked or moved permanently, so
-//! the scheduled run can tell findings to act on from a broken sweep. --issue FILE writes
-//! the findings as a GitHub issue body that names only public URLs and repository paths.
+//! ([`exit_code`]) is 1 when any page could not be read and 2 when every other page the
+//! run took was read and one changed, is a dead link, needs answers rechecked or moved
+//! permanently, so the scheduled run can tell findings to act on from a broken sweep.
+//! --issue FILE writes the findings as a GitHub issue body that names only public URLs
+//! and repository paths.
 //!
 //! ponytail: every run overwrites the baseline, so a change fails one run and the next
 //! run compares against the changed page. The report is the record, so it is saved first
@@ -40,16 +42,19 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::sync::LazyLock;
-use std::time::Duration;
+use std::time::{Duration, SystemTime};
 use url::Url;
 
 pub const NODRIVER: [&str; 2] = [
     r"C:\Tools\nodriver-browser\.venv\Scripts\python.exe",
     r"C:\Tools\nodriver-browser\server.py",
 ];
-// A sanity bound rather than a spend limit: a page takes about four seconds, so 500
-// pages fill about 35 minutes of the scheduled task's 90.
-pub const MAX_URLS: usize = 500;
+// The most pages one run reads (`select_sources` picks them), so that a run ends with its
+// report before the scheduled task's 2-hour limit kills it. Whole weekly runs have taken
+// 3.8 to 5.6 seconds a page, so 1,000 pages take about 94 minutes at the slowest rate seen,
+// leaving more than one BATCH_TIMEOUT of the 120. A higher bound needs a longer limit on
+// the task too.
+pub const MAX_URLS: usize = 1_000;
 // nodriver stops a batch after 15 minutes and refuses more than 100 URLs.
 const BATCH_SIZE: usize = 50;
 const BATCH_TIMEOUT: Duration = Duration::from_secs(20 * 60);
@@ -343,6 +348,39 @@ pub fn collect_sources(directories: &[PathBuf]) -> Result<Sources, String> {
     }
     sources.sort_by(|(a, _), (b, _)| node::locale_compare(a, b));
     Ok(sources)
+}
+
+/// The sources one run reads, in their listed order, and how many are left for a later
+/// run. Up to `limit` every source is read. Over it the run takes the watched pages, then
+/// pages new to the baseline, then those whose baseline file was written longest ago
+/// (every read rewrites it, and a page that failed keeps its older file), so a list too
+/// long for one run is read in turns rather than refused.
+pub fn select_sources(sources: &Sources, baseline: &Path, limit: usize) -> (Sources, usize) {
+    if sources.len() <= limit {
+        return (sources.clone(), 0);
+    }
+    let mut order: Vec<(u8, SystemTime, usize)> = sources
+        .iter()
+        .enumerate()
+        .map(|(i, (url, _))| {
+            if WATCHED.iter().any(|(watched, _)| watched == url) {
+                return (0, SystemTime::UNIX_EPOCH, i);
+            }
+            let file = baseline.join(baseline_file(url));
+            match std::fs::metadata(&file).and_then(|m| m.modified()) {
+                Ok(written) => (2, written, i),
+                // No baseline file yet, or none readable: read the page.
+                Err(_) => (1, SystemTime::UNIX_EPOCH, i),
+            }
+        })
+        .collect();
+    order.sort_unstable();
+    let mut chosen: Vec<usize> = order[..limit].iter().map(|&(.., i)| i).collect();
+    chosen.sort_unstable();
+    (
+        chosen.into_iter().map(|i| sources[i].clone()).collect(),
+        sources.len() - limit,
+    )
 }
 
 /// Each watched value and the files containing it, labelled as above.
@@ -1055,6 +1093,33 @@ pub struct Findings {
     pub quiet: Vec<Quiet>,
     pub moves: Vec<Move>,
     pub notes: Vec<String>,
+    /// Cited URLs over [`MAX_URLS`], left for a later run.
+    pub deferred: usize,
+}
+
+/// The pages whose findings stand until their citations or answers change: permanent
+/// redirects and answers to recheck. A run reads them again before other read pages.
+pub fn standing_findings(findings: &Findings) -> Vec<&str> {
+    findings
+        .moves
+        .iter()
+        .map(|m| m.url.as_str())
+        .chain(
+            findings
+                .review
+                .iter()
+                .filter(|e| e.recheck)
+                .map(|e| e.url.as_str()),
+        )
+        .collect()
+}
+
+/// The sentence on URLs left for a later run, or nothing when every URL was read.
+fn deferred_sentence(deferred: usize) -> String {
+    if deferred == 0 {
+        return String::new();
+    }
+    format!(" Cited URLs left for a later run: {deferred} (a run reads at most {MAX_URLS}).")
 }
 
 fn cited(files: &[String]) -> String {
@@ -1169,8 +1234,10 @@ pub fn render_report(findings: &Findings) -> Vec<String> {
         format!("# ATO sources check {}", findings.date),
         String::new(),
         format!(
-            "{} pages read, {} new to the baseline.",
-            findings.read, findings.seeded
+            "{} pages read, {} new to the baseline.{}",
+            findings.read,
+            findings.seeded,
+            deferred_sentence(findings.deferred)
         ),
         String::new(),
         "## To review".to_owned(),
@@ -1240,7 +1307,7 @@ pub fn render_issue(findings: &Findings, diffs: bool) -> String {
         .collect();
     let mut lines = vec![
         format!(
-            "The weekly ATO source sweep of {} read {} pages: {} changed substantively, {} changed with nothing to review, {} returned HTTP 404 or 410 (dead links), {} need accounting answers rechecked, {} could not be read and {} cited URLs redirect permanently.",
+            "The weekly ATO source sweep of {} read {} pages: {} changed substantively, {} changed with nothing to review, {} returned HTTP 404 or 410 (dead links), {} need accounting answers rechecked, {} could not be read and {} cited URLs redirect permanently.{}",
             findings.date,
             findings.read,
             changed.len(),
@@ -1248,7 +1315,8 @@ pub fn render_issue(findings: &Findings, diffs: bool) -> String {
             dead.len(),
             recheck.len(),
             unread.len(),
-            findings.moves.len()
+            findings.moves.len(),
+            deferred_sentence(findings.deferred)
         ),
         String::new(),
     ];
@@ -1386,10 +1454,10 @@ pub fn save_results(
     Ok(())
 }
 
-/// 1 when a page could not be read; 2 when every other page was read and a page changed
-/// substantively, is a dead link (HTTP 404 or 410), needs answers rechecked or a cited
-/// URL moved permanently, so the scheduled task raises the issue until the citing files
-/// are updated; otherwise 0.
+/// 1 when a page could not be read; 2 when every other page the run took was read and a
+/// page changed substantively, is a dead link (HTTP 404 or 410), needs answers rechecked
+/// or a cited URL moved permanently, so the scheduled task raises the issue until the
+/// citing files are updated; otherwise 0.
 pub fn exit_code(review: &[Entry], moves: &[Move]) -> u8 {
     if review
         .iter()
@@ -1502,19 +1570,14 @@ fn sweep(args: &[String]) -> Result<u8, String> {
         );
         return Ok(1);
     };
-    if sources.len() > MAX_URLS {
-        node::log(
-            &format!("{} URLs exceed the limit of {MAX_URLS}", sources.len()),
-            true,
-        );
-        return Ok(1);
-    }
+    let (sources, deferred) = select_sources(&sources, Path::new(&baseline), MAX_URLS);
     let urls: Vec<String> = sources.iter().map(|(u, _)| u.clone()).collect();
     let pages = read_pages(&urls, &mut run_batch, &mut read_pdf)?;
     let value_files = collect_values(&directories)?;
     let mut findings = Findings {
         date: chrono::Local::now().format("%Y-%m-%d").to_string(),
         read: sources.len(),
+        deferred,
         ..Findings::default()
     };
     let mut moved = Vec::new();
@@ -1646,6 +1709,18 @@ fn sweep(args: &[String]) -> Result<u8, String> {
     for marker in &recovered {
         std::fs::remove_file(marker).map_err(|e| node::fs_error(&e, "unlink", marker))?;
     }
+    // Each standing finding's page was read and rewritten above; dating its file to the
+    // epoch puts it first in the next run's turn after the watched and new pages.
+    for url in standing_findings(&findings) {
+        let file = Path::new(&baseline).join(baseline_file(url));
+        if file.exists() {
+            std::fs::File::options()
+                .write(true)
+                .open(&file)
+                .and_then(|f| f.set_modified(SystemTime::UNIX_EPOCH))
+                .map_err(|e| node::fs_error(&e, "utime", &file))?;
+        }
+    }
     for Move { url, target, .. } in &findings.moves {
         node::log(&format!("moved: {url} -> {target}"), false);
     }
@@ -1657,10 +1732,15 @@ fn sweep(args: &[String]) -> Result<u8, String> {
     }
     node::log(
         &format!(
-            "{} sources read, {} new to the baseline, {} changed with nothing to review",
+            "{} sources read, {} new to the baseline, {} changed with nothing to review{}",
             sources.len(),
             findings.seeded,
-            findings.quiet.len()
+            findings.quiet.len(),
+            if deferred == 0 {
+                String::new()
+            } else {
+                format!(", {deferred} left for a later run")
+            }
         ),
         false,
     );

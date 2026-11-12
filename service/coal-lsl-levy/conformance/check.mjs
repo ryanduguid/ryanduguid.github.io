@@ -10,12 +10,16 @@
 // Usage:
 //   node conformance/check.mjs                 # starts a loopback server
 //   node conformance/check.mjs --base <url>    # checks a running service
+//   node conformance/check.mjs --base <url> --expect-month <YYYY-MM> --expect-revision <git-sha>
 
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { parseArgs } from 'node:util';
 import { createApp } from '../src/server.mjs';
+import { loadRegister } from '../src/load-register.mjs';
+import { atScale, SCALE } from '../src/money.mjs';
 import { declaredScalesHold } from './declared-scales.mjs';
 import assert from 'node:assert/strict';
 
@@ -40,7 +44,24 @@ function matchesExpected(actual, expected) {
   }
 }
 
-async function run(base) {
+function releaseFigures(wages, percent) {
+  const [whole, fraction = ''] = percent.split('.');
+  const rate = BigInt(whole + fraction);
+  const rateScale = 10n ** BigInt(fraction.length);
+  // The fixture fixes eligible wages independently of the engine. Convert
+  // the register percentage to a fraction and round once, at the final cent.
+  const numerator = BigInt(wages.replace('.', '')) * rate;
+  const denominator = 10n ** BigInt(SCALE.quarterCents) * rateScale * 100n;
+  const cents = (numerator * 100n + denominator / 2n) / denominator;
+  return {
+    eligible_wages: wages,
+    levy: atScale(cents, 100n, SCALE.money),
+    levy_before_rounding: atScale(numerator, denominator, SCALE.levyBeforeRounding),
+    'rate.value_percent': atScale(rate, rateScale, SCALE.rate),
+  };
+}
+
+async function run(base, expectedMonth, expectedRevision) {
   const exchange = async (request) => {
     const response = await fetch(request);
     let body = null;
@@ -111,6 +132,8 @@ async function run(base) {
   const headline = ['eligible_wages', 'levy', 'levy_before_rounding', 'rate.value_percent'];
   const valueAt = (node, path) => path.split('.').reduce((value, key) => value?.[key], node);
   const patternAt = (path) => valueAt(resultSchema, `properties.${path.split('.').join('.properties.')}`)?.pattern;
+  const computedScalesHold = (body) => headline.every((path) => typeof valueAt(body, path) === 'string')
+    && declaredScalesHold(resultSchema, body);
   let decimalStrings = headline.every((path) => typeof patternAt(path) === 'string');
   let manifestComplete = true;
   let advisoryPresent = true;
@@ -130,7 +153,7 @@ async function run(base) {
     }
     if (response.status === 200) {
       computed += 1;
-      if (!headline.every((path) => typeof valueAt(body, path) === 'string') || !declaredScalesHold(resultSchema, body)) {
+      if (!computedScalesHold(body)) {
         decimalStrings = false;
       }
       const manifest = body.manifest ?? {};
@@ -168,6 +191,39 @@ async function run(base) {
   check('3 manifest', 'every 200 names the rounding policy its OpenAPI documents', computed > 0 && roundingNamed, documentedPolicy ?? 'undocumented');
   check('3 manifest', 'every 200 carries an advisory block', computed > 0 && advisoryPresent);
 
+  if (expectedMonth) {
+    const expectedPeriod = `${fixtures.period_urn_prefix}${expectedMonth}`;
+    check('release', 'the newest advertised period is the expected period',
+      period === expectedPeriod, period ?? 'none');
+    const fixture = fixtures.cases.find((item) => item.id === 'F1-base-rate-formula-a-wins');
+    const { response, body } = await post(expectedPeriod, { ...fixture.request, reporting_month: expectedMonth });
+    const manifest = body?.manifest;
+    check('release', 'the expected period computes on the expected revision',
+      response.status === 200 && computedScalesHold(body)
+        && manifest?.calculator === CALC && manifest.period === expectedPeriod
+        && manifest.engine?.code_revision === expectedRevision,
+      `HTTP ${response.status}, revision ${manifest?.engine?.code_revision ?? 'none'}`);
+    const approved = loadRegister();
+    const approvedRate = approved.rateFor(expectedMonth);
+    const expected = approvedRate && releaseFigures(fixture.expected.eligible_wages, approvedRate.value);
+    const mismatch = expected && Object.entries(expected).find(([path, value]) => valueAt(body, path) !== value);
+    let detail = expected ? '' : 'no approved rate for this month';
+    if (mismatch) {
+      const [path, value] = mismatch;
+      detail = `${path}: expected ${value}, received ${valueAt(body, path) ?? 'none'}`;
+    }
+    check('release', 'the expected period returns the expected levy',
+      response.status === 200 && expected !== null && !mismatch, detail);
+    const citedRate = manifest?.rate_table_uris?.[0];
+    check('release', 'the computation cites the expected period’s verified rate and method',
+      period === expectedPeriod && rates.body?.period_uri === expectedPeriod && hashesMatch
+        && approvedRate !== null && rateEntry?.row_id === approvedRate.row_id
+        && rateEntry.content_hash === approved.rateSha256 && methodEntry.content_hash === approved.methodsSha256
+        && citedRate?.row_id === rateEntry.row_id
+        && citedRate?.uri === rateEntry.uri && citedRate?.sha256 === rateEntry.content_hash
+        && manifest?.method?.uri === methodEntry.uri && manifest.method.sha256 === methodEntry.content_hash);
+  }
+
   // 6. Access and cost: limits are declared and enforced.
   check('6 limits', 'discovery declares the body and rate limits',
     Boolean(entry.limits?.max_body_bytes && entry.limits?.requests_per_minute_per_client));
@@ -183,19 +239,37 @@ async function run(base) {
   return failed.length === 0;
 }
 
-const baseFlag = process.argv.indexOf('--base');
+// Usage errors exit 2, so they cannot be mistaken for a failed check (exit 1).
+let options;
+try {
+  ({ values: options } = parseArgs({
+    options: {
+      base: { type: 'string' },
+      'expect-month': { type: 'string' },
+      'expect-revision': { type: 'string' },
+    },
+  }));
+} catch (error) {
+  console.error(error.message);
+  process.exit(2);
+}
+const { base: target, 'expect-month': expectedMonth, 'expect-revision': expectedRevision } = options;
+if (target === '') { console.error('--base needs a URL'); process.exit(2); }
+if ((expectedMonth !== undefined || expectedRevision !== undefined)
+  && !(target && /^\d{4}-(0[1-9]|1[0-2])$/.test(expectedMonth ?? '')
+    && /^[0-9a-f]{40}$/.test(expectedRevision ?? ''))) {
+  console.error('A release check requires --base, --expect-month YYYY-MM and --expect-revision with a full Git SHA.');
+  process.exit(2);
+}
 let app = null;
-let base;
-if (baseFlag >= 0) {
-  base = process.argv[baseFlag + 1];
-  if (!base) { console.error('--base needs a URL'); process.exit(2); }
-} else {
+let base = target;
+if (base === undefined) {
   app = createApp({ port: 0, log: () => {} });
   await new Promise((resolve) => app.server.listen(0, '127.0.0.1', resolve));
   base = `http://127.0.0.1:${app.server.address().port}`;
 }
 try {
-  process.exit(await run(base) ? 0 : 1);
+  process.exit(await run(base, expectedMonth, expectedRevision) ? 0 : 1);
 } finally {
   app?.server.close();
 }
