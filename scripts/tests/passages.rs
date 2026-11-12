@@ -38,6 +38,46 @@ fn a_page_lead_keeps_to_the_word_limit() {
     assert_eq!(failures(&over), ["page: lead has 46 words, limit 45"]);
 }
 
+/// The rate value must not hide the actual lead from the generated-text check.
+#[test]
+fn a_rate_headline_does_not_hide_an_overlong_lead() {
+    if !common::rendered() {
+        return;
+    }
+    for slug in [
+        "announced-not-yet-law",
+        "car-limit",
+        "cents-per-kilometre",
+        "div7a-benchmark-rate",
+        "fbt-rate",
+        "maximum-contribution-base",
+        "super-guarantee",
+    ] {
+        let page = format!("rates/{slug}/index.html");
+        let html = common::read_text(common::root(), &page);
+        let (before, rest) = html.split_once("<p class=\"short-answer\">").unwrap();
+        let (_, after) = rest.split_once("</p>").unwrap();
+        for count in [LEAD_WORDS, LEAD_WORDS + 1] {
+            let changed = format!(
+                "{before}<p class=\"short-answer\">{}.</p>{after}",
+                repeated(count)
+            );
+            let text = site_tools::llms_full::main_text(
+                &changed,
+                &format!("https://duguid.com.au/rates/{slug}/"),
+            )
+            .unwrap();
+            let failures = page_failures(&page, &text);
+            let lead_failure = format!("{page}: lead has 46 words, limit 45");
+            assert_eq!(
+                failures.contains(&lead_failure),
+                count > LEAD_WORDS,
+                "{slug}, {count} words: {failures:?}"
+            );
+        }
+    }
+}
+
 #[test]
 fn a_section_leads_with_a_short_sentence() {
     let long = format!(

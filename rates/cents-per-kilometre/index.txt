@@ -1,14 +1,18 @@
-# Cents per kilometre car deduction rate by year
+# What is the cents per kilometre rate for 2026-27? 91 cents
 
 Source: https://duguid.com.au/rates/cents-per-kilometre/
 
 > 91 cents for 2026-27, 88 cents for the 2 years before it, capped at 5,000 business kilometres. Each rate cites the determination that sets it.
+
+91 cents
 
 # Cents per kilometre rate for car expenses
 
 The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further.
 
 One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves. This is the rate for the cents per kilometre method, one of the car expense methods: it is a rate table, not a determination that a particular taxpayer, car or business kilometre is eligible, and the choice between methods is not made here.
+
+Published 24 August 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
 
 Each rate below is taken from the determination that sets it, read on 14 September 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
 
@@ -74,8 +78,6 @@ Rates here were read from the determinations on the date above. Check the curren
 - Division 7A benchmark interest rate
 - Australian tax tools for AI agents
 - About Ryan Duguid
-
-Published 24 August 2026. Last reviewed 3 November 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 

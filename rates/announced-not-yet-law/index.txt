@@ -1,14 +1,18 @@
-# Announced tax measures and enacted law
+# How many selected measures are TBD after Budget 2026-27? 8 TBD
 
 Source: https://duguid.com.au/rates/announced-not-yet-law/
 
-> ATO statuses and bill stages for selected tax and super measures, with enacted-law application dates and transition rules. Bill stages checked 4 November 2026.
+> ATO statuses and bill stages for selected tax and super measures: 8 TBD. Enacted-law application dates and transition rules. Bill stages checked 4 November 2026.
+
+8 TBD
 
 # Announced tax measures and enacted law
 
-Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 8 as TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates.
+Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD and one as Various, and names a bill for 6. It names enacted legislation for the other 12: 3 with later application dates and 9 with earlier dates.
 
 TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
+
+Published 20 September 2026. Last reviewed 5 November 2026. Source checked 4 November 2026 for pending measures. Source checked 5 November 2026 for legislated measures. Reform provisions reviewed 22 September 2026.
 
 Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026 and the legislated tables on 5 November 2026, both after the ATO’s update of 2 November 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
@@ -111,8 +115,6 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Cents per kilometre rate for car expenses
 - Australian tax tools for AI agents
 - About Ryan Duguid
-
-Published 20 September 2026. Pending measures and their stages reviewed 4 November 2026; legislated measures and their stages reviewed 5 November 2026; reform provisions reviewed 22 September 2026.
 
 ## Links
 

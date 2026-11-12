@@ -1600,6 +1600,22 @@ impl From<String> for UpdateError {
     }
 }
 
+/// Only layout sources need `_site`; complete source HTML may be newer than a build.
+fn rendered_page(root: &Path, rel: &str) -> Result<PathBuf, String> {
+    let source = site_path(root, rel);
+    let text = crate::read(&source)?;
+    let mut lines = text.lines();
+    let uses_layout = lines.next() == Some("---")
+        && lines
+            .take_while(|line| *line != "---")
+            .any(|line| line.starts_with("layout:"));
+    if uses_layout {
+        Ok(root.join("_site").join(rel))
+    } else {
+        Ok(source)
+    }
+}
+
 /// Re-derive every digest in the design baseline from the current tree.
 pub fn update_baseline(root: &Path) -> Result<PathBuf, UpdateError> {
     let path = root.join("scripts").join("design_baseline.json");
@@ -1626,7 +1642,11 @@ pub fn update_baseline(root: &Path) -> Result<PathBuf, UpdateError> {
             return Err(format!("TypeError: section {key} is not a dict").into());
         };
         for (rel, entry) in entries.iter_mut() {
-            let file = site_path(root, rel);
+            let file = if key == "protected_files" {
+                site_path(root, rel)
+            } else {
+                rendered_page(root, rel)?
+            };
             *entry = match key {
                 "protected_files" => Json::Str(normalised_text_digest(&file)?),
                 "protected_main_text" => match main_visible_digest(&file)? {
@@ -1719,7 +1739,7 @@ fn refresh_page_entries(root: &Path, sections: &mut [(String, Json)]) -> Result<
             if entries.iter().any(|(k, _)| *k == rel) {
                 continue;
             }
-            let (values, parse_failures) = json_ld_digests(path)?;
+            let (values, parse_failures) = json_ld_digests(&rendered_page(root, &rel)?)?;
             if !parse_failures.is_empty() {
                 return Err(UpdateError::Exit(parse_failures.join("; ")));
             }

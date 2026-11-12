@@ -985,6 +985,90 @@ fn favicon_rasters_match_the_committed_files() {
     }
 }
 
+/// A stale build must not replace edits in an ordinary page's complete source HTML.
+#[test]
+fn update_baseline_keeps_current_source_when_a_build_is_stale() {
+    if !rendered() {
+        return;
+    }
+    let site = copied_site();
+    let rel = "rates/index.html";
+    let original = read_text(site.path(), rel);
+    let current = changed_text(
+        &original,
+        "</main>",
+        "<p><a href=\"/fresh-source/\">Current source</a></p></main>",
+    ) + "\n<script type=\"application/ld+json\">{\"@type\":\"WebPage\",\"name\":\"Current source\"}</script>\n";
+    std::fs::write(site.path().join(rel), current).unwrap();
+    assert!(design::update_baseline(site.path()).is_ok());
+    let expected = baseline(site.path());
+    let built = site.path().join("_site").join(rel);
+    std::fs::create_dir_all(built.parent().unwrap()).unwrap();
+    std::fs::write(built, original).unwrap();
+    assert!(design::update_baseline(site.path()).is_ok());
+    let updated = baseline(site.path());
+    assert!(
+        expected
+            .get("json_ld")
+            .and_then(|s| s.get(rel))
+            .unwrap()
+            .py_eq(updated.get("json_ld").and_then(|s| s.get(rel)).unwrap())
+    );
+}
+
+/// A rate page's source has no main or JSON-LD, so its digests come from the build.
+#[test]
+fn update_baseline_reads_layout_pages_from_the_build() {
+    if !rendered() {
+        return;
+    }
+    let site = copied_site();
+    let rel = "rates/super-guarantee/index.html";
+    let built = site.path().join("_site").join(rel);
+    std::fs::create_dir_all(built.parent().unwrap()).unwrap();
+    std::fs::copy(site.path().join(rel), &built).unwrap();
+    std::fs::write(site.path().join(rel), "---\nlayout: rate\n---\n").unwrap();
+    let committed = baseline(site.path());
+    assert!(design::update_baseline(site.path()).is_ok());
+    let updated = baseline(site.path());
+    for section in ["protected_main_text", "protected_main_links", "json_ld"] {
+        assert!(
+            committed
+                .get(section)
+                .and_then(|s| s.get(rel))
+                .unwrap()
+                .py_eq(updated.get(section).and_then(|s| s.get(rel)).unwrap()),
+            "{section}"
+        );
+    }
+}
+
+/// A new layout page's source holds no JSON-LD, so only the build can pin it.
+#[test]
+fn update_baseline_pins_a_new_layout_page_from_the_build() {
+    if !rendered() {
+        return;
+    }
+    let site = copied_site();
+    let rel = "rates/a-new-table/index.html";
+    let built = site.path().join("_site").join(rel);
+    std::fs::create_dir_all(built.parent().unwrap()).unwrap();
+    std::fs::create_dir_all(site.path().join("rates/a-new-table")).unwrap();
+    std::fs::write(
+        &built,
+        r#"<script type="application/ld+json">{"@type": "WebPage"}</script>"#,
+    )
+    .unwrap();
+    std::fs::write(site.path().join(rel), "---\nlayout: rate\n---\n").unwrap();
+    assert!(design::update_baseline(site.path()).is_ok());
+    assert!(
+        baseline(site.path())
+            .get("json_ld")
+            .and_then(|s| s.get(rel))
+            .is_some()
+    );
+}
+
 /// `--update-baseline` restores what it can derive: protected-text counts and
 /// the JSON-LD of a page missing from the baseline.
 #[test]
