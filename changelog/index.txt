@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+13 November 2026 | The Aus Accounting MCP, subcontract ledger, Monthly Close Controls and Workpaper Review Gate pages, the homepage and the release record name the current releases: aus-accounting-mcp/v0.8.0 and Australian Accounting Skills v0.6.0, published on 12 November, and monthly-close-control-plane/v1.0.0 and review-ready-gate/v1.0.0, published on 13 November as executables for Linux x86_64 and Windows x86_64, with signed provenance. All 4 move to the Ryan Duguid Public Attribution Licence 1.0. MCP v0.8.0 lists 25 tools, and its searches now match whole words only. Worked examples stay pinned to the releases they were run against.
 4 November 2026 | The Works with Xero guide now names Xero’s hosted Developer Remote MCP Server, which lets an AI agent read and write accounting data without asking the user to confirm, and Xero’s read-only connector in Claude, with the scopes, gaps and plan access Xero’s pages gave on 4 November 2026. It also gives the free Starter developer plan’s limit of 5 organisations at 1,000 API calls a day each and Xero’s exemption for practice integrations. The trial balance exporter is unchanged.
 4 November 2026 | robots.txt now allows every crawler it names, so Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent may crawl the site as GPTBot, ClaudeBot and Applebot-Extended already could; the Privacy page and llms.txt say so. In the structured data, each tool links the LICENSE file of its current release, every page names its author and publisher and matches its visible breadcrumb, the rate tables belong to a Rates data catalogue and each calculator is described as a free web application. Apart from the Privacy crawler summary no visible text changed, and no rate, calculation or release changed.
 4 November 2026 | The homepage now offers 3 routes, to check a pack or calculate, answer a tax or payroll question or review my work, in place of the embedded Coal LSL calculator. Each tool page opens with one sentence and one line naming its current release and dates, each rate leads with its current value, and the About opening states my CA ANZ and Xero credentials and LinkedIn profile. Copy says 'fictional' for invented data, links fill crimson on hover, the view switch is square and the cash chart’s closing-cash line is platinum. No rate, calculation or release changed.
@@ -97,6 +98,10 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+13 November 2026 | Monthly Close Controls | monthly-close-control-plane/v1.0.0
+13 November 2026 | Workpaper Review Gate | review-ready-gate/v1.0.0
+12 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.8.0
+12 November 2026 | Subcontract ledger skills | v0.6.0
 31 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.7.1
 30 October 2026 | Payday Super timing | payday-super-checker/v0.2.3
 29 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.7.0
@@ -167,6 +172,10 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- monthly-close-control-plane/v1.0.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.0.0
+- review-ready-gate/v1.0.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.0
+- aus-accounting-mcp/v0.8.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.8.0
+- v0.6.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.6.0
 - aus-accounting-mcp/v0.7.1: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.1
 - payday-super-checker/v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.3
 - aus-accounting-mcp/v0.7.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0

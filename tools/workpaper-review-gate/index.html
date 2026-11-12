@@ -59,7 +59,7 @@ tool: workpaper-review-gate
     </nav>
     <h1>{{ tool.name }}</h1>
     <p class="lead-note">The Workpaper Review Gate inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.</p>
-    {% include tool-meta.html published="25 August 2026" reviewed="21 October 2026" %}
+    {% include tool-meta.html published="25 August 2026" reviewed="13 November 2026" %}
 {% include tool-facts.html %}
       </header>
       <div class="article-layout site-shell">
@@ -112,7 +112,7 @@ tool: workpaper-review-gate
         Local files only. No Xero connection, no lodgement, no LLM, no period lock. A READY result is not sign-off.
       </p>
       <p>
-        MIT-licensed utility code, no warranty.
+        Release v1.0.0 is under the Ryan Duguid Public Attribution Licence 1.0; earlier releases keep their own licences. No warranty.
       </p>
     </blockquote>
     </section>
@@ -126,6 +126,7 @@ cd accounting-review-pipeline/packages/review-ready-gate
 python -m pip install -e ".[dev]"
 review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready</code></pre>
     <p>The output goes outside the clone on purpose. A readiness pack names a client’s file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. Releases v0.1.7 to v0.1.9 refuse an output inside a version control checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point <code>--output</code> at a directory outside that one instead.</p>
+    <p>Those commands reproduce the v0.1.3 example. The current release, <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.0">review-ready-gate/v1.0.0</a>, published on 13 November 2026, ships <code>review-ready</code> as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs neither Python nor Rust. Its <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.0/packages/review-ready-gate/RELEASING.md">release guide</a> shows how to verify a download.</p>
     <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate">Source on GitHub</a></p>
     <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/accounting-review-pipeline/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Workpaper%20Review%20Gate">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out. Wrong rate, date or rule on this page? <a href="https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml">Report a correction</a>.</p>
     </section>
@@ -172,7 +173,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
       "description": "Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-25",
-      "dateModified": "2026-10-21",
+      "dateModified": "2026-11-13",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -235,14 +236,14 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-08-25",
-      "dateModified": "2026-10-14",
+      "dateModified": "2026-11-13",
       "alternateName": [
         "Workpaper Review Gate for manager review packs",
         "review-ready-gate"
       ],
-      "softwareVersion": "0.3.0",
+      "softwareVersion": "1.0.0",
       "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
-      "license": "https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v0.3.0/packages/review-ready-gate/LICENSE",
+      "license": "https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.0/packages/review-ready-gate/LICENSE",
       "sameAs": [
         "https://pypi.org/project/review-ready-gate/"
       ]

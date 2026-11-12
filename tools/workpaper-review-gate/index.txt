@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/tools/workpaper-review-gate/
 
-> Current release review-ready-gate v0.3.0. Check BAS, month-end or year-end packs before manager review. Incomplete files return to the preparer.
+> Current release review-ready-gate v1.0.0. Check BAS, month-end or year-end packs before manager review. Incomplete files return to the preparer.
 
 # Workpaper Review Gate
 
 The Workpaper Review Gate inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
 
-Current release review-ready-gate v0.3.0, 14 October 2026, from the accounting-review-pipeline repository. Published 25 August 2026. Last reviewed 21 October 2026.
+Current release review-ready-gate v1.0.0, 13 November 2026, from the accounting-review-pipeline repository. Published 25 August 2026. Last reviewed 13 November 2026.
 
 Delivery
 
@@ -53,7 +53,7 @@ Point the CLI at a pack directory. It checks that the required artefacts are pre
 
 Local files only. No Xero connection, no lodgement, no LLM, no period lock. A READY result is not sign-off.
 
-MIT-licensed utility code, no warranty.
+Release v1.0.0 is under the Ryan Duguid Public Attribution Licence 1.0; earlier releases keep their own licences. No warranty.
 
 ## Get it
 
@@ -70,6 +70,8 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
 ```
 
 The output goes outside the clone on purpose. A readiness pack names a client’s file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. Releases v0.1.7 to v0.1.9 refuse an output inside a version control checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point --output at a directory outside that one instead.
+
+Those commands reproduce the v0.1.3 example. The current release, review-ready-gate/v1.0.0, published on 13 November 2026, ships review-ready as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs neither Python nor Rust. Its release guide shows how to verify a download.
 
 Source on GitHub
 
@@ -102,13 +104,14 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- v0.3.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0
+- v1.0.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.0
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
 - corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready
 - generated cover sheet: https://duguid.com.au/assets/examples/review-gate/readiness-summary.md
 - fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
+- release guide: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.0/packages/review-ready-gate/RELEASING.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml

@@ -1871,7 +1871,8 @@ fn evidence_results_name_published_releases_limits_and_read_dates() {
             published("aus-accounting-mcp")
         ),
         format!("Its repayment code and rate table are unchanged to the published {div7a}"),
-        "listed 22 local tools on 5 November 2026. The source on main defines 24: validate_abn and validate_acn are not yet released".to_owned(),
+        // Tree::text joins text nodes with a space, so the comma after </code> follows one.
+        "listed 25 local tools on 13 November 2026, including get_reviewed_rate , validate_abn and validate_acn".to_owned(),
         format!(
             "payday-super-check {} gives a due date of 11 August 2026",
             published("payday-super-checker")
