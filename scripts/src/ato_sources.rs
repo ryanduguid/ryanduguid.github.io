@@ -40,18 +40,18 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::sync::LazyLock;
-use std::time::Duration;
+use std::time::{Duration, SystemTime};
 use url::Url;
 
 pub const NODRIVER: [&str; 2] = [
     r"C:\Tools\nodriver-browser\.venv\Scripts\python.exe",
     r"C:\Tools\nodriver-browser\server.py",
 ];
-// A sanity bound rather than a spend limit: an oversized run is refused up front, where
-// otherwise the scheduled task's 2-hour limit would kill it silently. Whole weekly runs
-// have taken 3.8 to 5.6 seconds a page, so 1,000 pages take about 94 minutes at the slowest
-// rate seen, leaving more than one BATCH_TIMEOUT of the 120. A higher bound needs a longer
-// limit on the task too.
+// The most pages one run reads (`select_sources` picks them), so that a run ends with its
+// report before the scheduled task's 2-hour limit kills it. Whole weekly runs have taken
+// 3.8 to 5.6 seconds a page, so 1,000 pages take about 94 minutes at the slowest rate seen,
+// leaving more than one BATCH_TIMEOUT of the 120. A higher bound needs a longer limit on
+// the task too.
 pub const MAX_URLS: usize = 1_000;
 // nodriver stops a batch after 15 minutes and refuses more than 100 URLs.
 const BATCH_SIZE: usize = 50;
@@ -346,6 +346,39 @@ pub fn collect_sources(directories: &[PathBuf]) -> Result<Sources, String> {
     }
     sources.sort_by(|(a, _), (b, _)| node::locale_compare(a, b));
     Ok(sources)
+}
+
+/// The sources one run reads, in their listed order, and how many are left for a later
+/// run. Up to `limit` every source is read. Over it the run takes the watched pages, then
+/// pages new to the baseline, then those whose baseline file was written longest ago
+/// (every read rewrites it, and a page that failed keeps its older file), so a list too
+/// long for one run is read in turns rather than refused.
+pub fn select_sources(sources: &Sources, baseline: &Path, limit: usize) -> (Sources, usize) {
+    if sources.len() <= limit {
+        return (sources.clone(), 0);
+    }
+    let mut order: Vec<(u8, SystemTime, usize)> = sources
+        .iter()
+        .enumerate()
+        .map(|(i, (url, _))| {
+            if WATCHED.iter().any(|(watched, _)| watched == url) {
+                return (0, SystemTime::UNIX_EPOCH, i);
+            }
+            let file = baseline.join(baseline_file(url));
+            match std::fs::metadata(&file).and_then(|m| m.modified()) {
+                Ok(written) => (2, written, i),
+                // No baseline file yet, or none readable: read the page.
+                Err(_) => (1, SystemTime::UNIX_EPOCH, i),
+            }
+        })
+        .collect();
+    order.sort_unstable();
+    let mut chosen: Vec<usize> = order[..limit].iter().map(|&(.., i)| i).collect();
+    chosen.sort_unstable();
+    (
+        chosen.into_iter().map(|i| sources[i].clone()).collect(),
+        sources.len() - limit,
+    )
 }
 
 /// Each watched value and the files containing it, labelled as above.
@@ -1058,6 +1091,16 @@ pub struct Findings {
     pub quiet: Vec<Quiet>,
     pub moves: Vec<Move>,
     pub notes: Vec<String>,
+    /// Cited URLs over [`MAX_URLS`], left for a later run.
+    pub deferred: usize,
+}
+
+/// The sentence on URLs left for a later run, or nothing when every URL was read.
+fn deferred_sentence(deferred: usize) -> String {
+    if deferred == 0 {
+        return String::new();
+    }
+    format!(" {deferred} more cited URLs were left for a later run (at most {MAX_URLS} a run).")
 }
 
 fn cited(files: &[String]) -> String {
@@ -1172,8 +1215,10 @@ pub fn render_report(findings: &Findings) -> Vec<String> {
         format!("# ATO sources check {}", findings.date),
         String::new(),
         format!(
-            "{} pages read, {} new to the baseline.",
-            findings.read, findings.seeded
+            "{} pages read, {} new to the baseline.{}",
+            findings.read,
+            findings.seeded,
+            deferred_sentence(findings.deferred)
         ),
         String::new(),
         "## To review".to_owned(),
@@ -1243,7 +1288,7 @@ pub fn render_issue(findings: &Findings, diffs: bool) -> String {
         .collect();
     let mut lines = vec![
         format!(
-            "The weekly ATO source sweep of {} read {} pages: {} changed substantively, {} changed with nothing to review, {} returned HTTP 404 or 410 (dead links), {} need accounting answers rechecked, {} could not be read and {} cited URLs redirect permanently.",
+            "The weekly ATO source sweep of {} read {} pages: {} changed substantively, {} changed with nothing to review, {} returned HTTP 404 or 410 (dead links), {} need accounting answers rechecked, {} could not be read and {} cited URLs redirect permanently.{}",
             findings.date,
             findings.read,
             changed.len(),
@@ -1251,7 +1296,8 @@ pub fn render_issue(findings: &Findings, diffs: bool) -> String {
             dead.len(),
             recheck.len(),
             unread.len(),
-            findings.moves.len()
+            findings.moves.len(),
+            deferred_sentence(findings.deferred)
         ),
         String::new(),
     ];
@@ -1505,19 +1551,14 @@ fn sweep(args: &[String]) -> Result<u8, String> {
         );
         return Ok(1);
     };
-    if sources.len() > MAX_URLS {
-        node::log(
-            &format!("{} URLs exceed the limit of {MAX_URLS}", sources.len()),
-            true,
-        );
-        return Ok(1);
-    }
+    let (sources, deferred) = select_sources(&sources, Path::new(&baseline), MAX_URLS);
     let urls: Vec<String> = sources.iter().map(|(u, _)| u.clone()).collect();
     let pages = read_pages(&urls, &mut run_batch, &mut read_pdf)?;
     let value_files = collect_values(&directories)?;
     let mut findings = Findings {
         date: chrono::Local::now().format("%Y-%m-%d").to_string(),
         read: sources.len(),
+        deferred,
         ..Findings::default()
     };
     let mut moved = Vec::new();
@@ -1660,10 +1701,15 @@ fn sweep(args: &[String]) -> Result<u8, String> {
     }
     node::log(
         &format!(
-            "{} sources read, {} new to the baseline, {} changed with nothing to review",
+            "{} sources read, {} new to the baseline, {} changed with nothing to review{}",
             sources.len(),
             findings.seeded,
-            findings.quiet.len()
+            findings.quiet.len(),
+            if deferred == 0 {
+                String::new()
+            } else {
+                format!(", {deferred} left for a later run")
+            }
         ),
         false,
     );

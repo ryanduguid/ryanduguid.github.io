@@ -167,9 +167,10 @@ replace in every citing file, including `scripts/src/check_links_data.rs` and
 issue each week until the citations are updated. With `--issue FILE` the command also
 writes these findings as the body of the GitHub issue the scheduled task opens,
 naming only public URLs and repository paths. The command saves the report before it
-moves any baseline, and a rerun the same day adds to that day's report. It
-refuses more than 1,000 URLs, and
-`site-tools check_ato_sources --list` prints the URLs and citing files
+moves any baseline, and a rerun the same day adds to that day's report. A run
+reads at most 1,000 URLs: over that it takes the watched pages, then those new to
+the baseline, then those read longest ago, and the report says how many it left for
+a later run. `site-tools check_ato_sources --list` prints the URLs and citing files
 offline. Its tests run through the site check command.
 
 The same sweep reads three pages outside the ATO whose figures their publishers
