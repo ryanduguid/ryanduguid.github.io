@@ -1151,8 +1151,8 @@ fn cited_urls(count: usize) -> Vec<String> {
 fn over_the_limit_a_run_takes_watched_then_new_then_longest_unread_pages() {
     let baseline = tempfile::tempdir().unwrap();
     let page = |name: &str| format!("https://www.ato.gov.au/turns/{name}");
-    let written = |name: &str, seconds: u64| {
-        let file = baseline.path().join(baseline_file(&page(name)));
+    let written = |url: &str, seconds: u64| {
+        let file = baseline.path().join(baseline_file(url));
         write(&file, TEXT);
         std::fs::File::options()
             .write(true)
@@ -1161,10 +1161,12 @@ fn over_the_limit_a_run_takes_watched_then_new_then_longest_unread_pages() {
             .set_modified(std::time::UNIX_EPOCH + std::time::Duration::from_secs(seconds))
             .unwrap();
     };
-    written("newest", 3_000);
-    written("oldest", 1_000);
-    written("middle", 2_000);
+    written(&page("newest"), 3_000);
+    written(&page("oldest"), 1_000);
+    written(&page("middle"), 2_000);
+    // Read most recently of all, so only its being watched puts it first.
     let watched = WATCHED[0].0.to_owned();
+    written(&watched, 4_000);
     let sources: Sources = [
         watched.clone(),
         page("newest"),
@@ -1242,9 +1244,37 @@ fn a_sweep_over_the_url_limit_reads_the_limit_and_leaves_the_rest_for_a_later_ru
         .path();
     assert!(
         std::fs::read_to_string(report).unwrap().contains(&format!(
-            "{MAX_URLS} pages read, 1 new to the baseline. 1 more cited URLs were left for a later run (at most {MAX_URLS} a run)."
+            "{MAX_URLS} pages read, 1 new to the baseline. Cited URLs left for a later run: 1 (a run reads at most {MAX_URLS})."
         ))
     );
+}
+
+/// A page whose answers need rechecking was read, but its finding stands until the answers
+/// change, so its baseline file is dated to put it first in the next run's turn.
+#[cfg(unix)]
+#[test]
+fn a_page_with_answers_to_recheck_goes_first_in_the_next_turn() {
+    let stale = "https://www.ato.gov.au/stale-page";
+    let questions = json!({
+        "facts_checked": "2026-09-27",
+        "sources": {"stale": {"url": stale}},
+        "questions": [{"id": 6, "source": "stale", "fact": "A checked fact.", "fact_sources": []}],
+    });
+    let sweep = Sweep::new(&[PAGE], Some(questions));
+    let dated = format!("{TEXT}\nLast updated 3 November 2026");
+    let run = sweep.run(&[(PAGE, "200", TEXT), (stale, "200", &dated)]);
+    assert_eq!(
+        run.status.code(),
+        Some(2),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+    let written = |url: &str| {
+        let file = sweep.root.path().join("baseline").join(baseline_file(url));
+        std::fs::metadata(file).unwrap().modified().unwrap()
+    };
+    assert_eq!(written(stale), std::time::UNIX_EPOCH);
+    assert_ne!(written(PAGE), std::time::UNIX_EPOCH);
 }
 
 #[test]

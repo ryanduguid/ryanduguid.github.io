@@ -1,6 +1,7 @@
 //! scripts/check_ato_sources.mjs: check every ATO page the portfolio cites, the pages
 //! outside the ATO in [`WATCHED`], and every source behind a fact-bearing accounting
-//! answer. The ATO answers GitHub runners with HTTP 403 and `site-tools check_links` can
+//! answer, at most [`MAX_URLS`] a run and in turns beyond that ([`select_sources`]).
+//! The ATO answers GitHub runners with HTTP 403 and `site-tools check_links` can
 //! only accept that denial on trust, so this sweep runs on Ryan's machine: `nodriver
 //! batch` reads each page in a local Chrome and the text is compared with the copy kept
 //! in --baseline from the previous weekly run.
@@ -1100,7 +1101,7 @@ fn deferred_sentence(deferred: usize) -> String {
     if deferred == 0 {
         return String::new();
     }
-    format!(" {deferred} more cited URLs were left for a later run (at most {MAX_URLS} a run).")
+    format!(" Cited URLs left for a later run: {deferred} (a run reads at most {MAX_URLS}).")
 }
 
 fn cited(files: &[String]) -> String {
@@ -1435,10 +1436,10 @@ pub fn save_results(
     Ok(())
 }
 
-/// 1 when a page could not be read; 2 when every other page was read and a page changed
-/// substantively, is a dead link (HTTP 404 or 410), needs answers rechecked or a cited
-/// URL moved permanently, so the scheduled task raises the issue until the citing files
-/// are updated; otherwise 0.
+/// 1 when a page could not be read; 2 when every other page the run took was read and a
+/// page changed substantively, is a dead link (HTTP 404 or 410), needs answers rechecked
+/// or a cited URL moved permanently, so the scheduled task raises the issue until the
+/// citing files are updated; otherwise 0.
 pub fn exit_code(review: &[Entry], moves: &[Move]) -> u8 {
     if review
         .iter()
@@ -1689,6 +1690,24 @@ fn sweep(args: &[String]) -> Result<u8, String> {
     )?;
     for marker in &recovered {
         std::fs::remove_file(marker).map_err(|e| node::fs_error(&e, "unlink", marker))?;
+    }
+    // A page whose finding stands until its citations change (a permanent redirect or
+    // answers to recheck) was read and rewritten above; dating its file to the epoch puts
+    // it first in the next run's turn, so the finding is raised every week.
+    let open = findings
+        .moves
+        .iter()
+        .map(|m| &m.url)
+        .chain(findings.review.iter().filter(|e| e.recheck).map(|e| &e.url));
+    for url in open {
+        let file = Path::new(&baseline).join(baseline_file(url));
+        if file.exists() {
+            std::fs::File::options()
+                .write(true)
+                .open(&file)
+                .and_then(|f| f.set_modified(SystemTime::UNIX_EPOCH))
+                .map_err(|e| node::fs_error(&e, "utime", &file))?;
+        }
     }
     for Move { url, target, .. } in &findings.moves {
         node::log(&format!("moved: {url} -> {target}"), false);
