@@ -301,6 +301,14 @@ function initialiseCalculators([calculate, fieldErrors]) {
               rows: [['Monthly payment', aud(r.payment)], ['First payment interest', aud(r.firstInterest)], ['First payment principal', aud(r.firstPrincipal)], ['Estimated total interest', aud(r.totalInterest)]] };
             break;
           }
+          case 'div7a': {
+            // The year's benchmark rate comes from the option, which lists only years the site's rate table holds.
+            const year = form.elements.namedItem('year').selectedOptions[0];
+            const r = calculate.div7aMinimumRepayment(value('balance'), year.dataset.rate, value('term'));
+            result = { inputs: `${year.value} income year at the ${year.dataset.rate}% benchmark rate, ${money('balance')} not repaid at 30 June ${year.value.slice(0, 4)}, ${count(value('term'), 'year')} remaining`, principal: 0,
+              rows: [['Minimum yearly repayment', aud(r.repayment)], ['Interest for the year, if repaid on 30 June', aud(r.interest)], ['Principal, if repaid on 30 June', aud(r.principal)]] };
+            break;
+          }
           case 'staff': {
             const r = calculate.staffCost(value('wages'), value('super'), value('other'));
             result = { inputs: `wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}`, principal: 0,

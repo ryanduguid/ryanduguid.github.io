@@ -55,6 +55,14 @@
       {"case": "Nil interest divides the balance", "input": "$20.15 at 0% over 2 months", "call": ["20.15", "0", "2"], "result": {"payment": 10.08, "firstInterest": 0, "firstPrincipal": 10.08, "totalInterest": 0}, "output": "Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00"}
     ]
   },
+  "div7a": {
+    "function": "div7aMinimumRepayment",
+    "rows": [
+      {"case": "The ATO’s worked example, to the cent", "input": "$55,000.00 at 5.95% over 7 years", "call": ["55000", "5.95", "7"], "result": {"repayment": 9834.92, "interest": 3272.5, "principal": 6562.42}, "output": "Repayment $9,834.92, interest $3,272.50, principal $6,562.42"},
+      {"case": "One year left repays the balance and a year’s interest", "input": "$1,000.00 at 8.77% over 1 year", "call": ["1000", "8.77", "1"], "result": {"repayment": 1087.7, "interest": 87.7, "principal": 1000}, "output": "Repayment $1,087.70, interest $87.70, principal $1,000.00"},
+      {"case": "No remaining term is refused", "input": "$1,000.00 at 8.77% over 0 years", "call": ["1000", "8.77", "0"], "refused": "Enter a whole number between 1 and 25.", "output": "Refused: enter a whole number between 1 and 25"}
+    ]
+  },
   "staff": {
     "function": "staffCost",
     "rows": [

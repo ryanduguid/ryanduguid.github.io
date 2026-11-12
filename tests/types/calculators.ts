@@ -26,5 +26,7 @@ const tool = calculatorTools(calculate).gst;
 void tool.execute({ amount: '110.00', inclusive: true });
 // @ts-expect-error The WebMCP descriptor needs the calculator's numeric result contract.
 calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
+// @ts-expect-error A Division 7A benchmark rate is a decimal string, as the rate table writes it.
+calculate.div7aMinimumRepayment('100000', 8.77, '5');
 void tax;
 void formatted;

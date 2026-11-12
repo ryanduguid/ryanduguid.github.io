@@ -6,7 +6,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
-  staffCost, cashForecast } from '../assets/business-calculators.mjs';
+  staffCost, cashForecast, div7aMinimumRepayment } from '../assets/business-calculators.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -229,7 +229,7 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   contribution: 'contribution', sales: 'sales', rate: 'rate', difference: 'difference', payment: 'payment',
   firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
   annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
-  deferred: 'deferred' };
+  deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal' };
 const shownField = (field, value) => {
   if (field === 'effect') return value;
   if (field === 'units') return `${value} units`;
@@ -258,6 +258,7 @@ const INPUTS = {
     `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`,
   staffCost: (wages, superannuation, other) =>
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
+  div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
   cashForecast: (opening, weeks, buffer, delayed) => {
     const week = weeks.findIndex(({ receipts }) => receipts !== '0');
     assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
@@ -319,6 +320,51 @@ for (const [page, { function: name, peer, rows }] of Object.entries(shownCases))
     });
   }
 }
+
+// The published fixtures of the div7a-loan-review rule in ryanduguid/australian-accounting at
+// 3d48f51d40350bee627eb8194a4406b800e2f8d7, packages/div7a-loan-review/evaluation/div7a_myr/
+// expected_results.json: the 3 hand-worked scenarios, ROUND_HALF_UP to cents.
+for (const [id, balance, rate, term, required] of [
+  ['myr_met_exact', '100000.00', '8.77', '5', 25556.00],
+  ['myr_short_by_1000', '250000.00', '8.27', '7', 48462.41],
+  ['rising_benchmark', '48500.00', '8.77', '3', 19081.67],
+]) {
+  test(`Division 7A repayment matches the div7a-loan-review fixture ${id}`, () => {
+    assert.equal(div7aMinimumRepayment(balance, rate, term).repayment, required);
+  });
+}
+
+// ATO, 'Loans by private companies', read 13 November 2026 ('Last updated 2 July 2026'):
+// https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
+// 2015: '55,000 × 0.0595 = 3272.5' ... '3272.5 ÷ 0.332742732 = 9835 (when rounded to the closest dollar)'.
+// 2016: '50,430 × 0.0545 = 2748.435' ... '2748.435 ÷ 0.27268843 = $10,079 (when rounded to the closest dollar)'.
+test('Division 7A repayment agrees with the ATO worked examples', () => {
+  for (const [balance, rate, term, step1, dollarsShown] of [['55000', '5.95', '7', 3272.5, 9835], ['50430', '5.45', '6', 2748.44, 10079]]) {
+    const result = div7aMinimumRepayment(balance, rate, term);
+    assert.equal(result.interest, step1);
+    assert.equal(Math.round(result.repayment), dollarsShown);
+    assert.equal(Math.round((result.interest + result.principal) * 100), Math.round(result.repayment * 100));
+  }
+});
+
+test('Division 7A repayment takes a remaining term of 1 to 25 whole years and a positive rate', () => {
+  assert.deepEqual(div7aMinimumRepayment('1000', '8.77', '25'), { repayment: 99.92, interest: 87.7, principal: 12.22 });
+  for (const term of ['0', '26', '2.5']) {
+    assert.throws(() => div7aMinimumRepayment('1000', '8.77', term), { message: 'Enter a whole number between 1 and 25.' });
+  }
+  assert.throws(() => div7aMinimumRepayment('1000', '0', '7'), { message: 'Enter an amount between 0.01 and 100.' });
+});
+
+// The year selector offers only the years the site's rate table holds, at its rates.
+test('Division 7A years and rates are the rate table rows, newest first', () => {
+  const table = readFileSync(new URL('../rates/div7a-benchmark-rate/div7a-benchmark-rates.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).slice(1).map((line) => line.split(',').slice(0, 2)).reverse();
+  const html = readFileSync(new URL('../_includes/calculators/div7a.html', import.meta.url), 'utf8');
+  const options = [...html.matchAll(/<option value="([^"]+)" data-rate="([^"]+)">([^<]+)<\/option>/g)]
+    .map(([, year, rate, label]) => (assert.equal(label, `${year} (${rate}%)`), [year, rate]));
+  assert.equal(options.length, (html.match(/<option\b/g) ?? []).length);
+  assert.deepEqual(options, table);
+});
 
 test('blank, non-finite, over-precise and unsafe amounts cannot become a zero result', () => {
   for (const value of ['', ' ', 'NaN', 'Infinity', '1e10', '100.001', '-1', '1000000001', null]) {

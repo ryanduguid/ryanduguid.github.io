@@ -1,16 +1,18 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-//! An independent oracle for the loan and Coal LSL engines. 240 seeded fictional cases
-//! are worked here in exact integers, by a route the engines do not take, and each
-//! result must equal what the browser module returns under Node. The loan sums its
-//! discount factors one month at a time where `assets/business-calculators.mjs` uses
-//! the closed annuity form; the levy works from section 3B of the Coal Mining Industry
-//! (Long Service Leave) Payroll Levy Collection Act 1992 in quarter cents.
+//! An independent oracle for the loan, Division 7A and Coal LSL engines. 300 seeded
+//! fictional cases are worked here in exact integers, by a route the engines do not take,
+//! and each result must equal what the browser module returns under Node. The loan sums
+//! its discount factors one month at a time, and the Division 7A minimum yearly repayment
+//! one year at a time, where `assets/business-calculators.mjs` uses the closed annuity
+//! form; the levy works from section 3B of the Coal Mining Industry (Long Service Leave)
+//! Payroll Levy Collection Act 1992 in quarter cents.
 //!
 //! The route is independent; the conventions are not. The oracle takes the same 12 equal
 //! months, payment count, unrounded total interest and half-up final rounding as the
-//! engines, so it cannot show those are the right conventions.
+//! engines, and the same Division 7A interest part (the rate on the whole balance), so it
+//! cannot show those are the right conventions.
 //!
 //! Nothing here imports an engine or a constant from one, and a change to the case seed
 //! needs no change to the expected values, which are never stored.
@@ -22,10 +24,13 @@ use std::io::Write;
 use std::process::{Command, Stdio};
 
 const LOAN_CASES: usize = 120;
+const DIV7A_CASES: usize = 60;
 const LEVY_CASES: usize = 120;
 /// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
 /// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
+/// A benchmark rate has 2 decimal places of a per cent: whole 1/10,000ths a year.
+const YEARLY_SCALE: u64 = 10_000;
 /// The largest amount a calculator field accepts, $1,000,000,000.00, in cents.
 const MAX_PRINCIPAL: u64 = 100_000_000_000;
 /// 2.7% of a quarter cent, as a fraction of a cent: 27 / 4,000.
@@ -35,7 +40,7 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// Runs the cases through the engines in one Node process, from the repository root so
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r"
-import { loan } from './assets/business-calculators.mjs';
+import { loan, div7aMinimumRepayment } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
@@ -47,6 +52,10 @@ const run = {
     const result = loan(principal, rate, months);
     return { payment: money(result.payment), firstInterest: money(result.firstInterest),
       firstPrincipal: money(result.firstPrincipal), totalInterest: money(result.totalInterest) };
+  },
+  div7a: ({ balance, rate, term }) => {
+    const result = div7aMinimumRepayment(balance, rate, term);
+    return { repayment: money(result.repayment), interest: money(result.interest), principal: money(result.principal) };
   },
   base: ({ inputs }) => levy(baseRateWages(inputs)),
   salary: ({ inputs }) => levy(annualSalaryWages(inputs)),
@@ -113,6 +122,23 @@ fn loan_oracle(principal: u64, rate: u64, months: u32) -> [u64; 4] {
         half_up(&first_principal_top, &(&factors * &scale)),
         half_up(&total_interest_top, &factors),
     ]
+}
+
+/// Division 7A minimum yearly repayment, interest and principal, in cents: the balance over
+/// the sum of the yearly discount factors (scale/growth)^k for k = 1 to the term.
+fn div7a_oracle(balance: u64, rate: u64, years: u32) -> [u64; 3] {
+    let (scale, growth) = (BigUint::from(YEARLY_SCALE), BigUint::from(YEARLY_SCALE + rate));
+    let mut factors = BigUint::ZERO;
+    let mut scale_power = BigUint::from(1_u8);
+    let mut growth_power = BigUint::from(1_u8);
+    for _ in 0..years {
+        factors = factors * &growth + &scale_power * &scale;
+        scale_power *= &scale;
+        growth_power *= &growth;
+    }
+    let repayment = half_up(&(BigUint::from(balance) * &growth_power), &factors);
+    let interest = half_up(&(BigUint::from(balance) * rate), &scale);
+    [repayment, interest, repayment - interest]
 }
 
 /// Half up at the final step only, as the calculator page states.
@@ -183,6 +209,29 @@ fn shown(cents: u64) -> String {
         n if n % 10 == 0 => format!("{}.{}", cents / 100, n / 10),
         n => format!("{}.{n:02}", cents / 100),
     }
+}
+
+fn div7a_case(rng: &mut Seeded) -> (Value, Value) {
+    let balance = rng.cents(MAX_PRINCIPAL);
+    let any_rate = 1 + rng.below(10_000);
+    // The benchmark rates the site's table holds, and any rate up to 100%.
+    let rate = rng.pick(&[1, 452, 477, 537, 827, 837, 877, 10_000, any_rate, any_rate]);
+    let any_term = 1 + rng.below(25);
+    let years = rng.pick(&[1, 2, 7, 25, any_term, any_term]) as u32;
+    let [repayment, interest, principal] = div7a_oracle(balance, rate, years);
+    (
+        json!({
+            "kind": "div7a",
+            "balance": dollars(balance),
+            "rate": format!("{}.{:02}", rate / 100, rate % 100),
+            "term": years.to_string(),
+        }),
+        json!({
+            "repayment": shown(repayment),
+            "interest": shown(interest),
+            "principal": shown(principal),
+        }),
+    )
 }
 
 fn levy_case(rng: &mut Seeded) -> (Value, Value) {
@@ -284,6 +333,10 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         loan_oracle(10_000_000, 60_000, 360),
         [59_955, 50_000, 9_955, 11_583_819]
     );
+    // One year left repays the balance and a year's interest: $1,000 at 8.77%.
+    assert_eq!(div7a_oracle(100_000, 877, 1), [108_770, 8_770, 100_000]);
+    // The ATO's 2015 example, $55,000 at 5.95% over 7 years: $9,835 to the dollar.
+    assert_eq!(div7a_oracle(5_500_000, 595, 7), [983_492, 327_250, 656_242]);
     // 2.7% of $1,000.00 is $27.00; 2.7% of $0.50 is exactly 1.35 cents, so 1 cent.
     assert_eq!(levy_oracle(4 * 100_000), 2_700);
     assert_eq!(levy_oracle(4 * 50), 1);
@@ -329,16 +382,18 @@ fn the_loan_page_states_its_total_against_a_cent_by_cent_schedule() {
 fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
     let mut rng = Seeded(0x2026_1105_C0A1_7E57);
     let (mut cases, mut expected) = (Vec::new(), Vec::new());
-    for index in 0..LOAN_CASES + LEVY_CASES {
+    for index in 0..LOAN_CASES + LEVY_CASES + DIV7A_CASES {
         let (case, result) = if index < LOAN_CASES {
             loan_case(&mut rng)
-        } else {
+        } else if index < LOAN_CASES + LEVY_CASES {
             levy_case(&mut rng)
+        } else {
+            div7a_case(&mut rng)
         };
         cases.push(case);
         expected.push(result);
     }
-    assert_eq!(cases.len(), 240);
+    assert_eq!(cases.len(), 300);
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {

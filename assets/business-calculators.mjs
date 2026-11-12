@@ -31,7 +31,9 @@ function number(value, { min = 0, max = 1e9, places = 2, integer = false } = {})
 const cents = (value, min = 0) => Math.round(number(value, { min }) * 100);
 // Non-negative ratios in cents round half up. BigInt keeps large products exact.
 /** @param {bigint} numerator @param {bigint} denominator */
-const ratioMoney = (numerator, denominator) => Number((2n * numerator + denominator) / (2n * denominator)) / 100;
+const ratioCents = (numerator, denominator) => (2n * numerator + denominator) / (2n * denominator);
+/** @param {bigint} numerator @param {bigint} denominator */
+const ratioMoney = (numerator, denominator) => Number(ratioCents(numerator, denominator)) / 100;
 // Percentages round half away from zero to 0.01, as Excel's ROUND does, from the
 // exact cents ratio rather than a float quotient. A zero result is never -0.
 /** @param {number} numerator cents @param {number} denominator cents, positive */
@@ -112,6 +114,27 @@ export function loan(principal, annualRate, months) {
   return { payment: ratioMoney(paymentNumerator, denominator), firstInterest,
     firstPrincipal: ratioMoney(balanceCents * rateUnits * scale, denominator),
     totalInterest: ratioMoney(paymentNumerator * term - balanceCents * denominator, denominator) };
+}
+
+/** Division 7A minimum yearly repayment of an amalgamated loan: s 109E(6) of the Income
+ * Tax Assessment Act 1936, as the ATO's five steps state it. The Act prescribes no rounding;
+ * each amount rounds half up to the cent. The interest part is the benchmark rate on the
+ * whole balance for the year, so the parts assume one repayment on the year's last day.
+ * @param {string} balance the loan not repaid at the end of the previous income year
+ * @param {string} benchmarkRate the current year's benchmark interest rate, in per cent
+ * @param {string} remainingTerm the remaining term in whole years */
+export function div7aMinimumRepayment(balance, benchmarkRate, remainingTerm) {
+  const balanceCents = BigInt(cents(balance));
+  // A benchmark rate has two decimal places: a whole number of 1/10,000ths a year.
+  const rate = BigInt(Math.round(number(benchmarkRate, { min: 0.01, max: 100 }) * 100));
+  const term = BigInt(number(remainingTerm, { min: 1, max: 25, integer: true }));
+  // balance x I / (1 - (1 / (1 + I)) ^ T), multiplied through by 10,000 ^ (T + 1).
+  const growth = (10000n + rate) ** term;
+  const scale = 10000n ** term;
+  const repayment = ratioCents(balanceCents * rate * growth, 10000n * (growth - scale));
+  const interest = ratioCents(balanceCents * rate, 10000n);
+  return { repayment: Number(repayment) / 100, interest: Number(interest) / 100,
+    principal: Number(repayment - interest) / 100 };
 }
 
 /** @param {string} wages @param {string} superAmount @param {string} other */
