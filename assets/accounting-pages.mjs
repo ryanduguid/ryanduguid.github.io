@@ -243,6 +243,9 @@ function initialiseCalculators([calculate, fieldErrors]) {
     function invalidate(event) {
       if (event?.target.type === 'file') return;
       if (form.dataset.calculated) output.textContent = 'Inputs changed. Calculate again.';
+      // The first edit replaces the fictional example the page opens with.
+      else if (output.hasAttribute('data-example')) output.textContent = 'Enter the inputs and calculate.';
+      output.removeAttribute('data-example');
       if (applied) applied.hidden = true;
       csv = '';
       if (cashDownload) cashDownload.disabled = true;

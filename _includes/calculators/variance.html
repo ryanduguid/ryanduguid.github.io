@@ -1,10 +1,10 @@
 <section class="business-calculator" id="variance">
 <form class="calculator-split" data-calculator="variance">
-<fieldset disabled><legend>Budget variance inputs</legend><div class="form-grid"><label class="field" for="variance-actual">Actual (AUD)<input id="variance-actual" name="actual" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="" required /></label>
-<label class="field" for="variance-budget">Budget (AUD)<input id="variance-budget" name="budget" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="" required /></label>
+<fieldset disabled><legend>Budget variance inputs</legend><div class="form-grid"><label class="field" for="variance-actual">Actual (AUD)<input id="variance-actual" name="actual" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="110" required /></label>
+<label class="field" for="variance-budget">Budget (AUD)<input id="variance-budget" name="budget" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="100" required /></label>
 <div class="field"><label for="variance-kind">Figure type</label><select name="kind" id="variance-kind"><option value="income">Income</option><option value="cost">Cost</option></select></div></div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output aria-live="polite">Enter the inputs and calculate.</output>
+{% include calculator-example.html inputs="actual $110.00, budget $100.00, figure type income" rows="Actual minus budget|$10.00;Difference as a share of absolute budget|10.00%" principal="0" note="Favourable" %}
 <div class="sources-applied" hidden>
 <h2>Sources applied</h2>
 <ul class="sources">

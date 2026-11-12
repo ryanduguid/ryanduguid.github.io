@@ -927,6 +927,7 @@ test('a failing WebMCP registration leaves the GST calculator working', async ({
   await page.goto('/tools/business-calculators/gst/');
   await page.waitForFunction(() => window.registrationAttempted);
   await page.getByRole('spinbutton', { name: 'Amount (AUD)' }).fill('110');
+  await page.getByRole('checkbox', { name: 'Amount includes GST' }).uncheck();
   await page.getByRole('button', { name: 'Calculate' }).click();
   await expect(page.locator('form[data-calculator="gst"] output')).toContainText('GST: $11.00');
   expect(errors).toEqual([]);
