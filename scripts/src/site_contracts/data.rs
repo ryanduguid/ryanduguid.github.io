@@ -75,8 +75,8 @@ pub const RETIRED_GITHUB_SOURCE_INSTALL_PATTERN: &str = concat!(
 pub const CA_ANZ_NON_ENDORSEMENT: &str =
     "I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.";
 pub const MCP_REL: &str = "tools/australian-tax-ai-agents/index.html";
-pub const MCP_REVIEW_DATE: &str = "2026-10-31";
-pub const MCP_VISIBLE_REVIEW_DATE: &str = "31 October 2026";
+pub const MCP_REVIEW_DATE: &str = "2026-11-13";
+pub const MCP_VISIBLE_REVIEW_DATE: &str = "13 November 2026";
 pub const ASSURANCE_ANCHORS: [(&str, &str); 11] = [
     ("results-you-can-check", "Results you can check"),
     (
@@ -153,7 +153,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "aus-accounting-mcp",
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.7.1 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and fictional SBR fixtures.",
+        "Local MCP server v0.8.0 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and fictional SBR fixtures.",
     ),
     (
         "australian-accounting-skills",

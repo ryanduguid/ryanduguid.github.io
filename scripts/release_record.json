@@ -18,19 +18,19 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.7.1",
-        "released_utc": "2026-10-31T04:53:29Z",
-        "verified": "2026-10-31",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.1",
+        "version": "0.8.0",
+        "released_utc": "2026-11-12T12:44:47Z",
+        "verified": "2026-11-13",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.8.0",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
       },
       "documented": {
         "page": "tools/australian-tax-ai-agents/index.html",
-        "version": "0.7.1",
-        "visible_label": "Current release aus-accounting-mcp v0.7.1",
-        "software_version": "0.7.1",
+        "version": "0.8.0",
+        "visible_label": "Current release aus-accounting-mcp v0.8.0",
+        "software_version": "0.8.0",
         "pinned_engines": {
           "payday-super-checker": "0.2.3",
           "ato-benchmark-compare": "0.2.2",
@@ -56,11 +56,12 @@
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
       ],
       "notes": [
-        "GitHub and PyPI publish 0.7.1, verified on 31 October 2026; the MCP registry still listed 0.7.0 that day, with its publication run awaiting approval. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
+        "GitHub, PyPI and the MCP registry publish 0.8.0, verified on 13 November 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
         "0.6.0 adds GST coding review and BAS reconciliation through gst-review 0.1.0 and pins the Apache-2.0 releases of the payday, benchmark and Division 7A engines, which change no check, comparison or review.",
-        "The guide names current 0.7.1 first; its recorded demonstration remains pinned to 0.2.8. Documented engine pins belong to current 0.7.1.",
+        "The guide names current 0.8.0 first; its recorded demonstration remains pinned to 0.2.8. Documented engine pins belong to current 0.8.0.",
         "0.7.0 adds lodgment due-date lookup through lodgment-calendar 0.1.0 and a bundled-data freshness report. Missing facts or recorded periods remain UNKNOWN.",
-        "0.7.1 pins payday-super-checker 0.2.3, whose only change is to its Employment Hero export profile. The server imports no vendor export, so no tool output changes except engine_version, now 0.2.3 for the payday tools."
+        "0.7.1 pins payday-super-checker 0.2.3, whose only change is to its Employment Hero export profile. The server imports no vendor export, so no tool output changes except engine_version, now 0.2.3 for the payday tools.",
+        "0.8.0 moves to the Ryan Duguid Public Attribution Licence 1.0 and lists 25 tools, up from 22, adding get_reviewed_rate, validate_abn and validate_acn. Its searches match whole words only and search_tax_rates leaves out superseded rows by default, both breaking changes. Engine pins are unchanged."
       ]
     },
     "ozzit": {

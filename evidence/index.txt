@@ -8,7 +8,7 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.
 
-Last reviewed 5 November 2026.
+Last reviewed 13 November 2026.
 
 ## Results you can check
 
@@ -16,7 +16,7 @@ Australian Accounting’s Division 7A, Payday Super and MCP results below each c
 
 - Division 7A. On 7 October 2026 the minimum yearly repayment function of the ATO’s Division 7A calculator and decision tool and the div7a-loan-review Python 0.2.0 source agreed to the cent on 12,800 fictional cases with no repayments, for 2019-20 to 2026-27. Its repayment code and rate table are unchanged to the published 0.3.2, but the comparison was not rerun on later releases or the unreleased Rust port. It covers the repayment figure only, not the calculator’s interest or closing balance (record and limits).
 - Payday Super. For wages paid on 30 July 2026, payday-super-check 0.2.3 gives a due date of 11 August 2026, because NT Picnic Day on 3 August is not a business day. The ATO’s worked example gives the same date on the usual 7 business day path. Run and read 5 November 2026.
-- MCP tools. Aus Accounting MCP 0.7.1, the published release, listed 22 local tools on 5 November 2026. The source on main defines 24: validate_abn and validate_acn are not yet released.
+- MCP tools. Aus Accounting MCP 0.8.0, the published release, listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
 
 ### Nearby products
 
