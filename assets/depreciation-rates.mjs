@@ -63,7 +63,17 @@ function terms(text) {
 /** Everyday words and the instrument's words for the same thing. Plain synonyms only: a
  * word that needs a tax judgement to place, such as 'ute', is left out.
  * @type {Record<string, string>} */
-export const SYNONYMS = { fridge: 'refrigerator', tv: 'television', aircon: 'air conditioning' };
+export const SYNONYMS = {
+  aircon: 'air conditioning',
+  coolroom: 'cool room',
+  copier: 'photo copying',
+  couch: 'sofa',
+  fridge: 'refrigerator',
+  lawnmower: 'lawn mower',
+  motorbike: 'motorcycle',
+  photocopier: 'photo copying',
+  tv: 'television',
+};
 
 /**
  * Every row of both tables in the instrument's order, each with the headings above it.

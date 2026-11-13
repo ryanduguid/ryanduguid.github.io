@@ -4,6 +4,31 @@
 /* Depreciation rates page: the tables of effective lives in the search results and the
    browse view. Every colour and length is a token from tokens.css. */
 
+/* Sections are ruled off and spaced as the site's article sections are; the first follows
+   the header's own rule. */
+.depreciation-page .accounting-content > section {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.depreciation-page .accounting-content > section > * + * {
+  margin-top: var(--space-5);
+}
+
+.depreciation-page .accounting-content > section > h3 {
+  margin-top: var(--space-6);
+}
+
+.depreciation-page .accounting-content > section > h3 + * {
+  margin-top: var(--space-3);
+}
+
+.depreciation-page .page-jumps {
+  margin-top: var(--space-5);
+  font-size: var(--text-small);
+}
+
 /* The asset column takes the room a description needs; the figures stay on one line. */
 .depreciation-page .lives th[scope="row"] {
   width: auto;
