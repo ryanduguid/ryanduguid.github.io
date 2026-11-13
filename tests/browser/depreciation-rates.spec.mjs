@@ -244,3 +244,48 @@ test('without the data file the page says so and the calculator still works', as
   await page.getByRole('button', { name: 'Work out the deduction' }).click();
   await expect(page.locator('#deduction-output .result-row').first()).toHaveText('Decline in value for 2025-26$600.00');
 });
+
+test('figures never outlive the inputs they were worked from', async ({ page }) => {
+  await page.goto(PAGE);
+  const figures = page.locator('#deduction-output .result-row');
+  const rows = page.locator('#deduction-schedule').getByRole('row');
+  const submit = page.getByRole('button', { name: 'Work out the deduction' });
+  await page.getByLabel('Cost (AUD)').fill('1500');
+  await page.getByLabel('Effective life (years)').fill('5');
+  await page.getByLabel('First used or installed ready for use').fill('2025-07-01');
+  await submit.click();
+  await expect(rows).toHaveCount(2);
+
+  await page.getByLabel('Cost (AUD)').fill('2500');
+  await expect(rows).toHaveCount(0);
+  await expect(figures).toHaveCount(0);
+  await submit.click();
+  await expect(figures.first()).toHaveText('Decline in value for 2025-26$1,000.00');
+
+  await page.getByLabel('Method').selectOption('prime-cost');
+  await expect(rows).toHaveCount(0);
+  await expect(figures).toHaveCount(0);
+});
+
+// The address is written 150 ms after typing stops, so the tables can arrive on either side of it.
+for (const pause of [0, 300]) {
+  test(`text typed ${pause} ms before the tables arrive is kept and searched`, async ({ page }) => {
+    let release = () => {};
+    const held = new Promise((resolve) => {
+      release = resolve;
+    });
+    await page.route('**/effective-life.json', async (route) => {
+      await held;
+      await route.continue();
+    });
+    await page.goto(`${PAGE}?industry=agriculture-forestry-and-fishing`, { waitUntil: 'commit' });
+    await expect(page.locator('#finder-status')).toHaveText('Loading the effective life tables.');
+    await page.getByLabel('Asset', { exact: true }).fill('tractor');
+    await page.waitForTimeout(pause);
+    release();
+    await expect(page.locator('#finder-status')).toHaveText('4 rows match ‘tractor’ in Agriculture, forestry and fishing and Table B.');
+    await expect(page.getByLabel('Asset', { exact: true })).toHaveValue('tractor');
+    await expect(page.getByLabel('Industry (Table A)')).toHaveValue('agriculture-forestry-and-fishing');
+    await expect(page).toHaveURL(/\?q=tractor&industry=agriculture-forestry-and-fishing$/);
+  });
+}

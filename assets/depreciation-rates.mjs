@@ -161,6 +161,7 @@ export function search(entries, query) {
       return key ? [terms(key), terms(SYNONYMS[key])] : [[term]];
     });
   if (!wanted.length) return [];
+  const sought = wanted.flat(2);
   /** @type {{entry: Entry, score: number}[]} */
   const found = [];
   for (const entry of entries) {
@@ -183,7 +184,7 @@ export function search(entries, query) {
       score += best;
     }
     if (score < 0) continue;
-    if (wanted.flat(2).some((term) => term.one === entry.own[0]?.one)) score += 2;
+    if (sought.some((term) => term.one === entry.own[0]?.one)) score += 2;
     found.push({ entry, score: score * 100 - Math.min(entry.size, 99) });
   }
   return found.sort((a, b) => b.score - a.score || a.entry.id - b.entry.id).map(({ entry }) => entry);

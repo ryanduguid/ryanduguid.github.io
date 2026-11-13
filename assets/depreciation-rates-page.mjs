@@ -286,6 +286,7 @@ function drawBrowse(data) {
 
 /** Keeps the address in step with the search, so a result can be linked. */
 function recordSearch() {
+  if (!loaded) return;
   const params = new URLSearchParams();
   if (queryInput.value.trim()) params.set('q', queryInput.value.trim());
   if (industrySelect.value) params.set('industry', industrySelect.value);
@@ -360,12 +361,20 @@ deduction.addEventListener('submit', (event) => {
   event.preventDefault();
   drawSchedule();
 });
+/** Removes figures worked from inputs that have since changed. */
+function clearSchedule() {
+  if (!scheduleBox.hasChildNodes()) return;
+  scheduleBox.replaceChildren();
+  output.textContent = 'Enter the inputs and work out the deduction.';
+}
 for (const control of [costInput, lifeInput, startInput, yearInput]) {
   control.addEventListener('input', () => {
     control.setCustomValidity('');
     clearFieldError(control);
+    clearSchedule();
   });
 }
+methodSelect.addEventListener('change', clearSchedule);
 // The first income year an asset can have is the one its start date falls in.
 startInput.addEventListener('change', () => {
   const match = /^(\d{4})-(\d{2})-\d{2}$/.exec(startInput.value);
@@ -393,6 +402,9 @@ industrySelect.addEventListener('change', () => {
   recordSearch();
 });
 
+// Read before the tables load, so that text typed during the load is kept.
+const asked = new URLSearchParams(location.search);
+queryInput.value = (asked.get('q') ?? '').slice(0, 100);
 statusLine.textContent = 'Loading the effective life tables.';
 try {
   const response = await fetch(DATA_URL);
@@ -403,12 +415,11 @@ try {
   for (const division of data.table_a) {
     industrySelect.append(el('option', { value: slug(division.heading) }, sentence(division.heading)));
   }
-  const asked = new URLSearchParams(location.search);
-  queryInput.value = (asked.get('q') ?? '').slice(0, 100);
   const industry = asked.get('industry') ?? '';
   if ([...industrySelect.options].some((option) => option.value === industry)) industrySelect.value = industry;
   drawBrowse(data);
   drawResults();
+  recordSearch();
 } catch {
   statusLine.textContent = 'The effective life tables could not be loaded. Reload the page, or open the data file linked under Source.';
 }
