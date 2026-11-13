@@ -78,16 +78,26 @@ function place(entry) {
   return [...top, ...entry.path].filter(Boolean).join(' › ');
 }
 
-/** @param {string} caption @param {Node[]} rows @returns {HTMLElement} */
+/**
+ * A table of lives in its scroll region. On a phone each row stacks as a block, so the
+ * table roles are stated: a browser can drop them from cells that are not laid out as a
+ * table.
+ * @param {string} caption @param {Node[]} rows @returns {HTMLElement}
+ */
 function livesTable(caption, rows) {
-  const head = el('tr', {}, ...COLUMNS.map((name, index) => {
-    const cell = el('th', { scope: 'col' });
+  const head = el('tr', { role: 'row' }, ...COLUMNS.map((name, index) => {
+    const cell = el('th', { scope: 'col', role: 'columnheader' });
     cell.append(index === COLUMNS.length - 1 ? el('span', { class: 'visually-hidden' }, name) : name);
     return cell;
   }));
-  const table = el('table', { class: 'facts lives' }, el('caption', {}, caption), el('thead', {}, head), el('tbody', {}, ...rows));
+  const table = el('table', { class: 'facts lives', role: 'table' }, el('caption', {}, caption),
+    el('thead', { role: 'rowgroup' }, head), el('tbody', { role: 'rowgroup' }, ...rows));
   return el('div', { class: 'table-scroll', role: 'region', 'aria-label': caption, tabindex: '0' }, table);
 }
+
+/** A cell that names its column, for the stacked layout. @param {number} column
+ * @param {...(Node | string)} children */
+const cellOf = (column, ...children) => el('td', { role: 'cell', 'data-label': COLUMNS[column] }, ...children);
 
 /**
  * One row of the tables. In search results a row names where it sits and a heading offers
@@ -96,12 +106,12 @@ function livesTable(caption, rows) {
  */
 function rowOf(entry, { indentFrom, placed = false } = {}) {
   const depth = indentFrom === undefined ? 0 : Math.min(entry.depth - indentFrom, 4);
-  const name = el('th', { scope: 'row', class: `depth-${depth}` }, entry.asset);
+  const name = el('th', { scope: 'row', role: 'rowheader', class: `depth-${depth}` }, entry.asset);
   if (placed) name.append(el('span', { class: 'asset-place' }, place(entry)));
   if (entry.capped) name.append(el('span', { class: 'asset-mark' }, 'Capped life available (section 40-102)'));
-  const row = el('tr', entry.life === null ? { class: 'is-heading' } : {}, name);
+  const row = el('tr', entry.life === null ? { role: 'row', class: 'is-heading' } : { role: 'row' }, name);
   if (entry.life === null || entry.months === null) {
-    const cell = el('td', { colspan: String(COLUMNS.length - 1) });
+    const cell = el('td', { role: 'cell', colspan: String(COLUMNS.length - 1) });
     const under = placed && entry.heading ? below(entries, entry).length : 0;
     if (under) {
       const open = el('button', { type: 'button', class: 'link-button' }, `Show the ${under} rows under this heading`);
@@ -116,21 +126,20 @@ function rowOf(entry, { indentFrom, placed = false } = {}) {
     el('span', { class: 'visually-hidden' }, `: ${years(entry.life)}, ${entry.asset}`));
   use.addEventListener('click', () => useLife(entry));
   row.append(
-    el('td', {}, years(entry.life)),
-    el('td', {}, rate.primeCost),
-    el('td', {}, rate.diminishingValue),
-    el('td', {}, entry.updated ? longDate(entry.updated) : ''),
-    el('td', {}, use),
+    cellOf(1, years(entry.life)),
+    cellOf(2, rate.primeCost),
+    cellOf(3, rate.diminishingValue),
+    cellOf(4, entry.updated ? longDate(entry.updated) : ''),
+    el('td', { role: 'cell' }, use),
   );
   return row;
 }
 
 /** A group of search results, drawn SHOWN rows at a time. @param {string} title @param {Entry[]} found */
 function group(title, found) {
-  const body = el('tbody');
   const caption = `${title}: ${found.length} ${found.length === 1 ? 'row' : 'rows'}`;
   const table = livesTable(caption, []);
-  table.querySelector('tbody')?.replaceWith(body);
+  const body = table.querySelector('tbody') ?? table;
   const more = el('button', { type: 'button', class: 'button button--secondary' });
   let shown = 0;
   const show = () => {
@@ -202,7 +211,8 @@ function useLife(entry) {
 /** A closed `details` that draws its content the first time it opens.
  * @param {string} label @param {() => Node[]} content */
 function lazyDetails(label, content) {
-  const details = el('details', {}, el('summary', {}, label));
+  const details = document.createElement('details');
+  details.append(el('summary', {}, label));
   details.addEventListener('toggle', () => {
     if (details.open && details.childElementCount === 1) details.append(...content());
   });

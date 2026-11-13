@@ -77,6 +77,57 @@
   color: var(--colour-stamp-strong);
 }
 
+/* On a phone 6 columns left a reader scrolling sideways to reach the rates. Each row
+   stacks there instead, as the receipt sensitivity table does: the description, then
+   each figure beside the name of its column. The column headings stay for screen
+   readers and the script states the table roles. */
+@media (max-width: 40rem) {
+  .depreciation-page .lives thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .depreciation-page .lives tr {
+    display: block;
+    padding-block: var(--space-3);
+    border-bottom: var(--rule-thin) solid var(--colour-rule);
+  }
+
+  .depreciation-page .lives tbody :is(th, td) {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-1);
+    padding-inline-end: 0;
+    border: 0;
+    white-space: normal;
+    text-align: right;
+  }
+
+  .depreciation-page .lives tbody th[scope="row"] {
+    display: block;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .depreciation-page .lives tbody td:empty {
+    display: none;
+  }
+
+  .depreciation-page .lives td[data-label]::before {
+    content: attr(data-label);
+    color: var(--colour-ink-soft);
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    font-weight: 400;
+    text-align: left;
+  }
+}
+
 .depreciation-page .lives-group {
   margin-block: var(--space-6);
 }
