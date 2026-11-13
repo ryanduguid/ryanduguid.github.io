@@ -38,6 +38,7 @@ pub mod pytime;
 mod pyunicode;
 pub mod pyurl;
 pub mod pyval;
+pub mod rates_json;
 pub mod rates_register;
 pub mod release_record;
 pub mod schema_vocab;

@@ -1,0 +1,8 @@
+usage: site-tools build_rates_json [-h] (--write | --check)
+
+Build and check rates/rates.json from the rate CSVs.
+
+options:
+  -h, --help  show this help message and exit
+  --write     rewrite rates/rates.json from the rate CSVs
+  --check     fail when the committed rates/rates.json differs from the rate CSVs
