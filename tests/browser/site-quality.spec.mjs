@@ -264,6 +264,20 @@ test('refusal tables keep prose readable and scroll with the keyboard', async ({
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
 });
 
+// The about and contact facts are 2 columns of prose and links: on a 320px
+// phone they fit their regions rather than scroll a few pixels (14 November 2026).
+test('key-value tables fit a 320px phone without scrolling', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  for (const route of ['/about/', '/contact/']) {
+    await page.goto(route);
+    await waitForVisualFonts(page);
+    const overflow = await page.locator('main .table-scroll:has(> .facts--kv)').evaluateAll((regions) => regions
+      .map((region) => region.scrollWidth - region.clientWidth));
+    expect(overflow.length, `${route} key-value regions`).toBeGreaterThan(0);
+    expect(overflow, `${route} key-value overflow in pixels`).toEqual(overflow.map(() => 0));
+  }
+});
+
 // Prose keeps the 56ch measure, but a wide table's scroll box may take the free
 // content column, so every column shows once that column has room, from about
 // 1065px (a regression of the 26 September measure change). Narrower columns,

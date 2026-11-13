@@ -947,7 +947,9 @@ caption {
   background: var(--colour-pass);
 }
 
-.facts--kv th {
+/* A key-value table holds prose, addresses and links, not figures, so a long
+   link may break anywhere and the table still fits a 320px phone. */
+.facts--kv :is(th, td) {
   overflow-wrap: anywhere;
 }
 
