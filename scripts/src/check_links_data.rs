@@ -26,7 +26,12 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 122] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 127] = [
+    "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
+    "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
+    "https://nt.gov.au/nt-public-holidays",
+    "https://worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays",
+    "https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving",
     "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation",
     "https://www.ato.gov.au/",
     "https://www.ato.gov.au/about-ato/new-legislation/guidance-on-tax-and-superannuation-measures",

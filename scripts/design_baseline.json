@@ -176,6 +176,9 @@
     "tools/ozzit/index.html": [
       "8879534674120d52f9f67e0d55fcf25124e8d74a09ea507d91363198e05b748b"
     ],
+    "tools/payday-super/business-days/index.html": [
+      "f0c668ec0e874698031dfee99ecd67def825bf49555c97be5cd7a921e40c737d"
+    ],
     "tools/payday-super/index.html": [
       "3d6865f4b5d3cffee8838fec8a6466fd095fc4d8508fd9c2cf44e2cbca758b48"
     ],
@@ -208,9 +211,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "7680782e27d9d156d12d210d59529631f85675b2aaf64af6693d0ae3b8aacf55",
+    "llms.txt": "b9c0958701ce8d25961450b2ffee7536e0685114fd115a8d4fcd286b341cb8a3",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
-    "sitemap.xml": "012ffc9f3f2e76f0a153bb1b5ef0d4048ae78f319245ac54ba22809a294c5e8b"
+    "sitemap.xml": "e864e4d0b16f12c28df33f9a010958153527cbea651e58da0c2a6d41d28ac4b7"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -270,7 +273,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 66,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 67,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
