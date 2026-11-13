@@ -267,28 +267,40 @@ const INPUTS = {
       + `week ${week + 1}, ${dollars(delayed.amount)} of it delayed ${delayed.delay} week`;
   },
 };
+const wholeDollars = (value) => `$${Number(value).toLocaleString('en-AU')}`;
 const PEER_INPUTS = {
+  margin: (sales, cost) => `${wholeDollars(sales)} total revenue and ${wholeDollars(cost)} cost of goods sold`,
+  breakEven: (fixed, price, variable) => `${wholeDollars(fixed)} fixed costs, a ${wholeDollars(price)} price and `
+    + `${wholeDollars(variable)} variable cost a unit, which is a ${(price - variable) / price * 100}% gross profit margin`,
   loan: (principal, rate, months) =>
     `$${Number(principal).toLocaleString('en-AU')} at ${rate}% over ${months / 12} years, repaid monthly, no fees`,
 };
 
 // peer_result and verdict are dated manual observations of the official calculator. This
 // binds the published verdict to the recorded observation; it does not reread the official site.
+// whole: the official calculator shows whole dollars, so this calculator's cents are rounded to compare.
 const PEER_READINGS = {
   gst: { form: /^GST \$(\d+\.\d{2}), price including GST \$(\d+\.\d{2})$/,
-    own: (result) => [result.gst, result.gross] },
+    own: (result) => [result.gst, result.gross], verdict: 'Both give the same cents on this input' },
   loan: { form: /^repayments of \$([\d,]+) a month, total repayments \$([\d,]+)$/,
-    own: (result, [principal]) => [result.payment, Number(principal) + result.totalInterest] },
+    own: (result, [principal]) => [result.payment, Number(principal) + result.totalInterest], whole: true,
+    verdict: 'Moneysmart shows whole dollars, and the 2 agree to the dollar on this input' },
+  // Business Queensland's calculators dropped the cents of each amount entered on 13 November 2026
+  // (20.99 less 13 gave a gross profit of 7), so these inputs and results are whole dollars.
+  margin: { form: /^a gross profit of \$([\d,]+) and a gross profit margin of (\d+\.\d{2})%$/,
+    own: (result) => [result.profit, result.margin],
+    verdict: 'Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; '
+      + 'the 2 agree on it' },
+  breakEven: { form: /^a break-even point of \$([\d,]+)$/, own: (result) => [result.sales],
+    verdict: 'Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, '
+      + 'so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it' },
 };
 const assertPeerReading = (name, peer, result) => {
-  const { form, own } = PEER_READINGS[name];
+  const { form, own, whole, verdict } = PEER_READINGS[name];
   assert.match(peer.peer_result, form);
-  const seen = peer.peer_result.match(form).slice(1);
-  const inCents = seen.every((figure) => figure.includes('.'));
-  assert.deepEqual(seen.map((figure) => Number(figure.replaceAll(',', ''))),
-    own(result, peer.call).map((figure) => (inCents ? figure : Math.round(figure))));
-  assert.equal(peer.verdict, inCents ? 'Both give the same cents on this input'
-    : 'Moneysmart shows whole dollars, and the 2 agree to the dollar on this input');
+  assert.deepEqual(peer.peer_result.match(form).slice(1).map((figure) => Number(figure.replaceAll(',', ''))),
+    own(result, peer.call).map((figure) => (whole ? Math.round(figure) : figure)));
+  assert.equal(peer.verdict, verdict);
 };
 
 const assertShown = (actual, { result, output }) => {
@@ -301,7 +313,7 @@ const assertShown = (actual, { result, output }) => {
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
-      assert.match(peer.url, /^https:\/\/moneysmart\.gov\.au\//);
+      assert.match(peer.url, /^https:\/\/(moneysmart\.gov\.au|www\.business\.qld\.gov\.au)\//);
       assert.match(peer.checked, /^\d{1,2} [A-Z][a-z]+ \d{4}$/);
       assert.equal((PEER_INPUTS[name] ?? INPUTS[name])(...peer.call), peer.input);
       assertShown(calculations[name](...peer.call), peer);

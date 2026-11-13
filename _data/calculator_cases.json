@@ -18,6 +18,7 @@
   },
   "margin": {
     "function": "margin",
+    "peer": {"name": "Business Queensland gross profit and gross profit margin calculators", "url": "https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit", "checked": "13 November 2026", "input": "$450,000 total revenue and $300,000 cost of goods sold", "peer_result": "a gross profit of $150,000 and a gross profit margin of 33.33%", "call": ["450000", "300000"], "result": {"profit": 150000, "margin": 33.33}, "output": "profit $150,000.00, margin 33.33%", "verdict": "Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it"},
     "rows": [
       {"case": "Margin uses sales, markup uses cost", "input": "Sales $100.00, cost $80.00", "call": ["100", "80"], "result": {"profit": 20, "margin": 20, "markup": 25}, "output": "Profit $20.00, margin 20.00%, markup 25.00%"},
       {"case": "Nil sales give no margin", "input": "Sales $0.00, cost $50.00", "call": ["0", "50"], "result": {"profit": -50, "margin": null, "markup": -100}, "output": "Profit -$50.00, no margin, markup -100.00%"},
@@ -26,6 +27,7 @@
   },
   "break-even": {
     "function": "breakEven",
+    "peer": {"name": "Business Queensland break-even calculator", "url": "https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit", "checked": "13 November 2026", "input": "$1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin", "peer_result": "a break-even point of $2,500", "call": ["1000", "25", "15"], "result": {"units": 100, "sales": 2500}, "output": "100 units, sales $2,500.00", "verdict": "Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it"},
     "rows": [
       {"case": "Part of a unit rounds up to a whole unit", "input": "Fixed $1,000.00, price $30.00, variable $18.00", "call": ["1000", "30", "18"], "result": {"contribution": 12, "units": 84, "sales": 2520}, "output": "Contribution $12.00, 84 units, sales $2,520.00"},
       {"case": "A price equal to variable cost never breaks even", "input": "Fixed $1,000.00, price $18.00, variable $18.00", "call": ["1000", "18", "18"], "refused": "Price must exceed variable cost per unit to reach break-even.", "output": "Refused: price must exceed variable cost per unit to reach break-even"}
