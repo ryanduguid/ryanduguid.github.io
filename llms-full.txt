@@ -5351,7 +5351,9 @@ Open an industry in Table A or a letter in Table B to read its rows in the deter
 
 ## Work out a year’s deduction
 
-Enter a cost, an effective life and the day the asset was first used or installed ready for use to see its decline in value for each income year. Choosing ‘Use this life’ on a row above fills in the life.
+Enter a cost, an effective life and the day the asset was first used or installed ready for use to see its decline in value for each income year.
+
+Choosing ‘Use this life’ on a row above fills in the life.
 
 Decline in value inputs
 
