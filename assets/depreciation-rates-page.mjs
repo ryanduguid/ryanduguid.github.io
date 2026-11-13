@@ -75,7 +75,7 @@ const incomeYear = (end) => `${end - 1}-${String(end % 100).padStart(2, '0')}`;
 /** Where a row sits: its table or industry, then the headings above it. @param {Entry} entry */
 function place(entry) {
   const top = entry.table === 'B' ? ['Table B'] : [sentence(entry.division), entry.section];
-  return [...top, ...entry.path].filter(Boolean).join(' › ');
+  return [...top, ...entry.path].filter(Boolean).join(' / ');
 }
 
 /**

@@ -32,7 +32,7 @@ export const FIRST_START = '2006-05-10';
 /** Lower case, with dashes and quotation marks in their plain forms, so that a typed
  * query and the instrument's text compare alike. @param {string} text */
 export function fold(text) {
-  return text.toLowerCase().replace(/[‐-―]/g, '-').replace(/[‘’]/g, "'");
+  return text.toLowerCase().replace(/[\u2010-\u2015]/g, '-').replace(/[‘’]/g, "'");
 }
 
 /** The words of a text: runs of letters and digits. @param {string} text */

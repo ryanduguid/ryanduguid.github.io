@@ -72,7 +72,7 @@ Prime cost spreads the cost evenly over the life: cost × (days held ÷ 365) × 
 
 Days held can be 366 in a leap year and the divisor stays 365, as the ATO’s Guide to depreciating assets 2026 says. You choose one method for each asset and cannot change it (section 40-65).
 
-The rates shown beside each life are 100% and 200% divided by the life, rounded to 2 decimal places. The calculator works from the exact life, so a life of 6⅔ years is 30% and not 29.99%.
+The rates shown beside each life are 100% and 200% divided by the life, rounded to 2 decimal places. The calculator works from the exact life, so a life of 6 2/3 years is 30% and not 29.99%.
 
 ## Capped lives
 
@@ -101,8 +101,8 @@ Oil production asset, other than an electricity generation asset or an offshore 
 Gas production asset, other than an electricity generation asset or an offshore platform | Oil and gas extraction | 15 years
 Offshore platform | Oil and gas extraction | 20 years
 Asset, other than an electricity generation asset, used to manufacture condensate, crude oil, domestic gas, liquid natural gas or liquid petroleum gas, but not in an oil refinery | Petroleum refining | 15 years
-Harvester | Primary production sector | 6⅔ years
-Tractor | Primary production sector | 6⅔ years
+Harvester | Primary production sector | 6 2/3 years
+Tractor | Primary production sector | 6 2/3 years
 
 ## Pools, write-offs and the car limit
 
