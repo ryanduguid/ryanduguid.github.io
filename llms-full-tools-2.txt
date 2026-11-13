@@ -1244,7 +1244,7 @@ Published 11 September 2026. Last checked 13 November 2026, the newest of the ca
 - Hourly pricing calculator Required hourly rate before GST from annual costs, target profit and billable hours.
 - Budget variance calculator Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 - Monthly loan payment calculator Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
-- Division 7A minimum yearly repayment calculator The minimum yearly repayment on one amalgamated loan for one income year, with its interest and principal, at that year’s benchmark rate.
+- Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
@@ -1260,6 +1260,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
 - Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
 - Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
-- Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
+- Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/

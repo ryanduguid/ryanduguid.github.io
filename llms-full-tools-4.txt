@@ -1169,9 +1169,9 @@ Source: https://duguid.com.au/tools/business-calculators/div7a/
 
 > The Division 7A minimum yearly repayment on an amalgamated loan for one income year, from its balance, that year’s benchmark rate and the remaining term.
 
-# Division 7A minimum yearly repayment calculator
+# Division 7A loan calculator
 
-The minimum yearly repayment on one Division 7A amalgamated loan for one income year, with its interest and principal, at the benchmark rate for that year.
+Minimum yearly repayment, interest and principal on one amalgamated loan.
 
 Published 13 November 2026. Last checked 13 November 2026.
 
@@ -1179,9 +1179,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Division 7A minimum yearly repayment inputs
 
+Loan not repaid at the end of the previous income year (AUD)
+
 Income year (benchmark rate) 2026-27 (8.77%) 2025-26 (8.37%) 2024-25 (8.77%) 2023-24 (8.27%) 2022-23 (4.77%) 2021-22 (4.52%) 2020-21 (4.52%) 2019-20 (5.37%)
 
-Loan not repaid at the end of the previous income year (AUD) Remaining term (whole years)
+Remaining term (whole years)
 
 The years and rates are those in the Division 7A benchmark rate table, for a company whose income year ends on 30 June. Round a remaining term that is not a whole number up to the next whole year.
 
@@ -1203,7 +1205,7 @@ The calculator does not decide whether a payment or loan is a Division 7A loan, 
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Division 7A minimum yearly repayment calculator
+Boundary cases: Division 7A loan calculator
 
 Case | Inputs | Result
 One year left repays the balance and a year’s interest | $1,000.00 at 8.77% over 1 year | Repayment $1,087.70, interest $87.70, principal $1,000.00
