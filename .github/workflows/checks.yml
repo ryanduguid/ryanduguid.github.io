@@ -220,13 +220,33 @@ jobs:
           # Lifts the unauthenticated GitHub API rate limit for the
           # archived-repository lookups in site-tools check_links.
           GITHUB_TOKEN: ${{ github.token }}
-        # check_site runs each Rust suite through cargo test against the checked tree.
-        run: scripts/target/debug/site-tools check_site --ci
-      # The floor is site-tools' measured line coverage, rounded down (80.54% on
-      # 3 November 2026). Raise it with the tests, never lower it to pass.
+        # check_site runs each Rust suite through cargo test against the checked
+        # tree, built with coverage instrumentation so these runs are also the
+        # coverage run. Its site-tools commands run an uninstrumented copy, which
+        # the coverage clean leaves alone and which adds nothing to the measure.
+        shell: bash
+        run: |
+          cp scripts/target/debug/site-tools "$RUNNER_TEMP/site-tools"
+          (cd scripts && cargo llvm-cov show-env --sh) > "$RUNNER_TEMP/llvm-cov.env"
+          source "$RUNNER_TEMP/llvm-cov.env"
+          (cd scripts && cargo llvm-cov clean --workspace)
+          "$RUNNER_TEMP/site-tools" check_site --ci | tee "$RUNNER_TEMP/check-site.log"
+      # Runs the test targets check_site did not, so each target cargo llvm-cov
+      # tests runs once; a suite absent from the log runs here. The floor is
+      # site-tools' measured line coverage, rounded down (80.54% on 3 November
+      # 2026). Raise it with the tests, never lower it to pass.
       - name: Rust tests with line coverage
         working-directory: scripts
-        run: cargo llvm-cov --locked --fail-under-lines 80
+        shell: bash
+        run: |
+          source "$RUNNER_TEMP/llvm-cov.env"
+          suites=()
+          for suite in tests/*.rs; do
+            name="$(basename "$suite" .rs)"
+            grep -Eq -- "^running cargo test .*--test $name( |$)" "$RUNNER_TEMP/check-site.log" || suites+=(--test "$name")
+          done
+          cargo test --locked --lib --bins "${suites[@]}"
+          cargo llvm-cov report --fail-under-lines 80
 
       - name: Package the validated Pages tree
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
@@ -296,17 +316,24 @@ jobs:
       - name: Check calculator and WebMCP contracts
         if: ${{ matrix.shard == 1 }}
         run: npm run typecheck
-      # The browser build for the locked Playwright, kept between runs.
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      # The browser build for the locked Playwright, kept between runs and keyed on
+      # Playwright's list of browser builds. Main saves it; pull requests only read it.
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        id: playwright-cache
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
         with:
           path: ~/AppData/Local/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: playwright-${{ runner.os }}-${{ hashFiles('node_modules/playwright-core/browsers.json') }}
       - name: Install Chromium
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
         # The locked Playwright, as the Lighthouse job runs it; npx could fetch another.
         shell: bash
         run: ./node_modules/.bin/playwright install chromium
+      - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        if: ${{ steps.metadata.outputs.metadata_only == 'false' && github.ref == 'refs/heads/main' && steps.playwright-cache.outputs.cache-hit != 'true' }}
+        with:
+          path: ~/AppData/Local/ms-playwright
+          key: ${{ steps.playwright-cache.outputs.cache-primary-key }}
       - name: Proof capture check
         if: ${{ steps.metadata.outputs.metadata_only == 'false' && matrix.shard == 1 }}
         run: npm run test:capture
@@ -378,16 +405,22 @@ jobs:
       - name: Install quality dependencies
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
         run: npm ci --ignore-scripts
-      # The browser build for the locked Playwright, kept between runs; the system
-      # libraries it needs are still installed each run.
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      # The browser build for the locked Playwright, kept and keyed as in the
+      # browser job; the system libraries it needs are still installed each run.
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        id: playwright-cache
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: playwright-${{ runner.os }}-${{ hashFiles('node_modules/playwright-core/browsers.json') }}
       - name: Install Chromium and system dependencies
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
         run: ./node_modules/.bin/playwright install --with-deps chromium
+      - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        if: ${{ steps.metadata.outputs.metadata_only == 'false' && github.ref == 'refs/heads/main' && steps.playwright-cache.outputs.cache-hit != 'true' }}
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ steps.playwright-cache.outputs.cache-primary-key }}
       - name: Lighthouse checks
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
         env:

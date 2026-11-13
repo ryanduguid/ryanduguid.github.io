@@ -1,0 +1,262 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Depreciation rates: search the ATO effective life tables</title>
+  <meta name="description" content="Search every asset in the Commissioner’s 2025 effective life determination, see its prime cost and diminishing value rates and work out a year’s deduction." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Depreciation rates: search the ATO effective life tables" />
+  <meta property="og:description" content="Search every asset in the Commissioner’s 2025 effective life determination, see its prime cost and diminishing value rates and work out a year’s deduction." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/depreciation-rates/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Depreciation rates: search the ATO effective life tables" />
+  <meta name="twitter:description" content="Search every asset in the Commissioner’s 2025 effective life determination, see its prime cost and diminishing value rates and work out a year’s deduction." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/depreciation-rates/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/depreciation-rates/index.txt" />
+  <link rel="alternate" type="application/json" href="https://duguid.com.au/tools/depreciation-rates/effective-life.json" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="modulepreload" href="/assets/depreciation-rates.mjs" />
+  <link rel="modulepreload" href="/assets/depreciation-rates-page.mjs" />
+  <link rel="modulepreload" href="/assets/field-errors.mjs" />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/accounting-pages.css?v=20261007b" />
+  <link rel="stylesheet" href="/assets/depreciation-rates.css?v=20261113a" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main accounting-page depreciation-page">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Depreciation rates and effective lives</li></ol></nav>
+        <h1>Depreciation rates and effective lives</h1>
+        <p class="lead-note">Search the 7,430 effective lives in the Commissioner of Taxation’s 2025 determination, registered on 15 September 2025 and unamended on 13 November 2026. Each row shows the life, the prime cost and diminishing value rates it gives and the date it was last set.</p>
+        <p class="field-note">General information, not tax advice. The search and the calculator run in your browser. A cost, life or date you enter stays there; a search is kept in the page address so that it can be linked, and reaches this site’s host when that address is opened.</p>
+        <p class="page-meta">Published 14 November 2026. Last reviewed 14 November 2026. Sources checked 13 November 2026.</p>
+      </header>
+      <div class="site-shell accounting-content">
+        <nav class="page-jumps" aria-label="On this page">
+          <p>On this page: <a href="#find">find an asset</a>, <a href="#browse">browse the tables</a>, <a href="#deduction">work out a year’s deduction</a>, <a href="#which-determination">which determination applies</a>, <a href="#rates-from-life">how a life becomes a rate</a>, <a href="#capped-lives">capped lives</a>, <a href="#pools-and-write-offs">pools, write-offs and the car limit</a>, <a href="#capital-works">capital works</a>, <a href="#source">source and licence</a> and <a href="#limits">limits</a>.</p>
+        </nav>
+        <section id="find">
+        <h2>Find an asset</h2>
+        <p>Type an asset to search both tables of the determination at once, or choose your industry to see its rows first. Table A lists assets by industry and Table B lists assets used across industries.</p>
+        <p>Under section 6 of the determination, an asset used in an industry named in Table A takes that industry’s life where a row describes the asset or its function. Table B applies where Table A does not.</p>
+        <noscript><p>JavaScript is required to search and to work out a deduction. Every row is in the <a href="/tools/depreciation-rates/effective-life.json">data file</a> and in the <a href="https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text">registered determination</a>; the rules and sources remain below.</p></noscript>
+        <form id="finder" method="get" action="/tools/depreciation-rates/" role="search" aria-label="Effective lives">
+          <div class="form-grid">
+            <label class="field" for="asset-query">Asset<input id="asset-query" name="q" type="search" autocomplete="off" spellcheck="false" maxlength="100" aria-describedby="asset-query-note" /></label>
+            <label class="field" for="asset-industry">Industry (Table A)<select id="asset-industry" name="industry"><option value="">All industries</option></select></label>
+          </div>
+          <p class="field-note" id="asset-query-note">For example laptop, forklift, carpet or solar. Every word you type must appear in the row, the headings above it or its industry.</p>
+          <button type="submit" class="button">Search</button>
+        </form>
+        <p id="finder-status" role="status"></p>
+        <div id="finder-results"></div>
+        </section>
+
+        <section id="browse">
+        <h2>Browse the tables</h2>
+        <p>Open an industry in Table A or a letter in Table B to read its rows in the determination’s order. A row with no life is a heading for the rows indented under it, or points to another row.</p>
+        <div id="browse-tables"></div>
+        </section>
+
+        <section id="deduction">
+        <h2>Work out a year’s deduction</h2>
+        <p>Enter a cost, an effective life and the day the asset was first used or installed ready for use to see its decline in value for each income year.</p>
+        <p>Choosing ‘Use this life’ on a row above fills in the life.</p>
+        <form id="deduction-form" class="calculator-split" novalidate>
+          <fieldset disabled><legend>Decline in value inputs</legend>
+            <div class="form-grid">
+              <label class="field" for="dep-cost">Cost (AUD)<input id="dep-cost" name="cost" type="text" inputmode="decimal" autocomplete="off" maxlength="20" required /></label>
+              <label class="field" for="dep-life">Effective life (years)<input id="dep-life" name="life" type="text" autocomplete="off" maxlength="12" required aria-describedby="dep-life-note" /></label>
+              <label class="field" for="dep-start">First used or installed ready for use<input id="dep-start" name="start" type="date" min="2006-05-10" required /></label>
+              <label class="field" for="dep-year">Income year ending 30 June<input id="dep-year" name="year" type="number" inputmode="numeric" min="2006" max="2300" step="1" required /></label>
+              <label class="field" for="dep-method">Method<select id="dep-method" name="method"><option value="diminishing-value">Diminishing value</option><option value="prime-cost">Prime cost</option></select></label>
+            </div>
+            <p class="field-note" id="dep-life-note">Whole years, a decimal or a fraction as the determination prints it, such as 10, 7.5 or 6 2/3.</p>
+            <button type="submit" class="button">Work out the deduction</button>
+          </fieldset>
+          <output id="deduction-output" for="dep-cost dep-life dep-start dep-year dep-method" aria-live="polite">Enter the inputs and work out the deduction.</output>
+          <div id="deduction-schedule"></div>
+        </form>
+        <p>Income years end on 30 June. The working assumes you hold the asset for all of each later year and use it only for a taxable purpose, with no second element of cost. Each year’s amount rounds to the nearest cent, with exact half cents rounded up.</p>
+        <p>An asset you started to hold before 10 May 2006 is not covered, because its diminishing value rate is 150% and not 200%. The calculator checks only the day of first use, so do not use it for an asset you held before 10 May 2006 and first used later.</p>
+        </section>
+
+        <section id="which-determination">
+        <h2>Which determination applies to your asset</h2>
+        <p>The Commissioner’s life for an asset is the one in force when you entered a contract to acquire it, otherwise acquired it or started to construct it, where its start time falls within 5 years of then. Otherwise the life in force at the start time applies (subsection 40-95(2) of the <cite>Income Tax Assessment Act 1997</cite>). Plant acquired before 11.45 am on 21 September 1999, by legal time in the Australian Capital Territory, has its own rule in that subsection.</p>
+        <p>The 2025 determination commenced on 16 September 2025 and repealed the 2015 determination. Each row’s ‘last updated’ date is the date the Commissioner last reviewed and determined that life. Where a row’s ‘last updated’ date is later than the time that rule fixes for your asset, check the life in force at that time. Earlier lives were published in tables attached to taxation rulings, a practice that ended when TR 2022/1 was withdrawn, as the ATO says on its page <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/general-depreciation-rules-capital-allowances/effective-life-of-an-asset/effective-life-determinations-rulings-and-law">Effective life determinations, rulings and law</a>.</p>
+        <p>You may instead work out an effective life yourself under section 40-105. You make the choice for the income year in which the asset’s start time occurs (subsection 40-95(3)).</p>
+        </section>
+
+        <section id="rates-from-life">
+        <h2>How a life becomes a rate</h2>
+        <p>Prime cost spreads the cost evenly over the life: cost × (days held ÷ 365) × (100% ÷ effective life), and never more than the value left (section 40-75). Diminishing value works on the value left: base value × (days held ÷ 365) × (200% ÷ effective life), and never more than the base value, for an asset you started to hold on or after 10 May 2006 (section 40-72). An earlier asset uses 150% (section 40-70).</p>
+        <p>Days held can be 366 in a leap year and the divisor stays 365, as the ATO’s <cite>Guide to depreciating assets 2026</cite> says. You choose one method for each asset (section 40-65) and cannot change it (section 40-130).</p>
+        <p>The rates shown beside each life are 100% and 200% divided by the life, rounded to 2 decimal places. The calculator works from the exact life, so the diminishing value rate for a life of 6 2/3 years is 30% and not 29.99%.</p>
+        </section>
+
+        <section id="capped-lives">
+        <h2>Capped lives</h2>
+        <p>A row marked ‘capped life available’ can take a shorter life set by section 40-102, where you use the Commissioner’s life and the cap that applies at the relevant time is shorter. Except for the vessel cap, a cap applies to an asset whose start time is on or after the date shown. The vessel cap applies to a vessel you hold on or after 1 July 2012; if you started to hold it before that day, the cap applies as if you started to hold it on that day.</p>
+        <p>The dates are set by the Acts that added each cap: the <cite>Taxation Laws Amendment Act (No. 4) 2002</cite> (Schedule 4, item 15), the <cite>Tax Laws Amendment (2005 Measures No. 1) Act 2005</cite> (Schedule 2, item 3), the <cite>Tax Laws Amendment (2006 Measures No. 7) Act 2007</cite> (Schedule 5, item 2) and the <cite>Tax Laws Amendment (Shipping Reform) Act 2012</cite> (Schedule 2, item 9).</p>
+        <div class="table-scroll" role="region" aria-label="Capped lives for assets that match a description exactly" tabindex="0">
+          <table class="facts">
+            <caption>Subsection 40-102(4): assets that correspond exactly to the description</caption>
+            <thead><tr><th scope="col">Asset</th><th scope="col">Capped life</th><th scope="col">Applies from</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Aeroplane used predominantly for agricultural spraying or agricultural dusting</th><td>8 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Any other aeroplane</th><td>10 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Helicopter used predominantly for mustering, agricultural spraying or agricultural dusting</th><td>8 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Any other helicopter</th><td>10 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Bus with a gross vehicle mass of more than 3.5 tonnes</th><td>7.5 years</td><td>1 January 2005</td></tr>
+              <tr><th scope="row">Light commercial vehicle with a gross vehicle mass of 3.5 tonnes or less, designed to carry a load of 1 tonne or more</th><td>7.5 years</td><td>1 January 2005</td></tr>
+              <tr><th scope="row">Minibus with a gross vehicle mass of 3.5 tonnes or less, designed to carry 9 or more passengers</th><td>7.5 years</td><td>1 January 2005</td></tr>
+              <tr><th scope="row">Trailer with a gross vehicle mass of more than 4.5 tonnes</th><td>10 years</td><td>1 January 2005</td></tr>
+              <tr><th scope="row">Truck with a gross vehicle mass of more than 3.5 tonnes, other than a mining or quarrying truck that cannot be registered for public roads where it operates</th><td>7.5 years</td><td>1 January 2005</td></tr>
+              <tr><th scope="row">Vessel with a certificate under Part 2 of the <cite>Shipping Reform (Tax Incentives) Act 2012</cite>, unless your income from it, or your associate’s, is exempt under section 51-100</th><td>10 years</td><td>1 July 2012</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-scroll" role="region" aria-label="Capped lives for assets used in a named industry" tabindex="0">
+          <table class="facts">
+            <caption>Subsection 40-102(5): assets of a kind used in the industry named</caption>
+            <thead><tr><th scope="col">Asset</th><th scope="col">Industry</th><th scope="col">Capped life</th><th scope="col">Applies from</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Gas transmission asset</th><td>Gas supply</td><td>20 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Gas distribution asset</th><td>Gas supply</td><td>20 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Oil production asset, other than an electricity generation asset or an offshore platform</th><td>Oil and gas extraction</td><td>15 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Gas production asset, other than an electricity generation asset or an offshore platform</th><td>Oil and gas extraction</td><td>15 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Offshore platform</th><td>Oil and gas extraction</td><td>20 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Asset, other than an electricity generation asset, used to manufacture condensate, crude oil, domestic gas, liquid natural gas or liquid petroleum gas, but not in an oil refinery</th><td>Petroleum refining</td><td>15 years</td><td>1 July 2002</td></tr>
+              <tr><th scope="row">Harvester</th><td>Primary production sector</td><td>6 2/3 years</td><td>1 July 2007</td></tr>
+              <tr><th scope="row">Tractor</th><td>Primary production sector</td><td>6 2/3 years</td><td>1 July 2007</td></tr>
+            </tbody>
+          </table>
+        </div>
+        </section>
+
+        <section id="pools-and-write-offs">
+        <h2>Pools, write-offs and the car limit</h2>
+        <p>Four rules can replace or limit a deduction worked out from an effective life. Each is stated from the law in force on 1 October 2026, with the ATO’s figure where one is named.</p>
+        <h3 id="low-value-pool">Low-value pool</h3>
+        <p>A low-cost asset costs less than $1,000 at the end of the income year you start to use it, and can go into a low-value pool (section 40-425). Each year the pool declines by 18.75% of the taxable use percentage of the cost of low-cost assets added that year, and by 37.5% of the pool’s closing balance for the year before together with the taxable use percentage of the opening adjustable value of low-value assets added that year (section 40-440). A low-value asset is one already depreciated by diminishing value whose opening adjustable value is under $1,000, and that is not a low-cost asset.</p>
+        <p>Once you pool one low-cost asset, each later one goes in too, and an asset stays in the pool (section 40-430). An asset deducted under the small business rules cannot be pooled this way. Nor, in assessments for 2026-27 and later income years, can an asset that, when you first used it or had it installed ready for use, you reasonably expected to use mainly to earn your assessable labour income (subsection 40-425(9)). An asset allocated to a pool for 2025-26 or an earlier income year is unaffected (item 17 of Schedule 4 to the <cite>Treasury Laws Amendment (Tax Reform No. 1) Act 2026</cite>).</p>
+        <h3 id="small-business">Small business pool and instant asset write-off</h3>
+        <p>A small business entity, with aggregated turnover under $10 million, that chooses simplified depreciation deducts the taxable purpose proportion of an asset costing less than $20,000 in the year it is first used or installed ready for use (sections 328-110 and 328-180). It must be a small business entity, and have chosen simplified depreciation, both for that year and for the year it started to hold the asset. The $20,000 threshold is permanent for assets first used or installed ready for use on or after 1 July 2026, under the <cite>Treasury Laws Amendment (Tax Reform No. 2) Act 2026</cite>.</p>
+        <p>A temporary rule gives the same $20,000 for assets first acquired at or after the 2015 budget time and first used or installed ready for use from 1 July 2023 to 30 June 2026 (section 328-180 of the <cite>Income Tax (Transitional Provisions) Act 1997</cite>). Other assets go to the general small business pool, deducted at 15% in their first year and 30% of the opening balance after that (section 328-190). Where the pool’s balance before that year’s deduction is under $20,000, the whole balance is deducted (section 328-210).</p>
+        <h3 id="assets-300">Assets costing $300 or less</h3>
+        <p>The decline in value of an asset costing $300 or less that you start to hold in an income year is its cost where you use it mainly to earn assessable income that is not from carrying on a business (subsection 40-80(2)). The asset must not be part of a set, or one of several identical or substantially identical items, that you start to hold in that income year and that cost more than $300 in total. Use of the asset for a purpose other than a taxable purpose reduces the deduction (subsection 40-25(2)).</p>
+        <h3 id="car-limit">Car limit</h3>
+        <p>The cost of a car designed mainly for carrying passengers is reduced to the car limit for the financial year you started to hold it: $69,883 for 2026-27 and $69,674 for 2025-26 (section 40-230 and the ATO’s figures). The limit does not apply to a car fitted out for transporting disabled people in wheelchairs for profit, or to one that is over the limit only because of modifications that let a person with a disability use it for a taxable purpose (subsection 40-230(2)). <a href="/rates/car-limit/">Car limit for depreciation</a> gives each year and its source.</p>
+        </section>
+
+        <section id="capital-works">
+        <h2>Capital works</h2>
+        <p>Construction costs of capital works are deducted under Division 43 and not by effective life: 2.5% a year for works begun after 26 February 1992, or 4% for parts used in the ways Table 43-145 lists (section 43-25). Those uses include short-term traveller accommodation and industrial activities and, for works begun after 7:30 pm by legal time in the Australian Capital Territory on 9 May 2023, build to rent.</p>
+        <p>Works begun before 27 February 1992 and used as Table 43-140 describes take 4% if begun after 21 August 1984 and before 16 September 1987, and 2.5% in any other case (subsection 43-25(2)). The ATO’s <cite>Rental properties 2026</cite> guide shows no deduction for construction started before 22 August 1979. No deduction is available for a period before construction is complete (section 43-30).</p>
+        </section>
+
+        <section id="source">
+        <h2>Source, licence and checks</h2>
+        <p>Every row comes from Schedule 2 of the <a href="https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text"><cite>Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025</cite></a> (F2025L01097), made on 2 September 2025 and registered on 15 September 2025. The <a href="/tools/depreciation-rates/effective-life.json">data file</a> holds all 9,311 rows, the source’s details and a count of every table row read.</p>
+        <p>A program builds the file from the Register’s EPUB and stops at any row it cannot read. On 13 November 2026 every row was compared with the Register’s Word version and with the text of its authorised PDF, with no difference in a description, life, mark or date.</p>
+        <p>Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to <a href="https://www.legislation.gov.au">https://www.legislation.gov.au</a>.</p>
+        <p>The determination is reused under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International licence</a>. Changes made here: Schedule 2 only, set out as data with each row’s nesting as a number, each life also in months and as 2 rates, dates in one form, plain spaces and hyphens, and 3 rows recorded one level shallower than the EPUB’s text sets them. The Commonwealth does not endorse this page.</p>
+        <p>The rules beyond the tables were read on 13 November 2026 in the <cite>Income Tax Assessment Act 1997</cite> (Compilation No. 268, 1 October 2026), the <cite>Income Tax (Transitional Provisions) Act 1997</cite> (Compilation No. 104) and in ATO guidance: the <cite>Guide to depreciating assets 2026</cite>, <cite>Rental properties 2026</cite> and its pages on the 2 methods, the low-value pool and the car limit. The dates from which the capped lives and the labour income exclusion apply were read on 14 November 2026 in the amending Acts as made. The ATO’s own <a href="https://www.ato.gov.au/calculators-and-tools/depreciation-and-capital-allowances-tool">depreciation and capital allowances tool</a> works out deductions with more of an asset’s history.</p>
+        </section>
+
+        <section id="limits">
+        <h2>Limits</h2>
+        <p>The page does not decide whether something is a depreciating asset, who holds it, what it cost or how far it is used for a taxable purpose. Check a life against the registered determination before relying on it.</p>
+        <p>The calculator leaves out balancing adjustments, second elements of cost, private use, pooling, the car limit, capped lives you have not entered and any rule that replaces these methods for a period. Diminishing value is not available for some assets, such as in-house software, intellectual property other than copyright in a film, and spectrum licences (subsection 40-72(2)). Section 40-27 can take away the deduction for a previously used asset in residential rental premises where the letting is not a business. A life the Commissioner has not listed can be worked out under section 40-105 or requested with the ATO’s <a href="https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form">effective life review application form</a>.</p>
+        </section>
+      <p class="byline">
+        Written by Ryan Duguid in his own time and on his own equipment.
+        He is a Provisional CA ANZ Member.
+      </p>
+</div></article></main>
+{% include site-footer.html %}
+<script type="module" src="/assets/depreciation-rates-page.mjs"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/depreciation-rates/#webpage",
+      "url": "https://duguid.com.au/tools/depreciation-rates/",
+      "name": "Depreciation rates and effective lives",
+      "description": "Search every asset in the Commissioner’s 2025 effective life determination, see its prime cost and diminishing value rates and work out a year’s deduction.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-11-14",
+      "dateModified": "2026-11-14",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isBasedOn": "https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/depreciation-rates/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/depreciation-rates/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Depreciation rates and effective lives",
+          "item": "https://duguid.com.au/tools/depreciation-rates/"
+        }
+      ]
+    }
+  ]
+}
+</script></body></html>
