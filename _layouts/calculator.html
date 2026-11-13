@@ -53,7 +53,8 @@
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li><a href="/tools/business-calculators/">Business calculators</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        <p class="page-meta">Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.</p>
+        {% assign published = page.date_published | default: "2026-09-20" %}{% assign reviewed = page.last_reviewed | default: "2026-09-27" %}
+        <p class="page-meta">Published {{ published | date: "%-d %B %Y" }}. Last reviewed {{ reviewed | date: "%-d %B %Y" }}.{% unless page.date_published %} Boundary cases added 5 November 2026.{% endunless %}</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.</p></noscript>
@@ -73,7 +74,7 @@
           </div>
 {% if boundary.peer %}          <p>Official comparison on {{ boundary.peer.checked }}, on one fictional input: for {{ boundary.peer.input }}, the <a href="{{ boundary.peer.url }}">{{ boundary.peer.name }}</a> gave {{ boundary.peer.peer_result }}, and this calculator gave {{ boundary.peer.output }}. {{ boundary.peer.verdict }}. This records that date only and is not a standing match.</p>
 {% endif %}        </section>
-        <p>One of the <a href="/tools/business-calculators/">nine business calculators</a>. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.{% if page.calculator == "cash" %} Use Save inputs to download a local scenario file, then Load inputs to resume it.{% endif %}</p>
+        <p>One of the <a href="/tools/business-calculators/">ten business calculators</a>. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.{% if page.calculator == "cash" %} Use Save inputs to download a local scenario file, then Load inputs to resume it.{% endif %}</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up{% if page.calculator == "hourly" %}; the required hourly rate rounds up to the next cent{% endif %}{% if page.calculator == "margin" or page.calculator == "variance" %}; percentages round to two decimal places, with exact halves rounded away from zero{% endif %}.</p>
       <p class="byline">
         Written by Ryan Duguid in his own time and on his own equipment.
@@ -92,8 +93,8 @@
       "name": "{{ page.title }}",
       "description": "{{ page.description }}",
       "inLanguage": "en-AU",
-      "datePublished": "2026-09-20",
-      "dateModified": "2026-11-05",
+      "datePublished": "{{ published }}",
+      "dateModified": "{{ page.date_modified | default: "2026-11-05" }}",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

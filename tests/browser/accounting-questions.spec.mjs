@@ -435,6 +435,23 @@ for (const [rate, months, expected] of [
   });
 }
 
+test('Division 7A takes the chosen year’s rate from the table and works the repayment offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/div7a/');
+  const form = page.locator('#div7a form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Income year (benchmark rate)').selectOption('2023-24');
+  await form.getByLabel('Loan not repaid at the end of the previous income year (AUD)').fill('250000');
+  await form.getByLabel('Remaining term (whole years)').fill('7');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: 2023-24 income year at the 8.27% benchmark rate, $250,000.00 not repaid at 30 June 2023, 7 years remaining. '
+    + 'Minimum yearly repayment: $48,462.41. Interest for the year, if repaid on 30 June: $20,675.00. Principal, if repaid on 30 June: $27,787.41.');
+  await form.getByLabel('Remaining term (whole years)').fill('26');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('.field-error')).toHaveText('Enter 25 or less.');
+});
+
 test('printing includes selected questions hidden by a filter and restores the screen', async ({ page }) => {
   await page.goto('/tools/accounting-questions/investments-local/#q100');
   await page.getByLabel('Add to my checklist, question 100', { exact: true }).check();

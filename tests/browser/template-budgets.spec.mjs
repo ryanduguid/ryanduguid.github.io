@@ -15,7 +15,7 @@ const calculators = paths.filter((path) => /^\/tools\/business-calculators\/[a-z
 const topics = paths.filter((path) => /^\/tools\/accounting-questions\/[a-z-]+\/$/.test(path));
 
 test('calculator and question pages open on their working control', async ({ page }) => {
-  expect(calculators).toHaveLength(9);
+  expect(calculators).toHaveLength(10);
   expect(topics).toHaveLength(10);
   for (const path of [...calculators, ...topics]) {
     await page.goto(path);
