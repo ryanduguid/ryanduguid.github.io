@@ -73,8 +73,11 @@
   font-weight: 400;
 }
 
+/* The mark is set apart from the place line by weight and a stronger ink; its words say
+   what it means, so colour is not the signal. */
 .depreciation-page .asset-mark {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink-mid);
+  font-weight: 600;
 }
 
 /* On a phone 6 columns left a reader scrolling sideways to reach the rates. Each row

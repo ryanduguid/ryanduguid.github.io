@@ -122,8 +122,10 @@ function rowOf(entry, { indentFrom, placed = false } = {}) {
     return row;
   }
   const rate = rates(lifeFromMonths(entry.months));
-  const use = el('button', { type: 'button', class: 'link-button' }, 'Use this life',
-    el('span', { class: 'visually-hidden' }, `: ${years(entry.life)}, ${entry.asset}`));
+  // The name starts with the words on the button and adds which life it is.
+  const use = el('button', {
+    type: 'button', class: 'link-button', 'aria-label': `Use this life: ${years(entry.life)}, ${entry.asset}`,
+  }, 'Use this life');
   use.addEventListener('click', () => useLife(entry));
   row.append(
     cellOf(1, years(entry.life)),
