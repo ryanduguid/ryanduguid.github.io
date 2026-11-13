@@ -43,6 +43,8 @@ The stage column was read on 4 November 2026 from each bill’s page on the Parl
 
 Later report for the foreign resident CGT row: the ATO measure page, updated 9 October 2026, says the Treasury Laws Amendment (Strengthening Accountability for Tax Adviser Misconduct and Other Measures) Act 2026 is law and the changes commenced on 1 October 2026. The Federal Register gives assent on 15 September 2026. The ATO summary, last updated 2 November 2026, still showed TBD when checked on 4 November 2026, so the row repeats it.
 
+Later report for the minimum tax on discretionary trusts row: the Tax Reform No. 3 Bill’s page, read on 14 November 2026, lists the Senate Economics Legislation Committee report on 13 November 2026.
+
 Left out on purpose: the Budget and MYEFO rows that fund administration rather than change tax or super law (child support systems, the foreign investment framework, the Consumer Data Right, ABN authentication and lookup services, Digital ID, the counter-fraud and NDIS taskforces, director identification number linking and the wind-down of cheques).
 
 ## Legislated: later application
@@ -133,6 +135,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Loss refundability for small start-up companies (beyond the carry-back): https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-loss-refundability-reforms-for-businesses-and-start-ups
 - Dynamic PAYG instalments: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/dynamic-pay-as-you-go-instalments-making-tax-simpler-for-businesses
 - Federal Register: https://www.legislation.gov.au/C2026A00086/latest/text
+- Tax Reform No. 3 Bill’s page: https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation/Bills_Search_Results/Result?bId=r7554
 - Negative gearing and CGT discount reform: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax
 - Treasury Laws Amendment (Tax Reform No. 1) Act 2026: https://www.legislation.gov.au/C2026A00049/latest/text
 - Tax loss carry-back: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-tax-loss-carry-back
