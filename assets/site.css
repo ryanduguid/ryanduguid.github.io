@@ -778,12 +778,23 @@ td {
   text-underline-offset: 0.25em;
 }
 
-/* On phones a one-line date took half the table and left each change about
-   18 characters a line, so the date wraps in a narrow track there. */
+/* On phones a one-line date beside its change took half the table and left
+   the change about 18 characters a line, and a wrapped date took 3 lines. Each
+   row stacks there instead: the date on one line above the change, which keeps
+   the table's full width. The column headings stay for screen readers (with
+   the receipt sensitivity table's, below), and explicit table roles in the
+   page keep the rows a table where a browser drops it for block cells. */
 @media (max-width: 40rem) {
+  .changelog-section tbody :is(th, td) {
+    display: block;
+  }
+
   .changelog-section tbody th {
-    width: 5.5rem;
-    white-space: normal;
+    border-bottom: 0;
+  }
+
+  .changelog-section tbody td {
+    padding-top: 0;
   }
 }
 
@@ -918,7 +929,8 @@ caption {
     overflow-wrap: break-word;
   }
 
-  .receipt-sensitivity thead {
+  .receipt-sensitivity thead,
+  .changelog-section thead {
     position: absolute;
     width: 1px;
     height: 1px;
