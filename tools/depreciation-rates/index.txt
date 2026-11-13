@@ -140,7 +140,7 @@ Based on content from the Federal Register of Legislation at 13 November 2026. F
 
 The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: Schedule 2 only, set out as data with each row’s nesting as a number, each life also in months and as 2 rates, dates in one form, plain spaces and hyphens, and 3 rows recorded one level shallower than the EPUB’s text sets them. The Commonwealth does not endorse this page.
 
-The rules beyond the tables were read on 13 November 2026 in the Income Tax Assessment Act 1997 (Compilation No. 268, 1 October 2026), the Income Tax (Transitional Provisions) Act 1997 (Compilation No. 104) and in ATO guidance: the Guide to depreciating assets 2026, Rental properties 2026 and its pages on the 2 methods, the low-value pool and the car limit. The ATO’s own depreciation and capital allowances tool works out deductions with more of an asset’s history.
+The rules beyond the tables were read on 13 November 2026 in the Income Tax Assessment Act 1997 (Compilation No. 268, 1 October 2026), the Income Tax (Transitional Provisions) Act 1997 (Compilation No. 104) and in ATO guidance: the Guide to depreciating assets 2026, Rental properties 2026 and its pages on the 2 methods, the low-value pool and the car limit. The dates from which the capped lives and the labour income exclusion apply were read on 14 November 2026 in the amending Acts as made. The ATO’s own depreciation and capital allowances tool works out deductions with more of an asset’s history.
 
 ## Limits
 
