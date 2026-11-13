@@ -207,6 +207,42 @@ without a build it leaves those counts unchanged. Build first after a rate page
 edit: the digests and the JSON-LD pin of a page that uses a layout come from
 `_site`.
 
+## Effective life tables
+
+`tools/depreciation-rates/effective-life.json` holds Schedule 2 of the
+Commissioner of Taxation's effective life determination. `site-tools
+build_effective_life` builds it from the instrument's EPUB on the Federal
+Register of Legislation; never edit it by hand. Its `source` block records the
+instrument, its registration date, its URL and the date it was read, and
+`scripts/depreciation-rates.test.mjs` holds the page to the same details.
+
+When a new or amending determination is registered (the ATO page 'Effective life
+determinations, rulings and law' names the current instrument):
+
+1. Download that version's EPUB from the Register into an empty folder and unzip
+   it. The tables are in `OEBPS/document_1/document_1.html`.
+2. Rebuild the file with that version's details:
+
+   ```bash
+   site-tools build_effective_life --write --source <path to document_1.html> \
+     --register-id <ID> --registered <YYYY-MM-DD> --source-url <URL of its text> --read <YYYY-MM-DD>
+   ```
+
+   The builder stops at any row it cannot read. With `--check --source <file>`
+   it compares the committed file with a source and writes nothing.
+3. Review the diff. The file has one line for each row, so each life that was
+   changed, added or removed is one line.
+4. Compare the file with a second format of the same version, the Register's
+   Word file or its authorised PDF: the rows in each table, then every
+   description, life, flag and date.
+5. Update the counts and sampled rows pinned in `scripts/tests/effective_life.rs`
+   from the authorised PDF, then the instrument, counts, dates and attribution
+   the page states.
+6. Reread the page's sections beyond the tables against the law in force and
+   move its Sources checked date. Finish as for any content edit: a changelog
+   row, `build_feed --write`, `build_llms_full --write`, `check_design
+   --update-baseline` and `check_site`.
+
 ## Ozzit reference examples
 
 The ten examples use the Apache-2.0 Ozzit v3.5.0 function index in
