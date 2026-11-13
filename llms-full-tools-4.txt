@@ -1197,7 +1197,7 @@ The ATO’s worked example on Loans by private companies takes $55,000 at 5.95% 
 
 ## What the Division 7A minimum yearly repayment calculator does not cover
 
-It does not decide whether a payment or loan is a Division 7A loan, whether the loan agreement complies, whether a shortfall is a deemed dividend or how much of it, or how a distributable surplus limits one. It works one income year only, with no repayment schedule, and none for the year in which the loan was made. It takes the balance as you enter it: it does not work it out from the loans made, repayments made before the lodgment day or the previous year’s interest, and it does not combine several loans. It does not handle an income year that ends on a day other than 30 June. Subsection 109E(5) lets regulations set another amount, and this calculator applies the formula only. Confirm the figures with the ATO Division 7A calculator and decision tool or a registered tax agent.
+The calculator does not decide whether a payment or loan is a Division 7A loan, whether the loan agreement complies, whether a shortfall is a deemed dividend or how much of it, or how a distributable surplus limits one. It works one income year only, with no repayment schedule, and none for the year in which the loan was made. It takes the balance as you enter it: it does not work it out from the loans made, repayments made before the lodgment day or the previous year’s interest, and it does not combine several loans. It does not handle an income year that ends on a day other than 30 June. Subsection 109E(5) lets regulations set another amount, and this calculator applies the formula only. Confirm the figures with the ATO Division 7A calculator and decision tool or a registered tax agent.
 
 ## Boundary cases
 

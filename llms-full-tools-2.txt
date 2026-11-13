@@ -1225,7 +1225,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/business-calculators/
 
-> Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, Division 7A repayments, staff costs and a 13-week cash forecast in your browser.
+> Calculate GST, business use, margins, break-even sales, hourly rates, variances, loan and Division 7A repayments, staff costs and 13-week cash flow in your browser.
 
 # Business calculators
 
