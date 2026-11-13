@@ -359,6 +359,13 @@ linked from the privacy notice, returned HTTP 403 in the scheduled run 427403354
 A browser loaded it with the expected content on 11 November 2026. Its exact URL
 is in the same list under the same rule.
 
+Five official public holiday pages cited by the Payday Super business-day calendar
+returned HTTP 403 in pull request run 43452694807: the ACT Government's public holidays
+page, the NT Government's public holidays page, WorkSafe Tasmania's public holidays
+page and Business Victoria's 2026 and 2027 public holiday pages. A browser loaded each
+with the expected holiday dates on 14 November 2026. Their exact URLs are in the same
+list under the same rule.
+
 ## Release claims
 
 `scripts/release_record.json` is the reviewed statement of which release each page
