@@ -53,7 +53,7 @@ test('a life is read in the forms a reader types', () => {
   assert.deepEqual(parseLife('½'), { numerator: 1n, denominator: 2n });
   assert.deepEqual(parseLife('200'), { numerator: 200n, denominator: 1n });
   assert.deepEqual(lifeFromMonths(80), { numerator: 20n, denominator: 3n });
-  for (const text of ['', 'ten', '0', '-5', '1/0', '0.05', '201', '1e2', '5 years']) {
+  for (const text of ['', 'ten', '0', '-5', '1/0', '0.05', '201', '1e2', '5 years', '6 4/3', '6 0/3', '3/2']) {
     assert.throws(() => parseLife(text), /effective life/, text);
   }
   for (const months of [0, -12, 1.5]) assert.throws(() => lifeFromMonths(months), /months/);
@@ -66,7 +66,13 @@ test('money is whole cents', () => {
   assert.equal(formatCents(123456n), '$1,234.56');
   assert.equal(formatCents(5n), '$0.05');
   assert.equal(formatCents(100_000_000_000n), '$1,000,000,000.00');
+  assert.equal(parseCents('1,500.50'), 150050n);
+  assert.equal(parseCents('$1,234,567'), 123456700n);
   for (const text of ['', '0', '-5', '1e3', '12.345', '1000000000.01', 'abc']) {
+    assert.throws(() => parseCents(text), /cost/, text);
+  }
+  // A comma that is not a thousands separator is refused, never dropped: '12,50' is not $1,250.
+  for (const text of ['12,50', '1,00', '1,2,3', ',5', '5$', '$$5', '1,5000']) {
     assert.throws(() => parseCents(text), /cost/, text);
   }
 });
@@ -241,6 +247,11 @@ test('a search finds rows by every word typed', () => {
   // Case, plurals and typed punctuation make no difference.
   const ids = (/** @type {string} */ query) => found(query).map((entry) => entry.id);
   assert.deepEqual(ids('TRACTORS'), ids('tractor'));
+  assert.deepEqual(new Set(ids('batteries')), new Set(ids('battery')));
+  for (const asset of ['Storage batteries', 'Battery chargers']) {
+    assert.ok(found('battery').some((entry) => entry.asset.startsWith(asset)), asset);
+  }
+  assert.ok(found('accessory').length > 0);
   assert.deepEqual(ids("Monumental masons' plant"), ids('monumental masons’ plant'));
   assert.deepEqual(ids('self propelled'), ids('self-propelled'));
 

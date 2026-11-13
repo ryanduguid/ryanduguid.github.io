@@ -40,10 +40,12 @@ function words(text) {
   return fold(text).match(/[a-z0-9]+/g) ?? [];
 }
 
-/** A word without its plural ending: 'presses' is 'press' and 'heaters' is 'heater'.
+/** A word without its plural ending: 'presses' is 'press', 'batteries' is 'battery' and
+ * 'heaters' is 'heater'.
  * @param {string} word */
 function singular(word) {
   if (word.endsWith('sses')) return word.slice(0, -2);
+  if (word.length > 4 && word.endsWith('ies')) return `${word.slice(0, -3)}y`;
   return word.length > 3 && word.endsWith('s') && !word.endsWith('ss') ? word.slice(0, -1) : word;
 }
 
@@ -191,7 +193,7 @@ export function parseLife(text) {
   const decimal = /^(\d{1,3})(?:\.(\d{1,4}))?$/.exec(plain);
   let numerator;
   let denominator;
-  if (mixed && BigInt(mixed[3]) > 0n) {
+  if (mixed && Number(mixed[2]) > 0 && Number(mixed[2]) < Number(mixed[3])) {
     denominator = BigInt(mixed[3]);
     numerator = BigInt(mixed[1] ?? '0') * denominator + BigInt(mixed[2]);
   } else if (decimal) {
@@ -232,9 +234,10 @@ export function rates({ numerator, denominator }) {
 
 /** Money text as whole cents, from 1 cent to $1 billion. @param {string} text */
 export function parseCents(text) {
-  const match = /^(\d{1,10})(?:\.(\d{1,2}))?$/.exec(text.trim().replace(/[$,]/g, ''));
-  if (!match) throw new Error('Enter the cost in dollars and cents, using digits only.');
-  const value = BigInt(match[1]) * 100n + BigInt((match[2] ?? '').padEnd(2, '0'));
+  // Commas count only as thousands separators: '12,50' is refused, not read as $1,250.
+  const match = /^\$?(\d{1,3}(?:,\d{3})+|\d{1,10})(?:\.(\d{1,2}))?$/.exec(text.trim());
+  if (!match) throw new Error('Enter the cost in dollars and cents, such as 1500 or 1,500.50.');
+  const value = BigInt(match[1].replaceAll(',', '')) * 100n + BigInt((match[2] ?? '').padEnd(2, '0'));
   if (value < 1n || value > 100_000_000_000n) throw new Error('Enter a cost between $0.01 and $1,000,000,000.');
   return value;
 }
