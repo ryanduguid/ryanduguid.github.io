@@ -196,9 +196,39 @@ test('the page with results and a schedule drawn passes the accessibility scan',
   expect(scan.violations.map((violation) => `${violation.id}: ${violation.nodes.length}`)).toEqual([]);
 });
 
+test('a life set after the start date is flagged, and a later start is not', async ({ page }) => {
+  await page.goto(`${PAGE}?q=electric+scooters`);
+  await page.getByRole('button', { name: 'Use this life: 2 years, Electric scooters (e-scooters)' }).click();
+  await page.getByLabel('Cost (AUD)').fill('1000');
+  await page.getByLabel('First used or installed ready for use').fill('2020-07-01');
+  await page.getByRole('button', { name: 'Work out the deduction' }).click();
+  const output = page.locator('#deduction-output');
+  await expect(output).toContainText(
+    'The life of ‘Electric scooters (e-scooters)’ was last set on 1 July 2022, after this start date.',
+  );
+  await page.getByLabel('First used or installed ready for use').fill('2023-07-01');
+  await page.getByRole('button', { name: 'Work out the deduction' }).click();
+  await expect(output.locator('.result-row').first()).toContainText('Decline in value for 2023-24');
+  await expect(output).not.toContainText('was last set on');
+});
+
+test('a section note that redirects the reader shows once with its results', async ({ page }) => {
+  await page.goto(`${PAGE}?q=clay`);
+  const note = page.locator('#finder-results .asset-place').filter({
+    hasText: 'Note: Determinations for assets used in mining clay are shown under the Construction material mining',
+  });
+  await expect(note).toHaveCount(1);
+});
+
 test('without the data file the page says so and the calculator still works', async ({ page }) => {
   await page.route('**/effective-life.json', (route) => route.abort());
   await page.goto(PAGE);
+  await expect(page.locator('#finder-status')).toHaveText(
+    'The effective life tables could not be loaded. Reload the page, or open the data file linked under Source.',
+  );
+  // A search of tables that never arrived must not read as 'No row matches'.
+  await page.getByLabel('Asset', { exact: true }).fill('laptop');
+  await page.getByRole('button', { name: 'Search', exact: true }).click();
   await expect(page.locator('#finder-status')).toHaveText(
     'The effective life tables could not be loaded. Reload the page, or open the data file linked under Source.',
   );

@@ -46,6 +46,10 @@ const methodSelect = byId('dep-method', HTMLSelectElement);
 
 /** @type {Entry[]} */
 let entries = [];
+/** False until the tables arrive: a search of no rows must not read as 'No row matches'. */
+let loaded = false;
+/** The row whose life was last sent to the calculator. @type {Entry | null} */
+let chosen = null;
 
 /**
  * @param {string} tag @param {Record<string, string>} [attributes]
@@ -102,12 +106,14 @@ const cellOf = (column, ...children) => el('td', { role: 'cell', 'data-label': C
 /**
  * One row of the tables. In search results a row names where it sits and a heading offers
  * its rows; in the browse view a row is indented under its headings instead.
- * @param {Entry} entry @param {{indentFrom?: number, placed?: boolean}} [options]
+ * @param {Entry} entry @param {{indentFrom?: number, placed?: boolean, noted?: boolean}} [options]
  */
-function rowOf(entry, { indentFrom, placed = false } = {}) {
+function rowOf(entry, { indentFrom, placed = false, noted = false } = {}) {
   const depth = indentFrom === undefined ? 0 : Math.min(entry.depth - indentFrom, 4);
   const name = el('th', { scope: 'row', role: 'rowheader', class: `depth-${depth}` }, entry.asset);
   if (placed) name.append(el('span', { class: 'asset-place' }, place(entry)));
+  // A section's note can send the reader to another row, so its first result carries it.
+  if (noted && entry.note) name.append(el('span', { class: 'asset-place' }, `Note: ${entry.note}`));
   if (entry.capped) name.append(el('span', { class: 'asset-mark' }, 'Capped life available (section 40-102)'));
   const row = el('tr', entry.life === null ? { role: 'row', class: 'is-heading' } : { role: 'row' }, name);
   if (entry.life === null || entry.months === null) {
@@ -144,9 +150,16 @@ function group(title, found) {
   const body = table.querySelector('tbody') ?? table;
   const more = el('button', { type: 'button', class: 'button button--secondary' });
   let shown = 0;
+  /** Sections whose note this group has shown. @type {Set<string>} */
+  const notes = new Set();
   const show = () => {
     const next = found.slice(shown, shown + SHOWN);
-    body.append(...next.map((entry) => rowOf(entry, { placed: true })));
+    body.append(...next.map((entry) => {
+      const key = `${entry.division}/${entry.section}`;
+      const noted = !notes.has(key);
+      notes.add(key);
+      return rowOf(entry, { placed: true, noted });
+    }));
     shown += next.length;
     more.hidden = shown >= found.length;
     more.textContent = `Show ${Math.min(SHOWN, found.length - shown)} more of ${title}`;
@@ -163,6 +176,7 @@ function chosenDivision() {
 }
 
 function drawResults() {
+  if (!loaded) return;
   const query = queryInput.value.trim();
   const division = chosenDivision();
   results.replaceChildren();
@@ -203,6 +217,7 @@ function drawUnder(heading) {
 /** Sends a row's life to the calculator. @param {Entry} entry */
 function useLife(entry) {
   if (entry.life === null) return;
+  chosen = entry;
   lifeInput.value = entry.life;
   lifeInput.setCustomValidity('');
   clearFieldError(lifeInput);
@@ -307,7 +322,13 @@ function drawSchedule() {
     el('td', {}, formatCents(line.deduction)),
     el('td', {}, formatCents(line.closing))));
   const caption = `Decline in value by income year, ${method === 'prime-cost' ? 'prime cost' : 'diminishing value'}`;
+  // Section 40-95(2): the life is the one in force when the asset was acquired, which a
+  // life set after the start date may not be.
+  const later = chosen?.updated && lifeInput.value.trim() === chosen.life && startInput.value < chosen.updated
+    ? [el('p', { class: 'field-note' }, `The life of ‘${chosen.asset}’ was last set on ${longDate(chosen.updated)}, after this start date. Check the determination in force when you acquired the asset.`)]
+    : [];
   output.replaceChildren(
+    ...later,
     el('div', { class: 'result-row' }, el('span', {}, `Decline in value for ${incomeYear(last.yearEnd)}`), el('strong', {}, formatCents(last.deduction))),
     el('div', { class: 'result-row' }, el('span', {}, `Value left at 30 June ${last.yearEnd}`), el('strong', {}, formatCents(last.closing))),
     el('p', { class: 'field-note' }, working),
@@ -359,6 +380,7 @@ try {
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const data = await response.json();
   entries = flatten(data);
+  loaded = true;
   for (const division of data.table_a) {
     industrySelect.append(el('option', { value: slug(division.heading) }, sentence(division.heading)));
   }
