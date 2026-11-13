@@ -12,7 +12,7 @@ The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it
 
 The FBT year runs from 1 April to 31 March.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
+Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
 
 Read on 20 September 2026 from the ATO’s FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The 47% rate is set by section 6 of the Fringe Benefits Tax Act 1986, checked 22 September 2026. This citation check does not renew the historical table review.
 
@@ -32,7 +32,7 @@ FBT year ending | FBT rate | Type 1 gross-up | Type 2 gross-up
 
 Type 1 applies where the provider is entitled to a GST credit for providing the benefit; Type 2 applies where it is not. Reportable fringe benefits on an employee’s income statement are always grossed up at the Type 2 rate. For the years ending 31 March 2023 to 2027 the reporting threshold is a taxable value above $2,000, a grossed-up minimum of $3,773.
 
-Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). FBT rate and gross-up rates by FBT year [Data set]. https://duguid.com.au/rates/fbt-rate/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 13 November 2026. Cite as Duguid, R. (2026). FBT rate and gross-up rates by FBT year [Data set]. https://duguid.com.au/rates/fbt-rate/. Verify against current ATO guidance before relying on a figure.
 
 ## How the rate and the gross-up fit together
 

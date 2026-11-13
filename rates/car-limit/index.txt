@@ -12,7 +12,7 @@ The car limit is $69,883 for a car first used or leased in 2026-27. It was $69,6
 
 The limit caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 3 November 2026.
+Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
 
 Each figure below was read on 20 September 2026 from an ATO page: the 2026-27 car thresholds notice, the car limit list for 2021-22 to 2025-26 and the accelerated depreciation page for 2019-20 and 2020-21. The limit itself is section 40-230 of the Income Tax Assessment Act 1997.
 
@@ -30,7 +30,7 @@ Income year | Car limit | Read from
 
 The limit applies in the income year the car is first used or leased. Before applying it, reduce the car’s cost by any GST credit you are entitled to claim. GST you cannot claim stays in the cost, including all GST if you are not registered. The ATO no longer publishes an annual determination for the limit; the figure is indexed and announced on its website each June.
 
-Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 3 November 2026. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 13 November 2026. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
 
 ## GST credit and luxury car tax
 
