@@ -193,6 +193,8 @@ test('cash inputs survive a save and reload with dated results', async ({ page }
   await form.getByLabel('Week 1 payments', { exact: true }).fill('300');
   await form.getByLabel('Receipt to delay (AUD)').fill('1000');
   await form.getByLabel('Delay in whole weeks').fill('2');
+  await form.getByLabel('Original receipt week').fill('1');
+  await form.getByLabel('Week 13 receipts', { exact: true }).fill('0');
   const download = page.waitForEvent('download');
   await form.getByRole('button', { name: 'Save inputs' }).click();
   const saved = await download;
