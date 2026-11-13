@@ -5373,13 +5373,13 @@ An asset you started to hold before 10 May 2006 is not covered, because its dimi
 
 The Commissioner’s life for an asset is the one in force when you entered a contract to acquire it, otherwise acquired it or started to construct it, where its start time falls within 5 years of then. Otherwise the life in force at the start time applies (subsection 40-95(2) of the Income Tax Assessment Act 1997). Plant acquired before 11.45 am on 21 September 1999, by legal time in the Australian Capital Territory, has its own rule in that subsection.
 
-The 2025 determination commenced on 16 September 2025 and repealed the 2015 determination. Each row’s ‘last updated’ date is the date the Commissioner last reviewed and determined that life. Where a row’s ‘last updated’ date is later than the day you acquired the asset, check the life in force on that day. Earlier lives were published in tables attached to taxation rulings, a practice that ended when TR 2022/1 was withdrawn, as the ATO says on its page Effective life determinations, rulings and law.
+The 2025 determination commenced on 16 September 2025 and repealed the 2015 determination. Each row’s ‘last updated’ date is the date the Commissioner last reviewed and determined that life. Where a row’s ‘last updated’ date is later than the time that rule fixes for your asset, check the life in force at that time. Earlier lives were published in tables attached to taxation rulings, a practice that ended when TR 2022/1 was withdrawn, as the ATO says on its page Effective life determinations, rulings and law.
 
 You may instead work out an effective life yourself under section 40-105. You make the choice for the income year in which the asset’s start time occurs (subsection 40-95(3)).
 
 ## How a life becomes a rate
 
-Prime cost spreads the cost evenly over the life: cost × (days held ÷ 365) × (100% ÷ effective life), and never more than the value left (section 40-75). Diminishing value works on the value left: base value × (days held ÷ 365) × (200% ÷ effective life), for an asset you started to hold on or after 10 May 2006 (section 40-72). An earlier asset uses 150% (section 40-70).
+Prime cost spreads the cost evenly over the life: cost × (days held ÷ 365) × (100% ÷ effective life), and never more than the value left (section 40-75). Diminishing value works on the value left: base value × (days held ÷ 365) × (200% ÷ effective life), and never more than the base value, for an asset you started to hold on or after 10 May 2006 (section 40-72). An earlier asset uses 150% (section 40-70).
 
 Days held can be 366 in a leap year and the divisor stays 365, as the ATO’s Guide to depreciating assets 2026 says. You choose one method for each asset (section 40-65) and cannot change it (section 40-130).
 
@@ -5421,23 +5421,23 @@ Four rules can replace or limit a deduction worked out from an effective life. E
 
 ### Low-value pool
 
-A low-cost asset costs less than $1,000 at the end of the income year you start to use it, and can go into a low-value pool (section 40-425). Each year the pool declines by 18.75% of the taxable use percentage of the cost of low-cost assets added that year, and by 37.5% of the pool’s closing balance for the year before together with the taxable use percentage of the opening adjustable value of low-value assets added that year (section 40-440). A low-value asset is one already depreciated by diminishing value whose opening adjustable value is under $1,000.
+A low-cost asset costs less than $1,000 at the end of the income year you start to use it, and can go into a low-value pool (section 40-425). Each year the pool declines by 18.75% of the taxable use percentage of the cost of low-cost assets added that year, and by 37.5% of the pool’s closing balance for the year before together with the taxable use percentage of the opening adjustable value of low-value assets added that year (section 40-440). A low-value asset is one already depreciated by diminishing value whose opening adjustable value is under $1,000, and that is not a low-cost asset.
 
-Once you pool one low-cost asset, each later one goes in too, and an asset stays in the pool (section 40-430). An asset deducted under the small business rules cannot be pooled this way.
+Once you pool one low-cost asset, each later one goes in too, and an asset stays in the pool (section 40-430). An asset deducted under the small business rules cannot be pooled this way. Nor can an asset that, when you first used it or had it installed ready for use, you expected to use mainly to earn your assessable labour income (subsection 40-425(9)).
 
 ### Small business pool and instant asset write-off
 
-A small business entity, with aggregated turnover under $10 million, that chooses simplified depreciation deducts the taxable purpose proportion of an asset costing less than $20,000 in the year it is first used or installed ready for use (sections 328-110 and 328-180). The $20,000 threshold is permanent for assets first used or installed ready for use on or after 1 July 2026, under the Treasury Laws Amendment (Tax Reform No. 2) Act 2026.
+A small business entity, with aggregated turnover under $10 million, that chooses simplified depreciation deducts the taxable purpose proportion of an asset costing less than $20,000 in the year it is first used or installed ready for use (sections 328-110 and 328-180). It must be a small business entity, and have chosen simplified depreciation, both for that year and for the year it started to hold the asset. The $20,000 threshold is permanent for assets first used or installed ready for use on or after 1 July 2026, under the Treasury Laws Amendment (Tax Reform No. 2) Act 2026.
 
-A temporary rule gives the same $20,000 for assets first acquired at or after the 2015 budget time and first used or installed ready for use from 1 July 2023 to 30 June 2026 (section 328-180 of the Income Tax (Transitional Provisions) Act 1997). Other assets go to the general small business pool, deducted at 15% in their first year and 30% of the opening balance after that (section 328-190). A pool balance under $20,000 is written off (section 328-210).
+A temporary rule gives the same $20,000 for assets first acquired at or after the 2015 budget time and first used or installed ready for use from 1 July 2023 to 30 June 2026 (section 328-180 of the Income Tax (Transitional Provisions) Act 1997). Other assets go to the general small business pool, deducted at 15% in their first year and 30% of the opening balance after that (section 328-190). Where the pool’s balance before that year’s deduction is under $20,000, the whole balance is deducted (section 328-210).
 
 ### Assets costing $300 or less
 
-An asset costing $300 or less is deducted in full where you use it mainly to earn income that is not from carrying on a business (subsection 40-80(2)). The asset must not be part of a set, or one of several identical items, costing more than $300 in total that year.
+The decline in value of an asset costing $300 or less is its cost where you use it mainly to earn income that is not from carrying on a business (subsection 40-80(2)). The asset must not be part of a set, or one of several identical or substantially identical items, costing more than $300 in total that year. Use for any other purpose reduces the deduction, as it does for every asset (subsection 40-25(2)).
 
 ### Car limit
 
-The cost of a car designed mainly for carrying passengers is reduced to the car limit for the financial year you started to hold it: $69,883 for 2026-27 and $69,674 for 2025-26 (section 40-230 and the ATO’s figures). Car limit for depreciation gives each year and its source.
+The cost of a car designed mainly for carrying passengers is reduced to the car limit for the financial year you started to hold it: $69,883 for 2026-27 and $69,674 for 2025-26 (section 40-230 and the ATO’s figures). The limit does not apply to a car fitted out for transporting disabled people in wheelchairs for profit, or to one that is over the limit only because of modifications that let a person with a disability use it for a taxable purpose (subsection 40-230(2)). Car limit for depreciation gives each year and its source.
 
 ## Capital works
 
@@ -5461,7 +5461,7 @@ The rules beyond the tables were read on 13 November 2026 in the Income Tax Asse
 
 The page does not decide whether something is a depreciating asset, who holds it, what it cost or how far it is used for a taxable purpose. Check a life against the registered determination before relying on it.
 
-The calculator leaves out balancing adjustments, second elements of cost, private use, pooling, the car limit, capped lives you have not entered and any rule that replaces these methods for a period. Diminishing value is not available for some assets, such as in-house software, intellectual property other than copyright in a film, and spectrum licences (subsection 40-72(2)). A life the Commissioner has not listed can be worked out under section 40-105 or requested with the ATO’s effective life review application form.
+The calculator leaves out balancing adjustments, second elements of cost, private use, pooling, the car limit, capped lives you have not entered and any rule that replaces these methods for a period. Diminishing value is not available for some assets, such as in-house software, intellectual property other than copyright in a film, and spectrum licences (subsection 40-72(2)). Section 40-27 can take away the deduction for a previously used asset in residential rental premises where the letting is not a business. A life the Commissioner has not listed can be worked out under section 40-105 or requested with the ATO’s effective life review application form.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 

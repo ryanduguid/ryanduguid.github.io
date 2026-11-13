@@ -102,7 +102,7 @@ test('a row sends its life to the calculator, which works the ATO photocopier ex
   await page.getByLabel('Method').selectOption('prime-cost');
   await page.getByLabel('Income year ending 30 June').fill('2028');
   await page.getByRole('button', { name: 'Work out the deduction' }).click();
-  await expect(output.getByRole('row')).toHaveText([
+  await expect(page.locator('#deduction-schedule').getByRole('row')).toHaveText([
     /Income year\s*Days held\s*Opening value\s*Decline in value\s*Closing value/,
     /2025-26\s*365\s*\$1,500\.00\s*\$300\.00\s*\$1,200\.00/,
     /2026-27\s*365\s*\$1,200\.00\s*\$300\.00\s*\$900\.00/,
@@ -195,7 +195,9 @@ test('the page with results and a schedule drawn passes the accessibility scan',
   await page.getByLabel('Effective life (years)').fill('5');
   await page.getByLabel('First used or installed ready for use').fill('2024-07-01');
   await page.getByRole('button', { name: 'Work out the deduction' }).click();
-  await expect(page.locator('#deduction-output table')).toBeVisible();
+  await expect(page.locator('#deduction-schedule table')).toBeVisible();
+  // The live region holds the result, not every row of the schedule.
+  await expect(page.locator('#deduction-output table')).toHaveCount(0);
   const scan = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(scan.violations.map((violation) => `${violation.id}: ${violation.nodes.length}`)).toEqual([]);
 });

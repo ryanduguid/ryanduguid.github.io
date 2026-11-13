@@ -178,3 +178,11 @@
 .depreciation-page #browse-tables details details:last-child {
   border-bottom: 0;
 }
+
+/* The yearly schedule follows the result in its column. It is outside the result's live
+   region, so a screen reader announces the result and not every row of the table. */
+@media screen and (min-width: 56.0625rem) {
+  .depreciation-page .calculator-split > #deduction-schedule {
+    grid-column: 2;
+  }
+}

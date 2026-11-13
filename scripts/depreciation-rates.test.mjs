@@ -153,6 +153,9 @@ test('diminishing value works on what is left and a third of a year is exact', (
     deductions(1_000_000n, '6 2/3', '2025-07-01', 2027, 'diminishing-value'),
     ['$3,000.00', '$2,100.00'],
   );
+  // A life under a year: the formula gives 4 times the base value, and subsection
+  // 40-72(3) stops the decline at the base value. 1 day in 2025-26, then all that is left.
+  assert.deepEqual(deductions(36_500n, '1/2', '2026-06-30', 2027, 'diminishing-value'), ['$4.00', '$361.00']);
   // Each year rounds half up to the cent: $0.05 x 40% is 2 cents.
   assert.deepEqual(deductions(5n, '5', '2025-07-01', 2026, 'diminishing-value'), ['$0.02']);
 });

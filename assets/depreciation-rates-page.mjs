@@ -38,6 +38,8 @@ const results = byId('finder-results', HTMLElement);
 const browse = byId('browse-tables', HTMLElement);
 const deduction = byId('deduction-form', HTMLFormElement);
 const output = byId('deduction-output', HTMLOutputElement);
+// The yearly table sits outside the live region, which announces the result alone.
+const scheduleBox = byId('deduction-schedule', HTMLDivElement);
 const costInput = byId('dep-cost', HTMLInputElement);
 const lifeInput = byId('dep-life', HTMLInputElement);
 const startInput = byId('dep-start', HTMLInputElement);
@@ -235,6 +237,7 @@ function useLife(entry) {
   lifeInput.value = entry.life;
   lifeInput.setCustomValidity('');
   clearFieldError(lifeInput);
+  scheduleBox.replaceChildren();
   output.textContent = `Effective life of ${years(entry.life)} taken from ‘${entry.asset}’ (${place(entry)}). Enter the cost and dates, then work out the deduction.`;
   costInput.focus();
 }
@@ -346,6 +349,8 @@ function drawSchedule() {
     el('div', { class: 'result-row' }, el('span', {}, `Decline in value for ${incomeYear(last.yearEnd)}`), el('strong', {}, formatCents(last.deduction))),
     el('div', { class: 'result-row' }, el('span', {}, `Value left at 30 June ${last.yearEnd}`), el('strong', {}, formatCents(last.closing))),
     el('p', { class: 'field-note' }, working),
+  );
+  scheduleBox.replaceChildren(
     el('div', { class: 'table-scroll', role: 'region', 'aria-label': caption, tabindex: '0' },
       el('table', { class: 'facts facts--figures' }, el('caption', {}, caption), el('thead', {}, head), el('tbody', {}, ...body))),
   );
