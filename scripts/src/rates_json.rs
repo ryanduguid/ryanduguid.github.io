@@ -44,11 +44,19 @@ fn text(value: &str) -> Json {
 }
 
 /// One table's rows, each an object of its header names and cell text. A row with more
-/// or fewer cells than the header is an error, not a padded or truncated row.
+/// or fewer cells than the header is an error, not a padded or truncated row, as is a
+/// header that names a column twice, which would give a row the same key twice.
 fn table_rows(csv: &str, name: &str) -> Result<Vec<Json>> {
     let csv = csv.strip_prefix('\u{feff}').unwrap_or(csv);
     let mut rows = crate::pycsv::reader(csv)?.into_iter();
     let header = rows.next().ok_or_else(|| format!("{name}: no header"))?;
+    if let Some(column) = header
+        .iter()
+        .enumerate()
+        .find_map(|(i, column)| header[..i].contains(column).then_some(column))
+    {
+        return Err(format!("{name}: column {column} appears more than once"));
+    }
     let mut out = Vec::new();
     for (index, row) in rows.filter(|r| !r.is_empty()).enumerate() {
         if row.len() != header.len() {

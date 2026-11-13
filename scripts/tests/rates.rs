@@ -651,4 +651,15 @@ fn a_csv_edit_a_missing_file_or_a_ragged_row_fails_the_rates_json_check() {
         error.contains("car-limit/car-limit.csv row 2: 2 cells under 4 columns"),
         "{error}"
     );
+    // A repeated column name would write one JSON key twice, and a reader keeps one value.
+    std::fs::write(
+        table.join("car-limit.csv"),
+        csv.replace("checked_at", "car_limit"),
+    )
+    .unwrap();
+    let error = rates_json::build(site.path()).unwrap_err();
+    assert!(
+        error.contains("car-limit/car-limit.csv: column car_limit appears more than once"),
+        "{error}"
+    );
 }

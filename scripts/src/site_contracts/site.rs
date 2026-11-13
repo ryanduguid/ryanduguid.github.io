@@ -1870,8 +1870,10 @@ fn page_dates(
     failures: &mut Vec<String>,
 ) -> (Option<NaiveDate>, Option<NaiveDate>) {
     static CHECKED: LazyLock<regex::Regex> = LazyLock::new(|| {
-        regex::Regex::new(r#"class="page-meta">[^<]*Last checked <time datetime="([^"]*)">"#)
-            .unwrap()
+        regex::Regex::new(
+            r#"class="page-meta">[^<]*Last checked <time datetime="([^"]*)">([^<]*)</time>"#,
+        )
+        .unwrap()
     });
     static REVIEWED: LazyLock<regex::Regex> =
         LazyLock::new(|| regex::Regex::new(r#"class="page-meta">[^<]*Last reviewed \d"#).unwrap());
@@ -1882,9 +1884,9 @@ fn page_dates(
         }
         date
     };
-    let checked: Vec<String> = CHECKED
+    let checked: Vec<(String, String)> = CHECKED
         .captures_iter(html)
-        .map(|c| c[1].to_owned())
+        .map(|c| (c[1].to_owned(), c[2].to_owned()))
         .collect();
     let headers = checked.len() + REVIEWED.find_iter(html).count();
     if headers != 1 {
@@ -1892,9 +1894,15 @@ fn page_dates(
             "{rel}: expected one Last checked or Last reviewed date in the page header, found {headers}"
         ));
     }
-    let checked = checked
-        .first()
-        .and_then(|text| iso(text, "Last checked date", failures));
+    let checked = checked.first().and_then(|(text, shown)| {
+        let date = iso(text, "Last checked date", failures)?;
+        if crate::feed::parse_date(shown).ok() != Some(date) {
+            failures.push(format!(
+                "{rel}: Last checked shows {shown:?} but its datetime is {date}"
+            ));
+        }
+        Some(date)
+    });
     let blocks = core::json_ld_blocks(html, rel, failures);
     let modified: Vec<String> = blocks
         .iter()
@@ -1915,7 +1923,8 @@ fn page_dates(
 }
 
 /// A business calculator shows Last checked only on the date of its newest stated source
-/// read ('read <date>'), which is on or after its official comparison and on or before
+/// read ('read <date>' in its one Sources applied list), shown as that date in its header
+/// text and datetime, which is on or after its official comparison and on or before
 /// its dateModified; a page that states a read must show that date. A calculator citing
 /// no source shows Last reviewed. The hub lists every calculator page, shows the newest
 /// Last checked date, and its dateModified is on or after every calculator's.
@@ -1923,6 +1932,8 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
     static DEPENDENCY: LazyLock<regex::Regex> = LazyLock::new(|| {
         regex::Regex::new(r"\b(read|Official comparison on) (\d{1,2} [A-Z][a-z]+ \d{4})").unwrap()
     });
+    static SOURCES: LazyLock<regex::Regex> =
+        LazyLock::new(|| regex::Regex::new(r#"(?s)<ul class="sources">(.*?)</ul>"#).unwrap());
     static LISTED: LazyLock<regex::Regex> = LazyLock::new(|| {
         regex::Regex::new(r#"href="/tools/business-calculators/([a-z0-9-]+)/""#).unwrap()
     });
@@ -1952,9 +1963,35 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
         }
         let html = crate::read(&path)?;
         let (checked, modified) = page_dates(&html, &rel, &mut failures);
+        if let (Some(hub), Some(page)) = (hub_modified, modified)
+            && hub < page
+        {
+            failures.push(format!(
+                "{CALCULATOR_HUB_REL}: dateModified {hub} is older than {rel}'s {page}"
+            ));
+        }
         let text = core::parse_structure(&html).text(Tree::ROOT);
+        // A source read counts only in the Sources applied list; the official comparison
+        // sits in Boundary cases.
+        let sources: Vec<String> = SOURCES
+            .captures_iter(&html)
+            .map(|c| core::parse_structure(&c[1]).text(Tree::ROOT))
+            .collect();
+        if sources.len() != 1 {
+            failures.push(format!(
+                "{rel}: expected one Sources applied list, found {}",
+                sources.len()
+            ));
+        }
+        let sources = sources.concat();
+        let reads = DEPENDENCY
+            .captures_iter(&sources)
+            .filter(|found| &found[1] == "read");
+        let comparisons = DEPENDENCY
+            .captures_iter(&text)
+            .filter(|found| &found[1] != "read");
         let mut newest_read: Option<NaiveDate> = None;
-        for found in DEPENDENCY.captures_iter(&text) {
+        for found in reads.chain(comparisons) {
             let Ok(date) = crate::feed::parse_date(&found[2]) else {
                 failures.push(format!("{rel}: unreadable date in '{}'", &found[0]));
                 continue;
@@ -1992,13 +2029,6 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
             ));
         }
         newest = newest.max(Some(checked));
-        if let (Some(hub), Some(page)) = (hub_modified, modified)
-            && hub < page
-        {
-            failures.push(format!(
-                "{CALCULATOR_HUB_REL}: dateModified {hub} is older than {rel}'s {page}"
-            ));
-        }
     }
     for slug in listed {
         failures.push(format!(

@@ -2102,6 +2102,7 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
     );
     let gst = "tools/business-calculators/gst/index.html";
     let margin = "tools/business-calculators/margin/index.html";
+    let loan = "tools/business-calculators/loan/index.html";
     let hub = contracts::CALCULATOR_HUB_REL;
     let gst_header = r#"Last checked <time datetime="2026-11-13">13 November 2026</time>"#;
     for (label, rel, old, new, expected) in [
@@ -2155,6 +2156,27 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
             "tools/business-calculators/gst/index.html: dateModified 2026-11-12 is older than Last checked 2026-11-13",
         ),
         (
+            "a header date that differs from its datetime",
+            gst,
+            gst_header,
+            r#"Last checked <time datetime="2026-11-13">14 November 2026</time>"#,
+            r#"tools/business-calculators/gst/index.html: Last checked shows "14 November 2026" but its datetime is 2026-11-13"#,
+        ),
+        (
+            "a page without its Sources applied list",
+            gst,
+            r#"<ul class="sources">"#,
+            r#"<ul class="source-list">"#,
+            "tools/business-calculators/gst/index.html: expected one Sources applied list, found 0",
+        ),
+        (
+            "a hub modified before a calculator with no check",
+            loan,
+            r#""dateModified": "2026-11-13""#,
+            r#""dateModified": "2026-11-14""#,
+            "tools/business-calculators/index.html: dateModified 2026-11-13 is older than tools/business-calculators/loan/index.html's 2026-11-14",
+        ),
+        (
             "a hub checked before a calculator",
             hub,
             r#"Last checked <time datetime="2026-11-13">"#,
@@ -2191,4 +2213,23 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
             expected,
         );
     }
+    // A read stated outside Sources applied does not support the check.
+    let site = copied_site();
+    replace_file(
+        site.path(),
+        gst,
+        "read 13 November 2026",
+        "read 12 November 2026",
+    );
+    replace_file(
+        site.path(),
+        gst,
+        r#"class="lead-note">"#,
+        r#"class="lead-note">Source read 13 November 2026. "#,
+    );
+    expect_failure(
+        "a read outside Sources applied",
+        &contracts::check_calculator_dates(site.path()).unwrap(),
+        "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is newer than its newest source read, 2026-11-12",
+    );
 }
