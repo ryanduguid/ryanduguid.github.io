@@ -68,8 +68,38 @@
     "rates/super-guarantee/index.html": [
       "f6e7ef2e7e594a027c27dc0afd1d2f8201825154a2c3f3be22fdc610da5f2bc8"
     ],
+    "tools/accounting-questions/bookkeeping-close/index.html": [
+      "a23f00f4d35ff39dc2d112dbf6aee5549d8abd2e74a76820f5ac7af5087fee61"
+    ],
+    "tools/accounting-questions/business-setup/index.html": [
+      "93a9ca66022182e6f07ea273f1f536bf2406208da09b1b436db3a57b5443365c"
+    ],
+    "tools/accounting-questions/cash-flow/index.html": [
+      "cbfb0f38556e365081604183e355285045468169a0918d64380bf15c972df782"
+    ],
+    "tools/accounting-questions/company-compliance/index.html": [
+      "8292405cc2a69cee9e4b8786e52e325187470032d5a40eaa08a08adf90a41bdd"
+    ],
+    "tools/accounting-questions/deductions/index.html": [
+      "0bb20b9b7a5ead5d62e3b706d89528ab081ac06138d3b76d1774a1e53849d237"
+    ],
+    "tools/accounting-questions/general-tax/index.html": [
+      "46fce77af212aec4f3649f2ce508f125091ad050d5d352f06ceb7d82b1626e79"
+    ],
+    "tools/accounting-questions/gst-bas/index.html": [
+      "726b375514198487bc67850f2584735ac2c0256c5cf3a9fe848424462e0a9aac"
+    ],
     "tools/accounting-questions/index.html": [
       "71f1cda119cff14f103484d66c812006f6665bbf8912b72d2fd823c64ba43a60"
+    ],
+    "tools/accounting-questions/investments-local/index.html": [
+      "93ad0b88c2d461e072855fd2d656f7538fe88255523b4fce63cc018d97d338a3"
+    ],
+    "tools/accounting-questions/management-reporting/index.html": [
+      "2d91f2c0088b2cfa245baa6fc5cc68eb28404ec6b2b9d081f78d8116e7b12a58"
+    ],
+    "tools/accounting-questions/payroll-super/index.html": [
+      "c481a71bd273881b7b2125880ac784e305f40e9e9ef852ca93258bc17f457015"
     ],
     "tools/ato-benchmarks/index.html": [
       "bd6cc13554d28ff5319d0491cd030e1ea3206009f4f1946795e70c71f9705ca0"
