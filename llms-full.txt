@@ -5387,33 +5387,35 @@ The rates shown beside each life are 100% and 200% divided by the life, rounded 
 
 ## Capped lives
 
-A row marked ‘capped life available’ can take a shorter life set by section 40-102, where you use the Commissioner’s life and the cap that applies at the relevant time is shorter. The Act’s tables give no start date for any item, and the dates each cap began were not read for this page.
+A row marked ‘capped life available’ can take a shorter life set by section 40-102, where you use the Commissioner’s life and the cap that applies at the relevant time is shorter. A cap applies to an asset whose start time is on or after the date shown. The vessel cap applies to a vessel held on or after 1 July 2012, and one held before then is treated as held from that day.
+
+The dates are set by the Acts that added each cap: the Taxation Laws Amendment Act (No. 4) 2002 (Schedule 4, item 15), the Tax Laws Amendment (2005 Measures No. 1) Act 2005 (Schedule 2, item 3), the Tax Laws Amendment (2006 Measures No. 7) Act 2007 (Schedule 5, item 2) and the Tax Laws Amendment (Shipping Reform) Act 2012 (Schedule 2, item 9).
 
 Subsection 40-102(4): assets that correspond exactly to the description
 
-Asset | Capped life
-Aeroplane used predominantly for agricultural spraying or agricultural dusting | 8 years
-Any other aeroplane | 10 years
-Helicopter used predominantly for mustering, agricultural spraying or agricultural dusting | 8 years
-Any other helicopter | 10 years
-Bus with a gross vehicle mass of more than 3.5 tonnes | 7.5 years
-Light commercial vehicle with a gross vehicle mass of 3.5 tonnes or less, designed to carry a load of 1 tonne or more | 7.5 years
-Minibus with a gross vehicle mass of 3.5 tonnes or less, designed to carry 9 or more passengers | 7.5 years
-Trailer with a gross vehicle mass of more than 4.5 tonnes | 10 years
-Truck with a gross vehicle mass of more than 3.5 tonnes, other than a mining or quarrying truck that cannot be registered for public roads where it operates | 7.5 years
-Vessel with a certificate under Part 2 of the Shipping Reform (Tax Incentives) Act 2012, unless your income from it, or your associate’s, is exempt under section 51-100 | 10 years
+Asset | Capped life | Applies from
+Aeroplane used predominantly for agricultural spraying or agricultural dusting | 8 years | 1 July 2002
+Any other aeroplane | 10 years | 1 July 2002
+Helicopter used predominantly for mustering, agricultural spraying or agricultural dusting | 8 years | 1 July 2002
+Any other helicopter | 10 years | 1 July 2002
+Bus with a gross vehicle mass of more than 3.5 tonnes | 7.5 years | 1 January 2005
+Light commercial vehicle with a gross vehicle mass of 3.5 tonnes or less, designed to carry a load of 1 tonne or more | 7.5 years | 1 January 2005
+Minibus with a gross vehicle mass of 3.5 tonnes or less, designed to carry 9 or more passengers | 7.5 years | 1 January 2005
+Trailer with a gross vehicle mass of more than 4.5 tonnes | 10 years | 1 January 2005
+Truck with a gross vehicle mass of more than 3.5 tonnes, other than a mining or quarrying truck that cannot be registered for public roads where it operates | 7.5 years | 1 January 2005
+Vessel with a certificate under Part 2 of the Shipping Reform (Tax Incentives) Act 2012, unless your income from it, or your associate’s, is exempt under section 51-100 | 10 years | 1 July 2012
 
 Subsection 40-102(5): assets of a kind used in the industry named
 
-Asset | Industry | Capped life
-Gas transmission asset | Gas supply | 20 years
-Gas distribution asset | Gas supply | 20 years
-Oil production asset, other than an electricity generation asset or an offshore platform | Oil and gas extraction | 15 years
-Gas production asset, other than an electricity generation asset or an offshore platform | Oil and gas extraction | 15 years
-Offshore platform | Oil and gas extraction | 20 years
-Asset, other than an electricity generation asset, used to manufacture condensate, crude oil, domestic gas, liquid natural gas or liquid petroleum gas, but not in an oil refinery | Petroleum refining | 15 years
-Harvester | Primary production sector | 6 2/3 years
-Tractor | Primary production sector | 6 2/3 years
+Asset | Industry | Capped life | Applies from
+Gas transmission asset | Gas supply | 20 years | 1 July 2002
+Gas distribution asset | Gas supply | 20 years | 1 July 2002
+Oil production asset, other than an electricity generation asset or an offshore platform | Oil and gas extraction | 15 years | 1 July 2002
+Gas production asset, other than an electricity generation asset or an offshore platform | Oil and gas extraction | 15 years | 1 July 2002
+Offshore platform | Oil and gas extraction | 20 years | 1 July 2002
+Asset, other than an electricity generation asset, used to manufacture condensate, crude oil, domestic gas, liquid natural gas or liquid petroleum gas, but not in an oil refinery | Petroleum refining | 15 years | 1 July 2002
+Harvester | Primary production sector | 6 2/3 years | 1 July 2007
+Tractor | Primary production sector | 6 2/3 years | 1 July 2007
 
 ## Pools, write-offs and the car limit
 
@@ -5423,7 +5425,7 @@ Four rules can replace or limit a deduction worked out from an effective life. E
 
 A low-cost asset costs less than $1,000 at the end of the income year you start to use it, and can go into a low-value pool (section 40-425). Each year the pool declines by 18.75% of the taxable use percentage of the cost of low-cost assets added that year, and by 37.5% of the pool’s closing balance for the year before together with the taxable use percentage of the opening adjustable value of low-value assets added that year (section 40-440). A low-value asset is one already depreciated by diminishing value whose opening adjustable value is under $1,000, and that is not a low-cost asset.
 
-Once you pool one low-cost asset, each later one goes in too, and an asset stays in the pool (section 40-430). An asset deducted under the small business rules cannot be pooled this way. Nor can an asset that, when you first used it or had it installed ready for use, you expected to use mainly to earn your assessable labour income (subsection 40-425(9)).
+Once you pool one low-cost asset, each later one goes in too, and an asset stays in the pool (section 40-430). An asset deducted under the small business rules cannot be pooled this way. Nor, in assessments for 2026-27 and later income years, can an asset that, when you first used it or had it installed ready for use, you reasonably expected to use mainly to earn your assessable labour income (subsection 40-425(9)). An asset allocated to a pool for 2025-26 or an earlier income year is unaffected (item 17 of Schedule 4 to the Treasury Laws Amendment (Tax Reform No. 1) Act 2026).
 
 ### Small business pool and instant asset write-off
 
@@ -5433,7 +5435,7 @@ A temporary rule gives the same $20,000 for assets first acquired at or after th
 
 ### Assets costing $300 or less
 
-The decline in value of an asset costing $300 or less is its cost where you use it mainly to earn income that is not from carrying on a business (subsection 40-80(2)). The asset must not be part of a set, or one of several identical or substantially identical items, costing more than $300 in total that year. Use for any other purpose reduces the deduction, as it does for every asset (subsection 40-25(2)).
+The decline in value of an asset costing $300 or less is its cost where you use it mainly to earn income that is not from carrying on a business (subsection 40-80(2)). The asset must not be part of a set, or one of several identical or substantially identical items, costing more than $300 in total that year. Use for a purpose other than a taxable purpose reduces the deduction (subsection 40-25(2)).
 
 ### Car limit
 
