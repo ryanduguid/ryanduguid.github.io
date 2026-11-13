@@ -11,7 +11,7 @@ import { firstScreen, projectKind } from './project-kind.mjs';
 // screen, and body lines of about 90 characters.
 const paths = [...readFileSync('sitemap.xml', 'utf8').matchAll(/<loc>https:\/\/duguid\.com\.au([^<]+)<\/loc>/g)]
   .map(([, path]) => path);
-const calculators = paths.filter((path) => /^\/tools\/business-calculators\/[a-z-]+\/$/.test(path));
+const calculators = paths.filter((path) => /^\/tools\/business-calculators\/[a-z0-9-]+\/$/.test(path));
 const topics = paths.filter((path) => /^\/tools\/accounting-questions\/[a-z-]+\/$/.test(path));
 
 test('calculator and question pages open on their working control', async ({ page }) => {
