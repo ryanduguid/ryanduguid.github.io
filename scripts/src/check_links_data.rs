@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 128] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 129] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -155,6 +155,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 128] = [
     "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
     "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
     "https://www.oaic.gov.au/",
+    "https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia",
 ];
 
 pub const LINKEDIN_AUTOMATION_DENIAL_URLS: [&str; 1] = ["https://www.linkedin.com/in/ryan-duguid"];
