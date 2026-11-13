@@ -268,8 +268,8 @@ test('figures never outlive the inputs they were worked from', async ({ page }) 
 });
 
 // The address is written 150 ms after typing stops, so the tables can arrive on either side of it.
-for (const pause of [0, 300]) {
-  test(`text typed ${pause} ms before the tables arrive is kept and searched`, async ({ page }) => {
+for (const timerFirst of [false, true]) {
+  test(`text typed before the tables arrive is kept and searched${timerFirst ? ', the address timer having run' : ''}`, async ({ page }) => {
     let release = () => {};
     const held = new Promise((resolve) => {
       release = resolve;
@@ -278,10 +278,15 @@ for (const pause of [0, 300]) {
       await held;
       await route.continue();
     });
+    if (timerFirst) await page.clock.install();
     await page.goto(`${PAGE}?industry=agriculture-forestry-and-fishing`, { waitUntil: 'commit' });
     await expect(page.locator('#finder-status')).toHaveText('Loading the effective life tables.');
     await page.getByLabel('Asset', { exact: true }).fill('tractor');
-    await page.waitForTimeout(pause);
+    if (timerFirst) {
+      await page.clock.runFor(200);
+      // Until the tables arrive the address keeps what it came with.
+      await expect(page).toHaveURL(/\?industry=agriculture-forestry-and-fishing$/);
+    }
     release();
     await expect(page.locator('#finder-status')).toHaveText('4 rows match ‘tractor’ in Agriculture, forestry and fishing and Table B.');
     await expect(page.getByLabel('Asset', { exact: true })).toHaveValue('tractor');
@@ -289,3 +294,20 @@ for (const pause of [0, 300]) {
     await expect(page).toHaveURL(/\?q=tractor&industry=agriculture-forestry-and-fishing$/);
   });
 }
+
+test('text typed before the page script runs is kept and searched', async ({ page }) => {
+  let release = () => {};
+  const held = new Promise((resolve) => {
+    release = resolve;
+  });
+  await page.route('**/assets/depreciation-rates-page.mjs', async (route) => {
+    await held;
+    await route.continue();
+  });
+  await page.goto(`${PAGE}?q=fridge`, { waitUntil: 'commit' });
+  await page.getByLabel('Asset', { exact: true }).fill('tractor');
+  release();
+  await expect(page.locator('#finder-status')).toContainText('‘tractor’');
+  await expect(page.getByLabel('Asset', { exact: true })).toHaveValue('tractor');
+  await expect(page).toHaveURL(/\?q=tractor$/);
+});

@@ -402,9 +402,9 @@ industrySelect.addEventListener('change', () => {
   recordSearch();
 });
 
-// Read before the tables load, so that text typed during the load is kept.
+// Read before the tables load, and only into an empty box, so that text typed before or during the load is kept.
 const asked = new URLSearchParams(location.search);
-queryInput.value = (asked.get('q') ?? '').slice(0, 100);
+if (!queryInput.value) queryInput.value = (asked.get('q') ?? '').slice(0, 100);
 statusLine.textContent = 'Loading the effective life tables.';
 try {
   const response = await fetch(DATA_URL);

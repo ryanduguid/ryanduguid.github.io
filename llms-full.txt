@@ -5391,7 +5391,7 @@ The rates shown beside each life are 100% and 200% divided by the life, rounded 
 
 ## Capped lives
 
-A row marked ‘capped life available’ can take a shorter life set by section 40-102, where you use the Commissioner’s life and the cap that applies at the relevant time is shorter. A cap applies to an asset whose start time is on or after the date shown. The vessel cap applies to a vessel held on or after 1 July 2012, and one held before then is treated as held from that day.
+A row marked ‘capped life available’ can take a shorter life set by section 40-102, where you use the Commissioner’s life and the cap that applies at the relevant time is shorter. Except for the vessel cap, a cap applies to an asset whose start time is on or after the date shown. The vessel cap applies to a vessel you hold on or after 1 July 2012; if you started to hold it before that day, the cap applies as if you started to hold it on that day.
 
 The dates are set by the Acts that added each cap: the Taxation Laws Amendment Act (No. 4) 2002 (Schedule 4, item 15), the Tax Laws Amendment (2005 Measures No. 1) Act 2005 (Schedule 2, item 3), the Tax Laws Amendment (2006 Measures No. 7) Act 2007 (Schedule 5, item 2) and the Tax Laws Amendment (Shipping Reform) Act 2012 (Schedule 2, item 9).
 
