@@ -4571,6 +4571,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+14 November 2026 | The profit and cash flow case and the release record name au-fpa-pack v0.5.0, published on 13 November, as the current release. The case stays pinned to commit 386c7ff, which produced its workbook and figures.
 14 November 2026 | A new Payday Super business days page lists the 17 weekdays from 1 July 2026 to 31 August 2027 that are public holidays for the whole of a state or territory, and so not business days for any employer, with a CSV and the official source for each jurisdiction, checked on 14 November 2026.
 13 November 2026 | The GST, cash forecast, margin, break-even, hourly pricing and Division 7A calculators now show a Last checked date of 13 November 2026, the day their sources were reread against their rates and definitions; the 4 calculators that cite no external source keep their 27 September 2026 review date. The margin, break-even and hourly pricing calculators cited a business.gov.au pricing page that now redirects to one without those definitions, so they now cite Business Queensland’s break-even and pricing guidance. The calculators page shows the newest check. The site checks fail if a calculator’s Last checked date is not the newest source read in its Sources applied list, is older than its official comparison or newer than its dateModified, or if its Sources applied list states a source read without a Last checked date.
 13 November 2026 | Each of the 10 business calculators now opens with a fictional example already worked: its first boundary case fills the inputs and its result shows on arrival, labelled as an example. The first edit clears it.
@@ -8632,7 +8633,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Provenance and verification
 
-- Source. au-fpa-pack at commit 386c7ff. That captured commit identifies the example and its assumptions. The current published release is au-fpa-pack v0.4.0.
+- Source. au-fpa-pack at commit 386c7ff. That captured commit identifies the example and its assumptions. The current published release is au-fpa-pack v0.5.0.
 - Distributed workbook. SHA-256 b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463, 23,506 bytes. Its model and all 6 input files match the captured source after normalising line endings.
 - Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository’s offline suite passed.
 - Native Excel record. The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.
@@ -8693,7 +8694,7 @@ Cite as Duguid, R. (2026). Lumbridge Services fictional cash flow case [Data set
 - Jeff Brines / Guiderail’s openfpa: https://github.com/JeffBrines/openfpa
 - uv: https://docs.astral.sh/uv/
 - Read the source and assumptions at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
-- au-fpa-pack v0.4.0: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.4.0
+- au-fpa-pack v0.5.0: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.5.0
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/
 - Browser cash flow and planning calculators: https://duguid.com.au/tools/business-calculators/
