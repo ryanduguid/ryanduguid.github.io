@@ -152,6 +152,13 @@ npx playwright install webkit
 npm run test:browser:webkit
 ```
 
+Firefox has no scroll timelines, so its table regions show a different scroll cue. Check it after a table or layout change; the pass runs every spec in one desktop project, whose width sweep covers phone widths. CI does not run it either:
+
+```bash
+npx playwright install firefox
+npm run test:browser:firefox
+```
+
 On Linux, Playwright can stop with 'Host system is missing dependencies' until `sudo npx playwright install-deps` has run.
 
 The Windows pass on 5 October 2026 reported 192 passed, 11 skipped and zero failures. Recovery retries the required modules directly. Its regression tests cover repeated failures, retained inputs and focus. The earlier reload failure and the repair are recorded under WebKit differences in [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md). Physical Safari remains untested.

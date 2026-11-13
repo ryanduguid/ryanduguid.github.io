@@ -37,6 +37,7 @@ exclude:
   - playwright.capture.config.mjs
   - playwright.config.mjs
   - playwright.webkit.config.mjs
+  - playwright.firefox.config.mjs
   - pyproject.toml
   - SECURITY.md
   - CITATION.cff
