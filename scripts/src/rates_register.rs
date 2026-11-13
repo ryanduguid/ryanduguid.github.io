@@ -597,7 +597,7 @@ fn rglob(dir: &Path) -> Vec<PathBuf> {
     found
 }
 
-fn posix_rel(path: &Path, root: &Path) -> String {
+pub(crate) fn posix_rel(path: &Path, root: &Path) -> String {
     path.strip_prefix(root)
         .expect("below the register")
         .components()
@@ -799,7 +799,7 @@ pub fn check_register(register: &Path, today: Option<Date>) -> Result<Vec<String
 /// The rate CSVs, `rates/<table>/<name>.csv`, sorted, with a failure for each table
 /// directory that holds none. The announced measures record a status rather than a rate
 /// and carry their own `checked_at` and source columns; `register` holds no CSV.
-fn rate_tables(rates: &Path, failures: &mut Vec<String>) -> Result<Vec<PathBuf>> {
+pub(crate) fn rate_tables(rates: &Path, failures: &mut Vec<String>) -> Result<Vec<PathBuf>> {
     // Directory and metadata errors name their path; `metadata` follows a link, so a
     // linked table is read and a dangling one is an error rather than a skipped file.
     let at = |path: &Path| {

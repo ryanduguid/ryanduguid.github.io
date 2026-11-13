@@ -1,0 +1,406 @@
+{
+  "schema_version": 1,
+  "description": "Every row of the rate tables under https://duguid.com.au/rates/, built from their CSVs. Each value is the CSV cell's text; source_url and checked_at give each row's primary source and the date it was last checked against it.",
+  "licence": "Ryan Duguid Public Attribution Licence 1.0 (LicenseRef-Duguid-Public-Attribution-1.0), the licence of the repository this file is built from: FSL-1.1-ALv2 with a public attribution condition. See LICENSE and NOTICE.",
+  "licence_url": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+  "advice_status": "Not advice. Verify each figure against its primary source at the time of use.",
+  "tables": [
+    {
+      "table": "car-limit",
+      "page": "https://duguid.com.au/rates/car-limit/",
+      "csv": "https://duguid.com.au/rates/car-limit/car-limit.csv",
+      "rows": [
+        {
+          "income_year": "2026-27",
+          "car_limit": "69883",
+          "source": "ATO Car thresholds from 1 July (QC107449; 9 June 2026)",
+          "source_url": "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/car-thresholds-from-1-july",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2025-26",
+          "car_limit": "69674",
+          "source": "ATO Tradies car limit list (27 May 2026)",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2024-25",
+          "car_limit": "69674",
+          "source": "ATO Tradies car limit list (27 May 2026)",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2023-24",
+          "car_limit": "68108",
+          "source": "ATO Tradies car limit list (27 May 2026)",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2022-23",
+          "car_limit": "64741",
+          "source": "ATO Tradies car limit list (27 May 2026)",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2021-22",
+          "car_limit": "60733",
+          "source": "ATO Tradies car limit list (27 May 2026)",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2020-21",
+          "car_limit": "59136",
+          "source": "ATO Backing business investment page (27 June 2025)",
+          "source_url": "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/backing-business-investment-accelerated-depreciation",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2019-20",
+          "car_limit": "57581",
+          "source": "ATO Backing business investment page (27 June 2025)",
+          "source_url": "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/backing-business-investment-accelerated-depreciation",
+          "checked_at": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "table": "cents-per-kilometre",
+      "page": "https://duguid.com.au/rates/cents-per-kilometre/",
+      "csv": "https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv",
+      "rows": [
+        {
+          "income_year": "2024-25",
+          "cents_per_km": "88",
+          "instrument": "Income Tax Assessment (Cents per Kilometre Deduction Rate for Car Expenses) Determination 2024",
+          "register_id": "F2024L00697",
+          "scope": "income years commencing on or after 1 July 2024 until repealed",
+          "source_url": "https://www.legislation.gov.au/F2024L00697/asmade",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2025-26",
+          "cents_per_km": "88",
+          "instrument": "Income Tax Assessment (Cents per Kilometre Deduction Rate for Car Expenses) Determination 2024",
+          "register_id": "F2024L00697",
+          "scope": "carried through; nothing replaced the 2024 determination that year",
+          "source_url": "https://www.legislation.gov.au/F2024L00697/asmade",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2026-27",
+          "cents_per_km": "91",
+          "instrument": "Income Tax Assessment (Cents per Kilometre Deduction Rate for Car Expenses) Determination 2026",
+          "register_id": "F2026L00785",
+          "scope": "income year commencing 1 July 2026 only",
+          "source_url": "https://www.legislation.gov.au/F2026L00785/asmade",
+          "checked_at": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "table": "div7a-benchmark-rate",
+      "page": "https://duguid.com.au/rates/div7a-benchmark-rate/",
+      "csv": "https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv",
+      "rows": [
+        {
+          "income_year": "2019-20",
+          "benchmark_rate_percent": "5.37",
+          "rba_series_month": "2019-05",
+          "notes": "30 June year end; derived from RBA F5 FILRHLBVS last published before 1 July",
+          "source_url": "https://www.rba.gov.au/statistics/tables/csv/f5-data.csv",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2020-21",
+          "benchmark_rate_percent": "4.52",
+          "rba_series_month": "2020-05",
+          "notes": "30 June year end; derived from RBA F5 FILRHLBVS last published before 1 July",
+          "source_url": "https://www.rba.gov.au/statistics/tables/csv/f5-data.csv",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2021-22",
+          "benchmark_rate_percent": "4.52",
+          "rba_series_month": "2021-05",
+          "notes": "30 June year end; derived from RBA F5 FILRHLBVS last published before 1 July",
+          "source_url": "https://www.rba.gov.au/statistics/tables/csv/f5-data.csv",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2022-23",
+          "benchmark_rate_percent": "4.77",
+          "rba_series_month": "2022-05",
+          "notes": "30 June year end; derived from RBA F5 FILRHLBVS last published before 1 July",
+          "source_url": "https://www.rba.gov.au/statistics/tables/csv/f5-data.csv",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2023-24",
+          "benchmark_rate_percent": "8.27",
+          "rba_series_month": "2023-05",
+          "notes": "30 June year end; derived from RBA F5 FILRHLBVS last published before 1 July",
+          "source_url": "https://www.rba.gov.au/statistics/tables/csv/f5-data.csv",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2024-25",
+          "benchmark_rate_percent": "8.77",
+          "rba_series_month": "2024-05",
+          "notes": "30 June year end; derived from RBA F5 FILRHLBVS last published before 1 July",
+          "source_url": "https://www.rba.gov.au/statistics/tables/csv/f5-data.csv",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2025-26",
+          "benchmark_rate_percent": "8.37",
+          "rba_series_month": "2025-05",
+          "notes": "30 June year end; derived from RBA F5 FILRHLBVS last published before 1 July; June 2025 was 8.27 and does not apply",
+          "source_url": "https://www.rba.gov.au/statistics/tables/csv/f5-data.csv",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2026-27",
+          "benchmark_rate_percent": "8.77",
+          "rba_series_month": "2026-05",
+          "notes": "30 June year end; derived from RBA F5 FILRHLBVS last published before 1 July; Section 109N(2) ITAA 1936",
+          "source_url": "https://www.rba.gov.au/statistics/tables/csv/f5-data.csv",
+          "checked_at": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "table": "fbt-rate",
+      "page": "https://duguid.com.au/rates/fbt-rate/",
+      "csv": "https://duguid.com.au/rates/fbt-rate/fbt-rates.csv",
+      "rows": [
+        {
+          "fbt_year_ending": "2027-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "fbt_year_ending": "2026-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "fbt_year_ending": "2025-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "fbt_year_ending": "2024-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "fbt_year_ending": "2023-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "fbt_year_ending": "2022-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT historical rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "fbt_year_ending": "2021-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT historical rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "fbt_year_ending": "2020-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT historical rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "fbt_year_ending": "2019-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT historical rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "fbt_year_ending": "2018-03-31",
+          "fbt_rate_percent": "47",
+          "type_1_gross_up": "2.0802",
+          "type_2_gross_up": "1.8868",
+          "source": "ATO FBT historical rates and thresholds",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
+          "checked_at": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "table": "maximum-contribution-base",
+      "page": "https://duguid.com.au/rates/maximum-contribution-base/",
+      "csv": "https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv",
+      "rows": [
+        {
+          "income_year": "2026-27",
+          "basis": "annual",
+          "maximum_contribution_base": "270830",
+          "maximum_sg_per_period": "32499.60",
+          "notes": "Payday Super; qualifying earnings; SG at 12% derived",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2025-26",
+          "basis": "quarter",
+          "maximum_contribution_base": "62500",
+          "maximum_sg_per_period": "7500.00",
+          "notes": "ATO Table 24",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "quarter",
+          "maximum_contribution_base": "65070",
+          "maximum_sg_per_period": "7483.05",
+          "notes": "ATO Table 24",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "quarter",
+          "maximum_contribution_base": "62270",
+          "maximum_sg_per_period": "6849.70",
+          "notes": "ATO Table 24",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "quarter",
+          "maximum_contribution_base": "60220",
+          "maximum_sg_per_period": "6323.10",
+          "notes": "ATO Table 24",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "quarter",
+          "maximum_contribution_base": "58920",
+          "maximum_sg_per_period": "5892.00",
+          "notes": "ATO Table 24",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "table": "super-guarantee",
+      "page": "https://duguid.com.au/rates/super-guarantee/",
+      "csv": "https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv",
+      "rows": [
+        {
+          "period_start": "2002-07-01",
+          "period_end": "2013-06-30",
+          "general_sg_rate_percent": "9.00",
+          "notes": "Former ss 20 and 21 SGAA 1992 cover earlier years",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "period_start": "2013-07-01",
+          "period_end": "2014-06-30",
+          "general_sg_rate_percent": "9.25",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "period_start": "2014-07-01",
+          "period_end": "2021-06-30",
+          "general_sg_rate_percent": "9.50",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "period_start": "2021-07-01",
+          "period_end": "2022-06-30",
+          "general_sg_rate_percent": "10.00",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "period_start": "2022-07-01",
+          "period_end": "2023-06-30",
+          "general_sg_rate_percent": "10.50",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "period_start": "2023-07-01",
+          "period_end": "2024-06-30",
+          "general_sg_rate_percent": "11.00",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "period_start": "2024-07-01",
+          "period_end": "2025-06-30",
+          "general_sg_rate_percent": "11.50",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        },
+        {
+          "period_start": "2025-07-01",
+          "period_end": "",
+          "general_sg_rate_percent": "12.00",
+          "notes": "Final scheduled step; payday super from 2026-07-01 changed timing not the rate",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+          "checked_at": "2026-11-13"
+        }
+      ]
+    }
+  ]
+}

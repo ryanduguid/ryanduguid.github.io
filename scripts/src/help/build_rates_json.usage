@@ -1,0 +1,1 @@
+usage: site-tools build_rates_json [-h] (--write | --check)

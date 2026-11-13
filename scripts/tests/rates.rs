@@ -7,6 +7,7 @@ mod common;
 
 use site_tools::py::Date;
 use site_tools::pyjson::{self, Dump, Json};
+use site_tools::rates_json;
 use site_tools::rates_register::{check_register, check_tables, today};
 use std::path::{Path, PathBuf};
 
@@ -555,5 +556,99 @@ fn the_announced_measures_keep_their_own_source_columns() {
     assert_eq!(
         check_tables(rates.path(), today()).unwrap(),
         Vec::<String>::new()
+    );
+}
+
+fn site_root() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("..")
+}
+
+#[test]
+fn committed_rates_json_equals_the_rate_csvs() {
+    let root = site_root();
+    assert_eq!(rates_json::check(&root).unwrap(), Vec::<String>::new());
+    // Read back without the builder: each committed row is its CSV row, cell for cell.
+    let text = std::fs::read_to_string(root.join(rates_json::RATES_JSON_REL)).unwrap();
+    let document = pyjson::loads(&text).unwrap();
+    assert_eq!(
+        document.get("licence").and_then(Json::as_str),
+        Some(rates_json::LICENCE)
+    );
+    let Some(Json::Array(tables)) = document.get("tables") else {
+        panic!("no tables");
+    };
+    let mut names = Vec::new();
+    for table in tables {
+        let name = table.get("table").and_then(Json::as_str).unwrap();
+        let csv = table.get("csv").and_then(Json::as_str).unwrap();
+        let rel = csv.strip_prefix("https://duguid.com.au/").unwrap();
+        let expected =
+            site_tools::pycsv::dict_reader(&std::fs::read_to_string(root.join(rel)).unwrap())
+                .unwrap();
+        let Some(Json::Array(rows)) = table.get("rows") else {
+            panic!("{name}: no rows");
+        };
+        assert_eq!(rows.len(), expected.len(), "{name}");
+        for (row, want) in rows.iter().zip(&expected) {
+            let Json::Object(cells) = row else {
+                panic!("{name}: a row is not an object");
+            };
+            let got: Vec<(String, Option<String>)> = cells
+                .iter()
+                .map(|(k, v)| (k.clone(), v.as_str().map(str::to_owned)))
+                .collect();
+            assert_eq!(&got, want, "{name}");
+            for key in ["source_url", "checked_at"] {
+                assert!(
+                    row.get(key)
+                        .and_then(Json::as_str)
+                        .is_some_and(|v| !v.is_empty()),
+                    "{name}: {key}"
+                );
+            }
+        }
+        names.push(name.to_owned());
+    }
+    assert_eq!(
+        names,
+        [
+            "car-limit",
+            "cents-per-kilometre",
+            "div7a-benchmark-rate",
+            "fbt-rate",
+            "maximum-contribution-base",
+            "super-guarantee",
+        ]
+    );
+}
+
+#[test]
+fn a_csv_edit_a_missing_file_or_a_ragged_row_fails_the_rates_json_check() {
+    let site = tempfile::tempdir().unwrap();
+    let table = site.path().join("rates/car-limit");
+    std::fs::create_dir_all(&table).unwrap();
+    let csv = "income_year,car_limit,source_url,checked_at\n\
+               2026-27,69883,https://www.ato.gov.au/x,2026-11-03\n";
+    std::fs::write(table.join("car-limit.csv"), csv).unwrap();
+    assert!(any(
+        &rates_json::check(site.path()).unwrap(),
+        "rates/rates.json is missing"
+    ));
+    let built = rates_json::build(site.path()).unwrap();
+    std::fs::write(site.path().join(rates_json::RATES_JSON_REL), &built).unwrap();
+    assert_eq!(
+        rates_json::check(site.path()).unwrap(),
+        Vec::<String>::new()
+    );
+    std::fs::write(table.join("car-limit.csv"), csv.replace("69883", "69884")).unwrap();
+    assert!(any(
+        &rates_json::check(site.path()).unwrap(),
+        "differs from the rate CSVs"
+    ));
+    std::fs::write(table.join("car-limit.csv"), format!("{csv}2025-26,69674\n")).unwrap();
+    let error = rates_json::build(site.path()).unwrap_err();
+    assert!(
+        error.contains("car-limit/car-limit.csv row 2: 2 cells under 4 columns"),
+        "{error}"
     );
 }
