@@ -185,7 +185,8 @@ const roundHalfUp = (top, bottom) => (2n * top + bottom) / (2n * bottom);
  * @returns {Life}
  */
 export function parseLife(text) {
-  const plain = text.trim().replace('½', ' 1/2').replace('⅓', ' 1/3').replace('⅔', ' 2/3').trim();
+  // A pasted single-character fraction reads as the instrument's ' 1/2', ' 1/3' or ' 2/3'.
+  const plain = text.trim().replace('\u00BD', ' 1/2').replace('\u2153', ' 1/3').replace('\u2154', ' 2/3').trim();
   const mixed = /^(?:(\d{1,3}) +)?(\d{1,2})\/(\d{1,2})$/.exec(plain);
   const decimal = /^(\d{1,3})(?:\.(\d{1,4}))?$/.exec(plain);
   let numerator;
@@ -211,13 +212,6 @@ export function lifeFromMonths(months) {
   if (!Number.isInteger(months) || months < 1) throw new Error('A life is a whole number of months.');
   const common = gcd(BigInt(months), 12n);
   return { numerator: BigInt(months) / common, denominator: 12n / common };
-}
-
-/** A life as the instrument prints it, with the fraction as one character: '13⅓'.
- * @param {string} printed */
-export function formatLife(printed) {
-  return printed.replace(' 1/2', '½').replace(' 1/3', '⅓').replace(' 2/3', '⅔')
-    .replace(/^1\/2$/, '½').replace(/^1\/3$/, '⅓').replace(/^2\/3$/, '⅔');
 }
 
 /** Hundredths of a per cent as text: 1500 is '15.00%'. @param {bigint} hundredths */

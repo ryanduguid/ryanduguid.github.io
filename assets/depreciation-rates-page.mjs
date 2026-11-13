@@ -7,7 +7,7 @@
 // textContent, so the instrument's text is never parsed as markup.
 
 import {
-  below, flatten, formatCents, formatLife, lifeFromMonths, parseCents, parseLife, rates, schedule, search,
+  below, flatten, formatCents, lifeFromMonths, parseCents, parseLife, rates, schedule, search,
 } from './depreciation-rates.mjs';
 import { clearFieldError, reportFirstInvalid } from './field-errors.mjs';
 
@@ -68,7 +68,7 @@ function longDate(iso) {
   return `${day} ${MONTHS[month - 1]} ${year}`;
 }
 /** @param {string} printed */
-const years = (printed) => `${formatLife(printed)} ${printed === '1' ? 'year' : 'years'}`;
+const years = (printed) => `${printed} ${printed === '1' ? 'year' : 'years'}`;
 /** The income year that ends on 30 June of a year: 2026 is '2025-26'. @param {number} end */
 const incomeYear = (end) => `${end - 1}-${String(end % 100).padStart(2, '0')}`;
 
@@ -296,8 +296,8 @@ function drawSchedule() {
   const rate = rates(life);
   const last = lines[lines.length - 1];
   const working = method === 'prime-cost'
-    ? `Prime cost: cost × days held ÷ 365 × 100% ÷ ${formatLife(lifeInput.value.trim())} years (${rate.primeCost} a year), and no more than the value left.`
-    : `Diminishing value: opening value × days held ÷ 365 × 200% ÷ ${formatLife(lifeInput.value.trim())} years (${rate.diminishingValue} a year).`;
+    ? `Prime cost: cost × days held ÷ 365 × 100% ÷ ${lifeInput.value.trim()} years (${rate.primeCost} a year), and no more than the value left.`
+    : `Diminishing value: opening value × days held ÷ 365 × 200% ÷ ${lifeInput.value.trim()} years (${rate.diminishingValue} a year).`;
   const head = el('tr', {}, ...['Income year', 'Days held', 'Opening value', 'Decline in value', 'Closing value']
     .map((name) => el('th', { scope: 'col' }, name)));
   const body = lines.map((line) => el('tr', {},

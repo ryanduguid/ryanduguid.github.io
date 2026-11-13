@@ -5,7 +5,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
-  FIRST_START, SYNONYMS, below, flatten, formatCents, formatLife, lifeFromMonths, parseCents,
+  FIRST_START, SYNONYMS, below, flatten, formatCents, lifeFromMonths, parseCents,
   parseLife, rates, schedule, search,
 } from '../assets/depreciation-rates.mjs';
 
@@ -57,13 +57,6 @@ test('a life is read in the forms a reader types', () => {
     assert.throws(() => parseLife(text), /effective life/, text);
   }
   for (const months of [0, -12, 1.5]) assert.throws(() => lifeFromMonths(months), /months/);
-});
-
-test('a life prints with its fraction as one character', () => {
-  assert.equal(formatLife('13 1/3'), '13⅓');
-  assert.equal(formatLife('6 2/3'), '6⅔');
-  assert.equal(formatLife('17 1/2'), '17½');
-  assert.equal(formatLife('10'), '10');
 });
 
 test('money is whole cents', () => {
