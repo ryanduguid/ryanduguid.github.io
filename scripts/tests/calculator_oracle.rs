@@ -127,7 +127,10 @@ fn loan_oracle(principal: u64, rate: u64, months: u32) -> [u64; 4] {
 /// Division 7A minimum yearly repayment, interest and principal, in cents: the balance over
 /// the sum of the yearly discount factors (scale/growth)^k for k = 1 to the term.
 fn div7a_oracle(balance: u64, rate: u64, years: u32) -> [u64; 3] {
-    let (scale, growth) = (BigUint::from(YEARLY_SCALE), BigUint::from(YEARLY_SCALE + rate));
+    let (scale, growth) = (
+        BigUint::from(YEARLY_SCALE),
+        BigUint::from(YEARLY_SCALE + rate),
+    );
     let mut factors = BigUint::ZERO;
     let mut scale_power = BigUint::from(1_u8);
     let mut growth_power = BigUint::from(1_u8);
