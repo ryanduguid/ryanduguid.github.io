@@ -8,6 +8,34 @@
   <updated>2026-11-13T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The GST, cash forecast, margin, break-even, hourly pricing and Division 7A…</title>
+    <link href="https://duguid.com.au/changelog/#entry-900d1fad69c9ae80" />
+    <id>https://duguid.com.au/changelog/#entry-900d1fad69c9ae80</id>
+    <updated>2026-11-13T00:00:00Z</updated>
+    <summary>The GST, cash forecast, margin, break-even, hourly pricing and Division 7A calculators now show a Last checked date of 13 November 2026, the day their sources were reread against their rates and definitions; the 4 calculators that cite no external source keep their 27 September 2026 review date. The margin, break-even and hourly pricing calculators cited a business.gov.au pricing page that now redirects to one without those definitions, so they now cite Business Queensland’s break-even and pricing guidance. The calculators page shows the newest check. The site checks fail if a calculator’s Last checked date is not its newest stated source read, is older than its official comparison or its dateModified, or if a page states a source read without a Last checked date.</summary>
+  </entry>
+  <entry>
+    <title>Each of the 10 business calculators now opens with a fictional example already…</title>
+    <link href="https://duguid.com.au/changelog/#entry-946aab855ee5d183" />
+    <id>https://duguid.com.au/changelog/#entry-946aab855ee5d183</id>
+    <updated>2026-11-13T00:00:00Z</updated>
+    <summary>Each of the 10 business calculators now opens with a fictional example already worked: its first boundary case fills the inputs and its result shows on arrival, labelled as an example. The first edit clears it.</summary>
+  </entry>
+  <entry>
+    <title>The margin and break-even calculators now record an official comparison on 13…</title>
+    <link href="https://duguid.com.au/changelog/#entry-03044e4b32a91bd2" />
+    <id>https://duguid.com.au/changelog/#entry-03044e4b32a91bd2</id>
+    <updated>2026-11-13T00:00:00Z</updated>
+    <summary>The margin and break-even calculators now record an official comparison on 13 November 2026: on one fictional whole-dollar input each, Business Queensland’s gross profit, gross profit margin and break-even calculators gave the same figures as this site. Business Queensland ignored the cents in amounts entered, which is why the inputs are whole dollars. No calculation changed.</summary>
+  </entry>
+  <entry>
+    <title>A Division 7A minimum yearly repayment calculator works out, for one…</title>
+    <link href="https://duguid.com.au/changelog/#entry-c9871f6cb08d6e27" />
+    <id>https://duguid.com.au/changelog/#entry-c9871f6cb08d6e27</id>
+    <updated>2026-11-13T00:00:00Z</updated>
+    <summary>A Division 7A minimum yearly repayment calculator works out, for one amalgamated loan and one income year, the repayment the formula in subsection 109E(6) of the Income Tax Assessment Act 1936 requires, with its interest and principal, at that year’s rate from this site’s benchmark rate table. It matches the ATO’s worked example and the published fixtures of the div7a-loan-review rule, and says what it does not cover.</summary>
+  </entry>
+  <entry>
     <title>The Aus Accounting MCP, subcontract ledger, Monthly Close Controls and…</title>
     <link href="https://duguid.com.au/changelog/#entry-61cdfed775f520dc" />
     <id>https://duguid.com.au/changelog/#entry-61cdfed775f520dc</id>

@@ -16,7 +16,7 @@ Staff cost inputs
 
 Annual wages (AUD) Annual super amount (AUD) Other annual costs (AUD)
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: wages $51.30, super $0.00, other costs $0.00. Annual staff cost $51.30 Monthly average $4.28
 
 ## How the staff cost calculator works
 
@@ -40,7 +40,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -50,4 +50,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ten business calculators: https://duguid.com.au/tools/business-calculators/

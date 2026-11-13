@@ -1,0 +1,59 @@
+# Division 7A minimum yearly repayment calculator
+
+Source: https://duguid.com.au/tools/business-calculators/div7a/
+
+> The Division 7A minimum yearly repayment on an amalgamated loan for one income year, from its balance, that year’s benchmark rate and the remaining term.
+
+# Division 7A minimum yearly repayment calculator
+
+The minimum yearly repayment on one Division 7A amalgamated loan for one income year, with its interest and principal, at the benchmark rate for that year.
+
+Published 13 November 2026. Last checked 13 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Division 7A minimum yearly repayment inputs
+
+Income year (benchmark rate) 2026-27 (8.77%) 2025-26 (8.37%) 2024-25 (8.77%) 2023-24 (8.27%) 2022-23 (4.77%) 2021-22 (4.52%) 2020-21 (4.52%) 2019-20 (5.37%)
+
+Loan not repaid at the end of the previous income year (AUD) Remaining term (whole years)
+
+The years and rates are those in the Division 7A benchmark rate table, for a company whose income year ends on 30 June. Round a remaining term that is not a whole number up to the next whole year.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27 income year at the 8.77% benchmark rate, $1,000.00 not repaid at 30 June 2026, 1 year remaining. Minimum yearly repayment $1,087.70 Interest for the year, if repaid on 30 June $87.70 Principal, if repaid on 30 June $1,000.00
+
+## How the Division 7A minimum yearly repayment calculator works
+
+The Division 7A minimum yearly repayment calculator works out the least a borrower must repay on one amalgamated loan in one income year after the year the loan was made. It applies the formula in subsection 109E(6) of the Income Tax Assessment Act 1936: the loan not repaid at the end of the previous income year, times the year’s benchmark interest rate, divided by 1 minus (1 ÷ (1 + the rate)) raised to the remaining term in years.
+
+The interest for the year is the benchmark rate on the whole balance, and the principal is the rest of the repayment. That split assumes the whole repayment is made on the last day of the income year. The ATO works interest out from the daily balance, so a repayment made earlier in the year carries less interest and more of it reduces the principal.
+
+The ATO’s worked example on Loans by private companies takes $55,000 at 5.95% with 7 years remaining and gives $9,835 to the nearest dollar; this calculator gives $9,834.92 for those figures.
+
+## What the Division 7A minimum yearly repayment calculator does not cover
+
+It does not decide whether a payment or loan is a Division 7A loan, whether the loan agreement complies, whether a shortfall is a deemed dividend or how much of it, or how a distributable surplus limits one. It works one income year only, with no repayment schedule, and none for the year in which the loan was made. It takes the balance as you enter it: it does not work it out from the loans made, repayments made before the lodgment day or the previous year’s interest, and it does not combine several loans. It does not handle an income year that ends on a day other than 30 June. Subsection 109E(5) lets regulations set another amount, and this calculator applies the formula only. Confirm the figures with the ATO Division 7A calculator and decision tool or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Division 7A minimum yearly repayment calculator
+
+Case | Inputs | Result
+One year left repays the balance and a year’s interest | $1,000.00 at 8.77% over 1 year | Repayment $1,087.70, interest $87.70, principal $1,000.00
+The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
+No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
+
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
+- Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
+- ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
+- ten business calculators: https://duguid.com.au/tools/business-calculators/

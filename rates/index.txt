@@ -126,6 +126,8 @@ Verify a figure against current guidance before relying on it. Historical and cu
 
 Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
+All six rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under this repository’s licence, the Ryan Duguid Public Attribution Licence 1.0.
+
 ## Use these tables in Excel
 
 Show the Power Query steps
@@ -321,5 +323,7 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 - Announced tax measures and enacted law: https://duguid.com.au/rates/announced-not-yet-law/
 - Primary source: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
 - Download CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
+- All six rate tables as one JSON file: https://duguid.com.au/rates/rates.json
+- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
 - Microsoft’s Text/CSV guide: https://learn.microsoft.com/en-us/power-query/connectors/text-csv
 - Follow updates with the Atom feed: https://duguid.com.au/feed.xml

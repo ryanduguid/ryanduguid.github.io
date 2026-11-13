@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/margin/
 
 Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -16,13 +16,13 @@ Margin and markup inputs
 
 Sales (AUD) Direct cost (AUD)
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: sales $100.00, direct cost $80.00. Gross profit $20.00 Margin 20.00% Markup 25.00%
 
 ## How the margin and markup calculator works
 
 The margin and markup calculator works out gross profit, margin and markup from one sales figure and one direct cost figure. Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. A zero denominator leaves that percentage undefined.
 
-No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+No statutory rate or threshold is applied. Gross profit and margin follow Business Queensland: break-even and profit; markup follows Business Queensland: pricing products and services.
 
 ## What the margin and markup calculator does not decide
 
@@ -39,7 +39,9 @@ Margin uses sales, markup uses cost | Sales $100.00, cost $80.00 | Profit $20.00
 Nil sales give no margin | Sales $0.00, cost $50.00 | Profit -$50.00, no margin, markup -100.00%
 Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.00%, no markup
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
+
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -47,5 +49,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
+- Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
+- ten business calculators: https://duguid.com.au/tools/business-calculators/

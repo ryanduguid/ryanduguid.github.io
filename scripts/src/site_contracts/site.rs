@@ -10,8 +10,8 @@ use crate::pyre::{self, I, S, re};
 use crate::pyurl;
 use crate::pyval::{Val, counter_sub, repr_list};
 use crate::seo_core::{self as core, Tree};
-use std::collections::{BTreeMap, BTreeSet, HashSet};
 use chrono::NaiveDate;
+use std::collections::{BTreeMap, BTreeSet, HashSet};
 use std::sync::LazyLock;
 
 fn not_indexed() -> HashSet<String> {
@@ -1873,9 +1873,8 @@ fn page_dates(
         regex::Regex::new(r#"class="page-meta">[^<]*Last checked <time datetime="([^"]*)">"#)
             .unwrap()
     });
-    static REVIEWED: LazyLock<regex::Regex> = LazyLock::new(|| {
-        regex::Regex::new(r#"class="page-meta">[^<]*Last reviewed \d"#).unwrap()
-    });
+    static REVIEWED: LazyLock<regex::Regex> =
+        LazyLock::new(|| regex::Regex::new(r#"class="page-meta">[^<]*Last reviewed \d"#).unwrap());
     let iso = |text: &str, what: &str, failures: &mut Vec<String>| {
         let date = NaiveDate::parse_from_str(text, "%Y-%m-%d").ok();
         if date.is_none() {
@@ -1936,7 +1935,10 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
     }
     let hub = crate::read(&hub_path)?;
     let (hub_checked, hub_modified) = page_dates(&hub, CALCULATOR_HUB_REL, &mut failures);
-    let mut listed: BTreeSet<String> = LISTED.captures_iter(&hub).map(|c| c[1].to_owned()).collect();
+    let mut listed: BTreeSet<String> = LISTED
+        .captures_iter(&hub)
+        .map(|c| c[1].to_owned())
+        .collect();
     let mut newest: Option<NaiveDate> = None;
     for path in glob_children(root, "tools/business-calculators", "index.html") {
         let rel = core::rel(&path, root);
