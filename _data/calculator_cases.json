@@ -1,5 +1,6 @@
 {
   "gst": {
+    "checked": "2026-11-13",
     "function": "gst",
     "peer": {"name": "Moneysmart GST calculator", "url": "https://moneysmart.gov.au/work-and-tax/gst-calculator", "checked": "5 November 2026", "input": "$20.15 excluding GST", "peer_result": "GST $2.02, price including GST $22.17", "call": ["20.15", false], "result": {"gst": 2.02, "gross": 22.17}, "output": "GST $2.02, inclusive $22.17", "verdict": "Both give the same cents on this input"},
     "rows": [
@@ -9,6 +10,7 @@
     ]
   },
   "business-use": {
+    "checked": "2026-09-27",
     "function": "businessUse",
     "rows": [
       {"case": "An exact half cent rounds up", "input": "$20.15 at 50%", "call": ["20.15", "50"], "result": {"share": 10.08}, "output": "Business share $10.08"},
@@ -17,6 +19,7 @@
     ]
   },
   "margin": {
+    "checked": "2026-09-27",
     "function": "margin",
     "peer": {"name": "Business Queensland gross profit and gross profit margin calculators", "url": "https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit", "checked": "13 November 2026", "input": "$450,000 total revenue and $300,000 cost of goods sold", "peer_result": "a gross profit of $150,000 and a gross profit margin of 33.33%", "call": ["450000", "300000"], "result": {"profit": 150000, "margin": 33.33}, "output": "profit $150,000.00, margin 33.33%", "verdict": "Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it"},
     "rows": [
@@ -26,6 +29,7 @@
     ]
   },
   "break-even": {
+    "checked": "2026-09-27",
     "function": "breakEven",
     "peer": {"name": "Business Queensland break-even calculator", "url": "https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit", "checked": "13 November 2026", "input": "$1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin", "peer_result": "a break-even point of $2,500", "call": ["1000", "25", "15"], "result": {"units": 100, "sales": 2500}, "output": "100 units, sales $2,500.00", "verdict": "Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it"},
     "rows": [
@@ -34,6 +38,7 @@
     ]
   },
   "hourly": {
+    "checked": "2026-09-27",
     "function": "hourlyRate",
     "rows": [
       {"case": "An exact half cent rounds up", "input": "Costs $20.15, profit $0.00, 2 hours", "call": ["20.15", "0", "2"], "result": {"rate": 10.08}, "output": "Rate $10.08"},
@@ -41,6 +46,7 @@
     ]
   },
   "variance": {
+    "checked": "2026-09-27",
     "function": "variance",
     "rows": [
       {"case": "Income above budget is favourable", "input": "Actual $110.00, budget $100.00, income", "call": ["110", "100", "income"], "result": {"difference": 10, "percent": 10, "effect": "Favourable"}, "output": "Difference $10.00, 10.00%, Favourable"},
@@ -49,6 +55,7 @@
     ]
   },
   "loan": {
+    "checked": "2026-11-05",
     "function": "loan",
     "peer": {"name": "Moneysmart mortgage calculator", "url": "https://moneysmart.gov.au/home-loans/mortgage-calculator", "checked": "5 November 2026", "input": "$100,000 at 6% over 30 years, repaid monthly, no fees", "peer_result": "repayments of $600 a month, total repayments $215,838", "call": ["100000", "6", "360"], "result": {"payment": 599.55, "totalInterest": 115838.19}, "output": "payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed", "verdict": "Moneysmart shows whole dollars, and the 2 agree to the dollar on this input"},
     "rows": [
@@ -66,6 +73,7 @@
     ]
   },
   "staff": {
+    "checked": "2026-09-27",
     "function": "staffCost",
     "rows": [
       {"case": "A month’s share rounds half up", "input": "Wages $51.30, super $0.00, other $0.00", "call": ["51.30", "0", "0"], "result": {"annual": 51.3, "monthly": 4.28}, "output": "Annual $51.30, monthly $4.28"},
@@ -73,6 +81,7 @@
     ]
   },
   "cash": {
+    "checked": "2026-11-13",
     "function": "cashForecast",
     "rows": [
       {"case": "A receipt delayed past week 13 stays visible as deferred", "input": "Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week", "call": ["-50", [{"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "1000", "payments": "0"}], "100", {"week": 13, "amount": "600", "delay": 1}], "result": {"closing": 350, "minimum": -50, "funding": 150, "deferred": 600}, "output": "Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00"},

@@ -53,13 +53,12 @@
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li><a href="/tools/business-calculators/">Business calculators</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        {% assign published = page.date_published | default: "2026-09-20" %}{% assign reviewed = page.last_reviewed | default: "2026-09-27" %}
-        <p class="page-meta">Published {{ published | date: "%-d %B %Y" }}. Last reviewed {{ reviewed | date: "%-d %B %Y" }}.{% unless page.date_published %} Boundary cases added 5 November 2026.{% endunless %}</p>
+        {% assign published = page.date_published | default: "2026-09-20" %}{% assign boundary = site.data.calculator_cases[page.calculator] %}
+        <p class="page-meta">Published {{ published | date: "%-d %B %Y" }}. Last checked <time datetime="{{ boundary.checked }}">{{ boundary.checked | date: "%-d %B %Y" }}</time>.{% unless page.date_published %} Boundary cases added 5 November 2026.{% endunless %}</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.</p></noscript>
 {% include calculators/{{ page.calculator }}.html %}
-{% assign boundary = site.data.calculator_cases[page.calculator] %}
         <section aria-labelledby="boundary-cases">
           <h2 id="boundary-cases">Boundary cases</h2>
           <p>Each row is a test: <code>scripts/business-calculators.test.mjs</code> runs this calculator on these fictional inputs and fails if the result differs from the one shown.</p>
