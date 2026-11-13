@@ -167,6 +167,9 @@ test('dates and years the working cannot cover are refused', () => {
   }
   assert.throws(() => schedule({ ...input, start: '2025-07-01', yearEnd: 2025 }), /30 June 2026 or later/);
   assert.throws(() => schedule({ ...input, start: '2025-07-01', yearEnd: 2026.5 }), /income year/);
+  // The last year worked is 200 after the first, and a later one is told so.
+  assert.equal(schedule({ ...input, start: '2025-07-01', yearEnd: 2226 }).length, 201);
+  assert.throws(() => schedule({ ...input, start: '2025-07-01', yearEnd: 2227 }), /30 June 2226 or earlier/);
 });
 
 test('every row of the instrument is an entry with the headings above it', () => {
@@ -178,8 +181,8 @@ test('every row of the instrument is an entry with the headings above it', () =>
     'Motor vehicles and trailers',
     'Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers)',
   ]);
-  assert.deepEqual([taxis.section, taxis.life, taxis.months, taxis.reviewed, taxis.capped, taxis.heading],
-    ['M', '4', 48, true, false, false]);
+  assert.deepEqual([taxis.section, taxis.life, taxis.months, taxis.capped, taxis.heading],
+    ['M', '4', 48, false, false]);
   const tractors = entries.find((entry) => entry.table === 'A' && entry.asset === 'Tractors');
   assert.ok(tractors);
   assert.deepEqual([tractors.division, tractors.section, tractors.capped, tractors.updated],
@@ -283,10 +286,16 @@ test('each everyday word finds the rows of the instrument word it stands for', (
   const ids = (/** @type {string} */ query) => search(entries, query).map((entry) => entry.id);
   for (const [typed, meant] of Object.entries(SYNONYMS)) {
     assert.ok(ids(meant).length > 0, meant);
-    assert.deepEqual(ids(typed), ids(meant), typed);
-    assert.deepEqual(ids(`${typed}s`), ids(meant), `${typed}s`);
-    assert.deepEqual(ids(typed.toUpperCase()), ids(meant), typed.toUpperCase());
+    // The typed word finds every row of the instrument's term, and rows that hold the word itself.
+    const typedIds = new Set(ids(typed));
+    assert.ok(ids(meant).every((id) => typedIds.has(id)), typed);
+    assert.deepEqual(ids(`${typed}s`), ids(typed), `${typed}s`);
+    assert.deepEqual(ids(typed.toUpperCase()), ids(typed), typed.toUpperCase());
   }
+  // A word that names a property of every object is an ordinary word.
+  assert.deepEqual(ids('constructor'), ids('constructors'));
+  // The instrument's own use of an everyday word is still found.
+  assert.ok(search(entries, 'tv').some((entry) => /\bTV\b/.test(entry.asset)));
 });
 
 test('a search of every row stays quick', () => {

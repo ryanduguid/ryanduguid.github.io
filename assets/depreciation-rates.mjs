@@ -13,9 +13,9 @@
  * @typedef {{table_a: SourceDivision[], table_b: SourceSection[]}} SourceTables
  * @typedef {{word: string, one: string, stem: string}} Term a word, its singular and its stem
  * @typedef {{
- *   id: number, table: 'A' | 'B', division: string, section: string, anzsic: string,
+ *   id: number, table: 'A' | 'B', division: string, section: string,
  *   note: string | null, path: string[], asset: string, depth: number,
- *   life: string | null, months: number | null, reviewed: boolean, capped: boolean,
+ *   life: string | null, months: number | null, capped: boolean,
  *   updated: string | null, heading: boolean, own: Term[], above: Term[], around: Term[],
  *   size: number
  * }} Entry `own` is the description's words, `above` the headings over it, `around` the
@@ -96,9 +96,9 @@ export function flatten(tables) {
       const next = section.rows[index + 1];
       const name = section.heading ?? '';
       entries.push({
-        id: entries.length, table, division, section: name, anzsic: section.anzsic ?? '',
+        id: entries.length, table, division, section: name,
         note: section.note, path: [...path], asset, depth, life, months,
-        reviewed: flags.includes('*'), capped: flags.includes('#'), updated,
+        capped: flags.includes('#'), updated,
         heading: life === null && next !== undefined && next[1] > depth,
         own: terms(asset), above: terms(path.join(' ')), around: terms(`${name} ${division}`),
         size: words(asset.replace(/\([^)]*\)/g, ' ')).length,
@@ -152,23 +152,38 @@ function termScore(query, list) {
  * @returns {Entry[]}
  */
 export function search(entries, query) {
-  const typed = words(query).map((word) => SYNONYMS[word] ?? SYNONYMS[word.replace(/s$/, '')] ?? word).join(' ');
-  const wanted = terms(typed).filter((term, index, all) => all.findIndex((t) => t.one === term.one) === index);
+  // Each typed word, once, with the ways a row may hold it: the word itself or, for an
+  // everyday word, every word of the instrument's term for it.
+  const wanted = terms(words(query).join(' '))
+    .filter((term, index, all) => all.findIndex((t) => t.one === term.one) === index)
+    .map((term) => {
+      const key = [term.word, term.word.replace(/s$/, '')].find((word) => Object.hasOwn(SYNONYMS, word));
+      return key ? [terms(key), terms(SYNONYMS[key])] : [[term]];
+    });
   if (!wanted.length) return [];
   /** @type {{entry: Entry, score: number}[]} */
   const found = [];
   for (const entry of entries) {
     let score = 0;
-    for (const term of wanted) {
-      const part = termScore(term, entry.own) * 5 || termScore(term, entry.above) * 3 || termScore(term, entry.around);
-      if (!part) {
+    for (const ways of wanted) {
+      let best = 0;
+      for (const way of ways) {
+        let sum = 0;
+        for (const term of way) {
+          const part = termScore(term, entry.own) * 5 || termScore(term, entry.above) * 3 || termScore(term, entry.around);
+          sum = part ? sum + part : -1;
+          if (sum < 0) break;
+        }
+        best = Math.max(best, sum);
+      }
+      if (best <= 0) {
         score = -1;
         break;
       }
-      score += part;
+      score += best;
     }
     if (score < 0) continue;
-    if (wanted.some((term) => term.one === entry.own[0]?.one)) score += 2;
+    if (wanted.flat(2).some((term) => term.one === entry.own[0]?.one)) score += 2;
     found.push({ entry, score: score * 100 - Math.min(entry.size, 99) });
   }
   return found.sort((a, b) => b.score - a.score || a.entry.id - b.entry.id).map(({ entry }) => entry);
@@ -277,8 +292,11 @@ export function schedule({ cost, life, start, yearEnd, method }) {
   if (start < FIRST_START) throw new Error('Enter a start date on or after 10 May 2006.');
   const [year, month] = start.split('-').map(Number);
   const firstYearEnd = month >= 7 ? year + 1 : year;
-  if (!Number.isInteger(yearEnd) || yearEnd < firstYearEnd || yearEnd > firstYearEnd + 200) {
+  if (!Number.isInteger(yearEnd) || yearEnd < firstYearEnd) {
     throw new Error(`Enter an income year ending 30 June ${firstYearEnd} or later.`);
+  }
+  if (yearEnd > firstYearEnd + 200) {
+    throw new Error(`Enter an income year ending 30 June ${firstYearEnd + 200} or earlier.`);
   }
   const bottom = 365n * life.numerator;
   const rate = method === 'diminishing-value' ? 2n : 1n;
