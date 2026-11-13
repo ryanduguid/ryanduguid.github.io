@@ -1932,8 +1932,6 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
     static DEPENDENCY: LazyLock<regex::Regex> = LazyLock::new(|| {
         regex::Regex::new(r"\b(read|Official comparison on) (\d{1,2} [A-Z][a-z]+ \d{4})").unwrap()
     });
-    static SOURCES: LazyLock<regex::Regex> =
-        LazyLock::new(|| regex::Regex::new(r#"(?s)<ul class="sources">(.*?)</ul>"#).unwrap());
     static LISTED: LazyLock<regex::Regex> = LazyLock::new(|| {
         regex::Regex::new(r#"href="/tools/business-calculators/([a-z0-9-]+)/""#).unwrap()
     });
@@ -1970,20 +1968,26 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
                 "{CALCULATOR_HUB_REL}: dateModified {hub} is older than {rel}'s {page}"
             ));
         }
-        let text = core::parse_structure(&html).text(Tree::ROOT);
-        // A source read counts only in the Sources applied list; the official comparison
-        // sits in Boundary cases.
-        let sources: Vec<String> = SOURCES
-            .captures_iter(&html)
-            .map(|c| core::parse_structure(&c[1]).text(Tree::ROOT))
+        let tree = core::parse_structure(&html);
+        let text = tree.text(Tree::ROOT);
+        // A source read counts only in the Sources applied list, nested lists included;
+        // the official comparison sits in Boundary cases.
+        let lists: Vec<usize> = tree
+            .descendants(Tree::ROOT, Some("ul"), true)
+            .into_iter()
+            .filter(|&list| tree.has_class(list, "sources"))
             .collect();
-        if sources.len() != 1 {
+        if lists.len() != 1 {
             failures.push(format!(
                 "{rel}: expected one Sources applied list, found {}",
-                sources.len()
+                lists.len()
             ));
         }
-        let sources = sources.concat();
+        let sources = lists
+            .iter()
+            .map(|&list| tree.text(list))
+            .collect::<Vec<_>>()
+            .join(" ");
         let reads = DEPENDENCY
             .captures_iter(&sources)
             .filter(|found| &found[1] == "read");

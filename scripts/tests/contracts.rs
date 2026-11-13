@@ -2232,4 +2232,38 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
         &contracts::check_calculator_dates(site.path()).unwrap(),
         "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is newer than its newest source read, 2026-11-12",
     );
+    // A nested list stays inside Sources applied, so reads after it still count.
+    let sources = r#"<ul class="sources">"#;
+    let nested = |read: &str| format!(r#"{sources}<li>Earlier: <ul><li>{read}</li></ul></li>"#);
+    let site = copied_site();
+    replace_file(site.path(), gst, sources, &nested("read 12 November 2026"));
+    assert_clean(
+        "a nested list before the newest read",
+        &contracts::check_calculator_dates(site.path()).unwrap(),
+    );
+    let site = copied_site();
+    replace_file(
+        site.path(),
+        gst,
+        "read 13 November 2026",
+        "read 14 November 2026",
+    );
+    replace_file(site.path(), gst, sources, &nested("read 13 November 2026"));
+    expect_failure(
+        "a newer read after a nested list",
+        &contracts::check_calculator_dates(site.path()).unwrap(),
+        "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is older than 'read 14 November 2026'",
+    );
+    let site = copied_site();
+    replace_file(
+        site.path(),
+        gst,
+        sources,
+        &format!("{sources}</ul>{sources}"),
+    );
+    expect_failure(
+        "a second Sources applied list",
+        &contracts::check_calculator_dates(site.path()).unwrap(),
+        "tools/business-calculators/gst/index.html: expected one Sources applied list, found 2",
+    );
 }
