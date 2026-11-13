@@ -24,22 +24,35 @@ pub const DATA_REL: &str = "tools/depreciation-rates/effective-life.json";
 const INDENT_PT: f64 = 14.175;
 /// The deepest nesting the tables use below a top-level description.
 const MAX_DEPTH: u8 = 4;
-/// Rows the EPUB text of the 2025 instrument nests one level too deep: the description,
-/// the nesting the text gives and the nesting recorded. The first two are indented two
-/// levels under 'Compressor assets:', in the authorised PDF as well, and are recorded as
-/// its rows, the only reading that leaves no level empty. The third is set under 'General
-/// plant' in the EPUB only; the authorised PDF shows it as a sibling. A row applies only
-/// whilst the text still gives the nesting listed, so a corrected source is read as it
-/// stands. Any other row nested more than one level below the row above it fails the
-/// build, because that is also what a misread indent looks like.
-const NESTING_CORRECTIONS: [(&str, u8, u8); 3] = [
+/// A row the source nests wrongly: the heading of its section, its description, the
+/// nesting the text gives and the nesting recorded.
+pub type Correction = (&'static str, &'static str, u8, u8);
+/// Rows the EPUB text of the 2025 instrument nests one level too deep. The first two are
+/// indented two levels under 'Compressor assets:', in the authorised PDF as well, and are
+/// recorded as its rows, the only reading that leaves no level empty. The third is set
+/// under 'General plant' in the EPUB only; the authorised PDF shows it as a sibling. Each
+/// must match exactly one row, so a corrected source or a second such row fails the build
+/// instead of being shifted by guess. Any other row nested more than one level below the
+/// row above it fails the build, because that is also what a misread indent looks like.
+pub const NESTING_CORRECTIONS: [Correction; 3] = [
     (
+        "Basic inorganic chemical manufacturing",
         "Air filtering units (incorporating filters and housing filters)",
         3,
         2,
     ),
-    ("Blowers and compressors (incorporating drives)", 3, 2),
-    ("Pallets (aluminium used in extrusion process)", 2, 1),
+    (
+        "Basic inorganic chemical manufacturing",
+        "Blowers and compressors (incorporating drives)",
+        3,
+        2,
+    ),
+    (
+        "Concrete product manufacturing",
+        "Pallets (aluminium used in extrusion process)",
+        2,
+        1,
+    ),
 ];
 const COLUMNS: [&str; 6] = [
     "asset",
@@ -188,15 +201,25 @@ fn cell_text(cell: Node<'_, '_>) -> String {
     paragraphs.join(" ")
 }
 
-/// A length in points from a style attribute, such as `width:14.2pt`.
-fn style_pt(style: &str, property: &str) -> Option<f64> {
-    style.split(';').find_map(|declaration| {
-        let (name, value) = declaration.split_once(':')?;
-        if name.trim() != property {
-            return None;
-        }
-        value.trim().strip_suffix("pt")?.parse().ok()
-    })
+/// A length in points from a style attribute, such as `width:14.2pt`, or none when the
+/// property is not set. CSS applies the last of repeated declarations and another unit
+/// would need a conversion, so both are refused; `owner` names the element in the message.
+fn style_pt(style: &str, property: &str, owner: &str) -> Result<Option<f64>> {
+    let mut values = style
+        .split(';')
+        .filter_map(|declaration| declaration.split_once(':'))
+        .filter(|(name, _)| name.trim() == property)
+        .map(|(_, value)| value.trim());
+    let Some(value) = values.next() else {
+        return Ok(None);
+    };
+    if values.next().is_some() {
+        return Err(format!("{owner} {property} is set more than once: {style}"));
+    }
+    match value.strip_suffix("pt").map(str::parse) {
+        Some(Ok(points)) => Ok(Some(points)),
+        _ => Err(format!("{owner} {property} is not in points: {style}")),
+    }
 }
 
 /// A row's nesting, from the spacers before its description. The source indents with
@@ -213,15 +236,16 @@ fn depth(cell: Node<'_, '_>) -> Result<u8> {
         };
     };
     let style = paragraph.attribute("style").unwrap_or_default();
-    let mut width = style_pt(style, "margin-left").unwrap_or(0.0)
-        + style_pt(style, "text-indent").unwrap_or(0.0);
+    let owner = "the description's";
+    let mut width = style_pt(style, "margin-left", owner)?.unwrap_or(0.0)
+        + style_pt(style, "text-indent", owner)?.unwrap_or(0.0);
     // A bookmark anchor may wrap the paragraph's spans, so read them wherever they sit.
     for node in paragraph.descendants().skip(1) {
         let blank = node_text(node).trim().is_empty();
         if is(node, "span") && blank {
             let style = node.attribute("style").unwrap_or_default();
             if style.contains("inline-block") {
-                width += style_pt(style, "width")
+                width += style_pt(style, "width", "a spacer's")?
                     .ok_or_else(|| format!("a spacer's width is not in points: {style}"))?;
             }
         } else if (is(node, "span") || node.is_text()) && !blank {
@@ -241,6 +265,14 @@ fn depth(cell: Node<'_, '_>) -> Result<u8> {
 /// The life column: empty, whole years, or whole years and a half or a third. The source
 /// prints a fraction as a raised numerator, a slash and a lowered denominator, or as `½`.
 fn life(cell: Node<'_, '_>) -> Result<Option<Life>> {
+    // The parts are read across the cell, so separate paragraphs `1` and `0` would read as 10.
+    let paragraphs = cell
+        .descendants()
+        .filter(|n| is(*n, "p") && !node_text(*n).trim().is_empty())
+        .count();
+    if paragraphs > 1 {
+        return Err("the life is in more than one paragraph".to_owned());
+    }
     let (mut whole, mut numerator, mut denominator) = (String::new(), String::new(), String::new());
     for text in cell.descendants().filter(Node::is_text) {
         let style = text
@@ -391,7 +423,7 @@ enum Table {
     B,
 }
 
-struct Reader {
+struct Reader<'c> {
     table: Option<Table>,
     divisions: Vec<Division>,
     letters: Vec<Section>,
@@ -399,10 +431,13 @@ struct Reader {
     counts_b: Counts,
     /// A note read above a heading, for the section that heading opens.
     note: Option<String>,
+    corrections: &'c [Correction],
+    /// The rows each correction has matched.
+    corrected: Vec<usize>,
     failures: Vec<String>,
 }
 
-impl Reader {
+impl Reader<'_> {
     fn counts(&mut self, table: Table) -> &mut Counts {
         match table {
             Table::A => &mut self.counts_a,
@@ -428,7 +463,20 @@ impl Reader {
         for (index, row) in rows.iter().enumerate() {
             let place = format!("table {number} row {}", index + 1);
             self.counts(table).source_rows += 1;
+            // Only <td> cells are read, so any other cell's text would be dropped.
+            if let Some(other) = row.children().find(|n| n.is_element() && !is(*n, "td")) {
+                let name = other.tag_name().name();
+                self.fail(
+                    &place,
+                    &format!("a row holds a {name} element, not only td cells"),
+                );
+                continue;
+            }
             let cells: Vec<Node<'_, '_>> = row.children().filter(|n| is(*n, "td")).collect();
+            if cells.iter().any(|cell| cell.attribute("rowspan").is_some()) {
+                self.fail(&place, "a cell spans rows");
+                continue;
+            }
             let mut texts: Vec<String> = cells.iter().map(|c| cell_text(*c)).collect();
             // Text is read from paragraphs, so text anywhere else in a cell would be dropped.
             let squeezed = |text: &str| text.split_whitespace().collect::<String>();
@@ -460,7 +508,15 @@ impl Reader {
                 headed = true;
                 continue;
             }
-            // Some tables carry a fifth, empty column.
+            // Some tables carry a fifth, empty column, which a date may span; a cell spanning
+            // anything else would move the cells after it.
+            if let Some((index, span)) = cells.iter().enumerate().find_map(|(index, cell)| {
+                let span = cell.attribute("colspan")?;
+                (index != 3 || cells.len() != 4 || span != "2").then_some((index, span))
+            }) {
+                self.fail(&place, &format!("cell {} spans {span} columns", index + 1));
+                continue;
+            }
             if texts.len() == 5 && texts[4].is_empty() {
                 texts.pop();
             }
@@ -541,6 +597,15 @@ impl Reader {
                 if alone || !letter {
                     return self.fail(place, &format!("Table B heading {text} is not a letter"));
                 }
+                // The letters run in order, so one that does not is some other table.
+                if let Some(last) = self.letters.last().and_then(|s| s.heading.clone())
+                    && last.as_str() >= text
+                {
+                    return self.fail(
+                        place,
+                        &format!("Table B heading {text} does not follow {last}"),
+                    );
+                }
                 self.letters.push(Section {
                     heading: Some(text.to_owned()),
                     anzsic: None,
@@ -552,6 +617,7 @@ impl Reader {
     }
 
     fn push(&mut self, table: Table, row: Row, headed: bool, place: &str) {
+        let corrections = self.corrections;
         if row.life.is_some() {
             self.counts(table).lives += 1;
         }
@@ -571,11 +637,11 @@ impl Reader {
         };
         let allowed = section.rows.last().map_or(0, |last| last.depth + 1);
         let mut row = row;
-        if let Some((_, _, corrected)) = NESTING_CORRECTIONS
-            .iter()
-            .find(|(asset, text, _)| *asset == row.asset && *text == row.depth)
-        {
-            row.depth = *corrected;
+        let correction = corrections.iter().position(|&(heading, asset, text, _)| {
+            section.heading.as_deref() == Some(heading) && asset == row.asset && text == row.depth
+        });
+        if let Some(index) = correction {
+            row.depth = corrections[index].3;
         }
         if row.depth > allowed {
             let message = format!(
@@ -587,6 +653,9 @@ impl Reader {
             return self.fail(place, &message);
         }
         section.rows.push(row);
+        if let Some(index) = correction {
+            self.corrected[index] += 1;
+        }
     }
 }
 
@@ -617,8 +686,12 @@ fn data_row(cells: &[Node<'_, '_>], texts: &[String]) -> Result<Row> {
     })
 }
 
-/// The tables of Schedule 2, or every reason the text could not be read as them.
-pub fn parse(xhtml: &str) -> std::result::Result<Determination, Vec<String>> {
+/// The tables of Schedule 2 with `corrections` applied (the build uses
+/// `NESTING_CORRECTIONS`), or every reason the text could not be read as them.
+pub fn parse(
+    xhtml: &str,
+    corrections: &[Correction],
+) -> std::result::Result<Determination, Vec<String>> {
     let options = roxmltree::ParsingOptions {
         allow_dtd: true,
         ..roxmltree::ParsingOptions::default()
@@ -632,13 +705,23 @@ pub fn parse(xhtml: &str) -> std::result::Result<Determination, Vec<String>> {
         counts_a: Counts::default(),
         counts_b: Counts::default(),
         note: None,
+        corrections,
+        corrected: vec![0; corrections.len()],
         failures: Vec::new(),
     };
     let (mut title, mut made, mut number) = (None, None, 0);
+    // Table B is the last of Schedule 2, and only empty paragraphs part its tables, so text
+    // after its rows starts whatever follows it.
+    let mut after_b = None;
     for node in document.descendants() {
         if is(node, "table") {
             number += 1;
-            if let Some(table) = reader.table {
+            if let Some(end) = &after_b {
+                reader.fail(
+                    &format!("table {number}"),
+                    &format!("a table after the end of Table B at {end}"),
+                );
+            } else if let Some(table) = reader.table {
                 reader.table(table, node, number);
             }
         } else if is(node, "p") && !node.ancestors().any(|a| is(a, "table")) {
@@ -651,10 +734,23 @@ pub fn parse(xhtml: &str) -> std::result::Result<Determination, Vec<String>> {
                 reader.table = Some(Table::A);
             } else if text.starts_with("Table B") && text.contains("Effective life") {
                 reader.table = Some(Table::B);
+            } else if reader.table == Some(Table::B)
+                && reader.counts_b.source_rows > 0
+                && !text.is_empty()
+                && after_b.is_none()
+            {
+                after_b = Some(text);
             }
         }
     }
     let mut failures = reader.failures;
+    for ((heading, asset, _, _), matched) in corrections.iter().zip(&reader.corrected) {
+        if *matched != 1 {
+            failures.push(format!(
+                "the nesting correction for {asset} under {heading} matches {matched} rows, not 1"
+            ));
+        }
+    }
     if reader.divisions.is_empty() {
         failures.push("Table A was not found".to_owned());
     }
@@ -846,7 +942,8 @@ pub fn build(source_file: &Path, source: &Source) -> Result<String> {
         .map_err(|e| py::oserror_str(&e, &source_file.to_string_lossy(), py::OsStyle::Errno))?;
     let text = std::str::from_utf8(&bytes)
         .map_err(|e| format!("{}: {e}", source_file.to_string_lossy()))?;
-    let determination = parse(text).map_err(|failures| failures.join("\n"))?;
+    let determination =
+        parse(text, &NESTING_CORRECTIONS).map_err(|failures| failures.join("\n"))?;
     Ok(render(&determination, &sha256_hex(&bytes), source))
 }
 

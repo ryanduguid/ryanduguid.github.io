@@ -228,16 +228,19 @@ determinations, rulings and law' names the current instrument):
      --register-id <ID> --registered <YYYY-MM-DD> --source-url <URL of its text> --read <YYYY-MM-DD>
    ```
 
-   The builder stops at any row it cannot read. With `--check --source <file>`
-   it compares the committed file with a source and writes nothing.
+   The builder stops at any row it cannot read, and at any entry of
+   `NESTING_CORRECTIONS` that does not match exactly one row: remove an entry
+   the new text no longer needs. With `--check --source <file>` it compares the
+   committed file with a source and writes nothing.
 3. Review the diff. The file has one line for each row, so each life that was
    changed, added or removed is one line.
 4. Compare the file with a second format of the same version, the Register's
    Word file or its authorised PDF: the rows in each table, then every
    description, life, flag and date.
 5. Update the counts and sampled rows pinned in `scripts/tests/effective_life.rs`
-   from the authorised PDF, then the instrument, counts, dates and attribution
-   the page states.
+   from the authorised PDF, and its `DATA_SHA256` once step 4 finds no
+   difference, then the instrument, counts, dates and attribution the page
+   states.
 6. Reread the page's sections beyond the tables against the law in force and
    move its Sources checked date. Finish as for any content edit: a changelog
    row, `build_feed --write`, `build_llms_full --write`, `check_design

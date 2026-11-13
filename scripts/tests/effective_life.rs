@@ -5,8 +5,9 @@
 //! refuses, and the committed data against the registered instrument's row counts and rows
 //! read from its authorised PDF.
 use chrono::NaiveDate;
+use sha2::{Digest, Sha256};
 use site_tools::effective_life::{
-    Counts, DATA_REL, Division, Life, Row, Section, Source, parse, render,
+    Counts, DATA_REL, Division, Life, NESTING_CORRECTIONS, Row, Section, Source, parse, render,
 };
 use site_tools::pyjson::{self, Json};
 use std::path::Path;
@@ -67,12 +68,27 @@ fn failures(rows: &str) -> String {
         "<table>{}{HEADER}{rows}</table>",
         heading("Coal mining", "(06000)")
     );
-    parse(&tables(
-        &table,
-        &letter(&row(0, "Signs", "10", "*", "1 Jul 2005")),
-    ))
-    .expect_err("the rows should be refused")
-    .join("\n")
+    parse(
+        &tables(&table, &letter(&row(0, "Signs", "10", "*", "1 Jul 2005"))),
+        &[],
+    )
+    .err()
+    .map_or_else(
+        || "nothing: the rows were read".to_owned(),
+        |f| f.join("\n"),
+    )
+}
+
+/// Asserts that each set of rows is refused with its message, naming every one that is not.
+fn assert_refused(cases: &[(String, &str)]) {
+    let wrong: Vec<String> = cases
+        .iter()
+        .filter_map(|(rows, message)| {
+            let failed = failures(rows);
+            (!failed.contains(message)).then(|| format!("{message} not in {failed}"))
+        })
+        .collect();
+    assert!(wrong.is_empty(), "{}", wrong.join("\n"));
 }
 
 #[test]
@@ -108,7 +124,7 @@ fn reads_each_row_shape_the_instrument_uses() {
         row(1, "Other pumps – see Table B Pumps", "", "", ""),
     );
     let b = letter(&row(0, "Signs", "10", "*", "1 Jul 2005"));
-    let read = parse(&tables(&format!("{general}{headed}"), &b)).expect("the fixture parses");
+    let read = parse(&tables(&format!("{general}{headed}"), &b), &[]).expect("the fixture parses");
 
     assert_eq!(
         read.table_a,
@@ -347,11 +363,144 @@ fn refuses_headings_and_tables_it_cannot_place() {
         ),
     ];
     for (text, message) in cases {
-        let failed = parse(&text)
+        let failed = parse(&text, &[])
             .expect_err("the text should be refused")
             .join("\n");
         assert!(failed.contains(message), "{message} not in {failed}");
     }
+}
+
+/// Header cells and spanned cells would drop or move a row's text; only a date spanning
+/// the empty fifth column some tables carry is read.
+#[test]
+fn refuses_cells_it_cannot_place() {
+    assert_refused(&[
+        (
+            "<tr><th><p>Pumps</p></th><th><p>10</p></th><th><p>*</p></th><th><p>1 Jul 2008</p></th></tr>".to_owned(),
+            "a row holds a th element",
+        ),
+        (
+            "<tr><td colspan=\"2\"><p>Pumps</p></td><td><p>10</p></td><td><p>*</p></td><td><p>1 Jul 2008</p></td></tr>".to_owned(),
+            "cell 1 spans 2 columns",
+        ),
+        (
+            "<tr><td rowspan=\"2\"><p>Pumps</p></td><td><p>10</p></td><td><p>*</p></td><td><p>1 Jul 2008</p></td></tr>".to_owned(),
+            "a cell spans rows",
+        ),
+    ]);
+    let spanned_date = "<tr><td><p>Pumps</p></td><td><p>10</p></td><td><p>*</p></td>\
+        <td colspan=\"2\"><p>1 Jul 2008</p></td></tr>";
+    assert_eq!(
+        failures(spanned_date),
+        "nothing: the rows were read",
+        "a date spanning the fifth column"
+    );
+}
+
+/// A life printed as `1` and `0` in separate paragraphs is not ten years.
+#[test]
+fn refuses_a_life_in_more_than_one_paragraph() {
+    assert_refused(&[(
+        "<tr><td><p>Pumps</p></td><td><p>1</p><p>0</p></td><td><p>*</p></td><td><p>1 Jul 2008</p></td></tr>".to_owned(),
+        "the life is in more than one paragraph",
+    )]);
+}
+
+/// CSS applies the last of repeated declarations, and another unit would need a conversion,
+/// so neither is read as nesting.
+#[test]
+fn refuses_indents_it_cannot_read() {
+    let indented = |style: &str| {
+        format!(
+            "<tr><td><p style=\"{style}\"><span>Pumps</span></p></td><td><p>10</p></td><td><p>*</p></td><td><p>1 Jul 2008</p></td></tr>"
+        )
+    };
+    assert_refused(&[
+        (
+            indented("margin-left:0pt; margin-left:14.175pt"),
+            "the description's margin-left is set more than once",
+        ),
+        (
+            indented("margin-left:1em"),
+            "the description's margin-left is not in points",
+        ),
+    ]);
+}
+
+/// A nesting correction applies to the row in its own section only, and to exactly one.
+#[test]
+fn corrects_nesting_only_in_the_section_named() {
+    let air = "Air filtering units (incorporating filters and housing filters)";
+    let section = |name: &str, codes: &str, rows: &[(usize, &str)]| {
+        let rows: String = rows
+            .iter()
+            .map(|(indent, asset)| row(*indent, asset, "", "", ""))
+            .collect();
+        format!("<table>{}{HEADER}{rows}</table>", heading(name, codes))
+    };
+    let chemicals = section(
+        "Basic inorganic chemical manufacturing",
+        "(18130)",
+        &[(0, "Plant:"), (1, "Compressor assets:"), (3, air)],
+    );
+    let coal = section(
+        "Coal mining",
+        "(06000)",
+        &[
+            (0, "Plant:"),
+            (1, "Compressor assets:"),
+            (2, "Filters:"),
+            (3, air),
+        ],
+    );
+    let b = letter(&row(0, "Signs", "10", "*", "1 Jul 2005"));
+    let corrections = &NESTING_CORRECTIONS[..1];
+    let read =
+        parse(&tables(&format!("{chemicals}{coal}"), &b), corrections).expect("the fixture parses");
+    let depths: Vec<Vec<u8>> = read.table_a[0]
+        .sections
+        .iter()
+        .map(|s| s.rows.iter().map(|r| r.depth).collect())
+        .collect();
+    assert_eq!(depths, vec![vec![0, 1, 2], vec![0, 1, 2, 3]]);
+
+    for (a, message) in [
+        (coal.clone(), "matches 0 rows"),
+        (format!("{chemicals}{chemicals}"), "matches 2 rows"),
+    ] {
+        let failed = parse(&tables(&a, &b), corrections)
+            .err()
+            .map_or_else(|| "nothing: the text was read".to_owned(), |f| f.join("\n"));
+        assert!(failed.contains(message), "{message} not in {failed}");
+    }
+}
+
+/// Nothing ends Table B but text: a schedule after it is not read as more of its letters.
+#[test]
+fn refuses_a_table_after_the_end_of_table_b() {
+    let signs = row(0, "Signs", "10", "*", "1 Jul 2005");
+    let after = format!(
+        "{}<p>&#xa0;</p><p>Schedule 3—Other matters</p><table><tr><td><p>X</p></td></tr>{HEADER}{signs}</table>",
+        letter(&signs)
+    );
+    let a = format!(
+        "<table>{HEADER}{}</table>",
+        row(0, "Pumps", "10", "*", "1 Jul 2008")
+    );
+    let failed = parse(&tables(&a, &after), &[])
+        .err()
+        .map_or_else(|| "nothing: the text was read".to_owned(), |f| f.join("\n"));
+    let message = "a table after the end of Table B at Schedule 3—Other matters";
+    assert!(failed.contains(message), "{message} not in {failed}");
+
+    // Only empty paragraphs part Table B's own tables, so there the order of its letters
+    // is what tells another table from the next letter.
+    let repeated = format!("{}<p>&#xa0;</p>{}", letter(&signs), letter(&signs));
+    let failed = parse(&tables(&a, &repeated), &[])
+        .err()
+        .map_or_else(|| "nothing: the text was read".to_owned(), |f| f.join("\n"));
+    let message = "Table B heading A does not follow A";
+    assert!(failed.contains(message), "{message} not in {failed}");
 }
 
 /// A committed row: asset, depth, life as printed, life in months, flags, last updated.
@@ -364,12 +513,15 @@ type Committed = (
     Option<String>,
 );
 
-fn committed() -> Json {
+fn committed_text() -> String {
     let path = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("..")
         .join(DATA_REL);
-    let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()));
-    pyjson::loads(&text).expect("the data file is JSON")
+    std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()))
+}
+
+fn committed() -> Json {
+    pyjson::loads(&committed_text()).expect("the data file is JSON")
 }
 
 fn array<'a>(value: &'a Json, key: &str) -> &'a [Json] {
@@ -496,6 +648,25 @@ fn committed_data_holds_every_row_of_the_source() {
     }
     assert_eq!(array(&document, "table_a").len(), 18);
     assert_eq!(array(&document, "table_b").len(), 19);
+}
+
+/// The SHA-256 of the committed file, whose every row was checked against the instrument's
+/// Word file and authorised PDF. The samples below cover a few rows; this covers the rest,
+/// and their order. `.gitattributes` keeps the file's line endings LF in every checkout.
+const DATA_SHA256: &str = "96c5bfa89e554f5f0e115651df65877d8de169c4aa836181e4d0ebf3f618ba80";
+
+#[test]
+fn committed_data_is_the_data_verified_against_the_source() {
+    let digest: String = Sha256::digest(committed_text().as_bytes())
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect();
+    assert_eq!(
+        digest, DATA_SHA256,
+        "{DATA_REL} has changed. Check every row of the new file against the instrument's Word \
+         file or authorised PDF as CONTRIBUTING.md's 'Effective life tables' section describes, \
+         then pin the new digest, counts and samples here"
+    );
 }
 
 #[test]
