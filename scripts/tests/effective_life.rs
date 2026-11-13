@@ -246,6 +246,25 @@ fn refuses_rows_it_cannot_read() {
             "Slurry pumps is nested 2 deep under a row 0 deep",
         ),
         (row(1, "Pumps", "10", "*", "1 Jul 2008"), "Pumps is nested 1 deep"),
+        // Text the reader would drop, or nesting it would misread, stops the build.
+        (
+            "<tr><td><span>Pumps</span></td><td><p>10</p></td><td><p>*</p></td><td><p>1 Jul 2008</p></td></tr>".to_owned(),
+            "a cell holds text outside a paragraph",
+        ),
+        (
+            "<tr><td><p></p></td><td><p>10</p></td><td><p>*</p></td><td><p>1 Jul 2008</p></td></tr>".to_owned(),
+            "a row with no description",
+        ),
+        (
+            "<tr><td><div><p>Pumps</p></div></td><td><p>10</p></td><td><p>*</p></td><td><p>1 Jul 2008</p></td></tr>".to_owned(),
+            "the description is not in a paragraph of its own cell",
+        ),
+        (
+            "<tr><td><p><span style=\"width:14px; display:inline-block\">&#xa0;</span><span>Pumps</span></p></td><td><p>10</p></td><td><p>*</p></td><td><p>1 Jul 2008</p></td></tr>".to_owned(),
+            "a spacer's width is not in points",
+        ),
+        // A character of more than one byte before the year is refused, not a panic.
+        (row(0, "Pumps", "10", "*", "1 July\u{2013}2008"), "is not a day, month and year"),
         (
             "<tr><td><p><span style=\"width:7pt; display:inline-block\">&#xa0;</span><span>Pumps</span></p></td><td><p>10</p></td><td><p>*</p></td><td><p>1 Jul 2008</p></td></tr>".to_owned(),
             "is not a whole nesting level",
@@ -268,6 +287,25 @@ fn refuses_headings_and_tables_it_cannot_place() {
                 &b,
             ),
             "heading Coal mining has no ANZSIC codes",
+        ),
+        // A blank row beside a division heading must not turn it into a section.
+        (
+            tables(
+                &format!(
+                    "<table><tr><td><p>MANUFACTURING</p><p>(11110 to 25990)</p></td></tr>\
+                     <tr><td><p></p></td></tr></table><table>{}{HEADER}{pumps}</table>",
+                    heading("Coal mining", "(06000)")
+                ),
+                &b,
+            ),
+            "heading MANUFACTURING (11110 to 25990): only a division heading is in capitals and alone in its table",
+        ),
+        (
+            tables(
+                "<table><tr><td><p>Coal mining</p><p>(06000)</p></td></tr></table>",
+                &b,
+            ),
+            "heading Coal mining (06000): only a division heading is in capitals and alone in its table",
         ),
         (
             tables(

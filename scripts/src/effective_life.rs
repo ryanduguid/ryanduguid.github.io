@@ -204,7 +204,12 @@ fn style_pt(style: &str, property: &str) -> Option<f64> {
 /// word wrap a long description and are not nesting.
 fn depth(cell: Node<'_, '_>) -> Result<u8> {
     let Some(paragraph) = cell.children().find(|n| is(*n, "p")) else {
-        return Ok(0);
+        // Nesting is read from the cell's own paragraph; a wrapped one would read as depth 0.
+        return if node_text(cell).trim().is_empty() {
+            Ok(0)
+        } else {
+            Err("the description is not in a paragraph of its own cell".to_owned())
+        };
     };
     let style = paragraph.attribute("style").unwrap_or_default();
     let mut width = style_pt(style, "margin-left").unwrap_or(0.0)
@@ -215,7 +220,8 @@ fn depth(cell: Node<'_, '_>) -> Result<u8> {
         if is(node, "span") && blank {
             let style = node.attribute("style").unwrap_or_default();
             if style.contains("inline-block") {
-                width += style_pt(style, "width").unwrap_or(0.0);
+                width += style_pt(style, "width")
+                    .ok_or_else(|| format!("a spacer's width is not in points: {style}"))?;
             }
         } else if (is(node, "span") || node.is_text()) && !blank {
             break;
@@ -318,8 +324,10 @@ fn iso_date(text: &str) -> Result<String> {
     let joined: String = text.split_whitespace().collect();
     let day_end = joined.find(|c: char| !c.is_ascii_digit()).ok_or_else(bad)?;
     let year_start = joined
-        .rfind(|c: char| !c.is_ascii_digit())
-        .map_or(0, |i| i + 1);
+        .char_indices()
+        .rev()
+        .find(|(_, c)| !c.is_ascii_digit())
+        .map_or(0, |(i, c)| i + c.len_utf8());
     let (day, name, year) = (
         &joined[..day_end],
         joined[day_end..year_start].to_ascii_lowercase(),
@@ -421,6 +429,16 @@ impl Reader {
             self.counts(table).source_rows += 1;
             let cells: Vec<Node<'_, '_>> = row.children().filter(|n| is(*n, "td")).collect();
             let mut texts: Vec<String> = cells.iter().map(|c| cell_text(*c)).collect();
+            // Text is read from paragraphs, so text anywhere else in a cell would be dropped.
+            let squeezed = |text: &str| text.split_whitespace().collect::<String>();
+            if cells
+                .iter()
+                .zip(&texts)
+                .any(|(cell, text)| squeezed(&clean(&node_text(*cell))) != squeezed(text))
+            {
+                self.fail(&place, "a cell holds text outside a paragraph");
+                continue;
+            }
             if texts.iter().all(String::is_empty) {
                 self.counts(table).blank_rows += 1;
                 continue;
@@ -461,6 +479,13 @@ impl Reader {
                 continue;
             }
             self.counts(table).rows += 1;
+            if texts[0].is_empty() {
+                self.fail(
+                    &place,
+                    &format!("a row with no description in {}", texts.join(" | ")),
+                );
+                continue;
+            }
             match data_row(&cells, &texts) {
                 Ok(row) => self.push(table, row, headed, &place),
                 Err(message) => self.fail(&place, &format!("{message} in {}", texts.join(" | "))),
@@ -481,6 +506,14 @@ impl Reader {
                 let Some((heading, anzsic)) = split_heading(text) else {
                     return self.fail(place, &format!("heading {text} has no ANZSIC codes"));
                 };
+                // A division's heading is in capitals and alone in its table; a section's
+                // is neither. A blank row beside a division heading must not demote it.
+                if alone == heading.chars().any(char::is_lowercase) {
+                    return self.fail(
+                        place,
+                        &format!("heading {text}: only a division heading is in capitals and alone in its table"),
+                    );
+                }
                 if alone {
                     self.divisions.push(Division {
                         heading,
