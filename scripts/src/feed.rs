@@ -100,8 +100,13 @@ fn rows(source: &str) -> Result<Vec<Row>, String> {
         ))
         .unwrap()
     });
-    static CELL: LazyLock<Regex> =
-        LazyLock::new(|| Regex::new(r#"(?s)<(?:td|th scope="row")>(.*?)</t[dh]>"#).unwrap());
+    // A cell may carry its table role, which keeps the rows a table where phones stack them.
+    static CELL: LazyLock<Regex> = LazyLock::new(|| {
+        Regex::new(
+            r#"(?s)<(?:td(?: role="cell")?|th scope="row"(?: role="rowheader")?)>(.*?)</t[dh]>"#,
+        )
+        .unwrap()
+    });
     static TAG: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"<[^>]+>").unwrap());
     // A whole href attribute, so data-href cannot pass for a release link.
     static HREF: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"\shref="([^"]+)""#).unwrap());

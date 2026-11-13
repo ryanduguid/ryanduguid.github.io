@@ -55,6 +55,30 @@ fn edit_keeps_published_identity_when_rows_move() {
 }
 
 #[test]
+fn rows_with_table_roles_read_as_rows_without_them() {
+    let plain = concat!(
+        "<tr><th scope=\"row\">22 September 2026</th><td>A site change.</td></tr>",
+        "<tr><th scope=\"row\">1 May 2026</th><td>Tool</td><td><a href=\"https://example.test/v1\">v1</a></td></tr>",
+    );
+    let roles = plain
+        .replace("<tr>", "<tr role=\"row\">")
+        .replace(
+            "<th scope=\"row\">",
+            "<th scope=\"row\" role=\"rowheader\">",
+        )
+        .replace("<td>", "<td role=\"cell\">");
+    assert_eq!(
+        feed::entries(&roles).unwrap(),
+        feed::entries(plain).unwrap()
+    );
+    let anchored = feed::anchored(&roles).unwrap();
+    assert!(
+        anchored.contains("\" role=\"row\"><th scope=\"row\" role=\"rowheader\">22 September 2026"),
+        "{anchored}"
+    );
+}
+
+#[test]
 fn site_entries_link_to_their_own_row() {
     let source = concat!(
         "<tr><td>22 September 2026</td><td>A site change.</td></tr>",

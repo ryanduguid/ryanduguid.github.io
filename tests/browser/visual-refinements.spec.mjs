@@ -147,20 +147,26 @@ test('page edges and gaps that the visual evaluation found touching', async ({ p
   expect(routesGap).toBeGreaterThanOrEqual(16);
 
   await page.goto('/changelog/');
-  if (projectKind(testInfo) === 'desktop') {
-    // A row is as tall as its longest cell, so count the date's own text lines.
-    const dateLines = await page.locator('.changelog-section tbody th').evaluateAll((cells) => cells.slice(0, 5).map((cell) => {
-      const range = document.createRange();
-      range.selectNodeContents(cell);
-      return new Set([...range.getClientRects()].map((rect) => Math.round(rect.top))).size;
-    }));
-    expect(dateLines).toEqual([1, 1, 1, 1, 1]);
-  } else {
-    // On a phone a one-line date had squeezed the change into about 18
-    // characters a line; the date wraps instead and the change keeps most of the row.
+  // A row is as tall as its longest cell, so count the date's own text lines.
+  const dateLines = await page.locator('.changelog-section tbody th').evaluateAll((cells) => cells.slice(0, 5).map((cell) => {
+    const range = document.createRange();
+    range.selectNodeContents(cell);
+    return new Set([...range.getClientRects()].map((rect) => Math.round(rect.top))).size;
+  }));
+  expect(dateLines).toEqual([1, 1, 1, 1, 1]);
+  if (projectKind(testInfo) === 'mobile') {
+    // On a phone a one-line date beside the change had squeezed it into about
+    // 18 characters a line; the date sits above the change, which keeps the row.
     const share = await page.locator('.changelog-section tbody tr').first().evaluate((row) => (
       row.querySelector('td').getBoundingClientRect().width / row.getBoundingClientRect().width));
     expect(share).toBeGreaterThanOrEqual(0.6);
+    // WebKit can drop table semantics from stacked cells, so each hand-written
+    // row names its roles, as the cash example's stacked table does.
+    const unnamed = await page.locator('.changelog-section tbody tr').evaluateAll((rows) => rows
+      .filter((row) => row.getAttribute('role') !== 'row' || [...row.children]
+        .some((cell) => cell.getAttribute('role') !== (cell.matches('th') ? 'rowheader' : 'cell')))
+      .map((row) => row.id));
+    expect(unnamed).toEqual([]);
   }
 
   // The address is in the first screen of an ordinary 1280 by 800 laptop.
