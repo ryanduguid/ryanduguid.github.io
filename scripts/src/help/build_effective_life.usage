@@ -1,0 +1,1 @@
+usage: site-tools build_effective_life [-h] (--write | --check) --source FILE [--register-id ID] [--registered DATE] [--source-url URL] [--read DATE]

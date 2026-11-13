@@ -1,0 +1,13 @@
+usage: site-tools build_effective_life [-h] (--write | --check) --source FILE [--register-id ID] [--registered DATE] [--source-url URL] [--read DATE]
+
+Build and check tools/depreciation-rates/effective-life.json from the registered text of the effective life determination.
+
+options:
+  -h, --help         show this help message and exit
+  --write            rewrite the data file from the source; needs the four details below
+  --check            fail when the committed data file differs from a rebuild from the source
+  --source FILE      OEBPS/document_1/document_1.html from the instrument's EPUB download
+  --register-id ID   the instrument's Federal Register of Legislation ID
+  --registered DATE  the date the version read was registered, as YYYY-MM-DD
+  --source-url URL   the page of the version read on the Federal Register of Legislation
+  --read DATE        the date the source was downloaded, as YYYY-MM-DD
