@@ -143,6 +143,7 @@ pub fn check_site_contracts(paths: &[PathBuf], root: &Path) -> Result<Vec<String
     failures.extend(check_task_routes(root)?);
     failures.extend(check_privacy_delivery_claims(root)?);
     failures.extend(check_collection_hubs(root)?);
+    failures.extend(check_calculator_dates(root)?);
     failures.extend(check_social_cards(root)?);
     failures.extend(check_robots_policy(&robots));
     failures.extend(check_crawler_classes(root)?);

@@ -68,8 +68,38 @@
     "rates/super-guarantee/index.html": [
       "f6e7ef2e7e594a027c27dc0afd1d2f8201825154a2c3f3be22fdc610da5f2bc8"
     ],
+    "tools/accounting-questions/bookkeeping-close/index.html": [
+      "a23f00f4d35ff39dc2d112dbf6aee5549d8abd2e74a76820f5ac7af5087fee61"
+    ],
+    "tools/accounting-questions/business-setup/index.html": [
+      "93a9ca66022182e6f07ea273f1f536bf2406208da09b1b436db3a57b5443365c"
+    ],
+    "tools/accounting-questions/cash-flow/index.html": [
+      "cbfb0f38556e365081604183e355285045468169a0918d64380bf15c972df782"
+    ],
+    "tools/accounting-questions/company-compliance/index.html": [
+      "8292405cc2a69cee9e4b8786e52e325187470032d5a40eaa08a08adf90a41bdd"
+    ],
+    "tools/accounting-questions/deductions/index.html": [
+      "0bb20b9b7a5ead5d62e3b706d89528ab081ac06138d3b76d1774a1e53849d237"
+    ],
+    "tools/accounting-questions/general-tax/index.html": [
+      "46fce77af212aec4f3649f2ce508f125091ad050d5d352f06ceb7d82b1626e79"
+    ],
+    "tools/accounting-questions/gst-bas/index.html": [
+      "726b375514198487bc67850f2584735ac2c0256c5cf3a9fe848424462e0a9aac"
+    ],
     "tools/accounting-questions/index.html": [
       "71f1cda119cff14f103484d66c812006f6665bbf8912b72d2fd823c64ba43a60"
+    ],
+    "tools/accounting-questions/investments-local/index.html": [
+      "93ad0b88c2d461e072855fd2d656f7538fe88255523b4fce63cc018d97d338a3"
+    ],
+    "tools/accounting-questions/management-reporting/index.html": [
+      "2d91f2c0088b2cfa245baa6fc5cc68eb28404ec6b2b9d081f78d8116e7b12a58"
+    ],
+    "tools/accounting-questions/payroll-super/index.html": [
+      "c481a71bd273881b7b2125880ac784e305f40e9e9ef852ca93258bc17f457015"
     ],
     "tools/ato-benchmarks/index.html": [
       "bd6cc13554d28ff5319d0491cd030e1ea3206009f4f1946795e70c71f9705ca0"
@@ -77,8 +107,38 @@
     "tools/australian-tax-ai-agents/index.html": [
       "6b4407af74c9858df95f4dbfb7955a0a98f98d5b5cbc961706240f0350ac5e86"
     ],
+    "tools/business-calculators/break-even/index.html": [
+      "8b17f20c372fc2a2b1b9e22eb22b14222bd46e7c556fb95e3697cc16a0202083"
+    ],
+    "tools/business-calculators/business-use/index.html": [
+      "427fc97ba0a18cc14106ed2b827119a2036be0a99b87cb7999e0cd835702c108"
+    ],
+    "tools/business-calculators/cash/index.html": [
+      "3ddc67161759718b3faa411210c5cb801e85f0c4ac95e2407c9d159b6f80bfe8"
+    ],
+    "tools/business-calculators/div7a/index.html": [
+      "dba75dc77e31440f11fe4137e30a9d5d040ddad0689fb65258dc15aea7729744"
+    ],
+    "tools/business-calculators/gst/index.html": [
+      "0572a13a87dc15334a74c4a3c2c89909841a26334e5bae9903764717e6f416c0"
+    ],
+    "tools/business-calculators/hourly/index.html": [
+      "09009820d32183e1c06e3cda812448aff6ae99a892ce80300aa733bea396b162"
+    ],
     "tools/business-calculators/index.html": [
-      "4b0199c75076e5d6db1f0cbe9a6fcf8679bf23687dd499f75e7d1b293d3189d0"
+      "dbadd901e56d87325546a3acd9dca536723b3116241b7efcdae0c3f5496b9654"
+    ],
+    "tools/business-calculators/loan/index.html": [
+      "00e8f471a1a214ac7371829dd529f66386b31c082e8a72883887dbbc4b3dc5fe"
+    ],
+    "tools/business-calculators/margin/index.html": [
+      "10bdc71354bbb7a9befe48c27547c3e3d08ccbc699a5a318d726fea241dff8ca"
+    ],
+    "tools/business-calculators/staff/index.html": [
+      "930b60fcb3290aced2f73259fbe00cefcd4fefa0dd02cc90da95b7fb587f96de"
+    ],
+    "tools/business-calculators/variance/index.html": [
+      "4500a6bc850850a6e78feaa69aea69943633f54546ed2d169e44a764509b731c"
     ],
     "tools/coal-lsl-levy/index.html": [
       "43be4485ddfd7a56abb5f3d79be060f9e7077b5c8c54a90141e524c113811310"
@@ -148,9 +208,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "b4e682c32042e0e5a416480712147427d6db982869c74b1849e60459af646428",
+    "llms.txt": "7680782e27d9d156d12d210d59529631f85675b2aaf64af6693d0ae3b8aacf55",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
-    "sitemap.xml": "bb8d965a847b81faceb23693c1618edcfa073a29d6cddf2d17efe8dfc9690118"
+    "sitemap.xml": "012ffc9f3f2e76f0a153bb1b5ef0d4048ae78f319245ac54ba22809a294c5e8b"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -210,7 +270,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 65,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 66,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

@@ -47,6 +47,9 @@ const MUTATIONS = [
   { ...business, name: 'loan compounds on the wrong scale', find: 'const rateScale = 12000000n', replace: 'const rateScale = 12000001n' },
   { ...business, name: 'staff cost spreads over 13 months', find: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 12n', replace: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 13n' },
   { ...business, name: 'funding uses the closing balance', find: 'minimumBuffer - minimum', replace: 'minimumBuffer - balance' },
+  { ...business, name: 'Division 7A compounds over one year too many', find: '(10000n + rate) ** term', replace: '(10000n + rate) ** (term + 1n)' },
+  { ...business, name: 'Division 7A interest is taken on the repayment', find: 'ratioCents(balanceCents * rate, 10000n)', replace: 'ratioCents(repayment * rate, 10000n)' },
+  { ...business, name: 'Division 7A accepts a 26-year term', find: 'max: 25, integer: true', replace: 'max: 26, integer: true' },
   { ...business, name: 'a receipt landing in week 13 counts as deferred', find: 'week + delay >= rows.length ? delayed', replace: 'week + delay >= rows.length - 1 ? delayed' },
 ];
 
@@ -65,7 +68,8 @@ try {
     copyFileSync(join(root, 'assets', name), join(work, 'assets', name));
   }
   for (const { test } of [levy, business]) copyFileSync(join(root, test), join(work, test));
-  for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators']) {
+  for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
+    '_includes/calculators', 'rates/div7a-benchmark-rate']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 

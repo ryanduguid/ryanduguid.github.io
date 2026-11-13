@@ -60,6 +60,7 @@ pub const CHECKS: &[Check] = &[
         "self-test",
     ]),
     Check::Tool(&["check_rates_register"]),
+    Check::Tool(&["build_rates_json", "--check"]),
     Check::Tests(&["rates"]),
     Check::Tool(&["check_seo"]),
     Check::Tool(&["check_agent_files"]),
@@ -553,6 +554,8 @@ impl Host for System<'_> {
             "scripts",
             // The release-refresh tests compare committed pages with this data.
             "_data",
+            // The calculator defaults test reads each form's served values from here.
+            "_includes",
             ".agents",
             "docs",
             "README.md",

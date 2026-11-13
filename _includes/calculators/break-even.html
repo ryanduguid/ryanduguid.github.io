@@ -1,19 +1,19 @@
 <section class="business-calculator" id="break-even">
 <form class="calculator-split" data-calculator="break-even">
-<fieldset disabled><legend>Break-even sales inputs</legend><div class="form-grid"><label class="field" for="break-even-fixed">Fixed costs for the period (AUD)<input id="break-even-fixed" name="fixed" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
-<label class="field" for="break-even-price">Selling price per unit (AUD)<input id="break-even-price" name="price" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
-<label class="field" for="break-even-variable">Variable cost per unit (AUD)<input id="break-even-variable" name="variable" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
+<fieldset disabled><legend>Break-even sales inputs</legend><div class="form-grid"><label class="field" for="break-even-fixed">Fixed costs for the period (AUD)<input id="break-even-fixed" name="fixed" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="1000" required /></label>
+<label class="field" for="break-even-price">Selling price per unit (AUD)<input id="break-even-price" name="price" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="30" required /></label>
+<label class="field" for="break-even-variable">Variable cost per unit (AUD)<input id="break-even-variable" name="variable" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="18" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output aria-live="polite">Enter the inputs and calculate.</output>
+{% include calculator-example.html inputs="fixed costs $1,000.00, selling price $30.00 per unit, variable cost $18.00 per unit" rows="Contribution per unit|$12.00;Break-even|84 whole units, or $2,520.00 in sales" principal="1" %}
 <div class="sources-applied" hidden>
 <h2>Sources applied</h2>
 <ul class="sources">
 <li>Formulas: contribution per unit = price − variable cost; required units = fixed costs / contribution, rounded up to a whole unit; required sales = whole units × price.</li>
-<li>Figures: supplied by you. No statutory rate or threshold is applied. Definitions follow <a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a>.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. Definitions follow <a href="https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit">Business Queensland: break-even and profit</a>, read 13 November 2026.</li>
 </ul>
 </div>
 </form>
-<h2>How the break-even calculator works</h2><p>The break-even sales calculator works out how many whole units, and how much in sales, cover the fixed costs for a period. Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Price must exceed variable cost per unit, or no break-even exists.</p><p>No statutory rate or threshold is applied. The definitions follow <a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a>.</p>
+<h2>How the break-even calculator works</h2><p>The break-even sales calculator works out how many whole units, and how much in sales, cover the fixed costs for a period. Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Price must exceed variable cost per unit, or no break-even exists.</p><p>No statutory rate or threshold is applied. The definitions follow <a href="https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit">Business Queensland: break-even and profit</a>.</p>
 <h2>What the break-even calculator does not decide</h2><p>The break-even sales calculator does not forecast demand or say that the units can be sold. It uses one price and one variable cost, so use one product or a stable representative mix and a consistent GST basis.</p>
 </section>

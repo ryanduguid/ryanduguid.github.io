@@ -1,5 +1,6 @@
 {
   "gst": {
+    "checked": "2026-11-13",
     "function": "gst",
     "peer": {"name": "Moneysmart GST calculator", "url": "https://moneysmart.gov.au/work-and-tax/gst-calculator", "checked": "5 November 2026", "input": "$20.15 excluding GST", "peer_result": "GST $2.02, price including GST $22.17", "call": ["20.15", false], "result": {"gst": 2.02, "gross": 22.17}, "output": "GST $2.02, inclusive $22.17", "verdict": "Both give the same cents on this input"},
     "rows": [
@@ -17,7 +18,9 @@
     ]
   },
   "margin": {
+    "checked": "2026-11-13",
     "function": "margin",
+    "peer": {"name": "Business Queensland gross profit and gross profit margin calculators", "url": "https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit", "checked": "13 November 2026", "input": "$450,000 total revenue and $300,000 cost of goods sold", "peer_result": "a gross profit of $150,000 and a gross profit margin of 33.33%", "call": ["450000", "300000"], "result": {"profit": 150000, "margin": 33.33}, "output": "profit $150,000.00, margin 33.33%", "verdict": "Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it"},
     "rows": [
       {"case": "Margin uses sales, markup uses cost", "input": "Sales $100.00, cost $80.00", "call": ["100", "80"], "result": {"profit": 20, "margin": 20, "markup": 25}, "output": "Profit $20.00, margin 20.00%, markup 25.00%"},
       {"case": "Nil sales give no margin", "input": "Sales $0.00, cost $50.00", "call": ["0", "50"], "result": {"profit": -50, "margin": null, "markup": -100}, "output": "Profit -$50.00, no margin, markup -100.00%"},
@@ -25,13 +28,16 @@
     ]
   },
   "break-even": {
+    "checked": "2026-11-13",
     "function": "breakEven",
+    "peer": {"name": "Business Queensland break-even calculator", "url": "https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit", "checked": "13 November 2026", "input": "$1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin", "peer_result": "a break-even point of $2,500", "call": ["1000", "25", "15"], "result": {"units": 100, "sales": 2500}, "output": "100 units, sales $2,500.00", "verdict": "Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it"},
     "rows": [
       {"case": "Part of a unit rounds up to a whole unit", "input": "Fixed $1,000.00, price $30.00, variable $18.00", "call": ["1000", "30", "18"], "result": {"contribution": 12, "units": 84, "sales": 2520}, "output": "Contribution $12.00, 84 units, sales $2,520.00"},
       {"case": "A price equal to variable cost never breaks even", "input": "Fixed $1,000.00, price $18.00, variable $18.00", "call": ["1000", "18", "18"], "refused": "Price must exceed variable cost per unit to reach break-even.", "output": "Refused: price must exceed variable cost per unit to reach break-even"}
     ]
   },
   "hourly": {
+    "checked": "2026-11-13",
     "function": "hourlyRate",
     "rows": [
       {"case": "An exact half cent rounds up", "input": "Costs $20.15, profit $0.00, 2 hours", "call": ["20.15", "0", "2"], "result": {"rate": 10.08}, "output": "Rate $10.08"},
@@ -55,6 +61,15 @@
       {"case": "Nil interest divides the balance", "input": "$20.15 at 0% over 2 months", "call": ["20.15", "0", "2"], "result": {"payment": 10.08, "firstInterest": 0, "firstPrincipal": 10.08, "totalInterest": 0}, "output": "Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00"}
     ]
   },
+  "div7a": {
+    "checked": "2026-11-13",
+    "function": "div7aMinimumRepayment",
+    "rows": [
+      {"case": "One year left repays the balance and a year’s interest", "input": "$1,000.00 at 8.77% over 1 year", "call": ["1000", "8.77", "1"], "result": {"repayment": 1087.7, "interest": 87.7, "principal": 1000}, "output": "Repayment $1,087.70, interest $87.70, principal $1,000.00"},
+      {"case": "The ATO’s worked example, to the cent", "input": "$55,000.00 at 5.95% over 7 years", "call": ["55000", "5.95", "7"], "result": {"repayment": 9834.92, "interest": 3272.5, "principal": 6562.42}, "output": "Repayment $9,834.92, interest $3,272.50, principal $6,562.42"},
+      {"case": "No remaining term is refused", "input": "$1,000.00 at 8.77% over 0 years", "call": ["1000", "8.77", "0"], "refused": "Enter a whole number between 1 and 25.", "output": "Refused: enter a whole number between 1 and 25"}
+    ]
+  },
   "staff": {
     "function": "staffCost",
     "rows": [
@@ -63,6 +78,7 @@
     ]
   },
   "cash": {
+    "checked": "2026-11-13",
     "function": "cashForecast",
     "rows": [
       {"case": "A receipt delayed past week 13 stays visible as deferred", "input": "Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week", "call": ["-50", [{"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "0", "payments": "0"}, {"receipts": "1000", "payments": "0"}], "100", {"week": 13, "amount": "600", "delay": 1}], "result": {"closing": 350, "minimum": -50, "funding": 150, "deferred": 600}, "output": "Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00"},

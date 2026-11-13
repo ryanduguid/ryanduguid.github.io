@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/hourly/
 
 Required hourly rate before GST from annual costs, target profit and billable hours.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -16,13 +16,13 @@ Hourly pricing inputs
 
 Annual costs (AUD) Target annual profit (AUD) Annual billable hours
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: annual costs $20.15, target profit $0.00, 2 billable hours. Required hourly rate before GST $10.08
 
 ## How the hourly pricing calculator works
 
 The hourly pricing calculator works out the hourly rate that covers your annual costs and target profit. Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
 
-No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+No statutory rate or threshold is applied. The method follows the hourly rate pricing calculator on Business Queensland: pricing products and services.
 
 ## What the hourly pricing calculator does not decide
 
@@ -38,7 +38,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -46,5 +46,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
+- ten business calculators: https://duguid.com.au/tools/business-calculators/

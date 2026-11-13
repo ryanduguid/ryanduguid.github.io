@@ -773,7 +773,7 @@ Source: https://duguid.com.au/tools/business-calculators/gst/
 
 Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -781,7 +781,7 @@ GST inputs
 
 Amount (AUD) Amount includes GST
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: amount $110.00, includes GST. Excluding GST $100.00 GST $10.00 Including GST $110.00
 
 ## How the GST calculator works
 
@@ -806,7 +806,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -817,7 +817,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -839,7 +839,7 @@ Business use share inputs
 
 Eligible cost (AUD) Business use (%)
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: eligible cost $20.15, business use 50%. Business-use share $10.08
 
 ## How the business use calculator works
 
@@ -864,7 +864,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -874,7 +874,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -888,7 +888,7 @@ Source: https://duguid.com.au/tools/business-calculators/margin/
 
 Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -896,13 +896,13 @@ Margin and markup inputs
 
 Sales (AUD) Direct cost (AUD)
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: sales $100.00, direct cost $80.00. Gross profit $20.00 Margin 20.00% Markup 25.00%
 
 ## How the margin and markup calculator works
 
 The margin and markup calculator works out gross profit, margin and markup from one sales figure and one direct cost figure. Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. A zero denominator leaves that percentage undefined.
 
-No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+No statutory rate or threshold is applied. Gross profit and margin follow Business Queensland: break-even and profit; markup follows Business Queensland: pricing products and services.
 
 ## What the margin and markup calculator does not decide
 
@@ -919,7 +919,9 @@ Margin uses sales, markup uses cost | Sales $100.00, cost $80.00 | Profit $20.00
 Nil sales give no margin | Sales $0.00, cost $50.00 | Profit -$50.00, no margin, markup -100.00%
 Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.00%, no markup
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
+
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -927,8 +929,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
+- Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -942,7 +945,7 @@ Source: https://duguid.com.au/tools/business-calculators/break-even/
 
 Whole units and sales required to cover fixed costs from price and variable cost per unit.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -950,13 +953,13 @@ Break-even sales inputs
 
 Fixed costs for the period (AUD) Selling price per unit (AUD) Variable cost per unit (AUD)
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: fixed costs $1,000.00, selling price $30.00 per unit, variable cost $18.00 per unit. Contribution per unit $12.00 Break-even 84 whole units, or $2,520.00 in sales
 
 ## How the break-even calculator works
 
 The break-even sales calculator works out how many whole units, and how much in sales, cover the fixed costs for a period. Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Price must exceed variable cost per unit, or no break-even exists.
 
-No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+No statutory rate or threshold is applied. The definitions follow Business Queensland: break-even and profit.
 
 ## What the break-even calculator does not decide
 
@@ -972,7 +975,9 @@ Case | Inputs | Result
 Part of a unit rounds up to a whole unit | Fixed $1,000.00, price $30.00, variable $18.00 | Contribution $12.00, 84 units, sales $2,520.00
 A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00, variable $18.00 | Refused: price must exceed variable cost per unit to reach break-even
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
+
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -980,8 +985,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -995,7 +1000,7 @@ Source: https://duguid.com.au/tools/business-calculators/hourly/
 
 Required hourly rate before GST from annual costs, target profit and billable hours.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -1003,13 +1008,13 @@ Hourly pricing inputs
 
 Annual costs (AUD) Target annual profit (AUD) Annual billable hours
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: annual costs $20.15, target profit $0.00, 2 billable hours. Required hourly rate before GST $10.08
 
 ## How the hourly pricing calculator works
 
 The hourly pricing calculator works out the hourly rate that covers your annual costs and target profit. Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
 
-No statutory rate or threshold is applied. The definitions follow business.gov.au: pricing.
+No statutory rate or threshold is applied. The method follows the hourly rate pricing calculator on Business Queensland: pricing products and services.
 
 ## What the hourly pricing calculator does not decide
 
@@ -1025,7 +1030,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -1033,8 +1038,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1058,7 +1063,7 @@ Actual (AUD) Budget (AUD)
 
 Figure type Income Cost
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: actual $110.00, budget $100.00, figure type income. Actual minus budget $10.00 Difference as a share of absolute budget 10.00% Favourable.
 
 ## How the budget variance calculator works
 
@@ -1085,7 +1090,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -1095,7 +1100,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1117,7 +1122,7 @@ Monthly loan payments inputs
 
 Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: principal $100,000.00, 6% annual nominal rate, 360 monthly payments. Monthly payment $599.55 First payment interest $500.00 First payment principal $99.55 Estimated total interest $115,838.19
 
 ## How the monthly loan payment calculator works
 
@@ -1144,7 +1149,7 @@ Nil interest divides the balance | $20.15 at 0% over 2 months | Payment $10.08, 
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1154,7 +1159,71 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Division 7A minimum yearly repayment calculator
+
+Source: https://duguid.com.au/tools/business-calculators/div7a/
+
+> The Division 7A minimum yearly repayment on an amalgamated loan for one income year, from its balance, that year’s benchmark rate and the remaining term.
+
+# Division 7A loan calculator
+
+Minimum yearly repayment, interest and principal on one amalgamated loan.
+
+Published 13 November 2026. Last checked 13 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Division 7A minimum yearly repayment inputs
+
+Loan not repaid at the end of the previous income year (AUD)
+
+Income year (benchmark rate) 2026-27 (8.77%) 2025-26 (8.37%) 2024-25 (8.77%) 2023-24 (8.27%) 2022-23 (4.77%) 2021-22 (4.52%) 2020-21 (4.52%) 2019-20 (5.37%)
+
+Remaining term (whole years)
+
+The years and rates are those in the Division 7A benchmark rate table, for a company whose income year ends on 30 June. Round a remaining term that is not a whole number up to the next whole year.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27 income year at the 8.77% benchmark rate, $1,000.00 not repaid at 30 June 2026, 1 year remaining. Minimum yearly repayment $1,087.70 Interest for the year, if repaid on 30 June $87.70 Principal, if repaid on 30 June $1,000.00
+
+## How the Division 7A minimum yearly repayment calculator works
+
+The Division 7A minimum yearly repayment calculator works out the least a borrower must repay on one amalgamated loan in one income year after the year the loan was made. It applies the formula in subsection 109E(6) of the Income Tax Assessment Act 1936: the loan not repaid at the end of the previous income year, times the year’s benchmark interest rate, divided by 1 minus (1 ÷ (1 + the rate)) raised to the remaining term in years.
+
+The interest for the year is the benchmark rate on the whole balance, and the principal is the rest of the repayment. That split assumes the whole repayment is made on the last day of the income year. The ATO works interest out from the daily balance, so a repayment made earlier in the year carries less interest and more of it reduces the principal.
+
+The ATO’s worked example on Loans by private companies takes $55,000 at 5.95% with 7 years remaining and gives $9,835 to the nearest dollar; this calculator gives $9,834.92 for those figures.
+
+## What the Division 7A minimum yearly repayment calculator does not cover
+
+The calculator does not decide whether a payment or loan is a Division 7A loan, whether the loan agreement complies, whether a shortfall is a deemed dividend or how much of it, or how a distributable surplus limits one. It works one income year only, with no repayment schedule, and none for the year in which the loan was made. It takes the balance as you enter it: it does not work it out from the loans made, repayments made before the lodgment day or the previous year’s interest, and it does not combine several loans. It does not handle an income year that ends on a day other than 30 June. Subsection 109E(5) lets regulations set another amount, and this calculator applies the formula only. Confirm the figures with the ATO Division 7A calculator and decision tool or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Division 7A loan calculator
+
+Case | Inputs | Result
+One year left repays the balance and a year’s interest | $1,000.00 at 8.77% over 1 year | Repayment $1,087.70, interest $87.70, principal $1,000.00
+The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
+No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
+
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
+- Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
+- ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1176,7 +1245,7 @@ Staff cost inputs
 
 Annual wages (AUD) Annual super amount (AUD) Other annual costs (AUD)
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: wages $51.30, super $0.00, other costs $0.00. Annual staff cost $51.30 Monthly average $4.28
 
 ## How the staff cost calculator works
 
@@ -1200,7 +1269,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1210,7 +1279,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1224,7 +1293,7 @@ Source: https://duguid.com.au/tools/business-calculators/cash/
 
 Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -1236,7 +1305,7 @@ Each week covers 7 days from the start date.
 
 Opening bank balance (AUD) Minimum cash buffer (AUD) Original receipt week Receipt to delay (AUD) Delay in whole weeks
 
-Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. The initial zeros are empty planning amounts. A delayed receipt must already be included in the original week’s total.
+Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. A delayed receipt must already be included in the original week’s total.
 
 Week | Receipts (AUD) | Payments (AUD)
 1 | |
@@ -1253,7 +1322,7 @@ Week | Receipts (AUD) | Payments (AUD)
 12 | |
 13 | |
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: opening cash −$50.00, buffer $100.00, receipt of $600.00 in week 13 delayed 1 week. Closing cash $350.00 Lowest opening or weekly closing balance −$50.00 Funding gap to the buffer $150.00 Receipts deferred beyond week 13 $600.00
 
 Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon’s closing balance. To compare scenarios, download each before changing the delay.
 
@@ -1285,7 +1354,7 @@ Case | Inputs | Result
 A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
 A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1295,4 +1364,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ten business calculators: https://duguid.com.au/tools/business-calculators/

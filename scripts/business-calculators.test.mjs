@@ -6,7 +6,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
-  staffCost, cashForecast } from '../assets/business-calculators.mjs';
+  staffCost, cashForecast, div7aMinimumRepayment } from '../assets/business-calculators.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -229,7 +229,7 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   contribution: 'contribution', sales: 'sales', rate: 'rate', difference: 'difference', payment: 'payment',
   firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
   annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
-  deferred: 'deferred' };
+  deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal' };
 const shownField = (field, value) => {
   if (field === 'effect') return value;
   if (field === 'units') return `${value} units`;
@@ -258,6 +258,7 @@ const INPUTS = {
     `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`,
   staffCost: (wages, superannuation, other) =>
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
+  div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
   cashForecast: (opening, weeks, buffer, delayed) => {
     const week = weeks.findIndex(({ receipts }) => receipts !== '0');
     assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
@@ -266,28 +267,40 @@ const INPUTS = {
       + `week ${week + 1}, ${dollars(delayed.amount)} of it delayed ${delayed.delay} week`;
   },
 };
+const wholeDollars = (value) => `$${Number(value).toLocaleString('en-AU')}`;
 const PEER_INPUTS = {
+  margin: (sales, cost) => `${wholeDollars(sales)} total revenue and ${wholeDollars(cost)} cost of goods sold`,
+  breakEven: (fixed, price, variable) => `${wholeDollars(fixed)} fixed costs, a ${wholeDollars(price)} price and `
+    + `${wholeDollars(variable)} variable cost a unit, which is a ${(price - variable) / price * 100}% gross profit margin`,
   loan: (principal, rate, months) =>
     `$${Number(principal).toLocaleString('en-AU')} at ${rate}% over ${months / 12} years, repaid monthly, no fees`,
 };
 
 // peer_result and verdict are dated manual observations of the official calculator. This
 // binds the published verdict to the recorded observation; it does not reread the official site.
+// whole: the official calculator shows whole dollars, so this calculator's cents are rounded to compare.
 const PEER_READINGS = {
   gst: { form: /^GST \$(\d+\.\d{2}), price including GST \$(\d+\.\d{2})$/,
-    own: (result) => [result.gst, result.gross] },
+    own: (result) => [result.gst, result.gross], verdict: 'Both give the same cents on this input' },
   loan: { form: /^repayments of \$([\d,]+) a month, total repayments \$([\d,]+)$/,
-    own: (result, [principal]) => [result.payment, Number(principal) + result.totalInterest] },
+    own: (result, [principal]) => [result.payment, Number(principal) + result.totalInterest], whole: true,
+    verdict: 'Moneysmart shows whole dollars, and the 2 agree to the dollar on this input' },
+  // Business Queensland's calculators dropped the cents of each amount entered on 13 November 2026
+  // (20.99 less 13 gave a gross profit of 7), so these inputs and results are whole dollars.
+  margin: { form: /^a gross profit of \$([\d,]+) and a gross profit margin of (\d+\.\d{2})%$/,
+    own: (result) => [result.profit, result.margin],
+    verdict: 'Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; '
+      + 'the 2 agree on it' },
+  breakEven: { form: /^a break-even point of \$([\d,]+)$/, own: (result) => [result.sales],
+    verdict: 'Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, '
+      + 'so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it' },
 };
 const assertPeerReading = (name, peer, result) => {
-  const { form, own } = PEER_READINGS[name];
+  const { form, own, whole, verdict } = PEER_READINGS[name];
   assert.match(peer.peer_result, form);
-  const seen = peer.peer_result.match(form).slice(1);
-  const inCents = seen.every((figure) => figure.includes('.'));
-  assert.deepEqual(seen.map((figure) => Number(figure.replaceAll(',', ''))),
-    own(result, peer.call).map((figure) => (inCents ? figure : Math.round(figure))));
-  assert.equal(peer.verdict, inCents ? 'Both give the same cents on this input'
-    : 'Moneysmart shows whole dollars, and the 2 agree to the dollar on this input');
+  assert.deepEqual(peer.peer_result.match(form).slice(1).map((figure) => Number(figure.replaceAll(',', ''))),
+    own(result, peer.call).map((figure) => (whole ? Math.round(figure) : figure)));
+  assert.equal(peer.verdict, verdict);
 };
 
 const assertShown = (actual, { result, output }) => {
@@ -300,7 +313,7 @@ const assertShown = (actual, { result, output }) => {
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
-      assert.match(peer.url, /^https:\/\/moneysmart\.gov\.au\//);
+      assert.match(peer.url, /^https:\/\/(moneysmart\.gov\.au|www\.business\.qld\.gov\.au)\//);
       assert.match(peer.checked, /^\d{1,2} [A-Z][a-z]+ \d{4}$/);
       assert.equal((PEER_INPUTS[name] ?? INPUTS[name])(...peer.call), peer.input);
       assertShown(calculations[name](...peer.call), peer);
@@ -318,6 +331,95 @@ for (const [page, { function: name, peer, rows }] of Object.entries(shownCases))
       assertShown(calculations[name](...row.call), row);
     });
   }
+}
+
+// The published fixtures of the div7a-loan-review rule in ryanduguid/australian-accounting at
+// 3d48f51d40350bee627eb8194a4406b800e2f8d7, packages/div7a-loan-review/evaluation/div7a_myr/
+// expected_results.json: the 3 hand-worked scenarios, ROUND_HALF_UP to cents.
+for (const [id, balance, rate, term, required] of [
+  ['myr_met_exact', '100000.00', '8.77', '5', 25556.00],
+  ['myr_short_by_1000', '250000.00', '8.27', '7', 48462.41],
+  ['rising_benchmark', '48500.00', '8.77', '3', 19081.67],
+]) {
+  test(`Division 7A repayment matches the div7a-loan-review fixture ${id}`, () => {
+    assert.equal(div7aMinimumRepayment(balance, rate, term).repayment, required);
+  });
+}
+
+// ATO, 'Loans by private companies', read 13 November 2026 ('Last updated 2 July 2026'):
+// https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
+// 2015: '55,000 × 0.0595 = 3272.5' ... '3272.5 ÷ 0.332742732 = 9835 (when rounded to the closest dollar)'.
+// 2016: '50,430 × 0.0545 = 2748.435' ... '2748.435 ÷ 0.27268843 = $10,079 (when rounded to the closest dollar)'.
+test('Division 7A repayment agrees with the ATO worked examples', () => {
+  for (const [balance, rate, term, step1, dollarsShown] of [['55000', '5.95', '7', 3272.5, 9835], ['50430', '5.45', '6', 2748.44, 10079]]) {
+    const result = div7aMinimumRepayment(balance, rate, term);
+    assert.equal(result.interest, step1);
+    assert.equal(Math.round(result.repayment), dollarsShown);
+    assert.equal(Math.round((result.interest + result.principal) * 100), Math.round(result.repayment * 100));
+  }
+});
+
+test('Division 7A repayment takes a remaining term of 1 to 25 whole years and a positive rate', () => {
+  assert.deepEqual(div7aMinimumRepayment('1000', '8.77', '25'), { repayment: 99.92, interest: 87.7, principal: 12.22 });
+  for (const term of ['0', '26', '2.5']) {
+    assert.throws(() => div7aMinimumRepayment('1000', '8.77', term), { message: 'Enter a whole number between 1 and 25.' });
+  }
+  assert.throws(() => div7aMinimumRepayment('1000', '0', '7'), { message: 'Enter an amount between 0.01 and 100.' });
+});
+
+// The year selector offers only the years the site's rate table holds, at its rates.
+test('Division 7A years and rates are the rate table rows, newest first', () => {
+  const table = readFileSync(new URL('../rates/div7a-benchmark-rate/div7a-benchmark-rates.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).slice(1).map((line) => line.split(',').slice(0, 2)).reverse();
+  const html = readFileSync(new URL('../_includes/calculators/div7a.html', import.meta.url), 'utf8');
+  const options = [...html.matchAll(/<option value="([^"]+)" data-rate="([^"]+)">([^<]+)<\/option>/g)]
+    .map(([, year, rate, label]) => (assert.equal(label, `${year} (${rate}%)`), [year, rate]));
+  assert.equal(options.length, (html.match(/<option\b/g) ?? []).length);
+  assert.deepEqual(options, table);
+});
+
+// The values each form opens with, read from its include: an input's value or
+// checked state, and a select's selected option (else its first).
+const formDefaults = (html) => {
+  const fields = {};
+  for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
+    const name = tag.match(/\bname="([^"]+)"/)?.[1];
+    if (name) fields[name] = /\btype="checkbox"/.test(tag) ? /\bchecked\b/.test(tag) : tag.match(/\bvalue="([^"]*)"/)?.[1];
+  }
+  for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
+    const options = [...body.matchAll(/<option\b([^>]*)>/g)].map(([, attributes]) => attributes);
+    fields[name] = (options.find((attributes) => /\bselected\b/.test(attributes)) ?? options[0]).match(/\bvalue="([^"]*)"/)[1];
+  }
+  return fields;
+};
+// The Division 7A form passes the chosen year's rate from its option; the test above binds the
+// options to this table.
+const div7aRates = Object.fromEntries(
+  readFileSync(new URL('../rates/div7a-benchmark-rate/div7a-benchmark-rates.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).slice(1).map((line) => line.split(',').slice(0, 2)));
+// How assets/accounting-pages.mjs passes each form's fields to its calculation.
+const FORM_CALLS = {
+  gst: (f) => [f.amount, f.inclusive],
+  businessUse: (f) => [f.cost, f.percent],
+  margin: (f) => [f.sales, f.cost],
+  breakEven: (f) => [f.fixed, f.price, f.variable],
+  hourlyRate: (f) => [f.cost, f.profit, f.hours],
+  variance: (f) => [f.actual, f.budget, f.kind],
+  loan: (f) => [f.principal, f.rate, f.months],
+  div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],
+  staffCost: (f) => [f.wages, f.super, f.other],
+  cashForecast: (f) => [f.opening,
+    Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
+    f.buffer, { week: Number(f.week), amount: f.amount, delay: Number(f.delay) }],
+};
+
+for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
+  test(`${page} opens on its first boundary case as the fictional example`, () => {
+    const html = readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8');
+    assert.equal(first.refused, undefined);
+    assert.deepEqual(FORM_CALLS[name](formDefaults(html)), first.call);
+    assert.equal(html.match(/\{% include calculator-example\.html /g)?.length, 1);
+  });
 }
 
 test('blank, non-finite, over-precise and unsafe amounts cannot become a zero result', () => {

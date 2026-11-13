@@ -243,6 +243,9 @@ function initialiseCalculators([calculate, fieldErrors]) {
     function invalidate(event) {
       if (event?.target.type === 'file') return;
       if (form.dataset.calculated) output.textContent = 'Inputs changed. Calculate again.';
+      // The first edit replaces the fictional example the page opens with.
+      else if (output.hasAttribute('data-example')) output.textContent = 'Enter the inputs and calculate.';
+      output.removeAttribute('data-example');
       if (applied) applied.hidden = true;
       csv = '';
       if (cashDownload) cashDownload.disabled = true;
@@ -299,6 +302,14 @@ function initialiseCalculators([calculate, fieldErrors]) {
             const r = calculate.loan(value('principal'), value('rate'), value('months'));
             result = { inputs: `principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${count(value('months'), 'monthly payment')}`, principal: 0,
               rows: [['Monthly payment', aud(r.payment)], ['First payment interest', aud(r.firstInterest)], ['First payment principal', aud(r.firstPrincipal)], ['Estimated total interest', aud(r.totalInterest)]] };
+            break;
+          }
+          case 'div7a': {
+            // The year's benchmark rate comes from the option, which lists only years the site's rate table holds.
+            const year = form.elements.namedItem('year').selectedOptions[0];
+            const r = calculate.div7aMinimumRepayment(value('balance'), year.dataset.rate, value('term'));
+            result = { inputs: `${year.value} income year at the ${year.dataset.rate}% benchmark rate, ${money('balance')} not repaid at 30 June ${year.value.slice(0, 4)}, ${count(value('term'), 'year')} remaining`, principal: 0,
+              rows: [['Minimum yearly repayment', aud(r.repayment)], ['Interest for the year, if repaid on 30 June', aud(r.interest)], ['Principal, if repaid on 30 June', aud(r.principal)]] };
             break;
           }
           case 'staff': {

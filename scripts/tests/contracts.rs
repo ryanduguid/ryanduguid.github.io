@@ -2090,3 +2090,180 @@ fn schema_vocabulary_page_mutation() {
         "contact/index.html: JSON-LD property favouriteColour on ContactPage is not a schema.org 30.1 property",
     );
 }
+
+#[test]
+fn calculator_dates_are_not_older_than_what_they_depend_on() {
+    if !rendered() {
+        return;
+    }
+    assert_clean(
+        "calculator dates",
+        &contracts::check_calculator_dates(root()).unwrap(),
+    );
+    let gst = "tools/business-calculators/gst/index.html";
+    let margin = "tools/business-calculators/margin/index.html";
+    let loan = "tools/business-calculators/loan/index.html";
+    let hub = contracts::CALCULATOR_HUB_REL;
+    let gst_header = r#"Last checked <time datetime="2026-11-13">13 November 2026</time>"#;
+    for (label, rel, old, new, expected) in [
+        (
+            "a source read after the check",
+            gst,
+            "read 13 November 2026",
+            "read 14 November 2026",
+            "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is older than 'read 14 November 2026'",
+        ),
+        (
+            "a check with no source read that day",
+            gst,
+            "read 13 November 2026",
+            "read 12 November 2026",
+            "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is newer than its newest source read, 2026-11-12",
+        ),
+        (
+            "an official comparison after the check",
+            margin,
+            "Official comparison on 13 November 2026",
+            "Official comparison on 14 November 2026",
+            "tools/business-calculators/margin/index.html: Last checked 2026-11-13 is older than 'Official comparison on 14 November 2026'",
+        ),
+        (
+            "a source read on a page without a check",
+            gst,
+            gst_header,
+            "Last reviewed 27 September 2026",
+            "tools/business-calculators/gst/index.html: states 'read 13 November 2026' but shows no Last checked date",
+        ),
+        (
+            "a page header without a date",
+            gst,
+            gst_header,
+            "",
+            "tools/business-calculators/gst/index.html: expected one Last checked or Last reviewed date in the page header, found 0",
+        ),
+        (
+            "an invalid check date",
+            gst,
+            r#"<time datetime="2026-11-13">"#,
+            r#"<time datetime="2026-11-31">"#,
+            r#"tools/business-calculators/gst/index.html: invalid Last checked date "2026-11-31""#,
+        ),
+        (
+            "a dateModified before the check",
+            gst,
+            r#""dateModified": "2026-11-13""#,
+            r#""dateModified": "2026-11-12""#,
+            "tools/business-calculators/gst/index.html: dateModified 2026-11-12 is older than Last checked 2026-11-13",
+        ),
+        (
+            "a header date that differs from its datetime",
+            gst,
+            gst_header,
+            r#"Last checked <time datetime="2026-11-13">14 November 2026</time>"#,
+            r#"tools/business-calculators/gst/index.html: Last checked shows "14 November 2026" but its datetime is 2026-11-13"#,
+        ),
+        (
+            "a page without its Sources applied list",
+            gst,
+            r#"<ul class="sources">"#,
+            r#"<ul class="source-list">"#,
+            "tools/business-calculators/gst/index.html: expected one Sources applied list, found 0",
+        ),
+        (
+            "a hub modified before a calculator with no check",
+            loan,
+            r#""dateModified": "2026-11-13""#,
+            r#""dateModified": "2026-11-14""#,
+            "tools/business-calculators/index.html: dateModified 2026-11-13 is older than tools/business-calculators/loan/index.html's 2026-11-14",
+        ),
+        (
+            "a hub checked before a calculator",
+            hub,
+            r#"Last checked <time datetime="2026-11-13">"#,
+            r#"Last checked <time datetime="2026-09-27">"#,
+            "tools/business-calculators/index.html: Last checked is not the newest calculator check, 2026-11-13",
+        ),
+        (
+            "a hub modified before a calculator",
+            hub,
+            r#""dateModified": "2026-11-13""#,
+            r#""dateModified": "2026-09-27""#,
+            "tools/business-calculators/index.html: dateModified 2026-09-27 is older than tools/business-calculators/break-even/index.html's 2026-11-13",
+        ),
+        (
+            "a calculator missing from the hub",
+            hub,
+            r#"href="/tools/business-calculators/div7a/""#,
+            r#"href="/tools/business-calculators/div7b/""#,
+            "tools/business-calculators/div7a/index.html: not listed on tools/business-calculators/index.html",
+        ),
+        (
+            "a hub entry without a page",
+            hub,
+            r#"href="/tools/business-calculators/div7a/""#,
+            r#"href="/tools/business-calculators/div7b/""#,
+            "tools/business-calculators/index.html: lists /tools/business-calculators/div7b/, which has no page",
+        ),
+    ] {
+        let site = copied_site();
+        replace_file(site.path(), rel, old, new);
+        expect_failure(
+            label,
+            &contracts::check_calculator_dates(site.path()).unwrap(),
+            expected,
+        );
+    }
+    // A read stated outside Sources applied does not support the check.
+    let site = copied_site();
+    replace_file(
+        site.path(),
+        gst,
+        "read 13 November 2026",
+        "read 12 November 2026",
+    );
+    replace_file(
+        site.path(),
+        gst,
+        r#"class="lead-note">"#,
+        r#"class="lead-note">Source read 13 November 2026. "#,
+    );
+    expect_failure(
+        "a read outside Sources applied",
+        &contracts::check_calculator_dates(site.path()).unwrap(),
+        "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is newer than its newest source read, 2026-11-12",
+    );
+    // A nested list stays inside Sources applied, so reads after it still count.
+    let sources = r#"<ul class="sources">"#;
+    let nested = |read: &str| format!(r#"{sources}<li>Earlier: <ul><li>{read}</li></ul></li>"#);
+    let site = copied_site();
+    replace_file(site.path(), gst, sources, &nested("read 12 November 2026"));
+    assert_clean(
+        "a nested list before the newest read",
+        &contracts::check_calculator_dates(site.path()).unwrap(),
+    );
+    let site = copied_site();
+    replace_file(
+        site.path(),
+        gst,
+        "read 13 November 2026",
+        "read 14 November 2026",
+    );
+    replace_file(site.path(), gst, sources, &nested("read 13 November 2026"));
+    expect_failure(
+        "a newer read after a nested list",
+        &contracts::check_calculator_dates(site.path()).unwrap(),
+        "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is older than 'read 14 November 2026'",
+    );
+    let site = copied_site();
+    replace_file(
+        site.path(),
+        gst,
+        sources,
+        &format!("{sources}</ul>{sources}"),
+    );
+    expect_failure(
+        "a second Sources applied list",
+        &contracts::check_calculator_dates(site.path()).unwrap(),
+        "tools/business-calculators/gst/index.html: expected one Sources applied list, found 2",
+    );
+}

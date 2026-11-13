@@ -13,7 +13,7 @@ import { projectKind } from './project-kind.mjs';
 const results = [
   ['gst', { amount: '1100', inclusive: true }, 1,
     'Inputs: amount $1,100.00, includes GST. Excluding GST: $1,000.00. GST: $100.00. Including GST: $1,100.00.'],
-  ['gst', { amount: '250.5' }, 1,
+  ['gst', { amount: '250.5', inclusive: false }, 1,
     'Inputs: amount $250.50, excludes GST. Excluding GST: $250.50. GST: $25.05. Including GST: $275.55.'],
   ['business-use', { cost: '2000', percent: '35' }, 0,
     'Inputs: eligible cost $2,000.00, business use 35%. Business-use share: $700.00.'],
@@ -39,7 +39,7 @@ test('calculator results show labelled rows and keep the exact sentence text', a
     const form = page.locator(`#${name} form`);
     for (const [field, value] of Object.entries(fields)) {
       const control = form.locator(`[name="${field}"]`);
-      if (value === true) await control.check();
+      if (typeof value === 'boolean') await control.setChecked(value);
       else if (await control.evaluate((element) => element.tagName === 'SELECT')) await control.selectOption(value);
       else await control.fill(value);
     }

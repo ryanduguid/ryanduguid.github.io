@@ -16,7 +16,7 @@ Business use share inputs
 
 Eligible cost (AUD) Business use (%)
 
-Calculate Enter the inputs and calculate.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: eligible cost $20.15, business use 50%. Business-use share $10.08
 
 ## How the business use calculator works
 
@@ -41,7 +41,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -51,4 +51,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ten business calculators: https://duguid.com.au/tools/business-calculators/
