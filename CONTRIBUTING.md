@@ -393,11 +393,6 @@ The same exact-URL, HTTP-403 rule applies to them; other statuses and neighbouri
 URLs still fail. Recheck them in a browser when editing their citations and remove
 the exceptions when automated access works again.
 
-The [Tax Reform No. 3 Bill page](https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation/Bills_Search_Results/Result?bId=r7554),
-cited by the announced measures page, returned HTTP 403 in run 43475531348.
-Firecrawl read it with the expected content on 14 November 2026. Its exact URL
-is in the same list under the same rule.
-
 The [Office of the Australian Information Commissioner home page](https://www.oaic.gov.au/),
 linked from the privacy notice, returned HTTP 403 in the scheduled run 42740335407.
 A browser loaded it with the expected content on 11 November 2026. Its exact URL
