@@ -506,7 +506,7 @@ pub fn check_authority_surface(root: &Path) -> Result<Vec<String>, String> {
         || [
             "git clone https://github.com/ryanduguid/github-agent-skills.git",
             "cd github-agent-skills",
-            "python scripts/validate_skills.py --strict",
+            "cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --strict",
         ]
         .iter()
         .any(|c| !tooling.contains(c))

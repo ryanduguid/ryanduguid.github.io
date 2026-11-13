@@ -671,7 +671,7 @@ fn public_contracts_install_and_adoption_routes() {
         "https://github.com/ryanduguid/github-agent-skills",
         "git clone https://github.com/ryanduguid/github-agent-skills.git",
         "cd github-agent-skills",
-        "python scripts/validate_skills.py --strict",
+        "cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --strict",
         contracts::GITHUB_AGENT_SKILLS_BOUNDARY,
     ];
     let install_text = core::visible_text(&read_text(root(), contracts::MCP_REL));
@@ -692,8 +692,8 @@ fn public_contracts_install_and_adoption_routes() {
         ),
         (
             "github-agent-skills bootstrap command",
-            "python scripts/validate_skills.py --strict",
-            "python scripts/validate_skills.py --missing",
+            "cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --strict",
+            "cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --missing",
             once.as_str(),
         ),
         (

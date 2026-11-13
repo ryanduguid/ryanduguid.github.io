@@ -133,15 +133,16 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm.</p>
+    <p class="install-needs">Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install release 0.2.0, the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/australian-accounting.git
+git -C australian-accounting checkout the-wip-tally/v0.2.0
 cd australian-accounting/packages/the-wip-tally &amp;&amp; pip install .
 wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
     <p>
       The sample raises review flags by design. Exit code 2 means a person
       needs to look; it is not a crash. Then:
     </p>
-    <pre tabindex="0" role="region" aria-label="Review pack command"><code>wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o practitioner-review.md</code></pre>
+    <pre tabindex="0" role="region" aria-label="Review pack command"><code>wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv --as-at 2026-08-31 -o practitioner-review.md</code></pre>
     <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally">Source on GitHub</a>
        · <a href="/tools/subcontractor-ledgers/">Use it from the subcontractor workflows</a></p>
     <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Construction%20WIP%20schedule">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out. Wrong rate, date or rule on this page? <a href="https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml">Report a correction</a>.</p>

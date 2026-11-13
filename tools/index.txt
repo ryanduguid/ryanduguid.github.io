@@ -176,7 +176,7 @@ Compares trial balance CSVs and returns material movements, missing mappings and
 
 Delivery
 
-Python
+Rust
 
 Boundary
 
