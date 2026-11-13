@@ -13,6 +13,7 @@
 //! instead of being dropped or guessed at.
 use crate::py;
 use crate::pyjson::{self, Dump, Json};
+use chrono::NaiveDate;
 use roxmltree::Node;
 use sha2::{Digest, Sha256};
 use std::path::{Path, PathBuf};
@@ -59,6 +60,13 @@ const DESCRIPTION: &str = "Every row of Table A (industry categories) and Table 
     gives for when the life was last reviewed and determined. White space and no-break \
     hyphens in the instrument's text are written as ordinary spaces and hyphens.";
 const SOURCE_FILE: &str = "OEBPS/document_1/document_1.html in the instrument's EPUB download";
+/// What this file changes in the instrument's content, as the source licence asks a
+/// reuser to say.
+const CHANGES: &str = "Schedule 2 only, set out as data: each row's indentation is recorded \
+    as a depth number, each life is also given in months, dates are in ISO form, and white \
+    space and no-break hyphens are written as ordinary spaces and hyphens. 3 rows are \
+    recorded one level shallower than the EPUB's text sets them. The Commonwealth does not \
+    endorse this file.";
 const SOURCE_LICENCE: &str = "Creative Commons Attribution 4.0 International (CC BY 4.0)";
 const SOURCE_LICENCE_URL: &str = "https://creativecommons.org/licenses/by/4.0/";
 /// The repository's licence, as LICENSE and NOTICE state it, for the arrangement of this
@@ -142,11 +150,11 @@ pub struct Determination {
 pub struct Source {
     pub register_id: String,
     /// The date the version read was registered.
-    pub registered: String,
+    pub registered: NaiveDate,
     /// The page of the version read on the Federal Register of Legislation.
     pub url: String,
     /// The date the source was downloaded and read.
-    pub read: String,
+    pub read: NaiveDate,
 }
 
 fn is(node: Node<'_, '_>, name: &str) -> bool {
@@ -719,24 +727,26 @@ pub fn render(determination: &Determination, sha256: &str, source: &Source) -> S
     let mut out = String::from("{\n  \"schema_version\": 1,\n");
     out.push_str(&format!("  \"description\": {},\n", quote(DESCRIPTION)));
     out.push_str("  \"source\": {\n");
+    let (registered, read) = (source.registered.to_string(), source.read.to_string());
     let pairs = [
         ("title", determination.title.as_str()),
         ("register_id", source.register_id.as_str()),
         ("made", determination.made.as_str()),
-        ("registered", source.registered.as_str()),
+        ("registered", registered.as_str()),
         ("url", source.url.as_str()),
         ("file", SOURCE_FILE),
         ("file_sha256", sha256),
-        ("read", source.read.as_str()),
+        ("read", read.as_str()),
         ("licence", SOURCE_LICENCE),
         ("licence_url", SOURCE_LICENCE_URL),
+        ("changes", CHANGES),
     ];
     for (key, value) in pairs {
         out.push_str(&format!("    \"{key}\": {},\n", quote(value)));
     }
     out.push_str(&format!(
         "    \"attribution\": {}\n  }},\n",
-        quote(&attribution(determination, source))
+        quote(&attribution(source.read))
     ));
     for (key, value) in [
         ("licence", LICENCE),
@@ -772,15 +782,21 @@ pub fn render(determination: &Determination, sha256: &str, source: &Source) -> S
     out
 }
 
-/// The credit the source licence asks for, naming the instrument, its version and the date
-/// it was read.
-fn attribution(determination: &Determination, source: &Source) -> String {
+/// The words the Federal Register of Legislation's terms of use require for content that
+/// has been changed, with the full date of the download.
+fn attribution(read: NaiveDate) -> String {
     format!(
-        "Based on content from the Federal Register of Legislation at {}: {} ({}), as \
-         registered on {}. © Commonwealth of Australia. For the latest information on \
-         Australian Government law please go to https://www.legislation.gov.au.",
-        source.read, determination.title, source.register_id, source.registered
+        "Based on content from the Federal Register of Legislation at {}. For the latest \
+         information on Australian Government legislation please go to \
+         https://www.legislation.gov.au.",
+        read.format("%-d %B %Y")
     )
+}
+
+/// A date given as YYYY-MM-DD.
+fn iso(text: &str, what: &str) -> Result<NaiveDate> {
+    NaiveDate::parse_from_str(text, "%Y-%m-%d")
+        .map_err(|_| format!("{what}: '{text}' is not a date as YYYY-MM-DD"))
 }
 
 fn sha256_hex(bytes: &[u8]) -> String {
@@ -817,9 +833,9 @@ fn committed_source(text: &str) -> Result<Source> {
     };
     Ok(Source {
         register_id: field("register_id")?,
-        registered: field("registered")?,
+        registered: iso(&field("registered")?, "source.registered")?,
         url: field("url")?,
-        read: field("read")?,
+        read: iso(&field("read")?, "source.read")?,
     })
 }
 
@@ -881,11 +897,17 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
                 "--write needs --register-id, --registered, --source-url and --read",
             );
         };
+        let (registered, read) = match (iso(registered, "--registered"), iso(read, "--read")) {
+            (Ok(registered), Ok(read)) => (registered, read),
+            (Err(message), _) | (_, Err(message)) => {
+                return usage_error(&format!("argument {message}"));
+            }
+        };
         let source = Source {
             register_id: register_id.to_owned(),
-            registered: registered.to_owned(),
+            registered,
             url: url.to_owned(),
-            read: read.to_owned(),
+            read,
         };
         let text = build(Path::new(source_file), &source)?;
         std::fs::write(&target, text)

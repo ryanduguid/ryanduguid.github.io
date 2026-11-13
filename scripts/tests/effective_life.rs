@@ -4,6 +4,7 @@
 //! `site-tools build_effective_life`: the parser on each row shape it knows, the shapes it
 //! refuses, and the committed data against the registered instrument's row counts and rows
 //! read from its authorised PDF.
+use chrono::NaiveDate;
 use site_tools::effective_life::{
     Counts, DATA_REL, Division, Life, Row, Section, Source, parse, render,
 };
@@ -184,13 +185,25 @@ fn reads_each_row_shape_the_instrument_uses() {
     // The file is valid JSON and keeps a description's quotation marks.
     let source = Source {
         register_id: "F0000L00000".to_owned(),
-        registered: "2025-09-15".to_owned(),
+        registered: NaiveDate::from_ymd_opt(2025, 9, 15).expect("a date"),
         url: "https://www.legislation.gov.au/F0000L00000/asmade/2025-09-15/text".to_owned(),
-        read: "2026-11-13".to_owned(),
+        read: NaiveDate::from_ymd_opt(2026, 11, 3).expect("a date"),
     };
     let document = pyjson::loads(&render(&read, "00", &source)).expect("the file is JSON");
     let first = &rows_of(&document)[1];
     assert_eq!(first.0, "Slurry-type \"heavy\" pumps");
+    // The credit is the Register's wording for changed content, with the full date read.
+    assert_eq!(
+        document
+            .get("source")
+            .and_then(|s| s.get("attribution"))
+            .and_then(Json::as_str),
+        Some(
+            "Based on content from the Federal Register of Legislation at 3 November 2026. \
+             For the latest information on Australian Government legislation please go to \
+             https://www.legislation.gov.au."
+        )
+    );
     assert_eq!(
         document
             .get("source")

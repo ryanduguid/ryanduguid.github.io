@@ -12,7 +12,8 @@
     "read": "2026-11-13",
     "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
     "licence_url": "https://creativecommons.org/licenses/by/4.0/",
-    "attribution": "Based on content from the Federal Register of Legislation at 2026-11-13: Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), as registered on 2025-09-15. © Commonwealth of Australia. For the latest information on Australian Government law please go to https://www.legislation.gov.au."
+    "changes": "Schedule 2 only, set out as data: each row's indentation is recorded as a depth number, each life is also given in months, dates are in ISO form, and white space and no-break hyphens are written as ordinary spaces and hyphens. 3 rows are recorded one level shallower than the EPUB's text sets them. The Commonwealth does not endorse this file.",
+    "attribution": "Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au."
   },
   "licence": "The rows are text of a Commonwealth legislative instrument, reused under the source licence named in source. The arrangement of this file is under the Ryan Duguid Public Attribution Licence 1.0 (LicenseRef-Duguid-Public-Attribution-1.0), the licence of the repository it is built in. See LICENSE and NOTICE.",
   "licence_url": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
