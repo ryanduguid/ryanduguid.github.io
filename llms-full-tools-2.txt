@@ -770,7 +770,7 @@ Current release review-ready-gate v1.0.0, 13 November 2026, from the accounting-
 
 Delivery
 
-Python
+Rust
 
 Needs
 

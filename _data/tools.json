@@ -192,7 +192,7 @@
     "sameAs": [
       "https://pypi.org/project/review-ready-gate/"
     ],
-    "delivery": "Python",
+    "delivery": "Rust",
     "needs": "Python 3.10 or later",
     "boundary": "READY means ready for human review, not approved or signed off."
   },

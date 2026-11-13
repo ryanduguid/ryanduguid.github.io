@@ -45,7 +45,7 @@
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "aee947121e2c665cb79155b0d671bcf56dd4bfc4b7d0cca5dc781c39f3f73d96"
+      "58f80523076ff98d7609296940305bf8a5ecb6e237e4b0085ad9f556c0e94b82"
     ],
     "rates/car-limit/index.html": [
       "229b692aa9d83d7bbbda20c29d000436c849bb45566d88a0b8dbb99d40dfdcd5"
@@ -211,7 +211,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "b9c0958701ce8d25961450b2ffee7536e0685114fd115a8d4fcd286b341cb8a3",
+    "llms.txt": "33a60a20b01c0735bda7a42144e850123ea892d59b893ecca577ff5f1c2fee63",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
     "sitemap.xml": "11471b8126221f27d87b6664bfd1bbaa740e7134711dbbd7c1ab180ae1b1f375"
   },
