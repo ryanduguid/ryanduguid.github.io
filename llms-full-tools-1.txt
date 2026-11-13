@@ -1078,7 +1078,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
 - uv: https://docs.astral.sh/uv/
-- Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/ato-benchmark-compare/v0.2.2/packages/ato-benchmark-compare
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Known limitations: https://duguid.com.au/tools/limitations/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues

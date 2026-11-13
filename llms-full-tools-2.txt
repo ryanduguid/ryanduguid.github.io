@@ -231,7 +231,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
 - uv: https://docs.astral.sh/uv/
-- Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/the-wip-tally/v0.2.0/packages/the-wip-tally
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
