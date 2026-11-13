@@ -709,6 +709,7 @@ for (const width of [320, 390]) {
     test.skip(await supportsCue(page), 'the caption cue is checked in the width sweep');
     const miscued = [];
     let checked = 0;
+    let scrolling = 0;
     for (const [, route] of routes) {
       await page.goto(route);
       await page.evaluate(() => document.fonts.ready);
@@ -723,6 +724,7 @@ for (const width of [320, 390]) {
         const cue = await edgeCueShown(page, region);
         if (cue !== scrolls) miscued.push(`${label}: scrolls ${scrolls}, cue ${cue}`);
         if (scrolls) {
+          scrolling += 1;
           // Once the table's end is in view there is nothing more to the right.
           await region.evaluate((element) => { element.scrollLeft = element.scrollWidth; });
           if (await edgeCueShown(page, region)) miscued.push(`${label}: cue at the table's end`);
@@ -732,6 +734,7 @@ for (const width of [320, 390]) {
       }
     }
     expect(checked, 'visible table regions checked').toBeGreaterThan(40);
+    expect(scrolling, 'regions that scroll').toBeGreaterThan(0);
     expect(miscued, `edge cues that disagree with scrolling at ${width}px`).toEqual([]);
     health.assertHealthy();
   });

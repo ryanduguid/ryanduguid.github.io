@@ -777,9 +777,26 @@ blockquote,
     background: var(--colour-paper);
   }
 
+  /* Forced colours would paint both rules Canvas and hide the cue. */
+  @media (forced-colors: active) {
+    :is(.table-scroll, .employee-table-scroll)::before,
+    :is(.table-scroll, .employee-table-scroll)::after {
+      forced-color-adjust: none;
+    }
+
+    :is(.table-scroll, .employee-table-scroll)::before {
+      background: CanvasText;
+    }
+
+    :is(.table-scroll, .employee-table-scroll)::after {
+      background: Canvas;
+    }
+  }
+
   /* Paper does not scroll. */
   @media print {
-    :is(.table-scroll, .employee-table-scroll)::before {
+    :is(.table-scroll, .employee-table-scroll)::before,
+    :is(.table-scroll, .employee-table-scroll)::after {
       content: none;
     }
   }
