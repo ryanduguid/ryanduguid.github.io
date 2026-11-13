@@ -907,12 +907,14 @@ pub fn collection_breadcrumb_shape(
     } else if let Some((name, hub)) = [
         ("Business calculators", "business-calculators"),
         ("Accounting questions", "accounting-questions"),
+        ("Payday Super receipt evidence", "payday-super"),
     ]
     .into_iter()
     .find(|(_, hub)| {
         rel.starts_with(&format!("tools/{hub}/")) && rel != format!("tools/{hub}/index.html")
     }) {
-        // A calculator or question topic sits under its hub, as Ozzit modules do.
+        // A calculator, question topic or the Payday Super calendar sits under its hub,
+        // as Ozzit modules do.
         vec![
             home,
             step("Tools", "/tools/"),

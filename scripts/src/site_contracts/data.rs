@@ -727,7 +727,7 @@ pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
 ];
-pub const ARTICLE_PATTERN_PAGES: [&str; 35] = [
+pub const ARTICLE_PATTERN_PAGES: [&str; 36] = [
     "works-with/index.html",
     "works-with/xero/index.html",
     "works-with/claude/index.html",
@@ -749,6 +749,7 @@ pub const ARTICLE_PATTERN_PAGES: [&str; 35] = [
     "tools/australian-tax-ai-agents/index.html",
     "tools/company-tax-franking/index.html",
     "tools/payday-super/index.html",
+    "tools/payday-super/business-days/index.html",
     "tools/workpaper-review-gate/index.html",
     "tools/refusals/index.html",
     "tools/limitations/index.html",

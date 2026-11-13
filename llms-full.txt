@@ -3156,7 +3156,7 @@ The fixed evaluation stays pinned to v0.1.3; the command below stays pinned to v
 
 ## Receipt dates and amounts
 
-Since 1 July 2026, super must generally reach the fund within 7 business days of payday. Proof of sending does not prove timely receipt. Check the applicable timing pathway.
+Since 1 July 2026, super must generally reach the fund within 7 business days of payday; the business-day calendar lists the weekday public holidays that do not count. Proof of sending does not prove timely receipt. Check the applicable timing pathway.
 
 The current checker requires amount evidence for a timely receipt. A $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns UNKNOWN and exit 2. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.
 
@@ -3241,6 +3241,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Inspect the exact fixture: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv
 - Read the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
+- business-day calendar: https://duguid.com.au/tools/payday-super/business-days/
 - current source workbook: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker/workbooks
 - 22 September verification record: https://github.com/ryanduguid/australian-accounting/blob/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/docs/release-parity-review-2026-09-22.md
 - uv installed: https://docs.astral.sh/uv/
@@ -3255,6 +3256,121 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - Reproduction record: https://duguid.com.au/tools/payday-super/example-provenance.json
+
+---
+
+# Payday Super business days to 31 August 2027
+
+Source: https://duguid.com.au/tools/payday-super/business-days/
+
+> Weekday public holidays that are not Payday Super business days, 1 July 2026 to 31 August 2027, with sources checked 14 November 2026 and a CSV.
+
+# Payday Super business days
+
+Payday Super contributions must generally reach the fund within 7 business days after payday. The weekdays below, from 1 July 2026 to 31 August 2027, are not business days for any employer: each is a public holiday for the whole of a state or territory.
+
+Published 14 November 2026. Last reviewed 14 November 2026. Sources checked 14 November 2026.
+
+## Weekday public holidays to 31 August 2027
+
+A weekday in this table is not a business day anywhere in Australia. Every other weekday from 1 July 2026 to 31 August 2027 is a business day.
+
+Weekdays that are not Payday Super business days, 1 July 2026 to 31 August 2027
+
+Date | Holiday | Public holiday in
+Mon 3 Aug 2026 | Picnic Day | NT
+Fri 25 Sep 2026 | Friday before the AFL Grand Final | VIC
+Mon 5 Oct 2026 | King's Birthday; Labour Day | ACT, NSW, QLD, SA
+Fri 25 Dec 2026 | Christmas Day | ACT, NSW, NT, QLD, SA, TAS, VIC, WA
+Mon 28 Dec 2026 | Boxing Day; Boxing Day (observed); Proclamation Day (observed) | ACT, NSW, NT, QLD, SA, TAS, VIC, WA
+Fri 1 Jan 2027 | New Year's Day | ACT, NSW, NT, QLD, SA, TAS, VIC, WA
+Tue 26 Jan 2027 | Australia Day | ACT, NSW, NT, QLD, SA, TAS, VIC, WA
+Mon 1 Mar 2027 | Labour Day | WA
+Mon 8 Mar 2027 | Adelaide Cup Day; Canberra Day; Eight Hours Day; Labour Day | ACT, SA, TAS, VIC
+Fri 26 Mar 2027 | Good Friday | ACT, NSW, NT, QLD, SA, TAS, VIC, WA
+Mon 29 Mar 2027 | Easter Monday | ACT, NSW, NT, QLD, SA, TAS, VIC, WA
+Mon 26 Apr 2027 | ANZAC Day; ANZAC Day (observed) | ACT, NSW, NT, QLD, WA
+Mon 3 May 2027 | Labour Day; May Day | NT, QLD
+Mon 31 May 2027 | Reconciliation Day | ACT
+Mon 7 Jun 2027 | Western Australia Day | WA
+Mon 14 Jun 2027 | King's Birthday | ACT, NSW, NT, SA, TAS, VIC
+Mon 2 Aug 2027 | Picnic Day | NT
+
+Holidays that fall on a Saturday or Sunday are left out, because a weekend day is never a business day.
+
+Download the table as CSV: one row per date, with its weekday, holiday names, jurisdictions and the date the row was checked (checked_at).
+
+## What counts as a business day
+
+Section 6(1) of the Superannuation Guarantee (Administration) Act 1992 defines a business day as a day other than a Saturday, a Sunday or ‘a day which is a public holiday for the whole of’ any State, the ACT or the NT.
+
+One national calendar applies to every employer. The ATO says a state or territory-wide public holiday is not a business day ‘even if you are not in that state or territory’, so Western Australia Day on 7 June 2027 stops the clock for an employer in Sydney.
+
+A public holiday for only part of a state or territory does not count; the ATO’s example is Royal Hobart Show Day. For the same reason, these days are business days and are not in the table:
+
+- part-day holidays: Christmas Eve evening in SA, QLD and the NT, and New Year’s Eve evening in SA and the NT
+- regional show days, including the Royal Queensland Show day for the Brisbane area (12 August 2026 and 11 August 2027)
+- Melbourne Cup Day (3 November 2026), which a non-metropolitan Victorian council can replace with a local holiday
+- King’s Birthday in WA (28 September 2026), which Karratha and Port Hedland observed on 3 August 2026 instead
+- Recreation Day in Tasmania (2 November 2026), observed only where Royal Hobart Regatta is not
+- Easter Tuesday in Tasmania (30 March 2027), which section 6 of the Statutory Holidays Act 2000 gives only to certain employees
+- the bank holiday on the first Monday in August in NSW and the ACT, which NSW says is not a declared public holiday for all of NSW; in 2026 and 2027 that Monday is NT Picnic Day, so it is in the table anyway
+
+## Counting a due date
+
+A contribution is on time if the fund receives it, with the information needed to allocate it, within 7 business days after payday. Payday itself is not counted.
+
+The ATO’s own example: for earnings paid on Thursday 30 July 2026, the fund must receive the contribution by Tuesday 11 August 2026. Without a holiday, the seventh business day after 30 July would be Monday 10 August; NT Picnic Day on 3 August is not a business day, so the due date is a day later.
+
+The ATO allows longer in 4 situations: the first contribution for a new employee or to a new fund (20 business days after payday), out-of-cycle payments, exceptional circumstances affecting multiple employers and its bunching rule for overlapping due dates. The Payday Super checker uses this calendar for its due dates.
+
+## What the calendar covers
+
+The calendar covers 1 July 2026, when Payday Super began, to 31 August 2027, for all 6 states, the ACT and the NT in one national list. It holds the weekday public holidays for the whole of a state or territory that each official page below listed on 14 November 2026.
+
+It does not cover:
+
+- paydays before 1 July 2026, which follow the quarterly super guarantee rules
+- dates after 31 August 2027: Business Victoria still lists the 2027 Friday before the AFL Grand Final as ‘Subject to AFL schedule’, so the calendar stops before that holiday can fall
+- a public holiday declared after 14 November 2026, such as a one-off holiday; check the jurisdiction’s page before relying on a date
+- an earlier deadline in a fund’s rules, an award or an enterprise agreement, or the time a clearing house or fund takes to process a payment
+
+The table and CSV are the confirmed weekday rows inside that period of data/business_days.json in payday-super-checker, copied from australian-accounting commit 701b3d4. Release v0.2.3 ships the same file. That file records its own source check on 15 August 2026; each row here was checked again against the sources below on 14 November 2026.
+
+## Sources
+
+Each source below was read on 14 November 2026.
+
+- ATO, Payment deadlines for Payday Super, last updated 29 September 2026: the business day definition, the 7 and 20 business day timeframes and the Picnic Day examples.
+- Superannuation Guarantee (Administration) Act 1992, compilation 78 of 1 July 2026, section 6(1): the definition of business day.
+- ACT: ACT Government, Public holidays, school terms and daylight saving.
+- NSW: NSW Government, NSW public holidays.
+- NT: Northern Territory Government, NT public and regional holidays.
+- QLD: Queensland Government, Public holidays, last updated 16 January 2026.
+- SA: SafeWork SA, Public holidays.
+- TAS: WorkSafe Tasmania, Public holidays, last updated 23 January 2026, and the Statutory Holidays Act 2000 for Easter Tuesday.
+- VIC: Business Victoria, public holidays for 2026, last updated 21 May 2026, and 2027, last updated 2 December 2025.
+- WA: WA Government, Public holidays in Western Australia, last updated 5 November 2026.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Download the table as CSV: https://duguid.com.au/tools/payday-super/business-days/payday-super-business-days.csv
+- Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
+- Statutory Holidays Act 2000: https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096
+- Payday Super checker: https://duguid.com.au/tools/payday-super/
+- australian-accounting commit 701b3d4: https://github.com/ryanduguid/australian-accounting/blob/701b3d4425b62c1e2e707d46b754aee68470626e/packages/payday-super-checker/data/business_days.json
+- Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
+- Public holidays, school terms and daylight saving: https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving
+- NSW public holidays: https://www.nsw.gov.au/about-nsw/public-holidays
+- NT public and regional holidays: https://nt.gov.au/nt-public-holidays
+- Public holidays: https://www.qld.gov.au/recreation/travel/holidays/public
+- Public holidays: https://safework.sa.gov.au/resources/public-holidays
+- Public holidays: https://worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays
+- 2026: https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026
+- 2027: https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027
+- Public holidays in Western Australia: https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia
 
 ---
 
@@ -4454,6 +4570,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+14 November 2026 | A new Payday Super business days page lists the 17 weekdays from 1 July 2026 to 31 August 2027 that are public holidays for the whole of a state or territory, and so not business days for any employer, with a CSV and the official source for each jurisdiction, checked on 14 November 2026.
 13 November 2026 | The GST, cash forecast, margin, break-even, hourly pricing and Division 7A calculators now show a Last checked date of 13 November 2026, the day their sources were reread against their rates and definitions; the 4 calculators that cite no external source keep their 27 September 2026 review date. The margin, break-even and hourly pricing calculators cited a business.gov.au pricing page that now redirects to one without those definitions, so they now cite Business Queensland’s break-even and pricing guidance. The calculators page shows the newest check. The site checks fail if a calculator’s Last checked date is not the newest source read in its Sources applied list, is older than its official comparison or newer than its dateModified, or if its Sources applied list states a source read without a Last checked date.
 13 November 2026 | Each of the 10 business calculators now opens with a fictional example already worked: its first boundary case fills the inputs and its result shows on arrival, labelled as an example. The first edit clears it.
 13 November 2026 | The margin and break-even calculators now record an official comparison on 13 November 2026: on one fictional whole-dollar input each, Business Queensland’s gross profit, gross profit margin and break-even calculators gave the same figures as this site. Business Queensland ignored the cents in amounts entered, which is why the inputs are whole dollars. No calculation changed.

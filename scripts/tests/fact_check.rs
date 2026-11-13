@@ -449,6 +449,83 @@ fn measure_csv_matches_visible_tables() {
     }
 }
 
+/// The Payday Super calendar page publishes the confirmed weekday rows of its copy of
+/// the checker's calendar, inside the period that copy is complete for. The CSV must
+/// hold exactly those rows, in order, and the rendered table must show the same dates.
+#[test]
+fn payday_business_days_csv_matches_the_calendar_copy() {
+    use chrono::Datelike;
+    let repository = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let source = |rel: &str| site_tools::read(&repository.join(rel)).unwrap();
+    let calendar = pyjson::loads(&source("_data/payday_super_business_days.json")).unwrap();
+    let from = text_of(get(&calendar, "verified_from"));
+    let until = text_of(get(&calendar, "verified_until"));
+    let Json::Array(days) = get(&calendar, "non_business_days") else {
+        panic!("non_business_days must be a list");
+    };
+    let expected: Vec<(String, chrono::NaiveDate, String, Vec<String>)> = days
+        .iter()
+        .filter_map(|day| {
+            let date = text_of(get(day, "date"));
+            let parsed = chrono::NaiveDate::parse_from_str(&date, "%Y-%m-%d").unwrap();
+            let provisional = matches!(day.get("provisional"), Some(Json::Bool(true)));
+            let weekday = parsed.weekday().number_from_monday() <= 5;
+            (from <= date && date <= until && weekday && !provisional).then(|| {
+                let Json::Array(places) = get(day, "jurisdictions") else {
+                    panic!("{date}: jurisdictions must be a list");
+                };
+                let places = places.iter().map(text_of).collect();
+                (date, parsed, text_of(get(day, "name")), places)
+            })
+        })
+        .collect();
+    assert!(!expected.is_empty());
+
+    let csv = source("tools/payday-super/business-days/payday-super-business-days.csv");
+    let records = pycsv::dict_reader(&csv).unwrap();
+    assert_eq!(
+        records.len(),
+        expected.len(),
+        "CSV rows against the calendar copy"
+    );
+    for (record, (date, parsed, name, places)) in records.iter().zip(&expected) {
+        assert_eq!(field(record, "date"), date);
+        assert_eq!(
+            field(record, "weekday"),
+            parsed.format("%A").to_string(),
+            "{date}"
+        );
+        assert_eq!(field(record, "holiday"), name, "{date}");
+        assert_eq!(field(record, "jurisdictions"), places.join(";"), "{date}");
+        let checked = site_tools::py::Date::fromisoformat(field(record, "checked_at"));
+        assert!(checked.is_some(), "{date}: checked_at must be an ISO date");
+    }
+
+    if !rendered() {
+        return;
+    }
+    let html = read("tools/payday-super/business-days/index.html");
+    let visible = measure_rows(&html);
+    assert_eq!(
+        visible.len(),
+        expected.len(),
+        "table rows against the calendar copy"
+    );
+    let tree = parse_structure(&html);
+    let times: Vec<&str> = tree
+        .descendants(Tree::ROOT, Some("tbody"), false)
+        .into_iter()
+        .flat_map(|body| tree.descendants(body, Some("time"), false))
+        .filter_map(|time| tree.attr(time, "datetime"))
+        .collect();
+    let dates: Vec<&str> = expected.iter().map(|(date, ..)| date.as_str()).collect();
+    assert_eq!(times, dates);
+    for (cells, (date, parsed, name, places)) in visible.iter().zip(&expected) {
+        let shown = parsed.format("%a %-d %b %Y").to_string();
+        assert_eq!(cells, &[shown, name.clone(), places.join(", ")], "{date}");
+    }
+}
+
 #[test]
 fn payday_super_receipts_workbooks_and_qualifications() {
     if !rendered() {

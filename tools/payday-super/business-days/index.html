@@ -1,0 +1,209 @@
+---
+source_commit: 701b3d4425b62c1e2e707d46b754aee68470626e
+---
+{%- assign calendar = site.data.payday_super_business_days -%}
+{%- assign source_file = "https://github.com/ryanduguid/australian-accounting/blob/" | append: page.source_commit | append: "/packages/payday-super-checker/data/business_days.json" -%}
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Payday Super business days to 31 August 2027</title>
+  <meta name="description" content="Weekday public holidays that are not Payday Super business days, 1 July 2026 to 31 August 2027, with sources checked 14 November 2026 and a CSV." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Payday Super business days to 31 August 2027" />
+  <meta property="og:description" content="Weekday public holidays that are not Payday Super business days, 1 July 2026 to 31 August 2027, with sources checked 14 November 2026 and a CSV." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/payday-super/business-days/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Payday Super business days to 31 August 2027" />
+  <meta name="twitter:description" content="Weekday public holidays that are not Payday Super business days, 1 July 2026 to 31 August 2027, with sources checked 14 November 2026 and a CSV." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/payday-super/business-days/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/payday-super/business-days/index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb"><ol>
+          <li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li>
+          <li><a href="/tools/payday-super/">Payday Super receipt evidence</a></li>
+          <li aria-current="page">Payday Super business days</li>
+        </ol></nav>
+        <h1>Payday Super business days</h1>
+        <p class="lead-note">Payday Super contributions must generally reach the fund within 7 business days after payday. The weekdays below, from 1 July 2026 to 31 August 2027, are not business days for any employer: each is a public holiday for the whole of a state or territory.</p>
+        <p class="page-meta">Published 14 November 2026. Last reviewed 14 November 2026. Sources checked 14 November 2026.</p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#calendar">Weekday public holidays</a>
+          <a href="#business-day">What counts as a business day</a>
+          <a href="#due-dates">Counting a due date</a>
+          <a href="#coverage">What the calendar covers</a>
+          <a href="#sources">Sources</a>
+        </nav>
+        <div class="article-body">
+          <section aria-labelledby="calendar">
+            <h2 id="calendar">Weekday public holidays to 31 August 2027</h2>
+            <p>A weekday in this table is not a business day anywhere in Australia. Every other weekday from 1 July 2026 to 31 August 2027 is a business day.</p>
+            <div class="table-scroll" role="region" aria-label="Weekdays that are not Payday Super business days" tabindex="0">
+<table>
+<caption>Weekdays that are not Payday Super business days, 1 July 2026 to 31 August 2027</caption>
+<thead>
+<tr><th scope="col">Date</th><th scope="col">Holiday</th><th scope="col">Public holiday in</th></tr>
+</thead>
+<tbody>
+{%- for day in calendar.non_business_days -%}
+{%- assign weekday = day.date | date: "%u" | plus: 0 -%}
+{%- if day.date >= calendar.verified_from and day.date <= calendar.verified_until and weekday < 6 and day.provisional != true %}
+<tr><th scope="row"><time datetime="{{ day.date }}">{{ day.date | date: "%a %-d %b %Y" }}</time></th><td>{{ day.name }}</td><td>{{ day.jurisdictions | join: ", " }}</td></tr>
+{%- endif -%}
+{%- endfor %}
+</tbody>
+</table>
+</div>
+            <p>Holidays that fall on a Saturday or Sunday are left out, because a weekend day is never a business day.</p>
+            <p><a href="/tools/payday-super/business-days/payday-super-business-days.csv">Download the table as CSV</a>: one row per date, with its weekday, holiday names, jurisdictions and the date the row was checked (<code>checked_at</code>).</p>
+          </section>
+
+          <section aria-labelledby="business-day">
+            <h2 id="business-day">What counts as a business day</h2>
+            <p>Section 6(1) of the <a href="https://www.legislation.gov.au/C2004A04402/latest/text"><em>Superannuation Guarantee (Administration) Act 1992</em></a> defines a business day as a day other than a Saturday, a Sunday or ‘a day which is a public holiday for the whole of’ any State, the ACT or the NT.</p>
+            <p>One national calendar applies to every employer. The ATO says a state or territory-wide public holiday is not a business day ‘even if you are not in that state or territory’, so Western Australia Day on 7 June 2027 stops the clock for an employer in Sydney.</p>
+            <p>A public holiday for only part of a state or territory does not count; the ATO’s example is Royal Hobart Show Day. For the same reason, these days are business days and are not in the table:</p>
+            <ul>
+              <li>part-day holidays: Christmas Eve evening in SA, QLD and the NT, and New Year’s Eve evening in SA and the NT</li>
+              <li>regional show days, including the Royal Queensland Show day for the Brisbane area (12 August 2026 and 11 August 2027)</li>
+              <li>Melbourne Cup Day (3 November 2026), which a non-metropolitan Victorian council can replace with a local holiday</li>
+              <li>King’s Birthday in WA (28 September 2026), which Karratha and Port Hedland observed on 3 August 2026 instead</li>
+              <li>Recreation Day in Tasmania (2 November 2026), observed only where Royal Hobart Regatta is not</li>
+              <li>Easter Tuesday in Tasmania (30 March 2027), which section 6 of the <a href="https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096"><em>Statutory Holidays Act 2000</em></a> gives only to certain employees</li>
+              <li>the bank holiday on the first Monday in August in NSW and the ACT, which NSW says is not a declared public holiday for all of NSW; in 2026 and 2027 that Monday is NT Picnic Day, so it is in the table anyway</li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="due-dates">
+            <h2 id="due-dates">Counting a due date</h2>
+            <p>A contribution is on time if the fund receives it, with the information needed to allocate it, within 7 business days after payday. Payday itself is not counted.</p>
+            <p>The ATO’s own example: for earnings paid on Thursday 30 July 2026, the fund must receive the contribution by Tuesday 11 August 2026. Without a holiday, the seventh business day after 30 July would be Monday 10 August; NT Picnic Day on 3 August is not a business day, so the due date is a day later.</p>
+            <p>The ATO allows longer in 4 situations: the first contribution for a new employee or to a new fund (20 business days after payday), out-of-cycle payments, exceptional circumstances affecting multiple employers and its bunching rule for overlapping due dates. The <a href="/tools/payday-super/">Payday Super checker</a> uses this calendar for its due dates.</p>
+          </section>
+
+          <section aria-labelledby="coverage">
+            <h2 id="coverage">What the calendar covers</h2>
+            <p>The calendar covers 1 July 2026, when Payday Super began, to 31 August 2027, for all 6 states, the ACT and the NT in one national list. It holds the weekday public holidays for the whole of a state or territory that each official page below listed on 14 November 2026.</p>
+            <p>It does not cover:</p>
+            <ul>
+              <li>paydays before 1 July 2026, which follow the quarterly super guarantee rules</li>
+              <li>dates after 31 August 2027: Business Victoria still lists the 2027 Friday before the AFL Grand Final as ‘Subject to AFL schedule’, so the calendar stops before that holiday can fall</li>
+              <li>a public holiday declared after 14 November 2026, such as a one-off holiday; check the jurisdiction’s page before relying on a date</li>
+              <li>an earlier deadline in a fund’s rules, an award or an enterprise agreement, or the time a clearing house or fund takes to process a payment</li>
+            </ul>
+            <p>The table and CSV are the confirmed weekday rows inside that period of <code>data/business_days.json</code> in payday-super-checker, copied from <a href="{{ source_file }}">australian-accounting commit {{ page.source_commit | truncate: 7, '' }}</a>. Release v0.2.3 ships the same file. That file records its own source check on 15 August 2026; each row here was checked again against the sources below on 14 November 2026.</p>
+          </section>
+
+          <section aria-labelledby="sources">
+            <h2 id="sources">Sources</h2>
+            <p>Each source below was read on 14 November 2026.</p>
+            <ul>
+              <li>ATO, <a href="https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super">Payment deadlines for Payday Super</a>, last updated 29 September 2026: the business day definition, the 7 and 20 business day timeframes and the Picnic Day examples.</li>
+              <li><em>Superannuation Guarantee (Administration) Act 1992</em>, compilation 78 of 1 July 2026, section 6(1): the definition of business day.</li>
+              <li>ACT: ACT Government, <a href="https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving">Public holidays, school terms and daylight saving</a>.</li>
+              <li>NSW: NSW Government, <a href="https://www.nsw.gov.au/about-nsw/public-holidays">NSW public holidays</a>.</li>
+              <li>NT: Northern Territory Government, <a href="https://nt.gov.au/nt-public-holidays">NT public and regional holidays</a>.</li>
+              <li>QLD: Queensland Government, <a href="https://www.qld.gov.au/recreation/travel/holidays/public">Public holidays</a>, last updated 16 January 2026.</li>
+              <li>SA: SafeWork SA, <a href="https://safework.sa.gov.au/resources/public-holidays">Public holidays</a>.</li>
+              <li>TAS: WorkSafe Tasmania, <a href="https://worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays">Public holidays</a>, last updated 23 January 2026, and the <em>Statutory Holidays Act 2000</em> for Easter Tuesday.</li>
+              <li>VIC: Business Victoria, public holidays for <a href="https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026">2026</a>, last updated 21 May 2026, and <a href="https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027">2027</a>, last updated 2 December 2025.</li>
+              <li>WA: WA Government, <a href="https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia">Public holidays in Western Australia</a>, last updated 5 November 2026.</li>
+            </ul>
+          </section>
+        </div>
+      <p class="byline">
+        Written by Ryan Duguid in his own time and on his own equipment.
+        He is a Provisional CA ANZ Member.
+      </p>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/payday-super/business-days/#webpage",
+      "url": "https://duguid.com.au/tools/payday-super/business-days/",
+      "name": "Payday Super business days to 31 August 2027",
+      "description": "Weekday public holidays that are not Payday Super business days, 1 July 2026 to 31 August 2027, with sources checked 14 November 2026 and a CSV.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-11-14",
+      "dateModified": "2026-11-14",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": { "@id": "https://duguid.com.au/#website" },
+      "author": { "@id": "https://duguid.com.au/about/#person" },
+      "publisher": { "@id": "https://duguid.com.au/about/#person" },
+      "breadcrumb": { "@id": "https://duguid.com.au/tools/payday-super/business-days/#breadcrumb" },
+      "mainEntity": { "@id": "https://duguid.com.au/tools/payday-super/business-days/#dataset" }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://duguid.com.au/tools/payday-super/business-days/#dataset",
+      "name": "Payday Super non-business weekdays, 1 July 2026 to 31 August 2027",
+      "description": "Weekday public holidays that are not Payday Super business days, 1 July 2026 to 31 August 2027, with sources checked 14 November 2026 and a CSV.",
+      "url": "https://duguid.com.au/tools/payday-super/business-days/",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isAccessibleForFree": true,
+      "creator": { "@id": "https://duguid.com.au/about/#person" },
+      "temporalCoverage": "2026-07-01/2027-08-31",
+      "spatialCoverage": "AU",
+      "isBasedOn": "https://github.com/ryanduguid/australian-accounting/blob/701b3d4425b62c1e2e707d46b754aee68470626e/packages/payday-super-checker/data/business_days.json",
+      "dateModified": "2026-11-14",
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "text/csv",
+        "contentUrl": "https://duguid.com.au/tools/payday-super/business-days/payday-super-business-days.csv"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/payday-super/business-days/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
+        { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://duguid.com.au/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "Payday Super receipt evidence", "item": "https://duguid.com.au/tools/payday-super/" },
+        { "@type": "ListItem", "position": 4, "name": "Payday Super business days", "item": "https://duguid.com.au/tools/payday-super/business-days/" }
+      ]
+    }
+  ]
+}
+</script>
+</body>
+</html>
