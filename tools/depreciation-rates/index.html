@@ -105,21 +105,21 @@
           <output id="deduction-output" for="dep-cost dep-life dep-start dep-year dep-method" aria-live="polite">Enter the inputs and work out the deduction.</output>
         </form>
         <p>Income years end on 30 June. The working assumes you hold the asset for all of each later year and use it only for a taxable purpose, with no second element of cost. Each year’s amount rounds to the nearest cent, with exact half cents rounded up.</p>
-        <p>An asset you started to hold before 10 May 2006 is not covered, because its diminishing value rate is 150% and not 200%.</p>
+        <p>An asset you started to hold before 10 May 2006 is not covered, because its diminishing value rate is 150% and not 200%. The calculator checks only the day of first use, so do not use it for an asset you held before 10 May 2006 and first used later.</p>
         </section>
 
         <section id="which-determination">
         <h2>Which determination applies to your asset</h2>
         <p>The Commissioner’s life for an asset is the one in force when you entered a contract to acquire it, otherwise acquired it or started to construct it, where its start time falls within 5 years of then. Otherwise the life in force at the start time applies (subsection 40-95(2) of the <cite>Income Tax Assessment Act 1997</cite>). Plant acquired before 11.45 am on 21 September 1999, by legal time in the Australian Capital Territory, has its own rule in that subsection.</p>
-        <p>The 2025 determination commenced on 16 September 2025 and repealed the 2015 determination. Each row’s ‘last updated’ date is the date the Commissioner last reviewed and determined that life. For an asset acquired earlier, check the determination in force at that time: the ATO lists them on its page <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/general-depreciation-rules-capital-allowances/effective-life-of-an-asset/effective-life-determinations-rulings-and-law">Effective life determinations, rulings and law</a>.</p>
+        <p>The 2025 determination commenced on 16 September 2025 and repealed the 2015 determination. Each row’s ‘last updated’ date is the date the Commissioner last reviewed and determined that life. Where a row’s ‘last updated’ date is later than the day you acquired the asset, check the life in force on that day. Earlier lives were published in tables attached to taxation rulings, a practice that ended when TR 2022/1 was withdrawn, as the ATO says on its page <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/general-depreciation-rules-capital-allowances/effective-life-of-an-asset/effective-life-determinations-rulings-and-law">Effective life determinations, rulings and law</a>.</p>
         <p>You may instead work out an effective life yourself under section 40-105. You make the choice for the income year in which the asset’s start time occurs (subsection 40-95(3)).</p>
         </section>
 
         <section id="rates-from-life">
         <h2>How a life becomes a rate</h2>
         <p>Prime cost spreads the cost evenly over the life: cost × (days held ÷ 365) × (100% ÷ effective life), and never more than the value left (section 40-75). Diminishing value works on the value left: base value × (days held ÷ 365) × (200% ÷ effective life), for an asset you started to hold on or after 10 May 2006 (section 40-72). An earlier asset uses 150% (section 40-70).</p>
-        <p>Days held can be 366 in a leap year and the divisor stays 365, as the ATO’s <cite>Guide to depreciating assets 2026</cite> says. You choose one method for each asset and cannot change it (section 40-65).</p>
-        <p>The rates shown beside each life are 100% and 200% divided by the life, rounded to 2 decimal places. The calculator works from the exact life, so a life of 6 2/3 years is 30% and not 29.99%.</p>
+        <p>Days held can be 366 in a leap year and the divisor stays 365, as the ATO’s <cite>Guide to depreciating assets 2026</cite> says. You choose one method for each asset (section 40-65) and cannot change it (section 40-130).</p>
+        <p>The rates shown beside each life are 100% and 200% divided by the life, rounded to 2 decimal places. The calculator works from the exact life, so the diminishing value rate for a life of 6 2/3 years is 30% and not 29.99%.</p>
         </section>
 
         <section id="capped-lives">
@@ -139,7 +139,7 @@
               <tr><th scope="row">Minibus with a gross vehicle mass of 3.5 tonnes or less, designed to carry 9 or more passengers</th><td>7.5 years</td></tr>
               <tr><th scope="row">Trailer with a gross vehicle mass of more than 4.5 tonnes</th><td>10 years</td></tr>
               <tr><th scope="row">Truck with a gross vehicle mass of more than 3.5 tonnes, other than a mining or quarrying truck that cannot be registered for public roads where it operates</th><td>7.5 years</td></tr>
-              <tr><th scope="row">Vessel with a certificate under Part 2 of the <cite>Shipping Reform (Tax Incentives) Act 2012</cite>, unless its income is exempt under section 51-100</th><td>10 years</td></tr>
+              <tr><th scope="row">Vessel with a certificate under Part 2 of the <cite>Shipping Reform (Tax Incentives) Act 2012</cite>, unless your income from it, or your associate’s, is exempt under section 51-100</th><td>10 years</td></tr>
             </tbody>
           </table>
         </div>
@@ -163,13 +163,13 @@
 
         <section id="pools-and-write-offs">
         <h2>Pools, write-offs and the car limit</h2>
-        <p>Four rules can replace or limit a deduction worked out from an effective life. Each is stated from the law in force on 1 October 2026 and the ATO page named.</p>
+        <p>Four rules can replace or limit a deduction worked out from an effective life. Each is stated from the law in force on 1 October 2026, with the ATO’s figure where one is named.</p>
         <h3 id="low-value-pool">Low-value pool</h3>
-        <p>A low-cost asset costs less than $1,000 at the end of the income year you start to use it, and can go into a low-value pool (section 40-425). Each year the pool declines by 18.75% of the cost of low-cost assets added that year, and by 37.5% of the pool’s closing balance for the year before together with the opening adjustable value of low-value assets added that year (section 40-440). A low-value asset is one already depreciated by diminishing value whose opening adjustable value is under $1,000.</p>
+        <p>A low-cost asset costs less than $1,000 at the end of the income year you start to use it, and can go into a low-value pool (section 40-425). Each year the pool declines by 18.75% of the taxable use percentage of the cost of low-cost assets added that year, and by 37.5% of the pool’s closing balance for the year before together with the taxable use percentage of the opening adjustable value of low-value assets added that year (section 40-440). A low-value asset is one already depreciated by diminishing value whose opening adjustable value is under $1,000.</p>
         <p>Once you pool one low-cost asset, each later one goes in too, and an asset stays in the pool (section 40-430). An asset deducted under the small business rules cannot be pooled this way.</p>
         <h3 id="small-business">Small business pool and instant asset write-off</h3>
-        <p>A small business entity, with aggregated turnover under $10 million, that chooses simplified depreciation deducts in full an asset costing less than $20,000 (sections 328-110 and 328-180). The $20,000 threshold is permanent for assets first used or installed ready for use on or after 1 July 2026, under the <cite>Treasury Laws Amendment (Tax Reform No. 2) Act 2026</cite>.</p>
-        <p>A temporary rule gives the same $20,000 for assets first used or installed from 1 July 2023 to 30 June 2026 (section 328-180 of the <cite>Income Tax (Transitional Provisions) Act 1997</cite>). Other assets go to the general small business pool, deducted at 15% in their first year and 30% of the opening balance after that (section 328-190). A pool balance under $20,000 is written off (section 328-210).</p>
+        <p>A small business entity, with aggregated turnover under $10 million, that chooses simplified depreciation deducts the taxable purpose proportion of an asset costing less than $20,000 in the year it is first used or installed ready for use (sections 328-110 and 328-180). The $20,000 threshold is permanent for assets first used or installed ready for use on or after 1 July 2026, under the <cite>Treasury Laws Amendment (Tax Reform No. 2) Act 2026</cite>.</p>
+        <p>A temporary rule gives the same $20,000 for assets first acquired at or after the 2015 budget time and first used or installed ready for use from 1 July 2023 to 30 June 2026 (section 328-180 of the <cite>Income Tax (Transitional Provisions) Act 1997</cite>). Other assets go to the general small business pool, deducted at 15% in their first year and 30% of the opening balance after that (section 328-190). A pool balance under $20,000 is written off (section 328-210).</p>
         <h3 id="assets-300">Assets costing $300 or less</h3>
         <p>An asset costing $300 or less is deducted in full where you use it mainly to earn income that is not from carrying on a business (subsection 40-80(2)). The asset must not be part of a set, or one of several identical items, costing more than $300 in total that year.</p>
         <h3 id="car-limit">Car limit</h3>
@@ -179,7 +179,7 @@
         <section id="capital-works">
         <h2>Capital works</h2>
         <p>Construction costs of capital works are deducted under Division 43 and not by effective life: 2.5% a year for works begun after 26 February 1992, or 4% for parts used in the ways Table 43-145 lists (section 43-25). Those uses include short-term traveller accommodation and industrial activities and, for works begun after 7:30 pm by legal time in the Australian Capital Territory on 9 May 2023, build to rent.</p>
-        <p>Works begun before 27 February 1992 take 4% if begun after 21 August 1984 and before 16 September 1987, and 2.5% in any other case. No deduction is available for a period before construction is complete (section 43-30).</p>
+        <p>Works begun before 27 February 1992 and used as Table 43-140 describes take 4% if begun after 21 August 1984 and before 16 September 1987, and 2.5% in any other case (subsection 43-25(2)). The ATO’s <cite>Rental properties 2026</cite> guide shows no deduction for construction started before 22 August 1979. No deduction is available for a period before construction is complete (section 43-30).</p>
         </section>
 
         <section id="source">
@@ -187,14 +187,14 @@
         <p>Every row comes from Schedule 2 of the <a href="https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text"><cite>Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025</cite></a> (F2025L01097), made on 2 September 2025 and registered on 15 September 2025. The <a href="/tools/depreciation-rates/effective-life.json">data file</a> holds all 9,311 rows, the source’s details and a count of every table row read.</p>
         <p>A program builds the file from the Register’s EPUB and stops at any row it cannot read. On 13 November 2026 every row was compared with the Register’s Word version and with the text of its authorised PDF, with no difference in a description, life, mark or date.</p>
         <p>Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to <a href="https://www.legislation.gov.au">https://www.legislation.gov.au</a>.</p>
-        <p>The determination is reused under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International licence</a>. Changes made here: Schedule 2 only, set out as data with each row’s nesting as a number, each life also in months and as 2 rates, dates in one form, and plain spaces and hyphens. The Commonwealth does not endorse this page.</p>
-        <p>The rules beyond the tables were read on 13 November 2026 in the <cite>Income Tax Assessment Act 1997</cite> (Compilation No. 268, 1 October 2026), the <cite>Income Tax (Transitional Provisions) Act 1997</cite> (Compilation No. 104) and the ATO pages linked above. The ATO’s own <a href="https://www.ato.gov.au/calculators-and-tools/depreciation-and-capital-allowances-tool">depreciation and capital allowances tool</a> works out deductions with more of an asset’s history.</p>
+        <p>The determination is reused under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International licence</a>. Changes made here: Schedule 2 only, set out as data with each row’s nesting as a number, each life also in months and as 2 rates, dates in one form, plain spaces and hyphens, and 3 rows recorded one level shallower than the EPUB’s text sets them. The Commonwealth does not endorse this page.</p>
+        <p>The rules beyond the tables were read on 13 November 2026 in the <cite>Income Tax Assessment Act 1997</cite> (Compilation No. 268, 1 October 2026), the <cite>Income Tax (Transitional Provisions) Act 1997</cite> (Compilation No. 104) and in ATO guidance: the <cite>Guide to depreciating assets 2026</cite>, <cite>Rental properties 2026</cite> and its pages on the 2 methods, the low-value pool and the car limit. The ATO’s own <a href="https://www.ato.gov.au/calculators-and-tools/depreciation-and-capital-allowances-tool">depreciation and capital allowances tool</a> works out deductions with more of an asset’s history.</p>
         </section>
 
         <section id="limits">
         <h2>Limits</h2>
         <p>The page does not decide whether something is a depreciating asset, who holds it, what it cost or how far it is used for a taxable purpose. Check a life against the registered determination before relying on it.</p>
-        <p>The calculator leaves out balancing adjustments, second elements of cost, private use, pooling, the car limit, capped lives you have not entered and any rule that replaces these methods for a period. A life the Commissioner has not listed can be worked out under section 40-105 or requested with the ATO’s <a href="https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form">effective life review application form</a>.</p>
+        <p>The calculator leaves out balancing adjustments, second elements of cost, private use, pooling, the car limit, capped lives you have not entered and any rule that replaces these methods for a period. Diminishing value is not available for some assets, such as in-house software, intellectual property other than copyright in a film, and spectrum licences (subsection 40-72(2)). A life the Commissioner has not listed can be worked out under section 40-105 or requested with the ATO’s <a href="https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form">effective life review application form</a>.</p>
         </section>
       <p class="byline">
         Written by Ryan Duguid in his own time and on his own equipment.
