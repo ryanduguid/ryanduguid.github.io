@@ -740,6 +740,51 @@ blockquote,
   }
 }
 
+/* Firefox 157 has no scroll timelines, so there the cue is a strong rule in
+   the cue's colour at the region's right edge. The rule sticks to that edge
+   and a paper rule at the table's end covers it whilst the end is in view, so
+   a table that fits, or one scrolled to its end, shows none. Both rules share
+   the region's one grid cell with its table, so they take no space and nothing
+   shifts. The site allows no gradient, which rules out scroll shadows. */
+@supports not ((scroll-timeline: --table-scroll inline) and (animation-timeline: --table-scroll)) {
+  :is(.table-scroll, .employee-table-scroll):not([hidden]) {
+    display: grid;
+  }
+
+  :is(.table-scroll, .employee-table-scroll) > table,
+  :is(.table-scroll, .employee-table-scroll)::before,
+  :is(.table-scroll, .employee-table-scroll)::after {
+    grid-area: 1 / 1;
+  }
+
+  :is(.table-scroll, .employee-table-scroll)::before,
+  :is(.table-scroll, .employee-table-scroll)::after {
+    width: var(--rule-strong);
+    content: "";
+  }
+
+  /* The region is the sticky scroll container and the grid cell spans the
+     whole table, so the rule can hold the visible edge to the table's end. */
+  :is(.table-scroll, .employee-table-scroll)::before {
+    position: sticky;
+    left: calc(100cqi - var(--rule-strong));
+    background: var(--colour-ink-soft);
+  }
+
+  :is(.table-scroll, .employee-table-scroll)::after {
+    position: relative;
+    justify-self: end;
+    background: var(--colour-paper);
+  }
+
+  /* Paper does not scroll. */
+  @media print {
+    :is(.table-scroll, .employee-table-scroll)::before {
+      content: none;
+    }
+  }
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -781,10 +826,20 @@ td {
 /* On phones a one-line date beside its change took half the table and left
    the change about 18 characters a line, and a wrapped date took 3 lines. Each
    row stacks there instead: the date on one line above the change, which keeps
-   the table's full width. The column headings stay for screen readers (with
-   the receipt sensitivity table's, below), and explicit table roles in the
-   page keep the rows a table where a browser drops it for block cells. */
+   the table's full width. The column headings stay for screen readers, and
+   explicit table roles in the page keep the rows a table where a browser drops
+   it for block cells. Every other table keeps its columns on phones and
+   scrolls in its labelled region. */
 @media (max-width: 40rem) {
+  .changelog-section thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   .changelog-section tbody :is(th, td) {
     display: block;
   }
@@ -820,8 +875,7 @@ th {
 /* In a scroll region a cell wraps between words, never inside one. The body's
    anywhere let a column shrink below its longest word, so a phone printed
    '$68,108' as '$68,1' over '08'; such a table now scrolls in its labelled
-   region instead. A table outside a scroll region keeps anywhere, so a long
-   address in it still fits the page at 200% text. */
+   region instead. */
 :is(.table-scroll, .employee-table-scroll) td {
   overflow-wrap: break-word;
 }
@@ -908,61 +962,6 @@ caption {
 .receipt-sensitivity th:nth-child(3),
 .receipt-sensitivity th:last-child {
   text-align: right;
-}
-
-/* On phones both Lumbridge comparisons show every figure without sideways
-   scrolling: the three-column comparison fits the width, and the five-run
-   table reads as one labelled block per run. */
-@media (max-width: 40rem) {
-  table.case-comparison,
-  table.receipt-sensitivity {
-    min-width: 0;
-  }
-
-  .case-comparison th[scope="row"] {
-    width: 34%;
-  }
-
-  .case-comparison :is(th, td) {
-    padding-inline: var(--space-1);
-    font-size: var(--text-small);
-    overflow-wrap: break-word;
-  }
-
-  .receipt-sensitivity thead,
-  .changelog-section thead {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  .receipt-sensitivity tr {
-    display: block;
-    padding-block: var(--space-2);
-    border-bottom: var(--rule-thin) solid var(--colour-rule);
-  }
-
-  .receipt-sensitivity :is(th, td) {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-3);
-    padding: var(--space-1) 0;
-    border: 0;
-    white-space: normal;
-    text-align: right;
-  }
-
-  .receipt-sensitivity :is(th, td)::before {
-    content: attr(data-label);
-    color: var(--colour-ink-soft);
-    font-family: var(--font-body);
-    font-size: var(--text-small);
-    font-weight: 400;
-    text-align: left;
-  }
 }
 
 .faq h3 {
@@ -2773,14 +2772,11 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .facts--kv th,
-  .facts--kv td {
-    display: block;
-    width: 100%;
-  }
-
-  .facts--kv td {
-    padding-top: 0;
+  /* A key-value table's label column takes its longest word, not 13rem, so
+     the value column keeps the rest of a phone's width. */
+  .facts--kv th {
+    width: auto;
+    overflow-wrap: break-word;
   }
 
   .install-band pre,

@@ -341,8 +341,8 @@ The footer holds the site's one advice disclaimer: a single small line, `.site-f
 - numerical columns use Spline Sans Mono and tabular numbers
 - rules appear between rows, not around every cell
 - the first and current rates receive typographic emphasis, not a coloured progress bar
-- wide tables use labelled horizontal scroll regions at narrow widths
-- scroll regions with hidden columns show a caption-style scroll cue in browsers that support scroll timelines
+- every table sits in a labelled, keyboard-focusable horizontal scroll region and keeps its columns on phones; only the changelog's rows stack there, date above change (14 November 2026)
+- scroll regions with hidden columns show a caption-style scroll cue in browsers that support scroll timelines; in Firefox, which has none, a strong rule in the cue's colour marks the right edge until the table's end is in view
 - no statutory value, date, source or citation changes in this redesign
 
 ### Code and install blocks

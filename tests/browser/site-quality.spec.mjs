@@ -669,6 +669,74 @@ test('the scroll cue holds with reduced motion and stays off paper', async ({ pa
   expect(paper.every((region) => !region.cue)).toBe(true);
 });
 
+// Without scroll timelines (Firefox 157) the cue is a rule at the region's right
+// edge, which no computed style reports, so it is read from pixels: the edge as
+// shown differs from the edge with the rule hidden. The hiding rule goes in
+// through the CSS object model, which the pages' content security policy allows.
+const hideEdgeCueOnProbe = (page) => page.evaluate(() => {
+  const sheet = [...document.styleSheets]
+    .find((candidate) => candidate.href && new URL(candidate.href).pathname === '/assets/site.css');
+  sheet.insertRule('[data-cue-probe]::before { visibility: hidden !important; }', sheet.cssRules.length);
+});
+
+const edgeCueShown = async (page, region) => {
+  await region.scrollIntoViewIfNeeded();
+  const box = await region.boundingBox();
+  // Start below the region's 3px top rule; end at the region or the window.
+  const top = Math.max(box.y + 4, 0);
+  const clip = {
+    x: box.x + box.width - 6,
+    y: top,
+    width: 6,
+    height: Math.min(box.y + box.height, page.viewportSize().height) - top,
+  };
+  const shown = await page.screenshot({ clip });
+  await region.evaluate((element) => { element.dataset.cueProbe = ''; });
+  const hidden = await page.screenshot({ clip });
+  await region.evaluate((element) => { delete element.dataset.cueProbe; });
+  return !shown.equals(hidden);
+};
+
+// Before 14 November 2026 Firefox showed no cue at all on a table that scrolls.
+for (const width of [320, 390]) {
+  test(`at ${width}px the edge cue marks exactly the tables that scroll`, async ({ page }, testInfo) => {
+    test.skip(projectKind(testInfo) !== 'desktop', 'width matrix runs once');
+    // Every page loads, and each visible region takes up to 4 screenshots.
+    test.setTimeout(120_000);
+    const health = observePageHealth(page);
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/');
+    test.skip(await supportsCue(page), 'the caption cue is checked in the width sweep');
+    const miscued = [];
+    let checked = 0;
+    for (const [, route] of routes) {
+      await page.goto(route);
+      await page.evaluate(() => document.fonts.ready);
+      const regions = page.locator('main :is(.table-scroll, .employee-table-scroll)');
+      const count = await regions.count();
+      if (count > 0) await hideEdgeCueOnProbe(page);
+      for (let index = 0; index < count; index += 1) {
+        const region = regions.nth(index);
+        if (!(await region.isVisible())) continue;
+        const label = `${route} ${await region.getAttribute('aria-label')}`;
+        const scrolls = await region.evaluate((element) => element.scrollWidth > element.clientWidth);
+        const cue = await edgeCueShown(page, region);
+        if (cue !== scrolls) miscued.push(`${label}: scrolls ${scrolls}, cue ${cue}`);
+        if (scrolls) {
+          // Once the table's end is in view there is nothing more to the right.
+          await region.evaluate((element) => { element.scrollLeft = element.scrollWidth; });
+          if (await edgeCueShown(page, region)) miscued.push(`${label}: cue at the table's end`);
+          await region.evaluate((element) => { element.scrollLeft = 0; });
+        }
+        checked += 1;
+      }
+    }
+    expect(checked, 'visible table regions checked').toBeGreaterThan(40);
+    expect(miscued, `edge cues that disagree with scrolling at ${width}px`).toEqual([]);
+    health.assertHealthy();
+  });
+}
+
 test('home matches its viewport visual baseline', async ({ page, browserName }, testInfo) => {
   test.skip(browserName !== 'chromium', 'the committed baselines are Chromium renders');
   const health = observePageHealth(page);
