@@ -301,17 +301,33 @@ pub fn parse(
     };
     let document = roxmltree::Document::parse_with_options(xhtml, options)
         .map_err(|e| vec![format!("the source is not well-formed XHTML: {e}")])?;
-    let mut reader = Reader {
-        table: None,
-        divisions: Vec::new(),
-        letters: Vec::new(),
-        counts_a: Counts::default(),
-        counts_b: Counts::default(),
-        note: None,
-        corrections,
-        corrected: vec![0; corrections.len()],
-        failures: Vec::new(),
-    };
+    let mut reader = Reader::new(corrections);
+    let (title, made) = walk(&document, &mut reader);
+    finish(reader, title, made)
+}
+
+impl<'c> Reader<'c> {
+    fn new(corrections: &'c [Correction]) -> Self {
+        Reader {
+            table: None,
+            divisions: Vec::new(),
+            letters: Vec::new(),
+            counts_a: Counts::default(),
+            counts_b: Counts::default(),
+            note: None,
+            corrections,
+            corrected: vec![0; corrections.len()],
+            failures: Vec::new(),
+        }
+    }
+}
+
+/// Reads the document in order into `reader`, and gives the instrument's short title and
+/// the date it was made where the text has them.
+fn walk(
+    document: &roxmltree::Document<'_>,
+    reader: &mut Reader<'_>,
+) -> (Option<String>, Option<Result<String>>) {
     let (mut title, mut made, mut number) = (None, None, 0);
     // Table B is the last of Schedule 2, and only empty paragraphs part its tables, so text
     // after its rows starts whatever follows it.
@@ -346,8 +362,17 @@ pub fn parse(
             }
         }
     }
+    (title, made)
+}
+
+/// The tables read, or every reason the text could not be read as them.
+fn finish(
+    reader: Reader<'_>,
+    title: Option<String>,
+    made: Option<Result<String>>,
+) -> std::result::Result<Determination, Vec<String>> {
     let mut failures = reader.failures;
-    for ((heading, asset, _, _), matched) in corrections.iter().zip(&reader.corrected) {
+    for ((heading, asset, _, _), matched) in reader.corrections.iter().zip(&reader.corrected) {
         if *matched != 1 {
             failures.push(format!(
                 "the nesting correction for {asset} under {heading} matches {matched} rows, not 1"
