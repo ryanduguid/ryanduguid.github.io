@@ -103,38 +103,45 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     if write == check {
         return usage_error("one of the arguments --write --check is required");
     }
-    let [source_file, register_id, registered, url, read] = values;
+    let [source_file, details @ ..] = values;
     let Some(source_file) = source_file else {
         return usage_error("the following arguments are required: --source");
     };
     let target = data_path(root);
     if write {
-        let (Some(register_id), Some(registered), Some(url), Some(read)) =
-            (register_id, registered, url, read)
-        else {
-            return usage_error(
-                "--write needs --register-id, --registered, --source-url and --read",
-            );
-        };
-        let (registered, read) = match (iso(registered, "--registered"), iso(read, "--read")) {
-            (Ok(registered), Ok(read)) => (registered, read),
-            (Err(message), _) | (_, Err(message)) => {
-                return usage_error(&format!("argument {message}"));
-            }
-        };
-        let source = Source {
-            register_id: register_id.to_owned(),
-            registered,
-            url: url.to_owned(),
-            read,
-        };
-        let text = build(Path::new(source_file), &source)?;
-        std::fs::write(&target, text)
-            .map_err(|e| py::oserror_str(&e, &target.to_string_lossy(), py::OsStyle::Errno))?;
-        say(&format!("{DATA_REL} written\n"), false)?;
-        return Ok(0);
+        write_data(&target, source_file, details)
+    } else {
+        check_data(&target, source_file)
     }
-    let committed = crate::read(&target)?;
+}
+
+/// Builds the data file from the source and its details, and writes it.
+fn write_data(target: &Path, source_file: &str, details: [Option<&str>; 4]) -> Result<u8> {
+    let [Some(register_id), Some(registered), Some(url), Some(read)] = details else {
+        return usage_error("--write needs --register-id, --registered, --source-url and --read");
+    };
+    let (registered, read) = match (iso(registered, "--registered"), iso(read, "--read")) {
+        (Ok(registered), Ok(read)) => (registered, read),
+        (Err(message), _) | (_, Err(message)) => {
+            return usage_error(&format!("argument {message}"));
+        }
+    };
+    let source = Source {
+        register_id: register_id.to_owned(),
+        registered,
+        url: url.to_owned(),
+        read,
+    };
+    let text = build(Path::new(source_file), &source)?;
+    std::fs::write(target, text)
+        .map_err(|e| py::oserror_str(&e, &target.to_string_lossy(), py::OsStyle::Errno))?;
+    say(&format!("{DATA_REL} written\n"), false)?;
+    Ok(0)
+}
+
+/// Compares the committed data file with one built from the source.
+fn check_data(target: &Path, source_file: &str) -> Result<u8> {
+    let committed = crate::read(target)?;
     let expected = build(Path::new(source_file), &committed_source(&committed)?)?;
     if committed == expected {
         say(&format!("{DATA_REL} matches the source\n"), false)?;

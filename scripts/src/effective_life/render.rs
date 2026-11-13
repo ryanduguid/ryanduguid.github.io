@@ -77,28 +77,7 @@ pub(super) fn sections_json(sections: &[Section], indent: &str, out: &mut String
 pub fn render(determination: &Determination, sha256: &str, source: &Source) -> String {
     let mut out = String::from("{\n  \"schema_version\": 1,\n");
     out.push_str(&format!("  \"description\": {},\n", quote(DESCRIPTION)));
-    out.push_str("  \"source\": {\n");
-    let (registered, read) = (source.registered.to_string(), source.read.to_string());
-    let pairs = [
-        ("title", determination.title.as_str()),
-        ("register_id", source.register_id.as_str()),
-        ("made", determination.made.as_str()),
-        ("registered", registered.as_str()),
-        ("url", source.url.as_str()),
-        ("file", SOURCE_FILE),
-        ("file_sha256", sha256),
-        ("read", read.as_str()),
-        ("licence", SOURCE_LICENCE),
-        ("licence_url", SOURCE_LICENCE_URL),
-        ("changes", CHANGES),
-    ];
-    for (key, value) in pairs {
-        out.push_str(&format!("    \"{key}\": {},\n", quote(value)));
-    }
-    out.push_str(&format!(
-        "    \"attribution\": {}\n  }},\n",
-        quote(&attribution(source.read))
-    ));
+    source_json(determination, sha256, source, &mut out);
     for (key, value) in [
         ("licence", LICENCE),
         ("licence_url", LICENCE_URL),
@@ -131,6 +110,32 @@ pub fn render(determination: &Determination, sha256: &str, source: &Source) -> S
     sections_json(&determination.table_b, "    ", &mut out);
     out.push_str("  ]\n}\n");
     out
+}
+
+/// The `source` object: what was read, where and when, with the Register's attribution.
+fn source_json(determination: &Determination, sha256: &str, source: &Source, out: &mut String) {
+    out.push_str("  \"source\": {\n");
+    let (registered, read) = (source.registered.to_string(), source.read.to_string());
+    let pairs = [
+        ("title", determination.title.as_str()),
+        ("register_id", source.register_id.as_str()),
+        ("made", determination.made.as_str()),
+        ("registered", registered.as_str()),
+        ("url", source.url.as_str()),
+        ("file", SOURCE_FILE),
+        ("file_sha256", sha256),
+        ("read", read.as_str()),
+        ("licence", SOURCE_LICENCE),
+        ("licence_url", SOURCE_LICENCE_URL),
+        ("changes", CHANGES),
+    ];
+    for (key, value) in pairs {
+        out.push_str(&format!("    \"{key}\": {},\n", quote(value)));
+    }
+    out.push_str(&format!(
+        "    \"attribution\": {}\n  }},\n",
+        quote(&attribution(source.read))
+    ));
 }
 
 /// The words the Federal Register of Legislation's terms of use require for content that
