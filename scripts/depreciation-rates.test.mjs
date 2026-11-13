@@ -5,7 +5,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
-  FIRST_START, SYNONYMS, flatten, formatCents, formatLife, lifeFromMonths, parseCents,
+  FIRST_START, SYNONYMS, below, flatten, formatCents, formatLife, lifeFromMonths, parseCents,
   parseLife, rates, schedule, search,
 } from '../assets/depreciation-rates.mjs';
 
@@ -190,6 +190,46 @@ test('every row of the instrument is an entry with the headings above it', () =>
   const reference = entries.find((entry) => entry.asset.startsWith('Garbage compactor trucks – see Table A'));
   assert.ok(heading && reference);
   assert.deepEqual([heading.heading, reference.heading, reference.life], [true, false, null]);
+});
+
+test('a heading gives the rows nested under it and no others', () => {
+  const cars = entries.find((entry) => entry.table === 'B' && entry.asset.startsWith('Cars (motor vehicles'));
+  assert.ok(cars);
+  assert.deepEqual(below(entries, cars).map((entry) => entry.asset), [
+    'Generally',
+    'Hire cars:',
+    'Cars used to provide basic service ride-sourcing, ride-hailing or ride-sharing services (e.g. UberX)',
+    'Generally (including cars used to provide premium service ride-sourcing, ride-hailing or ride-sharing services e.g. UberBLACK)',
+    'Rental cars',
+    'Taxis',
+  ]);
+  const taxis = entries.find((entry) => entry.table === 'B' && entry.asset === 'Taxis');
+  assert.ok(taxis);
+  assert.deepEqual(below(entries, taxis), []);
+  // Rows never run past the end of their section, or of the tables.
+  for (const entry of entries.filter((candidate) => candidate.heading)) {
+    const under = below(entries, entry);
+    assert.ok(under.length > 0, entry.asset);
+    assert.ok(under.every((row) => row.section === entry.section && row.division === entry.division), entry.asset);
+  }
+  assert.deepEqual(below(entries, entries[entries.length - 1]), []);
+});
+
+test('the page states the counts and dates the data file records', () => {
+  const page = readFileSync(new URL('../tools/depreciation-rates/index.html', import.meta.url), 'utf8');
+  const long = (/** @type {string} */ iso) =>
+    new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const lives = data.counts.table_a.lives + data.counts.table_b.lives;
+  assert.ok(page.includes(`Search the ${lives.toLocaleString('en-AU')} effective lives`));
+  assert.ok(page.includes(`holds all ${entries.length.toLocaleString('en-AU')} rows`));
+  assert.ok(page.includes(`(${data.source.register_id}), made on ${long(data.source.made)} and registered on ${long(data.source.registered)}`));
+  assert.ok(page.includes(`href="${data.source.url}"`));
+  // The Register's required words, with the date the source was read, appear as the file gives them.
+  assert.ok(page.includes(data.source.attribution.replace(
+    'https://www.legislation.gov.au.',
+    '<a href="https://www.legislation.gov.au">https://www.legislation.gov.au</a>.',
+  )));
+  assert.ok(page.includes(`href="${data.source.licence_url}"`));
 });
 
 test('a search finds rows by every word typed', () => {

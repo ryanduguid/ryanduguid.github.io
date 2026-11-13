@@ -101,6 +101,21 @@ export function flatten(tables) {
   return entries;
 }
 
+/**
+ * The rows nested under an entry: those that follow it in its section until one at its
+ * own depth or shallower. Empty for a row that is not a heading.
+ * @param {Entry[]} entries every entry, in the order `flatten` gives @param {Entry} entry
+ * @returns {Entry[]}
+ */
+export function below(entries, entry) {
+  let end = entry.id + 1;
+  while (
+    end < entries.length && entries[end].depth > entry.depth && entries[end].table === entry.table
+    && entries[end].division === entry.division && entries[end].section === entry.section
+  ) end += 1;
+  return entries.slice(entry.id + 1, end);
+}
+
 /** How well one query word matches a list of words: 4 the same word in the singular, 3
  * the same stem, 2 the start of a word, 1 inside a word (for 4 letters or more), 0 not at
  * all. @param {Term} query @param {Term[]} list */

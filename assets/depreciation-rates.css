@@ -1,0 +1,84 @@
+/* Copyright 2026 Ryan Duguid
+   SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0 */
+
+/* Depreciation rates page: the tables of effective lives in the search results and the
+   browse view. Every colour and length is a token from tokens.css. */
+
+/* The asset column takes the room a description needs; the figures stay on one line. */
+.depreciation-page .lives th[scope="row"] {
+  width: auto;
+  min-width: 16rem;
+}
+
+.depreciation-page .lives td {
+  white-space: nowrap;
+}
+
+/* A row nested under a heading is indented one step for each level, as the instrument
+   prints it. */
+.depreciation-page .lives .depth-1 {
+  padding-inline-start: var(--space-5);
+}
+
+.depreciation-page .lives .depth-2 {
+  padding-inline-start: var(--space-7);
+}
+
+.depreciation-page .lives .depth-3 {
+  padding-inline-start: var(--space-9);
+}
+
+.depreciation-page .lives .depth-4 {
+  padding-inline-start: var(--space-10);
+}
+
+/* A heading row has no life of its own. */
+.depreciation-page .lives .is-heading th {
+  color: var(--colour-ink-mid);
+}
+
+/* Where a row sits, and a note that a capped life is available, each on its own line
+   under the description. */
+.depreciation-page .asset-place,
+.depreciation-page .asset-mark {
+  display: block;
+  margin-top: var(--space-1);
+  color: var(--colour-ink-soft);
+  font-size: var(--text-small);
+  font-weight: 400;
+}
+
+.depreciation-page .asset-mark {
+  color: var(--colour-stamp-strong);
+}
+
+.depreciation-page .lives-group {
+  margin-block: var(--space-6);
+}
+
+.depreciation-page .lives-group > .button {
+  margin-top: var(--space-4);
+}
+
+.depreciation-page #finder-status {
+  margin-top: var(--space-4);
+  font-weight: 600;
+}
+
+/* Browse: an industry opens to its sub-industries, each of which opens to its rows. */
+.depreciation-page #browse-tables details {
+  border-bottom: var(--rule-thin) solid var(--colour-rule);
+}
+
+.depreciation-page #browse-tables summary {
+  padding-block: var(--space-3);
+  cursor: pointer;
+}
+
+.depreciation-page #browse-tables details details {
+  margin-inline-start: var(--space-5);
+}
+
+.depreciation-page #browse-tables details details:last-child {
+  border-bottom: 0;
+}
