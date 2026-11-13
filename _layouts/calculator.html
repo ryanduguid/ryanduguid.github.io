@@ -54,7 +54,7 @@
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
         {% assign published = page.date_published | default: "2026-09-20" %}{% assign boundary = site.data.calculator_cases[page.calculator] %}
-        <p class="page-meta">Published {{ published | date: "%-d %B %Y" }}. Last checked <time datetime="{{ boundary.checked }}">{{ boundary.checked | date: "%-d %B %Y" }}</time>.{% unless page.date_published %} Boundary cases added 5 November 2026.{% endunless %}</p>
+        <p class="page-meta">Published {{ published | date: "%-d %B %Y" }}. {% if boundary.checked %}Last checked <time datetime="{{ boundary.checked }}">{{ boundary.checked | date: "%-d %B %Y" }}</time>{% else %}Last reviewed 27 September 2026{% endif %}.{% unless page.date_published %} Boundary cases added 5 November 2026.{% endunless %}</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.</p></noscript>

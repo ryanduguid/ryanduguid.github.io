@@ -2101,8 +2101,9 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
         &contracts::check_calculator_dates(root()).unwrap(),
     );
     let gst = "tools/business-calculators/gst/index.html";
-    let loan = "tools/business-calculators/loan/index.html";
+    let margin = "tools/business-calculators/margin/index.html";
     let hub = contracts::CALCULATOR_HUB_REL;
+    let gst_header = r#"Last checked <time datetime="2026-11-13">13 November 2026</time>"#;
     for (label, rel, old, new, expected) in [
         (
             "a source read after the check",
@@ -2112,18 +2113,53 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
             "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is older than 'read 14 November 2026'",
         ),
         (
+            "a check with no source read that day",
+            gst,
+            "read 13 November 2026",
+            "read 12 November 2026",
+            "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is newer than its newest source read, 2026-11-12",
+        ),
+        (
             "an official comparison after the check",
-            loan,
-            "Official comparison on 5 November 2026",
-            "Official comparison on 6 November 2026",
-            "tools/business-calculators/loan/index.html: Last checked 2026-11-05 is older than 'Official comparison on 6 November 2026'",
+            margin,
+            "Official comparison on 13 November 2026",
+            "Official comparison on 14 November 2026",
+            "tools/business-calculators/margin/index.html: Last checked 2026-11-13 is older than 'Official comparison on 14 November 2026'",
+        ),
+        (
+            "a source read on a page without a check",
+            gst,
+            gst_header,
+            "Last reviewed 27 September 2026",
+            "tools/business-calculators/gst/index.html: states 'read 13 November 2026' but shows no Last checked date",
+        ),
+        (
+            "a page header without a date",
+            gst,
+            gst_header,
+            "",
+            "tools/business-calculators/gst/index.html: expected one Last checked or Last reviewed date in the page header, found 0",
+        ),
+        (
+            "an invalid check date",
+            gst,
+            r#"<time datetime="2026-11-13">"#,
+            r#"<time datetime="2026-11-31">"#,
+            r#"tools/business-calculators/gst/index.html: invalid Last checked date "2026-11-31""#,
+        ),
+        (
+            "a dateModified before the check",
+            gst,
+            r#""dateModified": "2026-11-13""#,
+            r#""dateModified": "2026-11-12""#,
+            "tools/business-calculators/gst/index.html: dateModified 2026-11-12 is older than Last checked 2026-11-13",
         ),
         (
             "a hub checked before a calculator",
             hub,
             r#"Last checked <time datetime="2026-11-13">"#,
             r#"Last checked <time datetime="2026-09-27">"#,
-            "tools/business-calculators/index.html: Last checked is older than tools/business-calculators/cash/index.html's 2026-11-13",
+            "tools/business-calculators/index.html: Last checked is not the newest calculator check, 2026-11-13",
         ),
         (
             "a hub modified before a calculator",
@@ -2131,6 +2167,20 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
             r#""dateModified": "2026-11-13""#,
             r#""dateModified": "2026-09-27""#,
             "tools/business-calculators/index.html: dateModified 2026-09-27 is older than tools/business-calculators/break-even/index.html's 2026-11-13",
+        ),
+        (
+            "a calculator missing from the hub",
+            hub,
+            r#"href="/tools/business-calculators/div7a/""#,
+            r#"href="/tools/business-calculators/div7b/""#,
+            "tools/business-calculators/div7a/index.html: not listed on tools/business-calculators/index.html",
+        ),
+        (
+            "a hub entry without a page",
+            hub,
+            r#"href="/tools/business-calculators/div7a/""#,
+            r#"href="/tools/business-calculators/div7b/""#,
+            "tools/business-calculators/index.html: lists /tools/business-calculators/div7b/, which has no page",
         ),
     ] {
         let site = copied_site();
