@@ -153,6 +153,7 @@ function group(title, found) {
   /** Sections whose note this group has shown. @type {Set<string>} */
   const notes = new Set();
   const show = () => {
+    const first = body.children.length;
     const next = found.slice(shown, shown + SHOWN);
     body.append(...next.map((entry) => {
       const key = `${entry.division}/${entry.section}`;
@@ -163,8 +164,16 @@ function group(title, found) {
     shown += next.length;
     more.hidden = shown >= found.length;
     more.textContent = `Show ${Math.min(SHOWN, found.length - shown)} more of ${title}`;
+    return body.children[first]?.querySelector('th');
   };
-  more.addEventListener('click', show);
+  // Focus follows to the first new row, so it is not lost when the last press hides the button.
+  more.addEventListener('click', () => {
+    const header = show();
+    if (header instanceof HTMLElement) {
+      header.tabIndex = -1;
+      header.focus();
+    }
+  });
   show();
   return el('section', { class: 'lives-group' }, el('h3', {}, title), table, more);
 }
@@ -194,7 +203,12 @@ function drawResults() {
     : `No row matches ‘${query}’${where}. Try fewer or different words, or browse the tables below.`;
   const groupA = inA.length ? group(division ? `${sentence(division)} (Table A)` : 'Listed for an industry (Table A)', inA) : null;
   const groupB = inB.length ? group('Used across industries (Table B)', inB) : null;
-  // Section 6 of the determination: the industry's own rows first, then Table B.
+  // Section 6 of the determination: the industry's own rows first, then Table B. With no
+  // industry chosen Table B leads, so the reader is told which table takes priority.
+  if (!division && groupA && groupB) {
+    results.append(el('p', { class: 'field-note' },
+      'A row for your industry in Table A comes before a Table B row for the same asset (section 6). Choose your industry to see its rows first.'));
+  }
   for (const part of division ? [groupA, groupB] : [groupB, groupA]) if (part) results.append(part);
 }
 

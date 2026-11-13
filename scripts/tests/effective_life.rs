@@ -595,7 +595,8 @@ fn committed_rows_equal_rows_read_from_the_authorised_pdf() {
             "*#",
             Some("2002-07-01"),
         ),
-        // Page 117: the PDF sets both under 'Compressor assets:'.
+        // Page 117: both are rows of 'Compressor assets:', which the PDF, like the EPUB,
+        // indents two levels below it.
         ("Compressor assets:", 1, None, "", None),
         (
             "Air filtering units (incorporating filters and housing filters)",

@@ -24,13 +24,14 @@ pub const DATA_REL: &str = "tools/depreciation-rates/effective-life.json";
 const INDENT_PT: f64 = 14.175;
 /// The deepest nesting the tables use below a top-level description.
 const MAX_DEPTH: u8 = 4;
-/// Rows whose nesting in the EPUB text differs from the authorised PDF of the 2025
-/// instrument: the description, the nesting the text gives and the nesting the PDF shows.
-/// The first two sit two levels under 'Compressor assets:' in the text and are its rows;
-/// the third is a sibling of 'General plant', not under it. A row applies only whilst the
-/// text still gives the nesting listed, so a corrected source is read as it stands. Any
-/// other row nested more than one level below the row above it fails the build, because
-/// that is also what a misread indent looks like.
+/// Rows the EPUB text of the 2025 instrument nests one level too deep: the description,
+/// the nesting the text gives and the nesting recorded. The first two are indented two
+/// levels under 'Compressor assets:', in the authorised PDF as well, and are recorded as
+/// its rows, the only reading that leaves no level empty. The third is set under 'General
+/// plant' in the EPUB only; the authorised PDF shows it as a sibling. A row applies only
+/// whilst the text still gives the nesting listed, so a corrected source is read as it
+/// stands. Any other row nested more than one level below the row above it fails the
+/// build, because that is also what a misread indent looks like.
 const NESTING_CORRECTIONS: [(&str, u8, u8); 3] = [
     (
         "Air filtering units (incorporating filters and housing filters)",

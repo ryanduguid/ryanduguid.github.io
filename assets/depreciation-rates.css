@@ -2,7 +2,7 @@
    SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0 */
 
 /* Depreciation rates page: the tables of effective lives in the search results and the
-   browse view. Every colour and length is a token from tokens.css. */
+   browse view. Colours and spacing are tokens from tokens.css. */
 
 /* Sections are ruled off and spaced as the site's article sections are; the first follows
    the header's own rule. */
@@ -119,6 +119,23 @@
 
   .depreciation-page .lives tbody td:empty {
     display: none;
+  }
+
+  /* Half the indent of a wide screen, so a deeply nested description keeps its room. */
+  .depreciation-page .lives .depth-1 {
+    padding-inline-start: var(--space-3);
+  }
+
+  .depreciation-page .lives .depth-2 {
+    padding-inline-start: var(--space-5);
+  }
+
+  .depreciation-page .lives .depth-3 {
+    padding-inline-start: var(--space-7);
+  }
+
+  .depreciation-page .lives .depth-4 {
+    padding-inline-start: var(--space-8);
   }
 
   .depreciation-page .lives td[data-label]::before {

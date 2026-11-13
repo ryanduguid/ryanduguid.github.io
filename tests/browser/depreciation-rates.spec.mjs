@@ -74,6 +74,10 @@ test('long result lists are drawn 40 rows at a time', async ({ page }) => {
   await expect(group.locator('tbody tr')).toHaveCount(40);
   await group.getByRole('button', { name: /^Show 40 more/ }).click();
   await expect(group.locator('tbody tr')).toHaveCount(80);
+  // Focus goes to the first new row, so the last press, which hides the button, does not lose it.
+  await expect(group.locator('tbody tr').nth(40).getByRole('rowheader')).toBeFocused();
+  // With no industry chosen, the reader is told that an industry's row comes first.
+  await expect(page.locator('#finder-results > p.field-note')).toContainText('Choose your industry to see its rows first.');
 });
 
 test('a row sends its life to the calculator, which works the ATO photocopier example', async ({ page }) => {
