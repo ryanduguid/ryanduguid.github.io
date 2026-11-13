@@ -8,6 +8,13 @@
   <updated>2026-11-14T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new depreciation rates page searches and lists the 7,430 effective lives in…</title>
+    <link href="https://duguid.com.au/changelog/#entry-b13840e644accbdf" />
+    <id>https://duguid.com.au/changelog/#entry-b13840e644accbdf</id>
+    <updated>2026-11-14T00:00:00Z</updated>
+    <summary>A new depreciation rates page searches and lists the 7,430 effective lives in the Commissioner of Taxation’s 2025 determination, registered on 15 September 2025 and read on 13 November 2026. Each row shows the life, the prime cost and diminishing value rates it gives and the date it was last set, and a calculator works out a year’s decline in value from a cost, a life and a start date. The tables are also published as a JSON file with their source and the date it was read.</summary>
+  </entry>
+  <entry>
     <title>A new Payday Super business days page lists the 17 weekdays from 1 July 2026 to…</title>
     <link href="https://duguid.com.au/changelog/#entry-0f984cfed6ff09c8" />
     <id>https://duguid.com.au/changelog/#entry-0f984cfed6ff09c8</id>
