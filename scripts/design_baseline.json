@@ -146,6 +146,9 @@
     "tools/company-tax-franking/index.html": [
       "8de5b99aaef6ecb86e6698d7c0bb09e28fb65223c0979d57ffc43e0c9e5deaad"
     ],
+    "tools/depreciation-rates/index.html": [
+      "e685892aaff73bb6f50e3787560285422ad65e14aa9b5b2dcf6db7f4890db186"
+    ],
     "tools/index.html": [
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
     ],
@@ -211,9 +214,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "33a60a20b01c0735bda7a42144e850123ea892d59b893ecca577ff5f1c2fee63",
+    "llms.txt": "8ccec7d594dcc7040c642a7b52f514a5ef4fb171d469c1493f696472c2c014da",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
-    "sitemap.xml": "11471b8126221f27d87b6664bfd1bbaa740e7134711dbbd7c1ab180ae1b1f375"
+    "sitemap.xml": "346d3d3ebf882766717e2d3a2c19355eedd53b5414ea351addf1eb3572183d39"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -273,7 +276,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 67,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 68,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
