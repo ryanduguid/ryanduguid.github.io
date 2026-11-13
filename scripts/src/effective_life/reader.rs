@@ -52,91 +52,7 @@ impl Reader<'_> {
         for (index, row) in rows.iter().enumerate() {
             let place = format!("table {number} row {}", index + 1);
             self.counts(table).source_rows += 1;
-            // Only <td> cells are read, so any other cell's text would be dropped.
-            if let Some(other) = row.children().find(|n| n.is_element() && !is(*n, "td")) {
-                let name = other.tag_name().name();
-                self.fail(
-                    &place,
-                    &format!("a row holds a {name} element, not only td cells"),
-                );
-                continue;
-            }
-            let cells: Vec<Node<'_, '_>> = row.children().filter(|n| is(*n, "td")).collect();
-            if cells.iter().any(|cell| cell.attribute("rowspan").is_some()) {
-                self.fail(&place, "a cell spans rows");
-                continue;
-            }
-            let mut texts: Vec<String> = cells.iter().map(|c| cell_text(*c)).collect();
-            // Text is read from paragraphs, so text anywhere else in a cell would be dropped.
-            let squeezed = |text: &str| text.split_whitespace().collect::<String>();
-            if cells
-                .iter()
-                .zip(&texts)
-                .any(|(cell, text)| squeezed(&clean(&node_text(*cell))) != squeezed(text))
-            {
-                self.fail(&place, "a cell holds text outside a paragraph");
-                continue;
-            }
-            if texts.iter().all(String::is_empty) {
-                self.counts(table).blank_rows += 1;
-                continue;
-            }
-            // A heading is one cell across the table; the source sometimes leaves an empty
-            // cell beside it.
-            let spanning = cells.len() == 2 && cells[0].attribute("colspan").is_some();
-            if cells.len() == 1 || (spanning && texts[1].is_empty()) {
-                if let Some(note) = texts[0].strip_prefix("Note:") {
-                    self.counts(table).notes += 1;
-                    if let Some(earlier) = self.note.replace(note.trim().to_owned()) {
-                        self.fail(&place, &format!("note {earlier} has no heading after it"));
-                    }
-                    continue;
-                }
-                self.counts(table).headings += 1;
-                self.heading(table, &texts[0], rows.len() == 1, &place);
-                headed = true;
-                continue;
-            }
-            // Some tables carry a fifth, empty column, which a date may span; a cell spanning
-            // anything else would move the cells after it.
-            if let Some((index, span)) = cells.iter().enumerate().find_map(|(index, cell)| {
-                let span = cell.attribute("colspan")?;
-                (index != 3 || cells.len() != 4 || span != "2").then_some((index, span))
-            }) {
-                self.fail(&place, &format!("cell {} spans {span} columns", index + 1));
-                continue;
-            }
-            if texts.len() == 5 && texts[4].is_empty() {
-                texts.pop();
-            }
-            if texts.len() != 4 {
-                self.fail(&place, &format!("{} cells, not 4", texts.len()));
-                continue;
-            }
-            if texts[0].eq_ignore_ascii_case("ASSET") {
-                self.counts(table).column_headers += 1;
-                let rest = [&texts[1], &texts[2], &texts[3]].map(|t| t.to_ascii_uppercase());
-                let known = rest[0].replace(' ', "") == "LIFE(INYEARS)"
-                    && (rest[1] == "REVIEWED" || rest[1] == "REVIEW")
-                    && rest[2] == "LAST UPDATED";
-                if !known {
-                    self.fail(&place, &format!("column header {}", texts.join(" | ")));
-                }
-                continue;
-            }
-            self.counts(table).rows += 1;
-            if texts[0].is_empty() {
-                self.fail(
-                    &place,
-                    &format!("a row with no description in {}", texts.join(" | ")),
-                );
-                continue;
-            }
-            match data_row(&cells, &texts) {
-                Ok(row) => self.push(table, row, headed, &place),
-                Err(message) => self.fail(&place, &format!("{message} in {}", texts.join(" | "))),
-            }
-            headed = true;
+            headed |= self.row(table, *row, rows.len() == 1, headed, &place);
         }
         if let Some(note) = self.note.take() {
             self.fail(
@@ -146,63 +62,179 @@ impl Reader<'_> {
         }
     }
 
+    /// One `<tr>`. True when it is a heading or a data row, which the rows after it sit under.
+    fn row(
+        &mut self,
+        table: Table,
+        row: Node<'_, '_>,
+        alone: bool,
+        headed: bool,
+        place: &str,
+    ) -> bool {
+        let Some((cells, mut texts)) = self.cells(row, place) else {
+            return false;
+        };
+        if texts.iter().all(String::is_empty) {
+            self.counts(table).blank_rows += 1;
+            return false;
+        }
+        // A heading is one cell across the table; the source sometimes leaves an empty
+        // cell beside it.
+        let spanning = cells.len() == 2 && cells[0].attribute("colspan").is_some();
+        if cells.len() == 1 || (spanning && texts[1].is_empty()) {
+            return self.lone_cell(table, &texts[0], alone, place);
+        }
+        if let Some((index, span)) = stray_span(&cells) {
+            self.fail(place, &format!("cell {} spans {span} columns", index + 1));
+            return false;
+        }
+        if texts.len() == 5 && texts[4].is_empty() {
+            texts.pop();
+        }
+        if texts.len() != 4 {
+            self.fail(place, &format!("{} cells, not 4", texts.len()));
+            return false;
+        }
+        if texts[0].eq_ignore_ascii_case("ASSET") {
+            self.column_header(table, &texts, place);
+            return false;
+        }
+        self.counts(table).rows += 1;
+        if texts[0].is_empty() {
+            let shown = texts.join(" | ");
+            self.fail(place, &format!("a row with no description in {shown}"));
+            return false;
+        }
+        match data_row(&cells, &texts) {
+            Ok(row) => self.push(table, row, headed, place),
+            Err(message) => self.fail(place, &format!("{message} in {}", texts.join(" | "))),
+        }
+        true
+    }
+
+    /// The row's `<td>` cells and their text, or `None` once the reason it cannot be read
+    /// is recorded.
+    fn cells<'a, 'i>(
+        &mut self,
+        row: Node<'a, 'i>,
+        place: &str,
+    ) -> Option<(Vec<Node<'a, 'i>>, Vec<String>)> {
+        // Only <td> cells are read, so any other cell's text would be dropped.
+        if let Some(other) = row.children().find(|n| n.is_element() && !is(*n, "td")) {
+            let name = other.tag_name().name();
+            self.fail(
+                place,
+                &format!("a row holds a {name} element, not only td cells"),
+            );
+            return None;
+        }
+        let cells: Vec<Node<'a, 'i>> = row.children().filter(|n| is(*n, "td")).collect();
+        if cells.iter().any(|cell| cell.attribute("rowspan").is_some()) {
+            self.fail(place, "a cell spans rows");
+            return None;
+        }
+        let texts: Vec<String> = cells.iter().map(|c| cell_text(*c)).collect();
+        // Text is read from paragraphs, so text anywhere else in a cell would be dropped.
+        let squeezed = |text: &str| text.split_whitespace().collect::<String>();
+        if cells
+            .iter()
+            .zip(&texts)
+            .any(|(cell, text)| squeezed(&clean(&node_text(*cell))) != squeezed(text))
+        {
+            self.fail(place, "a cell holds text outside a paragraph");
+            return None;
+        }
+        Some((cells, texts))
+    }
+
+    /// A row of one cell: a note for the next heading, or a heading. True for a heading.
+    fn lone_cell(&mut self, table: Table, text: &str, alone: bool, place: &str) -> bool {
+        if let Some(note) = text.strip_prefix("Note:") {
+            self.counts(table).notes += 1;
+            if let Some(earlier) = self.note.replace(note.trim().to_owned()) {
+                self.fail(place, &format!("note {earlier} has no heading after it"));
+            }
+            return false;
+        }
+        self.counts(table).headings += 1;
+        self.heading(table, text, alone, place);
+        true
+    }
+
+    fn column_header(&mut self, table: Table, texts: &[String], place: &str) {
+        self.counts(table).column_headers += 1;
+        let rest = [&texts[1], &texts[2], &texts[3]].map(|t| t.to_ascii_uppercase());
+        let known = rest[0].replace(' ', "") == "LIFE(INYEARS)"
+            && (rest[1] == "REVIEWED" || rest[1] == "REVIEW")
+            && rest[2] == "LAST UPDATED";
+        if !known {
+            self.fail(place, &format!("column header {}", texts.join(" | ")));
+        }
+    }
+
     fn heading(&mut self, table: Table, text: &str, alone: bool, place: &str) {
         match table {
-            Table::A => {
-                let Some((heading, anzsic)) = split_heading(text) else {
-                    return self.fail(place, &format!("heading {text} has no ANZSIC codes"));
-                };
-                // A division's heading is in capitals and alone in its table; a section's
-                // is neither. A blank row beside a division heading must not demote it.
-                if alone == heading.chars().any(char::is_lowercase) {
-                    return self.fail(
-                        place,
-                        &format!("heading {text}: only a division heading is in capitals and alone in its table"),
-                    );
-                }
-                if alone {
-                    self.divisions.push(Division {
-                        heading,
-                        anzsic,
-                        sections: Vec::new(),
-                    });
-                } else {
-                    let note = self.note.take();
-                    match self.sections(table) {
-                        Some(sections) => sections.push(Section {
-                            heading: Some(heading),
-                            anzsic: Some(anzsic),
-                            note,
-                            rows: Vec::new(),
-                        }),
-                        None => {
-                            self.fail(place, &format!("heading {text} comes before any division"));
-                        }
-                    }
-                }
-            }
-            Table::B => {
-                let letter = text.len() == 1 && text.bytes().all(|b| b.is_ascii_uppercase());
-                if alone || !letter {
-                    return self.fail(place, &format!("Table B heading {text} is not a letter"));
-                }
-                // The letters run in order, so one that does not is some other table.
-                if let Some(last) = self.letters.last().and_then(|s| s.heading.clone())
-                    && last.as_str() >= text
-                {
-                    return self.fail(
-                        place,
-                        &format!("Table B heading {text} does not follow {last}"),
-                    );
-                }
-                self.letters.push(Section {
-                    heading: Some(text.to_owned()),
-                    anzsic: None,
-                    note: self.note.take(),
-                    rows: Vec::new(),
-                });
+            Table::A => self.heading_a(text, alone, place),
+            Table::B => self.heading_b(text, alone, place),
+        }
+    }
+
+    fn heading_a(&mut self, text: &str, alone: bool, place: &str) {
+        let Some((heading, anzsic)) = split_heading(text) else {
+            return self.fail(place, &format!("heading {text} has no ANZSIC codes"));
+        };
+        // A division's heading is in capitals and alone in its table; a section's
+        // is neither. A blank row beside a division heading must not demote it.
+        if alone == heading.chars().any(char::is_lowercase) {
+            return self.fail(
+                place,
+                &format!(
+                    "heading {text}: only a division heading is in capitals and alone in its table"
+                ),
+            );
+        }
+        if alone {
+            self.divisions.push(Division {
+                heading,
+                anzsic,
+                sections: Vec::new(),
+            });
+            return;
+        }
+        let note = self.note.take();
+        match self.sections(Table::A) {
+            Some(sections) => sections.push(Section {
+                heading: Some(heading),
+                anzsic: Some(anzsic),
+                note,
+                rows: Vec::new(),
+            }),
+            None => {
+                self.fail(place, &format!("heading {text} comes before any division"));
             }
         }
+    }
+
+    fn heading_b(&mut self, text: &str, alone: bool, place: &str) {
+        let letter = text.len() == 1 && text.bytes().all(|b| b.is_ascii_uppercase());
+        if alone || !letter {
+            return self.fail(place, &format!("Table B heading {text} is not a letter"));
+        }
+        // The letters run in order, so one that does not is some other table.
+        if let Some(last) = self.letters.last().and_then(|s| s.heading.clone())
+            && last.as_str() >= text
+        {
+            return self.fail(
+                place,
+                &format!("Table B heading {text} does not follow {last}"),
+            );
+        }
+        self.letters.push(Section {
+            heading: Some(text.to_owned()),
+            anzsic: None,
+            note: self.note.take(),
+            rows: Vec::new(),
+        });
     }
 
     fn push(&mut self, table: Table, row: Row, headed: bool, place: &str) {
@@ -246,6 +278,15 @@ impl Reader<'_> {
             self.corrected[index] += 1;
         }
     }
+}
+
+/// A cell that spans columns, other than a date across the fifth, empty column that some
+/// tables carry. Such a cell would move the cells after it.
+fn stray_span<'a>(cells: &[Node<'a, '_>]) -> Option<(usize, &'a str)> {
+    cells.iter().enumerate().find_map(|(index, cell)| {
+        let span = cell.attribute("colspan")?;
+        (index != 3 || cells.len() != 4 || span != "2").then_some((index, span))
+    })
 }
 
 /// The tables of Schedule 2 with `corrections` applied (the build uses
