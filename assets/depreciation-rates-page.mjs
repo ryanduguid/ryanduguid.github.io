@@ -294,6 +294,20 @@ function recordSearch() {
   history.replaceState(null, '', `${location.pathname}${query ? `?${query}` : ''}${location.hash}`);
 }
 
+/** The year-by-year table in its scrollable region. @param {ReturnType<typeof schedule>} lines @param {string} caption */
+function scheduleTable(lines, caption) {
+  const head = el('tr', {}, ...['Income year', 'Days held', 'Opening value', 'Decline in value', 'Closing value']
+    .map((name) => el('th', { scope: 'col' }, name)));
+  const body = lines.map((line) => el('tr', {},
+    el('th', { scope: 'row' }, incomeYear(line.yearEnd)),
+    el('td', {}, String(line.days)),
+    el('td', {}, formatCents(line.opening)),
+    el('td', {}, formatCents(line.deduction)),
+    el('td', {}, formatCents(line.closing))));
+  return el('div', { class: 'table-scroll', role: 'region', 'aria-label': caption, tabindex: '0' },
+    el('table', { class: 'facts facts--figures' }, el('caption', {}, caption), el('thead', {}, head), el('tbody', {}, ...body)));
+}
+
 function drawSchedule() {
   const controls = [costInput, lifeInput, startInput, yearInput];
   for (const control of controls) {
@@ -331,15 +345,7 @@ function drawSchedule() {
   const working = method === 'prime-cost'
     ? `Prime cost: cost × days held ÷ 365 × 100% ÷ ${lifeInput.value.trim()} years (${rate.primeCost} a year), and no more than the value left.`
     : `Diminishing value: opening value × days held ÷ 365 × 200% ÷ ${lifeInput.value.trim()} years (${rate.diminishingValue} a year).`;
-  const head = el('tr', {}, ...['Income year', 'Days held', 'Opening value', 'Decline in value', 'Closing value']
-    .map((name) => el('th', { scope: 'col' }, name)));
-  const body = lines.map((line) => el('tr', {},
-    el('th', { scope: 'row' }, incomeYear(line.yearEnd)),
-    el('td', {}, String(line.days)),
-    el('td', {}, formatCents(line.opening)),
-    el('td', {}, formatCents(line.deduction)),
-    el('td', {}, formatCents(line.closing))));
-  const caption = `Decline in value by income year, ${method === 'prime-cost' ? 'prime cost' : 'diminishing value'}`;
+  const caption =`Decline in value by income year, ${method === 'prime-cost' ? 'prime cost' : 'diminishing value'}`;
   // Section 40-95(2): the life is the one in force when the asset was acquired, which a
   // life set after the start date may not be.
   const later = chosen?.updated && lifeInput.value.trim() === chosen.life && startInput.value < chosen.updated
@@ -351,10 +357,7 @@ function drawSchedule() {
     el('div', { class: 'result-row' }, el('span', {}, `Value left at 30 June ${last.yearEnd}`), el('strong', {}, formatCents(last.closing))),
     el('p', { class: 'field-note' }, working),
   );
-  scheduleBox.replaceChildren(
-    el('div', { class: 'table-scroll', role: 'region', 'aria-label': caption, tabindex: '0' },
-      el('table', { class: 'facts facts--figures' }, el('caption', {}, caption), el('thead', {}, head), el('tbody', {}, ...body))),
-  );
+  scheduleBox.replaceChildren(scheduleTable(lines, caption));
 }
 
 deduction.addEventListener('submit', (event) => {

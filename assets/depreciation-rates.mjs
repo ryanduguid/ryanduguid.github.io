@@ -77,6 +77,19 @@ export const SYNONYMS = {
   tv: 'television',
 };
 
+/** The text with each stretch from a '(' to the next ')' replaced by a space. @param {string} text */
+function outsideBrackets(text) {
+  let kept = '';
+  let from = 0;
+  for (;;) {
+    const open = text.indexOf('(', from);
+    const close = open === -1 ? -1 : text.indexOf(')', open);
+    if (close === -1) return kept + text.slice(from);
+    kept += `${text.slice(from, open)} `;
+    from = close + 1;
+  }
+}
+
 /**
  * Every row of both tables in the instrument's order, each with the headings above it.
  * A row with no life is a heading when a deeper row follows it, and otherwise a
@@ -93,15 +106,15 @@ export function flatten(tables) {
     const path = [];
     section.rows.forEach(([asset, depth, life, months, flags, updated], index) => {
       path.length = depth;
-      const next = section.rows[index + 1];
+      const below = index + 1 < section.rows.length ? section.rows[index + 1][1] : 0;
       const name = section.heading ?? '';
       entries.push({
         id: entries.length, table, division, section: name,
         note: section.note, path: [...path], asset, depth, life, months,
         capped: flags.includes('#'), updated,
-        heading: life === null && next !== undefined && next[1] > depth,
+        heading: life === null && below > depth,
         own: terms(asset), above: terms(path.join(' ')), around: terms(`${name} ${division}`),
-        size: words(asset.replace(/\([^)]*\)/g, ' ')).length,
+        size: words(outsideBrackets(asset)).length,
       });
       path[depth] = asset.replace(/:$/, '');
     });
@@ -260,19 +273,19 @@ export function parseCents(text) {
 
 /** Whole cents as dollars: 123456n is '$1,234.56'. @param {bigint} value */
 export function formatCents(value) {
-  const dollars = String(value / 100n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const dollars = (value / 100n).toLocaleString('en-AU');
   return `$${dollars}.${String(value % 100n).padStart(2, '0')}`;
 }
 
 /** The day number of an ISO date, or NaN when it is not a real date. @param {string} iso */
 function dayNumber(iso) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
-  if (!match) return NaN;
+  if (!match) return Number.NaN;
   const [year, month, day] = match.slice(1).map(Number);
   const time = Date.UTC(year, month - 1, day);
   const date = new Date(time);
   const real = date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
-  return real ? time / 86_400_000 : NaN;
+  return real ? time / 86_400_000 : Number.NaN;
 }
 
 /**
