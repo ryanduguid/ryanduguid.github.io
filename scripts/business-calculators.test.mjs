@@ -378,6 +378,50 @@ test('Division 7A years and rates are the rate table rows, newest first', () => 
   assert.deepEqual(options, table);
 });
 
+// The values each form opens with, read from its include: an input's value or
+// checked state, and a select's selected option (else its first).
+const formDefaults = (html) => {
+  const fields = {};
+  for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
+    const name = tag.match(/\bname="([^"]+)"/)?.[1];
+    if (name) fields[name] = /\btype="checkbox"/.test(tag) ? /\bchecked\b/.test(tag) : tag.match(/\bvalue="([^"]*)"/)?.[1];
+  }
+  for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
+    const options = [...body.matchAll(/<option\b([^>]*)>/g)].map(([, attributes]) => attributes);
+    fields[name] = (options.find((attributes) => /\bselected\b/.test(attributes)) ?? options[0]).match(/\bvalue="([^"]*)"/)[1];
+  }
+  return fields;
+};
+// The Division 7A form passes the chosen year's rate from its option; the test above binds the
+// options to this table.
+const div7aRates = Object.fromEntries(
+  readFileSync(new URL('../rates/div7a-benchmark-rate/div7a-benchmark-rates.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).slice(1).map((line) => line.split(',').slice(0, 2)));
+// How assets/accounting-pages.mjs passes each form's fields to its calculation.
+const FORM_CALLS = {
+  gst: (f) => [f.amount, f.inclusive],
+  businessUse: (f) => [f.cost, f.percent],
+  margin: (f) => [f.sales, f.cost],
+  breakEven: (f) => [f.fixed, f.price, f.variable],
+  hourlyRate: (f) => [f.cost, f.profit, f.hours],
+  variance: (f) => [f.actual, f.budget, f.kind],
+  loan: (f) => [f.principal, f.rate, f.months],
+  div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],
+  staffCost: (f) => [f.wages, f.super, f.other],
+  cashForecast: (f) => [f.opening,
+    Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
+    f.buffer, { week: Number(f.week), amount: f.amount, delay: Number(f.delay) }],
+};
+
+for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
+  test(`${page} opens on its first boundary case as the fictional example`, () => {
+    const html = readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8');
+    assert.equal(first.refused, undefined);
+    assert.deepEqual(FORM_CALLS[name](formDefaults(html)), first.call);
+    assert.equal(html.match(/\{% include calculator-example\.html /g)?.length, 1);
+  });
+}
+
 test('blank, non-finite, over-precise and unsafe amounts cannot become a zero result', () => {
   for (const value of ['', ' ', 'NaN', 'Infinity', '1e10', '100.001', '-1', '1000000001', null]) {
     assert.throws(() => gst(value, false), String(value));

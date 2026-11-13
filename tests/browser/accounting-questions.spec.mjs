@@ -18,7 +18,10 @@ for (const module of ['business-calculators', 'field-errors']) {
     await retry.click();
     await expect(retry).toBeEnabled();
     await expect(retry).toBeFocused();
-    await page.locator('#gst input[name=amount]').evaluate(input => { input.value = '100'; });
+    await page.locator('#gst input[name=amount]').evaluate(input => {
+      input.value = '100';
+      input.form.elements.namedItem('inclusive').checked = false;
+    });
     await page.unroute(moduleRoute);
     await retry.click();
     await expect(page.locator('#gst input[name=amount]')).toBeEnabled();
@@ -36,6 +39,8 @@ test('an invalid business calculator field gets an inline instruction and focus'
   const form = page.locator('#gst form');
   const amount = form.locator('input[name=amount]');
   const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await form.getByLabel('Amount includes GST').uncheck();
+  await amount.fill('');
   await calculate.click();
   await expect(amount).toHaveAttribute('aria-invalid', 'true');
   await expect(amount).toBeFocused();
@@ -60,6 +65,7 @@ test('an inline error leaves the field beside it in place', async ({ page }) => 
   const form = page.locator('#gst form');
   const amount = form.locator('label.field');
   const inclusive = form.locator('.check-field');
+  await amount.locator('input').fill('');
   const field = await amount.boundingBox();
   const before = await inclusive.boundingBox();
   // At this width the checkbox shares the amount's row.
@@ -187,6 +193,8 @@ test('cash inputs survive a save and reload with dated results', async ({ page }
   await form.getByLabel('Week 1 payments', { exact: true }).fill('300');
   await form.getByLabel('Receipt to delay (AUD)').fill('1000');
   await form.getByLabel('Delay in whole weeks').fill('2');
+  await form.getByLabel('Original receipt week').fill('1');
+  await form.getByLabel('Week 13 receipts', { exact: true }).fill('0');
   const download = page.waitForEvent('download');
   await form.getByRole('button', { name: 'Save inputs' }).click();
   const saved = await download;
@@ -319,6 +327,8 @@ test('cash scenario exports delayed receipts and reports the funding gap offline
   await form.getByLabel('First day of week 1').fill('2026-09-28');
   await form.getByLabel('Opening bank balance (AUD)').fill('200');
   await form.getByLabel('Minimum cash buffer (AUD)').fill('100');
+  await form.getByLabel('Original receipt week').fill('1');
+  await form.getByLabel('Week 13 receipts', { exact: true }).fill('0');
   await form.getByLabel('Week 1 receipts', { exact: true }).fill('1000');
   await form.getByLabel('Week 1 payments', { exact: true }).fill('300');
   await form.getByLabel('Receipt to delay (AUD)').fill('1000');
@@ -359,6 +369,7 @@ test('printed business calculator working keeps the boundary and a blank sign-of
   await page.goto('/tools/business-calculators/gst/');
   const form = page.locator('#gst form');
   await form.getByLabel('Amount (AUD)').fill('110');
+  await form.getByLabel('Amount includes GST').uncheck();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await page.emulateMedia({ media: 'print' });
   await expect(form.locator('output')).toContainText('GST: $11.00');
@@ -377,10 +388,10 @@ test('printed business calculator working keeps the boundary and a blank sign-of
 // The calculator pages invite readers to disconnect once the page has loaded,
 // so every calculation here runs with the browser offline.
 for (const [id, inputs, expected] of [
-  ['gst', { amount: '100' }, 'GST: $10.00'],
-  ['business-use', { cost: '20.15', percent: '50' }, '$10.08'],
+  ['gst', { amount: '220' }, 'GST: $20.00'],
+  ['business-use', { cost: '2000', percent: '35' }, '$700.00'],
   ['margin', { sales: '150', cost: '100' }, 'Margin: 33.33%'],
-  ['break-even', { fixed: '1000', price: '30', variable: '18' }, '84 whole units'],
+  ['break-even', { fixed: '12000', price: '80', variable: '50' }, '400 whole units'],
   ['hourly', { cost: '80000', profit: '20000', hours: '1000' }, '$100.00'],
   ['variance', { actual: '120', budget: '100', kind: 'cost' }, 'Unfavourable'],
   ['loan', { principal: '1000', rate: '12', months: '1' }, '$1,010.00'],
@@ -451,6 +462,48 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('.field-error')).toHaveText('Enter 25 or less.');
 });
+
+// Each calculator opens on a fictional example, its first boundary case, already worked.
+const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash'];
+
+test.describe('before any script runs', () => {
+  test.use({ javaScriptEnabled: false });
+  test('every calculator page arrives with a worked example result', async ({ page }) => {
+    for (const id of CALCULATORS) {
+      await page.goto(`/tools/business-calculators/${id}/`);
+      const output = page.locator(`#${id} output`);
+      await expect(output.locator('.result-example'), id).toHaveText(
+        'Fictional example: the first boundary case below. Change the inputs and calculate your own.');
+      await expect(output.locator('.result-row strong').first(), id).toHaveText(/\d/);
+    }
+  });
+});
+
+for (const id of CALCULATORS) {
+  test(`${id} keeps its served example at load, Calculate agrees, and an edit replaces it`, async ({ page }) => {
+    const response = await page.goto(`/tools/business-calculators/${id}/`);
+    const served = (await response.text()).match(/<output aria-live="polite" data-example>([\s\S]*?)<\/output>/)[1];
+    const form = page.locator(`#${id} form`);
+    const output = form.locator('output');
+    await expect(form.locator('fieldset').first()).toBeEnabled();
+    // The scripts leave the served example alone: nothing moves, and the live region has nothing to announce.
+    expect(await output.evaluate((element) => element.innerHTML)).toBe(served);
+    const example = await output.evaluate((element) => {
+      const copy = element.cloneNode(true);
+      copy.querySelector('.result-example').remove();
+      return copy.textContent;
+    });
+    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    await expect(output.locator('.result-example')).toHaveCount(0);
+    // The cash result also names week 1's first day, which the page sets to today.
+    const calculated = await output.evaluate((element) => element.textContent);
+    expect(calculated.replace(/^Inputs: week 1 from [^,]+, /, 'Inputs: ')).toBe(example);
+    await page.reload();
+    await expect(form.locator('fieldset').first()).toBeEnabled();
+    await form.locator('input[type=number]').first().fill('1');
+    await expect(output).toHaveText('Enter the inputs and calculate.');
+  });
+}
 
 test('printing includes selected questions hidden by a filter and restores the screen', async ({ page }) => {
   await page.goto('/tools/accounting-questions/investments-local/#q100');

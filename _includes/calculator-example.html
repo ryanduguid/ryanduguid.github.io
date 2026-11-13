@@ -1,0 +1,14 @@
+{%- comment -%}
+The result a business calculator shows on arrival, in the markup renderResult in
+assets/accounting-pages.mjs writes: the first boundary case in
+_data/calculator_cases.json, worked for the inputs the form opens with. rows is
+"label|figure" pairs separated by ";"; principal is the 0-based index of the row
+to emphasise. The browser suite checks that Calculate gives the same text.
+{%- endcomment -%}
+<output aria-live="polite" data-example><span class="result-inputs result-example"><strong>Fictional example:</strong> the first boundary case below. Change the inputs and calculate your own.</span><span class="result-inputs">Inputs: {{ include.inputs }}.</span><span class="result-rows">
+{%- assign rows = include.rows | split: ";" -%}
+{%- for row in rows -%}
+{%- assign cells = row | split: "|" -%}
+{%- capture index %}{{ forloop.index0 }}{% endcapture %} <span class="result-row{% if index == include.principal %} result-row--principal{% endif %}{% if cells[1] contains " " %} result-row--stacked{% endif %}"><span class="result-label">{{ cells[0] }}</span><span class="visually-hidden">:</span> <strong>{{ cells[1] }}</strong><span class="visually-hidden">.</span></span>
+{%- endfor -%}
+</span>{% if include.note %} <span class="result-note">{{ include.note }}.</span>{% endif %}</output>

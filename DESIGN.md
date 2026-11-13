@@ -595,6 +595,12 @@ business calculator note and the Coal LSL method list invite readers to
 disconnect once the page has loaded and calculate. The browser suite runs
 every calculator offline to keep that invitation true.
 
+Each business calculator opens with its first boundary case filled in and its
+result already shown, labelled as a fictional example (13 November 2026). The
+result is in the served HTML, so it takes its space before any script runs and
+the live region announces nothing on load. The first edit replaces it with
+'Enter the inputs and calculate.'
+
 Tools uses smaller gaps around its introduction and supporting sections to
 keep the task chooser and delivery labels within the existing page-length
 limits. Print mode renders warning text in black.
