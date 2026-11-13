@@ -45,28 +45,28 @@
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "fc67925d32ce1b929db5e2317411cac7867a1912bc90ab1b93d1e759b3f63885"
+      "5a26a44a78628c862047cecd2b2c1af65c77a4fa5b4deb5c238e1b38b88169aa"
     ],
     "rates/car-limit/index.html": [
-      "f49a82be13fa53423ce15318acb5b01bbe09aa24c5a12f7e81dc052ccdb1b6c2"
+      "229b692aa9d83d7bbbda20c29d000436c849bb45566d88a0b8dbb99d40dfdcd5"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "aa1a409bcd7b7c36c8883cc9900707f9094d960c40b2999f57ca49983b35f142"
+      "a92c9c187a24de89610a09a823e2b27999a5c447e7792e9ce8e4c3d230db9713"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "95737055ac21947893922af97ca3a0d5731e4781f21ee785b07c75066b28e1cb"
+      "eb08c85d546565ae9ba370f7d3ebc01c2f555f0302bd08f13157c4bcbd658cd8"
     ],
     "rates/fbt-rate/index.html": [
-      "61e433ff1834f24e0dd8727219b03548272469f335dac370257afe543fc0ec12"
+      "a54c46b17496a7db5df4959f53e7109ba929131bbc746beac866f900900a02a8"
     ],
     "rates/index.html": [
-      "1f838a23f846a30c98dcdce301de4ec299528ce4f0f99961061074b67b71df57"
+      "8e78bc25793066f4f64bb87162b7a108adc2a63de80d3ae3340d296e60f5bef0"
     ],
     "rates/maximum-contribution-base/index.html": [
-      "6bd352496a5c11b60abebea0324b5d91de6b070f461a4eb5c977be99d52ca5ab"
+      "f1c53260e0a21fc501fbef7670893c807c41adf34321b6044011de5d95863a79"
     ],
     "rates/super-guarantee/index.html": [
-      "322d359c2316372d282fbc05143a8ef4b582f0c3378874677f710e7321dffecb"
+      "f6e7ef2e7e594a027c27dc0afd1d2f8201825154a2c3f3be22fdc610da5f2bc8"
     ],
     "tools/accounting-questions/index.html": [
       "71f1cda119cff14f103484d66c812006f6665bbf8912b72d2fd823c64ba43a60"
@@ -148,9 +148,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "49582e41dca5a51e53e36beec0a5eaa9e906cd942de16899e60543df4465ca1b",
+    "llms.txt": "b4e682c32042e0e5a416480712147427d6db982869c74b1849e60459af646428",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
-    "sitemap.xml": "abf6eb497368c1d949f012861d5b761699d7c5c3226a8f6e69b947fa1a934b4b"
+    "sitemap.xml": "bb8d965a847b81faceb23693c1618edcfa073a29d6cddf2d17efe8dfc9690118"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -205,9 +205,9 @@
     ]
   },
   "protected_main_text": {
-    "rates/cents-per-kilometre/index.html": "031cb702b35aef3180d1e0e7c4a74f38b5223b385a7916cde40d7b19107aefa0",
-    "rates/div7a-benchmark-rate/index.html": "6d2758084c4dc41caf096e0db67a948644c72fa4f08535ca7086535168792e99",
-    "rates/super-guarantee/index.html": "814c412393016ec72ac4393832f4365527aa781bd20c5174c10a3452a826047a"
+    "rates/cents-per-kilometre/index.html": "d69f6f15fb527d3d054709ff0a1d9c5c7f8256b6cac6bfd63a4567326b24456f",
+    "rates/div7a-benchmark-rate/index.html": "e43ec3ee38fc94ae198050d97cae921f6fe5e42b0e46f7d0728367b45f4752ce",
+    "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
     "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 65,
