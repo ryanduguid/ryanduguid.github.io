@@ -4447,6 +4447,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+13 November 2026 | Each business calculator now shows its own Last checked date, kept with its boundary cases, in place of one review date shared by all 9; the calculators page shows the newest of them. The GST and cash forecast sources were reread on 13 November 2026 and still support those calculators. The site checks fail if a calculator’s date is older than a source it says it read or its official comparison, or if the calculators page’s dates are older than a calculator’s.
 13 November 2026 | The Aus Accounting MCP, subcontract ledger, Monthly Close Controls and Workpaper Review Gate pages, the homepage and the release record name the current releases: aus-accounting-mcp/v0.8.0 and Australian Accounting Skills v0.6.0, published on 12 November, and monthly-close-control-plane/v1.0.0 and review-ready-gate/v1.0.0, published on 13 November as executables for Linux x86_64 and Windows x86_64, with signed provenance. All 4 move to the Ryan Duguid Public Attribution Licence 1.0. MCP v0.8.0 lists 25 tools, and its searches now match whole words only. Worked examples stay pinned to the releases they were run against.
 4 November 2026 | The Works with Xero guide now names Xero’s hosted Developer Remote MCP Server, which lets an AI agent read and write accounting data without asking the user to confirm, and Xero’s read-only connector in Claude, with the scopes, gaps and plan access Xero’s pages gave on 4 November 2026. It also gives the free Starter developer plan’s limit of 5 organisations at 1,000 API calls a day each and Xero’s exemption for practice integrations. The trial balance exporter is unchanged.
 4 November 2026 | robots.txt now allows every crawler it names, so Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent may crawl the site as GPTBot, ClaudeBot and Applebot-Extended already could; the Privacy page and llms.txt say so. In the structured data, each tool links the LICENSE file of its current release, every page names its author and publisher and matches its visible breadcrumb, the rate tables belong to a Rates data catalogue and each calculator is described as a free web application. Apart from the Privacy crawler summary no visible text changed, and no rate, calculation or release changed.
@@ -5153,7 +5154,7 @@ Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last reviewed 27 September 2026.
+Published 11 September 2026. Last checked 13 November 2026, the newest of the calculators’ dates.
 
 - GST calculator Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 - Business use share calculator Apportion an eligible cost by a supported business use percentage. It does not decide deductibility, depreciation or record sufficiency.
@@ -7700,7 +7701,7 @@ Source: https://duguid.com.au/tools/business-calculators/gst/
 
 Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7758,7 +7759,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-use/
 
 Apportion an eligible cost by its business use share. It does not decide deductibility, depreciation or records.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7815,7 +7816,7 @@ Source: https://duguid.com.au/tools/business-calculators/margin/
 
 Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7869,7 +7870,7 @@ Source: https://duguid.com.au/tools/business-calculators/break-even/
 
 Whole units and sales required to cover fixed costs from price and variable cost per unit.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7922,7 +7923,7 @@ Source: https://duguid.com.au/tools/business-calculators/hourly/
 
 Required hourly rate before GST from annual costs, target profit and billable hours.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -7975,7 +7976,7 @@ Source: https://duguid.com.au/tools/business-calculators/variance/
 
 Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -8036,7 +8037,7 @@ Source: https://duguid.com.au/tools/business-calculators/loan/
 
 Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 5 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -8095,7 +8096,7 @@ Source: https://duguid.com.au/tools/business-calculators/staff/
 
 Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -8151,7 +8152,7 @@ Source: https://duguid.com.au/tools/business-calculators/cash/
 
 Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 

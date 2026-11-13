@@ -8,6 +8,13 @@
   <updated>2026-11-13T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Each business calculator now shows its own Last checked date, kept with its…</title>
+    <link href="https://duguid.com.au/changelog/#entry-53428960321b88c8" />
+    <id>https://duguid.com.au/changelog/#entry-53428960321b88c8</id>
+    <updated>2026-11-13T00:00:00Z</updated>
+    <summary>Each business calculator now shows its own Last checked date, kept with its boundary cases, in place of one review date shared by all 9; the calculators page shows the newest of them. The GST and cash forecast sources were reread on 13 November 2026 and still support those calculators. The site checks fail if a calculator’s date is older than a source it says it read or its official comparison, or if the calculators page’s dates are older than a calculator’s.</summary>
+  </entry>
+  <entry>
     <title>The Aus Accounting MCP, subcontract ledger, Monthly Close Controls and…</title>
     <link href="https://duguid.com.au/changelog/#entry-61cdfed775f520dc" />
     <id>https://duguid.com.au/changelog/#entry-61cdfed775f520dc</id>

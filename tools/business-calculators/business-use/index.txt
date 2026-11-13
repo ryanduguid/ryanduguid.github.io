@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-use/
 
 Apportion an eligible cost by its business use share. It does not decide deductibility, depreciation or records.
 
-Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
+Published 20 September 2026. Last checked 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
