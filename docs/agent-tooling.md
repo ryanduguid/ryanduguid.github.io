@@ -55,14 +55,16 @@ github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows
 ```powershell
 git clone https://github.com/ryanduguid/github-agent-skills.git
 cd github-agent-skills
-python scripts/validate_skills.py --strict
+rustup toolchain install
+cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --strict
 ```
 
-Validation needs Python 3.14+. A fresh clone includes both runtime copies and
+Validation needs rustup, which installs the Rust release pinned in
+`rust-toolchain.toml`. A fresh clone includes both runtime copies and
 needs no synchronisation. For another project, copy `.claude/skills/` for
 Claude Code or `.agents/skills/` for Codex into that project's matching directory.
 After editing the canonical `.claude/skills/` source, run
-`python scripts/validate_skills.py --sync` to regenerate the Codex copy.
+`cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --sync` to regenerate the Codex copy.
 
 ## Search Console MCP and CLI
 

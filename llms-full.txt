@@ -2478,7 +2478,7 @@ Compares trial balance CSVs and returns material movements, missing mappings and
 
 Delivery
 
-Python
+Rust
 
 Boundary
 
@@ -3324,10 +3324,11 @@ Sitting outside a range is not a finding that anything is wrong. The ATO publish
 
 ## Get it
 
-Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.
+Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install release 0.2.2, the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
+git -C australian-accounting checkout ato-benchmark-compare/v0.2.2
 cd australian-accounting/packages/ato-benchmark-compare
 pip install .
 ```
@@ -3808,10 +3809,11 @@ Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determi
 
 ## Get it
 
-Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install release 0.2.0, the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
+git -C australian-accounting checkout the-wip-tally/v0.2.0
 cd australian-accounting/packages/the-wip-tally && pip install .
 wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31
 ```
@@ -3819,7 +3821,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31
 The sample raises review flags by design. Exit code 2 means a person needs to look; it is not a crash. Then:
 
 ```
-wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o practitioner-review.md
+wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv --as-at 2026-08-31 -o practitioner-review.md
 ```
 
 Source on GitHub · Use it from the subcontractor workflows
@@ -4142,13 +4144,14 @@ GitHub workflows
 
 github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries.
 
-Needs Git and Python 3.14+ for validation. Development checkout: clones the default branch, not a tagged release.
+Needs Git and rustup for validation. Development checkout: clones the default branch, not a tagged release.
 
 ```
 # GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills
 git clone https://github.com/ryanduguid/github-agent-skills.git
 cd github-agent-skills
-python scripts/validate_skills.py --strict
+rustup toolchain install
+cargo run --manifest-path tools/github-skills/Cargo.toml --locked -- validate-skills --strict
 ```
 
 A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project’s matching directory.
@@ -4691,7 +4694,7 @@ Current release monthly-close-control-plane v1.0.0, 13 November 2026, from the a
 
 Delivery
 
-Python
+Rust
 
 Needs
 

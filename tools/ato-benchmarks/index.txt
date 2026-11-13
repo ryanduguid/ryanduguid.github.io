@@ -68,10 +68,11 @@ Sitting outside a range is not a finding that anything is wrong. The ATO publish
 
 ## Get it
 
-Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.
+Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install release 0.2.2, the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
+git -C australian-accounting checkout ato-benchmark-compare/v0.2.2
 cd australian-accounting/packages/ato-benchmark-compare
 pip install .
 ```

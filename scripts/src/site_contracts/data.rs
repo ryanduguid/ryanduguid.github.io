@@ -50,7 +50,8 @@ pub const GITHUB_AGENT_SKILLS_URL: &str = "https://github.com/ryanduguid/github-
 pub const GITHUB_AGENT_SKILLS_BOUNDARY: &str = "github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries.";
 pub const GITHUB_AGENT_SKILLS_INSTALL_PATTERN: &str = concat!(
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+",
-    r"cd\s+github-agent-skills\s+python\s+scripts/validate_skills\.py\s+--strict\b"
+    r"cd\s+github-agent-skills\s+rustup\s+toolchain\s+install\s+",
+    r"cargo\s+run\s+--manifest-path\s+tools/github-skills/Cargo\.toml\s+--locked\s+--\s+validate-skills\s+--strict\b"
 );
 pub const STABLE_SKILLS_INSTALL_PATTERN: &str = concat!(
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/australian-accounting-skills\.git\s+",

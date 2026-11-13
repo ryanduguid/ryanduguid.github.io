@@ -12,7 +12,7 @@ Current release monthly-close-control-plane v1.0.0, 13 November 2026, from the a
 
 Delivery
 
-Python
+Rust
 
 Needs
 
