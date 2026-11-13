@@ -1862,13 +1862,26 @@ pub const CALCULATOR_HUB_REL: &str = "tools/business-calculators/index.html";
 
 /// The page's 'Last checked' date (its page-meta `<time datetime>`) and its WebPage
 /// `dateModified`, each as YYYY-MM-DD.
-fn page_dates(html: &str, rel: &str, failures: &mut Vec<String>) -> (Option<String>, Option<String>) {
+fn page_dates(
+    html: &str,
+    rel: &str,
+    failures: &mut Vec<String>,
+) -> (Option<String>, Option<String>) {
     static CHECKED: LazyLock<regex::Regex> = LazyLock::new(|| {
-        regex::Regex::new(r#"class="page-meta">[^<]*Last checked <time datetime="(\d{4}-\d{2}-\d{2})">"#).unwrap()
+        regex::Regex::new(
+            r#"class="page-meta">[^<]*Last checked <time datetime="(\d{4}-\d{2}-\d{2})">"#,
+        )
+        .unwrap()
     });
-    let checked: Vec<String> = CHECKED.captures_iter(html).map(|c| c[1].to_owned()).collect();
+    let checked: Vec<String> = CHECKED
+        .captures_iter(html)
+        .map(|c| c[1].to_owned())
+        .collect();
     if checked.len() != 1 {
-        failures.push(format!("{rel}: expected one Last checked date in the page header, found {}", checked.len()));
+        failures.push(format!(
+            "{rel}: expected one Last checked date in the page header, found {}",
+            checked.len()
+        ));
     }
     let blocks = core::json_ld_blocks(html, rel, failures);
     let modified: Vec<String> = blocks
@@ -1878,7 +1891,10 @@ fn page_dates(html: &str, rel: &str, failures: &mut Vec<String>) -> (Option<Stri
         .filter_map(|n| n.get("dateModified").map(Json::py_str))
         .collect();
     if modified.len() != 1 {
-        failures.push(format!("{rel}: expected one WebPage dateModified, found {}", modified.len()));
+        failures.push(format!(
+            "{rel}: expected one WebPage dateModified, found {}",
+            modified.len()
+        ));
     }
     (checked.into_iter().next(), modified.into_iter().next())
 }
@@ -1894,9 +1910,12 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
     let hub_path = site_path(root, CALCULATOR_HUB_REL);
     if !hub_path.is_file() {
-        return Ok(vec![format!("{CALCULATOR_HUB_REL}: missing calculator hub")]);
+        return Ok(vec![format!(
+            "{CALCULATOR_HUB_REL}: missing calculator hub"
+        )]);
     }
-    let (hub_checked, hub_modified) = page_dates(&crate::read(&hub_path)?, CALCULATOR_HUB_REL, &mut failures);
+    let (hub_checked, hub_modified) =
+        page_dates(&crate::read(&hub_path)?, CALCULATOR_HUB_REL, &mut failures);
     for path in glob_children(root, "tools/business-calculators", "index.html") {
         let rel = core::rel(&path, root);
         let html = crate::read(&path)?;
@@ -1905,19 +1924,30 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
         let text = core::parse_structure(&html).text(Tree::ROOT);
         for found in DEPENDENCY.captures_iter(&text) {
             match crate::feed::parse_date(&found[2]) {
-                Ok(date) if date.format("%Y-%m-%d").to_string() > checked => failures
-                    .push(format!("{rel}: Last checked {checked} is older than '{}'", &found[0])),
+                Ok(date) if date.format("%Y-%m-%d").to_string() > checked => {
+                    failures.push(format!(
+                        "{rel}: Last checked {checked} is older than '{}'",
+                        &found[0]
+                    ))
+                }
                 Ok(_) => {}
                 Err(_) => failures.push(format!("{rel}: unreadable date in '{}'", &found[0])),
             }
         }
-        if hub_checked.as_deref().is_some_and(|hub| hub < checked.as_str()) {
-            failures.push(format!("{CALCULATOR_HUB_REL}: Last checked is older than {rel}'s {checked}"));
+        if hub_checked
+            .as_deref()
+            .is_some_and(|hub| hub < checked.as_str())
+        {
+            failures.push(format!(
+                "{CALCULATOR_HUB_REL}: Last checked is older than {rel}'s {checked}"
+            ));
         }
         if let (Some(hub), Some(page)) = (&hub_modified, &modified)
             && hub < page
         {
-            failures.push(format!("{CALCULATOR_HUB_REL}: dateModified {hub} is older than {rel}'s {page}"));
+            failures.push(format!(
+                "{CALCULATOR_HUB_REL}: dateModified {hub} is older than {rel}'s {page}"
+            ));
         }
     }
     Ok(failures)
