@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 128] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 131] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -73,6 +73,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 128] = [
     "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/finalising-your-stp-data",
     "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/backing-business-investment-accelerated-depreciation",
+    "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/general-depreciation-rules-capital-allowances/effective-life-of-an-asset/effective-life-determinations-rulings-and-law",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/what-is-a-non-commercial-loss",
@@ -99,8 +100,10 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 128] = [
     "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/work-out-if-you-have-to-pay-super/super-for-independent-contractors",
     "https://www.ato.gov.au/businesses-and-organisations/trusts",
     "https://www.ato.gov.au/businesses-and-organisations/trusts/trust-income-losses-and-capital-gains/resolutions-checklist",
+    "https://www.ato.gov.au/calculators-and-tools/depreciation-and-capital-allowances-tool",
     "https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool",
     "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator",
+    "https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/claiming-deductions",

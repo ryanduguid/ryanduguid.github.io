@@ -405,6 +405,12 @@ page and Business Victoria's 2026 and 2027 public holiday pages. A browser loade
 with the expected holiday dates on 14 November 2026. Their exact URLs are in the same
 list under the same rule.
 
+Three ATO pages linked from the depreciation rates page returned HTTP 403 in pull
+request run 43507731317: the effective life determinations, rulings and law page, the
+depreciation and capital allowances tool and the effective life review application
+form. A browser loaded each with the expected content on 13 November 2026. Their exact
+URLs are in the same list under the same rule.
+
 ## Release claims
 
 `scripts/release_record.json` is the reviewed statement of which release each page
