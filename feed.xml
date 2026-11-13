@@ -15,6 +15,13 @@
     <summary>A new depreciation rates page searches and lists the 7,430 effective lives in the Commissioner of Taxation’s 2025 determination, registered on 15 September 2025 and read on 13 November 2026. Each row shows the life, the prime cost and diminishing value rates it gives and the date it was last set, and a calculator works out a year’s decline in value from a cost, a life and a start date. The tables are also published as a JSON file with their source and the date it was read.</summary>
   </entry>
   <entry>
+    <title>The profit and cash flow case and the release record name au-fpa-pack v0.5.0…</title>
+    <link href="https://duguid.com.au/changelog/#entry-22bdeac343fa26aa" />
+    <id>https://duguid.com.au/changelog/#entry-22bdeac343fa26aa</id>
+    <updated>2026-11-14T00:00:00Z</updated>
+    <summary>The profit and cash flow case and the release record name au-fpa-pack v0.5.0, published on 13 November, as the current release. The case stays pinned to commit 386c7ff, which produced its workbook and figures.</summary>
+  </entry>
+  <entry>
     <title>A new Payday Super business days page lists the 17 weekdays from 1 July 2026 to…</title>
     <link href="https://duguid.com.au/changelog/#entry-0f984cfed6ff09c8" />
     <id>https://duguid.com.au/changelog/#entry-0f984cfed6ff09c8</id>

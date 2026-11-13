@@ -95,10 +95,10 @@
       "distribution": "au-fpa-pack",
       "repository": "https://github.com/ryanduguid/au-fpa-pack",
       "published": {
-        "version": "0.4.0",
-        "released_utc": "2026-10-28T01:05:10Z",
-        "verified": "2026-10-29",
-        "release_url": "https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.4.0",
+        "version": "0.5.0",
+        "released_utc": "2026-11-13T01:51:13Z",
+        "verified": "2026-11-14",
+        "release_url": "https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.5.0",
         "pypi_url": "https://pypi.org/project/au-fpa-pack/"
       },
       "documented": {

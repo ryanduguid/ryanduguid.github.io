@@ -1665,6 +1665,8 @@ The stage column was read on 4 November 2026 from each bill’s page on the Parl
 
 Later report for the foreign resident CGT row: the ATO measure page, updated 9 October 2026, says the Treasury Laws Amendment (Strengthening Accountability for Tax Adviser Misconduct and Other Measures) Act 2026 is law and the changes commenced on 1 October 2026. The Federal Register gives assent on 15 September 2026. The ATO summary, last updated 2 November 2026, still showed TBD when checked on 4 November 2026, so the row repeats it.
 
+Later report for the minimum tax on discretionary trusts row: the Tax Reform No. 3 Bill’s page, read on 14 November 2026, lists the Senate Economics Legislation Committee report on 13 November 2026.
+
 Left out on purpose: the Budget and MYEFO rows that fund administration rather than change tax or super law (child support systems, the foreign investment framework, the Consumer Data Right, ABN authentication and lookup services, Digital ID, the counter-fraud and NDIS taskforces, director identification number linking and the wind-down of cheques).
 
 ## Legislated: later application
@@ -1755,6 +1757,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Loss refundability for small start-up companies (beyond the carry-back): https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-loss-refundability-reforms-for-businesses-and-start-ups
 - Dynamic PAYG instalments: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/dynamic-pay-as-you-go-instalments-making-tax-simpler-for-businesses
 - Federal Register: https://www.legislation.gov.au/C2026A00086/latest/text
+- Tax Reform No. 3 Bill’s page: https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation/Bills_Search_Results/Result?bId=r7554
 - Negative gearing and CGT discount reform: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax
 - Treasury Laws Amendment (Tax Reform No. 1) Act 2026: https://www.legislation.gov.au/C2026A00049/latest/text
 - Tax loss carry-back: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-tax-loss-carry-back
@@ -4573,6 +4576,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 
 Date | Change
 14 November 2026 | A new depreciation rates page searches and lists the 7,430 effective lives in the Commissioner of Taxation’s 2025 determination, registered on 15 September 2025 and read on 13 November 2026. Each row shows the life, the prime cost and diminishing value rates it gives and the date it was last set, and a calculator works out a year’s decline in value from a cost, a life and a start date. The tables are also published as a JSON file with their source and the date it was read.
+14 November 2026 | The profit and cash flow case and the release record name au-fpa-pack v0.5.0, published on 13 November, as the current release. The case stays pinned to commit 386c7ff, which produced its workbook and figures.
 14 November 2026 | A new Payday Super business days page lists the 17 weekdays from 1 July 2026 to 31 August 2027 that are public holidays for the whole of a state or territory, and so not business days for any employer, with a CSV and the official source for each jurisdiction, checked on 14 November 2026.
 13 November 2026 | The GST, cash forecast, margin, break-even, hourly pricing and Division 7A calculators now show a Last checked date of 13 November 2026, the day their sources were reread against their rates and definitions; the 4 calculators that cite no external source keep their 27 September 2026 review date. The margin, break-even and hourly pricing calculators cited a business.gov.au pricing page that now redirects to one without those definitions, so they now cite Business Queensland’s break-even and pricing guidance. The calculators page shows the newest check. The site checks fail if a calculator’s Last checked date is not the newest source read in its Sources applied list, is older than its official comparison or newer than its dateModified, or if its Sources applied list states a source read without a Last checked date.
 13 November 2026 | Each of the 10 business calculators now opens with a fictional example already worked: its first boundary case fills the inputs and its result shows on arrival, labelled as an example. The first edit clears it.
@@ -8809,7 +8813,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Provenance and verification
 
-- Source. au-fpa-pack at commit 386c7ff. That captured commit identifies the example and its assumptions. The current published release is au-fpa-pack v0.4.0.
+- Source. au-fpa-pack at commit 386c7ff. That captured commit identifies the example and its assumptions. The current published release is au-fpa-pack v0.5.0.
 - Distributed workbook. SHA-256 b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463, 23,506 bytes. Its model and all 6 input files match the captured source after normalising line endings.
 - Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository’s offline suite passed.
 - Native Excel record. The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.
@@ -8870,7 +8874,7 @@ Cite as Duguid, R. (2026). Lumbridge Services fictional cash flow case [Data set
 - Jeff Brines / Guiderail’s openfpa: https://github.com/JeffBrines/openfpa
 - uv: https://docs.astral.sh/uv/
 - Read the source and assumptions at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
-- au-fpa-pack v0.4.0: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.4.0
+- au-fpa-pack v0.5.0: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.5.0
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/
 - Browser cash flow and planning calculators: https://duguid.com.au/tools/business-calculators/
