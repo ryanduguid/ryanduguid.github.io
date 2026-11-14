@@ -1987,7 +1987,13 @@ fn calculator_pages_show_every_boundary_case_the_node_tests_run() {
             );
         }
         for row in rows {
-            let cell = |name: &str| row[name].as_str().unwrap();
+            // The layout keeps a minus with its dollar sign on one line.
+            let cell = |name: &str| {
+                row[name]
+                    .as_str()
+                    .unwrap()
+                    .replace("-$", r#"<span class="nowrap">-$</span>"#)
+            };
             let shown = format!(
                 r#"<tr><th scope="row">{}</th><td>{}</td><td>{}</td></tr>"#,
                 cell("case"),
