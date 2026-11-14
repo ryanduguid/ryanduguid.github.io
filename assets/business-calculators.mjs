@@ -17,9 +17,9 @@ function number(value, { min = 0, max = 1e9, places = 2, integer = false, money 
   // Thousands may be grouped in 3s ('85,000'), and money may start with '$' after
   // any minus sign. A number field accepts exponent notation such as 1e3; ask for
   // digits instead of blaming decimal places the entry does not have.
-  const whole = `^-?${money ? '\\$?' : ''}(?:\\d{1,3}(?:,\\d{3})+|\\d+)`;
-  if (!new RegExp(`${whole}(?:\\.\\d+)?$`).test(text)) throw new Error('Enter a number using digits only.');
-  if (!new RegExp(`${whole}(?:\\.\\d{1,${places}})?$`).test(text)) {
+  const parts = /^-?(\$?)(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.(\d+))?$/.exec(text);
+  if (!parts || (parts[1] && !money)) throw new Error('Enter a number using digits only.');
+  if ((parts[2] ?? '').length > places) {
     throw new Error(`Enter a number with no more than ${places} decimal places.`);
   }
   const result = Number(text.replace(/[$,]/g, ''));
