@@ -5812,6 +5812,8 @@ Table A: effective lives by industry (196 pages)
 
 Table A: effective lives by industry
 
+### AGRICULTURE, FORESTRY AND FISHING
+
 - AGRICULTURE, FORESTRY AND FISHING
 - Agriculture
 - Nursery and floriculture production
@@ -5834,6 +5836,9 @@ Table A: effective lives by industry
 - Fishing
 - Forestry support services
 - Other agriculture and fishing support services
+
+### MINING
+
 - MINING
 - Coal mining
 - Oil and gas extraction
@@ -5846,6 +5851,9 @@ Table A: effective lives by industry
 - Petroleum exploration services
 - Mineral exploration services
 - Other mining support services
+
+### MANUFACTURING (1 of 2)
+
 - Meat processing
 - Poultry processing
 - Cured meat and smallgoods manufacturing
@@ -5885,6 +5893,9 @@ Table A: effective lives by industry
 - Petroleum refining
 - Industrial gas manufacturing
 - Basic organic chemical manufacturing
+
+### MANUFACTURING (2 of 2)
+
 - Basic inorganic chemical manufacturing
 - Fertiliser manufacturing
 - Human pharmaceutical and medicinal product manufacturing
@@ -5923,6 +5934,9 @@ Table A: effective lives by industry
 - Wooden furniture and upholstered seat manufacturing
 - Jewellery and silverware manufacturing
 - Other manufacturing n.e.c.
+
+### ELECTRICITY, GAS, WATER AND WASTE SERVICES
+
 - Electricity supply
 - Gas supply
 - Water supply
@@ -5930,20 +5944,35 @@ Table A: effective lives by industry
 - Solid waste collection services
 - Waste treatment and disposal services
 - Waste remediation and materials recovery services
+
+### CONSTRUCTION
+
 - CONSTRUCTION
 - Other heavy and civil engineering construction
+
+### WHOLESALE TRADE
+
 - WHOLESALE TRADE
 - Wool wholesaling
 - Petroleum product wholesaling
 - Commission-based wholesaling
+
+### RETAIL TRADE
+
 - RETAIL TRADE
 - Motor vehicle tyre or tube retailing
 - Fuel retailing
 - Food retailing
 - Supermarket and grocery stores
 - Other store-based retailing
+
+### ACCOMMODATION AND FOOD SERVICES
+
 - Accommodation
 - Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality)
+
+### TRANSPORT, POSTAL AND WAREHOUSING
+
 - Road transport
 - Tramway and light rail passenger transport services
 - Rail freight and passenger transport services
@@ -5957,6 +5986,9 @@ Table A: effective lives by industry
 - Airport operations and other air transport support services
 - Other transport support services n.e.c.
 - Other warehousing and storage services
+
+### INFORMATION MEDIA AND TELECOMMUNICATIONS
+
 - Motion picture and video activities
 - Motion picture exhibition
 - Radio broadcasting
@@ -5965,20 +5997,38 @@ Table A: effective lives by industry
 - Telecommunications services
 - Electronic information storage services
 - Library and other information services
+
+### FINANCIAL AND INSURANCE SERVICES
+
 - Banking, building society and credit union operations
+
+### RENTAL, HIRING AND REAL ESTATE SERVICES
+
 - Rental and hiring services (except real estate)
 - Residential property operators
 - Non-residential property operators
+
+### PROFESSIONAL, SCIENTIFIC AND TECHNICAL SERVICES
+
 - Scientific research services
 - Surveying and mapping services
 - Scientific testing and analysis services
 - Advertising services
 - Veterinary services
 - Professional photographic services
+
+### ADMINISTRATIVE AND SUPPORT SERVICES
+
 - Building and other industrial cleaning services
 - Gardening services
 - Packaging services
+
+### EDUCATION AND TRAINING
+
 - EDUCATION AND TRAINING
+
+### HEALTH CARE AND SOCIAL ASSISTANCE
+
 - HEALTH CARE AND SOCIAL ASSISTANCE
 - Hospitals
 - General practice medical services
@@ -5989,6 +6039,9 @@ Table A: effective lives by industry
 - Podiatry services
 - Retirement village and accommodation for the aged operation
 - Child care services
+
+### ARTS AND RECREATION SERVICES
+
 - Museum operation
 - Nature reserves and conservation parks operation
 - Creative and performing arts activities
@@ -6000,6 +6053,9 @@ Table A: effective lives by industry
 - Amusement parks and centres operation and amusement and other recreational activities n.e.c.
 - Gambling activities
 - Casino operations
+
+### OTHER SERVICES
+
 - Automotive repair and maintenance
 - Automotive body, paint and interior repair n.e.c.
 - Other machinery and equipment repair and maintenance
@@ -6013,48 +6069,95 @@ Table B: effective lives by asset (44 pages)
 
 Table B: effective lives by asset
 
+### A
+
 - Accommodation units in caravan/tourist parks being articles, not fixtures, and used for a specified purpose
 - Advertising signs
 - Air compression assets
 - Air-conditioning assets (excluding pipes, duct work and vents)
 - Aircraft
 - Airless sprayers (used in painting, epoxy and polyurethane coating, priming etc)
+
+### B
+
 - Boom gates
+
+### C
+
 - Car park assets
 - Compaction assets
 - Computers and computer equipment
 - Concreting assets
+
+### D
+
 - Digital cameras
+
+### E
+
 - Employee time and attendance recorders (including bundy clocks, time clocks etc)
+
+### F
+
 - Fences
 - Fire control and alarm assets
 - Floor coverings (removable without damage)
 - Fogging machines (insecticide, including cold foggers and thermal foggers)
+
+### J
+
 - Judges’ robes
+
+### L
+
 - Laboratory assets used in quality control, sample checking etc
 - Levels
 - Loading bay assets
+
+### M
+
 - Machine tools (grinding machines, lathes, milling machines etc)
 - Mini-skid steer loader attachments
 - Motor vehicles and trailers
 - Musical instruments and associated equipment
+
+### O
+
 - Office furniture, freestanding
 - Office machines and equipment
+
+### P
+
 - Packaging machines
 - Plumbing fixtures and fittings (including wall and floor tiles) provided mainly for employees and/or children of employees of an entity carrying on a business for the purpose of producing assessable income
 - Point of sale assets
 - Power supply assets
 - Power tools
+
+### R
+
 - Racehorses
 - Rainwater tanks
 - Refrigeration assets
+
+### S
+
 - Security and monitoring assets
 - Silos
 - Stacks (chimney stacks, exhaust stacks, flues etc)
 - Swimming pool assets
+
+### T
+
 - Telephony
 - Two-way radios
+
+### U
+
 - Unmanned aerial vehicles (drones/remotely piloted aircraft)
+
+### W
+
 - Warehouse and distribution centre equipment and machines
 - Welders
 

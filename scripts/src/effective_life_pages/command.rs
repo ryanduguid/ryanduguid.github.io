@@ -141,24 +141,61 @@ fn include(site: &Site) -> String {
         let Some(index) = pages.clone().find(|page| page.kind == Kind::Index(table)) else {
             continue;
         };
-        let groups: Vec<String> = pages
-            .filter(|page| page.kind == Kind::Group && site.group(page.group).table == table)
-            .map(|page| {
-                let name = super::site::group_name(site.group(page.group));
-                format!("<li><a href=\"{}\">{}</a></li>\n", page.url, esc(&name))
-            })
-            .collect();
+        let (lists, groups) = group_lists(site, table);
         out.push_str(&format!(
-            "<details>\n<summary>{} ({} pages)</summary>\n<p><a href=\"{}\">{}</a></p>\n<ul>\n{}</ul>\n</details>\n",
+            "<details>\n<summary>{} ({groups} pages)</summary>\n<p><a href=\"{}\">{}</a></p>\n{lists}</details>\n",
             super::site::index_name(table),
-            groups.len(),
             index.url,
             super::site::index_name(table),
-            groups.concat(),
         ));
     }
     out.push_str("</section>\n");
     out
+}
+
+/// The most group links under one heading of the include: Manufacturing's 77 ran to 402
+/// words, over the passage rules' 400 for a section.
+const LINKS_PER_LIST: usize = 60;
+
+/// A table's group pages as links, one list under each division (Table A) or letter
+/// (Table B), as on the index pages, and how many there are. A parent with more than
+/// `LINKS_PER_LIST` groups is split into numbered parts of near equal size.
+fn group_lists(site: &Site, table: Table) -> (String, usize) {
+    let mut parents: Vec<(&str, Vec<String>)> = Vec::new();
+    for page in site.plan.pages.iter() {
+        if page.kind != Kind::Group || site.group(page.group).table != table {
+            continue;
+        }
+        let group = site.group(page.group);
+        let name = esc(&super::site::group_name(group));
+        let link = format!(
+            "<li><a href=\"{}\">{name}</a></li>
+",
+            page.url
+        );
+        match parents.last_mut() {
+            Some((parent, links)) if *parent == group.parent => links.push(link),
+            _ => parents.push((group.parent.as_str(), vec![link])),
+        }
+    }
+    let mut lists = String::new();
+    for (parent, links) in &parents {
+        let parts = links.len().div_ceil(LINKS_PER_LIST);
+        for (part, chunk) in links.chunks(links.len().div_ceil(parts)).enumerate() {
+            let heading = match parts {
+                1 => esc(parent),
+                _ => format!("{} ({} of {parts})", esc(parent), part + 1),
+            };
+            lists.push_str(&format!(
+                "<h3>{heading}</h3>
+<ul>
+{}</ul>
+",
+                chunk.concat()
+            ));
+        }
+    }
+    (lists, parents.iter().map(|(_, links)| links.len()).sum())
 }
 
 /// Every file of the family, from the data file's text and the address map's, if any.
