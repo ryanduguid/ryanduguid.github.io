@@ -8,6 +8,13 @@
   <updated>2026-11-14T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Three new rate tables, each read from the ATO on 14 November 2026 with a CSV…</title>
+    <link href="https://duguid.com.au/changelog/#entry-5c0f29bdd7ab2974" />
+    <id>https://duguid.com.au/changelog/#entry-5c0f29bdd7ab2974</id>
+    <updated>2026-11-14T00:00:00Z</updated>
+    <summary>Three new rate tables, each read from the ATO on 14 November 2026 with a CSV: resident individual income tax rates from 2019-20 with the single Medicare levy low-income thresholds to 2025-26, the last year the ATO had published, study and training loan repayment thresholds from 2020-21, and the PAYG withholding Schedule 1 weekly coefficients for scales 1 to 3 for payments from 1 July 2026. The rates page now lists 10 tables, and rates.json holds every row of the 9 rate CSVs.</summary>
+  </entry>
+  <entry>
     <title>The depreciation rates calculator now takes a taxable use percentage and shows…</title>
     <link href="https://duguid.com.au/changelog/#entry-883c50ee6459504a" />
     <id>https://duguid.com.au/changelog/#entry-883c50ee6459504a</id>

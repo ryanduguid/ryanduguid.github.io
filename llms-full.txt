@@ -1292,13 +1292,13 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 Source: https://duguid.com.au/rates/
 
-> Maintained Australian super guarantee, contribution base, Division 7A, cents-per-kilometre, car limit and FBT rates with source-checked dates and primary sources.
+> Maintained Australian income tax, study loan, PAYG withholding, super guarantee, Division 7A, car and FBT rates with source-checked dates and primary sources.
 
 # Rates
 
-Seven maintained Australian reference tables with the current value, source-checked date and primary material kept together.
+Ten maintained Australian reference tables with the current value, source-checked date and primary material kept together.
 
-Last reviewed 4 November 2026.
+Last reviewed 14 November 2026.
 
 ## Super guarantee rate history
 
@@ -1396,6 +1396,54 @@ FBT years ending 31 March 2018 to 2027.
 
 Primary source Download CSV
 
+## Individual income tax rates for residents
+
+15%
+
+15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO had published Medicare levy low-income thresholds to 2025-26 only when checked on 14 November 2026.
+
+Source checked
+
+14 November 2026
+
+Scope
+
+Resident rates from 2019-20 and single Medicare levy low-income thresholds from 2020-21.
+
+Primary source Download CSV
+
+## Study and training loan repayment thresholds
+
+$69,528
+
+$69,528 for 2026-27, with 15c and then 17c for each dollar above the thresholds, and 10% of all repayment income from $186,051.
+
+Source checked
+
+14 November 2026
+
+Scope
+
+Compulsory repayment thresholds and rates from 2020-21.
+
+Primary source Download CSV
+
+## PAYG withholding: Schedule 1 coefficients
+
+$362
+
+$362 a week starts the scale 2 formula for payments made from 1 July 2026; the weekly coefficients for scales 1, 2 and 3.
+
+Source checked
+
+14 November 2026
+
+Scope
+
+Schedule 1 weekly coefficients for scales 1 to 3 from 1 July 2026.
+
+Primary source Download CSV
+
 ## Announced tax measures and enacted law
 
 8 TBD
@@ -1414,9 +1462,9 @@ Primary source Download CSV
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Source checked is the date a table was last checked against its primary source, from the CSV’s checked_at; last reviewed is this page’s editorial check.
 
-Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
+Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the nine rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
-All six rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under this repository’s licence, the Ryan Duguid Public Attribution Licence 1.0.
+All nine rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under this repository’s licence, the Ryan Duguid Public Attribution Licence 1.0.
 
 ## Use these tables in Excel
 
@@ -1443,13 +1491,13 @@ in
     Rates
 ```
 
-Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained. The source_url and checked_at columns were added on 3 November 2026 and have not been loaded in Excel since.
+Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained. The source_url and checked_at columns were added on 3 November 2026 and loaded in build 20625 on 14 November 2026.
 
 This imports the full SG history. A rate of 12.00 means 12%; divide by 100 if a formula needs a fraction. A blank end date remains blank. Select the period that applies to your work; the latest row does not apply to every year.
 
 Use Data, Refresh All to fetch the current CSV again. A successful refresh confirms retrieval, not a source check. Check the linked rate page’s Source checked date and primary source. For a completed workpaper, keep a dated values-only copy of the table and its Source checked date; a live query can change on refresh.
 
-The other six tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.
+The other nine tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.
 
 Division 7A benchmark rates:
 
@@ -1558,6 +1606,75 @@ in
     Rates
 ```
 
+Income tax rates:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"component", type text},
+        {"income_from", Int64.Type},
+        {"income_to", Int64.Type},
+        {"base_amount", Int64.Type},
+        {"rate_percent", type number},
+        {"notes", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
+    }, "en-AU")
+in
+    Rates
+```
+
+Study loan thresholds:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"basis", type text},
+        {"repayment_income_from", Int64.Type},
+        {"repayment_income_to", Int64.Type},
+        {"base_repayment", Int64.Type},
+        {"rate_percent", type number},
+        {"source_url", type text},
+        {"checked_at", type date}
+    }, "en-AU")
+in
+    Rates
+```
+
+Schedule 1 coefficients:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"applies_from", type date},
+        {"scale", Int64.Type},
+        {"weekly_earnings_less_than", Int64.Type},
+        {"coefficient_a", type number},
+        {"coefficient_b", type number},
+        {"source_url", type text},
+        {"checked_at", type date}
+    }, "en-AU")
+in
+    Rates
+```
+
 Announced measures:
 
 ```
@@ -1587,7 +1704,7 @@ in
     Measures
 ```
 
-Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The source_url and checked_at columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads. Nor were the announced measures’ bill_stage, stage_date and stage_source_url columns added on 4 November 2026; stage_date is blank for measures without a stage date.
+The queries from Division 7A to FBT and the announced measures query were each checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. On 14 November 2026 all 10 queries, with the columns added since and the 3 new tables, loaded the same way in build 20625, each against a copy of its CSV.
 
 Follow updates with the Atom feed. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.
 
@@ -1610,10 +1727,19 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Primary source: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
 - Download CSV: https://duguid.com.au/rates/fbt-rate/fbt-rates.csv
+- Individual income tax rates for residents: https://duguid.com.au/rates/individual-income-tax/
+- Primary source: https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents
+- Download CSV: https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv
+- Study and training loan repayment thresholds: https://duguid.com.au/rates/study-loan-repayment/
+- Primary source: https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates
+- Download CSV: https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv
+- PAYG withholding: Schedule 1 coefficients: https://duguid.com.au/rates/payg-withholding/
+- Primary source: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments
+- Download CSV: https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv
 - Announced tax measures and enacted law: https://duguid.com.au/rates/announced-not-yet-law/
 - Primary source: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
 - Download CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
-- All six rate tables as one JSON file: https://duguid.com.au/rates/rates.json
+- All nine rate tables as one JSON file: https://duguid.com.au/rates/rates.json
 - Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
 - Microsoft’s Text/CSV guide: https://learn.microsoft.com/en-us/power-query/connectors/text-csv
 - Follow updates with the Atom feed: https://duguid.com.au/feed.xml
@@ -2300,6 +2426,319 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - Company tax and franking checks: https://duguid.com.au/tools/company-tax-franking/
 - Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- About Ryan Duguid: https://duguid.com.au/about/
+
+---
+
+# What tax rate applies above $18,200 for 2026-27? 15%
+
+Source: https://duguid.com.au/rates/individual-income-tax/
+
+> 15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. Resident rates back to 2019-20 and Medicare levy thresholds, from the ATO.
+
+15%
+
+# Individual income tax rates for residents
+
+15% is the first rate above the $18,200 tax-free threshold for 2026-27, down from 16% for 2024-25 and 2025-26.
+
+These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 14 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only.
+
+Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+
+Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25.
+
+## Rates for 2026-27
+
+15% on taxable income from $18,201 to $45,000. Each rate applies only to the income inside its band, so the base amount is the tax on all the income below the band.
+
+Taxable income | Tax on this income
+$0 to $18,200 | Nil
+$18,201 to $45,000 | 15% of the excess over $18,200
+$45,001 to $135,000 | $4,020 plus 30% of the excess over $45,000
+$135,001 to $190,000 | $31,020 plus 37% of the excess over $135,000
+$190,001 and over | $51,370 plus 45% of the excess over $190,000
+
+## Rates for 2019-20 to 2025-26
+
+The same scale applied in 2024-25 and 2025-26, and another throughout 2020-21 to 2023-24. The CSV lists each year’s rows separately.
+
+Taxable income, 2024-25 and 2025-26 | Tax on this income
+$0 to $18,200 | Nil
+$18,201 to $45,000 | 16% of the excess over $18,200
+$45,001 to $135,000 | $4,288 plus 30% of the excess over $45,000
+$135,001 to $190,000 | $31,288 plus 37% of the excess over $135,000
+$190,001 and over | $51,638 plus 45% of the excess over $190,000
+Taxable income, 2020-21 to 2023-24 | Tax on this income
+$0 to $18,200 | Nil
+$18,201 to $45,000 | 19% of the excess over $18,200
+$45,001 to $120,000 | $5,092 plus 32.5% of the excess over $45,000
+$120,001 to $180,000 | $29,467 plus 37% of the excess over $120,000
+$180,001 and over | $51,667 plus 45% of the excess over $180,000
+Taxable income, 2019-20 | Tax on this income
+$0 to $18,200 | Nil
+$18,201 to $37,000 | 19% of the excess over $18,200
+$37,001 to $90,000 | $3,572 plus 32.5% of the excess over $37,000
+$90,001 to $180,000 | $20,797 plus 37% of the excess over $90,000
+$180,001 and over | $54,097 plus 45% of the excess over $180,000
+
+The ATO page also lists resident rates back to 1983-84. They are not listed here.
+
+## Medicare levy low-income thresholds
+
+The Medicare levy is 2% of taxable income. A single person not entitled to the seniors and pensioners tax offset pays no levy on taxable income at or below the lower threshold and a reduced levy up to the upper threshold. Thresholds for families and for people entitled to that offset are on the ATO pages and are not listed here.
+
+Income year | Lower threshold | Upper threshold
+2025-26 | $28,011 | $35,013
+2024-25 | $27,222 | $34,027
+2023-24 | $26,000 | $32,500
+2022-23 | $24,276 | $30,345
+2021-22 | $23,365 | $29,206
+2020-21 | $23,226 | $29,032
+
+The table lists only thresholds the ATO has published. On 14 November 2026 its Medicare levy reduction page gave thresholds for 2025-26 and no later year, so 2026-27 is not listed. Under the law in force that day the same figures apply to 2026-27: section 3(1) of the Medicare Levy Act 1986, in compilation 53 of 1 July 2026 (the latest on 14 November 2026), sets $28,011 and $35,013, and Schedule 5 to the Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026 (No. 58, 2026) applies them to 2025-26 and later years. That Act received assent on 30 June 2026, the last day of 2025-26, and raised that year’s figures, so a later Act could still change them for 2026-27. The ATO’s myTax instructions for 2019-20 give no threshold table, so that year is not listed.
+
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026. Rows with component resident_tax hold the tax bands; rows with medicare_levy_low_income_single hold the lower and upper thresholds in income_from and income_to. Cite as Duguid, R. (2026). Australian resident income tax rates by year [Data set]. https://duguid.com.au/rates/individual-income-tax/. Verify against current ATO guidance before relying on a figure.
+
+## Common questions
+
+### What are the resident income tax rates for 2026-27?
+
+Nil up to $18,200, 15% from $18,201 to $45,000, 30% from $45,001 to $135,000, 37% from $135,001 to $190,000 and 45% from $190,001, each on the income in that band. The rates do not include the 2% Medicare levy.
+
+### What changed for 2026-27?
+
+The rate on taxable income from $18,201 to $45,000 fell from 16% to 15%, so the tax on $45,000 fell from $4,288 to $4,020. The band limits did not change.
+
+### What are the 2026-27 Medicare levy low-income thresholds?
+
+Under the law in force on 14 November 2026, $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset, the same as 2025-26. Section 3(1) of the Medicare Levy Act 1986, as compiled on 1 July 2026, sets those figures, and Act No. 58 of 2026 applies them to 2025-26 and later years. The ATO had not published 2026-27 thresholds that day, and a later Act can still change them.
+
+### Do these rates apply to everyone?
+
+No. The ATO gives them for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. Check the ATO’s guidance for any other case.
+
+Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+
+## Related
+
+- Study and training loan repayment thresholds
+- PAYG withholding: Schedule 1 coefficients
+- Tax returns questions
+- About Ryan Duguid
+
+## Links
+
+- Tax rates: Australian resident: https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents
+- Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
+- Medicare Levy Act 1986: https://www.legislation.gov.au/C2004A03351/latest/text
+- Download the table as CSV: https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv
+- Source and contact: https://github.com/ryanduguid
+- Study and training loan repayment thresholds: https://duguid.com.au/rates/study-loan-repayment/
+- PAYG withholding: Schedule 1 coefficients: https://duguid.com.au/rates/payg-withholding/
+- Tax returns questions: https://duguid.com.au/tools/accounting-questions/general-tax/
+- About Ryan Duguid: https://duguid.com.au/about/
+
+---
+
+# What is the study loan repayment threshold for 2026-27? $69,528
+
+Source: https://duguid.com.au/rates/study-loan-repayment/
+
+> $69,528 for 2026-27: 15c in the dollar above it, 17c above $129,717 and 10% of all repayment income from $186,051. Thresholds back to 2020-21, from the ATO.
+
+$69,528
+
+# Study and training loan repayment thresholds
+
+$69,528 for 2026-27. No compulsory repayment is due on repayment income up to that amount; above it the repayment is 15c for each dollar over $69,528.
+
+From 2025-26 the rates apply only to repayment income above each threshold, until repayment income reaches the top threshold, when the repayment is 10% of all of it. For 2024-25 and earlier one rate applied to the whole repayment income. The same thresholds cover HELP, VET Student Loans, SFSS, Student Start-up Loans, ABSTUDY SSL and Australian Apprenticeship Support Loans.
+
+Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+
+Read on 14 November 2026 from the ATO’s Study and training loan repayment thresholds and rates page (Tables 1 to 7, last updated 30 June 2026).
+
+## 2025-26 and 2026-27
+
+$69,528 for 2026-27. Each rate applies to every dollar of repayment income in its band, added to the base amount, until the top band, where the repayment is 10% of the whole repayment income.
+
+Repayment income, 2026-27 | Compulsory repayment
+$0 to $69,528 | Nil
+$69,529 to $129,717 | 15c for each $1 over $69,528
+$129,718 to $186,050 | $9,028 plus 17c for each $1 over $129,717
+$186,051 and over | 10% of the whole repayment income
+Repayment income, 2025-26 | Compulsory repayment
+$0 to $67,000 | Nil
+$67,001 to $125,000 | 15c for each $1 over $67,000
+$125,001 to $179,285 | $8,700 plus 17c for each $1 over $125,000
+$179,286 and over | 10% of the whole repayment income
+
+## 2020-21 to 2024-25
+
+Up to 2024-25 one rate applied to the whole repayment income. Each figure below is the repayment income at which that year’s rate starts; it applies until the figure in the next row.
+
+Rate on the whole repayment income | 2024-25 | 2023-24 | 2022-23 | 2021-22 | 2020-21
+Nil | Below $54,435 | Below $51,550 | Below $48,361 | Below $47,014 | Below $46,620
+1.0% | $54,435 | $51,550 | $48,361 | $47,014 | $46,620
+2.0% | $62,851 | $59,519 | $55,837 | $54,283 | $53,827
+2.5% | $66,621 | $63,090 | $59,187 | $57,539 | $57,056
+3.0% | $70,619 | $66,876 | $62,739 | $60,992 | $60,480
+3.5% | $74,856 | $70,889 | $66,503 | $64,652 | $64,109
+4.0% | $79,347 | $75,141 | $70,493 | $68,530 | $67,955
+4.5% | $84,108 | $79,650 | $74,723 | $72,642 | $72,032
+5.0% | $89,155 | $84,430 | $79,207 | $77,002 | $76,355
+5.5% | $94,504 | $89,495 | $83,959 | $81,621 | $80,936
+6.0% | $100,175 | $94,866 | $88,997 | $86,519 | $85,793
+6.5% | $106,186 | $100,558 | $94,337 | $91,710 | $90,940
+7.0% | $112,557 | $106,591 | $99,997 | $97,213 | $96,397
+7.5% | $119,310 | $112,986 | $105,997 | $103,046 | $102,180
+8.0% | $126,468 | $119,765 | $112,356 | $109,228 | $108,310
+8.5% | $134,057 | $126,951 | $119,098 | $115,782 | $114,810
+9.0% | $142,101 | $134,569 | $126,244 | $122,729 | $121,699
+9.5% | $150,627 | $142,643 | $133,819 | $130,093 | $129,000
+10.0% | $159,664 | $151,201 | $141,848 | $137,898 | $136,740
+
+The ATO page lists thresholds from 2020-21. Earlier years are not listed here.
+
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026. The basis column says how a band’s rate applies: nil, marginal (on each dollar from repayment_income_from, which is the dollar after the threshold, plus base_repayment) or total (on the whole repayment income). Cite as Duguid, R. (2026). Study and training loan repayment thresholds by year [Data set]. https://duguid.com.au/rates/study-loan-repayment/. Verify against current ATO guidance before relying on a figure.
+
+## Common questions
+
+### What is the study loan repayment threshold for 2026-27?
+
+$69,528 of repayment income. Above it, the compulsory repayment is 15c for each dollar over $69,528, then $9,028 plus 17c for each dollar over $129,717, and from $186,051 it is 10% of the whole repayment income.
+
+### What counts as repayment income?
+
+Taxable income (excluding assessable First Home Super Saver released amounts), plus reportable fringe benefits, total net investment loss, reportable super contributions and exempt foreign employment income, as the ATO page lists.
+
+### Why did repayments change in 2025-26?
+
+From the 2025-26 income year compulsory repayments are worked out on the income above the threshold at marginal rates, not as one percentage of the whole repayment income.
+
+### Which loans do these thresholds cover?
+
+HELP, VET Student Loans, SFSS, Student Start-up Loans, ABSTUDY Student Start-up Loans and Australian Apprenticeship Support Loans (formerly Trade Support Loans). One set of thresholds applies to all of them each year.
+
+Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+
+## Related
+
+- Individual income tax rates for residents
+- PAYG withholding: Schedule 1 coefficients
+- About Ryan Duguid
+
+## Links
+
+- Study and training loan repayment thresholds and rates: https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates
+- Download the table as CSV: https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv
+- Source and contact: https://github.com/ryanduguid
+- Individual income tax rates for residents: https://duguid.com.au/rates/individual-income-tax/
+- PAYG withholding: Schedule 1 coefficients: https://duguid.com.au/rates/payg-withholding/
+- About Ryan Duguid: https://duguid.com.au/about/
+
+---
+
+# Where does the scale 2 formula start for 2026-27? $362
+
+Source: https://duguid.com.au/rates/payg-withholding/
+
+> $362 a week starts the scale 2 withholding formula for payments from 1 July 2026. The ATO’s Schedule 1 weekly coefficients for scales 1, 2 and 3.
+
+$362
+
+# PAYG withholding: Schedule 1 coefficients
+
+$362 a week. For a payee who claims the tax-free threshold (scale 2), the ATO gives no coefficients for weekly earnings below $362, so nothing is withheld there.
+
+Schedule 1 applies to payments made from 1 July 2026. Withholding is y = ax − b, where x is the whole dollars of weekly earnings plus 99 cents and a and b come from the row whose range holds x. The result is rounded to the nearest dollar, with 50 cents rounding up.
+
+Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+
+Read on 14 November 2026 from the ATO’s Schedule 1 coefficients page and its About this schedule (applies to payments made from 1 July 2026), Using a formula, Working out the weekly earnings and Withholding amounts sample data pages (each published 17 June 2026). The sample data shows nil scale 2 withholding on weekly earnings of $361.
+
+## Tax-free threshold claimed (scale 2)
+
+No coefficients below $362 a week. Each range is a weekly earnings amount x less than the figure shown. For example, weekly earnings of $1,000.40 give x = 1,000.99, so y = 0.3227 × 1,000.99 − 185.1935, which rounds to $138.
+
+Weekly earnings (x) | a | b
+Less than $362 | None | None
+Less than $538 | 0.1500 | 54.3462
+Less than $673 | 0.2500 | 108.2135
+Less than $721 | 0.1700 | 54.3473
+Less than $865 | 0.1790 | 60.8377
+Less than $1,282 | 0.3227 | 185.1935
+Less than $2,596 | 0.3200 | 181.7319
+Less than $3,653 | 0.3900 | 363.4627
+$3,653 and over | 0.4700 | 655.7704
+
+Scale 2 shades in the Medicare levy from weekly earnings of $538 ($28,011 a year) to $673 ($35,013). Tax offsets claimed on a withholding declaration reduce a scale 2, 5 or 6 weekly amount by 1.9% of the offsets claimed, rounded to the nearest dollar.
+
+## No tax-free threshold and foreign residents
+
+Weekly earnings (x), scale 1 | a | b
+Less than $188 | 0.1500 | 0.1500
+Less than $371 | 0.2084 | 11.0185
+Less than $515 | 0.1790 | 0.1066
+Less than $932 | 0.3227 | 74.1674
+Less than $2,246 | 0.3200 | 71.6508
+Less than $3,303 | 0.3900 | 228.8816
+$3,303 and over | 0.4700 | 493.1893
+Weekly earnings (x), scale 3 | a | b
+Less than $2,596 | 0.3000 | 0.3000
+Less than $3,653 | 0.3700 | 181.7308
+$3,653 and over | 0.4500 | 474.0385
+
+Scales 5 and 6, for payees claiming a full or half Medicare levy exemption, and the Medicare levy adjustment parameters are on the ATO page and are not listed here. Nor are the fortnightly, monthly and quarterly tax tables, which the ATO builds from these formulas, or earlier years’ schedules.
+
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026. A blank weekly_earnings_less_than marks a scale’s top row, and blank coefficients mark the range with none. Cite as Duguid, R. (2026). PAYG withholding Schedule 1 weekly coefficients [Data set]. https://duguid.com.au/rates/payg-withholding/. Verify against current ATO guidance before relying on a figure.
+
+## Common questions
+
+### Which scale applies to an employee?
+
+Scale 2 if the payee claimed the tax-free threshold on their TFN declaration, scale 1 if they did not, and scale 3 for a foreign resident. Scales 1, 2, 3, 5 and 6 may be used only when the payee has given their TFN.
+
+### How do I work out a fortnightly amount?
+
+Halve the fortnightly earnings, ignore the cents and add 99 cents to get x, work out the rounded weekly amount, then multiply it by 2. The ATO’s Working out the weekly earnings page gives the monthly and quarterly steps.
+
+### What if the payee gave no TFN?
+
+Scale 4 has no coefficients: withhold 47% of the earnings for a resident or 45% for a foreign resident, ignoring cents in the earnings and in the result.
+
+### Do the coefficients include the Medicare levy?
+
+Scales 1, 2, 4 and 6 include it; scale 4 includes it for resident payees only. Scale 3 does not. Scales 5 and 6, for payees claiming a full or half Medicare levy exemption, are on the ATO page.
+
+Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+
+## Related
+
+- Individual income tax rates for residents
+- Study and training loan repayment thresholds
+- Staff cost calculator
+- About Ryan Duguid
+
+## Links
+
+- Schedule 1 coefficients: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments
+- About this schedule: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/about-this-schedule
+- Using a formula: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/using-a-formula
+- Working out the weekly earnings: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/working-out-the-weekly-earnings
+- Withholding amounts sample data: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/sample-data/withholding-amounts-sample-data
+- Download the table as CSV: https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv
+- Source and contact: https://github.com/ryanduguid
+- Individual income tax rates for residents: https://duguid.com.au/rates/individual-income-tax/
+- Study and training loan repayment thresholds: https://duguid.com.au/rates/study-loan-repayment/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - About Ryan Duguid: https://duguid.com.au/about/
 
 ---
@@ -4572,6 +5011,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+14 November 2026 | Three new rate tables, each read from the ATO on 14 November 2026 with a CSV: resident individual income tax rates from 2019-20 with the single Medicare levy low-income thresholds to 2025-26, the last year the ATO had published, study and training loan repayment thresholds from 2020-21, and the PAYG withholding Schedule 1 weekly coefficients for scales 1 to 3 for payments from 1 July 2026. The rates page now lists 10 tables, and rates.json holds every row of the 9 rate CSVs.
 14 November 2026 | The depreciation rates calculator now takes a taxable use percentage and shows prime cost and diminishing value side by side, and a drawn schedule can be copied as a citation line or a link that restores it, downloaded as CSV or printed. The page names the 2025 determination as LI 2025/20, says that TR 2022/1 was withdrawn with effect from 31 October 2025, and adds common questions, a note of its changes, a correction link and Dataset structured data for its JSON file. The rates index no longer lists its datasets by bare reference, which Google Search Console counted as 7 invalid Dataset items.
 14 November 2026 | A new depreciation rates page searches and lists the 7,430 effective lives in the Commissioner of Taxation’s 2025 determination, registered on 15 September 2025 and read on 13 November 2026. Each row shows the life, the prime cost and diminishing value rates it gives and the date it was last set, and a calculator works out a year’s decline in value from a cost, a life and a start date. The tables are also published as a JSON file with their source and the date it was read.
 14 November 2026 | The profit and cash flow case and the release record name au-fpa-pack v0.5.0, published on 13 November, as the current release. The case stays pinned to commit 386c7ff, which produced its workbook and figures.

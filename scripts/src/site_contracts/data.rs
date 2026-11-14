@@ -657,6 +657,18 @@ pub const COLLECTION_HUBS: [CollectionHub; 3] = [
             ("/rates/car-limit/", "Car limit for depreciation"),
             ("/rates/fbt-rate/", "FBT rate and gross-up rates"),
             (
+                "/rates/individual-income-tax/",
+                "Individual income tax rates for residents",
+            ),
+            (
+                "/rates/study-loan-repayment/",
+                "Study and training loan repayment thresholds",
+            ),
+            (
+                "/rates/payg-withholding/",
+                "PAYG withholding: Schedule 1 coefficients",
+            ),
+            (
                 "/rates/announced-not-yet-law/",
                 "Announced tax measures and enacted law",
             ),
@@ -727,7 +739,7 @@ pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
 ];
-pub const ARTICLE_PATTERN_PAGES: [&str; 36] = [
+pub const ARTICLE_PATTERN_PAGES: [&str; 39] = [
     "works-with/index.html",
     "works-with/xero/index.html",
     "works-with/claude/index.html",
@@ -763,15 +775,21 @@ pub const ARTICLE_PATTERN_PAGES: [&str; 36] = [
     "rates/maximum-contribution-base/index.html",
     "rates/car-limit/index.html",
     "rates/fbt-rate/index.html",
+    "rates/individual-income-tax/index.html",
+    "rates/study-loan-repayment/index.html",
+    "rates/payg-withholding/index.html",
     "rates/announced-not-yet-law/index.html",
 ];
-pub const RATE_PAGES: [&str; 7] = [
+pub const RATE_PAGES: [&str; 10] = [
     "rates/super-guarantee/index.html",
     "rates/div7a-benchmark-rate/index.html",
     "rates/cents-per-kilometre/index.html",
     "rates/maximum-contribution-base/index.html",
     "rates/car-limit/index.html",
     "rates/fbt-rate/index.html",
+    "rates/individual-income-tax/index.html",
+    "rates/study-loan-repayment/index.html",
+    "rates/payg-withholding/index.html",
     "rates/announced-not-yet-law/index.html",
 ];
 /// The depreciation rates page, whose Dataset names its creator with a rate page's Person stub.
