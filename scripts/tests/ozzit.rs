@@ -415,7 +415,7 @@ fn wrong_or_missing_counts_are_reported() {
             "another page",
             "llms.txt",
             llms.replace(&format!("{lambdas} native LAMBDA"), "1 native LAMBDA"),
-            "llms.txt: states [1, 143] LAMBDA functions",
+            "llms.txt: states [1, 150] LAMBDA functions",
         ),
     ];
     for (label, rel, changed, message) in cases {
@@ -546,7 +546,7 @@ fn every_index_entry_links_to_its_module_page_entry() {
         );
         count += 1;
     }
-    assert_eq!(count, 148);
+    assert_eq!(count, 155);
 }
 
 #[test]
@@ -635,7 +635,7 @@ fn rows_after_an_introducing_colon_render_as_a_list() {
         .find(|(r, _)| r.contains("/financial/"))
         .unwrap()
         .1;
-    assert!(financial.contains("A date here is not a life: the arguments read"));
+    assert!(financial.contains("A date here is not a life: check the argument order."));
 }
 
 fn with_reference(

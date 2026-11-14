@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/ozzit/functions/ratios/
 
 The 48 Ratios formulas cover liquidity, gearing, margin, return, market and working capital ratios. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
 
-Release v3.5.0. Read from the released Ratios formula source, which the workbook compiles.
+Release v3.6.0. Read from the released Ratios formula source, which the workbook compiles.
 
 Published 20 October 2026. Last reviewed 20 October 2026.
 
@@ -16,7 +16,7 @@ Published 20 October 2026. Last reviewed 20 October 2026.
 
 Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
 
-The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+The text below is the help each function carries in the v3.6.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
 
 ## All 48 functions
 
@@ -546,11 +546,11 @@ Previous name: nabla.r.AssetTurnoverRatioλ.
 
 ### oz.DSIλ
 
-oz.DSIλ( AverageInventory, CostOfGoodsSold)
+oz.DSIλ( AverageInventory, CostOfGoodsSold, [Days])
 
-Days Sales in Inventory Ratio (aka Average age of inventory indicates the average time in days that a company takes to turn its inventory (Average Inventory/Annual Cost of Goods Sold x 365)
+Days Sales in Inventory Ratio (aka Average age of inventory indicates the average time in days that a company takes to turn its inventory (Average Inventory/Cost of Goods Sold x Days, with Days 365 by default)
 
-Days Sales in Inventory Ratio (aka Average age of inventory) indicates the average time in days that a company takes to turn its inventory (Average Inventory/Annual Cost of Goods Sold x 365 days)
+Days Sales in Inventory Ratio (aka Average age of inventory) indicates the average time in days that a company takes to turn its inventory (Average Inventory / Cost of Goods Sold x Days, with Days 365 by default)
 
 Parameters:
 
@@ -560,7 +560,11 @@ Average of period open and close Inventory
 
 CostOfGoodsSold (required)
 
-Cost of Goods Sold (COGS) for a full year
+Cost of Goods Sold (COGS) over the same Days
+
+Days (optional, Default = 365)
+
+Days the COGS figure covers, such as 366 for a leap year or 90 for a quarter. Days of 0 or less returns #NUM!
 
 ```
 =oz.DSIλ(54.9, 490 )
@@ -1392,7 +1396,7 @@ Cash conversion cycle in days: inventory days + WIP days + receivable days - pay
 
 Cash conversion cycle: the days between paying suppliers and collecting from customers.
 
-Note: InventoryDays + WIPDays + ReceivableDays - PayableDays. Pass day counts, for example from DSIλ(), ReceivableDaysλ(), PayableDaysλ() and WIPDaysλ(), with every component on the same period basis. DSIλ() multiplies by 365 and expects a full year's cost of goods sold, so for a shorter window annualise that window's cost of goods sold before passing it. A negative result means suppliers are paid after customers pay. An omitted or blank WIPDays counts as 0. Pass WIPDays only where WIP is not already in the inventory behind InventoryDays, or it is counted twice.
+Note: InventoryDays + WIPDays + ReceivableDays - PayableDays. Pass day counts, for example from DSIλ(), ReceivableDaysλ(), PayableDaysλ() and WIPDaysλ(), with every component on the same period basis. For a shorter window, pass that window's days as the Days argument of each component. A negative result means suppliers are paid after customers pay. An omitted or blank WIPDays counts as 0. Pass WIPDays only where WIP is not already in the inventory behind InventoryDays, or it is counted twice.
 
 Parameters:
 
@@ -1431,7 +1435,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Ratios formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt
+- Ratios formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Ratios.txt
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutRatios λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-aboutratios
 - oz.CurrentRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-currentratio
