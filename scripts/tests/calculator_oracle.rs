@@ -1,18 +1,21 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-//! An independent oracle for the loan, Division 7A and Coal LSL engines. 300 seeded
+//! An independent oracle for the loan, Division 7A, FBT car and Coal LSL engines. 360 seeded
 //! fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser module returns under Node. The loan sums
 //! its discount factors one month at a time, and the Division 7A minimum yearly repayment
 //! one year at a time, where `assets/business-calculators.mjs` uses the closed annuity
 //! form; the levy works from section 3B of the Coal Mining Industry (Long Service Leave)
-//! Payroll Levy Collection Act 1992 in quarter cents.
+//! Payroll Levy Collection Act 1992 in quarter cents. The FBT car value adds the statutory
+//! formula's share of the base value one day at a time and takes the business use share off
+//! the operating costs, where the engine multiplies by the days and the private use share.
 //!
 //! The route is independent; the conventions are not. The oracle takes the same 12 equal
 //! months, payment count, unrounded total interest and half-up final rounding as the
-//! engines, and the same Division 7A interest part (the rate on the whole balance), so it
-//! cannot show those are the right conventions.
+//! engines, the same Division 7A interest part (the rate on the whole balance) and the same
+//! FBT rounding (each value to the cent before contributions, the gross-up and the FBT from
+//! the figure before them), so it cannot show those are the right conventions.
 //!
 //! Nothing here imports an engine or a constant from one, and a change to the case seed
 //! needs no change to the expected values, which are never stored.
@@ -26,6 +29,7 @@ use std::process::{Command, Stdio};
 const LOAN_CASES: usize = 120;
 const DIV7A_CASES: usize = 60;
 const LEVY_CASES: usize = 120;
+const FBT_CASES: usize = 60;
 /// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
 /// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
@@ -40,7 +44,7 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// Runs the cases through the engines in one Node process, from the repository root so
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r"
-import { loan, div7aMinimumRepayment } from './assets/business-calculators.mjs';
+import { loan, div7aMinimumRepayment, fbtCar } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
@@ -57,6 +61,8 @@ const run = {
     const result = div7aMinimumRepayment(balance, rate, term);
     return { repayment: money(result.repayment), interest: money(result.interest), principal: money(result.principal) };
   },
+  fbt: ({ car, year }) => Object.fromEntries(Object.entries(fbtCar(car, year))
+    .map(([key, value]) => [key, value === null ? null : money(value)])),
   base: ({ inputs }) => levy(baseRateWages(inputs)),
   salary: ({ inputs }) => levy(annualSalaryWages(inputs)),
   casual: ({ inputs }) => levy(casualWages(inputs)),
@@ -142,6 +148,60 @@ fn div7a_oracle(balance: u64, rate: u64, years: u32) -> [u64; 3] {
     let repayment = half_up(&(BigUint::from(balance) * &growth_power), &factors);
     let interest = half_up(&(BigUint::from(balance) * rate), &scale);
     [repayment, interest, repayment - interest]
+}
+
+/// One car's figures for an FBT year, amounts in cents. `operating` holds the operating
+/// costs and the business use percentage in hundredths of 1% when that method is elected.
+#[derive(Clone, Copy)]
+struct Car {
+    cost: u64,
+    accessories: u64,
+    reduced: bool,
+    days: u64,
+    operating: Option<(u64, u64)>,
+    contribution: u64,
+}
+
+/// Base value, statutory value, operating cost value, taxable value, grossed-up value and
+/// FBT, in cents. FBTAA s 9: base value x 20% x days available / days in the year, less
+/// contributions, with two-thirds of the cost price once held 4 years (s 9(2)(a)); s 10(2):
+/// operating costs less their business use share, less contributions; s 10(5): the lower of
+/// the two when the operating cost method is elected. The gross-up and the FBT rate are in
+/// ten-thousandths: 2.0802 is 20,802 and 47% is 4,700.
+fn fbt_oracle(car: Car, year_days: u64, gross_up: u64, rate: u64) -> [Option<u64>; 6] {
+    let cost = u128::from(car.cost);
+    let thirds = 3 * cost - if car.reduced { cost } else { 0 } + 3 * u128::from(car.accessories);
+    // Each day available adds that day's share: thirds x 20 / (300 x days in the year).
+    let mut statutory = 0_u128;
+    for _ in 0..car.days {
+        statutory += thirds * 20;
+    }
+    let less = |value: u128| value.saturating_sub(u128::from(car.contribution));
+    let statutory = less(exact_half_up(statutory, 300 * u128::from(year_days)));
+    let operating = car.operating.map(|(costs, business)| {
+        let costs = u128::from(costs);
+        less(exact_half_up(
+            costs * 10_000 - costs * u128::from(business),
+            10_000,
+        ))
+    });
+    let taxable = operating.map_or(statutory, |value| value.min(statutory));
+    let grossed = exact_half_up(taxable * u128::from(gross_up), 10_000);
+    let fbt = exact_half_up(grossed * u128::from(rate), 10_000);
+    let cents = |value: u128| Some(u64::try_from(value).unwrap());
+    [
+        cents(exact_half_up(thirds, 3)),
+        cents(statutory),
+        operating.and_then(cents),
+        cents(taxable),
+        cents(grossed),
+        cents(fbt),
+    ]
+}
+
+/// Half up on a non-negative exact ratio that fits in 128 bits.
+fn exact_half_up(numerator: u128, denominator: u128) -> u128 {
+    (2 * numerator + denominator) / (2 * denominator)
 }
 
 /// Half up at the final step only, as the calculator page states.
@@ -234,6 +294,72 @@ fn div7a_case(rng: &mut Seeded) -> (Value, Value) {
             "interest": shown(interest),
             "principal": shown(principal),
         }),
+    )
+}
+
+fn fbt_case(rng: &mut Seeded) -> (Value, Value) {
+    let any_days = rng.below(366);
+    let any_use = rng.below(10_001);
+    let small = rng.cents(100_000);
+    let large = rng.cents(10_000_000);
+    let car = Car {
+        cost: rng.cents(MAX_PRINCIPAL),
+        accessories: if rng.below(2) == 0 {
+            0
+        } else {
+            rng.cents(5_000_000)
+        },
+        reduced: rng.below(2) == 1,
+        days: rng.pick(&[0, 1, 182, 364, 365, any_days, any_days]),
+        operating: (rng.below(2) == 1).then(|| {
+            (
+                rng.cents(10_000_000),
+                rng.pick(&[0, 2_500, 3_158, 7_500, 10_000, any_use, any_use]),
+            )
+        }),
+        contribution: rng.pick(&[0, 0, small, large]),
+    };
+    // The FBT year ending 31 March 2027 has 365 days; Type 1 or Type 2, at 47%.
+    let gross_up = rng.pick(&[20_802, 18_868]);
+    let names = [
+        "baseValue",
+        "statutory",
+        "operating",
+        "taxableValue",
+        "grossedUp",
+        "fbt",
+    ];
+    let expected: serde_json::Map<String, Value> = names
+        .iter()
+        .zip(fbt_oracle(car, 365, gross_up, 4_700))
+        .map(|(name, figure)| {
+            (
+                (*name).to_owned(),
+                figure.map_or(Value::Null, |c| shown(c).into()),
+            )
+        })
+        .collect();
+    let (costs, business) = car.operating.unwrap_or((0, 0));
+    (
+        json!({
+            "kind": "fbt",
+            "car": {
+                "method": if car.operating.is_some() { "operating" } else { "statutory" },
+                "cost": dollars(car.cost),
+                "accessories": dollars(car.accessories),
+                "reduced": car.reduced,
+                "days": car.days.to_string(),
+                "costs": dollars(costs),
+                "businessUse": format!("{}.{:02}", business / 100, business % 100),
+                "contribution": dollars(car.contribution),
+            },
+            "year": {
+                "days": "365",
+                "grossUp": format!("{}.{:04}", gross_up / 10_000, gross_up % 10_000),
+                "fbtRate": "47",
+            },
+        }),
+        Value::Object(expected),
     )
 }
 
@@ -340,6 +466,43 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
     assert_eq!(div7a_oracle(100_000, 877, 1), [108_770, 8_770, 100_000]);
     // The ATO's 2015 example, $55,000 at 5.95% over 7 years: $9,835 to the dollar.
     assert_eq!(div7a_oracle(5_500_000, 595, 7), [983_492, 327_250, 656_242]);
+    // The ATO's FBT guide, example 28: $60,000 for 182 of 365 days, less $1,000, is $4,983
+    // with the cents of $5,983.56 left out. Type 1 at 47% is worked by hand in the Node tests.
+    let example = Car {
+        cost: 6_000_000,
+        accessories: 0,
+        reduced: false,
+        days: 182,
+        operating: None,
+        contribution: 100_000,
+    };
+    assert_eq!(
+        fbt_oracle(example, 365, 20_802, 4_700),
+        [
+            Some(6_000_000),
+            Some(498_356),
+            None,
+            Some(498_356),
+            Some(1_036_680),
+            Some(487_240)
+        ]
+    );
+    // Example 31: $19,580 at 75% business use, less $2,000, is $2,895 below the statutory value.
+    let operating = Car {
+        days: 365,
+        operating: Some((1_958_000, 7_500)),
+        contribution: 200_000,
+        ..example
+    };
+    assert_eq!(fbt_oracle(operating, 365, 20_802, 4_700)[3], Some(289_500));
+    // Example 23: a third off $39,000 and none off $4,000 of later accessories is $30,000.
+    let reduced = Car {
+        cost: 3_900_000,
+        accessories: 400_000,
+        reduced: true,
+        ..example
+    };
+    assert_eq!(fbt_oracle(reduced, 365, 18_868, 4_700)[0], Some(3_000_000));
     // 2.7% of $1,000.00 is $27.00; 2.7% of $0.50 is exactly 1.35 cents, so 1 cent.
     assert_eq!(levy_oracle(4 * 100_000), 2_700);
     assert_eq!(levy_oracle(4 * 50), 1);
@@ -385,18 +548,20 @@ fn the_loan_page_states_its_total_against_a_cent_by_cent_schedule() {
 fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
     let mut rng = Seeded(0x2026_1105_C0A1_7E57);
     let (mut cases, mut expected) = (Vec::new(), Vec::new());
-    for index in 0..LOAN_CASES + LEVY_CASES + DIV7A_CASES {
+    for index in 0..LOAN_CASES + LEVY_CASES + DIV7A_CASES + FBT_CASES {
         let (case, result) = if index < LOAN_CASES {
             loan_case(&mut rng)
         } else if index < LOAN_CASES + LEVY_CASES {
             levy_case(&mut rng)
-        } else {
+        } else if index < LOAN_CASES + LEVY_CASES + DIV7A_CASES {
             div7a_case(&mut rng)
+        } else {
+            fbt_case(&mut rng)
         };
         cases.push(case);
         expected.push(result);
     }
-    assert_eq!(cases.len(), 300);
+    assert_eq!(cases.len(), 360);
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {

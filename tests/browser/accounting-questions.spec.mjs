@@ -463,8 +463,28 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
   await expect(form.locator('.field-error')).toHaveText('Enter 25 or less.');
 });
 
+test('FBT car works the operating cost method at the Type 2 gross-up offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-car/');
+  const form = page.locator('#fbt-car form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Operating cost, elected, with log book records').check();
+  await form.getByLabel('Cost price, including GST, dealer delivery and accessories fitted at purchase (AUD)').fill('50000');
+  await form.getByLabel('Days used or available for private use').fill('365');
+  await form.getByLabel('Operating costs for the year, operating cost method only (AUD)').fill('19580');
+  await form.getByLabel('Business use percentage, operating cost method only').fill('75');
+  await form.getByLabel('Employee contributions for the year (AUD)').fill('2000');
+  await form.getByLabel('No: Type 2 gross-up, 1.8868').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: operating cost method, cost price $50,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
+    + '365 days of 365 available for private use, operating costs $19,580.00 at 75% business use, employee contributions $2,000.00, '
+    + 'Type 2 gross-up 1.8868. Base value: $50,000.00. Statutory formula taxable value: $8,000.00. Operating cost taxable value: $2,895.00. '
+    + 'Taxable value: $2,895.00. Grossed-up taxable value: $5,462.29. FBT at 47%: $2,567.28.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
-const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash'];
+const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'fbt-car', 'staff', 'cash'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

@@ -28,5 +28,15 @@ void tool.execute({ amount: '110.00', inclusive: true });
 calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
 // @ts-expect-error A Division 7A benchmark rate is a decimal string, as the rate table writes it.
 calculate.div7aMinimumRepayment('100000', 8.77, '5');
+const car = { method: 'statutory', cost: '60000', accessories: '0', reduced: false, days: '182', costs: '0',
+  businessUse: '0', contribution: '1000' } as const;
+const fbtYear = { days: '365', grossUp: '2.0802', fbtRate: '47' };
+const fbt: number = calculate.fbtCar(car, fbtYear).fbt;
+// @ts-expect-error The 4-year answer is a boolean, as the form passes it.
+calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
+// @ts-expect-error The operating cost value is null under the statutory formula.
+const operatingValue: number = calculate.fbtCar(car, fbtYear).operating;
+void fbt;
+void operatingValue;
 void tax;
 void formatted;

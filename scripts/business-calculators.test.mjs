@@ -246,6 +246,8 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
   annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
   deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal' };
+Object.assign(LABELS, { baseValue: 'base value', statutory: 'statutory formula value', operating: 'operating cost value',
+  taxableValue: 'taxable value', grossedUp: 'grossed-up value', fbt: 'FBT' });
 const shownField = (field, value) => {
   if (field === 'effect') return value;
   if (field === 'units') return `${value} units`;
@@ -275,6 +277,9 @@ const INPUTS = {
   staffCost: (wages, superannuation, other) =>
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
   div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
+  fbtCar: (car, year) => `${car.method === 'operating' ? `Operating cost ${dollars(car.costs)} at ${car.businessUse}% business use; `
+    : 'Statutory formula; '}cost price ${dollars(car.cost)}${car.accessories === '0' ? '' : ` plus ${dollars(car.accessories)} accessories`}`
+    + `${car.reduced ? ', held 4 years' : ''}, ${car.days} of ${year.days} days, contributions ${dollars(car.contribution)}, gross-up ${year.grossUp}`,
   cashForecast: (opening, weeks, buffer, delayed) => {
     const week = weeks.findIndex(({ receipts }) => receipts !== '0');
     assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
@@ -394,12 +399,65 @@ test('Division 7A years and rates are the rate table rows, newest first', () => 
   assert.deepEqual(options, table);
 });
 
+// The FBT car form passes the checked option's gross-up and the form's days and FBT rate; the
+// FBT car test below binds those to this row of the table.
+const fbtRow = readFileSync(new URL('../rates/fbt-rate/fbt-rates.csv', import.meta.url), 'utf8')
+  .trim().split(/\r?\n/).map((line) => line.split(',')).find(([ending]) => ending === '2027-03-31');
+const fbtDays = String((Date.parse(fbtRow[0]) - Date.parse(`${Number(fbtRow[0].slice(0, 4)) - 1}${fbtRow[0].slice(4)}`)) / 86400000);
+const fbtYear = { 1: { days: fbtDays, grossUp: fbtRow[2], fbtRate: fbtRow[1] }, 2: { days: fbtDays, grossUp: fbtRow[3], fbtRate: fbtRow[1] } };
+// ATO, 'Fringe benefits tax – a guide for employers', chapter 7 (current document 22 November 2024),
+// read 15 November 2026: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
+// Example 28: '$60,000 × 0.2 = $12,000', '2,184,000 ÷ 365 = $5,983', '$5,983 - $1,000 = $4,983'.
+// Example 31: '$19,580 × 25% = $4,895', '$4, 895 - $2,000 = $2,895 (taxable value)'.
+// Example 23: a $39,000 car 'may be reduced by $13,000', and $4,000 of later accessories join the base value.
+const fbtInputs = (fields) => ({ method: 'statutory', cost: '0', accessories: '0', reduced: false, days: '365',
+  costs: '0', businessUse: '0', contribution: '0', ...fields });
+test('FBT car values agree with the ATO guide’s worked examples', () => {
+  const example28 = calculations.fbtCar(fbtInputs({ cost: '60000', days: '182', contribution: '1000' }), fbtYear[1]);
+  // The guide leaves out the cents of $5,983.56 at step 4.
+  assert.equal(Math.trunc(example28.statutory + 1000), 5983);
+  assert.equal(Math.trunc(example28.taxableValue), 4983);
+  const example31 = fbtInputs({ method: 'operating', cost: '100000', costs: '19580', businessUse: '75', contribution: '2000' });
+  assert.equal(calculations.fbtCar(example31, fbtYear[1]).taxableValue, 2895);
+  const example23 = calculations.fbtCar(fbtInputs({ cost: '39000', accessories: '4000', reduced: true }), fbtYear[1]);
+  assert.equal(example23.baseValue, 39000 - 13000 + 4000);
+});
+
+// Worked by hand: $4,983.56 × 2.0802 = $10,366.801512, so $10,366.80, and 47% of that is $4,872.396,
+// so $4,872.40. An operating cost of 1 cent at 50% business use is exactly half a cent, so 1 cent.
+test('FBT car values, gross-up and FBT round half up from the figure before them', () => {
+  const opening = calculations.fbtCar(fbtInputs({ cost: '60000', days: '182', contribution: '1000' }), fbtYear[1]);
+  assert.deepEqual([opening.grossedUp, opening.fbt], [10366.8, 4872.4]);
+  const half = calculations.fbtCar(fbtInputs({ method: 'operating', cost: '1000', costs: '0.01', businessUse: '50' }), fbtYear[1]);
+  assert.deepEqual([half.operating, half.taxableValue], [0.01, 0.01]);
+  assert.equal(calculations.fbtCar(fbtInputs({ cost: '0.01', reduced: true }), fbtYear[1]).baseValue, 0.01);
+});
+
+test('FBT car refuses an unknown method, a missing answer and out-of-range figures', () => {
+  assert.throws(() => calculations.fbtCar(fbtInputs({ method: 'logbook' }), fbtYear[1]), { message: 'Choose a valuation method.' });
+  assert.throws(() => calculations.fbtCar(fbtInputs({ reduced: 'yes' }), fbtYear[1]), { message: 'Say whether the car was held for 4 years.' });
+  assert.throws(() => calculations.fbtCar(fbtInputs({ method: 'operating', businessUse: '100.01' }), fbtYear[1]),
+    { message: 'Enter an amount between 0 and 100.' });
+  assert.throws(() => calculations.fbtCar(fbtInputs({ days: '1.5' }), fbtYear[1]), { message: 'Enter a whole number between 0 and 365.' });
+  assert.equal(calculations.fbtCar(fbtInputs({ days: '366' }), { ...fbtYear[1], days: '366' }).statutory, 0);
+});
+
+// The form's gross-up options, days and FBT rate are the rate table's row for the year ending 31 March 2027.
+test('FBT car rates are the rate table row for the FBT year ending 31 March 2027', () => {
+  const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
+  const options = [...html.matchAll(/<input type="radio" name="type" value="(\d)" data-gross-up="([^"]+)"/g)];
+  assert.deepEqual(options.map(([, type, rate]) => [type, rate]), [['1', fbtYear[1].grossUp], ['2', fbtYear[2].grossUp]]);
+  assert.ok(html.includes(`data-year-days="${fbtDays}" data-fbt-rate="${fbtRow[1]}"`));
+  assert.equal(fbtDays, '365');
+});
+
 // The values each form opens with, read from its include: an input's value or
 // checked state, and a select's selected option (else its first).
 const formDefaults = (html) => {
   const fields = {};
   for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
     const name = tag.match(/\bname="([^"]+)"/)?.[1];
+    if (/\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
     if (name) fields[name] = /\btype="checkbox"/.test(tag) ? /\bchecked\b/.test(tag) : tag.match(/\bvalue="([^"]*)"/)?.[1];
   }
   for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
@@ -423,6 +481,8 @@ const FORM_CALLS = {
   variance: (f) => [f.actual, f.budget, f.kind],
   loan: (f) => [f.principal, f.rate, f.months],
   div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],
+  fbtCar: (f) => [{ method: f.method, cost: f.cost, accessories: f.accessories, reduced: f.reduced === 'yes', days: f.days,
+    costs: f.costs, businessUse: f['business-use'], contribution: f.contribution }, fbtYear[f.type]],
   staffCost: (f) => [f.wages, f.super, f.other],
   cashForecast: (f) => [f.opening,
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
