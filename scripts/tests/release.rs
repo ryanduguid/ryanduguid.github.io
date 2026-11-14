@@ -258,8 +258,42 @@ fn release_claims() {
         "without naming the difference",
     );
 
-    // A stale download hash or size on the page is a failure, not a lag.
-    let published = at(&mut record.clone(), &["components", "ozzit", "published"]).clone();
+    // A stale download hash or size on the page is a failure, not a lag. The asset
+    // check applies to a page documenting the published release, so publish the
+    // release the Ozzit page documents, whichever release is current.
+    let mut asset_record = record.clone();
+    let ozzit = at(&mut asset_record, &["components", "ozzit"]).clone();
+    let tag = format_value(ozzit.get("documented").unwrap().get("tag").unwrap(), "").unwrap();
+    let documented = |key: &str| {
+        let own = ozzit.get("documented").unwrap().get(key);
+        own.or_else(|| ozzit.get("published").unwrap().get(key))
+            .unwrap()
+            .clone()
+    };
+    let repository = "https://github.com/ryanduguid/Ozzit";
+    for (key, value) in [
+        ("version", documented("version")),
+        ("asset_sha256", documented("asset_sha256")),
+        ("asset_bytes", documented("asset_bytes")),
+        (
+            "release_url",
+            s(&format!("{repository}/releases/tag/{tag}")),
+        ),
+        (
+            "download_url",
+            s(&format!("{repository}/releases/download/{tag}/ozzit.xlsx")),
+        ),
+    ] {
+        *at(
+            &mut asset_record,
+            &["components", "ozzit", "published", key],
+        ) = value;
+    }
+    let published = at(
+        &mut asset_record.clone(),
+        &["components", "ozzit", "published"],
+    )
+    .clone();
     let field = |key: &str| format_value(published.get(key).unwrap(), "").unwrap();
     let size = format_value(published.get("asset_bytes").unwrap(), ",").unwrap() + " bytes";
     for (stale, message) in [
@@ -276,7 +310,7 @@ fn release_claims() {
         });
         expect_failure(
             &format!("stale asset detail {stale}"),
-            &check(site.path(), &record),
+            &check(site.path(), &asset_record),
             message,
         );
     }
