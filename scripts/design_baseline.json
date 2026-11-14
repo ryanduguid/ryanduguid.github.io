@@ -147,7 +147,7 @@
       "8de5b99aaef6ecb86e6698d7c0bb09e28fb65223c0979d57ffc43e0c9e5deaad"
     ],
     "tools/depreciation-rates/index.html": [
-      "e685892aaff73bb6f50e3787560285422ad65e14aa9b5b2dcf6db7f4890db186"
+      "3c876083d14c3b14fbda89743d98bb0d696b45329eb8131980ebe57003b784a4"
     ],
     "tools/index.html": [
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
@@ -214,7 +214,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "8ccec7d594dcc7040c642a7b52f514a5ef4fb171d469c1493f696472c2c014da",
+    "llms.txt": "07235a78e2e9b7708471e86f6af5adba92e968093d07b12b696313e6967d1f08",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
     "sitemap.xml": "346d3d3ebf882766717e2d3a2c19355eedd53b5414ea351addf1eb3572183d39"
   },

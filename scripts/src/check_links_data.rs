@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 131] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 133] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -143,9 +143,11 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 131] = [
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return",
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return/lodge-your-tax-return-online-with-mytax/pre-fill-availability",
     "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
+    "https://www.ato.gov.au/law/view/document?docid=OPS/LI202520/00001",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/110-45",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-27",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-80",
+    "https://www.ato.gov.au/law/view/document?docid=TXR/TR20221W/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
     "https://www.ato.gov.au/single-page-applications/legaldatabase",
     "https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/tax-time/tax-time-toolkits/tax-time-toolkit-small-business/small-business-guides/using-business-money-and-assets",

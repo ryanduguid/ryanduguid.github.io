@@ -311,3 +311,151 @@ test('text typed before the page script runs is kept and searched', async ({ pag
   await expect(page.getByLabel('Asset', { exact: true })).toHaveValue('tractor');
   await expect(page).toHaveURL(/\?q=tractor$/);
 });
+
+/** Fills the calculator. @param {import('@playwright/test').Page} page
+ * @param {{cost: string, life?: string, start: string, use?: string, method?: string, year?: string}} inputs */
+async function fillCalculator(page, { cost, life, start, use, method, year }) {
+  await page.getByLabel('Cost (AUD)').fill(cost);
+  if (life) await page.getByLabel('Effective life (years)').fill(life);
+  await page.getByLabel('First used or installed ready for use').fill(start);
+  if (year) await page.getByLabel('Income year ending 30 June').fill(year);
+  if (use) await page.getByLabel('Taxable use (%)').fill(use);
+  if (method) await page.getByLabel('Method').selectOption(method);
+  await page.getByRole('button', { name: 'Work out the deduction' }).click();
+}
+
+// ATO, Guide to depreciating assets 2026 (read 14 November 2026): Leo's $6,000 computer,
+// used 50% for a taxable purpose, declines by $1,500; the deduction is $750 and its
+// adjustable value on 30 June 2026 is $4,500. A 4 year life by prime cost gives the $1,500.
+test('a taxable use percentage reduces the deduction and not the value, as the ATO example does', async ({ page }) => {
+  await page.goto(PAGE);
+  await fillCalculator(page, { cost: '6000', life: '4', start: '2025-07-01', use: '50', method: 'prime-cost' });
+  const figures = page.locator('#deduction-output .result-row');
+  await expect(figures).toHaveText([
+    'Decline in value for 2025-26$1,500.00',
+    'Deduction at 50% taxable use$750.00',
+    'Value left at 30 June 2026$4,500.00',
+  ]);
+  await expect(page.locator('#deduction-schedule').getByRole('row')).toHaveText([
+    /Income year\s*Days held\s*Opening value\s*Decline in value\s*Deduction at 50% taxable use\s*Closing value/,
+    /2025-26\s*365\s*\$6,000\.00\s*\$1,500\.00\s*\$750\.00\s*\$4,500\.00/,
+  ]);
+  // A changed use clears figures worked from the old one.
+  await page.getByLabel('Taxable use (%)').fill('150');
+  await expect(figures).toHaveCount(0);
+  await page.getByRole('button', { name: 'Work out the deduction' }).click();
+  await expect(page.getByRole('alert')).toHaveText('Enter the taxable use as a percentage from 0 to 100, such as 100 or 62.5.');
+  await expect(page.getByLabel('Taxable use (%)')).toBeFocused();
+});
+
+test('both methods side by side fit a phone and pass the accessibility scan', async ({ page }) => {
+  await page.goto(PAGE);
+  await fillCalculator(page, { cost: '1500', life: '5', start: '2025-07-01', method: 'both', year: '2027' });
+  // Laura's photocopier from the ATO's guide: $300 by prime cost and $600 by diminishing value in 2025-26.
+  await expect(page.locator('#deduction-output .result-row')).toHaveText([
+    'Prime cost: decline in value for 2026-27$300.00',
+    'Prime cost: value left at 30 June 2027$900.00',
+    'Diminishing value: decline in value for 2026-27$360.00',
+    'Diminishing value: value left at 30 June 2027$540.00',
+  ]);
+  await expect(page.locator('#deduction-schedule').getByRole('row')).toHaveText([
+    /Income year\s*Days held\s*Prime cost: decline in value\s*Prime cost: closing value\s*Diminishing value: decline in value\s*Diminishing value: closing value/,
+    /2025-26\s*365\s*\$300\.00\s*\$1,200\.00\s*\$600\.00\s*\$900\.00/,
+    /2026-27\s*365\s*\$300\.00\s*\$900\.00\s*\$360\.00\s*\$540\.00/,
+  ]);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+  for (const name of ['Copy the citation', 'Copy the link', 'Download the schedule as CSV', 'Print the schedule']) {
+    expect((await page.getByRole('button', { name }).boundingBox()).height).toBeGreaterThanOrEqual(44);
+  }
+  const scan = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  expect(scan.violations.map((violation) => `${violation.id}: ${violation.nodes.length}`)).toEqual([]);
+});
+
+test('a citation and a link copy, and the link restores the calculation', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto(`${PAGE}?q=photocopier`);
+  await page.getByRole('button', { name: 'Use this life: 5 years, Photo copying machines' }).click();
+  await fillCalculator(page, { cost: '1,500', start: '2025-07-01', use: '62.5' });
+  const line = page.locator('#deduction-citation');
+  await expect(line).toHaveText(new RegExp(
+    '^Effective life 5 years: ‘Photo copying machines’ \\(Table B / Office machines and equipment\\), Schedule 2 to the '
+    + 'Income Tax Assessment \\(Effective Life of Depreciating Assets\\) Determination 2025 \\(LI 2025/20, F2025L01097\\), '
+    + 'last updated 1 January 2001\\. LI 2025/20 commenced on 16 September 2025, after this start date: '
+    + 'check the life in the determination in force at the time subsection 40-95\\(2\\) fixes\\. Cost \\$1,500\\.00, first used or installed ready for use on 1 July 2025\\. '
+    + 'Diminishing value: decline in value for 2025-26 \\$600\\.00, deduction at 62\\.5% taxable use \\$375\\.00\\. Working: http',
+  ));
+  await page.getByRole('button', { name: 'Copy the citation' }).click();
+  await expect(page.locator('.schedule-actions [role="status"]')).toHaveText('Citation copied.');
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(await line.textContent());
+  await page.getByRole('button', { name: 'Copy the link' }).click();
+  await expect(page.locator('.schedule-actions [role="status"]')).toHaveText('Link copied.');
+  const link = await page.evaluate(() => navigator.clipboard.readText());
+  expect(link).toBe(await page.getByRole('link', { name: 'Link to this calculation' }).getAttribute('href'));
+  expect(link).toMatch(/\?cost=1%2C500&life=5&start=2025-07-01&year=2026&method=diminishing-value&use=62\.5#deduction$/);
+  // The life came from LI 2025/20, which commenced after this start date, so the result says so.
+  await expect(page.locator('#deduction-output')).toContainText('LI 2025/20 commenced on 16 September 2025, after this start date');
+
+  await page.goto(link);
+  await expect(page.getByLabel('Cost (AUD)')).toHaveValue('1,500');
+  await expect(page.getByLabel('Taxable use (%)')).toHaveValue('62.5');
+  await expect(page.locator('#deduction-output .result-row')).toHaveText([
+    'Decline in value for 2025-26$600.00',
+    'Deduction at 62.5% taxable use$375.00',
+    'Value left at 30 June 2026$900.00',
+  ]);
+  // Opened without a row chosen, the life is not credited to the determination.
+  await expect(line).toContainText('Effective life 5 years, entered for this working and not taken from a row of the determination.');
+  // Once the tables arrive the address still holds the calculation, so it can be reloaded or shared.
+  await expect(page.locator('#finder-status')).toHaveText('9,311 rows to search.');
+  await expect(page).toHaveURL(link);
+});
+
+test('a link the form cannot hold fills nothing and says why', async ({ page }) => {
+  await page.goto(`${PAGE}?cost=10&method=straight-line#deduction`);
+  await expect(page.locator('#deduction-output')).toHaveText(
+    'The link’s method is not one the calculator offers. Enter the inputs and work out the deduction.',
+  );
+  await expect(page.getByLabel('Cost (AUD)')).toHaveValue('');
+  // A link with an input blank names that field, and one it leaves out keeps the form's default.
+  await page.goto(`${PAGE}?cost=1500&life=5&start=&year=2026&method=prime-cost#deduction`);
+  await expect(page.getByRole('alert')).toHaveText('Enter a date.');
+  await expect(page.getByLabel('First used or installed ready for use')).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.getByLabel('Taxable use (%)')).toHaveValue('100');
+});
+
+test('the schedule downloads as CSV from the keyboard and prints alone', async ({ page }) => {
+  await page.goto(PAGE);
+  await fillCalculator(page, { cost: '1500', life: '5', start: '2025-07-01', year: '2027' });
+  await page.getByRole('button', { name: 'Download the schedule as CSV' }).focus();
+  const [download] = await Promise.all([page.waitForEvent('download'), page.keyboard.press('Enter')]);
+  expect(download.suggestedFilename()).toBe('decline-in-value.csv');
+  const { readFile } = await import('node:fs/promises');
+  expect(await readFile(await download.path(), 'utf8')).toBe([
+    'Year ending 30 June,Days held,Opening value,Decline in value,Closing value',
+    '2026,365,1500.00,600.00,900.00',
+    '2027,365,900.00,360.00,540.00',
+    '',
+  ].join('\r\n'));
+
+  await page.evaluate(() => {
+    window.print = () => {
+      document.documentElement.dataset.printedWith = document.body.className;
+    };
+  });
+  await page.getByRole('button', { name: 'Print the schedule' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-printed-with', /\bprint-schedule\b/);
+  await page.emulateMedia({ media: 'print' });
+  await expect(page.locator('#find')).toBeHidden();
+  await expect(page.locator('.site-header')).toBeHidden();
+  await expect(page.locator('#deduction-schedule table')).toBeVisible();
+  await expect(page.locator('#deduction-citation')).toBeVisible();
+  // Paper keeps the assumptions the figures rest on and the site's disclaimer.
+  await expect(page.locator('#deduction > p').filter({ hasText: 'Income years end on 30 June.' })).toBeVisible();
+  await expect(page.locator('.site-footer__legal')).toBeVisible();
+  await expect(page.locator('#deduction > p').filter({ hasText: 'Choosing ‘Use this life’' })).toBeHidden();
+  await page.evaluate(() => window.dispatchEvent(new Event('afterprint')));
+  await expect(page.locator('body')).not.toHaveClass(/\bprint-schedule\b/);
+  // Printing from the browser prints the whole page.
+  await expect(page.locator('#find')).toBeVisible();
+});

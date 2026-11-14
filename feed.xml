@@ -8,6 +8,13 @@
   <updated>2026-11-14T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The depreciation rates calculator now takes a taxable use percentage and shows…</title>
+    <link href="https://duguid.com.au/changelog/#entry-883c50ee6459504a" />
+    <id>https://duguid.com.au/changelog/#entry-883c50ee6459504a</id>
+    <updated>2026-11-14T00:00:00Z</updated>
+    <summary>The depreciation rates calculator now takes a taxable use percentage and shows prime cost and diminishing value side by side, and a drawn schedule can be copied as a citation line or a link that restores it, downloaded as CSV or printed. The page names the 2025 determination as LI 2025/20, says that TR 2022/1 was withdrawn with effect from 31 October 2025, and adds common questions, a note of its changes, a correction link and Dataset structured data for its JSON file.</summary>
+  </entry>
+  <entry>
     <title>A new depreciation rates page searches and lists the 7,430 effective lives in…</title>
     <link href="https://duguid.com.au/changelog/#entry-b13840e644accbdf" />
     <id>https://duguid.com.au/changelog/#entry-b13840e644accbdf</id>
