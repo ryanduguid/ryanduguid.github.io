@@ -2759,7 +2759,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 9 business planning calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 10 business planning calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -2976,7 +2976,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun.: https://duguid.com.au/tools/monthly-close-controls/
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
-- 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
+- 10 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
