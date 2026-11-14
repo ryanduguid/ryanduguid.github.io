@@ -58,7 +58,7 @@ fn captures_dir(root: &Path) -> PathBuf {
 
 /// The reviewed prompt set, keyed by its stable identifier.
 pub fn load_prompts(root: &Path) -> Result<Prompts> {
-    let data = pyjson::loads(&crate::read(&prompts_path(root))?)
+    let data = pyjson::loads_unique(&crate::read(&prompts_path(root))?)
         .map_err(|e| format!("json.decoder.JSONDecodeError: {e}"))?;
     let mut prompts: Prompts = Vec::new();
     for entry in crate::pyobj::iterate(item(&data, "prompts")?)? {
@@ -71,10 +71,13 @@ pub fn load_prompts(root: &Path) -> Result<Prompts> {
                 ));
             }
         };
-        match prompts.iter_mut().find(|(k, _)| *k == id) {
-            Some(slot) => slot.1 = entry,
-            None => prompts.push((id, entry)),
+        if prompts.iter().any(|(k, _)| *k == id) {
+            return Err(format!(
+                "ValueError: repeated prompt id {} in prompts.json",
+                py::repr_str(&id)
+            ));
         }
+        prompts.push((id, entry));
     }
     Ok(prompts)
 }
@@ -101,7 +104,7 @@ pub fn load_capture(path: &Path) -> std::result::Result<Json, String> {
     let text = py::decode_utf8(&bytes)
         .map(|t| py::universal_newlines(&t))
         .map_err(|e| format!("is not UTF-8 text: {e}"))?;
-    let capture = pyjson::loads(&text).map_err(|e| format!("is not valid JSON: {e}"))?;
+    let capture = pyjson::loads_unique(&text).map_err(|e| format!("is not valid JSON: {e}"))?;
     if !matches!(capture, Json::Object(_)) {
         return Err(format!("is a {}, expected an object", type_name(&capture)));
     }
@@ -131,28 +134,14 @@ fn sorted_repr(members: &[&str]) -> String {
     )
 }
 
-/// `SplitResult.port` validation: digits only and within 0 to 65535.
-fn port_ok(netloc: &str) -> bool {
-    let hostinfo = netloc.rsplit_once('@').map_or(netloc, |(_, h)| h);
-    let port = match hostinfo.split_once('[') {
-        Some((_, bracketed)) => bracketed
-            .split_once(']')
-            .map_or("", |(_, rest)| rest.split_once(':').map_or("", |(_, p)| p)),
-        None => hostinfo.split_once(':').map_or("", |(_, p)| p),
-    };
-    if port.is_empty() {
-        return true;
-    }
-    port.bytes().all(|b| b.is_ascii_digit()) && port.parse::<u64>().is_ok_and(|p| p <= 65535)
-}
-
 /// One usable http or https URL's host, or None when the value cannot be one.
 fn usable_host(url: Option<&Json>) -> Option<String> {
     let Some(Json::Str(url)) = url.filter(|u| is_text(Some(u))) else {
         return None;
     };
     let split = crate::pyurl::urlsplit(url).ok()?;
-    if !port_ok(&split.netloc) {
+    // `SplitResult.port` raises for a port that is not a number from 0 to 65535.
+    if crate::pyurl::port(&split.netloc).is_err() {
         return None;
     }
     if !matches!(split.scheme.to_lowercase().as_str(), "http" | "https") {
@@ -164,8 +153,11 @@ fn usable_host(url: Option<&Json>) -> Option<String> {
 /// True only when a usable URL's host is the site or one of its subdomains.
 pub fn site_cited_url(url: Option<&Json>) -> bool {
     usable_host(url).is_some_and(|host| {
+        // DNS allows one terminal root dot; empty labels do not name subdomains.
         let host = host.to_lowercase();
-        host == SITE_HOST || host.ends_with(&format!(".{SITE_HOST}"))
+        let host = host.strip_suffix('.').unwrap_or(&host);
+        host.split('.').all(|label| !label.is_empty())
+            && (host == SITE_HOST || host.ends_with(&format!(".{SITE_HOST}")))
     })
 }
 
@@ -385,8 +377,20 @@ pub fn check_capture_data(label: &str, capture: &Json, prompts: &Prompts) -> Res
             return Ok(failures);
         }
     };
+    let mut seen_prompt_ids: Vec<&str> = Vec::new();
     for (index, observation) in observations.iter().enumerate() {
         failures.extend(check_observation(label, index + 1, observation, prompts)?);
+        // One round holds one observation per prompt; repeat a prompt across rounds.
+        if let Some(Json::Str(id)) = observation.get("prompt_id") {
+            if seen_prompt_ids.contains(&id.as_str()) {
+                failures.push(format!(
+                    "{label} observation {}: repeated prompt_id {} in one round",
+                    index + 1,
+                    py::repr_str(id)
+                ));
+            }
+            seen_prompt_ids.push(id);
+        }
     }
     // One file is one system per round.
     let systems = named_systems(capture)?;
@@ -455,11 +459,18 @@ fn selected(root: &Path, names: &[String]) -> Vec<Named> {
 pub fn validated(paths: &[Named], prompts: &Prompts) -> Result<(Vec<Json>, Vec<String>)> {
     let mut captures = Vec::new();
     let mut failures = Vec::new();
+    let mut seen: Vec<PathBuf> = Vec::new();
     for named in paths {
         if !named.path.is_file() {
             failures.push(format!("{}: no such capture file", named.shown));
             continue;
         }
+        // A round named twice, by any spelling or link, is still one round.
+        let resolved = py::resolve(&named.path);
+        if seen.contains(&resolved) {
+            continue;
+        }
+        seen.push(resolved);
         let capture = match load_capture(&named.path) {
             Ok(capture) => capture,
             Err(error) => {
@@ -484,12 +495,11 @@ struct Bucket {
     cited: usize,
     clean: usize,
     excluded: usize,
-    not_fresh: usize,
 }
 
 /// Report visibility and accuracy separately, with explicit denominators.
 pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -> Result<String> {
-    let mut counts: Vec<((String, bool, String), Bucket)> = Vec::new();
+    let mut counts: Vec<((String, bool, String, bool), Bucket)> = Vec::new();
     let mut fixtures_skipped = 0;
     for capture in captures {
         if matches!(capture.get("fixture"), Some(Json::Bool(true))) && !include_fixtures {
@@ -519,7 +529,13 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
                 Some(search) => py_str(search)?,
                 None => "unknown".into(),
             };
-            let key = (system, item(prompt, "branded")?.truthy(), search);
+            // Completed answers from reused sessions keep their own rates; an unrun
+            // answer has no result or session to compare.
+            let complete =
+                matches!(observation.get("status"), Some(Json::Str(s)) if s == "complete");
+            let not_fresh =
+                complete && matches!(observation.get("fresh_session"), Some(Json::Bool(false)));
+            let key = (system, item(prompt, "branded")?.truthy(), search, not_fresh);
             let index = match counts.iter().position(|(k, _)| *k == key) {
                 Some(i) => i,
                 None => {
@@ -528,7 +544,7 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
                 }
             };
             let bucket = &mut counts[index].1;
-            if !matches!(observation.get("status"), Some(Json::Str(s)) if s == "complete") {
+            if !complete {
                 bucket.excluded += 1;
                 continue;
             }
@@ -543,10 +559,6 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
             ));
             bucket.clean +=
                 usize::from(!observation.get("factual_errors").is_some_and(Json::truthy));
-            bucket.not_fresh += usize::from(!matches!(
-                observation.get("fresh_session"),
-                Some(Json::Bool(true))
-            ));
         }
     }
     counts.sort_by(|a, b| a.0.cmp(&b.0));
@@ -557,10 +569,17 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
     if counts.is_empty() {
         lines.push("No observations to summarise.".into());
     }
-    for ((system, branded, search), bucket) in &counts {
+    for ((system, branded, search, not_fresh), bucket) in &counts {
         let group = if *branded { "branded" } else { "non-branded" };
         let total = bucket.complete;
-        lines.push(format!("{system}, {group} prompts, search {search}"));
+        let session = if *not_fresh {
+            ", without a fresh session"
+        } else {
+            ""
+        };
+        lines.push(format!(
+            "{system}, {group} prompts, search {search}{session}"
+        ));
         if total == 0 {
             lines.push(format!(
                 "  no completed observations ({} excluded)",
@@ -584,10 +603,10 @@ pub fn summarise(captures: &[Json], prompts: &Prompts, include_fixtures: bool) -
             "  excluded (not run or blocked): {}",
             bucket.excluded
         ));
-        if bucket.not_fresh > 0 {
+        if *not_fresh {
+            // A reused session can carry context from an earlier prompt.
             lines.push(format!(
-                "  recorded without a fresh session: {}/{total}, not comparable with the rest",
-                bucket.not_fresh
+                "  recorded without a fresh session: {total}/{total}, not comparable with the rest"
             ));
         }
     }

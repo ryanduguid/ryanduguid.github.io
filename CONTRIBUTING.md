@@ -89,7 +89,7 @@ release on the same day.
 
 The browser job also runs `npm audit --audit-level=high`, including development
 dependencies, and fails on high or critical advisories. Lighthouse reports are
-retained for 7 days after successful and failed runs.
+retained for 7 days after failed runs.
 
 Browser CI fails when a test passes only on retry. Failed attempts keep their
 traces for diagnosis, even if a retry passes.

@@ -1264,3 +1264,340 @@ fn prefetched_archive_verdicts_replay_exactly() {
     assert_eq!(sequential.0[1], Ok(true));
     assert!(sequential.1.iter().any(|l| l.starts_with("retry 1/4 old")));
 }
+
+/// Each fragment href checked offline against one page; the failures it produced.
+fn fragment_failures(html: &str, hrefs: &[&str]) -> Vec<(String, Vec<String>)> {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(dir.path().join("index.html"), html).unwrap();
+    std::fs::write(dir.path().join("notes.txt"), "Notes").unwrap();
+    let harness = Harness::new(vec![]);
+    harness.with(dir.path().to_path_buf(), |c| {
+        c.fetch_hook = Some(Box::new(|_| panic!("no fetch offline")));
+        c.lookup_hook = Some(Box::new(|_| panic!("no lookup offline")));
+        hrefs
+            .iter()
+            .map(|href| {
+                let failures = c.check_hrefs("index.html", &strings(&[href]), true);
+                ((*href).to_owned(), failures.unwrap())
+            })
+            .collect()
+    })
+}
+
+fn assert_fragments(html: &str, cases: &[(&str, bool)]) {
+    let hrefs: Vec<&str> = cases.iter().map(|(href, _)| *href).collect();
+    for ((href, failures), (_, valid)) in fragment_failures(html, &hrefs).iter().zip(cases) {
+        if *valid {
+            assert!(failures.is_empty(), "{html} {href}: {failures:?}");
+        } else {
+            assert_eq!(failures.len(), 1, "{html} {href}: {failures:?}");
+            assert!(failures[0].contains("no element"), "{href}: {failures:?}");
+        }
+    }
+}
+
+#[test]
+fn fragments_match_literal_and_decoded_browser_targets() {
+    let html = concat!(
+        r#"<h1 id="target">Target</h1><h2 id="caf&eacute;">Cafe</h2>"#,
+        "<a name='legacy&amp;anchor'>Legacy</a>",
+        r#"<p id="percent%20">Percent</p><p id="plus+sign">Plus</p>"#,
+    );
+    assert_fragments(
+        html,
+        &[
+            ("/#target", true),
+            ("/#%74arget", true),
+            ("/#caf%C3%A9", true),
+            ("/#café", true),
+            ("/#legacy%26anchor", true),
+            ("/#legacy&anchor", true),
+            ("/#percent%2520", true),
+            ("/#percent%20", true),
+            ("/#plus+sign", true),
+            ("/#plus%2Bsign", true),
+            ("/#%54arget", false),
+            ("/#%6Dissing", false),
+            ("/notes.txt#absent", true),
+            ("/#top", true),
+            ("/#ToP", true),
+            ("/#%74op", true),
+            ("/#top%2520", false),
+            ("/#percent%252520", false),
+        ],
+    );
+}
+
+#[test]
+fn fragments_use_parsed_element_attributes() {
+    for (html, fragment, valid) in [
+        (r#"<h1 id = "spaced">Heading</h1>"#, "spaced", true),
+        ("<h1 id=unquoted>Heading</h1>", "unquoted", true),
+        (r#"<h1 ID="upper">Heading</h1>"#, "upper", true),
+        ("<h1 id\t=\n\"whitespace\">Heading</h1>", "whitespace", true),
+        (r#"<!-- <h1 id="comment">Ghost</h1> -->"#, "comment", false),
+        (
+            r#"<script>const html = '<h1 id="script">Ghost</h1>';</script>"#,
+            "script",
+            false,
+        ),
+        (
+            r#"<style>p::before { content: ' id="style"'; }</style>"#,
+            "style",
+            false,
+        ),
+        (
+            r#"<meta name="metadata" content="description">"#,
+            "metadata",
+            false,
+        ),
+        (r#"<p name="paragraph">Text</p>"#, "paragraph", false),
+        (r#"<a name="legacy">Legacy</a>"#, "legacy", true),
+        ("<A NAME=uppercase>Legacy</A>", "uppercase", true),
+        (r#"<h1 id="first" id="second">Heading</h1>"#, "first", true),
+        (
+            r#"<h1 id="first" id="second">Heading</h1>"#,
+            "second",
+            false,
+        ),
+        (r#"<a name="first" name="second">Legacy</a>"#, "first", true),
+        (
+            r#"<a name="first" name="second">Legacy</a>"#,
+            "second",
+            false,
+        ),
+        (r#"<h1 id="">Heading</h1>"#, "missing", false),
+    ] {
+        assert_fragments(html, &[(&format!("/#{fragment}"), valid)]);
+    }
+}
+
+/// A site with a home page and a tools section holding a sibling page.
+fn tools_site() -> tempfile::TempDir {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::create_dir(dir.path().join("tools")).unwrap();
+    for (rel, id) in [
+        ("index.html", "home"),
+        ("tools/index.html", "here"),
+        ("tools/sibling.html", "ok"),
+    ] {
+        std::fs::write(dir.path().join(rel), format!(r#"<h1 id="{id}">Page</h1>"#)).unwrap();
+    }
+    dir
+}
+
+#[test]
+fn relative_links_resolve_against_their_page_on_disk() {
+    let dir = tools_site();
+    let cases: [(&str, Option<&str>); 10] = [
+        ("missing.html", Some("no file")),
+        ("#missing", Some("no element")),
+        ("../missing.html", Some("no file")),
+        ("sibling.html#missing", Some("no element")),
+        ("sibling.html#ok", None),
+        ("./sibling.html#ok", None),
+        ("../index.html#home", None),
+        ("../#home", None),
+        ("#here", None),
+        ("?mode=test#here", None),
+    ];
+    for (href, error) in cases {
+        let harness = Harness::new(vec![]);
+        let failures = harness.with(dir.path().to_path_buf(), |c| {
+            c.fetch_hook = Some(Box::new(|_| panic!("no fetch offline")));
+            c.lookup_hook = Some(Box::new(|_| panic!("no lookup offline")));
+            c.check_hrefs("tools/index.html", &strings(&[href]), true)
+                .unwrap()
+        });
+        match error {
+            Some(error) => {
+                assert_eq!(failures.len(), 1, "{href}: {failures:?}");
+                assert!(failures[0].contains(error), "{href}: {failures:?}");
+            }
+            None => assert!(failures.is_empty(), "{href}: {failures:?}"),
+        }
+        let printed = harness.printed.borrow().join("\n");
+        assert!(printed.contains("1 links scanned"), "{href}: {printed}");
+    }
+    for (hrefs, scanned) in [
+        (vec!["sibling.html#ok", "./sibling.html#ok"], 1),
+        (
+            vec![
+                "mailto:test@example.org",
+                "tel:12345",
+                "data:text/plain,test",
+            ],
+            0,
+        ),
+    ] {
+        let harness = Harness::new(vec![]);
+        let failures = harness.with(dir.path().to_path_buf(), |c| {
+            c.check_hrefs("tools/index.html", &strings(&hrefs), true)
+                .unwrap()
+        });
+        assert!(failures.is_empty(), "{hrefs:?}: {failures:?}");
+        let printed = harness.printed.borrow().join("\n");
+        assert!(
+            printed.contains(&format!("{scanned} links scanned")),
+            "{printed}"
+        );
+    }
+}
+
+#[test]
+fn scheme_relative_links_use_their_origin() {
+    let dir = tools_site();
+    let hrefs = strings(&[
+        "//example.org/index.html",
+        "//duguid.com.au/#home",
+        "/#home",
+        "https://duguid.com.au/#home",
+        "#home",
+        "//duguid.com.au/missing/",
+        "//DUGUID.COM.AU/missing/",
+    ]);
+    for (offline, status) in [(false, 200), (false, 404), (true, 200)] {
+        let harness = Harness::new(vec![]);
+        let fetched = Rc::new(RefCell::new(Vec::new()));
+        let failures = harness.with(dir.path().to_path_buf(), |c| {
+            let log = fetched.clone();
+            c.fetch_hook = Some(Box::new(move |url| {
+                log.borrow_mut().push(url.to_owned());
+                Ok((status, "https://example.org/index.html".into()))
+            }));
+            c.lookup_hook = Some(Box::new(|_| panic!("no own repository here")));
+            c.check_hrefs("index.html", &hrefs, offline).unwrap()
+        });
+        let expected: Vec<String> = if offline {
+            vec![]
+        } else {
+            strings(&["https://example.org/index.html"])
+        };
+        assert_eq!(*fetched.borrow(), expected, "{offline} {status}");
+        assert_eq!(
+            failures.len(),
+            if status == 404 { 3 } else { 2 },
+            "{failures:?}"
+        );
+        // The host's case does not make a link external: both spellings are checked on disk.
+        for href in [
+            "https://duguid.com.au/missing/",
+            "https://DUGUID.COM.AU/missing/",
+        ] {
+            let diagnostic = format!("{href} -> no file at missing/index.html");
+            assert!(
+                failures.iter().any(|f| f.contains(&diagnostic)),
+                "{failures:?}"
+            );
+        }
+        if status == 404 {
+            assert!(
+                failures
+                    .iter()
+                    .any(|f| f.contains("https://example.org/index.html -> HTTP 404"))
+            );
+        }
+        let printed = harness.printed.borrow().join("\n");
+        assert!(printed.contains("4 links scanned"), "{printed}");
+        assert!(
+            printed.contains(&format!("{} external links skipped", u8::from(offline))),
+            "{printed}"
+        );
+    }
+    assert_eq!(
+        site_tools::check_links::fetch_targets(&hrefs, false),
+        strings(&["https://example.org/index.html"])
+    );
+}
+
+#[test]
+fn scheme_relative_external_links_are_prefetched() {
+    use site_tools::check_links::fetch_targets;
+    assert_eq!(
+        fetch_targets(
+            &strings(&[
+                "//example.org/a",
+                "/local",
+                "relative.html",
+                "https://example.org/b",
+            ]),
+            false
+        ),
+        strings(&["https://example.org/a", "https://example.org/b"])
+    );
+}
+
+#[test]
+fn prefetch_follows_the_checked_schemes_in_any_case() {
+    use site_tools::check_links::fetch_targets;
+    assert_eq!(
+        fetch_targets(
+            &strings(&["HTTP://example.org/c", "httpx:foo", "mailto:a@example.org"]),
+            false
+        ),
+        strings(&["HTTP://example.org/c"])
+    );
+}
+
+/// Same origin means https, the site's host and port 443 by value; anything else is
+/// external, and a malformed port is reported rather than fetched or coerced.
+#[test]
+fn origin_boundary_compares_scheme_host_and_port_value() {
+    let dir = tools_site();
+    let same = [
+        "https://duguid.com.au:443/missing/",
+        "https://duguid.com.au:0443/missing/",
+        "https://duguid.com.au:/missing/",
+    ];
+    let external = [
+        "https://duguid.com.au:80/x",
+        "http://duguid.com.au/x",
+        "https://duguid.com.au./x",
+    ];
+    let malformed = [
+        "https://duguid.com.au:abc/x",
+        "https://duguid.com.au:99999/x",
+    ];
+    let hrefs: Vec<String> = strings(&same)
+        .into_iter()
+        .chain(strings(&external))
+        .chain(strings(&malformed))
+        .collect();
+    let harness = Harness::new(vec![]);
+    let fetched = Rc::new(RefCell::new(Vec::new()));
+    let failures = harness.with(dir.path().to_path_buf(), |c| {
+        let log = fetched.clone();
+        c.fetch_hook = Some(Box::new(move |url| {
+            log.borrow_mut().push(url.to_owned());
+            Ok((200, url.to_owned()))
+        }));
+        c.lookup_hook = Some(Box::new(|_| panic!("no own repository here")));
+        c.check_hrefs("index.html", &hrefs, false).unwrap()
+    });
+    assert_eq!(*fetched.borrow(), strings(&external));
+    assert_eq!(failures.len(), same.len() + malformed.len(), "{failures:?}");
+    for href in same {
+        let diagnostic = format!("{href} -> no file at missing/index.html");
+        assert!(
+            failures.iter().any(|f| f.contains(&diagnostic)),
+            "{failures:?}"
+        );
+    }
+    for (href, error) in [
+        (
+            malformed[0],
+            "invalid port: Port could not be cast to integer value as 'abc'",
+        ),
+        (malformed[1], "invalid port: Port out of range 0-65535"),
+    ] {
+        let diagnostic = format!("{href} -> {error}");
+        assert!(
+            failures.iter().any(|f| f.contains(&diagnostic)),
+            "{failures:?}"
+        );
+    }
+    assert_eq!(
+        site_tools::check_links::fetch_targets(&hrefs, false),
+        strings(&external)
+    );
+}

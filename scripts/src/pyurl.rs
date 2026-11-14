@@ -1,4 +1,4 @@
-//! `urllib.parse.urlsplit` and `urljoin` of CPython 3.15 for `str` URLs, with `.hostname`.
+//! `urllib.parse.urlsplit`, `urljoin` and `unquote` of CPython 3.15 for `str` URLs, with `.hostname`.
 //!
 //! The checks use the scheme, netloc, path and hostname; the `ValueError`s
 //! urlsplit raises for malformed brackets or NFKC tricks are returned as
@@ -332,6 +332,36 @@ fn check_bracketed_netloc(netloc: &str) -> Result<(), String> {
     Ok(())
 }
 
+/// `.port` of a split URL: None when absent or empty, else its value, or CPython's
+/// `ValueError` text for a port that is not all ASCII digits or exceeds 65535.
+pub fn port(netloc: &str) -> Result<Option<u16>, String> {
+    let hostinfo = netloc.rsplit_once('@').map_or(netloc, |(_, h)| h);
+    let port = match hostinfo.split_once('[') {
+        Some((_, bracketed)) => bracketed
+            .split_once(']')
+            .map_or("", |(_, rest)| rest.split_once(':').map_or("", |(_, p)| p)),
+        None => hostinfo.split_once(':').map_or("", |(_, p)| p),
+    };
+    if port.is_empty() {
+        return Ok(None);
+    }
+    if !port.bytes().all(|b| b.is_ascii_digit()) {
+        return Err(format!(
+            "Port could not be cast to integer value as {}",
+            crate::py::repr_str(port)
+        ));
+    }
+    let digits = port.trim_start_matches('0');
+    match digits.len() {
+        0 => Ok(Some(0)),
+        1..=5 => digits
+            .parse::<u16>()
+            .map(Some)
+            .map_err(|_| "Port out of range 0-65535".to_owned()),
+        _ => Err("Port out of range 0-65535".to_owned()),
+    }
+}
+
 /// `.hostname` of a split URL: lower-cased, without user information, port or brackets.
 pub fn hostname(netloc: &str) -> Option<String> {
     if netloc.is_empty() {
@@ -352,6 +382,50 @@ pub fn hostname(netloc: &str) -> Option<String> {
         Some(zone) => format!("{}%{zone}", address.to_lowercase()),
         None => address.to_lowercase(),
     })
+}
+
+/// `urllib.parse.unquote(text, errors=...)`: only ASCII runs are percent-decoded.
+/// `strict` stands in for `surrogatepass`: Rust strings cannot hold the lone surrogates
+/// that error handler admits, so such paths take the `replace` fallback.
+pub fn unquote(text: &str, strict: bool) -> Option<String> {
+    if !text.contains('%') {
+        return Some(text.to_owned());
+    }
+    let mut out = String::with_capacity(text.len());
+    let mut rest = text;
+    while !rest.is_empty() {
+        let ascii = rest.find(|c: char| !c.is_ascii()).unwrap_or(rest.len());
+        let (run, tail) = rest.split_at(ascii);
+        let mut bytes = Vec::with_capacity(run.len());
+        let mut bits = run.as_bytes().split(|b| *b == b'%');
+        bytes.extend_from_slice(bits.next().unwrap_or_default());
+        for item in bits {
+            let hex = item.get(..2).and_then(|h| std::str::from_utf8(h).ok());
+            match hex.and_then(|h| {
+                u8::from_str_radix(h, 16)
+                    .ok()
+                    .filter(|_| h.bytes().all(|b| b.is_ascii_hexdigit()))
+            }) {
+                Some(byte) => {
+                    bytes.push(byte);
+                    bytes.extend_from_slice(&item[2..]);
+                }
+                None => {
+                    bytes.push(b'%');
+                    bytes.extend_from_slice(item);
+                }
+            }
+        }
+        match String::from_utf8(bytes) {
+            Ok(decoded) => out.push_str(&decoded),
+            Err(_) if strict => return None,
+            Err(e) => out.push_str(&String::from_utf8_lossy(e.as_bytes())),
+        }
+        let non_ascii = tail.find(|c: char| c.is_ascii()).unwrap_or(tail.len());
+        out.push_str(&tail[..non_ascii]);
+        rest = &tail[non_ascii..];
+    }
+    Some(out)
 }
 
 #[cfg(test)]
