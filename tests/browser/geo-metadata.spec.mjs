@@ -48,6 +48,8 @@ const site = 'https://duguid.com.au';
 const person = { '@id': `${site}/about/#person` };
 const date = /^\d{4}-\d{2}-\d{2}$/;
 const licenceFile = /^https:\/\/github\.com\/ryanduguid\/[^/]+\/blob\/.+\/LICENSE$/;
+// A Dataset adapted from Commonwealth material also names the licence it reuses that material under.
+const reusedUnder = 'https://creativecommons.org/licenses/by/4.0/';
 const documentTypes = ['WebPage', 'ContactPage', 'ProfilePage', 'TechArticle'];
 const softwareTypes = ['SoftwareApplication', 'SoftwareSourceCode', 'WebApplication'];
 const typesOf = node => [node['@type']].flat();
@@ -103,7 +105,9 @@ for (const route of routes) {
     }
 
     for (const node of nodes.filter(n => 'license' in n)) {
-      expect(node.license, `${typesOf(node)} licence is a LICENSE file`).toMatch(licenceFile);
+      const own = [node.license].flat().filter(l => !(typesOf(node).includes('Dataset') && l === reusedUnder));
+      expect(own.length, `${typesOf(node)} names a LICENSE file`).toBeGreaterThan(0);
+      for (const licence of own) expect(licence, `${typesOf(node)} licence is a LICENSE file`).toMatch(licenceFile);
     }
     for (const node of nodes.filter(n => typesOf(n).some(t => softwareTypes.includes(t)))) {
       expect(node.codeRepository, `${node.name} codeRepository`).toMatch(/^https:\/\/github\.com\/ryanduguid\//);
@@ -120,7 +124,7 @@ for (const route of routes) {
 
     const datasets = nodes.filter(n => typesOf(n).includes('Dataset'));
     for (const dataset of datasets) {
-      for (const key of ['name', 'description', 'temporalCoverage', 'spatialCoverage']) {
+      for (const key of ['name', 'description', 'spatialCoverage']) {
         expect(dataset[key], `Dataset ${key}`).toBeTruthy();
       }
       expect(dataset.creator).toEqual({
@@ -129,13 +133,17 @@ for (const route of routes) {
         name: 'Ryan Duguid',
         url: `${site}/about/`,
       });
-      expect(dataset.license).toMatch(licenceFile);
       expect(dataset.dateModified).toMatch(date);
       expect(dataset.isAccessibleForFree).toBe(true);
-      expect(dataset.distribution.encodingFormat).toBe('text/csv');
       expect(dataset.distribution.contentUrl.startsWith(url)).toBe(true);
-      expect(dataset.distribution.contentUrl).toMatch(/\.csv$/);
-      expect(dataset.includedInDataCatalog).toMatchObject({ '@type': 'DataCatalog', url: `${site}/rates/` });
+      // A rate page's Dataset is its CSV over a stated period, in the rates catalogue.
+      if (route.startsWith('/rates/')) {
+        expect(dataset.temporalCoverage, 'Dataset temporalCoverage').toBeTruthy();
+        expect(dataset.license).toMatch(licenceFile);
+        expect(dataset.distribution.encodingFormat).toBe('text/csv');
+        expect(dataset.distribution.contentUrl).toMatch(/\.csv$/);
+        expect(dataset.includedInDataCatalog).toMatchObject({ '@type': 'DataCatalog', url: `${site}/rates/` });
+      }
     }
   });
 }
