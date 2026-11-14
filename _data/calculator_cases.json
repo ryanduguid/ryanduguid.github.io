@@ -44,6 +44,16 @@
       {"case": "A rate rounds up so the hours cover the total", "input": "Costs $100.00, profit $0.00, 3 hours", "call": ["100", "0", "3"], "result": {"rate": 33.34}, "output": "Rate $33.34"}
     ]
   },
+  "fixed-fee": {
+    "checked": "2026-11-15",
+    "function": "fixedFee",
+    "rows": [
+      {"case": "A cost and margin, rounded up to $10, in 12 instalments", "input": "18.5 hours at $95.00 an hour, 40% margin, rounded up to $10, GST added, 12 instalments", "call": ["18.5", "95", "40", "10", true, "12"], "result": {"fee": 2930, "gst": 293, "total": 3223, "first": 268.62, "instalment": 268.58, "effectiveRate": 158.38}, "output": "Fee $2,930.00, GST $293.00, total $3,223.00, first instalment $268.62, each later instalment $268.58, effective rate $158.38"},
+      {"case": "The first instalment carries the cents left over", "input": "3 hours at $100.00 an hour, 0% margin, rounded up to the cent, GST added, 7 instalments", "call": ["3", "100", "0", "0.01", true, "7"], "result": {"fee": 300, "gst": 30, "total": 330, "first": 47.16, "instalment": 47.14, "effectiveRate": 100}, "output": "Fee $300.00, GST $30.00, total $330.00, first instalment $47.16, each later instalment $47.14, effective rate $100.00"},
+      {"case": "A margin fee rounds up, not to the nearest cent", "input": "1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment", "call": ["1", "120", "45", "0.01", false, "1"], "result": {"fee": 218.19, "gst": 0, "total": 218.19, "first": 218.19, "instalment": 218.19, "effectiveRate": 218.19}, "output": "Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19"},
+      {"case": "A margin of 100% is refused", "input": "10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments", "call": ["10", "100", "100", "10", true, "12"], "refused": "Enter an amount between 0 and 99.99.", "output": "Refused: enter an amount between 0 and 99.99"}
+    ]
+  },
   "variance": {
     "function": "variance",
     "rows": [

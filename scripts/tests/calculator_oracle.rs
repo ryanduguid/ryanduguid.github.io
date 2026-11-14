@@ -14,6 +14,10 @@
 //! engines, and the same Division 7A interest part (the rate on the whole balance), so it
 //! cannot show those are the right conventions.
 //!
+//! A further 120 seeded fixed fees, from their own seed, are worked by the definition of
+//! rounding up (the smallest whole number of steps whose fee keeps the margin) and their
+//! instalments by sharing out the cents left over, where the engine divides with a ceiling.
+//!
 //! Nothing here imports an engine or a constant from one, and a change to the case seed
 //! needs no change to the expected values, which are never stored.
 mod common;
@@ -26,6 +30,7 @@ use std::process::{Command, Stdio};
 const LOAN_CASES: usize = 120;
 const DIV7A_CASES: usize = 60;
 const LEVY_CASES: usize = 120;
+const FEE_CASES: usize = 120;
 /// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
 /// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
@@ -40,7 +45,7 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// Runs the cases through the engines in one Node process, from the repository root so
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r"
-import { loan, div7aMinimumRepayment } from './assets/business-calculators.mjs';
+import { loan, div7aMinimumRepayment, fixedFee } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
@@ -60,6 +65,14 @@ const run = {
   base: ({ inputs }) => levy(baseRateWages(inputs)),
   salary: ({ inputs }) => levy(annualSalaryWages(inputs)),
   casual: ({ inputs }) => levy(casualWages(inputs)),
+  fee: ({ hours, rate, margin, roundTo, gst, instalments }) => {
+    try {
+      const result = fixedFee(hours, rate, margin, roundTo, gst, instalments);
+      return Object.fromEntries(Object.entries(result).map(([key, value]) => [key, money(value)]));
+    } catch (error) {
+      return { refused: error.message };
+    }
+  },
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 ";
@@ -397,6 +410,141 @@ fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
         expected.push(result);
     }
     assert_eq!(cases.len(), 300);
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// The largest fee including GST the engine accepts, $1,000,000,000.00, in cents.
+const MAX_FEE: u128 = 100_000_000_000;
+
+/// A fixed fee in cents: fee, GST, total, first instalment, each later instalment and the
+/// effective hourly rate, or `None` above the largest fee. `hours` is in hundredths of an
+/// hour, `margin` in hundredths of a per cent and `step` in cents.
+fn fee_oracle(
+    hours: u128,
+    rate: u128,
+    margin: u128,
+    step: u128,
+    gst: bool,
+    count: u128,
+) -> Option<[u128; 6]> {
+    // The fee keeps the margin when fee x (1 - margin) covers hours x rate: in cents and
+    // hundredths, fee x (10,000 - margin) >= hours x rate x 100. Take the fewest steps that do.
+    let cost = hours * rate * 100;
+    let mut steps = cost / (step * (10_000 - margin));
+    while steps * step * (10_000 - margin) < cost {
+        steps += 1;
+    }
+    let fee = steps * step;
+    // 10% of the fee, half a cent up.
+    let tax = if gst { (fee + 5) / 10 } else { 0 };
+    let total = fee + tax;
+    if total > MAX_FEE {
+        return None;
+    }
+    // Share the total out evenly in whole cents, then hand the cents left over to the first.
+    let mut shares = vec![total / count; usize::try_from(count).unwrap()];
+    shares[0] += total - shares.iter().sum::<u128>();
+    assert_eq!(shares.iter().sum::<u128>(), total);
+    assert!(shares[0] - shares[1 % shares.len()] < count);
+    // After k months the client has paid at least k months' even share of the total.
+    let mut paid = 0;
+    for (month, share) in (1..).zip(&shares) {
+        paid += share;
+        assert!(paid * count >= total * month);
+    }
+    let effective = (2 * fee * 100 + hours) / (2 * hours);
+    Some([
+        fee,
+        tax,
+        total,
+        shares[0],
+        *shares.last().unwrap(),
+        effective,
+    ])
+}
+
+fn fee_case(rng: &mut Seeded) -> (Value, Value) {
+    let any_hours = 1 + rng.below(878_400);
+    let hours = rng.pick(&[1, 100, 1_200, 1_850, 878_400, any_hours, any_hours]);
+    let any_rate = rng.cents(MAX_PRINCIPAL);
+    let rate = rng.pick(&[0, 1, 9_500, 12_000, 18_000, any_rate, any_rate]);
+    let any_margin = rng.below(10_000);
+    let margin = rng.pick(&[0, 4_000, 4_500, 9_999, any_margin, any_margin]);
+    let steps: [(u64, &str); 4] = [(1, "0.01"), (1_000, "10"), (5_000, "50"), (10_000, "100")];
+    let (step, round_to) = rng.pick(&steps);
+    let gst = rng.below(2) == 1;
+    let any_count = 1 + rng.below(24);
+    let count = rng.pick(&[1, 7, 12, 24, any_count, any_count]);
+    let case = json!({
+        "kind": "fee",
+        "hours": dollars(hours),
+        "rate": dollars(rate),
+        "margin": format!("{}.{:02}", margin / 100, margin % 100),
+        "roundTo": round_to,
+        "gst": gst,
+        "instalments": count.to_string(),
+    });
+    let result = fee_oracle(
+        hours.into(),
+        rate.into(),
+        margin.into(),
+        step.into(),
+        gst,
+        count.into(),
+    );
+    let shown_fee = |cents: u128| shown(u64::try_from(cents).unwrap());
+    let expected = match result {
+        None => json!({"refused": "The fee is over $1,000,000,000. Use smaller amounts."}),
+        Some([fee, tax, total, first, instalment, effective]) => json!({
+            "fee": shown_fee(fee),
+            "gst": shown_fee(tax),
+            "total": shown_fee(total),
+            "first": shown_fee(first),
+            "instalment": shown_fee(instalment),
+            "effectiveRate": shown_fee(effective),
+        }),
+    };
+    (case, expected)
+}
+
+#[test]
+fn the_fee_oracle_works_the_page_examples_by_hand() {
+    // 18.5 hours x $95 / 60% = $2,929.1666..., up to $2,930; GST $293; $3,223 over 12 is
+    // 11 x $268.58 and a first of $268.62; $2,930 / 18.5 = $158.38 an hour.
+    assert_eq!(
+        fee_oracle(1_850, 9_500, 4_000, 1_000, true, 12),
+        Some([293_000, 29_300, 322_300, 26_862, 26_858, 15_838])
+    );
+    // $330 over 7 is 6 x $47.14 and a first of $47.16, which carries the 2 cents over.
+    assert_eq!(
+        fee_oracle(300, 10_000, 0, 1, true, 7),
+        Some([30_000, 3_000, 33_000, 4_716, 4_714, 10_000])
+    );
+    // A fee exactly on a step stays there.
+    assert_eq!(
+        fee_oracle(1_000, 10_000, 0, 10_000, false, 1).unwrap()[0],
+        100_000
+    );
+    assert_eq!(
+        fee_oracle(1_000, 10_001, 0, 10_000, false, 1).unwrap()[0],
+        110_000
+    );
+}
+
+#[test]
+fn the_engine_agrees_with_the_oracle_on_every_seeded_fixed_fee() {
+    let mut rng = Seeded(0x2026_1115_F1ED_FEE5);
+    let (cases, expected): (Vec<Value>, Vec<Value>) =
+        (0..FEE_CASES).map(|_| fee_case(&mut rng)).unzip();
+    assert!(expected.iter().any(|want| want.get("refused").is_some()));
+    assert!(expected.iter().any(|want| {
+        want.get("first")
+            .is_some_and(|first| first != &want["instalment"])
+    }));
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
