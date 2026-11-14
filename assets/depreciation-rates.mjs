@@ -22,7 +22,8 @@
  *   names of its industry and `size` the count of its words outside brackets
  * @typedef {{numerator: bigint, denominator: bigint}} Life a positive number of years
  * @typedef {'prime-cost' | 'diminishing-value'} Method
- * @typedef {{yearEnd: number, days: number, opening: bigint, deduction: bigint, closing: bigint}} YearLine
+ * @typedef {{yearEnd: number, days: number, opening: bigint, decline: bigint, deduction: bigint, closing: bigint}} YearLine
+ *   `decline` is the decline in value and `deduction` its taxable use part
  */
 
 /** The first day an asset can start to be held for the 200% diminishing value rate
@@ -271,6 +272,15 @@ export function parseCents(text) {
   return value;
 }
 
+/** A taxable use percentage, from 0 to 100 with up to 2 decimal places and an optional
+ * '%', as hundredths of a per cent: '62.5' is 6250n. @param {string} text */
+export function parseUse(text) {
+  const match = /^(\d{1,3})(?:\.(\d{1,2}))?%?$/.exec(text.trim());
+  const value = match ? BigInt(match[1]) * 100n + BigInt((match[2] ?? '').padEnd(2, '0')) : -1n;
+  if (value < 0n || value > 10_000n) throw new Error('Enter the taxable use as a percentage from 0 to 100, such as 100 or 62.5.');
+  return value;
+}
+
 /** Whole cents as dollars: 123456n is '$1,234.56'. @param {bigint} value */
 export function formatCents(value) {
   const dollars = (value / 100n).toLocaleString('en-AU');
@@ -297,10 +307,14 @@ function dayNumber(iso) {
  * than what is left. Diminishing value (section 40-72): base value × days held ÷ 365 ×
  * 200% ÷ effective life. Days held can be 366 in a leap year; the divisor stays 365.
  * Each year's amount rounds half up to the cent.
- * @param {{cost: bigint, life: Life, start: string, yearEnd: number, method: Method}} input
+ *
+ * The decline in value is worked out in full whatever the asset's use, and the deduction is
+ * its taxable use part, rounded half up to the cent (subsection 40-25(2)).
+ * @param {{cost: bigint, life: Life, start: string, yearEnd: number, method: Method, use?: bigint}} input
+ *   `use` is the taxable use in hundredths of a per cent, 10000n (100%) when left out
  * @returns {YearLine[]}
  */
-export function schedule({ cost, life, start, yearEnd, method }) {
+export function schedule({ cost, life, start, yearEnd, method, use = 10_000n }) {
   const first = dayNumber(start);
   if (Number.isNaN(first)) throw new Error('Enter the start date.');
   if (start < FIRST_START) throw new Error('Enter a start date on or after 10 May 2006.');
@@ -322,9 +336,10 @@ export function schedule({ cost, life, start, yearEnd, method }) {
     const days = dayNumber(`${end}-06-30`) - from + 1;
     const base = method === 'diminishing-value' ? opening : cost;
     const worked = roundHalfUp(base * BigInt(days) * rate * life.denominator, bottom);
-    const deduction = worked > opening ? opening : worked;
-    lines.push({ yearEnd: end, days, opening, deduction, closing: opening - deduction });
-    opening -= deduction;
+    const decline = worked > opening ? opening : worked;
+    const deduction = roundHalfUp(decline * use, 10_000n);
+    lines.push({ yearEnd: end, days, opening, decline, deduction, closing: opening - decline });
+    opening -= decline;
   }
   return lines;
 }

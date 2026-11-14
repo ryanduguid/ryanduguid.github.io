@@ -45,7 +45,7 @@ where something needs action. Its rules:
   Excel steps and feed link follow the register. Each rate page repeats that
   value above its `h1`, then its short answer, then its dates: Published,
   Last reviewed for the page's editorial check and Source checked for the CSV's
-  `checked_at`, each in `<time>`. `_layouts/rate.html` renders all 7.
+  `checked_at`, each in `<time>`. `_layouts/rate.html` renders all 10.
 - Actions and wayfinding leave mono: navigation, breadcrumbs, contents, notes,
   links and buttons use Public Sans, and buttons set at body size. Spline Sans
   Mono keeps values, commands and the short labels of fact lists and stamps.
@@ -413,7 +413,7 @@ The full `/tools/` register groups the 12 controls by the work they stop or chec
 - Control incomplete work before manager review.
 - Inspect sources, evidence and AI boundaries.
 
-`/evaluate/` groups the 3 reproducible evaluation packs and `/rates/` groups the 7 maintained reference tables, each led by its current value. These registers are not second homepage essays. Each entry names the observable control, delivery form, source and human boundary.
+`/evaluate/` groups the 3 reproducible evaluation packs and `/rates/` groups the 10 maintained reference tables, each led by its current value. These registers are not second homepage essays. Each entry names the observable control, delivery form, source and human boundary.
 
 ## Inner-page system
 

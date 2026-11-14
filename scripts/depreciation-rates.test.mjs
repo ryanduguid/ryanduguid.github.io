@@ -6,8 +6,11 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
   FIRST_START, SYNONYMS, below, flatten, formatCents, lifeFromMonths, parseCents,
-  parseLife, rates, schedule, search,
+  parseLife, parseUse, rates, schedule, search,
 } from '../assets/depreciation-rates.mjs';
+import {
+  INSTRUMENTS, LINK_FIELDS, calculationQuery, citation, readCalculation, scheduleColumns, scheduleCsv,
+} from '../assets/depreciation-working.mjs';
 
 const data = JSON.parse(
   readFileSync(new URL('../tools/depreciation-rates/effective-life.json', import.meta.url), 'utf8'),
@@ -17,7 +20,7 @@ const entries = flatten(data);
 /** @param {string} life @param {string} start @param {number} yearEnd
  * @param {'prime-cost' | 'diminishing-value'} method @param {bigint} cost */
 const deductions = (cost, life, start, yearEnd, method) =>
-  schedule({ cost, life: parseLife(life), start, yearEnd, method }).map((line) => formatCents(line.deduction));
+  schedule({ cost, life: parseLife(life), start, yearEnd, method }).map((line) => formatCents(line.decline));
 
 test('a life gives the prime cost and diminishing value rates', () => {
   const cases = [
@@ -96,7 +99,7 @@ test('the ATO example of an $80,000 asset over 5 years', () => {
     cost: 8_000_000n, life: parseLife('5'), start: '2024-07-01', yearEnd: 2028, method: 'diminishing-value',
   })[3];
   assert.deepEqual(
-    [fourth.days, formatCents(fourth.opening), formatCents(fourth.deduction), formatCents(fourth.closing)],
+    [fourth.days, formatCents(fourth.opening), formatCents(fourth.decline), formatCents(fourth.closing)],
     [366, '$17,280.00', '$6,930.94', '$10,349.06'],
   );
 });
@@ -109,11 +112,11 @@ test('the ATO example of a $1,500 photocopier', () => {
   const [dv] = schedule({
     cost: 150_000n, life: parseLife('5'), start: '2025-07-01', yearEnd: 2026, method: 'diminishing-value',
   });
-  assert.deepEqual([dv.days, dv.deduction, dv.closing], [365, 60_000n, 90_000n]);
+  assert.deepEqual([dv.days, dv.decline, dv.closing], [365, 60_000n, 90_000n]);
   const [pc] = schedule({
     cost: 150_000n, life: parseLife('5'), start: '2025-07-01', yearEnd: 2026, method: 'prime-cost',
   });
-  assert.deepEqual([pc.days, pc.deduction, pc.closing], [365, 30_000n, 120_000n]);
+  assert.deepEqual([pc.days, pc.decline, pc.closing], [365, 30_000n, 120_000n]);
 });
 
 // The same guide: Paul's $2,000 refrigerator, first used 1 July 2022, 10 year life, prime
@@ -124,7 +127,7 @@ test('the ATO example of a leap year keeps 365 as the divisor', () => {
     cost: 200_000n, life: parseLife('10'), start: '2022-07-01', yearEnd: 2026, method: 'prime-cost',
   });
   assert.deepEqual(lines.map((line) => line.days), [365, 366, 365, 365]);
-  assert.deepEqual(lines.map((line) => line.deduction), [20_000n, 20_055n, 20_000n, 20_000n]);
+  assert.deepEqual(lines.map((line) => line.decline), [20_000n, 20_055n, 20_000n, 20_000n]);
 });
 
 test('a part year counts the days from the start date to 30 June', () => {
@@ -134,7 +137,7 @@ test('a part year counts the days from the start date to 30 June', () => {
   });
   assert.deepEqual(lines.map((line) => line.days), [181, 365, 365, 366]);
   // The third year takes what is left, not a full $500, and nothing is left after it.
-  assert.deepEqual(lines.map((line) => line.deduction), [24_795n, 50_000n, 25_205n, 0n]);
+  assert.deepEqual(lines.map((line) => line.decline), [24_795n, 50_000n, 25_205n, 0n]);
   assert.equal(lines[3].closing, 0n);
   // 1 January to 30 June 2024 holds 29 February: 182 days.
   assert.equal(schedule({
@@ -225,9 +228,17 @@ test('the page states the counts and dates the data file records', () => {
   const long = (/** @type {string} */ iso) =>
     new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
   const lives = data.counts.table_a.lives + data.counts.table_b.lives;
-  assert.ok(page.includes(`Search the ${lives.toLocaleString('en-AU')} effective lives`));
   assert.ok(page.includes(`holds all ${entries.length.toLocaleString('en-AU')} rows`));
-  assert.ok(page.includes(`(${data.source.register_id}), made on ${long(data.source.made)} and registered on ${long(data.source.registered)}`));
+  // The ATO and accountants cite the instrument by its legal database number.
+  const { cited: number } = INSTRUMENTS[data.source.register_id];
+  const cited = `${number}, ${data.source.register_id}`;
+  // The lead's first sentence answers on its own: the instrument in full, both numbers, its
+  // registration, the day it was read unamended and the count.
+  assert.ok(page.includes(`<p class="lead-note">The ${data.source.title} (${cited}), registered on ${long(data.source.registered)}`
+    + ` and unamended on ${long(data.source.read)}, sets the ${lives.toLocaleString('en-AU')} effective lives this page searches,`));
+  assert.ok(page.includes(`(${cited}), made on ${long(data.source.made)} and registered on ${long(data.source.registered)}`));
+  assert.ok(page.includes(`<title>Depreciation rates: ATO effective lives in ${number}</title>`));
+  assert.ok(page.includes(`content="Every effective life in ${number} (${data.source.register_id})`));
   assert.ok(page.includes(`href="${data.source.url}"`));
   // The Register's required words, with the date the source was read, appear as the file gives them.
   assert.ok(page.includes(data.source.attribution.replace(
@@ -305,4 +316,158 @@ test('a search of every row stays quick', () => {
   const started = performance.now();
   for (const query of ['car', 'motor vehicle', 'pumps', 'a', 'solar hot water system']) search(entries, query);
   assert.ok(performance.now() - started < 1000);
+});
+
+test('a taxable use percentage is read as the reader types it', () => {
+  assert.equal(parseUse('100'), 10_000n);
+  assert.equal(parseUse(' 62.5 '), 6_250n);
+  assert.equal(parseUse('50%'), 5_000n);
+  assert.equal(parseUse('0'), 0n);
+  assert.equal(parseUse('33.33'), 3_333n);
+  for (const text of ['', '101', '100.01', '-1', 'half', '1.234', '5 0', '%', '50%%']) {
+    assert.throws(() => parseUse(text), /taxable use/, text);
+  }
+});
+
+// The ATO's 'Guide to depreciating assets 2026' (read 14 November 2026): Leo's $6,000
+// computer, used 50% of the time for a taxable purpose in 2025-26, declines by $1,500; his
+// deduction is $750 and its adjustable value on 30 June 2026 is $4,500 whatever his use.
+// A 4 year life by prime cost from 1 July 2025 gives that $1,500.
+test('the ATO example of a computer used half for a taxable purpose', () => {
+  const [line] = schedule({
+    cost: 600_000n, life: parseLife('4'), start: '2025-07-01', yearEnd: 2026, method: 'prime-cost', use: 5_000n,
+  });
+  assert.deepEqual([line.decline, line.deduction, line.closing], [150_000n, 75_000n, 450_000n]);
+  // The next year's base is the full adjustable value, not the deducted part.
+  const lines = schedule({
+    cost: 600_000n, life: parseLife('8'), start: '2025-07-01', yearEnd: 2027, method: 'diminishing-value', use: 5_000n,
+  });
+  assert.deepEqual(lines.map((each) => [each.decline, each.deduction]), [[150_000n, 75_000n], [112_500n, 56_250n]]);
+});
+
+test('the deduction is the decline in value where use is wholly taxable, and rounds half up', () => {
+  const full = schedule({ cost: 150_000n, life: parseLife('5'), start: '2025-07-01', yearEnd: 2027, method: 'diminishing-value' });
+  for (const line of full) assert.equal(line.deduction, line.decline);
+  // Half of a 1 cent decline is half a cent, which rounds up.
+  const [tiny] = schedule({ cost: 1n, life: parseLife('1'), start: '2025-07-01', yearEnd: 2026, method: 'prime-cost', use: 5_000n });
+  assert.deepEqual([tiny.decline, tiny.deduction], [1n, 1n]);
+  const [none] = schedule({ cost: 150_000n, life: parseLife('5'), start: '2025-07-01', yearEnd: 2026, method: 'prime-cost', use: 0n });
+  assert.deepEqual([none.decline, none.deduction], [30_000n, 0n]);
+});
+
+test('part taxable use in a part first year rounds each deduction and leaves the values whole', () => {
+  // $1,000 over 2 years from 1 January 2025 at 62.5% taxable use. Prime cost: $1,000 x 181 / 365 x 50%
+  // = $247.95, of which 62.5% is $154.96875, so $154.97; then $500, of which $312.50.
+  const at = (/** @type {import('../assets/depreciation-rates.mjs').Method} */ method) => schedule({
+    cost: 100_000n, life: parseLife('2'), start: '2025-01-01', yearEnd: 2026, method, use: 6_250n,
+  }).map((line) => [line.decline, line.deduction, line.closing]);
+  assert.deepEqual(at('prime-cost'), [[24_795n, 15_497n, 75_205n], [50_000n, 31_250n, 25_205n]]);
+  // Diminishing value at 100% a year: $495.89, of which $309.93125, so $309.93; then all of the $504.11
+  // left, of which $315.06875, so $315.07.
+  assert.deepEqual(at('diminishing-value'), [[49_589n, 30_993n, 50_411n], [50_411n, 31_507n, 0n]]);
+});
+
+/** Laura's photocopier from the guide, by each method, for 2 years. @param {bigint} use */
+const photocopier = (use) => /** @type {const} */ (['prime-cost', 'diminishing-value']).map((method) => ({
+  method,
+  lines: schedule({ cost: 150_000n, life: parseLife('5'), start: '2025-07-01', yearEnd: 2027, method, use }),
+}));
+
+test('the schedule has the same columns on the page and in the CSV', () => {
+  const [, dv] = photocopier(10_000n);
+  assert.equal(scheduleCsv(scheduleColumns([dv], 10_000n)), [
+    'Year ending 30 June,Days held,Opening value,Decline in value,Closing value',
+    '2026,365,1500.00,600.00,900.00',
+    '2027,365,900.00,360.00,540.00',
+    '',
+  ].join('\r\n'));
+  const both = scheduleColumns(photocopier(5_000n), 5_000n);
+  assert.deepEqual(both.map((column) => column.heading), [
+    'Income year', 'Days held',
+    'Prime cost: decline in value', 'Prime cost: deduction at 50% taxable use', 'Prime cost: closing value',
+    'Diminishing value: decline in value', 'Diminishing value: deduction at 50% taxable use', 'Diminishing value: closing value',
+  ]);
+  assert.equal(scheduleCsv(both).split('\r\n')[1], '2026,365,300.00,150.00,1200.00,600.00,300.00,900.00');
+  // A part per cent is written as typed, without trailing zeros.
+  assert.equal(scheduleColumns(photocopier(6_250n), 6_250n)[3].heading, 'Prime cost: deduction at 62.5% taxable use');
+});
+
+test('a link holds the inputs as typed and gives them back', () => {
+  const fields = { cost: ' $1,500 ', life: '6 2/3', start: '2025-07-01', year: '2026', method: 'both', use: '62.5' };
+  const query = calculationQuery(fields);
+  assert.equal(query, 'cost=%241%2C500&life=6+2%2F3&start=2025-07-01&year=2026&method=both&use=62.5');
+  assert.deepEqual(readCalculation(new URLSearchParams(query)), { ...fields, cost: '$1,500' });
+  // A search link is not a calculation.
+  assert.equal(readCalculation(new URLSearchParams('q=laptop')), null);
+  // An input the link leaves out is left out, so the form keeps its default or names it.
+  assert.deepEqual(readCalculation(new URLSearchParams('cost=10&start=')), { cost: '10', start: '' });
+  // What the form could not hold is refused, not cut short or replaced.
+  assert.throws(() => readCalculation(new URLSearchParams('cost=10&method=straight-line')), /link/);
+  assert.throws(() => readCalculation(new URLSearchParams(`cost=${'1'.repeat(21)}`)), /link/);
+});
+
+test('a citation names the row, the instrument by both numbers, the figures and the link', () => {
+  const entry = entries.find((each) => each.asset === 'Photo copying machines');
+  assert.ok(entry);
+  const runs = photocopier(5_000n);
+  const link = 'https://duguid.com.au/tools/depreciation-rates/?cost=1500#deduction';
+  assert.equal(
+    citation({ entry, source: data.source, life: '5', cost: 150_000n, start: '2025-07-01', use: 5_000n, runs, link }),
+    'Effective life 5 years, last updated 1 January 2001: ‘Photo copying machines’ (Table B / Office machines and equipment),'
+      + ' Schedule 2 to the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (LI 2025/20, F2025L01097),'
+      + ' read on 13 November 2026. LI 2025/20 commenced on 16 September 2025, after this start date:'
+      + ' check the life in the determination in force at the time subsection 40-95(2) fixes.'
+      + ' Cost $1,500.00, first used or installed ready for use on 1 July 2025.'
+      + ' Prime cost: decline in value for 2026-27 $300.00, deduction at 50% taxable use $150.00.'
+      + ' Diminishing value: decline in value for 2026-27 $360.00, deduction at 50% taxable use $180.00.'
+      + ` Working: ${link}`,
+  );
+  // A start before the instrument commenced on 16 September 2025 is flagged in its place.
+  const early = citation({ entry, source: data.source, life: '5', cost: 150_000n, start: '2025-09-15', use: 5_000n, runs, link });
+  assert.ok(early.includes('read on 13 November 2026. LI 2025/20 commenced on 16 September 2025, after this start date:'
+    + ' check the life in the determination in force at the time subsection 40-95(2) fixes. Cost'));
+  // A later start can still follow an earlier contract, acquisition or start of construction, which subsection 40-95(2)(a) can make the time
+  // that fixes the life, so the citation always says so.
+  const later = citation({ entry, source: data.source, life: '5', cost: 150_000n, start: '2025-09-16', use: 5_000n, runs, link });
+  assert.ok(later.includes('read on 13 November 2026. LI 2025/20 commenced on 16 September 2025: for an asset contracted for,'
+    + ' acquired or started to be constructed before then, subsection 40-95(2) can fix the life in an earlier determination. Cost'));
+  // A life typed in, or changed after a row filled it, is not credited to the instrument.
+  const typed = citation({ entry: null, source: data.source, life: '4', cost: 150_000n, start: '2025-07-01', use: 10_000n, runs: runs.slice(1), link });
+  assert.ok(typed.startsWith('Effective life 4 years, entered for this working and not taken from a row of the determination. Cost'));
+  assert.ok(typed.includes('Diminishing value: decline in value for 2026-27 $360.00. Working:'));
+  assert.ok(!typed.includes('Prime cost'));
+});
+
+test('the instrument the data names has its ATO citation and its commencement, the day after registration', () => {
+  assert.deepEqual(INSTRUMENTS[data.source.register_id], { cited: 'LI 2025/20', commenced: '2025-09-16' });
+  assert.equal(data.source.registered, '2025-09-15');
+});
+
+test('a link takes no longer value than the form field it fills', () => {
+  const page = readFileSync(new URL('../tools/depreciation-rates/index.html', import.meta.url), 'utf8');
+  for (const [name, longest] of LINK_FIELDS) {
+    const field = new RegExp(`<input id="dep-${name}"[^>]*>`).exec(page)?.[0];
+    if (!field) {
+      assert.equal(name, 'method');
+      continue;
+    }
+    // The date field holds YYYY-MM-DD and the year field a 4 figure year.
+    assert.equal(String(longest), /maxlength="(\d+)"/.exec(field)?.[1] ?? { start: '10', year: '4' }[name], name);
+  }
+});
+
+test('the page offers its data as a Dataset, a correction route and the feed', () => {
+  const page = readFileSync(new URL('../tools/depreciation-rates/index.html', import.meta.url), 'utf8');
+  const start = page.indexOf('<script type="application/ld+json">');
+  const graph = JSON.parse(page.slice(page.indexOf('>', start) + 1, page.lastIndexOf('</script>')))['@graph'];
+  const dataset = graph.find((/** @type {{'@type': string}} */ node) => node['@type'] === 'Dataset');
+  assert.equal(dataset.distribution.contentUrl, 'https://duguid.com.au/tools/depreciation-rates/effective-life.json');
+  assert.equal(dataset.distribution.encodingFormat, 'application/json');
+  // The rows keep the source's licence and the file's own licence covers their arrangement.
+  assert.deepEqual(dataset.license, [data.source.licence_url, data.licence_url]);
+  assert.equal(dataset.creditText, data.source.attribution);
+  assert.equal(dataset.isBasedOn, data.source.url);
+  assert.ok(graph.some((/** @type {{'@type': string}} */ node) => node['@type'] === 'FAQPage'));
+  assert.ok(page.includes('href="https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml"'));
+  assert.ok(page.includes('href="/feed.xml"'));
 });

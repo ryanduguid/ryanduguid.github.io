@@ -186,3 +186,40 @@
     grid-column: 2;
   }
 }
+
+/* Under a drawn schedule: its citation, the link that restores it and the actions, which
+   wrap onto as many lines as the screen needs. A long link breaks anywhere. */
+.depreciation-page .schedule-actions > * + * {
+  margin-top: var(--space-3);
+}
+
+.depreciation-page .schedule-actions .action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.depreciation-page .citation-line {
+  overflow-wrap: anywhere;
+}
+
+/* 'Print the schedule' prints the calculator alone: its inputs, the assumptions behind the
+   figures, the result, the schedule and its citation, with the footer's disclaimer and a
+   blank sign-off as other printed calculators have. Printing from the browser's menu prints
+   the whole page. */
+@media print {
+  .print-schedule :is(.skip-link, .site-header),
+  .print-schedule .article-header > :not(h1),
+  .print-schedule .accounting-content > :not(#deduction),
+  .print-schedule #deduction > p:not(.print-keep),
+  .print-schedule .schedule-actions > :not(.citation-line) {
+    display: none;
+  }
+
+  .print-schedule .site-footer__inner::after {
+    content: "Reviewer: ____________________\A Review date: ____________________";
+    display: block;
+    margin-top: var(--space-5);
+    white-space: pre-line;
+  }
+}

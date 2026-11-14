@@ -458,10 +458,14 @@ test('homepage supporting text respects contrast and print overrides while stayi
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)');
     await expect(note).toHaveCSS('color', 'rgb(229, 228, 226)');
   }
+  // Playwright's Firefox updates matchMedia for an emulated contrast change but
+  // restyles the loaded page only on the next load, so each contrast step reloads.
   await page.emulateMedia({ contrast: 'more' });
+  await page.reload();
   await expect(note).toHaveCSS('color', 'rgb(255, 255, 240)');
   for (const contrast of ['no-preference', 'more']) {
     await page.emulateMedia({ contrast, media: 'print' });
+    await page.reload();
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
     await expect(note).toHaveCSS('color', 'rgb(0, 0, 0)');
   }
@@ -613,6 +617,11 @@ const splitFigures = (page) => page.evaluate(() => {
   for (const cell of document.querySelectorAll('main td')) {
     const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      // Firefox breaks a line between a minus and '$', which Chromium keeps
+      // together: '-$50.00,' split at 320 and 390px on 14 November 2026.
+      if (!/^(nowrap|pre)$/.test(getComputedStyle(node.parentElement).whiteSpace)) {
+        found.push(...[...node.nodeValue.matchAll(/[-−]\$\S*/g)].map((match) => match[0]));
+      }
       for (const match of node.nodeValue.matchAll(/\S+/g)) {
         if (!whole.test(match[0])) continue;
         const range = document.createRange();

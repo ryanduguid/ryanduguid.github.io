@@ -96,7 +96,9 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
     const figure = page.locator('.case-preview');
     const chart = figure.getByRole('link', { name: /View full-size chart$/ });
     await expect(figure.locator('a[href="/assets/examples/lumbridge/cash-preview.png"]')).toHaveCount(1);
-    await expect(chart.getByText('View full-size chart', { exact: true })).not.toBeInViewport();
+    // The label is clipped to nothing. Firefox's IntersectionObserver ignores clip-path, so
+    // not.toBeInViewport() fails there although nothing is painted.
+    await expect(chart.getByText('View full-size chart', { exact: true })).toHaveCSS('clip-path', 'inset(50%)');
     await expect(chart.getByRole('img')).toHaveAttribute('alt',
       'Excel chart of weekly closing cash after a 45-day receipt delay, showing the cash gap against the assumed buffer');
     if (action === 'image') {

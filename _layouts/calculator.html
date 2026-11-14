@@ -67,7 +67,7 @@
               <caption>Boundary cases: {{ page.heading }}</caption>
               <thead><tr><th scope="col">Case</th><th scope="col">Inputs</th><th scope="col">Result</th></tr></thead>
               <tbody>
-{% for row in boundary.rows %}                <tr><th scope="row">{{ row.case }}</th><td>{{ row.input }}</td><td>{{ row.output }}</td></tr>
+{% for row in boundary.rows %}                <tr><th scope="row">{{ row.case }}</th><td>{{ row.input | replace: "-$", '<span class="nowrap">-$</span>' }}</td><td>{{ row.output | replace: "-$", '<span class="nowrap">-$</span>' }}</td></tr>
 {% endfor %}              </tbody>
             </table>
           </div>

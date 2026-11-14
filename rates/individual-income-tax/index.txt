@@ -1,0 +1,110 @@
+# What tax rate applies above $18,200 for 2026-27? 15%
+
+Source: https://duguid.com.au/rates/individual-income-tax/
+
+> 15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. Resident rates back to 2019-20 and Medicare levy thresholds, from the ATO.
+
+15%
+
+# Individual income tax rates for residents
+
+15% is the first rate above the $18,200 tax-free threshold for 2026-27, down from 16% for 2024-25 and 2025-26.
+
+These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 14 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only.
+
+Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+
+Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25.
+
+## Rates for 2026-27
+
+15% on taxable income from $18,201 to $45,000. Each rate applies only to the income inside its band, so the base amount is the tax on all the income below the band.
+
+Taxable income | Tax on this income
+$0 to $18,200 | Nil
+$18,201 to $45,000 | 15% of the excess over $18,200
+$45,001 to $135,000 | $4,020 plus 30% of the excess over $45,000
+$135,001 to $190,000 | $31,020 plus 37% of the excess over $135,000
+$190,001 and over | $51,370 plus 45% of the excess over $190,000
+
+## Rates for 2019-20 to 2025-26
+
+The same scale applied in 2024-25 and 2025-26, and another throughout 2020-21 to 2023-24. The CSV lists each year’s rows separately.
+
+Taxable income, 2024-25 and 2025-26 | Tax on this income
+$0 to $18,200 | Nil
+$18,201 to $45,000 | 16% of the excess over $18,200
+$45,001 to $135,000 | $4,288 plus 30% of the excess over $45,000
+$135,001 to $190,000 | $31,288 plus 37% of the excess over $135,000
+$190,001 and over | $51,638 plus 45% of the excess over $190,000
+Taxable income, 2020-21 to 2023-24 | Tax on this income
+$0 to $18,200 | Nil
+$18,201 to $45,000 | 19% of the excess over $18,200
+$45,001 to $120,000 | $5,092 plus 32.5% of the excess over $45,000
+$120,001 to $180,000 | $29,467 plus 37% of the excess over $120,000
+$180,001 and over | $51,667 plus 45% of the excess over $180,000
+Taxable income, 2019-20 | Tax on this income
+$0 to $18,200 | Nil
+$18,201 to $37,000 | 19% of the excess over $18,200
+$37,001 to $90,000 | $3,572 plus 32.5% of the excess over $37,000
+$90,001 to $180,000 | $20,797 plus 37% of the excess over $90,000
+$180,001 and over | $54,097 plus 45% of the excess over $180,000
+
+The ATO page also lists resident rates back to 1983-84. They are not listed here.
+
+## Medicare levy low-income thresholds
+
+The Medicare levy is 2% of taxable income. A single person not entitled to the seniors and pensioners tax offset pays no levy on taxable income at or below the lower threshold and a reduced levy up to the upper threshold. Thresholds for families and for people entitled to that offset are on the ATO pages and are not listed here.
+
+Income year | Lower threshold | Upper threshold
+2025-26 | $28,011 | $35,013
+2024-25 | $27,222 | $34,027
+2023-24 | $26,000 | $32,500
+2022-23 | $24,276 | $30,345
+2021-22 | $23,365 | $29,206
+2020-21 | $23,226 | $29,032
+
+The table lists only thresholds the ATO has published. On 14 November 2026 its Medicare levy reduction page gave thresholds for 2025-26 and no later year, so 2026-27 is not listed. Under the law in force that day the same figures apply to 2026-27: section 3(1) of the Medicare Levy Act 1986, in compilation 53 of 1 July 2026 (the latest on 14 November 2026), sets $28,011 and $35,013, and Schedule 5 to the Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026 (No. 58, 2026) applies them to 2025-26 and later years. That Act received assent on 30 June 2026, the last day of 2025-26, and raised that year’s figures, so a later Act could still change them for 2026-27. The ATO’s myTax instructions for 2019-20 give no threshold table, so that year is not listed.
+
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026. Rows with component resident_tax hold the tax bands; rows with medicare_levy_low_income_single hold the lower and upper thresholds in income_from and income_to. Cite as Duguid, R. (2026). Australian resident income tax rates by year [Data set]. https://duguid.com.au/rates/individual-income-tax/. Verify against current ATO guidance before relying on a figure.
+
+## Common questions
+
+### What are the resident income tax rates for 2026-27?
+
+Nil up to $18,200, 15% from $18,201 to $45,000, 30% from $45,001 to $135,000, 37% from $135,001 to $190,000 and 45% from $190,001, each on the income in that band. The rates do not include the 2% Medicare levy.
+
+### What changed for 2026-27?
+
+The rate on taxable income from $18,201 to $45,000 fell from 16% to 15%, so the tax on $45,000 fell from $4,288 to $4,020. The band limits did not change.
+
+### What are the 2026-27 Medicare levy low-income thresholds?
+
+Under the law in force on 14 November 2026, $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset, the same as 2025-26. Section 3(1) of the Medicare Levy Act 1986, as compiled on 1 July 2026, sets those figures, and Act No. 58 of 2026 applies them to 2025-26 and later years. The ATO had not published 2026-27 thresholds that day, and a later Act can still change them.
+
+### Do these rates apply to everyone?
+
+No. The ATO gives them for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. Check the ATO’s guidance for any other case.
+
+Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+
+## Related
+
+- Study and training loan repayment thresholds
+- PAYG withholding: Schedule 1 coefficients
+- Tax returns questions
+- About Ryan Duguid
+
+## Links
+
+- Tax rates: Australian resident: https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents
+- Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
+- Medicare Levy Act 1986: https://www.legislation.gov.au/C2004A03351/latest/text
+- Download the table as CSV: https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv
+- Source and contact: https://github.com/ryanduguid
+- Study and training loan repayment thresholds: https://duguid.com.au/rates/study-loan-repayment/
+- PAYG withholding: Schedule 1 coefficients: https://duguid.com.au/rates/payg-withholding/
+- Tax returns questions: https://duguid.com.au/tools/accounting-questions/general-tax/
+- About Ryan Duguid: https://duguid.com.au/about/

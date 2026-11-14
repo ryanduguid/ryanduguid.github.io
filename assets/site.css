@@ -2153,6 +2153,12 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+/* WebKit pads the date fields 1px above and below; those 2px put the end of
+   the cash calculator's first control past a phone's first screen. */
+input::-webkit-datetime-edit {
+  padding-block: 0;
+}
+
 fieldset {
   display: grid;
   min-width: 0;

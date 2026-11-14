@@ -240,7 +240,9 @@ determinations, rulings and law' names the current instrument):
 5. Update the counts and sampled rows pinned in `scripts/tests/effective_life.rs`
    from the authorised PDF, and its `DATA_SHA256` once step 4 finds no
    difference, then the instrument, counts, dates and attribution the page
-   states.
+   states. A new instrument also needs its ATO legal database citation (such as
+   LI 2025/20) and commencement date in `INSTRUMENTS` in
+   `assets/depreciation-working.mjs`.
 6. Reread the page's sections beyond the tables against the law in force and
    move its Sources checked date. Finish as for any content edit: a changelog
    row, `build_feed --write`, `build_llms_full --write`, `check_design
@@ -410,6 +412,11 @@ request run 43507731317: the effective life determinations, rulings and law page
 depreciation and capital allowances tool and the effective life review application
 form. A browser loaded each with the expected content on 13 November 2026. Their exact
 URLs are in the same list under the same rule.
+
+The depreciation rates page also links 2 ATO legal database documents: LI 2025/20 and
+the withdrawal notice for TR 2022/1. They were added to the same list before a CI run,
+because the runner had received HTTP 403 for the page's other ATO links. A browser
+loaded each with the expected text on 14 November 2026.
 
 ## Release claims
 

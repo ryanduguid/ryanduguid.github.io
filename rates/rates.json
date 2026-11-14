@@ -271,6 +271,519 @@
       ]
     },
     {
+      "table": "individual-income-tax",
+      "page": "https://duguid.com.au/rates/individual-income-tax/",
+      "csv": "https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv",
+      "rows": [
+        {
+          "income_year": "2026-27",
+          "component": "resident_tax",
+          "income_from": "0",
+          "income_to": "18200",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2026-27",
+          "component": "resident_tax",
+          "income_from": "18201",
+          "income_to": "45000",
+          "base_amount": "0",
+          "rate_percent": "15",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2026-27",
+          "component": "resident_tax",
+          "income_from": "45001",
+          "income_to": "135000",
+          "base_amount": "4020",
+          "rate_percent": "30",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2026-27",
+          "component": "resident_tax",
+          "income_from": "135001",
+          "income_to": "190000",
+          "base_amount": "31020",
+          "rate_percent": "37",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2026-27",
+          "component": "resident_tax",
+          "income_from": "190001",
+          "income_to": "",
+          "base_amount": "51370",
+          "rate_percent": "45",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "component": "resident_tax",
+          "income_from": "0",
+          "income_to": "18200",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "component": "resident_tax",
+          "income_from": "18201",
+          "income_to": "45000",
+          "base_amount": "0",
+          "rate_percent": "16",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "component": "resident_tax",
+          "income_from": "45001",
+          "income_to": "135000",
+          "base_amount": "4288",
+          "rate_percent": "30",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "component": "resident_tax",
+          "income_from": "135001",
+          "income_to": "190000",
+          "base_amount": "31288",
+          "rate_percent": "37",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "component": "resident_tax",
+          "income_from": "190001",
+          "income_to": "",
+          "base_amount": "51638",
+          "rate_percent": "45",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "component": "resident_tax",
+          "income_from": "0",
+          "income_to": "18200",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "component": "resident_tax",
+          "income_from": "18201",
+          "income_to": "45000",
+          "base_amount": "0",
+          "rate_percent": "16",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "component": "resident_tax",
+          "income_from": "45001",
+          "income_to": "135000",
+          "base_amount": "4288",
+          "rate_percent": "30",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "component": "resident_tax",
+          "income_from": "135001",
+          "income_to": "190000",
+          "base_amount": "31288",
+          "rate_percent": "37",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "component": "resident_tax",
+          "income_from": "190001",
+          "income_to": "",
+          "base_amount": "51638",
+          "rate_percent": "45",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "component": "resident_tax",
+          "income_from": "0",
+          "income_to": "18200",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "component": "resident_tax",
+          "income_from": "18201",
+          "income_to": "45000",
+          "base_amount": "0",
+          "rate_percent": "19",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "component": "resident_tax",
+          "income_from": "45001",
+          "income_to": "120000",
+          "base_amount": "5092",
+          "rate_percent": "32.5",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "component": "resident_tax",
+          "income_from": "120001",
+          "income_to": "180000",
+          "base_amount": "29467",
+          "rate_percent": "37",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "component": "resident_tax",
+          "income_from": "180001",
+          "income_to": "",
+          "base_amount": "51667",
+          "rate_percent": "45",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "component": "resident_tax",
+          "income_from": "0",
+          "income_to": "18200",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "component": "resident_tax",
+          "income_from": "18201",
+          "income_to": "45000",
+          "base_amount": "0",
+          "rate_percent": "19",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "component": "resident_tax",
+          "income_from": "45001",
+          "income_to": "120000",
+          "base_amount": "5092",
+          "rate_percent": "32.5",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "component": "resident_tax",
+          "income_from": "120001",
+          "income_to": "180000",
+          "base_amount": "29467",
+          "rate_percent": "37",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "component": "resident_tax",
+          "income_from": "180001",
+          "income_to": "",
+          "base_amount": "51667",
+          "rate_percent": "45",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "component": "resident_tax",
+          "income_from": "0",
+          "income_to": "18200",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "component": "resident_tax",
+          "income_from": "18201",
+          "income_to": "45000",
+          "base_amount": "0",
+          "rate_percent": "19",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "component": "resident_tax",
+          "income_from": "45001",
+          "income_to": "120000",
+          "base_amount": "5092",
+          "rate_percent": "32.5",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "component": "resident_tax",
+          "income_from": "120001",
+          "income_to": "180000",
+          "base_amount": "29467",
+          "rate_percent": "37",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "component": "resident_tax",
+          "income_from": "180001",
+          "income_to": "",
+          "base_amount": "51667",
+          "rate_percent": "45",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "component": "resident_tax",
+          "income_from": "0",
+          "income_to": "18200",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "component": "resident_tax",
+          "income_from": "18201",
+          "income_to": "45000",
+          "base_amount": "0",
+          "rate_percent": "19",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "component": "resident_tax",
+          "income_from": "45001",
+          "income_to": "120000",
+          "base_amount": "5092",
+          "rate_percent": "32.5",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "component": "resident_tax",
+          "income_from": "120001",
+          "income_to": "180000",
+          "base_amount": "29467",
+          "rate_percent": "37",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "component": "resident_tax",
+          "income_from": "180001",
+          "income_to": "",
+          "base_amount": "51667",
+          "rate_percent": "45",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2019-20",
+          "component": "resident_tax",
+          "income_from": "0",
+          "income_to": "18200",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2019-20",
+          "component": "resident_tax",
+          "income_from": "18201",
+          "income_to": "37000",
+          "base_amount": "0",
+          "rate_percent": "19",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2019-20",
+          "component": "resident_tax",
+          "income_from": "37001",
+          "income_to": "90000",
+          "base_amount": "3572",
+          "rate_percent": "32.5",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2019-20",
+          "component": "resident_tax",
+          "income_from": "90001",
+          "income_to": "180000",
+          "base_amount": "20797",
+          "rate_percent": "37",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2019-20",
+          "component": "resident_tax",
+          "income_from": "180001",
+          "income_to": "",
+          "base_amount": "54097",
+          "rate_percent": "45",
+          "notes": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "component": "medicare_levy_low_income_single",
+          "income_from": "28011",
+          "income_to": "35013",
+          "base_amount": "",
+          "rate_percent": "",
+          "notes": "Single, all other taxpayers",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "component": "medicare_levy_low_income_single",
+          "income_from": "27222",
+          "income_to": "34027",
+          "base_amount": "",
+          "rate_percent": "",
+          "notes": "Single, all other taxpayers",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2025/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "component": "medicare_levy_low_income_single",
+          "income_from": "26000",
+          "income_to": "32500",
+          "base_amount": "",
+          "rate_percent": "",
+          "notes": "Single, all other taxpayers",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2024/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "component": "medicare_levy_low_income_single",
+          "income_from": "24276",
+          "income_to": "30345",
+          "base_amount": "",
+          "rate_percent": "",
+          "notes": "Single, all other taxpayers",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2023/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "component": "medicare_levy_low_income_single",
+          "income_from": "23365",
+          "income_to": "29206",
+          "base_amount": "",
+          "rate_percent": "",
+          "notes": "Single, all other taxpayers",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2022/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "component": "medicare_levy_low_income_single",
+          "income_from": "23226",
+          "income_to": "29032",
+          "base_amount": "",
+          "rate_percent": "",
+          "notes": "Single, all other taxpayers",
+          "source_url": "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2021/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption",
+          "checked_at": "2026-11-14"
+        }
+      ]
+    },
+    {
       "table": "maximum-contribution-base",
       "page": "https://duguid.com.au/rates/maximum-contribution-base/",
       "csv": "https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv",
@@ -328,6 +841,1221 @@
           "notes": "ATO Table 24",
           "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
           "checked_at": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "table": "payg-withholding",
+      "page": "https://duguid.com.au/rates/payg-withholding/",
+      "csv": "https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv",
+      "rows": [
+        {
+          "applies_from": "2026-07-01",
+          "scale": "1",
+          "weekly_earnings_less_than": "188",
+          "coefficient_a": "0.1500",
+          "coefficient_b": "0.1500",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "1",
+          "weekly_earnings_less_than": "371",
+          "coefficient_a": "0.2084",
+          "coefficient_b": "11.0185",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "1",
+          "weekly_earnings_less_than": "515",
+          "coefficient_a": "0.1790",
+          "coefficient_b": "0.1066",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "1",
+          "weekly_earnings_less_than": "932",
+          "coefficient_a": "0.3227",
+          "coefficient_b": "74.1674",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "1",
+          "weekly_earnings_less_than": "2246",
+          "coefficient_a": "0.3200",
+          "coefficient_b": "71.6508",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "1",
+          "weekly_earnings_less_than": "3303",
+          "coefficient_a": "0.3900",
+          "coefficient_b": "228.8816",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "1",
+          "weekly_earnings_less_than": "",
+          "coefficient_a": "0.4700",
+          "coefficient_b": "493.1893",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "2",
+          "weekly_earnings_less_than": "362",
+          "coefficient_a": "",
+          "coefficient_b": "",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "2",
+          "weekly_earnings_less_than": "538",
+          "coefficient_a": "0.1500",
+          "coefficient_b": "54.3462",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "2",
+          "weekly_earnings_less_than": "673",
+          "coefficient_a": "0.2500",
+          "coefficient_b": "108.2135",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "2",
+          "weekly_earnings_less_than": "721",
+          "coefficient_a": "0.1700",
+          "coefficient_b": "54.3473",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "2",
+          "weekly_earnings_less_than": "865",
+          "coefficient_a": "0.1790",
+          "coefficient_b": "60.8377",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "2",
+          "weekly_earnings_less_than": "1282",
+          "coefficient_a": "0.3227",
+          "coefficient_b": "185.1935",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "2",
+          "weekly_earnings_less_than": "2596",
+          "coefficient_a": "0.3200",
+          "coefficient_b": "181.7319",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "2",
+          "weekly_earnings_less_than": "3653",
+          "coefficient_a": "0.3900",
+          "coefficient_b": "363.4627",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "2",
+          "weekly_earnings_less_than": "",
+          "coefficient_a": "0.4700",
+          "coefficient_b": "655.7704",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "3",
+          "weekly_earnings_less_than": "2596",
+          "coefficient_a": "0.3000",
+          "coefficient_b": "0.3000",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "3",
+          "weekly_earnings_less_than": "3653",
+          "coefficient_a": "0.3700",
+          "coefficient_b": "181.7308",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "applies_from": "2026-07-01",
+          "scale": "3",
+          "weekly_earnings_less_than": "",
+          "coefficient_a": "0.4500",
+          "coefficient_b": "474.0385",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+          "checked_at": "2026-11-14"
+        }
+      ]
+    },
+    {
+      "table": "study-loan-repayment",
+      "page": "https://duguid.com.au/rates/study-loan-repayment/",
+      "csv": "https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv",
+      "rows": [
+        {
+          "income_year": "2026-27",
+          "basis": "nil",
+          "repayment_income_from": "0",
+          "repayment_income_to": "69528",
+          "base_repayment": "",
+          "rate_percent": "0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2026-27",
+          "basis": "marginal",
+          "repayment_income_from": "69529",
+          "repayment_income_to": "129717",
+          "base_repayment": "0",
+          "rate_percent": "15",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2026-27",
+          "basis": "marginal",
+          "repayment_income_from": "129718",
+          "repayment_income_to": "186050",
+          "base_repayment": "9028",
+          "rate_percent": "17",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2026-27",
+          "basis": "total",
+          "repayment_income_from": "186051",
+          "repayment_income_to": "",
+          "base_repayment": "",
+          "rate_percent": "10",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "basis": "nil",
+          "repayment_income_from": "0",
+          "repayment_income_to": "67000",
+          "base_repayment": "",
+          "rate_percent": "0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "basis": "marginal",
+          "repayment_income_from": "67001",
+          "repayment_income_to": "125000",
+          "base_repayment": "0",
+          "rate_percent": "15",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "basis": "marginal",
+          "repayment_income_from": "125001",
+          "repayment_income_to": "179285",
+          "base_repayment": "8700",
+          "rate_percent": "17",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2025-26",
+          "basis": "total",
+          "repayment_income_from": "179286",
+          "repayment_income_to": "",
+          "base_repayment": "",
+          "rate_percent": "10",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "nil",
+          "repayment_income_from": "0",
+          "repayment_income_to": "54434",
+          "base_repayment": "",
+          "rate_percent": "0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "54435",
+          "repayment_income_to": "62850",
+          "base_repayment": "",
+          "rate_percent": "1.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "62851",
+          "repayment_income_to": "66620",
+          "base_repayment": "",
+          "rate_percent": "2.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "66621",
+          "repayment_income_to": "70618",
+          "base_repayment": "",
+          "rate_percent": "2.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "70619",
+          "repayment_income_to": "74855",
+          "base_repayment": "",
+          "rate_percent": "3.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "74856",
+          "repayment_income_to": "79346",
+          "base_repayment": "",
+          "rate_percent": "3.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "79347",
+          "repayment_income_to": "84107",
+          "base_repayment": "",
+          "rate_percent": "4.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "84108",
+          "repayment_income_to": "89154",
+          "base_repayment": "",
+          "rate_percent": "4.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "89155",
+          "repayment_income_to": "94503",
+          "base_repayment": "",
+          "rate_percent": "5.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "94504",
+          "repayment_income_to": "100174",
+          "base_repayment": "",
+          "rate_percent": "5.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "100175",
+          "repayment_income_to": "106185",
+          "base_repayment": "",
+          "rate_percent": "6.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "106186",
+          "repayment_income_to": "112556",
+          "base_repayment": "",
+          "rate_percent": "6.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "112557",
+          "repayment_income_to": "119309",
+          "base_repayment": "",
+          "rate_percent": "7.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "119310",
+          "repayment_income_to": "126467",
+          "base_repayment": "",
+          "rate_percent": "7.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "126468",
+          "repayment_income_to": "134056",
+          "base_repayment": "",
+          "rate_percent": "8.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "134057",
+          "repayment_income_to": "142100",
+          "base_repayment": "",
+          "rate_percent": "8.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "142101",
+          "repayment_income_to": "150626",
+          "base_repayment": "",
+          "rate_percent": "9.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "150627",
+          "repayment_income_to": "159663",
+          "base_repayment": "",
+          "rate_percent": "9.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2024-25",
+          "basis": "total",
+          "repayment_income_from": "159664",
+          "repayment_income_to": "",
+          "base_repayment": "",
+          "rate_percent": "10.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "nil",
+          "repayment_income_from": "0",
+          "repayment_income_to": "51549",
+          "base_repayment": "",
+          "rate_percent": "0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "51550",
+          "repayment_income_to": "59518",
+          "base_repayment": "",
+          "rate_percent": "1.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "59519",
+          "repayment_income_to": "63089",
+          "base_repayment": "",
+          "rate_percent": "2.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "63090",
+          "repayment_income_to": "66875",
+          "base_repayment": "",
+          "rate_percent": "2.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "66876",
+          "repayment_income_to": "70888",
+          "base_repayment": "",
+          "rate_percent": "3.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "70889",
+          "repayment_income_to": "75140",
+          "base_repayment": "",
+          "rate_percent": "3.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "75141",
+          "repayment_income_to": "79649",
+          "base_repayment": "",
+          "rate_percent": "4.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "79650",
+          "repayment_income_to": "84429",
+          "base_repayment": "",
+          "rate_percent": "4.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "84430",
+          "repayment_income_to": "89494",
+          "base_repayment": "",
+          "rate_percent": "5.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "89495",
+          "repayment_income_to": "94865",
+          "base_repayment": "",
+          "rate_percent": "5.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "94866",
+          "repayment_income_to": "100557",
+          "base_repayment": "",
+          "rate_percent": "6.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "100558",
+          "repayment_income_to": "106590",
+          "base_repayment": "",
+          "rate_percent": "6.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "106591",
+          "repayment_income_to": "112985",
+          "base_repayment": "",
+          "rate_percent": "7.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "112986",
+          "repayment_income_to": "119764",
+          "base_repayment": "",
+          "rate_percent": "7.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "119765",
+          "repayment_income_to": "126950",
+          "base_repayment": "",
+          "rate_percent": "8.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "126951",
+          "repayment_income_to": "134568",
+          "base_repayment": "",
+          "rate_percent": "8.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "134569",
+          "repayment_income_to": "142642",
+          "base_repayment": "",
+          "rate_percent": "9.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "142643",
+          "repayment_income_to": "151200",
+          "base_repayment": "",
+          "rate_percent": "9.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2023-24",
+          "basis": "total",
+          "repayment_income_from": "151201",
+          "repayment_income_to": "",
+          "base_repayment": "",
+          "rate_percent": "10.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "nil",
+          "repayment_income_from": "0",
+          "repayment_income_to": "48360",
+          "base_repayment": "",
+          "rate_percent": "0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "48361",
+          "repayment_income_to": "55836",
+          "base_repayment": "",
+          "rate_percent": "1.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "55837",
+          "repayment_income_to": "59186",
+          "base_repayment": "",
+          "rate_percent": "2.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "59187",
+          "repayment_income_to": "62738",
+          "base_repayment": "",
+          "rate_percent": "2.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "62739",
+          "repayment_income_to": "66502",
+          "base_repayment": "",
+          "rate_percent": "3.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "66503",
+          "repayment_income_to": "70492",
+          "base_repayment": "",
+          "rate_percent": "3.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "70493",
+          "repayment_income_to": "74722",
+          "base_repayment": "",
+          "rate_percent": "4.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "74723",
+          "repayment_income_to": "79206",
+          "base_repayment": "",
+          "rate_percent": "4.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "79207",
+          "repayment_income_to": "83958",
+          "base_repayment": "",
+          "rate_percent": "5.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "83959",
+          "repayment_income_to": "88996",
+          "base_repayment": "",
+          "rate_percent": "5.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "88997",
+          "repayment_income_to": "94336",
+          "base_repayment": "",
+          "rate_percent": "6.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "94337",
+          "repayment_income_to": "99996",
+          "base_repayment": "",
+          "rate_percent": "6.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "99997",
+          "repayment_income_to": "105996",
+          "base_repayment": "",
+          "rate_percent": "7.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "105997",
+          "repayment_income_to": "112355",
+          "base_repayment": "",
+          "rate_percent": "7.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "112356",
+          "repayment_income_to": "119097",
+          "base_repayment": "",
+          "rate_percent": "8.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "119098",
+          "repayment_income_to": "126243",
+          "base_repayment": "",
+          "rate_percent": "8.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "126244",
+          "repayment_income_to": "133818",
+          "base_repayment": "",
+          "rate_percent": "9.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "133819",
+          "repayment_income_to": "141847",
+          "base_repayment": "",
+          "rate_percent": "9.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2022-23",
+          "basis": "total",
+          "repayment_income_from": "141848",
+          "repayment_income_to": "",
+          "base_repayment": "",
+          "rate_percent": "10.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "nil",
+          "repayment_income_from": "0",
+          "repayment_income_to": "47013",
+          "base_repayment": "",
+          "rate_percent": "0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "47014",
+          "repayment_income_to": "54282",
+          "base_repayment": "",
+          "rate_percent": "1.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "54283",
+          "repayment_income_to": "57538",
+          "base_repayment": "",
+          "rate_percent": "2.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "57539",
+          "repayment_income_to": "60991",
+          "base_repayment": "",
+          "rate_percent": "2.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "60992",
+          "repayment_income_to": "64651",
+          "base_repayment": "",
+          "rate_percent": "3.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "64652",
+          "repayment_income_to": "68529",
+          "base_repayment": "",
+          "rate_percent": "3.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "68530",
+          "repayment_income_to": "72641",
+          "base_repayment": "",
+          "rate_percent": "4.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "72642",
+          "repayment_income_to": "77001",
+          "base_repayment": "",
+          "rate_percent": "4.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "77002",
+          "repayment_income_to": "81620",
+          "base_repayment": "",
+          "rate_percent": "5.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "81621",
+          "repayment_income_to": "86518",
+          "base_repayment": "",
+          "rate_percent": "5.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "86519",
+          "repayment_income_to": "91709",
+          "base_repayment": "",
+          "rate_percent": "6.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "91710",
+          "repayment_income_to": "97212",
+          "base_repayment": "",
+          "rate_percent": "6.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "97213",
+          "repayment_income_to": "103045",
+          "base_repayment": "",
+          "rate_percent": "7.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "103046",
+          "repayment_income_to": "109227",
+          "base_repayment": "",
+          "rate_percent": "7.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "109228",
+          "repayment_income_to": "115781",
+          "base_repayment": "",
+          "rate_percent": "8.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "115782",
+          "repayment_income_to": "122728",
+          "base_repayment": "",
+          "rate_percent": "8.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "122729",
+          "repayment_income_to": "130092",
+          "base_repayment": "",
+          "rate_percent": "9.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "130093",
+          "repayment_income_to": "137897",
+          "base_repayment": "",
+          "rate_percent": "9.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2021-22",
+          "basis": "total",
+          "repayment_income_from": "137898",
+          "repayment_income_to": "",
+          "base_repayment": "",
+          "rate_percent": "10.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "nil",
+          "repayment_income_from": "0",
+          "repayment_income_to": "46619",
+          "base_repayment": "",
+          "rate_percent": "0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "46620",
+          "repayment_income_to": "53826",
+          "base_repayment": "",
+          "rate_percent": "1.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "53827",
+          "repayment_income_to": "57055",
+          "base_repayment": "",
+          "rate_percent": "2.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "57056",
+          "repayment_income_to": "60479",
+          "base_repayment": "",
+          "rate_percent": "2.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "60480",
+          "repayment_income_to": "64108",
+          "base_repayment": "",
+          "rate_percent": "3.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "64109",
+          "repayment_income_to": "67954",
+          "base_repayment": "",
+          "rate_percent": "3.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "67955",
+          "repayment_income_to": "72031",
+          "base_repayment": "",
+          "rate_percent": "4.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "72032",
+          "repayment_income_to": "76354",
+          "base_repayment": "",
+          "rate_percent": "4.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "76355",
+          "repayment_income_to": "80935",
+          "base_repayment": "",
+          "rate_percent": "5.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "80936",
+          "repayment_income_to": "85792",
+          "base_repayment": "",
+          "rate_percent": "5.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "85793",
+          "repayment_income_to": "90939",
+          "base_repayment": "",
+          "rate_percent": "6.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "90940",
+          "repayment_income_to": "96396",
+          "base_repayment": "",
+          "rate_percent": "6.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "96397",
+          "repayment_income_to": "102179",
+          "base_repayment": "",
+          "rate_percent": "7.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "102180",
+          "repayment_income_to": "108309",
+          "base_repayment": "",
+          "rate_percent": "7.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "108310",
+          "repayment_income_to": "114809",
+          "base_repayment": "",
+          "rate_percent": "8.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "114810",
+          "repayment_income_to": "121698",
+          "base_repayment": "",
+          "rate_percent": "8.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "121699",
+          "repayment_income_to": "128999",
+          "base_repayment": "",
+          "rate_percent": "9.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "129000",
+          "repayment_income_to": "136739",
+          "base_repayment": "",
+          "rate_percent": "9.5",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
+        },
+        {
+          "income_year": "2020-21",
+          "basis": "total",
+          "repayment_income_from": "136740",
+          "repayment_income_to": "",
+          "base_repayment": "",
+          "rate_percent": "10.0",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
+          "checked_at": "2026-11-14"
         }
       ]
     },

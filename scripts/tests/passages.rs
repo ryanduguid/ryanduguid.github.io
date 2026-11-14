@@ -50,7 +50,10 @@ fn a_rate_headline_does_not_hide_an_overlong_lead() {
         "cents-per-kilometre",
         "div7a-benchmark-rate",
         "fbt-rate",
+        "individual-income-tax",
         "maximum-contribution-base",
+        "payg-withholding",
+        "study-loan-repayment",
         "super-guarantee",
     ] {
         let page = format!("rates/{slug}/index.html");
