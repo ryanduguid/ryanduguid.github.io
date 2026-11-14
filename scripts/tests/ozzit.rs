@@ -166,7 +166,11 @@ fn documented_release_comes_from_the_record() {
     let ozzit = record.get("components").unwrap().get("ozzit").unwrap();
     let documented = ozzit.get("documented").unwrap();
     assert!(Json::Str(tag.clone()).py_eq(documented.get("tag").unwrap()));
-    assert!(sha256.py_eq(ozzit.get("published").unwrap().get("asset_sha256").unwrap()));
+    // A page documenting an older release carries that release's own hash.
+    let expected = documented
+        .get("asset_sha256")
+        .unwrap_or_else(|| ozzit.get("published").unwrap().get("asset_sha256").unwrap());
+    assert!(sha256.py_eq(expected));
     let index = render_index(&repository()).unwrap();
     assert!(index.contains(&format!(
         "https://github.com/ryanduguid/Ozzit/blob/{tag}/src/"
@@ -188,6 +192,9 @@ fn older_documented_release_needs_its_own_hash() {
         let documented = member(ozzit, "documented");
         *member(documented, "version") = Json::Str("3.4.2".into());
         *member(documented, "tag") = Json::Str("v3.4.2".into());
+        if let Json::Object(pairs) = documented {
+            pairs.retain(|(key, _)| key != "asset_sha256");
+        }
     });
     assert!(render_error(root.path()).contains("Record asset_sha256"));
     edit_release(root.path(), |ozzit| {
