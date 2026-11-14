@@ -806,8 +806,23 @@ fn public_contracts_payday_example() {
     );
 }
 
+/// Datasets checked with `core::check_datasets` as `rates/index.html`.
+fn dataset_failures(value: &Json) -> Vec<String> {
+    let mut failures = Vec::new();
+    core::check_datasets(value, "rates/index.html", &mut failures);
+    failures
+}
+
+/// A DataCatalog holding `entry` as its `dataset`.
+fn catalogue(entry: Json) -> Json {
+    Json::Object(vec![
+        ("@type".to_owned(), Json::str_obj("DataCatalog")),
+        ("dataset".to_owned(), entry),
+    ])
+}
+
 #[test]
-fn every_dataset_google_reads_has_a_name_and_description() {
+fn every_catalogue_entry_google_reads_has_a_name_and_description() {
     // Search Console counted the rates catalogue's bare `{"@id": ...}` entries as 7 invalid
     // Datasets, 'Missing field name' and 'Missing field description' (first detected
     // 7 November 2026). The rate pages name their catalogue with `includedInDataCatalog`.
@@ -829,47 +844,11 @@ fn every_dataset_google_reads_has_a_name_and_description() {
         check,
         "rates/index.html: DataCatalog dataset entry 1 has no name",
     );
-    // A typed Dataset is held to the same name and description length.
-    let dataset = |name: &str, description: String| {
-        Json::Object(vec![
-            ("@type".to_owned(), Json::str_obj("Dataset")),
-            ("name".to_owned(), Json::str_obj(name)),
-            ("description".to_owned(), Json::Str(description)),
-        ])
-    };
-    let failures_for = |value: &Json| {
-        let mut failures = Vec::new();
-        core::check_datasets(value, rel, &mut failures);
-        failures
-    };
-    assert_clean(
-        "a 50-character description",
-        &failures_for(&dataset("Rates", "d".repeat(50))),
-    );
-    expect_failure(
-        "short Dataset description",
-        &failures_for(&dataset("Rates", "Too short.".to_owned())),
-        "rates/index.html: Dataset 'Rates' description has 10 characters; Google asks for 50 to 5,000",
-    );
-    expect_failure(
-        "long Dataset description",
-        &failures_for(&dataset("Rates", "d".repeat(5001))),
-        "Dataset 'Rates' description has 5001 characters",
-    );
-    expect_failure(
-        "unnamed Dataset",
-        &failures_for(&dataset("", "d".repeat(60))),
-        "rates/index.html: Dataset '' has no name",
-    );
     // A single catalogue entry, not in an array, is read the same way.
-    let catalogue = Json::Object(vec![
-        ("@type".to_owned(), Json::str_obj("DataCatalog")),
-        (
-            "dataset".to_owned(),
-            Json::Object(vec![("name".to_owned(), Json::str_obj(""))]),
-        ),
-    ]);
-    let failures = failures_for(&catalogue);
+    let failures = dataset_failures(&catalogue(Json::Object(vec![(
+        "name".to_owned(),
+        Json::str_obj(""),
+    )])));
     expect_failure(
         "single entry name",
         &failures,
@@ -879,6 +858,46 @@ fn every_dataset_google_reads_has_a_name_and_description() {
         "single entry description",
         &failures,
         "DataCatalog dataset entry 1 description has 0 characters",
+    );
+    // A typed entry is checked once, as the Dataset it is.
+    let failures = dataset_failures(&catalogue(Json::Array(vec![Json::Object(vec![
+        ("@type".to_owned(), Json::str_obj("Dataset")),
+        ("description".to_owned(), Json::Str("d".repeat(60))),
+    ])])));
+    assert_eq!(
+        failures,
+        ["rates/index.html: Dataset '' has no name"],
+        "typed catalogue entry without a name"
+    );
+}
+
+#[test]
+fn every_dataset_has_a_name_and_a_50_to_5000_character_description() {
+    let dataset = |name: &str, description: String| {
+        Json::Object(vec![
+            ("@type".to_owned(), Json::str_obj("Dataset")),
+            ("name".to_owned(), Json::str_obj(name)),
+            ("description".to_owned(), Json::Str(description)),
+        ])
+    };
+    assert_clean(
+        "a 50-character description",
+        &dataset_failures(&dataset("Rates", "d".repeat(50))),
+    );
+    expect_failure(
+        "short Dataset description",
+        &dataset_failures(&dataset("Rates", "Too short.".to_owned())),
+        "rates/index.html: Dataset 'Rates' description has 10 characters; Google asks for 50 to 5,000",
+    );
+    expect_failure(
+        "long Dataset description",
+        &dataset_failures(&dataset("Rates", "d".repeat(5001))),
+        "Dataset 'Rates' description has 5001 characters",
+    );
+    expect_failure(
+        "unnamed Dataset",
+        &dataset_failures(&dataset("", "d".repeat(60))),
+        "rates/index.html: Dataset '' has no name",
     );
 }
 
