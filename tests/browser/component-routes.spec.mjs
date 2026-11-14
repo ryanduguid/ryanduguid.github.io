@@ -98,7 +98,7 @@ test('task shortcuts expose Excel compatibility and both browser calculator rout
     .toHaveAttribute('href', '/examples/profit-vs-cash-flow/');
   const excel = page.locator('.task-routes a[href="/tools/ozzit/"]');
   await expect(excel).toContainText('Microsoft 365 or Excel 2024 or later');
-  await expect(page.getByRole('link', { name: '9 business planning calculators', exact: true }))
+  await expect(page.getByRole('link', { name: '10 business planning calculators', exact: true }))
     .toHaveAttribute('href', '/tools/business-calculators/');
   await excel.click();
   await expect(page).toHaveURL(/\/tools\/ozzit\/$/);
