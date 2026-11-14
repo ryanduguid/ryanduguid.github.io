@@ -294,8 +294,8 @@ After a new determination:
 
 ## Ozzit reference examples
 
-The ten examples use the Apache-2.0 Ozzit v3.5.0 function index in
-`assets/ozzit-functions-v3.5.0.csv`. Edit the reviewed examples in
+The ten examples use the Ozzit v3.6.0 function index in
+`assets/ozzit-functions-v3.6.0.csv`. Edit the reviewed examples in
 `scripts/ozzit_reference_examples.json`, then run
 `site-tools build_ozzit_reference --write`. The builder takes the documented tag
 and workbook hash from `scripts/release_record.json`, so a release bump adds the
@@ -304,17 +304,17 @@ fails when a page states a function, help-table or named-formula count that
 differs from the index. The ordinary site checks
 require the generated include to match both inputs. They also require every
 formula to match the native Excel inputs and results in
-`assets/ozzit-reference-v3.5.0.json`. Each example records its result shape and a
+`assets/ozzit-reference-v3.6.0.json`. Each example records its result shape and a
 Python format template. The generator formats every recorded result and requires
 that display to equal the reviewed expected text, including array values and totals.
 
 Changing a formula requires a new native Excel check against the named release;
 editing an expected display also requires checking it against the raw result.
-The workbook remains the authority. The 19 October 2026 record used Ozzit's
-existing `tools/excel_eval_formulas_verified.ps1`, opened the workbook from the
-signed tag, whose SHA-256 equals the release asset's, read-only and confirmed the
-hash was unchanged after closing it without saving. The v3.4.2 index and its
-25 September 2026 record stay in `assets/` for links to the earlier release.
+The workbook remains the authority. The 15 November 2026 record used the v3.6.0
+`tools/excel_eval_formulas_verified.ps1`, opened the release asset, whose SHA-256
+equals the workbook at the signed tag, read-only and confirmed the hash was
+unchanged after closing it without saving. The v3.5.0 and v3.4.2 indexes and their
+records stay in `assets/` for links to the earlier releases.
 The results establish arithmetic for these examples, not an accounting treatment.
 
 The 6 module pages under `tools/ozzit/functions/` come from
