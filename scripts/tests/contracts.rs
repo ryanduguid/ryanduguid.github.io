@@ -342,6 +342,9 @@ fn geo_leftovers_surface() {
         "https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv",
         "https://duguid.com.au/rates/car-limit/car-limit.csv",
         "https://duguid.com.au/rates/fbt-rate/fbt-rates.csv",
+        "https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv",
+        "https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv",
+        "https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv",
     ] {
         assert_eq!(tables.matches(url).count(), 1, "{url}");
     }
