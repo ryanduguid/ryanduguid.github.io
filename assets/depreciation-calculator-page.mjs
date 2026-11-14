@@ -8,7 +8,7 @@
 
 import { formatCents, parseCents, parseLife, parseUse, rates, schedule } from './depreciation-rates.mjs';
 import {
-  INSTRUMENTS, METHOD_NAMES, calculationQuery, citation, commencedNote, formatUse, incomeYear, longDate, place,
+  INSTRUMENTS, METHOD_NAMES, calculationQuery, citation, formatUse, incomeYear, instrumentNote, longDate, place,
   readCalculation, scheduleColumns, scheduleCsv, years,
 } from './depreciation-working.mjs';
 import { clearFieldError, reportFirstInvalid } from './field-errors.mjs';
@@ -162,8 +162,11 @@ function printSchedule() {
  * @param {{runs: Run[], use: bigint, cost: bigint, life: string}} drawn
  */
 function actions({ runs, use, cost, life }) {
+  // The year as the schedule read it: the number field also takes forms such as 2026.0, which
+  // the link's 4-character year could not hold.
+  const { yearEnd } = runs[0].lines[runs[0].lines.length - 1];
   const query = calculationQuery({
-    cost: inputs.cost.value, life: inputs.life.value, start: inputs.start.value, year: inputs.year.value,
+    cost: inputs.cost.value, life: inputs.life.value, start: inputs.start.value, year: String(yearEnd),
     method: methodSelect.value, use: inputs.use.value,
   });
   const link = `${location.origin}${location.pathname}?${query}#deduction`;
@@ -220,7 +223,8 @@ function runsFor(cost, life, use) {
 }
 
 /** Section 40-95(2) takes the life in force when the asset was acquired, which a row whose
- * life was set after the start date, or an instrument that commenced after it, may not give.
+ * life was set after the start date may not give. A row's life also carries the instrument's
+ * commencement and what it means for this start date.
  * @param {Entry | null} row */
 function warnings(row) {
   const start = inputs.start.value;
@@ -229,7 +233,7 @@ function warnings(row) {
     ...(row?.updated && start < row.updated
       ? [`The life of ‘${row.asset}’ was last set on ${longDate(row.updated)}, after this start date. Check the determination in force when you acquired the asset.`]
       : []),
-    ...(row && instrument && start < instrument.commenced ? [commencedNote(instrument)] : []),
+    ...(row && instrument ? [instrumentNote(instrument, start)] : []),
   ].map((text) => el('p', { class: 'field-note' }, text));
 }
 
@@ -278,7 +282,9 @@ inputs.start.addEventListener('change', () => {
 });
 form.querySelector('fieldset')?.removeAttribute('disabled');
 
-// A link to a calculation fills the form and works it out, naming any field it cannot use.
+// A link to a calculation fills the form and works it out, naming any field it cannot use. A
+// link without a cost or a start date, such as one carrying a life alone, fills what it holds
+// and waits for the rest.
 try {
   const linked = readCalculation(new URLSearchParams(location.search));
   if (linked) {
@@ -287,7 +293,8 @@ try {
       if (value !== undefined) input.value = value;
     }
     if (linked.method) methodSelect.value = linked.method;
-    drawSchedule();
+    if ('cost' in linked && 'start' in linked) drawSchedule();
+    else output.textContent = 'The link filled in the inputs it holds. Enter the rest and work out the deduction.';
   }
 } catch (error) {
   output.textContent = `${error instanceof Error ? error.message : 'The link could not be read.'} Enter the inputs and work out the deduction.`;

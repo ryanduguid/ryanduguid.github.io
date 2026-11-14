@@ -807,6 +807,82 @@ fn public_contracts_payday_example() {
 }
 
 #[test]
+fn every_dataset_google_reads_has_a_name_and_description() {
+    // Search Console counted the rates catalogue's bare `{"@id": ...}` entries as 7 invalid
+    // Datasets, 'Missing field name' and 'Missing field description' (first detected
+    // 7 November 2026). The rate pages name their catalogue with `includedInDataCatalog`.
+    let rel = "rates/index.html";
+    let source = read_text(&repository(), rel);
+    let check = |html: &str, failures: &mut Vec<String>| {
+        for block in core::json_ld_blocks(html, rel, failures) {
+            core::check_datasets(&block, rel, failures);
+        }
+    };
+    let mut failures = Vec::new();
+    check(&source, &mut failures);
+    assert_clean("rates catalogue", &failures);
+    contract_mutation(
+        "bare catalogue entry",
+        &source,
+        r#""@type": "DataCatalog","#,
+        r#""@type": "DataCatalog", "dataset": [{ "@id": "https://duguid.com.au/rates/car-limit/#dataset" }],"#,
+        check,
+        "rates/index.html: DataCatalog dataset entry 1 has no name",
+    );
+    // A typed Dataset is held to the same name and description length.
+    let dataset = |name: &str, description: String| {
+        Json::Object(vec![
+            ("@type".to_owned(), Json::str_obj("Dataset")),
+            ("name".to_owned(), Json::str_obj(name)),
+            ("description".to_owned(), Json::Str(description)),
+        ])
+    };
+    let failures_for = |value: &Json| {
+        let mut failures = Vec::new();
+        core::check_datasets(value, rel, &mut failures);
+        failures
+    };
+    assert_clean(
+        "a 50-character description",
+        &failures_for(&dataset("Rates", "d".repeat(50))),
+    );
+    expect_failure(
+        "short Dataset description",
+        &failures_for(&dataset("Rates", "Too short.".to_owned())),
+        "rates/index.html: Dataset 'Rates' description has 10 characters; Google asks for 50 to 5,000",
+    );
+    expect_failure(
+        "long Dataset description",
+        &failures_for(&dataset("Rates", "d".repeat(5001))),
+        "Dataset 'Rates' description has 5001 characters",
+    );
+    expect_failure(
+        "unnamed Dataset",
+        &failures_for(&dataset("", "d".repeat(60))),
+        "rates/index.html: Dataset '' has no name",
+    );
+    // A single catalogue entry, not in an array, is read the same way.
+    let catalogue = Json::Object(vec![
+        ("@type".to_owned(), Json::str_obj("DataCatalog")),
+        (
+            "dataset".to_owned(),
+            Json::Object(vec![("name".to_owned(), Json::str_obj(""))]),
+        ),
+    ]);
+    let failures = failures_for(&catalogue);
+    expect_failure(
+        "single entry name",
+        &failures,
+        "DataCatalog dataset entry 1 has no name",
+    );
+    expect_failure(
+        "single entry description",
+        &failures,
+        "DataCatalog dataset entry 1 description has 0 characters",
+    );
+}
+
+#[test]
 fn rate_datasets_identify_licence_and_creator() {
     // The rate pages take their JSON-LD from `_layouts/rate.html`, so read them rendered.
     if !rendered() {
@@ -858,6 +934,19 @@ fn rate_datasets_identify_licence_and_creator() {
             "stub name differs from the canonical Person",
         );
     }
+    // The depreciation rates page's Dataset names its creator with the same stub.
+    let rel = contracts::DEPRECIATION_REL;
+    let blocks = core::json_ld_blocks(&read_text(source, rel), rel, &mut failures);
+    let creator = blocks
+        .iter()
+        .flat_map(core::nodes)
+        .find(|node| core::has_type(node, "Dataset"))
+        .and_then(|dataset| dataset.get("creator"))
+        .expect("depreciation Dataset creator");
+    assert_clean(
+        &format!("{rel}: Dataset creator"),
+        &contracts::check_person_stub(rel, creator, canonical),
+    );
     assert_clean("Dataset JSON-LD", &failures);
 }
 

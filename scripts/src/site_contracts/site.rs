@@ -62,15 +62,16 @@ fn keys(node: &Json) -> Vec<&str> {
     }
 }
 
-/// Check that homepage and rate-page Person stubs restate the canonical node.
+/// Check that homepage Person stubs, and the Dataset creator stubs of the rate pages and the
+/// depreciation rates page, restate the canonical node.
 pub fn check_person_stub(rel: &str, stub: &Json, canonical: &Json) -> Vec<String> {
     let required_fields: &[&str] = if rel == "index.html" {
         &PERSON_STUB_FIELDS
-    } else if RATE_PAGES.contains(&rel) {
+    } else if RATE_PAGES.contains(&rel) || rel == DEPRECIATION_REL {
         &["@type", "@id", "name", "url"]
     } else {
         return vec![format!(
-            "person graph: {rel} must not define a Person node; only index.html and rate pages may carry a stub"
+            "person graph: {rel} must not define a Person node; only index.html, the rate pages and the depreciation rates page may carry a stub"
         )];
     };
     let mut failures = Vec::new();

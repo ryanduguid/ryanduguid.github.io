@@ -228,14 +228,17 @@ test('the page states the counts and dates the data file records', () => {
   const long = (/** @type {string} */ iso) =>
     new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
   const lives = data.counts.table_a.lives + data.counts.table_b.lives;
-  assert.ok(page.includes(`Search the ${lives.toLocaleString('en-AU')} effective lives`));
   assert.ok(page.includes(`holds all ${entries.length.toLocaleString('en-AU')} rows`));
   // The ATO and accountants cite the instrument by its legal database number.
   const { cited: number } = INSTRUMENTS[data.source.register_id];
   const cited = `${number}, ${data.source.register_id}`;
+  // The lead's first sentence answers on its own: the instrument in full, both numbers, its
+  // registration, the day it was read unamended and the count.
+  assert.ok(page.includes(`<p class="lead-note">The ${data.source.title} (${cited}), registered on ${long(data.source.registered)}`
+    + ` and unamended on ${long(data.source.read)}, sets the ${lives.toLocaleString('en-AU')} effective lives this page searches,`));
   assert.ok(page.includes(`(${cited}), made on ${long(data.source.made)} and registered on ${long(data.source.registered)}`));
   assert.ok(page.includes(`<title>Depreciation rates: ATO effective lives in ${number}</title>`));
-  assert.ok(page.includes(`effective lives in ${number} (${data.source.register_id})`));
+  assert.ok(page.includes(`content="Every effective life in ${number} (${data.source.register_id})`));
   assert.ok(page.includes(`href="${data.source.url}"`));
   // The Register's required words, with the date the source was read, appear as the file gives them.
   assert.ok(page.includes(data.source.attribution.replace(
@@ -352,6 +355,18 @@ test('the deduction is the decline in value where use is wholly taxable, and rou
   assert.deepEqual([none.decline, none.deduction], [30_000n, 0n]);
 });
 
+test('part taxable use in a part first year rounds each deduction and leaves the values whole', () => {
+  // $1,000 over 2 years from 1 January 2025 at 62.5% taxable use. Prime cost: $1,000 x 181 / 365 x 50%
+  // = $247.95, of which 62.5% is $154.96875, so $154.97; then $500, of which $312.50.
+  const at = (/** @type {import('../assets/depreciation-rates.mjs').Method} */ method) => schedule({
+    cost: 100_000n, life: parseLife('2'), start: '2025-01-01', yearEnd: 2026, method, use: 6_250n,
+  }).map((line) => [line.decline, line.deduction, line.closing]);
+  assert.deepEqual(at('prime-cost'), [[24_795n, 15_497n, 75_205n], [50_000n, 31_250n, 25_205n]]);
+  // Diminishing value at 100% a year: $495.89, of which $309.93125, so $309.93; then all of the $504.11
+  // left, of which $315.06875, so $315.07.
+  assert.deepEqual(at('diminishing-value'), [[49_589n, 30_993n, 50_411n], [50_411n, 31_507n, 0n]]);
+});
+
 /** Laura's photocopier from the guide, by each method, for 2 years. @param {bigint} use */
 const photocopier = (use) => /** @type {const} */ (['prime-cost', 'diminishing-value']).map((method) => ({
   method,
@@ -398,9 +413,9 @@ test('a citation names the row, the instrument by both numbers, the figures and 
   const link = 'https://duguid.com.au/tools/depreciation-rates/?cost=1500#deduction';
   assert.equal(
     citation({ entry, source: data.source, life: '5', cost: 150_000n, start: '2025-07-01', use: 5_000n, runs, link }),
-    'Effective life 5 years: ‘Photo copying machines’ (Table B / Office machines and equipment), Schedule 2 to the'
-      + ' Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (LI 2025/20, F2025L01097),'
-      + ' last updated 1 January 2001. LI 2025/20 commenced on 16 September 2025, after this start date:'
+    'Effective life 5 years, last updated 1 January 2001: ‘Photo copying machines’ (Table B / Office machines and equipment),'
+      + ' Schedule 2 to the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (LI 2025/20, F2025L01097),'
+      + ' read on 13 November 2026. LI 2025/20 commenced on 16 September 2025, after this start date:'
       + ' check the life in the determination in force at the time subsection 40-95(2) fixes.'
       + ' Cost $1,500.00, first used or installed ready for use on 1 July 2025.'
       + ' Prime cost: decline in value for 2026-27 $300.00, deduction at 50% taxable use $150.00.'
@@ -409,10 +424,13 @@ test('a citation names the row, the instrument by both numbers, the figures and 
   );
   // A start before the instrument commenced on 16 September 2025 is flagged in its place.
   const early = citation({ entry, source: data.source, life: '5', cost: 150_000n, start: '2025-09-15', use: 5_000n, runs, link });
-  assert.ok(early.includes('last updated 1 January 2001. LI 2025/20 commenced on 16 September 2025, after this start date:'
+  assert.ok(early.includes('read on 13 November 2026. LI 2025/20 commenced on 16 September 2025, after this start date:'
     + ' check the life in the determination in force at the time subsection 40-95(2) fixes. Cost'));
+  // A later start can still follow an earlier contract, acquisition or start of construction, which subsection 40-95(2)(a) can make the time
+  // that fixes the life, so the citation always says so.
   const later = citation({ entry, source: data.source, life: '5', cost: 150_000n, start: '2025-09-16', use: 5_000n, runs, link });
-  assert.ok(!later.includes('commenced'));
+  assert.ok(later.includes('read on 13 November 2026. LI 2025/20 commenced on 16 September 2025: for an asset contracted for,'
+    + ' acquired or started to be constructed before then, subsection 40-95(2) can fix the life in an earlier determination. Cost'));
   // A life typed in, or changed after a row filled it, is not credited to the instrument.
   const typed = citation({ entry: null, source: data.source, life: '4', cost: 150_000n, start: '2025-07-01', use: 10_000n, runs: runs.slice(1), link });
   assert.ok(typed.startsWith('Effective life 4 years, entered for this working and not taken from a row of the determination. Cost'));

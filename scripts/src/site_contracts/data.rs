@@ -774,6 +774,8 @@ pub const RATE_PAGES: [&str; 7] = [
     "rates/fbt-rate/index.html",
     "rates/announced-not-yet-law/index.html",
 ];
+/// The depreciation rates page, whose Dataset names its creator with a rate page's Person stub.
+pub const DEPRECIATION_REL: &str = "tools/depreciation-rates/index.html";
 pub const CALCULATOR_REL: &str = "tools/coal-lsl-levy/index.html";
 pub const REGULATORY_QUESTION_TOPICS: [&str; 7] = [
     "general-tax",

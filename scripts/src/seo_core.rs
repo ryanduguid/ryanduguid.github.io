@@ -225,6 +225,7 @@ pub fn check_file_metadata(
             failures.push(format!("{rel}: JSON-LD @context is not https://schema.org"));
         }
         check_item_lists(block, &rel, &mut failures);
+        check_datasets(block, &rel, &mut failures);
         vocabulary.check_block(block, &rel, &mut failures);
         for node in nodes(block) {
             if node
@@ -975,6 +976,48 @@ pub fn check_faq_visible(node: &Json, html: &str, rel: &str, failures: &mut Vec<
                 "{rel}: FAQPage item {} answer does not match the visible FAQ",
                 index + 1
             ));
+        }
+    }
+}
+
+/// Give every Dataset Google reads the name and description its Dataset structured data
+/// requires, the description 50 to 5,000 characters long. Google reads each entry of a
+/// DataCatalog's `dataset` as a Dataset, so a bare `@id` reference there counts as one with
+/// neither field; a Dataset names its catalogue with `includedInDataCatalog` instead.
+pub fn check_datasets(value: &Json, rel: &str, failures: &mut Vec<String>) {
+    let mut check = |node: &Json, label: String| {
+        let name = node.get("name").and_then(Json::as_str).unwrap_or("");
+        let length = node
+            .get("description")
+            .and_then(Json::as_str)
+            .map_or(0, |text| text.chars().count());
+        if name.is_empty() {
+            failures.push(format!("{rel}: {label} has no name"));
+        }
+        if !(50..=5000).contains(&length) {
+            failures.push(format!(
+                "{rel}: {label} description has {length} characters; Google asks for 50 to 5,000"
+            ));
+        }
+    };
+    for node in nodes(value) {
+        if has_type(node, "Dataset") {
+            let name = node.get("name").and_then(Json::as_str).unwrap_or("");
+            check(node, format!("Dataset '{name}'"));
+        }
+        if !has_type(node, "DataCatalog") {
+            continue;
+        }
+        let entries = match node.get("dataset") {
+            Some(Json::Array(items)) => items.iter().collect(),
+            Some(item) => vec![item],
+            None => vec![],
+        };
+        // A typed entry is checked as the Dataset it is; an untyped one is read as a Dataset too.
+        for (index, entry) in entries.into_iter().enumerate() {
+            if !has_type(entry, "Dataset") {
+                check(entry, format!("DataCatalog dataset entry {}", index + 1));
+            }
         }
     }
 }

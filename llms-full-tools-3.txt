@@ -14,7 +14,7 @@ Source: https://duguid.com.au/tools/depreciation-rates/
 
 # Depreciation rates and effective lives
 
-Search the 7,430 effective lives in LI 2025/20 (F2025L01097), the Commissioner of Taxation’s 2025 determination, registered on 15 September 2025 and unamended on 13 November 2026. Each row gives the life, both rates and the date it was last set.
+The Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (LI 2025/20, F2025L01097), registered on 15 September 2025 and unamended on 13 November 2026, sets the 7,430 effective lives this page searches, each with both rates and the date it was last set.
 
 General information, not tax advice. The search and the calculator run in your browser. The figures you enter stay there unless you open a link to the calculation. A search is kept in the page address so that it can be linked. An address holding a search or a calculation reaches this site’s host when it is opened.
 
@@ -150,7 +150,7 @@ Works begun before 27 February 1992 and used as Table 43-140 describes take 4% i
 
 ### Is TR 2022/1 still the ruling to use for effective lives?
 
-No. The Commissioner withdrew TR 2022/1 with effect from 31 October 2025 (TR 2022/1W). Effective lives are determined by legislative instrument, and the current one is LI 2025/20, the 2025 determination (F2025L01097), which this page searches.
+No: the Commissioner withdrew TR 2022/1 with effect from 31 October 2025 (TR 2022/1W). The Commissioner makes effective life determinations by legislative instrument and, on the ATO’s page last updated 17 November 2025, names the 2025 determination (LI 2025/20, F2025L01097), which this page searches, as the current one.
 
 ### Which life applies to an asset acquired before the 2025 determination?
 
@@ -158,7 +158,7 @@ The life in force when you entered a contract to acquire the asset, otherwise ac
 
 ### Must I use the Commissioner’s effective life?
 
-No. You can instead work out an effective life yourself under section 40-105, choosing it for the income year in which the asset’s start time occurs (subsection 40-95(3)). Where you use the Commissioner’s life for a row marked ‘capped life available’, section 40-102 gives the capped life instead if it is shorter.
+No: you can instead work out an effective life yourself under section 40-105, choosing it for the income year in which the asset’s start time occurs (subsection 40-95(3)). Where you use the Commissioner’s life for a row marked ‘capped life available’, section 40-102 gives the capped life instead if it is shorter.
 
 ### How does private use change the deduction?
 
@@ -180,7 +180,7 @@ The rules beyond the tables were read on 13 November 2026 in the Income Tax Asse
 
 Changes to this page are listed here, newest first.
 
-- 14 November 2026: the calculator takes a taxable use percentage and shows both methods side by side, and a drawn schedule can be copied as a citation or a link, downloaded as CSV or printed. The page names the determination as LI 2025/20 and says when TR 2022/1 was withdrawn.
+- 14 November 2026: the calculator takes a taxable use percentage and shows both methods side by side, and a drawn schedule can be copied as a citation or a link, downloaded as CSV or printed; the citation gives the day the determination was read and what subsection 40-95(2) means for the start date. The page names the determination in full as LI 2025/20 and says when TR 2022/1 was withdrawn.
 - 14 November 2026: published with the 7,430 lives of the 2025 determination, read on 13 November 2026.
 
 The changelog records each change to the site, and its Atom feed carries an entry when the tables are rebuilt for a new or amended determination.

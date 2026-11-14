@@ -202,7 +202,7 @@ test('the page with results and a schedule drawn passes the accessibility scan',
   expect(scan.violations.map((violation) => `${violation.id}: ${violation.nodes.length}`)).toEqual([]);
 });
 
-test('a life set after the start date is flagged, and a later start is not', async ({ page }) => {
+test('a life set after the start date is flagged, a later start is not, and the commencement is always noted', async ({ page }) => {
   await page.goto(`${PAGE}?q=electric+scooters`);
   await page.getByRole('button', { name: 'Use this life: 2 years, Electric scooters (e-scooters)' }).click();
   await page.getByLabel('Cost (AUD)').fill('1000');
@@ -216,6 +216,24 @@ test('a life set after the start date is flagged, and a later start is not', asy
   await page.getByRole('button', { name: 'Work out the deduction' }).click();
   await expect(output.locator('.result-row').first()).toContainText('Decline in value for 2023-24');
   await expect(output).not.toContainText('was last set on');
+  // A start after LI 2025/20 commenced may still follow a contract, acquisition or construction before it.
+  await page.getByLabel('First used or installed ready for use').fill('2025-10-01');
+  await page.getByRole('button', { name: 'Work out the deduction' }).click();
+  await expect(output).toContainText(
+    'LI 2025/20 commenced on 16 September 2025: for an asset contracted for, acquired or started to be constructed before then, subsection 40-95(2) can fix the life in an earlier determination.',
+  );
+});
+
+test('a year the form accepts in another notation gives a link that restores it', async ({ page }) => {
+  await page.goto(PAGE);
+  await fillCalculator(page, { cost: '1500', life: '5', start: '2025-07-01', year: '2026.0', method: 'prime-cost' });
+  const link = page.getByRole('link', { name: 'Link to this calculation' });
+  await expect(link).toHaveAttribute('href', /&year=2026&/);
+  await page.goto(/** @type {string} */ (await link.getAttribute('href')));
+  await expect(page.locator('#deduction-output .result-row')).toHaveText([
+    'Decline in value for 2025-26$300.00',
+    'Value left at 30 June 2026$1,200.00',
+  ]);
 });
 
 test('a section note that redirects the reader shows once with its results', async ({ page }) => {
@@ -379,9 +397,9 @@ test('a citation and a link copy, and the link restores the calculation', async 
   await fillCalculator(page, { cost: '1,500', start: '2025-07-01', use: '62.5' });
   const line = page.locator('#deduction-citation');
   await expect(line).toHaveText(new RegExp(
-    '^Effective life 5 years: ‘Photo copying machines’ \\(Table B / Office machines and equipment\\), Schedule 2 to the '
-    + 'Income Tax Assessment \\(Effective Life of Depreciating Assets\\) Determination 2025 \\(LI 2025/20, F2025L01097\\), '
-    + 'last updated 1 January 2001\\. LI 2025/20 commenced on 16 September 2025, after this start date: '
+    '^Effective life 5 years, last updated 1 January 2001: ‘Photo copying machines’ \\(Table B / Office machines and equipment\\), '
+    + 'Schedule 2 to the Income Tax Assessment \\(Effective Life of Depreciating Assets\\) Determination 2025 \\(LI 2025/20, F2025L01097\\), '
+    + 'read on 13 November 2026\\. LI 2025/20 commenced on 16 September 2025, after this start date: '
     + 'check the life in the determination in force at the time subsection 40-95\\(2\\) fixes\\. Cost \\$1,500\\.00, first used or installed ready for use on 1 July 2025\\. '
     + 'Diminishing value: decline in value for 2025-26 \\$600\\.00, deduction at 62\\.5% taxable use \\$375\\.00\\. Working: http',
   ));
@@ -409,6 +427,20 @@ test('a citation and a link copy, and the link restores the calculation', async 
   // Once the tables arrive the address still holds the calculation, so it can be reloaded or shared.
   await expect(page.locator('#finder-status')).toHaveText('9,311 rows to search.');
   await expect(page).toHaveURL(link);
+});
+
+test('a link with a life and no cost or date fills the form and waits for them', async ({ page }) => {
+  // The asset pages link here with the life alone.
+  await page.goto(`${PAGE}?life=5&method=both#deduction`);
+  await expect(page.getByLabel('Effective life (years)')).toHaveValue('5');
+  await expect(page.getByLabel('Method')).toHaveValue('both');
+  await expect(page.locator('#deduction-output')).toHaveText(
+    'The link filled in the inputs it holds. Enter the rest and work out the deduction.',
+  );
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await expect(page.getByLabel('Cost (AUD)')).not.toHaveAttribute('aria-invalid', 'true');
+  await fillCalculator(page, { cost: '1500', start: '2025-07-01' });
+  await expect(page.locator('#deduction-output .result-row').first()).toHaveText('Prime cost: decline in value for 2025-26$300.00');
 });
 
 test('a link the form cannot hold fills nothing and says why', async ({ page }) => {

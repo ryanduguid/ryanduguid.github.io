@@ -14,7 +14,7 @@ import { formatCents } from './depreciation-rates.mjs';
  * @typedef {{method: Method, lines: YearLine[]}} Run one method's schedule
  * @typedef {{heading: string, values: (string | bigint)[], csv?: {heading: string, values: string[]}}} Column
  *   a bigint is whole cents; `csv` stands in for the column in a CSV
- * @typedef {{title: string, register_id: string}} Source the data file's source block
+ * @typedef {{title: string, register_id: string, read: string}} Source the data file's source block
  * @typedef {{cost: string, life: string, start: string, year: string, method: string, use: string}} Fields
  *   the calculator's inputs as typed
  */
@@ -142,16 +142,24 @@ export function readCalculation(params) {
   return Object.keys(fields).length ? fields : null;
 }
 
-/** The warning for a start date before an instrument commenced.
- * @param {{cited: string, commenced: string}} instrument */
-export const commencedNote = (instrument) =>
-  `${instrument.cited} commenced on ${longDate(instrument.commenced)}, after this start date: check the life in the determination in force at the time subsection 40-95(2) fixes.`;
+/** What a row's life rests on for a start date. Subsection 40-95(2) fixes the life in force when
+ * the asset was contracted for, acquired or started to be constructed, if its start time is within
+ * 5 years of then, so a start before the
+ * instrument commenced points to an earlier determination and a later start may still do so.
+ * @param {{cited: string, commenced: string}} instrument @param {string} start */
+export function instrumentNote(instrument, start) {
+  const commenced = `${instrument.cited} commenced on ${longDate(instrument.commenced)}`;
+  return start < instrument.commenced
+    ? `${commenced}, after this start date: check the life in the determination in force at the time subsection 40-95(2) fixes.`
+    : `${commenced}: for an asset contracted for, acquired or started to be constructed before then, subsection 40-95(2) can fix the life in an earlier determination.`;
+}
 
 /**
- * A line for a working paper: the life and the row and instrument it came from, the inputs,
+ * A line for a working paper: the life and the row and instrument it came from, with the day
+ * the instrument was read, the inputs,
  * each method's figures for the last year and the link that restores the working. A life
- * that did not come from a row is said to be entered. A start before the instrument
- * commenced is flagged: subsection 40-95(2) then points to an earlier determination.
+ * that did not come from a row is said to be entered. A row's life carries the instrument's
+ * commencement and what subsection 40-95(2) makes of it (see instrumentNote).
  * @param {{entry: Entry | null, source: Source | null, life: string, cost: bigint, start: string,
  *   use: bigint, runs: Run[], link: string}} working
  */
@@ -159,9 +167,9 @@ export function citation({ entry, source, life, cost, start, use, runs, link }) 
   const instrument = source ? INSTRUMENTS[source.register_id] : undefined;
   const numbers = source ? [instrument?.cited, source.register_id].filter(Boolean).join(', ') : '';
   const updated = entry?.updated ? `, last updated ${longDate(entry.updated)}` : '';
-  const early = instrument && start < instrument.commenced ? ` ${commencedNote(instrument)}` : '';
+  const note = instrument ? ` ${instrumentNote(instrument, start)}` : '';
   const origin = entry && source
-    ? `Effective life ${years(life)}: ‘${entry.asset}’ (${place(entry)}), Schedule 2 to the ${source.title} (${numbers})${updated}.${early}`
+    ? `Effective life ${years(life)}${updated}: ‘${entry.asset}’ (${place(entry)}), Schedule 2 to the ${source.title} (${numbers}), read on ${longDate(source.read)}.${note}`
     : `Effective life ${years(life)}, entered for this working and not taken from a row of the determination.`;
   const figures = runs.map(({ method, lines }) => {
     const last = lines[lines.length - 1];
