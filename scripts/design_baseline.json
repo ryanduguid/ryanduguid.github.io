@@ -116,6 +116,9 @@
     "tools/australian-tax-ai-agents/index.html": [
       "45fdc74ea0b630f469a53f6f381913964a4acee688ce48d4447d0c9181d07863"
     ],
+    "tools/bas-due-dates/index.html": [
+      "0cd228c7fb91aae4af73006d6ec4dd8fdbc67f341b2466fc721ea4dada27f930"
+    ],
     "tools/business-calculators/break-even/index.html": [
       "8b17f20c372fc2a2b1b9e22eb22b14222bd46e7c556fb95e3697cc16a0202083"
     ],
@@ -223,9 +226,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "0b903919b621b316cc7cdb21622969c73a3e9b7a3f9f735ecd5d3f9c0c8ade4a",
+    "llms.txt": "9bd839868d6ee8840fe89506b9b3f9ad5f7538e406fa0ebb2cdf20b40f0c81d3",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
-    "sitemap.xml": "e106692e1038e979618abfe1748d8a09317f821198c939d1f2a668fc7ab514cf"
+    "sitemap.xml": "3d76995c513694f01b28611ae6a5f66a3accfeb1f2c61c3316f6ade0ca256b2d"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -285,7 +288,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 71,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 72,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

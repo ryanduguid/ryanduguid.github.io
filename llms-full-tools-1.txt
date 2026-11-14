@@ -1078,6 +1078,100 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# BAS due dates for 2026-27: monthly and quarterly
+
+Source: https://duguid.com.au/tools/bas-due-dates/
+
+> Monthly and quarterly BAS due dates for 2026-27, with the online and registered agent concessions, each checked at the ATO on 15 November 2026, and a CSV.
+
+# BAS due dates for 2026-27
+
+The ATO’s lodgment and payment due dates for monthly and quarterly BAS covering 2026-27, with the dates for lodging online yourself and through a registered BAS agent. Each date was checked at its ATO page on 15 November 2026.
+
+Published 15 November 2026. Last reviewed 15 November 2026. Sources checked 15 November 2026.
+
+## Monthly BAS due dates for 2026-27
+
+A monthly BAS is due for lodgment and payment on the 21st day of the month after the month it covers. The registered agent concession applies only to the December statement.
+
+Monthly BAS due dates, July 2026 to June 2027
+
+Month | Due date | Registered agent concession
+July 2026 | Fri 21 Aug 2026 | Not applicable
+August 2026 | Mon 21 Sep 2026 | Not applicable
+September 2026 | Wed 21 Oct 2026 | Not applicable
+October 2026 | Sat 21 Nov 2026 | Not applicable
+November 2026 | Mon 21 Dec 2026 | Not applicable
+December 2026 | Thu 21 Jan 2027 | Sun 21 Feb 2027
+January 2027 | Sun 21 Feb 2027 | Not applicable
+February 2027 | Sun 21 Mar 2027 | Not applicable
+March 2027 | Wed 21 Apr 2027 | Not applicable
+April 2027 | Fri 21 May 2027 | Not applicable
+May 2027 | Mon 21 Jun 2027 | Not applicable
+June 2027 | Wed 21 Jul 2027 | Not applicable
+
+## Quarterly BAS due dates for 2026-27
+
+A quarterly BAS is due on the 28th day of the month after the quarter, except quarter 2, which is due on 28 February. Quarter 2 has no later online or agent date because its due date already includes a one-month extension.
+
+Quarterly BAS due dates, July 2026 to June 2027
+
+Quarter | Due date | Lodged online yourself | Registered agent concession
+Quarter 1 2026-27 | Wed 28 Oct 2026 | Wed 11 Nov 2026 | Wed 25 Nov 2026
+Quarter 2 2026-27 | Sun 28 Feb 2027 | No later date | Not applicable
+Quarter 3 2026-27 | Wed 28 Apr 2027 | Wed 12 May 2027 | Wed 26 May 2027
+Quarter 4 2026-27 | Wed 28 Jul 2027 | Wed 11 Aug 2027 | Wed 25 Aug 2027 (to be confirmed)
+
+The ATO publishes the quarter 4 agent date of 25 August 2027 as ‘to be confirmed when the BAS agent lodgment program 2027–28 is developed’.
+
+Download both tables as CSV: one row per month or quarter, with the period, each due date, the agent date’s status, the ATO page behind each date and the date the row was checked (checked_at).
+
+## BAS due dates on a weekend or public holiday
+
+The ATO’s due dates page says: ‘If the due date is on a weekend or public holiday, you have until the next business day to lodge and pay.’ The tables show each date as the ATO publishes it and do not move it.
+
+Four dates in the tables fall on a weekend: Saturday 21 November 2026, Sunday 21 February 2027, Sunday 28 February 2027 and Sunday 21 March 2027. None of the weekday dates is a public holiday for the whole of a state or territory on the Payday Super business days calendar. The ATO page does not say which state’s public holidays apply.
+
+## Who gets the later BAS dates
+
+The online dates are the ATO’s 2-week lodgment concession. A business that receives and lodges its quarterly activity statement online gets 2 more weeks for quarters 1, 3 and 4, without applying; the later date shows on the statement once it generates. It does not apply to monthly statements, monthly GST reporters with quarterly PAYG instalments, quarterly instalment notices (forms R, S and T), head companies’ quarterly PAYG instalments or large business clients with a substituted accounting period.
+
+The agent dates are the BAS agent lodgment program for 2026-27. They apply to eligible quarterly statements, and to the December monthly statement, lodged through Online services for agents or the Practitioner lodgment service. A statement qualifies once the client’s previous activity statement was lodged electronically; a first statement, or one after a paper lodgment, may be due earlier.
+
+The December monthly date of 21 February 2027 is for business clients with turnover up to $10 million who report GST monthly and lodge electronically through a registered agent. Other monthly statements have no agent concession.
+
+## What the BAS tables cover
+
+The tables cover the BAS periods from 1 July 2026 to 30 June 2027 for businesses that report GST monthly or quarterly. The ATO shows the due date for lodging and paying on each activity statement, so check it there before relying on a date here.
+
+They do not cover:
+
+- annual GST reporting, due on 31 October, or 28 February when no tax return is required
+- quarter 4 of 2025-26, due on 28 July 2026, or 25 August 2026 through an agent
+- a deferral the ATO grants, including extra time after a natural disaster
+
+## Sources
+
+Each ATO page below was read on 15 November 2026.
+
+- ATO, Due dates for lodging and paying your BAS, last updated 17 September 2026: the monthly and quarterly due dates, quarter 2 and the weekend and public holiday rule.
+- ATO, Activity statements (due dates by topic), last updated 11 December 2017: the online due dates of 11 November, 12 May and 11 August.
+- ATO, Two week lodgment concession – terms and conditions, last updated 18 August 2025: who gets the online dates.
+- ATO, BAS agent lodgment program 2026–27, last updated 1 July 2026: the agent dates and their conditions.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Download both tables as CSV: https://duguid.com.au/tools/bas-due-dates/bas-due-dates-2026-27.csv
+- Payday Super business days calendar: https://duguid.com.au/tools/payday-super/business-days/
+- Due dates for lodging and paying your BAS: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/due-dates-for-lodging-and-paying-your-bas
+- Activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/reports-and-returns/due-dates-for-lodging-and-paying/due-dates-by-topic/activity-statements
+- Two week lodgment concession – terms and conditions: https://www.ato.gov.au/online-services/businesses-and-organisations-online-services/lodgments-in-online-services-for-business/two-week-lodgment-concession-terms-and-conditions
+- BAS agent lodgment program 2026–27: https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/bas-agent-lodgment-program-2026-27
+
+---
+
 # How does this business compare to ATO benchmarks?
 
 Source: https://duguid.com.au/tools/ato-benchmarks/
@@ -1203,137 +1297,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - A Xero trial balance export that balances: https://duguid.com.au/tools/xero-trial-balance/
-- Evidence and Assurance: https://duguid.com.au/evidence/
-- About Ryan Duguid: https://duguid.com.au/about/
-
----
-
-# Trust distribution worksheets for professional review
-
-Source: https://duguid.com.au/tools/trust-distributions/
-
-> Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result.
-
-# Trust distribution worksheets for professional review
-
-The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.
-
-Current release solomons-sword v0.3.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
-
-Delivery
-
-Python
-
-Needs
-
-Python 3.10 or later
-
-Boundary
-
-Does not invent arrangements, intentions or beneficiary facts.
-
-PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software does not establish the underlying facts or give tax clearance.
-
-Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary’s own rate. The ATO’s finalised guideline PCG 2022/2 says where the risk sits.
-
-The white zone, for income years ending before 1 July 2014, is out of scope because the tool does not take an income year. Division 6 shares follow the High Court’s decision in Bamford.
-
-Where the tool does not implement a rule, such as trust capital gains and franked dividends, streamed or not, under the Division 6E carve-out, it refuses the input rather than returning a number it cannot stand behind.
-
-## What this tool does
-
-- Classifies a trust distribution against the ATO’s section 100A green and red risk zones under PCG 2022/2, from facts you supply.
-- Works out each beneficiary’s proportionate share of trust income under Division 6, following the Bamford case.
-- Calculates the assessable amount on a foreign trust distribution under section 99B, after corpus and previously taxed income deductions.
-
-## Get it
-
-Needs Python 3.10 or later. Install the reference release in your Python environment.
-
-```
-python -m pip install "solomons-sword==0.1.9"
-```
-
-Published package and release instructions.
-
-## Fictional worked example
-
-With uv installed, run this pinned package directly. No clone or input file is needed.
-
-This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000 and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fictional. The command states residency with --resident-during-year because release 0.1.9 refuses a run that states neither residency flag.
-
-```
-uvx --from solomons-sword==0.1.9 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year
-```
-
-Selected output from release 0.1.9, verified on 27 September 2026. The command exits 0 and also prints its statutory basis, a caveat naming the amounts left at nil and its review boundaries.
-
-```
-Gross Receipt:           $150,000.00
-Corpus Exemption:        $50,000.00
-Assessable under s99B:   $100,000.00
-```
-
-### Try a refusal
-
-Change --corpus 50000 to --corpus 160000. The exemptions now exceed the gross receipt. The command exits 2 and returns no assessment:
-
-```
-error: exemptions ($160,000.00) exceed the gross receipt ($150,000.00); check the inputs rather than assuming a nil assessable amount
-```
-
-This verifies the published command’s behaviour on fictional inputs. Confirm residence, the character of the corpus and each exclusion before using the tool with real facts.
-
-## Limits
-
-The examples assume supplied facts, and nothing this engine produces is an assessment, a determination or confirmation of entitlement, liability or compliance. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity’s facts before acting, have a registered tax agent verify the supplied facts and review their tax treatment, and leave lodgement decisions with a registered practitioner.
-
-Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
-
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
-
-## Common questions
-
-### Is there a blue zone in PCG 2022/2?
-
-No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 2022/2 has white, green and red zones only.
-
-### What is the white zone?
-
-The white zone covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here.
-
-### How is each beneficiary’s share of trust income worked out?
-
-Proportionately, following the High Court’s decision in Bamford: a beneficiary’s share of trust income sets the proportion of the trust’s taxable income assessed to them.
-
-### What will this tool refuse to calculate?
-
-Anything it does not implement, including trust capital gains and franked dividends, streamed or not, under the Division 6E carve-out. It refuses the input rather than returning a number it cannot stand behind.
-
-## Related
-
-- Division 7A benchmark interest rate
-- Company tax rate and franking account checks
-- How a business compares to the ATO benchmarks
-- Evidence and Assurance
-- About Ryan Duguid
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
-- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
-- guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
-- Published package: https://pypi.org/project/solomons-sword/0.1.9/
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart
-- uv installed: https://docs.astral.sh/uv/
-- Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
-- Open an issue: https://github.com/ryanduguid/australian-accounting/issues
-- contact page: https://duguid.com.au/contact/
-- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
-- Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
-- Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
-- How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
 - Evidence and Assurance: https://duguid.com.au/evidence/
 - About Ryan Duguid: https://duguid.com.au/about/
