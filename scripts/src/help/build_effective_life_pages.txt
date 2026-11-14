@@ -2,8 +2,10 @@ usage: site-tools build_effective_life_pages [-h] (--write | --check | --indexno
 
 Build and check the page for every effective life in
 tools/depreciation-rates/effective-life.json, the pages for each Table A
-sub-industry and top-level Table B row, the 2 index pages, their text mirrors
-and tools/depreciation-rates/sitemap.xml.
+sub-industry and top-level Table B row, the 2 index pages, their text mirrors,
+tools/depreciation-rates/sitemap.xml and llms.txt, the address map
+tools/depreciation-rates/effective-life-pages.json and the links the depreciation
+rates page includes from _includes/effective-life-groups.html.
 
 options:
   -h, --help  show this help message and exit

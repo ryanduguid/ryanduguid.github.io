@@ -1,4 +1,4 @@
-# Control systems assets effective life: 10 years, Iron smelting
+# Control systems assets … effective life: 10 years, Iron …
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/programmable-logic-controllers-and-distributed-control/
 
@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-an
 
 ‘Control systems assets: Programmable logic controllers … and distributed control systems …’, for an asset used in Iron smelting and steel manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 

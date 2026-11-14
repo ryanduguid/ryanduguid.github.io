@@ -5,6 +5,7 @@
 //! page is in the map its address never changes, and its dates move only when its
 //! content does.
 use super::Result;
+use chrono::NaiveDate;
 use serde_json::{Value, json};
 use std::collections::{HashMap, HashSet};
 
@@ -47,13 +48,60 @@ fn record(item: &Value) -> Result<Record> {
                 .collect::<Option<Vec<_>>>()
         })
         .ok_or_else(|| format!("{MAP_REL}: a page has no key"))?;
-    Ok(Record {
+    let record = Record {
         key,
         url: text(item, "url")?,
         published: text(item, "published")?,
         modified: text(item, "modified")?,
         sha256: text(item, "sha256")?,
-    })
+    };
+    // The map is edited by hand when a row goes: a bad address would write outside the
+    // family's folders.
+    if !family_url(&record.url) {
+        return Err(format!(
+            "{MAP_REL}: {} is not an address under /tools/depreciation-rates/industry/ or /tools/depreciation-rates/asset/",
+            record.url
+        ));
+    }
+    for day in [&record.published, &record.modified] {
+        if NaiveDate::parse_from_str(day, "%Y-%m-%d").is_err() {
+            return Err(format!(
+                "{MAP_REL}: {} has the date {day}, not YYYY-MM-DD",
+                record.url
+            ));
+        }
+    }
+    if record.sha256.len() != 64
+        || !record
+            .sha256
+            .bytes()
+            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+    {
+        return Err(format!("{MAP_REL}: {} has no SHA-256 hash", record.url));
+    }
+    Ok(record)
+}
+
+/// Whether an address is an index page of the family or 1 or 2 folders below one, each of
+/// lower-case letters, digits and hyphens.
+fn family_url(url: &str) -> bool {
+    let Some(rest) = [
+        "/tools/depreciation-rates/industry/",
+        "/tools/depreciation-rates/asset/",
+    ]
+    .iter()
+    .find_map(|base| url.strip_prefix(base)) else {
+        return false;
+    };
+    let folders: Vec<&str> = rest.split_terminator('/').collect();
+    (rest.is_empty() || rest.ends_with('/'))
+        && folders.len() <= 2
+        && folders.iter().all(|folder| {
+            !folder.is_empty()
+                && folder
+                    .bytes()
+                    .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'-')
+        })
 }
 
 impl AddressMap {

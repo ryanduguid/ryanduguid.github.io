@@ -1049,6 +1049,43 @@ fn the_map_keeps_an_address_the_rule_would_now_give_another_row() {
 }
 
 #[test]
+fn a_map_address_outside_the_family_is_refused() {
+    let first = files(&fixture(grain(), letter_a()), None, Some(DAY)).unwrap();
+    let map = &first.files[MAP_REL];
+    let page = "\"url\":\"/tools/depreciation-rates/industry/\"";
+    assert!(map.contains(page));
+    for url in [
+        "/",
+        "/tools/depreciation-rates/",
+        "/tools/depreciation-rates/industry/../../x/",
+        "/tools/depreciation-rates/industry/a/b/c/",
+        "/tools/depreciation-rates/industry/Grain/",
+    ] {
+        let edited = map.replacen(page, &format!("\"url\":\"{url}\""), 1);
+        let refused = files(&fixture(grain(), letter_a()), Some(&edited), Some(LATER)).err();
+        assert!(
+            refused.as_deref().is_some_and(|e| e.contains(url)),
+            "{url}: {refused:?}"
+        );
+    }
+}
+
+#[test]
+fn a_row_with_no_months_or_a_date_that_is_not_text_is_refused() {
+    let mut zero = grain();
+    zero.push(json!(["Silos", 0, "0", 0, "*", "2008-07-01"]));
+    let mut number = grain();
+    number.push(json!(["Silos", 0, "5", 60, "*", 2008]));
+    for rows in [zero, number] {
+        let refused = files(&fixture(rows, letter_a()), None, Some(DAY)).err();
+        assert!(
+            refused.as_deref().is_some_and(|e| e.contains("Silos")),
+            "{refused:?}"
+        );
+    }
+}
+
+#[test]
 fn a_new_row_whose_rule_address_is_taken_gets_a_digest() {
     let first = files(&fixture(grain(), letter_a()), None, Some(DAY)).unwrap();
     let map = &first.files[MAP_REL];
@@ -1118,6 +1155,133 @@ fn titles_and_descriptions_keep_the_row_or_mark_the_cut() {
             "{rel}: {description}"
         );
     }
+}
+
+/// The text before its closing bracketed aside, if it ends in one.
+fn without_closing_aside(text: &str) -> Option<&str> {
+    let mut depth = 0usize;
+    for (at, c) in text.char_indices().rev() {
+        match c {
+            ')' => depth += 1,
+            '(' if depth > 0 => {
+                depth -= 1;
+                if depth == 0 {
+                    return Some(text[..at].trim_end());
+                }
+            }
+            _ if depth == 0 => return None,
+            _ => {}
+        }
+    }
+    None
+}
+
+/// Whether a part of a head is one of `whole` as printed, or a cut of one shown by an
+/// ellipsis.
+fn whole_or_marked(part: &str, whole: &[String]) -> bool {
+    let kept = part.trim_end_matches([' ', '\u{2026}']);
+    whole.iter().any(|text| text == part)
+        || (part.ends_with('\u{2026}') && whole.iter().any(|text| text.starts_with(kept)))
+}
+
+#[test]
+fn every_title_and_group_description_shows_its_cuts() {
+    let data = load(&committed()).unwrap();
+    let plan = plan(&data).unwrap();
+    let mut wrong = Vec::new();
+    for page in &plan.pages {
+        let html = &built().files[&format!("{}index.html", page.url.trim_start_matches('/'))];
+        let title = site_tools::html::unescape(between(html, "<title>", "</title>"));
+        let group = &data.groups[page.group];
+        let name = group.heading.trim_end_matches(':').to_owned();
+        match page.kind {
+            Kind::Asset(row) => {
+                let entry = match row {
+                    Some(at) => &group.entries[at],
+                    None => group.top.as_ref().unwrap(),
+                };
+                let (subject, rest) = title.split_once(" effective life: ").unwrap();
+                let subject = subject.replace(" / ", ": ");
+                let words = instrument_words(group, entry);
+                let quoted = misquotes(&subject, &words).is_none()
+                    || without_closing_aside(&words)
+                        .is_some_and(|words| misquotes(&subject, words).is_none());
+                // The headings, nearest first, the industry or 'Table B' and the ANZSIC
+                // codes; a title adds 1 or 2 of them.
+                let mut parts: Vec<String> = Vec::new();
+                if group.table == Table::B && group.top.as_ref() != Some(entry) {
+                    parts.push(address::shown_core(&group.heading));
+                }
+                parts.extend(
+                    entry.path[..entry.path.len() - 1]
+                        .iter()
+                        .map(|h| address::shown_core(h)),
+                );
+                parts.retain(|part| !part.is_empty());
+                parts.reverse();
+                parts.push(match group.table {
+                    Table::A => name.clone(),
+                    Table::B => "Table B".to_owned(),
+                });
+                parts.extend(group.anzsic.iter().map(|codes| format!("ANZSIC {codes}")));
+                let mut whole = parts.clone();
+                for (i, first) in parts.iter().enumerate() {
+                    whole.extend(
+                        parts[i + 1..]
+                            .iter()
+                            .map(|second| format!("{first}, {second}")),
+                    );
+                }
+                let extra = rest.split_once(", ").map(|(_, extra)| extra);
+                if !quoted || extra.is_some_and(|extra| !whole_or_marked(extra, &whole)) {
+                    wrong.push(format!("{}: {title}", page.url));
+                }
+            }
+            Kind::Group => {
+                let core = address::shown_core(&name);
+                let shown = ["Table A: ", "Table B: "]
+                    .iter()
+                    .find_map(|prefix| title.strip_prefix(prefix))
+                    .unwrap_or(&title)
+                    .split(" effective lives")
+                    .next()
+                    .unwrap();
+                if !whole_or_marked(shown, &[name.clone(), core]) {
+                    wrong.push(format!("{}: {title}", page.url));
+                }
+                let description = site_tools::html::unescape(between(
+                    html,
+                    "<meta name=\"description\" content=\"",
+                    "\"",
+                ));
+                let place = description.split(": every row").next().unwrap();
+                let ends = [
+                    group
+                        .anzsic
+                        .as_deref()
+                        .map(|codes| format!("ANZSIC {codes}")),
+                    Some("rows for the whole division".to_owned()),
+                    Some(format!("letter {}", group.parent)),
+                    Some(name.clone()),
+                ];
+                if !place.ends_with('\u{2026}')
+                    && !ends
+                        .iter()
+                        .flatten()
+                        .any(|end| place.ends_with(end.as_str()))
+                {
+                    wrong.push(format!("{}: {description}", page.url));
+                }
+            }
+            Kind::Index(_) => {}
+        }
+    }
+    assert!(
+        wrong.is_empty(),
+        "{} unmarked cuts: {:#?}",
+        wrong.len(),
+        &wrong[..wrong.len().min(12)]
+    );
 }
 
 #[test]

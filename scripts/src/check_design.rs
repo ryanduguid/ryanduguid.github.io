@@ -29,7 +29,8 @@ const SOURCE_URL_PATTERN: &str = r#"url\(\s*["\']?([^)"\']+)"#;
 const FONT_FACE_PATTERN: &str = r"@font-face\s*\{(.*?)\}";
 pub const LAMBDA_MARKUP: &str = "<span class=\"function-symbol\">\u{3bb}</span>";
 /// The symbol markup, which shows a sign in the native maths fonts, so the sign need not
-/// be in the site fonts' ranges. Only the λ and the effective life pages' signs may use it.
+/// be in the site fonts' ranges. The font check skips only the λ and the effective life
+/// pages' signs in it.
 const SYMBOL_OPEN: &str = "<span class=\"function-symbol\">";
 const RAW_COLOUR_PATTERN: &str = r"#[0-9a-f]{3,8}\b";
 pub const ACCOUNTING_LINK: &str =

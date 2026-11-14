@@ -103,12 +103,17 @@ fn row(value: &Value) -> Result<Row> {
             months: months
                 .as_u64()
                 .and_then(|m| u32::try_from(m).ok())
+                .filter(|&m| m > 0)
                 .ok_or_else(bad)?,
         }),
         _ => return Err(bad()),
     };
     let flags = cells[4].as_str().ok_or_else(bad)?.to_owned();
-    let date = cells[5].as_str().map(str::to_owned);
+    let date = match &cells[5] {
+        Value::Null => None,
+        Value::String(day) => Some(day.clone()),
+        _ => return Err(bad()),
+    };
     Ok((asset, depth, life, flags, date))
 }
 

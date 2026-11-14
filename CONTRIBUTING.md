@@ -247,6 +247,50 @@ determinations, rulings and law' names the current instrument):
    move its Sources checked date. Finish as for any content edit: a changelog
    row, `build_feed --write`, `build_llms_full --write`, `check_design
    --update-baseline` and `check_site`.
+7. Rebuild the effective life pages from the new file, as 'Effective life pages'
+   below describes, before step 6's `check_site`, which fails until they match.
+
+### Effective life pages
+
+`site-tools build_effective_life_pages --write` writes a page for every life in
+`effective-life.json` under `tools/depreciation-rates/industry/` and
+`tools/depreciation-rates/asset/`, a group page for each Table A sub-industry and
+each Table B asset with rows under it, the 2 index pages, a text mirror of each
+page, `tools/depreciation-rates/sitemap.xml`, `tools/depreciation-rates/llms.txt`
+and `_includes/effective-life-groups.html`, which the depreciation rates page
+includes to link every group page. A Table B asset with a life of its own has an
+asset page; one that only points to another row has none. Never edit these files
+by hand. `--check` compares them with the data and writes
+nothing; `check_site` runs it before Jekyll.
+
+`tools/depreciation-rates/effective-life-pages.json` is the address map: each
+page's key (its table, headings and wording), address, date published, date
+modified and content hash. It is the only source of addresses and dates. An
+address, once in the map, does not change; `published` never moves; `--write`
+moves `modified` to today only for a page whose content changed.
+
+After a new determination:
+
+1. Run `--write`. If the data no longer has a page the map holds, it lists each
+   one and refuses, as a published address must not disappear.
+2. Note each listed page's `url` and `published`, delete its record and run
+   `--write`: the rows that are new to the map get records of their own.
+3. For each listed page, find the row it became (a reworded row, or one moved to
+   another heading), set that row's `url` and `published` back to the noted ones
+   and run `--write` again, which moves the page to its old address. A row removed
+   outright has no successor: its address now returns 404, since GitHub Pages
+   cannot send a 301. Record each such removal in the changelog row.
+4. Run `--check` and review the diff: the map shows each page that changed as a
+   moved `modified` date. `scripts/tests/effective_life_pages.rs` pins the page
+   counts and lists the pages whose opening sentence may run long (`LONG_LEADS`):
+   update both from the new determination after reading the pages they name.
+5. After the change is deployed, tell search engines once. `--indexnow` prints
+   the IndexNow request body for the pages dated by the last `--write`; POST it to
+   a search engine's `/indexnow` endpoint as JSON. A 200 or 202 is success; 403
+   means the key file at the site root does not match; 422 means a URL is on
+   another host. Run `--indexnow` after the last `--write` and before the next:
+   a second `--write` on another day dates only what it changed, so the first
+   batch is no longer listed.
 
 ## Ozzit reference examples
 

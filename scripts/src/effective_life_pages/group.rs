@@ -5,7 +5,7 @@
 //! that list them.
 use super::asset::DESCRIPTION_MAX;
 use super::figures::{count, date, diminishing_value, prime_cost, years};
-use super::head::{Meta, TITLE_MAX, close, crumbs, esc, fit, open};
+use super::head::{Meta, TITLE_MAX, close, crumbs, cut, esc, open};
 use super::load::{Entry, Group, Source, Table};
 use super::site::{Site, group_name, index_name, index_url};
 use super::{BASE_URL, Trail, is_cross_reference, json_ld, notes};
@@ -144,7 +144,7 @@ pub fn candidates(group: &Group) -> [Vec<String>; 3] {
     let titled = |prefix: &str, suffix: &str| {
         format!(
             "{prefix}{}{suffix}",
-            fit(
+            cut(
                 &short,
                 TITLE_MAX - prefix.chars().count() - suffix.chars().count()
             )
@@ -154,7 +154,7 @@ pub fn candidates(group: &Group) -> [Vec<String>; 3] {
     // 'Bakery product manufacturing (non-factory based)'.
     let full = |prefix: &str, suffix: &str| {
         let room = TITLE_MAX - prefix.chars().count() - suffix.chars().count();
-        format!("{prefix}{}{suffix}", fit(&name, room))
+        format!("{prefix}{}{suffix}", cut(&name, room))
     };
     let titles = match group.table {
         Table::A => vec![
@@ -174,8 +174,8 @@ pub fn candidates(group: &Group) -> [Vec<String>; 3] {
     let room = DESCRIPTION_MAX - rest.chars().count();
     let place = notes::table_place(group);
     let descriptions = vec![
-        format!("{}{rest}", fit(&place, room)),
-        format!("{}{rest}", fit(&format!("{name}, {place}"), room)),
+        format!("{}{rest}", cut(&place, room)),
+        format!("{}{rest}", cut(&format!("{name}, {place}"), room)),
     ];
     [vec![name], titles, descriptions]
 }

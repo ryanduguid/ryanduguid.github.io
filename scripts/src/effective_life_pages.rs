@@ -144,6 +144,22 @@ fn group_pages(
             url: url.clone(),
         });
     }
+    let urls = row_pages(plan, map, index, group, slug, &group_key, &url)?;
+    plan.group_urls.push(url);
+    plan.entry_urls.push(urls);
+    Ok(())
+}
+
+/// The pages of a group's rows, each under the group's address; `None` for a heading.
+fn row_pages(
+    plan: &mut Plan,
+    map: &AddressMap,
+    index: usize,
+    group: &Group,
+    slug: &str,
+    group_key: &[String],
+    url: &str,
+) -> Result<Vec<Option<String>>> {
     let slugs = address::entry_slugs(slug, &group.entries)?;
     let mut urls = Vec::with_capacity(slugs.len());
     for (at, (entry, row)) in group.entries.iter().zip(slugs).enumerate() {
@@ -161,9 +177,7 @@ fn group_pages(
         });
         urls.push(Some(row_url));
     }
-    plan.group_urls.push(url);
-    plan.entry_urls.push(urls);
-    Ok(())
+    Ok(urls)
 }
 
 /// Every page and its address, in the instrument's order after the 2 index pages: an

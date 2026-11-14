@@ -262,6 +262,7 @@ pub fn check_sitemap(
         &mut failures,
     )?;
     let family_sitemap = crate::effective_life_pages::SITEMAP_REL;
+    let mut sitemaps = vec!["sitemap.xml"];
     if !family.is_empty() || root.join(family_sitemap).is_file() {
         listed += check_one_sitemap(
             family_sitemap,
@@ -271,11 +272,30 @@ pub fn check_sitemap(
             root,
             &mut failures,
         )?;
-        let robots = crate::read(&root.join("robots.txt"))?;
-        if !robots.contains(&format!("Sitemap: {site}/{family_sitemap}")) {
-            failures.push(format!("robots.txt: no Sitemap line for {family_sitemap}"));
+        sitemaps.push(family_sitemap);
+    }
+    check_llms(&others, site, not_indexed, root, &mut failures)?;
+    let robots = crate::read(&root.join("robots.txt"))?;
+    for sitemap in sitemaps {
+        if !robots.contains(&format!("Sitemap: {site}/{sitemap}")) {
+            failures.push(if sitemap == "sitemap.xml" {
+                "robots.txt: no Sitemap line".into()
+            } else {
+                format!("robots.txt: no Sitemap line for {sitemap}")
+            });
         }
     }
+    Ok((failures, listed))
+}
+
+/// Check that llms.txt links every indexable page outside the effective life pages.
+fn check_llms(
+    others: &[PathBuf],
+    site: &str,
+    not_indexed: &HashSet<String>,
+    root: &Path,
+    failures: &mut Vec<String>,
+) -> Result<(), String> {
     let expected_llms = others
         .iter()
         .map(|p| rel(p, root))
@@ -290,11 +310,7 @@ pub fn check_sitemap(
             failures.push(format!("llms.txt: does not link {url}"));
         }
     }
-    let robots = crate::read(&root.join("robots.txt"))?;
-    if !robots.contains(&format!("Sitemap: {site}/sitemap.xml")) {
-        failures.push("robots.txt: no Sitemap line".into());
-    }
-    Ok((failures, listed))
+    Ok(())
 }
 
 /// Each `<loc>` of a sitemap with the `<lastmod>` values that immediately follow it.

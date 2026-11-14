@@ -4,7 +4,8 @@
 //! The `build_effective_life_pages` command: every file the family holds, written or
 //! compared with what is committed.
 use super::figures::date;
-use super::head::ORIGIN;
+use super::head::{ORIGIN, esc};
+use super::load::Table;
 use super::load::load;
 use super::map::{AddressMap, MAP_REL, Record};
 use super::site::Site;
@@ -23,6 +24,9 @@ const HELP: &str = include_str!("../help/build_effective_life_pages.txt");
 pub const SITEMAP_REL: &str = "tools/depreciation-rates/sitemap.xml";
 /// The section `llms.txt` that lists the index and group pages, not every row.
 pub const LLMS_REL: &str = "tools/depreciation-rates/llms.txt";
+/// The links from the depreciation rates page to the index and group pages, which that
+/// page includes, so readers and crawlers without JavaScript reach every page.
+pub const INCLUDE_REL: &str = "_includes/effective-life-groups.html";
 /// The site's IndexNow key, which `/<key>.txt` holds. IndexNow reads the key from that
 /// public file, so the key is no secret; it only proves the site sent the list.
 pub const INDEXNOW_KEY: &str = "d8fee9bfe727ec519b462f3401e7a0ae";
@@ -120,6 +124,43 @@ fn llms(site: &Site, records: &[Record]) -> String {
     out
 }
 
+/// The include that lists each table's index page and its group pages, as links.
+fn include(site: &Site) -> String {
+    let mut out = format!(
+        "<section id=\"every-life\">\n<h2>A page for every life</h2>\n<p>Each of the {} effective lives has its own page, linked from its industry in Table A or its asset in Table B.</p>\n",
+        super::figures::count(
+            site.plan
+                .pages
+                .iter()
+                .filter(|page| matches!(page.kind, Kind::Asset(_)))
+                .count()
+        ),
+    );
+    for table in [Table::A, Table::B] {
+        let pages = site.plan.pages.iter();
+        let Some(index) = pages.clone().find(|page| page.kind == Kind::Index(table)) else {
+            continue;
+        };
+        let groups: Vec<String> = pages
+            .filter(|page| page.kind == Kind::Group && site.group(page.group).table == table)
+            .map(|page| {
+                let name = super::site::group_name(site.group(page.group));
+                format!("<li><a href=\"{}\">{}</a></li>\n", page.url, esc(&name))
+            })
+            .collect();
+        out.push_str(&format!(
+            "<details>\n<summary>{} ({} pages)</summary>\n<p><a href=\"{}\">{}</a></p>\n<ul>\n{}</ul>\n</details>\n",
+            super::site::index_name(table),
+            groups.len(),
+            index.url,
+            super::site::index_name(table),
+            groups.concat(),
+        ));
+    }
+    out.push_str("</section>\n");
+    out
+}
+
 /// Every file of the family, from the data file's text and the address map's, if any.
 /// `today` dates new and changed pages; without it they are listed in `undated`.
 pub fn files(data_text: &str, map_text: Option<&str>, today: Option<&str>) -> Result<Build> {
@@ -165,6 +206,7 @@ pub fn files(data_text: &str, map_text: Option<&str>, today: Option<&str>) -> Re
     build
         .files
         .insert(LLMS_REL.to_owned(), llms(&site, &records));
+    build.files.insert(INCLUDE_REL.to_owned(), include(&site));
     build
         .files
         .insert(MAP_REL.to_owned(), AddressMap::new(records)?.to_text());
@@ -196,7 +238,7 @@ fn committed(root: &Path) -> Result<Vec<String>> {
         }
     }
     out.extend(
-        [SITEMAP_REL, LLMS_REL, MAP_REL]
+        [SITEMAP_REL, LLMS_REL, MAP_REL, INCLUDE_REL]
             .iter()
             .filter(|rel| root.join(rel).is_file())
             .map(|rel| (*rel).to_owned()),
@@ -217,7 +259,7 @@ fn refuse_gone(gone: &[Record]) -> Result<u8> {
         ))?;
     }
     say(
-        "Refused: a rebuild must not remove a published address. Record where each one went in the address map before rebuilding (CONTRIBUTING, Effective life tables).\n",
+        "Refused: a rebuild must not remove a published address. Record where each one went in the address map before rebuilding (CONTRIBUTING, Effective life pages).\n",
     )?;
     Ok(1)
 }
