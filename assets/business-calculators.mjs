@@ -11,16 +11,18 @@
  */
 
 /** @param {unknown} value
- * @param {{min?: number, max?: number, places?: number, integer?: boolean}} [options] */
-function number(value, { min = 0, max = 1e9, places = 2, integer = false } = {}) {
+ * @param {{min?: number, max?: number, places?: number, integer?: boolean, money?: boolean}} [options] */
+function number(value, { min = 0, max = 1e9, places = 2, integer = false, money = false } = {}) {
   const text = typeof value === 'string' ? value.trim() : '';
-  // A number field accepts exponent notation such as 1e3; ask for digits instead
-  // of blaming decimal places the entry does not have.
-  if (!/^-?\d+(?:\.\d+)?$/.test(text)) throw new Error('Enter a number using digits only.');
-  if (!new RegExp(`^-?\\d+(?:\\.\\d{1,${places}})?$`).test(text)) {
+  // Thousands may be grouped in 3s ('85,000'), and money may start with '$' after
+  // any minus sign. A number field accepts exponent notation such as 1e3; ask for
+  // digits instead of blaming decimal places the entry does not have.
+  const whole = `^-?${money ? '\\$?' : ''}(?:\\d{1,3}(?:,\\d{3})+|\\d+)`;
+  if (!new RegExp(`${whole}(?:\\.\\d+)?$`).test(text)) throw new Error('Enter a number using digits only.');
+  if (!new RegExp(`${whole}(?:\\.\\d{1,${places}})?$`).test(text)) {
     throw new Error(`Enter a number with no more than ${places} decimal places.`);
   }
-  const result = Number(text);
+  const result = Number(text.replace(/[$,]/g, ''));
   if (!Number.isFinite(result) || result < min || result > max || (integer && !Number.isInteger(result))) {
     throw new Error(`Enter ${integer ? 'a whole number' : 'an amount'} between ${min} and ${max}.`);
   }
@@ -28,7 +30,7 @@ function number(value, { min = 0, max = 1e9, places = 2, integer = false } = {})
 }
 
 /** @param {string} value @param {number} [min] */
-const cents = (value, min = 0) => Math.round(number(value, { min }) * 100);
+const cents = (value, min = 0) => Math.round(number(value, { min, money: true }) * 100);
 // Non-negative ratios in cents round half up. BigInt keeps large products exact.
 /** @param {bigint} numerator @param {bigint} denominator */
 const ratioCents = (numerator, denominator) => (2n * numerator + denominator) / (2n * denominator);
@@ -165,10 +167,12 @@ export function parseCashScenario(text) {
   if (!data || data.version !== 1 || data.currency !== 'AUD') throw new Error('Choose a version 1 AUD cash scenario.');
   cashWeekDates(data.startDate);
   cashForecast(data.opening, data.weeks, data.buffer, { week: data.week, amount: data.amount, delay: data.delay });
-  // Number inputs discard surrounding whitespace that numeric validation accepts.
-  return { version: 1, currency: 'AUD', startDate: data.startDate, opening: data.opening.trim(), buffer: data.buffer.trim(),
-    week: String(data.week).trim(), amount: data.amount.trim(), delay: String(data.delay).trim(),
-    weeks: data.weeks.map(/** @param {CashWeek} row */ row => ({ receipts: row.receipts.trim(), payments: row.payments.trim() })) };
+  // Number inputs discard surrounding whitespace, '$' and grouping commas that numeric validation accepts.
+  /** @param {unknown} value */
+  const plain = value => String(value).trim().replace(/[$,]/g, '');
+  return { version: 1, currency: 'AUD', startDate: data.startDate, opening: plain(data.opening), buffer: plain(data.buffer),
+    week: plain(data.week), amount: plain(data.amount), delay: plain(data.delay),
+    weeks: data.weeks.map(/** @param {CashWeek} row */ row => ({ receipts: plain(row.receipts), payments: plain(row.payments) })) };
 }
 
 /** @type {Readonly<CashDeferral>} */

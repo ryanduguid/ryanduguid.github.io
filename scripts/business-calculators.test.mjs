@@ -97,6 +97,22 @@ test('accepted cash amounts are ready for number fields after loading', () => {
     row.payments = ` \t${row.payments}\n\u00a0`;
   }
   assert.deepEqual(calculations.parseCashScenario(JSON.stringify(padded)), data);
+  const written = { ...structuredClone(data), opening: '-$1,200.00', buffer: '$100' };
+  for (const row of written.weeks) row.receipts = '$1,000';
+  assert.deepEqual(calculations.parseCashScenario(JSON.stringify(written)), { ...data, opening: '-1200.00' });
+});
+
+test('money accepts a leading dollar sign and grouped thousands, and nothing looser', () => {
+  assert.deepEqual(gst('$85,000', false), gst('85000', false));
+  assert.deepEqual(gst(' $1,234,567.89 ', true), gst('1234567.89', true));
+  assert.equal(variance('-$1,080', '-$1,000', 'income').difference, -80);
+  assert.equal(hourlyRate('80,000', '0', '1,600').rate, 50);
+  for (const value of ['8,5000', '85,00', ',000', '1,,000', '1,000,', '$', '$$5', '$-5', '$ 5', '5$', '$1e3', '1,000e3']) {
+    assert.throws(() => gst(value, false), /Enter a number using digits only\./, value);
+  }
+  assert.throws(() => gst('$1,000.001', false), /no more than 2 decimal places/);
+  assert.throws(() => businessUse('100', '$50'), /Enter a number using digits only\./);
+  assert.throws(() => loan('1000', '12', '$12'), /Enter a number using digits only\./);
 });
 
 test('GST extracts a component instead of adding another ten per cent', () => {
