@@ -126,7 +126,7 @@ cd accounting-review-pipeline/packages/review-ready-gate
 python -m pip install -e ".[dev]"
 review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready</code></pre>
     <p>The output goes outside the clone on purpose. A readiness pack names a client’s file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. Releases v0.1.7 to v0.1.9 refuse an output inside a version control checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point <code>--output</code> at a directory outside that one instead.</p>
-    <p>Those commands reproduce the v0.1.3 example. The current release, <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.0">review-ready-gate/v1.0.0</a>, published on 13 November 2026, ships <code>review-ready</code> as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs neither Python nor Rust. Its <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.0/packages/review-ready-gate/RELEASING.md">release guide</a> shows how to verify a download.</p>
+    <p>Those commands reproduce the v0.1.3 example. The current release, <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1">review-ready-gate/v1.0.1</a>, published on 14 November 2026, ships <code>review-ready</code> as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs neither Python nor Rust. Its <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/RELEASING.md">release guide</a> shows how to verify a download.</p>
     <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate">Source on GitHub</a></p>
     <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/accounting-review-pipeline/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Workpaper%20Review%20Gate">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out. Wrong rate, date or rule on this page? <a href="https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml">Report a correction</a>.</p>
     </section>
@@ -236,14 +236,14 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-08-25",
-      "dateModified": "2026-11-13",
+      "dateModified": "2026-11-14",
       "alternateName": [
         "Workpaper Review Gate for manager review packs",
         "review-ready-gate"
       ],
-      "softwareVersion": "1.0.0",
+      "softwareVersion": "1.0.1",
       "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
-      "license": "https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.0/packages/review-ready-gate/LICENSE",
+      "license": "https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/LICENSE",
       "sameAs": [
         "https://pypi.org/project/review-ready-gate/"
       ]

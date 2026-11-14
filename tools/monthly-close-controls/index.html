@@ -155,7 +155,7 @@ tool: monthly-close-controls
 <span class="cmd">cd packages/monthly-close-control-plane</span></code></pre>
             <pre tabindex="0" role="region" aria-label="Run the fictional monthly close review"><code><span class="cmd">cargo run --locked --release --bin close-control -- review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ../../../close-control-demo</span></code></pre>
             <p>After Cargo’s build messages, expect exit code 2 and <code>close-control: REVIEW; 8 exception(s); 6 client query(ies) drafted</code>, followed by the absolute path of each of the 4 pack files. The output directory is beside the checkout. Keep review packs outside version control; the command refuses an output directory inside a checkout.</p>
-            <p>The current release, <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.0.0">monthly-close-control-plane/v1.0.0</a>, published on 13 November 2026, ships <code>close-control</code> as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs no Rust toolchain, under the Ryan Duguid Public Attribution Licence 1.0. Its <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.0.0/packages/monthly-close-control-plane/RELEASING.md">release guide</a> shows how to verify a download.</p>
+            <p>The current release, <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0">monthly-close-control-plane/v1.1.0</a>, published on 14 November 2026, ships <code>close-control</code> as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs no Rust toolchain, under the Ryan Duguid Public Attribution Licence 1.0. Its <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/RELEASING.md">release guide</a> shows how to verify a download.</p>
             <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane">Source on GitHub</a></p>
             <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/accounting-review-pipeline/issues">Open an issue</a>. Wrong rate, date or rule on this page? <a href="https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml">Report a correction</a>.</p>
           </section>
@@ -276,15 +276,15 @@ tool: monthly-close-controls
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-11-13",
+      "dateModified": "2026-11-14",
       "operatingSystem": "Windows, macOS, Linux",
       "alternateName": [
         "What needs review before a Xero month-end close?",
         "monthly-close-control-plane"
       ],
-      "softwareVersion": "1.0.0",
+      "softwareVersion": "1.1.0",
       "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",
-      "license": "https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.0.0/packages/monthly-close-control-plane/LICENSE",
+      "license": "https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/LICENSE",
       "sameAs": [
         "https://pypi.org/project/monthly-close-control-plane/"
       ]

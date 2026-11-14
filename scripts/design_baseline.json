@@ -39,7 +39,7 @@
       "b991e66b74bef293b5e69d3c8166b642343b922441ddd7ec68ac155f25f8e975"
     ],
     "index.html": [
-      "649ca8144ae6c0b045ba874e701807378b884a128fa4f9de8fe1dc6c526fe0c5"
+      "305bb0044eed58b9882e60ee192f8d01a6a656186e581673d5a659e281ec768a"
     ],
     "privacy/index.html": [
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
@@ -114,7 +114,7 @@
       "bd6cc13554d28ff5319d0491cd030e1ea3206009f4f1946795e70c71f9705ca0"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "6b4407af74c9858df95f4dbfb7955a0a98f98d5b5cbc961706240f0350ac5e86"
+      "45fdc74ea0b630f469a53f6f381913964a4acee688ce48d4447d0c9181d07863"
     ],
     "tools/business-calculators/break-even/index.html": [
       "8b17f20c372fc2a2b1b9e22eb22b14222bd46e7c556fb95e3697cc16a0202083"
@@ -165,7 +165,7 @@
       "2c7deb2d11b010494b523ecd13bd7535e64448bd227e6150a4746257755addaf"
     ],
     "tools/monthly-close-controls/index.html": [
-      "7fadc57ddf64f89cb9a0b43386c481e0a85f10aa2b52ade441428240f937d219"
+      "32acbba08ed97390cf61c4bf71912885e10885bf9034b99f5de5617be53be94c"
     ],
     "tools/ozzit/functions/dates/index.html": [
       "013340bbe6cfa68edc376569e55096b3dfaaac0041cde3616fbee02dc307960f"
@@ -186,7 +186,7 @@
       "1f13b1669cc8500dac23f8d95807dcc23d16bda095bc809443e60dee521b0411"
     ],
     "tools/ozzit/index.html": [
-      "8879534674120d52f9f67e0d55fcf25124e8d74a09ea507d91363198e05b748b"
+      "0c667817fa5a84cb7d10d17e0087989486e2b3f793688e620f073e9dad1947dd"
     ],
     "tools/payday-super/business-days/index.html": [
       "f0c668ec0e874698031dfee99ecd67def825bf49555c97be5cd7a921e40c737d"
@@ -198,7 +198,7 @@
       "2279ad8b3a5ce3752d020d052bac5cd75ba04aa930163b588293d786c9ef4d64"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "d6cb0df9b9071a38f7ae32795792ba642adc5833d6b25268668076bd86219a3e"
+      "039b18866ece5d449f526472d2537d4240e632f646e88ae880708d0c52d4693a"
     ],
     "tools/trust-distributions/index.html": [
       "34b154631d5644d57c6fd3dfd01239cc23918cea7d999afcea62567d3987aad3"
@@ -207,7 +207,7 @@
       "39b661f932412d257a7711258a947c02b61647cd1f66a19936301173a4829007"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "bee47853728ba556a12189ea45883587cc50d760c607ec7abda1d3b9e6f8d9ab"
+      "cbcb89ff281cad3fb5d03a647801ac8fd67fa687772986c880d4a33317cd0f28"
     ],
     "tools/xero-trial-balance/index.html": [
       "2e5cb8a66b5e967d945954f412446c2a1f6ded14052ea0c07d5b19af078d88f4"
@@ -223,7 +223,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "a566579755898a458f02800448454768cfef6f2b8baf23fac46eff9c5ce1f47d",
+    "llms.txt": "0b903919b621b316cc7cdb21622969c73a3e9b7a3f9f735ecd5d3f9c0c8ade4a",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
     "sitemap.xml": "e106692e1038e979618abfe1748d8a09317f821198c939d1f2a668fc7ab514cf"
   },
