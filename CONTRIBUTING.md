@@ -418,6 +418,11 @@ the withdrawal notice for TR 2022/1. They were added to the same list before a C
 because the runner had received HTTP 403 for the page's other ATO links. A browser
 loaded each with the expected text on 14 November 2026.
 
+The BAS due dates page cites 3 ATO pages not linked elsewhere: activity statement due
+dates by topic, the two week lodgment concession terms and the BAS agent lodgment program
+2026–27. They were added to the same list before a CI run for the same reason. A browser
+loaded each with the expected dates on 15 November 2026.
+
 ## Release claims
 
 `scripts/release_record.json` is the reviewed statement of which release each page
