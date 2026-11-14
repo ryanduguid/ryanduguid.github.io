@@ -1,0 +1,47 @@
+income_year,component,income_from,income_to,base_amount,rate_percent,notes,source_url,checked_at
+2026-27,resident_tax,0,18200,0,0,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2026-27,resident_tax,18201,45000,0,15,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2026-27,resident_tax,45001,135000,4020,30,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2026-27,resident_tax,135001,190000,31020,37,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2026-27,resident_tax,190001,,51370,45,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2025-26,resident_tax,0,18200,0,0,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2025-26,resident_tax,18201,45000,0,16,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2025-26,resident_tax,45001,135000,4288,30,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2025-26,resident_tax,135001,190000,31288,37,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2025-26,resident_tax,190001,,51638,45,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2024-25,resident_tax,0,18200,0,0,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2024-25,resident_tax,18201,45000,0,16,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2024-25,resident_tax,45001,135000,4288,30,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2024-25,resident_tax,135001,190000,31288,37,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2024-25,resident_tax,190001,,51638,45,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2023-24,resident_tax,0,18200,0,0,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2023-24,resident_tax,18201,45000,0,19,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2023-24,resident_tax,45001,120000,5092,32.5,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2023-24,resident_tax,120001,180000,29467,37,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2023-24,resident_tax,180001,,51667,45,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2022-23,resident_tax,0,18200,0,0,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2022-23,resident_tax,18201,45000,0,19,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2022-23,resident_tax,45001,120000,5092,32.5,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2022-23,resident_tax,120001,180000,29467,37,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2022-23,resident_tax,180001,,51667,45,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2021-22,resident_tax,0,18200,0,0,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2021-22,resident_tax,18201,45000,0,19,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2021-22,resident_tax,45001,120000,5092,32.5,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2021-22,resident_tax,120001,180000,29467,37,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2021-22,resident_tax,180001,,51667,45,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2020-21,resident_tax,0,18200,0,0,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2020-21,resident_tax,18201,45000,0,19,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2020-21,resident_tax,45001,120000,5092,32.5,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2020-21,resident_tax,120001,180000,29467,37,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2020-21,resident_tax,180001,,51667,45,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2019-20,resident_tax,0,18200,0,0,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2019-20,resident_tax,18201,37000,0,19,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2019-20,resident_tax,37001,90000,3572,32.5,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2019-20,resident_tax,90001,180000,20797,37,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2019-20,resident_tax,180001,,54097,45,,https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents,2026-11-14
+2025-26,medicare_levy_low_income_single,28011,35013,,,"Single, all other taxpayers",https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners,2026-11-14
+2024-25,medicare_levy_low_income_single,27222,34027,,,"Single, all other taxpayers",https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2025/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption,2026-11-14
+2023-24,medicare_levy_low_income_single,26000,32500,,,"Single, all other taxpayers",https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2024/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption,2026-11-14
+2022-23,medicare_levy_low_income_single,24276,30345,,,"Single, all other taxpayers",https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2023/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption,2026-11-14
+2021-22,medicare_levy_low_income_single,23365,29206,,,"Single, all other taxpayers",https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2022/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption,2026-11-14
+2020-21,medicare_levy_low_income_single,23226,29032,,,"Single, all other taxpayers",https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2021/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption,2026-11-14

@@ -147,7 +147,7 @@ test('Rates leads each table with its value and shows the first one on a laptop 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/rates/');
   const values = page.locator('.rate-entry__value');
-  await expect(values).toHaveCount(7);
+  await expect(values).toHaveCount(10);
   await expect(values.first()).toBeInViewport();
   // Browsers serialize optional font-family quotes differently.
   const family = await values.first().evaluate((value) =>
