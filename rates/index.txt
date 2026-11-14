@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/rates/
 
-> Maintained Australian super guarantee, contribution base, Division 7A, cents-per-kilometre, car limit and FBT rates with source-checked dates and primary sources.
+> Maintained Australian income tax, study loan, PAYG withholding, super guarantee, Division 7A, car and FBT rates with source-checked dates and primary sources.
 
 # Rates
 
-Seven maintained Australian reference tables with the current value, source-checked date and primary material kept together.
+Ten maintained Australian reference tables with the current value, source-checked date and primary material kept together.
 
-Last reviewed 4 November 2026.
+Last reviewed 14 November 2026.
 
 ## Super guarantee rate history
 
@@ -106,6 +106,54 @@ FBT years ending 31 March 2018 to 2027.
 
 Primary source Download CSV
 
+## Individual income tax rates for residents
+
+15%
+
+15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO has not published the 2026-27 Medicare levy low-income thresholds.
+
+Source checked
+
+14 November 2026
+
+Scope
+
+Resident rates from 2019-20 and single Medicare levy low-income thresholds from 2020-21.
+
+Primary source Download CSV
+
+## Study and training loan repayment thresholds
+
+$69,528
+
+$69,528 for 2026-27, with 15c and then 17c for each dollar above the thresholds, and 10% of all repayment income from $186,051.
+
+Source checked
+
+14 November 2026
+
+Scope
+
+Compulsory repayment thresholds and rates from 2020-21.
+
+Primary source Download CSV
+
+## PAYG withholding: Schedule 1 coefficients
+
+$362
+
+$362 a week starts the scale 2 formula for payments made from 1 July 2026; the weekly coefficients for scales 1, 2 and 3.
+
+Source checked
+
+14 November 2026
+
+Scope
+
+Schedule 1 weekly coefficients for scales 1 to 3 from 1 July 2026.
+
+Primary source Download CSV
+
 ## Announced tax measures and enacted law
 
 8 TBD
@@ -124,9 +172,9 @@ Primary source Download CSV
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Source checked is the date a table was last checked against its primary source, from the CSV’s checked_at; last reviewed is this page’s editorial check.
 
-Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the six rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
+Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the nine rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
-All six rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under this repository’s licence, the Ryan Duguid Public Attribution Licence 1.0.
+All nine rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under this repository’s licence, the Ryan Duguid Public Attribution Licence 1.0.
 
 ## Use these tables in Excel
 
@@ -159,7 +207,7 @@ This imports the full SG history. A rate of 12.00 means 12%; divide by 100 if a 
 
 Use Data, Refresh All to fetch the current CSV again. A successful refresh confirms retrieval, not a source check. Check the linked rate page’s Source checked date and primary source. For a completed workpaper, keep a dated values-only copy of the table and its Source checked date; a live query can change on refresh.
 
-The other six tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.
+The other nine tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.
 
 Division 7A benchmark rates:
 
@@ -268,6 +316,75 @@ in
     Rates
 ```
 
+Income tax rates:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"component", type text},
+        {"income_from", Int64.Type},
+        {"income_to", Int64.Type},
+        {"base_amount", Int64.Type},
+        {"rate_percent", type number},
+        {"notes", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
+    }, "en-AU")
+in
+    Rates
+```
+
+Study loan thresholds:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"basis", type text},
+        {"repayment_income_from", Int64.Type},
+        {"repayment_income_to", Int64.Type},
+        {"base_repayment", Int64.Type},
+        {"rate_percent", type number},
+        {"source_url", type text},
+        {"checked_at", type date}
+    }, "en-AU")
+in
+    Rates
+```
+
+Schedule 1 coefficients:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"applies_from", type date},
+        {"scale", Int64.Type},
+        {"weekly_earnings_less_than", Int64.Type},
+        {"coefficient_a", type number},
+        {"coefficient_b", type number},
+        {"source_url", type text},
+        {"checked_at", type date}
+    }, "en-AU")
+in
+    Rates
+```
+
 Announced measures:
 
 ```
@@ -297,7 +414,7 @@ in
     Measures
 ```
 
-Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The source_url and checked_at columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads. Nor were the announced measures’ bill_stage, stage_date and stage_source_url columns added on 4 November 2026; stage_date is blank for measures without a stage date.
+The queries from Division 7A to FBT and the announced measures query were each checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The source_url and checked_at columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads. Nor were the announced measures’ bill_stage, stage_date and stage_source_url columns added on 4 November 2026; stage_date is blank for measures without a stage date. The 3 queries added on 14 November 2026 have not been loaded in Excel.
 
 Follow updates with the Atom feed. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.
 
@@ -320,10 +437,19 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Primary source: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
 - Download CSV: https://duguid.com.au/rates/fbt-rate/fbt-rates.csv
+- Individual income tax rates for residents: https://duguid.com.au/rates/individual-income-tax/
+- Primary source: https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents
+- Download CSV: https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv
+- Study and training loan repayment thresholds: https://duguid.com.au/rates/study-loan-repayment/
+- Primary source: https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates
+- Download CSV: https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv
+- PAYG withholding: Schedule 1 coefficients: https://duguid.com.au/rates/payg-withholding/
+- Primary source: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments
+- Download CSV: https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv
 - Announced tax measures and enacted law: https://duguid.com.au/rates/announced-not-yet-law/
 - Primary source: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
 - Download CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
-- All six rate tables as one JSON file: https://duguid.com.au/rates/rates.json
+- All nine rate tables as one JSON file: https://duguid.com.au/rates/rates.json
 - Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
 - Microsoft’s Text/CSV guide: https://learn.microsoft.com/en-us/power-query/connectors/text-csv
 - Follow updates with the Atom feed: https://duguid.com.au/feed.xml

@@ -1,0 +1,98 @@
+# What is the study loan repayment threshold for 2026-27? $69,528
+
+Source: https://duguid.com.au/rates/study-loan-repayment/
+
+> $69,528 for 2026-27: 15c in the dollar above it, 17c above $129,717 and 10% of all repayment income from $186,051. Thresholds back to 2020-21, from the ATO.
+
+$69,528
+
+# Study and training loan repayment thresholds
+
+$69,528 for 2026-27. No compulsory repayment is due on repayment income up to that amount; above it the repayment is 15c for each dollar over $69,528.
+
+From 2025-26 the rates apply only to repayment income above each threshold, until repayment income reaches the top threshold, when the repayment is 10% of all of it. For 2024-25 and earlier one rate applied to the whole repayment income. The same thresholds cover HELP, VET Student Loans, SFSS, Student Start-up Loans, ABSTUDY SSL and Australian Apprenticeship Support Loans.
+
+Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+
+Read on 14 November 2026 from the ATO’s Study and training loan repayment thresholds and rates page (Tables 1 to 7, last updated 30 June 2026).
+
+## 2025-26 and 2026-27
+
+$69,528 for 2026-27. Each rate applies to the repayment income above the start of its band, added to the base amount, until the top band, where the repayment is 10% of the whole repayment income.
+
+Repayment income, 2026-27 | Compulsory repayment
+$0 to $69,528 | Nil
+$69,529 to $129,717 | 15c for each $1 over $69,528
+$129,718 to $186,050 | $9,028 plus 17c for each $1 over $129,717
+$186,051 and over | 10% of the whole repayment income
+Repayment income, 2025-26 | Compulsory repayment
+$0 to $67,000 | Nil
+$67,001 to $125,000 | 15c for each $1 over $67,000
+$125,001 to $179,285 | $8,700 plus 17c for each $1 over $125,000
+$179,286 and over | 10% of the whole repayment income
+
+## 2020-21 to 2024-25
+
+Up to 2024-25 one rate applied to the whole repayment income. Each figure below is the repayment income at which that year’s rate starts; it applies until the figure in the next row.
+
+Rate on the whole repayment income | 2024-25 | 2023-24 | 2022-23 | 2021-22 | 2020-21
+Nil | Below $54,435 | Below $51,550 | Below $48,361 | Below $47,014 | Below $46,620
+1.0% | $54,435 | $51,550 | $48,361 | $47,014 | $46,620
+2.0% | $62,851 | $59,519 | $55,837 | $54,283 | $53,827
+2.5% | $66,621 | $63,090 | $59,187 | $57,539 | $57,056
+3.0% | $70,619 | $66,876 | $62,739 | $60,992 | $60,480
+3.5% | $74,856 | $70,889 | $66,503 | $64,652 | $64,109
+4.0% | $79,347 | $75,141 | $70,493 | $68,530 | $67,955
+4.5% | $84,108 | $79,650 | $74,723 | $72,642 | $72,032
+5.0% | $89,155 | $84,430 | $79,207 | $77,002 | $76,355
+5.5% | $94,504 | $89,495 | $83,959 | $81,621 | $80,936
+6.0% | $100,175 | $94,866 | $88,997 | $86,519 | $85,793
+6.5% | $106,186 | $100,558 | $94,337 | $91,710 | $90,940
+7.0% | $112,557 | $106,591 | $99,997 | $97,213 | $96,397
+7.5% | $119,310 | $112,986 | $105,997 | $103,046 | $102,180
+8.0% | $126,468 | $119,765 | $112,356 | $109,228 | $108,310
+8.5% | $134,057 | $126,951 | $119,098 | $115,782 | $114,810
+9.0% | $142,101 | $134,569 | $126,244 | $122,729 | $121,699
+9.5% | $150,627 | $142,643 | $133,819 | $130,093 | $129,000
+10.0% | $159,664 | $151,201 | $141,848 | $137,898 | $136,740
+
+The ATO page lists thresholds from 2020-21. Earlier years are not listed here.
+
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026. The basis column says how a band’s rate applies: nil, marginal (on the income above the band’s start, plus base_repayment) or total (on the whole repayment income). Cite as Duguid, R. (2026). Study and training loan repayment thresholds by year [Data set]. https://duguid.com.au/rates/study-loan-repayment/. Verify against current ATO guidance before relying on a figure.
+
+## Common questions
+
+### What is the study loan repayment threshold for 2026-27?
+
+$69,528 of repayment income. Above it, the compulsory repayment is 15c for each dollar over $69,528, then $9,028 plus 17c for each dollar over $129,717, and from $186,051 it is 10% of the whole repayment income.
+
+### What counts as repayment income?
+
+Taxable income (excluding assessable First Home Super Saver released amounts), plus reportable fringe benefits, total net investment loss, reportable super contributions and exempt foreign employment income, as the ATO page lists.
+
+### Why did repayments change in 2025-26?
+
+From the 2025-26 income year compulsory repayments are worked out on the income above the threshold at marginal rates, not as one percentage of the whole repayment income.
+
+### Which loans do these thresholds cover?
+
+HELP, VET Student Loans, SFSS, Student Start-up Loans, ABSTUDY Student Start-up Loans and Australian Apprenticeship Support Loans (formerly Trade Support Loans). One set of thresholds applies to all of them each year.
+
+Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+
+## Related
+
+- Individual income tax rates for residents
+- PAYG withholding: Schedule 1 coefficients
+- About Ryan Duguid
+
+## Links
+
+- Study and training loan repayment thresholds and rates: https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates
+- Download the table as CSV: https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv
+- Source and contact: https://github.com/ryanduguid
+- Individual income tax rates for residents: https://duguid.com.au/rates/individual-income-tax/
+- PAYG withholding: Schedule 1 coefficients: https://duguid.com.au/rates/payg-withholding/
+- About Ryan Duguid: https://duguid.com.au/about/

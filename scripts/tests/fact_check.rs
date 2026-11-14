@@ -1009,6 +1009,38 @@ fn rates_dataset_values() {
 }
 
 #[test]
+fn income_tax_csv_holds_the_dataset_resident_scale() {
+    // The 2026-27 resident rows are the scale the question facts above are held to.
+    let values = dataset();
+    let Json::Array(brackets) = value(&values, "resident-tax-rates-2026-27") else {
+        panic!()
+    };
+    let rows = csv_rows("rates/individual-income-tax/individual-income-tax-rates.csv");
+    let scale: Vec<_> = rows
+        .iter()
+        .filter(|r| field(r, "income_year") == "2026-27" && field(r, "component") == "resident_tax")
+        .collect();
+    assert_eq!(scale.len(), brackets.len());
+    for (row, bracket) in scale.iter().zip(brackets) {
+        for (column, key) in [
+            ("income_from", "from"),
+            ("income_to", "to"),
+            ("base_amount", "base_tax"),
+            ("rate_percent", "marginal_rate"),
+        ] {
+            match get(bracket, key) {
+                Json::Null => assert_eq!(field(row, column), "", "{column}"),
+                pinned => assert_eq!(
+                    decimal(field(row, column)),
+                    decimal(&pinned.py_str()),
+                    "{column}"
+                ),
+            }
+        }
+    }
+}
+
+#[test]
 fn rates_hub_queries_type_every_csv_column() {
     if !rendered() {
         return;
@@ -1144,6 +1176,49 @@ fn rate_fact(slug: &str) -> RateFact {
         "car-limit" => {
             let rows = csv_rows("rates/car-limit/car-limit.csv");
             let fact = by_income_year(&rows, "car_limit", dollars);
+            (rows, fact)
+        }
+        "individual-income-tax" => {
+            let rows = csv_rows("rates/individual-income-tax/individual-income-tax-rates.csv");
+            let year = field(latest(&rows, "income_year"), "income_year").to_owned();
+            // The headline is the first rate above the tax-free threshold.
+            let first = rows
+                .iter()
+                .find(|r| {
+                    field(r, "income_year") == year
+                        && field(r, "component") == "resident_tax"
+                        && field(r, "rate_percent") != "0"
+                })
+                .unwrap();
+            let fact = (year, percent(field(first, "rate_percent")));
+            (rows, fact)
+        }
+        "study-loan-repayment" => {
+            let rows = csv_rows("rates/study-loan-repayment/study-loan-repayment-thresholds.csv");
+            let year = field(latest(&rows, "income_year"), "income_year").to_owned();
+            let nil = rows
+                .iter()
+                .find(|r| field(r, "income_year") == year && field(r, "basis") == "nil")
+                .unwrap();
+            let fact = (year, dollars(field(nil, "repayment_income_to")));
+            (rows, fact)
+        }
+        "payg-withholding" => {
+            let rows = csv_rows("rates/payg-withholding/schedule-1-coefficients.csv");
+            let from = field(latest(&rows, "applies_from"), "applies_from").to_owned();
+            // Scale 2 starts where the ATO first gives coefficients.
+            let none = rows
+                .iter()
+                .find(|r| {
+                    field(r, "applies_from") == from
+                        && field(r, "scale") == "2"
+                        && field(r, "coefficient_a").is_empty()
+                })
+                .unwrap();
+            let fact = (
+                income_year(&from),
+                dollars(field(none, "weekly_earnings_less_than")),
+            );
             (rows, fact)
         }
         "fbt-rate" => {

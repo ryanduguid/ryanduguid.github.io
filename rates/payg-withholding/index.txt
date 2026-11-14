@@ -1,0 +1,94 @@
+# Where does the scale 2 formula start for 2026-27? $362
+
+Source: https://duguid.com.au/rates/payg-withholding/
+
+> $362 a week starts the scale 2 withholding formula for payments from 1 July 2026. The ATO’s Schedule 1 weekly coefficients for scales 1, 2 and 3.
+
+$362
+
+# PAYG withholding: Schedule 1 coefficients
+
+$362 a week. For a payee who claims the tax-free threshold (scale 2), the ATO gives no coefficients for weekly earnings below $362, so nothing is withheld there.
+
+Schedule 1 applies to payments made from 1 July 2026. Withholding is y = ax − b, where x is the whole dollars of weekly earnings plus 99 cents and a and b come from the row whose range holds x. The result is rounded to the nearest dollar, with 50 cents rounding up.
+
+Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+
+Read on 14 November 2026 from the ATO’s Schedule 1 coefficients page and its Using a formula and Working out the weekly earnings pages (each published 17 June 2026).
+
+## Tax-free threshold claimed (scale 2)
+
+No coefficients below $362 a week. Each range is a weekly earnings amount x less than the figure shown. For example, weekly earnings of $1,000.40 give x = 1,000.99, so y = 0.3227 × 1,000.99 − 185.1935, which rounds to $138.
+
+Weekly earnings (x) | a | b
+Less than $362 | None | None
+Less than $538 | 0.1500 | 54.3462
+Less than $673 | 0.2500 | 108.2135
+Less than $721 | 0.1700 | 54.3473
+Less than $865 | 0.1790 | 60.8377
+Less than $1,282 | 0.3227 | 185.1935
+Less than $2,596 | 0.3200 | 181.7319
+Less than $3,653 | 0.3900 | 363.4627
+$3,653 and over | 0.4700 | 655.7704
+
+Scale 2 shades in the Medicare levy from weekly earnings of $538 ($28,011 a year) to $673 ($35,013). Tax offsets claimed on a withholding declaration reduce a scale 2, 5 or 6 weekly amount by 1.9% of the offsets claimed, rounded to the nearest dollar.
+
+## No tax-free threshold and foreign residents
+
+Weekly earnings (x), scale 1 | a | b
+Less than $188 | 0.1500 | 0.1500
+Less than $371 | 0.2084 | 11.0185
+Less than $515 | 0.1790 | 0.1066
+Less than $932 | 0.3227 | 74.1674
+Less than $2,246 | 0.3200 | 71.6508
+Less than $3,303 | 0.3900 | 228.8816
+$3,303 and over | 0.4700 | 493.1893
+Weekly earnings (x), scale 3 | a | b
+Less than $2,596 | 0.3000 | 0.3000
+Less than $3,653 | 0.3700 | 181.7308
+$3,653 and over | 0.4500 | 474.0385
+
+Scales 5 and 6, for payees claiming a full or half Medicare levy exemption, and the Medicare levy adjustment parameters are on the ATO page and are not listed here. Nor are the fortnightly, monthly and quarterly tax tables, which the ATO builds from these formulas, or earlier years’ schedules.
+
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026. A blank weekly_earnings_less_than marks a scale’s top row, and blank coefficients mark the range with none. Cite as Duguid, R. (2026). PAYG withholding Schedule 1 weekly coefficients [Data set]. https://duguid.com.au/rates/payg-withholding/. Verify against current ATO guidance before relying on a figure.
+
+## Common questions
+
+### Which scale applies to an employee?
+
+Scale 2 if the payee claimed the tax-free threshold on their TFN declaration, scale 1 if they did not, and scale 3 for a foreign resident. Scales 1, 2, 3, 5 and 6 may be used only when the payee has given their TFN.
+
+### How do I work out a fortnightly amount?
+
+Halve the fortnightly earnings, ignore the cents and add 99 cents to get x, work out the rounded weekly amount, then multiply it by 2. The ATO’s Working out the weekly earnings page gives the monthly and quarterly steps.
+
+### What if the payee gave no TFN?
+
+Scale 4 has no coefficients: withhold 47% of the earnings for a resident or 45% for a foreign resident, ignoring cents in the earnings and in the result.
+
+### Do the coefficients include the Medicare levy?
+
+Scales 1, 2, 4 and 6 include it; scale 4 includes it for resident payees only. Scale 3 does not. Scales 5 and 6, for payees claiming a full or half Medicare levy exemption, are on the ATO page.
+
+Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+
+## Related
+
+- Individual income tax rates for residents
+- Study and training loan repayment thresholds
+- Staff cost calculator
+- About Ryan Duguid
+
+## Links
+
+- Schedule 1 coefficients: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments
+- Using a formula: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/using-a-formula
+- Working out the weekly earnings: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/working-out-the-weekly-earnings
+- Download the table as CSV: https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv
+- Source and contact: https://github.com/ryanduguid
+- Individual income tax rates for residents: https://duguid.com.au/rates/individual-income-tax/
+- Study and training loan repayment thresholds: https://duguid.com.au/rates/study-loan-repayment/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- About Ryan Duguid: https://duguid.com.au/about/

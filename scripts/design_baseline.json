@@ -60,10 +60,19 @@
       "a54c46b17496a7db5df4959f53e7109ba929131bbc746beac866f900900a02a8"
     ],
     "rates/index.html": [
-      "8e78bc25793066f4f64bb87162b7a108adc2a63de80d3ae3340d296e60f5bef0"
+      "b62c236133b41d08a2c2cd17ae77115fbf17a5d0829fbcec58f5c6be54295d28"
+    ],
+    "rates/individual-income-tax/index.html": [
+      "2c4d15fa824c8feef7614c04da03bf3d818a1493a479a292af71582a0777cf28"
     ],
     "rates/maximum-contribution-base/index.html": [
       "f1c53260e0a21fc501fbef7670893c807c41adf34321b6044011de5d95863a79"
+    ],
+    "rates/payg-withholding/index.html": [
+      "9a64c37e5220ea7bff9b70f09fb370e4e2866178956073e9a085a945a7fb204d"
+    ],
+    "rates/study-loan-repayment/index.html": [
+      "15dd5a3411162c73574d023b35fec52e0855a153dd3fee04d277bb2343b8618e"
     ],
     "rates/super-guarantee/index.html": [
       "f6e7ef2e7e594a027c27dc0afd1d2f8201825154a2c3f3be22fdc610da5f2bc8"
@@ -214,9 +223,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "8ccec7d594dcc7040c642a7b52f514a5ef4fb171d469c1493f696472c2c014da",
+    "llms.txt": "86ebb15eb897bc766bd1614ed69570d999b7c856be93d20ebfadd7ebddc98a39",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
-    "sitemap.xml": "346d3d3ebf882766717e2d3a2c19355eedd53b5414ea351addf1eb3572183d39"
+    "sitemap.xml": "e106692e1038e979618abfe1748d8a09317f821198c939d1f2a668fc7ab514cf"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -276,7 +285,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 68,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 71,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
