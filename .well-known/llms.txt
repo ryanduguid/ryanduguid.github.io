@@ -117,14 +117,14 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Tool guides, open source, install and run locally
 
-- [Ozzit](https://duguid.com.au/tools/ozzit/): an Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian financial modelling, covering GST at 10%, 1 July financial year labels, modelling depreciation schedules, amortisation, ratios and AASB 16 lessee schedules. Current release v3.5.0, published 19 October 2026. Needs Microsoft 365 or Excel 2024 or later; LibreOffice and older Excel cannot evaluate the functions. Apache License 2.0 from v3.5.0. It calculates only: the reviewer decides the accounting treatment, and it contains no income tax, Medicare levy or Division 7A calculations.
-- [Ozzit Dates functions](https://duguid.com.au/tools/ozzit/functions/dates/): signatures, parameters, notes and worked examples, taken from each function's help in the released source. The 6 module pages cover all 148 v3.5.0 named formulas (143 LAMBDA functions and 5 help tables).
+- [Ozzit](https://duguid.com.au/tools/ozzit/): an Excel workbook of 150 native LAMBDA functions and 5 help tables for Australian financial modelling, covering GST at 10%, 1 July financial year labels and periods, budget variance, modelling depreciation schedules, amortisation, ratios and AASB 16 lessee schedules. Current release v3.6.0, published 14 November 2026. Needs Microsoft 365 or Excel 2024 or later; LibreOffice and older Excel cannot evaluate the functions. Ryan Duguid Public Attribution Licence 1.0 from v3.6.0; v3.5.0 stays under the Apache License 2.0. It calculates only: the reviewer decides the accounting treatment, and it contains no income tax, Medicare levy or Division 7A calculations.
+- [Ozzit Dates functions](https://duguid.com.au/tools/ozzit/functions/dates/): signatures, parameters, notes and worked examples, taken from each function's help in the released source. The 6 module pages cover all 155 v3.6.0 named formulas (150 LAMBDA functions and 5 help tables).
 - [Ozzit Essentials functions](https://duguid.com.au/tools/ozzit/functions/essentials/): the same reference for the Essentials module.
 - [Ozzit Financial functions](https://duguid.com.au/tools/ozzit/functions/financial/): the same reference for the Financial module.
 - [Ozzit Ratios functions](https://duguid.com.au/tools/ozzit/functions/ratios/): the same reference for the Ratios module.
 - [Ozzit Utilities functions](https://duguid.com.au/tools/ozzit/functions/utilities/): the same reference for the Utilities module.
 - [Ozzit Debt functions](https://duguid.com.au/tools/ozzit/functions/debt/): the same reference for the Debt module.
-- [Ozzit function reference data](https://duguid.com.au/assets/ozzit-function-reference-v3.5.0.json): the same reference as JSON.
+- [Ozzit function reference data](https://duguid.com.au/assets/ozzit-function-reference-v3.6.0.json): the same reference as JSON.
 
 - [Monthly Close Controls](https://duguid.com.au/tools/monthly-close-controls/): compares current and prior Xero-shaped trial balance CSVs and prepares an exception report for human review. The pinned fictional example returns REVIEW with 8 exceptions and 6 draft client queries. It reads local files and cannot approve a close.
 

@@ -345,8 +345,40 @@ fn check_one_sitemap(
         .filter(|r| !not_indexed.contains(r))
         .map(|r| site_url(&r, site))
         .collect();
-    let listed_set: HashSet<&String> = listed.iter().collect();
+    check_sitemap_listing(sitemap_rel, &listed, &expected_html, failures);
 
+    for path in paths {
+        let rel = rel(path, root);
+        if not_indexed.contains(&rel) {
+            continue;
+        }
+        let url = site_url(&rel, site);
+        let html = crate::read(path)?;
+        if html.starts_with("---") && !html.contains("application/ld+json") {
+            continue;
+        }
+        let modified = page_date_modified(&html, &rel);
+        let lastmods = lastmods.get(&url).cloned().unwrap_or_default();
+        if modified.len() != 1 || lastmods != modified {
+            failures.push(format!(
+                "{sitemap_rel}: {url} lastmod {} does not match its dateModified {}",
+                repr_list(&lastmods),
+                repr_list(&modified)
+            ));
+        }
+    }
+    Ok(listed.len())
+}
+
+/// Report the pages a sitemap misses, the `<loc>`s that are not indexable pages and any
+/// repeated `<loc>`.
+fn check_sitemap_listing(
+    sitemap_rel: &str,
+    listed: &[String],
+    expected_html: &HashSet<String>,
+    failures: &mut Vec<String>,
+) {
+    let listed_set: HashSet<&String> = listed.iter().collect();
     let mut missing: Vec<_> = expected_html
         .iter()
         .filter(|u| !listed_set.contains(u))
@@ -368,50 +400,35 @@ fn check_one_sitemap(
     if listed.len() != listed_set.len() {
         failures.push(format!("{sitemap_rel}: duplicate <loc> entries"));
     }
+}
 
-    for path in paths {
-        let rel = rel(path, root);
-        if not_indexed.contains(&rel) {
+/// A page's distinct `dateModified` values, sorted: from its document nodes when it has
+/// any, else from all its nodes, never from software nodes.
+fn page_date_modified(html: &str, rel: &str) -> Vec<String> {
+    let mut modified: Vec<String> = Vec::new();
+    let blocks = json_ld_blocks(html, rel, &mut Vec::new());
+    let entries: Vec<_> = blocks.iter().flat_map(nodes).collect();
+    let document_types = ["WebPage", "TechArticle", "ProfilePage"];
+    let has_document = entries
+        .iter()
+        .any(|node| document_types.iter().any(|kind| has_type(node, kind)));
+    for node in entries {
+        if has_document && !document_types.iter().any(|kind| has_type(node, kind)) {
             continue;
         }
-        let url = site_url(&rel, site);
-        let html = crate::read(path)?;
-        if html.starts_with("---") && !html.contains("application/ld+json") {
+        // Software dates describe releases; the sitemap describes the website document.
+        if has_type(node, "SoftwareApplication") || has_type(node, "SoftwareSourceCode") {
             continue;
         }
-        let mut modified: Vec<String> = Vec::new();
-        let blocks = json_ld_blocks(&html, &rel, &mut Vec::new());
-        let entries: Vec<_> = blocks.iter().flat_map(nodes).collect();
-        let document_types = ["WebPage", "TechArticle", "ProfilePage"];
-        let has_document = entries
-            .iter()
-            .any(|node| document_types.iter().any(|kind| has_type(node, kind)));
-        for node in entries {
-            if has_document && !document_types.iter().any(|kind| has_type(node, kind)) {
-                continue;
+        if let Some(value) = node.get("dateModified") {
+            let value = value.py_str();
+            if !modified.contains(&value) {
+                modified.push(value);
             }
-            // Software dates describe releases; the sitemap describes the website document.
-            if has_type(node, "SoftwareApplication") || has_type(node, "SoftwareSourceCode") {
-                continue;
-            }
-            if let Some(value) = node.get("dateModified") {
-                let value = value.py_str();
-                if !modified.contains(&value) {
-                    modified.push(value);
-                }
-            }
-        }
-        modified.sort();
-        let lastmods = lastmods.get(&url).cloned().unwrap_or_default();
-        if modified.len() != 1 || lastmods != modified {
-            failures.push(format!(
-                "{sitemap_rel}: {url} lastmod {} does not match its dateModified {}",
-                repr_list(&lastmods),
-                repr_list(&modified)
-            ));
         }
     }
-    Ok(listed.len())
+    modified.sort();
+    modified
 }
 
 fn meta_pattern(attr: &str, value: &str) -> String {

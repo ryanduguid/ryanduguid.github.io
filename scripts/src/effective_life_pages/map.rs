@@ -75,7 +75,7 @@ fn record(item: &Value) -> Result<Record> {
         || !record
             .sha256
             .bytes()
-            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+            .all(|b| b.is_ascii_hexdigit() && !b.is_ascii_uppercase())
     {
         return Err(format!("{MAP_REL}: {} has no SHA-256 hash", record.url));
     }

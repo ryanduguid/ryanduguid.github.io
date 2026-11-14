@@ -201,7 +201,12 @@ fn other_heads() -> [HashSet<String>; 3] {
     let family = root().join("tools/depreciation-rates");
     let mut out: [HashSet<String>; 3] = Default::default();
     for path in site_tools::seo_core::html_files(&root()) {
-        if path.starts_with(family.join("industry")) || path.starts_with(family.join("asset")) {
+        // Jekyll leaves out `scripts`, where the other suites keep a rendered copy of
+        // the site, these pages included.
+        if path.starts_with(family.join("industry"))
+            || path.starts_with(family.join("asset"))
+            || path.starts_with(root().join("scripts"))
+        {
             continue;
         }
         let html = std::fs::read_to_string(&path).unwrap();

@@ -136,30 +136,21 @@ pub fn rendered() -> bool {
 }
 
 pub fn copy_tree(source: &Path, destination: &Path) {
-    copy_tree_linking(source, destination, &|_| false);
+    copy_tree_skipping(source, destination, &|_| false);
 }
 
-/// `copy_tree`, hard-linking the files `link` selects instead of copying them. A linked
-/// file is made read-only, which marks the file it shares too, so a write to either
-/// fails rather than changing both.
-fn copy_tree_linking(source: &Path, destination: &Path, link: &dyn Fn(&Path) -> bool) {
+/// `copy_tree`, leaving out the files and folders `skip` selects.
+fn copy_tree_skipping(source: &Path, destination: &Path, skip: &dyn Fn(&Path) -> bool) {
     std::fs::create_dir_all(destination).unwrap();
     for entry in std::fs::read_dir(source).unwrap().flatten() {
         let name = entry.file_name();
-        if SKIPPED.contains(&name.to_string_lossy().as_ref()) {
+        let path = entry.path();
+        if SKIPPED.contains(&name.to_string_lossy().as_ref()) || skip(&path) {
             continue;
         }
-        let path = entry.path();
         let target = destination.join(&name);
         if path.is_dir() {
-            copy_tree_linking(&path, &target, link);
-        } else if link(&path) {
-            std::fs::hard_link(&path, &target).unwrap();
-            let mut permissions = std::fs::metadata(&target).unwrap().permissions();
-            if !permissions.readonly() {
-                permissions.set_readonly(true);
-                std::fs::set_permissions(&target, permissions).unwrap();
-            }
+            copy_tree_skipping(&path, &target, skip);
         } else {
             std::fs::copy(&path, target).unwrap();
         }
@@ -170,14 +161,58 @@ pub fn root() -> &'static Path {
     SITE.as_ref().expect("guarded by rendered()").path()
 }
 
-/// copied_site(): a private copy for one mutation. The effective life pages, most of the
-/// tree's files, are read-only hard links to the checked tree's: no test changes them,
-/// and linking them costs a fraction of copying them for every mutation.
+const DESIGN_BASELINE: &str = "scripts/design_baseline.json";
+
+/// How often each protected text of the design baseline occurs in the pages other than
+/// the effective life pages, counted as `check_design::check_repository` counts the whole
+/// site. `design_contracts_current_site` holds the whole site to the committed counts.
+static OTHER_TEXT_COUNTS: LazyLock<Vec<(String, usize)>> = LazyLock::new(|| {
+    use site_tools::{effective_life_pages::is_page, pyjson, seo_core as core};
+    let baseline = pyjson::loads(&read_text(root(), DESIGN_BASELINE)).unwrap();
+    let Some(pyjson::Json::Object(texts)) = baseline.get("protected_text") else {
+        panic!("{DESIGN_BASELINE} has no protected_text object");
+    };
+    let pages: Vec<String> = core::html_files(root())
+        .into_iter()
+        .filter(|path| !is_page(&core::rel(path, root())))
+        .map(|path| core::raw_text(&site_tools::read(&path).unwrap()))
+        .collect();
+    texts
+        .iter()
+        .map(|(text, _)| {
+            let count = pages.iter().map(|page| page.matches(text.as_str()).count());
+            (text.clone(), count.sum())
+        })
+        .collect()
+});
+
+/// copied_site(): a private copy for one mutation, without the effective life pages.
+/// They are most of the tree's files, so every whole-site check of a copy would spend
+/// most of its time on them; no test changes them, the suites check them in full in
+/// `root()`, and `build_effective_life_pages --check` pins every byte. The copy's design
+/// baseline pins its protected texts' counts without the pages, so a check of the copy
+/// still sees a changed count.
 pub fn copied_site() -> tempfile::TempDir {
+    use site_tools::pyjson::{self, Dump, Json};
     let copy = tempfile::tempdir().unwrap();
-    copy_tree_linking(root(), copy.path(), &|path| {
-        site_tools::effective_life_pages::is_page(&site_tools::seo_core::rel(path, root()))
+    copy_tree_skipping(root(), copy.path(), &|path| {
+        let rel = site_tools::seo_core::rel(path, root());
+        site_tools::effective_life_pages::is_page(&format!("{rel}/"))
     });
+    let mut baseline = read_text(copy.path(), DESIGN_BASELINE);
+    for (text, count) in OTHER_TEXT_COUNTS.iter() {
+        let dump = Dump {
+            ensure_ascii: false,
+            ..Default::default()
+        };
+        let key = format!("{}: ", pyjson::dumps(&Json::Str(text.clone()), dump));
+        let start = baseline.find(&key).expect("protected text pinned once") + key.len();
+        let digits = baseline[start..]
+            .find(|c: char| !c.is_ascii_digit())
+            .unwrap();
+        baseline.replace_range(start..start + digits, &count.to_string());
+    }
+    std::fs::write(copy.path().join(DESIGN_BASELINE), baseline).unwrap();
     copy
 }
 

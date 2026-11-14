@@ -826,7 +826,7 @@ Company tax and franking checks | Pinned package trial | 25.0% on the declared b
 Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
 Monthly Close Controls | Pinned source case | REVIEW with 8 exceptions in the supplied July close.
 Australian tax tools for AI agents | Pinned package demonstration | Two tool calls with fictional facts, without an agent session or credentials.
-Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.5.0, check the published SHA-256 and confirm one LAMBDA result in desktop Excel.
+Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.6.0, check the published SHA-256 and confirm one LAMBDA result in desktop Excel.
 
 The Excel cash flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
@@ -5011,7 +5011,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-15 November 2026 | The Ozzit page documents v3.6.0, published on 14 November: 150 LAMBDA functions and 5 help tables, the Ryan Duguid Public Attribution Licence 1.0 and the new download hash. The index and module pages add the 7 new functions for budget variance, financial-year periods, level loan payments and an average-balance corkscrew. Its ten worked formulas were rerun in desktop Excel against the v3.6.0 workbook with unchanged results.
+15 November 2026 | The Ozzit page documents v3.6.0, published on 14 November: 150 LAMBDA functions and 5 help tables, the Ryan Duguid Public Attribution Licence 1.0 and the new download hash. The index and module pages add the 7 new functions for budget variance, financial-year periods, level loan payments and an average-balance corkscrew. Its ten worked formulas were rerun in desktop Excel against the v3.6.0 workbook with unchanged results, and the Evaluations page's Ozzit check now downloads v3.6.0.
 15 November 2026 | The tool pages, changelog and release record name the releases of 14 November: monthly-close-control-plane/v1.1.0, review-ready-gate/v1.0.1, aus-accounting-mcp/v0.9.0, Australian Accounting Skills v0.7.0 and Ozzit v3.6.0, and au-fpa-pack v0.6.0 of 13 November. The Ozzit page still documents v3.5.0 and its worked examples. The MCP registry still listed aus-accounting-mcp v0.8.0 on 15 November.
 15 November 2026 | Each of the 7,430 effective lives in the 2025 determination now has its own page: the row as the determination prints it, its industry or Table B, its life, its prime cost and diminishing value rates, the date it was last set and the other rows under its heading. 240 industry and asset pages and 2 table indexes link them, the depreciation rates page links every industry and asset page without needing JavaScript, and the pages have their own sitemap.
 14 November 2026 | Three new rate tables, each read from the ATO on 14 November 2026 with a CSV: resident individual income tax rates from 2019-20 with the single Medicare levy low-income thresholds to 2025-26, the last year the ATO had published, study and training loan repayment thresholds from 2020-21, and the PAYG withholding Schedule 1 weekly coefficients for scales 1 to 3 for payments from 1 July 2026. The rates page now lists 10 tables, and rates.json holds every row of the 9 rate CSVs.

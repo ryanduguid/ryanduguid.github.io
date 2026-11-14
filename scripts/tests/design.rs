@@ -118,6 +118,28 @@ fn fictional_wording_reporting() {
 }
 
 #[test]
+fn effective_life_group_names_keep_the_determinations_words() {
+    let directory = tempfile::tempdir().unwrap();
+    let root = directory.path();
+    let page = concat!(
+        "<main><section id=\"every-life\"><h2>A page for every life</h2>",
+        "<p>Synthetic copy. Get started.</p><ul>",
+        "<li><a href=\"/g/\">Other fabricated metal product manufacturing n.e.c.</a></li>",
+        "<li><a href=\"/h/\">Get started at its core</a></li></ul></section></main>",
+    );
+    std::fs::write(root.join("index.html"), page).unwrap();
+    std::fs::write(root.join("llms.txt"), "Fictional rows.").unwrap();
+    assert_eq!(
+        design::check_fictional_wording(root).unwrap(),
+        ["index.html: visible copy says 'synthetic'; write 'fictional' for invented data"]
+    );
+    let copy = design::check_copy(root).unwrap();
+    assert_eq!(copy.len(), 1, "{copy:?}");
+    assert!(copy[0].contains("Get started"), "{copy:?}");
+    assert!(!copy[0].contains("at its core"), "{copy:?}");
+}
+
+#[test]
 fn font_repetitive_text() {
     let directory = tempfile::tempdir().unwrap();
     let root = directory.path();

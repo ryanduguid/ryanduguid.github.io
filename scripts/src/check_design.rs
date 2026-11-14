@@ -605,48 +605,9 @@ fn rglob_text(directory: &Path, suffix: &str) -> Result<Vec<String>, String> {
 pub fn check_font_delivery(root: &Path, tokens_css: &str) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
     let faces = re(FONT_FACE_PATTERN, S | I).findall(tokens_css);
-    let mut rendered_text = Vec::new();
-    let mut uses_symbol_font = false;
-    let markups: Vec<String> = std::iter::once('\u{3bb}')
-        .chain(crate::effective_life_pages::SYMBOLS)
-        .map(|sign| format!("{SYMBOL_OPEN}{sign}</span>"))
-        .collect();
-    for path in core::html_files(root) {
-        let raw = crate::read(&path)?;
-        uses_symbol_font = uses_symbol_font || raw.contains(SYMBOL_OPEN);
-        let shown = markups
-            .iter()
-            .fold(raw.clone(), |text, markup| text.replace(markup, ""));
-        if crate::effective_life_pages::is_page(&core::rel(&path, root)) {
-            // These pages quote the determination in their head and structured data too,
-            // which no web font draws; only the body is rendered text.
-            let body = shown
-                .find("<body>")
-                .map_or(shown.as_str(), |at| &shown[at..]);
-            rendered_text.push(core::raw_text(body));
-        } else {
-            rendered_text.push(core::raw_text(&shown));
-            rendered_text.extend(script_contents(&raw));
-        }
-    }
+    let (mut rendered_text, uses_symbol_font) = pages_rendered_text(root)?;
     if uses_symbol_font {
-        if !re(
-            r#"--font-symbol:\s*"Cambria Math",\s*"STIX Two Math",\s*"DejaVu Serif",\s*serif;"#,
-            0,
-        )
-        .is_match(tokens_css)
-        {
-            failures.push("lambda fallback must retain the native maths font stack".into());
-        }
-        let site_css = crate::read(&root.join("assets").join("site.css"))?;
-        if !re(
-            r"\.function-symbol\s*\{\s*font-family:\s*var\(--font-symbol\);\s*\}",
-            0,
-        )
-        .is_match(&site_css)
-        {
-            failures.push("lambda markup must use the symbol font".into());
-        }
+        check_symbol_font(root, tokens_css, &mut failures)?;
     }
     rendered_text.extend(rglob_text(&root.join("assets"), ".mjs")?);
     let visible = rendered_text.join(" ");
@@ -676,6 +637,72 @@ pub fn check_font_delivery(root: &Path, tokens_css: &str) -> Result<Vec<String>,
             ));
         }
     }
+    check_font_sizes(root, tokens_css, &mut failures)?;
+    Ok(failures)
+}
+
+/// The text each page renders in the site fonts, without its symbol markup, and whether
+/// any page uses the symbol font.
+fn pages_rendered_text(root: &Path) -> Result<(Vec<String>, bool), String> {
+    let mut rendered_text = Vec::new();
+    let mut uses_symbol_font = false;
+    let markups: Vec<String> = std::iter::once('\u{3bb}')
+        .chain(crate::effective_life_pages::SYMBOLS)
+        .map(|sign| format!("{SYMBOL_OPEN}{sign}</span>"))
+        .collect();
+    for path in core::html_files(root) {
+        let raw = crate::read(&path)?;
+        uses_symbol_font = uses_symbol_font || raw.contains(SYMBOL_OPEN);
+        let shown = markups
+            .iter()
+            .fold(raw.clone(), |text, markup| text.replace(markup, ""));
+        if crate::effective_life_pages::is_page(&core::rel(&path, root)) {
+            // These pages quote the determination in their head and structured data too,
+            // which no web font draws; only the body is rendered text.
+            let body = shown
+                .find("<body>")
+                .map_or(shown.as_str(), |at| &shown[at..]);
+            rendered_text.push(core::raw_text(body));
+        } else {
+            rendered_text.push(core::raw_text(&shown));
+            rendered_text.extend(script_contents(&raw));
+        }
+    }
+    Ok((rendered_text, uses_symbol_font))
+}
+
+/// Require the symbol font's native maths stack and its use by the symbol markup.
+fn check_symbol_font(
+    root: &Path,
+    tokens_css: &str,
+    failures: &mut Vec<String>,
+) -> Result<(), String> {
+    if !re(
+        r#"--font-symbol:\s*"Cambria Math",\s*"STIX Two Math",\s*"DejaVu Serif",\s*serif;"#,
+        0,
+    )
+    .is_match(tokens_css)
+    {
+        failures.push("lambda fallback must retain the native maths font stack".into());
+    }
+    let site_css = crate::read(&root.join("assets").join("site.css"))?;
+    if !re(
+        r"\.function-symbol\s*\{\s*font-family:\s*var\(--font-symbol\);\s*\}",
+        0,
+    )
+    .is_match(&site_css)
+    {
+        failures.push("lambda markup must use the symbol font".into());
+    }
+    Ok(())
+}
+
+/// Keep each declared font, and all of them together, within the delivery budgets.
+fn check_font_sizes(
+    root: &Path,
+    tokens_css: &str,
+    failures: &mut Vec<String>,
+) -> Result<(), String> {
     let mut declared: Vec<String> = re(FONT_URL_PATTERN, 0)
         .findall(tokens_css)
         .iter()
@@ -704,7 +731,7 @@ pub fn check_font_delivery(root: &Path, tokens_css: &str) -> Result<Vec<String>,
             "declared fonts total {total} bytes, over {MAX_TOTAL_FONT_BYTES}-byte budget"
         ));
     }
-    Ok(failures)
+    Ok(())
 }
 
 /// `baseline.get(key, {})` iterated: a dict's keys, a list's items or a string's characters.
@@ -946,7 +973,7 @@ pub fn check_copy(root: &Path) -> Result<Vec<String>, String> {
         if crate::effective_life_pages::is_page(&rel) {
             continue;
         }
-        let surfaces = copy_surfaces(&crate::read(&path)?, &rel);
+        let surfaces = copy_surfaces(&without_group_names(&crate::read(&path)?), &rel);
         documents.push((rel, surfaces));
     }
     for rel in COPY_TEXT_FILES {
@@ -961,6 +988,21 @@ pub fn check_copy(root: &Path) -> Result<Vec<String>, String> {
         failures.extend(surface_copy_failures(&rel, surfaces));
     }
     Ok(failures)
+}
+
+/// The rates page's list of the effective life group pages (`effective_life_pages`
+/// writes it to `_includes`) names each group in the determination's words, which the
+/// copy rules do not govern, as on the pages themselves ('Other fabricated metal product
+/// manufacturing'). Each item is blanked; the list's own wording stays checked.
+fn without_group_names(html: &str) -> std::borrow::Cow<'_, str> {
+    let Some(start) = html.find("<section id=\"every-life\">") else {
+        return html.into();
+    };
+    let end = html[start..]
+        .find("</section>")
+        .map_or(html.len(), |i| start + i);
+    let list = re(r"<li>.*?</li>", S).sub(" ", &html[start..end]);
+    format!("{}{list}{}", &html[..start], &html[end..]).into()
 }
 
 /// Where one page breaks the copy rules: banned phrases and decorative emoji.
@@ -1002,7 +1044,10 @@ pub fn check_fictional_wording(root: &Path) -> Result<Vec<String>, String> {
             continue;
         }
         let html = crate::read(&path)?;
-        documents.push((rel.clone(), fictional_surfaces(&html, &rel)));
+        documents.push((
+            rel.clone(),
+            fictional_surfaces(&without_group_names(&html), &rel),
+        ));
     }
     for rel in COPY_TEXT_FILES {
         let path = site_path(root, rel);
