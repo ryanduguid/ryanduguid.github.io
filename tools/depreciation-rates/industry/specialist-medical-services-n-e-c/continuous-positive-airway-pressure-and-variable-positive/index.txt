@@ -1,0 +1,67 @@
+# Continuous positive airway … effective life: 7 years, Thoracic
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/continuous-positive-airway-pressure-and-variable-positive/
+
+> Continuous positive airway pressure …: effective life 7 years, prime cost 14.29%, diminishing value 28.57%, last updated 1 July 2003 (Table A, 2025 determination).
+
+# Thoracic physicians’ assets: Continuous positive airway pressure … and variable positive airway pressure … systems
+
+‘Thoracic physicians’ assets: Continuous positive airway pressure … and variable positive airway pressure … systems’, for an asset used in Specialist medical services n.e.c, has an effective life of 7 years (F2025L01097), last reviewed and determined on 1 July 2003.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Continuous positive airway pressure (CPAP) and variable positive airway pressure (VPAP) systems
+Under | Thoracic physicians’ assets:
+Table | Table A (industry categories), HEALTH CARE AND SOCIAL ASSISTANCE / Specialist medical services n.e.c, ANZSIC 85129
+Effective life | 7 years
+Prime cost rate | 14.29% (100% ÷ life, section 40-75)
+Diminishing value rate | 28.57% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2003
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Specialist medical services n.e.c takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2003. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Thoracic physicians’ assets
+
+Row | Life | Prime cost | Diminishing value
+Body plethysmographs (incorporating flow sensors, gas analysers, integrated software and integrated computers) | 7 years | 14.29% | 28.57%
+Continuous positive airway pressure (CPAP) and variable positive airway pressure (VPAP) systems (this page) | 7 years | 14.29% | 28.57%
+Lung function analysis exercise systems (incorporating flow sensors, treadmills or ergometers, ECGs, pulse oximeters, integrated software and integrated computers) | 7 years | 14.29% | 28.57%
+Lung function analysis systems (incorporating flow sensors, gas analysers, integrated software and integrated computers) | 7 years | 14.29% | 28.57%
+Spirometers | 7 years | 14.29% | 28.57%
+Sleep laboratory systems (incorporating amplifiers, sensors, integrated CPAP monitors, integrated carbon dioxide (CO2) monitors, integrated pulse oximeters, integrated computers and integrated software) | 7 years | 14.29% | 28.57%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 7 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Body plethysmographs (incorporating flow sensors, gas analysers, integrated software and integrated computers): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/body-plethysmographs/
+- Lung function analysis exercise systems (incorporating flow sensors, treadmills or ergometers, ECGs, pulse oximeters, integrated software and integrated computers): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/lung-function-analysis-exercise-systems/
+- Lung function analysis systems (incorporating flow sensors, gas analysers, integrated software and integrated computers): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/lung-function-analysis-systems/
+- Spirometers: https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/spirometers/
+- Sleep laboratory systems (incorporating amplifiers, sensors, integrated CPAP monitors, integrated carbon dioxide (CO2) monitors, integrated pulse oximeters, integrated computers and integrated software): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/sleep-laboratory-systems/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -49,7 +49,7 @@ pub fn run(root: &Path) -> Result<u8, String> {
     failures.extend(sitemap_failures);
     failures.extend(contracts::check_site_contracts(&paths, root)?);
     say(&format!(
-        "checked sitemap.xml ({listed} URLs), llms.txt, robots.txt"
+        "checked the sitemaps ({listed} URLs), llms.txt, robots.txt"
     ))?;
     for warning in &warnings {
         say(&format!("  WARN {warning}"))?;

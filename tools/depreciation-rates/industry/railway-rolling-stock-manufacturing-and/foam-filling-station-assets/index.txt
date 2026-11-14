@@ -1,0 +1,84 @@
+# Foam filling station assets effective life: 10 years, Assembly
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/foam-filling-station-assets/
+
+> Assembly assets: Foam filling station assets: effective life 10 years, last updated 1 July 2014 (Table A).
+
+# Assembly assets: Foam filling station assets
+
+‘Assembly assets: Foam filling station assets’, for an asset used in Railway rolling stock manufacturing and repair services, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2014.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Foam filling station assets
+Under | Assembly assets:
+Table | Table A (industry categories), MANUFACTURING / Railway rolling stock manufacturing and repair services, ANZSIC 23930
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2014
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Railway rolling stock manufacturing and repair services takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2014. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Assembly assets
+
+Row | Life | Prime cost | Diminishing value
+Alignment assets (including gearbox alignment assets) | 10 years | 10.00% | 20.00%
+Bearing puller assets | 10 years | 10.00% | 20.00%
+Blast chamber assets (incorporating shot recovery systems) | 10 years | 10.00% | 20.00%
+Cutting assets (including plate profilers, profile cutters and saws) | 10 years | 10.00% | 20.00%
+De-coiling assets | 15 years | 6.67% | 13.33%
+Drilling assets (including radial drills) | 10 years | 10.00% | 20.00%
+Foam filling station assets (this page) | 10 years | 10.00% | 20.00%
+Furnaces and ovens (including ladles and stress relief ovens) | 20 years | 5.00% | 10.00%
+Jigs (including rollover jigs and lifting jigs) | 15 years | 6.67% | 13.33%
+Lathes (including above floor and under floor wheel lathes) | 20 years | 5.00% | 10.00%
+Milling machines (including gantry) | 20 years | 5.00% | 10.00%
+Pipe and tube bending assets | 10 years | 10.00% | 20.00%
+Presses (including bearing mounting, bench, brake, hydraulic power and wheel presses) | 20 years | 5.00% | 10.00%
+
+22 rows share this heading. The Railway rolling stock manufacturing and repair services page lists them all.
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Alignment assets (including gearbox alignment assets): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/alignment-assets/
+- Bearing puller assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/bearing-puller-assets/
+- Blast chamber assets (incorporating shot recovery systems): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/blast-chamber-assets/
+- Cutting assets (including plate profilers, profile cutters and saws): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/assembly-assets-cutting-assets/
+- De-coiling assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/de-coiling-assets/
+- Drilling assets (including radial drills): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/assembly-assets-drilling-assets/
+- Furnaces and ovens (including ladles and stress relief ovens): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/furnaces-and-ovens/
+- Jigs (including rollover jigs and lifting jigs): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/jigs/
+- Lathes (including above floor and under floor wheel lathes): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/assembly-assets-lathes/
+- Milling machines (including gantry): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/milling-machines/
+- Pipe and tube bending assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/pipe-and-tube-bending-assets/
+- Presses (including bearing mounting, bench, brake, hydraulic power and wheel presses): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/assembly-assets-presses/
+- Railway rolling stock manufacturing and repair services: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

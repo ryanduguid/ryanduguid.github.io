@@ -1,0 +1,90 @@
+# Balers effective life: 10 years, Hay and foraging assets
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/balers/
+
+> Hay and foraging assets: Balers: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 January 2007 (Table A, 2025 determination).
+
+# Hay and foraging assets: Balers
+
+‘Hay and foraging assets: Balers’, for an asset used in Agriculture, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Balers
+Under | Hay and foraging assets:
+Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Agriculture, ANZSIC 01110 to 01990
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 January 2007
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Agriculture takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 January 2007. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Hay and foraging assets
+
+Row | Life | Prime cost | Diminishing value
+Bale handling attachments (including accumulator grabs, bale stackers, hay forks/spikes/spears (incorporating metal frame), round bale grabs) | 12 years | 8.33% | 16.67%
+Balers (this page) | 10 years | 10.00% | 20.00%
+Bale wrappers | 10 years | 10.00% | 20.00%
+Baler and wrappers | 10 years | 10.00% | 20.00%
+Forage harvesters | 10 years | 10.00% | 20.00%
+Hay rakes (including finger wheel, rotary and parallel) | 10 years | 10.00% | 20.00%
+Moisture probes | 5 years | 20.00% | 40.00%
+Super conditioners (hay re-conditioners) | 8 years | 12.50% | 25.00%
+
+9 rows share this heading. The Agriculture page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Balers | Solid waste collection services | 7 years | 14.29% | 28.57%
+Balers | Waste treatment and disposal services | 7 years | 14.29% | 28.57%
+Balers | Waste remediation and materials recovery services | 7 years | 14.29% | 28.57%
+Balers | Other warehousing and storage services | 15 years | 6.67% | 13.33%
+Balers | Table B, Warehouse and distribution centre equipment and machines | 15 years | 6.67% | 13.33%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Bale handling attachments (including accumulator grabs, bale stackers, hay forks/spikes/spears (incorporating metal frame), round bale grabs): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/bale-handling-attachments/
+- Bale wrappers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/bale-wrappers/
+- Baler and wrappers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/baler-and-wrappers/
+- Forage harvesters: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/forage-harvesters/
+- Hay rakes (including finger wheel, rotary and parallel): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/hay-rakes/
+- Moisture probes: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/moisture-probes/
+- Super conditioners (hay re-conditioners): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/super-conditioners/
+- Agriculture: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/solid-waste-collection-services/balers/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/balers/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/waste-remediation-and-materials-recovery/balers/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/other-warehousing-and-storage-services/balers/
+- Balers: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/balers/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

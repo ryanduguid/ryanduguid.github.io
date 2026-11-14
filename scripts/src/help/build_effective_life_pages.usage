@@ -1,0 +1,1 @@
+usage: site-tools build_effective_life_pages [-h] (--write | --check | --indexnow)

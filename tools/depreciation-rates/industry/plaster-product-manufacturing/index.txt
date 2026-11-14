@@ -1,0 +1,108 @@
+# Plaster product effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/
+
+> Table A (industry categories), MANUFACTURING / Plaster: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Plaster product manufacturing
+
+35 effective lives in Table A of the Commissioner’s 2025 effective life determination for Plaster product manufacturing.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Plasterboard and cornice manufacturing assets: | | | |
+Plasterboard and cornice manufacturing assets: / General: | | | |
+Plasterboard and cornice manufacturing assets: / General: / Bins | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Conveyors (including belt conveyors, belt stacker conveyors, bucket elevators and screw conveyors) | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Dust collection assets (including bag dust collectors, blowers, cyclones and fans) | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Dust detectors | 5 years | 20.00% | 40.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Fans/blowers (excluding blowers used with hot pits) | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Feeders | 15 years | 6.67% | 13.33% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Flow meters | 10 years | 10.00% | 20.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Hoppers | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Lump breakers | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Pumps | 10 years | 10.00% | 20.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Rotary valves | 15 years | 6.67% | 13.33% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Silos (steel) | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / General: / Tanks | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plaster milling assets: | | | |
+Plasterboard and cornice manufacturing assets: / Plaster milling assets: / Bulk bag handling assets | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plaster milling assets: / Calciners | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plaster milling assets: / Grinding/hammer mills | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plaster milling assets: / Heat generators | 15 years | 6.67% | 13.33% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plaster milling assets: / Hot pits: | | | |
+Plasterboard and cornice manufacturing assets: / Plaster milling assets: / Hot pits: / Blowers | 12 years | 8.33% | 16.67% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plaster milling assets: / Hot pits: / Vessels | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plaster milling assets: / Stucco coolers | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: | | | |
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Chillers (volumetric air-cooled) | 15 years | 6.67% | 13.33% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Dry end handling assets (including bookers, cascades, conveyors and stackers) | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Dryers | 25 years | 4.00% | 8.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Dunnage assets used to make dunnage | 25 years | 4.00% | 8.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Forming line assets (including belt conveyors and roller conveyors) | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Forming plates | 10 years | 10.00% | 20.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Forming station assets (excluding forming plates and pin mixers) | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Hydropulpers | 25 years | 4.00% | 8.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Knives (used for plasterboard or cornice) | 25 years | 4.00% | 8.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Paper and tape assets (including creasers, magazines, splicing assets, tape rollers, tension stations and unwinders) | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Pin mixers | 13 years | 7.69% | 15.38% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Printers | 5 years | 20.00% | 40.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Start-up pullers (used for cornice) | 20 years | 5.00% | 10.00% | 1 July 2011
+Plasterboard and cornice manufacturing assets: / Plasterboard/cornice plant assets: / Wet-end-transfer assets (including conveyors, dryer in-feeds, turners) | 20 years | 5.00% | 10.00% | 1 July 2011
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Bins: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/bins/
+- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/control-systems/
+- Conveyors (including belt conveyors, belt stacker conveyors, bucket elevators and screw conveyors): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/conveyors/
+- Dust collection assets (including bag dust collectors, blowers, cyclones and fans): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/dust-collection-assets/
+- Dust detectors: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/dust-detectors/
+- Fans/blowers (excluding blowers used with hot pits): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/fans-blowers/
+- Feeders: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/feeders/
+- Flow meters: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/flow-meters/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/hoppers/
+- Lump breakers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/lump-breakers/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/pumps/
+- Rotary valves: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/rotary-valves/
+- Silos (steel): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/silos/
+- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/tanks/
+- Bulk bag handling assets: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/bulk-bag-handling-assets/
+- Calciners: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/calciners/
+- Grinding/hammer mills: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/grinding-hammer-mills/
+- Heat generators: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/heat-generators/
+- Blowers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/blowers/
+- Vessels: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/vessels/
+- Stucco coolers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/stucco-coolers/
+- Chillers (volumetric air-cooled): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/chillers/
+- Dry end handling assets (including bookers, cascades, conveyors and stackers): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/dry-end-handling-assets/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/dryers/
+- Dunnage assets used to make dunnage: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/dunnage-assets-used-to-make-dunnage/
+- Forming line assets (including belt conveyors and roller conveyors): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/forming-line-assets/
+- Forming plates: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/forming-plates/
+- Forming station assets (excluding forming plates and pin mixers): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/forming-station-assets/
+- Hydropulpers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/hydropulpers/
+- Knives (used for plasterboard or cornice): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/knives/
+- Paper and tape assets (including creasers, magazines, splicing assets, tape rollers, tension stations and unwinders): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/paper-and-tape-assets/
+- Pin mixers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/pin-mixers/
+- Printers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/printers/
+- Start-up pullers (used for cornice): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/start-up-pullers/
+- Wet-end-transfer assets (including conveyors, dryer in-feeds, turners): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/wet-end-transfer-assets/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

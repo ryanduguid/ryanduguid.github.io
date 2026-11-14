@@ -1,0 +1,84 @@
+# Counter current … effective life: 20 years, Hydrometallurgy
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/mining/counter-current-decantation-process-assets/
+
+> Hydrometallurgy and Pyrometallurgy assets: Counter current decantation (CCD) process assets: effective life 20 years, last updated 1 July 2003 (Table A).
+
+# Hydrometallurgy and Pyrometallurgy assets: Counter current decantation (CCD) process assets
+
+‘Hydrometallurgy and Pyrometallurgy assets: Counter current decantation (CCD) process assets’, for an asset used in MINING, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2003.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Counter current decantation (CCD) process assets
+Under | Hydrometallurgy and Pyrometallurgy assets:
+Table | Table A (industry categories), MINING, rows for the whole division, ANZSIC 06000 to 10900
+Effective life | 20 years
+Prime cost rate | 5.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 10.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2003
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in MINING takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2003. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Hydrometallurgy and Pyrometallurgy assets
+
+Row | Life | Prime cost | Diminishing value
+Adsorption process assets | 20 years | 5.00% | 10.00%
+Agglomeration (pelletizing) assets | 25 years | 4.00% | 8.00%
+Calcination process assets (including kilns) | 25 years | 4.00% | 8.00%
+Casting process assets for casting billets or ingots | 30 years | 3.33% | 6.67%
+Converting process assets (including rotatable cylindrical furnaces) | 30 years | 3.33% | 6.67%
+Cooling process assets (including cooling towers) | 25 years | 4.00% | 8.00%
+Counter current decantation (CCD) process assets (this page) | 20 years | 5.00% | 10.00%
+Drying process assets (including rotary dryers, spray dryers and indirect heat exchanger dryers) | 25 years | 4.00% | 8.00%
+Electrolysis process assets (including electrowinning process and electro refining process assets including tanks) | 20 years | 5.00% | 10.00%
+Filtration process assets | 15 years | 6.67% | 13.33%
+Gas cleaning process assets (including electrostatic precipitators and baghouses) | 20 years | 5.00% | 10.00%
+Gas recovery process assets (including stripping and absorption assets) | 25 years | 4.00% | 8.00%
+Ion exchange process assets | 15 years | 6.67% | 13.33%
+
+23 rows share this heading. The MINING page lists them all.
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Adsorption process assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/adsorption-process-assets/
+- Agglomeration (pelletizing) assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/agglomeration-assets/
+- Calcination process assets (including kilns): https://duguid.com.au/tools/depreciation-rates/industry/mining/calcination-process-assets/
+- Casting process assets for casting billets or ingots: https://duguid.com.au/tools/depreciation-rates/industry/mining/casting-process-assets-for-casting-billets-or-ingots/
+- Converting process assets (including rotatable cylindrical furnaces): https://duguid.com.au/tools/depreciation-rates/industry/mining/converting-process-assets/
+- Cooling process assets (including cooling towers): https://duguid.com.au/tools/depreciation-rates/industry/mining/cooling-process-assets/
+- Drying process assets (including rotary dryers, spray dryers and indirect heat exchanger dryers): https://duguid.com.au/tools/depreciation-rates/industry/mining/drying-process-assets/
+- Electrolysis process assets (including electrowinning process and electro refining process assets including tanks): https://duguid.com.au/tools/depreciation-rates/industry/mining/electrolysis-process-assets/
+- Filtration process assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/filtration-process-assets/
+- Gas cleaning process assets (including electrostatic precipitators and baghouses): https://duguid.com.au/tools/depreciation-rates/industry/mining/gas-cleaning-process-assets/
+- Gas recovery process assets (including stripping and absorption assets): https://duguid.com.au/tools/depreciation-rates/industry/mining/gas-recovery-process-assets/
+- Ion exchange process assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/ion-exchange-process-assets/
+- MINING: https://duguid.com.au/tools/depreciation-rates/industry/mining/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -1,0 +1,175 @@
+# Railway rolling stock effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/
+
+> Table A (industry categories), MANUFACTURING / Railway: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Railway rolling stock manufacturing and repair services
+
+66 effective lives in Table A of the Commissioner’s 2025 effective life determination for Railway rolling stock manufacturing and repair services.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Assembly assets: | | | |
+Assembly assets: / Access and assembly platforms | 15 years | 6.67% | 13.33% | 1 July 2014
+Assembly assets: / Alignment assets (including gearbox alignment assets) | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Bearing puller assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Blast chamber assets (incorporating shot recovery systems) | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Cutting assets (including plate profilers, profile cutters and saws) | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / De-coiling assets | 15 years | 6.67% | 13.33% | 1 July 2014
+Assembly assets: / Drilling assets (including radial drills) | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Foam filling station assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Furnaces and ovens (including ladles and stress relief ovens) | 20 years | 5.00% | 10.00% | 1 July 2014
+Assembly assets: / Jigs (including rollover jigs and lifting jigs) | 15 years | 6.67% | 13.33% | 1 July 2014
+Assembly assets: / Lathes (including above floor and under floor wheel lathes) | 20 years | 5.00% | 10.00% | 1 July 2014
+Assembly assets: / Milling machines (including gantry) | 20 years | 5.00% | 10.00% | 1 July 2014
+Assembly assets: / Pipe and tube bending assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Presses (including bearing mounting, bench, brake, hydraulic power and wheel presses) | 20 years | 5.00% | 10.00% | 1 July 2014
+Assembly assets: / Riveting assets | 5 years | 20.00% | 40.00% | 1 July 2014
+Assembly assets: / Specialised hydraulic tool assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Stretch formers | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Sweeping assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Turning assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Wash bay assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Welding assets (including robot welders and spot welding towers) | 10 years | 10.00% | 20.00% | 1 July 2014
+Assembly assets: / Wire cutting and stripping assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Handling assets: | | | |
+Handling assets: / Cranes (including overhead gantry cranes) | 25 years | 4.00% | 8.00% | 1 July 2014
+Handling assets: / Lifting assets generally (including hydraulic double lift jacks, locomotive jacks and stands) | 20 years | 5.00% | 10.00% | 1 July 2014
+Handling assets: / Pallet lifters | 10 years | 10.00% | 20.00% | 1 July 2014
+Handling assets: / Scissor lifts | 10 years | 10.00% | 20.00% | 1 July 2014
+Maintenance and refurbishment assets: | | | |
+Maintenance and refurbishment assets: / Boring assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Maintenance and refurbishment assets: / Cutting assets (including guillotines, plasma cutters and profilers) | 15 years | 6.67% | 13.33% | 1 July 2014
+Maintenance and refurbishment assets: / Detecting assets (including flaw detectors) | 10 years | 10.00% | 20.00% | 1 July 2014
+Maintenance and refurbishment assets: / Drilling assets (including radial drills) | 10 years | 10.00% | 20.00% | 1 July 2014
+Maintenance and refurbishment assets: / Grinding and milling assets | 20 years | 5.00% | 10.00% | 1 July 2014
+Maintenance and refurbishment assets: / Hydraulic drop and work tables | 10 years | 10.00% | 20.00% | 1 July 2014
+Maintenance and refurbishment assets: / Lathes (including above floor and under floor wheel lathes) | 20 years | 5.00% | 10.00% | 1 July 2014
+Maintenance and refurbishment assets: / Paint spraying booths (incorporating baking ovens, extractor fans and gas heaters) | 15 years | 6.67% | 13.33% | 1 July 2014
+Maintenance and refurbishment assets: / Portable presses (including hydraulic power presses) | 10 years | 10.00% | 20.00% | 1 July 2014
+Maintenance and refurbishment assets: / Presses (including bearing mounting, bench, brake, hydraulic power and wheel presses) | 20 years | 5.00% | 10.00% | 1 July 2014
+Maintenance and refurbishment assets: / Tanks (including washing and water tanks) | 20 years | 5.00% | 10.00% | 1 July 2014
+Maintenance and refurbishment assets: / Vacuum assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Maintenance and refurbishment assets: / Washing assets (including bearing and bogie washers) | 10 years | 10.00% | 20.00% | 1 July 2014
+Maintenance and refurbishment assets: / Welding assets (including robot welders and spot welding towers) | 10 years | 10.00% | 20.00% | 1 July 2014
+Maintenance and refurbishment assets: / Wheel condition monitoring systems | 7 years | 14.29% | 28.57% | 1 July 2014
+Support assets: | | | |
+Support assets: / Cleaning assets (including high pressure cleaners) | 5 years | 20.00% | 40.00% | 1 July 2014
+Support assets: / Compressed air system assets (including compressors, dryers and filters and receivers) | 10 years | 10.00% | 20.00% | 1 July 2014
+Support assets: / Computer measuring and monitoring assets (including load and pressure indicators) | 7 years | 14.29% | 28.57% | 1 July 2014
+Support assets: / Control system assets (including supervisory control and data acquisition (SCADA) systems and vehicle preparation systems) | 10 years | 10.00% | 20.00% | 1 July 2014
+Support assets: / Cooling towers | 15 years | 6.67% | 13.33% | 1 July 2014
+Support assets: / Dust and fume extraction system assets | 15 years | 6.67% | 13.33% | 1 July 2014
+Support assets: / Electricity supply assets – see Table A Electricity supply (26100 to 26400) | | | |
+Support assets: / Fastening and riveting assets | 5 years | 20.00% | 40.00% | 1 July 2014
+Support assets: / Fire prevention systems (incorporating fire protection systems and water tanks) | 15 years | 6.67% | 13.33% | 1 July 2014
+Support assets: / Induction heaters | 10 years | 10.00% | 20.00% | 1 July 2014
+Support assets: / Portable train weighing assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Support assets: / Pumps (including hydraulic pumps) | 10 years | 10.00% | 20.00% | 1 July 2014
+Support assets: / Racking and storage assets | 20 years | 5.00% | 10.00% | 1 July 2014
+Support assets: / Rail vehicle moving and placing assets (including crabs, shunting locomotives and trackmobiles) | 10 years | 10.00% | 20.00% | 1 July 2014
+Support assets: / Railway tracks – see Table A Rail freight and passenger transport services (47100 to 47200) | | | |
+Support assets: / Refrigerant recovery assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Support assets: / Traversers and turntables | 20 years | 5.00% | 10.00% | 1 July 2014
+Support assets: / Vehicle progression systems assets (including rabbits) | 10 years | 10.00% | 20.00% | 1 July 2014
+Support assets: / Waste water and effluent treatment assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Support assets: / Weighing assets for carriages and locomotives | 20 years | 5.00% | 10.00% | 1 July 2014
+Testing assets: | | | |
+Testing assets: / Bogie, brake and spring testing assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Testing assets: / Cab test benches and CRC cable testing assets | 5 years | 20.00% | 40.00% | 1 July 2014
+Testing assets: / Earth testing assets | 10 years | 10.00% | 20.00% | 1 July 2014
+Testing assets: / Electrical testing assets (including multimeters) | 10 years | 10.00% | 20.00% | 1 July 2014
+Testing assets: / Post production testing assets (excluding weighing assets – see above in support assets): | | | |
+Testing assets: / Post production testing assets (excluding weighing assets – see above in support assets): / Water test facility assets (incorporating control systems, gantries, pipes, pumps etc) | 10 years | 10.00% | 20.00% | 1 July 2014
+Testing assets: / Post production testing assets (excluding weighing assets – see above in support assets): / Other post production testing assets | 5 years | 20.00% | 40.00% | 1 July 2014
+Testing assets: / Test sheds for testing locomotives and other rolling stock | 30 years | 3.33% | 6.67% | 1 July 2014
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Access and assembly platforms: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/access-and-assembly-platforms/
+- Alignment assets (including gearbox alignment assets): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/alignment-assets/
+- Bearing puller assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/bearing-puller-assets/
+- Blast chamber assets (incorporating shot recovery systems): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/blast-chamber-assets/
+- Cutting assets (including plate profilers, profile cutters and saws): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/assembly-assets-cutting-assets/
+- De-coiling assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/de-coiling-assets/
+- Drilling assets (including radial drills): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/assembly-assets-drilling-assets/
+- Foam filling station assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/foam-filling-station-assets/
+- Furnaces and ovens (including ladles and stress relief ovens): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/furnaces-and-ovens/
+- Jigs (including rollover jigs and lifting jigs): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/jigs/
+- Lathes (including above floor and under floor wheel lathes): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/assembly-assets-lathes/
+- Milling machines (including gantry): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/milling-machines/
+- Pipe and tube bending assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/pipe-and-tube-bending-assets/
+- Presses (including bearing mounting, bench, brake, hydraulic power and wheel presses): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/assembly-assets-presses/
+- Riveting assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/riveting-assets/
+- Specialised hydraulic tool assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/specialised-hydraulic-tool-assets/
+- Stretch formers: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/stretch-formers/
+- Sweeping assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/sweeping-assets/
+- Turning assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/turning-assets/
+- Wash bay assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/wash-bay-assets/
+- Welding assets (including robot welders and spot welding towers): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/assembly-assets-welding-assets/
+- Wire cutting and stripping assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/wire-cutting-and-stripping-assets/
+- Cranes (including overhead gantry cranes): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/cranes/
+- Lifting assets generally (including hydraulic double lift jacks, locomotive jacks and stands): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/lifting-assets-generally/
+- Pallet lifters: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/pallet-lifters/
+- Scissor lifts: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/scissor-lifts/
+- Boring assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/boring-assets/
+- Cutting assets (including guillotines, plasma cutters and profilers): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-cutting-assets/
+- Detecting assets (including flaw detectors): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/detecting-assets/
+- Drilling assets (including radial drills): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-drilling-assets/
+- Grinding and milling assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/grinding-and-milling-assets/
+- Hydraulic drop and work tables: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/hydraulic-drop-and-work-tables/
+- Lathes (including above floor and under floor wheel lathes): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-lathes/
+- Paint spraying booths (incorporating baking ovens, extractor fans and gas heaters): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/paint-spraying-booths/
+- Portable presses (including hydraulic power presses): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/portable-presses/
+- Presses (including bearing mounting, bench, brake, hydraulic power and wheel presses): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-presses/
+- Tanks (including washing and water tanks): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/tanks/
+- Vacuum assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/vacuum-assets/
+- Washing assets (including bearing and bogie washers): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/washing-assets/
+- Welding assets (including robot welders and spot welding towers): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-welding-assets/
+- Wheel condition monitoring systems: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/wheel-condition-monitoring-systems/
+- Cleaning assets (including high pressure cleaners): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/cleaning-assets/
+- Compressed air system assets (including compressors, dryers and filters and receivers): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/compressed-air-system-assets/
+- Computer measuring and monitoring assets (including load and pressure indicators): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/computer-measuring-and-monitoring-assets/
+- Control system assets (including supervisory control and data acquisition (SCADA) systems and vehicle preparation systems): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/control-system-assets/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/cooling-towers/
+- Dust and fume extraction system assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/dust-and-fume-extraction-system-assets/
+- Electricity supply assets – see Table A Electricity supply (26100 to 26400): https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/
+- Fastening and riveting assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/fastening-and-riveting-assets/
+- Fire prevention systems (incorporating fire protection systems and water tanks): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/fire-prevention-systems/
+- Induction heaters: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/induction-heaters/
+- Portable train weighing assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/portable-train-weighing-assets/
+- Pumps (including hydraulic pumps): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/pumps/
+- Racking and storage assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/racking-and-storage-assets/
+- Rail vehicle moving and placing assets (including crabs, shunting locomotives and trackmobiles): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/rail-vehicle-moving-and-placing-assets/
+- Railway tracks – see Table A Rail freight and passenger transport services (47100 to 47200): https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/
+- Refrigerant recovery assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/refrigerant-recovery-assets/
+- Traversers and turntables: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/traversers-and-turntables/
+- Vehicle progression systems assets (including rabbits): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/vehicle-progression-systems-assets/
+- Waste water and effluent treatment assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/waste-water-and-effluent-treatment-assets/
+- Weighing assets for carriages and locomotives: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/weighing-assets-for-carriages-and-locomotives/
+- Bogie, brake and spring testing assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/bogie-brake-and-spring-testing-assets/
+- Cab test benches and CRC cable testing assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/cab-test-benches-and-crc-cable-testing-assets/
+- Earth testing assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/earth-testing-assets/
+- Electrical testing assets (including multimeters): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/electrical-testing-assets/
+- Water test facility assets (incorporating control systems, gantries, pipes, pumps etc): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/water-test-facility-assets/
+- Other post production testing assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/other-post-production-testing-assets/
+- Test sheds for testing locomotives and other rolling stock: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/test-sheds-for-testing-locomotives-and-other-rolling-stock/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

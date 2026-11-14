@@ -162,6 +162,20 @@ pub fn main_text(html: &str, page_url: &str) -> Result<String, String> {
     Ok(py::strip(&text).to_owned())
 }
 
+/// A page's text entry: its title, address, description and visible main content. The
+/// page's `index.txt` holds it, as does its section of `llms-full.txt`.
+pub fn entry(html: &str, url: &str) -> Result<String, String> {
+    let Some(title) = re(r"<title>(.*?)</title>", S).search(html) else {
+        return Err(format!("ValueError: {url}: page has no <title>"));
+    };
+    let title = py::strip(&unescape(&title[1])).to_owned();
+    let description = core::meta(html, "name", "description").unwrap_or_default();
+    Ok(format!(
+        "# {title}\n\nSource: {url}\n\n> {description}\n\n{}\n",
+        main_text(html, url)?
+    ))
+}
+
 /// Each indexable page's entry keyed by URL, in sitemap order.
 pub fn build(root: &Path) -> Result<Vec<(String, String)>, String> {
     let mut content_root = root.to_path_buf();
@@ -172,15 +186,7 @@ pub fn build(root: &Path) -> Result<Vec<(String, String)>, String> {
     let mut entries: Vec<(String, String)> = Vec::new();
     for url in core::sitemap_urls(root)? {
         let html = crate::read(&page_path(&url, &content_root, "index.html"))?;
-        let Some(title) = re(r"<title>(.*?)</title>", S).search(&html) else {
-            return Err(format!("ValueError: {url}: page has no <title>"));
-        };
-        let title = py::strip(&unescape(&title[1])).to_owned();
-        let description = core::meta(&html, "name", "description").unwrap_or_default();
-        let entry = format!(
-            "# {title}\n\nSource: {url}\n\n> {description}\n\n{}\n",
-            main_text(&html, &url)?
-        );
+        let entry = entry(&html, &url)?;
         // A repeated sitemap URL keeps its first position, as a dict key does.
         match entries.iter_mut().find(|(u, _)| *u == url) {
             Some(existing) => existing.1 = entry,

@@ -1,0 +1,392 @@
+# Motor vehicle effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/
+
+> Motor vehicle manufacturing, Table: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Motor vehicle manufacturing
+
+153 effective lives in Table A of the Commissioner’s 2025 effective life determination for Motor vehicle manufacturing.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Air compressors | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Battery assets for warehouse vehicles (including pallet trucks and forklifts) – see Table B Warehouse and distribution centre equipment and machines | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Brake hose cleaning machines | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Calibration assets | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Door controls and motor drive systems for rapid roller doors (incorporating chains, controls, motors and sensors, but excluding doors) | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Dust and fume extraction assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Dust and fume extraction assets: / Fixed extraction systems (incorporating ducting, extraction arms etc) | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Dust and fume extraction assets: / Mobile | 7 years | 14.29% | 28.57% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Floor sweepers/scrubbers | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Glycol and water mixing plant assets | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Glycol and water mixing plant assets / Hose reels | 7 years | 14.29% | 28.57% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Power supply assets (including generators) – use any relevant determinations made for Power supply assets in Table B | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Racks and shelving | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Stillages, storage bins tote boxes and trolleys | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Storage tanks: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Storage tanks: / Fuel storage tanks | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Storage tanks: / Gas storage tanks (including argon, compressed natural gas (CNG) and nitrogen gas storage tanks) | 30 years | 3.33% | 6.67% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Storage tanks: / Lubricant storage tanks | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Tooling: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Tooling: / Dies (for press brakes) | 12 years | 8.33% | 16.67% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Tooling: / Jigs and fixtures | 7 years | 14.29% | 28.57% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Tooling: / Moulds (including fibreglass moulds) | 7 years | 14.29% | 28.57% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Vehicle platforms and runways (used in wheel alignment etc) | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Ventilation fans | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Waste oil collection and storage assets | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Waste water treatment assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Waste water treatment assets: / Meters | 5 years | 20.00% | 40.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Waste water treatment assets: / Pipework | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Waste water treatment assets: / Pumps | 12 years | 8.33% | 16.67% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Waste water treatment assets: / Separators | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Waste water treatment assets: / Tanks | 30 years | 3.33% | 6.67% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Water demineralising plant assets (including containers, pipework, pumps and reverse osmosis assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Weighers: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Weighers: / Fixed (weighbridges) | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Ancillary and support assets: / Weighers: / Mobile | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Adhesive mixing and dispensing assets | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Alignment, positioning and verification assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Alignment, positioning and verification assets: / Axle and frame alignment assets (including frame presses) | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Alignment, positioning and verification assets: / Computer and laser based contact and non- contact devices (including ‘Faro arms’) | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Alignment, positioning and verification assets: / Dumpy levels | 7 years | 14.29% | 28.57% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Coupling machines | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Power tool and rivet gun power packs and rigs | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Power tools: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Power tools: / Nut runners (including cables and controllers) | 7 years | 14.29% | 28.57% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Power tools: / Others (including angle grinders, fastening tools, hand operated saws, rivet guns etc) – see Table B Power tools, hand tools | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Sawing machines (including aluminium cutting saws, bandsaws and cold saws) | 12 years | 8.33% | 16.67% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Welding assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Welding assets: / Automatic stud well bowl feeder units | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Welding assets: / Handheld and portable spot welders (including transformers) | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Welding assets: / MIG welders | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Welding assets: / Stud welding machines | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Welding assets: / TIG welders | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Welding assets: / Vertical electric welders (pedestal welders) | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Assembly and body shop assets: / Welding assets: / Welding reels | 7 years | 14.29% | 28.57% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: / Conveyors: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: / Conveyors: / Floor and in-floor conveyors (including belt conveyors, skid conveyors, skillet conveyors, slat conveyors, turntables etc) | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: / Conveyors: / Monorails and overhead conveyors | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: / Cranes (including gantry cranes, overhead cranes and turnover cranes) | 25 years | 4.00% | 8.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: / Elevating work platforms – see Table A Rental and hiring services (except real estate) (66110 to 66400), Elevating work platforms (EWPs) | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: / Forklift trucks (including pallet jacks, pallet stackers and reach trucks) – see Table B Forklifts | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: / Mobile hoists/floor cranes (including engine and radiator hoists) | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: / Pushers, rollers and tug units | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Handling assets: / Vehicle hoists/lifters (including column lifters and post hoists) | 25 years | 4.00% | 8.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Paint shop assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Paint shop assets: / Booths and ovens: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Paint shop assets: / Booths and ovens: / Generally (including baking/curing ovens, paint mixing booths/rooms, pre-treatment/sanding booths and wash down booths including cab degreasers) | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Paint shop assets: / Booths and ovens: / Spray booths and combination spray booth baking ovens | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Paint shop assets: / Dip tank electro coating assets (including alkaline cleaner tanks, electro application tanks, surface conditioner tanks and water rinse tanks) | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Paint shop assets: / Infrared paint dryers | 7 years | 14.29% | 28.57% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Paint shop assets: / Paint proportioning assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Paint shop assets: / Paint proportioning assets: / Electronic component proportioning systems | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Paint shop assets: / Paint proportioning assets: / Paint tinting and colour blending machines | 5 years | 20.00% | 40.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Bending machines: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Bending machines: / Chassis rail/frame bending machines | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Bending machines: / Folders (including pan brakes) | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Bending machines: / Press brakes (brake presses) | 25 years | 4.00% | 8.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Bending machines: / Tube benders | 12 years | 8.33% | 16.67% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Chassis rail drilling/punching machines: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Chassis rail drilling/punching machines: / Chassis rail processing machines (incorporating drilling and profiling) | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Chassis rail drilling/punching machines: / Punching machines | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / CNC milling machines | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / CNC routing machines | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Drilling machines (bench drills, pedestal drills and pillar drills) | 12 years | 8.33% | 16.67% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Guillotine shears | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Lathes: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Lathes: / CNC lathes | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Lathes: / Conventional or non-CNC lathes | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Plasma cutters | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Scribing and number stamping machines (including chassis number scribing/stamping machines and vehicle identification number stamping machines) | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Air conditioning charging units | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Brake testing units | 20 years | 5.00% | 10.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Bus and truck wash assets – see Table A Automotive body, paint and interior repair n.e.c. (94129), large vehicle wash assets | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Electrical systems testing assets | 15 years | 6.67% | 13.33% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Fluid filling assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Fluid filling assets: / Fluid filling machines (including coolant, fuel, lubrication and power steering fluid filling machines) | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Fluid filling assets: / Urea dispensing systems (incorporating intermediate bulk containers, hose reels, meters and pumps) | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Headlight aiming equipment | 10 years | 10.00% | 20.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Torque testing machines (including chassis dynamometers and engine dynamometers) | 12 years | 8.33% | 16.67% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Wheel alignment assets: | | | |
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Wheel alignment assets: / Wheel alignment lasers | 4 years | 25.00% | 50.00% | 1 July 2011
+Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Trim and final shop assets: / Wheel alignment assets: / Wheel alignment systems (incorporating alignment machines housing computer hardware and software, probes and sensors) | 15 years | 6.67% | 13.33% | 1 July 2011
+Metal stamping and blanking assets: | | | |
+Metal stamping and blanking assets: / Ancillary assets (including building and services assets): | | | |
+Metal stamping and blanking assets: / Ancillary assets (including building and services assets): / Air compressors | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Ancillary assets (including building and services assets): / Air dryers | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Ancillary assets (including building and services assets): / Generally (including air conditioning assets, air cooling assets, fencing (removable), fire control and alarm assets, power supply assets) – use any applicable determination in Table B | | | |
+Metal stamping and blanking assets: / Ancillary assets (including building and services assets): / Steelwork structures (including access and storage platforms, bollards, ladders etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Blanking and stamping press assets: | | | |
+Metal stamping and blanking assets: / Blanking and stamping press assets: / Presses (including production presses and production supporting presses such as die spotting presses, tryout presses etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Blanking and stamping press assets: / Support assets (including decoilers, loaders, unloaders, pallet transfer, sheet feeders, crane savers etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Die change over assets (die trailers, die trucks, die trolleys etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Die racks | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Dies (stamping dies) | 7 years | 14.29% | 28.57% | 1 July 2012
+Metal stamping and blanking assets: / Inspection and measuring assets (including accelerometers, accuracy measurement tools, desktop friction and wear testers, dualscopes and measuring and evaluation machines generally) | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: | | | |
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Benches and cutting tables (including magnetic field benches, marking out tables, welding benches etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Cutting machines (including gas cutters and plasma cutting machines) | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Exhaust fans | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Fixtures (including rotary work fixtures and set up fixtures) | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Hand tools (including portable power tools, sealer guns and spray guns) | 3 years | 33.33% | 66.67% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Heat treatment assets (including furnaces and quench tanks etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Lifting equipment (including vertical elevators and hoists) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Maintenance machines and tool room assets generally (including boring machines, folding machines, grinding machines, guillotines, hydraulic benders and presses, lapping machines, lathes, milling machines, NC machines and pipe threaders) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Measuring assets (including height gauges, micrometers, surface measuring machines and vernier calipers) | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Washing machines and tanks (including ultrasonic cleaners/washers and other hot solvent small parts washing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Maintenance workshop and tool room assets: / Welders (including ARC welders, MIG welders and TIG welders) | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Pallets | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Production control systems | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Robots (including press tending robots, press transfer robots and pressed parts rack loading robots) | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Scrap metal baling assets (including balers and conveying systems) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Steel coil and steel sheet handling assets: | | | |
+Metal stamping and blanking assets: / Steel coil and steel sheet handling assets: / Automated guided vehicles (AGVs) (used in blank/stamped parts handling) | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Steel coil and steel sheet handling assets: / Coil loaders (including hydraulic carts, lift tables and platforms) | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Steel coil and steel sheet handling assets: / Conveyors | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Steel coil and steel sheet handling assets: / Forklifts – see Table B | | | |
+Metal stamping and blanking assets: / Steel coil and steel sheet handling assets: / Overhead cranes and hoists | 20 years | 5.00% | 10.00% | 1 July 2012
+Metal stamping and blanking assets: / Steel coil and steel sheet processing assets: | | | |
+Metal stamping and blanking assets: / Steel coil and steel sheet processing assets: / Blank/sheet turnover machines | 15 years | 6.67% | 13.33% | 1 July 2012
+Metal stamping and blanking assets: / Steel coil and steel sheet processing assets: / Destacking/stacking machines | 10 years | 10.00% | 20.00% | 1 July 2012
+Metal stamping and blanking assets: / Steel coil and steel sheet processing assets: / Washing machines | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: | | | |
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: | | | |
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Air compressors | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Air curtains | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Control systems (including mimic panels) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Cooling water supply assets (including cooling towers, storage tanks and water conditioning/dosing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Dust and fume extraction assets (including ducting, extraction fans, hoppers etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Engine lubrication storage, filtration and feed plant assets | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Engine pallets | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Lighting (production) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Racks, shelving, stands and tables generally | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Robots generally (including assembly robots, gantry robots and pick and place robots etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Safety assets generally (including guarding, matting, railing etc, where separately identifiable and not incorporated into an existing asset) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Stillages, storage bins, tote boxes and trolleys | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Swarf and machining line coolant separation and refrigeration systems (incorporating coolant circulation pumps and tanks, outfeed extractors, refrigeration chiller packs, separators and swarf tote excavators) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Tooling assets: | | | |
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Tooling assets: / Electronic and laser tool pre-setting and setting machines (including coordinate measurement machines) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Ancillary and support assets: / Tooling assets: / Tooling (for drills, lathes, mills etc) | 3 years | 33.33% | 66.67% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Engine assembly and engine component sub- assembly assets: | | | |
+Motor car engine assembly and manufacturing assets: / Engine assembly and engine component sub- assembly assets: / Adhesive application assets used in form-in- place gasket systems etc (including adhesive unloading equipment and robots) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Engine assembly and engine component sub- assembly assets: / Assembly and sub-assembly assets generally (including assembly machines, balancing machines, bearing shell detection assets, crank and piston spin test machines, oil filling machines etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Engine assembly and engine component sub- assembly assets: / Coding assets (including automated ink or spray jet coders and automated pin coding stamping machines) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Engine assembly and engine component sub- assembly assets: / Nut runner assets: | | | |
+Motor car engine assembly and manufacturing assets: / Engine assembly and engine component sub- assembly assets: / Nut runner assets: / Automated nut runner and fastening systems (incorporating cables and controllers, and including bolt torquing robots) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Engine assembly and engine component sub- assembly assets: / Nut runner assets: / Manually operated nut runners (pre-torque applications etc) | 5 years | 20.00% | 40.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Engine assembly and engine component sub- assembly assets: / Power tools generally | 3 years | 33.33% | 66.67% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Engine component machining line assets (including broaching machines, deburring machines, gauging machines, honing machines, leak testing machines, machining centres, pallet loading systems, surface grinding machines, transfer machines, washing machines etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Engine function testing assets (including cold test machines, engine dynamometers, engine ignition testing machines and hot test machines) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Handling assets: | | | |
+Motor car engine assembly and manufacturing assets: / Handling assets: / Conveyors: | | | |
+Motor car engine assembly and manufacturing assets: / Handling assets: / Conveyors: / Elevating conveyors (including engine block elevating conveying assets etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Handling assets: / Conveyors: / Floor and in-floor standalone conveyors (including belt conveyors, infeed and outfeed conveyors) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Handling assets: / Conveyors: / Monorails and overhead conveyors | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Handling assets: / Cranes and hoists (including bridge cranes, gantry cranes, overhead cranes and turnover cranes) | 20 years | 5.00% | 10.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Handling assets: / Lifting fixtures, magnets, slings etc | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Quality control assets generally (including cylinder head thickness testers, digital torque wrenches, gauges, inspection equipment generally, measuring equipment generally, microscopes, scales, scanners, testing equipment generally, thermometers, vibration meters etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Toolroom assets: | | | |
+Motor car engine assembly and manufacturing assets: / Toolroom assets: / Benches and cutting tables (including magnetic field benches, marking out tables, welding benches etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Toolroom assets: / Degreasing plant systems (incorporating float valves, hoists, monorails, pumps etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Toolroom assets: / Fixtures (including rotary work fixtures and set up fixtures) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Toolroom assets: / Heat treatment assets (including furnaces and quench tanks) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Toolroom assets: / Tool grinding and maintenance machines (including boring machines, broach sharpening machines, grinding machines, guillotines, lapping machines, milling machines, toolroom lathes etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Toolroom assets: / Washing machines and tanks (including ultrasonic cleaners/washers and other hot solvent small parts washing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Toolroom assets: / Welders (ARC welders, MIG welders etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Waste treatment assets: | | | |
+Motor car engine assembly and manufacturing assets: / Waste treatment assets: / Laboratory equipment (including balancers, chart recorders, dryers, pH sampling devices, rotameters and simulators etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Waste treatment assets: / Meters and sensors (including chart recorders, dosing meters, level meters, level sensors and pH method meters and sensors etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Waste treatment assets: / Pumps (including dosing pumps, recirculation pumps etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Waste treatment assets: / Tanks and pools (including recycling tanks, sludge tanks and pools, storage tanks etc) | 20 years | 5.00% | 10.00% | 1 July 2012
+Motor car engine assembly and manufacturing assets: / Waste treatment assets: / Waste treatment assets generally (including dosing systems, flotation waste treatment systems, heaters, oil removing systems, skimmers and sludge presses etc) | 15 years | 6.67% | 13.33% | 1 July 2012
+Motor vehicle manufacturing plant (not listed elsewhere): | | | |
+Motor vehicle manufacturing plant (not listed elsewhere): / Basic machinery | 10 years | 10.00% | 20.00% | 1 January 2001
+Motor vehicle manufacturing plant (not listed elsewhere): / Tooling (i.e. jigs, dies, press tools and specialty attachments such as working heads and work-holding tools) | 3 years | 33.33% | 66.67% | 1 January 2001
+Non-ferrous metal casting assets – see Table A Non-ferrous metal casting (21410) | | | |
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/bus-and-truck-manufacturing-air-compressors/
+- Battery assets for warehouse vehicles (including pallet trucks and forklifts) – see Table B Warehouse and distribution centre equipment and machines: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/
+- Brake hose cleaning machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/brake-hose-cleaning-machines/
+- Calibration assets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/calibration-assets/
+- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/bus-and-truck-manufacturing-control-systems/
+- Door controls and motor drive systems for rapid roller doors (incorporating chains, controls, motors and sensors, but excluding doors): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/door-controls-and-motor-drive-systems-for-rapid-roller-doors/
+- Fixed extraction systems (incorporating ducting, extraction arms etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/fixed-extraction-systems/
+- Mobile: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/dust-and-fume-extraction-assets-mobile/
+- Floor sweepers/scrubbers: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/floor-sweepers-scrubbers/
+- Glycol and water mixing plant assets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/glycol-and-water-mixing-plant-assets/
+- Hose reels: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/hose-reels/
+- Racks and shelving: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/racks-and-shelving/
+- Stillages, storage bins tote boxes and trolleys: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/stillages-storage-bins-tote-boxes-and-trolleys-b3f8d2/
+- Fuel storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/fuel-storage-tanks/
+- Gas storage tanks (including argon, compressed natural gas (CNG) and nitrogen gas storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/gas-storage-tanks/
+- Lubricant storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/lubricant-storage-tanks/
+- Dies (for press brakes): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/bus-and-truck-manufacturing-dies/
+- Jigs and fixtures: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/jigs-and-fixtures/
+- Moulds (including fibreglass moulds): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/moulds/
+- Vehicle platforms and runways (used in wheel alignment etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/vehicle-platforms-and-runways/
+- Ventilation fans: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/ventilation-fans/
+- Waste oil collection and storage assets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/waste-oil-collection-and-storage-assets/
+- Meters: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/meters/
+- Pipework: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/pipework/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/bus-and-truck-manufacturing-pumps/
+- Separators: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/separators/
+- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/tanks/
+- Water demineralising plant assets (including containers, pipework, pumps and reverse osmosis assets): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/water-demineralising-plant-assets/
+- Fixed (weighbridges): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/fixed/
+- Mobile: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/weighers-mobile/
+- Adhesive mixing and dispensing assets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/adhesive-mixing-and-dispensing-assets/
+- Axle and frame alignment assets (including frame presses): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/axle-and-frame-alignment-assets/
+- Computer and laser based contact and non- contact devices (including ‘Faro arms’): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/computer-and-laser-based-contact-and-non-contact-devices/
+- Dumpy levels: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/dumpy-levels/
+- Coupling machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/coupling-machines/
+- Power tool and rivet gun power packs and rigs: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/power-tool-and-rivet-gun-power-packs-and-rigs/
+- Nut runners (including cables and controllers): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/nut-runners/
+- Sawing machines (including aluminium cutting saws, bandsaws and cold saws): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/sawing-machines/
+- Automatic stud well bowl feeder units: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/automatic-stud-well-bowl-feeder-units/
+- Handheld and portable spot welders (including transformers): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/handheld-and-portable-spot-welders/
+- MIG welders: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/mig-welders/
+- Stud welding machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/stud-welding-machines/
+- TIG welders: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/tig-welders/
+- Vertical electric welders (pedestal welders): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/vertical-electric-welders/
+- Welding reels: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/welding-reels/
+- Floor and in-floor conveyors (including belt conveyors, skid conveyors, skillet conveyors, slat conveyors, turntables etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/floor-and-in-floor-conveyors/
+- Monorails and overhead conveyors: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/bus-and-truck-manufacturing-monorails-and-overhead-conveyors/
+- Cranes (including gantry cranes, overhead cranes and turnover cranes): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/cranes/
+- Elevating work platforms – see Table A Rental and hiring services (except real estate) (66110 to 66400), Elevating work platforms (EWPs): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/
+- Forklift trucks (including pallet jacks, pallet stackers and reach trucks) – see Table B Forklifts: https://duguid.com.au/tools/depreciation-rates/asset/forklifts/
+- Mobile hoists/floor cranes (including engine and radiator hoists): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/mobile-hoists-floor-cranes/
+- Pushers, rollers and tug units: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/pushers-rollers-and-tug-units/
+- Vehicle hoists/lifters (including column lifters and post hoists): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/vehicle-hoists-lifters/
+- Generally (including baking/curing ovens, paint mixing booths/rooms, pre-treatment/sanding booths and wash down booths including cab degreasers): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/generally/
+- Spray booths and combination spray booth baking ovens: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/spray-booths-and-combination-spray-booth-baking-ovens/
+- Dip tank electro coating assets (including alkaline cleaner tanks, electro application tanks, surface conditioner tanks and water rinse tanks): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/dip-tank-electro-coating-assets/
+- Infrared paint dryers: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/infrared-paint-dryers/
+- Electronic component proportioning systems: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/electronic-component-proportioning-systems/
+- Paint tinting and colour blending machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/paint-tinting-and-colour-blending-machines/
+- Chassis rail/frame bending machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/chassis-rail-frame-bending-machines/
+- Folders (including pan brakes): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/folders/
+- Press brakes (brake presses): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/press-brakes/
+- Tube benders: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/tube-benders/
+- Chassis rail processing machines (incorporating drilling and profiling): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/chassis-rail-processing-machines/
+- Punching machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/punching-machines/
+- CNC milling machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/cnc-milling-machines/
+- CNC routing machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/cnc-routing-machines/
+- Drilling machines (bench drills, pedestal drills and pillar drills): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/drilling-machines/
+- Guillotine shears: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/guillotine-shears/
+- CNC lathes: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/cnc-lathes/
+- Conventional or non-CNC lathes: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/conventional-or-non-cnc-lathes/
+- Plasma cutters: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/plasma-cutters/
+- Scribing and number stamping machines (including chassis number scribing/stamping machines and vehicle identification number stamping machines): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/scribing-and-number-stamping-machines/
+- Air conditioning charging units: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/air-conditioning-charging-units/
+- Brake testing units: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/brake-testing-units/
+- Bus and truck wash assets – see Table A Automotive body, paint and interior repair n.e.c. (94129), large vehicle wash assets: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/
+- Electrical systems testing assets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/electrical-systems-testing-assets/
+- Fluid filling machines (including coolant, fuel, lubrication and power steering fluid filling machines): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/fluid-filling-machines/
+- Urea dispensing systems (incorporating intermediate bulk containers, hose reels, meters and pumps): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/urea-dispensing-systems/
+- Headlight aiming equipment: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/headlight-aiming-equipment/
+- Torque testing machines (including chassis dynamometers and engine dynamometers): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/torque-testing-machines/
+- Wheel alignment lasers: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/wheel-alignment-lasers/
+- Wheel alignment systems (incorporating alignment machines housing computer hardware and software, probes and sensors): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/wheel-alignment-systems/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-air-compressors/
+- Air dryers: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/air-dryers/
+- Steelwork structures (including access and storage platforms, bollards, ladders etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/steelwork-structures/
+- Presses (including production presses and production supporting presses such as die spotting presses, tryout presses etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/presses/
+- Support assets (including decoilers, loaders, unloaders, pallet transfer, sheet feeders, crane savers etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/support-assets/
+- Die change over assets (die trailers, die trucks, die trolleys etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/die-change-over-assets/
+- Die racks: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/die-racks/
+- Dies (stamping dies): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-dies/
+- Inspection and measuring assets (including accelerometers, accuracy measurement tools, desktop friction and wear testers, dualscopes and measuring and evaluation machines generally): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/inspection-and-measuring-assets/
+- Benches and cutting tables (including magnetic field benches, marking out tables, welding benches etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-benches-and-cutting-tables/
+- Cutting machines (including gas cutters and plasma cutting machines): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/cutting-machines/
+- Exhaust fans: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/exhaust-fans/
+- Fixtures (including rotary work fixtures and set up fixtures): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-fixtures/
+- Hand tools (including portable power tools, sealer guns and spray guns): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/hand-tools/
+- Heat treatment assets (including furnaces and quench tanks etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-heat-treatment-assets/
+- Lifting equipment (including vertical elevators and hoists): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/lifting-equipment/
+- Maintenance machines and tool room assets generally (including boring machines, folding machines, grinding machines, guillotines, hydraulic benders and presses, lapping machines, lathes, milling machines, NC machines and pipe threaders): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/maintenance-machines-and-tool-room-assets-generally/
+- Measuring assets (including height gauges, micrometers, surface measuring machines and vernier calipers): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/measuring-assets/
+- Washing machines and tanks (including ultrasonic cleaners/washers and other hot solvent small parts washing assets): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-washing-machines-and-tanks/
+- Welders (including ARC welders, MIG welders and TIG welders): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-welders/
+- Pallets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/pallets/
+- Production control systems: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/production-control-systems/
+- Robots (including press tending robots, press transfer robots and pressed parts rack loading robots): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/robots/
+- Scrap metal baling assets (including balers and conveying systems): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/scrap-metal-baling-assets/
+- Automated guided vehicles (AGVs) (used in blank/stamped parts handling): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/automated-guided-vehicles/
+- Coil loaders (including hydraulic carts, lift tables and platforms): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/coil-loaders/
+- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/conveyors/
+- Overhead cranes and hoists: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/overhead-cranes-and-hoists/
+- Blank/sheet turnover machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/blank-sheet-turnover-machines/
+- Destacking/stacking machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/destacking-stacking-machines/
+- Washing machines: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/washing-machines/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-air-compressors/
+- Air curtains: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/air-curtains/
+- Control systems (including mimic panels): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-control-systems/
+- Cooling water supply assets (including cooling towers, storage tanks and water conditioning/dosing assets): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/cooling-water-supply-assets/
+- Dust and fume extraction assets (including ducting, extraction fans, hoppers etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/dust-and-fume-extraction-assets/
+- Engine lubrication storage, filtration and feed plant assets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/engine-lubrication-storage-filtration-and-feed-plant-assets/
+- Engine pallets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/engine-pallets/
+- Lighting (production): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/lighting/
+- Racks, shelving, stands and tables generally: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/racks-shelving-stands-and-tables-generally/
+- Robots generally (including assembly robots, gantry robots and pick and place robots etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/robots-generally/
+- Safety assets generally (including guarding, matting, railing etc, where separately identifiable and not incorporated into an existing asset): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/safety-assets-generally/
+- Stillages, storage bins, tote boxes and trolleys: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/stillages-storage-bins-tote-boxes-and-trolleys-1f758b/
+- Swarf and machining line coolant separation and refrigeration systems (incorporating coolant circulation pumps and tanks, outfeed extractors, refrigeration chiller packs, separators and swarf tote excavators): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/swarf-and-machining-line-coolant-separation-and/
+- Electronic and laser tool pre-setting and setting machines (including coordinate measurement machines): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/electronic-and-laser-tool-pre-setting-and-setting-machines/
+- Tooling (for drills, lathes, mills etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-tooling/
+- Adhesive application assets used in form-in- place gasket systems etc (including adhesive unloading equipment and robots): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/adhesive-application-assets-used-in-form-in-place-gasket/
+- Assembly and sub-assembly assets generally (including assembly machines, balancing machines, bearing shell detection assets, crank and piston spin test machines, oil filling machines etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/assembly-and-sub-assembly-assets-generally/
+- Coding assets (including automated ink or spray jet coders and automated pin coding stamping machines): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/coding-assets/
+- Automated nut runner and fastening systems (incorporating cables and controllers, and including bolt torquing robots): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/automated-nut-runner-and-fastening-systems/
+- Manually operated nut runners (pre-torque applications etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/manually-operated-nut-runners/
+- Power tools generally: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/power-tools-generally/
+- Engine component machining line assets (including broaching machines, deburring machines, gauging machines, honing machines, leak testing machines, machining centres, pallet loading systems, surface grinding machines, transfer machines, washing machines etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/engine-component-machining-line-assets/
+- Engine function testing assets (including cold test machines, engine dynamometers, engine ignition testing machines and hot test machines): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/engine-function-testing-assets/
+- Elevating conveyors (including engine block elevating conveying assets etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/elevating-conveyors/
+- Floor and in-floor standalone conveyors (including belt conveyors, infeed and outfeed conveyors): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/floor-and-in-floor-standalone-conveyors/
+- Monorails and overhead conveyors: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-monorails-and-overhead-conveyors/
+- Cranes and hoists (including bridge cranes, gantry cranes, overhead cranes and turnover cranes): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/cranes-and-hoists/
+- Lifting fixtures, magnets, slings etc: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/lifting-fixtures-magnets-slings-etc/
+- Quality control assets generally (including cylinder head thickness testers, digital torque wrenches, gauges, inspection equipment generally, measuring equipment generally, microscopes, scales, scanners, testing equipment generally, thermometers, vibration meters etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/quality-control-assets-generally/
+- Benches and cutting tables (including magnetic field benches, marking out tables, welding benches etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-benches-and-cutting-tables/
+- Degreasing plant systems (incorporating float valves, hoists, monorails, pumps etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/degreasing-plant-systems/
+- Fixtures (including rotary work fixtures and set up fixtures): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-fixtures/
+- Heat treatment assets (including furnaces and quench tanks): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-heat-treatment-assets/
+- Tool grinding and maintenance machines (including boring machines, broach sharpening machines, grinding machines, guillotines, lapping machines, milling machines, toolroom lathes etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/tool-grinding-and-maintenance-machines/
+- Washing machines and tanks (including ultrasonic cleaners/washers and other hot solvent small parts washing assets): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-washing-machines-and-tanks/
+- Welders (ARC welders, MIG welders etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-welders/
+- Laboratory equipment (including balancers, chart recorders, dryers, pH sampling devices, rotameters and simulators etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/laboratory-equipment/
+- Meters and sensors (including chart recorders, dosing meters, level meters, level sensors and pH method meters and sensors etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/meters-and-sensors/
+- Pumps (including dosing pumps, recirculation pumps etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-pumps/
+- Tanks and pools (including recycling tanks, sludge tanks and pools, storage tanks etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/tanks-and-pools/
+- Waste treatment assets generally (including dosing systems, flotation waste treatment systems, heaters, oil removing systems, skimmers and sludge presses etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/waste-treatment-assets-generally/
+- Basic machinery: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/basic-machinery/
+- Tooling (i.e. jigs, dies, press tools and specialty attachments such as working heads and work-holding tools): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-vehicle-manufacturing-tooling/
+- Non-ferrous metal casting assets – see Table A Non-ferrous metal casting (21410): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -1,0 +1,76 @@
+# Hat pressing machines effective life: 20 years, Clothing
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/hat-pressing-machines/
+
+> Hat pressing machines: effective life 20 years, prime cost 5.00%, diminishing value 10.00%, last updated 1 July 2022 (Table A, 2025 determination).
+
+# Hat pressing machines
+
+‘Hat pressing machines’, for an asset used in Clothing manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2022.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Hat pressing machines
+Table | Table A (industry categories), MANUFACTURING / Clothing manufacturing, ANZSIC 13510
+Effective life | 20 years
+Prime cost rate | 5.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 10.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2022
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Clothing manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2022. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Clothing manufacturing
+
+Row | Life | Prime cost | Diminishing value
+Air compressors | 10 years | 10.00% | 20.00%
+Cutting machines and tables | 20 years | 5.00% | 10.00%
+Dyeing machines | 10 years | 10.00% | 20.00%
+Fusing machines and presses | 8 years | 12.50% | 25.00%
+Gas boilers (steam) | 15 years | 6.67% | 13.33%
+Hat pressing machines (this page) | 20 years | 5.00% | 10.00%
+Lights – portable | 5 years | 20.00% | 40.00%
+Plotters and printers | 8 years | 12.50% | 25.00%
+Pressing equipment (including ironing tables and steam boilers) | 10 years | 10.00% | 20.00%
+Steamers | 2 years | 50.00% | 100.00%
+Stud setting machines | 20 years | 5.00% | 10.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/air-compressors/
+- Cutting machines and tables: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/cutting-machines-and-tables/
+- Dyeing machines: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/dyeing-machines/
+- Fusing machines and presses: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/fusing-machines-and-presses/
+- Gas boilers (steam): https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/gas-boilers/
+- Lights – portable: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/lights-portable/
+- Plotters and printers: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/plotters-and-printers/
+- Pressing equipment (including ironing tables and steam boilers): https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/pressing-equipment/
+- Steamers: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/steamers/
+- Stud setting machines: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/stud-setting-machines/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -1,0 +1,199 @@
+# AGRICULTURE, FORESTRY effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/
+
+> AGRICULTURE, FORESTRY AND FISHING, Table: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# AGRICULTURE, FORESTRY AND FISHING
+
+73 effective lives in Table A of the Commissioner’s 2025 effective life determination for assets used across the AGRICULTURE, FORESTRY AND FISHING division.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+All terrain vehicles (ATVs) used in primary production activities | 5 years | 20.00% | 40.00% | 1 July 2007
+Environmental control structures (including glasshouses, hothouses, germination rooms, plastic clad tunnels and igloos) | 20 years | 5.00% | 10.00% | 1 July 2006
+Fences (excluding stockyard, pen and portable fences): Being fencing constructed at a time for a particular function (e.g. a line of fencing forming a side of a boundary or paddock) not being in the nature of a repair: | | | |
+Fences (excluding stockyard, pen and portable fences): Being fencing constructed at a time for a particular function (e.g. a line of fencing forming a side of a boundary or paddock) not being in the nature of a repair: / General (incorporating anchor assemblies, intermediate posts, rails, wires, wire mesh and droppers) | 30 years | 3.33% | 6.67% | 1 July 2008
+Fences (excluding stockyard, pen and portable fences): Being fencing constructed at a time for a particular function (e.g. a line of fencing forming a side of a boundary or paddock) not being in the nature of a repair: / Electric | 20 years | 5.00% | 10.00% | 1 July 2008
+Fence energisers for electric fences: | | | |
+Fence energisers for electric fences: / Mains power | 10 years | 10.00% | 20.00% | 1 July 2008
+Fence energisers for electric fences: / Portable | 5 years | 20.00% | 40.00% | 1 July 2008
+Fertigation systems: | | | |
+Fertigation systems: / Pumps | 3 years | 33.33% | 66.67% | 1 July 2008
+Fertigation systems: / Tanks | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: | | | |
+Grading and packing line assets used on farm: / Banana assets: | | | |
+Grading and packing line assets used on farm: / Banana assets: / Air rams | 3 years | 33.33% | 66.67% | 1 July 2008
+Grading and packing line assets used on farm: / Banana assets: / Bunch lines | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: / Banana assets: / Choppers/mulchers | 8 years | 12.50% | 25.00% | 1 July 2008
+Grading and packing line assets used on farm: / Banana assets: / Rails (including points) | 15 years | 6.67% | 13.33% | 1 July 2008
+Grading and packing line assets used on farm: / Banana assets: / Scrap conveyors | 5 years | 20.00% | 40.00% | 1 July 2008
+Grading and packing line assets used on farm: / Banana assets: / Tops | 8 years | 12.50% | 25.00% | 1 July 2008
+Grading and packing line assets used on farm: / Banana assets: / Water troughs | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: / Coffee assets: | | | |
+Grading and packing line assets used on farm: / Coffee assets: / Dryers | 15 years | 6.67% | 13.33% | 1 July 2008
+Grading and packing line assets used on farm: / Coffee assets: / Fermentation tanks | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: / Coffee assets: / Hullers | 12 years | 8.33% | 16.67% | 1 July 2008
+Grading and packing line assets used on farm: / Coffee assets: / Processors (including pulpers) | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: / Coffee assets: / Washers/separators | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: / General assets: | | | |
+Grading and packing line assets used on farm: / General assets: / Bin tippers | 15 years | 6.67% | 13.33% | 1 July 2008
+Grading and packing line assets used on farm: / General assets: / Conveyors (including elevators) | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: / General assets: / Drying tunnels | 15 years | 6.67% | 13.33% | 1 July 2008
+Grading and packing line assets used on farm: / General assets: / Fungicide units | 12 years | 8.33% | 16.67% | 1 July 2008
+Grading and packing line assets used on farm: / General assets: / Receival hoppers (including water dumps) | 15 years | 6.67% | 13.33% | 1 July 2008
+Grading and packing line assets used on farm: / General assets: / Tables (including packing and sorting tables) | 15 years | 6.67% | 13.33% | 1 July 2008
+Grading and packing line assets used on farm: / General assets: / Washing assets (including brush and barrel washers) | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: / General assets: / Waxing assets | 12 years | 8.33% | 16.67% | 1 July 2008
+Grading and packing line assets used on farm: / Graders: | | | |
+Grading and packing line assets used on farm: / Graders: / Electronic | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: / Graders: / Mechanical | 15 years | 6.67% | 13.33% | 1 July 2008
+Grading and packing line assets used on farm: / Graders: / Optical | 8 years | 12.50% | 25.00% | 1 July 2008
+Grading and packing line assets used on farm: / Labelling assets: | | | |
+Grading and packing line assets used on farm: / Labelling assets: / Labelling applicators (including in line labellers) | 8 years | 12.50% | 25.00% | 1 July 2008
+Grading and packing line assets used on farm: / Labelling assets: / Labelling guns | 3 years | 33.33% | 66.67% | 1 July 2008
+Grading and packing line assets used on farm: / Olive oil processing assets – see Table A Oil and fat manufacturing (11500) | | | |
+Grading and packing line assets used on farm: / Packing assets (including bagging and wrapping machines) | 10 years | 10.00% | 20.00% | 1 July 2008
+Grading and packing line assets used on farm: / Scales (excluding platform scales) | 5 years | 20.00% | 40.00% | 1 July 2008
+Grading and packing line assets used on farm: / Tree nut assets: | | | |
+Grading and packing line assets used on farm: / Tree nut assets: / De-husking units | 8 years | 12.50% | 25.00% | 1 July 2008
+Grading and packing line assets used on farm: / Tree nut assets: / Drying silos | 20 years | 5.00% | 10.00% | 1 July 2008
+Grading and packing line assets used on farm: / Tree nut assets: / Trommels | 15 years | 6.67% | 13.33% | 1 July 2008
+Livestock grids | 40 years | 2.50% | 5.00% | 1 July 2008
+Motorcycles used in primary production activities | 5 years | 20.00% | 40.00% | 1 July 2007
+Post drivers/hole diggers | 10 years | 10.00% | 20.00% | 1 July 2008
+Protective structures (including shade houses and netting constructions) | 20 years | 5.00% | 10.00% | 1 July 2006
+Sheds on land that is used for agricultural or pastoral operations (including machinery sheds, workshop sheds and farm production sheds) | 40 years | 2.50% | 5.00% | 1 January 2007
+Tractors | 12 years | 8.33% | 16.67% | 1 July 2007
+Water assets: | | | |
+Water assets: / Bores | 30 years | 3.33% | 6.67% | 1 July 2008
+Water assets: / Dams (including earth or rock fill and turkey nests) | 40 years | 2.50% | 5.00% | 1 July 2008
+Water assets: / Dam liners and covers | 20 years | 5.00% | 10.00% | 1 July 2008
+Water assets: / Effluent channels | 40 years | 2.50% | 5.00% | 1 July 2008
+Water assets: / Effluent recycle tanks | 12 years | 8.33% | 16.67% | 1 July 2008
+Water assets: / Effluent sedimentation ponds | 40 years | 2.50% | 5.00% | 1 July 2008
+Water assets: / Irrigation assets: | | | |
+Water assets: / Irrigation assets: / Drip, micro spray or mini sprinkler systems: | | | |
+Water assets: / Irrigation assets: / Drip, micro spray or mini sprinkler systems: / Above ground polyethylene (PE) pipes | 10 years | 10.00% | 20.00% | 1 July 2008
+Water assets: / Irrigation assets: / Drip, micro spray or mini sprinkler systems: / Drippers, micro sprays and mini sprinklers | 5 years | 20.00% | 40.00% | 1 July 2008
+Water assets: / Irrigation assets: / Drip, micro spray or mini sprinkler systems: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2008
+Water assets: / Irrigation assets: / Drip, micro spray or mini sprinkler systems: / Filtration systems | 15 years | 6.67% | 13.33% | 1 July 2008
+Water assets: / Irrigation assets: / Drip, micro spray or mini sprinkler systems: / Pumps | 12 years | 8.33% | 16.67% | 1 July 2008
+Water assets: / Irrigation assets: / Drip, micro spray or mini sprinkler systems: / Variable speed drives (VSDs) | 15 years | 6.67% | 13.33% | 1 July 2008
+Water assets: / Irrigation assets: / Irrigation earth channels | 40 years | 2.50% | 5.00% | 1 July 2008
+Water assets: / Irrigation assets: / Irrigators (including centre pivot, lateral and travelling guns): | | | |
+Water assets: / Irrigation assets: / Irrigators (including centre pivot, lateral and travelling guns): / Fresh water | 20 years | 5.00% | 10.00% | 1 July 2008
+Water assets: / Irrigation assets: / Irrigators (including centre pivot, lateral and travelling guns): / Effluent | 10 years | 10.00% | 20.00% | 1 July 2008
+Water assets: / Pumps: | | | |
+Water assets: / Pumps: / Bore pumps, effluent and manure pumps | 7 years | 14.29% | 28.57% | 1 July 2008
+Water assets: / Pumps: / Other | 12 years | 8.33% | 16.67% | 1 July 2008
+Water assets: / Water mains: | | | |
+Water assets: / Water mains: / Aluminium | 20 years | 5.00% | 10.00% | 1 July 2008
+Water assets: / Water mains: / Galvanised steel | 25 years | 4.00% | 8.00% | 1 July 2008
+Water assets: / Water mains: / Polyethylene (PE) | 20 years | 5.00% | 10.00% | 1 July 2008
+Water assets: / Water mains: / Polyvinylchloride (PVC) | 30 years | 3.33% | 6.67% | 1 July 2008
+Water assets: / Water tanks: | | | |
+Water assets: / Water tanks: / Concrete | 30 years | 3.33% | 6.67% | 1 July 2008
+Water assets: / Water tanks: / Galvanised steel | 25 years | 4.00% | 8.00% | 1 July 2008
+Water assets: / Water tanks: / Polyethylene (PE) | 15 years | 6.67% | 13.33% | 1 July 2008
+Water assets: / Water troughs: | | | |
+Water assets: / Water troughs: / Concrete | 25 years | 4.00% | 8.00% | 1 July 2008
+Water assets: / Water troughs: / Galvanised steel | 15 years | 6.67% | 13.33% | 1 July 2008
+Water assets: / Water troughs: / Polyethylene (PE) | 10 years | 10.00% | 20.00% | 1 July 2008
+Water assets: / Windmills | 30 years | 3.33% | 6.67% | 1 July 2008
+Water pressure cleaners | 5 years | 20.00% | 40.00% | 1 July 2008
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- All terrain vehicles (ATVs) used in primary production activities: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/all-terrain-vehicles-used-in-primary-production-activities/
+- Environmental control structures (including glasshouses, hothouses, germination rooms, plastic clad tunnels and igloos): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/environmental-control-structures/
+- General (incorporating anchor assemblies, intermediate posts, rails, wires, wire mesh and droppers): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/general/
+- Electric: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/electric/
+- Mains power: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/mains-power/
+- Portable: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/portable/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/fertigation-systems-pumps/
+- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/tanks/
+- Air rams: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/air-rams/
+- Bunch lines: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/bunch-lines/
+- Choppers/mulchers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/choppers-mulchers/
+- Rails (including points): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/rails/
+- Scrap conveyors: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/scrap-conveyors/
+- Tops: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/tops/
+- Water troughs: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-troughs/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/dryers/
+- Fermentation tanks: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/fermentation-tanks/
+- Hullers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/hullers/
+- Processors (including pulpers): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/processors/
+- Washers/separators: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/washers-separators/
+- Bin tippers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/bin-tippers/
+- Conveyors (including elevators): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/conveyors/
+- Drying tunnels: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/drying-tunnels/
+- Fungicide units: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/fungicide-units/
+- Receival hoppers (including water dumps): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/receival-hoppers/
+- Tables (including packing and sorting tables): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/tables/
+- Washing assets (including brush and barrel washers): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/washing-assets/
+- Waxing assets: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/waxing-assets/
+- Electronic: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/electronic/
+- Mechanical: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/mechanical/
+- Optical: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/optical/
+- Labelling applicators (including in line labellers): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/labelling-applicators/
+- Labelling guns: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/labelling-guns/
+- Olive oil processing assets – see Table A Oil and fat manufacturing (11500): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/
+- Packing assets (including bagging and wrapping machines): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/packing-assets/
+- Scales (excluding platform scales): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/scales/
+- De-husking units: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/de-husking-units/
+- Drying silos: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/drying-silos/
+- Trommels: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/trommels/
+- Livestock grids: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/livestock-grids/
+- Motorcycles used in primary production activities: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/motorcycles-used-in-primary-production-activities/
+- Post drivers/hole diggers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/post-drivers-hole-diggers/
+- Protective structures (including shade houses and netting constructions): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/protective-structures/
+- Sheds on land that is used for agricultural or pastoral operations (including machinery sheds, workshop sheds and farm production sheds): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/sheds-on-land-that-is-used-for-agricultural-or-pastoral/
+- Tractors: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/tractors/
+- Bores: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/bores/
+- Dams (including earth or rock fill and turkey nests): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/dams/
+- Dam liners and covers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/dam-liners-and-covers/
+- Effluent channels: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/effluent-channels/
+- Effluent recycle tanks: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/effluent-recycle-tanks/
+- Effluent sedimentation ponds: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/effluent-sedimentation-ponds/
+- Above ground polyethylene (PE) pipes: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/above-ground-polyethylene-pipes/
+- Drippers, micro sprays and mini sprinklers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/drippers-micro-sprays-and-mini-sprinklers/
+- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/control-systems/
+- Filtration systems: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/filtration-systems/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-assets-pumps/
+- Variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/variable-speed-drives/
+- Irrigation earth channels: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/irrigation-earth-channels/
+- Fresh water: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/fresh-water/
+- Effluent: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/effluent/
+- Bore pumps, effluent and manure pumps: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/bore-pumps-effluent-and-manure-pumps/
+- Other: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/other/
+- Aluminium: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/aluminium/
+- Galvanised steel: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-mains-galvanised-steel/
+- Polyethylene (PE): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-mains-polyethylene/
+- Polyvinylchloride (PVC): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/polyvinylchloride/
+- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-tanks-concrete/
+- Galvanised steel: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-tanks-galvanised-steel/
+- Polyethylene (PE): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-tanks-polyethylene/
+- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-troughs-concrete/
+- Galvanised steel: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-troughs-galvanised-steel/
+- Polyethylene (PE): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-troughs-polyethylene/
+- Windmills: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/windmills/
+- Water pressure cleaners: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-pressure-cleaners/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

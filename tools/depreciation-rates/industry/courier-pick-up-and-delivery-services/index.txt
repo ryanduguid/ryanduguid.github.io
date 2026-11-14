@@ -1,0 +1,62 @@
+# Courier pick-up effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/
+
+> Courier pick-up and delivery services, Table: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Courier pick-up and delivery services
+
+12 effective lives in Table A of the Commissioner’s 2025 effective life determination for Courier pick-up and delivery services.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Inspection assets: | | | |
+Inspection assets: / Scales: | | | |
+Inspection assets: / Scales: / Bench | 10 years | 10.00% | 20.00% | 1 July 2011
+Inspection assets: / Scales: / Floor (platform) | 20 years | 5.00% | 10.00% | 1 July 2011
+Inspection assets: / Weight dimension capture system assets (including checkweighers, in motion scales and readers) | 10 years | 10.00% | 20.00% | 1 July 2011
+Materials handling equipment: | | | |
+Materials handling equipment: / Ball transfer mats and castor decks | 20 years | 5.00% | 10.00% | 1 July 2011
+Materials handling equipment: / Control systems and control system assets | 10 years | 10.00% | 20.00% | 1 July 2016
+Materials handling equipment: / Conveyors (including shoe sorters) | 15 years | 6.67% | 13.33% | 1 July 2011
+Materials handling equipment: / Forklifts – see Table B | | | |
+Materials handling equipment: / Parcel sorting system assets (including sortation system assets) (excluding control systems and control system assets) | 15 years | 6.67% | 13.33% | 1 July 2016
+Materials handling equipment: / Scissor lifts | 10 years | 10.00% | 20.00% | 1 July 2015
+Materials handling equipment: / Storage racks | 20 years | 5.00% | 10.00% | 1 July 2011
+Materials handling equipment: / Trolleys, freight barrows, cages and bins | 10 years | 10.00% | 20.00% | 1 July 2011
+Pick up and delivery equipment: | | | |
+Pick up and delivery equipment: / Barcode label printers | 5 years | 20.00% | 40.00% | 1 July 2011
+Pick up and delivery equipment: / Portable handheld barcode readers (including point of delivery capture devices and delivery information acquisition devices) | 4 years | 25.00% | 50.00% | 1 July 2011
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Bench: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/bench/
+- Floor (platform): https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/floor/
+- Weight dimension capture system assets (including checkweighers, in motion scales and readers): https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/weight-dimension-capture-system-assets/
+- Ball transfer mats and castor decks: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/ball-transfer-mats-and-castor-decks/
+- Control systems and control system assets: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/control-systems-and-control-system-assets/
+- Conveyors (including shoe sorters): https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/conveyors/
+- Parcel sorting system assets (including sortation system assets) (excluding control systems and control system assets): https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/parcel-sorting-system-assets/
+- Scissor lifts: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/scissor-lifts/
+- Storage racks: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/storage-racks/
+- Trolleys, freight barrows, cages and bins: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/trolleys-freight-barrows-cages-and-bins/
+- Barcode label printers: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/barcode-label-printers/
+- Portable handheld barcode readers (including point of delivery capture devices and delivery information acquisition devices): https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/portable-handheld-barcode-readers/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

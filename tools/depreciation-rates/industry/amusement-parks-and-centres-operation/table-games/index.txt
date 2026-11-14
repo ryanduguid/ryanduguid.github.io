@@ -1,0 +1,82 @@
+# Table games effective life: 5 1/2 years, Coin-operated
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/table-games/
+
+> Coin-operated amusement machines: Table games (including air hockey, soccer etc): effective life 5 1/2 years, last updated 1 July 2001 (Table A).
+
+# Coin-operated amusement machines: Table games (including air hockey, soccer etc)
+
+‘Coin-operated amusement machines: Table games (including air hockey, soccer etc)’, for an asset used in Amusement parks and centres operation and amusement and other recreational activities n.e.c., has an effective life of 5 1/2 years (F2025L01097), last reviewed and determined on 1 July 2001.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Table games (including air hockey, soccer etc)
+Under | Amusement machines and equipment: / Coin-operated amusement machines:
+Table | Table A (industry categories), ARTS AND RECREATION SERVICES / Amusement parks and centres operation and amusement and other recreational activities n.e.c., ANZSIC 91310 and 91390
+Effective life | 5 1/2 years
+Prime cost rate | 18.18% (100% ÷ life, section 40-75)
+Diminishing value rate | 36.36% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2001
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Amusement parks and centres operation and amusement and other recreational activities n.e.c. takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 July 2001. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Coin-operated amusement machines
+
+Row | Life | Prime cost | Diminishing value
+Interchangeable video game kits | 1 year | 100.00% | 200.00%
+Juke boxes (CD) | 10 years | 10.00% | 20.00%
+Photo-image machines | 3 1/2 years | 28.57% | 57.14%
+Pinball machines | 3 1/2 years | 28.57% | 57.14%
+Pool/billiard tables | 10 years | 10.00% | 20.00%
+Redemption games (prizes/tickets) | 5 1/2 years | 18.18% | 36.36%
+Table games (including air hockey, soccer etc) (this page) | 5 1/2 years | 18.18% | 36.36%
+
+10 rows share this heading. The Amusement parks and centres operation and amusement and other recreational activities n.e.c. page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Table games | Child care services | 5 years | 20.00% | 40.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 5 1/2 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Interchangeable video game kits: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/interchangeable-video-game-kits/
+- Juke boxes (CD): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/juke-boxes/
+- Photo-image machines: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/photo-image-machines/
+- Pinball machines: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/pinball-machines/
+- Pool/billiard tables: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/pool-billiard-tables/
+- Redemption games (prizes/tickets): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/redemption-games/
+- Amusement parks and centres operation and amusement and other recreational activities n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/
+- Table games: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/table-games/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

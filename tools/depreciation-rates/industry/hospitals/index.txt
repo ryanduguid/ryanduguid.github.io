@@ -1,0 +1,173 @@
+# Hospitals effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/
+
+> Hospitals, Table A (industry categories), HEALTH CARE: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Hospitals
+
+63 effective lives in Table A of the Commissioner’s 2025 effective life determination for Hospitals.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Hospital assets: | | | |
+Hospital assets: / Anaesthesia machines | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Angiography assets: | | | |
+Hospital assets: / Angiography assets: / Image acquisition systems (incorporating computers with digital subtraction capability, digital cameras, monitors and integrated software) | 4 years | 25.00% | 50.00% | 1 July 2002
+Hospital assets: / Angiography assets: / Image intensifiers | 7 years | 14.29% | 28.57% | 1 July 2002
+Hospital assets: / Angiography assets: / Patient gantries or tables, patient monitoring assets, positioning assets and pressure injectors | 10 years | 10.00% | 20.00% | 1 July 2002
+Hospital assets: / Cell savers and cell separators | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Colposcopes | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Defibrillators | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Diathermy and cautery machines/electrosurgical generators | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): | | | |
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Arthroscopic fluid management systems | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopes (flexible and rigid) and endoscopic surgical instruments | 4 years | 25.00% | 50.00% | 1 January 2003
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopic camera systems: | | | |
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopic camera systems: / Beam splitters and light sources | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopic camera systems: / Printers, video cameras, video camera adaptors, couplers and heads, video image capture systems and video processors | 5 years | 20.00% | 40.00% | 1 January 2003
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopic camera systems: / Still cameras | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopic camera systems: / Video monitors and video recorders | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopic electrosurgical generators | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopic lasers | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopic ultrasound systems (incorporating scanner, transducers/probes, integrated computer and integrated software) | 5 years | 20.00% | 40.00% | 1 January 2003
+Hospital assets: / Haemodialysis machines | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Head lights | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Hospital furniture: | | | |
+Hospital assets: / Hospital furniture: / Beds: | | | |
+Hospital assets: / Hospital furniture: / Beds: / Electronic | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Hospital furniture: / Beds: / Mechanical | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Hospital furniture: / Bedside cabinets/lockers, carts and poles, blanket warming cabinets, blood warming cabinets, medical refrigerators and overbed tables | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Infusion pumps: | | | |
+Hospital assets: / Infusion pumps: / General, pain management and rapid | 8 years | 12.50% | 25.00% | 1 January 2003
+Hospital assets: / Infusion pumps: / Syringe driven | 6 years | 16.67% | 33.33% | 1 January 2003
+Hospital assets: / Insufflators | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Lithotriptors used for extra-corporeal shock wave lithotripsy | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Mechanical assist assets: | | | |
+Hospital assets: / Mechanical assist assets: / Calf and cuff compression devices | 8 years | 12.50% | 25.00% | 1 January 2003
+Hospital assets: / Mechanical assist assets: / Cardiac bypass and heart lung machines | 8 years | 12.50% | 25.00% | 1 January 2003
+Hospital assets: / Mechanical assist assets: / Intra-aortic balloon pumps | 8 years | 12.50% | 25.00% | 1 January 2003
+Hospital assets: / Mechanical assist assets: / Ventricular assist heart pumps | 8 years | 12.50% | 25.00% | 1 January 2003
+Hospital assets: / Natal care assets (including incubators, infant warmers and mobile infant warmers) | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Operating tables and attachments: | | | |
+Hospital assets: / Operating tables and attachments: / Electronic | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Operating tables and attachments: / Mechanical | 13 years | 7.69% | 15.38% | 1 January 2003
+Hospital assets: / Operating theatre lights | 8 years | 12.50% | 25.00% | 1 January 2003
+Hospital assets: / Pan flushers | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Patient hoists and lifters | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Patient monitoring assets: | | | |
+Hospital assets: / Patient monitoring assets: / Bedside monitoring systems | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Patient monitoring assets: / Cardiac monitors | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Patient monitoring assets: / ECGs | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Patient monitoring assets: / Foetal monitors | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Patient monitoring assets: / Pulse oximeters | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Patient monitoring assets: / Vital signs monitors | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Patient warming assets (excluding disposable accessories): | | | |
+Hospital assets: / Patient warming assets (excluding disposable accessories): / Fluid warmers | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Patient warming assets (excluding disposable accessories): / Forced air patient warmers | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Smoke evacuators | 8 years | 12.50% | 25.00% | 1 January 2003
+Hospital assets: / Sterilisation and autoclave processing assets: | | | |
+Hospital assets: / Sterilisation and autoclave processing assets: / Drying cabinets | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Sterilisation and autoclave processing assets: / Endoscope sterilisers and disinfectors | 5 years | 20.00% | 40.00% | 1 January 2003
+Hospital assets: / Sterilisation and autoclave processing assets: / Flash sterilisers | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Sterilisation and autoclave processing assets: / Instrument washers | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Sterilisation and autoclave processing assets: / Pre-vacuum sterilisers | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Sterilisation and autoclave processing assets: / Ultrasonic cleaners and baths | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Surgical instruments: | | | |
+Hospital assets: / Surgical instruments: / Handheld manually operated instruments | 8 years | 12.50% | 25.00% | 1 January 2003
+Hospital assets: / Surgical instruments: / Powered instruments (including drills, saws, shavers, non-disposable instrument accessories and power sources) | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Surgical instruments: / Ultrasonic aspirators | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Surgical instruments: / Ultrasonic scalpels | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Surgical lasers (excluding ophthalmic surgical lasers) | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Surgical microscopes | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Ultrasonic bladder scanners | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Ultrasonic needle guides | 10 years | 10.00% | 20.00% | 1 January 2003
+Hospital assets: / Ultrasound systems (incorporating scanner, transducers, integrated computer and integrated software) used by cardiologists, obstetricians and vascular surgeons | 5 years | 20.00% | 40.00% | 1 July 2002
+Hospital assets: / Ventilators: | | | |
+Hospital assets: / Ventilators: / Fixed | 7 years | 14.29% | 28.57% | 1 January 2003
+Hospital assets: / Ventilators: / Portable | 5 years | 20.00% | 40.00% | 1 January 2003
+Hospital assets: / Wheelchairs | 10 years | 10.00% | 20.00% | 1 January 2003
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Anaesthesia machines: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/anaesthesia-machines/
+- Image acquisition systems (incorporating computers with digital subtraction capability, digital cameras, monitors and integrated software): https://duguid.com.au/tools/depreciation-rates/industry/hospitals/image-acquisition-systems/
+- Image intensifiers: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/image-intensifiers/
+- Patient gantries or tables, patient monitoring assets, positioning assets and pressure injectors: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/patient-gantries-or-tables-patient-monitoring-assets/
+- Cell savers and cell separators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/cell-savers-and-cell-separators/
+- Colposcopes: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/colposcopes/
+- Defibrillators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/defibrillators/
+- Diathermy and cautery machines/electrosurgical generators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/diathermy-and-cautery-machines-electrosurgical-generators/
+- Arthroscopic fluid management systems: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/arthroscopic-fluid-management-systems/
+- Endoscopes (flexible and rigid) and endoscopic surgical instruments: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/endoscopes-and-endoscopic-surgical-instruments/
+- Beam splitters and light sources: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/beam-splitters-and-light-sources/
+- Printers, video cameras, video camera adaptors, couplers and heads, video image capture systems and video processors: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/printers-video-cameras-video-camera-adaptors-couplers-and/
+- Still cameras: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/still-cameras/
+- Video monitors and video recorders: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/video-monitors-and-video-recorders/
+- Endoscopic electrosurgical generators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/endoscopic-electrosurgical-generators/
+- Endoscopic lasers: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/endoscopic-lasers/
+- Endoscopic ultrasound systems (incorporating scanner, transducers/probes, integrated computer and integrated software): https://duguid.com.au/tools/depreciation-rates/industry/hospitals/endoscopic-ultrasound-systems/
+- Haemodialysis machines: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/haemodialysis-machines/
+- Head lights: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/head-lights/
+- Electronic: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/beds-electronic/
+- Mechanical: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/beds-mechanical/
+- Bedside cabinets/lockers, carts and poles, blanket warming cabinets, blood warming cabinets, medical refrigerators and overbed tables: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/bedside-cabinets-lockers-carts-and-poles-blanket-warming/
+- General, pain management and rapid: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/general-pain-management-and-rapid/
+- Syringe driven: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/syringe-driven/
+- Insufflators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/insufflators/
+- Lithotriptors used for extra-corporeal shock wave lithotripsy: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/lithotriptors-used-for-extra-corporeal-shock-wave/
+- Calf and cuff compression devices: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/calf-and-cuff-compression-devices/
+- Cardiac bypass and heart lung machines: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/cardiac-bypass-and-heart-lung-machines/
+- Intra-aortic balloon pumps: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/intra-aortic-balloon-pumps/
+- Ventricular assist heart pumps: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/ventricular-assist-heart-pumps/
+- Natal care assets (including incubators, infant warmers and mobile infant warmers): https://duguid.com.au/tools/depreciation-rates/industry/hospitals/natal-care-assets/
+- Electronic: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/operating-tables-and-attachments-electronic/
+- Mechanical: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/operating-tables-and-attachments-mechanical/
+- Operating theatre lights: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/operating-theatre-lights/
+- Pan flushers: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/pan-flushers/
+- Patient hoists and lifters: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/patient-hoists-and-lifters/
+- Bedside monitoring systems: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/bedside-monitoring-systems/
+- Cardiac monitors: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/cardiac-monitors/
+- ECGs: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/ecgs/
+- Foetal monitors: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/foetal-monitors/
+- Pulse oximeters: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/pulse-oximeters/
+- Vital signs monitors: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/vital-signs-monitors/
+- Fluid warmers: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/fluid-warmers/
+- Forced air patient warmers: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/forced-air-patient-warmers/
+- Smoke evacuators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/smoke-evacuators/
+- Drying cabinets: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/drying-cabinets/
+- Endoscope sterilisers and disinfectors: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/endoscope-sterilisers-and-disinfectors/
+- Flash sterilisers: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/flash-sterilisers/
+- Instrument washers: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/instrument-washers/
+- Pre-vacuum sterilisers: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/pre-vacuum-sterilisers/
+- Ultrasonic cleaners and baths: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/ultrasonic-cleaners-and-baths/
+- Handheld manually operated instruments: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/handheld-manually-operated-instruments/
+- Powered instruments (including drills, saws, shavers, non-disposable instrument accessories and power sources): https://duguid.com.au/tools/depreciation-rates/industry/hospitals/powered-instruments/
+- Ultrasonic aspirators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/ultrasonic-aspirators/
+- Ultrasonic scalpels: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/ultrasonic-scalpels/
+- Surgical lasers (excluding ophthalmic surgical lasers): https://duguid.com.au/tools/depreciation-rates/industry/hospitals/surgical-lasers/
+- Surgical microscopes: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/surgical-microscopes/
+- Ultrasonic bladder scanners: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/ultrasonic-bladder-scanners/
+- Ultrasonic needle guides: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/ultrasonic-needle-guides/
+- Ultrasound systems (incorporating scanner, transducers, integrated computer and integrated software) used by cardiologists, obstetricians and vascular surgeons: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/ultrasound-systems-used-by-cardiologists-obstetricians-and/
+- Fixed: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/fixed/
+- Portable: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/portable/
+- Wheelchairs: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/wheelchairs/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

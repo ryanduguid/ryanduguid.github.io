@@ -1,0 +1,90 @@
+# Balers effective life: 15 years, Table B
+
+Source: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/balers/
+
+> Warehouse and distribution centre equipment and machines: Balers: effective life 15 years, last updated 1 July 2011 (Table B).
+
+# Warehouse and distribution centre equipment and machines: Balers (Table B)
+
+‘Warehouse and distribution centre equipment and machines: Balers’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 15 years (F2025L01097), last reviewed and determined on 1 July 2011.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Balers
+Under | Warehouse and distribution centre equipment and machines:
+Table | Table B (asset categories), letter W
+Effective life | 15 years
+Prime cost rate | 6.67% (100% ÷ life, section 40-75)
+Diminishing value rate | 13.33% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2011
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+Table B applies where no row of Table A for the industry the asset is used in describes it or its function, and the asset corresponds to this row (subsection 6(3) of the determination).
+
+The life was last reviewed and determined on 1 July 2011. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Warehouse and distribution centre equipment and machines
+
+Row | Life | Prime cost | Diminishing value
+Automated storage and retrieval machines | 20 years | 5.00% | 10.00%
+Balers (this page) | 15 years | 6.67% | 13.33%
+Carts/buggies | 15 years | 6.67% | 13.33%
+Conveyors | 15 years | 6.67% | 13.33%
+Floor sweepers/scrubbers | 10 years | 10.00% | 20.00%
+Inflatable dock bags/seals/shelters | 10 years | 10.00% | 20.00%
+Racks | 20 years | 5.00% | 10.00%
+Roll cages | 10 years | 10.00% | 20.00%
+
+9 rows share this heading. The Warehouse and distribution centre equipment and machines page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Balers | Agriculture | 10 years | 10.00% | 20.00%
+Balers | Solid waste collection services | 7 years | 14.29% | 28.57%
+Balers | Waste treatment and disposal services | 7 years | 14.29% | 28.57%
+Balers | Waste remediation and materials recovery services | 7 years | 14.29% | 28.57%
+Balers | Other warehousing and storage services | 15 years | 6.67% | 13.33%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Automated storage and retrieval machines: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/automated-storage-and-retrieval-machines/
+- Carts/buggies: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/carts-buggies/
+- Conveyors: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/conveyors/
+- Floor sweepers/scrubbers: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/floor-sweepers-scrubbers/
+- Inflatable dock bags/seals/shelters: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/inflatable-dock-bags-seals-shelters/
+- Racks: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/racks/
+- Roll cages: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/roll-cages/
+- Warehouse and distribution centre equipment and machines: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/balers/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/solid-waste-collection-services/balers/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/balers/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/waste-remediation-and-materials-recovery/balers/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/other-warehousing-and-storage-services/balers/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

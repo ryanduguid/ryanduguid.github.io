@@ -1004,6 +1004,7 @@ fn site_runner_passes_link_modes_only_to_the_link_checker() {
         let words = |items: &[&str]| items.iter().map(|w| (*w).to_owned()).collect::<Vec<_>>();
         let mut expected = vec![
             words(&["site-tools", "build_ozzit_reference", "--check"]),
+            words(&["site-tools", "build_effective_life_pages", "--check"]),
             words(&["cargo", "test", "--locked", "--test", "build_site"]),
             words(&["cargo", "test", "--locked", "--test", "ci_link_selection"]),
             words(&["cargo", "test", "--locked", "--test", "publication"]),

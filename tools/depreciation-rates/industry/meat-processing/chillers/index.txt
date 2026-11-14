@@ -1,0 +1,108 @@
+# Chillers effective life: 15 years, Cold storage
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/chillers/
+
+> Cold storage assets: Chillers (incorporating pneumatic gates): effective life 15 years, last updated 1 July 2013 (Table A).
+
+# Cold storage assets: Chillers (incorporating pneumatic gates)
+
+‘Cold storage assets: Chillers (incorporating pneumatic gates)’, for an asset used in Meat processing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Chillers (incorporating pneumatic gates)
+Under | Cold storage assets:
+Table | Table A (industry categories), MANUFACTURING / Meat processing, ANZSIC 11110
+Effective life | 15 years
+Prime cost rate | 6.67% (100% ÷ life, section 40-75)
+Diminishing value rate | 13.33% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2013
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Meat processing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘incorporating’, the items it lists are components of the one asset, not separate assets (paragraph 4 of the guide).
+
+The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Cold storage assets
+
+Row | Life | Prime cost | Diminishing value
+Ammonia condensers | 10 years | 10.00% | 20.00%
+Blast freezer tunnels | 20 years | 5.00% | 10.00%
+Blast freezers | 20 years | 5.00% | 10.00%
+Carbon dioxide (CO2) snow making machines | 10 years | 10.00% | 20.00%
+Carton conveyors (incorporating belt, drive motors and supporting structure) | 10 years | 10.00% | 20.00%
+Chiller tunnels | 20 years | 5.00% | 10.00%
+Chillers (incorporating pneumatic gates) (this page) | 15 years | 6.67% | 13.33%
+Door controls and motor drive systems for automatic opening doors (incorporating controls, motors and sensors, but excluding doors) | 5 years | 20.00% | 40.00%
+Evaporators | 15 years | 6.67% | 13.33%
+Freezers | 20 years | 5.00% | 10.00%
+Load out bays (incorporating air tight truck pads and hydraulic platforms) | 15 years | 6.67% | 13.33%
+Overhead carcass conveyors (incorporating housings, handles, chains and motors) | 20 years | 5.00% | 10.00%
+Plate freezers | 20 years | 5.00% | 10.00%
+
+18 rows share this heading. The Meat processing page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Chillers | Cured meat and smallgoods manufacturing | 15 years | 6.67% | 13.33%
+Chillers | Dairy product manufacturing | 15 years | 6.67% | 13.33%
+Chillers | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
+Chillers | Spirit manufacturing | 15 years | 6.67% | 13.33%
+Chillers | Basic organic chemical manufacturing | 20 years | 5.00% | 10.00%
+Chillers (volumetric air-cooled) | Plaster product manufacturing | 15 years | 6.67% | 13.33%
+Chillers | Ready-mixed concrete manufacturing | 15 years | 6.67% | 13.33%
+Chillers | Electronic information storage services | 15 years | 6.67% | 13.33%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Ammonia condensers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/ammonia-condensers/
+- Blast freezer tunnels: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/blast-freezer-tunnels/
+- Blast freezers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/blast-freezers/
+- Carbon dioxide (CO2) snow making machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carbon-dioxide-snow-making-machines/
+- Carton conveyors (incorporating belt, drive motors and supporting structure): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carton-conveyors/
+- Chiller tunnels: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/chiller-tunnels/
+- Door controls and motor drive systems for automatic opening doors (incorporating controls, motors and sensors, but excluding doors): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/door-controls-and-motor-drive-systems-for-automatic-opening/
+- Evaporators: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/evaporators/
+- Freezers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/freezers/
+- Load out bays (incorporating air tight truck pads and hydraulic platforms): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/load-out-bays/
+- Overhead carcass conveyors (incorporating housings, handles, chains and motors): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/overhead-carcass-conveyors/
+- Plate freezers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/plate-freezers/
+- Meat processing: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/
+- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/chillers/
+- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/chillers/
+- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/chillers/
+- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/chillers/
+- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/chillers/
+- Chillers (volumetric air-cooled): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/chillers/
+- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/chillers/
+- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/chillers/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

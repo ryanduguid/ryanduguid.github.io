@@ -1,0 +1,125 @@
+# Amusement parks effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/
+
+> Amusement parks and centres operation and amusement: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Amusement parks and centres operation and amusement and other recreational activities n.e.c.
+
+42 effective lives in Table A of the Commissioner’s 2025 effective life determination for Amusement parks and centres operation and amusement and other recreational activities n.e.c..
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Amusement machines and equipment: | | | |
+Amusement machines and equipment: / Coin-operated amusement machines: | | | |
+Amusement machines and equipment: / Coin-operated amusement machines: / Children’s rides | 5 years | 20.00% | 40.00% | 1 July 2001
+Amusement machines and equipment: / Coin-operated amusement machines: / Convertible video games/simulators (cabinet) | 5 1/2 years | 18.18% | 36.36% | 1 July 2001
+Amusement machines and equipment: / Coin-operated amusement machines: / Dedicated video games/simulators | 3 1/2 years | 28.57% | 57.14% | 1 July 2001
+Amusement machines and equipment: / Coin-operated amusement machines: / Interchangeable video game kits | 1 year | 100.00% | 200.00% | 1 July 2001
+Amusement machines and equipment: / Coin-operated amusement machines: / Juke boxes (CD) | 10 years | 10.00% | 20.00% | 1 July 2001
+Amusement machines and equipment: / Coin-operated amusement machines: / Photo-image machines | 3 1/2 years | 28.57% | 57.14% | 1 July 2001
+Amusement machines and equipment: / Coin-operated amusement machines: / Pinball machines | 3 1/2 years | 28.57% | 57.14% | 1 July 2001
+Amusement machines and equipment: / Coin-operated amusement machines: / Pool/billiard tables | 10 years | 10.00% | 20.00% | 1 July 2001
+Amusement machines and equipment: / Coin-operated amusement machines: / Redemption games (prizes/tickets) | 5 1/2 years | 18.18% | 36.36% | 1 July 2001
+Amusement machines and equipment: / Coin-operated amusement machines: / Table games (including air hockey, soccer etc) | 5 1/2 years | 18.18% | 36.36% | 1 July 2001
+Amusement machines and equipment: / Billiard tables | 40 years | 2.50% | 5.00% | 1 January 2001
+Amusement machines and equipment: / Rides and devices (fixed or mobile): | | | |
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Chair-o-planes | 15 years | 6.67% | 13.33% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Children’s indoor soft playgrounds | 5 years | 20.00% | 40.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Children’s rides (designed for the carriage of children less than 8 years old) | 15 years | 6.67% | 13.33% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Ferris wheels | 25 years | 4.00% | 8.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Free falls (including giant drop and tower of terror) | 25 years | 4.00% | 8.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Inflatables (including jumping castles) | 5 years | 20.00% | 40.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Overhead transit devices (including chair lifts and cabin lifts) | 25 years | 4.00% | 8.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Roller coasters: | | | |
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Roller coasters: / Non-powered (including corkscrew loop, looping coasters and mini roller coasters – wild cat, madmouse) | 25 years | 4.00% | 8.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Roller coasters: / Powered (including tornado) | 15 years | 6.67% | 13.33% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Round rides with or without additional motions (including merry-go-rounds) | 15 years | 6.67% | 13.33% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Self-drive non-powered gravity rides (including toboggans and bob-sleds): | | | |
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Self-drive non-powered gravity rides (including toboggans and bob-sleds): / Track | 20 years | 5.00% | 10.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Self-drive non-powered gravity rides (including toboggans and bob-sleds): / Vehicle | 5 years | 20.00% | 40.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Self-drive powered rides (including dodgems and go-karts): | | | |
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Self-drive powered rides (including dodgems and go-karts): / Track | 15 years | 6.67% | 13.33% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Self-drive powered rides (including dodgems and go-karts): / Vehicle | 5 years | 20.00% | 40.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Simulators | 10 years | 10.00% | 20.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Swinging rides (including pirate ship, spaceloop, and rainbow) | 15 years | 6.67% | 13.33% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Trains, tracked or trackless (including tractor trains and miniature railways) | 10 years | 10.00% | 20.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Water rides | 20 years | 5.00% | 10.00% | 1 January 2002
+Amusement machines and equipment: / Rides and devices (fixed or mobile): / Water slides (gravity powered) | 20 years | 5.00% | 10.00% | 1 January 2002
+Golf courses (miniature): | | | |
+Golf courses (miniature): / Carpets on stairways | 3 years | 33.33% | 66.67% | 1 January 2001
+Golf courses (miniature): / Lighting plant, electric motors, moving parts | 20 years | 5.00% | 10.00% | 1 January 2001
+Golf courses (miniature): / Lighting standards | 40 years | 2.50% | 5.00% | 1 January 2001
+Marina operation: | | | |
+Marina operation: / Boat cradles | 10 years | 10.00% | 20.00% | 1 July 2002
+Marina operation: / Boat storage racks | 10 years | 10.00% | 20.00% | 1 July 2002
+Marina operation: / Forklifts | 11 years | 9.09% | 18.18% | 1 July 2002
+Marina operation: / Marina – wet berths (incorporating piling, decking and floating pontoons) | 20 years | 5.00% | 10.00% | 1 July 2002
+Marina operation: / Mooring buoys | 10 years | 10.00% | 20.00% | 1 July 2002
+Marina operation: / Travel lifts | 15 years | 6.67% | 13.33% | 1 July 2002
+Shuffle boards | 10 years | 10.00% | 20.00% | 1 January 2001
+Space theatre domes | 33 1/3 years | 3.00% | 6.00% | 1 January 2001
+Trampolines | 10 years | 10.00% | 20.00% | 1 January 2001
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Children’s rides: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/coin-operated-amusement-machines-childrens-rides/
+- Convertible video games/simulators (cabinet): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/convertible-video-games-simulators/
+- Dedicated video games/simulators: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/dedicated-video-games-simulators/
+- Interchangeable video game kits: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/interchangeable-video-game-kits/
+- Juke boxes (CD): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/juke-boxes/
+- Photo-image machines: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/photo-image-machines/
+- Pinball machines: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/pinball-machines/
+- Pool/billiard tables: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/pool-billiard-tables/
+- Redemption games (prizes/tickets): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/redemption-games/
+- Table games (including air hockey, soccer etc): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/table-games/
+- Billiard tables: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/billiard-tables/
+- Chair-o-planes: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/chair-o-planes/
+- Children’s indoor soft playgrounds: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/childrens-indoor-soft-playgrounds/
+- Children’s rides (designed for the carriage of children less than 8 years old): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/rides-and-devices-childrens-rides/
+- Ferris wheels: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/ferris-wheels/
+- Free falls (including giant drop and tower of terror): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/free-falls/
+- Inflatables (including jumping castles): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/inflatables/
+- Overhead transit devices (including chair lifts and cabin lifts): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/overhead-transit-devices/
+- Non-powered (including corkscrew loop, looping coasters and mini roller coasters – wild cat, madmouse): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/non-powered/
+- Powered (including tornado): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/powered/
+- Round rides with or without additional motions (including merry-go-rounds): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/round-rides-with-or-without-additional-motions/
+- Track: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/self-drive-non-powered-gravity-track/
+- Vehicle: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/self-drive-non-powered-gravity-vehicle/
+- Track: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/self-drive-powered-rides-track/
+- Vehicle: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/self-drive-powered-rides-vehicle/
+- Simulators: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/simulators/
+- Swinging rides (including pirate ship, spaceloop, and rainbow): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/swinging-rides/
+- Trains, tracked or trackless (including tractor trains and miniature railways): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/trains-tracked-or-trackless/
+- Water rides: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/water-rides/
+- Water slides (gravity powered): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/water-slides/
+- Carpets on stairways: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/carpets-on-stairways/
+- Lighting plant, electric motors, moving parts: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/lighting-plant-electric-motors-moving-parts/
+- Lighting standards: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/lighting-standards/
+- Boat cradles: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/boat-cradles/
+- Boat storage racks: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/boat-storage-racks/
+- Forklifts: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/forklifts/
+- Marina – wet berths (incorporating piling, decking and floating pontoons): https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/marina-wet-berths/
+- Mooring buoys: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/mooring-buoys/
+- Travel lifts: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/travel-lifts/
+- Shuffle boards: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/shuffle-boards/
+- Space theatre domes: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/space-theatre-domes/
+- Trampolines: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/trampolines/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

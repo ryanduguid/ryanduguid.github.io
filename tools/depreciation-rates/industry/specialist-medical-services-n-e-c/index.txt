@@ -1,0 +1,51 @@
+# Specialist medical effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/
+
+> Specialist medical services n.e.c, Table: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Specialist medical services n.e.c
+
+8 effective lives in Table A of the Commissioner’s 2025 effective life determination for Specialist medical services n.e.c.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Neurologists’ assets: | | | |
+Neurologists’ assets: / Electroencephalography (EEG) systems (incorporating electrodes, amplifiers, integrated software and integrated computers) | 5 years | 20.00% | 40.00% | 1 July 2003
+Neurologists’ assets: / Electromyography (EMG) systems (incorporating electrodes, amplifiers, integrated software and integrated computers) | 5 years | 20.00% | 40.00% | 1 July 2003
+Thoracic physicians’ assets: | | | |
+Thoracic physicians’ assets: / Body plethysmographs (incorporating flow sensors, gas analysers, integrated software and integrated computers) | 7 years | 14.29% | 28.57% | 1 July 2003
+Thoracic physicians’ assets: / Continuous positive airway pressure (CPAP) and variable positive airway pressure (VPAP) systems | 7 years | 14.29% | 28.57% | 1 July 2003
+Thoracic physicians’ assets: / Lung function analysis exercise systems (incorporating flow sensors, treadmills or ergometers, ECGs, pulse oximeters, integrated software and integrated computers) | 7 years | 14.29% | 28.57% | 1 July 2003
+Thoracic physicians’ assets: / Lung function analysis systems (incorporating flow sensors, gas analysers, integrated software and integrated computers) | 7 years | 14.29% | 28.57% | 1 July 2003
+Thoracic physicians’ assets: / Spirometers | 7 years | 14.29% | 28.57% | 1 July 2003
+Thoracic physicians’ assets: / Sleep laboratory systems (incorporating amplifiers, sensors, integrated CPAP monitors, integrated carbon dioxide (CO2) monitors, integrated pulse oximeters, integrated computers and integrated software) | 7 years | 14.29% | 28.57% | 1 July 2003
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Electroencephalography (EEG) systems (incorporating electrodes, amplifiers, integrated software and integrated computers): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/electroencephalography-systems/
+- Electromyography (EMG) systems (incorporating electrodes, amplifiers, integrated software and integrated computers): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/electromyography-systems/
+- Body plethysmographs (incorporating flow sensors, gas analysers, integrated software and integrated computers): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/body-plethysmographs/
+- Continuous positive airway pressure (CPAP) and variable positive airway pressure (VPAP) systems: https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/continuous-positive-airway-pressure-and-variable-positive/
+- Lung function analysis exercise systems (incorporating flow sensors, treadmills or ergometers, ECGs, pulse oximeters, integrated software and integrated computers): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/lung-function-analysis-exercise-systems/
+- Lung function analysis systems (incorporating flow sensors, gas analysers, integrated software and integrated computers): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/lung-function-analysis-systems/
+- Spirometers: https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/spirometers/
+- Sleep laboratory systems (incorporating amplifiers, sensors, integrated CPAP monitors, integrated carbon dioxide (CO2) monitors, integrated pulse oximeters, integrated computers and integrated software): https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/sleep-laboratory-systems/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

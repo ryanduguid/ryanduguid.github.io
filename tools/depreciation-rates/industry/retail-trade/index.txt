@@ -1,0 +1,87 @@
+# RETAIL TRADE effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/
+
+> Table A (industry categories), RETAIL TRADE, rows: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# RETAIL TRADE
+
+21 effective lives in Table A of the Commissioner’s 2025 effective life determination for assets used across the RETAIL TRADE division.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Counters, freestanding (including check-out and service counters) | 10 years | 10.00% | 20.00% | 1 July 2005
+Door controls and motor drive systems for automatic sliding doors (incorporating chains, controls, motors and sensors, but excluding doors) | 15 years | 6.67% | 13.33% | 1 July 2005
+Electronic article surveillance (EAS) system assets (including barcodes or tag deactivators and detachers, door pedestals, electronic tag release assets, receivers and transmitters) | 5 years | 20.00% | 40.00% | 1 July 2005
+Floor coverings (removable without damage): | | | |
+Floor coverings (removable without damage): / Carpet | 8 years | 12.50% | 25.00% | 1 July 2005
+Floor coverings (removable without damage): / Floating timber | 10 years | 10.00% | 20.00% | 1 July 2005
+Floor coverings (removable without damage): / Linoleum | 10 years | 10.00% | 20.00% | 1 July 2005
+Floor coverings (removable without damage): / Vinyl | 10 years | 10.00% | 20.00% | 1 July 2005
+Furniture, freestanding (including chairs, cupboards, racks, showcases and tables) | 10 years | 10.00% | 20.00% | 1 July 2005
+Hot food display assets (including bain marie) | 10 years | 10.00% | 20.00% | 1 July 2005
+Loading bay assets – see Table B Loading bay assets | | | |
+Overhead track scales (including meat rail scales) | 10 years | 10.00% | 20.00% | 1 July 2005
+Plastic safety screens (including sneeze guards) | 2 years | 50.00% | 100.00% | 1 July 2022
+Power supply assets, emergency or standby: | | | |
+Power supply assets, emergency or standby: / Generator assets – see Table B Power supply assets | | | |
+Power supply assets, emergency or standby: / Uninterruptible power supply (UPS) system: | | | |
+Power supply assets, emergency or standby: / Uninterruptible power supply (UPS) system: / Line interactive type | 5 years | 20.00% | 40.00% | 1 July 2013
+Power supply assets, emergency or standby: / Uninterruptible power supply (UPS) system: / Online double conversion type | 10 years | 10.00% | 20.00% | 1 July 2013
+Public address and paging system assets (including amplifiers, audio speakers and microphones) – see Table B Public address and paging system assets | | | |
+Refrigeration assets: | | | |
+Refrigeration assets: / Generally (including blast chillers, condensers, evaporators, refrigeration cabinets, standalone freezers and standalone refrigerators) | 10 years | 10.00% | 20.00% | 1 July 2014
+Refrigeration assets: / Ice making machines | 8 years | 12.50% | 25.00% | 1 July 2014
+Refrigeration assets: / Insulation panels used in cool or freezer rooms | 40 years | 2.50% | 5.00% | 1 July 2014
+Roller shutter electric motors | 20 years | 5.00% | 10.00% | 1 July 2005
+Shelving | 10 years | 10.00% | 20.00% | 1 July 2005
+Signage used for business identification (including lighting for signs) – see Table B Advertising signs | | | |
+Trolleys, customer shopping type | 7 years | 14.29% | 28.57% | 1 July 2005
+Trolleys, stock type | 10 years | 10.00% | 20.00% | 1 July 2005
+Visual display assets (including body forms, head displayers, mannequins and seasonal decorations) | 7 years | 14.29% | 28.57% | 1 July 2005
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Counters, freestanding (including check-out and service counters): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/counters-freestanding/
+- Door controls and motor drive systems for automatic sliding doors (incorporating chains, controls, motors and sensors, but excluding doors): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/door-controls-and-motor-drive-systems-for-automatic-sliding/
+- Electronic article surveillance (EAS) system assets (including barcodes or tag deactivators and detachers, door pedestals, electronic tag release assets, receivers and transmitters): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/electronic-article-surveillance-system-assets/
+- Carpet: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/carpet/
+- Floating timber: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/floating-timber/
+- Linoleum: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/linoleum/
+- Vinyl: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/vinyl/
+- Furniture, freestanding (including chairs, cupboards, racks, showcases and tables): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/furniture-freestanding/
+- Hot food display assets (including bain marie): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/hot-food-display-assets/
+- Loading bay assets – see Table B Loading bay assets: https://duguid.com.au/tools/depreciation-rates/asset/loading-bay-assets/
+- Overhead track scales (including meat rail scales): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/overhead-track-scales/
+- Plastic safety screens (including sneeze guards): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/plastic-safety-screens/
+- Generator assets – see Table B Power supply assets: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/
+- Line interactive type: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/line-interactive-type/
+- Online double conversion type: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/online-double-conversion-type/
+- Public address and paging system assets (including amplifiers, audio speakers and microphones) – see Table B Public address and paging system assets: https://duguid.com.au/tools/depreciation-rates/asset/public-address-and-paging-system-assets/
+- Generally (including blast chillers, condensers, evaporators, refrigeration cabinets, standalone freezers and standalone refrigerators): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/generally/
+- Ice making machines: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/ice-making-machines/
+- Insulation panels used in cool or freezer rooms: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/insulation-panels-used-in-cool-or-freezer-rooms/
+- Roller shutter electric motors: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/roller-shutter-electric-motors/
+- Shelving: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/shelving/
+- Signage used for business identification (including lighting for signs) – see Table B Advertising signs: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/
+- Trolleys, customer shopping type: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/trolleys-customer-shopping-type/
+- Trolleys, stock type: https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/trolleys-stock-type/
+- Visual display assets (including body forms, head displayers, mannequins and seasonal decorations): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/visual-display-assets/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

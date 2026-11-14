@@ -87,7 +87,11 @@ pub const CHECKS: &[Check] = &[
 ];
 
 /// The steps before the checked tree exists, in order, around the Jekyll build.
-pub const BEFORE_BUILD: Check = Check::Tool(&["build_ozzit_reference", "--check"]);
+pub const BEFORE_BUILD: [Check; 2] = [
+    Check::Tool(&["build_ozzit_reference", "--check"]),
+    // The effective life pages are committed output; Jekyll must build current ones.
+    Check::Tool(&["build_effective_life_pages", "--check"]),
+];
 pub const AFTER_BUILD: [Check; 3] = [
     Check::Tests(&["build_site"]),
     // CI selects link checks from source pages, so this suite reads source, not rendered, files.
@@ -673,7 +677,9 @@ pub fn main_with(root: &Path, args: &[String], host: &mut dyn Host) -> Result<u8
         || (ci
             && (ci_metadata_only(event.as_deref(), host.git())
                 || ci_offline(event.as_deref(), host.git())));
-    run_required(host, &BEFORE_BUILD, root)?;
+    for step in &BEFORE_BUILD {
+        run_required(host, step, root)?;
+    }
     let started = Instant::now();
     let rendered = host.build();
     host.say(&format!(

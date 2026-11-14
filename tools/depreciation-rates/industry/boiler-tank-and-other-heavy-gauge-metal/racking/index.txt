@@ -1,0 +1,98 @@
+# Racking effective life: 20 years, Sheet metal tanks manufacturing
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/racking/
+
+> Sheet metal tanks manufacturing assets: Racking: effective life 20 years, last updated 1 July 2012 (Table A).
+
+# Sheet metal tanks manufacturing assets: Racking
+
+‘Sheet metal tanks manufacturing assets: Racking’, for an asset used in Boiler, tank and other heavy gauge metal container manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Racking
+Under | Sheet metal tanks manufacturing assets:
+Table | Table A (industry categories), MANUFACTURING / Boiler, tank and other heavy gauge metal container manufacturing, ANZSIC 22310
+Effective life | 20 years
+Prime cost rate | 5.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 10.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2012
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Boiler, tank and other heavy gauge metal container manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Sheet metal tanks manufacturing assets
+
+Row | Life | Prime cost | Diminishing value
+Hooks (including c-hooks and slinger hooks) | 5 years | 20.00% | 40.00%
+Jib cranes | 15 years | 6.67% | 13.33%
+Laser cutters | 7 years | 14.29% | 28.57%
+Overhead cranes and gantries | 25 years | 4.00% | 8.00%
+Pallet jacks | 10 years | 10.00% | 20.00%
+Plate grabs | 5 years | 20.00% | 40.00%
+Racking (this page) | 20 years | 5.00% | 10.00%
+Riveting machines | 15 years | 6.67% | 13.33%
+Spreader bars | 15 years | 6.67% | 13.33%
+Trolleys | 5 years | 20.00% | 40.00%
+Welders | 5 years | 20.00% | 40.00%
+
+17 rows share this heading. The Boiler, tank and other heavy gauge metal container manufacturing page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Racking | Dairy product manufacturing | 15 years | 6.67% | 13.33%
+Racking | Prepared animal and bird feed manufacturing | 20 years | 5.00% | 10.00%
+Racking | Prepared animal and bird feed manufacturing | 20 years | 5.00% | 10.00%
+Racking | Rigid and semi-rigid polymer product manufacturing | 20 years | 5.00% | 10.00%
+Racking | Steel coil roll forming, slitting and blanking and sheet metal forming | 20 years | 5.00% | 10.00%
+Racking | Supermarket and grocery stores | 20 years | 5.00% | 10.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Hooks (including c-hooks and slinger hooks): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/hooks/
+- Jib cranes: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/jib-cranes/
+- Laser cutters: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/laser-cutters/
+- Overhead cranes and gantries: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/overhead-cranes-and-gantries/
+- Pallet jacks: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/pallet-jacks/
+- Plate grabs: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/plate-grabs/
+- Riveting machines: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/riveting-machines/
+- Spreader bars: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/spreader-bars/
+- Trolleys: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/trolleys/
+- Welders: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/welders/
+- Boiler, tank and other heavy gauge metal container manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/
+- Racking: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/racking/
+- Racking: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-racking/
+- Racking: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-racking/
+- Racking: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/racking/
+- Racking: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/racking/
+- Racking: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/racking/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

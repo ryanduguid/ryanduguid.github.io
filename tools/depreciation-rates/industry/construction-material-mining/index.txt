@@ -1,0 +1,68 @@
+# Construction material effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/
+
+> Table A (industry categories), MINING / Construction: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Construction material mining
+
+16 effective lives in Table A of the Commissioner’s 2025 effective life determination for Construction material mining.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Control systems (for conveying, crushing and screening assets) | 10 years | 10.00% | 20.00% | 1 July 2003
+Conveyors: | | | |
+Conveyors: / Gravity take-up | 25 years | 4.00% | 8.00% | 1 July 2003
+Conveyors: / Screw take-up | 15 years | 6.67% | 13.33% | 1 July 2003
+Crushers: | | | |
+Crushers: / Generally | 20 years | 5.00% | 10.00% | 1 July 2003
+Crushers: / Mobile (track or wheel mounted machinery including screening and conveying components) | 15 years | 6.67% | 13.33% | 1 July 2003
+Cyclones | 15 years | 6.67% | 13.33% | 1 July 2003
+Dredges | 20 years | 5.00% | 10.00% | 1 July 2009
+Drill rigs | 8 years | 12.50% | 25.00% | 1 July 2003
+Electrical switching assets | 20 years | 5.00% | 10.00% | 1 July 2003
+Graders | 15 years | 6.67% | 13.33% | 1 July 2003
+Heavy mobile quarry assets not specifically listed – see Table A Mining (06000 to 10900) | | | |
+Hydraulic oversize rock breakers (mounted above primary crusher) | 8 years | 12.50% | 25.00% | 1 July 2003
+Material handling assets (including chutes, feeders, hoppers, product bins and surge bins) | 20 years | 5.00% | 10.00% | 1 July 2003
+Pug mills | 15 years | 6.67% | 13.33% | 1 July 2003
+Screening assets | 12 years | 8.33% | 16.67% | 1 July 2003
+Wheel loaders | 10 years | 10.00% | 20.00% | 1 July 2003
+Wire saws | 10 years | 10.00% | 20.00% | 1 July 2003
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Control systems (for conveying, crushing and screening assets): https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/control-systems/
+- Gravity take-up: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/gravity-take-up/
+- Screw take-up: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/screw-take-up/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/generally/
+- Mobile (track or wheel mounted machinery including screening and conveying components): https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/mobile/
+- Cyclones: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/cyclones/
+- Dredges: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/dredges/
+- Drill rigs: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/drill-rigs/
+- Electrical switching assets: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/electrical-switching-assets/
+- Graders: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/graders/
+- Hydraulic oversize rock breakers (mounted above primary crusher): https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/hydraulic-oversize-rock-breakers/
+- Material handling assets (including chutes, feeders, hoppers, product bins and surge bins): https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/material-handling-assets/
+- Pug mills: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/pug-mills/
+- Screening assets: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/screening-assets/
+- Wheel loaders: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/wheel-loaders/
+- Wire saws: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/wire-saws/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

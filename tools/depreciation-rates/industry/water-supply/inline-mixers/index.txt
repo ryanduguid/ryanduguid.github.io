@@ -1,0 +1,80 @@
+# Inline mixers effective life: 15 years, Water treatment assets
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/inline-mixers/
+
+> Water treatment assets: Inline mixers: effective life 15 years, last updated 1 January 2005 (Table A).
+
+# Water treatment assets: Inline mixers
+
+‘Water treatment assets: Inline mixers’, for an asset used in Water supply, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2005.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Inline mixers
+Under | Assets used in water supply: / Water treatment assets:
+Table | Table A (industry categories), ELECTRICITY, GAS, WATER AND WASTE SERVICES / Water supply, ANZSIC 28110
+Effective life | 15 years
+Prime cost rate | 6.67% (100% ÷ life, section 40-75)
+Diminishing value rate | 13.33% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 January 2005
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Water supply takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 January 2005. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Water treatment assets
+
+Row | Life | Prime cost | Diminishing value
+Chemical storage tanks | 30 years | 3.33% | 6.67%
+Clarifiers (incorporating scrapers) | 80 years | 1.25% | 2.50%
+Clear water tanks | 80 years | 1.25% | 2.50%
+Dissolved air flotation systems | 25 years | 4.00% | 8.00%
+Filtration tanks (incorporating scrapers) | 80 years | 1.25% | 2.50%
+Flocculation tanks (incorporating scrapers) | 80 years | 1.25% | 2.50%
+Inline mixers (this page) | 15 years | 6.67% | 13.33%
+Penstocks | 25 years | 4.00% | 8.00%
+Raw water inlet screening systems | 25 years | 4.00% | 8.00%
+Sludge treatment lagoons | 50 years | 2.00% | 4.00%
+Wash water holding tanks | 80 years | 1.25% | 2.50%
+
+16 rows share this heading. The Water supply page lists them all.
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Chemical storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-storage-tanks/
+- Clarifiers (incorporating scrapers): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/clarifiers/
+- Clear water tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/water-treatment-assets-clear-water-tanks/
+- Dissolved air flotation systems: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/dissolved-air-flotation-systems/
+- Filtration tanks (incorporating scrapers): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/water-treatment-assets-filtration-tanks/
+- Flocculation tanks (incorporating scrapers): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/flocculation-tanks/
+- Penstocks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/penstocks/
+- Raw water inlet screening systems: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/raw-water-inlet-screening-systems/
+- Sludge treatment lagoons: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/sludge-treatment-lagoons/
+- Wash water holding tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/wash-water-holding-tanks/
+- Water supply: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

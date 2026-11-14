@@ -1,0 +1,458 @@
+# Meat processing effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/
+
+> Table A (industry categories), MANUFACTURING / Meat: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Meat processing
+
+199 effective lives in Table A of the Commissioner’s 2025 effective life determination for Meat processing.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Boning room assets: | | | |
+Boning room assets: / Boneless meat packing stations | 20 years | 5.00% | 10.00% | 1 July 2013
+Boning room assets: / Boning and slicing stations | 20 years | 5.00% | 10.00% | 1 July 2013
+Boning room assets: / Boning hoists | 5 years | 20.00% | 40.00% | 1 July 2013
+Boning room assets: / Chine bone removal machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / De-sinewed mince meat machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Dicing and mincing machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Dump and product bins | 15 years | 6.67% | 13.33% | 1 July 2013
+Boning room assets: / Frenching machines | 8 years | 12.50% | 25.00% | 1 July 2013
+Boning room assets: / Knuckle and aitch bone pullers | 5 years | 20.00% | 40.00% | 1 July 2013
+Boning room assets: / Loin/saddle deboning machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Overhead in-feed carcass conveyors (incorporating housings, handles, chains and motors) | 20 years | 5.00% | 10.00% | 1 July 2013
+Boning room assets: / Pneumatic knives (including meat trimmers/round knives and de-fatting knives) | 2 years | 50.00% | 100.00% | 1 July 2013
+Boning room assets: / Pork brine and marinade mixers | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Pork de-rinders | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Pork marinade injectors | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Rise and fall platforms | 15 years | 6.67% | 13.33% | 1 July 2013
+Boning room assets: / Sausage filling machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Saws: | | | |
+Boning room assets: / Saws: / Band saws | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Saws: / Bone saws | 5 years | 20.00% | 40.00% | 1 July 2013
+Boning room assets: / Saws: / Breaking saws: | | | |
+Boning room assets: / Saws: / Breaking saws: / Circular electric | 3 years | 33.33% | 66.67% | 1 July 2013
+Boning room assets: / Saws: / Breaking saws: / Circular hydraulic | 2 years | 50.00% | 100.00% | 1 July 2013
+Boning room assets: / Saws: / Breaking saws: / Reciprocating electric | 5 years | 20.00% | 40.00% | 1 July 2013
+Boning room assets: / Saws: / Breaking saws: / Reciprocating pneumatic | 3 years | 33.33% | 66.67% | 1 July 2013
+Boning room assets: / Skinning or denuding machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Transfer belt and screw conveyors (incorporating belt, drive motors and supporting structure) | 10 years | 10.00% | 20.00% | 1 July 2013
+Boning room assets: / Weight graders | 5 years | 20.00% | 40.00% | 1 July 2013
+Boning room assets: / X-ray and chemical lean analysis machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Cold storage assets: | | | |
+Cold storage assets: / Air curtains | 5 years | 20.00% | 40.00% | 1 July 2013
+Cold storage assets: / Ammonia condensers | 10 years | 10.00% | 20.00% | 1 July 2013
+Cold storage assets: / Blast freezer tunnels | 20 years | 5.00% | 10.00% | 1 July 2013
+Cold storage assets: / Blast freezers | 20 years | 5.00% | 10.00% | 1 July 2013
+Cold storage assets: / Carbon dioxide (CO2) snow making machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Cold storage assets: / Carton conveyors (incorporating belt, drive motors and supporting structure) | 10 years | 10.00% | 20.00% | 1 July 2013
+Cold storage assets: / Chiller tunnels | 20 years | 5.00% | 10.00% | 1 July 2013
+Cold storage assets: / Chillers (incorporating pneumatic gates) | 15 years | 6.67% | 13.33% | 1 July 2013
+Cold storage assets: / Dehumidifiers: | | | |
+Cold storage assets: / Dehumidifiers: / Desiccant | 10 years | 10.00% | 20.00% | 1 July 2013
+Cold storage assets: / Dehumidifiers: / Refrigerant | 15 years | 6.67% | 13.33% | 1 July 2013
+Cold storage assets: / Door controls and motor drive systems for automatic opening doors (incorporating controls, motors and sensors, but excluding doors) | 5 years | 20.00% | 40.00% | 1 July 2013
+Cold storage assets: / Evaporators | 15 years | 6.67% | 13.33% | 1 July 2013
+Cold storage assets: / Freezers | 20 years | 5.00% | 10.00% | 1 July 2013
+Cold storage assets: / Load out bays (incorporating air tight truck pads and hydraulic platforms) | 15 years | 6.67% | 13.33% | 1 July 2013
+Cold storage assets: / Overhead carcass conveyors (incorporating housings, handles, chains and motors) | 20 years | 5.00% | 10.00% | 1 July 2013
+Cold storage assets: / Plate freezers | 20 years | 5.00% | 10.00% | 1 July 2013
+Cold storage assets: / Pressure vessels | 20 years | 5.00% | 10.00% | 1 July 2013
+Cold storage assets: / Refrigeration compressors | 15 years | 6.67% | 13.33% | 1 July 2013
+Cold storage assets: / Storage racking and stillages | 10 years | 10.00% | 20.00% | 1 July 2013
+Cold storage assets: / Transfer roller conveyors | 10 years | 10.00% | 20.00% | 1 July 2013
+Livestock handling assets: | | | |
+Livestock handling assets: / Cattle soaker pens | 15 years | 6.67% | 13.33% | 1 July 2013
+Livestock handling assets: / Cattle wash/soaker control systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Livestock handling assets: / Cattle washes | 15 years | 6.67% | 13.33% | 1 July 2013
+Livestock handling assets: / Cattle yards (incorporating concrete base and galvanised steel posts and rails) | 20 years | 5.00% | 10.00% | 1 July 2013
+Livestock handling assets: / Feed auger systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Livestock handling assets: / Hydraulic forcing pen gates | 10 years | 10.00% | 20.00% | 1 July 2013
+Livestock handling assets: / Lead-up races | 20 years | 5.00% | 10.00% | 1 July 2013
+Livestock handling assets: / Loading ramps stationary and height adjustable (hydraulic, pneumatic and electronic) | 15 years | 6.67% | 13.33% | 1 July 2013
+Livestock handling assets: / Pig lairages (incorporating concrete slat floor and concrete panel walls or concrete floor and galvanised steel posts and rails) | 20 years | 5.00% | 10.00% | 1 July 2013
+Livestock handling assets: / Sheep lairages (incorporating galvanised web mesh base and galvanised steel posts and rails) | 10 years | 10.00% | 20.00% | 1 July 2013
+Livestock handling assets: / Water troughs | 12 years | 8.33% | 16.67% | 1 July 2013
+Packaging assets: | | | |
+Packaging assets: / Automatic carton erecting and lidding machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Bagging machines | 5 years | 20.00% | 40.00% | 1 July 2013
+Packaging assets: / Bar code label printers | 3 years | 33.33% | 66.67% | 1 July 2013
+Packaging assets: / Bar code readers | 4 years | 25.00% | 50.00% | 1 July 2013
+Packaging assets: / Carton weigh label stations | 7 years | 14.29% | 28.57% | 1 July 2013
+Packaging assets: / Flow wrappers | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Labelling machines | 5 years | 20.00% | 40.00% | 1 July 2013
+Packaging assets: / Meat compactors | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Metal detectors | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Netting machines | 5 years | 20.00% | 40.00% | 1 July 2013
+Packaging assets: / Palletisers and de-palletisers | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Shrink wrappers | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Strapping machines | 5 years | 20.00% | 40.00% | 1 July 2013
+Packaging assets: / Transfer belt conveyors (incorporating belts, drive motors and supporting structures) | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Vacuum packaging systems (incorporating vacuum pumps and booster pumps): | | | |
+Packaging assets: / Vacuum packaging systems (incorporating vacuum pumps and booster pumps): / Rotary systems | 12 years | 8.33% | 16.67% | 1 July 2013
+Packaging assets: / Vacuum packaging systems (incorporating vacuum pumps and booster pumps): / Tunnel systems | 12 years | 8.33% | 16.67% | 1 July 2013
+Packaging assets: / Weighing scales | 4 years | 25.00% | 50.00% | 1 July 2013
+Rendering plant: | | | |
+Rendering plant: / Bagging/weigh batching machines | 10 years | 10.00% | 20.00% | 1 January 2001
+Rendering plant: / Bins (includes raw material bins, charging hopper/feedbins, cake bins and holding bins) | 15 years | 6.67% | 13.33% | 1 January 2001
+Rendering plant: / Blood drying equipment (includes blood holding tanks, agitated holding tanks, coagulators, driers, decanters and dried blood hoppers) | 10 years | 10.00% | 20.00% | 1 January 2001
+Rendering plant: / Cookers and driers (includes batch cookers, continuous cookers, continuous driers and pre-heater) | 15 years | 6.67% | 13.33% | 1 January 2001
+Rendering plant: / Decanters/centrifuges | 12 years | 8.33% | 16.67% | 1 January 2001
+Rendering plant: / Environmental control equipment (including condensers and associated equipment, bio-filters, air-scrubbers, after-burners and dissolved air flotation systems) | 10 years | 10.00% | 20.00% | 1 January 2001
+Rendering plant: / Feathrolysers/feather hydrolysers | 10 years | 10.00% | 20.00% | 1 January 2001
+Rendering plant: / Magnets | 15 years | 6.67% | 13.33% | 1 January 2001
+Rendering plant: / Mills | 10 years | 10.00% | 20.00% | 1 January 2001
+Rendering plant: / Mincers/grinders | 5 years | 20.00% | 40.00% | 1 January 2001
+Rendering plant: / Pans and screens (includes percolator pans/screen and shaker screens) | 15 years | 6.67% | 13.33% | 1 January 2001
+Rendering plant: / Pre-breakers/pre-hoggers | 10 years | 10.00% | 20.00% | 1 January 2001
+Rendering plant: / Screw and bucket elevators | 10 years | 10.00% | 20.00% | 1 January 2001
+Rendering plant: / Screw presses/expeller presses | 13 years | 7.69% | 15.38% | 1 January 2001
+Rendering plant: / Separators/polishers | 15 years | 6.67% | 13.33% | 1 January 2001
+Rendering plant: / Tallow storage tanks | 15 years | 6.67% | 13.33% | 1 January 2001
+Rendering plant: / Waste heat evaporators | 15 years | 6.67% | 13.33% | 1 January 2001
+Slaughter floor assets: | | | |
+Slaughter floor assets: / Beef hide pullers (fixed and traversing) | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Bung ring expanders: | | | |
+Slaughter floor assets: / Bung ring expanders: / Pneumatic | 3 years | 33.33% | 66.67% | 1 July 2013
+Slaughter floor assets: / Bung ring expanders: / Manual handheld | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Cattle restrainers (incorporating centre track belly conveyors) | 12 years | 8.33% | 16.67% | 1 July 2013
+Slaughter floor assets: / Carcass cleaning systems: | | | |
+Slaughter floor assets: / Carcass cleaning systems: / Cutting line sanitising systems (incorporating vacuum pumps and collection tanks) | 8 years | 12.50% | 25.00% | 1 July 2013
+Slaughter floor assets: / Carcass cleaning systems: / Decontamination chambers | 20 years | 5.00% | 10.00% | 1 July 2013
+Slaughter floor assets: / Dehorners | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Electrical immobilisers | 12 years | 8.33% | 16.67% | 1 July 2013
+Slaughter floor assets: / Electrical stimulators | 12 years | 8.33% | 16.67% | 1 July 2013
+Slaughter floor assets: / Evisceration tables (incorporating organ pans) | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Head cutters and droppers: | | | |
+Slaughter floor assets: / Head cutters and droppers: / Automatic | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Head cutters and droppers: / Handheld hydraulic | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Hock cutters | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Knife blade sharpening machines | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Knocking boxes (incorporating head restrainers) | 12 years | 8.33% | 16.67% | 1 July 2013
+Slaughter floor assets: / Landing tables and bleed slat conveyors | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / NLIS readers: | | | |
+Slaughter floor assets: / NLIS readers: / Handheld wands | 2 years | 50.00% | 100.00% | 1 July 2013
+Slaughter floor assets: / NLIS readers: / Fixed gate readers | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / NLIS readers: / Swinging gate readers | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: | | | |
+Slaughter floor assets: / Offal processing assets: / Chilled water systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Fat vacuum transfer systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Head splitters | 7 years | 14.29% | 28.57% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Intestine processing machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Jaw breakers | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Offal bins | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Offal chutes | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Offal cutting tables | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Offal packing stations | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Offal transfer conveyors (incorporating belts, drives, motors and supporting structure) | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Offal tumblers | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Offal washers | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Tongue cleaners | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Offal processing assets: / Tripe cookers/centrifuges | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Overhead bleed, dressing and trim conveyors ((incorporating housings, handles, chains and motors) including elevators and lowerators) | 20 years | 5.00% | 10.00% | 1 July 2013
+Slaughter floor assets: / Pneumatic knives: | | | |
+Slaughter floor assets: / Pneumatic knives: / De-hiding knives | 2 years | 50.00% | 100.00% | 1 July 2013
+Slaughter floor assets: / Pneumatic knives: / Meat trimmers/round knives and de-fatting knives | 2 years | 50.00% | 100.00% | 1 July 2013
+Slaughter floor assets: / Preparation and trimming stations | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Rise and fall platforms | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Saws: | | | |
+Slaughter floor assets: / Saws: / Brisket saws | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Saws: / Splitting saws | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Saws: / Scribing saws | 3 years | 33.33% | 66.67% | 1 July 2013
+Slaughter floor assets: / Sheep brisket scissors | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Sheep restrainers (incorporating belts, pulleys, drives and motors) | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Sheep skin pullers | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Specialised pork slaughter floor assets: | | | |
+Slaughter floor assets: / Specialised pork slaughter floor assets: / Carbon dioxide (CO2) stunning chambers (incorporating carousels) | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Specialised pork slaughter floor assets: / Carcass grading probes | 4 years | 25.00% | 50.00% | 1 July 2013
+Slaughter floor assets: / Specialised pork slaughter floor assets: / De-hairing machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Specialised pork slaughter floor assets: / Gambrel tables | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Specialised pork slaughter floor assets: / Polishers | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Specialised pork slaughter floor assets: / Scalding tanks | 15 years | 6.67% | 13.33% | 1 July 2013
+Slaughter floor assets: / Specialised pork slaughter floor assets: / Singers | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Spinal cord removal systems (incorporating hand pieces, vacuum pumps and tanks) | 8 years | 12.50% | 25.00% | 1 July 2013
+Slaughter floor assets: / Stunners: | | | |
+Slaughter floor assets: / Stunners: / Electric stunners | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Stunners: / Manual bolt stunners with cartridges | 5 years | 20.00% | 40.00% | 1 July 2013
+Slaughter floor assets: / Stunners: / Pneumatic bolt stunners | 7 years | 14.29% | 28.57% | 1 July 2013
+Slaughter floor assets: / Waste belt conveyors (incorporating drives, motors and supporting structure) | 10 years | 10.00% | 20.00% | 1 July 2013
+Slaughter floor assets: / Waste screw conveyors (incorporating drives, motors and supporting structure) | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: | | | |
+Support assets: / Air and spring balancers and counter weights | 5 years | 20.00% | 40.00% | 1 July 2013
+Support assets: / Compressed air assets: | | | |
+Support assets: / Compressed air assets: / Air compressors | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Compressed air assets: / Air dryers | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Compressed air assets: / Air receivers | 20 years | 5.00% | 10.00% | 1 July 2013
+Support assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Control systems assets: | | | |
+Support assets: / Control systems assets: / Flow meters | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Control systems assets: / Instruments and sensors | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Control systems assets: / Turbidity meters | 7 years | 14.29% | 28.57% | 1 July 2013
+Support assets: / Control systems assets: / Variable speed drives (VSDs) | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Fire protection systems | 15 years | 6.67% | 13.33% | 1 July 2013
+Support assets: / Hand air driers | 3 years | 33.33% | 66.67% | 1 July 2013
+Support assets: / Hand wash basins | 15 years | 6.67% | 13.33% | 1 July 2013
+Support assets: / Hide preparation assets: | | | |
+Support assets: / Hide preparation assets: / Bale presses | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Hide preparation assets: / Sheep skin and hide mixers, salt tumblers and agitators | 6 years | 16.67% | 33.33% | 1 July 2013
+Support assets: / Hydraulic power packs | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Laboratory assets | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Sterilisers | 15 years | 6.67% | 13.33% | 1 July 2013
+Support assets: / Truck and livestock crate washes | 20 years | 5.00% | 10.00% | 1 July 2013
+Waste water assets: | | | |
+Waste water assets: / Aerators and agitators | 10 years | 10.00% | 20.00% | 1 July 2013
+Waste water assets: / Aerobic ponds | 30 years | 3.33% | 6.67% | 1 July 2013
+Waste water assets: / Anaerobic ponds | 30 years | 3.33% | 6.67% | 1 July 2013
+Waste water assets: / Belt filter presses | 15 years | 6.67% | 13.33% | 1 July 2013
+Waste water assets: / Chlorine dosing systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Waste water assets: / Dissolved air flotation systems | 15 years | 6.67% | 13.33% | 1 July 2013
+Waste water assets: / Effluent distribution pipes | 15 years | 6.67% | 13.33% | 1 July 2013
+Waste water assets: / Effluent drum filters | 10 years | 10.00% | 20.00% | 1 July 2013
+Waste water assets: / Effluent irrigators (including centre pivot, lateral and travelling gun) | 10 years | 10.00% | 20.00% | 1 July 2013
+Waste water assets: / Effluent pumps | 7 years | 14.29% | 28.57% | 1 July 2013
+Waste water assets: / Effluent screens | 10 years | 10.00% | 20.00% | 1 July 2013
+Waste water assets: / Effluent storage tanks | 15 years | 6.67% | 13.33% | 1 July 2013
+Waste water assets: / Methane gas cogeneration assets – see Table A Electricity supply (26110 to 26400) and Gas supply (27000) | | | |
+Waste water assets: / Pond covers | 10 years | 10.00% | 20.00% | 1 July 2013
+Waste water assets: / Pond liners | 10 years | 10.00% | 20.00% | 1 July 2013
+Waste water assets: / Sequential batch reactors | 10 years | 10.00% | 20.00% | 1 July 2013
+Waste water assets: / Settling ponds | 30 years | 3.33% | 6.67% | 1 July 2013
+Waste water assets: / Solids dewatering presses | 10 years | 10.00% | 20.00% | 1 July 2013
+Water assets: | | | |
+Water assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2013
+Water assets: / Bore pumps | 7 years | 14.29% | 28.57% | 1 July 2013
+Water assets: / Bores | 30 years | 3.33% | 6.67% | 1 July 2013
+Water assets: / Chlorine dosing systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Water assets: / Clarifiers | 20 years | 5.00% | 10.00% | 1 July 2013
+Water assets: / High stage pump sets | 7 years | 14.29% | 28.57% | 1 July 2013
+Water assets: / Hot water systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Water assets: / Heat exchangers | 10 years | 10.00% | 20.00% | 1 July 2013
+Water assets: / Raw water filters | 15 years | 6.67% | 13.33% | 1 July 2013
+Water assets: / Raw water in-feed pump sets | 10 years | 10.00% | 20.00% | 1 July 2013
+Water assets: / Reverse osmosis systems (incorporating pumps, pipe work, membranes and controls) | 10 years | 10.00% | 20.00% | 1 July 2013
+Water assets: / Water distribution pipes | 20 years | 5.00% | 10.00% | 1 July 2013
+Water assets: / Water softeners | 10 years | 10.00% | 20.00% | 1 July 2013
+Water assets: / Water storage tanks | 20 years | 5.00% | 10.00% | 1 July 2013
+Water assets: / Water tank liners | 15 years | 6.67% | 13.33% | 1 July 2013
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Boneless meat packing stations: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/boneless-meat-packing-stations/
+- Boning and slicing stations: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/boning-and-slicing-stations/
+- Boning hoists: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/boning-hoists/
+- Chine bone removal machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/chine-bone-removal-machines/
+- De-sinewed mince meat machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/de-sinewed-mince-meat-machines/
+- Dicing and mincing machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/dicing-and-mincing-machines/
+- Dump and product bins: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/dump-and-product-bins/
+- Frenching machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/frenching-machines/
+- Knuckle and aitch bone pullers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/knuckle-and-aitch-bone-pullers/
+- Loin/saddle deboning machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/loin-saddle-deboning-machines/
+- Overhead in-feed carcass conveyors (incorporating housings, handles, chains and motors): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/overhead-in-feed-carcass-conveyors/
+- Pneumatic knives (including meat trimmers/round knives and de-fatting knives): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pneumatic-knives/
+- Pork brine and marinade mixers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pork-brine-and-marinade-mixers/
+- Pork de-rinders: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pork-de-rinders/
+- Pork marinade injectors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pork-marinade-injectors/
+- Rise and fall platforms: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/boning-room-assets-rise-and-fall-platforms/
+- Sausage filling machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/sausage-filling-machines/
+- Band saws: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/band-saws/
+- Bone saws: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/bone-saws/
+- Circular electric: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/circular-electric/
+- Circular hydraulic: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/circular-hydraulic/
+- Reciprocating electric: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/reciprocating-electric/
+- Reciprocating pneumatic: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/reciprocating-pneumatic/
+- Skinning or denuding machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/skinning-or-denuding-machines/
+- Transfer belt and screw conveyors (incorporating belt, drive motors and supporting structure): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/transfer-belt-and-screw-conveyors/
+- Weight graders: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/weight-graders/
+- X-ray and chemical lean analysis machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/x-ray-and-chemical-lean-analysis-machines/
+- Air curtains: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/air-curtains/
+- Ammonia condensers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/ammonia-condensers/
+- Blast freezer tunnels: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/blast-freezer-tunnels/
+- Blast freezers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/blast-freezers/
+- Carbon dioxide (CO2) snow making machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carbon-dioxide-snow-making-machines/
+- Carton conveyors (incorporating belt, drive motors and supporting structure): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carton-conveyors/
+- Chiller tunnels: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/chiller-tunnels/
+- Chillers (incorporating pneumatic gates): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/chillers/
+- Desiccant: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/desiccant/
+- Refrigerant: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/refrigerant/
+- Door controls and motor drive systems for automatic opening doors (incorporating controls, motors and sensors, but excluding doors): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/door-controls-and-motor-drive-systems-for-automatic-opening/
+- Evaporators: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/evaporators/
+- Freezers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/freezers/
+- Load out bays (incorporating air tight truck pads and hydraulic platforms): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/load-out-bays/
+- Overhead carcass conveyors (incorporating housings, handles, chains and motors): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/overhead-carcass-conveyors/
+- Plate freezers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/plate-freezers/
+- Pressure vessels: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pressure-vessels/
+- Refrigeration compressors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/refrigeration-compressors/
+- Storage racking and stillages: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/storage-racking-and-stillages/
+- Transfer roller conveyors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/transfer-roller-conveyors/
+- Cattle soaker pens: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/cattle-soaker-pens/
+- Cattle wash/soaker control systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/cattle-wash-soaker-control-systems/
+- Cattle washes: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/cattle-washes/
+- Cattle yards (incorporating concrete base and galvanised steel posts and rails): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/cattle-yards/
+- Feed auger systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/feed-auger-systems/
+- Hydraulic forcing pen gates: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/hydraulic-forcing-pen-gates/
+- Lead-up races: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/lead-up-races/
+- Loading ramps stationary and height adjustable (hydraulic, pneumatic and electronic): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/loading-ramps-stationary-and-height-adjustable/
+- Pig lairages (incorporating concrete slat floor and concrete panel walls or concrete floor and galvanised steel posts and rails): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pig-lairages/
+- Sheep lairages (incorporating galvanised web mesh base and galvanised steel posts and rails): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/sheep-lairages/
+- Water troughs: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/water-troughs/
+- Automatic carton erecting and lidding machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/automatic-carton-erecting-and-lidding-machines/
+- Bagging machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/bagging-machines/
+- Bar code label printers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/bar-code-label-printers/
+- Bar code readers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/bar-code-readers/
+- Carton weigh label stations: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carton-weigh-label-stations/
+- Flow wrappers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/flow-wrappers/
+- Labelling machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/labelling-machines/
+- Meat compactors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/meat-compactors/
+- Metal detectors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/metal-detectors/
+- Netting machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/netting-machines/
+- Palletisers and de-palletisers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/palletisers-and-de-palletisers/
+- Shrink wrappers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/shrink-wrappers/
+- Strapping machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/strapping-machines/
+- Transfer belt conveyors (incorporating belts, drive motors and supporting structures): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/transfer-belt-conveyors/
+- Rotary systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/rotary-systems/
+- Tunnel systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/tunnel-systems/
+- Weighing scales: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/weighing-scales/
+- Bagging/weigh batching machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/bagging-weigh-batching-machines/
+- Bins (includes raw material bins, charging hopper/feedbins, cake bins and holding bins): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/bins/
+- Blood drying equipment (includes blood holding tanks, agitated holding tanks, coagulators, driers, decanters and dried blood hoppers): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/blood-drying-equipment/
+- Cookers and driers (includes batch cookers, continuous cookers, continuous driers and pre-heater): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/cookers-and-driers/
+- Decanters/centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/decanters-centrifuges/
+- Environmental control equipment (including condensers and associated equipment, bio-filters, air-scrubbers, after-burners and dissolved air flotation systems): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/environmental-control-equipment/
+- Feathrolysers/feather hydrolysers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/feathrolysers-feather-hydrolysers/
+- Magnets: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/magnets/
+- Mills: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/mills/
+- Mincers/grinders: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/mincers-grinders/
+- Pans and screens (includes percolator pans/screen and shaker screens): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pans-and-screens/
+- Pre-breakers/pre-hoggers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pre-breakers-pre-hoggers/
+- Screw and bucket elevators: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/screw-and-bucket-elevators/
+- Screw presses/expeller presses: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/screw-presses-expeller-presses/
+- Separators/polishers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/separators-polishers/
+- Tallow storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/tallow-storage-tanks/
+- Waste heat evaporators: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/waste-heat-evaporators/
+- Beef hide pullers (fixed and traversing): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/beef-hide-pullers/
+- Pneumatic: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pneumatic/
+- Manual handheld: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/manual-handheld/
+- Cattle restrainers (incorporating centre track belly conveyors): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/cattle-restrainers/
+- Cutting line sanitising systems (incorporating vacuum pumps and collection tanks): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/cutting-line-sanitising-systems/
+- Decontamination chambers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/decontamination-chambers/
+- Dehorners: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/dehorners/
+- Electrical immobilisers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/electrical-immobilisers/
+- Electrical stimulators: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/electrical-stimulators/
+- Evisceration tables (incorporating organ pans): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/evisceration-tables/
+- Automatic: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/automatic/
+- Handheld hydraulic: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/handheld-hydraulic/
+- Hock cutters: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/hock-cutters/
+- Knife blade sharpening machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/knife-blade-sharpening-machines/
+- Knocking boxes (incorporating head restrainers): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/knocking-boxes/
+- Landing tables and bleed slat conveyors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/landing-tables-and-bleed-slat-conveyors/
+- Handheld wands: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/handheld-wands/
+- Fixed gate readers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/fixed-gate-readers/
+- Swinging gate readers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/swinging-gate-readers/
+- Chilled water systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/chilled-water-systems/
+- Fat vacuum transfer systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/fat-vacuum-transfer-systems/
+- Head splitters: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/head-splitters/
+- Intestine processing machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/intestine-processing-machines/
+- Jaw breakers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/jaw-breakers/
+- Offal bins: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/offal-bins/
+- Offal chutes: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/offal-chutes/
+- Offal cutting tables: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/offal-cutting-tables/
+- Offal packing stations: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/offal-packing-stations/
+- Offal transfer conveyors (incorporating belts, drives, motors and supporting structure): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/offal-transfer-conveyors/
+- Offal tumblers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/offal-tumblers/
+- Offal washers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/offal-washers/
+- Tongue cleaners: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/tongue-cleaners/
+- Tripe cookers/centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/tripe-cookers-centrifuges/
+- Overhead bleed, dressing and trim conveyors ((incorporating housings, handles, chains and motors) including elevators and lowerators): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/overhead-bleed-dressing-and-trim-conveyors/
+- De-hiding knives: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/de-hiding-knives/
+- Meat trimmers/round knives and de-fatting knives: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/meat-trimmers-round-knives-and-de-fatting-knives/
+- Preparation and trimming stations: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/preparation-and-trimming-stations/
+- Rise and fall platforms: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/slaughter-floor-assets-rise-and-fall-platforms/
+- Brisket saws: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/brisket-saws/
+- Splitting saws: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/splitting-saws/
+- Scribing saws: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/scribing-saws/
+- Sheep brisket scissors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/sheep-brisket-scissors/
+- Sheep restrainers (incorporating belts, pulleys, drives and motors): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/sheep-restrainers/
+- Sheep skin pullers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/sheep-skin-pullers/
+- Carbon dioxide (CO2) stunning chambers (incorporating carousels): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carbon-dioxide-stunning-chambers/
+- Carcass grading probes: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carcass-grading-probes/
+- De-hairing machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/de-hairing-machines/
+- Gambrel tables: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/gambrel-tables/
+- Polishers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/polishers/
+- Scalding tanks: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/scalding-tanks/
+- Singers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/singers/
+- Spinal cord removal systems (incorporating hand pieces, vacuum pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/spinal-cord-removal-systems/
+- Electric stunners: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/electric-stunners/
+- Manual bolt stunners with cartridges: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/manual-bolt-stunners-with-cartridges/
+- Pneumatic bolt stunners: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pneumatic-bolt-stunners/
+- Waste belt conveyors (incorporating drives, motors and supporting structure): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/waste-belt-conveyors/
+- Waste screw conveyors (incorporating drives, motors and supporting structure): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/waste-screw-conveyors/
+- Air and spring balancers and counter weights: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/air-and-spring-balancers-and-counter-weights/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/air-compressors/
+- Air dryers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/air-dryers/
+- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/air-receivers/
+- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/control-systems/
+- Flow meters: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/flow-meters/
+- Instruments and sensors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/instruments-and-sensors/
+- Turbidity meters: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/turbidity-meters/
+- Variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/variable-speed-drives/
+- Fire protection systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/fire-protection-systems/
+- Hand air driers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/hand-air-driers/
+- Hand wash basins: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/hand-wash-basins/
+- Bale presses: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/bale-presses/
+- Sheep skin and hide mixers, salt tumblers and agitators: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/sheep-skin-and-hide-mixers-salt-tumblers-and-agitators/
+- Hydraulic power packs: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/hydraulic-power-packs/
+- Laboratory assets: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/laboratory-assets/
+- Sterilisers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/sterilisers/
+- Truck and livestock crate washes: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/truck-and-livestock-crate-washes/
+- Aerators and agitators: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/aerators-and-agitators/
+- Aerobic ponds: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/aerobic-ponds/
+- Anaerobic ponds: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/anaerobic-ponds/
+- Belt filter presses: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/belt-filter-presses/
+- Chlorine dosing systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/waste-water-assets-chlorine-dosing-systems/
+- Dissolved air flotation systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/dissolved-air-flotation-systems/
+- Effluent distribution pipes: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/effluent-distribution-pipes/
+- Effluent drum filters: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/effluent-drum-filters/
+- Effluent irrigators (including centre pivot, lateral and travelling gun): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/effluent-irrigators/
+- Effluent pumps: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/effluent-pumps/
+- Effluent screens: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/effluent-screens/
+- Effluent storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/effluent-storage-tanks/
+- Methane gas cogeneration assets – see Table A Electricity supply (26110 to 26400) and Gas supply (27000): https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/
+- Pond covers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pond-covers/
+- Pond liners: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/pond-liners/
+- Sequential batch reactors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/sequential-batch-reactors/
+- Settling ponds: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/settling-ponds/
+- Solids dewatering presses: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/solids-dewatering-presses/
+- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/boilers/
+- Bore pumps: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/bore-pumps/
+- Bores: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/bores/
+- Chlorine dosing systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/water-assets-chlorine-dosing-systems/
+- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/clarifiers/
+- High stage pump sets: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/high-stage-pump-sets/
+- Hot water systems: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/hot-water-systems/
+- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/heat-exchangers/
+- Raw water filters: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/raw-water-filters/
+- Raw water in-feed pump sets: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/raw-water-in-feed-pump-sets/
+- Reverse osmosis systems (incorporating pumps, pipe work, membranes and controls): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/reverse-osmosis-systems/
+- Water distribution pipes: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/water-distribution-pipes/
+- Water softeners: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/water-softeners/
+- Water storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/water-storage-tanks/
+- Water tank liners: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/water-tank-liners/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

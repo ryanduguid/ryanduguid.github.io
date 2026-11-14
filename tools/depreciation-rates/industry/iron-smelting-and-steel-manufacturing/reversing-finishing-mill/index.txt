@@ -1,0 +1,86 @@
+# Reversing finishing … effective life: 20 years, Plate mill assets
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/reversing-finishing-mill/
+
+> Plate mill assets: Reversing finishing mill …: effective life 20 years, last updated 1 July 2010 (Table A).
+
+# Plate mill assets: Reversing finishing mill …
+
+‘Plate mill assets: Reversing finishing mill …’, for an asset used in Iron smelting and steel manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Reversing finishing mill (incorporating housing, side guides and covers, guards, motors, drives, spindles, water sprays, gearboxes, screw down, spindles, AGC capsules, hydraulics, mill de-scaling, filler plates, and oil systems within the mill)
+Under | Plate mill assets:
+Table | Table A (industry categories), MANUFACTURING / Iron smelting and steel manufacturing, ANZSIC 21100
+Effective life | 20 years
+Prime cost rate | 5.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 10.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2010
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Iron smelting and steel manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘incorporating’, the items it lists are components of the one asset, not separate assets (paragraph 4 of the guide).
+
+The life was last reviewed and determined on 1 July 2010. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Plate mill assets
+
+Row | Life | Prime cost | Diminishing value
+De-scaling boxes (incorporating sprays, mechanicals, control valves pipe work after isolation valves, de-scaling box table rolls, tables, chains, covers, side guides and covers) | 10 years | 10.00% | 20.00%
+Edgers (incorporating motors, hydraulic controls, mechanical controls, anvil (carryover table), hand rails and walkways) | 20 years | 5.00% | 10.00%
+Furnace entry skids | 20 years | 5.00% | 10.00%
+Furnaces (incorporating slab pushers, bumpers, pyrometers, off takes from king valve to outlets and all structures and equipment from after entry skids up to and including circular apron skids) | 20 years | 5.00% | 10.00%
+Hot levellers (incorporating motors, gearboxes, spindles, rolls, leveller AGC capsules, screws, crowning device, de-scaling header and valves) | 20 years | 5.00% | 10.00%
+Inter-roll stand cooling sprays | 15 years | 6.67% | 13.33%
+Reversing finishing mill (incorporating housing, side guides and covers, guards, motors, drives, spindles, water sprays, gearboxes, screw down, spindles, AGC capsules, hydraulics, mill de-scaling, filler plates, and oil systems within the mill) (this page) | 20 years | 5.00% | 10.00%
+Reversing roughing mill (incorporating housing, side guides and covers, guards, motors, drives, spindles, water sprays, gearboxes, screw down, spindles, AGC capsules, hydraulics, mill de-scaling, filler plates, and oil systems within the mill) | 20 years | 5.00% | 10.00%
+Rope driven cooling transfer bed | 20 years | 5.00% | 10.00%
+Shears (including crop, divide, scrap, rotary trim, guillotine and end shears) | 20 years | 5.00% | 10.00%
+Slab sizing systems (incorporating side guard measuring devices and stands, slab sizing unit supports, cameras and light banks) | 5 years | 20.00% | 40.00%
+Turnover inspection table (incorporating barriers and hydraulics) | 20 years | 5.00% | 10.00%
+Walking beam cooling beds (incorporating carry on section, carry off section, moving (walking) section, chain drives and hydraulics) | 20 years | 5.00% | 10.00%
+
+14 rows share this heading. The Iron smelting and steel manufacturing page lists them all.
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- De-scaling boxes (incorporating sprays, mechanicals, control valves pipe work after isolation valves, de-scaling box table rolls, tables, chains, covers, side guides and covers): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/de-scaling-boxes/
+- Edgers (incorporating motors, hydraulic controls, mechanical controls, anvil (carryover table), hand rails and walkways): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/edgers/
+- Furnace entry skids: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/furnace-entry-skids/
+- Furnaces (incorporating slab pushers, bumpers, pyrometers, off takes from king valve to outlets and all structures and equipment from after entry skids up to and including circular apron skids): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/plate-mill-assets-furnaces/
+- Hot levellers (incorporating motors, gearboxes, spindles, rolls, leveller AGC capsules, screws, crowning device, de-scaling header and valves): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hot-levellers/
+- Inter-roll stand cooling sprays: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/inter-roll-stand-cooling-sprays/
+- Reversing roughing mill (incorporating housing, side guides and covers, guards, motors, drives, spindles, water sprays, gearboxes, screw down, spindles, AGC capsules, hydraulics, mill de-scaling, filler plates, and oil systems within the mill): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/reversing-roughing-mill/
+- Rope driven cooling transfer bed: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rope-driven-cooling-transfer-bed/
+- Shears (including crop, divide, scrap, rotary trim, guillotine and end shears): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/plate-mill-assets-shears/
+- Slab sizing systems (incorporating side guard measuring devices and stands, slab sizing unit supports, cameras and light banks): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slab-sizing-systems/
+- Turnover inspection table (incorporating barriers and hydraulics): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/turnover-inspection-table/
+- Walking beam cooling beds (incorporating carry on section, carry off section, moving (walking) section, chain drives and hydraulics): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/plate-mill-assets-walking-beam-cooling-beds/
+- Iron smelting and steel manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

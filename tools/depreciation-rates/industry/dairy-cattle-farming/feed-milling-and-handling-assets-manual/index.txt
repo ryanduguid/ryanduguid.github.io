@@ -1,0 +1,83 @@
+# Manual effective life: 15 years, Feeding systems
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feed-milling-and-handling-assets-manual/
+
+> Feeding systems: Manual: effective life 15 years, prime cost 6.67%, diminishing value 13.33%, last updated 1 July 2007 (Table A, 2025 determination).
+
+# Feeding systems: Manual
+
+‘Feeding systems: Manual’, for an asset used in Dairy cattle farming, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2007.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Manual
+Under | Feed milling and handling assets: / Feeding systems:
+Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Dairy cattle farming, ANZSIC 01600
+Effective life | 15 years
+Prime cost rate | 6.67% (100% ÷ life, section 40-75)
+Diminishing value rate | 13.33% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2007
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Dairy cattle farming takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2007. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Feeding systems
+
+Row | Life | Prime cost | Diminishing value
+Automatic | 12 years | 8.33% | 16.67%
+Manual (this page) | 15 years | 6.67% | 13.33%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Manual | Vegetable growing (outdoors) and sugar cane growing | 10 years | 10.00% | 20.00%
+Manual | Spirit manufacturing | 7 years | 14.29% | 28.57%
+Manual | Printing support services | 10 years | 10.00% | 20.00%
+Manual | Photographic, optical and ophthalmic equipment manufacturing | 10 years | 10.00% | 20.00%
+Manual | Airport operations and other air transport support services | 20 years | 5.00% | 10.00%
+Manual | Optometry and optical dispensing | 12 years | 8.33% | 16.67%
+Manual | Automotive body, paint and interior repair n.e.c. | 10 years | 10.00% | 20.00%
+Manual | Funeral, crematorium and cemetery services | 20 years | 5.00% | 10.00%
+Manual | Laundry and dry cleaning services | 20 years | 5.00% | 10.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Automatic: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feed-milling-and-handling-assets-automatic/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/manual/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/manual/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/manual/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/manual/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/manual/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/manual/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/manual/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/manual/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/manual/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

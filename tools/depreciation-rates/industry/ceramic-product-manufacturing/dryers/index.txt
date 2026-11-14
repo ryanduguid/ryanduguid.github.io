@@ -1,0 +1,118 @@
+# Dryers effective life: 25 years, Clay brick and paver
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/dryers/
+
+> Clay brick and paver manufacturing assets: Dryers: effective life 25 years, last updated 1 July 2011 (Table A).
+
+# Clay brick and paver manufacturing assets: Dryers
+
+‘Clay brick and paver manufacturing assets: Dryers’, for an asset used in Ceramic product manufacturing, has an effective life of 25 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2011.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Dryers
+Under | Clay brick and paver manufacturing assets:
+Table | Table A (industry categories), MANUFACTURING / Ceramic product manufacturing, ANZSIC 20210 to 20290
+Effective life | 25 years
+Prime cost rate | 4.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 8.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2011
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Ceramic product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2011. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Clay brick and paver manufacturing assets
+
+Row | Life | Prime cost | Diminishing value
+Box feeders | 20 years | 5.00% | 10.00%
+Control systems | 10 years | 10.00% | 20.00%
+Conveyors | 20 years | 5.00% | 10.00%
+Cutters | 15 years | 6.67% | 13.33%
+De-hackers (excluding robots) | 20 years | 5.00% | 10.00%
+Dryers (this page) | 25 years | 4.00% | 8.00%
+Extruders | 15 years | 6.67% | 13.33%
+Kiln/dryer car cable hauler system assets (incorporating cable, gearbox, pulling wheels and motors) | 10 years | 10.00% | 20.00%
+Kiln/dryer/transfer car track work | 12 years | 8.33% | 16.67%
+Kiln/dryer cars | 10 years | 10.00% | 20.00%
+Kilns | 20 years | 5.00% | 10.00%
+Robots | 10 years | 10.00% | 20.00%
+
+15 rows share this heading. The Ceramic product manufacturing page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Dryers | AGRICULTURE, FORESTRY AND FISHING | 15 years | 6.67% | 13.33%
+Dryers | Agriculture | 20 years | 5.00% | 10.00%
+Dryers (including fluid bed and spray) | Dairy product manufacturing | 20 years | 5.00% | 10.00%
+Dryers | Cereal and pasta product manufacturing | 15 years | 6.67% | 13.33%
+Dryers | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
+Dryers | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
+Dryers (including primary, secondary and final) | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
+Dryers (including MG cylinder and yankee cylinder) | Pulp, paper and converted paper product manufacturing | 25 years | 4.00% | 8.00%
+Dryers (including conventional air dryers, flash curers and UV dryers) | Printing | 12 1/2 years | 8.00% | 16.00%
+Dryers | Glass and glass product manufacturing | 12 1/2 years | 8.00% | 16.00%
+Dryers | Plaster product manufacturing | 25 years | 4.00% | 8.00%
+Dryers | Iron smelting and steel manufacturing | 15 years | 6.67% | 13.33%
+Dryers | Accommodation | 10 years | 10.00% | 20.00%
+Dryers | Retirement village and accommodation for the aged operation | 12 years | 8.33% | 16.67%
+Dryers | Child care services | 5 years | 20.00% | 40.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 25 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Box feeders: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/box-feeders/
+- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/control-systems/
+- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/conveyors/
+- Cutters: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/cutters/
+- De-hackers (excluding robots): https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/de-hackers/
+- Extruders: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/extruders/
+- Kiln/dryer car cable hauler system assets (incorporating cable, gearbox, pulling wheels and motors): https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/kiln-dryer-car-cable-hauler-system-assets/
+- Kiln/dryer/transfer car track work: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/kiln-dryer-transfer-car-track-work/
+- Kiln/dryer cars: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/kiln-dryer-cars/
+- Kilns: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/kilns/
+- Robots: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/robots/
+- Ceramic product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/dryers/
+- Dryers (including fluid bed and spray): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-dryers/
+- Dryers (including primary, secondary and final): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/dryers/
+- Dryers (including MG cylinder and yankee cylinder): https://duguid.com.au/tools/depreciation-rates/industry/pulp-paper-and-converted-paper-product/dryers/
+- Dryers (including conventional air dryers, flash curers and UV dryers): https://duguid.com.au/tools/depreciation-rates/industry/printing/dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/dryers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/dryers/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

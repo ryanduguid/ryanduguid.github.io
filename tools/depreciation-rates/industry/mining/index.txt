@@ -1,0 +1,312 @@
+# MINING effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/mining/
+
+> Table A (industry categories), MINING, rows: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# MINING
+
+128 effective lives in Table A of the Commissioner’s 2025 effective life determination for assets used across the MINING division.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Crushing and milling assets: | | | |
+Crushing and milling assets: / Crushers: | | | |
+Crushing and milling assets: / Crushers: / Cone and gyratory | 25 years | 4.00% | 8.00% | 1 July 2003
+Crushing and milling assets: / Crushers: / Feeder breaker | 20 years | 5.00% | 10.00% | 1 July 2003
+Crushing and milling assets: / Crushers: / Generally | 25 years | 4.00% | 8.00% | 1 July 2003
+Crushing and milling assets: / Crushers: / Impact and rotary | 20 years | 5.00% | 10.00% | 1 July 2003
+Crushing and milling assets: / Crushers: / Jaw | 25 years | 4.00% | 8.00% | 1 July 2003
+Crushing and milling assets: / Crushers: / Roller (including roll sizers) | 20 years | 5.00% | 10.00% | 1 July 2003
+Crushing and milling assets: / Grinding mills: | | | |
+Crushing and milling assets: / Grinding mills: / Ball and rod | 25 years | 4.00% | 8.00% | 1 July 2003
+Crushing and milling assets: / Grinding mills: / Generally | 25 years | 4.00% | 8.00% | 1 July 2003
+Crushing and milling assets: / Grinding mills: / Hammer | 15 years | 6.67% | 13.33% | 1 July 2003
+Crushing and milling assets: / Grinding mills: / SAG (autogenous) | 25 years | 4.00% | 8.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: | | | |
+Hydrometallurgy and Pyrometallurgy assets: / Adsorption process assets | 20 years | 5.00% | 10.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Agglomeration (pelletizing) assets | 25 years | 4.00% | 8.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Calcination process assets (including kilns) | 25 years | 4.00% | 8.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Casting process assets for casting billets or ingots | 30 years | 3.33% | 6.67% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Converting process assets (including rotatable cylindrical furnaces) | 30 years | 3.33% | 6.67% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Cooling process assets (including cooling towers) | 25 years | 4.00% | 8.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Counter current decantation (CCD) process assets | 20 years | 5.00% | 10.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Drying process assets (including rotary dryers, spray dryers and indirect heat exchanger dryers) | 25 years | 4.00% | 8.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Electrolysis process assets (including electrowinning process and electro refining process assets including tanks) | 20 years | 5.00% | 10.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Filtration process assets | 15 years | 6.67% | 13.33% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Gas cleaning process assets (including electrostatic precipitators and baghouses) | 20 years | 5.00% | 10.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Gas recovery process assets (including stripping and absorption assets) | 25 years | 4.00% | 8.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Ion exchange process assets | 15 years | 6.67% | 13.33% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Leaching process assets: | | | |
+Hydrometallurgy and Pyrometallurgy assets: / Leaching process assets: / Atmospheric | 15 years | 6.67% | 13.33% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Leaching process assets: / Generally | 25 years | 4.00% | 8.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Leaching process assets: / Pressure | 25 years | 4.00% | 8.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Neutralisation process assets | 20 years | 5.00% | 10.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Pots and ladles used for molten materials | 30 years | 3.33% | 6.67% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Precipitation process assets (including tanks and agitators) | 20 years | 5.00% | 10.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Pressure vessels | 30 years | 3.33% | 6.67% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Roasting process assets (including kilns and furnaces) | 30 years | 3.33% | 6.67% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Sintering process assets (including continuous sintering machines) | 30 years | 3.33% | 6.67% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Smelting process assets (including furnaces) | 25 years | 4.00% | 8.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Solution treatment and metal recovery assets | 20 years | 5.00% | 10.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Solvent extraction process assets (including mixer-settler units) | 20 years | 5.00% | 10.00% | 1 July 2003
+Hydrometallurgy and Pyrometallurgy assets: / Tailings stills | 20 years | 5.00% | 10.00% | 1 July 2003
+Infrastructure support assets: | | | |
+Infrastructure support assets: / Compressors | 15 years | 6.67% | 13.33% | 1 July 2003
+Infrastructure support assets: / Control systems and communication systems assets: | | | |
+Infrastructure support assets: / Control systems and communication systems assets: / Generally | 10 years | 10.00% | 20.00% | 1 July 2003
+Infrastructure support assets: / Control systems and communication systems assets: / Instruments | 10 years | 10.00% | 20.00% | 1 July 2003
+Infrastructure support assets: / Control systems and communication systems assets: / Towers or other supporting structures | 30 years | 3.33% | 6.67% | 1 July 2003
+Infrastructure support assets: / Electrical infrastructure assets (including power reticulation, substations, switchgear and transformers) | 25 years | 4.00% | 8.00% | 1 July 2003
+Infrastructure support assets: / Mineral treatment structure | 40 years | 2.50% | 5.00% | 1 July 2003
+Infrastructure support assets: / Pipes and pipelines (including valves and fittings): | | | |
+Infrastructure support assets: / Pipes and pipelines (including valves and fittings): / Generally | 25 years | 4.00% | 8.00% | 1 July 2003
+Infrastructure support assets: / Pipes and pipelines (including valves and fittings): / Slurry pipework within processing facility (including slurry pipe to thickener) | 10 years | 10.00% | 20.00% | 1 January 2006
+Infrastructure support assets: / Pumps: | | | |
+Infrastructure support assets: / Pumps: / Generally | 20 years | 5.00% | 10.00% | 1 July 2003
+Infrastructure support assets: / Pumps: / Positive displacement pumps | 15 years | 6.67% | 13.33% | 1 July 2003
+Materials handling assets: | | | |
+Materials handling assets: / Belt magnets, samplers, metal detectors and analysers | 15 years | 6.67% | 13.33% | 1 July 2003
+Materials handling assets: / Bins, chutes, hoppers, bunkers and silos | 30 years | 3.33% | 6.67% | 1 July 2003
+Materials handling assets: / Bucket elevators | 25 years | 4.00% | 8.00% | 1 July 2003
+Materials handling assets: / Conveyors | 25 years | 4.00% | 8.00% | 1 July 2003
+Materials handling assets: / Feeders: | | | |
+Materials handling assets: / Feeders: / Generally (including apron and belt) | 20 years | 5.00% | 10.00% | 1 July 2003
+Materials handling assets: / Feeders: / Vibrating | 15 years | 6.67% | 13.33% | 1 July 2003
+Materials handling assets: / Fuel storage tanks | 30 years | 3.33% | 6.67% | 1 July 2003
+Materials handling assets: / Gas storage tanks and spheres | 25 years | 4.00% | 8.00% | 1 July 2003
+Materials handling assets: / Grizzly bars and scalpers | 25 years | 4.00% | 8.00% | 1 July 2003
+Materials handling assets: / Overhead cranes/gantries | 30 years | 3.33% | 6.67% | 1 July 2003
+Materials handling assets: / Stacks (chimney) | 30 years | 3.33% | 6.67% | 1 July 2003
+Materials handling assets: / Stockpile assets: | | | |
+Materials handling assets: / Stockpile assets: / Reclaim tunnel flow valves and activators | 25 years | 4.00% | 8.00% | 1 July 2003
+Materials handling assets: / Stockpile assets: / Stackers, reclaimers and stacker/reclaimers | 25 years | 4.00% | 8.00% | 1 July 2003
+Materials handling assets: / Stockpile assets: / Train loaders | 30 years | 3.33% | 6.67% | 1 July 2003
+Materials handling assets: / Stockpile assets: / Trippers/stackers and stacking conveyor systems | 25 years | 4.00% | 8.00% | 1 July 2003
+Materials handling assets: / Stockpile assets: / Tunnel vent and exhaust fans | 15 years | 6.67% | 13.33% | 1 July 2003
+Materials handling assets: / Water recycling facilities | 20 years | 5.00% | 10.00% | 1 July 2003
+Materials handling assets: / Water storage tanks | 30 years | 3.33% | 6.67% | 1 July 2003
+Materials handling assets: / Weighing machines (including weighers for feeders and conveyors) | 20 years | 5.00% | 10.00% | 1 July 2004
+Mineral dressing assets: | | | |
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: | | | |
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Centrifuges | 15 years | 6.67% | 13.33% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Cyclones: | | | |
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Cyclones: / Dense medium and heavy medium | 8 years | 12.50% | 25.00% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Cyclones: / Generally (including classifying, desliming, and hydrocyclones) | 15 years | 6.67% | 13.33% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Generally | 18 years | 5.56% | 11.11% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Hydraulic classifiers and teetered bed separators | 20 years | 5.00% | 10.00% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Jigs | 25 years | 4.00% | 8.00% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Pneumatic tables and air separators | 25 years | 4.00% | 8.00% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Settling cones | 25 years | 4.00% | 8.00% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Shaking tables | 25 years | 4.00% | 8.00% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Sluices and cone concentrators | 25 years | 4.00% | 8.00% | 1 July 2003
+Mineral dressing assets: / Classification, gravity separation and dewatering assets: / Spirals | 12 years | 8.33% | 16.67% | 1 July 2003
+Mineral dressing assets: / Electrostatic separation assets | 20 years | 5.00% | 10.00% | 1 July 2003
+Mineral dressing assets: / Filtration assets (including pressure filtration and vacuum filtration equipment) | 15 years | 6.67% | 13.33% | 1 July 2003
+Mineral dressing assets: / Flotation assets (including tanks, launders, agitators, air supply and reagent dosing equipment) | 20 years | 5.00% | 10.00% | 1 July 2003
+Mineral dressing assets: / Magnetic separation assets (including cross belt, drum and disc types) | 20 years | 5.00% | 10.00% | 1 July 2003
+Mineral dressing assets: / Screening assets | 15 years | 6.67% | 13.33% | 1 July 2003
+Mineral dressing assets: / Thickening assets | 25 years | 4.00% | 8.00% | 1 July 2003
+Port assets – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190) | | | |
+Railway infrastructure assets and rolling-stock – see Table A Rail freight and passenger transport services (47100 to 47200) | | | |
+Surface mobile mining machines: | | | |
+Surface mobile mining machines: / Bucket wheel excavators | 30 years | 3.33% | 6.67% | 1 July 2002
+Surface mobile mining machines: / Compressors | 20 years | 5.00% | 10.00% | 1 July 2002
+Surface mobile mining machines: / Cranes | 20 years | 5.00% | 10.00% | 1 July 2002
+Surface mobile mining machines: / Dozers | 9 years | 11.11% | 22.22% | 1 July 2002
+Surface mobile mining machines: / Draglines | 30 years | 3.33% | 6.67% | 1 July 2002
+Surface mobile mining machines: / Drill rigs (Production) | 10 years | 10.00% | 20.00% | 1 July 2002
+Surface mobile mining machines: / Electric rope shovels | 25 years | 4.00% | 8.00% | 1 July 2002
+Surface mobile mining machines: / Generators | 10 years | 10.00% | 20.00% | 1 July 2002
+Surface mobile mining machines: / Graders | 10 years | 10.00% | 20.00% | 1 July 2002
+Surface mobile mining machines: / Hydraulic excavators (including hydraulic front shovels) | 10 years | 10.00% | 20.00% | 1 July 2002
+Surface mobile mining machines: / Lighting systems | 10 years | 10.00% | 20.00% | 1 July 2002
+Surface mobile mining machines: / Off highway trucks (including articulated, rigid dump, service, fuel and water trucks) | 10 years | 10.00% | 20.00% | 1 July 2002
+Surface mobile mining machines: / Rollers | 15 years | 6.67% | 13.33% | 1 July 2002
+Surface mobile mining machines: / Scrapers | 7 years | 14.29% | 28.57% | 1 July 2002
+Surface mobile mining machines: / Skid steer loader | 7 years | 14.29% | 28.57% | 1 July 2002
+Surface mobile mining machines: / Tool carriers | 10 years | 10.00% | 20.00% | 1 July 2002
+Surface mobile mining machines: / Wheel loaders | 8 years | 12.50% | 25.00% | 1 July 2002
+Tailings dams | 20 years | 5.00% | 10.00% | 1 January 2001
+Underground mobile mining machines: | | | |
+Underground mobile mining machines: / Compressors | 10 years | 10.00% | 20.00% | 1 July 2002
+Underground mobile mining machines: / Continuous haulage systems | 10 years | 10.00% | 20.00% | 1 July 2002
+Underground mobile mining machines: / Continuous miners | 10 years | 10.00% | 20.00% | 1 July 2002
+Underground mobile mining machines: / Drill rigs: | | | |
+Underground mobile mining machines: / Drill rigs: / Diamond | 20 years | 5.00% | 10.00% | 1 July 2002
+Underground mobile mining machines: / Drill rigs: / Production | 7 years | 14.29% | 28.57% | 1 July 2002
+Underground mobile mining machines: / Feeder breakers | 15 years | 6.67% | 13.33% | 1 July 2002
+Underground mobile mining machines: / Graders | 10 years | 10.00% | 20.00% | 1 July 2002
+Underground mobile mining machines: / Jumbos | 10 years | 10.00% | 20.00% | 1 July 2002
+Underground mobile mining machines: / Load-haul-dump machines | 6 years | 16.67% | 33.33% | 1 July 2002
+Underground mobile mining machines: / Long-wall equipment: | | | |
+Underground mobile mining machines: / Long-wall equipment: / Armoured face conveyors | 6 years | 16.67% | 33.33% | 1 July 2002
+Underground mobile mining machines: / Long-wall equipment: / Beam stage loaders | 7 years | 14.29% | 28.57% | 1 July 2002
+Underground mobile mining machines: / Long-wall equipment: / Hydraulic pump modules | 15 years | 6.67% | 13.33% | 1 July 2002
+Underground mobile mining machines: / Long-wall equipment: / Hydraulic roof supports | 10 years | 10.00% | 20.00% | 1 July 2002
+Underground mobile mining machines: / Long-wall equipment: / Impact crushers | 10 years | 10.00% | 20.00% | 1 July 2002
+Underground mobile mining machines: / Long-wall equipment: / Mobile conveyors tail end | 5 years | 20.00% | 40.00% | 1 July 2002
+Underground mobile mining machines: / Long-wall equipment: / Roof support relocation vehicles | 10 years | 10.00% | 20.00% | 1 July 2002
+Underground mobile mining machines: / Long-wall equipment: / Shearers | 7 years | 14.29% | 28.57% | 1 July 2002
+Underground mobile mining machines: / Long-wall equipment: / Shearer carriers | 10 years | 10.00% | 20.00% | 1 July 2002
+Underground mobile mining machines: / Maintenance vehicles | 8 years | 12.50% | 25.00% | 1 July 2002
+Underground mobile mining machines: / Personnel transporters | 8 years | 12.50% | 25.00% | 1 July 2002
+Underground mobile mining machines: / Raise borers and down reamers | 20 years | 5.00% | 10.00% | 1 July 2002
+Underground mobile mining machines: / Roof bolters | 8 years | 12.50% | 25.00% | 1 July 2002
+Underground mobile mining machines: / Scissor lifts | 6 years | 16.67% | 33.33% | 1 July 2002
+Underground mobile mining machines: / Shuttle cars | 12 years | 8.33% | 16.67% | 1 July 2002
+Underground mobile mining machines: / Skid steer loaders | 12 years | 8.33% | 16.67% | 1 July 2002
+Underground mobile mining machines: / Underground haulage trucks | 6 years | 16.67% | 33.33% | 1 July 2002
+Underground mobile mining machines: / Wheel loaders | 6 years | 16.67% | 33.33% | 1 July 2002
+Workshop plant | 20 years | 5.00% | 10.00% | 1 January 2001
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Cone and gyratory: https://duguid.com.au/tools/depreciation-rates/industry/mining/cone-and-gyratory/
+- Feeder breaker: https://duguid.com.au/tools/depreciation-rates/industry/mining/feeder-breaker/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/mining/crushers-generally/
+- Impact and rotary: https://duguid.com.au/tools/depreciation-rates/industry/mining/impact-and-rotary/
+- Jaw: https://duguid.com.au/tools/depreciation-rates/industry/mining/jaw/
+- Roller (including roll sizers): https://duguid.com.au/tools/depreciation-rates/industry/mining/roller/
+- Ball and rod: https://duguid.com.au/tools/depreciation-rates/industry/mining/ball-and-rod/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/mining/grinding-mills-generally/
+- Hammer: https://duguid.com.au/tools/depreciation-rates/industry/mining/hammer/
+- SAG (autogenous): https://duguid.com.au/tools/depreciation-rates/industry/mining/sag/
+- Adsorption process assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/adsorption-process-assets/
+- Agglomeration (pelletizing) assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/agglomeration-assets/
+- Calcination process assets (including kilns): https://duguid.com.au/tools/depreciation-rates/industry/mining/calcination-process-assets/
+- Casting process assets for casting billets or ingots: https://duguid.com.au/tools/depreciation-rates/industry/mining/casting-process-assets-for-casting-billets-or-ingots/
+- Converting process assets (including rotatable cylindrical furnaces): https://duguid.com.au/tools/depreciation-rates/industry/mining/converting-process-assets/
+- Cooling process assets (including cooling towers): https://duguid.com.au/tools/depreciation-rates/industry/mining/cooling-process-assets/
+- Counter current decantation (CCD) process assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/counter-current-decantation-process-assets/
+- Drying process assets (including rotary dryers, spray dryers and indirect heat exchanger dryers): https://duguid.com.au/tools/depreciation-rates/industry/mining/drying-process-assets/
+- Electrolysis process assets (including electrowinning process and electro refining process assets including tanks): https://duguid.com.au/tools/depreciation-rates/industry/mining/electrolysis-process-assets/
+- Filtration process assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/filtration-process-assets/
+- Gas cleaning process assets (including electrostatic precipitators and baghouses): https://duguid.com.au/tools/depreciation-rates/industry/mining/gas-cleaning-process-assets/
+- Gas recovery process assets (including stripping and absorption assets): https://duguid.com.au/tools/depreciation-rates/industry/mining/gas-recovery-process-assets/
+- Ion exchange process assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/ion-exchange-process-assets/
+- Atmospheric: https://duguid.com.au/tools/depreciation-rates/industry/mining/atmospheric/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/mining/hydrometallurgy-and-generally/
+- Pressure: https://duguid.com.au/tools/depreciation-rates/industry/mining/pressure/
+- Neutralisation process assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/neutralisation-process-assets/
+- Pots and ladles used for molten materials: https://duguid.com.au/tools/depreciation-rates/industry/mining/pots-and-ladles-used-for-molten-materials/
+- Precipitation process assets (including tanks and agitators): https://duguid.com.au/tools/depreciation-rates/industry/mining/precipitation-process-assets/
+- Pressure vessels: https://duguid.com.au/tools/depreciation-rates/industry/mining/pressure-vessels/
+- Roasting process assets (including kilns and furnaces): https://duguid.com.au/tools/depreciation-rates/industry/mining/roasting-process-assets/
+- Sintering process assets (including continuous sintering machines): https://duguid.com.au/tools/depreciation-rates/industry/mining/sintering-process-assets/
+- Smelting process assets (including furnaces): https://duguid.com.au/tools/depreciation-rates/industry/mining/smelting-process-assets/
+- Solution treatment and metal recovery assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/solution-treatment-and-metal-recovery-assets/
+- Solvent extraction process assets (including mixer-settler units): https://duguid.com.au/tools/depreciation-rates/industry/mining/solvent-extraction-process-assets/
+- Tailings stills: https://duguid.com.au/tools/depreciation-rates/industry/mining/tailings-stills/
+- Compressors: https://duguid.com.au/tools/depreciation-rates/industry/mining/infrastructure-support-assets-compressors/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/mining/control-systems-and-generally/
+- Instruments: https://duguid.com.au/tools/depreciation-rates/industry/mining/instruments/
+- Towers or other supporting structures: https://duguid.com.au/tools/depreciation-rates/industry/mining/towers-or-other-supporting-structures/
+- Electrical infrastructure assets (including power reticulation, substations, switchgear and transformers): https://duguid.com.au/tools/depreciation-rates/industry/mining/electrical-infrastructure-assets/
+- Mineral treatment structure: https://duguid.com.au/tools/depreciation-rates/industry/mining/mineral-treatment-structure/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/mining/pipes-and-pipelines-generally/
+- Slurry pipework within processing facility (including slurry pipe to thickener): https://duguid.com.au/tools/depreciation-rates/industry/mining/slurry-pipework-within-processing-facility/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/mining/pumps-generally/
+- Positive displacement pumps: https://duguid.com.au/tools/depreciation-rates/industry/mining/positive-displacement-pumps/
+- Belt magnets, samplers, metal detectors and analysers: https://duguid.com.au/tools/depreciation-rates/industry/mining/belt-magnets-samplers-metal-detectors-and-analysers/
+- Bins, chutes, hoppers, bunkers and silos: https://duguid.com.au/tools/depreciation-rates/industry/mining/bins-chutes-hoppers-bunkers-and-silos/
+- Bucket elevators: https://duguid.com.au/tools/depreciation-rates/industry/mining/bucket-elevators/
+- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/mining/conveyors/
+- Generally (including apron and belt): https://duguid.com.au/tools/depreciation-rates/industry/mining/materials-handling-assets-generally/
+- Vibrating: https://duguid.com.au/tools/depreciation-rates/industry/mining/vibrating/
+- Fuel storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/mining/fuel-storage-tanks/
+- Gas storage tanks and spheres: https://duguid.com.au/tools/depreciation-rates/industry/mining/gas-storage-tanks-and-spheres/
+- Grizzly bars and scalpers: https://duguid.com.au/tools/depreciation-rates/industry/mining/grizzly-bars-and-scalpers/
+- Overhead cranes/gantries: https://duguid.com.au/tools/depreciation-rates/industry/mining/overhead-cranes-gantries/
+- Stacks (chimney): https://duguid.com.au/tools/depreciation-rates/industry/mining/stacks/
+- Reclaim tunnel flow valves and activators: https://duguid.com.au/tools/depreciation-rates/industry/mining/reclaim-tunnel-flow-valves-and-activators/
+- Stackers, reclaimers and stacker/reclaimers: https://duguid.com.au/tools/depreciation-rates/industry/mining/stackers-reclaimers-and-stacker-reclaimers/
+- Train loaders: https://duguid.com.au/tools/depreciation-rates/industry/mining/train-loaders/
+- Trippers/stackers and stacking conveyor systems: https://duguid.com.au/tools/depreciation-rates/industry/mining/trippers-stackers-and-stacking-conveyor-systems/
+- Tunnel vent and exhaust fans: https://duguid.com.au/tools/depreciation-rates/industry/mining/tunnel-vent-and-exhaust-fans/
+- Water recycling facilities: https://duguid.com.au/tools/depreciation-rates/industry/mining/water-recycling-facilities/
+- Water storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/mining/water-storage-tanks/
+- Weighing machines (including weighers for feeders and conveyors): https://duguid.com.au/tools/depreciation-rates/industry/mining/weighing-machines/
+- Centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/mining/centrifuges/
+- Dense medium and heavy medium: https://duguid.com.au/tools/depreciation-rates/industry/mining/dense-medium-and-heavy-medium/
+- Generally (including classifying, desliming, and hydrocyclones): https://duguid.com.au/tools/depreciation-rates/industry/mining/cyclones-generally/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/mining/classification-gravity-generally/
+- Hydraulic classifiers and teetered bed separators: https://duguid.com.au/tools/depreciation-rates/industry/mining/hydraulic-classifiers-and-teetered-bed-separators/
+- Jigs: https://duguid.com.au/tools/depreciation-rates/industry/mining/jigs/
+- Pneumatic tables and air separators: https://duguid.com.au/tools/depreciation-rates/industry/mining/pneumatic-tables-and-air-separators/
+- Settling cones: https://duguid.com.au/tools/depreciation-rates/industry/mining/settling-cones/
+- Shaking tables: https://duguid.com.au/tools/depreciation-rates/industry/mining/shaking-tables/
+- Sluices and cone concentrators: https://duguid.com.au/tools/depreciation-rates/industry/mining/sluices-and-cone-concentrators/
+- Spirals: https://duguid.com.au/tools/depreciation-rates/industry/mining/spirals/
+- Electrostatic separation assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/electrostatic-separation-assets/
+- Filtration assets (including pressure filtration and vacuum filtration equipment): https://duguid.com.au/tools/depreciation-rates/industry/mining/filtration-assets/
+- Flotation assets (including tanks, launders, agitators, air supply and reagent dosing equipment): https://duguid.com.au/tools/depreciation-rates/industry/mining/flotation-assets/
+- Magnetic separation assets (including cross belt, drum and disc types): https://duguid.com.au/tools/depreciation-rates/industry/mining/magnetic-separation-assets/
+- Screening assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/screening-assets/
+- Thickening assets: https://duguid.com.au/tools/depreciation-rates/industry/mining/thickening-assets/
+- Port assets – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/
+- Railway infrastructure assets and rolling-stock – see Table A Rail freight and passenger transport services (47100 to 47200): https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/
+- Bucket wheel excavators: https://duguid.com.au/tools/depreciation-rates/industry/mining/bucket-wheel-excavators/
+- Compressors: https://duguid.com.au/tools/depreciation-rates/industry/mining/surface-mobile-mining-machines-compressors/
+- Cranes: https://duguid.com.au/tools/depreciation-rates/industry/mining/cranes/
+- Dozers: https://duguid.com.au/tools/depreciation-rates/industry/mining/dozers/
+- Draglines: https://duguid.com.au/tools/depreciation-rates/industry/mining/draglines/
+- Drill rigs (Production): https://duguid.com.au/tools/depreciation-rates/industry/mining/drill-rigs/
+- Electric rope shovels: https://duguid.com.au/tools/depreciation-rates/industry/mining/electric-rope-shovels/
+- Generators: https://duguid.com.au/tools/depreciation-rates/industry/mining/generators/
+- Graders: https://duguid.com.au/tools/depreciation-rates/industry/mining/surface-mobile-mining-machines-graders/
+- Hydraulic excavators (including hydraulic front shovels): https://duguid.com.au/tools/depreciation-rates/industry/mining/hydraulic-excavators/
+- Lighting systems: https://duguid.com.au/tools/depreciation-rates/industry/mining/lighting-systems/
+- Off highway trucks (including articulated, rigid dump, service, fuel and water trucks): https://duguid.com.au/tools/depreciation-rates/industry/mining/off-highway-trucks/
+- Rollers: https://duguid.com.au/tools/depreciation-rates/industry/mining/rollers/
+- Scrapers: https://duguid.com.au/tools/depreciation-rates/industry/mining/scrapers/
+- Skid steer loader: https://duguid.com.au/tools/depreciation-rates/industry/mining/skid-steer-loader/
+- Tool carriers: https://duguid.com.au/tools/depreciation-rates/industry/mining/tool-carriers/
+- Wheel loaders: https://duguid.com.au/tools/depreciation-rates/industry/mining/surface-mobile-mining-machines-wheel-loaders/
+- Tailings dams: https://duguid.com.au/tools/depreciation-rates/industry/mining/tailings-dams/
+- Compressors: https://duguid.com.au/tools/depreciation-rates/industry/mining/underground-mobile-mining-compressors/
+- Continuous haulage systems: https://duguid.com.au/tools/depreciation-rates/industry/mining/continuous-haulage-systems/
+- Continuous miners: https://duguid.com.au/tools/depreciation-rates/industry/mining/continuous-miners/
+- Diamond: https://duguid.com.au/tools/depreciation-rates/industry/mining/diamond/
+- Production: https://duguid.com.au/tools/depreciation-rates/industry/mining/production/
+- Feeder breakers: https://duguid.com.au/tools/depreciation-rates/industry/mining/feeder-breakers/
+- Graders: https://duguid.com.au/tools/depreciation-rates/industry/mining/underground-mobile-mining-graders/
+- Jumbos: https://duguid.com.au/tools/depreciation-rates/industry/mining/jumbos/
+- Load-haul-dump machines: https://duguid.com.au/tools/depreciation-rates/industry/mining/load-haul-dump-machines/
+- Armoured face conveyors: https://duguid.com.au/tools/depreciation-rates/industry/mining/armoured-face-conveyors/
+- Beam stage loaders: https://duguid.com.au/tools/depreciation-rates/industry/mining/beam-stage-loaders/
+- Hydraulic pump modules: https://duguid.com.au/tools/depreciation-rates/industry/mining/hydraulic-pump-modules/
+- Hydraulic roof supports: https://duguid.com.au/tools/depreciation-rates/industry/mining/hydraulic-roof-supports/
+- Impact crushers: https://duguid.com.au/tools/depreciation-rates/industry/mining/impact-crushers/
+- Mobile conveyors tail end: https://duguid.com.au/tools/depreciation-rates/industry/mining/mobile-conveyors-tail-end/
+- Roof support relocation vehicles: https://duguid.com.au/tools/depreciation-rates/industry/mining/roof-support-relocation-vehicles/
+- Shearers: https://duguid.com.au/tools/depreciation-rates/industry/mining/shearers/
+- Shearer carriers: https://duguid.com.au/tools/depreciation-rates/industry/mining/shearer-carriers/
+- Maintenance vehicles: https://duguid.com.au/tools/depreciation-rates/industry/mining/maintenance-vehicles/
+- Personnel transporters: https://duguid.com.au/tools/depreciation-rates/industry/mining/personnel-transporters/
+- Raise borers and down reamers: https://duguid.com.au/tools/depreciation-rates/industry/mining/raise-borers-and-down-reamers/
+- Roof bolters: https://duguid.com.au/tools/depreciation-rates/industry/mining/roof-bolters/
+- Scissor lifts: https://duguid.com.au/tools/depreciation-rates/industry/mining/scissor-lifts/
+- Shuttle cars: https://duguid.com.au/tools/depreciation-rates/industry/mining/shuttle-cars/
+- Skid steer loaders: https://duguid.com.au/tools/depreciation-rates/industry/mining/skid-steer-loaders/
+- Underground haulage trucks: https://duguid.com.au/tools/depreciation-rates/industry/mining/underground-haulage-trucks/
+- Wheel loaders: https://duguid.com.au/tools/depreciation-rates/industry/mining/underground-mobile-mining-wheel-loaders/
+- Workshop plant: https://duguid.com.au/tools/depreciation-rates/industry/mining/workshop-plant/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

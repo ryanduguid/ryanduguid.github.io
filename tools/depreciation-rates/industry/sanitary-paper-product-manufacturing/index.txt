@@ -1,0 +1,69 @@
+# Sanitary paper product effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/
+
+> Table A (industry categories), MANUFACTURING / Sanitary: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Sanitary paper product manufacturing
+
+16 effective lives in Table A of the Commissioner’s 2025 effective life determination for Sanitary paper product manufacturing.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Finishing and converted paper product manufacturing assets: | | | |
+Finishing and converted paper product manufacturing assets: / Generally (including machines for manufacturing disposable facial and toilet tissues, paper tablecloths, paper table napkins, interleaved and rolled paper towels) | 15 years | 6.67% | 13.33% | 1 July 2013
+Finishing and converted paper product manufacturing assets: / Rolled paper core manufacturing assets (including feeder racks, glue applicators and cutting carriages) | 10 years | 10.00% | 20.00% | 1 July 2013
+Hygienic paper product manufacturing assets: | | | |
+Hygienic paper product manufacturing assets: / Fluff preparation assets (including hammer mills, cutting machines, fluff forming drums, compacting rollers and carding machines) | 13 years | 7.69% | 15.38% | 1 July 2013
+Hygienic paper product manufacturing assets: / Generally (including machines for manufacturing disposable nappies, sanitary napkins, sanitary liners and tampons) | 13 years | 7.69% | 15.38% | 1 July 2013
+Packaging assets: | | | |
+Packaging assets: / Cartoning assets (including bundlers, carton and case erectors, packing and closing machines) | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Coding and labelling machines | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Robots (including automatic guided vehicles (AGVs) and pick and place packaging machines) | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Stackers and baggers | 10 years | 10.00% | 20.00% | 1 July 2013
+Packaging assets: / Wrapping machines (including shrink and stretch wrappers) | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: | | | |
+Support assets: / Air compressors and air dryers | 15 years | 6.67% | 13.33% | 1 July 2013
+Support assets: / Control system and monitoring assets (including programmable logic controllers (PLCs), variable speed drives (VSDs), instruments and sensors) | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Dust control assets (including ductwork, dust collectors, scrubbers and fans) | 15 years | 6.67% | 13.33% | 1 July 2013
+Support assets: / Laboratory assets (including quality control and material testing assets) | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Material handling assets (including conveyors, elevators, hoists, feeders and hoppers) | 15 years | 6.67% | 13.33% | 1 July 2013
+Support assets: / Metal detectors | 10 years | 10.00% | 20.00% | 1 July 2013
+Support assets: / Storage assets (including bins and trolleys) | 10 years | 10.00% | 20.00% | 1 July 2013
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Generally (including machines for manufacturing disposable facial and toilet tissues, paper tablecloths, paper table napkins, interleaved and rolled paper towels): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/finishing-and-converted-paper-generally/
+- Rolled paper core manufacturing assets (including feeder racks, glue applicators and cutting carriages): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/rolled-paper-core-manufacturing-assets/
+- Fluff preparation assets (including hammer mills, cutting machines, fluff forming drums, compacting rollers and carding machines): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/fluff-preparation-assets/
+- Generally (including machines for manufacturing disposable nappies, sanitary napkins, sanitary liners and tampons): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/hygienic-paper-product-generally/
+- Cartoning assets (including bundlers, carton and case erectors, packing and closing machines): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/cartoning-assets/
+- Coding and labelling machines: https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/coding-and-labelling-machines/
+- Robots (including automatic guided vehicles (AGVs) and pick and place packaging machines): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/robots/
+- Stackers and baggers: https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/stackers-and-baggers/
+- Wrapping machines (including shrink and stretch wrappers): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/wrapping-machines/
+- Air compressors and air dryers: https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/air-compressors-and-air-dryers/
+- Control system and monitoring assets (including programmable logic controllers (PLCs), variable speed drives (VSDs), instruments and sensors): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/control-system-and-monitoring-assets/
+- Dust control assets (including ductwork, dust collectors, scrubbers and fans): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/dust-control-assets/
+- Laboratory assets (including quality control and material testing assets): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/laboratory-assets/
+- Material handling assets (including conveyors, elevators, hoists, feeders and hoppers): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/material-handling-assets/
+- Metal detectors: https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/metal-detectors/
+- Storage assets (including bins and trolleys): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/storage-assets/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

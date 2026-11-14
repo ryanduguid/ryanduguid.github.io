@@ -1,0 +1,90 @@
+# Pig farming effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/
+
+> Pig farming, Table A (industry categories), AGRICULTURE: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Pig farming
+
+26 effective lives in Table A of the Commissioner’s 2025 effective life determination for Pig farming.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Animal housing assets: | | | |
+Animal housing assets: / Animal housing structures (incorporating frames, covers, walls, roof, insulation, shutters and doors) | 20 years | 5.00% | 10.00% | 1 July 2008
+Animal housing assets: / Curtains – sidewalls | 10 years | 10.00% | 20.00% | 1 July 2008
+Animal housing assets: / Floors (suspended types): | | | |
+Animal housing assets: / Floors (suspended types): / Concrete | 10 years | 10.00% | 20.00% | 1 July 2008
+Animal housing assets: / Floors (suspended types): / Plastic | 10 years | 10.00% | 20.00% | 1 July 2008
+Animal housing assets: / Floors (suspended types): / Steel | 5 years | 20.00% | 40.00% | 1 July 2008
+Control systems (excluding personal computers) | 10 years | 10.00% | 20.00% | 1 July 2008
+Dry feed systems (incorporating troughs, trolleys, chains, hoppers, pans, tubers with auger and drive units) | 10 years | 10.00% | 20.00% | 1 July 2008
+Effluent separators/effluent fan extractors | 10 years | 10.00% | 20.00% | 1 July 2008
+Evaporative cooling systems (incorporating frames, pipes, pumps, tanks and coolpads) | 10 years | 10.00% | 20.00% | 1 July 2008
+Fans: | | | |
+Fans: / Exhaust (tunnel, minivent) | 10 years | 10.00% | 20.00% | 1 July 2008
+Fans: / Stirrer | 10 years | 10.00% | 20.00% | 1 July 2008
+Farrowing crates | 10 years | 10.00% | 20.00% | 1 July 2008
+Generators (emergency) | 20 years | 5.00% | 10.00% | 1 July 2008
+Heaters and heat lamps | 5 years | 20.00% | 40.00% | 1 July 2008
+High pressure cleaners | 3 years | 33.33% | 66.67% | 1 July 2008
+Instruments for measuring backfat or detecting pregnancy, ultrasound types (incorporating probes and monitors) | 5 years | 20.00% | 40.00% | 1 July 2008
+Liquid feed systems (incorporating feed valves, tanks, pumps, pipelines, mixers and troughs) | 10 years | 10.00% | 20.00% | 1 July 2008
+Milling assets | 10 years | 10.00% | 20.00% | 1 July 2008
+Mixing assets | 10 years | 10.00% | 20.00% | 1 July 2008
+Pens (including fences, gates, stalls, farrowing crates, ramps) | 10 years | 10.00% | 20.00% | 1 July 2008
+Silos: | | | |
+Silos: / Grain storage | 20 years | 5.00% | 10.00% | 1 July 2008
+Silos: / Readyfeed | 10 years | 10.00% | 20.00% | 1 July 2008
+Tank storage for liquid feed supplements | 20 years | 5.00% | 10.00% | 1 July 2008
+Water assets: | | | |
+Water assets: / Drinking systems (incorporating tubing, nipple drinkers, drinking cups, pressure regulators and filter units) | 10 years | 10.00% | 20.00% | 1 July 2008
+Water assets: / Effluent tanks (concrete) | 20 years | 5.00% | 10.00% | 1 July 2008
+Weigh bars, weigh indicators and weigh platforms | 5 years | 20.00% | 40.00% | 1 July 2008
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Animal housing structures (incorporating frames, covers, walls, roof, insulation, shutters and doors): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/animal-housing-structures/
+- Curtains – sidewalls: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/curtains-sidewalls/
+- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/concrete/
+- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/plastic/
+- Steel: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/steel/
+- Control systems (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/control-systems/
+- Dry feed systems (incorporating troughs, trolleys, chains, hoppers, pans, tubers with auger and drive units): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/dry-feed-systems/
+- Effluent separators/effluent fan extractors: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/effluent-separators-effluent-fan-extractors/
+- Evaporative cooling systems (incorporating frames, pipes, pumps, tanks and coolpads): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/evaporative-cooling-systems/
+- Exhaust (tunnel, minivent): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/exhaust/
+- Stirrer: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/stirrer/
+- Farrowing crates: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/farrowing-crates/
+- Generators (emergency): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/generators/
+- Heaters and heat lamps: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/heaters-and-heat-lamps/
+- High pressure cleaners: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/high-pressure-cleaners/
+- Instruments for measuring backfat or detecting pregnancy, ultrasound types (incorporating probes and monitors): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/instruments-for-measuring-backfat-or-detecting-pregnancy/
+- Liquid feed systems (incorporating feed valves, tanks, pumps, pipelines, mixers and troughs): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/liquid-feed-systems/
+- Milling assets: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/milling-assets/
+- Mixing assets: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/mixing-assets/
+- Pens (including fences, gates, stalls, farrowing crates, ramps): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/pens/
+- Grain storage: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/grain-storage/
+- Readyfeed: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/readyfeed/
+- Tank storage for liquid feed supplements: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/tank-storage-for-liquid-feed-supplements/
+- Drinking systems (incorporating tubing, nipple drinkers, drinking cups, pressure regulators and filter units): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/drinking-systems/
+- Effluent tanks (concrete): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/effluent-tanks/
+- Weigh bars, weigh indicators and weigh platforms: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/weigh-bars-weigh-indicators-and-weigh-platforms/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

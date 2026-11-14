@@ -1,0 +1,73 @@
+# Chair head grips effective life: 15 years, Monocable circulating
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/chair-head-grips/
+
+> Chair head grips, Monocable …: effective life 15 years, prime cost 6.67%, diminishing value 13.33%, last updated 1 July 2009 (Table A, 2025 determination).
+
+# Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas …: Chair head grips
+
+‘Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas …: Chair head grips’, for an asset used in Other transport n.e.c., has an effective life of 15 years (F2025L01097), last reviewed and determined on 1 July 2009.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Chair head grips
+Under | Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts):
+Table | Table A (industry categories), TRANSPORT, POSTAL AND WAREHOUSING / Other transport n.e.c., ANZSIC 50290
+Effective life | 15 years
+Prime cost rate | 6.67% (100% ÷ life, section 40-75)
+Diminishing value rate | 13.33% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2009
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Other transport n.e.c. takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+Where ‘fixed’ describes how an asset is attached, it means an item annexed or attached by any means, such as screws, nails, bolts, glue, adhesive, grout or cement, other than merely for temporary stability (paragraph 8 of the guide).
+
+The life was last reviewed and determined on 1 July 2009. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts)
+
+Row | Life | Prime cost | Diminishing value
+Chair head grips (this page) | 15 years | 6.67% | 13.33%
+Chairs, T-bars and pomas | 25 years | 4.00% | 8.00%
+Covered moving walkways (including covered walkways and carpets) | 10 years | 10.00% | 20.00%
+Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems) | 20 years | 5.00% | 10.00%
+Snow grooming assets (including free groomers, snow blowers and winches) | 8 years | 12.50% | 25.00%
+Standby power drives | 25 years | 4.00% | 8.00%
+Tower heads and structures | 30 years | 3.33% | 6.67%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Chairs, T-bars and pomas: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/chairs-t-bars-and-pomas/
+- Covered moving walkways (including covered walkways and carpets): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/covered-moving-walkways/
+- Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/drive-and-return-station-assets/
+- Snow grooming assets (including free groomers, snow blowers and winches): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/snow-grooming-assets/
+- Standby power drives: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/standby-power-drives/
+- Tower heads and structures: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/tower-heads-and-structures/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

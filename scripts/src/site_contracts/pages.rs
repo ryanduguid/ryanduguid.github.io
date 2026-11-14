@@ -8,6 +8,8 @@ use crate::py;
 use crate::pyre::{S, re};
 use crate::pyval::{Val, find, repr_list};
 use crate::seo_core::{self as core, Tree};
+use std::collections::HashMap;
+use std::sync::{LazyLock, Mutex, PoisonError};
 
 pub fn check_homepage_contract(html: &str, failures: &mut Vec<String>) {
     let titles = re(r"<title>(.*?)</title>", S).findall(html);
@@ -772,15 +774,19 @@ pub fn check_calculator_contract(html: &str, failures: &mut Vec<String>, module_
 
 /// Require one skip target and the exact global primary navigation.
 pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
-    let tree = core::parse_structure(html);
-    let mains = rendered(&tree, Some("main"));
+    shared_shell(&core::parse_structure(html), rel, failures);
+}
+
+/// `check_shared_shell` on a page already parsed.
+pub(super) fn shared_shell(tree: &Tree, rel: &str, failures: &mut Vec<String>) {
+    let mains = rendered(tree, Some("main"));
     if mains.len() != 1 || tree.attr(mains[0], "id") != Some("main") {
         failures.push(format!(
             "{rel}: expected exactly one rendered main#main, found {} main elements",
             mains.len()
         ));
     }
-    let skip_links = rendered(&tree, Some("a"))
+    let skip_links = rendered(tree, Some("a"))
         .into_iter()
         .filter(|l| tree.has_class(*l, "skip-link") && tree.attr(*l, "href") == Some("#main"))
         .count();
@@ -789,7 +795,7 @@ pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
             "{rel}: expected exactly one .skip-link targeting #main, found {skip_links}"
         ));
     }
-    let primary: Vec<usize> = rendered(&tree, Some("nav"))
+    let primary: Vec<usize> = rendered(tree, Some("nav"))
         .into_iter()
         .filter(|n| tree.attr(*n, "aria-label") == Some("Primary"))
         .collect();
@@ -879,10 +885,53 @@ pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
     }
 }
 
+/// The parent steps of an effective life page's trail: the depreciation rates page, its
+/// table's index page and, for a row, its group page, named `group` (that page's H1).
+fn effective_life_parents(rel: &str, group: &str) -> Option<Vec<(String, Option<String>, String)>> {
+    if !crate::effective_life_pages::is_page(rel) {
+        return None;
+    }
+    let step = |name: &str, href: &str| {
+        (
+            name.to_owned(),
+            Some(href.to_owned()),
+            format!("{SITE}{href}"),
+        )
+    };
+    let rest = rel
+        .strip_prefix("tools/depreciation-rates/")?
+        .strip_suffix("index.html")?;
+    let parts: Vec<&str> = rest.split('/').filter(|part| !part.is_empty()).collect();
+    let index = match parts[0] {
+        "industry" => "Table A: effective lives by industry",
+        _ => "Table B: effective lives by asset",
+    };
+    let mut steps = vec![
+        step("Home", "/"),
+        step("Tools", "/tools/"),
+        step("Depreciation rates", "/tools/depreciation-rates/"),
+    ];
+    if parts.len() >= 2 {
+        steps.push(step(
+            index,
+            &format!("/tools/depreciation-rates/{}/", parts[0]),
+        ));
+    }
+    if parts.len() == 3 {
+        steps.push(step(
+            group,
+            &format!("/tools/depreciation-rates/{}/{}/", parts[0], parts[1]),
+        ));
+    }
+    Some(steps)
+}
+
 /// Visible name, href and canonical URL for each step of a collection breadcrumb.
+/// `group` names an effective life row page's group: its group page's H1.
 pub fn collection_breadcrumb_shape(
     rel: &str,
     current_name: &str,
+    group: &str,
 ) -> Option<Vec<(String, Option<String>, String)>> {
     let home = ("Home".to_owned(), Some("/".to_owned()), format!("{SITE}/"));
     let step = |name: &str, href: &str| {
@@ -892,7 +941,9 @@ pub fn collection_breadcrumb_shape(
             format!("{SITE}{href}"),
         )
     };
-    let mut parents = if rel == "tools/index.html"
+    let mut parents = if let Some(parents) = effective_life_parents(rel, group) {
+        parents
+    } else if rel == "tools/index.html"
         || rel == "evaluate/index.html"
         || rel == "rates/index.html"
         || rel.starts_with("examples/")
@@ -933,10 +984,54 @@ pub fn collection_breadcrumb_shape(
     Some(parents)
 }
 
+/// The H1 of the group page above an effective life row page, which its trail names;
+/// empty for any other page, or when the group page is missing (the trail then fails).
+fn effective_life_group(root: &Path, rel: &str) -> String {
+    let Some(group) = rel
+        .strip_suffix("index.html")
+        .filter(|_| crate::effective_life_pages::is_page(rel))
+        .and_then(|rest| rest.trim_end_matches('/').rsplit_once('/'))
+        .map(|(group, _)| format!("{group}/index.html"))
+        .filter(|group| group.matches('/').count() == 4)
+    else {
+        return String::new();
+    };
+    let Ok(html) = crate::read(&super::site_path(root, &group)) else {
+        return String::new();
+    };
+    first_h1_text(html)
+}
+
+/// The text of a page's first rendered H1, kept by page content: every row page of a
+/// group names the same group page, which would otherwise be parsed again for each row.
+fn first_h1_text(html: String) -> String {
+    static NAMES: LazyLock<Mutex<HashMap<String, String>>> = LazyLock::new(Default::default);
+    let names = || NAMES.lock().unwrap_or_else(PoisonError::into_inner);
+    if let Some(name) = names().get(&html) {
+        return name.clone();
+    }
+    let tree = core::parse_structure(&html);
+    let name = rendered(&tree, Some("h1"))
+        .first()
+        .map_or_else(String::new, |h1| tree.text(*h1));
+    names().insert(html, name.clone());
+    name
+}
+
 /// Keep visible and structured collection breadcrumbs in the same hierarchy.
-pub fn check_collection_breadcrumb(html: &str, rel: &str, failures: &mut Vec<String>) {
-    let tree = core::parse_structure(html);
-    let h1s = rendered(&tree, Some("h1"));
+pub fn check_collection_breadcrumb(html: &str, rel: &str, root: &Path, failures: &mut Vec<String>) {
+    collection_breadcrumb(&core::parse_structure(html), html, rel, root, failures);
+}
+
+/// `check_collection_breadcrumb` on a page already parsed: `tree` is `html`'s structure.
+pub(super) fn collection_breadcrumb(
+    tree: &Tree,
+    html: &str,
+    rel: &str,
+    root: &Path,
+    failures: &mut Vec<String>,
+) {
+    let h1s = rendered(tree, Some("h1"));
     if h1s.len() != 1 {
         failures.push(format!("{rel}: collection breadcrumb needs exactly one H1"));
         return;
@@ -945,13 +1040,14 @@ pub fn check_collection_breadcrumb(html: &str, rel: &str, failures: &mut Vec<Str
         .iter()
         .find(|(r, _)| *r == rel)
         .map_or_else(|| tree.text(h1s[0]), |(_, n)| (*n).to_owned());
-    let Some(expected) = collection_breadcrumb_shape(rel, &leaf) else {
-        return;
-    };
-    let breadcrumbs: Vec<usize> = rendered(&tree, Some("nav"))
+    let breadcrumbs: Vec<usize> = rendered(tree, Some("nav"))
         .into_iter()
         .filter(|n| tree.attr(*n, "aria-label") == Some("Breadcrumb"))
         .collect();
+    let group = effective_life_group(root, rel);
+    let Some(expected) = collection_breadcrumb_shape(rel, &leaf, &group) else {
+        return;
+    };
     if breadcrumbs.len() != 1 {
         failures.push(format!(
             "{rel}: expected exactly one nav labelled Breadcrumb, found {}",

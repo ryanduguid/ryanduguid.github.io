@@ -1,0 +1,62 @@
+# Power supply assets effective lives, Table B
+
+Source: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/
+
+> Power supply assets, Table B (asset categories), letter: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Power supply assets
+
+12 effective lives in Table B of the Commissioner’s 2025 effective life determination under Power supply assets.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Emergency or standby: | | | |
+Emergency or standby: / Generator assets: | | | |
+Emergency or standby: / Generator assets: / Acoustic hoods and canopies | 20 years | 5.00% | 10.00% | 1 July 2005
+Emergency or standby: / Generator assets: / Generators (incorporating attached engine management and generator monitoring instruments) | 25 years | 4.00% | 8.00% | 1 July 2005
+Emergency or standby: / Generator assets: / Power management units | 15 years | 6.67% | 13.33% | 1 July 2005
+Emergency or standby: / Uninterruptible power supply (UPS) systems | 15 years | 6.67% | 13.33% | 1 July 2013
+Generators, portable (incorporating attached engine management and generator monitoring instruments): | | | |
+Generators, portable (incorporating attached engine management and generator monitoring instruments): / Diesel | 10 years | 10.00% | 20.00% | 1 July 2008
+Generators, portable (incorporating attached engine management and generator monitoring instruments): / Petrol | 5 years | 20.00% | 40.00% | 1 July 2008
+Private electricity line assets (where used for a specified purpose): | | | |
+Private electricity line assets (where used for a specified purpose): / Distribution lines: | | | |
+Private electricity line assets (where used for a specified purpose): / Distribution lines: / Combination of overhead and underground | 47 1/2 years | 2.11% | 4.21% | 1 July 2014
+Private electricity line assets (where used for a specified purpose): / Distribution lines: / Overhead (incorporating poles - concrete, wood, steel or stobie - and electrical equipment the responsibility of the private landholder such as conductors, cross arms etc) | 45 years | 2.22% | 4.44% | 1 July 2014
+Private electricity line assets (where used for a specified purpose): / Distribution lines: / Underground (incorporating cables, fittings and ground pad mounted transformers) | 50 years | 2.00% | 4.00% | 1 July 2014
+Private electricity line assets (where used for a specified purpose): / Service cables, overhead | 40 years | 2.50% | 5.00% | 1 July 2014
+Private electricity line assets (where used for a specified purpose): / Service cables, underground | 50 years | 2.00% | 4.00% | 1 July 2014
+Storage batteries | 15 years | 6.67% | 13.33% | 1 July 2013
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Acoustic hoods and canopies: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/acoustic-hoods-and-canopies/
+- Generators (incorporating attached engine management and generator monitoring instruments): https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/generators/
+- Power management units: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/power-management-units/
+- Uninterruptible power supply (UPS) systems: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/uninterruptible-power-supply-systems/
+- Diesel: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/diesel/
+- Petrol: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/petrol/
+- Combination of overhead and underground: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/combination-of-overhead-and-underground/
+- Overhead (incorporating poles - concrete, wood, steel or stobie - and electrical equipment the responsibility of the private landholder such as conductors, cross arms etc): https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/overhead/
+- Underground (incorporating cables, fittings and ground pad mounted transformers): https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/underground/
+- Service cables, overhead: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/service-cables-overhead/
+- Service cables, underground: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/service-cables-underground/
+- Storage batteries: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/storage-batteries/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

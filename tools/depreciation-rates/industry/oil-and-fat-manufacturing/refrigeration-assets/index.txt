@@ -1,0 +1,83 @@
+# Refrigeration assets effective life: 15 years, Margarine
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/refrigeration-assets/
+
+> Margarine and shortening processing assets: Refrigeration assets …: effective life 15 years, last updated 1 July 2012 (Table A).
+
+# Margarine and shortening processing assets: Refrigeration assets …
+
+‘Margarine and shortening processing assets: Refrigeration assets …’, for an asset used in Oil and fat manufacturing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Refrigeration assets (including compressors, condensers, evaporators and pumps)
+Under | Edible oil or fat, blended, modified, refined or solvent extracted manufacturing assets (including canola, safflower, soybean): / Margarine and shortening processing assets:
+Table | Table A (industry categories), MANUFACTURING / Oil and fat manufacturing, ANZSIC 11500
+Effective life | 15 years
+Prime cost rate | 6.67% (100% ÷ life, section 40-75)
+Diminishing value rate | 13.33% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2012
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Oil and fat manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Margarine and shortening processing assets
+
+Row | Life | Prime cost | Diminishing value
+Pasteurisers | 15 years | 6.67% | 13.33%
+Pin rotor machines (including plasticators and complectors) | 25 years | 4.00% | 8.00%
+Refrigeration assets (including compressors, condensers, evaporators and pumps) (this page) | 15 years | 6.67% | 13.33%
+Scraped surface heat exchangers (including perfectors and crystallisers) | 25 years | 4.00% | 8.00%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Refrigeration assets (including compressors, cooling towers, condensers and pumps) | Fruit and vegetable processing | 15 years | 6.67% | 13.33%
+Refrigeration assets (including chillers, compressors, condensers, evaporative coolers and pumps) | Grain mill product manufacturing | 15 years | 6.67% | 13.33%
+Refrigeration assets (refrigeration units etc) | Other food product manufacturing n.e.c. | 12 years | 8.33% | 16.67%
+Refrigeration assets (including compressors, cooling towers, condensers, evaporators and pumps) | Soft drink, cordial and syrup manufacturing | 15 years | 6.67% | 13.33%
+Refrigeration assets (including compressors, condensers, evaporators and pumps) | Beer manufacturing (except non-alcoholic beer) | 15 years | 6.67% | 13.33%
+Refrigeration assets (including compressors, condensers, evaporators and storage tanks) | Wine and other alcoholic beverage manufacturing | 15 years | 6.67% | 13.33%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Pasteurisers: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/pasteurisers/
+- Pin rotor machines (including plasticators and complectors): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/pin-rotor-machines/
+- Scraped surface heat exchangers (including perfectors and crystallisers): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/scraped-surface-heat-exchangers/
+- Refrigeration assets (including compressors, cooling towers, condensers and pumps): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/refrigeration-assets/
+- Refrigeration assets (including chillers, compressors, condensers, evaporative coolers and pumps): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/refrigeration-assets/
+- Refrigeration assets (refrigeration units etc): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/refrigeration-assets/
+- Refrigeration assets (including compressors, cooling towers, condensers, evaporators and pumps): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/refrigeration-assets/
+- Refrigeration assets (including compressors, condensers, evaporators and pumps): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/refrigeration-assets/
+- Refrigeration assets (including compressors, condensers, evaporators and storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/refrigeration-assets/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -1,0 +1,82 @@
+# Electric desalters effective life: 25 years, Assets
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/electric-desalters/
+
+> Assets used in other processes: Electric desalters: effective life 25 years, last updated 1 July 2002 (Table A).
+
+# Assets used in other processes: Electric desalters
+
+‘Assets used in other processes: Electric desalters’, for an asset used in Petroleum refining, has an effective life of 25 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2002.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Electric desalters
+Under | Oil refinery assets: / Assets used in other processes:
+Table | Table A (industry categories), MANUFACTURING / Petroleum refining, ANZSIC 17010
+Effective life | 25 years
+Prime cost rate | 4.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 8.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2002
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Petroleum refining takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2002. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Assets used in other processes
+
+Row | Life | Prime cost | Diminishing value
+Air compressors | 30 years | 3.33% | 6.67%
+Catalyst regenerators | 20 years | 5.00% | 10.00%
+Chemical injection systems | 5 years | 20.00% | 40.00%
+Coke drums | 20 years | 5.00% | 10.00%
+Distillation columns | 30 years | 3.33% | 6.67%
+Electric desalters (this page) | 25 years | 4.00% | 8.00%
+Expansion turbines | 25 years | 4.00% | 8.00%
+Fans/blowers | 30 years | 3.33% | 6.67%
+Flare stacks | 25 years | 4.00% | 8.00%
+Flare tips | 5 years | 20.00% | 40.00%
+Fractionating columns | 30 years | 3.33% | 6.67%
+Gas adsorbers | 25 years | 4.00% | 8.00%
+
+19 rows share this heading. The Petroleum refining page lists them all.
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 25 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/air-compressors/
+- Catalyst regenerators: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/catalyst-regenerators/
+- Chemical injection systems: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/chemical-injection-systems/
+- Coke drums: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/coke-drums/
+- Distillation columns: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/distillation-columns/
+- Expansion turbines: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/expansion-turbines/
+- Fans/blowers: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/fans-blowers/
+- Flare stacks: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/flare-stacks/
+- Flare tips: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/flare-tips/
+- Fractionating columns: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/fractionating-columns/
+- Gas adsorbers: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/gas-adsorbers/
+- Petroleum refining: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

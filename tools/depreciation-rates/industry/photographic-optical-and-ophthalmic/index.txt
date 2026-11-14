@@ -1,0 +1,71 @@
+# Photographic, optical effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/
+
+> Photographic, optical and ophthalmic equipment: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Photographic, optical and ophthalmic equipment manufacturing
+
+18 effective lives in Table A of the Commissioner’s 2025 effective life determination for Photographic, optical and ophthalmic equipment manufacturing.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Optical lens grinding and contact lens manufacturing: | | | |
+Optical lens grinding and contact lens manufacturing: / CNC milling machines | 7 years | 14.29% | 28.57% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Combined surface generators and grinders and finers | 10 years | 10.00% | 20.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Deblocking and lens cleaning machines (including ultrasonic washers) | 9 years | 11.11% | 22.22% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Finers | 10 years | 10.00% | 20.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Finishing blockers | 8 years | 12.50% | 25.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Frame tracers | 5 years | 20.00% | 40.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Lap tools | 10 years | 10.00% | 20.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Layout blockers | 8 years | 12.50% | 25.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Lens coating machines | 10 years | 10.00% | 20.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Lens curing and drying ovens | 10 years | 10.00% | 20.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Lens edgers | 7 years | 14.29% | 28.57% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Lens tinting machines | 8 years | 12.50% | 25.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Lensmeters: | | | |
+Optical lens grinding and contact lens manufacturing: / Lensmeters: / Automated | 5 years | 20.00% | 40.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Lensmeters: / Manual | 10 years | 10.00% | 20.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Polishers | 10 years | 10.00% | 20.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Protective lacquering or surface saver taping machines | 9 years | 11.11% | 22.22% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Surface generators and grinders | 10 years | 10.00% | 20.00% | 1 July 2004
+Optical lens grinding and contact lens manufacturing: / Surface lathes | 8 years | 12.50% | 25.00% | 1 July 2004
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- CNC milling machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/cnc-milling-machines/
+- Combined surface generators and grinders and finers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/combined-surface-generators-and-grinders-and-finers/
+- Deblocking and lens cleaning machines (including ultrasonic washers): https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/deblocking-and-lens-cleaning-machines/
+- Finers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/finers/
+- Finishing blockers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/finishing-blockers/
+- Frame tracers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/frame-tracers/
+- Lap tools: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/lap-tools/
+- Layout blockers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/layout-blockers/
+- Lens coating machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/lens-coating-machines/
+- Lens curing and drying ovens: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/lens-curing-and-drying-ovens/
+- Lens edgers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/lens-edgers/
+- Lens tinting machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/lens-tinting-machines/
+- Automated: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/automated/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/manual/
+- Polishers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/polishers/
+- Protective lacquering or surface saver taping machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/protective-lacquering-or-surface-saver-taping-machines/
+- Surface generators and grinders: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/surface-generators-and-grinders/
+- Surface lathes: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/surface-lathes/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

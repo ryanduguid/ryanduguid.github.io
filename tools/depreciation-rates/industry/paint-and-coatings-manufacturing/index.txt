@@ -1,0 +1,106 @@
+# Paint and coatings effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/
+
+> Table A (industry categories), MANUFACTURING / Paint: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Paint and coatings manufacturing
+
+34 effective lives in Table A of the Commissioner’s 2025 effective life determination for Paint and coatings manufacturing.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Ink factory plant | 20 years | 5.00% | 10.00% | 1 January 2001
+Paint and coatings manufacturing assets: | | | |
+Paint and coatings manufacturing assets: / Air compressors | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Bead mills | 20 years | 5.00% | 10.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Bulk storage tanks | 25 years | 4.00% | 8.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Control system assets | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Disperser and mixer motors | 15 years | 6.67% | 13.33% | 1 July 2013
+Paint and coatings manufacturing assets: / Dispersers | 20 years | 5.00% | 10.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Dust collectors and fume extracting assets (including bag dust collectors, blowers, cyclones and fans) | 20 years | 5.00% | 10.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Filling and packing assets: | | | |
+Paint and coatings manufacturing assets: / Filling and packing assets: / Conveyors | 15 years | 6.67% | 13.33% | 1 July 2013
+Paint and coatings manufacturing assets: / Filling and packing assets: / Denesters | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Filling and packing assets: / Filling machines | 15 years | 6.67% | 13.33% | 1 July 2013
+Paint and coatings manufacturing assets: / Filling and packing assets: / Filtration assets | 15 years | 6.67% | 13.33% | 1 July 2013
+Paint and coatings manufacturing assets: / Filling and packing assets: / Labellers (including laser coders and label applicators) | 7 years | 14.29% | 28.57% | 1 July 2013
+Paint and coatings manufacturing assets: / Filling and packing assets: / Printers | 7 years | 14.29% | 28.57% | 1 July 2013
+Paint and coatings manufacturing assets: / Filling and packing assets: / Robotic palletisers | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Filling and packing assets: / Wrappers | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Gantry cranes | 25 years | 4.00% | 8.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Hoists | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Mixers | 20 years | 5.00% | 10.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Paint tinting and colour blending machines (manual and automatic) | 7 years | 14.29% | 28.57% | 1 July 2014
+Paint and coatings manufacturing assets: / Piping assets: | | | |
+Paint and coatings manufacturing assets: / Piping assets: / Manifolds | 20 years | 5.00% | 10.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Piping assets: / Meters | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Piping assets: / Piping | 25 years | 4.00% | 8.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Pumps | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Racking: | | | |
+Paint and coatings manufacturing assets: / Racking: / External | 15 years | 6.67% | 13.33% | 1 July 2013
+Paint and coatings manufacturing assets: / Racking: / Internal | 20 years | 5.00% | 10.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Scales | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Spray booths | 15 years | 6.67% | 13.33% | 1 July 2013
+Paint and coatings manufacturing assets: / Testing assets: | | | |
+Paint and coatings manufacturing assets: / Testing assets: / Air conditioning assets (including room units and split systems) | 8 years | 12.50% | 25.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Testing assets: / Gloss meters | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Testing assets: / Ovens | 15 years | 6.67% | 13.33% | 1 July 2013
+Paint and coatings manufacturing assets: / Testing assets: / Spectrometers | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Testing assets: / Viscometers | 10 years | 10.00% | 20.00% | 1 July 2013
+Paint and coatings manufacturing assets: / Vacuum lifters | 10 years | 10.00% | 20.00% | 1 July 2013
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Ink factory plant: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/ink-factory-plant/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/air-compressors/
+- Bead mills: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/bead-mills/
+- Bulk storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/bulk-storage-tanks/
+- Control system assets: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/control-system-assets/
+- Disperser and mixer motors: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/disperser-and-mixer-motors/
+- Dispersers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/dispersers/
+- Dust collectors and fume extracting assets (including bag dust collectors, blowers, cyclones and fans): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/dust-collectors-and-fume-extracting-assets/
+- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/conveyors/
+- Denesters: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/denesters/
+- Filling machines: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/filling-machines/
+- Filtration assets: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/filtration-assets/
+- Labellers (including laser coders and label applicators): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/labellers/
+- Printers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/printers/
+- Robotic palletisers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/robotic-palletisers/
+- Wrappers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/wrappers/
+- Gantry cranes: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/gantry-cranes/
+- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/hoists/
+- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/mixers/
+- Paint tinting and colour blending machines (manual and automatic): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/paint-tinting-and-colour-blending-machines/
+- Manifolds: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/manifolds/
+- Meters: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/meters/
+- Piping: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/piping/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/pumps/
+- External: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/external/
+- Internal: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/internal/
+- Scales: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/scales/
+- Spray booths: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/spray-booths/
+- Air conditioning assets (including room units and split systems): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/air-conditioning-assets/
+- Gloss meters: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/gloss-meters/
+- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/ovens/
+- Spectrometers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/spectrometers/
+- Viscometers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/viscometers/
+- Vacuum lifters: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/vacuum-lifters/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

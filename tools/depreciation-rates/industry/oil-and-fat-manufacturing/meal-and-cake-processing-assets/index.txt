@@ -1,0 +1,69 @@
+# Meal and cake … effective life: 30 years, Solvent extraction
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/meal-and-cake-processing-assets/
+
+> Solvent extraction system assets: Meal and cake processing assets …: effective life 30 years, last updated 1 July 2012 (Table A).
+
+# Solvent extraction system assets: Meal and cake processing assets …
+
+‘Solvent extraction system assets: Meal and cake processing assets …’, for an asset used in Oil and fat manufacturing, has an effective life of 30 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Meal and cake processing assets (incorporating desolventisers, toasters, drying and cooling assets)
+Under | Edible oil or fat, blended, modified, refined or solvent extracted manufacturing assets (including canola, safflower, soybean): / Preparatory and extraction assets: / Solvent extraction system assets:
+Table | Table A (industry categories), MANUFACTURING / Oil and fat manufacturing, ANZSIC 11500
+Effective life | 30 years
+Prime cost rate | 3.33% (100% ÷ life, section 40-75)
+Diminishing value rate | 6.67% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2012
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Oil and fat manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+Because the row says ‘incorporating’, the items it lists are components of the one asset, not separate assets (paragraph 4 of the guide).
+
+The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Solvent extraction system assets
+
+Row | Life | Prime cost | Diminishing value
+Distillation system assets (incorporating distillation columns, steam economisers, condensers, evaporators and oil strippers) | 30 years | 3.33% | 6.67%
+Meal and cake processing assets (incorporating desolventisers, toasters, drying and cooling assets) (this page) | 30 years | 3.33% | 6.67%
+Mineral oil recovery system assets (incorporating heat exchangers, mineral oil scrubbers and oil strippers) | 30 years | 3.33% | 6.67%
+Solvent extractors (including hoppers and conveyors) | 30 years | 3.33% | 6.67%
+Solvent water separation system assets (incorporating condensers, solvent water separators, steam ejectors and solvent receivers) | 30 years | 3.33% | 6.67%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 30 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Distillation system assets (incorporating distillation columns, steam economisers, condensers, evaporators and oil strippers): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/distillation-system-assets/
+- Mineral oil recovery system assets (incorporating heat exchangers, mineral oil scrubbers and oil strippers): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/mineral-oil-recovery-system-assets/
+- Solvent extractors (including hoppers and conveyors): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/solvent-extractors/
+- Solvent water separation system assets (incorporating condensers, solvent water separators, steam ejectors and solvent receivers): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/solvent-water-separation-system-assets/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

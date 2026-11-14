@@ -1,0 +1,252 @@
+# Industrial gas effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/
+
+> Industrial gas manufacturing, Table: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Industrial gas manufacturing
+
+91 effective lives in Table A of the Commissioner’s 2025 effective life determination for Industrial gas manufacturing.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Industrial gas – general manufacturing assets: | | | |
+Industrial gas – general manufacturing assets: / Air and gas cooling and heating assets: | | | |
+Industrial gas – general manufacturing assets: / Air and gas cooling and heating assets: / Heat exchangers | 15 years | 6.67% | 13.33% | 1 July 2011
+Industrial gas – general manufacturing assets: / Air and gas cooling and heating assets: / Moisture condensers | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – general manufacturing assets: / Air and gas cooling and heating assets: / Quench drums | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – general manufacturing assets: / Air and gas cooling and heating assets: / Refrigeration units | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – general manufacturing assets: / Air and gas purification assets: | | | |
+Industrial gas – general manufacturing assets: / Air and gas purification assets: / Adsorption systems | 25 years | 4.00% | 8.00% | 1 July 2011
+Industrial gas – general manufacturing assets: / Air and gas purification assets: / Gas scrubbers | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – general manufacturing assets: / Air and gas purification assets: / Reactors | 25 years | 4.00% | 8.00% | 1 July 2011
+Industrial gas – general manufacturing assets: / Compressors | 25 years | 4.00% | 8.00% | 1 July 2011
+Industrial gas – general manufacturing assets: / Gas buffer and surge tanks | 25 years | 4.00% | 8.00% | 1 July 2011
+Industrial gas – general manufacturing assets: / Silencers/mufflers | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: | | | |
+Industrial gas – manufacturing assets for specific gases: / Acetylene manufacturing assets (carbide process): | | | |
+Industrial gas – manufacturing assets for specific gases: / Acetylene manufacturing assets (carbide process): / Acetylene compressors | 25 years | 4.00% | 8.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Acetylene manufacturing assets (carbide process): / Acetylene generators (incorporating hoppers) | 30 years | 3.33% | 6.67% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Acetylene manufacturing assets (carbide process): / Acetylene purification assets (including cooling condensers, driers, purifier vessels and scrubbers) | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Acetylene manufacturing assets (carbide process): / Calcium hydroxide settling ponds and tanks | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Acetylene manufacturing assets (carbide process): / Carbide handling assets (including carry skips, drum conveyor system and drum opening, lifting and tipping apparatus) | 12 years | 8.33% | 16.67% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Acetylene manufacturing assets (carbide process): / Dust collection systems | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Acetylene manufacturing assets (carbide process): / Flashback arrestors | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Ammonia manufacturing assets – see Table A Basic inorganic chemical manufacturing (18130) | | | |
+Industrial gas – manufacturing assets for specific gases: / Argon, nitrogen and oxygen manufacturing assets (cryogenic process): | | | |
+Industrial gas – manufacturing assets for specific gases: / Argon, nitrogen and oxygen manufacturing assets (cryogenic process): / Air filtering units for process air (incorporating housing and filters) | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Argon, nitrogen and oxygen manufacturing assets (cryogenic process): / Cold boxes (incorporating distillation columns, expansion valves, heat exchangers, piping, separators and vacuum insulated enclosures) | 30 years | 3.33% | 6.67% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Argon, nitrogen and oxygen manufacturing assets (cryogenic process): / Evaporative coolers (nitrogen cooled) and spray coolers | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Argon, nitrogen and oxygen manufacturing assets (cryogenic process): / Nitrogen liquefiers (incorporating, expansion valves, heat exchangers, piping, separators and vacuum insulated enclosures) | 30 years | 3.33% | 6.67% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Argon, nitrogen and oxygen manufacturing assets (cryogenic process): / Turbine expansion engines | 25 years | 4.00% | 8.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Carbon dioxide (CO2) manufacturing assets: | | | |
+Industrial gas – manufacturing assets for specific gases: / Carbon dioxide (CO2) manufacturing assets: / Amine based absorption/desorption systems | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Carbon dioxide (CO2) manufacturing assets: / Liquefaction assets (including condensers, condensate receivers and separators) | 25 years | 4.00% | 8.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Dry ice manufacturing assets: | | | |
+Industrial gas – manufacturing assets for specific gases: / Dry ice manufacturing assets: / Dry ice cutting machines | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Dry ice manufacturing assets: / Dry ice packaging systems (incorporating conveyors, shrink tunnels and wrapping and sealing machines) | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Dry ice manufacturing assets: / Dry ice presses | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Dry ice manufacturing assets: / Dry ice shipping boxes | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Dry ice manufacturing assets: / Extraction fans for waste carbon dioxide (CO2) | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Dry ice manufacturing assets: / Pelletisers | 15 years | 6.67% | 13.33% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Helium manufacturing assets: | | | |
+Industrial gas – manufacturing assets for specific gases: / Helium manufacturing assets: / Helium liquefiers (incorporating cryogenic adsorbers, expansion valves, heat exchangers, piping, separators and vacuum insulated enclosures) | 30 years | 3.33% | 6.67% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Helium manufacturing assets: / Turbine expansion engines | 25 years | 4.00% | 8.00% | 1 July 2011
+Industrial gas – manufacturing assets for specific gases: / Hydrogen manufacturing assets: | | | |
+Industrial gas – manufacturing assets for specific gases: / Hydrogen manufacturing assets: / Gasifiers and steam reformer furnaces | 25 years | 4.00% | 8.00% | 1 July 2011
+Industrial gas distribution assets: | | | |
+Industrial gas distribution assets: / Compressor assets: | | | |
+Industrial gas distribution assets: / Compressor assets: / Air receivers | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas distribution assets: / Compressor assets: / Compressors (including those for helium gas, industrial air and medical air) | 15 years | 6.67% | 13.33% | 1 July 2011
+Industrial gas distribution assets: / Cylinder filling assets: | | | |
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinder filling station assets: | | | |
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinder filling station assets: / High pressure hoses | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinder filling station assets: / Manifolds and piping (incorporating flashback arrestors): | | | |
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinder filling station assets: / Manifolds and piping (incorporating flashback arrestors): / Acetylene gas | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinder filling station assets: / Manifolds and piping (incorporating flashback arrestors): / Other gases | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinder filling station assets: / Water cooling system for acetylene cylinders (incorporating piping and spray nozzles) | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinder frames (incorporating manifolds and piping) | 15 years | 6.67% | 13.33% | 1 July 2011
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinders: | | | |
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinders: / Gas cylinders | 30 years | 3.33% | 6.67% | 1 July 2011
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinders: / Liquid gas cylinders: | | | |
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinders: / Liquid gas cylinders: / Flasks | 7 years | 14.29% | 28.57% | 1 July 2011
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinders: / Liquid gas cylinders: / Other liquid gas cylinders | 15 years | 6.67% | 13.33% | 1 July 2011
+Industrial gas distribution assets: / Cylinder filling assets: / Cylinder valves | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder handling assets: | | | |
+Industrial gas distribution assets: / Cylinder handling assets: / Baskets, crates, and pallets | 12 years | 8.33% | 16.67% | 1 July 2011
+Industrial gas distribution assets: / Cylinder handling assets: / Tippers and trolleys | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder preparation assets: | | | |
+Industrial gas distribution assets: / Cylinder preparation assets: / Boilers | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder preparation assets: / Cylinder brushing machines | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder preparation assets: / Cylinder drying cabinets (incorporating heaters and fans) | 15 years | 6.67% | 13.33% | 1 July 2011
+Industrial gas distribution assets: / Cylinder preparation assets: / Cylinder inspection lights | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder preparation assets: / Cylinder spray booths | 15 years | 6.67% | 13.33% | 1 July 2011
+Industrial gas distribution assets: / Cylinder preparation assets: / Cylinder stamping machines | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder preparation assets: / Cylinder testing machines | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Cylinder preparation assets: / Cylinder valving machines (incorporating safety enclosures) | 15 years | 6.67% | 13.33% | 1 July 2011
+Industrial gas distribution assets: / Tank truck assets: | | | |
+Industrial gas distribution assets: / Tank truck assets: / Gas storage tanks | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas distribution assets: / Tank truck assets: / Hoses | 5 years | 20.00% | 40.00% | 1 July 2011
+Industrial gas distribution assets: / Tank truck assets: / Metering systems | 7 years | 14.29% | 28.57% | 1 July 2011
+Industrial gas distribution assets: / Tank truck assets: / Pipes and valves | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Tank truck assets: / Pumps | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Tanker filling station assets: | | | |
+Industrial gas distribution assets: / Tanker filling station assets: / Breakaway couplings | 12 years | 8.33% | 16.67% | 1 July 2011
+Industrial gas distribution assets: / Tanker filling station assets: / Framework, manifolds and piping | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas distribution assets: / Tanker filling station assets: / Tanker filling hoses | 10 years | 10.00% | 20.00% | 1 July 2011
+Industrial gas distribution assets: / Tanker filling station assets: / Weighbridges | 20 years | 5.00% | 10.00% | 1 July 2011
+Industrial gas distribution assets: / Vapourisers | 20 years | 5.00% | 10.00% | 1 July 2011
+Support and other assets: | | | |
+Support and other assets: / Air drying systems for industrial and instrument air | 15 years | 6.67% | 13.33% | 1 July 2011
+Support and other assets: / Control system assets: | | | |
+Support and other assets: / Control system assets: / Control cabinets and panels, programmable logic controllers (PLCs) and variable speed drives (VSDs) | 10 years | 10.00% | 20.00% | 1 July 2011
+Support and other assets: / Control system assets: / System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement) | 10 years | 10.00% | 20.00% | 1 July 2011
+Support and other assets: / Cooling towers: | | | |
+Support and other assets: / Cooling towers: / Field erected | 20 years | 5.00% | 10.00% | 1 July 2011
+Support and other assets: / Cooling towers: / Packaged | 15 years | 6.67% | 13.33% | 1 July 2011
+Support and other assets: / Customer installations assets: | | | |
+Support and other assets: / Customer installations assets: / Adsorption based nitrogen and oxygen generation systems (skid type) assets: | | | |
+Support and other assets: / Customer installations assets: / Adsorption based nitrogen and oxygen generation systems (skid type) assets: / Membrane systems | 10 years | 10.00% | 20.00% | 1 July 2011
+Support and other assets: / Customer installations assets: / Adsorption based nitrogen and oxygen generation systems (skid type) assets: / Pressure swing adsorption (PSA) systems | 12 years | 8.33% | 16.67% | 1 July 2011
+Support and other assets: / Customer installations assets: / Adsorption based nitrogen and oxygen generation systems (skid type) assets: / Vacuum swing adsorption (VSA) systems | 15 years | 6.67% | 13.33% | 1 July 2011
+Support and other assets: / Customer installations assets: / Blowers and compressors | 15 years | 6.67% | 13.33% | 1 July 2011
+Support and other assets: / Customer installations assets: / Freezers (including batch freezers, freeze tunnels, and tumble freezers) | 15 years | 6.67% | 13.33% | 1 July 2011
+Support and other assets: / Customer installations assets: / Gas supply metering, monitoring and control systems (incorporating meters, telemetry assets, sensors, transmitters and supply switching devices) | 4 years | 25.00% | 50.00% | 1 July 2011
+Support and other assets: / Gas analysis assets: | | | |
+Support and other assets: / Gas analysis assets: / Chromatographs | 15 years | 6.67% | 13.33% | 1 July 2011
+Support and other assets: / Gas analysis assets: / Other analysers | 10 years | 10.00% | 20.00% | 1 July 2011
+Support and other assets: / Gas storage assets: | | | |
+Support and other assets: / Gas storage assets: / Liquid carbon dioxide (CO2) storage assets: | | | |
+Support and other assets: / Gas storage assets: / Liquid carbon dioxide (CO2) storage assets: / Tanks | 30 years | 3.33% | 6.67% | 1 July 2011
+Support and other assets: / Gas storage assets: / Liquid carbon dioxide (CO2) storage assets: / Tank refrigeration units | 10 years | 10.00% | 20.00% | 1 July 2011
+Support and other assets: / Gas storage assets: / Vacuum insulated tanks | 30 years | 3.33% | 6.67% | 1 July 2011
+Support and other assets: / Piping assets: | | | |
+Support and other assets: / Piping assets: / Flow meters | 10 years | 10.00% | 20.00% | 1 July 2011
+Support and other assets: / Piping assets: / Pipes: | | | |
+Support and other assets: / Piping assets: / Pipes: / Carbon steel | 20 years | 5.00% | 10.00% | 1 July 2011
+Support and other assets: / Piping assets: / Pipes: / Stainless steel | 30 years | 3.33% | 6.67% | 1 July 2011
+Support and other assets: / Piping assets: / Pipelines | 30 years | 3.33% | 6.67% | 1 July 2011
+Support and other assets: / Piping assets: / Valves | 10 years | 10.00% | 20.00% | 1 July 2011
+Support and other assets: / Platform scales | 20 years | 5.00% | 10.00% | 1 July 2011
+Support and other assets: / Pumps: | | | |
+Support and other assets: / Pumps: / Cryogenic pumps | 15 years | 6.67% | 13.33% | 1 July 2011
+Support and other assets: / Pumps: / Liquid carbon dioxide (CO2) pumps | 15 years | 6.67% | 13.33% | 1 July 2011
+Support and other assets: / Pumps: / Other pumps | 15 years | 6.67% | 13.33% | 1 July 2011
+Support and other assets: / Safety assets: | | | |
+Support and other assets: / Safety assets: / Fire control and alarm assets (see Table B) | | | |
+Support and other assets: / Safety assets: / Gas leakage monitors: | | | |
+Support and other assets: / Safety assets: / Gas leakage monitors: / Fixed | 10 years | 10.00% | 20.00% | 1 July 2011
+Support and other assets: / Safety assets: / Gas leakage monitors: / Portable | 4 years | 25.00% | 50.00% | 1 July 2011
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/heat-exchangers/
+- Moisture condensers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/moisture-condensers/
+- Quench drums: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/quench-drums/
+- Refrigeration units: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/refrigeration-units/
+- Adsorption systems: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/adsorption-systems/
+- Gas scrubbers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/gas-scrubbers/
+- Reactors: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/reactors/
+- Compressors: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/industrial-gas-general-compressors/
+- Gas buffer and surge tanks: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/gas-buffer-and-surge-tanks/
+- Silencers/mufflers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/silencers-mufflers/
+- Acetylene compressors: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/acetylene-compressors/
+- Acetylene generators (incorporating hoppers): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/acetylene-generators/
+- Acetylene purification assets (including cooling condensers, driers, purifier vessels and scrubbers): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/acetylene-purification-assets/
+- Calcium hydroxide settling ponds and tanks: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/calcium-hydroxide-settling-ponds-and-tanks/
+- Carbide handling assets (including carry skips, drum conveyor system and drum opening, lifting and tipping apparatus): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/carbide-handling-assets/
+- Dust collection systems: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/dust-collection-systems/
+- Flashback arrestors: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/flashback-arrestors/
+- Ammonia manufacturing assets – see Table A Basic inorganic chemical manufacturing (18130): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/
+- Air filtering units for process air (incorporating housing and filters): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/air-filtering-units-for-process-air/
+- Cold boxes (incorporating distillation columns, expansion valves, heat exchangers, piping, separators and vacuum insulated enclosures): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cold-boxes/
+- Evaporative coolers (nitrogen cooled) and spray coolers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/evaporative-coolers-and-spray-coolers/
+- Nitrogen liquefiers (incorporating, expansion valves, heat exchangers, piping, separators and vacuum insulated enclosures): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/nitrogen-liquefiers/
+- Turbine expansion engines: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/argon-nitrogen-and-oxygen-turbine-expansion-engines/
+- Amine based absorption/desorption systems: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/amine-based-absorption-desorption-systems/
+- Liquefaction assets (including condensers, condensate receivers and separators): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/liquefaction-assets/
+- Dry ice cutting machines: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/dry-ice-cutting-machines/
+- Dry ice packaging systems (incorporating conveyors, shrink tunnels and wrapping and sealing machines): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/dry-ice-packaging-systems/
+- Dry ice presses: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/dry-ice-presses/
+- Dry ice shipping boxes: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/dry-ice-shipping-boxes/
+- Extraction fans for waste carbon dioxide (CO2): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/extraction-fans-for-waste-carbon-dioxide/
+- Pelletisers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/pelletisers/
+- Helium liquefiers (incorporating cryogenic adsorbers, expansion valves, heat exchangers, piping, separators and vacuum insulated enclosures): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/helium-liquefiers/
+- Turbine expansion engines: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/helium-manufacturing-assets-turbine-expansion-engines/
+- Gasifiers and steam reformer furnaces: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/gasifiers-and-steam-reformer-furnaces/
+- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/air-receivers/
+- Compressors (including those for helium gas, industrial air and medical air): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/industrial-gas-distribution-compressors/
+- High pressure hoses: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/high-pressure-hoses/
+- Acetylene gas: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/acetylene-gas/
+- Other gases: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/other-gases/
+- Water cooling system for acetylene cylinders (incorporating piping and spray nozzles): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/water-cooling-system-for-acetylene-cylinders/
+- Cylinder frames (incorporating manifolds and piping): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cylinder-frames/
+- Gas cylinders: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/gas-cylinders/
+- Flasks: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/flasks/
+- Other liquid gas cylinders: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/other-liquid-gas-cylinders/
+- Cylinder valves: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cylinder-valves/
+- Baskets, crates, and pallets: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/baskets-crates-and-pallets/
+- Tippers and trolleys: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/tippers-and-trolleys/
+- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/boilers/
+- Cylinder brushing machines: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cylinder-brushing-machines/
+- Cylinder drying cabinets (incorporating heaters and fans): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cylinder-drying-cabinets/
+- Cylinder inspection lights: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cylinder-inspection-lights/
+- Cylinder spray booths: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cylinder-spray-booths/
+- Cylinder stamping machines: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cylinder-stamping-machines/
+- Cylinder testing machines: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cylinder-testing-machines/
+- Cylinder valving machines (incorporating safety enclosures): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cylinder-valving-machines/
+- Gas storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/gas-storage-tanks/
+- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/hoses/
+- Metering systems: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/metering-systems/
+- Pipes and valves: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/pipes-and-valves/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/pumps/
+- Breakaway couplings: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/breakaway-couplings/
+- Framework, manifolds and piping: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/framework-manifolds-and-piping/
+- Tanker filling hoses: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/tanker-filling-hoses/
+- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/weighbridges/
+- Vapourisers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/vapourisers/
+- Air drying systems for industrial and instrument air: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/air-drying-systems-for-industrial-and-instrument-air/
+- Control cabinets and panels, programmable logic controllers (PLCs) and variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/control-cabinets-and-panels-programmable-logic-controllers/
+- System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/system-monitoring-assets/
+- Field erected: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/field-erected/
+- Packaged: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/packaged/
+- Membrane systems: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/membrane-systems/
+- Pressure swing adsorption (PSA) systems: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/pressure-swing-adsorption-systems/
+- Vacuum swing adsorption (VSA) systems: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/vacuum-swing-adsorption-systems/
+- Blowers and compressors: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/blowers-and-compressors/
+- Freezers (including batch freezers, freeze tunnels, and tumble freezers): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/freezers/
+- Gas supply metering, monitoring and control systems (incorporating meters, telemetry assets, sensors, transmitters and supply switching devices): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/gas-supply-metering-monitoring-and-control-systems/
+- Chromatographs: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/chromatographs/
+- Other analysers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/other-analysers/
+- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/tanks/
+- Tank refrigeration units: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/tank-refrigeration-units/
+- Vacuum insulated tanks: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/vacuum-insulated-tanks/
+- Flow meters: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/flow-meters/
+- Carbon steel: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/carbon-steel/
+- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/stainless-steel/
+- Pipelines: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/pipelines/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/valves/
+- Platform scales: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/platform-scales/
+- Cryogenic pumps: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/cryogenic-pumps/
+- Liquid carbon dioxide (CO2) pumps: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/liquid-carbon-dioxide-pumps/
+- Other pumps: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/other-pumps/
+- Fixed: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/fixed/
+- Portable: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/portable/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -1,0 +1,88 @@
+# Dental services effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/
+
+> Dental services, Table A (industry categories), HEALTH: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Dental services
+
+25 effective lives in Table A of the Commissioner’s 2025 effective life determination for Dental services.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Dentists’ assets: | | | |
+Dentists’ assets: / Air abrasion units | 10 years | 10.00% | 20.00% | 1 July 2003
+Dentists’ assets: / Air compressors | 10 years | 10.00% | 20.00% | 1 July 2003
+Dentists’ assets: / Amalgam separators | 7 years | 14.29% | 28.57% | 1 July 2003
+Dentists’ assets: / Amalgamators | 7 years | 14.29% | 28.57% | 1 July 2003
+Dentists’ assets: / Computerised (CAD/CAM) ceramic restoration systems: | | | |
+Dentists’ assets: / Computerised (CAD/CAM) ceramic restoration systems: / Imaging units | 7 years | 14.29% | 28.57% | 1 July 2003
+Dentists’ assets: / Computerised (CAD/CAM) ceramic restoration systems: / Milling units | 5 years | 20.00% | 40.00% | 1 July 2003
+Dentists’ assets: / Curing lights (halogen) | 5 years | 20.00% | 40.00% | 1 July 2003
+Dentists’ assets: / Dental chairs | 10 years | 10.00% | 20.00% | 1 July 2003
+Dentists’ assets: / Dental instruments: | | | |
+Dentists’ assets: / Dental instruments: / Hand-held manually operated instruments | 3 years | 33.33% | 66.67% | 1 July 2003
+Dentists’ assets: / Dental instruments: / Handpieces (driven by compressed air, compressed gas or electricity) | 3 years | 33.33% | 66.67% | 1 July 2003
+Dentists’ assets: / Dental lasers: | | | |
+Dentists’ assets: / Dental lasers: / Hard tissue and soft tissue lasers | 7 years | 14.29% | 28.57% | 1 July 2003
+Dentists’ assets: / Dental lasers: / Soft tissue and whitening lasers | 7 years | 14.29% | 28.57% | 1 July 2003
+Dentists’ assets: / Dental lasers: / Soft tissue lasers | 10 years | 10.00% | 20.00% | 1 July 2003
+Dentists’ assets: / Dental loupes | 10 years | 10.00% | 20.00% | 1 July 2003
+Dentists’ assets: / Dental operating lights | 10 years | 10.00% | 20.00% | 1 July 2003
+Dentists’ assets: / Dental units | 10 years | 10.00% | 20.00% | 1 July 2003
+Dentists’ assets: / Dental x-ray assets: | | | |
+Dentists’ assets: / Dental x-ray assets: / Conventional x-ray film systems (incorporating control boxes, swing arms and x-ray heads, but excluding orthopantomogram (OPG) systems) | 15 years | 6.67% | 13.33% | 1 July 2003
+Dentists’ assets: / Dental x-ray assets: / Digital x-ray systems (including intra-oral storage phosphor plate systems and intra-oral digital sensor systems) | 7 years | 14.29% | 28.57% | 1 July 2003
+Dentists’ assets: / Dental x-ray assets: / Intra-oral x-ray film processors | 10 years | 10.00% | 20.00% | 1 July 2003
+Dentists’ assets: / Handpiece cleaners | 5 years | 20.00% | 40.00% | 1 July 2003
+Dentists’ assets: / Intra-oral camera systems (incorporating camera and integrated processor/docking station) | 7 years | 14.29% | 28.57% | 1 July 2003
+Dentists’ assets: / Nitrous oxide sedation units | 20 years | 5.00% | 10.00% | 1 July 2003
+Dentists’ assets: / Oral surgical motors | 5 years | 20.00% | 40.00% | 1 July 2003
+Dentists’ assets: / Suction units | 10 years | 10.00% | 20.00% | 1 July 2003
+Dentists’ assets: / Ultrasonic scalers (standalone) | 10 years | 10.00% | 20.00% | 1 July 2003
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Air abrasion units: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/air-abrasion-units/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/air-compressors/
+- Amalgam separators: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/amalgam-separators/
+- Amalgamators: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/amalgamators/
+- Imaging units: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/imaging-units/
+- Milling units: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/milling-units/
+- Curing lights (halogen): https://duguid.com.au/tools/depreciation-rates/industry/dental-services/curing-lights/
+- Dental chairs: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/dental-chairs/
+- Hand-held manually operated instruments: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/hand-held-manually-operated-instruments/
+- Handpieces (driven by compressed air, compressed gas or electricity): https://duguid.com.au/tools/depreciation-rates/industry/dental-services/handpieces/
+- Hard tissue and soft tissue lasers: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/hard-tissue-and-soft-tissue-lasers/
+- Soft tissue and whitening lasers: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/soft-tissue-and-whitening-lasers/
+- Soft tissue lasers: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/soft-tissue-lasers/
+- Dental loupes: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/dental-loupes/
+- Dental operating lights: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/dental-operating-lights/
+- Dental units: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/dental-units/
+- Conventional x-ray film systems (incorporating control boxes, swing arms and x-ray heads, but excluding orthopantomogram (OPG) systems): https://duguid.com.au/tools/depreciation-rates/industry/dental-services/conventional-x-ray-film-systems/
+- Digital x-ray systems (including intra-oral storage phosphor plate systems and intra-oral digital sensor systems): https://duguid.com.au/tools/depreciation-rates/industry/dental-services/digital-x-ray-systems/
+- Intra-oral x-ray film processors: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/intra-oral-x-ray-film-processors/
+- Handpiece cleaners: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/handpiece-cleaners/
+- Intra-oral camera systems (incorporating camera and integrated processor/docking station): https://duguid.com.au/tools/depreciation-rates/industry/dental-services/intra-oral-camera-systems/
+- Nitrous oxide sedation units: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/nitrous-oxide-sedation-units/
+- Oral surgical motors: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/oral-surgical-motors/
+- Suction units: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/suction-units/
+- Ultrasonic scalers (standalone): https://duguid.com.au/tools/depreciation-rates/industry/dental-services/ultrasonic-scalers/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

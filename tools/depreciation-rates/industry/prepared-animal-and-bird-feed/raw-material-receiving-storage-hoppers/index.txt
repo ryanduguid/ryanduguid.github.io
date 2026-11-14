@@ -1,0 +1,113 @@
+# Hoppers effective life: 15 years, Raw material
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/raw-material-receiving-storage-hoppers/
+
+> Raw material receiving, storage and handling assets: Hoppers (including batch and weigh hoppers): effective life 15 years, last updated 1 July 2013 (Table A).
+
+# Raw material receiving, storage and handling assets: Hoppers (including batch and weigh hoppers)
+
+‘Raw material receiving, storage and handling assets: Hoppers (including batch and weigh hoppers)’, for an asset used in Prepared animal and bird feed manufacturing, has an effective life of 15 years (F2025L01097), last reviewed and determined on 1 July 2013.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Hoppers (including batch and weigh hoppers)
+Under | Pet food manufacturing assets: / Raw material receiving, storage and handling assets:
+Table | Table A (industry categories), MANUFACTURING / Prepared animal and bird feed manufacturing, ANZSIC 11920
+Effective life | 15 years
+Prime cost rate | 6.67% (100% ÷ life, section 40-75)
+Diminishing value rate | 13.33% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2013
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Prepared animal and bird feed manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Raw material receiving, storage and handling assets
+
+Row | Life | Prime cost | Diminishing value
+Chutes | 15 years | 6.67% | 13.33%
+Conveyors (including belt, chain, drag, screw and walking beam conveyors) | 15 years | 6.67% | 13.33%
+Elevators and distributors (including bucket and transfer elevators) | 15 years | 6.67% | 13.33%
+Hoppers (including batch and weigh hoppers) (this page) | 15 years | 6.67% | 13.33%
+Receival assets | 15 years | 6.67% | 13.33%
+Screw and weigh belt feeders | 10 years | 10.00% | 20.00%
+Silos | 20 years | 5.00% | 10.00%
+Storage bins | 20 years | 5.00% | 10.00%
+Tanks (including holding, liquid storage and water) | 20 years | 5.00% | 10.00%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Hoppers | Nursery and floriculture production | 15 years | 6.67% | 13.33%
+Hoppers | Cured meat and smallgoods manufacturing | 12 years | 8.33% | 16.67%
+Hoppers | Dairy product manufacturing | 15 years | 6.67% | 13.33%
+Hoppers (weigh and feed) | Sugar manufacturing | 25 years | 4.00% | 8.00%
+Hoppers (including weigh hoppers) | Basic organic chemical manufacturing | 25 years | 4.00% | 8.00%
+Hoppers | Plaster product manufacturing | 20 years | 5.00% | 10.00%
+Hoppers (including weigh hoppers) | Ready-mixed concrete manufacturing | 15 years | 6.67% | 13.33%
+Hoppers | Concrete product manufacturing | 15 years | 6.67% | 13.33%
+Hoppers | Concrete product manufacturing | 15 years | 6.67% | 13.33%
+Hoppers | Concrete product manufacturing | 20 years | 5.00% | 10.00%
+Hoppers | Concrete product manufacturing | 15 years | 6.67% | 13.33%
+Hoppers | Concrete product manufacturing | 15 years | 6.67% | 13.33%
+Hoppers | Iron smelting and steel manufacturing | 20 years | 5.00% | 10.00%
+Hoppers | Waste treatment and disposal services | 7 years | 14.29% | 28.57%
+Hoppers | Waste remediation and materials recovery services | 7 years | 14.29% | 28.57%
+Hoppers | Laundry and dry cleaning services | 20 years | 5.00% | 10.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Chutes: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/chutes/
+- Conveyors (including belt, chain, drag, screw and walking beam conveyors): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-conveyors/
+- Elevators and distributors (including bucket and transfer elevators): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-elevators-and-distributors/
+- Receival assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/receival-assets/
+- Screw and weigh belt feeders: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/screw-and-weigh-belt-feeders/
+- Silos: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-silos/
+- Storage bins: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-storage-bins/
+- Tanks (including holding, liquid storage and water): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/tanks/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/nursery-and-floriculture-production/hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/hoppers/
+- Hoppers (weigh and feed): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/hoppers/
+- Hoppers (including weigh hoppers): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/hoppers/
+- Hoppers (including weigh hoppers): https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-distribution-stations-hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-manufacturing-assets-hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/waste-remediation-and-materials-recovery/hoppers/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/hoppers/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

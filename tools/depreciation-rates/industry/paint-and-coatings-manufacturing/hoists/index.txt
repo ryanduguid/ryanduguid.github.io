@@ -1,0 +1,102 @@
+# Hoists effective life: 10 years, Paint and coatings manufacturing
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/hoists/
+
+> Paint and coatings manufacturing assets: Hoists: effective life 10 years, last updated 1 July 2013 (Table A).
+
+# Paint and coatings manufacturing assets: Hoists
+
+‘Paint and coatings manufacturing assets: Hoists’, for an asset used in Paint and coatings manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Hoists
+Under | Paint and coatings manufacturing assets:
+Table | Table A (industry categories), MANUFACTURING / Paint and coatings manufacturing, ANZSIC 19160
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2013
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Paint and coatings manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Paint and coatings manufacturing assets
+
+Row | Life | Prime cost | Diminishing value
+Bulk storage tanks | 25 years | 4.00% | 8.00%
+Control system assets | 10 years | 10.00% | 20.00%
+Disperser and mixer motors | 15 years | 6.67% | 13.33%
+Dispersers | 20 years | 5.00% | 10.00%
+Dust collectors and fume extracting assets (including bag dust collectors, blowers, cyclones and fans) | 20 years | 5.00% | 10.00%
+Gantry cranes | 25 years | 4.00% | 8.00%
+Hoists (this page) | 10 years | 10.00% | 20.00%
+Mixers | 20 years | 5.00% | 10.00%
+Paint tinting and colour blending machines (manual and automatic) | 7 years | 14.29% | 28.57%
+Pumps | 10 years | 10.00% | 20.00%
+Scales | 10 years | 10.00% | 20.00%
+Spray booths | 15 years | 6.67% | 13.33%
+Vacuum lifters | 10 years | 10.00% | 20.00%
+
+15 rows share this heading. The Paint and coatings manufacturing page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Hoists | Dairy product manufacturing | 10 years | 10.00% | 20.00%
+Hoists | Grain mill product manufacturing | 15 years | 6.67% | 13.33%
+Hoists | Cement manufacturing | 20 years | 5.00% | 10.00%
+Hoists | Automotive body, paint and interior repair n.e.c. | 20 years | 5.00% | 10.00%
+Hoists | Automotive body, paint and interior repair n.e.c. | 20 years | 5.00% | 10.00%
+Hoists | Other machinery and equipment repair and maintenance | 10 years | 10.00% | 20.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Bulk storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/bulk-storage-tanks/
+- Control system assets: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/control-system-assets/
+- Disperser and mixer motors: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/disperser-and-mixer-motors/
+- Dispersers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/dispersers/
+- Dust collectors and fume extracting assets (including bag dust collectors, blowers, cyclones and fans): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/dust-collectors-and-fume-extracting-assets/
+- Gantry cranes: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/gantry-cranes/
+- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/mixers/
+- Paint tinting and colour blending machines (manual and automatic): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/paint-tinting-and-colour-blending-machines/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/pumps/
+- Scales: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/scales/
+- Spray booths: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/spray-booths/
+- Vacuum lifters: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/vacuum-lifters/
+- Paint and coatings manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/
+- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/hoists/
+- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/hoists/
+- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/hoists/
+- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-wash-and-detailing-assets-hoists/
+- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/smash-repair-assets-hoists/
+- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/hoists/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

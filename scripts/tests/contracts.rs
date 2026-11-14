@@ -557,8 +557,12 @@ fn public_contracts_page_and_site_checks() {
         .iter()
         .filter(|p| !contracts::NOT_INDEXED.contains(&core::rel(p, root()).as_str()))
         .count();
-    // The sitemap lists every indexable page, so the count follows it.
-    let listed = core::sitemap_urls(root()).unwrap().len();
+    // The sitemaps list every indexable page, so the count follows them: the site's, and
+    // the effective life pages' own.
+    let family =
+        std::fs::read_to_string(root().join(site_tools::effective_life_pages::SITEMAP_REL))
+            .map_or(0, |xml| xml.matches("<loc>").count());
+    let listed = core::sitemap_urls(root()).unwrap().len() + family;
     assert_eq!(
         indexed, listed,
         "expected {listed} canonical HTML pages, as the sitemap lists, found {indexed}"
@@ -1377,7 +1381,7 @@ fn public_contracts_calculator_mutations() {
 #[test]
 fn nested_collection_breadcrumbs_name_their_hub() {
     let names = |rel: &str| -> Vec<String> {
-        contracts::collection_breadcrumb_shape(rel, "Leaf")
+        contracts::collection_breadcrumb_shape(rel, "Leaf", "")
             .unwrap()
             .into_iter()
             .map(|(name, _, _)| name)
@@ -1430,6 +1434,7 @@ fn public_contracts_structure_and_assets() {
         contracts::check_collection_breadcrumb(
             &read_text(root, "tools/xero-trial-balance/index.html"),
             "tools/xero-trial-balance/index.html",
+            root,
             &mut found,
         );
         Ok(found)
@@ -1885,10 +1890,16 @@ fn rendered_checked_tree_command_output() {
         stdout.starts_with(&format!("checked 404.html{eol}")),
         "{stdout}"
     );
-    let listed = core::sitemap_urls(root()).unwrap().len();
-    assert!(stdout.ends_with(&format!(
-        "checked sitemap.xml ({listed} URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
-    )));
+    let family =
+        std::fs::read_to_string(root().join(site_tools::effective_life_pages::SITEMAP_REL))
+            .map_or(0, |xml| xml.matches("<loc>").count());
+    let listed = core::sitemap_urls(root()).unwrap().len() + family;
+    assert!(
+        stdout.ends_with(&format!(
+            "checked the sitemaps ({listed} URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
+        )),
+        "{stdout}"
+    );
 }
 
 fn vocabulary_failures(block: &str) -> Vec<String> {

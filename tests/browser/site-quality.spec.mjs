@@ -14,6 +14,17 @@ import { projectKind } from './project-kind.mjs';
 const routes = [
   ...[...readFileSync('sitemap.xml', 'utf8').matchAll(/<loc>https:\/\/duguid\.com\.au([^<]+)<\/loc>/g)]
     .map(([, path]) => [path, path]),
+  // The effective life pages have their own sitemap of 7,672 pages, all from one
+  // generator, so a fixed sample stands for them: both indexes, the largest group,
+  // a row in it, a row whose heading has a sign outside the web fonts and a Table B row.
+  ...[
+    '/tools/depreciation-rates/industry/',
+    '/tools/depreciation-rates/asset/',
+    '/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/',
+    '/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/accumulators-and-loopers/',
+    '/tools/depreciation-rates/industry/telecommunications-services/high-capacity-licensed-microwave-radio-system-68-mb/',
+    '/tools/depreciation-rates/asset/accommodation-units-in-caravan-tourist/other-accommodation-units/',
+  ].map((path) => [path, path]),
   ['not-found page', '/404.html'],
 ];
 

@@ -1,0 +1,421 @@
+# Residential property effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/
+
+> Residential property operators, Table: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Residential property operators
+
+167 effective lives in Table A of the Commissioner’s 2025 effective life determination for Residential property operators.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+The determination notes for this heading: where the terms ‘freestanding’ and ‘fixed’ are used in entries for residential property operators, they have the following meaning. Freestanding – items designed to be portable or movable. Any attachment to the premises is only for the item’s temporary stability. Fixed – annexed or attached by any means, for example screws, nails, bolts, glue, adhesive, grout or cement, but not merely for temporary stability.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Assets generally: | | | |
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): | | | |
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Air handling units | 20 years | 5.00% | 10.00% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Chillers: | | | |
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Chillers: / Absorption | 25 years | 4.00% | 8.00% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Chillers: / Centrifugal | 20 years | 5.00% | 10.00% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Chillers: / Volumetrics (including reciprocating, rotary, screw, scroll): | | | |
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Chillers: / Volumetrics (including reciprocating, rotary, screw, scroll): / Air-cooled | 15 years | 6.67% | 13.33% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Chillers: / Volumetrics (including reciprocating, rotary, screw, scroll): / Water-cooled | 20 years | 5.00% | 10.00% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Condensing sets | 15 years | 6.67% | 13.33% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Cooling towers | 15 years | 6.67% | 13.33% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Damper motors (including variable air volume box controller) | 10 years | 10.00% | 20.00% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Fan coil units (connected to condensing set) | 15 years | 6.67% | 13.33% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Mini split systems up to 20 KW (including ceiling, floor and high wall split system) | 10 years | 10.00% | 20.00% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Packaged air conditioning units | 15 years | 6.67% | 13.33% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Pumps | 20 years | 5.00% | 10.00% | 1 July 2003
+Assets generally: / Air conditioning assets (excluding ducting, pipes and vents): / Room units | 10 years | 10.00% | 20.00% | 1 July 2003
+Assets generally: / Ceiling fans | 5 years | 20.00% | 40.00% | 1 July 2004
+Assets generally: / Clocks, electric | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Digital peep holes | 10 years | 10.00% | 20.00% | 1 July 2019
+Assets generally: / DVD players | 5 years | 20.00% | 40.00% | 1 July 2004
+Assets generally: / Door closers | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Door stops, freestanding | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Escalators (machinery and moving parts) | 20 years | 5.00% | 10.00% | 1 January 2003
+Assets generally: / Evaporative coolers: | | | |
+Assets generally: / Evaporative coolers: / Fixed (excluding ducting and vents) | 15 years | 6.67% | 13.33% | 1 July 2019
+Assets generally: / Evaporative coolers: / Portable | 10 years | 10.00% | 20.00% | 1 July 2005
+Assets generally: / Floor coverings (removable without damage): | | | |
+Assets generally: / Floor coverings (removable without damage): / Carpet | 8 years | 12.50% | 25.00% | 1 July 2019
+Assets generally: / Floor coverings (removable without damage): / Floating timber | 15 years | 6.67% | 13.33% | 1 July 2004
+Assets generally: / Floor coverings (removable without damage): / Linoleum | 10 years | 10.00% | 20.00% | 1 January 2001
+Assets generally: / Floor coverings (removable without damage): / Vinyl | 10 years | 10.00% | 20.00% | 1 January 2001
+Assets generally: / Furniture, freestanding | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
+Assets generally: / Garbage bins | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Garbage compacting systems (excluding chutes) | 6 2/3 years | 15.00% | 30.00% | 1 January 2001
+Assets generally: / Generators | 20 years | 5.00% | 10.00% | 1 January 2001
+Assets generally: / Gym assets: | | | |
+Assets generally: / Gym assets: / Cardiovascular | 5 years | 20.00% | 40.00% | 1 July 2004
+Assets generally: / Gym assets: / Resistance | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Hand dryers, electrical | 10 years | 10.00% | 20.00% | 1 January 2001
+Assets generally: / Heaters: | | | |
+Assets generally: / Heaters: / Fixed: | | | |
+Assets generally: / Heaters: / Fixed: / Electric | 15 years | 6.67% | 13.33% | 1 July 2004
+Assets generally: / Heaters: / Fixed: / Gas: | | | |
+Assets generally: / Heaters: / Fixed: / Gas: / Ducted central heating unit | 20 years | 5.00% | 10.00% | 1 July 2004
+Assets generally: / Heaters: / Fixed: / Gas: / Other | 15 years | 6.67% | 13.33% | 1 July 2004
+Assets generally: / Heaters: / Freestanding | 15 years | 6.67% | 13.33% | 1 July 2004
+Assets generally: / Home automation control assets | 10 years | 10.00% | 20.00% | 1 July 2019
+Assets generally: / Hot water systems (excluding piping): | | | |
+Assets generally: / Hot water systems (excluding piping): / Electric | 12 years | 8.33% | 16.67% | 1 July 2004
+Assets generally: / Hot water systems (excluding piping): / Gas | 12 years | 8.33% | 16.67% | 1 July 2004
+Assets generally: / Hot water systems (excluding piping): / Solar | 15 years | 6.67% | 13.33% | 1 July 2004
+Assets generally: / Hydronic assets: | | | |
+Assets generally: / Hydronic assets: / Controls | 10 years | 10.00% | 20.00% | 1 July 2019
+Assets generally: / Hydronic assets: / Water heaters | 15 years | 6.67% | 13.33% | 1 July 2019
+Assets generally: / Intercom system assets | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Lifts (including hydraulic and traction lifts) | 30 years | 3.33% | 6.67% | 1 January 2003
+Assets generally: / Lights: | | | |
+Assets generally: / Lights: / Fittings (excluding hardwired) | 5 years | 20.00% | 40.00% | 1 July 2004
+Assets generally: / Lights: / Freestanding | 5 years | 20.00% | 40.00% | 1 July 2004
+Assets generally: / Lights: / Shades, removable | 5 years | 20.00% | 40.00% | 1 July 2004
+Assets generally: / Linen | 5 years | 20.00% | 40.00% | 1 July 2004
+Assets generally: / Master antenna television (MATV) assets: | | | |
+Assets generally: / Master antenna television (MATV) assets: / Amplifiers | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Master antenna television (MATV) assets: / Modulators | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Master antenna television (MATV) assets: / Power sources | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Mirrors, freestanding | 15 years | 6.67% | 13.33% | 1 July 2004
+Assets generally: / Radios | 10 years | 10.00% | 20.00% | 1 January 2001
+Assets generally: / Rugs | 7 years | 14.29% | 28.57% | 1 July 2004
+Assets generally: / Skylights: | | | |
+Assets generally: / Skylights: / Controls | 10 years | 10.00% | 20.00% | 1 July 2019
+Assets generally: / Skylights: / Motors | 10 years | 10.00% | 20.00% | 1 July 2019
+Assets generally: / Solar power generating system (incorporating batteries, inverters, solar panels, regulators) | 20 years | 5.00% | 10.00% | 1 July 2004
+Assets generally: / Stereo systems (incorporating amplifiers, cassette players, CD players, radios and speakers) | 7 years | 14.29% | 28.57% | 1 July 2004
+Assets generally: / Surround sound systems (incorporating audio-video receivers and speakers) | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Telecommunications assets: | | | |
+Assets generally: / Telecommunications assets: / Cordless phones | 4 years | 25.00% | 50.00% | 1 July 2004
+Assets generally: / Telecommunications assets: / Telephone hand sets | 6 years | 16.67% | 33.33% | 1 July 2019
+Assets generally: / Telecommunications assets: / Telephone systems – see Table B Telephony | | | |
+Assets generally: / Television antennas, freestanding | 5 years | 20.00% | 40.00% | 1 July 2004
+Assets generally: / Television sets | 8 years | 12.50% | 25.00% | 1 July 2019
+Assets generally: / Vacuum cleaners: | | | |
+Assets generally: / Vacuum cleaners: / Ducted: | | | |
+Assets generally: / Vacuum cleaners: / Ducted: / Hoses | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Vacuum cleaners: / Ducted: / Motors | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Vacuum cleaners: / Ducted: / Wands | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Vacuum cleaners: / Portable | 10 years | 10.00% | 20.00% | 1 January 2001
+Assets generally: / Ventilation fans | 20 years | 5.00% | 10.00% | 1 July 2004
+Assets generally: / Video cassette recorder systems (VCRs) | 5 years | 20.00% | 40.00% | 1 July 2004
+Assets generally: / Water pumps: | | | |
+Assets generally: / Water pumps: / Multi-storey | 20 years | 5.00% | 10.00% | 1 July 2019
+Assets generally: / Water pumps: / Rainwater tanks | 5 years | 20.00% | 40.00% | 1 July 2019
+Assets generally: / Water pumps: / Single residence pressure pumps | 8 years | 12.50% | 25.00% | 1 July 2019
+Assets generally: / Window blinds, internal | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Window curtains | 6 years | 16.67% | 33.33% | 1 July 2004
+Assets generally: / Window shutters, automatic: | | | |
+Assets generally: / Window shutters, automatic: / Controls | 10 years | 10.00% | 20.00% | 1 July 2004
+Assets generally: / Window shutters, automatic: / Motors | 10 years | 10.00% | 20.00% | 1 July 2004
+Bathroom assets: | | | |
+Bathroom assets: / Accessories, freestanding (including shower caddies, soap holders, toilet brushes) | 3 years | 33.33% | 66.67% | 1 July 2019
+Bathroom assets: / Exhaust fans (including light/heating) | 10 years | 10.00% | 20.00% | 1 July 2004
+Bathroom assets: / Heated towel rails, electric | 10 years | 10.00% | 20.00% | 1 July 2004
+Bathroom assets: / Shower curtains (excluding curtain rods and screens) | 2 years | 50.00% | 100.00% | 1 July 2004
+Bathroom assets: / Spa bath pumps | 10 years | 10.00% | 20.00% | 1 July 2019
+Fire control assets: | | | |
+Fire control assets: / Alarms: | | | |
+Fire control assets: / Alarms: / Heat | 6 years | 16.67% | 33.33% | 1 July 2004
+Fire control assets: / Alarms: / Smoke | 6 years | 16.67% | 33.33% | 1 July 2004
+Fire control assets: / Detection and alarm systems: | | | |
+Fire control assets: / Detection and alarm systems: / Alarm bells | 12 years | 8.33% | 16.67% | 1 July 2004
+Fire control assets: / Detection and alarm systems: / Detectors (including addressable manual call points, heat, multi type and smoke) | 20 years | 5.00% | 10.00% | 1 July 2004
+Fire control assets: / Detection and alarm systems: / Fire indicator panels | 12 years | 8.33% | 16.67% | 1 July 2004
+Fire control assets: / Emergency warning and intercommunication systems (EWIS): | | | |
+Fire control assets: / Emergency warning and intercommunication systems (EWIS): / Master emergency control panels | 12 years | 8.33% | 16.67% | 1 July 2004
+Fire control assets: / Emergency warning and intercommunication systems (EWIS): / Speakers | 12 years | 8.33% | 16.67% | 1 July 2004
+Fire control assets: / Emergency warning and intercommunication systems (EWIS): / Strobe lights | 12 years | 8.33% | 16.67% | 1 July 2004
+Fire control assets: / Emergency warning and intercommunication systems (EWIS): / Warden intercom phones (WIPs) | 12 years | 8.33% | 16.67% | 1 July 2004
+Fire control assets: / Extinguishers | 15 years | 6.67% | 13.33% | 1 July 2004
+Fire control assets: / Hoses and nozzles | 10 years | 10.00% | 20.00% | 1 July 2004
+Fire control assets: / Pumps (including diesel and electric) | 25 years | 4.00% | 8.00% | 1 July 2004
+Fire control assets: / Stair pressurisation assets: | | | |
+Fire control assets: / Stair pressurisation assets: / AC variable speed drives (VSDs) | 10 years | 10.00% | 20.00% | 1 July 2004
+Fire control assets: / Stair pressurisation assets: / Pressurisation and extraction fans | 25 years | 4.00% | 8.00% | 1 July 2004
+Fire control assets: / Stair pressurisation assets: / Sensors | 10 years | 10.00% | 20.00% | 1 July 2004
+Kitchen assets: | | | |
+Kitchen assets: / Cook tops | 12 years | 8.33% | 16.67% | 1 July 2004
+Kitchen assets: / Crockery | 5 years | 20.00% | 40.00% | 1 July 2004
+Kitchen assets: / Cutlery | 5 years | 20.00% | 40.00% | 1 July 2004
+Kitchen assets: / Dishwashers | 8 years | 12.50% | 25.00% | 1 July 2019
+Kitchen assets: / Freezers | 12 years | 8.33% | 16.67% | 1 July 2004
+Kitchen assets: / Garbage disposal units | 10 years | 10.00% | 20.00% | 1 July 2004
+Kitchen assets: / Microwave ovens | 8 years | 12.50% | 25.00% | 1 July 2019
+Kitchen assets: / Ovens | 12 years | 8.33% | 16.67% | 1 July 2004
+Kitchen assets: / Range hoods | 12 years | 8.33% | 16.67% | 1 July 2004
+Kitchen assets: / Refrigerators | 12 years | 8.33% | 16.67% | 1 July 2004
+Kitchen assets: / Stoves | 12 years | 8.33% | 16.67% | 1 July 2004
+Kitchen assets: / Water filters, electrical | 15 years | 6.67% | 13.33% | 1 July 2004
+Laundry assets: | | | |
+Laundry assets: / Clothes dryers | 7 years | 14.29% | 28.57% | 1 July 2019
+Laundry assets: / Ironing boards, freestanding | 5 years | 20.00% | 40.00% | 1 July 2019
+Laundry assets: / Irons | 5 years | 20.00% | 40.00% | 1 July 2004
+Laundry assets: / Washing machines | 8 years | 12.50% | 25.00% | 1 July 2019
+Outdoor assets: | | | |
+Outdoor assets: / Automatic garage doors: | | | |
+Outdoor assets: / Automatic garage doors: / Controls | 5 years | 20.00% | 40.00% | 1 July 2004
+Outdoor assets: / Automatic garage doors: / Motors | 10 years | 10.00% | 20.00% | 1 July 2004
+Outdoor assets: / Barbecue assets: | | | |
+Outdoor assets: / Barbecue assets: / Fixed barbecue assets: | | | |
+Outdoor assets: / Barbecue assets: / Fixed barbecue assets: / Sliding trays and cookers | 10 years | 10.00% | 20.00% | 1 July 2004
+Outdoor assets: / Barbecue assets: / Freestanding barbecues | 5 years | 20.00% | 40.00% | 1 July 2004
+Outdoor assets: / Floor carpet (including artificial grass and matting) | 5 years | 20.00% | 40.00% | 1 July 2004
+Outdoor assets: / Folding arm awnings: | | | |
+Outdoor assets: / Folding arm awnings: / Controls | 10 years | 10.00% | 20.00% | 1 July 2019
+Outdoor assets: / Folding arm awnings: / Motors | 10 years | 10.00% | 20.00% | 1 July 2019
+Outdoor assets: / Furniture, freestanding | 5 years | 20.00% | 40.00% | 1 July 2004
+Outdoor assets: / Gardening watering installations: | | | |
+Outdoor assets: / Gardening watering installations: / Control panels | 5 years | 20.00% | 40.00% | 1 July 2004
+Outdoor assets: / Gardening watering installations: / Pumps | 5 years | 20.00% | 40.00% | 1 July 2004
+Outdoor assets: / Gardening watering installations: / Timing devices | 5 years | 20.00% | 40.00% | 1 July 2004
+Outdoor assets: / Garden lights, solar | 5 years | 20.00% | 40.00% | 1 July 2019
+Outdoor assets: / Garden sheds, freestanding | 15 years | 6.67% | 13.33% | 1 July 2004
+Outdoor assets: / Gates, electrical: | | | |
+Outdoor assets: / Gates, electrical: / Controls | 5 years | 20.00% | 40.00% | 1 July 2004
+Outdoor assets: / Gates, electrical: / Motors | 10 years | 10.00% | 20.00% | 1 July 2004
+Outdoor assets: / Operable pergola louvres: | | | |
+Outdoor assets: / Operable pergola louvres: / Controls | 15 years | 6.67% | 13.33% | 1 July 2004
+Outdoor assets: / Operable pergola louvres: / Motors | 15 years | 6.67% | 13.33% | 1 July 2004
+Outdoor assets: / Rainwater tanks: | | | |
+Outdoor assets: / Rainwater tanks: / Galvanised steel | 25 years | 4.00% | 8.00% | 1 July 2019
+Outdoor assets: / Rainwater tanks: / Polyethylene | 15 years | 6.67% | 13.33% | 1 July 2019
+Outdoor assets: / Roller blinds: | | | |
+Outdoor assets: / Roller blinds: / Controls | 10 years | 10.00% | 20.00% | 1 July 2019
+Outdoor assets: / Roller blinds: / Motors | 10 years | 10.00% | 20.00% | 1 July 2019
+Outdoor assets: / Sauna heating assets | 15 years | 6.67% | 13.33% | 1 July 2004
+Outdoor assets: / Sewage treatment assets: | | | |
+Outdoor assets: / Sewage treatment assets: / Controls | 8 years | 12.50% | 25.00% | 1 July 2004
+Outdoor assets: / Sewage treatment assets: / Motors | 8 years | 12.50% | 25.00% | 1 July 2004
+Outdoor assets: / Spas: | | | |
+Outdoor assets: / Spas: / Fixed spa assets: | | | |
+Outdoor assets: / Spas: / Fixed spa assets: / Chlorinators | 10 years | 10.00% | 20.00% | 1 July 2019
+Outdoor assets: / Spas: / Fixed spa assets: / Filtration assets (including pumps) | 10 years | 10.00% | 20.00% | 1 July 2019
+Outdoor assets: / Spas: / Fixed spa assets: / Heaters (electric or gas) | 15 years | 6.67% | 13.33% | 1 July 2004
+Outdoor assets: / Spas: / Freestanding spas (incorporating blowers, controls, filters, heaters and pumps) | 17 years | 5.88% | 11.76% | 1 July 2004
+Outdoor assets: / Swimming pool assets: | | | |
+Outdoor assets: / Swimming pool assets: / Chlorinators | 10 years | 10.00% | 20.00% | 1 July 2019
+Outdoor assets: / Swimming pool assets: / Cleaning assets | 7 years | 14.29% | 28.57% | 1 July 2004
+Outdoor assets: / Swimming pool assets: / Covers (including blankets) | 8 years | 12.50% | 25.00% | 1 July 2019
+Outdoor assets: / Swimming pool assets: / Filtration assets (including pumps) | 10 years | 10.00% | 20.00% | 1 July 2019
+Outdoor assets: / Swimming pool assets: / Heaters: | | | |
+Outdoor assets: / Swimming pool assets: / Heaters: / Electric | 15 years | 6.67% | 13.33% | 1 July 2004
+Outdoor assets: / Swimming pool assets: / Heaters: / Gas | 15 years | 6.67% | 13.33% | 1 July 2004
+Outdoor assets: / Swimming pool assets: / Heaters: / Solar | 20 years | 5.00% | 10.00% | 1 July 2004
+Outdoor assets: / Tennis court assets: | | | |
+Outdoor assets: / Tennis court assets: / Cleaners | 3 years | 33.33% | 66.67% | 1 July 2004
+Outdoor assets: / Tennis court assets: / Drag brooms | 3 years | 33.33% | 66.67% | 1 July 2004
+Outdoor assets: / Tennis court assets: / Nets | 5 years | 20.00% | 40.00% | 1 July 2004
+Outdoor assets: / Tennis court assets: / Rollers | 3 years | 33.33% | 66.67% | 1 July 2004
+Outdoor assets: / Tennis court assets: / Umpire chairs | 15 years | 6.67% | 13.33% | 1 July 2004
+Security and monitoring assets: | | | |
+Security and monitoring assets: / Access control systems: | | | |
+Security and monitoring assets: / Access control systems: / Code pads | 5 years | 20.00% | 40.00% | 1 July 2004
+Security and monitoring assets: / Access control systems: / Door controllers | 5 years | 20.00% | 40.00% | 1 July 2004
+Security and monitoring assets: / Access control systems: / Readers: | | | |
+Security and monitoring assets: / Access control systems: / Readers: / Proximity | 7 years | 14.29% | 28.57% | 1 July 2004
+Security and monitoring assets: / Access control systems: / Readers: / Swipe card | 3 years | 33.33% | 66.67% | 1 July 2004
+Security and monitoring assets: / CCTV systems: | | | |
+Security and monitoring assets: / CCTV systems: / Cameras | 4 years | 25.00% | 50.00% | 1 July 2004
+Security and monitoring assets: / CCTV systems: / Monitors | 4 years | 25.00% | 50.00% | 1 July 2004
+Security and monitoring assets: / CCTV systems: / Recorders: | | | |
+Security and monitoring assets: / CCTV systems: / Recorders: / Digital | 4 years | 25.00% | 50.00% | 1 July 2004
+Security and monitoring assets: / CCTV systems: / Recorders: / Time lapse | 2 years | 50.00% | 100.00% | 1 July 2004
+Security and monitoring assets: / CCTV systems: / Switching units (including multiplexes) | 5 years | 20.00% | 40.00% | 1 July 2004
+Security and monitoring assets: / Security systems: | | | |
+Security and monitoring assets: / Security systems: / Code pads | 5 years | 20.00% | 40.00% | 1 July 2004
+Security and monitoring assets: / Security systems: / Control panels | 5 years | 20.00% | 40.00% | 1 July 2004
+Security and monitoring assets: / Security systems: / Detectors (including passive infrared, photo sensors and vibration) | 5 years | 20.00% | 40.00% | 1 July 2004
+Security and monitoring assets: / Security systems: / Global System for Mobiles (GSM) units | 5 years | 20.00% | 40.00% | 1 July 2004
+Security and monitoring assets: / Security systems: / Noise makers (including bells and sirens) | 5 years | 20.00% | 40.00% | 1 July 2004
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Air handling units: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/air-handling-units/
+- Absorption: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/absorption/
+- Centrifugal: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/centrifugal/
+- Air-cooled: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/air-cooled/
+- Water-cooled: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/water-cooled/
+- Condensing sets: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/condensing-sets/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cooling-towers/
+- Damper motors (including variable air volume box controller): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/damper-motors/
+- Fan coil units (connected to condensing set): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/fan-coil-units/
+- Mini split systems up to 20 KW (including ceiling, floor and high wall split system): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/mini-split-systems-up-to-20-kw/
+- Packaged air conditioning units: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/packaged-air-conditioning-units/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/assets-generally-pumps/
+- Room units: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/room-units/
+- Ceiling fans: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ceiling-fans/
+- Clocks, electric: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/clocks-electric/
+- Digital peep holes: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/digital-peep-holes/
+- DVD players: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/dvd-players/
+- Door closers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/door-closers/
+- Door stops, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/door-stops-freestanding/
+- Escalators (machinery and moving parts): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/escalators/
+- Fixed (excluding ducting and vents): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/fixed/
+- Portable: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/evaporative-coolers-portable/
+- Carpet: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/carpet/
+- Floating timber: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/floating-timber/
+- Linoleum: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/linoleum/
+- Vinyl: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/vinyl/
+- Furniture, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/assets-generally-furniture-freestanding/
+- Garbage bins: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/garbage-bins/
+- Garbage compacting systems (excluding chutes): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/garbage-compacting-systems/
+- Generators: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/generators/
+- Cardiovascular: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cardiovascular/
+- Resistance: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/resistance/
+- Hand dryers, electrical: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/hand-dryers-electrical/
+- Electric: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/fixed-electric/
+- Ducted central heating unit: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ducted-central-heating-unit/
+- Other: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/other/
+- Freestanding: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/heaters-freestanding/
+- Home automation control assets: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/home-automation-control-assets/
+- Electric: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/hot-water-systems-electric/
+- Gas: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/assets-generally-gas/
+- Solar: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/assets-generally-solar/
+- Controls: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/hydronic-assets-controls/
+- Water heaters: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/water-heaters/
+- Intercom system assets: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/intercom-system-assets/
+- Lifts (including hydraulic and traction lifts): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/lifts/
+- Fittings (excluding hardwired): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/fittings/
+- Freestanding: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/lights-freestanding/
+- Shades, removable: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/shades-removable/
+- Linen: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/linen/
+- Amplifiers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/amplifiers/
+- Modulators: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/modulators/
+- Power sources: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/power-sources/
+- Mirrors, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/mirrors-freestanding/
+- Radios: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/radios/
+- Rugs: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/rugs/
+- Controls: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/skylights-controls/
+- Motors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/skylights-motors/
+- Solar power generating system (incorporating batteries, inverters, solar panels, regulators): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/solar-power-generating-system/
+- Stereo systems (incorporating amplifiers, cassette players, CD players, radios and speakers): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/stereo-systems/
+- Surround sound systems (incorporating audio-video receivers and speakers): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/surround-sound-systems/
+- Cordless phones: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cordless-phones/
+- Telephone hand sets: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/telephone-hand-sets/
+- Telephone systems – see Table B Telephony: https://duguid.com.au/tools/depreciation-rates/asset/telephony/
+- Television antennas, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/television-antennas-freestanding/
+- Television sets: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/television-sets/
+- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/hoses/
+- Motors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ducted-motors/
+- Wands: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/wands/
+- Portable: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/vacuum-cleaners-portable/
+- Ventilation fans: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ventilation-fans/
+- Video cassette recorder systems (VCRs): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/video-cassette-recorder-systems/
+- Multi-storey: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/multi-storey/
+- Rainwater tanks: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/rainwater-tanks/
+- Single residence pressure pumps: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/single-residence-pressure-pumps/
+- Window blinds, internal: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/window-blinds-internal/
+- Window curtains: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/window-curtains/
+- Controls: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/window-shutters-automatic-controls/
+- Motors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/window-shutters-automatic-motors/
+- Accessories, freestanding (including shower caddies, soap holders, toilet brushes): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/accessories-freestanding/
+- Exhaust fans (including light/heating): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/exhaust-fans/
+- Heated towel rails, electric: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/heated-towel-rails-electric/
+- Shower curtains (excluding curtain rods and screens): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/shower-curtains/
+- Spa bath pumps: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/spa-bath-pumps/
+- Heat: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/heat/
+- Smoke: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/smoke/
+- Alarm bells: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/alarm-bells/
+- Detectors (including addressable manual call points, heat, multi type and smoke): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/fire-control-assets-detectors/
+- Fire indicator panels: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/fire-indicator-panels/
+- Master emergency control panels: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/master-emergency-control-panels/
+- Speakers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/speakers/
+- Strobe lights: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/strobe-lights/
+- Warden intercom phones (WIPs): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/warden-intercom-phones/
+- Extinguishers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/extinguishers/
+- Hoses and nozzles: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/hoses-and-nozzles/
+- Pumps (including diesel and electric): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/fire-control-assets-pumps/
+- AC variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ac-variable-speed-drives/
+- Pressurisation and extraction fans: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/pressurisation-and-extraction-fans/
+- Sensors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/sensors/
+- Cook tops: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cook-tops/
+- Crockery: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/crockery/
+- Cutlery: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cutlery/
+- Dishwashers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/dishwashers/
+- Freezers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/freezers/
+- Garbage disposal units: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/garbage-disposal-units/
+- Microwave ovens: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/microwave-ovens/
+- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ovens/
+- Range hoods: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/range-hoods/
+- Refrigerators: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/refrigerators/
+- Stoves: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/stoves/
+- Water filters, electrical: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/water-filters-electrical/
+- Clothes dryers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/clothes-dryers/
+- Ironing boards, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ironing-boards-freestanding/
+- Irons: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/irons/
+- Washing machines: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/washing-machines/
+- Controls: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/automatic-garage-doors-controls/
+- Motors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/automatic-garage-doors-motors/
+- Sliding trays and cookers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/sliding-trays-and-cookers/
+- Freestanding barbecues: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/freestanding-barbecues/
+- Floor carpet (including artificial grass and matting): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/floor-carpet/
+- Controls: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/folding-arm-awnings-controls/
+- Motors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/folding-arm-awnings-motors/
+- Furniture, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/outdoor-assets-furniture-freestanding/
+- Control panels: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/outdoor-assets-control-panels/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/outdoor-assets-pumps/
+- Timing devices: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/timing-devices/
+- Garden lights, solar: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/garden-lights-solar/
+- Garden sheds, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/garden-sheds-freestanding/
+- Controls: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/gates-electrical-controls/
+- Motors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/gates-electrical-motors/
+- Controls: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/operable-pergola-louvres-controls/
+- Motors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/operable-pergola-louvres-motors/
+- Galvanised steel: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/galvanised-steel/
+- Polyethylene: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/polyethylene/
+- Controls: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/roller-blinds-controls/
+- Motors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/roller-blinds-motors/
+- Sauna heating assets: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/sauna-heating-assets/
+- Controls: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/sewage-treatment-assets-controls/
+- Motors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/sewage-treatment-assets-motors/
+- Chlorinators: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/fixed-spa-assets-chlorinators/
+- Filtration assets (including pumps): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/fixed-spa-assets-filtration-assets/
+- Heaters (electric or gas): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/heaters/
+- Freestanding spas (incorporating blowers, controls, filters, heaters and pumps): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/freestanding-spas/
+- Chlorinators: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/swimming-pool-assets-chlorinators/
+- Cleaning assets: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cleaning-assets/
+- Covers (including blankets): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/covers/
+- Filtration assets (including pumps): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/swimming-pool-assets-filtration-assets/
+- Electric: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/outdoor-assets-electric/
+- Gas: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/outdoor-assets-gas/
+- Solar: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/outdoor-assets-solar/
+- Cleaners: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cleaners/
+- Drag brooms: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/drag-brooms/
+- Nets: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/nets/
+- Rollers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/rollers/
+- Umpire chairs: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/umpire-chairs/
+- Code pads: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/access-control-systems-code-pads/
+- Door controllers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/door-controllers/
+- Proximity: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/proximity/
+- Swipe card: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/swipe-card/
+- Cameras: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cameras/
+- Monitors: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/monitors/
+- Digital: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/digital/
+- Time lapse: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/time-lapse/
+- Switching units (including multiplexes): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/switching-units/
+- Code pads: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/security-systems-code-pads/
+- Control panels: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/security-and-monitoring-assets-control-panels/
+- Detectors (including passive infrared, photo sensors and vibration): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/security-and-monitoring-assets-detectors/
+- Global System for Mobiles (GSM) units: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/global-system-for-mobiles-units/
+- Noise makers (including bells and sirens): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/noise-makers/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

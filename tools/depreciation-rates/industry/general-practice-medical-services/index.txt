@@ -1,0 +1,109 @@
+# General practice medical effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/
+
+> General practice medical services, Table: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# General practice medical services
+
+36 effective lives in Table A of the Commissioner’s 2025 effective life determination for General practice medical services.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Anatomical medical models, plastic | 10 years | 10.00% | 20.00% | 1 July 2020
+Autoclaves and sterilisers | 8 years | 12.50% | 25.00% | 1 July 2020
+Automated ankle brachial pressure index (ABPI) measurement devices | 6 years | 16.67% | 33.33% | 1 July 2020
+Automated external defibrillators (AEDs) – see Table B | | | |
+Blood coagulation (INR) meters | 5 years | 20.00% | 40.00% | 1 July 2020
+Cryosurgical assets: | | | |
+Cryosurgical assets: / Cryosurgical flasks and guns | 5 years | 20.00% | 40.00% | 1 July 2020
+Cryosurgical assets: / Liquid nitrogen storage dewers and tanks | 10 years | 10.00% | 20.00% | 1 July 2020
+Dermatoscopes | 5 years | 20.00% | 40.00% | 1 July 2020
+Ear irrigators | 5 years | 20.00% | 40.00% | 1 July 2020
+Electrocardiograph (ECG) machines | 7 years | 14.29% | 28.57% | 1 July 2020
+Examination lights: | | | |
+Examination lights: / Desktop/trolley | 3 years | 33.33% | 66.67% | 1 July 2020
+Examination lights: / Procedure | 7 years | 14.29% | 28.57% | 1 July 2020
+Foetal heart monitors, external | 7 years | 14.29% | 28.57% | 1 July 2020
+Hyfrecators – electrosurgical units | 6 years | 16.67% | 33.33% | 1 July 2020
+Magnifying loupes | 10 years | 10.00% | 20.00% | 1 July 2020
+Medical examination beds (adjustable/electric) | 8 years | 12.50% | 25.00% | 1 July 2020
+Medical plaster saws | 7 years | 14.29% | 28.57% | 1 July 2020
+Medical refrigerators | 8 years | 12.50% | 25.00% | 1 July 2020
+Nebulisers | 5 years | 20.00% | 40.00% | 1 July 2020
+Ophthalmoscopes, direct and otoscopes | 6 years | 16.67% | 33.33% | 1 July 2020
+Oxygen tank regulators | 10 years | 10.00% | 20.00% | 1 July 2020
+Portable observation machines (including vital signs monitors) | 7 years | 14.29% | 28.57% | 1 July 2020
+Privacy curtains and rails | 8 years | 12.50% | 25.00% | 1 July 2020
+Pulse oximeters | 4 years | 25.00% | 50.00% | 1 July 2020
+Resuscitation kits | 15 years | 6.67% | 13.33% | 1 July 2020
+Saddle chairs | 7 years | 14.29% | 28.57% | 1 July 2020
+Scales: | | | |
+Scales: / Baby scales | 3 years | 33.33% | 66.67% | 1 July 2020
+Scales: / General, heavy duty, mother/baby scales | 5 years | 20.00% | 40.00% | 1 July 2020
+Sphygmomanometers (including aneroid and digital) | 5 years | 20.00% | 40.00% | 1 July 2020
+Spirometers | 7 years | 14.29% | 28.57% | 1 July 2020
+Stethoscopes | 10 years | 10.00% | 20.00% | 1 July 2020
+Suction machines, portable | 8 years | 12.50% | 25.00% | 1 July 2020
+Surgical instruments (including forceps, needle holders, scissors, skin graft knives) | 8 years | 12.50% | 25.00% | 1 July 2020
+Thermometers, digital | 4 years | 25.00% | 50.00% | 1 July 2020
+Trolleys (including instrument and treatment trolleys) | 10 years | 10.00% | 20.00% | 1 July 2020
+Wheelchairs | 8 years | 12.50% | 25.00% | 1 July 2020
+X-ray viewers | 10 years | 10.00% | 20.00% | 1 July 2020
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Anatomical medical models, plastic: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/anatomical-medical-models-plastic/
+- Autoclaves and sterilisers: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/autoclaves-and-sterilisers/
+- Automated ankle brachial pressure index (ABPI) measurement devices: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/automated-ankle-brachial-pressure-index-measurement-devices/
+- Blood coagulation (INR) meters: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/blood-coagulation-meters/
+- Cryosurgical flasks and guns: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/cryosurgical-flasks-and-guns/
+- Liquid nitrogen storage dewers and tanks: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/liquid-nitrogen-storage-dewers-and-tanks/
+- Dermatoscopes: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/dermatoscopes/
+- Ear irrigators: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/ear-irrigators/
+- Electrocardiograph (ECG) machines: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/electrocardiograph-machines/
+- Desktop/trolley: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/desktop-trolley/
+- Procedure: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/procedure/
+- Foetal heart monitors, external: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/foetal-heart-monitors-external/
+- Hyfrecators – electrosurgical units: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/hyfrecators-electrosurgical-units/
+- Magnifying loupes: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/magnifying-loupes/
+- Medical examination beds (adjustable/electric): https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/medical-examination-beds/
+- Medical plaster saws: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/medical-plaster-saws/
+- Medical refrigerators: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/medical-refrigerators/
+- Nebulisers: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/nebulisers/
+- Ophthalmoscopes, direct and otoscopes: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/ophthalmoscopes-direct-and-otoscopes/
+- Oxygen tank regulators: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/oxygen-tank-regulators/
+- Portable observation machines (including vital signs monitors): https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/portable-observation-machines/
+- Privacy curtains and rails: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/privacy-curtains-and-rails/
+- Pulse oximeters: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/pulse-oximeters/
+- Resuscitation kits: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/resuscitation-kits/
+- Saddle chairs: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/saddle-chairs/
+- Baby scales: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/baby-scales/
+- General, heavy duty, mother/baby scales: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/general-heavy-duty-mother-baby-scales/
+- Sphygmomanometers (including aneroid and digital): https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/sphygmomanometers/
+- Spirometers: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/spirometers/
+- Stethoscopes: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/stethoscopes/
+- Suction machines, portable: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/suction-machines-portable/
+- Surgical instruments (including forceps, needle holders, scissors, skin graft knives): https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/surgical-instruments/
+- Thermometers, digital: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/thermometers-digital/
+- Trolleys (including instrument and treatment trolleys): https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/trolleys/
+- Wheelchairs: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/wheelchairs/
+- X-ray viewers: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/x-ray-viewers/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

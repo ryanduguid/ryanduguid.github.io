@@ -1,0 +1,13 @@
+usage: site-tools build_effective_life_pages [-h] (--write | --check | --indexnow)
+
+Build and check the page for every effective life in
+tools/depreciation-rates/effective-life.json, the pages for each Table A
+sub-industry and top-level Table B row, the 2 index pages, their text mirrors
+and tools/depreciation-rates/sitemap.xml.
+
+options:
+  -h, --help  show this help message and exit
+  --write     rewrite the pages from the data file; refuses to remove a published page
+  --check     fail when a committed page differs from a rebuild
+  --indexnow  print the IndexNow request body for the pages the last --write
+              added or changed, to POST to a search engine's /indexnow

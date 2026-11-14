@@ -18,7 +18,7 @@ use crate::pyjson::{self, Json};
 use crate::pyobj::type_name;
 use crate::pyre::{I, fullmatch, re};
 use crate::pyurl::{self, Split};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::time::Duration;
 
@@ -272,6 +272,9 @@ pub struct Checker<'a> {
     pub prefetched_verdicts: PrefetchedVerdicts,
     fetched: HashMap<String, (u16, String)>,
     verdicts: HashMap<String, Verdict>,
+    /// The ids and names each same-origin target declares, read once per file; `None`
+    /// for a target any fragment passes (see [`fragment_targets`]).
+    fragments: HashMap<PathBuf, Option<HashSet<String>>>,
 }
 
 /// Each URL's fetch outcome and the retry lines it printed.
@@ -446,7 +449,21 @@ impl<'a> Checker<'a> {
             prefetched_verdicts: PrefetchedVerdicts::new(),
             fetched: HashMap::new(),
             verdicts: HashMap::new(),
+            fragments: HashMap::new(),
         }
+    }
+
+    /// True when a same-origin target declares an element with that id or name, or
+    /// passes any fragment. Each target is read once: thousands of effective life pages
+    /// link to the same few pages.
+    fn fragment_exists(&mut self, target: &Path, fragment: &str) -> Result<bool, String> {
+        if !self.fragments.contains_key(target) {
+            let ids = fragment_targets(target)?;
+            self.fragments.insert(target.to_path_buf(), ids);
+        }
+        Ok(self.fragments[target]
+            .as_ref()
+            .is_none_or(|ids| ids.contains(fragment)))
     }
 
     fn say(&mut self, line: &str) {
@@ -699,7 +716,8 @@ impl<'a> Checker<'a> {
                     failures.push(format!(
                         "{rel}: {href} -> no file at {shown} (same-origin link does not resolve on disk)"
                     ));
-                } else if !parts.fragment.is_empty() && !fragment_exists(&target, &parts.fragment)?
+                } else if !parts.fragment.is_empty()
+                    && !self.fragment_exists(&target, &parts.fragment)?
                 {
                     failures.push(format!(
                         "{rel}: {href} -> no element with id or name {} in {shown}",
@@ -799,9 +817,13 @@ impl<'a> Checker<'a> {
                 failures.push(format!("{rel}: retired repository name: {name}"));
             }
         }
-        for (c, label) in [('\u{2014}', "em dash"), ('\u{2013}', "en dash")] {
-            if html.contains(c) {
-                failures.push(format!("{rel}: {label} present"));
+        // The effective life pages quote the determination, whose dashes are its own; the
+        // generator's tests hold the pages' own wording to this rule.
+        if !crate::effective_life_pages::is_page(&rel) {
+            for (c, label) in [('\u{2014}', "em dash"), ('\u{2013}', "en dash")] {
+                if html.contains(c) {
+                    failures.push(format!("{rel}: {label} present"));
+                }
             }
         }
         failures.extend(self.check_hrefs(&rel, &hrefs, offline)?);
@@ -835,21 +857,23 @@ fn join(root: &Path, rel: &str) -> PathBuf {
         .fold(root.to_path_buf(), |path, part| path.join(part))
 }
 
-/// True when an HTML target declares an element with that id or name; other targets
-/// and Liquid-templated pages pass.
-fn fragment_exists(target: &Path, fragment: &str) -> Result<bool, String> {
+/// The ids and names an HTML target declares, or `None` when any fragment passes: a
+/// target that is not HTML, or a Liquid-templated page whose ids are not all in its source.
+fn fragment_targets(target: &Path) -> Result<Option<HashSet<String>>, String> {
     let suffix = crate::suffix(target).to_lowercase();
     if suffix != ".html" && suffix != ".htm" {
-        return Ok(true);
+        return Ok(None);
     }
     let text = crate::read(target)?;
-    if re(FRAGMENT_TARGET, 0)
-        .captures_iter(&text)
-        .any(|m| m.get(2).is_some_and(|g| g.as_str() == fragment))
-    {
-        return Ok(true);
+    if text.contains("{%") && text.contains("{{") {
+        return Ok(None);
     }
-    Ok(text.contains("{%") && text.contains("{{"))
+    Ok(Some(
+        re(FRAGMENT_TARGET, 0)
+            .captures_iter(&text)
+            .filter_map(|m| m.get(2).map(|g| g.as_str().to_owned()))
+            .collect(),
+    ))
 }
 
 /// Every link and own-repository verdict the pass over `pages` and llms.txt will

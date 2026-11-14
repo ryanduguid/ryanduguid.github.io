@@ -1,0 +1,100 @@
+# Cranes (including gantries) effective life: 40 years, Assets
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/cranes/
+
+> Assets used by irrigation water providers: Cranes (including gantries): effective life 40 years, last updated 1 January 2005 (Table A).
+
+# Assets used by irrigation water providers: Cranes (including gantries)
+
+‘Assets used by irrigation water providers: Cranes (including gantries)’, for an asset used in Water supply, has an effective life of 40 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2005.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Cranes (including gantries)
+Under | Assets used by irrigation water providers:
+Table | Table A (industry categories), ELECTRICITY, GAS, WATER AND WASTE SERVICES / Water supply, ANZSIC 28110
+Effective life | 40 years
+Prime cost rate | 2.50% (100% ÷ life, section 40-75)
+Diminishing value rate | 5.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 January 2005
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Water supply takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 January 2005. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Assets used by irrigation water providers
+
+Row | Life | Prime cost | Diminishing value
+Channel regulators | 80 years | 1.25% | 2.50%
+Cranes (including gantries) (this page) | 40 years | 2.50% | 5.00%
+Dams and weirs ((incorporating gates and actuators) consisting of a barrier to obstruct the flow of water constructed from any or all of the following: concrete, earth and rockfill) | 100 years | 1.00% | 2.00%
+Drain inlet | 50 years | 2.00% | 4.00%
+Drainage channels (measured from the point of intersection with another drainage channel to the following intersection) | 100 years | 1.00% | 2.00%
+Escapes | 50 years | 2.00% | 4.00%
+Flow meters | 20 years | 5.00% | 10.00%
+Measurement flumes | 50 years | 2.00% | 4.00%
+
+14 rows share this heading. The Water supply page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Cranes | MINING | 20 years | 5.00% | 10.00%
+Cranes (gantry and overhead) | Glass and glass product manufacturing | 25 years | 4.00% | 8.00%
+Cranes | Cement manufacturing | 20 years | 5.00% | 10.00%
+Cranes (used to load boards into presses and unload boards from presses) | Concrete product manufacturing | 15 years | 6.67% | 13.33%
+Cranes (including gantry cranes, overhead cranes and turnover cranes) | Motor vehicle manufacturing | 25 years | 4.00% | 8.00%
+Cranes (including overhead gantry cranes) | Railway rolling stock manufacturing and repair services | 25 years | 4.00% | 8.00%
+Cranes (gantry and overhead) | Aircraft manufacturing and repair services | 25 years | 4.00% | 8.00%
+Cranes | Other machinery and equipment repair and maintenance | 10 years | 10.00% | 20.00%
+Cranes (gantry and overhead) | Table B, Cranes (gantry and overhead) | 25 years | 4.00% | 8.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 40 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Channel regulators: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/channel-regulators/
+- Dams and weirs ((incorporating gates and actuators) consisting of a barrier to obstruct the flow of water constructed from any or all of the following: concrete, earth and rockfill): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/assets-used-by-irrigation-water-dams-and-weirs/
+- Drain inlet: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/drain-inlet/
+- Drainage channels (measured from the point of intersection with another drainage channel to the following intersection): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/drainage-channels/
+- Escapes: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/escapes/
+- Flow meters: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/assets-used-by-irrigation-water-flow-meters/
+- Measurement flumes: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/measurement-flumes/
+- Water supply: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/
+- Cranes: https://duguid.com.au/tools/depreciation-rates/industry/mining/cranes/
+- Cranes (gantry and overhead): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/cranes/
+- Cranes: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/cranes/
+- Cranes (used to load boards into presses and unload boards from presses): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/cranes/
+- Cranes (including gantry cranes, overhead cranes and turnover cranes): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/cranes/
+- Cranes (including overhead gantry cranes): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/cranes/
+- Cranes (gantry and overhead): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/cranes/
+- Cranes: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/cranes/
+- Cranes (gantry and overhead): https://duguid.com.au/tools/depreciation-rates/asset/cranes/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

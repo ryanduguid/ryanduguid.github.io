@@ -1,0 +1,226 @@
+# Grain mill product effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/
+
+> Table A (industry categories), MANUFACTURING / Grain: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Grain mill product manufacturing
+
+79 effective lives in Table A of the Commissioner’s 2025 effective life determination for Grain mill product manufacturing.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Flour milling assets: | | | |
+Flour milling assets: / Grain cleaning, milling and refining assets: | | | |
+Flour milling assets: / Grain cleaning, milling and refining assets: / Extraction and evaporation assets: | | | |
+Flour milling assets: / Grain cleaning, milling and refining assets: / Extraction and evaporation assets: / Blowers, fans and evaporative coolers | 15 years | 6.67% | 13.33% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Extraction and evaporation assets: / Control systems (dust collectors) – see Table B Control systems and control system assets | | | |
+Flour milling assets: / Grain cleaning, milling and refining assets: / Extraction and evaporation assets: / Cyclones and dust collectors | 20 years | 5.00% | 10.00% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Grain screen cleaners | 12 years | 8.33% | 16.67% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Gravity tables or separators | 20 years | 5.00% | 10.00% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Hammer mills | 15 years | 6.67% | 13.33% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Horizontal scourers | 13 years | 7.69% | 15.38% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Intake separators | 20 years | 5.00% | 10.00% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Intensive dampeners | 20 years | 5.00% | 10.00% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Plan sifters | 20 years | 5.00% | 10.00% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Purifiers | 20 years | 5.00% | 10.00% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Roller mills | 20 years | 5.00% | 10.00% | 1 July 2017
+Flour milling assets: / Grain cleaning, milling and refining assets: / Rotary sieves | 12 years | 8.33% | 16.67% | 1 July 2017
+Flour milling assets: / Packaging assets: | | | |
+Flour milling assets: / Packaging assets: / Bag sewers – see Table B packaging machines | | | |
+Flour milling assets: / Packaging assets: / Carton erecting, packing and closing machines (including cartoners) | 15 years | 6.67% | 13.33% | 1 July 2017
+Flour milling assets: / Packaging assets: / Hoists | 15 years | 6.67% | 13.33% | 1 July 2017
+Flour milling assets: / Packaging assets: / Inspection equipment (including check weighers, metal detectors, counting machines etc) – see Table B Packaging machines | | | |
+Flour milling assets: / Packaging assets: / Label applicators | 10 years | 10.00% | 20.00% | 1 July 2017
+Flour milling assets: / Packaging assets: / Multihead and singlehead weighers – see Table B Packaging machines | | | |
+Flour milling assets: / Packaging assets: / Palletisers and depalletisers | 15 years | 6.67% | 13.33% | 1 July 2017
+Flour milling assets: / Packaging assets: / Vertical form fill and seal/volumetric fillers (including valve bag fillers) | 15 years | 6.67% | 13.33% | 1 July 2017
+Flour milling assets: / Packaging assets: / Weighers | 25 years | 4.00% | 8.00% | 1 July 2017
+Flour milling assets: / Packaging assets: / Wrapping machines (including pallet wrappers, shrink wrappers, stretch wrappers) – see Table B Packaging machines | | | |
+Flour milling assets: / Product and raw material handling and receiving assets: | | | |
+Flour milling assets: / Product and raw material handling and receiving assets: / Conveyors (including belt, chain, drag, screw) | 15 years | 6.67% | 13.33% | 1 July 2017
+Flour milling assets: / Product and raw material handling and receiving assets: / Elevators | 20 years | 5.00% | 10.00% | 1 July 2017
+Flour milling assets: / Product and raw material handling and receiving assets: / Silos: | | | |
+Flour milling assets: / Product and raw material handling and receiving assets: / Silos: / Concrete | 50 years | 2.00% | 4.00% | 1 January 2004
+Flour milling assets: / Product and raw material handling and receiving assets: / Silos: / Conditioning/sealed | 20 years | 5.00% | 10.00% | 1 July 2017
+Flour milling assets: / Product and raw material handling and receiving assets: / Silos: / Flexible | 10 years | 10.00% | 20.00% | 1 July 2017
+Flour milling assets: / Product and raw material handling and receiving assets: / Silos: / Galvanised | 30 years | 3.33% | 6.67% | 1 January 2004
+Flour milling assets: / Product and raw material handling and receiving assets: / Silos: / Steel | 40 years | 2.50% | 5.00% | 1 January 2004
+Flour milling assets: / Product and raw material handling and receiving assets: / Weighbridges – see Table B Weighbridges | | | |
+Flour milling assets: / Quality control assets: | | | |
+Flour milling assets: / Quality control assets: / Laboratory testing equipment (including near infrared analysers) | 10 years | 10.00% | 20.00% | 1 July 2017
+Flour milling assets: / Quality control assets: / Test kitchen assets (including dough makers, breadmakers, ovens, provers) | 10 years | 10.00% | 20.00% | 1 July 2017
+Flour milling assets: / Quality control assets: / Test mills | 25 years | 4.00% | 8.00% | 1 July 2017
+Malt manufacturing assets: | | | |
+Malt manufacturing assets: / Barley and malt cleaning assets (including deculmers, dust extractors, indented cylinders, magnetic cleaners, malt shakers, screeners) | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Barley and malt handling assets: | | | |
+Malt manufacturing assets: / Barley and malt handling assets: / Augers, conveyors and elevators | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Barley and malt handling assets: / Silos: | | | |
+Malt manufacturing assets: / Barley and malt handling assets: / Silos: / Galvanised construction | 30 years | 3.33% | 6.67% | 1 July 2008
+Malt manufacturing assets: / Barley and malt handling assets: / Silos: / Steel construction | 40 years | 2.50% | 5.00% | 1 July 2008
+Malt manufacturing assets: / Barley and malt handling assets: / Weighbridges/weighers | 20 years | 5.00% | 10.00% | 1 July 2008
+Malt manufacturing assets: / Clean-in-place (CIP) system assets (including pipes, pumps and tanks) | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Control systems (excluding personal computers) | 10 years | 10.00% | 20.00% | 1 July 2008
+Malt manufacturing assets: / Germination assets: | | | |
+Malt manufacturing assets: / Germination assets: / Above/below floor cleaning systems | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Germination assets: / Aeration blowers | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Germination assets: / Carbon dioxide (CO2) extraction units | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Germination assets: / Loaders/unloaders/turners | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Germination assets: / Vessels: | | | |
+Malt manufacturing assets: / Germination assets: / Vessels: / Concrete | 40 years | 2.50% | 5.00% | 1 July 2008
+Malt manufacturing assets: / Germination assets: / Vessels: / Rotating drums | 20 years | 5.00% | 10.00% | 1 July 2008
+Malt manufacturing assets: / Germination assets: / Vessels: / Stainless steel | 25 years | 4.00% | 8.00% | 1 July 2008
+Malt manufacturing assets: / Kiln assets: | | | |
+Malt manufacturing assets: / Kiln assets: / Fans | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Kiln assets: / Gas burners | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Kiln assets: / Heat exchanger systems | 20 years | 5.00% | 10.00% | 1 July 2008
+Malt manufacturing assets: / Kiln assets: / Heat recovery systems | 20 years | 5.00% | 10.00% | 1 July 2008
+Malt manufacturing assets: / Kiln assets: / Kilns: | | | |
+Malt manufacturing assets: / Kiln assets: / Kilns: / Concrete | 40 years | 2.50% | 5.00% | 1 July 2008
+Malt manufacturing assets: / Kiln assets: / Kilns: / Stainless steel | 25 years | 4.00% | 8.00% | 1 July 2008
+Malt manufacturing assets: / Kiln assets: / Loaders/unloaders/turners | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Refrigeration assets (including chillers, compressors, condensers, evaporative coolers and pumps) | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Steeping assets: | | | |
+Malt manufacturing assets: / Steeping assets: / Above floor/below floor cleaning systems | 15 years | 6.67% | 13.33% | 1 July 2008
+Malt manufacturing assets: / Steeping assets: / Slurry tanks | 25 years | 4.00% | 8.00% | 1 July 2008
+Malt manufacturing assets: / Steeping assets: / Steeping vessels: | | | |
+Malt manufacturing assets: / Steeping assets: / Steeping vessels: / Concrete | 40 years | 2.50% | 5.00% | 1 July 2008
+Malt manufacturing assets: / Steeping assets: / Steeping vessels: / Rotating drums | 20 years | 5.00% | 10.00% | 1 July 2008
+Malt manufacturing assets: / Steeping assets: / Steeping vessels: / Stainless steel | 25 years | 4.00% | 8.00% | 1 July 2008
+Malt manufacturing assets: / Waste water treatment assets: | | | |
+Malt manufacturing assets: / Waste water treatment assets: / Aerators | 20 years | 5.00% | 10.00% | 1 July 2008
+Malt manufacturing assets: / Waste water treatment assets: / Blowers | 20 years | 5.00% | 10.00% | 1 July 2008
+Malt manufacturing assets: / Waste water treatment assets: / Clarifiers | 20 years | 5.00% | 10.00% | 1 July 2008
+Malt manufacturing assets: / Waste water treatment assets: / Digester/aeration tanks | 25 years | 4.00% | 8.00% | 1 July 2008
+Malt manufacturing assets: / Waste water treatment assets: / Reverse osmosis system assets | 20 years | 5.00% | 10.00% | 1 July 2008
+Rice milling assets: | | | |
+Rice milling assets: / Grain cleaning, milling and refining assets: | | | |
+Rice milling assets: / Grain cleaning, milling and refining assets: / Colour sorters | 10 years | 10.00% | 20.00% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / De-stoners (including aspirators) | 15 years | 6.67% | 13.33% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Extraction and evaporation assets (including blowers, dust collectors, dryers, fans) | 15 years | 6.67% | 13.33% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Flow weighers | 20 years | 5.00% | 10.00% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Hullers | 15 years | 6.67% | 13.33% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Intake separators | 20 years | 5.00% | 10.00% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Length graders | 20 years | 5.00% | 10.00% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Paddy cleaners and pre-cleaners | 20 years | 5.00% | 10.00% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Paddy separators | 15 years | 6.67% | 13.33% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Plan sifters | 20 years | 5.00% | 10.00% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Thickness grading assets (including scalpers and rotary screens) | 20 years | 5.00% | 10.00% | 1 July 2017
+Rice milling assets: / Grain cleaning, milling and refining assets: / Whiteners (including abrasive and friction whiteners) | 15 years | 6.67% | 13.33% | 1 July 2017
+Rice milling assets: / Packaging assets: | | | |
+Rice milling assets: / Packaging assets: / Cartoning assets (including bagging machines, bag sealers, carton and case erecting, packing and closing machines) – see Table B Packaging machines | | | |
+Rice milling assets: / Packaging assets: / Palletisers and depalletisers | 15 years | 6.67% | 13.33% | 1 July 2017
+Rice milling assets: / Packaging assets: / Weighers | 20 years | 5.00% | 10.00% | 1 July 2017
+Rice milling assets: / Packaging assets: / Wrapping machines (including pallet wrappers, shrink wrappers, stretch wrappers and strapping machines) – see Table B Packaging machines | | | |
+Rice milling assets: / Product and raw material handling and receiving assets: | | | |
+Rice milling assets: / Product and raw material handling and receiving assets: / Augers, conveyors and elevators | 15 years | 6.67% | 13.33% | 1 July 2017
+Rice milling assets: / Quality control assets: | | | |
+Rice milling assets: / Quality control assets: / Inspection equipment (including check weighers and metal detectors) | 10 years | 10.00% | 20.00% | 1 July 2017
+Rice milling assets: / Quality control assets: / Laboratory equipment (including moisture testing machines) | 10 years | 10.00% | 20.00% | 1 July 2017
+Rice milling assets: / Quality control assets: / Magnets | 10 years | 10.00% | 20.00% | 1 July 2017
+Rice milling assets: / Support assets: | | | |
+Rice milling assets: / Support assets: / Air compressors – see Table B Air compression assets generally (including air compressors, air dryers and air receivers) | | | |
+Rice milling assets: / Support assets: / Fumigation systems | 15 years | 6.67% | 13.33% | 1 July 2017
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Blowers, fans and evaporative coolers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/blowers-fans-and-evaporative-coolers/
+- Control systems (dust collectors) – see Table B Control systems and control system assets: https://duguid.com.au/tools/depreciation-rates/asset/control-systems-and-control-system/
+- Cyclones and dust collectors: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/cyclones-and-dust-collectors/
+- Grain screen cleaners: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/grain-screen-cleaners/
+- Gravity tables or separators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/gravity-tables-or-separators/
+- Hammer mills: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/hammer-mills/
+- Horizontal scourers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/horizontal-scourers/
+- Intake separators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/flour-milling-assets-intake-separators/
+- Intensive dampeners: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/intensive-dampeners/
+- Plan sifters: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/flour-milling-assets-plan-sifters/
+- Purifiers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/purifiers/
+- Roller mills: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/roller-mills/
+- Rotary sieves: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/rotary-sieves/
+- Carton erecting, packing and closing machines (including cartoners): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/carton-erecting-packing-and-closing-machines/
+- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/hoists/
+- Inspection equipment (including check weighers, metal detectors, counting machines etc) – see Table B Packaging machines: https://duguid.com.au/tools/depreciation-rates/asset/packaging-machines/
+- Label applicators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/label-applicators/
+- Palletisers and depalletisers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/flour-milling-assets-palletisers-and-depalletisers/
+- Vertical form fill and seal/volumetric fillers (including valve bag fillers): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/vertical-form-fill-and-seal-volumetric-fillers/
+- Weighers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/flour-milling-assets-weighers/
+- Conveyors (including belt, chain, drag, screw): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/conveyors/
+- Elevators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/elevators/
+- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/flour-milling-assets-concrete/
+- Conditioning/sealed: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/conditioning-sealed/
+- Flexible: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/flexible/
+- Galvanised: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/galvanised/
+- Steel: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/steel/
+- Weighbridges – see Table B Weighbridges: https://duguid.com.au/tools/depreciation-rates/asset/weighbridges/
+- Laboratory testing equipment (including near infrared analysers): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/laboratory-testing-equipment/
+- Test kitchen assets (including dough makers, breadmakers, ovens, provers): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/test-kitchen-assets/
+- Test mills: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/test-mills/
+- Barley and malt cleaning assets (including deculmers, dust extractors, indented cylinders, magnetic cleaners, malt shakers, screeners): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/barley-and-malt-cleaning-assets/
+- Augers, conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/malt-manufacturing-assets-augers-conveyors-and-elevators/
+- Galvanised construction: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/galvanised-construction/
+- Steel construction: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/steel-construction/
+- Weighbridges/weighers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/weighbridges-weighers/
+- Clean-in-place (CIP) system assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/clean-in-place-system-assets/
+- Control systems (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/control-systems/
+- Above/below floor cleaning systems: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/above-below-floor-cleaning-systems/
+- Aeration blowers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/aeration-blowers/
+- Carbon dioxide (CO2) extraction units: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/carbon-dioxide-extraction-units/
+- Loaders/unloaders/turners: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/germination-assets-loaders-unloaders-turners/
+- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/vessels-concrete/
+- Rotating drums: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/vessels-rotating-drums/
+- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/vessels-stainless-steel/
+- Fans: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/fans/
+- Gas burners: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/gas-burners/
+- Heat exchanger systems: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/heat-exchanger-systems/
+- Heat recovery systems: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/heat-recovery-systems/
+- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/kilns-concrete/
+- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/kilns-stainless-steel/
+- Loaders/unloaders/turners: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/kiln-assets-loaders-unloaders-turners/
+- Refrigeration assets (including chillers, compressors, condensers, evaporative coolers and pumps): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/refrigeration-assets/
+- Above floor/below floor cleaning systems: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/above-floor-below-floor-cleaning-systems/
+- Slurry tanks: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/slurry-tanks/
+- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/steeping-vessels-concrete/
+- Rotating drums: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/steeping-vessels-rotating-drums/
+- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/steeping-vessels-stainless-steel/
+- Aerators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/aerators/
+- Blowers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/blowers/
+- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/clarifiers/
+- Digester/aeration tanks: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/digester-aeration-tanks/
+- Reverse osmosis system assets: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/reverse-osmosis-system-assets/
+- Colour sorters: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/colour-sorters/
+- De-stoners (including aspirators): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/de-stoners/
+- Extraction and evaporation assets (including blowers, dust collectors, dryers, fans): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/extraction-and-evaporation-assets/
+- Flow weighers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/flow-weighers/
+- Hullers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/hullers/
+- Intake separators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/rice-milling-assets-intake-separators/
+- Length graders: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/length-graders/
+- Paddy cleaners and pre-cleaners: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/paddy-cleaners-and-pre-cleaners/
+- Paddy separators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/paddy-separators/
+- Plan sifters: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/rice-milling-assets-plan-sifters/
+- Thickness grading assets (including scalpers and rotary screens): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/thickness-grading-assets/
+- Whiteners (including abrasive and friction whiteners): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/whiteners/
+- Palletisers and depalletisers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/rice-milling-assets-palletisers-and-depalletisers/
+- Weighers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/rice-milling-assets-weighers/
+- Augers, conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/rice-milling-assets-augers-conveyors-and-elevators/
+- Inspection equipment (including check weighers and metal detectors): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/inspection-equipment/
+- Laboratory equipment (including moisture testing machines): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/laboratory-equipment/
+- Magnets: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/magnets/
+- Fumigation systems: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/fumigation-systems/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

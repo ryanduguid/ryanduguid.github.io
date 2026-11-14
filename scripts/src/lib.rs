@@ -14,6 +14,7 @@ pub mod check_publication;
 pub mod check_seo;
 pub mod check_site;
 pub mod effective_life;
+pub mod effective_life_pages;
 pub mod extract_xero_badge;
 pub mod favicon_render;
 pub mod feed;

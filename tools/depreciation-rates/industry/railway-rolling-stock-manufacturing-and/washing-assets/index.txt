@@ -1,0 +1,94 @@
+# Washing assets effective life: 10 years, Maintenance
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/washing-assets/
+
+> Maintenance and refurbishment assets: Washing assets (including bearing and bogie washers): effective life 10 years, last updated 1 July 2014 (Table A).
+
+# Maintenance and refurbishment assets: Washing assets (including bearing and bogie washers)
+
+‘Maintenance and refurbishment assets: Washing assets (including bearing and bogie washers)’, for an asset used in Railway rolling stock manufacturing and repair services, has an effective life of 10 years (F2025L01097), last reviewed and determined on 1 July 2014.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Washing assets (including bearing and bogie washers)
+Under | Maintenance and refurbishment assets:
+Table | Table A (industry categories), MANUFACTURING / Railway rolling stock manufacturing and repair services, ANZSIC 23930
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2014
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Railway rolling stock manufacturing and repair services takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 July 2014. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Maintenance and refurbishment assets
+
+Row | Life | Prime cost | Diminishing value
+Lathes (including above floor and under floor wheel lathes) | 20 years | 5.00% | 10.00%
+Paint spraying booths (incorporating baking ovens, extractor fans and gas heaters) | 15 years | 6.67% | 13.33%
+Portable presses (including hydraulic power presses) | 10 years | 10.00% | 20.00%
+Presses (including bearing mounting, bench, brake, hydraulic power and wheel presses) | 20 years | 5.00% | 10.00%
+Tanks (including washing and water tanks) | 20 years | 5.00% | 10.00%
+Vacuum assets | 10 years | 10.00% | 20.00%
+Washing assets (including bearing and bogie washers) (this page) | 10 years | 10.00% | 20.00%
+Welding assets (including robot welders and spot welding towers) | 10 years | 10.00% | 20.00%
+Wheel condition monitoring systems | 7 years | 14.29% | 28.57%
+
+15 rows share this heading. The Railway rolling stock manufacturing and repair services page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Washing assets (including brush and barrel washers) | AGRICULTURE, FORESTRY AND FISHING | 10 years | 10.00% | 20.00%
+Washing assets | Poultry hatcheries | 20 years | 5.00% | 10.00%
+Washing assets (including barrel washers, brush washers and ripple washers) | Fruit and vegetable processing | 15 years | 6.67% | 13.33%
+Washing assets (including pressure washers) | Solid waste collection services | 4 years | 25.00% | 50.00%
+Washing assets (including brush and barrel washers) | Packaging services | 10 years | 10.00% | 20.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Lathes (including above floor and under floor wheel lathes): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-lathes/
+- Paint spraying booths (incorporating baking ovens, extractor fans and gas heaters): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/paint-spraying-booths/
+- Portable presses (including hydraulic power presses): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/portable-presses/
+- Presses (including bearing mounting, bench, brake, hydraulic power and wheel presses): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-presses/
+- Tanks (including washing and water tanks): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/tanks/
+- Vacuum assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/vacuum-assets/
+- Welding assets (including robot welders and spot welding towers): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-welding-assets/
+- Wheel condition monitoring systems: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/wheel-condition-monitoring-systems/
+- Railway rolling stock manufacturing and repair services: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/
+- Washing assets (including brush and barrel washers): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/washing-assets/
+- Washing assets: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/washing-assets/
+- Washing assets (including barrel washers, brush washers and ripple washers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/washing-assets/
+- Washing assets (including pressure washers): https://duguid.com.au/tools/depreciation-rates/industry/solid-waste-collection-services/washing-assets/
+- Washing assets (including brush and barrel washers): https://duguid.com.au/tools/depreciation-rates/industry/packaging-services/washing-assets/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

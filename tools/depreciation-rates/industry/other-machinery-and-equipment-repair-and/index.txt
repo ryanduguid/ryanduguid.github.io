@@ -1,0 +1,243 @@
+# Other machinery effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/
+
+> Other machinery and equipment repair and maintenance: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Other machinery and equipment repair and maintenance
+
+93 effective lives in Table A of the Commissioner’s 2025 effective life determination for Other machinery and equipment repair and maintenance.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Assets used in field service that are not listed under this sub-heading - use any relevant determination listed under Workshop assets below | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Air compressors | 8 years | 12.50% | 25.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Cranes | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Cutting machines | 8 years | 12.50% | 25.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Diagnostic assets | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Lathes | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Line boring machines | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Milling machines | 8 years | 12.50% | 25.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Turning machines | 8 years | 12.50% | 25.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Trailers: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Trailers: / Generally (including comb trailers and tilt trailers) – see Table B Motor vehicles and trailers | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Field service assets: / Trailers: / Service trailers (incorporating built-in hoses, built-in pumps, built-in tanks etc) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Air conditioning service assets (including refrigerant management/charging stations, refrigerant recovery machines, refrigerant recovery and recycling machines and vacuum pumps) | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Air compression assets (including air dryers, air receivers, compressors and packaged air compression systems) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Battery chargers | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Battery load testers | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Bending machines: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Bending machines: / Folders | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Bending machines: / Pipe and tube benders | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Bending machines: / Press brakes | 20 years | 5.00% | 10.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Brake shoe riveting machines | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Brake testers (including in-ground and mobile roller brake testers) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Boring machines (including floor borers, jib borers, horizontal and vertical boring machines) | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Diagnostic, measuring and testing assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Diagnostic, measuring and testing assets: / Generally (including co-ordinate measuring machines, dynamometers, electrical testers, flow meters, hardness testers, hydraulic testers and multimeters) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Diagnostic, measuring and testing assets: / Laptop diagnostic systems: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Diagnostic, measuring and testing assets: / Laptop diagnostic systems: / Laptops – see Table B Computers, Laptops | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Diagnostic, measuring and testing assets: / Laptop diagnostic systems: / Machine interface units | 3 years | 33.33% | 66.67% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Diagnostic, measuring and testing assets: / Tyre pressure gauges | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Diagnostic, measuring and testing assets: / Vehicle specific diagnostic assets | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Drilling machines (including drill presses, magnetic drills, pedestal drills and radial arm drills) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Flange facers | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Forklift attachments | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Forklifts | 11 years | 9.09% | 18.18% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Grinding machines (including gear grinding machines) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Guillotine shears | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Heat treatment assets (including furnaces and quenches) | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Hydraulic hose crimpers | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lathes: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lathes: / CNC lathes | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lathes: / Manual lathes | 20 years | 5.00% | 10.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: / Cranes: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: / Cranes: / Jib cranes (including column/wall mounted, floor mounted/freestanding and portable jib cranes) | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: / Cranes: / Overhead cranes | 25 years | 4.00% | 8.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: / Cranes: / Pick & carry cranes/yard cranes | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: / Cranes: / Portable cranes generally (including engine cranes, engine hoists, floor cranes, mobile gantries, shop cranes etc) | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: / Hoists | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: / Jacks (including air hydraulic jacks, hydro pneumatic jacks, floor jacks, transmission jacks, trolley jacks and truck jacks) | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: / Scissor lifts | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lifting assets: / Vehicle lifters (including mobile column lifts and post hoists) | 20 years | 5.00% | 10.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Machining centres | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Milling machines (including bed mills and universal mills) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Oil recovery, service and treatment assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Oil recovery, service and treatment assets: / Collection vessels/tanks | 20 years | 5.00% | 10.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Oil recovery, service and treatment assets: / Dangerous goods containers | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Oil recovery, service and treatment assets: / Pumps | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Painting assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Painting assets: / Buffing machines | 3 years | 33.33% | 66.67% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Painting assets: / Paint agitators | 3 years | 33.33% | 66.67% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Painting assets: / Space heaters | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Painting assets: / Spray booths | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Painting assets: / Spray gun washing machines | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Parts washing machines | 7 years | 14.29% | 28.57% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Pipe cutting machines | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Plasma cutters | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Presses: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Presses: / Hydraulic presses | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Presses: / Punch and shear machines | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Saws (including band saws and cold cut saws) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Stands (including axle stands, engine stands and transmission stands) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Storage assets (including racking, shelving, safety cabinets and storage cabinets) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Surface preparation assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Surface preparation assets: / Abrasive blasting assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Surface preparation assets: / Abrasive blasting assets: / Abrasive blasting machines (incorporating blasting pots, hoses, nozzles, valves etc) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Surface preparation assets: / Abrasive blasting assets: / Abrasive recovery/recycling machines and associated equipment (including storage hoppers) | 12 years | 8.33% | 16.67% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Surface preparation assets: / Abrasive blasting assets: / Blast booths/chambers | 12 years | 8.33% | 16.67% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Surface preparation assets: / Abrasive blasting assets: / Dust collection and ventilation systems | 12 years | 8.33% | 16.67% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Surface preparation assets: / Pressure cleaners/washers | 4 years | 25.00% | 50.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Toolboxes and toolbox roller cabinets | 7 years | 14.29% | 28.57% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tooling: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tooling: / Moulds | 7 years | 14.29% | 28.57% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tooling: / Press brake dies | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tooling: / Tooling for lathes, machining centres, milling machines and other machine tools | 7 years | 14.29% | 28.57% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tooling: / Vehicle specific specialised tooling | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tooling: / Workholding devices (including jigs and fixtures) | 7 years | 14.29% | 28.57% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tools: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tools: / Hand tools (manually operated) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tools: / Handheld power tools (air, battery and electric) | 3 years | 33.33% | 66.67% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tools: / Power packs | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tools: / Torque/tension wrenches | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Tools: / Torque wrench pumps (pneumatic and electric driven) | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Trolleys (including powered and electrodrive trolleys) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Turning machines | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Waste water recovery and treatment assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Waste water recovery and treatment assets: / Grease traps | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Waste water recovery and treatment assets: / Pumps | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Waste water recovery and treatment assets: / Tanks and separators | 15 years | 6.67% | 13.33% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Waterjet cutting machines | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Weight scales (corner weight) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Welding assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Welding assets: / Welders (including ARC, MIG, TIG, multi process and oxy-acetylene welders/cutters) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Welding assets: / Weld tables and positioners (including rotary tables) | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Welding assets: / Welding helmets incorporating respirators | 3 years | 33.33% | 66.67% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Welding assets: / Wire feeders | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Wheel service assets: | | | |
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Wheel service assets: / Bead breaker kits | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Wheel service assets: / Tyre changers | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Wheel service assets: / Wheel aligners | 7 years | 14.29% | 28.57% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Wheel service assets: / Wheel balancers | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Wheel service assets: / Wheel handlers and lifters | 5 years | 20.00% | 40.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Wheel service assets: / Wheel play detectors | 10 years | 10.00% | 20.00% | 1 July 2015
+Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Work benches and tables | 15 years | 6.67% | 13.33% | 1 July 2015
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/air-compressors/
+- Cranes: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/cranes/
+- Cutting machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/cutting-machines/
+- Diagnostic assets: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/diagnostic-assets/
+- Lathes: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/lathes/
+- Line boring machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/line-boring-machines/
+- Milling machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/field-service-assets-milling-machines/
+- Turning machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/field-service-assets-turning-machines/
+- Generally (including comb trailers and tilt trailers) – see Table B Motor vehicles and trailers: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/
+- Service trailers (incorporating built-in hoses, built-in pumps, built-in tanks etc): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/service-trailers/
+- Air conditioning service assets (including refrigerant management/charging stations, refrigerant recovery machines, refrigerant recovery and recycling machines and vacuum pumps): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/air-conditioning-service-assets/
+- Air compression assets (including air dryers, air receivers, compressors and packaged air compression systems): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/air-compression-assets/
+- Battery chargers: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/battery-chargers/
+- Battery load testers: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/battery-load-testers/
+- Folders: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/folders/
+- Pipe and tube benders: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/pipe-and-tube-benders/
+- Press brakes: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/press-brakes/
+- Brake shoe riveting machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/brake-shoe-riveting-machines/
+- Brake testers (including in-ground and mobile roller brake testers): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/brake-testers/
+- Boring machines (including floor borers, jib borers, horizontal and vertical boring machines): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/boring-machines/
+- Generally (including co-ordinate measuring machines, dynamometers, electrical testers, flow meters, hardness testers, hydraulic testers and multimeters): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/generally/
+- Machine interface units: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/machine-interface-units/
+- Tyre pressure gauges: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/tyre-pressure-gauges/
+- Vehicle specific diagnostic assets: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/vehicle-specific-diagnostic-assets/
+- Drilling machines (including drill presses, magnetic drills, pedestal drills and radial arm drills): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/drilling-machines/
+- Flange facers: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/flange-facers/
+- Forklift attachments: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/forklift-attachments/
+- Forklifts: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/forklifts/
+- Grinding machines (including gear grinding machines): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/grinding-machines/
+- Guillotine shears: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/guillotine-shears/
+- Heat treatment assets (including furnaces and quenches): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/heat-treatment-assets/
+- Hydraulic hose crimpers: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/hydraulic-hose-crimpers/
+- CNC lathes: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/cnc-lathes/
+- Manual lathes: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/manual-lathes/
+- Jib cranes (including column/wall mounted, floor mounted/freestanding and portable jib cranes): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/jib-cranes/
+- Overhead cranes: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/overhead-cranes/
+- Pick & carry cranes/yard cranes: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/pick-carry-cranes-yard-cranes/
+- Portable cranes generally (including engine cranes, engine hoists, floor cranes, mobile gantries, shop cranes etc): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/portable-cranes-generally/
+- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/hoists/
+- Jacks (including air hydraulic jacks, hydro pneumatic jacks, floor jacks, transmission jacks, trolley jacks and truck jacks): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/jacks/
+- Scissor lifts: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/scissor-lifts/
+- Vehicle lifters (including mobile column lifts and post hoists): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/vehicle-lifters/
+- Machining centres: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/machining-centres/
+- Milling machines (including bed mills and universal mills): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/workshop-assets-milling-machines/
+- Collection vessels/tanks: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/collection-vessels-tanks/
+- Dangerous goods containers: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/dangerous-goods-containers/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/oil-recovery-service-and-pumps/
+- Buffing machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/buffing-machines/
+- Paint agitators: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/paint-agitators/
+- Space heaters: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/space-heaters/
+- Spray booths: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/spray-booths/
+- Spray gun washing machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/spray-gun-washing-machines/
+- Parts washing machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/parts-washing-machines/
+- Pipe cutting machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/pipe-cutting-machines/
+- Plasma cutters: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/plasma-cutters/
+- Hydraulic presses: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/hydraulic-presses/
+- Punch and shear machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/punch-and-shear-machines/
+- Saws (including band saws and cold cut saws): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/saws/
+- Stands (including axle stands, engine stands and transmission stands): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/stands/
+- Storage assets (including racking, shelving, safety cabinets and storage cabinets): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/storage-assets/
+- Abrasive blasting machines (incorporating blasting pots, hoses, nozzles, valves etc): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/abrasive-blasting-machines/
+- Abrasive recovery/recycling machines and associated equipment (including storage hoppers): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/abrasive-recovery-recycling-machines-and-associated/
+- Blast booths/chambers: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/blast-booths-chambers/
+- Dust collection and ventilation systems: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/dust-collection-and-ventilation-systems/
+- Pressure cleaners/washers: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/pressure-cleaners-washers/
+- Toolboxes and toolbox roller cabinets: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/toolboxes-and-toolbox-roller-cabinets/
+- Moulds: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/moulds/
+- Press brake dies: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/press-brake-dies/
+- Tooling for lathes, machining centres, milling machines and other machine tools: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/tooling-for-lathes-machining-centres-milling-machines-and/
+- Vehicle specific specialised tooling: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/vehicle-specific-specialised-tooling/
+- Workholding devices (including jigs and fixtures): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/workholding-devices/
+- Hand tools (manually operated): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/hand-tools/
+- Handheld power tools (air, battery and electric): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/handheld-power-tools/
+- Power packs: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/power-packs/
+- Torque/tension wrenches: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/torque-tension-wrenches/
+- Torque wrench pumps (pneumatic and electric driven): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/torque-wrench-pumps/
+- Trolleys (including powered and electrodrive trolleys): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/trolleys/
+- Turning machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/workshop-assets-turning-machines/
+- Grease traps: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/grease-traps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/waste-water-recovery-and-pumps/
+- Tanks and separators: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/tanks-and-separators/
+- Waterjet cutting machines: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/waterjet-cutting-machines/
+- Weight scales (corner weight): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/weight-scales/
+- Welders (including ARC, MIG, TIG, multi process and oxy-acetylene welders/cutters): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/welders/
+- Weld tables and positioners (including rotary tables): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/weld-tables-and-positioners/
+- Welding helmets incorporating respirators: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/welding-helmets-incorporating-respirators/
+- Wire feeders: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/wire-feeders/
+- Bead breaker kits: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/bead-breaker-kits/
+- Tyre changers: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/tyre-changers/
+- Wheel aligners: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/wheel-aligners/
+- Wheel balancers: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/wheel-balancers/
+- Wheel handlers and lifters: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/wheel-handlers-and-lifters/
+- Wheel play detectors: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/wheel-play-detectors/
+- Work benches and tables: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/work-benches-and-tables/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

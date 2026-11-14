@@ -1,0 +1,91 @@
+# Hot food display assets effective life: 10 years, Deli Assets
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/hot-food-display-assets/
+
+> Deli Assets: Hot food display assets …: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 July 2020 (Table A, 2025 determination).
+
+# Deli Assets: Hot food display assets …
+
+‘Deli Assets: Hot food display assets …’, for an asset used in Supermarket and grocery stores, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2020.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Hot food display assets (including bain marie, hot boxes and pie warmers)
+Under | Deli Assets:
+Table | Table A (industry categories), RETAIL TRADE / Supermarket and grocery stores, ANZSIC 41100
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2020
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Supermarket and grocery stores takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 July 2020. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Deli Assets
+
+Row | Life | Prime cost | Diminishing value
+Cheese cutters | 10 years | 10.00% | 20.00%
+Cheese graters | 10 years | 10.00% | 20.00%
+Coffee making machines (including espresso and drip filter type machines) | 5 years | 20.00% | 40.00%
+Contact grills | 10 years | 10.00% | 20.00%
+Deep fryers | 10 years | 10.00% | 20.00%
+Deli slicers | 10 years | 10.00% | 20.00%
+Hot food display assets (including bain marie, hot boxes and pie warmers) (this page) | 10 years | 10.00% | 20.00%
+Juicing machines, commercial type | 8 years | 12.50% | 25.00%
+Ovens (including chicken ovens and smoker ovens) | 10 years | 10.00% | 20.00%
+Popcorn machines | 8 years | 12.50% | 25.00%
+Sushi making assets (including rice cookers, rice mixers and sushi robots) | 7 years | 14.29% | 28.57%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Hot food display assets (including bain marie) | RETAIL TRADE | 10 years | 10.00% | 20.00%
+Hot food display assets (including bain maries) | Fuel retailing | 10 years | 10.00% | 20.00%
+Hot food display assets (including bain marie) | Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality) | 10 years | 10.00% | 20.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Cheese cutters: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/cheese-cutters/
+- Cheese graters: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/cheese-graters/
+- Coffee making machines (including espresso and drip filter type machines): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/coffee-making-machines/
+- Contact grills: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/contact-grills/
+- Deep fryers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/deep-fryers/
+- Deli slicers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/deli-slicers/
+- Juicing machines, commercial type: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/juicing-machines-commercial-type/
+- Ovens (including chicken ovens and smoker ovens): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/deli-assets-ovens/
+- Popcorn machines: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/popcorn-machines/
+- Sushi making assets (including rice cookers, rice mixers and sushi robots): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/sushi-making-assets/
+- Hot food display assets (including bain marie): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/hot-food-display-assets/
+- Hot food display assets (including bain maries): https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/hot-food-display-assets/
+- Hot food display assets (including bain marie): https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/hot-food-display-assets/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/
