@@ -14,7 +14,7 @@ Schedule 1 applies to payments made from 1 July 2026. Withholding is y = ax − 
 
 Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
 
-Read on 14 November 2026 from the ATO’s Schedule 1 coefficients page and its Using a formula and Working out the weekly earnings pages (each published 17 June 2026).
+Read on 14 November 2026 from the ATO’s Schedule 1 coefficients page and its About this schedule (applies to payments made from 1 July 2026), Using a formula, Working out the weekly earnings and Withholding amounts sample data pages (each published 17 June 2026). The sample data shows nil scale 2 withholding on weekly earnings of $361.
 
 ## Tax-free threshold claimed (scale 2)
 
@@ -84,8 +84,10 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 ## Links
 
 - Schedule 1 coefficients: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments
+- About this schedule: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/about-this-schedule
 - Using a formula: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/using-a-formula
 - Working out the weekly earnings: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/working-out-the-weekly-earnings
+- Withholding amounts sample data: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/sample-data/withholding-amounts-sample-data
 - Download the table as CSV: https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv
 - Source and contact: https://github.com/ryanduguid
 - Individual income tax rates for residents: https://duguid.com.au/rates/individual-income-tax/
