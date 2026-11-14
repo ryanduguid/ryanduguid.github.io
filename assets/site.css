@@ -955,6 +955,13 @@ caption {
   overflow-wrap: anywhere;
 }
 
+/* The effective life tables hold figures and the determination's headings in
+   capitals ('TELECOMMUNICATIONS'), so in their scroll regions a cell wraps
+   between words, as other scroll regions do, and a long word scrolls. */
+.depreciation-page .table-scroll .facts--kv td {
+  overflow-wrap: break-word;
+}
+
 /* Tables that compare figures across columns right-align every value column,
    so cents and thousands line up down each column. The cash forecast's money
    columns are its last 4; the Coal LSL employee table's are Eligible wages
