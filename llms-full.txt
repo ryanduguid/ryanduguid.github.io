@@ -313,7 +313,7 @@ Open the Xero installation and first run guide
 - A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.
 - An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.
 
-For a trial without credentials, reproduce the trial balance integrity evaluation. It uses 3 fictional CSV fixtures at its declared historical release. It exercises the balance gate without connecting to Xero.
+To try the balance gate without credentials, reproduce the trial balance integrity evaluation. It uses 3 fictional CSV fixtures at its declared historical release and makes no connection to Xero.
 
 ## Read and write access
 
@@ -3759,7 +3759,7 @@ The bank holiday on the first Monday in August in NSW and the ACT does not count
 
 ## Counting a due date
 
-A contribution is on time if the fund receives it, with the information needed to allocate it, within 7 business days after payday. Payday itself is not counted.
+A contribution is on time if the fund receives it, with the information needed to allocate it, within 7 business days after payday. Payday itself does not count.
 
 The ATO’s own example: for earnings paid on Thursday 30 July 2026, the fund must receive the contribution by Tuesday 11 August 2026. Without a holiday, the seventh business day after 30 July would be Monday 10 August; NT Picnic Day on 3 August is not a business day, so the due date is a day later.
 
@@ -4393,7 +4393,7 @@ Software issue using fictional data? Open an issue or email with the tool named 
 
 ### What is a contract asset versus a contract liability?
 
-Revenue to date less certified billings, per contract. Positive is a contract asset. Negative is a contract liability. The engine never offsets one job against another.
+Revenue to date less certified billings, per contract. A positive amount is a contract asset and a negative amount a contract liability. The engine never offsets one job against another.
 
 ### Does wasted cost accelerate percentage complete?
 

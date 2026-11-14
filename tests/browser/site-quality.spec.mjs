@@ -447,10 +447,14 @@ test('homepage supporting text respects contrast and print overrides while stayi
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)');
     await expect(note).toHaveCSS('color', 'rgb(229, 228, 226)');
   }
+  // Playwright's Firefox updates matchMedia for an emulated contrast change but
+  // restyles the loaded page only on the next load, so each contrast step reloads.
   await page.emulateMedia({ contrast: 'more' });
+  await page.reload();
   await expect(note).toHaveCSS('color', 'rgb(255, 255, 240)');
   for (const contrast of ['no-preference', 'more']) {
     await page.emulateMedia({ contrast, media: 'print' });
+    await page.reload();
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
     await expect(note).toHaveCSS('color', 'rgb(0, 0, 0)');
   }

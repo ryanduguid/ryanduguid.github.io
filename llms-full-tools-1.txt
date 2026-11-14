@@ -1022,7 +1022,7 @@ The bank holiday on the first Monday in August in NSW and the ACT does not count
 
 ## Counting a due date
 
-A contribution is on time if the fund receives it, with the information needed to allocate it, within 7 business days after payday. Payday itself is not counted.
+A contribution is on time if the fund receives it, with the information needed to allocate it, within 7 business days after payday. Payday itself does not count.
 
 The ATO’s own example: for earnings paid on Thursday 30 July 2026, the fund must receive the contribution by Tuesday 11 August 2026. Without a holiday, the seventh business day after 30 July would be Monday 10 August; NT Picnic Day on 3 August is not a business day, so the due date is a day later.
 
