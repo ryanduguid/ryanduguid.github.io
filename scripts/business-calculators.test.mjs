@@ -186,6 +186,36 @@ test('variance changes favourability for costs and keeps zero budget undefined',
   assert.throws(() => variance('1', '1', 'anything'));
 });
 
+// Each balloon or advance result here was worked separately in exact fractions: the
+// payment is (principal - balloon v^n) over the sum of v^k, for k = 1 to n in arrears and
+// 0 to n - 1 in advance, with v = 1 / (1 + r); total interest is n payments plus the
+// balloon less the principal. The first 2 are also AusCalc's worked example on its vehicle
+// finance page, read 15 November 2026: $954.09 a month and total interest $15,245.63, and
+// $1,202.28 and $12,136.61 with no residual.
+for (const [inputs, expected] of [
+  [['60000', '7.5', '60', '18000'], { payment: 954.09, firstInterest: 375, firstPrincipal: 579.09, totalInterest: 15245.63 }],
+  [['60000', '7.5', '60', '0'], { payment: 1202.28, firstInterest: 375, firstPrincipal: 827.28, totalInterest: 12136.61 }],
+  [['60000', '7.5', '60', '18000', 'advance'], { payment: 948.17, firstInterest: 0, firstPrincipal: 948.17, totalInterest: 14890.07 }],
+  [['60000', '7.5', '60', '0', 'advance'], { payment: 1194.81, firstInterest: 0, firstPrincipal: 1194.81, totalInterest: 11688.56 }],
+  // A balloon equal to the principal leaves interest only: 1% of $1,000 a month in arrears,
+  // and 1% discounted a month, 1,000 x 0.01 / 1.01, in advance.
+  [['1000', '12', '12', '1000'], { payment: 10, firstInterest: 10, firstPrincipal: 0, totalInterest: 120 }],
+  [['1000', '12', '1', '1000', 'advance'], { payment: 9.9, firstInterest: 0, firstPrincipal: 9.9, totalInterest: 9.9 }],
+  // At nil interest the balloon comes off the principal and the rest divides evenly.
+  [['1200', '0', '12', '200', 'advance'], { payment: 83.33, firstInterest: 0, firstPrincipal: 83.33, totalInterest: 0 }],
+  [['1200', '0', '12', '1200'], { payment: 0, firstInterest: 0, firstPrincipal: 0, totalInterest: 0 }],
+]) {
+  test(`loan takes a balloon and payments in advance: ${inputs.join(' / ')}`, () => {
+    assert.deepEqual(loan(...inputs), expected);
+  });
+}
+
+test('loan refuses a balloon above the principal and an unknown payment timing', () => {
+  assert.throws(() => loan('1000', '12', '12', '1000.01'), { message: 'The balloon cannot be more than the loan principal.' });
+  assert.throws(() => loan('1000', '12', '12', '0', 'start'), { message: 'Choose payments in arrears or in advance.' });
+  assert.throws(() => loan('1000', '12', '12', '-1'), /between 0 and/);
+});
+
 test('loan handles zero interest and a hand-calculated one-period loan', () => {
   assert.deepEqual(loan('1200', '0', '12'), { payment: 100, firstInterest: 0, firstPrincipal: 100, totalInterest: 0 });
   assert.deepEqual(loan('1000', '12', '1'), { payment: 1010, firstInterest: 10, firstPrincipal: 1000, totalInterest: 10 });
@@ -270,8 +300,9 @@ const INPUTS = {
     `Fixed ${dollars(fixed)}, price ${dollars(price)}, variable ${dollars(variable)}`,
   hourlyRate: (costs, profit, hours) => `Costs ${dollars(costs)}, profit ${dollars(profit)}, ${hours} hours`,
   variance: (actual, budget, kind) => `Actual ${dollars(actual)}, budget ${dollars(budget)}, ${kind}`,
-  loan: (principal, rate, months) =>
-    `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`,
+  loan: (principal, rate, months, balloon = '0', timing = 'arrears') =>
+    `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`
+    + `${balloon === '0' ? '' : `, balloon ${dollars(balloon)}`}${timing === 'advance' ? ', paid in advance' : ''}`,
   staffCost: (wages, superannuation, other) =>
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
   div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
@@ -395,11 +426,12 @@ test('Division 7A years and rates are the rate table rows, newest first', () => 
 });
 
 // The values each form opens with, read from its include: an input's value or
-// checked state, and a select's selected option (else its first).
+// checked state, the checked radio's value, and a select's selected option (else its first).
 const formDefaults = (html) => {
   const fields = {};
   for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
     const name = tag.match(/\bname="([^"]+)"/)?.[1];
+    if (/\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
     if (name) fields[name] = /\btype="checkbox"/.test(tag) ? /\bchecked\b/.test(tag) : tag.match(/\bvalue="([^"]*)"/)?.[1];
   }
   for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
@@ -421,7 +453,7 @@ const FORM_CALLS = {
   breakEven: (f) => [f.fixed, f.price, f.variable],
   hourlyRate: (f) => [f.cost, f.profit, f.hours],
   variance: (f) => [f.actual, f.budget, f.kind],
-  loan: (f) => [f.principal, f.rate, f.months],
+  loan: (f) => [f.principal, f.rate, f.months, f.balloon, f.timing],
   div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],
   staffCost: (f) => [f.wages, f.super, f.other],
   cashForecast: (f) => [f.opening,

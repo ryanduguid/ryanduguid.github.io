@@ -446,6 +446,20 @@ for (const [rate, months, expected] of [
   });
 }
 
+test('loan takes a balloon and payments in advance from the form', async ({ page }) => {
+  await page.goto('/tools/business-calculators/loan/');
+  const form = page.locator('#loan form');
+  await form.getByLabel('Loan principal (AUD)').fill('60000');
+  await form.getByLabel('Annual nominal interest rate (%)').fill('7.5');
+  await form.getByLabel('Number of monthly payments').fill('60');
+  await form.getByLabel('Balloon or residual owed at the end (AUD)').fill('18000');
+  await form.getByRole('radio', { name: 'At the start of each month (in advance)', exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: principal $60,000.00, 7.5% annual nominal rate, 60 monthly payments in advance, balloon $18,000.00. '
+    + 'Monthly payment: $948.17. First payment interest: $0.00. First payment principal: $948.17. Estimated total interest: $14,890.07.');
+});
+
 test('Division 7A takes the chosen year’s rate from the table and works the repayment offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/div7a/');
   const form = page.locator('#div7a form');

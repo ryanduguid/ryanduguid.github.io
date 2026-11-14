@@ -299,8 +299,8 @@ function initialiseCalculators([calculate, fieldErrors]) {
             break;
           }
           case 'loan': {
-            const r = calculate.loan(value('principal'), value('rate'), value('months'));
-            result = { inputs: `principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${count(value('months'), 'monthly payment')}`, principal: 0,
+            const r = calculate.loan(value('principal'), value('rate'), value('months'), value('balloon'), value('timing'));
+            result = { inputs: `principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${count(value('months'), 'monthly payment')} in ${value('timing')}, balloon ${money('balloon')}`, principal: 0,
               rows: [['Monthly payment', aud(r.payment)], ['First payment interest', aud(r.firstInterest)], ['First payment principal', aud(r.firstPrincipal)], ['Estimated total interest', aud(r.totalInterest)]] };
             break;
           }

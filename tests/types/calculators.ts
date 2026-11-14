@@ -28,5 +28,8 @@ void tool.execute({ amount: '110.00', inclusive: true });
 calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
 // @ts-expect-error A Division 7A benchmark rate is a decimal string, as the rate table writes it.
 calculate.div7aMinimumRepayment('100000', 8.77, '5');
+calculate.loan('60000', '7.5', '60', '18000', 'advance');
+// @ts-expect-error Loan payments fall in arrears or in advance, nothing else.
+calculate.loan('60000', '7.5', '60', '18000', 'start');
 void tax;
 void formatted;
