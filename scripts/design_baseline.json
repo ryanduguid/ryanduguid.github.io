@@ -60,7 +60,7 @@
       "a54c46b17496a7db5df4959f53e7109ba929131bbc746beac866f900900a02a8"
     ],
     "rates/index.html": [
-      "b62c236133b41d08a2c2cd17ae77115fbf17a5d0829fbcec58f5c6be54295d28"
+      "db0850b33d6a183e665512d590cc49f3bb73a4bd7c89d4c8e48455bf969d655a"
     ],
     "rates/individual-income-tax/index.html": [
       "3fc768054c5d7d470cda1bb3495ecf2d74348aaab56b5d5ebb71bbf5248d407e"
@@ -156,7 +156,7 @@
       "8de5b99aaef6ecb86e6698d7c0bb09e28fb65223c0979d57ffc43e0c9e5deaad"
     ],
     "tools/depreciation-rates/index.html": [
-      "e685892aaff73bb6f50e3787560285422ad65e14aa9b5b2dcf6db7f4890db186"
+      "5cbc5d48697b1c7b9faf15f950252ee733ea5a7b9632fa4f132501b1987a680c"
     ],
     "tools/index.html": [
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
@@ -223,7 +223,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "6e47a532ec06a8fda88f336dadbcda3f78b516d378b9fdff90e08e3703aa6d0a",
+    "llms.txt": "a566579755898a458f02800448454768cfef6f2b8baf23fac46eff9c5ce1f47d",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
     "sitemap.xml": "e106692e1038e979618abfe1748d8a09317f821198c939d1f2a668fc7ab514cf"
   },

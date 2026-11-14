@@ -11,6 +11,7 @@
   "files": [
     "assets/business-calculators.mjs",
     "assets/depreciation-rates.mjs",
+    "assets/depreciation-working.mjs",
     "assets/webmcp-tools.mjs",
     "tests/types/calculators.ts"
   ]

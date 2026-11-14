@@ -1,15 +1,14 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-// The depreciation rates page: loads the effective life data, draws search results, the
-// browse view and the deduction schedule. Search and arithmetic are in
-// depreciation-rates.mjs, which Node tests. Every node is built with createElement and
+// The depreciation rates page: loads the effective life data and draws search results and
+// the browse view. Search is in depreciation-rates.mjs, which Node tests, and the
+// calculator in depreciation-calculator-page.mjs. Every node is built with createElement and
 // textContent, so the instrument's text is never parsed as markup.
 
-import {
-  below, flatten, formatCents, lifeFromMonths, parseCents, parseLife, rates, schedule, search,
-} from './depreciation-rates.mjs';
-import { clearFieldError, reportFirstInvalid } from './field-errors.mjs';
+import { byId, el, setSource, useLife } from './depreciation-calculator-page.mjs';
+import { below, flatten, lifeFromMonths, rates, search } from './depreciation-rates.mjs';
+import { longDate, place, sentence, years } from './depreciation-working.mjs';
 
 /** @typedef {import('./depreciation-rates.mjs').Entry} Entry */
 /** @typedef {import('./depreciation-rates.mjs').SourceSection} SourceSection */
@@ -17,18 +16,7 @@ import { clearFieldError, reportFirstInvalid } from './field-errors.mjs';
 const DATA_URL = '/tools/depreciation-rates/effective-life.json';
 /** Rows drawn in a group of results before 'Show more' is needed. */
 const SHOWN = 40;
-const MONTHS = [
-  'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-  'November', 'December',
-];
 const COLUMNS = ['Asset', 'Effective life', 'Prime cost rate', 'Diminishing value rate', 'Last updated', 'Calculator'];
-
-/** @template {HTMLElement} T @param {string} id @param {new () => T} kind @returns {T} */
-function byId(id, kind) {
-  const node = document.getElementById(id);
-  if (!(node instanceof kind)) throw new Error(`#${id} is missing`);
-  return node;
-}
 
 const finder = byId('finder', HTMLFormElement);
 const queryInput = byId('asset-query', HTMLInputElement);
@@ -36,53 +24,14 @@ const industrySelect = byId('asset-industry', HTMLSelectElement);
 const statusLine = byId('finder-status', HTMLElement);
 const results = byId('finder-results', HTMLElement);
 const browse = byId('browse-tables', HTMLElement);
-const deduction = byId('deduction-form', HTMLFormElement);
-const output = byId('deduction-output', HTMLOutputElement);
-// The yearly table sits outside the live region, which announces the result alone.
-const scheduleBox = byId('deduction-schedule', HTMLDivElement);
-const costInput = byId('dep-cost', HTMLInputElement);
-const lifeInput = byId('dep-life', HTMLInputElement);
-const startInput = byId('dep-start', HTMLInputElement);
-const yearInput = byId('dep-year', HTMLInputElement);
-const methodSelect = byId('dep-method', HTMLSelectElement);
 
 /** @type {Entry[]} */
 let entries = [];
 /** False until the tables arrive: a search of no rows must not read as 'No row matches'. */
 let loaded = false;
-/** The row whose life was last sent to the calculator. @type {Entry | null} */
-let chosen = null;
 
-/**
- * @param {string} tag @param {Record<string, string>} [attributes]
- * @param {...(Node | string)} children
- */
-function el(tag, attributes = {}, ...children) {
-  const node = document.createElement(tag);
-  for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, value);
-  node.append(...children);
-  return node;
-}
-
-/** 'RETAIL TRADE' as 'Retail trade'. @param {string} heading */
-const sentence = (heading) => heading.charAt(0) + heading.slice(1).toLowerCase();
 /** @param {string} heading */
 const slug = (heading) => heading.toLowerCase().replace(/[^a-z]+/g, '-').replace(/^-|-$/g, '');
-/** '2016-07-01' as '1 July 2016'. @param {string} iso */
-function longDate(iso) {
-  const [year, month, day] = iso.split('-').map(Number);
-  return `${day} ${MONTHS[month - 1]} ${year}`;
-}
-/** @param {string} printed */
-const years = (printed) => `${printed} ${printed === '1' ? 'year' : 'years'}`;
-/** The income year that ends on 30 June of a year: 2026 is '2025-26'. @param {number} end */
-const incomeYear = (end) => `${end - 1}-${String(end % 100).padStart(2, '0')}`;
-
-/** Where a row sits: its table or industry, then the headings above it. @param {Entry} entry */
-function place(entry) {
-  const top = entry.table === 'B' ? ['Table B'] : [sentence(entry.division), entry.section];
-  return [...top, ...entry.path].filter(Boolean).join(' / ');
-}
 
 /**
  * A table of lives in its scroll region. On a phone each row stacks as a block, so the
@@ -230,18 +179,6 @@ function drawUnder(heading) {
   title.focus();
 }
 
-/** Sends a row's life to the calculator. @param {Entry} entry */
-function useLife(entry) {
-  if (entry.life === null) return;
-  chosen = entry;
-  lifeInput.value = entry.life;
-  lifeInput.setCustomValidity('');
-  clearFieldError(lifeInput);
-  scheduleBox.replaceChildren();
-  output.textContent = `Effective life of ${years(entry.life)} taken from ‘${entry.asset}’ (${place(entry)}). Enter the cost and dates, then work out the deduction.`;
-  costInput.focus();
-}
-
 /** A closed `details` that draws its content the first time it opens.
  * @param {string} label @param {() => Node[]} content */
 function lazyDetails(label, content) {
@@ -294,99 +231,6 @@ function recordSearch() {
   history.replaceState(null, '', `${location.pathname}${query ? `?${query}` : ''}${location.hash}`);
 }
 
-/** The year-by-year table in its scrollable region. @param {ReturnType<typeof schedule>} lines @param {string} caption */
-function scheduleTable(lines, caption) {
-  const head = el('tr', {}, ...['Income year', 'Days held', 'Opening value', 'Decline in value', 'Closing value']
-    .map((name) => el('th', { scope: 'col' }, name)));
-  const body = lines.map((line) => el('tr', {},
-    el('th', { scope: 'row' }, incomeYear(line.yearEnd)),
-    el('td', {}, String(line.days)),
-    el('td', {}, formatCents(line.opening)),
-    el('td', {}, formatCents(line.deduction)),
-    el('td', {}, formatCents(line.closing))));
-  return el('div', { class: 'table-scroll', role: 'region', 'aria-label': caption, tabindex: '0' },
-    el('table', { class: 'facts facts--figures' }, el('caption', {}, caption), el('thead', {}, head), el('tbody', {}, ...body)));
-}
-
-function drawSchedule() {
-  const controls = [costInput, lifeInput, startInput, yearInput];
-  for (const control of controls) {
-    control.setCustomValidity('');
-    clearFieldError(control);
-  }
-  if (!reportFirstInvalid(deduction)) return;
-  /** @param {HTMLInputElement} control @param {unknown} error */
-  const refuse = (control, error) => {
-    control.setCustomValidity(error instanceof Error ? error.message : 'Check this value.');
-    reportFirstInvalid(deduction);
-  };
-  let cost;
-  let life;
-  let lines;
-  try {
-    cost = parseCents(costInput.value);
-  } catch (error) {
-    return refuse(costInput, error);
-  }
-  try {
-    life = parseLife(lifeInput.value);
-  } catch (error) {
-    return refuse(lifeInput, error);
-  }
-  const method = methodSelect.value === 'prime-cost' ? 'prime-cost' : 'diminishing-value';
-  try {
-    lines = schedule({ cost, life, start: startInput.value, yearEnd: Number(yearInput.value), method });
-  } catch (error) {
-    const about = error instanceof Error && error.message.includes('income year') ? yearInput : startInput;
-    return refuse(about, error);
-  }
-  const rate = rates(life);
-  const last = lines[lines.length - 1];
-  const working = method === 'prime-cost'
-    ? `Prime cost: cost × days held ÷ 365 × 100% ÷ ${lifeInput.value.trim()} years (${rate.primeCost} a year), and no more than the value left.`
-    : `Diminishing value: opening value × days held ÷ 365 × 200% ÷ ${lifeInput.value.trim()} years (${rate.diminishingValue} a year).`;
-  const caption =`Decline in value by income year, ${method === 'prime-cost' ? 'prime cost' : 'diminishing value'}`;
-  // Section 40-95(2): the life is the one in force when the asset was acquired, which a
-  // life set after the start date may not be.
-  const later = chosen?.updated && lifeInput.value.trim() === chosen.life && startInput.value < chosen.updated
-    ? [el('p', { class: 'field-note' }, `The life of ‘${chosen.asset}’ was last set on ${longDate(chosen.updated)}, after this start date. Check the determination in force when you acquired the asset.`)]
-    : [];
-  output.replaceChildren(
-    ...later,
-    el('div', { class: 'result-row' }, el('span', {}, `Decline in value for ${incomeYear(last.yearEnd)}`), el('strong', {}, formatCents(last.deduction))),
-    el('div', { class: 'result-row' }, el('span', {}, `Value left at 30 June ${last.yearEnd}`), el('strong', {}, formatCents(last.closing))),
-    el('p', { class: 'field-note' }, working),
-  );
-  scheduleBox.replaceChildren(scheduleTable(lines, caption));
-}
-
-deduction.addEventListener('submit', (event) => {
-  event.preventDefault();
-  drawSchedule();
-});
-/** Removes figures worked from inputs that have since changed. */
-function clearSchedule() {
-  if (!scheduleBox.hasChildNodes()) return;
-  scheduleBox.replaceChildren();
-  output.textContent = 'Enter the inputs and work out the deduction.';
-}
-for (const control of [costInput, lifeInput, startInput, yearInput]) {
-  control.addEventListener('input', () => {
-    control.setCustomValidity('');
-    clearFieldError(control);
-    clearSchedule();
-  });
-}
-methodSelect.addEventListener('change', clearSchedule);
-// The first income year an asset can have is the one its start date falls in.
-startInput.addEventListener('change', () => {
-  const match = /^(\d{4})-(\d{2})-\d{2}$/.exec(startInput.value);
-  if (!match) return;
-  const first = Number(match[1]) + (Number(match[2]) >= 7 ? 1 : 0);
-  if (!yearInput.value || Number(yearInput.value) < first) yearInput.value = String(first);
-});
-deduction.querySelector('fieldset')?.removeAttribute('disabled');
-
 finder.addEventListener('submit', (event) => {
   event.preventDefault();
   drawResults();
@@ -415,6 +259,7 @@ try {
   const data = await response.json();
   entries = flatten(data);
   loaded = true;
+  setSource(data.source);
   for (const division of data.table_a) {
     industrySelect.append(el('option', { value: slug(division.heading) }, sentence(division.heading)));
   }
@@ -422,7 +267,8 @@ try {
   if ([...industrySelect.options].some((option) => option.value === industry)) industrySelect.value = industry;
   drawBrowse(data);
   drawResults();
-  recordSearch();
+  // The address is rewritten only for a search, so an opened link to a calculation keeps its inputs.
+  if (queryInput.value.trim() || industrySelect.value || asked.has('q') || asked.has('industry')) recordSearch();
 } catch {
   statusLine.textContent = 'The effective life tables could not be loaded. Reload the page, or open the data file linked under Source.';
 }
