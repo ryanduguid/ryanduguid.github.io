@@ -63,7 +63,7 @@
       "b62c236133b41d08a2c2cd17ae77115fbf17a5d0829fbcec58f5c6be54295d28"
     ],
     "rates/individual-income-tax/index.html": [
-      "2c4d15fa824c8feef7614c04da03bf3d818a1493a479a292af71582a0777cf28"
+      "3fc768054c5d7d470cda1bb3495ecf2d74348aaab56b5d5ebb71bbf5248d407e"
     ],
     "rates/maximum-contribution-base/index.html": [
       "f1c53260e0a21fc501fbef7670893c807c41adf34321b6044011de5d95863a79"
@@ -223,7 +223,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "86ebb15eb897bc766bd1614ed69570d999b7c856be93d20ebfadd7ebddc98a39",
+    "llms.txt": "6e47a532ec06a8fda88f336dadbcda3f78b516d378b9fdff90e08e3703aa6d0a",
     "robots.txt": "8078f10d7cf53e1b4805e9d0768e85a5a205a814851fb8af37f1fe4f5d69af00",
     "sitemap.xml": "e106692e1038e979618abfe1748d8a09317f821198c939d1f2a668fc7ab514cf"
   },

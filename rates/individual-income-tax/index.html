@@ -12,7 +12,7 @@ source_checked:
 rate_figures: true
 csv: individual-income-tax-rates.csv
 about: "Individual income tax rates for Australian residents"
-citation: ["Australian Taxation Office, Tax rates: Australian resident (QC73320, last updated 13 August 2026)", "Australian Taxation Office, Medicare levy reduction for low-income earners (QC27031, last updated 30 June 2026)", "Australian Taxation Office, myTax Medicare levy reduction or exemption instructions, 2021 to 2025"]
+citation: ["Australian Taxation Office, Tax rates: Australian resident (QC73320, last updated 13 August 2026)", "Australian Taxation Office, Medicare levy reduction for low-income earners (QC27031, last updated 30 June 2026)", "Australian Taxation Office, myTax Medicare levy reduction or exemption instructions, 2021 to 2025", "Medicare Levy Act 1986 s 3(1), compilation 53 (C2026C00295, 1 July 2026)", "Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026 (No. 58, 2026), Schedule 5"]
 dataset:
   name: "Australian resident individual income tax rates and Medicare levy low-income thresholds"
   temporal_coverage: "2019-07-01/2027-06-30"
@@ -20,7 +20,7 @@ dataset:
 lead: >-
   15% is the first rate above the $18,200 tax-free threshold for 2026-27, down from 16% for 2024-25 and 2025-26.
 lead_note: >-
-  These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. The ATO has not published the 2026-27 Medicare levy low-income thresholds.
+  These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 14 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only.
 byline: >-
   Read on 14 November 2026 from the ATO’s <a href="https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents">Tax rates: Australian resident</a> page (last updated 13 August 2026), its <a href="https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners">Medicare levy reduction for low-income earners</a> page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25.
 faq:
@@ -29,7 +29,7 @@ faq:
   - q: "What changed for 2026-27?"
     a: "The rate on taxable income from $18,201 to $45,000 fell from 16% to 15%, so the tax on $45,000 fell from $4,288 to $4,020. The band limits did not change."
   - q: "What are the 2026-27 Medicare levy low-income thresholds?"
-    a: "Not published. On 14 November 2026 the ATO’s Medicare levy reduction page listed thresholds to 2025-26 only: $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset."
+    a: "Under the law in force on 14 November 2026, $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset, the same as 2025-26. Section 3(1) of the Medicare Levy Act 1986, as compiled on 1 July 2026, sets those figures, and Act No. 58 of 2026 applies them to 2025-26 and later years. The ATO had not published 2026-27 thresholds that day, and a later Act can still change them."
   - q: "Do these rates apply to everyone?"
     a: "No. The ATO gives them for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. Check the ATO’s guidance for any other case."
 ---
@@ -68,7 +68,7 @@ faq:
           <section aria-labelledby="earlier-rates">
     <h2 id="earlier-rates">Rates for 2019-20 to 2025-26</h2>
     <p>
-      The same scale applied in 2024-25 and 2025-26, and another in each of 2020-21 to 2023-24.
+      The same scale applied in 2024-25 and 2025-26, and another throughout 2020-21 to 2023-24.
       The CSV lists each year’s rows separately.
     </p>
     <div class="table-scroll" role="region" aria-label="Resident tax rates for 2024-25 and 2025-26" tabindex="0">
@@ -132,7 +132,6 @@ faq:
         <tr><th scope="col">Income year</th><th scope="col">Lower threshold</th><th scope="col">Upper threshold</th></tr>
       </thead>
       <tbody>
-        <tr><th scope="row">2026-27</th><td>Not published</td><td>Not published</td></tr>
         <tr><th scope="row">2025-26</th><td>$28,011</td><td>$35,013</td></tr>
         <tr><th scope="row">2024-25</th><td>$27,222</td><td>$34,027</td></tr>
         <tr><th scope="row">2023-24</th><td>$26,000</td><td>$32,500</td></tr>
@@ -143,11 +142,16 @@ faq:
     </table>
     </div>
     <p>
-      On 14 November 2026 the ATO’s Medicare levy reduction page gave thresholds for 2025-26 and
-      no later year, so 2026-27 is shown as not published rather than carried forward. The PAYG
-      withholding formulas for payments from 1 July 2026 shade the levy in from $28,011; that is a
-      withholding setting, not a published 2026-27 threshold. The ATO’s myTax instructions for
-      2019-20 give no threshold table, so that year is not listed.
+      The table lists only thresholds the ATO has published. On 14 November 2026 its Medicare levy
+      reduction page gave thresholds for 2025-26 and no later year, so 2026-27 is not listed. Under
+      the law in force that day the same figures apply to 2026-27: section 3(1) of the
+      <a href="https://www.legislation.gov.au/C2004A03351/latest/text"><em>Medicare Levy Act 1986</em></a>,
+      in compilation 53 of 1 July 2026 (the latest on 14 November 2026), sets $28,011 and $35,013,
+      and Schedule 5 to the Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System)
+      Act 2026 (No. 58, 2026) applies them to 2025-26 and later years. That Act raised the 2025-26
+      figures on 30 June 2026, the last day of that year, so a later Act could still change them for
+      2026-27. The ATO’s myTax instructions for 2019-20 give no threshold table, so that year is
+      not listed.
     </p>
     <p>
       <a href="/rates/individual-income-tax/individual-income-tax-rates.csv">Download the table as CSV</a>. Each row of the CSV gives the ATO page it was read from (<code>source_url</code>) and the date it was last checked against it (<code>checked_at</code>); every row was rechecked on 14 November 2026.

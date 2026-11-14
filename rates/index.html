@@ -136,7 +136,7 @@
               <h2><a class="collection-entry__title" href="/rates/individual-income-tax/">Individual income tax rates for residents</a></h2>
               <p class="rate-entry__value">15%</p>
             </div>
-            <p>15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO has not published the 2026-27 Medicare levy low-income thresholds.</p>
+            <p>15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO had published Medicare levy low-income thresholds to 2025-26 only when checked on 14 November 2026.</p>
             <dl>
               <div><dt>Source checked</dt><dd><time datetime="2026-11-14">14 November 2026</time></dd></div>
               <div><dt>Scope</dt><dd>Resident rates from 2019-20 and single Medicare levy low-income thresholds from 2020-21.</dd></div>
@@ -206,7 +206,7 @@
     }, "en-AU")
 in
     Rates</code></pre>
-            <p class="field-note">Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained. The <code>source_url</code> and <code>checked_at</code> columns were added on 3 November 2026 and have not been loaded in Excel since.</p>
+            <p class="field-note">Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained. The <code>source_url</code> and <code>checked_at</code> columns were added on 3 November 2026 and loaded in build 20625 on 14 November 2026.</p>
             <p>This imports the full SG history. A rate of <code>12.00</code> means 12%; divide by 100 if a formula needs a fraction. A blank end date remains blank. Select the period that applies to your work; the latest row does not apply to every year.</p>
             <p>Use Data, Refresh All to fetch the current CSV again. A successful refresh confirms retrieval, not a source check. Check the linked rate page’s Source checked date and primary source. For a completed workpaper, keep a dated values-only copy of the table and its Source checked date; a live query can change on refresh.</p>
             <p>The other nine tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.</p>
@@ -379,7 +379,7 @@ in
     }, "en-AU")
 in
     Measures</code></pre>
-            <p class="field-note">The queries from Division 7A to FBT and the announced measures query were each checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The <code>source_url</code> and <code>checked_at</code> columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads. Nor were the announced measures’ <code>bill_stage</code>, <code>stage_date</code> and <code>stage_source_url</code> columns added on 4 November 2026; <code>stage_date</code> is blank for measures without a stage date. The 3 queries added on 14 November 2026 have not been loaded in Excel.</p>
+            <p class="field-note">The queries from Division 7A to FBT and the announced measures query were each checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. On 14 November 2026 all 10 queries, with the columns added since and the 3 new tables, loaded the same way in build 20625, each against a copy of its CSV.</p>
           </div>
         </details>
         <p><a href="/feed.xml">Follow updates with the Atom feed</a>. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.</p>

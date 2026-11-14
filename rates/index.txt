@@ -110,7 +110,7 @@ Primary source Download CSV
 
 15%
 
-15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO has not published the 2026-27 Medicare levy low-income thresholds.
+15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO had published Medicare levy low-income thresholds to 2025-26 only when checked on 14 November 2026.
 
 Source checked
 
@@ -201,7 +201,7 @@ in
     Rates
 ```
 
-Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained. The source_url and checked_at columns were added on 3 November 2026 and have not been loaded in Excel since.
+Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained. The source_url and checked_at columns were added on 3 November 2026 and loaded in build 20625 on 14 November 2026.
 
 This imports the full SG history. A rate of 12.00 means 12%; divide by 100 if a formula needs a fraction. A blank end date remains blank. Select the period that applies to your work; the latest row does not apply to every year.
 
@@ -414,7 +414,7 @@ in
     Measures
 ```
 
-The queries from Division 7A to FBT and the announced measures query were each checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. The source_url and checked_at columns added to the rate queries on 3 November 2026 were not part of that check; they use the types the announced measures query loads. Nor were the announced measures’ bill_stage, stage_date and stage_source_url columns added on 4 November 2026; stage_date is blank for measures without a stage date. The 3 queries added on 14 November 2026 have not been loaded in Excel.
+The queries from Division 7A to FBT and the announced measures query were each checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. On 14 November 2026 all 10 queries, with the columns added since and the 3 new tables, loaded the same way in build 20625, each against a copy of its CSV.
 
 Follow updates with the Atom feed. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.
 

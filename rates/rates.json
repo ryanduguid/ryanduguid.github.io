@@ -716,17 +716,6 @@
           "checked_at": "2026-11-14"
         },
         {
-          "income_year": "2026-27",
-          "component": "medicare_levy_low_income_single",
-          "income_from": "",
-          "income_to": "",
-          "base_amount": "",
-          "rate_percent": "",
-          "notes": "Not published by the ATO when checked",
-          "source_url": "https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners",
-          "checked_at": "2026-11-14"
-        },
-        {
           "income_year": "2025-26",
           "component": "medicare_levy_low_income_single",
           "income_from": "28011",
