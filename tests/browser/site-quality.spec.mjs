@@ -602,6 +602,11 @@ const splitFigures = (page) => page.evaluate(() => {
   for (const cell of document.querySelectorAll('main td')) {
     const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      // Firefox breaks a line between a minus and '$', which Chromium keeps
+      // together: '-$50.00,' split at 320 and 390px on 14 November 2026.
+      if (!/^(nowrap|pre)$/.test(getComputedStyle(node.parentElement).whiteSpace)) {
+        found.push(...[...node.nodeValue.matchAll(/[-−]\$\S*/g)].map((match) => match[0]));
+      }
       for (const match of node.nodeValue.matchAll(/\S+/g)) {
         if (!whole.test(match[0])) continue;
         const range = document.createRange();
