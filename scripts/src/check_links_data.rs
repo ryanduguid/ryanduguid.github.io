@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 131] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 138] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -129,6 +129,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 131] = [
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/exchange-traded-funds",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/investing-in-shares/refund-of-franking-credits-for-individuals",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/managed-investment-trusts",
+    "https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners",
     "https://www.ato.gov.au/individuals-and-families/paying-the-ato",
     "https://www.ato.gov.au/individuals-and-families/paying-the-ato/help-with-paying/payment-plans",
     "https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay",
@@ -155,6 +156,12 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 131] = [
     "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
     "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
     "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+    "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/about-this-schedule",
+    "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
+    "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/sample-data/withholding-amounts-sample-data",
+    "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/using-a-formula",
+    "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/working-out-the-weekly-earnings",
+    "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
     "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
     "https://www.oaic.gov.au/",
     "https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia",
