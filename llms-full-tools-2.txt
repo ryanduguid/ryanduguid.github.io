@@ -322,7 +322,7 @@ Software issue using fictional data? Open an issue or email with the tool named 
 
 ### What is a contract asset versus a contract liability?
 
-Revenue to date less certified billings, per contract. Positive is a contract asset. Negative is a contract liability. The engine never offsets one job against another.
+Revenue to date less certified billings, per contract. A positive amount is a contract asset and a negative amount a contract liability. The engine never offsets one job against another.
 
 ### Does wasted cost accelerate percentage complete?
 

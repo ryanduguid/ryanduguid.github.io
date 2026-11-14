@@ -95,8 +95,14 @@ test('calculator privacy blocks direct native submission after normal keyboard c
   await page.locator('#baseRate').press('Enter');
   await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText('$270.00');
   await page.locator('#sacrificed').fill('1234567.89');
-  await expectNativeSubmissionBlocked(page, () => page.locator('#calc-form').evaluate((form) =>
-    HTMLFormElement.prototype.submit.call(form)));
+  await expectNativeSubmissionBlocked(page, () => page.locator('#calc-form').evaluate((form) => {
+    try {
+      HTMLFormElement.prototype.submit.call(form);
+    } catch (error) {
+      // When form-action blocks submit(), Firefox also throws an exception with nsresult 0x805A0061.
+      if (error?.result !== 0x805a0061) throw error;
+    }
+  }));
 });
 
 test('a negative amount gets the page wording, not the browser validation text', async ({ page }) => {
@@ -918,7 +924,12 @@ test('a failing WebMCP registration leaves the GST calculator working', async ({
   const errors = [];
   const warnings = [];
   page.on('pageerror', error => errors.push(error.message));
-  page.on('console', message => { if (message.type() === 'warning') warnings.push(message.text()); });
+  // Firefox's message text names an Error argument only as JSHandle@object, so read each argument.
+  page.on('console', message => {
+    if (message.type() === 'warning') {
+      warnings.push(Promise.all(message.args().map(arg => arg.evaluate(value => String(value)))));
+    }
+  });
   await page.addInitScript(() => {
     Object.defineProperty(document, 'modelContext', {
       value: { registerTool: () => { window.registrationAttempted = true; throw new TypeError('unsupported'); } },
@@ -931,7 +942,8 @@ test('a failing WebMCP registration leaves the GST calculator working', async ({
   await page.getByRole('button', { name: 'Calculate' }).click();
   await expect(page.locator('form[data-calculator="gst"] output')).toContainText('GST: $11.00');
   expect(errors).toEqual([]);
-  expect(warnings.some(text => text.includes('WebMCP tool registration failed') && text.includes('unsupported'))).toBe(true);
+  const texts = (await Promise.all(warnings)).map(parts => parts.join(' '));
+  expect(texts.some(text => text.includes('WebMCP tool registration failed') && text.includes('unsupported'))).toBe(true);
 });
 
 test('Ozzit module pages register a read-only WebMCP lookup only where the browser offers modelContext', async ({ page }) => {
