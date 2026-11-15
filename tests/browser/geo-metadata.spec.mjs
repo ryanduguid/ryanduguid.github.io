@@ -22,7 +22,7 @@ for (const [slug, tool] of Object.entries(tools)) {
     const blob = `https://github.com/${tool.repository}/blob/${releases[slug].tag ?? releases[slug].version}/`;
     expect([blob + 'LICENSE', blob + tool.path + '/LICENSE']).toContain(apps[0].license);
     expect(apps[0].isAccessibleForFree).toBe(true);
-    expect(JSON.stringify(schema)).not.toContain('"@type":"Offer"');
+    expect(apps[0].offers).toEqual({ '@type': 'Offer', price: '0', priceCurrency: 'AUD' });
     const canonical = (await page.locator('main').innerText()).split(/\s+/).slice(0, 60).join(' ');
     expect(canonical).toContain(slug === 'coal-lsl-levy' ? releases[slug].version.slice(0, 7) : 'v' + releases[slug].version);
   });

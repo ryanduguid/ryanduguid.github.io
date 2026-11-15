@@ -870,7 +870,7 @@ fn public_contracts_payday_example() {
 #[test]
 fn every_software_app_has_two_of_googles_four_properties() {
     // The Rich Results Test gave the calculator pages a critical issue on 15 November 2026:
-    // their WebApplication had applicationCategory alone. #434 keeps Offers out.
+    // their WebApplication had applicationCategory alone.
     let check = |block: &str| {
         let mut failures = Vec::new();
         core::check_software_apps(
