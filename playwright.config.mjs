@@ -3,26 +3,6 @@
 
 import { defineConfig } from '@playwright/test';
 
-// Since Chromium 141, on Windows 11 22H2 and later, Chromium sets SO_RANDOMIZE_PORT
-// on each connection (crbug.com/40744069), which is implicated in rare connect
-// failures reported as net::ERR_NO_BUFFER_SPACE. Chromium uses the last
-// --disable-features switch, so Playwright's own list is replaced whole
-// (microsoft/playwright#22186); tests/browser/launch-options.spec.mjs fails if an
-// upgrade changes that list.
-const playwrightDisabledFeatures =
-  '--disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,' +
-  'DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,' +
-  'PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,' +
-  'AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,' +
-  'msForceBrowserSignIn,' +
-  'msEdgeUpdateLaunchServicesPreferredVersion';
-export const chromiumLaunchOptions = process.platform === 'win32'
-  ? {
-      ignoreDefaultArgs: [playwrightDisabledFeatures],
-      args: [`${playwrightDisabledFeatures},TcpPortRandomizationWin`],
-    }
-  : {};
-
 // The site server is `site-tools serve_site`. CI sets SITE_TOOLS to a prebuilt
 // binary; locally Cargo builds it on first use.
 export const siteServerCommand = process.env.SITE_TOOLS
@@ -56,7 +36,6 @@ export default defineConfig({
         deviceScaleFactor: 1,
         isMobile: true,
         hasTouch: true,
-        launchOptions: chromiumLaunchOptions,
       },
     },
     {
@@ -64,7 +43,6 @@ export default defineConfig({
       use: {
         browserName: 'chromium',
         viewport: { width: 1440, height: 1000 },
-        launchOptions: chromiumLaunchOptions,
       },
     },
   ],
