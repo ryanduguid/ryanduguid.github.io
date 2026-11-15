@@ -143,17 +143,20 @@ const div7aTool = (minimumRepayment) => tool({
 const loanTool = (loan) => tool({
   name: 'calculate_loan_payment',
   title: 'Monthly loan payment calculator',
-  description: 'Fixed monthly payment on an amortising loan with payments at the end of each month and interest '
-    + 'at the annual rate divided by 12, with the interest and principal in the first payment and the total '
-    + 'interest, each rounded half up to the cent. Planning estimate only: a lender\'s fees, rounding and '
-    + 'payment dates can differ.',
+  description: 'Fixed monthly payment on an amortising loan with payments at the end or the start of each month, '
+    + 'interest at the annual rate divided by 12 and an optional balloon owed at the end of the term, with the '
+    + 'interest and principal in the first payment and the total interest, each rounded half up to the cent. '
+    + 'Planning estimate only: a lender\'s fees, rounding and payment dates can differ.',
   inputSchema: record({
     principal: text('amount', 'Amount borrowed in AUD with at most 2 decimal places, for example "100000".'),
     annualRate: text('rate', 'Annual interest rate in per cent with at most 4 decimal places, for example "6" or "6.25".'),
     months: whole(1, 600, 'Number of monthly payments.'),
+    balloon: text('amount', 'Balloon or residual owed at the end of the term in AUD with at most 2 decimal places, '
+      + 'no more than the principal; "0" or omitted for none.'),
+    timing: choice(['arrears', 'advance'], '"arrears" (or omitted) for payments at the end of each month, "advance" for the start.'),
   }, ['principal', 'annualRate', 'months']),
-  run({ principal, annualRate, months }) {
-    const r = loan(principal, annualRate, String(months));
+  run({ principal, annualRate, months, balloon = '0', timing = 'arrears' }) {
+    const r = loan(principal, annualRate, String(months), balloon, timing);
     return {
       monthlyPayment: dollars(r.payment), firstInterest: dollars(r.firstInterest),
       firstPrincipal: dollars(r.firstPrincipal), totalInterest: dollars(r.totalInterest), currency: 'AUD',

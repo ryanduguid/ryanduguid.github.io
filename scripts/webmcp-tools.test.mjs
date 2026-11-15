@@ -82,8 +82,9 @@ test('the business calculator tools pass the page function the strings its form 
   await spied.div7a.execute({ balance: '1000', benchmarkRate: '8.77', remainingTerm: 1 });
   await spied.loan.execute({ principal: '100000', annualRate: '6', months: 360 });
   await spied['break-even'].execute({ fixedCosts: '1000', pricePerUnit: '30', variableCostPerUnit: '18' });
-  assert.deepEqual(calls, [['div7aMinimumRepayment', '1000', '8.77', '1'], ['loan', '100000', '6', '360'],
-    ['breakEven', '1000', '30', '18']]);
+  await spied.loan.execute({ principal: '60000', annualRate: '7.5', months: 60, balloon: '18000', timing: 'advance' });
+  assert.deepEqual(calls, [['div7aMinimumRepayment', '1000', '8.77', '1'], ['loan', '100000', '6', '360', '0', 'arrears'],
+    ['breakEven', '1000', '30', '18'], ['loan', '60000', '7.5', '60', '18000', 'advance']]);
 });
 
 test('Division 7A tool returns the page worked example', async () => {
@@ -106,6 +107,24 @@ test('loan tool returns the independently calculated amortising case', async () 
   const r = await tools.loan.execute({ principal: '100000', annualRate: '6', months: 360 });
   assert.deepEqual([r.monthlyPayment, r.firstInterest, r.firstPrincipal, r.totalInterest],
     ['599.55', '500.00', '99.55', '115838.19']);
+});
+
+test('loan tool takes a balloon and payments in advance as the page does', async () => {
+  // AusCalc's vehicle finance worked example, read 15 November 2026: $954.09 a month and
+  // $15,245.63 total interest; in advance each payment is that divided by 1.00625.
+  const arrears = await tools.loan.execute({ principal: '60000', annualRate: '7.5', months: 60, balloon: '18000' });
+  assert.deepEqual([arrears.monthlyPayment, arrears.firstInterest, arrears.firstPrincipal, arrears.totalInterest],
+    ['954.09', '375.00', '579.09', '15245.63']);
+  const advance = await tools.loan.execute({ principal: '60000', annualRate: '7.5', months: 60, balloon: '18000', timing: 'advance' });
+  assert.deepEqual([advance.monthlyPayment, advance.firstInterest, advance.firstPrincipal, advance.totalInterest],
+    ['948.17', '0.00', '948.17', '14890.07']);
+});
+
+test('loan tool refuses an unknown timing, a balloon as a number and one above the principal', async () => {
+  const valid = { principal: '1000', annualRate: '12', months: 12 };
+  await assert.rejects(tools.loan.execute({ ...valid, timing: 'start' }), /timing does not match/);
+  await assert.rejects(tools.loan.execute({ ...valid, balloon: 100 }), /balloon does not match/);
+  await assert.rejects(tools.loan.execute({ ...valid, balloon: '1000.01' }), /The balloon cannot be more than the loan principal/);
 });
 
 test('loan tool refuses a fractional term, a rate with a sign and a missing principal', async () => {
