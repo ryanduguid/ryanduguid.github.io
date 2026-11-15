@@ -6,7 +6,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
-  staffCost, cashForecast, div7aMinimumRepayment } from '../assets/business-calculators.mjs';
+  staffCost, cashForecast, div7aMinimumRepayment, transferDuty } from '../assets/business-calculators.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -238,6 +238,24 @@ test('cash keeps out-of-horizon receipts visible and includes opening deficits',
 // The boundary cases each calculator page shows are data this test runs, so a page
 // cannot state a result the engine does not return.
 const shownCases = JSON.parse(readFileSync(new URL('../_data/calculator_cases.json', import.meta.url), 'utf8'));
+// Each jurisdiction's transfer duty scale as rates/transfer-duty/transfer-duty-rates.csv holds it:
+// over, to, base, rate, rule for each bracket. No cell in that table is quoted.
+const PLACES = { 'AU-NSW': 'New South Wales', 'AU-VIC': 'Victoria', 'AU-QLD': 'Queensland',
+  'AU-WA': 'Western Australia', 'AU-SA': 'South Australia', 'AU-TAS': 'Tasmania',
+  'AU-ACT': 'Australian Capital Territory', 'AU-NT': 'Northern Territory' };
+const transferDutyScales = (() => {
+  const [header, ...lines] = readFileSync(new URL('../rates/transfer-duty/transfer-duty-rates.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).map((line) => (assert.ok(!line.includes('"')), line.split(',')));
+  const column = (name) => header.indexOf(name);
+  const scales = {};
+  for (const cells of lines) {
+    (scales[cells[column('jurisdiction')]] ??= []).push(
+      ['value_over', 'value_to', 'base_amount', 'rate_percent', 'rule'].map((name) => cells[column(name)]));
+  }
+  return scales;
+})();
+// A boundary case names its jurisdiction; the engine takes that jurisdiction's scale.
+const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]] : call);
 const dollars = (value) => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-AU',
   { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 // How each result reads on a page, so a value shown under the wrong label fails.
@@ -245,7 +263,7 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   contribution: 'contribution', sales: 'sales', rate: 'rate', difference: 'difference', payment: 'payment',
   firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
   annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
-  deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal' };
+  deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal', duty: 'duty' };
 // A date as the objection deadline page writes it: 'Saturday 18 November 2028'.
 const longDay = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
   { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -283,6 +301,7 @@ const INPUTS = {
   staffCost: (wages, superannuation, other) =>
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
   div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
+  transferDuty: (value, place) => `${PLACES[place]}, ${dollars(value)}`,
   cashForecast: (opening, weeks, buffer, delayed) => {
     const week = weeks.findIndex(({ receipts }) => receipts !== '0');
     assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
@@ -365,11 +384,11 @@ for (const [page, { function: name, peer, rows }] of Object.entries(shownCases))
     test(`${page} boundary case returns what its page shows: ${row.case}`, () => {
       assert.equal(INPUTS[name](...row.call), row.input);
       if (row.refused) {
-        assert.throws(() => calculations[name](...row.call), { message: row.refused });
+        assert.throws(() => calculations[name](...engineArgs(name, row.call)), { message: row.refused });
         assert.equal(row.output, `Refused: ${row.refused[0].toLowerCase()}${row.refused.slice(1, -1)}`);
         return;
       }
-      assertShown(calculations[name](...row.call), row);
+      assertShown(calculations[name](...engineArgs(name, row.call)), row);
     });
   }
 }
@@ -419,13 +438,45 @@ test('Division 7A years and rates are the rate table rows, newest first', () => 
   assert.deepEqual(options, table);
 });
 
+// Each jurisdiction's radio carries exactly its rows of the rate table, in the table's order.
+test('transfer duty radios carry the rate table rows for all 8 jurisdictions', () => {
+  const html = readFileSync(new URL('../_includes/calculators/transfer-duty.html', import.meta.url), 'utf8');
+  const radios = [...html.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)" data-name="([^"]+)" data-scale="([^"]+)"(?: checked)? \/> ([^<]+)<\/label>/g)]
+    .map(([, code, name, scale, label]) => (assert.equal(label, name), assert.equal(PLACES[code], name),
+      [code, scale.split(';').map((row) => row.split(','))]));
+  assert.equal(radios.length, (html.match(/type="radio"/g) ?? []).length);
+  assert.equal((html.match(/ checked /g) ?? []).length, 1);
+  assert.deepEqual(Object.fromEntries(radios), transferDutyScales);
+  assert.deepEqual(radios.map(([code]) => code), Object.keys(PLACES));
+});
+
+// Worked by hand from the scales read on 15 November 2026: at the top of a band the lower band
+// applies, so WA $725,000 is $11,115 + 3,650 x $4.75 and NSW $103,000 is $525 + 650 x $1.75.
+test('transfer duty at the top of a band uses that band and rejects a broken table', () => {
+  assert.equal(transferDuty('725000', transferDutyScales['AU-WA']).duty, 28452.5);
+  assert.equal(transferDuty('725001', transferDutyScales['AU-WA']).duty, 28458.15);
+  assert.equal(transferDuty('103000', transferDutyScales['AU-NSW']).duty, 1662.5);
+  // NT: (0.06571441 x 525^2) + 15 x 525 = 25,987.53425625, then 4.95% of the whole value.
+  assert.equal(transferDuty('525000', transferDutyScales['AU-NT']).duty, 25987.53);
+  assert.equal(transferDuty('525001', transferDutyScales['AU-NT']).duty, 25987.55);
+  // Victoria rounds nothing before the cent: 2.4% of $25,001 - $25,000 is 2.4 cents.
+  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350.02);
+  assert.throws(() => transferDuty('0', transferDutyScales['AU-NSW']), { message: 'Enter a whole number between 1 and 1000000000.' });
+  const nsw = transferDutyScales['AU-NSW'];
+  for (const broken of [[], nsw.slice(1), nsw.slice(0, -1), [...nsw.slice(0, 2), ...nsw.slice(3)],
+    nsw.map((row, index) => (index ? row : [...row.slice(0, 4), 'per-cent']))]) {
+    assert.throws(() => transferDuty('1000', broken), { message: 'This jurisdiction’s rate table is not usable.' });
+  }
+});
+
 // The values each form opens with, read from its include: an input's value or
 // checked state, and a select's selected option (else its first).
 const formDefaults = (html) => {
   const fields = {};
   for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
     const name = tag.match(/\bname="([^"]+)"/)?.[1];
-    if (/\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
+    // A radio group opens on its checked button.
+    if (name && /\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
     if (name) fields[name] = /\btype="checkbox"/.test(tag) ? /\bchecked\b/.test(tag) : tag.match(/\bvalue="([^"]*)"/)?.[1];
   }
   for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
@@ -449,6 +500,8 @@ const FORM_CALLS = {
   variance: (f) => [f.actual, f.budget, f.kind],
   loan: (f) => [f.principal, f.rate, f.months],
   div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],
+  // The radio's scale is bound to the rate table by its own test, so the call names the jurisdiction.
+  transferDuty: (f) => [f.value, f.jurisdiction],
   staffCost: (f) => [f.wages, f.super, f.other],
   cashForecast: (f) => [f.opening,
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),

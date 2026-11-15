@@ -128,5 +128,24 @@
       {"case": "Withholding of exactly $8.50 rounds up to the next dollar", "input": "Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960", "call": [{"redundancy": "0", "years": "0", "excluded": "0", "nonExcluded": "50", "other": "0", "born": "1960-06-30"}, {"yearEnd": "2027-06-30", "etpCap": "270000", "wholeOfIncomeCap": "180000", "baseAmount": "13598", "serviceAmount": "6801", "rateUnder": "32", "rateReached": "17", "rateAbove": "47"}], "result": {"nonExcludedWithholding": 9, "withholding": 9}, "output": "Withheld from code O $9.00, total withheld $9.00"},
       {"case": "Part years of service are refused", "input": "Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996", "call": [{"redundancy": "48000", "years": "5.5", "excluded": "0", "nonExcluded": "0", "other": "0", "born": "1996-08-01"}, {"yearEnd": "2027-06-30", "etpCap": "270000", "wholeOfIncomeCap": "180000", "baseAmount": "13598", "serviceAmount": "6801", "rateUnder": "32", "rateReached": "17", "rateAbove": "47"}], "refused": "Enter a whole number between 0 and 150.", "output": "Refused: enter a whole number between 0 and 150"}
     ]
+  },
+  "transfer-duty": {
+    "checked": "2026-11-15",
+    "function": "transferDuty",
+    "rows": [
+      {"case": "Revenue NSW’s auction example", "input": "New South Wales, $1,350,000.00", "call": ["1350000", "AU-NSW"], "result": {"duty": 55537}, "output": "Duty $55,537.00"},
+      {"case": "Part of $100 counts as a whole $100, as Revenue NSW’s calculator gave", "input": "New South Wales, $450,050.00", "call": ["450050", "AU-NSW"], "result": {"duty": 14441.5}, "output": "Duty $14,441.50"},
+      {"case": "The $20 minimum", "input": "New South Wales, $1,000.00", "call": ["1000", "AU-NSW"], "result": {"duty": 20}, "output": "Duty $20.00"},
+      {"case": "Premium duty on residential land, Revenue NSW’s example", "input": "New South Wales, $4,000,000.00", "call": ["4000000", "AU-NSW"], "result": {"duty": 203237}, "output": "Duty $203,237.00"},
+      {"case": "The Victorian SRO’s standard-rate example", "input": "Victoria, $550,000.00", "call": ["550000", "AU-VIC"], "result": {"duty": 28070}, "output": "Duty $28,070.00"},
+      {"case": "5.5% of the whole value from $960,000 in Victoria", "input": "Victoria, $1,000,000.00", "call": ["1000000", "AU-VIC"], "result": {"duty": 55000}, "output": "Duty $55,000.00"},
+      {"case": "The Queensland Revenue Office’s example", "input": "Queensland, $850,000.00", "call": ["850000", "AU-QLD"], "result": {"duty": 31275}, "output": "Duty $31,275.00"},
+      {"case": "Western Australia’s top rate, worked by hand", "input": "Western Australia, $800,000.00", "call": ["800000", "AU-WA"], "result": {"duty": 32315.5}, "output": "Duty $32,315.50"},
+      {"case": "RevenueSA’s example", "input": "South Australia, $600,000.00", "call": ["600000", "AU-SA"], "result": {"duty": 26830}, "output": "Duty $26,830.00"},
+      {"case": "As Tasmania’s duty calculator gave", "input": "Tasmania, $500,000.00", "call": ["500000", "AU-TAS"], "result": {"duty": 18247.5}, "output": "Duty $18,247.50"},
+      {"case": "The ACT’s flat rate on the whole value, worked by hand", "input": "Australian Capital Territory, $1,500,000.00", "call": ["1500000", "AU-ACT"], "result": {"duty": 68100}, "output": "Duty $68,100.00"},
+      {"case": "The Northern Territory formula, worked by hand", "input": "Northern Territory, $500,000.00", "call": ["500000", "AU-NT"], "result": {"duty": 23928.6}, "output": "Duty $23,928.60"},
+      {"case": "Cents are refused", "input": "New South Wales, $1,350,000.50", "call": ["1350000.50", "AU-NSW"], "refused": "Enter a whole number between 1 and 1000000000.", "output": "Refused: enter a whole number between 1 and 1000000000"}
+    ]
   }
 }

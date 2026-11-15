@@ -621,6 +621,7 @@ fn committed_rates_json_equals_the_rate_csvs() {
             "payg-withholding",
             "study-loan-repayment",
             "super-guarantee",
+            "transfer-duty",
         ]
     );
 }

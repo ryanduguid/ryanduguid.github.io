@@ -1,13 +1,16 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-//! An independent oracle for the loan, Division 7A and Coal LSL engines. 300 seeded
+//! An independent oracle for the loan, Division 7A, Coal LSL and transfer duty engines. 300 seeded
 //! fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser module returns under Node. The loan sums
 //! its discount factors one month at a time, and the Division 7A minimum yearly repayment
 //! one year at a time, where `assets/business-calculators.mjs` uses the closed annuity
 //! form; the levy works from section 3B of the Coal Mining Industry (Long Service Leave)
-//! Payroll Levy Collection Act 1992 in quarter cents.
+//! Payroll Levy Collection Act 1992 in quarter cents. Transfer duty types each
+//! jurisdiction's scale here from its revenue office or legislation, not from the site's
+//! rate table, and checks the engine either side of every band threshold and on 160 seeded
+//! values, so a slip in either transcription shows.
 //!
 //! The route is independent; the conventions are not. The oracle takes the same 12 equal
 //! months, payment count, unrounded total interest and half-up final rounding as the
@@ -33,6 +36,8 @@ use std::process::{Command, Stdio};
 const LOAN_CASES: usize = 120;
 const DIV7A_CASES: usize = 60;
 const LEVY_CASES: usize = 120;
+/// Seeded transfer duty values, beside every band boundary of every jurisdiction.
+const DUTY_CASES: usize = 160;
 /// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
 /// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
@@ -46,9 +51,14 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 
 /// Runs the cases through the engines in one Node process, from the repository root so
 /// the module paths resolve. A missing `node` fails the test.
-const HARNESS: &str = r"
-import { loan, div7aMinimumRepayment, terminationPayment } from './assets/business-calculators.mjs';
+const HARNESS: &str = r#"
+import { readFileSync } from 'node:fs';
+import { loan, div7aMinimumRepayment, terminationPayment, transferDuty } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
+// Each jurisdiction's scale as the rendered calculator page gives it to the browser.
+const page = readFileSync('tools/business-calculators/transfer-duty/index.html', 'utf8');
+const scales = Object.fromEntries([...page.matchAll(/value="(AU-[A-Z]+)" data-name="[^"]+" data-scale="([^"]+)"/g)]
+  .map(([, place, scale]) => [place, scale.split(';').map((row) => row.split(','))]));
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const money = (value) => String(value);
@@ -69,9 +79,10 @@ const run = {
   casual: ({ inputs }) => levy(casualWages(inputs)),
   etp: ({ payment, year }) => Object.fromEntries(Object.entries(terminationPayment(payment, year))
     .map(([key, value]) => [key, typeof value === 'number' ? money(value) : value])),
+  duty: ({ value, place }) => ({ duty: money(transferDuty(value, scales[place]).duty) }),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
-";
+"#;
 
 /// A fixed sequence (xorshift64*), so a failure names a case that reappears on a rerun.
 struct Seeded(u64);
@@ -156,6 +167,228 @@ fn div7a_oracle(balance: u64, rate: u64, years: u32) -> [u64; 3] {
 /// Half up at the final step only, as the calculator page states.
 fn levy_oracle(quarters: u128) -> u128 {
     (2 * quarters * LEVY_NUMERATOR + LEVY_DENOMINATOR) / (2 * LEVY_DENOMINATOR)
+}
+
+/// One band of a general transfer duty scale, typed from the revenue office's or the
+/// legislation's own wording as read on 15 November 2026, not from the site's rate table.
+/// Each band applies to values above `over`; the scales list them lowest first.
+#[derive(Clone, Copy)]
+enum Band {
+    /// `base` dollars plus `cents` for every $100, or part of $100, over `over`.
+    PerHundred { over: u64, base: u64, cents: u64 },
+    /// `base` dollars plus `points` hundredths of a per cent of the excess over `over`.
+    Excess { over: u64, base: u64, points: u64 },
+    /// `points` hundredths of a per cent of the whole value, above `over`.
+    Whole { over: u64, points: u64 },
+}
+
+const fn per(over: u64, base: u64, cents: u64) -> Band {
+    Band::PerHundred { over, base, cents }
+}
+
+/// The 7 scales written as bands; the Northern Territory's is a formula ([`nt_duty`]).
+const DUTY_SCALES: [(&str, &[Band]); 7] = [
+    // Revenue NSW, 2026-27: $1.25 for every $100 (minimum $20), then the bands to the
+    // premium rate for residential property over $3,870,000.
+    (
+        "AU-NSW",
+        &[
+            per(0, 0, 125),
+            per(18_000, 225, 150),
+            per(38_000, 525, 175),
+            per(103_000, 1_662, 350),
+            per(387_000, 11_602, 450),
+            per(1_290_000, 52_237, 550),
+            per(3_870_000, 194_137, 700),
+        ],
+    ),
+    // State Revenue Office Victoria, non-principal place of residence, from 1 July 2021.
+    (
+        "AU-VIC",
+        &[
+            Band::Excess {
+                over: 0,
+                base: 0,
+                points: 140,
+            },
+            Band::Excess {
+                over: 25_000,
+                base: 350,
+                points: 240,
+            },
+            Band::Excess {
+                over: 130_000,
+                base: 2_870,
+                points: 600,
+            },
+            Band::Whole {
+                over: 960_000,
+                points: 550,
+            },
+            Band::Excess {
+                over: 2_000_000,
+                base: 110_000,
+                points: 650,
+            },
+        ],
+    ),
+    // Queensland Revenue Office: nil to $5,000, then for each $100, or part of $100.
+    (
+        "AU-QLD",
+        &[
+            per(0, 0, 0),
+            per(5_000, 0, 150),
+            per(75_000, 1_050, 350),
+            per(540_000, 17_325, 450),
+            per(1_000_000, 38_025, 575),
+        ],
+    ),
+    // WA Department of Treasury and Finance, general rate.
+    (
+        "AU-WA",
+        &[
+            per(0, 0, 190),
+            per(120_000, 2_280, 285),
+            per(150_000, 3_135, 380),
+            per(360_000, 11_115, 475),
+            per(725_000, 28_453, 515),
+        ],
+    ),
+    // RevenueSA, conveyances.
+    (
+        "AU-SA",
+        &[
+            per(0, 0, 100),
+            per(12_000, 120, 200),
+            per(30_000, 480, 300),
+            per(50_000, 1_080, 350),
+            per(100_000, 2_830, 400),
+            per(200_000, 6_830, 425),
+            per(250_000, 8_955, 475),
+            per(300_000, 11_330, 500),
+            per(500_000, 21_330, 550),
+        ],
+    ),
+    // State Revenue Office Tasmania, duty payable on or after 21 October 2013: $50 to $3,000.
+    (
+        "AU-TAS",
+        &[
+            per(0, 50, 0),
+            per(3_000, 50, 175),
+            per(25_000, 435, 225),
+            per(75_000, 1_560, 350),
+            per(200_000, 5_935, 400),
+            per(375_000, 12_935, 425),
+            per(725_000, 27_810, 450),
+        ],
+    ),
+    // ACT DI2026-155 Table 2, a transaction that is not an eligible owner occupier transaction.
+    (
+        "AU-ACT",
+        &[
+            per(0, 0, 120),
+            per(200_000, 2_400, 220),
+            per(300_000, 4_600, 340),
+            per(500_000, 11_400, 432),
+            per(750_000, 22_200, 590),
+            per(1_000_000, 36_950, 640),
+            Band::Whole {
+                over: 1_455_000,
+                points: 454,
+            },
+        ],
+    ),
+];
+
+fn band_over(band: Band) -> u64 {
+    match band {
+        Band::PerHundred { over, .. } | Band::Excess { over, .. } | Band::Whole { over, .. } => {
+            over
+        }
+    }
+}
+
+/// Stamp Duty Act 1978 (NT) Schedule 1 clause 1(2), as in force at 1 July 2025, in cents.
+fn nt_duty(dollars: u64) -> u64 {
+    let d = u128::from(dollars);
+    let cents = if dollars <= 525_000 {
+        // (0.06571441 x V^2) + 15V dollars, V = d / 1,000, is
+        // (6,571,441 d^2 + 15 x 10^11 d) / 10^12 cents.
+        (2 * (6_571_441 * d * d + 1_500_000_000_000 * d) + 1_000_000_000_000) / 2_000_000_000_000
+    } else {
+        let points = if dollars < 3_000_000 {
+            495
+        } else if dollars < 5_000_000 {
+            575
+        } else {
+            595
+        };
+        (2 * points * d + 100) / 200
+    };
+    u64::try_from(cents).unwrap()
+}
+
+/// General transfer duty in cents on a whole-dollar value.
+fn duty_oracle(place: &str, dollars: u64) -> u64 {
+    if place == "AU-NT" {
+        return nt_duty(dollars);
+    }
+    let (_, bands) = DUTY_SCALES.iter().find(|(p, _)| *p == place).unwrap();
+    // The band with the highest threshold the value exceeds; the first band also takes nil.
+    let band = *bands
+        .iter()
+        .rev()
+        .find(|band| dollars > band_over(**band))
+        .unwrap_or(&bands[0]);
+    let cents = match band {
+        Band::PerHundred { over, base, cents } => {
+            base * 100 + cents * (dollars - over).div_ceil(100)
+        }
+        Band::Excess { over, base, points } => {
+            let excess = u128::from(dollars - over);
+            base * 100 + u64::try_from((2 * u128::from(points) * excess + 100) / 200).unwrap()
+        }
+        Band::Whole { points, .. } => {
+            u64::try_from((2 * u128::from(points) * u128::from(dollars) + 100) / 200).unwrap()
+        }
+    };
+    // Revenue NSW: $1.25 for every $100 with a minimum of $20.
+    if place == "AU-NSW" {
+        cents.max(2_000)
+    } else {
+        cents
+    }
+}
+
+/// Every value either side of each band's threshold, for each jurisdiction, and the
+/// least and greatest values the field accepts.
+fn duty_boundaries() -> Vec<(&'static str, u64)> {
+    let mut values = Vec::new();
+    for (place, bands) in DUTY_SCALES {
+        for band in bands {
+            let over = band_over(*band);
+            values.extend([over.saturating_sub(1), over, over + 1].map(|v| (place, v)));
+        }
+    }
+    for over in [525_000, 2_999_999, 3_000_000, 4_999_999, 5_000_000] {
+        values.extend([over - 1, over, over + 1].map(|v| ("AU-NT", v)));
+    }
+    for place in [
+        "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+    ] {
+        values.extend([(place, 1), (place, 1_000_000_000)]);
+    }
+    // Revenue NSW's minimum stops at $1,600, where $1.25 for every $100 reaches $20.
+    values.extend([1_599, 1_600, 1_601].map(|v| ("AU-NSW", v)));
+    values.retain(|&(_, v)| v >= 1);
+    values
+}
+
+fn duty_case(place: &str, dollars: u64) -> (Value, Value) {
+    (
+        json!({"kind": "duty", "value": dollars.to_string(), "place": place}),
+        json!({"duty": shown(duty_oracle(place, dollars))}),
+    )
 }
 
 /// Bonuses that count under s 3B(4)(c) and (d) are those paid at least once a month.
@@ -360,6 +593,115 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
     // 2.7% of $1.85 is 4.995 cents, and of 18.75 cents is 0.50625 cents: both round up.
     assert_eq!(levy_oracle(4 * 185), 5);
     assert_eq!(levy_oracle(75), 1);
+}
+
+/// Each revenue office's own worked figure, read 15 November 2026, and hand-worked figures
+/// where none is published.
+#[test]
+fn the_duty_oracle_gives_the_revenue_offices_worked_figures() {
+    for (place, dollars, cents, source) in [
+        (
+            "AU-NSW",
+            1_350_000,
+            5_553_700,
+            "Revenue NSW auction example",
+        ),
+        (
+            "AU-NSW",
+            450_000,
+            1_443_700,
+            "Revenue NSW family transfer example",
+        ),
+        (
+            "AU-NSW",
+            4_000_000,
+            20_323_700,
+            "Revenue NSW premium duty example",
+        ),
+        ("AU-NSW", 450_050, 1_444_150, "Revenue NSW calculator"),
+        ("AU-NSW", 1_601, 2_125, "Revenue NSW calculator"),
+        ("AU-NSW", 1_000, 2_000, "Revenue NSW calculator"),
+        (
+            "AU-NSW",
+            3_870_001,
+            19_414_400,
+            "Revenue NSW calculator, premium",
+        ),
+        (
+            "AU-VIC",
+            550_000,
+            2_807_000,
+            "SRO Victoria standard rate example",
+        ),
+        (
+            "AU-VIC",
+            400_000,
+            1_907_000,
+            "SRO Victoria standard rate example",
+        ),
+        ("AU-QLD", 850_000, 3_127_500, "QRO calculation example"),
+        (
+            "AU-SA",
+            600_000,
+            2_683_000,
+            "RevenueSA foreign ownership surcharge example 1",
+        ),
+        (
+            "AU-SA",
+            300_000,
+            1_133_000,
+            "RevenueSA foreign ownership surcharge example 2",
+        ),
+        (
+            "AU-SA",
+            1_000_000,
+            4_883_000,
+            "RevenueSA conveyance rate chart",
+        ),
+        ("AU-TAS", 500_000, 1_824_750, "Tasmanian duty calculator"),
+        ("AU-TAS", 725_050, 2_781_450, "Tasmanian duty calculator"),
+        ("AU-TAS", 3_001, 5_175, "Tasmanian duty calculator"),
+        ("AU-TAS", 3_000, 5_000, "Tasmanian duty calculator"),
+        // By hand: $28,453 + 750 x $5.15.
+        ("AU-WA", 800_000, 3_231_550, "hand-worked"),
+        // By hand: $11,400 + 1,500 x $4.32, and $4.54 per $100 of $1,500,000.
+        ("AU-ACT", 650_000, 1_788_000, "hand-worked"),
+        ("AU-ACT", 1_500_000, 6_810_000, "hand-worked"),
+        // By hand: 0.06571441 x 500^2 + 15 x 500 = 23,928.6025, and 4.95% of $600,000.
+        ("AU-NT", 500_000, 2_392_860, "hand-worked"),
+        ("AU-NT", 600_000, 2_970_000, "hand-worked"),
+    ] {
+        assert_eq!(
+            duty_oracle(place, dollars),
+            cents,
+            "{place} {dollars}: {source}"
+        );
+    }
+}
+
+#[test]
+fn the_transfer_duty_engine_agrees_with_the_oracle_at_every_band_boundary() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1115_D07E_5EED);
+    let places = [
+        "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+    ];
+    let mut values = duty_boundaries();
+    // Seeded whole-dollar values spread across magnitudes, for every jurisdiction.
+    for _ in 0..DUTY_CASES {
+        values.push((rng.pick(&places), 1 + rng.cents(999_999_999)));
+    }
+    let (cases, expected): (Vec<Value>, Vec<Value>) = values
+        .iter()
+        .map(|&(place, dollars)| duty_case(place, dollars))
+        .unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
 }
 
 /// A schedule in whole cents: interest rounds half up each month, and the last payment
