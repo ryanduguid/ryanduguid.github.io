@@ -114,6 +114,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [Effective life tables JSON](https://duguid.com.au/tools/depreciation-rates/effective-life.json): machine-readable copy of Schedule 2 of the determination: 9,311 rows in the instrument's order, each with its depth, description, life in years and in months, flags and the date last set, with the source, its registration date and the date it was read (`source.read`).
 - [Tools](https://duguid.com.au/tools/): index of 12 open source accounting controls grouped by extract, calculate, control and inspect, with delivery types, source repositories and human review boundaries.
 - [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/): answers which wages are eligible for the 2.7% payroll levy under section 3B of the *Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992*, across the base rate, annual salary and casual branches. Explains the questions this calculator does not resolve and the statutory rules relevant to them.
+- [Coal LSL levy API](https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/openapi.json): the same calculation as JSON over HTTP, with no key or sign-up; this OpenAPI 3.1 document describes every route, and `GET https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/v1/calculators` lists the calculator, its supported months and the path to post a calculation to.
 
 ## Tool guides, open source, install and run locally
 
