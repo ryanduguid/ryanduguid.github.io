@@ -105,6 +105,8 @@ pub fn css(source: &str) -> Result<String, String> {
     // property's value, the depth of brackets open in it.
     let mut statement_start = 0;
     let mut custom: Option<u32> = None;
+    // Whether that value has begun: the whitespace before it is not part of it.
+    let mut custom_started = false;
     while let Some(c) = chars.next() {
         if c == '/' && chars.peek() == Some(&'*') {
             chars.next();
@@ -124,7 +126,7 @@ pub fn css(source: &str) -> Result<String, String> {
         if css_space(c) {
             // A custom property's value keeps its whitespace: script reads the value
             // as written. Only the whitespace before it goes.
-            if custom.is_some() && !out.ends_with(':') {
+            if custom.is_some() && custom_started {
                 out.push(c);
             } else {
                 gap = Gap::Space;
@@ -154,6 +156,7 @@ pub fn css(source: &str) -> Result<String, String> {
                 }
                 _ => Some(depth),
             };
+            custom_started = custom.is_some();
         }
         // `\;` is part of a name, not a separator.
         if c == '}' && out.ends_with(';') && !out.ends_with("\\;") {
@@ -169,6 +172,7 @@ pub fn css(source: &str) -> Result<String, String> {
                 .is_some_and(|statement| statement.starts_with("--"))
         {
             custom = Some(0);
+            custom_started = false;
         }
         match c {
             // An unquoted url() is one token: `/*` inside it is not a comment.

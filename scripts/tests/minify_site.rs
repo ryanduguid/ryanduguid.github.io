@@ -132,15 +132,24 @@ fn unterminated_css_is_refused() {
 }
 
 /// Lightning CSS parses each published stylesheet to the same rules as its source.
+/// It keeps a declaration that uses var() as raw tokens, whitespace included, so the
+/// comparison ignores the whitespace the stripper removes by design: around `,`, `{`,
+/// `}` and `;`, after `(` and `:`, and before `)`. Everything else must match.
 #[test]
 fn the_site_stylesheets_parse_the_same_after_minifying() {
     use lightningcss::stylesheet::{ParserOptions, PrinterOptions, StyleSheet};
+    let around = regex::Regex::new(r"\s*([,{};])\s*").unwrap();
+    let after = regex::Regex::new(r"([(:])\s+").unwrap();
+    let before = regex::Regex::new(r"\s+\)").unwrap();
     let rules = |text: &str| {
-        StyleSheet::parse(text, ParserOptions::default())
+        let printed = StyleSheet::parse(text, ParserOptions::default())
             .unwrap()
             .to_css(PrinterOptions::default())
             .unwrap()
-            .code
+            .code;
+        let printed = around.replace_all(&printed, "$1");
+        let printed = after.replace_all(&printed, "$1");
+        before.replace_all(&printed, ")").into_owned()
     };
     let assets = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../assets");
     let mut checked = 0;
