@@ -95,6 +95,60 @@ fn set(object: &Json, key: &str, value: Json) -> Json {
     Json::Object(pairs)
 }
 
+/// A minimal AI-agent page carrying the given visible review date and the two
+/// structured `dateModified` values.
+fn mcp_page(visible: &str, article: &str, web_page: &str) -> String {
+    format!(
+        r#"<main><p class="page-meta">Published 25 August 2026. Last reviewed {visible}.</p></main>
+<script type="application/ld+json">{{"@context": "https://schema.org", "@graph": [
+{{"@type": "TechArticle", "datePublished": "2026-08-25", "dateModified": "{article}"}},
+{{"@type": "WebPage", "datePublished": "2026-08-25", "dateModified": "{web_page}"}}]}}</script>"#
+    )
+}
+
+#[test]
+fn mcp_review_dates_follow_a_consistent_redate() {
+    assert_clean(
+        "AI-agent page redated consistently",
+        &contracts::check_mcp_review_dates(&mcp_page(
+            "3 December 2026",
+            "2026-12-03",
+            "2026-12-03",
+        )),
+    );
+}
+
+#[test]
+fn mcp_review_dates_refuse_an_inconsistent_redate() {
+    expect_failure(
+        "visible date moved alone",
+        &contracts::check_mcp_review_dates(&mcp_page(
+            "3 December 2026",
+            "2026-11-15",
+            "2026-11-15",
+        )),
+        "TechArticle dateModified '2026-11-15' does not match the visible review date 2026-12-03",
+    );
+    expect_failure(
+        "one structured date moved alone",
+        &contracts::check_mcp_review_dates(&mcp_page(
+            "3 December 2026",
+            "2026-12-03",
+            "2026-11-15",
+        )),
+        "WebPage dateModified '2026-11-15' does not match the visible review date 2026-12-03",
+    );
+    expect_failure(
+        "visible date unreadable",
+        &contracts::check_mcp_review_dates(&mcp_page(
+            "31 November 2026",
+            "2026-11-31",
+            "2026-11-31",
+        )),
+        "visible review date must read 'Published 25 August 2026. Last reviewed D Month YYYY.'",
+    );
+}
+
 #[test]
 fn parked_consultancy_surface() {
     if !rendered() {
