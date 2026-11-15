@@ -312,6 +312,25 @@ function initialiseCalculators([calculate, fieldErrors]) {
               rows: [['Minimum yearly repayment', aud(r.repayment)], ['Interest for the year, if repaid on 30 June', aud(r.interest)], ['Principal, if repaid on 30 June', aud(r.principal)]] };
             break;
           }
+          case 'pcg-2021-4': {
+            const all = value('factor3') === 'yes';
+            const r = calculate.pcgRisk({ gateway1: value('gateway1') === 'yes', gateway2: value('gateway2') === 'yes',
+              entitlement: value('entitlement'), returned: value('returned'), tax: value('tax'), factor3: all,
+              remuneration: value('remuneration'), benchmark: value('benchmark') });
+            const zone = { green: 'Green: low risk', amber: 'Amber: moderate risk', red: 'Red: high risk' }[r.zone];
+            const scored = (share, score) => `${percent(share)}, score ${score}`;
+            result = { inputs: `gateways 1 and 2 passed, profit entitlement ${money('entitlement')}, returned by the IPP ${money('returned')}, `
+              + `${r.total === null ? 'the whole entitlement' : `tax on that firm income ${money('tax')}, ${all
+                ? `remuneration ${money('remuneration')} against a commercial benchmark of ${money('benchmark')}, all 3 factors` : 'factors 1 and 2'}`}`,
+            rows: r.total === null ? [['Factor 1: profit entitlement returned by the IPP', scored(r.returned, r.factor1)], ['Risk zone', zone]] : [
+              ['Factor 1: profit entitlement returned by the IPP', scored(r.returned, r.factor1)],
+              ['Factor 2: total effective tax rate', scored(r.taxRate, r.factor2)],
+              ...(all ? [['Factor 3: remuneration as a share of the benchmark', scored(r.benchmarkShare, r.factor3)]] : []),
+              ['Aggregate score', String(r.total)], ['Risk zone', zone]],
+            note: r.total === null ? 'The IPP returns the whole entitlement, so paragraph 81 makes the arrangement low risk with no other factor scored' : undefined };
+            result.principal = result.rows.length - 1;
+            break;
+          }
           case 'staff': {
             const r = calculate.staffCost(value('wages'), value('super'), value('other'));
             result = { inputs: `wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}`, principal: 0,

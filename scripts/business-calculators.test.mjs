@@ -246,7 +246,13 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
   annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
   deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal' };
+// PCG 2021/4 results are scores, a zone and percentages of the entitlement or the benchmark.
+const PCG_SHOWN = { returned: (v) => `returned ${v.toFixed(2)}%`, taxRate: (v) => `tax rate ${v.toFixed(2)}%`,
+  benchmarkShare: (v) => `${v.toFixed(2)}% of benchmark`, factor1: (v) => `factor 1 score ${v}`,
+  factor2: (v) => `factor 2 score ${v}`, factor3: (v) => `factor 3 score ${v}`,
+  total: (v) => (v === null ? 'no aggregate' : `aggregate ${v}`), zone: (v) => `${v} zone` };
 const shownField = (field, value) => {
+  if (PCG_SHOWN[field]) return PCG_SHOWN[field](value);
   if (field === 'effect') return value;
   if (field === 'units') return `${value} units`;
   if (field === 'percent') return value === null ? 'no percentage' : `${value.toFixed(2)}%`;
@@ -275,6 +281,9 @@ const INPUTS = {
   staffCost: (wages, superannuation, other) =>
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
   div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
+  pcgRisk: (a) => `${a.gateway1 && a.gateway2 ? 'Gateways passed' : `Gateway ${a.gateway1 ? 2 : 1} failed`}; entitlement `
+    + `${dollars(a.entitlement)}, returned ${dollars(a.returned)}, tax ${dollars(a.tax)}`
+    + `${a.factor3 ? `, remuneration ${dollars(a.remuneration)} against ${dollars(a.benchmark)}` : ''}`,
   cashForecast: (opening, weeks, buffer, delayed) => {
     const week = weeks.findIndex(({ receipts }) => receipts !== '0');
     assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
@@ -400,6 +409,7 @@ const formDefaults = (html) => {
   const fields = {};
   for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
     const name = tag.match(/\bname="([^"]+)"/)?.[1];
+    if (/\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
     if (name) fields[name] = /\btype="checkbox"/.test(tag) ? /\bchecked\b/.test(tag) : tag.match(/\bvalue="([^"]*)"/)?.[1];
   }
   for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
@@ -423,6 +433,8 @@ const FORM_CALLS = {
   variance: (f) => [f.actual, f.budget, f.kind],
   loan: (f) => [f.principal, f.rate, f.months],
   div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],
+  pcgRisk: (f) => [{ gateway1: f.gateway1 === 'yes', gateway2: f.gateway2 === 'yes', entitlement: f.entitlement,
+    returned: f.returned, tax: f.tax, factor3: f.factor3 === 'yes', remuneration: f.remuneration, benchmark: f.benchmark }],
   staffCost: (f) => [f.wages, f.super, f.other],
   cashForecast: (f) => [f.opening,
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
@@ -441,5 +453,97 @@ for (const [page, { function: name, rows: [first] }] of Object.entries(shownCase
 test('blank, non-finite, over-precise and unsafe amounts cannot become a zero result', () => {
   for (const value of ['', ' ', 'NaN', 'Infinity', '1e10', '100.001', '-1', '1000000001', null]) {
     assert.throws(() => gst(value, false), String(value));
+  }
+});
+
+// PCG 2021/4, read 15 November 2026 (updated guideline of 19 June 2024):
+// https://www.ato.gov.au/law/view/document?docid=COG/PCG20214/NAT/ATO/00001
+// Each case study in the appendix: entitlement, amount the IPP returns, the tax of every recipient
+// on the firm income as its effective tax rate formula adds them, the guideline's 2 percentages,
+// its scores and its zone. Case study 2's 54.5% is rounded to one place there.
+const PCG_CASE_STUDIES = [
+  ['1 Nicolas', '600000', '330000', [119167, 70200], [55, 31.56], [4, 3], 7, 'green'],
+  ['2 Donald', '880000', '480000', [186667, 83200, 16467], [54.5, 32.54], [4, 3], 7, 'green'],
+  ['3 Hilary', '250000', '162500', [45192, 22750], [65, 27.18], [3, 4], 7, 'green'],
+  ['4 Bernie', '500000', '325000', [116916, 49817], [65, 33.35], [3, 3], 6, 'green'],
+  ['5 Frank', '500000', '300000', [105666, 52000], [60, 31.53], [4, 3], 7, 'green'],
+  ['8 Maria', '600000', '360000', [132667, 51667, 15600], [60, 33.32], [4, 3], 7, 'green'],
+  ['9 David', '600000', '300000', [105667, 78000], [50, 30.61], [4, 3], 7, 'green'],
+  ['10 Astrid', '400000', '200000', [60667, 40567, 13000], [50, 28.56], [4, 4], 8, 'amber'],
+  ['11 Yan', '400000', '300000', [105667, 26000], [75, 32.92], [3, 3], 6, 'green'],
+  ['12 Benjamin', '600000', '300000', [105667, 52000, 22967], [50, 30.11], [4, 3], 7, 'green'],
+];
+const pcgArrangement = (fields) => ({ gateway1: true, gateway2: true, entitlement: '1000', returned: '0', tax: '0',
+  factor3: false, remuneration: '0', benchmark: '0', ...fields });
+for (const [name, entitlement, returned, taxes, [share, rate], [factor1, factor2], total, zone] of PCG_CASE_STUDIES) {
+  test(`PCG 2021/4 scores case study ${name} as the guideline does`, () => {
+    const tax = String(taxes.reduce((sum, amount) => sum + amount, 0));
+    const result = calculations.pcgRisk(pcgArrangement({ entitlement, returned, tax }));
+    assert.equal(Math.trunc(result.returned * 10) / 10, share);
+    assert.deepEqual([result.taxRate, result.factor1, result.factor2, result.total, result.zone],
+      [rate, factor1, factor2, total, zone]);
+    assert.equal(result.factor3, null);
+  });
+}
+
+// Case study 7: '($360,000 ÷ $350,000) × 100 = 103%', a factor 3 score of 3, aggregate 10, green on all 3.
+// Case study 6: Felix returns all of his $65,000, so he is green with no other factor (paragraphs 81, 154).
+test('PCG 2021/4 scores case studies 7 and 6, which use factor 3 and the whole entitlement', () => {
+  assert.deepEqual(calculations.pcgRisk(pcgArrangement({ entitlement: '600000', returned: '360000',
+    tax: String(132667 + 51667 + 15600), factor3: true, remuneration: '360000', benchmark: '350000' })),
+  { returned: 60, factor1: 4, taxRate: 33.32, factor2: 3, benchmarkShare: 102.86, factor3: 3, total: 10, zone: 'green' });
+  assert.deepEqual(calculations.pcgRisk(pcgArrangement({ entitlement: '65000', returned: '65000', tax: '11592' })),
+    { returned: 100, factor1: 1, taxRate: null, factor2: null, benchmarkShare: null, factor3: null, total: null, zone: 'green' });
+});
+
+// Table 1 at paragraph 76, band by band: each boundary percentage of $100, one cent above it and,
+// where the band includes its boundary, one cent below. Written from the table, not the engine.
+const PCG_BOUNDARIES = {
+  factor1: [['90.01', 1], ['90', 2], ['75.01', 2], ['75', 3], ['60.01', 3], ['60', 4], ['50', 4], ['49.99', 5],
+    ['25.01', 5], ['25', 6], ['0', 6]],
+  factor2: [['40.01', 1], ['40', 2], ['35.01', 2], ['35', 3], ['30', 3], ['29.99', 4], ['25.01', 4], ['25', 5],
+    ['20.01', 5], ['20', 6], ['0', 6]],
+  factor3: [['200.01', 1], ['200', 2], ['150.01', 2], ['150', 3], ['100.01', 3], ['100', 4], ['90.01', 4],
+    ['90', 5], ['70.01', 5], ['70', 6], ['0', 6]],
+};
+for (const [factor, cases] of Object.entries(PCG_BOUNDARIES)) {
+  test(`PCG 2021/4 ${factor} changes score at each boundary in Table 1`, () => {
+    for (const [percent, score] of cases) {
+      const fields = { factor1: { returned: percent, tax: '30' }, factor2: { returned: '55', tax: percent },
+        factor3: { returned: '55', tax: '30', factor3: true, remuneration: percent, benchmark: '100' } }[factor];
+      assert.equal(calculations.pcgRisk(pcgArrangement({ entitlement: '100', ...fields }))[factor], score, percent);
+    }
+  });
+}
+
+// Table 2 at paragraph 78: every aggregate either side of each zone boundary.
+test('PCG 2021/4 zones follow Table 2 for 2 factors and for all 3', () => {
+  for (const [fields, total, zone] of [
+    [{ returned: '55', tax: '31' }, 7, 'green'], [{ returned: '55', tax: '28' }, 8, 'amber'],
+    [{ returned: '40', tax: '28' }, 9, 'red'], [{ returned: '10', tax: '0' }, 12, 'red'],
+    [{ returned: '55', tax: '31', factor3: true, remuneration: '120' }, 10, 'green'],
+    [{ returned: '55', tax: '31', factor3: true, remuneration: '95' }, 11, 'amber'],
+    [{ returned: '55', tax: '31', factor3: true, remuneration: '80' }, 12, 'amber'],
+    [{ returned: '55', tax: '31', factor3: true, remuneration: '50' }, 13, 'red'],
+    [{ returned: '95', tax: '45', factor3: true, remuneration: '250' }, 3, 'green'],
+  ]) {
+    const result = calculations.pcgRisk(pcgArrangement({ entitlement: '100', benchmark: '100', ...fields }));
+    assert.deepEqual([result.total, result.zone], [total, zone], JSON.stringify(fields));
+  }
+});
+
+test('PCG 2021/4 refuses a failed gateway and figures it cannot score', () => {
+  for (const [fields, message] of [
+    [{ gateway1: false }, 'The arrangement fails Gateway 1, so PCG 2021/4 gives it no risk score.'],
+    [{ gateway1: false, gateway2: false }, 'The arrangement fails Gateway 1, so PCG 2021/4 gives it no risk score.'],
+    [{ gateway2: false }, 'The arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score.'],
+    [{ gateway1: 'yes' }, 'The arrangement fails Gateway 1, so PCG 2021/4 gives it no risk score.'],
+    [{ entitlement: '0' }, 'Enter a profit entitlement above nil.'],
+    [{ returned: '1000.01' }, 'The amount returned cannot exceed the profit entitlement.'],
+    [{ tax: '1000.01' }, 'The tax cannot exceed the firm income.'],
+    [{ factor3: true, remuneration: '10' }, 'Enter a commercial benchmark above nil.'],
+    [{ tax: '-1' }, 'Enter an amount between 0 and 1000000000.'],
+  ]) {
+    assert.throws(() => calculations.pcgRisk(pcgArrangement(fields)), { message }, JSON.stringify(fields));
   }
 });
