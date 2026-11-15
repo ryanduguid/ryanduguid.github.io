@@ -555,6 +555,19 @@ const BAS_DUE_DATES: [&str; 16] = [
     "Quarter 4 2026-27,2027-04-01,2027-06-30,2027-07-28,2027-08-11,2027-08-25,to be confirmed",
 ];
 
+/// The 2-week concession as BAS_ONLINE_TERMS stated it on 15 November 2026: a business
+/// 'may qualify', and each statement it lists under 'What isn't included'.
+const BAS_ONLINE_TERMS_ON_PAGE: [&str; 8] = [
+    "Lodged online yourself, if eligible",
+    "may get 2 more weeks to lodge and pay",
+    "monthly statements",
+    "monthly GST reporters with quarterly PAYG instalments",
+    "quarterly instalment notices (forms R, S and T)",
+    "head companies’ quarterly PAYG instalments",
+    "large business clients with a substituted accounting period",
+    "any other statement whose original due date is not the 28th",
+];
+
 fn bas_due_dates() -> Vec<[&'static str; 7]> {
     BAS_DUE_DATES
         .iter()
@@ -632,6 +645,12 @@ fn bas_due_dates_csv_holds_the_ato_dates_and_sources() {
         assert!(
             page.contains(&format!(r#"<a href="{url}">"#)),
             "{url} must be listed under Sources"
+        );
+    }
+    for term in BAS_ONLINE_TERMS_ON_PAGE {
+        assert!(
+            page.contains(term),
+            "the page must state the online concession's terms: {term}"
         );
     }
     let calendar = pyjson::loads(&source("_data/payday_super_business_days.json")).unwrap();
