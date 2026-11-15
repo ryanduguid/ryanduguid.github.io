@@ -7,6 +7,10 @@ const minus = text => text.replace(/^-/, '−');
 const aud = value => minus(currencyFormat.format(value));
 const dateFormat = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 const calendarDate = value => dateFormat.format(new Date(`${value}T00:00:00Z`));
+const longDateFormat = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const weekdayFormat = new Intl.DateTimeFormat('en-AU', { weekday: 'long', timeZone: 'UTC' });
+const longDate = value => longDateFormat.format(new Date(`${value}T00:00:00Z`));
+const dayAndDate = value => `${weekdayFormat.format(new Date(`${value}T00:00:00Z`))} ${longDate(value)}`;
 const percent = value => value === null ? 'undefined (zero base)' : minus(`${value.toFixed(2)}%`);
 const count = (text, noun) => `${Number(text).toLocaleString('en-AU', { maximumFractionDigits: 2 })} ${noun}${Number(text) === 1 ? '' : 's'}`;
 
@@ -346,6 +350,24 @@ function initialiseCalculators([calculate, fieldErrors]) {
               `Funding gap,${r.funding.toFixed(2)}`, '', 'Week,Start date,End date,Opening,Receipts,Payments,Closing',
               ...r.rows.map(row => [row.week, dates[row.week - 1].start, dates[row.week - 1].end, row.opening.toFixed(2), row.receipts.toFixed(2), row.payments.toFixed(2), row.closing.toFixed(2)].join(','))].join('\r\n');
             cashDownload.disabled = false;
+            break;
+          }
+          case 'objection-deadline': {
+            const decision = value('decision');
+            const income = decision === 'assessment' || decision === 'amended';
+            const amended = decision === 'amended' || decision === 'amended-fbt';
+            const years = income && value('group') === '2' ? 2 : 4;
+            const r = calculate.objectionDeadline(decision, value('group'), value('notice'), value('first'));
+            const kind = { assessment: 'income tax assessment', amended: 'amended income tax assessment', fbt: 'FBT assessment',
+              'amended-fbt': 'amended FBT assessment', other: 'other decision' }[decision];
+            result = { inputs: `${kind}, ${income ? `${years === 2 ? 'item 1, 2, 3 or 3A applies (2 years)' : 'no item 1, 2, 3 or 3A (4 years)'}, ` : ''}`
+              + `notice given ${longDate(value('notice'))}${amended ? `, first assessment’s notice given ${longDate(value('first'))}` : ''}`,
+            rows: [...(amended ? [['60 days after the amended notice', dayAndDate(r.amendedEnds)], [`${years} years after the first notice`, dayAndDate(r.firstEnds)]] : []),
+              [`Period ends, ${r.rule}`, dayAndDate(r.periodEnds)],
+              ['Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901', dayAndDate(r.lastDay)]],
+            note: 'If that day is a public holiday or bank holiday where the objection is lodged, it may be lodged on the next day that is not a Saturday, Sunday or holiday. '
+              + 'After the last day, an objection needs a written request under subsection 14ZW(2), which the Commissioner decides under section 14ZX' };
+            result.principal = result.rows.length - 1;
             break;
           }
           default: throw new Error('Unknown calculator.');

@@ -464,7 +464,7 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
 });
 
 // Each calculator opens on a fictional example, its first boundary case, already worked.
-const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash'];
+const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash', 'objection-deadline'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -500,7 +500,9 @@ for (const id of CALCULATORS) {
     expect(calculated.replace(/^Inputs: week 1 from [^,]+, /, 'Inputs: ')).toBe(example);
     await page.reload();
     await expect(form.locator('fieldset').first()).toBeEnabled();
-    await form.locator('input[type=number]').first().fill('1');
+    // The objection deadline form has dates and choices only.
+    const edit = form.locator('input[type=number], input[type=date]').first();
+    await edit.fill(await edit.getAttribute('type') === 'date' ? '2027-01-01' : '1');
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
@@ -551,3 +553,27 @@ for (const route of ['/tools/accounting-questions/', '/tools/accounting-question
     }
   });
 }
+
+test('objection deadline takes the later of an amended assessment’s 2 dates offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/objection-deadline/');
+  const form = page.locator('#objection-deadline form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Amended income tax assessment', { exact: true }).check();
+  await form.getByLabel('No: 4 years').check();
+  await form.getByLabel('Day notice of the decision was given or served').fill('2028-10-02');
+  await form.getByLabel('Amended assessments only: day notice of the first assessment for the year was given or served').fill('2024-10-23');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: amended income tax assessment, no item 1, 2, 3 or 3A (4 years), notice given 2 October 2028, '
+    + 'first assessment’s notice given 23 October 2024. 60 days after the amended notice: Friday 1 December 2028. '
+    + '4 years after the first notice: Monday 23 October 2028. Period ends, subsection 14ZW(1B): Friday 1 December 2028. '
+    + 'Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901: Friday 1 December 2028. '
+    + 'If that day is a public holiday or bank holiday where the objection is lodged, it may be lodged on the next day '
+    + 'that is not a Saturday, Sunday or holiday. After the last day, an objection needs a written request under '
+    + 'subsection 14ZW(2), which the Commissioner decides under section 14ZX.');
+  await form.getByLabel('Day notice of the decision was given or served').fill('2028-09-01');
+  await form.getByLabel('Amended assessments only: day notice of the first assessment for the year was given or served').fill('2028-09-02');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('The first assessment’s notice cannot be later than the amended one.');
+});
