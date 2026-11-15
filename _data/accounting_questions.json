@@ -637,7 +637,8 @@
       "fact_sources": [
         "claiming-deductions",
         "standard-deduction"
-      ]
+      ],
+      "fact_checked": "2026-11-16"
     },
     {
       "id": 3,
@@ -2049,7 +2050,8 @@
       "fact": "A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and income tax and activity statement debts need separate plans.",
       "fact_sources": [
         "payment-plans"
-      ]
+      ],
+      "fact_checked": "2026-11-16"
     },
     {
       "id": 90,
