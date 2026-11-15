@@ -539,9 +539,33 @@ test('fixed fee takes its rounding step from a radio and shows one payment for o
     + 'Fee before GST: $218.19. GST: $0.00. Fee including GST: $218.19. Paid at once: $218.19. Effective hourly rate before GST: $218.19.');
 });
 
+test('PCG 2021/4 refuses a failed gateway and scores case study 7 on all 3 factors offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/pcg-2021-4/');
+  const form = page.locator('#pcg-2021-4 form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  const gateway2 = form.getByRole('group', { name: 'Gateway 2: is the arrangement free of high-risk features, as paragraphs 47 to 63 describe?' });
+  await gateway2.getByLabel('No').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('The arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score.');
+  await gateway2.getByLabel('Yes').check();
+  await form.getByLabel('Amount the IPP returns in their own tax return (AUD)').fill('360000');
+  await form.getByLabel('Tax paid by the IPP and associated entities on that firm income (AUD)').fill('199934');
+  await form.getByLabel('All 3 factors', { exact: true }).check();
+  await form.getByLabel('Remuneration the IPP returns, all 3 factors only (AUD)').fill('360000');
+  await form.getByLabel('Commercial benchmark for the IPP’s services, all 3 factors only (AUD)').fill('350000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: gateways 1 and 2 passed, profit entitlement $600,000.00, returned by the IPP $360,000.00, tax on that firm income $199,934.00, '
+    + 'remuneration $360,000.00 against a commercial benchmark of $350,000.00, all 3 factors. '
+    + 'Factor 1: profit entitlement returned by the IPP: 60.00%, score 4. Factor 2: total effective tax rate: 33.32%, score 3. '
+    + 'Factor 3: remuneration as a share of the benchmark: 102.86%, score 3. Aggregate score: 10. Risk zone: Green: low risk.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
-  'fbt-car', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment', 'transfer-duty'];
+  'fbt-car', 'pcg-2021-4', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
+  'transfer-duty'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

@@ -37,6 +37,10 @@
 //! Schedule 11's table as date ranges and build the tax-free limit a year of service at a time,
 //! where the engine works the age out from the year of birth and multiplies. Both round each
 //! part's withholding to the dollar, 50 cents up, so the oracle cannot show that convention.
+//!
+//! A further 120 seeded PCG 2021/4 arrangements, from their own seed, are scored against
+//! each band's lower and upper bounds as Table 1 writes them and the zone ranges of
+//! Table 2, where the engine takes the first band whose lower bound a percentage reaches.
 mod common;
 
 use chrono::{Datelike, NaiveDate, Weekday};
@@ -68,7 +72,7 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r#"
 import { readFileSync } from 'node:fs';
-import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, fbtCar, fixedFee } from './assets/business-calculators.mjs';
+import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, fbtCar, fixedFee, pcgRisk } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 // Each jurisdiction's scale as the rendered calculator page gives it to the browser.
 const page = readFileSync('tools/business-calculators/transfer-duty/index.html', 'utf8');
@@ -105,6 +109,8 @@ const run = {
       return { refused: error.message };
     }
   },
+  pcg: ({ arrangement }) => Object.fromEntries(Object.entries(pcgRisk(arrangement))
+    .map(([key, value]) => [key, value === null ? null : String(value)])),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 "#;
@@ -1860,6 +1866,157 @@ fn the_etp_engine_agrees_with_the_oracle_on_every_seeded_case() {
         (0..ETP_CASES).map(|_| etp_case(&mut rng)).unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+const PCG_CASES: usize = 120;
+
+/// One band of PCG 2021/4 Table 1 (paragraph 76) as the table writes it: the lower and upper
+/// percentages and whether each is included. `None` is an open end.
+type Band = (Option<(u64, bool)>, Option<(u64, bool)>);
+
+/// Table 1, scores 1 to 6 for each factor, in the table's own words: '>90%', '>75% to ≤90%' ...
+const PCG_TABLE_1: [[Band; 6]; 3] = [
+    [
+        (Some((90, false)), None),
+        (Some((75, false)), Some((90, true))),
+        (Some((60, false)), Some((75, true))),
+        (Some((50, true)), Some((60, true))),
+        (Some((25, false)), Some((50, false))),
+        (None, Some((25, true))),
+    ],
+    [
+        (Some((40, false)), None),
+        (Some((35, false)), Some((40, true))),
+        (Some((30, true)), Some((35, true))),
+        (Some((25, false)), Some((30, false))),
+        (Some((20, false)), Some((25, true))),
+        (None, Some((20, true))),
+    ],
+    [
+        (Some((200, false)), None),
+        (Some((150, false)), Some((200, true))),
+        (Some((100, false)), Some((150, true))),
+        (Some((90, false)), Some((100, true))),
+        (Some((70, false)), Some((90, true))),
+        (None, Some((70, true))),
+    ],
+];
+
+/// The one score whose band holds part / whole as a percentage, compared in exact integers.
+fn pcg_band(factor: usize, part: u64, whole: u64) -> u64 {
+    let (part, whole) = (u128::from(part) * 100, u128::from(whole));
+    let holds = |(lower, upper): Band| {
+        lower.is_none_or(|(p, inclusive)| {
+            let bound = u128::from(p) * whole;
+            if inclusive {
+                part >= bound
+            } else {
+                part > bound
+            }
+        }) && upper.is_none_or(|(p, inclusive)| {
+            let bound = u128::from(p) * whole;
+            if inclusive {
+                part <= bound
+            } else {
+                part < bound
+            }
+        })
+    };
+    let scores: Vec<u64> = (1..=6)
+        .filter(|score| holds(PCG_TABLE_1[factor][*score as usize - 1]))
+        .collect();
+    assert_eq!(scores.len(), 1, "Table 1 bands overlap or leave a gap");
+    scores[0]
+}
+
+/// Table 2 (paragraph 78): green, amber or red for an aggregate over 2 factors or all 3.
+fn pcg_zone(total: u64, factors: u8) -> &'static str {
+    match (factors, total) {
+        (2, ..=7) | (3, ..=10) => "green",
+        (2, 8) | (3, 11..=12) => "amber",
+        _ => "red",
+    }
+}
+
+/// A percentage to 2 places, half up, as a JavaScript number prints it.
+fn pcg_percent(part: u64, whole: u64) -> String {
+    let hundredths = half_up(&(BigUint::from(part) * 10_000_u32), &BigUint::from(whole));
+    shown(hundredths)
+}
+
+/// An amount at an exact percentage of `whole` when one exists in cents, else any amount up to it.
+fn pcg_amount(rng: &mut Seeded, whole: u64, percents: &[u64]) -> u64 {
+    let percent = rng.pick(percents);
+    let exact = whole * percent;
+    match rng.below(4) {
+        0 => rng.below(whole + 1),
+        _ if exact.is_multiple_of(100) => {
+            (exact / 100).saturating_add_signed(rng.pick(&[-1, 0, 0, 1]))
+        }
+        _ => exact / 100,
+    }
+}
+
+fn pcg_case(rng: &mut Seeded) -> (Value, Value) {
+    let entitlement = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let returned = pcg_amount(rng, entitlement, &[0, 25, 50, 60, 75, 90, 100]).min(entitlement);
+    let tax = pcg_amount(rng, entitlement, &[0, 20, 25, 30, 35, 40, 100]).min(entitlement);
+    let all = rng.below(2) == 1;
+    let benchmark = 1 + rng.cents(100_000_000);
+    let remuneration = pcg_amount(rng, benchmark, &[70, 90, 100, 150, 200, 300]);
+    let arrangement = json!({
+        "gateway1": true, "gateway2": true, "entitlement": dollars(entitlement),
+        "returned": dollars(returned), "tax": dollars(tax), "factor3": all,
+        "remuneration": dollars(remuneration), "benchmark": dollars(benchmark),
+    });
+    let expected = if returned == entitlement {
+        // Paragraph 81: the whole entitlement returned is low risk with no other factor.
+        json!({"returned": "100", "factor1": "1", "taxRate": null, "factor2": null,
+            "benchmarkShare": null, "factor3": null, "total": null, "zone": "green"})
+    } else {
+        let (factor1, factor2) = (
+            pcg_band(0, returned, entitlement),
+            pcg_band(1, tax, entitlement),
+        );
+        let factor3 = all.then(|| pcg_band(2, remuneration, benchmark));
+        let total = factor1 + factor2 + factor3.unwrap_or(0);
+        json!({
+            "returned": pcg_percent(returned, entitlement), "factor1": factor1.to_string(),
+            "taxRate": pcg_percent(tax, entitlement), "factor2": factor2.to_string(),
+            "benchmarkShare": all.then(|| pcg_percent(remuneration, benchmark)),
+            "factor3": factor3.map(|score| score.to_string()), "total": total.to_string(),
+            "zone": pcg_zone(total, if all { 3 } else { 2 }),
+        })
+    };
+    (json!({"kind": "pcg", "arrangement": arrangement}), expected)
+}
+
+#[test]
+fn the_pcg_oracle_scores_the_guideline_case_studies() {
+    // Case study 1: $330,000 of $600,000 is 55%, a 4; $189,367 of tax is 31.56%, a 3; green at 7.
+    assert_eq!(
+        (pcg_band(0, 330_000, 600_000), pcg_band(1, 189_367, 600_000)),
+        (4, 3)
+    );
+    assert_eq!(pcg_percent(18_936_700, 60_000_000), "31.56");
+    // Case study 10: 50% is a 4 and 28.56% a 4, so 8 is amber.
+    assert_eq!(pcg_band(1, 114_234, 400_000), 4);
+    assert_eq!(pcg_zone(8, 2), "amber");
+    // Case study 7: $360,000 against a $350,000 benchmark is 103%, a 3; 10 on all 3 is green.
+    assert_eq!(pcg_band(2, 360_000, 350_000), 3);
+    assert_eq!(pcg_zone(10, 3), "green");
+    assert_eq!(pcg_zone(13, 3), "red");
+}
+
+#[test]
+fn the_pcg_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1115_0FC6_2021);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..PCG_CASES).map(|_| pcg_case(&mut rng)).unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), PCG_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

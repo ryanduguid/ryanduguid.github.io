@@ -32,6 +32,15 @@ const duty: number = calculate.transferDuty('1350000', [['0', '', '0', '1', 'exc
 // @ts-expect-error A dutiable value is a decimal string, as the form field gives it.
 calculate.transferDuty(1350000, [['0', '', '0', '1', 'excess']]);
 void duty;
+const arrangement = { gateway1: true, gateway2: true, entitlement: '600000', returned: '330000', tax: '189367',
+  factor3: false, remuneration: '0', benchmark: '0' };
+const zone: string = calculate.pcgRisk(arrangement).zone;
+// @ts-expect-error A gateway answer is a boolean, as the form passes it.
+calculate.pcgRisk({ ...arrangement, gateway1: 'yes' });
+// @ts-expect-error Factor 3's score is null when only factors 1 and 2 are used.
+const factor3: number = calculate.pcgRisk(arrangement).factor3;
+void zone;
+void factor3;
 void tax;
 void formatted;
 const objection: string = calculate.objectionDeadline('assessment', '2', '2026-11-18', '2026-11-18').lastDay;

@@ -494,3 +494,64 @@ export function terminationPayment(payment, year) {
     cap: cap / 100, nonExcludedWithholding: nonExcludedWithholding / 100,
     withholding: (excludedWithholding + nonExcludedWithholding) / 100 };
 }
+
+// PCG 2021/4, Table 1 (paragraph 76): each risk assessment factor's bands, from score 1 to 5,
+// as a percentage and whether the band includes it; anything below the fifth band scores 6.
+// Factor 1 is the profit entitlement returned by the IPP, factor 2 the total effective tax
+// rate and factor 3 the IPP's remuneration as a share of the commercial benchmark.
+/** @type {ReadonlyArray<ReadonlyArray<readonly [number, boolean]>>} */
+const PCG_BANDS = [
+  [[90, false], [75, false], [60, false], [50, true], [25, false]],
+  [[40, false], [35, false], [30, true], [25, false], [20, false]],
+  [[200, false], [150, false], [100, false], [90, false], [70, false]],
+];
+// Table 2 (paragraph 78): the highest green and the highest amber aggregate, against 2 factors or all 3.
+/** @type {Readonly<Record<2 | 3, readonly [number, number]>>} */
+const PCG_ZONES = { 2: [7, 8], 3: [10, 12] };
+
+/** The score for part over whole: the first band it reaches, compared exactly in cents.
+ * @param {number} part @param {number} whole positive @param {number} factor 0, 1 or 2 */
+const pcgScore = (part, whole, factor) => {
+  const band = PCG_BANDS[factor].findIndex(([percent, inclusive]) =>
+    (inclusive ? part * 100 >= percent * whole : part * 100 > percent * whole));
+  return band === -1 ? 6 : band + 1;
+};
+
+/** PCG 2021/4, Allocation of professional firm profits: the ATO's risk zone for one IPP's
+ * arrangement. The guideline scores only an arrangement that passes both gateways
+ * (paragraphs 10 to 12). Returning the whole entitlement is low risk with no other factor
+ * scored (paragraph 81). Factor 3 is optional (paragraphs 77 to 80). Each factor's
+ * percentage is compared with its bands exactly; the percentages returned round to 0.01.
+ * @param {{gateway1: boolean, gateway2: boolean, entitlement: string, returned: string, tax: string,
+ *   factor3: boolean, remuneration: string, benchmark: string}} arrangement */
+export function pcgRisk(arrangement) {
+  const failed = [arrangement.gateway1, arrangement.gateway2].findIndex((passed) => passed !== true);
+  if (failed !== -1) throw new Error(`The arrangement fails Gateway ${failed + 1}, so PCG 2021/4 gives it no risk score.`);
+  const entitlement = cents(arrangement.entitlement);
+  const returned = cents(arrangement.returned);
+  if (entitlement === 0) throw new Error('Enter a profit entitlement above nil.');
+  const tax = cents(arrangement.tax);
+  if (returned > entitlement) throw new Error('The amount returned cannot exceed the profit entitlement.');
+  if (tax > entitlement) throw new Error('The tax cannot exceed the firm income.');
+  if (returned === entitlement) {
+    return { returned: 100, factor1: 1, taxRate: null, factor2: null, benchmarkShare: null, factor3: null,
+      total: null, zone: 'green' };
+  }
+  const factor1 = pcgScore(returned, entitlement, 0);
+  const factor2 = pcgScore(tax, entitlement, 1);
+  /** @type {number | null} */
+  let benchmarkShare = null;
+  /** @type {number | null} */
+  let factor3 = null;
+  if (arrangement.factor3) {
+    const benchmark = cents(arrangement.benchmark);
+    if (benchmark === 0) throw new Error('Enter a commercial benchmark above nil.');
+    const remuneration = cents(arrangement.remuneration);
+    benchmarkShare = ratioPercent(remuneration, benchmark);
+    factor3 = pcgScore(remuneration, benchmark, 2);
+  }
+  const total = factor1 + factor2 + (factor3 ?? 0);
+  const [green, amber] = PCG_ZONES[factor3 === null ? 2 : 3];
+  return { returned: ratioPercent(returned, entitlement), factor1, taxRate: ratioPercent(tax, entitlement), factor2,
+    benchmarkShare, factor3, total, zone: total <= green ? 'green' : total <= amber ? 'amber' : 'red' };
+}

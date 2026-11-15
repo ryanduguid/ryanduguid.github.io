@@ -26,7 +26,7 @@ The site publishes its pages as registers, each under one top-level path.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates, each rendered by `_layouts/rate.html` from its front matter, and `/rates/register/register.json` is a versioned machine-readable register, which so far carries one series, the Coal LSL levy percentage. `/rates/` itself lists every table with its current value and Source checked date.
 - `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.
-- `/tools/business-calculators/` indexes 16 business calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario has CSV export.
+- `/tools/business-calculators/` indexes 17 business calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario has CSV export.
 - `/tools/ozzit/` documents the Ozzit Excel function library, with one page per module under `functions/`, rendered by `site-tools build_ozzit_reference` from the function reference of the release `scripts/release_record.json` names.
 - `assets/hub-routes.mjs` forwards an old `#q12` or `#cash` bookmark on either index to the page that now holds it.
 - `/feed.xml` is an Atom feed built from the changelog tables by `site-tools build_feed`.
