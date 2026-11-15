@@ -339,6 +339,7 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   fee: 'fee', total: 'total', first: 'first instalment', instalment: 'each later instalment', effectiveRate: 'effective rate', duty: 'duty' };
 Object.assign(LABELS, { baseValue: 'base value', statutory: 'statutory formula value', operating: 'operating cost value',
   taxableValue: 'taxable value', grossedUp: 'grossed-up value', fbt: 'FBT' });
+Object.assign(LABELS, { final: 'final instalment', totalPaid: 'total paid', gic: 'GIC' });
 // PCG 2021/4 results are scores, a zone and percentages of the entitlement or the benchmark.
 const PCG_SHOWN = { returned: (v) => `returned ${v.toFixed(2)}%`, taxRate: (v) => `tax rate ${v.toFixed(2)}%`,
   benchmarkShare: (v) => `${v.toFixed(2)}% of benchmark`, factor1: (v) => `factor 1 score ${v}`,
@@ -361,7 +362,9 @@ Object.assign(LABELS, { periodEnds: 'period ends', lastDay: 'last day', amendedE
   firstEnds: 'first notice period ends' });
 Object.assign(LABELS, { amount: 'amount', credit: 'credit', due: 'due by this instalment' });
 // Fields an engine shows its own way, by engine: a label, or a function that writes the value.
-const ENGINE_LABELS = { paygInstalment: { instalment: 'instalment' }, pcgRisk: PCG_SHOWN };
+const ENGINE_LABELS = { paygInstalment: { instalment: 'instalment' }, pcgRisk: PCG_SHOWN,
+  gicPaymentPlan: { instalment: 'instalment', lastDate: (v) => `last instalment ${v}`,
+    assumedDays: (v) => `${v} ${v === 1 ? 'day' : 'days'} at the assumed rate` } };
 
 test('every business calculator shows its boundary cases', () => {
   const pages = readdirSync(new URL('../tools/business-calculators/', import.meta.url), { withFileTypes: true })
@@ -395,6 +398,8 @@ const INPUTS = {
   pcgRisk: (a) => `${a.gateway1 && a.gateway2 ? 'Gateways passed' : `Gateway ${a.gateway1 ? 2 : 1} failed`}; entitlement `
     + `${dollars(a.entitlement)}, returned ${dollars(a.returned)}, tax ${dollars(a.tax)}`
     + `${a.factor3 ? `, remuneration ${dollars(a.remuneration)} against ${dollars(a.benchmark)}` : ''}`,
+  gicPaymentPlan: (p) => `${dollars(p.debt)} from ${p.start}, ${p.count} ${p.frequency} `
+    + `${p.count === '1' ? 'instalment' : 'instalments'}, ${p.assumedRate}% assumed after the table`,
   cashForecast: (opening, weeks, buffer, delayed) => {
     const week = weeks.findIndex(({ receipts }) => receipts !== '0');
     assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
@@ -671,6 +676,7 @@ const FORM_CALLS = {
     costs: f.costs, businessUse: f['business-use'], contribution: f.contribution }, fbtYear[f.type]],
   pcgRisk: (f) => [{ gateway1: f.gateway1 === 'yes', gateway2: f.gateway2 === 'yes', entitlement: f.entitlement,
     returned: f.returned, tax: f.tax, factor3: f.factor3 === 'yes', remuneration: f.remuneration, benchmark: f.benchmark }],
+  gicPaymentPlan: (f) => [{ debt: f.debt, start: f.start, count: f.count, frequency: f.frequency, assumedRate: f.assumedRate }],
   staffCost: (f) => [f.wages, f.super, f.other],
   cashForecast: (f) => [f.opening,
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
@@ -965,5 +971,114 @@ test('PCG 2021/4 refuses a failed gateway and figures it cannot score', () => {
     [{ tax: '-1' }, 'Enter an amount between 0 and 1000000000.'],
   ]) {
     assert.throws(() => calculations.pcgRisk(pcgArrangement(fields)), { message }, JSON.stringify(fields));
+  }
+});
+
+// General interest charge, Taxation Administration Act 1953 ss 8AAC and 8AAD (Compilation No. 227,
+// 1 October 2026), read 15 November 2026: https://www.legislation.gov.au/C1953A00001/latest/text
+// A day's rate is the annual rate divided by the days in the calendar year, applied to the debt and
+// the GIC still unpaid at the end of the day.
+//
+// $1,000 by 3 monthly instalments from 1 October 2026, worked by hand at 11.51% (October to December
+// 2026, 365 days): one day's growth g = 1 + 0.1151 / 365 = 1.000315342466. The instalments fall on
+// 1 October, 1 November (31 days later) and 1 December (30 days later), so an equal instalment P
+// clears the debt when 1000 x g^61 = P x (g^61 + g^30 + 1), and P = 1000 x 1.019414 / 3.028907 =
+// 336.5616: $336.56, rounded down to the cent.
+//   1 October:  1000.00 - 336.56 = 663.44, which grows by g^31 = 1.009822 to 669.9563 on 1 November.
+//   1 November: 669.9563 - 336.56 = 333.3963, which grows by g^30 = 1.009504 to 336.5648 on 1 December.
+//   1 December: the final instalment pays 336.5648, which is $336.56.
+// Total paid 336.56 + 336.56 + 336.56 = $1,009.68, so the plan costs $9.68 of GIC over paying now.
+test('GIC on 3 monthly instalments matches the hand-worked example', () => {
+  const g = 1 + 0.1151 / 365;
+  const exact = 1000 * g ** 61 / (g ** 61 + g ** 30 + 1);
+  assert.equal(Math.floor(exact * 100) / 100, 336.56);
+  const second = (1000 - 336.56) * g ** 31 - 336.56;
+  assert.equal(Math.round(second * g ** 30 * 100) / 100, 336.56);
+  assert.deepEqual(calculations.gicPaymentPlan({ debt: '1000', start: '2026-10-01', count: '3', frequency: 'monthly',
+    assumedRate: '11.51' }), { instalment: 336.56, final: 336.56, totalPaid: 1009.68, gic: 9.68, lastDate: '2026-12-01',
+    assumedDays: 0 });
+});
+
+// The rate table CSV is the ATO's list, read 15 November 2026 from
+// https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates (last updated 4 September 2026).
+const GIC_SOURCE = 'https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates';
+const gicCsv = readFileSync(new URL('../rates/general-interest-charge/general-interest-charge-rates.csv', import.meta.url), 'utf8')
+  .trim().split(/\r?\n/);
+const gicRows = gicCsv.slice(1).map((line) => Object.fromEntries(line.split(',').map((cell, i) => [gicCsv[0].split(',')[i], cell])));
+test('GIC rate CSV: contiguous quarters from July 1999, each daily rate from its annual rate, each with its source', () => {
+  assert.equal(gicCsv[0], 'quarter_start,quarter_end,annual_rate_percent,daily_rate_percent,source_url,checked_at');
+  const oldest = [...gicRows].reverse();
+  assert.equal(oldest[0].quarter_start, '1999-07-01');
+  oldest.forEach((row, i) => {
+    const start = new Date(`${row.quarter_start}T00:00:00Z`);
+    assert.equal(start.getUTCDate(), 1, row.quarter_start);
+    assert.equal(start.getUTCMonth() % 3, 0, row.quarter_start);
+    const end = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 3, 0)).toISOString().slice(0, 10);
+    assert.equal(row.quarter_end, end, row.quarter_start);
+    if (i > 0) assert.equal(Date.parse(row.quarter_start) - Date.parse(oldest[i - 1].quarter_end), 86400000);
+    // The ATO's daily rate is the annual rate over the days in the calendar year to 8 places; in 13
+    // quarters its last place is 1 away from the nearest rounding, never more.
+    const year = start.getUTCFullYear();
+    const days = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 366 : 365;
+    assert.match(row.annual_rate_percent, /^\d{1,2}\.\d{2}$/);
+    assert.match(row.daily_rate_percent, /^0\.\d{8}$/);
+    const [annual, daily] = [Math.round(Number(row.annual_rate_percent) * 100), Number(row.daily_rate_percent.slice(2))];
+    assert.ok(Math.abs(daily * days - annual * 1000000) < 1.5 * days, row.quarter_start);
+    assert.equal(row.source_url, GIC_SOURCE);
+    assert.equal(row.checked_at, '2026-11-15');
+  });
+  // The rate page says 13 quarters differ from the nearest rounding.
+  assert.equal(gicRows.filter((row) => {
+    const year = Number(row.quarter_start.slice(0, 4));
+    const days = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 366 : 365;
+    return Number(row.daily_rate_percent.slice(2)) !== Math.round(Math.round(Number(row.annual_rate_percent) * 100) * 1000000 / days);
+  }).length, 13);
+  // The latest 2 quarters, as the ATO page states them.
+  assert.deepEqual(gicRows.slice(0, 2).map((row) => [row.quarter_start, row.annual_rate_percent, row.daily_rate_percent]),
+    [['2026-10-01', '11.51', '0.03153425'], ['2026-07-01', '11.43', '0.03131507']]);
+});
+
+test('the GIC engine uses the CSV rates, and the pages name the month its table ends', () => {
+  assert.deepEqual(calculations.GIC_QUARTERS, [...gicRows].reverse().map((row) => [row.quarter_start, row.annual_rate_percent]));
+  const end = new Date(`${gicRows[0].quarter_end}T00:00:00Z`).toLocaleDateString('en-AU', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const html = readFileSync(new URL('../_includes/calculators/gic-payment-plan.html', import.meta.url), 'utf8');
+  const script = readFileSync(new URL('../assets/accounting-pages.mjs', import.meta.url), 'utf8');
+  const named = [...html.matchAll(/after (\w+ \d{4})/g), ...script.matchAll(/after (\w+ \d{4})/g)].map((m) => m[1]);
+  assert.equal(named.length, 6);
+  assert.ok(named.every((month) => month === end), named.join(', '));
+  assert.match(html, new RegExp(`up to ${new Date(`${gicRows[0].quarter_end}T00:00:00Z`).toLocaleDateString('en-AU',
+    { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })} comes from`));
+});
+
+// The rate page's example: $10,000 unpaid for the 92 days of October to December 2026 at 11.51%.
+test('the GIC rate page example compounds 92 days of the October to December 2026 rate', () => {
+  const grown = (1000000n * 3651151n ** 92n * 2n + 3650000n ** 92n) / (2n * 3650000n ** 92n);
+  assert.equal(grown, 1029432n);
+  const page = readFileSync(new URL('../rates/general-interest-charge/index.html', import.meta.url), 'utf8');
+  assert.match(page, /grows\s+to \$10,294\.32: \$294\.32 of GIC/);
+});
+
+test('GIC instalments fall on the same day each month, or the last day of a shorter month', () => {
+  const plan = (start, count, frequency) => calculations.gicPaymentPlan({ debt: '100', start, count, frequency, assumedRate: '11.51' });
+  assert.equal(plan('2026-01-31', '2', 'monthly').lastDate, '2026-02-28');
+  assert.equal(plan('2026-01-31', '3', 'monthly').lastDate, '2026-03-31');
+  assert.equal(plan('2026-08-31', '5', 'monthly').lastDate, '2026-12-31');
+  assert.equal(plan('2026-12-31', '2', 'fortnightly').lastDate, '2027-01-14');
+  assert.equal(plan('2026-12-31', '2', 'fortnightly').assumedDays, 13);
+});
+
+test('GIC payment plan refuses inputs it cannot work', () => {
+  const plan = { debt: '1000', start: '2026-10-01', count: '3', frequency: 'monthly', assumedRate: '11.51' };
+  for (const [fields, message] of [
+    [{ start: '2026-02-30' }, 'Enter a start date from 1999-07-01 to 2099-12-31.'],
+    [{ start: '2100-01-01' }, 'Enter a start date from 1999-07-01 to 2099-12-31.'],
+    [{ start: '1 October 2026' }, 'Enter a start date from 1999-07-01 to 2099-12-31.'],
+    [{ count: '2.5' }, 'Enter a whole number between 1 and 120.'],
+    [{ count: '0' }, 'Enter a whole number between 1 and 120.'],
+    [{ frequency: 'quarterly' }, 'Choose weekly, fortnightly or monthly.'],
+    [{ assumedRate: '0' }, 'Enter an amount between 0.01 and 100.'],
+    [{ debt: '-1' }, 'Enter an amount between 0 and 1000000000.'],
+  ]) {
+    assert.throws(() => calculations.gicPaymentPlan({ ...plan, ...fields }), { message }, JSON.stringify(fields));
   }
 });

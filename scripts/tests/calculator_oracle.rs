@@ -41,6 +41,12 @@
 //! A further 120 seeded PCG 2021/4 arrangements, from their own seed, are scored against
 //! each band's lower and upper bounds as Table 1 writes them and the zone ranges of
 //! Table 2, where the engine takes the first band whose lower bound a percentage reaches.
+//!
+//! A further 120 seeded GIC payment plans read each quarter's rate from the published CSV,
+//! not the engine's copy, and count their own calendar days. The equal instalment is the
+//! debt over the sum of each instalment's discount factor, and the final instalment is
+//! the balance carried day by day, where the engine grows the debt and the instalments
+//! forward together.
 mod common;
 
 use chrono::{Datelike, NaiveDate, Weekday};
@@ -72,7 +78,7 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r#"
 import { readFileSync } from 'node:fs';
-import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, fbtCar, fixedFee, pcgRisk } from './assets/business-calculators.mjs';
+import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 // Each jurisdiction's scale as the rendered calculator page gives it to the browser.
 const page = readFileSync('tools/business-calculators/transfer-duty/index.html', 'utf8');
@@ -111,6 +117,7 @@ const run = {
   },
   pcg: ({ arrangement }) => Object.fromEntries(Object.entries(pcgRisk(arrangement))
     .map(([key, value]) => [key, value === null ? null : String(value)])),
+  gic: ({ plan }) => Object.fromEntries(Object.entries(gicPaymentPlan(plan)).map(([key, value]) => [key, String(value)])),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 "#;
@@ -2017,6 +2024,217 @@ fn the_pcg_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let (cases, expected): (Vec<_>, Vec<_>) = (0..PCG_CASES).map(|_| pcg_case(&mut rng)).unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), PCG_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+const GIC_CASES: usize = 120;
+
+/// Days since 1 January 1970 of a Gregorian calendar date (Howard Hinnant's days_from_civil).
+fn day_number(year: i64, month: i64, day: i64) -> i64 {
+    let year = if month <= 2 { year - 1 } else { year };
+    let era = year.div_euclid(400);
+    let of_era = year - era * 400;
+    let of_year = (153 * ((month + 9) % 12) + 2) / 5 + day - 1;
+    era * 146_097 + of_era * 365 + of_era / 4 - of_era / 100 + of_year - 719_468
+}
+
+/// The year, month and day of a day number (civil_from_days).
+fn civil(days: i64) -> (i64, i64, i64) {
+    let shifted = days + 719_468;
+    let era = shifted.div_euclid(146_097);
+    let of_era = shifted - era * 146_097;
+    let year_of_era = (of_era - of_era / 1460 + of_era / 36_524 - of_era / 146_096) / 365;
+    let of_year = of_era - (365 * year_of_era + year_of_era / 4 - year_of_era / 100);
+    let shifted_month = (5 * of_year + 2) / 153;
+    let day = of_year - (153 * shifted_month + 2) / 5 + 1;
+    let month = if shifted_month < 10 {
+        shifted_month + 3
+    } else {
+        shifted_month - 9
+    };
+    (year_of_era + era * 400 + i64::from(month <= 2), month, day)
+}
+
+fn iso(days: i64) -> String {
+    let (year, month, day) = civil(days);
+    format!("{year:04}-{month:02}-{day:02}")
+}
+
+fn parse_iso(text: &str) -> i64 {
+    let parts: Vec<i64> = text.split('-').map(|part| part.parse().unwrap()).collect();
+    day_number(parts[0], parts[1], parts[2])
+}
+
+/// Each quarter's first and last day and its annual rate in hundredths of 1%, read from the
+/// published CSV rather than the engine's copy.
+fn gic_quarters() -> Vec<(i64, i64, u64)> {
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../rates/general-interest-charge/general-interest-charge-rates.csv");
+    let csv = std::fs::read_to_string(path).unwrap();
+    csv.lines()
+        .skip(1)
+        .map(|line| {
+            let cells: Vec<&str> = line.split(',').collect();
+            let (whole, part) = cells[2].split_once('.').unwrap();
+            assert_eq!(part.len(), 2, "{line}");
+            let rate = whole.parse::<u64>().unwrap() * 100 + part.parse::<u64>().unwrap();
+            (parse_iso(cells[0]), parse_iso(cells[1]), rate)
+        })
+        .collect()
+}
+
+/// Instalment days: every 7 or 14 days, or the same day of each month, or the month's last day.
+fn gic_instalment_days(start: i64, count: u64, frequency: &str) -> Vec<i64> {
+    let (year, month, day) = civil(start);
+    (0..i64::try_from(count).unwrap())
+        .map(|k| match frequency {
+            "weekly" => start + 7 * k,
+            "fortnightly" => start + 14 * k,
+            _ => {
+                let months = year * 12 + month - 1 + k;
+                let (y, m) = (months.div_euclid(12), months.rem_euclid(12) + 1);
+                let length = day_number(y + m / 12, m % 12 + 1, 1) - day_number(y, m, 1);
+                day_number(y, m, day.min(length))
+            }
+        })
+        .collect()
+}
+
+/// The equal instalment and the final instalment in cents, and the days at the assumed rate.
+fn gic_oracle(
+    quarters: &[(i64, i64, u64)],
+    debt: u64,
+    days: &[i64],
+    assumed: u64,
+) -> (u64, u64, u64) {
+    let table_end = quarters.iter().map(|quarter| quarter.1).max().unwrap();
+    let (start, last) = (days[0], days[days.len() - 1]);
+    // Each day's growth as (10,000 x days in its year + rate) over 10,000 x days in its year.
+    let growth: Vec<(u64, u64)> = (start..last)
+        .map(|day| {
+            let rate = if day > table_end {
+                assumed
+            } else {
+                quarters
+                    .iter()
+                    .find(|q| q.0 <= day && day <= q.1)
+                    .unwrap()
+                    .2
+            };
+            let year = civil(day).0;
+            let length = day_number(year + 1, 1, 1) - day_number(year, 1, 1);
+            let base = 10_000 * u64::try_from(length).unwrap();
+            (base + rate, base)
+        })
+        .collect();
+    let splits: Vec<usize> = days
+        .iter()
+        .map(|day| usize::try_from(day - start).unwrap())
+        .collect();
+    // An instalment's discount factor is the product of base / (base + rate) over the days
+    // before it. Over the product of every (base + rate), that is the bases before it times
+    // the (base + rate) terms from its day on.
+    let mut from_day = vec![BigUint::ZERO; splits.len()];
+    let (mut all, mut index) = (BigUint::from(1_u8), growth.len());
+    for (split, slot) in splits.iter().zip(from_day.iter_mut()).rev() {
+        while index > *split {
+            index -= 1;
+            all *= growth[index].0;
+        }
+        *slot = all.clone();
+    }
+    let (mut factors, mut before, mut index) = (BigUint::ZERO, BigUint::from(1_u8), 0);
+    for (split, after) in splits.iter().zip(&from_day) {
+        while index < *split {
+            before *= growth[index].1;
+            index += 1;
+        }
+        factors += &before * after;
+    }
+    let instalment: u64 = (BigUint::from(debt) * &all / &factors).try_into().unwrap();
+    // The balance carried day by day: each instalment but the last is paid on its day, before
+    // that day's GIC; the final instalment is what is left on the last day.
+    let (mut numerator, mut denominator) = (BigUint::from(debt), BigUint::from(1_u8));
+    let mut index = 0;
+    for (k, split) in splits.iter().enumerate() {
+        while index < *split {
+            numerator *= growth[index].0;
+            denominator *= growth[index].1;
+            index += 1;
+        }
+        if k + 1 < splits.len() {
+            numerator -= BigUint::from(instalment) * &denominator;
+        }
+    }
+    let assumed_days = (start..last).filter(|day| *day > table_end).count();
+    (
+        instalment,
+        half_up(&numerator, &denominator),
+        assumed_days as u64,
+    )
+}
+
+fn gic_case(rng: &mut Seeded, quarters: &[(i64, i64, u64)]) -> (Value, Value) {
+    let debt = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let first = day_number(1999, 7, 1);
+    let span = u64::try_from(day_number(2028, 1, 1) - first).unwrap();
+    let start = first + i64::try_from(rng.below(span)).unwrap();
+    let any_count = 1 + rng.below(120);
+    let count = rng.pick(&[1, 2, 3, 12, 120, any_count, any_count]);
+    let frequency = rng.pick(&["weekly", "fortnightly", "monthly"]);
+    let any_rate = 1 + rng.below(10_000);
+    let assumed = rng.pick(&[1151, 900, any_rate]);
+    let days = gic_instalment_days(start, count, frequency);
+    let (instalment, last, assumed_days) = gic_oracle(quarters, debt, &days, assumed);
+    let total = instalment * (count - 1) + last;
+    let plan = json!({
+        "debt": dollars(debt), "start": iso(start), "count": count.to_string(),
+        "frequency": frequency, "assumedRate": format!("{}.{:02}", assumed / 100, assumed % 100),
+    });
+    let expected = json!({
+        "instalment": shown(instalment), "final": shown(last), "totalPaid": shown(total),
+        "gic": shown(total - debt), "lastDate": iso(days[days.len() - 1]),
+        "assumedDays": assumed_days.to_string(),
+    });
+    (json!({"kind": "gic", "plan": plan}), expected)
+}
+
+#[test]
+fn the_gic_oracle_works_the_hand_worked_plan() {
+    let quarters = gic_quarters();
+    assert_eq!(quarters.len(), 110);
+    assert_eq!(
+        (iso(quarters[0].0), quarters[0].2),
+        ("2026-10-01".to_owned(), 1151)
+    );
+    let days = gic_instalment_days(day_number(2026, 10, 1), 3, "monthly");
+    let shown_days: Vec<String> = days.iter().map(|day| iso(*day)).collect();
+    assert_eq!(shown_days, ["2026-10-01", "2026-11-01", "2026-12-01"]);
+    // $1,000 by 3 monthly instalments at 11.51%: $336.56, $336.56 and a final $336.56.
+    assert_eq!(
+        gic_oracle(&quarters, 100_000, &days, 1151),
+        (33_656, 33_656, 0)
+    );
+    // 31 January falls back to 29 February in a leap year and 28 February otherwise.
+    let leap = gic_instalment_days(day_number(2024, 1, 31), 2, "monthly");
+    let ordinary = gic_instalment_days(day_number(2026, 1, 31), 2, "monthly");
+    assert_eq!(
+        (iso(leap[1]), iso(ordinary[1])),
+        ("2024-02-29".to_owned(), "2026-02-28".to_owned())
+    );
+}
+
+#[test]
+fn the_gic_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let quarters = gic_quarters();
+    let mut rng = Seeded(0x2026_1115_061C_8AAC);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..GIC_CASES)
+        .map(|_| gic_case(&mut rng, &quarters))
+        .unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), GIC_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

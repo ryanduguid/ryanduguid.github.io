@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 146] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 147] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -163,6 +163,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 146] = [
     "https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate",
     "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
     "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
+    "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
     "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/about-this-schedule",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",

@@ -562,9 +562,36 @@ test('PCG 2021/4 refuses a failed gateway and scores case study 7 on all 3 facto
     + 'Factor 3: remuneration as a share of the benchmark: 102.86%, score 3. Aggregate score: 10. Risk zone: Green: low risk.');
 });
 
+test('GIC payment plan works a weekly plan and one past the published rates offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/gic-payment-plan/');
+  const form = page.locator('#gic-payment-plan form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Tax debt on the plan’s first day (AUD)').fill('1000000');
+  await form.getByLabel('Date of the first instalment').fill('2026-09-30');
+  await form.getByLabel('Number of equal instalments').fill('2');
+  await form.getByLabel('Weekly').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: debt $1,000,000.00, first instalment 30 Sept 2026, 2 weekly instalments, 11.51% a year assumed after December 2026. '
+    + 'Paid in full now: $1,000,000.00. Each instalment but the last: $500,551.21. Final instalment, 7 Oct 2026: $500,551.22. '
+    + 'Total paid on the plan: $1,001,102.43. GIC on the plan, over paying now: $1,102.43.');
+  await form.getByLabel('Tax debt on the plan’s first day (AUD)').fill('20000');
+  await form.getByLabel('Date of the first instalment').fill('2026-11-15');
+  await form.getByLabel('Number of equal instalments').fill('12');
+  await form.getByLabel('Monthly, on the same day of the month').check();
+  await form.getByLabel('Annual GIC rate to assume after December 2026 (%)').fill('9');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('GIC on the plan, over paying now: $891.43.');
+  await expect(form.locator('output .result-note')).toHaveText('287 days after December 2026 use the assumed rate.');
+  await form.getByLabel('Number of equal instalments').fill('121');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('.field-error')).toHaveText('Enter 120 or less.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
-  'fbt-car', 'pcg-2021-4', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
+  'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
   'transfer-duty'];
 
 test.describe('before any script runs', () => {

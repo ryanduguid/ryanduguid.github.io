@@ -39,6 +39,14 @@ const zone: string = calculate.pcgRisk(arrangement).zone;
 calculate.pcgRisk({ ...arrangement, gateway1: 'yes' });
 // @ts-expect-error Factor 3's score is null when only factors 1 and 2 are used.
 const factor3: number = calculate.pcgRisk(arrangement).factor3;
+const plan = { debt: '1000', start: '2026-10-01', count: '3', frequency: 'monthly', assumedRate: '11.51' } as const;
+const gic: number = calculate.gicPaymentPlan(plan).gic;
+// @ts-expect-error A plan's frequency is weekly, fortnightly or monthly.
+calculate.gicPaymentPlan({ ...plan, frequency: 'quarterly' });
+// @ts-expect-error The last instalment date is an ISO date string.
+const lastDay: Date = calculate.gicPaymentPlan(plan).lastDate;
+void gic;
+void lastDay;
 void zone;
 void factor3;
 void tax;

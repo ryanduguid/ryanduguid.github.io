@@ -669,6 +669,10 @@ pub const COLLECTION_HUBS: [CollectionHub; 3] = [
                 "PAYG withholding: Schedule 1 coefficients",
             ),
             (
+                "/rates/general-interest-charge/",
+                "General interest charge rate",
+            ),
+            (
                 "/rates/announced-not-yet-law/",
                 "Announced tax measures and enacted law",
             ),
@@ -743,7 +747,7 @@ pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
 ];
-pub const ARTICLE_PATTERN_PAGES: [&str; 41] = [
+pub const ARTICLE_PATTERN_PAGES: [&str; 42] = [
     "works-with/index.html",
     "works-with/xero/index.html",
     "works-with/claude/index.html",
@@ -783,10 +787,11 @@ pub const ARTICLE_PATTERN_PAGES: [&str; 41] = [
     "rates/individual-income-tax/index.html",
     "rates/study-loan-repayment/index.html",
     "rates/payg-withholding/index.html",
+    "rates/general-interest-charge/index.html",
     "rates/announced-not-yet-law/index.html",
     "rates/transfer-duty/index.html",
 ];
-pub const RATE_PAGES: [&str; 11] = [
+pub const RATE_PAGES: [&str; 12] = [
     "rates/super-guarantee/index.html",
     "rates/div7a-benchmark-rate/index.html",
     "rates/cents-per-kilometre/index.html",
@@ -796,6 +801,7 @@ pub const RATE_PAGES: [&str; 11] = [
     "rates/individual-income-tax/index.html",
     "rates/study-loan-repayment/index.html",
     "rates/payg-withholding/index.html",
+    "rates/general-interest-charge/index.html",
     "rates/announced-not-yet-law/index.html",
     "rates/transfer-duty/index.html",
 ];
