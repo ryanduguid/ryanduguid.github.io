@@ -102,7 +102,7 @@ const gstTool = (gst) => tool({
     + 'GST at 10% and GST-inclusive amount, rounded once to cents. Planning estimate only: it does not decide '
     + 'whether a supply is taxable, GST-free or input taxed.',
   inputSchema: record({
-    amount: text('amount', 'Amount in AUD with at most two decimal places, for example "1100.00".'),
+    amount: text('amount', 'Amount in AUD with at most 2 decimal places, for example "1100.00".'),
     inclusive: { type: 'boolean', description: 'true when the amount already includes GST; false or omitted when it excludes GST.' },
   }, ['amount']),
   run({ amount, inclusive = false }) {
@@ -125,8 +125,8 @@ const div7aTool = (minimumRepayment) => tool({
     + 'year: 8.77 for 2026-27 (https://duguid.com.au/rates/div7a-benchmark-rate/). It does not decide whether a '
     + 'loan is a Division 7A loan or whether its agreement complies.',
   inputSchema: record({
-    balance: text('amount', 'Loan not repaid at the end of the previous income year, in AUD with at most two decimal places, for example "100000".'),
-    benchmarkRate: text('percent', 'Benchmark interest rate for the income year, in per cent with at most two decimal places, for example "8.77".'),
+    balance: text('amount', 'Loan not repaid at the end of the previous income year, in AUD with at most 2 decimal places, for example "100000".'),
+    benchmarkRate: text('percent', 'Benchmark interest rate for the income year, in per cent with at most 2 decimal places, for example "8.77".'),
     remainingTerm: whole(1, 25, 'Remaining term of the loan in whole years.'),
   }, ['balance', 'benchmarkRate', 'remainingTerm']),
   run({ balance, benchmarkRate, remainingTerm }) {
@@ -148,8 +148,8 @@ const loanTool = (loan) => tool({
     + 'interest, each rounded half up to the cent. Planning estimate only: a lender\'s fees, rounding and '
     + 'payment dates can differ.',
   inputSchema: record({
-    principal: text('amount', 'Amount borrowed in AUD with at most two decimal places, for example "100000".'),
-    annualRate: text('rate', 'Annual interest rate in per cent with at most four decimal places, for example "6" or "6.25".'),
+    principal: text('amount', 'Amount borrowed in AUD with at most 2 decimal places, for example "100000".'),
+    annualRate: text('rate', 'Annual interest rate in per cent with at most 4 decimal places, for example "6" or "6.25".'),
     months: whole(1, 600, 'Number of monthly payments.'),
   }, ['principal', 'annualRate', 'months']),
   run({ principal, annualRate, months }) {
@@ -170,9 +170,9 @@ const breakEvenTool = (breakEven) => tool({
     + 'unit is price less variable cost, units are fixed costs divided by contribution and rounded up, and sales '
     + 'are those units times the price. The price must exceed the variable cost per unit.',
   inputSchema: record({
-    fixedCosts: text('amount', 'Fixed costs for the period in AUD with at most two decimal places.'),
-    pricePerUnit: text('amount', 'Selling price per unit in AUD with at most two decimal places.'),
-    variableCostPerUnit: text('amount', 'Variable cost per unit in AUD with at most two decimal places.'),
+    fixedCosts: text('amount', 'Fixed costs for the period in AUD with at most 2 decimal places.'),
+    pricePerUnit: text('amount', 'Selling price per unit in AUD with at most 2 decimal places.'),
+    variableCostPerUnit: text('amount', 'Variable cost per unit in AUD with at most 2 decimal places.'),
   }, ['fixedCosts', 'pricePerUnit', 'variableCostPerUnit']),
   run({ fixedCosts, pricePerUnit, variableCostPerUnit }) {
     const r = breakEven(fixedCosts, pricePerUnit, variableCostPerUnit);
@@ -211,12 +211,12 @@ export function depreciationTools({ parseCents, parseLife, parseUse, rates, sche
         + 'Income years end on 30 June. It assumes the asset is held all of each later year with no second element '
         + 'of cost, and does not cover assets first held before 10 May 2006, pools or immediate write-offs.',
       inputSchema: record({
-        cost: text('cost', 'Cost in AUD with at most two decimal places, for example "1500".'),
+        cost: text('cost', 'Cost in AUD with at most 2 decimal places, for example "1500".'),
         effectiveLife: text('life', 'Effective life in years: whole years, a decimal or a fraction as the determination prints it, for example "10", "7.5" or "6 2/3".'),
         startDate: text('date', 'Day the asset was first used or installed ready for use, as YYYY-MM-DD, on or after 2006-05-10.'),
         incomeYearEnding: whole(2007, 2300, 'Last income year to work out, by the year in which it ends on 30 June, for example 2027 for 2026-27.'),
         method: choice(['prime-cost', 'diminishing-value'], 'prime-cost or diminishing-value.'),
-        taxableUse: text('percent', 'Taxable use in per cent from 0 to 100 with at most two decimal places; "100" when omitted.'),
+        taxableUse: text('percent', 'Taxable use in per cent from 0 to 100 with at most 2 decimal places; "100" when omitted.'),
       }, ['cost', 'effectiveLife', 'startDate', 'incomeYearEnding', 'method']),
       run({ cost, effectiveLife, startDate, incomeYearEnding, method, taxableUse = '100' }) {
         const life = parseLife(effectiveLife);
@@ -242,7 +242,7 @@ const BONUS = record({
   frequency: choice(['weekly', 'fortnightly', 'monthly', 'quarterly', 'halfYearly', 'annually'], 'How often the bonus is paid.'),
 }, ['amount', 'frequency']);
 
-const LEVY_MONEY = 'in AUD with at most two decimal places; "0" when omitted.';
+const LEVY_MONEY = 'in AUD with at most 2 decimal places; "0" when omitted.';
 
 /** The levy tool's inputs: the page form's fields, by the same names. */
 const LEVY_INPUTS = record({
