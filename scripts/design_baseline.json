@@ -114,7 +114,7 @@
       "bd6cc13554d28ff5319d0491cd030e1ea3206009f4f1946795e70c71f9705ca0"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "45fdc74ea0b630f469a53f6f381913964a4acee688ce48d4447d0c9181d07863"
+      "4a9db58c85fde66d5cf893752b836d38a78034515e6eebc4bb431788ee45f90c"
     ],
     "tools/bas-due-dates/index.html": [
       "0cd228c7fb91aae4af73006d6ec4dd8fdbc67f341b2466fc721ea4dada27f930"
@@ -171,7 +171,7 @@
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
     ],
     "tools/limitations/index.html": [
-      "2c7deb2d11b010494b523ecd13bd7535e64448bd227e6150a4746257755addaf"
+      "2d3d865ad048775bbe97d9424a06a144861cb6698eb14f60b16d0db67fba7af7"
     ],
     "tools/monthly-close-controls/index.html": [
       "32acbba08ed97390cf61c4bf71912885e10885bf9034b99f5de5617be53be94c"
@@ -234,7 +234,7 @@
   "protected_files": {
     "llms.txt": "d6c96a7886dd08a2c7894c1e653829582206948b5b4ce1ddead130346f1bbb53",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "2b1092f686e396115b53eadf47610968ff8c1ef2b95d884325a63260c2d68c8a"
+    "sitemap.xml": "8d604b7b57249c4a8df9ba24808acb3076f60ec49ee5aec560a7eb0857772ba6"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
