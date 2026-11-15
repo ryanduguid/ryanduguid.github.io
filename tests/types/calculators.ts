@@ -30,3 +30,13 @@ calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
 calculate.div7aMinimumRepayment('100000', 8.77, '5');
 void tax;
 void formatted;
+const etpYear = { yearEnd: '2027-06-30', etpCap: '270000', wholeOfIncomeCap: '180000', baseAmount: '13598',
+  serviceAmount: '6801', rateUnder: '32', rateReached: '17', rateAbove: '47' };
+const etpPayment = { redundancy: '48000', years: '5', excluded: '0', nonExcluded: '17678', other: '140000', born: '1996-08-01' };
+const withheld: number = calculate.terminationPayment(etpPayment, etpYear).withholding;
+// @ts-expect-error Years of service are a decimal string, as the form passes them.
+calculate.terminationPayment({ ...etpPayment, years: 5 }, etpYear);
+// @ts-expect-error Whether preservation age is reached is a boolean, not text.
+const reachedText: string = calculate.terminationPayment(etpPayment, etpYear).reached;
+void withheld;
+void reachedText;

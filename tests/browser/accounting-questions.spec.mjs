@@ -463,8 +463,31 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
   await expect(form.locator('.field-error')).toHaveText('Enter 25 or less.');
 });
 
+test('ETP withholding takes the date of birth and works both caps offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/termination-payment/');
+  const form = page.locator('#termination-payment form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Genuine redundancy or early retirement scheme payment, before its tax-free part (AUD)').fill('0');
+  await form.getByLabel('Completed years of service').fill('0');
+  await form.locator('[name="non-excluded"]').fill('120000');
+  await form.getByLabel('Other taxable payments you made to the employee in 2026-27, excluding the ETP (AUD)').fill('100000');
+  await form.getByLabel('Employee’s date of birth').fill('1960-03-15');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: genuine redundancy or early retirement scheme payment $0.00 after 0 completed years of service, other code R taxable component $0.00, '
+    + 'code O taxable component $120,000.00, other taxable payments in 2026-27 $100,000.00, born 15 Mar 1960. Tax-free limit: $13,598.00. '
+    + 'Tax-free part of the redundancy payment: $0.00. Code R taxable component: $0.00. Withhold from the code R part: $0.00. '
+    + 'Whole-of-income cap left: $80,000.00. Cap for the code O part: $80,000.00. Withhold from the code O part: $32,400.00. '
+    + 'Total to withhold: $32,400.00. Preservation age or older on 30 June 2027: 17% within each cap and 47% above it.');
+  await form.getByLabel('Completed years of service').fill('151');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('.field-error')).toHaveText('Enter 150 or less.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
-const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash'];
+const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash',
+  'termination-payment'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

@@ -348,6 +348,22 @@ function initialiseCalculators([calculate, fieldErrors]) {
             cashDownload.disabled = false;
             break;
           }
+          case 'termination-payment': {
+            // The year's last day, caps, amounts and Table A rates come from the form; the Node
+            // tests bind them to Schedule 11.
+            const year = form.dataset;
+            const r = calculate.terminationPayment({ redundancy: value('redundancy'), years: value('years'), excluded: value('excluded'),
+              nonExcluded: value('non-excluded'), other: value('other'), born: value('born') }, year);
+            result = { inputs: `genuine redundancy or early retirement scheme payment ${money('redundancy')} after ${count(value('years'), 'completed year')} of service, `
+              + `other code R taxable component ${money('excluded')}, code O taxable component ${money('non-excluded')}, `
+              + `other taxable payments in 2026-27 ${money('other')}, born ${calendarDate(value('born'))}`, principal: 7,
+            rows: [['Tax-free limit', aud(r.taxFreeLimit)], ['Tax-free part of the redundancy payment', aud(r.taxFree)],
+              ['Code R taxable component', aud(r.excluded)], ['Withhold from the code R part', aud(r.excludedWithholding)],
+              ['Whole-of-income cap left', aud(r.wholeOfIncomeCap)], ['Cap for the code O part', aud(r.cap)],
+              ['Withhold from the code O part', aud(r.nonExcludedWithholding)], ['Total to withhold', aud(r.withholding)]],
+            note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
+            break;
+          }
           default: throw new Error('Unknown calculator.');
         }
         renderResult(output, result);

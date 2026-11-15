@@ -16,6 +16,11 @@
 //!
 //! Nothing here imports an engine or a constant from one, and a change to the case seed
 //! needs no change to the expected values, which are never stored.
+//!
+//! A further 60 seeded termination payments, from their own seed, read preservation age from
+//! Schedule 11's table as date ranges and build the tax-free limit a year of service at a time,
+//! where the engine works the age out from the year of birth and multiplies. Both round each
+//! part's withholding to the dollar, 50 cents up, so the oracle cannot show that convention.
 mod common;
 
 use num_bigint::BigUint;
@@ -40,7 +45,7 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// Runs the cases through the engines in one Node process, from the repository root so
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r"
-import { loan, div7aMinimumRepayment } from './assets/business-calculators.mjs';
+import { loan, div7aMinimumRepayment, terminationPayment } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
@@ -60,6 +65,8 @@ const run = {
   base: ({ inputs }) => levy(baseRateWages(inputs)),
   salary: ({ inputs }) => levy(annualSalaryWages(inputs)),
   casual: ({ inputs }) => levy(casualWages(inputs)),
+  etp: ({ payment, year }) => Object.fromEntries(Object.entries(terminationPayment(payment, year))
+    .map(([key, value]) => [key, typeof value === 'number' ? money(value) : value])),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 ";
@@ -397,6 +404,240 @@ fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
         expected.push(result);
     }
     assert_eq!(cases.len(), 300);
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Schedule 11 for 2026-27, in the Taxation Administration (Withholding Schedules) Instrument
+/// 2026 (F2026L00716) and on the ATO's Schedule 11 page (last updated 17 June 2026), both read
+/// 15 November 2026: the ETP cap, the whole-of-income cap and note 1's base and service amounts
+/// in cents; Table A's rates in whole per cent.
+const ETP_CAP: u64 = 27_000_000;
+const WHOLE_OF_INCOME_CAP: u64 = 18_000_000;
+const BASE_AMOUNT: u64 = 1_359_800;
+const SERVICE_AMOUNT: u64 = 680_100;
+const UNDER_RATE: u64 = 32;
+const REACHED_RATE: u64 = 17;
+const ABOVE_RATE: u64 = 47;
+const ETP_CASES: usize = 60;
+
+/// Schedule 11's preservation age table, by date of birth: each row's first birthday and age.
+const PRESERVATION_AGES: [((u64, u64, u64), u64); 6] = [
+    ((0, 1, 1), 55),
+    ((1960, 7, 1), 56),
+    ((1961, 7, 1), 57),
+    ((1962, 7, 1), 58),
+    ((1963, 7, 1), 59),
+    ((1964, 7, 1), 60),
+];
+
+/// One ETP's parts, amounts in cents.
+#[derive(Clone, Copy)]
+struct Etp {
+    redundancy: u64,
+    years: u64,
+    excluded: u64,
+    non_excluded: u64,
+    other: u64,
+    born: (u64, u64, u64),
+}
+
+/// Whether the employee is their preservation age by 30 June 2027 (Schedule 11's table, read
+/// as date ranges), and, in cents: the tax-free limit, the tax-free part, the code R taxable
+/// component and its withholding, the whole-of-income cap left, the code O cap and its
+/// withholding, and the total. The tax-free limit adds the service amount once a year
+/// (ITAA 1997 s 83-170(3)); each part is withheld at the rate within its cap and the top rate
+/// above it, to the dollar, 50 cents up, the code R part first within the ETP cap alone and the
+/// code O part within the smaller of the ETP cap left and the whole-of-income cap (Schedule 11,
+/// example 4).
+fn etp_oracle(etp: Etp) -> (bool, u64, [u64; 8]) {
+    let age = PRESERVATION_AGES
+        .iter()
+        .rev()
+        .find(|(from, _)| etp.born >= *from)
+        .map(|(_, age)| *age)
+        .unwrap();
+    let reached = (etp.born.0 + age, etp.born.1, etp.born.2) <= (2027, 6, 30);
+    let rate = if reached { REACHED_RATE } else { UNDER_RATE };
+    let mut limit = BASE_AMOUNT;
+    for _ in 0..etp.years {
+        limit += SERVICE_AMOUNT;
+    }
+    let tax_free = etp.redundancy.min(limit);
+    let excluded = etp.redundancy - tax_free + etp.excluded;
+    // Cents x per cent: whole dollars are 10,000 of them, and a remainder of 5,000 or more rounds up.
+    let withheld = |component: u64, cap: u64| {
+        let within = component.min(cap);
+        let total = u128::from(within) * u128::from(rate)
+            + u128::from(component - within) * u128::from(ABOVE_RATE);
+        let dollars = total / 10_000 + u128::from(total % 10_000 >= 5_000);
+        (within, u64::try_from(dollars * 100).unwrap())
+    };
+    let (excluded_within, excluded_withheld) = withheld(excluded, ETP_CAP);
+    let whole_of_income = WHOLE_OF_INCOME_CAP.saturating_sub(etp.other);
+    let cap = (ETP_CAP - excluded_within).min(whole_of_income);
+    let (_, non_excluded_withheld) = withheld(etp.non_excluded, cap);
+    (
+        reached,
+        rate,
+        [
+            limit,
+            tax_free,
+            excluded,
+            excluded_withheld,
+            whole_of_income,
+            cap,
+            non_excluded_withheld,
+            excluded_withheld + non_excluded_withheld,
+        ],
+    )
+}
+
+fn etp_case(rng: &mut Seeded) -> (Value, Value) {
+    let any_born = (1900 + rng.below(127), 1 + rng.below(12), 1 + rng.below(28));
+    let any_years = rng.below(151);
+    let any = [
+        rng.cents(MAX_PRINCIPAL),
+        rng.cents(50_000_000),
+        rng.cents(50_000_000),
+        rng.cents(30_000_000),
+    ];
+    let etp = Etp {
+        redundancy: rng.pick(&[0, 4_760_300, 4_800_000, any[0]]),
+        years: rng.pick(&[0, 1, 5, 40, 150, any_years, any_years]),
+        excluded: rng.pick(&[0, 0, ETP_CAP, any[1]]),
+        non_excluded: rng.pick(&[0, 5_000, 1_767_800, any[2]]),
+        other: rng.pick(&[
+            0,
+            14_000_000,
+            17_999_999,
+            WHOLE_OF_INCOME_CAP,
+            20_000_000,
+            any[3],
+        ]),
+        born: rng.pick(&[
+            (1960, 6, 30),
+            (1960, 7, 1),
+            (1964, 6, 30),
+            (1964, 7, 1),
+            (1967, 6, 30),
+            (1967, 7, 1),
+            (1996, 8, 1),
+            any_born,
+            any_born,
+        ]),
+    };
+    let (reached, rate, figures) = etp_oracle(etp);
+    let names = [
+        "taxFreeLimit",
+        "taxFree",
+        "excluded",
+        "excludedWithholding",
+        "wholeOfIncomeCap",
+        "cap",
+        "nonExcludedWithholding",
+        "withholding",
+    ];
+    let mut expected: serde_json::Map<String, Value> = names
+        .iter()
+        .zip(figures)
+        .map(|(name, cents)| ((*name).to_owned(), shown(cents).into()))
+        .collect();
+    expected.insert("reached".to_owned(), reached.into());
+    expected.insert("rate".to_owned(), rate.to_string().into());
+    let (year, month, day) = etp.born;
+    (
+        json!({
+            "kind": "etp",
+            "payment": {
+                "redundancy": dollars(etp.redundancy),
+                "years": etp.years.to_string(),
+                "excluded": dollars(etp.excluded),
+                "nonExcluded": dollars(etp.non_excluded),
+                "other": dollars(etp.other),
+                "born": format!("{year}-{month:02}-{day:02}"),
+            },
+            "year": {
+                "yearEnd": "2027-06-30",
+                "etpCap": "270000",
+                "wholeOfIncomeCap": "180000",
+                "baseAmount": "13598",
+                "serviceAmount": "6801",
+                "rateUnder": "32",
+                "rateReached": "17",
+                "rateAbove": "47",
+            },
+        }),
+        Value::Object(expected),
+    )
+}
+
+#[test]
+fn the_etp_oracle_works_schedule_11s_examples() {
+    let none = Etp {
+        redundancy: 0,
+        years: 0,
+        excluded: 0,
+        non_excluded: 0,
+        other: 0,
+        born: (1996, 8, 1),
+    };
+    // Example 4, Alec, 30: $48,000 after 5 years is $397 over $47,603, withheld $127; the
+    // $17,678 gratuity sits within the $40,000 whole-of-income cap, withheld $5,657.
+    let alec = Etp {
+        redundancy: 4_800_000,
+        years: 5,
+        non_excluded: 1_767_800,
+        other: 14_000_000,
+        ..none
+    };
+    assert_eq!(
+        etp_oracle(alec),
+        (
+            false,
+            32,
+            [
+                4_760_300, 4_760_300, 39_700, 12_700, 4_000_000, 4_000_000, 565_700, 578_400
+            ]
+        )
+    );
+    // Example 3, Chris: $120,000 over an $80,000 cap is $25,600 plus $18,800.
+    let chris = Etp {
+        non_excluded: 12_000_000,
+        other: 10_000_000,
+        ..none
+    };
+    assert_eq!(etp_oracle(chris).2[7], 4_440_000);
+    // Example 1, Lloyd: 32% of a $45,000 code R ETP is $14,400.
+    let lloyd = Etp {
+        excluded: 4_500_000,
+        ..none
+    };
+    assert_eq!(etp_oracle(lloyd).2[7], 1_440_000);
+    // Born 30 June 1967, 60 on the year's last day: 17% of $50.00 is exactly $8.50, so $9.
+    let reached = Etp {
+        non_excluded: 5_000,
+        born: (1967, 6, 30),
+        ..none
+    };
+    assert_eq!(etp_oracle(reached).2[7], 900);
+    assert!(
+        !etp_oracle(Etp {
+            born: (1967, 7, 1),
+            ..reached
+        })
+        .0
+    );
+}
+
+#[test]
+fn the_etp_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1115_0E7B_0011);
+    let (cases, expected): (Vec<Value>, Vec<Value>) =
+        (0..ETP_CASES).map(|_| etp_case(&mut rng)).unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {

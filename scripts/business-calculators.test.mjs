@@ -443,3 +443,96 @@ test('blank, non-finite, over-precise and unsafe amounts cannot become a zero re
     assert.throws(() => gst(value, false), String(value));
   }
 });
+
+// Redundancy and ETP withholding. Schedule 11, 'Tax table for employment termination payments', in the
+// Taxation Administration (Withholding Schedules) Instrument 2026 (F2026L00716, in force, no later
+// replacement), read on legislation.gov.au 15 November 2026, and on the ATO's page (last updated
+// 17 June 2026), read 15 November 2026 at 12:13 AEDT:
+// https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
+// 'The ETP cap amount for the 2026–27 income year is $270,000'; 'The whole-of-income cap amount for the
+// 2026–27 income year is $180,000'; note 1: 'The tax-free base limit for the 2026–27 income year is $13,598
+// plus $6,801 for each completed year of service'; Table A: 32% under preservation age and 17% at or over
+// it up to the cap, 47% above it; preservation age 'by the end of the income year'.
+const SCHEDULE_11 = { yearEnd: '2027-06-30', etpCap: '270000', wholeOfIncomeCap: '180000', baseAmount: '13598',
+  serviceAmount: '6801', rateUnder: '32', rateReached: '17', rateAbove: '47' };
+const etpHtml = readFileSync(new URL('../_includes/calculators/termination-payment.html', import.meta.url), 'utf8');
+// The form's data attributes, as assets/accounting-pages.mjs passes them in form.dataset.
+const etpYear = Object.fromEntries([...etpHtml.match(/<form [^>]*>/)[0].matchAll(/ data-([a-z-]+)="([^"]*)"/g)]
+  .filter(([, name]) => name !== 'calculator')
+  .map(([, name, value]) => [name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()), value]));
+const noEtp = { redundancy: '0', years: '0', excluded: '0', nonExcluded: '0', other: '0', born: '1996-08-01' };
+const etp = (fields, year = etpYear) => calculations.terminationPayment({ ...noEtp, ...fields }, year);
+const longDate = (iso) => new Date(`${iso}T00:00:00Z`)
+  .toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+Object.assign(LABELS, { taxFreeLimit: 'tax-free limit', taxFree: 'tax-free part', excluded: 'code R taxable component',
+  excludedWithholding: 'withheld from code R', wholeOfIncomeCap: 'whole-of-income cap left', cap: 'code O cap',
+  nonExcludedWithholding: 'withheld from code O', withholding: 'total withheld' });
+Object.assign(INPUTS, { terminationPayment: (payment, year) => {
+  assert.deepEqual(year, SCHEDULE_11);
+  return `Redundancy payment ${dollars(payment.redundancy)} after ${payment.years} ${payment.years === '1' ? 'year' : 'years'}, `
+    + `other code R ${dollars(payment.excluded)}, code O ${dollars(payment.nonExcluded)}, other payments ${dollars(payment.other)}, `
+    + `born ${longDate(payment.born)}`;
+} });
+Object.assign(FORM_CALLS, { terminationPayment: (f) => [{ redundancy: f.redundancy, years: f.years, excluded: f.excluded,
+  nonExcluded: f['non-excluded'], other: f.other, born: f.born }, etpYear] });
+
+test('the ETP form carries Schedule 11’s caps, amounts and rates for 2026-27', () => {
+  assert.deepEqual(etpYear, SCHEDULE_11);
+});
+
+// Example 1 gives only the ETP, the part of a genuine redundancy payment over its limit, so it is
+// entered as a code R amount. Ages are those the examples give.
+test('ETP withholding agrees with Schedule 11’s 4 examples', () => {
+  // Example 1, Lloyd, 41: 'BigBiz withholds $14,400 from Lloyd’s ETP. This is 32% of ... $45,000.'
+  assert.equal(etp({ excluded: '45000', born: '1985-01-01' }).withholding, 14400);
+  // Example 2, Jane, 50, paid $84,000: whole-of-income cap '$96,000'; 'SmallBiz withholds $3,200'.
+  const jane = etp({ nonExcluded: '10000', other: '84000', born: '1976-01-01' });
+  assert.deepEqual([jane.wholeOfIncomeCap, jane.cap, jane.withholding], [96000, 96000, 3200]);
+  // Example 3, Chris, paid $50,000 of leave and $50,000 of wages: '$25,600 ($80,000 × 32%) plus
+  // $18,800 ($40,000 × 47%)', '$44,400'.
+  const chris = etp({ nonExcluded: '120000', other: '100000' });
+  assert.deepEqual([chris.cap, chris.withholding], [80000, 44400]);
+  // Example 4, Alec, 30, paid $140,000: '$48,000 less $47,603 due to the 5 years of service', 'withholds
+  // $127 (32% of $397)', then the gratuity's cap is the $40,000 whole-of-income cap, below 'the ETP cap of
+  // $269,603', and 'withholds ... $5,657 from the $17,678 gratuity part'.
+  const alec = etp({ redundancy: '48000', years: '5', nonExcluded: '17678', other: '140000' });
+  assert.deepEqual([alec.taxFreeLimit, alec.taxFree, alec.excluded, alec.excludedWithholding, alec.wholeOfIncomeCap,
+    alec.cap, alec.nonExcludedWithholding, alec.withholding, alec.reached, alec.rate],
+  [47603, 47603, 397, 127, 40000, 40000, 5657, 5784, false, 32]);
+});
+
+// Schedule 11's table: born before 1 July 1960, 55; each later year from 1 July, a year more; after
+// 30 June 1964, 60. Each row's first and last birthday reaches its age on that birthday, not the day before.
+test('preservation age follows Schedule 11’s table and counts if reached by the year’s last day', () => {
+  for (const [born, age] of [['1950-01-01', 55], ['1960-06-30', 55], ['1960-07-01', 56], ['1961-06-30', 56],
+    ['1961-07-01', 57], ['1962-07-01', 58], ['1963-07-01', 59], ['1964-06-30', 59], ['1964-07-01', 60], ['1996-08-01', 60]]) {
+    const birthday = `${Number(born.slice(0, 4)) + age}${born.slice(4)}`;
+    const dayBefore = new Date(Date.parse(`${birthday}T00:00:00Z`) - 86400000).toISOString().slice(0, 10);
+    assert.equal(etp({ born }, { ...etpYear, yearEnd: birthday }).reached, true, born);
+    assert.equal(etp({ born }, { ...etpYear, yearEnd: dayBefore }).reached, false, born);
+  }
+  assert.deepEqual([etp({ born: '1967-06-30' }).rate, etp({ born: '1967-07-01' }).rate], [17, 32]);
+});
+
+// Worked by hand: each part rounds on its own, so $1.57 of each at 32% ($0.5024) withholds $1 twice,
+// where their $3.14 together would withhold $1; 17% of $26.47 is $4.4999, so $4.
+test('ETP withholding rounds each part to the nearest dollar, 50 cents up', () => {
+  assert.deepEqual([etp({ excluded: '1.57', nonExcluded: '1.57' }).withholding, etp({ nonExcluded: '3.14' }).withholding], [2, 1]);
+  assert.equal(etp({ nonExcluded: '26.47', born: '1960-06-30' }).withholding, 4);
+  // Over the cap: $10,000 of other payments leave a $170,000 cap; $200,000 is $54,400 + $14,100.
+  assert.equal(etp({ nonExcluded: '200000', other: '10000' }).withholding, 54400 + 14100);
+  // Other payments over $180,000 leave no whole-of-income cap, so all of code O is at 47%.
+  const over = etp({ nonExcluded: '1000', other: '200000' });
+  assert.deepEqual([over.wholeOfIncomeCap, over.cap, over.withholding], [0, 0, 470]);
+});
+
+test('ETP withholding refuses an impossible date of birth and years of service outside 0 to 150', () => {
+  for (const born of ['', '1996-02-30', '1899-12-31', '2027-07-01', '1 August 1996']) {
+    assert.throws(() => etp({ born }), { message: 'Enter a valid date of birth from 1900 to the end of the income year.' }, born);
+  }
+  assert.equal(etp({ born: '2027-06-30' }).reached, false);
+  for (const years of ['-1', '151', '2.5']) {
+    assert.throws(() => etp({ years }), { message: 'Enter a whole number between 0 and 150.' }, years);
+  }
+  assert.equal(etp({ redundancy: '1000000', years: '150' }).taxFreeLimit, 13598 + 150 * 6801);
+});
