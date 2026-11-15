@@ -74,7 +74,7 @@ impl Site {
         let analysis = with(
             &run,
             &[
-                ("id", n(4)),
+                ("id", n(6)),
                 ("path", s(CODEQL_WORKFLOW)),
                 ("event", s("dynamic")),
                 ("conclusion", s("success")),
