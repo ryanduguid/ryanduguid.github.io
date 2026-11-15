@@ -370,6 +370,35 @@ function initialiseCalculators([calculate, fieldErrors]) {
             result.principal = result.rows.length - 1;
             break;
           }
+          case 'payg-instalments': {
+            const method = value('method');
+            const r = calculate.paygInstalment({ method, notified: value('notified'), instalment: value('instalment'),
+              estimatedTax: value('estimated-tax'), earlier: value('earlier'), credits: value('credits'), income: value('income'),
+              rate: value('rate'), estimatedIncome: value('estimated-income'), earlierIncome: value('earlier-income') });
+            const earlier = `earlier instalments ${money('earlier')} less credits claimed ${money('credits')}`;
+            const credit = ['Credit to claim at 5B, whole dollars', aud(r.credit)];
+            if (method === 'amount') {
+              result = { inputs: `instalment amount (option 1), ${money('notified')} at T7`, principal: 0,
+                rows: [['Instalment at 5A, whole dollars', aud(r.instalment)]],
+                note: 'For 2026-27 the amount the ATO notifies includes its GDP adjustment of 5%' };
+            } else if (method === 'varied-amount') {
+              result = { inputs: `varied instalment amount (option 1), instalment ${value('instalment')} of the income year, `
+                + `estimated tax ${money('estimated-tax')} at T8, ${earlier}`, principal: 2,
+              rows: [[`${Number(value('instalment')) * 25}% of estimated tax`, aud(r.due)], ['Varied amount', aud(r.amount)],
+                ['Varied amount at T9 and 5A, whole dollars', aud(r.instalment)], credit] };
+            } else if (method === 'rate') {
+              result = { inputs: `instalment rate (option 2), instalment income ${money('income')} at T1, instalment rate ${value('rate')}% at T2`,
+                principal: 1, rows: [['T1 × T2', aud(r.amount)], ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)]] };
+            } else {
+              result = { inputs: `varied instalment rate (option 2), estimated tax ${money('estimated-tax')} on estimated instalment income `
+                + `${money('estimated-income')} for the year, instalment income ${money('income')} at T1, instalment rate ${value('rate')}% at T2, `
+                + `${earlier}, on earlier instalment income ${money('earlier-income')}`, principal: 2,
+              rows: [['Varied rate at T3', `${r.instalmentRate.toFixed(2)}%`], ['T1 × T3', aud(r.amount)],
+                ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)], credit],
+              note: 'A credit applies only when the varied rate is lower than the rate at T2' };
+            }
+            break;
+          }
           default: throw new Error('Unknown calculator.');
         }
         renderResult(output, result);

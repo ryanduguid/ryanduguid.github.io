@@ -251,6 +251,7 @@ const longDay = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU'
   { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const shownField = (field, value) => {
   if (field === 'effect' || field === 'rule') return value;
+  if (field === 'instalmentRate') return `instalment rate ${value.toFixed(2)}%`;
   if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return `${LABELS[field]} ${longDay(value)}`;
   if (field === 'units') return `${value} units`;
   if (field === 'percent') return value === null ? 'no percentage' : `${value.toFixed(2)}%`;
@@ -259,6 +260,7 @@ const shownField = (field, value) => {
 };
 Object.assign(LABELS, { periodEnds: 'period ends', lastDay: 'last day', amendedEnds: '60 days after the amended notice',
   firstEnds: 'first notice period ends' });
+Object.assign(LABELS, { amount: 'amount', instalment: 'instalment', credit: 'credit', due: 'due by this instalment' });
 
 test('every business calculator shows its boundary cases', () => {
   const pages = readdirSync(new URL('../tools/business-calculators/', import.meta.url), { withFileTypes: true })
@@ -296,6 +298,15 @@ const INPUTS = {
     return `${kind}${decision === 'assessment' || decision === 'amended' ? `, ${group} years` : ''}, notice ${date(notice)}`
       + `${decision.startsWith('amended') ? `, first notice ${date(first)}` : ''}`;
   },
+  paygInstalment: (f) => ({
+    amount: `Instalment amount ${dollars(f.notified)}`,
+    'varied-amount': `Varied amount, instalment ${f.instalment}; estimated tax ${dollars(f.estimatedTax)}, `
+      + `earlier instalments ${dollars(f.earlier)}, credits ${dollars(f.credits)}`,
+    rate: `Instalment income ${dollars(f.income)} at ${f.rate}%`,
+    'varied-rate': `Varied rate from estimated tax ${dollars(f.estimatedTax)} on ${dollars(f.estimatedIncome)}; `
+      + `instalment income ${dollars(f.income)}, rate at T2 ${f.rate}%; earlier instalments ${dollars(f.earlier)}, `
+      + `credits ${dollars(f.credits)}, on ${dollars(f.earlierIncome)}`,
+  })[f.method],
 };
 const wholeDollars = (value) => `$${Number(value).toLocaleString('en-AU')}`;
 const PEER_INPUTS = {
@@ -443,6 +454,9 @@ const FORM_CALLS = {
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
     f.buffer, { week: Number(f.week), amount: f.amount, delay: Number(f.delay) }],
   objectionDeadline: (f) => [f.decision, f.group, f.notice, f.first],
+  paygInstalment: (f) => [{ method: f.method, notified: f.notified, instalment: f.instalment, estimatedTax: f['estimated-tax'],
+    earlier: f.earlier, credits: f.credits, income: f.income, rate: f.rate, estimatedIncome: f['estimated-income'],
+    earlierIncome: f['earlier-income'] }],
 };
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
@@ -498,4 +512,51 @@ test('objection deadline refuses an unknown decision or item and an impossible d
       { message: 'Enter a date from 1 January 1900 to 31 December 9989.' }, notice);
   }
   assert.equal(calculations.objectionDeadline('other', '2', '9989-12-31', '').periodEnds, '9990-03-01');
+});
+
+// The ATO's worked examples, read 15 November 2026:
+// https://www.ato.gov.au/forms-and-instructions/payg-instalments-how-to-complete-your-activity-statement
+//   (last updated 9 January 2023): Sophia, '$20,100 × 1.7% = $341.70', 'She enters 341 at both T11 and 5A';
+//   Bill, rate 10% then varied to 5%, $10,000 a quarter: '($10,000 x 5%) = instalment payment of $500', 5B $500.
+// https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/calculate-your-payg-instalments
+//   (last updated 9 March 2022): Julie Co, '$106,000 × 11% = $11,660'.
+// https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/how-to-vary-your-payg-instalments
+//   (last updated 23 June 2026): example 1, Cari, '$14,000 × 75% = $10,500', '$10,500 − ($5,000 + $5,000) = $500',
+//   '$14,000 − ($5,000 + $5,000 + $500) = $3,500'; example 2, Harmander, '($10,125 ÷ $82,480) × 100 = 12.27%'.
+const instalment = (fields) => calculations.paygInstalment({ method: 'rate', notified: '0', instalment: '1', estimatedTax: '0',
+  earlier: '0', credits: '0', income: '0', rate: '0', estimatedIncome: '0', earlierIncome: '0', ...fields });
+test('PAYG instalments agree with the ATO’s worked examples', () => {
+  const sophia = instalment({ income: '20100', rate: '1.7' });
+  assert.deepEqual([sophia.amount, sophia.instalment], [341.7, 341]);
+  assert.equal(instalment({ income: '106000', rate: '11' }).instalment, 11660);
+  assert.equal(instalment({ method: 'varied-amount', instalment: '3', estimatedTax: '14000', earlier: '10000' }).instalment, 500);
+  assert.equal(instalment({ method: 'varied-amount', instalment: '4', estimatedTax: '14000', earlier: '10500' }).instalment, 3500);
+  assert.equal(instalment({ method: 'varied-rate', estimatedTax: '10125', estimatedIncome: '82480', rate: '16.84' }).instalmentRate, 12.27);
+  const bill = instalment({ method: 'varied-rate', estimatedTax: '500', estimatedIncome: '10000', income: '10000', rate: '10',
+    earlier: '1000', earlierIncome: '10000' });
+  assert.deepEqual([bill.instalmentRate, bill.instalment, bill.credit], [5, 500, 500]);
+});
+
+test('PAYG instalments read only the fields of the chosen method', () => {
+  const unused = { notified: 'x', instalment: 'x', estimatedTax: 'x', earlier: 'x', credits: 'x', estimatedIncome: 'x', earlierIncome: 'x' };
+  assert.equal(instalment({ ...unused, income: '1000', rate: '10' }).instalment, 100);
+  assert.equal(instalment({ ...unused, method: 'amount', notified: '99.99' }).instalment, 99);
+  // A higher varied rate reads no earlier figures, as no credit can arise.
+  assert.equal(instalment({ ...unused, method: 'varied-rate', estimatedTax: '30', estimatedIncome: '100', income: '1000',
+    rate: '10' }).instalment, 300);
+});
+
+test('PAYG instalments refuse what the activity statement cannot hold', () => {
+  assert.throws(() => instalment({ method: 'annual' }), { message: 'Choose how this instalment is worked out.' });
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '1', earlier: '1' }),
+    { message: 'The first instalment of the year has no earlier instalments.' });
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '5' }), { message: 'Enter a whole number between 1 and 4.' });
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '2', earlier: '100', credits: '101' }),
+    { message: 'Credits claimed cannot exceed the earlier instalments.' });
+  assert.throws(() => instalment({ method: 'varied-rate', estimatedTax: '101', estimatedIncome: '100', rate: '10' }),
+    { message: 'Estimated tax cannot exceed estimated instalment income.' });
+  assert.throws(() => instalment({ income: '100', rate: '100.01' }), { message: 'Enter an amount between 0 and 100.' });
+  assert.throws(() => instalment({ income: '100', rate: '1.005' }), { message: 'Enter a number with no more than 2 decimal places.' });
+  // Nil estimated income varies the rate to nil, as the ATO allows.
+  assert.equal(instalment({ method: 'varied-rate', income: '100', rate: '10' }).instalmentRate, 0);
 });

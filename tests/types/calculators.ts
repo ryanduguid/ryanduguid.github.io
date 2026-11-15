@@ -37,3 +37,12 @@ calculate.objectionDeadline('ruling', '2', '2026-11-18', '2026-11-18');
 const amendedEnds: string = calculate.objectionDeadline('assessment', '2', '2026-11-18', '2026-11-18').amendedEnds;
 void objection;
 void amendedEnds;
+const payg = { method: 'rate', notified: '0', instalment: '1', estimatedTax: '0', earlier: '0', credits: '0', income: '20100',
+  rate: '1.7', estimatedIncome: '0', earlierIncome: '0' } as const;
+const instalment: number = calculate.paygInstalment(payg).instalment;
+// @ts-expect-error Annual instalments are not one of the methods the calculator covers.
+calculate.paygInstalment({ ...payg, method: 'annual' });
+// @ts-expect-error The amount due by an instalment is null under the instalment rate method.
+const due: number = calculate.paygInstalment(payg).due;
+void instalment;
+void due;
