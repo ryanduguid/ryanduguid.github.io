@@ -319,3 +319,59 @@ export function paygInstalment(inputs) {
   const amount = Number(ratioCents(BigInt(cents(inputs.income)) * BigInt(rate), 10000n));
   return { amount: amount / 100, instalment: wholeDollars(amount), credit, due: null, instalmentRate: rate / 100 };
 }
+
+/**
+ * @typedef {{redundancy: string, years: string, excluded: string, nonExcluded: string,
+ *   other: string, born: string}} TerminationPayment
+ * @typedef {{yearEnd: string, etpCap: string, wholeOfIncomeCap: string, baseAmount: string,
+ *   serviceAmount: string, rateUnder: string, rateReached: string, rateAbove: string}} EtpYear
+ */
+
+/** The payer's withholding from one life benefit employment termination payment under
+ * Schedule 11 of the Taxation Administration (Withholding Schedules) Instrument 2026. The
+ * tax-free part of a genuine redundancy or early retirement scheme payment is the base amount
+ * plus the service amount for each completed year of service (ITAA 1997 s 83-170). The code R
+ * part (the redundancy payment over that, and other excluded payments) comes first, within the
+ * ETP cap alone; the code O part comes second, within the smaller of the ETP cap left and the
+ * whole-of-income cap less the payer's other taxable payments (Schedule 11, 'Steps to work out
+ * smallest cap' and example 4). Each part is withheld at the rate within its cap, set by
+ * whether the employee is their preservation age by the year's end, and the top rate above
+ * it, rounded to the nearest dollar with 50 cents up.
+ * @param {TerminationPayment} payment the payment's parts as entered, money in AUD
+ * @param {EtpYear} year the income year's last day, caps, amounts and Table A rates, from the caller */
+export function terminationPayment(payment, year) {
+  const born = payment.born;
+  const date = new Date(`${born}T00:00:00Z`);
+  if (typeof born !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(born) || !Number.isFinite(date.getTime())
+    || date.toISOString().slice(0, 10) !== born || born < '1900' || born > year.yearEnd) {
+    throw new Error('Enter a valid date of birth from 1900 to the end of the income year.');
+  }
+  // Schedule 11's preservation age table: 55 if born before 1 July 1960, a year more for each
+  // later year from 1 July, and 60 if born after 30 June 1964.
+  const july = Number(born.slice(0, 4)) - (Number(born.slice(5, 7)) < 7 ? 1 : 0);
+  const age = Math.min(60, Math.max(55, july - 1904));
+  const reached = `${Number(born.slice(0, 4)) + age}${born.slice(4)}` <= year.yearEnd;
+  /** @param {string} value a Table A rate in per cent, as hundredths of 1% */
+  const rate = (value) => BigInt(Math.round(number(value, { max: 100 }) * 100));
+  const [within, above] = [rate(reached ? year.rateReached : year.rateUnder), rate(year.rateAbove)];
+  /** @param {number} component cents @param {number} cap cents @returns {[number, number]} */
+  const part = (component, cap) => {
+    const inside = Math.min(component, cap);
+    // Cents times hundredths of 1% are millionths of a dollar.
+    const dollars = ratioCents(BigInt(inside) * within + BigInt(component - inside) * above, 1000000n);
+    return [inside, Number(dollars) * 100];
+  };
+  const etpCap = cents(year.etpCap);
+  const limit = cents(year.baseAmount) + cents(year.serviceAmount) * number(payment.years, { max: 150, integer: true });
+  const redundancy = cents(payment.redundancy);
+  const taxFree = Math.min(redundancy, limit);
+  const excluded = redundancy - taxFree + cents(payment.excluded);
+  const [excludedWithin, excludedWithholding] = part(excluded, etpCap);
+  const wholeOfIncomeCap = Math.max(0, cents(year.wholeOfIncomeCap) - cents(payment.other));
+  const cap = Math.min(etpCap - excludedWithin, wholeOfIncomeCap);
+  const [, nonExcludedWithholding] = part(cents(payment.nonExcluded), cap);
+  return { reached, rate: Number(within) / 100, taxFreeLimit: limit / 100, taxFree: taxFree / 100,
+    excluded: excluded / 100, excludedWithholding: excludedWithholding / 100, wholeOfIncomeCap: wholeOfIncomeCap / 100,
+    cap: cap / 100, nonExcludedWithholding: nonExcludedWithholding / 100,
+    withholding: (excludedWithholding + nonExcludedWithholding) / 100 };
+}
