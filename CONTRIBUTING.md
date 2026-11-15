@@ -583,6 +583,12 @@ each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those
 copies by hand.
 
+`.github/review-generated.json` lists the generated files that a pre-merge review
+may omit, because its build reproduces them and the `--check` runs in CI fail when
+the committed copies are stale. The review tooling reads it from the pull
+request's base, so a pull request cannot widen its own list. A generated file it
+does not name, such as a new `llms-full` part, stays in review until it is added.
+
 Concurrent pull requests each add a dated row at the top of a changelog table,
 so a plain rebase stops in `changelog/index.html` and again in
 `changelog/index.txt`, `llms-full.txt`, its changelog parts
