@@ -592,11 +592,7 @@ fn bas_due_dates_csv_holds_the_ato_dates_and_sources() {
         ))
     );
     let records = pycsv::dict_reader(&csv).unwrap();
-    assert_eq!(
-        records.len(),
-        rows.len(),
-        "CSV rows against the ATO dates"
-    );
+    assert_eq!(records.len(), rows.len(), "CSV rows against the ATO dates");
     for (record, row) in records.iter().zip(&rows) {
         let [period, .., online, _, _] = row;
         let frequency = if period.starts_with("Quarter") {
@@ -620,7 +616,10 @@ fn bas_due_dates_csv_holds_the_ato_dates_and_sources() {
             "{period}"
         );
         let checked = site_tools::py::Date::fromisoformat(field(record, "checked_at"));
-        assert!(checked.is_some(), "{period}: checked_at must be an ISO date");
+        assert!(
+            checked.is_some(),
+            "{period}: checked_at must be an ISO date"
+        );
     }
 
     let page = source("tools/bas-due-dates/index.html");
@@ -649,7 +648,10 @@ fn bas_due_dates_csv_holds_the_ato_dates_and_sources() {
     for &date in &dates {
         let parsed = parse(date);
         if parsed.weekday().number_from_monday() <= 5 {
-            assert!(date <= until.as_str(), "{date} is past the holiday calendar");
+            assert!(
+                date <= until.as_str(),
+                "{date} is past the holiday calendar"
+            );
             assert!(!holidays.iter().any(|h| h == date), "{date} is a holiday");
         } else {
             let named = parsed.format("%A %-d %B %Y").to_string();
