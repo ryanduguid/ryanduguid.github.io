@@ -23,14 +23,24 @@ commit them.
 
 ## WebMCP pilot
 
-The GST calculator page offers one WebMCP tool, `calculate_gst`, to a
-browser's built-in agent through the draft
-[WebMCP](https://webmachinelearning.github.io/webmcp/) `modelContext` API.
-`assets/accounting-pages.mjs` imports `assets/webmcp-tools.mjs` only when the
-browser exposes `modelContext`, so other visitors download nothing extra. The
-tool is read-only: it calls the same `gst()` function as the form, reads no
-form state and sends nothing off the page. `scripts/webmcp-tools.test.mjs` and
-the WebMCP test in `tests/browser/calculator.spec.mjs` cover it.
+Six calculator pages each offer one WebMCP tool to a browser's built-in agent
+through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
+`modelContext` API: `calculate_gst`, `calculate_div7a_minimum_repayment`,
+`calculate_loan_payment` and `calculate_break_even` on the business calculator
+pages, `calculate_decline_in_value` on the depreciation rates page and
+`calculate_coal_lsl_levy` on the Coal LSL levy calculator.
+`assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and
+`assets/levy-page.mjs` import `assets/webmcp-tools.mjs` only when the browser
+exposes `modelContext`, so other visitors download nothing extra. Each tool is
+read-only: it calls the same function as its page's form (the Coal LSL tool
+calls `computeEntry()`, which the form's `compute()` also calls), reads no form
+state and sends nothing off the page. Before it runs, `execute` holds the input
+to the tool's own `inputSchema` and refuses a wrong type, a value outside its
+pattern, range or list, or a name the schema does not declare, rather than
+converting it. `scripts/webmcp-tools.test.mjs` covers each tool, with a refused
+input for each, and the WebMCP tests in `tests/browser/calculator.spec.mjs`
+cover registration on the GST, Division 7A, depreciation rates and Coal LSL
+pages.
 
 The 6 Ozzit module pages offer a second read-only tool, `ozzit_function`, through
 `assets/ozzit-tools.mjs`. It looks up one formula by name in the published
@@ -41,9 +51,15 @@ the tool. `scripts/webmcp-tools.test.mjs` and the Ozzit WebMCP test in
 `tests/browser/calculator.spec.mjs` cover it.
 
 Chrome ships the API behind `chrome://flags/#enable-webmcp-testing` and an
-origin trial. No origin-trial token is committed; registering one is an
-account action for the site owner. Add further calculators to
-`calculatorTools()` only after the pilot has been tried with a real agent.
+origin trial. On 15 November 2026 ChromeStatus (entry 5117755740913664, updated
+11 November 2026) listed a developer trial from Chrome 146 and an origin trial
+from Chrome 149 to 156, with an extension to Chrome 162 also listed, and no
+signal from Firefox or Safari; the specification was a W3C Community Group draft
+dated 13 November 2026. No origin-trial token is committed; registering one is an
+account action for the site owner. No trial with a real agent is recorded for
+any tool here, the GST pilot included. The earlier rule was to add calculators only after that
+trial; the 5 tools beyond GST were added on 15 November 2026 without it, and
+only the Node tests and browser tests with a stand-in `modelContext` check them.
 Cloudflare's WebMCP toggle is a separate edge-injected bridge and stays off:
 its packs cover image provenance and a same-origin `/mcp` endpoint, and this
 static site has neither.

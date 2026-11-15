@@ -393,6 +393,7 @@ for (const [id, inputs, expected] of [
   ['margin', { sales: '150', cost: '100' }, 'Margin: 33.33%'],
   ['break-even', { fixed: '12000', price: '80', variable: '50' }, '400 whole units'],
   ['hourly', { cost: '80000', profit: '20000', hours: '1000' }, '$100.00'],
+  ['fixed-fee', { hours: '12', rate: '180', margin: '0', instalments: '12' }, 'Fee including GST: $2,376.00'],
   ['variance', { actual: '120', budget: '100', kind: 'cost' }, 'Unfavourable'],
   ['loan', { principal: '1000', rate: '12', months: '1' }, '$1,010.00'],
   ['staff', { wages: '80000', super: '9600', other: '4000' }, '$93,600.00'],
@@ -446,6 +447,20 @@ for (const [rate, months, expected] of [
   });
 }
 
+test('loan takes a balloon and payments in advance from the form', async ({ page }) => {
+  await page.goto('/tools/business-calculators/loan/');
+  const form = page.locator('#loan form');
+  await form.getByLabel('Loan principal (AUD)').fill('60000');
+  await form.getByLabel('Annual nominal interest rate (%)').fill('7.5');
+  await form.getByLabel('Number of monthly payments').fill('60');
+  await form.getByLabel('Balloon or residual owed at the end (AUD)').fill('18000');
+  await form.getByRole('radio', { name: 'At the start of each month (in advance)', exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: principal $60,000.00, 7.5% annual nominal rate, 60 monthly payments in advance, balloon $18,000.00. '
+    + 'Monthly payment: $948.17. First payment interest: $0.00. First payment principal: $948.17. Estimated total interest: $14,890.07.');
+});
+
 test('Division 7A takes the chosen year’s rate from the table and works the repayment offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/div7a/');
   const form = page.locator('#div7a form');
@@ -463,8 +478,47 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
   await expect(form.locator('.field-error')).toHaveText('Enter 25 or less.');
 });
 
+test('FBT car works the operating cost method at the Type 2 gross-up offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-car/');
+  const form = page.locator('#fbt-car form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Operating cost, elected, with log book records').check();
+  await form.getByLabel('Cost price, including GST, dealer delivery and accessories fitted at purchase (AUD)').fill('50000');
+  await form.getByLabel('Days used or available for private use').fill('365');
+  await form.getByLabel('Operating costs for the year, operating cost method only (AUD)').fill('19580');
+  await form.getByLabel('Business use percentage, operating cost method only').fill('75');
+  await form.getByLabel('Employee contributions for the year (AUD)').fill('2000');
+  await form.getByLabel('No: Type 2 gross-up, 1.8868').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: operating cost method, cost price $50,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
+    + '365 days of 365 available for private use, operating costs $19,580.00 at 75% business use, employee contributions $2,000.00, '
+    + 'Type 2 gross-up 1.8868. Base value: $50,000.00. Statutory formula taxable value: $8,000.00. Operating cost taxable value: $2,895.00. '
+    + 'Taxable value: $2,895.00. Grossed-up taxable value: $5,462.29. FBT at 47%: $2,567.28.');
+  // A percentage limit reads as a figure, not as dollars.
+  await form.getByLabel('Business use percentage, operating cost method only').fill('101');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('.field-error')).toHaveText('Enter 100 or less.');
+});
+
+test('fixed fee takes its rounding step from a radio and shows one payment for one instalment', async ({ page }) => {
+  await page.goto('/tools/business-calculators/fixed-fee/');
+  const form = page.locator('#fixed-fee form');
+  await form.getByLabel('Estimated hours for the work').fill('1');
+  await form.getByLabel('Hourly rate or cost per hour, before GST (AUD)').fill('120');
+  await form.getByLabel('Target margin on the fee (%)').fill('45');
+  await form.getByLabel('Monthly instalments').fill('1');
+  await form.getByRole('radio', { name: 'The cent', exact: true }).check();
+  await form.getByLabel('Add GST at 10%').uncheck();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: 1 hour at $120.00 an hour, 45% margin, fee rounded up to the cent, no GST, 1 monthly instalment. '
+    + 'Fee before GST: $218.19. GST: $0.00. Fee including GST: $218.19. Paid at once: $218.19. Effective hourly rate before GST: $218.19.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
-const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash'];
+const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a', 'fbt-car', 'staff', 'cash'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

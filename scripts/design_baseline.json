@@ -116,6 +116,9 @@
     "tools/australian-tax-ai-agents/index.html": [
       "45fdc74ea0b630f469a53f6f381913964a4acee688ce48d4447d0c9181d07863"
     ],
+    "tools/bas-due-dates/index.html": [
+      "0cd228c7fb91aae4af73006d6ec4dd8fdbc67f341b2466fc721ea4dada27f930"
+    ],
     "tools/business-calculators/break-even/index.html": [
       "8b17f20c372fc2a2b1b9e22eb22b14222bd46e7c556fb95e3697cc16a0202083"
     ],
@@ -128,6 +131,12 @@
     "tools/business-calculators/div7a/index.html": [
       "dba75dc77e31440f11fe4137e30a9d5d040ddad0689fb65258dc15aea7729744"
     ],
+    "tools/business-calculators/fbt-car/index.html": [
+      "4fb1e08455d06bb015d3590e1c1d761040ac5c0635a54b5bb4894dd90d54f3c3"
+    ],
+    "tools/business-calculators/fixed-fee/index.html": [
+      "737c7a59f2a10126d1822f87a0860070780c6a16c76239ea51c49800803119f0"
+    ],
     "tools/business-calculators/gst/index.html": [
       "0572a13a87dc15334a74c4a3c2c89909841a26334e5bae9903764717e6f416c0"
     ],
@@ -135,10 +144,10 @@
       "09009820d32183e1c06e3cda812448aff6ae99a892ce80300aa733bea396b162"
     ],
     "tools/business-calculators/index.html": [
-      "dbadd901e56d87325546a3acd9dca536723b3116241b7efcdae0c3f5496b9654"
+      "10050773de6adf5d7a5484d76e04f31fe140edf421680e9ae7d3710db92c339f"
     ],
     "tools/business-calculators/loan/index.html": [
-      "00e8f471a1a214ac7371829dd529f66386b31c082e8a72883887dbbc4b3dc5fe"
+      "af147161fb96dd1d7805b87400628435184fe1d4a3bfce394abd663871846e0e"
     ],
     "tools/business-calculators/margin/index.html": [
       "10bdc71354bbb7a9befe48c27547c3e3d08ccbc699a5a318d726fea241dff8ca"
@@ -223,9 +232,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "6c8efe4a0110faab54b704a35acb3eaa440e7c73a76fdc3be3ca548c9db8bde4",
+    "llms.txt": "d6c96a7886dd08a2c7894c1e653829582206948b5b4ce1ddead130346f1bbb53",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "f1b5d2a628356fe23ff8b1888655a63f340cc8560c13cc513cb0d1c18d35d506"
+    "sitemap.xml": "2b1092f686e396115b53eadf47610968ff8c1ef2b95d884325a63260c2d68c8a"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -285,7 +294,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7743,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7746,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
