@@ -493,15 +493,17 @@ impl<'a> Checker<'a> {
     /// the target passes any fragment. Each target is read once: thousands of effective
     /// life pages link to the same few pages.
     fn fragment_exists(&mut self, target: &Path, fragment: &str) -> Result<bool, String> {
+        let decoded = pyurl::unquote(fragment, false).expect("replace never fails");
+        if decoded.eq_ignore_ascii_case("top") {
+            return Ok(true);
+        }
         if !self.fragments.contains_key(target) {
             let ids = fragment_targets(target)?;
             self.fragments.insert(target.to_path_buf(), ids);
         }
-        let decoded = pyurl::unquote(fragment, false).expect("replace never fails");
-        Ok(decoded.eq_ignore_ascii_case("top")
-            || self.fragments[target]
-                .as_ref()
-                .is_none_or(|ids| ids.contains(fragment) || ids.contains(&decoded)))
+        Ok(self.fragments[target]
+            .as_ref()
+            .is_none_or(|ids| ids.contains(fragment) || ids.contains(&decoded)))
     }
 
     fn say(&mut self, line: &str) {
@@ -764,11 +766,15 @@ impl<'a> Checker<'a> {
             };
             if same_origin {
                 // urljoin keeps the dot segments of a URL with a host; resolve them as a
-                // browser does, so no link reaches above the site root.
-                let path = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), &format!(".{}", parts.path))
-                    .and_then(|url| pyurl::urlsplit(&url))
-                    .map_err(|e| format!("ValueError: {e}"))?
-                    .path;
+                // browser does, with backslashes as slashes, so no link reaches above the site
+                // root. The leading "/." keeps the absolute-path rules root-relative links get.
+                let path = pyurl::urljoin(
+                    &format!("{SELF_ORIGIN}/"),
+                    &format!("/.{}", parts.path.replace('\\', "/")),
+                )
+                .and_then(|url| pyurl::urlsplit(&url))
+                .map_err(|e| format!("ValueError: {e}"))?
+                .path;
                 let target = self.self_origin_target(&path);
                 let shown = self.rel_to_root(&target);
                 if !target.is_file() {

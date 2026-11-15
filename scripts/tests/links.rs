@@ -1567,14 +1567,21 @@ fn host_links_resolve_dot_segments_within_the_site() {
     std::fs::create_dir_all(root.join("tools")).unwrap();
     std::fs::write(root.join("index.html"), "<h1>Home</h1>").unwrap();
     std::fs::write(outer.path().join("x.html"), "<h1>Outside</h1>").unwrap();
+    std::fs::create_dir(root.join("b")).unwrap();
+    std::fs::write(root.join("b").join("x.html"), "<h1>Inside</h1>").unwrap();
     for (href, missing) in [
         (
             "https://duguid.com.au/../site/index.html",
             Some("site/index.html"),
         ),
         ("//duguid.com.au/tools/../../x.html", Some("x.html")),
+        // A browser reads a backslash as a slash, so this names /x.html, not a parent file.
+        ("https://duguid.com.au/..\\x.html", Some("x.html")),
         ("https://duguid.com.au/a/../index.html", None),
         ("https://duguid.com.au/tools/..", None),
+        // An empty segment is a segment, as it is for the root-relative spelling.
+        ("https://duguid.com.au/b//../x.html", None),
+        ("/b//../x.html", None),
     ] {
         let harness = Harness::new(vec![]);
         let failures = harness.with(root.clone(), |c| {
@@ -1593,6 +1600,19 @@ fn host_links_resolve_dot_segments_within_the_site() {
             None => assert!(failures.is_empty(), "{href}: {failures:?}"),
         }
     }
+}
+
+/// #top passes without reading its target, which may not even be text.
+#[test]
+fn top_fragments_do_not_read_their_target() {
+    let dir = tools_site();
+    std::fs::write(dir.path().join("binary.html"), [0xff, 0xfe, 0x00]).unwrap();
+    let harness = Harness::new(vec![]);
+    let failures = harness.with(dir.path().to_path_buf(), |c| {
+        c.check_hrefs("index.html", &strings(&["/binary.html#top"]), true)
+            .unwrap()
+    });
+    assert!(failures.is_empty(), "{failures:?}");
 }
 
 /// An href urlsplit refuses fails its page, naming it, instead of ending the run.
