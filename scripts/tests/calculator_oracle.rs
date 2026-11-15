@@ -450,10 +450,18 @@ fn pcg_band(factor: usize, part: u64, whole: u64) -> u64 {
     let holds = |(lower, upper): Band| {
         lower.is_none_or(|(p, inclusive)| {
             let bound = u128::from(p) * whole;
-            if inclusive { part >= bound } else { part > bound }
+            if inclusive {
+                part >= bound
+            } else {
+                part > bound
+            }
         }) && upper.is_none_or(|(p, inclusive)| {
             let bound = u128::from(p) * whole;
-            if inclusive { part <= bound } else { part < bound }
+            if inclusive {
+                part <= bound
+            } else {
+                part < bound
+            }
         })
     };
     let scores: Vec<u64> = (1..=6)
@@ -484,7 +492,9 @@ fn pcg_amount(rng: &mut Seeded, whole: u64, percents: &[u64]) -> u64 {
     let exact = whole * percent;
     match rng.below(4) {
         0 => rng.below(whole + 1),
-        _ if exact % 100 == 0 => (exact / 100).saturating_add_signed(rng.pick(&[-1, 0, 0, 1])),
+        _ if exact.is_multiple_of(100) => {
+            (exact / 100).saturating_add_signed(rng.pick(&[-1, 0, 0, 1]))
+        }
         _ => exact / 100,
     }
 }
@@ -506,7 +516,10 @@ fn pcg_case(rng: &mut Seeded) -> (Value, Value) {
         json!({"returned": "100", "factor1": "1", "taxRate": null, "factor2": null,
             "benchmarkShare": null, "factor3": null, "total": null, "zone": "green"})
     } else {
-        let (factor1, factor2) = (pcg_band(0, returned, entitlement), pcg_band(1, tax, entitlement));
+        let (factor1, factor2) = (
+            pcg_band(0, returned, entitlement),
+            pcg_band(1, tax, entitlement),
+        );
         let factor3 = all.then(|| pcg_band(2, remuneration, benchmark));
         let total = factor1 + factor2 + factor3.unwrap_or(0);
         json!({
