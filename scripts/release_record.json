@@ -8,7 +8,9 @@
     "documented: the release each page's prose, links and structured data describe.",
     "Release instants are UTC. 'reviewed' and 'verified' are Australia/Melbourne dates.",
     "evaluations[].label is the namespaced tag each evaluation page must keep visible. It names the component as well as the version, so an unrelated occurrence of the same number cannot satisfy the contract.",
-    "documented.supporting_files are release-specific files a page cites as evidence. Each must be linked at documented.tag, so a reader sees the files belonging to the release the page documents rather than a later default branch."
+    "documented.supporting_files are release-specific files a page cites as evidence. Each must be linked at documented.tag, so a reader sees the files belonging to the release the page documents rather than a later default branch.",
+    "published.registry_lag records an MCP registry that still lists an older version than published.version: its version and the sentence the documented page uses to say so. --verify-live expects the registry to report that version and reports drift once it catches up. It needs registry_url and documented.page. Without it, a documented page may not say the registry still lists, shows or has not caught up with a version.",
+    "published_mentions are other pages that name the published release. Each page must show text with {version} replaced by published.version and {<engine>} by that engine's pin in the component's pinned_engines, the published release's pins."
   ],
   "components": {
     "aus-accounting-mcp": {
@@ -54,6 +56,12 @@
       "tracking_commands": [
         "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
+      ],
+      "published_mentions": [
+        {
+          "page": "tools/limitations/index.html",
+          "text": "The published server, aus-accounting-mcp {version}, pins checker {payday-super-checker}"
+        }
       ],
       "notes": [
         "GitHub, PyPI and the MCP registry publish 0.9.0, verified on 15 November 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",

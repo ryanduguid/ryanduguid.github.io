@@ -9,7 +9,11 @@ before changing a page.
 Use Ruby 3.3 with Bundler, Rust through rustup, Python 3.14 or newer and Node 24 LTS.
 Run `bundle install` once for the locked Jekyll build and
 `cargo install --locked --path scripts` for `site-tools` (again after pulling
-changes). `.github/workflows/checks.yml` runs the pinned linters first, then the
+changes). A `site-tools` built from other `scripts/` sources than the checkout
+refuses to write there (`--write`, `--update-baseline`, the `build_*` commands,
+`check_ato_sources` with a baseline, report or issue path, and the other commands
+that write files) and warns before any other command; the message names both
+source digests. `.github/workflows/checks.yml` runs the pinned linters first, then the
 site checks:
 
 ```bash
@@ -45,8 +49,11 @@ separate from each request's 30-second timeout. Exhausted retries and permanent
 HTTP errors still fail the live check, except on pull requests that run live
 link checks: there `check_site --ci` passes `--transient-warnings`, and a link
 still failing with HTTP 429, 5xx or a timeout after its retries is reported as a
-warning (a `WARN` line and an Actions annotation) instead. HTTP 4xx other than
-the allow-listed denials below, DNS and other transport failures still fail pull
+warning (a `WARN` line and an Actions annotation) instead, as is a
+`web.archive.org` snapshot that fails with any transport error (such as a
+refused connection), because the archive refuses bursts of automated requests.
+HTTP 4xx other than the allow-listed denials below, including a 404 from the
+archive, and DNS and other transport failures on other hosts still fail pull
 requests, and an own-repository link that warns still gets its identity and
 archive lookup. The weekly scheduled and manual runs keep
 every failure strict, so a host that stays down fails within a week.
@@ -499,6 +506,15 @@ the asset size in bytes.
 For a component with engine pins, an older guide must also record its release's
 pins in `documented.pinned_engines`. The checker validates the guide against those
 pins; the component's `pinned_engines` still describes the published release.
+When the MCP registry still lists an older version than the published one, record
+it as `published.registry_lag` with that version and the sentence the documented
+page uses; `--verify-live` then reports drift once the registry catches up, and the
+offline check refuses a documented page that says the registry still lists, shows
+or has not caught up with a version whilst the record holds no lag. Other pages
+that name the published release are listed in the component's
+`published_mentions`, each with the text the page must show, where `{version}` is
+the published version and `{<engine>}` that engine's pin in the component's
+`pinned_engines`, the published release's pins.
 
 ## What an agent can be made to run
 
@@ -582,6 +598,12 @@ changelog edit, and regenerate `llms-full.txt` with `site-tools build_llms_full
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those
 copies by hand.
+
+`.github/review-generated.json` lists the generated files that a pre-merge review
+may omit, because its build reproduces them and the `--check` runs in CI fail when
+the committed copies are stale. The review tooling reads it from the pull
+request's base, so a pull request cannot widen its own list. A generated file it
+does not name, such as a new `llms-full` part, stays in review until it is added.
 
 Concurrent pull requests each add a dated row at the top of a changelog table,
 so a plain rebase stops in `changelog/index.html` and again in

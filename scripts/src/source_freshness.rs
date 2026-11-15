@@ -877,7 +877,25 @@ fn check_current_releases(root: &Path, host: &mut dyn Host) -> Result<u8, String
     Ok(0)
 }
 
+const HELP: &str = include_str!("help/stamp_source_freshness.txt");
+const FLAGS: [&str; 4] = [
+    "--build",
+    "--check-releases",
+    "--write",
+    "--write-tool-releases",
+];
+
 fn freshness(root: &Path, args: &[String], host: &mut dyn Host) -> Result<u8, String> {
+    if args.iter().any(|a| a == "-h" || a == "--help") {
+        host.say(HELP.trim_end(), false);
+        return Ok(0);
+    }
+    if let Some(unknown) = args.iter().find(|a| !FLAGS.contains(&a.as_str())) {
+        let usage = HELP.lines().next().unwrap_or_default();
+        return Err(format!(
+            "{usage}\nsite-tools stamp_source_freshness: error: unrecognized argument {unknown}"
+        ));
+    }
     let given = |flag: &str| args.iter().any(|a| a == flag);
     if given("--build") || given("--write-tool-releases") {
         return write_tool_releases(root, host, given("--build"));

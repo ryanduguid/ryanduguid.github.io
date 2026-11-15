@@ -822,3 +822,282 @@ fn verify_live_exit_codes() {
     assert_eq!(outcome(FOUND), 0, "every source matches");
     assert_eq!(outcome(INCONCLUSIVE), 2, "no source answered");
 }
+
+const MCP: &str = "aus-accounting-mcp";
+const LIMITATIONS_REL: &str = "tools/limitations/index.html";
+const LIMITATIONS_TEMPLATE: &str =
+    "The published server, aus-accounting-mcp {version}, pins checker {payday-super-checker}";
+
+fn current_record() -> Json {
+    load(Path::new(env!("CARGO_MANIFEST_DIR")).join("..").as_path()).unwrap()
+}
+
+/// A root holding only the given pages, each a bare page whose main text is `text`.
+fn fixture(pages: &[(&str, &str)]) -> tempfile::TempDir {
+    let site = tempfile::tempdir().unwrap();
+    for (rel, text) in pages {
+        let path = site.path().join(rel);
+        std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+        std::fs::write(
+            path,
+            format!("<!doctype html><html><body><main><p>{text}</p></main></body></html>\n"),
+        )
+        .unwrap();
+    }
+    site
+}
+
+/// The failures that mention `about`; a fixture root lacks most pages the record covers.
+fn failures_about(site: &Path, record: &Json, about: &str) -> Vec<String> {
+    check(site, record)
+        .into_iter()
+        .filter(|failure| failure.contains(about))
+        .collect()
+}
+
+fn published(record: &Json, key: &str) -> String {
+    let path = ["components", MCP, "published", key];
+    let mut value = record;
+    for step in path {
+        value = value.get(step).unwrap_or_else(|| panic!("{path:?}"));
+    }
+    match value {
+        Json::Str(text) => text.clone(),
+        other => panic!("{path:?} is {other:?}"),
+    }
+}
+
+fn checker_pin(record: &Json) -> String {
+    match record
+        .get("components")
+        .and_then(|c| c.get(MCP))
+        .and_then(|c| c.get("pinned_engines"))
+        .and_then(|p| p.get("payday-super-checker"))
+    {
+        Some(Json::Str(pin)) => pin.clone(),
+        other => panic!("payday-super-checker pin: {other:?}"),
+    }
+}
+
+/// The wording the MCP page kept after the registry caught up on 15 November 2026.
+#[test]
+fn an_unrecorded_registry_lag_is_rejected() {
+    let record = current_record();
+    let version = published(&record, "version");
+    let stale = format!(
+        "The current published release is aus-accounting-mcp/v{version}, verified on GitHub \
+         and PyPI on 15 November 2026; the MCP registry still listed v0.8.0."
+    );
+    let site = fixture(&[(MCP_REL, &stale)]);
+    expect_failure(
+        "stale registry lag",
+        &check(site.path(), &record),
+        &format!("{MCP_REL}: states an MCP registry lag that the release record does not"),
+    );
+    for wording in [
+        "the MCP registry lists v0.8.0",
+        "the MCP registry has not yet caught up",
+    ] {
+        let site = fixture(&[(MCP_REL, wording)]);
+        expect_failure(
+            wording,
+            &check(site.path(), &record),
+            &format!("{MCP_REL}: states an MCP registry lag"),
+        );
+    }
+    let site = fixture(&[(
+        MCP_REL,
+        "verified on GitHub, PyPI and the MCP registry on 15 November 2026.",
+    )]);
+    assert_clean(
+        "no registry lag",
+        &failures_about(site.path(), &record, "registry lag"),
+    );
+}
+
+#[test]
+fn a_recorded_registry_lag_must_be_stated() {
+    let mut record = current_record();
+    let version = published(&record, "version");
+    *at(
+        &mut record,
+        &["components", MCP, "published", "registry_lag"],
+    ) = json(r#"{"version": "0.8.0", "sentence": "the MCP registry still listed v0.8.0"}"#);
+
+    let site = fixture(&[(MCP_REL, "verified on GitHub and PyPI on 15 November 2026.")]);
+    expect_failure(
+        "unstated registry lag",
+        &check(site.path(), &record),
+        &format!(
+            "{MCP_REL}: does not state the recorded MCP registry lag \
+             'the MCP registry still listed v0.8.0'"
+        ),
+    );
+    let stated = format!(
+        "verified on GitHub and PyPI on 15 November 2026; the MCP registry still listed \
+         v0.8.0. Version {version} is current."
+    );
+    let site = fixture(&[(MCP_REL, &stated)]);
+    assert_clean(
+        "stated registry lag",
+        &failures_about(site.path(), &record, "registry lag"),
+    );
+
+    let mut caught_up = record.clone();
+    *at(
+        &mut caught_up,
+        &["components", MCP, "published", "registry_lag", "version"],
+    ) = s(&version);
+    expect_failure(
+        "lag naming the published version",
+        &check(site.path(), &caught_up),
+        &format!("{MCP}: registry_lag names {version}, the published version"),
+    );
+    let mut unnamed = record.clone();
+    *at(
+        &mut unnamed,
+        &["components", MCP, "published", "registry_lag", "sentence"],
+    ) = s("the MCP registry lagged");
+    expect_failure(
+        "lag sentence without the lagging version",
+        &check(site.path(), &unnamed),
+        &format!("{MCP}: registry_lag sentence must name 0.8.0"),
+    );
+    let mut unprobed = record.clone();
+    remove(
+        &mut unprobed,
+        &["components", MCP, "published"],
+        "registry_url",
+    );
+    expect_failure(
+        "lag without a registry to probe",
+        &check(site.path(), &unprobed),
+        &format!("{MCP}: registry_lag needs published.registry_url"),
+    );
+}
+
+#[test]
+fn published_mentions_hold_other_pages_to_the_record() {
+    let mut record = current_record();
+    *at(&mut record, &["components", MCP, "published_mentions"]) = Json::Array(vec![json(
+        &format!(r#"{{"page": "{LIMITATIONS_REL}", "text": "{LIMITATIONS_TEMPLATE}"}}"#),
+    )]);
+    let expected = format!(
+        "The published server, aus-accounting-mcp {}, pins checker {}",
+        published(&record, "version"),
+        checker_pin(&record)
+    );
+
+    // The limitations page named 0.3.0 and checker 0.1.9 long after 0.9.0 shipped.
+    let stale = "The published server, aus-accounting-mcp 0.3.0, pins checker 0.1.9, so a \
+                 result it returns never carries an extrapolated figure.";
+    let site = fixture(&[(LIMITATIONS_REL, stale)]);
+    expect_failure(
+        "stale published version",
+        &check(site.path(), &record),
+        &format!("{LIMITATIONS_REL}: does not show '{expected}'"),
+    );
+    let current =
+        format!("{expected}, so a result it returns never carries an extrapolated figure.");
+    let site = fixture(&[(LIMITATIONS_REL, &current)]);
+    assert_clean(
+        "current published version",
+        &failures_about(site.path(), &record, LIMITATIONS_REL),
+    );
+
+    let mut unknown = record.clone();
+    *at(&mut unknown, &["components", MCP, "published_mentions"]) = Json::Array(vec![json(
+        &format!(r#"{{"page": "{LIMITATIONS_REL}", "text": "pins {{no-such-engine}}"}}"#),
+    )]);
+    expect_failure(
+        "unknown placeholder",
+        &check(site.path(), &unknown),
+        &format!("{MCP}: published_mentions text names unknown field {{no-such-engine}}"),
+    );
+    let empty = fixture(&[]);
+    expect_failure(
+        "missing mention page",
+        &check(empty.path(), &record),
+        &format!("{LIMITATIONS_REL}: missing page for the {MCP} release record"),
+    );
+}
+
+/// The committed record holds the limitations page's server sentence, so check_site does.
+#[test]
+fn the_record_lists_the_limitations_page() {
+    let record = current_record();
+    let mentions = record
+        .get("components")
+        .and_then(|c| c.get(MCP))
+        .and_then(|c| c.get("published_mentions"));
+    let Some(Json::Array(mentions)) = mentions else {
+        panic!("{MCP} has no published_mentions list")
+    };
+    assert!(
+        mentions.iter().any(|m| {
+            m.get("page") == Some(&s(LIMITATIONS_REL))
+                && m.get("text") == Some(&s(LIMITATIONS_TEMPLATE))
+        }),
+        "{mentions:?}"
+    );
+}
+
+/// The daily run reports the registry catching up with a recorded lag as drift, so the
+/// lag sentence is removed rather than left behind.
+#[test]
+fn verify_live_reports_a_registry_that_caught_up() {
+    let mut record = current_record();
+    let version = published(&record, "version");
+    *at(
+        &mut record,
+        &["components", MCP, "published", "registry_lag"],
+    ) = json(r#"{"version": "0.8.0", "sentence": "the MCP registry still listed v0.8.0"}"#);
+    let run = |record: &Json, registry: &str| {
+        let mut live = stub(|_| Ok(Json::Null));
+        let mut printed = Vec::new();
+        let code = verify_live(
+            record,
+            &mut live,
+            &mut |_, component: &Json| {
+                let own = match component.get("published").and_then(|p| p.get("version")) {
+                    Some(Json::Str(version)) => version.clone(),
+                    other => panic!("version {other:?}"),
+                };
+                let is_mcp = component.get("distribution") == Some(&s(MCP));
+                Ok(vec![Probe {
+                    source: if is_mcp { "registry" } else { "github" }.into(),
+                    state: FOUND,
+                    detail: if is_mcp { registry.to_owned() } else { own },
+                }])
+            },
+            &mut |line| {
+                printed.push(line.to_owned());
+                Ok(())
+            },
+        )
+        .unwrap();
+        (code, printed.join("\n"))
+    };
+
+    let (code, printed) = run(&record, "0.8.0");
+    assert_eq!(code, 0, "the recorded lag holds: {printed}");
+    assert!(printed.contains("registry reports 0.8.0"), "{printed}");
+    assert!(!printed.contains("DRIFT"), "{printed}");
+
+    let (code, printed) = run(&record, &version);
+    assert_eq!(code, 1, "the registry caught up: {printed}");
+    assert!(
+        printed.contains(&format!("{MCP}: registry reports {version}"))
+            && printed.contains("(DRIFT)")
+            && printed.contains("registry_lag"),
+        "{printed}"
+    );
+
+    remove(
+        &mut record,
+        &["components", MCP, "published"],
+        "registry_lag",
+    );
+    let (code, printed) = run(&record, "0.8.0");
+    assert_eq!(code, 1, "an unrecorded lag is drift: {printed}");
+}

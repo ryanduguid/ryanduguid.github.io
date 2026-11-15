@@ -34,6 +34,9 @@ pub const INCONCLUSIVE: &str = "INCONCLUSIVE";
 pub const ABSENT: &str = "ABSENT";
 pub const CHANGED: &str = "CHANGED";
 const REGISTRY_CLAIMS: [&str; 2] = ["active", "latest"];
+/// Wording that says the registry lists another version or has not caught up; a page may
+/// use it only while the record holds `published.registry_lag`.
+const UNRECORDED_LAG: &str = r"\bregistry\s+(?:still\s+)?(?:lists|listed|shows|showed)\s+v?\d|\bregistry\s+(?:has|had)\s+not\s+(?:yet\s+)?caught\s+up";
 
 type Result<T> = std::result::Result<T, String>;
 
@@ -301,6 +304,22 @@ fn check_component(root: &Path, name: &str, component: &Json) -> Result<Vec<Stri
             ));
         }
     }
+    // A registry lag is recorded data, so the page's sentence about it cannot outlive it.
+    match registry_lag(published)? {
+        Some((_, sentence)) if !visible.contains(&sentence) => failures.push(format!(
+            "{rel}: does not state the recorded MCP registry lag {}",
+            py::repr_str(&sentence)
+        )),
+        None if get_key(published, "registry_url")?.is_some_and(Json::truthy)
+            && re(UNRECORDED_LAG, I).search(&visible).is_some() =>
+        {
+            failures.push(format!(
+                "{rel}: states an MCP registry lag that the release record does not; \
+                 record it as published.registry_lag or remove the sentence"
+            ));
+        }
+        _ => {}
+    }
     let published_version = item(published, "version")?;
     let documented_version = get_key(documented, "version")?.filter(|v| !matches!(v, Json::Null));
     if let Some(version) = documented_version
@@ -559,13 +578,112 @@ pub fn registry_claims(published: &Json) -> Result<std::result::Result<Vec<Strin
     Ok(Ok(claims))
 }
 
+/// `published.registry_lag`: the older version the MCP registry still lists, and the
+/// sentence in which the documented page says so.
+fn registry_lag(published: &Json) -> Result<Option<(String, String)>> {
+    let Some(lag) = get_key(published, "registry_lag")?.filter(|l| !matches!(l, Json::Null)) else {
+        return Ok(None);
+    };
+    Ok(Some((
+        text(item(lag, "version")?)?.to_owned(),
+        text(item(lag, "sentence")?)?.to_owned(),
+    )))
+}
+
+/// A recorded lag must be a different version, named in its own sentence, on a component
+/// whose registry `--verify-live` probes and whose documented page shows the sentence.
+fn check_registry_lag(name: &str, component: &Json) -> Result<Vec<String>> {
+    let published = item(component, "published")?;
+    let Some((version, sentence)) = registry_lag(published)? else {
+        return Ok(Vec::new());
+    };
+    let mut failures = Vec::new();
+    if !get_key(published, "registry_url")?.is_some_and(Json::truthy) {
+        failures.push(format!(
+            "{name}: registry_lag needs published.registry_url, or no run checks it"
+        ));
+    }
+    let documented_page = get_key(component, "documented")?
+        .filter(|d| d.truthy())
+        .map(|d| contains(d, "page"))
+        .transpose()?;
+    if documented_page != Some(true) {
+        failures.push(format!(
+            "{name}: registry_lag needs documented.page to show its sentence"
+        ));
+    }
+    if Json::Str(version.clone()).py_eq(item(published, "version")?) {
+        failures.push(format!(
+            "{name}: registry_lag names {version}, the published version; remove it"
+        ));
+    }
+    if !sentence.contains(&version) {
+        failures.push(format!("{name}: registry_lag sentence must name {version}"));
+    }
+    Ok(failures)
+}
+
+/// Each `published_mentions` entry: a page that must show `text`, with `{version}` and
+/// `{<engine>}` replaced by the published version and the published release's engine pins
+/// (the component's `pinned_engines`).
+fn check_mentions(root: &Path, name: &str, component: &Json) -> Result<Vec<String>> {
+    let engines = get_key(component, "pinned_engines")?;
+    let placeholder = regex::Regex::new(r"\{([A-Za-z0-9_-]+)\}").expect("valid pattern");
+    let mut failures = Vec::new();
+    for mention in iter_items(get_key(component, "published_mentions")?)? {
+        let published_version = text(item(item(component, "published")?, "version")?)?;
+        let rel = text(item(&mention, "page")?)?;
+        let template = text(item(&mention, "text")?)?;
+        let mut unknown = Vec::new();
+        let expected = placeholder
+            .replace_all(template, |found: &regex::Captures| {
+                let field = &found[1];
+                let value = if field == "version" {
+                    Some(published_version.to_owned())
+                } else {
+                    match engines.and_then(|e| e.get(field)) {
+                        Some(Json::Str(pin)) => Some(pin.clone()),
+                        _ => None,
+                    }
+                };
+                value.unwrap_or_else(|| {
+                    unknown.push(format!("{{{field}}}"));
+                    String::new()
+                })
+            })
+            .into_owned();
+        if !unknown.is_empty() {
+            failures.push(format!(
+                "{name}: published_mentions text names unknown field {}",
+                unknown.join(", ")
+            ));
+            continue;
+        }
+        if !root.join(rel).is_file() {
+            failures.push(format!("{rel}: missing page for the {name} release record"));
+            continue;
+        }
+        let (_, visible) = page_text(root, rel)?;
+        if !visible.contains(&expected) {
+            failures.push(format!(
+                "{rel}: does not show {} from the {name} release record",
+                py::repr_str(&expected)
+            ));
+        }
+    }
+    Ok(failures)
+}
+
 /// Every release claim the record covers.
 pub fn check_record(root: &Path, record: &Json) -> Result<Vec<String>> {
     let mut failures = Vec::new();
     for (name, component) in dict_items(item(record, "components")?)? {
-        if let Err(error) = registry_claims(item(component, "published")?)? {
+        let published = item(component, "published")?;
+        if let Err(error) = registry_claims(published)? {
             failures.push(format!("{name}: {error}"));
         }
+        failures.extend(check_registry_lag(name, component)?);
+        failures.extend(check_mentions(root, name, component)?);
         failures.extend(check_component(root, name, component)?);
         failures.extend(check_unreleased(root, name, component)?);
     }
@@ -931,14 +1049,27 @@ pub fn verify_live(
                 out(&format!("{name}: {source} matches, {detail}"))?;
                 continue;
             }
-            let matches = Json::Str(detail.clone()).py_eq(recorded_value)
+            // A recorded registry lag is what the registry should report; the registry
+            // catching up is drift, so the page's lag sentence is removed with it.
+            let lag = match source.as_str() {
+                "registry" => registry_lag(item(component, "published")?)?,
+                _ => None,
+            };
+            let (expected, said) = match &lag {
+                Some((version, _)) => (
+                    Json::Str(version.clone()),
+                    format!("the registry lags at {version} per registry_lag"),
+                ),
+                None => (recorded_value.clone(), recorded.clone()),
+            };
+            let matches = Json::Str(detail.clone()).py_eq(&expected)
                 || (source == "github recorded tag" && detail != MISSING);
             if !matches {
                 drifted = true;
             }
             let word = if matches { "matches" } else { "DRIFT" };
             out(&format!(
-                "{name}: {source} reports {detail}, record says {recorded} ({word})"
+                "{name}: {source} reports {detail}, record says {said} ({word})"
             ))?;
         }
     }
