@@ -17,7 +17,7 @@
 //! FBT rounding (each value to the cent before contributions, the gross-up and the FBT from
 //! the figure before them), so it cannot show those are the right conventions.
 //!
-//! A further 120 seeded loans, from their own seed so the 300 above are unchanged, add a
+//! A further 120 seeded loans, from their own seed so the 360 above are unchanged, add a
 //! balloon owed at the end of the term and payments in arrears or in advance; the oracle
 //! discounts the balloon and sums each timing's factors month by month, where the engine
 //! takes the closed form and divides by one month's growth for advance.
