@@ -6,7 +6,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
-  staffCost, cashForecast, div7aMinimumRepayment, transferDuty } from '../assets/business-calculators.mjs';
+  staffCost, cashForecast, div7aMinimumRepayment, transferDuty, firstHomeDuty } from '../assets/business-calculators.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -336,6 +336,7 @@ const transferDutyScales = (() => {
 })();
 // A boundary case names its jurisdiction; the engine takes that jurisdiction's scale.
 const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]]
+  : name === 'firstHomeDuty' ? [call[0], transferDutyScales[call[1]], call[1], call[2]]
   : name === 'landTax' ? landTaxArgs(call) : call);
 const dollars = (value) => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-AU',
   { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -347,7 +348,7 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal',
   fee: 'fee', total: 'total', first: 'first instalment', instalment: 'each later instalment', effectiveRate: 'effective rate', duty: 'duty' };
 Object.assign(LABELS, { baseValue: 'base value', statutory: 'statutory formula value', operating: 'operating cost value',
-  taxableValue: 'taxable value', grossedUp: 'grossed-up value', fbt: 'FBT' });
+  taxableValue: 'taxable value', grossedUp: 'grossed-up value', fbt: 'FBT', general: 'general duty' });
 Object.assign(LABELS, { final: 'final instalment', totalPaid: 'total paid', gic: 'GIC' });
 // PCG 2021/4 results are scores, a zone and percentages of the entitlement or the benchmark.
 const PCG_SHOWN = { returned: (v) => `returned ${v.toFixed(2)}%`, taxRate: (v) => `tax rate ${v.toFixed(2)}%`,
@@ -401,6 +402,7 @@ const INPUTS = {
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
   div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
   transferDuty: (value, place) => `${PLACES[place]}, ${dollars(value)}`,
+  firstHomeDuty: (value, place, home) => `${PLACES[place]}, ${dollars(value)}, first home buyer, ${home} home`,
   fbtCar: (car, year) => `${car.method === 'operating' ? `Operating cost ${dollars(car.costs)} at ${car.businessUse}% business use; `
     : 'Statutory formula; '}cost price ${dollars(car.cost)}${car.accessories === '0' ? '' : ` plus ${dollars(car.accessories)} accessories`}`
     + `${car.reduced ? ', held 4 years' : ''}, ${car.days} of ${year.days} days, contributions ${dollars(car.contribution)}, gross-up ${year.grossUp}`,
@@ -491,13 +493,15 @@ for (const [page, { function: name, peer, rows }] of Object.entries(shownCases))
   }
   for (const row of rows) {
     test(`${page} boundary case returns what its page shows: ${row.case}`, () => {
-      assert.equal(INPUTS[name](...row.call), row.input);
+      // A row may name another engine of the same calculator.
+      const engine = row.function ?? name;
+      assert.equal(INPUTS[engine](...row.call), row.input);
       if (row.refused) {
-        assert.throws(() => calculations[name](...engineArgs(name, row.call)), { message: row.refused });
+        assert.throws(() => calculations[engine](...engineArgs(engine, row.call)), { message: row.refused });
         assert.equal(row.output, `Refused: ${row.refused[0].toLowerCase()}${row.refused.slice(1, -1)}`);
         return;
       }
-      assertShown(calculations[name](...engineArgs(name, row.call)), row, { ...LABELS, ...ENGINE_LABELS[name] });
+      assertShown(calculations[engine](...engineArgs(engine, row.call)), row, { ...LABELS, ...ENGINE_LABELS[engine] });
     });
   }
 }
@@ -553,8 +557,8 @@ test('transfer duty radios carry the rate table rows for all 8 jurisdictions', (
   const radios = [...html.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)" data-name="([^"]+)" data-scale="([^"]+)"(?: checked)? \/> ([^<]+)<\/label>/g)]
     .map(([, code, name, scale, label]) => (assert.equal(label, name), assert.equal(PLACES[code], name),
       [code, scale.split(';').map((row) => row.split(','))]));
-  assert.equal(radios.length, (html.match(/type="radio"/g) ?? []).length);
-  assert.equal((html.match(/ checked /g) ?? []).length, 1);
+  assert.equal(radios.length, (html.match(/name="jurisdiction"/g) ?? []).length);
+  assert.equal((html.match(/name="jurisdiction"[^>]* checked /g) ?? []).length, 1);
   assert.deepEqual(Object.fromEntries(radios), transferDutyScales);
   assert.deepEqual(radios.map(([code]) => code), Object.keys(PLACES));
 });
@@ -586,6 +590,46 @@ test('transfer duty at the top of a band uses that band and rejects a broken tab
         `${JSON.stringify(broken)} ${value}`);
     }
   }
+});
+
+// First home buyers, from the sources read on 16 November 2026. New South Wales: the NSW
+// Government's 2026-27 reduced rate table ($850,000 to $990,000) and Revenue NSW's First Home
+// Buyers Assistance calculator (the rest), which rounds the concession to the cent, so
+// $38,991.065 gives $38,991.06, and keeps the $20 minimum. Queensland: the Queensland Revenue
+// Office's examples. The other figures are worked by hand in the comments.
+test('first home buyer duty matches the revenue offices’ figures either side of each threshold', () => {
+  const duty = (value, place, home = 'established') => firstHomeDuty(value, transferDutyScales[place], place, home);
+  for (const [value, expected] of [['800000', 0], ['850000', 9796.75], ['900000', 19593.5], ['950000', 29390.25],
+    ['990000', 37227.65], ['999000', 38991.06], ['997000', 38599.19], ['800001', 20], ['850050', 9808.8],
+    ['999999', 39186.85], ['1000000', 39187]]) {
+    assert.equal(duty(value, 'AU-NSW').duty, expected, value);
+    assert.equal(duty(value, 'AU-NSW', 'new').duty, expected, value);
+  }
+  // By hand: $709,999 is the home concession rate's $10,150 + 1,700 x $4.50 less $17,350, and
+  // $710,000 the same $17,800 less $15,615; from $800,000 only the home concession rate applies.
+  for (const [value, expected] of [['650000', 0], ['700000', 0], ['709999', 450], ['710000', 2185], ['730000', 6555],
+    ['799999', 20115], ['800000', 21850], ['850000', 24100]]) {
+    assert.equal(duty(value, 'AU-QLD').duty, expected, value);
+  }
+  // By hand: Victoria's general duty on $600,001 is $31,070.06, times $1 / $150,000, and on
+  // $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
+  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070.06]]) {
+    assert.equal(duty(value, 'AU-VIC').duty, expected, value);
+  }
+  for (const [value, expected] of [['600000', 0], ['600001', 16.15], ['700000', 16150], ['800000', 32300], ['800001', 32320.65]]) {
+    assert.equal(duty(value, 'AU-WA').duty, expected, value);
+  }
+  for (const [place, home] of [['AU-QLD', 'new'], ['AU-SA', 'new'], ['AU-ACT', 'established'], ['AU-ACT', 'new']]) {
+    assert.deepEqual(duty('3000000', place, home), { duty: 0, general: transferDuty('3000000', transferDutyScales[place]).duty,
+      concession: true }, place);
+  }
+  for (const [place, home] of [['AU-SA', 'established'], ['AU-TAS', 'established'], ['AU-TAS', 'new'], ['AU-NT', 'new']]) {
+    const general = transferDuty('500000', transferDutyScales[place]).duty;
+    assert.deepEqual(duty('500000', place, home), { duty: general, general, concession: false }, place);
+  }
+  assert.throws(() => duty('500000', 'AU-NSW', 'vacant'), { message: 'Choose an established or a new home.' });
+  assert.throws(() => firstHomeDuty('500000', transferDutyScales['AU-NSW'], 'NSW', 'new'), { message: 'Choose a state or territory.' });
+  assert.throws(() => duty('500000.50', 'AU-NSW'), { message: 'Enter a whole number between 1 and 1000000000.' });
 });
 
 // The FBT car form passes the checked option's gross-up and the form's days and FBT rate; the
