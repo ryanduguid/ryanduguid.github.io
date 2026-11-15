@@ -130,9 +130,12 @@ only, with Contents and Pull requests read and write and no Workflows permission
 Its client ID is the repository variable `SOURCE_FRESHNESS_APP_CLIENT_ID` and its
 private key the secret `SOURCE_FRESHNESS_APP_PRIVATE_KEY`; the job requests a
 token limited to those 2 permissions. The job then enables squash auto-merge, so
-the pull request lands once the required checks pass; it refuses a patch that
-changes anything but `tools/index.html`, `tools/index.txt` and the `llms-full`
-mirrors. A required check that fails leaves the pull request open for a fix.
+the pull request lands once the required checks pass and the branch is up to date
+with `main`; it refuses a patch that changes anything but `tools/index.html`,
+`tools/index.txt` and the `llms-full` mirrors. GitHub never updates the branch by
+itself, so every run of the workflow on `main` brings an open stamp pull request up
+to date with the same App token. A required check that fails leaves the pull
+request open for a fix.
 
 The same workflow runs `site-tools check_production`, which fetches the
 live pages and holds them to the delivery promises in the README: the five

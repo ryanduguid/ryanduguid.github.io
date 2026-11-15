@@ -276,6 +276,34 @@ jobs:
           overwrite: true
           retention-days: 1
 
+  # Branch protection merges only a branch that is up to date with main, and GitHub
+  # never updates one by itself, so every run brings an open stamp pull request up
+  # to date and auto-merge then lands it once the checks pass again.
+  update-stamp-pr:
+    if: github.ref == 'refs/heads/main'
+    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    permissions: {}
+    steps:
+      - name: Mint the pull request token
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.SOURCE_FRESHNESS_APP_CLIENT_ID }}
+          private-key: ${{ secrets.SOURCE_FRESHNESS_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Update the stamp pull request when main has moved
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          status=$(gh pr list --head "$BRANCH" --state open --json mergeStateStatus \
+            --jq '.[0].mergeStateStatus // empty')
+          if [ "$status" = BEHIND ]; then
+            gh pr update-branch "$BRANCH"
+          fi
+
   publish:
     needs: stamp
     if: needs.stamp.outputs.changed == 'true'
@@ -312,10 +340,11 @@ jobs:
           git apply --index "$RUNNER_TEMP/stamps/stamps.patch"
           # Auto-merge lands this change unreviewed, so it may touch only the
           # stamped page and its text mirrors.
-          unexpected=$(git diff --cached --name-only |
-            grep -Ev '^(tools/index\.(html|txt)|llms-full(-[a-z0-9-]+)?\.txt)$' || true)
+          unexpected=$(git diff --cached --name-only --no-renames -- . \
+            ':(exclude)tools/index.html' ':(exclude)tools/index.txt' ':(exclude,glob)llms-full*.txt')
           if [ -n "$unexpected" ]; then
-            echo "::error::The stamp patch changes files outside the stamp contract: $unexpected"
+            printf '%s\n' "$unexpected" >&2
+            echo "::error::The stamp patch changes files outside the stamp contract"
             exit 1
           fi
           git config user.name "github-actions[bot]"
