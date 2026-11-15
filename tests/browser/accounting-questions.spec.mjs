@@ -447,21 +447,6 @@ for (const [rate, months, expected] of [
   });
 }
 
-test('fixed fee takes its rounding step from a radio and shows one payment for one instalment', async ({ page }) => {
-  await page.goto('/tools/business-calculators/fixed-fee/');
-  const form = page.locator('#fixed-fee form');
-  await form.getByLabel('Estimated hours for the work').fill('1');
-  await form.getByLabel('Hourly rate or cost per hour, before GST (AUD)').fill('120');
-  await form.getByLabel('Target margin on the fee (%)').fill('45');
-  await form.getByLabel('Monthly instalments').fill('1');
-  await form.getByRole('radio', { name: 'The cent', exact: true }).check();
-  await form.getByLabel('Add GST at 10%').uncheck();
-  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
-    'Inputs: 1 hour at $120.00 an hour, 45% margin, fee rounded up to the cent, no GST, 1 monthly instalment. '
-    + 'Fee before GST: $218.19. GST: $0.00. Fee including GST: $218.19. Paid at once: $218.19. Effective hourly rate before GST: $218.19.');
-});
-
 test('Division 7A takes the chosen year’s rate from the table and works the repayment offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/div7a/');
   const form = page.locator('#div7a form');
@@ -477,6 +462,21 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
   await form.getByLabel('Remaining term (whole years)').fill('26');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('.field-error')).toHaveText('Enter 25 or less.');
+});
+
+test('fixed fee takes its rounding step from a radio and shows one payment for one instalment', async ({ page }) => {
+  await page.goto('/tools/business-calculators/fixed-fee/');
+  const form = page.locator('#fixed-fee form');
+  await form.getByLabel('Estimated hours for the work').fill('1');
+  await form.getByLabel('Hourly rate or cost per hour, before GST (AUD)').fill('120');
+  await form.getByLabel('Target margin on the fee (%)').fill('45');
+  await form.getByLabel('Monthly instalments').fill('1');
+  await form.getByRole('radio', { name: 'The cent', exact: true }).check();
+  await form.getByLabel('Add GST at 10%').uncheck();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: 1 hour at $120.00 an hour, 45% margin, fee rounded up to the cent, no GST, 1 monthly instalment. '
+    + 'Fee before GST: $218.19. GST: $0.00. Fee including GST: $218.19. Paid at once: $218.19. Effective hourly rate before GST: $218.19.');
 });
 
 // Each calculator opens on a fictional example, its first boundary case, already worked.

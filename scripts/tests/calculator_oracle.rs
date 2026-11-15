@@ -14,12 +14,12 @@
 //! engines, and the same Division 7A interest part (the rate on the whole balance), so it
 //! cannot show those are the right conventions.
 //!
+//! Nothing here imports an engine or a constant from one, and a change to the case seed
+//! needs no change to the expected values, which are never stored.
+//!
 //! A further 120 seeded fixed fees, from their own seed, are worked by the definition of
 //! rounding up (the smallest whole number of steps whose fee keeps the margin) and their
 //! instalments by sharing out the cents left over, where the engine divides with a ceiling.
-//!
-//! Nothing here imports an engine or a constant from one, and a change to the case seed
-//! needs no change to the expected values, which are never stored.
 mod common;
 
 use num_bigint::BigUint;
@@ -28,9 +28,9 @@ use std::io::Write;
 use std::process::{Command, Stdio};
 
 const LOAN_CASES: usize = 120;
+const FEE_CASES: usize = 120;
 const DIV7A_CASES: usize = 60;
 const LEVY_CASES: usize = 120;
-const FEE_CASES: usize = 120;
 /// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
 /// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
@@ -338,85 +338,6 @@ fn engines(cases: &[Value]) -> Vec<Value> {
     serde_json::from_slice(&output.stdout).unwrap()
 }
 
-#[test]
-fn the_oracle_works_a_known_loan_and_levy_by_hand() {
-    // A one-month loan repays the balance and one month's interest: 1% on $100.
-    assert_eq!(loan_oracle(10_000, 120_000, 1), [10_100, 100, 10_000, 100]);
-    // $1,000 at 0% over 3 months: a third of the balance, half up.
-    assert_eq!(loan_oracle(100_000, 0, 3), [33_333, 0, 33_333, 0]);
-    // $100,000 at 6% over 30 years, the worked case in the Node tests.
-    assert_eq!(
-        loan_oracle(10_000_000, 60_000, 360),
-        [59_955, 50_000, 9_955, 11_583_819]
-    );
-    // One year left repays the balance and a year's interest: $1,000 at 8.77%.
-    assert_eq!(div7a_oracle(100_000, 877, 1), [108_770, 8_770, 100_000]);
-    // The ATO's 2015 example, $55,000 at 5.95% over 7 years: $9,835 to the dollar.
-    assert_eq!(div7a_oracle(5_500_000, 595, 7), [983_492, 327_250, 656_242]);
-    // 2.7% of $1,000.00 is $27.00; 2.7% of $0.50 is exactly 1.35 cents, so 1 cent.
-    assert_eq!(levy_oracle(4 * 100_000), 2_700);
-    assert_eq!(levy_oracle(4 * 50), 1);
-    // 2.7% of $1.85 is 4.995 cents, and of 18.75 cents is 0.50625 cents: both round up.
-    assert_eq!(levy_oracle(4 * 185), 5);
-    assert_eq!(levy_oracle(75), 1);
-}
-
-/// A schedule in whole cents: interest rounds half up each month, and the last payment
-/// clears the balance. Returns (total interest, last payment).
-fn cent_schedule(principal: u64, rate: u64, months: u32, payment: u64) -> (u64, u64) {
-    let (mut balance, mut total) = (u128::from(principal), 0);
-    let scale = 12_000_000_u128;
-    for _ in 1..months {
-        let interest = (balance * u128::from(rate) * 2 + scale) / (2 * scale);
-        total += interest;
-        balance = balance + interest - u128::from(payment);
-    }
-    let interest = (balance * u128::from(rate) * 2 + scale) / (2 * scale);
-    (
-        u64::try_from(total + interest).unwrap(),
-        u64::try_from(balance + interest).unwrap(),
-    )
-}
-
-#[test]
-fn the_loan_page_states_its_total_against_a_cent_by_cent_schedule() {
-    assert_eq!(
-        cent_schedule(10_000_000, 60_000, 360, 59_955),
-        (11_583_845, 60_000)
-    );
-    if !common::rendered() {
-        return;
-    }
-    let html = common::read_text(common::root(), "tools/business-calculators/loan/index.html");
-    assert!(html.contains(
-        "it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest \
-         rounded each month and a final payment of $600.00, gives $115,838.45."
-    ));
-}
-
-#[test]
-fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
-    let mut rng = Seeded(0x2026_1105_C0A1_7E57);
-    let (mut cases, mut expected) = (Vec::new(), Vec::new());
-    for index in 0..LOAN_CASES + LEVY_CASES + DIV7A_CASES {
-        let (case, result) = if index < LOAN_CASES {
-            loan_case(&mut rng)
-        } else if index < LOAN_CASES + LEVY_CASES {
-            levy_case(&mut rng)
-        } else {
-            div7a_case(&mut rng)
-        };
-        cases.push(case);
-        expected.push(result);
-    }
-    assert_eq!(cases.len(), 300);
-    let actual = engines(&cases);
-    assert_eq!(actual.len(), cases.len());
-    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
-        assert_eq!(got, want, "{case}");
-    }
-}
-
 /// The largest fee including GST the engine accepts, $1,000,000,000.00, in cents.
 const MAX_FEE: u128 = 100_000_000_000;
 
@@ -545,6 +466,85 @@ fn the_engine_agrees_with_the_oracle_on_every_seeded_fixed_fee() {
         want.get("first")
             .is_some_and(|first| first != &want["instalment"])
     }));
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+#[test]
+fn the_oracle_works_a_known_loan_and_levy_by_hand() {
+    // A one-month loan repays the balance and one month's interest: 1% on $100.
+    assert_eq!(loan_oracle(10_000, 120_000, 1), [10_100, 100, 10_000, 100]);
+    // $1,000 at 0% over 3 months: a third of the balance, half up.
+    assert_eq!(loan_oracle(100_000, 0, 3), [33_333, 0, 33_333, 0]);
+    // $100,000 at 6% over 30 years, the worked case in the Node tests.
+    assert_eq!(
+        loan_oracle(10_000_000, 60_000, 360),
+        [59_955, 50_000, 9_955, 11_583_819]
+    );
+    // One year left repays the balance and a year's interest: $1,000 at 8.77%.
+    assert_eq!(div7a_oracle(100_000, 877, 1), [108_770, 8_770, 100_000]);
+    // The ATO's 2015 example, $55,000 at 5.95% over 7 years: $9,835 to the dollar.
+    assert_eq!(div7a_oracle(5_500_000, 595, 7), [983_492, 327_250, 656_242]);
+    // 2.7% of $1,000.00 is $27.00; 2.7% of $0.50 is exactly 1.35 cents, so 1 cent.
+    assert_eq!(levy_oracle(4 * 100_000), 2_700);
+    assert_eq!(levy_oracle(4 * 50), 1);
+    // 2.7% of $1.85 is 4.995 cents, and of 18.75 cents is 0.50625 cents: both round up.
+    assert_eq!(levy_oracle(4 * 185), 5);
+    assert_eq!(levy_oracle(75), 1);
+}
+
+/// A schedule in whole cents: interest rounds half up each month, and the last payment
+/// clears the balance. Returns (total interest, last payment).
+fn cent_schedule(principal: u64, rate: u64, months: u32, payment: u64) -> (u64, u64) {
+    let (mut balance, mut total) = (u128::from(principal), 0);
+    let scale = 12_000_000_u128;
+    for _ in 1..months {
+        let interest = (balance * u128::from(rate) * 2 + scale) / (2 * scale);
+        total += interest;
+        balance = balance + interest - u128::from(payment);
+    }
+    let interest = (balance * u128::from(rate) * 2 + scale) / (2 * scale);
+    (
+        u64::try_from(total + interest).unwrap(),
+        u64::try_from(balance + interest).unwrap(),
+    )
+}
+
+#[test]
+fn the_loan_page_states_its_total_against_a_cent_by_cent_schedule() {
+    assert_eq!(
+        cent_schedule(10_000_000, 60_000, 360, 59_955),
+        (11_583_845, 60_000)
+    );
+    if !common::rendered() {
+        return;
+    }
+    let html = common::read_text(common::root(), "tools/business-calculators/loan/index.html");
+    assert!(html.contains(
+        "it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest \
+         rounded each month and a final payment of $600.00, gives $115,838.45."
+    ));
+}
+
+#[test]
+fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1105_C0A1_7E57);
+    let (mut cases, mut expected) = (Vec::new(), Vec::new());
+    for index in 0..LOAN_CASES + LEVY_CASES + DIV7A_CASES {
+        let (case, result) = if index < LOAN_CASES {
+            loan_case(&mut rng)
+        } else if index < LOAN_CASES + LEVY_CASES {
+            levy_case(&mut rng)
+        } else {
+            div7a_case(&mut rng)
+        };
+        cases.push(case);
+        expected.push(result);
+    }
+    assert_eq!(cases.len(), 300);
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {

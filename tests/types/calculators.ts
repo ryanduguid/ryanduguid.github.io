@@ -28,11 +28,11 @@ void tool.execute({ amount: '110.00', inclusive: true });
 calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
 // @ts-expect-error A Division 7A benchmark rate is a decimal string, as the rate table writes it.
 calculate.div7aMinimumRepayment('100000', 8.77, '5');
+void tax;
+void formatted;
 const fee: number = calculate.fixedFee('18.5', '95', '40', '10', true, '12').first;
 // @ts-expect-error A fixed fee rounds up to the cent, $10, $50 or $100 only.
 calculate.fixedFee('18.5', '95', '40', '5', true, '12');
 // @ts-expect-error Adding GST is a boolean flag.
 calculate.fixedFee('18.5', '95', '40', '10', 'yes', '12');
 void fee;
-void tax;
-void formatted;
