@@ -203,7 +203,7 @@
     ]
   },
   "transfer-duty": {
-    "checked": "2026-11-15",
+    "checked": "2026-11-16",
     "function": "transferDuty",
     "rows": [
       {"case": "Revenue NSW’s auction example", "input": "New South Wales, $1,350,000.00", "call": ["1350000", "AU-NSW"], "result": {"duty": 55537}, "output": "Duty $55,537.00"},
