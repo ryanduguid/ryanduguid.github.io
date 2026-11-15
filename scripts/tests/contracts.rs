@@ -3,6 +3,7 @@
 
 //! The seo_core and site_contracts parts of scripts/test_contracts.py: focused mutation
 //! tests for the site's public contracts, run against a copy of the committed site.
+use chrono::NaiveDate;
 use site_tools::pyjson::{self, Json};
 use site_tools::schema_vocab::{self, Vocabulary};
 use site_tools::seo_core::{self as core, MetadataContext, Tree};
@@ -2303,6 +2304,20 @@ fn schema_vocabulary_page_mutation() {
     );
 }
 
+/// The first date `pattern` captures in a rendered page, ISO or 'D Month YYYY'. The
+/// calculator date mutations start from these, so a consistent redate needs no edit here.
+fn page_date(rel: &str, pattern: &str) -> NaiveDate {
+    let html = read_text(root(), rel);
+    let found = regex::Regex::new(pattern)
+        .unwrap()
+        .captures(&html)
+        .unwrap_or_else(|| panic!("{rel}: no date matches {pattern}"));
+    NaiveDate::parse_from_str(&found[1], "%Y-%m-%d")
+        .ok()
+        .or_else(|| site_tools::feed::parse_date(&found[1]).ok())
+        .unwrap_or_else(|| panic!("{rel}: unreadable date {:?}", &found[1]))
+}
+
 #[test]
 fn calculator_dates_are_not_older_than_what_they_depend_on() {
     if !rendered() {
@@ -2312,159 +2327,205 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
         "calculator dates",
         &contracts::check_calculator_dates(root()).unwrap(),
     );
+    const CHECKED: &str = r#"class="page-meta">[^<]*Last checked <time datetime="([^"]+)">"#;
+    const MODIFIED: &str = r#""dateModified": "([^"]+)""#;
     let gst = "tools/business-calculators/gst/index.html";
     let margin = "tools/business-calculators/margin/index.html";
     let loan = "tools/business-calculators/loan/index.html";
     let hub = contracts::CALCULATOR_HUB_REL;
-    let gst_header = r#"Last checked <time datetime="2026-11-13">13 November 2026</time>"#;
+    let next = |date: NaiveDate| date.succ_opt().unwrap();
+    let previous = |date: NaiveDate| date.pred_opt().unwrap();
+    let long = |date: NaiveDate| date.format("%-d %B %Y").to_string();
+    let read = |date: NaiveDate| format!("read {}", long(date));
+    let comparison = |date: NaiveDate| format!("Official comparison on {}", long(date));
+    let modified = |date: NaiveDate| format!(r#""dateModified": "{date}""#);
+    let header = |datetime: NaiveDate, shown: NaiveDate| {
+        format!(
+            r#"Last checked <time datetime="{datetime}">{}</time>"#,
+            long(shown)
+        )
+    };
+    let checked = page_date(gst, CHECKED);
+    let gst_modified = page_date(gst, MODIFIED);
+    let margin_checked = page_date(margin, CHECKED);
+    let compared = page_date(
+        margin,
+        r"Official comparison on (\d{1,2} [A-Z][a-z]+ \d{4})",
+    );
+    let loan_modified = page_date(loan, MODIFIED);
+    let hub_checked = page_date(hub, CHECKED);
+    let hub_modified = page_date(hub, MODIFIED);
+    let gst_header = header(checked, checked);
     for (label, rel, old, new, expected) in [
         (
             "a source read after the check",
             gst,
-            "read 13 November 2026",
-            "read 14 November 2026",
-            "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is older than 'read 14 November 2026'",
+            read(checked),
+            read(next(checked)),
+            format!(
+                "{gst}: Last checked {checked} is older than '{}'",
+                read(next(checked))
+            ),
         ),
         (
             "a check with no source read that day",
             gst,
-            "read 13 November 2026",
-            "read 12 November 2026",
-            "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is newer than its newest source read, 2026-11-12",
+            read(checked),
+            read(previous(checked)),
+            format!(
+                "{gst}: Last checked {checked} is newer than its newest source read, {}",
+                previous(checked)
+            ),
         ),
         (
             "an official comparison after the check",
             margin,
-            "Official comparison on 13 November 2026",
-            "Official comparison on 14 November 2026",
-            "tools/business-calculators/margin/index.html: Last checked 2026-11-13 is older than 'Official comparison on 14 November 2026'",
+            comparison(compared),
+            comparison(next(margin_checked)),
+            format!(
+                "{margin}: Last checked {margin_checked} is older than '{}'",
+                comparison(next(margin_checked))
+            ),
         ),
         (
             "a source read on a page without a check",
             gst,
-            gst_header,
-            "Last reviewed 27 September 2026",
-            "tools/business-calculators/gst/index.html: states 'read 13 November 2026' but shows no Last checked date",
+            gst_header.clone(),
+            "Last reviewed 27 September 2026".into(),
+            format!(
+                "{gst}: states '{}' but shows no Last checked date",
+                read(checked)
+            ),
         ),
         (
             "a page header without a date",
             gst,
-            gst_header,
-            "",
-            "tools/business-calculators/gst/index.html: expected one Last checked or Last reviewed date in the page header, found 0",
+            gst_header.clone(),
+            String::new(),
+            format!(
+                "{gst}: expected one Last checked or Last reviewed date in the page header, found 0"
+            ),
         ),
         (
             "an invalid check date",
             gst,
-            r#"<time datetime="2026-11-13">"#,
-            r#"<time datetime="2026-11-31">"#,
-            r#"tools/business-calculators/gst/index.html: invalid Last checked date "2026-11-31""#,
+            format!(r#"<time datetime="{checked}">"#),
+            r#"<time datetime="2026-11-31">"#.into(),
+            format!(r#"{gst}: invalid Last checked date "2026-11-31""#),
         ),
         (
             "a dateModified before the check",
             gst,
-            r#""dateModified": "2026-11-13""#,
-            r#""dateModified": "2026-11-12""#,
-            "tools/business-calculators/gst/index.html: dateModified 2026-11-12 is older than Last checked 2026-11-13",
+            modified(gst_modified),
+            modified(previous(checked)),
+            format!(
+                "{gst}: dateModified {} is older than Last checked {checked}",
+                previous(checked)
+            ),
         ),
         (
             "a header date that differs from its datetime",
             gst,
-            gst_header,
-            r#"Last checked <time datetime="2026-11-13">14 November 2026</time>"#,
-            r#"tools/business-calculators/gst/index.html: Last checked shows "14 November 2026" but its datetime is 2026-11-13"#,
+            gst_header.clone(),
+            header(checked, next(checked)),
+            format!(
+                r#"{gst}: Last checked shows "{}" but its datetime is {checked}"#,
+                long(next(checked))
+            ),
         ),
         (
             "a page without its Sources applied list",
             gst,
-            r#"<ul class="sources">"#,
-            r#"<ul class="source-list">"#,
-            "tools/business-calculators/gst/index.html: expected one Sources applied list, found 0",
+            r#"<ul class="sources">"#.into(),
+            r#"<ul class="source-list">"#.into(),
+            format!("{gst}: expected one Sources applied list, found 0"),
         ),
         (
             "a hub modified before a calculator with no check",
             loan,
-            r#""dateModified": "2026-11-15""#,
-            r#""dateModified": "2026-11-16""#,
-            "tools/business-calculators/index.html: dateModified 2026-11-15 is older than tools/business-calculators/loan/index.html's 2026-11-16",
+            modified(loan_modified),
+            modified(next(hub_modified)),
+            format!(
+                "{hub}: dateModified {hub_modified} is older than {loan}'s {}",
+                next(hub_modified)
+            ),
         ),
         (
             "a hub checked before a calculator",
             hub,
-            r#"Last checked <time datetime="2026-11-15">"#,
-            r#"Last checked <time datetime="2026-09-27">"#,
-            "tools/business-calculators/index.html: Last checked is not the newest calculator check, 2026-11-15",
+            format!(r#"Last checked <time datetime="{hub_checked}">"#),
+            format!(r#"Last checked <time datetime="{}">"#, previous(hub_checked)),
+            format!("{hub}: Last checked is not the newest calculator check, {hub_checked}"),
         ),
         (
             "a hub modified before a calculator",
             hub,
-            r#""dateModified": "2026-11-15""#,
-            r#""dateModified": "2026-09-27""#,
-            "tools/business-calculators/index.html: dateModified 2026-09-27 is older than tools/business-calculators/break-even/index.html's 2026-11-13",
+            modified(hub_modified),
+            modified(previous(gst_modified)),
+            format!(
+                "{hub}: dateModified {} is older than {gst}'s {gst_modified}",
+                previous(gst_modified)
+            ),
         ),
         (
             "a calculator missing from the hub",
             hub,
-            r#"href="/tools/business-calculators/div7a/""#,
-            r#"href="/tools/business-calculators/div7b/""#,
-            "tools/business-calculators/div7a/index.html: not listed on tools/business-calculators/index.html",
+            r#"href="/tools/business-calculators/div7a/""#.into(),
+            r#"href="/tools/business-calculators/div7b/""#.into(),
+            "tools/business-calculators/div7a/index.html: not listed on tools/business-calculators/index.html".into(),
         ),
         (
             "a hub entry without a page",
             hub,
-            r#"href="/tools/business-calculators/div7a/""#,
-            r#"href="/tools/business-calculators/div7b/""#,
-            "tools/business-calculators/index.html: lists /tools/business-calculators/div7b/, which has no page",
+            r#"href="/tools/business-calculators/div7a/""#.into(),
+            r#"href="/tools/business-calculators/div7b/""#.into(),
+            format!("{hub}: lists /tools/business-calculators/div7b/, which has no page"),
         ),
     ] {
         let site = copied_site();
-        replace_file(site.path(), rel, old, new);
+        replace_file(site.path(), rel, &old, &new);
         expect_failure(
             label,
             &contracts::check_calculator_dates(site.path()).unwrap(),
-            expected,
+            &expected,
         );
     }
     // A read stated outside Sources applied does not support the check.
     let site = copied_site();
-    replace_file(
-        site.path(),
-        gst,
-        "read 13 November 2026",
-        "read 12 November 2026",
-    );
+    replace_file(site.path(), gst, &read(checked), &read(previous(checked)));
     replace_file(
         site.path(),
         gst,
         r#"class="lead-note">"#,
-        r#"class="lead-note">Source read 13 November 2026. "#,
+        &format!(r#"class="lead-note">Source {}. "#, read(checked)),
     );
     expect_failure(
         "a read outside Sources applied",
         &contracts::check_calculator_dates(site.path()).unwrap(),
-        "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is newer than its newest source read, 2026-11-12",
+        &format!(
+            "{gst}: Last checked {checked} is newer than its newest source read, {}",
+            previous(checked)
+        ),
     );
     // A nested list stays inside Sources applied, so reads after it still count.
     let sources = r#"<ul class="sources">"#;
-    let nested = |read: &str| format!(r#"{sources}<li>Earlier: <ul><li>{read}</li></ul></li>"#);
+    let nested = |text: &str| format!(r#"{sources}<li>Earlier: <ul><li>{text}</li></ul></li>"#);
     let site = copied_site();
-    replace_file(site.path(), gst, sources, &nested("read 12 November 2026"));
+    replace_file(site.path(), gst, sources, &nested(&read(previous(checked))));
     assert_clean(
         "a nested list before the newest read",
         &contracts::check_calculator_dates(site.path()).unwrap(),
     );
     let site = copied_site();
-    replace_file(
-        site.path(),
-        gst,
-        "read 13 November 2026",
-        "read 14 November 2026",
-    );
-    replace_file(site.path(), gst, sources, &nested("read 13 November 2026"));
+    replace_file(site.path(), gst, &read(checked), &read(next(checked)));
+    replace_file(site.path(), gst, sources, &nested(&read(checked)));
     expect_failure(
         "a newer read after a nested list",
         &contracts::check_calculator_dates(site.path()).unwrap(),
-        "tools/business-calculators/gst/index.html: Last checked 2026-11-13 is older than 'read 14 November 2026'",
+        &format!(
+            "{gst}: Last checked {checked} is older than '{}'",
+            read(next(checked))
+        ),
     );
     let site = copied_site();
     replace_file(
@@ -2476,6 +2537,6 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
     expect_failure(
         "a second Sources applied list",
         &contracts::check_calculator_dates(site.path()).unwrap(),
-        "tools/business-calculators/gst/index.html: expected one Sources applied list, found 2",
+        &format!("{gst}: expected one Sources applied list, found 2"),
     );
 }
