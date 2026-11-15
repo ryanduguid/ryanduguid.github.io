@@ -53,11 +53,13 @@ the tool. `scripts/webmcp-tools.test.mjs` and the Ozzit WebMCP test in
 Chrome ships the API behind `chrome://flags/#enable-webmcp-testing` and an
 origin trial. On 15 November 2026 ChromeStatus (entry 5117755740913664, updated
 11 November 2026) listed a developer trial from Chrome 146 and an origin trial
-from Chrome 149 to 156, with no signal from Firefox or Safari; the specification
-was a W3C Community Group draft dated 13 November 2026. No origin-trial token is
-committed; registering one is an account action for the site owner. The tools
-beyond GST were added on 15 November 2026 before any of them had been tried with
-a real agent.
+from Chrome 149 to 156, with an extension to Chrome 162 also listed, and no
+signal from Firefox or Safari; the specification was a W3C Community Group draft
+dated 13 November 2026. No origin-trial token is committed; registering one is an
+account action for the site owner. No trial with a real agent is recorded for
+any tool here, the GST pilot included. The earlier rule was to add calculators only after that
+trial; the 5 tools beyond GST were added on 15 November 2026 without it, and
+only the Node tests and browser tests with a stand-in `modelContext` check them.
 Cloudflare's WebMCP toggle is a separate edge-injected bridge and stays off:
 its packs cover image provenance and a same-origin `/mcp` endpoint, and this
 static site has neither.
