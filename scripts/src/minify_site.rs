@@ -101,6 +101,10 @@ pub fn css(source: &str) -> Result<String, String> {
     let mut out = String::with_capacity(source.len());
     let mut chars = source.chars().peekable();
     let mut gap = Gap::None;
+    // Where the current declaration or rule starts in `out`, and, inside a custom
+    // property's value, the depth of brackets open in it.
+    let mut statement_start = 0;
+    let mut custom: Option<u32> = None;
     while let Some(c) = chars.next() {
         if c == '/' && chars.peek() == Some(&'*') {
             chars.next();
@@ -118,7 +122,13 @@ pub fn css(source: &str) -> Result<String, String> {
             continue;
         }
         if css_space(c) {
-            gap = Gap::Space;
+            // A custom property's value keeps its whitespace: script reads the value
+            // as written. Only the whitespace before it goes.
+            if custom.is_some() && !out.ends_with(':') {
+                out.push(c);
+            } else {
+                gap = Gap::Space;
+            }
             continue;
         }
         // Nothing is needed after these characters or before the closing ones. A space
@@ -133,11 +143,33 @@ pub fn css(source: &str) -> Result<String, String> {
             _ => {}
         }
         gap = Gap::None;
+        if let Some(depth) = custom {
+            custom = match c {
+                '(' | '[' | '{' => Some(depth + 1),
+                ')' | ']' | '}' if depth > 0 => Some(depth - 1),
+                ';' | '}' => {
+                    // Whitespace after the value is not part of it.
+                    out.truncate(out.trim_end_matches(css_space).len());
+                    None
+                }
+                _ => Some(depth),
+            };
+        }
         // `\;` is part of a name, not a separator.
         if c == '}' && out.ends_with(';') && !out.ends_with("\\;") {
             out.pop();
         }
         out.push(c);
+        if matches!(c, '{' | '}' | ';') {
+            statement_start = out.len();
+        } else if c == ':'
+            && custom.is_none()
+            && out
+                .get(statement_start..)
+                .is_some_and(|statement| statement.starts_with("--"))
+        {
+            custom = Some(0);
+        }
         match c {
             // An unquoted url() is one token: `/*` inside it is not a comment.
             '(' if out

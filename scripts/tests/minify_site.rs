@@ -96,6 +96,12 @@ fn css_keeps_every_token_boundary() {
         (".x\\31  .y { }", ".x\\31  .y{}"),
         (".x\\31 23 { }", ".x\\31 23{}"),
         ("a\u{a0}b { }", "a\u{a0}b{}"),
+        // A custom property's value keeps its inner whitespace; only the whitespace
+        // around it goes.
+        (
+            ":root {\n  --font: \"A\", B,  serif;\n  --gap:   calc( 1px + 2px ) ;\n  --set: { a: b }\n}\n.a { color: var(--gap) }",
+            ":root{--font:\"A\", B,  serif;--gap:calc( 1px + 2px );--set:{ a: b }}.a{color:var(--gap)}",
+        ),
         // An escaped `;` is part of a name, so it stays before `}`.
         ("a { --x: b\\; }", "a{--x:b\\;}"),
         // An unquoted url() is one token, comment-like text included.
