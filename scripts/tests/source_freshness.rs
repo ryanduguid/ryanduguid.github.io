@@ -697,7 +697,12 @@ fn metadata_stamping_preserves_pinned_examples_whilst_replacing_current_product_
         json!({"@type": "Offer", "price": "0", "priceCurrency": "AUD"})
     );
     assert_eq!(
-        stamped_tool.as_object().unwrap().keys().last().unwrap(),
+        stamped_tool
+            .as_object()
+            .unwrap()
+            .keys()
+            .next_back()
+            .unwrap(),
         "offers"
     );
     assert!(stamped.contains("SoftwareSourceCode"));
