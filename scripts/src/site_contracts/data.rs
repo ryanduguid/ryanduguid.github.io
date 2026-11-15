@@ -743,7 +743,7 @@ pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
 ];
-pub const ARTICLE_PATTERN_PAGES: [&str; 40] = [
+pub const ARTICLE_PATTERN_PAGES: [&str; 41] = [
     "works-with/index.html",
     "works-with/xero/index.html",
     "works-with/claude/index.html",
