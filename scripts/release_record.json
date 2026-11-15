@@ -56,7 +56,7 @@
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
       ],
       "notes": [
-        "GitHub and PyPI publish 0.9.0, verified on 15 November 2026, when the MCP registry still listed 0.8.0 as latest. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
+        "GitHub, PyPI and the MCP registry publish 0.9.0, verified on 15 November 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
         "0.6.0 adds GST coding review and BAS reconciliation through gst-review 0.1.0 and pins the Apache-2.0 releases of the payday, benchmark and Division 7A engines, which change no check, comparison or review.",
         "The guide names current 0.9.0 first; its recorded demonstration remains pinned to 0.2.8. Documented engine pins belong to current 0.9.0.",
         "0.7.0 adds lodgment due-date lookup through lodgment-calendar 0.1.0 and a bundled-data freshness report. Missing facts or recorded periods remain UNKNOWN.",
