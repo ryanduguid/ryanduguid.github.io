@@ -1558,6 +1558,66 @@ fn scheme_relative_links_use_their_origin() {
     );
 }
 
+/// A link with the site's host resolves its dot segments as a browser does, never above
+/// the site root, as relative links already do.
+#[test]
+fn host_links_resolve_dot_segments_within_the_site() {
+    let outer = tempfile::tempdir().unwrap();
+    let root = outer.path().join("site");
+    std::fs::create_dir_all(root.join("tools")).unwrap();
+    std::fs::write(root.join("index.html"), "<h1>Home</h1>").unwrap();
+    std::fs::write(outer.path().join("x.html"), "<h1>Outside</h1>").unwrap();
+    for (href, missing) in [
+        (
+            "https://duguid.com.au/../site/index.html",
+            Some("site/index.html"),
+        ),
+        ("//duguid.com.au/tools/../../x.html", Some("x.html")),
+        ("https://duguid.com.au/a/../index.html", None),
+        ("https://duguid.com.au/tools/..", None),
+    ] {
+        let harness = Harness::new(vec![]);
+        let failures = harness.with(root.clone(), |c| {
+            c.check_hrefs("index.html", &strings(&[href]), true)
+                .unwrap()
+        });
+        match missing {
+            Some(shown) => assert_eq!(
+                failures,
+                vec![format!(
+                    "index.html: https:{} -> no file at {shown} (same-origin link does not resolve on disk)",
+                    href.trim_start_matches("https:")
+                )],
+                "{href}"
+            ),
+            None => assert!(failures.is_empty(), "{href}: {failures:?}"),
+        }
+    }
+}
+
+/// An href urlsplit refuses fails its page, naming it, instead of ending the run.
+#[test]
+fn malformed_hrefs_fail_their_page() {
+    let dir = tools_site();
+    let harness = Harness::new(vec![]);
+    let failures = harness.with(dir.path().to_path_buf(), |c| {
+        c.check_hrefs(
+            "index.html",
+            &strings(&["ftp://[x", "https://[x", "#home"]),
+            true,
+        )
+        .unwrap()
+    });
+    assert_eq!(failures.len(), 2, "{failures:?}");
+    for href in ["ftp://[x", "https://[x"] {
+        let prefix = format!("index.html: {href} -> invalid URL: ");
+        assert!(
+            failures.iter().any(|f| f.starts_with(&prefix)),
+            "{failures:?}"
+        );
+    }
+}
+
 #[test]
 fn scheme_relative_external_links_are_prefetched() {
     use site_tools::check_links::fetch_targets;
@@ -1601,6 +1661,8 @@ fn origin_boundary_compares_scheme_host_and_port_value() {
         "https://duguid.com.au:80/x",
         "http://duguid.com.au/x",
         "https://duguid.com.au./x",
+        // User information before the site's name leaves the host external.
+        "https://duguid.com.au@evil.example/x",
     ];
     let malformed = [
         "https://duguid.com.au:abc/x",

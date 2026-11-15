@@ -59,7 +59,7 @@ fn captures_dir(root: &Path) -> PathBuf {
 /// The reviewed prompt set, keyed by its stable identifier.
 pub fn load_prompts(root: &Path) -> Result<Prompts> {
     let data = pyjson::loads_unique(&crate::read(&prompts_path(root))?)
-        .map_err(|e| format!("json.decoder.JSONDecodeError: {e}"))?;
+        .map_err(|e| format!("json.decoder.JSONDecodeError: {e} in prompts.json"))?;
     let mut prompts: Prompts = Vec::new();
     for entry in crate::pyobj::iterate(item(&data, "prompts")?)? {
         let id = match item(&entry, "id")? {
@@ -461,16 +461,16 @@ pub fn validated(paths: &[Named], prompts: &Prompts) -> Result<(Vec<Json>, Vec<S
     let mut failures = Vec::new();
     let mut seen: Vec<PathBuf> = Vec::new();
     for named in paths {
-        if !named.path.is_file() {
-            failures.push(format!("{}: no such capture file", named.shown));
-            continue;
-        }
         // A round named twice, by any spelling or link, is still one round.
         let resolved = py::resolve(&named.path);
         if seen.contains(&resolved) {
             continue;
         }
         seen.push(resolved);
+        if !named.path.is_file() {
+            failures.push(format!("{}: no such capture file", named.shown));
+            continue;
+        }
         let capture = match load_capture(&named.path) {
             Ok(capture) => capture,
             Err(error) => {

@@ -4,13 +4,17 @@ Link and content checks for every HTML file in the repository. Checks, in
 order, per file: 1. Every github.com/ryanduguid/<repo> link resolves to that
 exact repository. A rename redirect (301 to a different repo path) is a
 FAILURE even though the request ends in a 200, because redirects break if the
-old name is reused. 2. Every same-origin link, whether an absolute
-https://duguid.com.au/... href or a root-relative one like "/tools/payday-
-super/" or "/assets/site.css", resolves to a file on disk instead of being
-fetched. The site is served from main; this branch's own pages are not live
-yet, so fetching them would fail even when the link is correct. Checking the
-file on disk catches a typo immediately, sooner than a live fetch ever could.
-3. Every other absolute http(s) link resolves (2xx after redirects). Transient
+old name is reused. 2. Every same-origin link resolves to a file on disk
+instead of being fetched. Each href is resolved against its page as a browser
+would, dot segments included, so absolute https://duguid.com.au/... hrefs (the
+host in any case, port 443 written or not), scheme-relative //duguid.com.au/...
+ones, root-relative ones like "/tools/payday-super/" and relative ones like
+"../index.html" are all checked; a fragment must name an element id or <a>
+name in the target, literally or percent-decoded, and #top always passes. A
+malformed URL or port is a failure. The site is served from main; this
+branch's own pages are not live yet, so fetching them would fail even when the
+link is correct. Checking the file on disk catches a typo immediately, sooner
+than a live fetch ever could. 3. Every other http(s) link resolves (2xx after redirects). Transient
 transport failures and HTTP 5xx responses are retried up to five times; HTTP
 429 also retries with Retry-After or exponential backoff, capped at 30 seconds
 of total waiting per fetch. Other HTTP 4xx responses do not retry. HTTP 403

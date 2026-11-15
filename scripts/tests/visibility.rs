@@ -1093,6 +1093,9 @@ fn a_capture_selected_twice_counts_once() {
     std::fs::write(&bad, "{ not JSON").unwrap();
     let (_, failures) = validated(&[named(bad.clone()), named(bad.clone())], &prompts()).unwrap();
     assert_eq!(failures.len(), 1, "{failures:?}");
+    let missing = dir.path().join("missing.json");
+    let (_, failures) = validated(&[named(missing.clone()), named(missing)], &prompts()).unwrap();
+    assert_eq!(failures.len(), 1, "{failures:?}");
 
     let second = written(&base_capture(), dir.path(), "second.json");
     let (loaded, failures) = validated(
@@ -1118,7 +1121,7 @@ fn prompts_with_a_repeated_name_are_refused() {
     std::fs::write(&path, repeated).unwrap();
     let error = load_prompts(dir.path()).unwrap_err();
     assert!(
-        error.contains("repeated JSON object name 'prompts'"),
+        error.contains("repeated JSON object name 'prompts' in prompts.json"),
         "{error}"
     );
 }

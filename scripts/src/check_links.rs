@@ -338,7 +338,7 @@ fn web_scheme(scheme: &str) -> bool {
 }
 
 /// Whether a split URL has this site's origin: https, the site's host in any case and
-/// port 443 by value, written or not; the urlsplit error text for a malformed port.
+/// port 443 by value, written or not; the `.port` error text for a malformed port.
 fn is_self_origin(parts: &Split) -> Result<bool, String> {
     let port = pyurl::port(&parts.netloc)?;
     Ok(parts.scheme == "https"
@@ -732,9 +732,13 @@ impl<'a> Checker<'a> {
         let mut resolved_own = Vec::new();
         let page = crate::seo_core::site_url(rel, SELF_ORIGIN);
         for href in hrefs {
-            let scheme = pyurl::urlsplit(href)
-                .map_err(|e| format!("ValueError: {e}"))?
-                .scheme;
+            let scheme = match pyurl::urlsplit(href) {
+                Ok(parts) => parts.scheme,
+                Err(error) => {
+                    failures.push(format!("{rel}: {href} -> invalid URL: {error}"));
+                    continue;
+                }
+            };
             if !web_scheme(&scheme) {
                 continue;
             }
@@ -759,7 +763,13 @@ impl<'a> Checker<'a> {
                 }
             };
             if same_origin {
-                let target = self.self_origin_target(&parts.path);
+                // urljoin keeps the dot segments of a URL with a host; resolve them as a
+                // browser does, so no link reaches above the site root.
+                let path = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), &format!(".{}", parts.path))
+                    .and_then(|url| pyurl::urlsplit(&url))
+                    .map_err(|e| format!("ValueError: {e}"))?
+                    .path;
+                let target = self.self_origin_target(&path);
                 let shown = self.rel_to_root(&target);
                 if !target.is_file() {
                     failures.push(format!(
