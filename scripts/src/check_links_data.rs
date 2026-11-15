@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 143] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 145] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -149,6 +149,8 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 143] = [
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/110-45",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-27",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-80",
+    "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003",
+    "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008",
     "https://www.ato.gov.au/law/view/document?docid=TXR/TR20221W/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
     "https://www.ato.gov.au/online-services/businesses-and-organisations-online-services/lodgments-in-online-services-for-business/two-week-lodgment-concession-terms-and-conditions",
