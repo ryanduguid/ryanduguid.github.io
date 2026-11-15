@@ -9,7 +9,11 @@ before changing a page.
 Use Ruby 3.3 with Bundler, Rust through rustup, Python 3.14 or newer and Node 24 LTS.
 Run `bundle install` once for the locked Jekyll build and
 `cargo install --locked --path scripts` for `site-tools` (again after pulling
-changes). `.github/workflows/checks.yml` runs the pinned linters first, then the
+changes). A `site-tools` built from other `scripts/` sources than the checkout
+refuses to write there (`--write`, `--update-baseline`, the `build_*` commands,
+`check_ato_sources` with a baseline, report or issue path, and the other commands
+that write files) and warns before any other command; the message names both
+source digests. `.github/workflows/checks.yml` runs the pinned linters first, then the
 site checks:
 
 ```bash
@@ -129,7 +133,13 @@ no jobs; App-raised runs start normally. The App is installed on this repository
 only, with Contents and Pull requests read and write and no Workflows permission.
 Its client ID is the repository variable `SOURCE_FRESHNESS_APP_CLIENT_ID` and its
 private key the secret `SOURCE_FRESHNESS_APP_PRIVATE_KEY`; the job requests a
-token limited to those 2 permissions.
+token limited to those 2 permissions. The job then enables squash auto-merge, so
+the pull request lands once the required checks pass and the branch is up to date
+with `main`; it refuses a patch that changes anything but `tools/index.html`,
+`tools/index.txt` and the `llms-full` mirrors. GitHub never updates the branch by
+itself, so every run of the workflow on `main` brings an open stamp pull request up
+to date with the same App token. A required check that fails leaves the pull
+request open for a fix.
 
 The same workflow runs `site-tools check_production`, which fetches the
 live pages and holds them to the delivery promises in the README: the five
@@ -494,6 +504,15 @@ the asset size in bytes.
 For a component with engine pins, an older guide must also record its release's
 pins in `documented.pinned_engines`. The checker validates the guide against those
 pins; the component's `pinned_engines` still describes the published release.
+When the MCP registry still lists an older version than the published one, record
+it as `published.registry_lag` with that version and the sentence the documented
+page uses; `--verify-live` then reports drift once the registry catches up, and the
+offline check refuses a documented page that says the registry still lists, shows
+or has not caught up with a version whilst the record holds no lag. Other pages
+that name the published release are listed in the component's
+`published_mentions`, each with the text the page must show, where `{version}` is
+the published version and `{<engine>}` that engine's pin in the component's
+`pinned_engines`, the published release's pins.
 
 ## What an agent can be made to run
 
@@ -577,6 +596,12 @@ changelog edit, and regenerate `llms-full.txt` with `site-tools build_llms_full
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those
 copies by hand.
+
+`.github/review-generated.json` lists the generated files that a pre-merge review
+may omit, because its build reproduces them and the `--check` runs in CI fail when
+the committed copies are stale. The review tooling reads it from the pull
+request's base, so a pull request cannot widen its own list. A generated file it
+does not name, such as a new `llms-full` part, stays in review until it is added.
 
 Concurrent pull requests each add a dated row at the top of a changelog table,
 so a plain rebase stops in `changelog/index.html` and again in

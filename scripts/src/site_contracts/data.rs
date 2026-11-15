@@ -76,8 +76,8 @@ pub const RETIRED_GITHUB_SOURCE_INSTALL_PATTERN: &str = concat!(
 pub const CA_ANZ_NON_ENDORSEMENT: &str =
     "I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.";
 pub const MCP_REL: &str = "tools/australian-tax-ai-agents/index.html";
-pub const MCP_REVIEW_DATE: &str = "2026-11-13";
-pub const MCP_VISIBLE_REVIEW_DATE: &str = "13 November 2026";
+pub const MCP_REVIEW_DATE: &str = "2026-11-15";
+pub const MCP_VISIBLE_REVIEW_DATE: &str = "15 November 2026";
 pub const ASSURANCE_ANCHORS: [(&str, &str); 11] = [
     ("results-you-can-check", "Results you can check"),
     (

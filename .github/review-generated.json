@@ -1,0 +1,54 @@
+{
+  "format": "review-generated/1",
+  "paths": [
+    "llms-full-about-1.txt",
+    "llms-full-changelog-1.txt",
+    "llms-full-contact-1.txt",
+    "llms-full-evaluate-1.txt",
+    "llms-full-evidence-1.txt",
+    "llms-full-examples-1.txt",
+    "llms-full-home-1.txt",
+    "llms-full-privacy-1.txt",
+    "llms-full-rates-1.txt",
+    "llms-full-tools-1.txt",
+    "llms-full-tools-2.txt",
+    "llms-full-tools-3.txt",
+    "llms-full-tools-4.txt",
+    "llms-full-tools-5.txt",
+    "llms-full-tools-6.txt",
+    "llms-full-tools-7.txt",
+    "llms-full-tools-8.txt",
+    "llms-full-works-with-1.txt",
+    "llms-full.txt",
+    ".well-known/llms.txt",
+    "rates/rates.json"
+  ],
+  "build": [
+    [
+      "cargo",
+      "run",
+      "--locked",
+      "--quiet",
+      "--manifest-path",
+      "scripts/Cargo.toml",
+      "--bin",
+      "site-tools",
+      "--",
+      "build_rates_json",
+      "--write"
+    ],
+    [
+      "cargo",
+      "run",
+      "--locked",
+      "--quiet",
+      "--manifest-path",
+      "scripts/Cargo.toml",
+      "--bin",
+      "site-tools",
+      "--",
+      "build_llms_full",
+      "--write"
+    ]
+  ]
+}
