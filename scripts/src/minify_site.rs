@@ -12,20 +12,35 @@ use oxc_minifier::{Minifier, MinifierOptions};
 use oxc_parser::Parser;
 use oxc_span::SourceType;
 
-/// The copyright and licence lines a file opens with: its leading comment lines, up to
-/// the first line that is not a whole comment. Minifiers drop ordinary comments, and
-/// the site's licence asks for the attribution to stay.
+/// The copyright and licence lines a file opens with: its leading comments that fill
+/// whole lines, up to the first line that is not one. Minifiers drop ordinary
+/// comments, and the site's licence asks for the attribution to stay.
 pub fn header(source: &str) -> &str {
+    // `end` covers whole comments; `open` is the length of a block comment's lines
+    // read so far while it is still open.
     let mut end = 0;
+    let mut open: Option<usize> = None;
     for line in source.split_inclusive('\n') {
         let text = line.trim();
-        // A block comment must close only at the end, or the line also holds code.
-        let comment = text.starts_with("//")
-            || (text.starts_with("/*") && text.find("*/") == Some(text.len() - 2));
-        if !comment {
-            break;
+        let rest = match open {
+            Some(_) => text,
+            None if text.starts_with("//") => {
+                end += line.len();
+                continue;
+            }
+            None => match text.strip_prefix("/*") {
+                Some(rest) => rest,
+                None => break,
+            },
+        };
+        // A block comment must close at the end of its line, or the line holds code.
+        match rest.find("*/") {
+            None => open = Some(open.unwrap_or(0) + line.len()),
+            Some(at) if at + 2 == rest.len() => {
+                end += open.take().unwrap_or(0) + line.len();
+            }
+            Some(_) => break,
         }
-        end += line.len();
     }
     &source[..end]
 }
@@ -118,11 +133,32 @@ pub fn css(source: &str) -> Result<String, String> {
             _ => {}
         }
         gap = Gap::None;
-        if c == '}' && out.ends_with(';') {
+        // `\;` is part of a name, not a separator.
+        if c == '}' && out.ends_with(';') && !out.ends_with("\\;") {
             out.pop();
         }
         out.push(c);
         match c {
+            // An unquoted url() is one token: `/*` inside it is not a comment.
+            '(' if out
+                .get(out.len().saturating_sub(4)..)
+                .is_some_and(|name| name.eq_ignore_ascii_case("url("))
+                && !matches!(
+                    chars.clone().find(|c| !css_space(*c)),
+                    Some('"' | '\'') | None
+                ) =>
+            {
+                while chars.next_if(|c| css_space(*c)).is_some() {}
+                loop {
+                    let next = chars.next().ok_or("unterminated url()")?;
+                    out.push(next);
+                    match next {
+                        ')' => break,
+                        '\\' => out.push(chars.next().ok_or("unterminated url()")?),
+                        _ => {}
+                    }
+                }
+            }
             '\\' => {
                 let escaped = chars.next().ok_or("escape at the end of the file")?;
                 out.push(escaped);

@@ -17,7 +17,10 @@ fn header_stops_at_the_first_line_that_is_not_a_whole_comment() {
     // A block comment closing before code on the same line is not a header line:
     // keeping it would run that code twice.
     assert_eq!(header("/* a */ run(); /* b */\nrun();\n"), "");
-    assert_eq!(header("/* a\n b */\n"), "");
+    // A comment over several lines counts once it closes at the end of a line.
+    assert_eq!(header("/* a\n b */\nrun();\n"), "/* a\n b */\n");
+    assert_eq!(header("/* a\n b */ run();\n"), "");
+    assert_eq!(header("/* a\n b\n"), "");
 }
 
 #[test]
@@ -93,6 +96,17 @@ fn css_keeps_every_token_boundary() {
         (".x\\31  .y { }", ".x\\31  .y{}"),
         (".x\\31 23 { }", ".x\\31 23{}"),
         ("a\u{a0}b { }", "a\u{a0}b{}"),
+        // An escaped `;` is part of a name, so it stays before `}`.
+        ("a { --x: b\\; }", "a{--x:b\\;}"),
+        // An unquoted url() is one token, comment-like text included.
+        (
+            "a { background: URL( a/*b*/c.png ) }",
+            "a{background:URL(a/*b*/c.png )}",
+        ),
+        (
+            "a { background: url( \"a b.png\" ) }",
+            "a{background:url(\"a b.png\")}",
+        ),
     ] {
         assert_eq!(css(source).unwrap(), minified, "{source:?}");
     }
@@ -105,6 +119,7 @@ fn unterminated_css_is_refused() {
         ".a { content: \"open }",
         ".a { content: 'a\nb' }",
         ".a\\",
+        "a { background: url(a.png }",
     ] {
         assert!(css(source).is_err(), "{source:?}");
     }
@@ -129,6 +144,11 @@ fn the_site_stylesheets_parse_the_same_after_minifying() {
             let source = fs::read_to_string(&path).unwrap();
             let minified = css(&source).unwrap();
             assert!(minified.len() < source.len(), "{}", path.display());
+            assert!(
+                minified.contains("SPDX-License-Identifier"),
+                "{}",
+                path.display()
+            );
             assert_eq!(rules(&minified), rules(&source), "{}", path.display());
             checked += 1;
         }
@@ -170,6 +190,11 @@ fn the_site_modules_keep_their_imports_and_exports() {
             let source = fs::read_to_string(&path).unwrap();
             let minified = javascript(&source, true).unwrap();
             assert!(minified.len() < source.len(), "{}", path.display());
+            assert!(
+                minified.contains("SPDX-License-Identifier"),
+                "{}",
+                path.display()
+            );
             assert_eq!(
                 interface(&minified),
                 interface(&source),
