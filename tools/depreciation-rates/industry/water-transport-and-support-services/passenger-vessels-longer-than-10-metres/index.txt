@@ -1,0 +1,61 @@
+# Longer than 10 metres effective life: 20 years, Passenger …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/passenger-vessels-longer-than-10-metres/
+
+> Passenger vessels …: Longer than 10 metres: effective life 20 years, last updated 1 July 2009 (Table A).
+
+# Passenger vessels …: Longer than 10 metres
+
+‘Passenger vessels …: Longer than 10 metres’, for an asset used in Water transport and support services, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2009.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Longer than 10 metres
+Under | Commercial vessels: / Passenger vessels (including cruise vessels, skippered charter vessels, vehicle and passenger ferries, semi submersible vessels and water taxis):
+Table | Table A (industry categories), TRANSPORT, POSTAL AND WAREHOUSING / Water transport and support services, ANZSIC 48100 to 48200 and 52110 to 52190
+Effective life | 20 years
+Prime cost rate | 5.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 10.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2009
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Water transport and support services takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 July 2009. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Passenger vessels (including cruise vessels, skippered charter vessels, vehicle and passenger ferries, semi submersible vessels and water taxis)
+
+Row | Life | Prime cost | Diminishing value
+Longer than 10 metres (this page) | 20 years | 5.00% | 10.00%
+Not longer than 10 metres | 15 years | 6.67% | 13.33%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Not longer than 10 metres: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/passenger-vessels-not-longer-than-10-metres/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -80,17 +80,17 @@
       },
       "documented": {
         "page": "tools/ozzit/index.html",
-        "version": "3.5.0",
+        "version": "3.6.0",
         "visible_label": "Current release Ozzit v3.6.0",
         "software_version": "3.6.0",
-        "tag": "v3.5.0",
+        "tag": "v3.6.0",
         "supporting_files": [
           "CITATION.cff",
           "functions.csv",
           "docs/workbook-use.md"
         ],
-        "asset_sha256": "76d3722c785abd3813ffffffc5fbb2d6ab80628da10fb7f36cea7c67fd171330",
-        "asset_bytes": 462490
+        "asset_sha256": "95006168d685496f27b04ab95099a7c103d3013cf031178046ffcbfcfd88d65b",
+        "asset_bytes": 485256
       }
     },
     "au-fpa-pack": {

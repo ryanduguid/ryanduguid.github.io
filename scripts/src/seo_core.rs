@@ -11,7 +11,7 @@ use crate::py;
 use crate::pyjson::{self, Json};
 use crate::pyre::{self, I, M, S, re};
 use crate::schema_vocab::Vocabulary;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 
 pub const GENERATED_HTML_DIRECTORIES: [&str; 6] = [
@@ -239,7 +239,9 @@ pub fn check_file_metadata(
     Ok(failures)
 }
 
-/// Check the sitemap, llms.txt coverage and robots sitemap declaration.
+/// Check the sitemaps, llms.txt coverage and robots sitemap declarations. The effective
+/// life pages are listed in their own sitemap, which `build_effective_life_pages` writes,
+/// and in the section llms.txt it writes beside it; every other page in `sitemap.xml`.
 pub fn check_sitemap(
     paths: &[PathBuf],
     site: &str,
@@ -247,38 +249,103 @@ pub fn check_sitemap(
     root: &Path,
 ) -> Result<(Vec<String>, usize), String> {
     let mut failures = Vec::new();
-    let listed = sitemap_urls(root)?;
+    let (family, others): (Vec<PathBuf>, Vec<PathBuf>) = paths
+        .iter()
+        .cloned()
+        .partition(|p| crate::effective_life_pages::is_page(&rel(p, root)));
+    let mut listed = check_one_sitemap(
+        "sitemap.xml",
+        &others,
+        site,
+        not_indexed,
+        root,
+        &mut failures,
+    )?;
+    let family_sitemap = crate::effective_life_pages::SITEMAP_REL;
+    let mut sitemaps = vec!["sitemap.xml"];
+    if !family.is_empty() || root.join(family_sitemap).is_file() {
+        listed += check_one_sitemap(
+            family_sitemap,
+            &family,
+            site,
+            not_indexed,
+            root,
+            &mut failures,
+        )?;
+        sitemaps.push(family_sitemap);
+    }
+    check_llms(&others, site, not_indexed, root, &mut failures)?;
+    let robots = crate::read(&root.join("robots.txt"))?;
+    for sitemap in sitemaps {
+        if !robots.contains(&format!("Sitemap: {site}/{sitemap}")) {
+            failures.push(if sitemap == "sitemap.xml" {
+                "robots.txt: no Sitemap line".into()
+            } else {
+                format!("robots.txt: no Sitemap line for {sitemap}")
+            });
+        }
+    }
+    Ok((failures, listed))
+}
+
+/// Check that llms.txt links every indexable page outside the effective life pages.
+fn check_llms(
+    others: &[PathBuf],
+    site: &str,
+    not_indexed: &HashSet<String>,
+    root: &Path,
+    failures: &mut Vec<String>,
+) -> Result<(), String> {
+    let expected_llms = others
+        .iter()
+        .map(|p| rel(p, root))
+        .filter(|r| !not_indexed.contains(r))
+        .map(|r| site_url(&r, site))
+        .chain(std::iter::once(format!("{site}/llms.txt")));
+    let llms = crate::read(&root.join("llms.txt"))?;
+    let mut expected_llms: Vec<_> = expected_llms.collect();
+    expected_llms.sort();
+    for url in expected_llms {
+        if !llms.contains(&url) {
+            failures.push(format!("llms.txt: does not link {url}"));
+        }
+    }
+    Ok(())
+}
+
+/// Each `<loc>` of a sitemap with the `<lastmod>` values that immediately follow it.
+fn lastmods_by_url(xml: &str) -> HashMap<String, Vec<String>> {
+    let mut out: HashMap<String, Vec<String>> = HashMap::new();
+    let pattern = regex::Regex::new(r"<loc>(.*?)</loc>\s*<lastmod>(.*?)</lastmod>")
+        .expect("the pattern compiles");
+    for found in pattern.captures_iter(xml) {
+        out.entry(found[1].to_owned())
+            .or_default()
+            .push(found[2].to_owned());
+    }
+    out
+}
+
+/// Check that one sitemap lists exactly `paths`' indexable pages, once each, with each
+/// page's `dateModified` as its `lastmod`. Returns how many URLs it lists.
+fn check_one_sitemap(
+    sitemap_rel: &str,
+    paths: &[PathBuf],
+    site: &str,
+    not_indexed: &HashSet<String>,
+    root: &Path,
+    failures: &mut Vec<String>,
+) -> Result<usize, String> {
+    let xml = crate::read(&root.join(sitemap_rel))?;
+    let listed = re(r"<loc>(.*?)</loc>", 0).findall(&xml);
+    let lastmods = lastmods_by_url(&xml);
     let expected_html: HashSet<String> = paths
         .iter()
         .map(|p| rel(p, root))
         .filter(|r| !not_indexed.contains(r))
         .map(|r| site_url(&r, site))
         .collect();
-    let mut expected_llms = expected_html.clone();
-    expected_llms.insert(format!("{site}/llms.txt"));
-    let listed_set: HashSet<&String> = listed.iter().collect();
-
-    let mut missing: Vec<_> = expected_html
-        .iter()
-        .filter(|u| !listed_set.contains(u))
-        .collect();
-    missing.sort();
-    for url in missing {
-        failures.push(format!("sitemap.xml: does not list {url}"));
-    }
-    let mut extra: Vec<_> = listed_set
-        .iter()
-        .filter(|u| !expected_html.contains(**u))
-        .collect();
-    extra.sort();
-    for url in extra {
-        failures.push(format!(
-            "sitemap.xml: lists {url}, which is not an indexable page"
-        ));
-    }
-    if listed.len() != listed_set.len() {
-        failures.push("sitemap.xml: duplicate <loc> entries".into());
-    }
+    check_sitemap_listing(sitemap_rel, &listed, &expected_html, failures);
 
     for path in paths {
         let rel = rel(path, root);
@@ -290,52 +357,78 @@ pub fn check_sitemap(
         if html.starts_with("---") && !html.contains("application/ld+json") {
             continue;
         }
-        let mut modified: Vec<String> = Vec::new();
-        let blocks = json_ld_blocks(&html, &rel, &mut Vec::new());
-        let entries: Vec<_> = blocks.iter().flat_map(nodes).collect();
-        let document_types = ["WebPage", "TechArticle", "ProfilePage"];
-        let has_document = entries
-            .iter()
-            .any(|node| document_types.iter().any(|kind| has_type(node, kind)));
-        for node in entries {
-            if has_document && !document_types.iter().any(|kind| has_type(node, kind)) {
-                continue;
-            }
-            // Software dates describe releases; the sitemap describes the website document.
-            if has_type(node, "SoftwareApplication") || has_type(node, "SoftwareSourceCode") {
-                continue;
-            }
-            if let Some(value) = node.get("dateModified") {
-                let value = value.py_str();
-                if !modified.contains(&value) {
-                    modified.push(value);
-                }
-            }
-        }
-        modified.sort();
-        let lastmods = sitemap_lastmods(&url, root)?;
+        let modified = page_date_modified(&html, &rel);
+        let lastmods = lastmods.get(&url).cloned().unwrap_or_default();
         if modified.len() != 1 || lastmods != modified {
             failures.push(format!(
-                "sitemap.xml: {url} lastmod {} does not match its dateModified {}",
+                "{sitemap_rel}: {url} lastmod {} does not match its dateModified {}",
                 repr_list(&lastmods),
                 repr_list(&modified)
             ));
         }
     }
+    Ok(listed.len())
+}
 
-    let llms = crate::read(&root.join("llms.txt"))?;
-    let mut expected_llms: Vec<_> = expected_llms.into_iter().collect();
-    expected_llms.sort();
-    for url in expected_llms {
-        if !llms.contains(&url) {
-            failures.push(format!("llms.txt: does not link {url}"));
+/// Report the pages a sitemap misses, the `<loc>`s that are not indexable pages and any
+/// repeated `<loc>`.
+fn check_sitemap_listing(
+    sitemap_rel: &str,
+    listed: &[String],
+    expected_html: &HashSet<String>,
+    failures: &mut Vec<String>,
+) {
+    let listed_set: HashSet<&String> = listed.iter().collect();
+    let mut missing: Vec<_> = expected_html
+        .iter()
+        .filter(|u| !listed_set.contains(u))
+        .collect();
+    missing.sort();
+    for url in missing {
+        failures.push(format!("{sitemap_rel}: does not list {url}"));
+    }
+    let mut extra: Vec<_> = listed_set
+        .iter()
+        .filter(|u| !expected_html.contains(**u))
+        .collect();
+    extra.sort();
+    for url in extra {
+        failures.push(format!(
+            "{sitemap_rel}: lists {url}, which is not an indexable page"
+        ));
+    }
+    if listed.len() != listed_set.len() {
+        failures.push(format!("{sitemap_rel}: duplicate <loc> entries"));
+    }
+}
+
+/// A page's distinct `dateModified` values, sorted: from its document nodes when it has
+/// any, else from all its nodes, never from software nodes.
+fn page_date_modified(html: &str, rel: &str) -> Vec<String> {
+    let mut modified: Vec<String> = Vec::new();
+    let blocks = json_ld_blocks(html, rel, &mut Vec::new());
+    let entries: Vec<_> = blocks.iter().flat_map(nodes).collect();
+    let document_types = ["WebPage", "TechArticle", "ProfilePage"];
+    let has_document = entries
+        .iter()
+        .any(|node| document_types.iter().any(|kind| has_type(node, kind)));
+    for node in entries {
+        if has_document && !document_types.iter().any(|kind| has_type(node, kind)) {
+            continue;
+        }
+        // Software dates describe releases; the sitemap describes the website document.
+        if has_type(node, "SoftwareApplication") || has_type(node, "SoftwareSourceCode") {
+            continue;
+        }
+        if let Some(value) = node.get("dateModified") {
+            let value = value.py_str();
+            if !modified.contains(&value) {
+                modified.push(value);
+            }
         }
     }
-    let robots = crate::read(&root.join("robots.txt"))?;
-    if !robots.contains(&format!("Sitemap: {site}/sitemap.xml")) {
-        failures.push("robots.txt: no Sitemap line".into());
-    }
-    Ok((failures, listed.len()))
+    modified.sort();
+    modified
 }
 
 fn meta_pattern(attr: &str, value: &str) -> String {

@@ -1,0 +1,114 @@
+# Radio broadcasting effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/
+
+> Radio broadcasting, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Radio broadcasting
+
+35 effective lives in Table A of the Commissioner’s 2025 effective life determination for Radio broadcasting.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Amplifiers and pre-amplifiers | 10 years | 10.00% | 20.00% | 1 July 2012
+Audio monitors | 10 years | 10.00% | 20.00% | 1 July 2012
+Audio processing assets (including rack mounted effects units etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Audio routers | 10 years | 10.00% | 20.00% | 1 July 2012
+Automation systems (including broadcast playout automation systems, content creation systems, music scheduling systems and traffic and billing automation systems) | 6 years | 16.67% | 33.33% | 1 July 2012
+Consoles: | | | |
+Consoles: / Broadcast consoles (incorporating audio logging and routing, intercommunication etc) | 7 years | 14.29% | 28.57% | 1 July 2012
+Consoles: / Production consoles | 10 years | 10.00% | 20.00% | 1 July 2012
+Control room assets generally: | | | |
+Control room assets generally: / Electronically based assets (including audio processors, audio switchers, aural studio to transmitter linkage assets, distribution amplifiers, monitor receivers etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Control room assets generally: / Personal computer based assets (including delay units, logging units, program fail detectors, RDS generators etc) | 6 years | 16.67% | 33.33% | 1 July 2012
+Digital audio players and recorders (including CD, DVD, mini disc, hard disc and solid state players and recorders) | 5 years | 20.00% | 40.00% | 1 July 2012
+Headphones and headsets | 2 years | 50.00% | 100.00% | 1 July 2012
+Intercommunication systems (standalone) | 10 years | 10.00% | 20.00% | 1 July 2012
+Microphones: | | | |
+Microphones: / Field and portable microphones | 5 years | 20.00% | 40.00% | 1 July 2012
+Microphones: / Studio based microphones (including recording microphones) | 10 years | 10.00% | 20.00% | 1 July 2012
+Microwave and satellite telecommunications assets – see Table A Telecommunications services (58010 to 58090) | | | |
+Mobile production vehicles (excluding the assets contained within) – see Table B Motor vehicles and trailers | | | |
+On air lights | 15 years | 6.67% | 13.33% | 1 July 2012
+Racks | 20 years | 5.00% | 10.00% | 1 July 2012
+Servers, domain controllers, switches, transcoders etc | 6 years | 16.67% | 33.33% | 1 July 2012
+Studio based digital audio broadcasting infrastructure (encoding assets etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Telephone systems: | | | |
+Telephone systems: / Telephone interface assets generally (used for sending and receiving audio to and from connected telephone lines) | 10 years | 10.00% | 20.00% | 1 July 2012
+Telephone systems: / Telephone screening systems and other personal computer based telephone systems (excluding software) | 6 years | 16.67% | 33.33% | 1 July 2012
+Telephone systems: / Voice over internet protocol (VoIP) based systems | 7 years | 14.29% | 28.57% | 1 July 2012
+Time code generators | 10 years | 10.00% | 20.00% | 1 July 2012
+Transmission assets: | | | |
+Transmission assets: / Antennas | 20 years | 5.00% | 10.00% | 1 July 2012
+Transmission assets: / Codecs | 10 years | 10.00% | 20.00% | 1 July 2012
+Transmission assets: / Fibre optic terminal equipment generally | 10 years | 10.00% | 20.00% | 1 July 2012
+Transmission assets: / Generators (backup) | 15 years | 6.67% | 13.33% | 1 July 2012
+Transmission assets: / Obstruction lighting | 15 years | 6.67% | 13.33% | 1 July 2012
+Transmission assets: / Power conditioners | 15 years | 6.67% | 13.33% | 1 July 2012
+Transmission assets: / RF switching units | 15 years | 6.67% | 13.33% | 1 July 2012
+Transmission assets: / Signal receiving and monitoring assets (including audio processors, decoders, modulation monitors, spectrum analysers etc) | 10 years | 10.00% | 20.00% | 1 July 2012
+Transmission assets: / Silence detection and switching units | 10 years | 10.00% | 20.00% | 1 July 2012
+Transmission assets: / Surge arresters | 10 years | 10.00% | 20.00% | 1 July 2012
+Transmission assets: / Translators | 15 years | 6.67% | 13.33% | 1 July 2012
+Transmission assets: / Transmission towers | 40 years | 2.50% | 5.00% | 1 July 2012
+Transmission assets: / Transmitters | 15 years | 6.67% | 13.33% | 1 July 2012
+Uninterruptible power supply (UPS) assets – see Table B Power supply assets | | | |
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Amplifiers and pre-amplifiers: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/amplifiers-and-pre-amplifiers/
+- Audio monitors: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/audio-monitors/
+- Audio processing assets (including rack mounted effects units etc): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/audio-processing-assets/
+- Audio routers: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/audio-routers/
+- Automation systems (including broadcast playout automation systems, content creation systems, music scheduling systems and traffic and billing automation systems): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/automation-systems/
+- Broadcast consoles (incorporating audio logging and routing, intercommunication etc): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/broadcast-consoles/
+- Production consoles: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/production-consoles/
+- Electronically based assets (including audio processors, audio switchers, aural studio to transmitter linkage assets, distribution amplifiers, monitor receivers etc): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/electronically-based-assets/
+- Personal computer based assets (including delay units, logging units, program fail detectors, RDS generators etc): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/personal-computer-based-assets/
+- Digital audio players and recorders (including CD, DVD, mini disc, hard disc and solid state players and recorders): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/digital-audio-players-and-recorders/
+- Headphones and headsets: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/headphones-and-headsets/
+- Intercommunication systems (standalone): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/intercommunication-systems/
+- Field and portable microphones: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/field-and-portable-microphones/
+- Studio based microphones (including recording microphones): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/studio-based-microphones/
+- Microwave and satellite telecommunications assets – see Table A Telecommunications services (58010 to 58090): https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/
+- Mobile production vehicles (excluding the assets contained within) – see Table B Motor vehicles and trailers: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/
+- On air lights: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/on-air-lights/
+- Racks: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/racks/
+- Servers, domain controllers, switches, transcoders etc: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/servers-domain-controllers-switches-transcoders-etc/
+- Studio based digital audio broadcasting infrastructure (encoding assets etc): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/studio-based-digital-audio-broadcasting-infrastructure/
+- Telephone interface assets generally (used for sending and receiving audio to and from connected telephone lines): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/telephone-interface-assets-generally/
+- Telephone screening systems and other personal computer based telephone systems (excluding software): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/telephone-screening-systems-and-other-personal-computer/
+- Voice over internet protocol (VoIP) based systems: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/voice-over-internet-protocol-based-systems/
+- Time code generators: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/time-code-generators/
+- Antennas: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/antennas/
+- Codecs: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/codecs/
+- Fibre optic terminal equipment generally: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/fibre-optic-terminal-equipment-generally/
+- Generators (backup): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/generators/
+- Obstruction lighting: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/obstruction-lighting/
+- Power conditioners: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/power-conditioners/
+- RF switching units: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/rf-switching-units/
+- Signal receiving and monitoring assets (including audio processors, decoders, modulation monitors, spectrum analysers etc): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/signal-receiving-and-monitoring-assets/
+- Silence detection and switching units: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/silence-detection-and-switching-units/
+- Surge arresters: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/surge-arresters/
+- Translators: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/translators/
+- Transmission towers: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/transmission-towers/
+- Transmitters: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/transmitters/
+- Uninterruptible power supply (UPS) assets – see Table B Power supply assets: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

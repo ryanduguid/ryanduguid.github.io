@@ -1,0 +1,101 @@
+# Ovens effective life: 15 years, Assets for ice cream …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ovens/
+
+> Assets for ice cream manufacturing: Ovens: effective life 15 years, last updated 1 July 2018 (Table A).
+
+# Assets for ice cream manufacturing: Ovens
+
+‘Assets for ice cream manufacturing: Ovens’, for an asset used in Dairy product manufacturing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2018.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Ovens
+Under | Assets for ice cream manufacturing:
+Table | Table A (industry categories), MANUFACTURING / Dairy product manufacturing, ANZSIC 11310 to 11330
+Effective life | 15 years
+Prime cost rate | 6.67% (100% ÷ life, section 40-75)
+Diminishing value rate | 13.33% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2018
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Dairy product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2018. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Assets for ice cream manufacturing
+
+Row | Life | Prime cost | Diminishing value
+Enrobers (including dippers) | 15 years | 6.67% | 13.33%
+Extruders and extrusion line stick inserters | 15 years | 6.67% | 13.33%
+Ice cream churners/freezers | 15 years | 6.67% | 13.33%
+Moulding machines, moulds and moulding line stick inserters | 15 years | 6.67% | 13.33%
+Ovens (this page) | 15 years | 6.67% | 13.33%
+Portable batch pasteurisers | 12 years | 8.33% | 16.67%
+Slush machines | 10 years | 10.00% | 20.00%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Ovens (electric and gas-fired) | Cereal and pasta product manufacturing | 20 years | 5.00% | 10.00%
+Ovens (convection) | Bakery product manufacturing (non-factory based) | 8 years | 12.50% | 25.00%
+Ovens (multi-decked, rotating rack or static rack, rotating deck) | Bakery product manufacturing (non-factory based) | 10 years | 10.00% | 20.00%
+Ovens (including horizontal, tunnel and vertical) | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
+Ovens | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
+Ovens (including roasters and dryers) | Other food product manufacturing n.e.c. | 10 years | 10.00% | 20.00%
+Ovens | Textile floor covering manufacturing | 20 years | 5.00% | 10.00%
+Ovens | Paint and coatings manufacturing | 15 years | 6.67% | 13.33%
+Ovens | Ready-mixed concrete manufacturing | 8 years | 12.50% | 25.00%
+Ovens | Supermarket and grocery stores | 10 years | 10.00% | 20.00%
+Ovens (including chicken ovens and smoker ovens) | Supermarket and grocery stores | 10 years | 10.00% | 20.00%
+Ovens | Residential property operators | 12 years | 8.33% | 16.67%
+Ovens | Scientific research services | 6 years | 16.67% | 33.33%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Enrobers (including dippers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/enrobers/
+- Extruders and extrusion line stick inserters: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/extruders-and-extrusion-line-stick-inserters/
+- Ice cream churners/freezers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ice-cream-churners-freezers/
+- Moulding machines, moulds and moulding line stick inserters: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/moulding-machines-moulds-and-moulding-line-stick-inserters/
+- Portable batch pasteurisers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/portable-batch-pasteurisers/
+- Slush machines: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/slush-machines/
+- Ovens (electric and gas-fired): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/ovens/
+- Ovens (convection): https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing-non-factory/ovens-convection/
+- Ovens (multi-decked, rotating rack or static rack, rotating deck): https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing-non-factory/ovens-multi-decked-rotating-rack-or-static-rack-rotating/
+- Ovens (including horizontal, tunnel and vertical): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/ovens/
+- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-ovens/
+- Ovens (including roasters and dryers): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/peanut-processing-assets-ovens/
+- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/textile-floor-covering-manufacturing/ovens/
+- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/ovens/
+- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/ovens/
+- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bakery-assets-ovens/
+- Ovens (including chicken ovens and smoker ovens): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/deli-assets-ovens/
+- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ovens/
+- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/ovens/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

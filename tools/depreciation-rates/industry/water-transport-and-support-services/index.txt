@@ -1,0 +1,226 @@
+# Water transport … effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/
+
+> Water transport and support services, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Water transport and support services
+
+81 effective lives in Table A of the Commissioner’s 2025 effective life determination for Water transport and support services.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+The determination notes for this heading: From the 2012-13 income year, a capped life of 10 years is available for the decline in value of eligible shipping vessels but only if certain conditions are met (see table item 10 of subsection 40-102(4) and subsection 40-102(4A))
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Commercial vessels: | | | |
+Commercial vessels: / Canoes | 10 years | 10.00% | 20.00% | 1 July 2009
+Commercial vessels: / Dinghies and punts (not longer than 6 metres) | 12 years | 8.33% | 16.67% | 1 July 2009
+Commercial vessels: / Fishing vessels (including trawlers, long liners, seiners, fin fish boats, pearling boats, lobster boats, aquaculture and other fishing boats): | | | |
+Commercial vessels: / Fishing vessels (including trawlers, long liners, seiners, fin fish boats, pearling boats, lobster boats, aquaculture and other fishing boats): / Longer than 10 metres | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Fishing vessels (including trawlers, long liners, seiners, fin fish boats, pearling boats, lobster boats, aquaculture and other fishing boats): / Not longer than 10 metres | 15 years | 6.67% | 13.33% | 1 July 2009
+Commercial vessels: / Houseboats | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Inflatable boats (excluding rigid hull inflatable boats) | 7 years | 14.29% | 28.57% | 1 July 2009
+Commercial vessels: / Jet skis | 4 years | 25.00% | 50.00% | 1 July 2009
+Commercial vessels: / Kayaks | 5 years | 20.00% | 40.00% | 1 July 2009
+Commercial vessels: / Offshore supply and support vessels | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Passenger vessels (including cruise vessels, skippered charter vessels, vehicle and passenger ferries, semi submersible vessels and water taxis): | | | |
+Commercial vessels: / Passenger vessels (including cruise vessels, skippered charter vessels, vehicle and passenger ferries, semi submersible vessels and water taxis): / Longer than 10 metres | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Passenger vessels (including cruise vessels, skippered charter vessels, vehicle and passenger ferries, semi submersible vessels and water taxis): / Not longer than 10 metres | 15 years | 6.67% | 13.33% | 1 July 2009
+Commercial vessels: / Pedal boats | 10 years | 10.00% | 20.00% | 1 July 2009
+Commercial vessels: / Pontoon boats (excluding pontoons or floating jetties used for storage or walkway only) | 15 years | 6.67% | 13.33% | 1 July 2009
+Commercial vessels: / Sail boats (not longer than 6 metres and including ‘off the beach’ boats) | 10 years | 10.00% | 20.00% | 1 July 2009
+Commercial vessels: / Ski boats | 10 years | 10.00% | 20.00% | 1 July 2009
+Commercial vessels: / Thrill boats (including jet boats) | 10 years | 10.00% | 20.00% | 1 July 2009
+Commercial vessels: / Trading ships: | | | |
+Commercial vessels: / Trading ships: / Bulk carriers | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Trading ships: / Cargo ships | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Trading ships: / Container ships | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Trading ships: / Roll on/roll off ships | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Tankers: | | | |
+Commercial vessels: / Tankers: / Oil and chemical | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Tankers: / LNG and LPG | 30 years | 3.33% | 6.67% | 1 July 2009
+Commercial vessels: / Work vessels (including barges, coastal supply boats, dredges, general work boats, landing craft, launches, lighters, line boats, pilot boats, runabouts and tug boats): | | | |
+Commercial vessels: / Work vessels (including barges, coastal supply boats, dredges, general work boats, landing craft, launches, lighters, line boats, pilot boats, runabouts and tug boats): / Longer than 10 metres | 20 years | 5.00% | 10.00% | 1 July 2009
+Commercial vessels: / Work vessels (including barges, coastal supply boats, dredges, general work boats, landing craft, launches, lighters, line boats, pilot boats, runabouts and tug boats): / Not longer than 10 metres | 15 years | 6.67% | 13.33% | 1 July 2009
+Commercial vessels: / Yachts and motor cruisers – bare boat charter (including monohulls, catamarans and trimarans) | 15 years | 6.67% | 13.33% | 1 July 2009
+Support assets (acquired separately from the vessel): | | | |
+Support assets (acquired separately from the vessel): / Desalinators | 10 years | 10.00% | 20.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Hot water units: | | | |
+Support assets (acquired separately from the vessel): / Hot water units: / Domestic | 5 years | 20.00% | 40.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Hot water units: / Marine | 10 years | 10.00% | 20.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Lifting assets: | | | |
+Support assets (acquired separately from the vessel): / Lifting assets: / Hoists and winches: | | | |
+Support assets (acquired separately from the vessel): / Lifting assets: / Hoists and winches: / Electric | 5 years | 20.00% | 40.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Lifting assets: / Hoists and winches: / Hydraulic and mechanical | 10 years | 10.00% | 20.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Navigational and communication assets acquired separately from the vessel (including autopilots, chart plotters, depth sounders, GPS, radar systems and marine radios) | 5 years | 20.00% | 40.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Outboard motors | 5 years | 20.00% | 40.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Power supply assets: | | | |
+Support assets (acquired separately from the vessel): / Power supply assets: / Batteries (deep cycle) | 3 years | 33.33% | 66.67% | 1 July 2009
+Support assets (acquired separately from the vessel): / Power supply assets: / Generators (standalone) | 10 years | 10.00% | 20.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Power supply assets: / Inverters | 6 years | 16.67% | 33.33% | 1 July 2009
+Support assets (acquired separately from the vessel): / Safety assets: | | | |
+Support assets (acquired separately from the vessel): / Safety assets: / Emergency signalling assets (including EPIRBS) | 5 years | 20.00% | 40.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Safety assets: / Life rafts | 10 years | 10.00% | 20.00% | 1 July 2009
+Support assets (acquired separately from the vessel): / Trailers | 8 years | 12.50% | 25.00% | 1 July 2009
+Port assets: | | | |
+Port assets: / Cargo handling equipment: | | | |
+Port assets: / Cargo handling equipment: / Containers, transportable (used to transport goods by road, rail and sea) | 10 years | 10.00% | 20.00% | 1 January 2001
+Port assets: / Cargo handling equipment: / Cranes: | | | |
+Port assets: / Cargo handling equipment: / Cranes: / Container/portainer | 20 years | 5.00% | 10.00% | 1 July 2002
+Port assets: / Cargo handling equipment: / Cranes: / Fixed | 25 years | 4.00% | 8.00% | 1 July 2002
+Port assets: / Cargo handling equipment: / Cranes: / Mobile (over 15.24 tonnes lift) | 20 years | 5.00% | 10.00% | 1 July 2002
+Port assets: / Cargo handling equipment: / Dozers | 9 years | 11.11% | 22.22% | 1 July 2002
+Port assets: / Cargo handling equipment: / Forklifts: | | | |
+Port assets: / Cargo handling equipment: / Forklifts: / Container handling | 7 1/2 years | 13.33% | 26.67% | 1 July 2002
+Port assets: / Cargo handling equipment: / Forklifts: / General handling | 11 years | 9.09% | 18.18% | 1 July 2002
+Port assets: / Cargo handling equipment: / Rail mounted gantries | 15 years | 6.67% | 13.33% | 1 July 2002
+Port assets: / Cargo handling equipment: / Reach stackers | 10 years | 10.00% | 20.00% | 1 July 2002
+Port assets: / Cargo handling equipment: / Ship loaders | 30 years | 3.33% | 6.67% | 1 July 2002
+Port assets: / Cargo handling equipment: / Ship unloaders | 20 years | 5.00% | 10.00% | 1 July 2002
+Port assets: / Cargo handling equipment: / Spreaders | 5 years | 20.00% | 40.00% | 1 July 2002
+Port assets: / Cargo handling equipment: / Stackers, reclaimers and stackers/reclaimers | 25 years | 4.00% | 8.00% | 1 July 2002
+Port assets: / Cargo handling equipment: / Straddle carriers | 12 1/2 years | 8.00% | 16.00% | 1 July 2002
+Port assets: / Cargo handling equipment: / Wheel loaders | 8 years | 12.50% | 25.00% | 1 July 2002
+Port assets: / Control systems: | | | |
+Port assets: / Control systems: / Control system assets – programmable logic controllers (PLCs) and hardware | 10 years | 10.00% | 20.00% | 1 July 2002
+Port assets: / Control systems: / Motor control centre and motor control field devices | 20 years | 5.00% | 10.00% | 1 July 2002
+Port assets: / Environmental equipment: | | | |
+Port assets: / Environmental equipment: / Current, tidal, wave and wind monitoring systems | 5 years | 20.00% | 40.00% | 1 July 2002
+Port assets: / Environmental equipment: / Oil spill containment boom | 10 years | 10.00% | 20.00% | 1 July 2002
+Port assets: / Intermodal facilities: | | | |
+Port assets: / Intermodal facilities: / Receival station assets (including belt feeder, hopper and tippler) | 30 years | 3.33% | 6.67% | 1 July 2002
+Port assets: / Intermodal facilities: / Truck and rail receival dump pit | 50 years | 2.00% | 4.00% | 1 July 2002
+Port assets: / Land based facilities: | | | |
+Port assets: / Land based facilities: / Concrete rail beams and rails | 30 years | 3.33% | 6.67% | 1 July 2002
+Port assets: / Land based facilities: / Conveyor systems (incorporating chutes, gravity take-up assemblies, headframes, structures, surge bins, transfer towers and weigh towers) | 30 years | 3.33% | 6.67% | 1 July 2002
+Port assets: / Land based facilities: / Dust suppression systems | 30 years | 3.33% | 6.67% | 1 July 2002
+Port assets: / Land based facilities: / Electricity supply assets – see Table A Electricity supply (26110 to 26400) | | | |
+Port assets: / Land based facilities: / Storage sheds, to the extent they form an integral part of bulk handling equipment | 40 years | 2.50% | 5.00% | 1 July 2002
+Port assets: / Navigational aids: | | | |
+Port assets: / Navigational aids: / Land based navigational aids | 20 years | 5.00% | 10.00% | 1 July 2002
+Port assets: / Navigational aids: / Offshore beacons, channel markers and lead lights: | | | |
+Port assets: / Navigational aids: / Offshore beacons, channel markers and lead lights: / Floating buoys | 10 years | 10.00% | 20.00% | 1 July 2002
+Port assets: / Navigational aids: / Offshore beacons, channel markers and lead lights: / Piled structures | 20 years | 5.00% | 10.00% | 1 July 2002
+Port assets: / Other facilities: | | | |
+Port assets: / Other facilities: / Cathodic protection: | | | |
+Port assets: / Other facilities: / Cathodic protection: / Impressed current system | 30 years | 3.33% | 6.67% | 1 July 2002
+Port assets: / Other facilities: / Cathodic protection: / Sacrificial system | 15 years | 6.67% | 13.33% | 1 July 2002
+Port assets: / Other facilities: / Dry docks (including floating dry docks) | 40 years | 2.50% | 5.00% | 1 July 2013
+Port assets: / Other facilities: / Fender systems: | | | |
+Port assets: / Other facilities: / Fender systems: / Elastomeric | 20 years | 5.00% | 10.00% | 1 July 2002
+Port assets: / Other facilities: / Fender systems: / Timber | 10 years | 10.00% | 20.00% | 1 July 2002
+Port assets: / Other facilities: / Gangways – removable | 10 years | 10.00% | 20.00% | 1 July 2002
+Port assets: / Other facilities: / Mooring facilities (including bollards) | 40 years | 2.50% | 5.00% | 1 July 2002
+Port assets: / Other facilities: / Mooring quick release hooks | 20 years | 5.00% | 10.00% | 1 July 2002
+Port assets: / Other facilities: / Pontoons – floating | 20 years | 5.00% | 10.00% | 1 July 2002
+Port assets: / Other facilities: / Slipways (incorporating rails, ramps, runners and winching systems) | 30 years | 3.33% | 6.67% | 1 July 2002
+Port assets: / Other facilities: / Wharves, dolphins and jetties | 40 years | 2.50% | 5.00% | 1 July 2002
+Salvage machinery: | | | |
+Salvage machinery: / Boilers, vertical | 40 years | 2.50% | 5.00% | 1 January 2001
+Salvage machinery: / Engine hoisting | 40 years | 2.50% | 5.00% | 1 January 2001
+Salvage machinery: / Pumps: | | | |
+Salvage machinery: / Pumps: / Centrifugal, direct acting, and connections | 40 years | 2.50% | 5.00% | 1 January 2001
+Salvage machinery: / Pumps: / Duplex boiler feed | 40 years | 2.50% | 5.00% | 1 January 2001
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Canoes: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/canoes/
+- Dinghies and punts (not longer than 6 metres): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/dinghies-and-punts/
+- Longer than 10 metres: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/fishing-vessels-longer-than-10-metres/
+- Not longer than 10 metres: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/fishing-vessels-not-longer-than-10-metres/
+- Houseboats: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/houseboats/
+- Inflatable boats (excluding rigid hull inflatable boats): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/inflatable-boats/
+- Jet skis: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/jet-skis/
+- Kayaks: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/kayaks/
+- Offshore supply and support vessels: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/offshore-supply-and-support-vessels/
+- Longer than 10 metres: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/passenger-vessels-longer-than-10-metres/
+- Not longer than 10 metres: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/passenger-vessels-not-longer-than-10-metres/
+- Pedal boats: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/pedal-boats/
+- Pontoon boats (excluding pontoons or floating jetties used for storage or walkway only): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/pontoon-boats/
+- Sail boats (not longer than 6 metres and including ‘off the beach’ boats): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/sail-boats/
+- Ski boats: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/ski-boats/
+- Thrill boats (including jet boats): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/thrill-boats/
+- Bulk carriers: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/bulk-carriers/
+- Cargo ships: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/cargo-ships/
+- Container ships: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/container-ships/
+- Roll on/roll off ships: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/roll-on-roll-off-ships/
+- Oil and chemical: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/oil-and-chemical/
+- LNG and LPG: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/lng-and-lpg/
+- Longer than 10 metres: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/work-vessels-longer-than-10-metres/
+- Not longer than 10 metres: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/work-vessels-not-longer-than-10-metres/
+- Yachts and motor cruisers – bare boat charter (including monohulls, catamarans and trimarans): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/yachts-and-motor-cruisers-bare-boat-charter/
+- Desalinators: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/desalinators/
+- Domestic: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/domestic/
+- Marine: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/marine/
+- Electric: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/electric/
+- Hydraulic and mechanical: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/hydraulic-and-mechanical/
+- Navigational and communication assets acquired separately from the vessel (including autopilots, chart plotters, depth sounders, GPS, radar systems and marine radios): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/navigational-and-communication-assets-acquired-separately/
+- Outboard motors: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/outboard-motors/
+- Batteries (deep cycle): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/batteries/
+- Generators (standalone): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/generators/
+- Inverters: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/inverters/
+- Emergency signalling assets (including EPIRBS): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/emergency-signalling-assets/
+- Life rafts: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/life-rafts/
+- Trailers: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/trailers/
+- Containers, transportable (used to transport goods by road, rail and sea): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/containers-transportable/
+- Container/portainer: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/container-portainer/
+- Fixed: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/fixed/
+- Mobile (over 15.24 tonnes lift): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/mobile/
+- Dozers: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/dozers/
+- Container handling: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/container-handling/
+- General handling: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/general-handling/
+- Rail mounted gantries: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/rail-mounted-gantries/
+- Reach stackers: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/reach-stackers/
+- Ship loaders: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/ship-loaders/
+- Ship unloaders: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/ship-unloaders/
+- Spreaders: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/spreaders/
+- Stackers, reclaimers and stackers/reclaimers: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/stackers-reclaimers-and-stackers-reclaimers/
+- Straddle carriers: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/straddle-carriers/
+- Wheel loaders: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/wheel-loaders/
+- Control system assets – programmable logic controllers (PLCs) and hardware: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/control-system-assets-programmable-logic-controllers-and/
+- Motor control centre and motor control field devices: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/motor-control-centre-and-motor-control-field-devices/
+- Current, tidal, wave and wind monitoring systems: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/current-tidal-wave-and-wind-monitoring-systems/
+- Oil spill containment boom: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/oil-spill-containment-boom/
+- Receival station assets (including belt feeder, hopper and tippler): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/receival-station-assets/
+- Truck and rail receival dump pit: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/truck-and-rail-receival-dump-pit/
+- Concrete rail beams and rails: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/concrete-rail-beams-and-rails/
+- Conveyor systems (incorporating chutes, gravity take-up assemblies, headframes, structures, surge bins, transfer towers and weigh towers): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/conveyor-systems/
+- Dust suppression systems: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/dust-suppression-systems/
+- Electricity supply assets – see Table A Electricity supply (26110 to 26400): https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/
+- Storage sheds, to the extent they form an integral part of bulk handling equipment: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/storage-sheds-to-the-extent-they-form-an-integral-part-of/
+- Land based navigational aids: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/land-based-navigational-aids/
+- Floating buoys: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/floating-buoys/
+- Piled structures: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/piled-structures/
+- Impressed current system: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/impressed-current-system/
+- Sacrificial system: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/sacrificial-system/
+- Dry docks (including floating dry docks): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/dry-docks/
+- Elastomeric: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/elastomeric/
+- Timber: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/timber/
+- Gangways – removable: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/gangways-removable/
+- Mooring facilities (including bollards): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/mooring-facilities/
+- Mooring quick release hooks: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/mooring-quick-release-hooks/
+- Pontoons – floating: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/pontoons-floating/
+- Slipways (incorporating rails, ramps, runners and winching systems): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/slipways/
+- Wharves, dolphins and jetties: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/wharves-dolphins-and-jetties/
+- Boilers, vertical: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/boilers-vertical/
+- Engine hoisting: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/engine-hoisting/
+- Centrifugal, direct acting, and connections: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/centrifugal-direct-acting-and-connections/
+- Duplex boiler feed: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/duplex-boiler-feed/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

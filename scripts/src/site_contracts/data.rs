@@ -142,7 +142,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "Ozzit",
         "ozzit",
         "https://github.com/ryanduguid/Ozzit",
-        "143 native Excel LAMBDA functions plus five help tables for AU modelling and GST arithmetic.",
+        "150 native Excel LAMBDA functions plus five help tables for AU modelling and GST arithmetic.",
     ),
     (
         "accounting-excel-toolkit",

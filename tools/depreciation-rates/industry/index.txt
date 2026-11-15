@@ -1,0 +1,491 @@
+# Table A: effective lives by industry
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/
+
+> Every industry in Table A of the 2025 effective life determination, each linking to its rows, effective lives and depreciation rates.
+
+# Table A: effective lives by industry
+
+Table A of the Commissioner’s 2025 effective life determination sets effective lives by industry. Choose an industry to read its rows.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## AGRICULTURE, FORESTRY AND FISHING
+
+Heading | Lives
+AGRICULTURE, FORESTRY AND FISHING (rows for the whole division) | 73
+Agriculture | 54
+Nursery and floriculture production | 55
+Mushroom growing | 21
+Vegetable growing (under cover) | 2
+Vegetable growing (outdoors) and sugar cane growing | 30
+Fruit and tree nut growing | 106
+Sheep farming | 18
+Beef cattle farming | 13
+Beef cattle feedlots | 33
+Grain-sheep or grain-beef cattle farming | 0
+Dairy cattle farming | 57
+Poultry farming for breeding, eggs and meat | 35
+Poultry hatcheries | 25
+Horse farming | 2
+Pig farming | 26
+Beekeeping | 2
+Aquaculture | 43
+Forestry and logging | 7
+Fishing | 2
+Forestry support services | 0
+Other agriculture and fishing support services | 31
+
+## MINING
+
+Heading | Lives
+MINING (rows for the whole division) | 128
+Coal mining | 40
+Oil and gas extraction | 82
+Iron ore mining | 8
+Gold ore mining | 15
+Mineral sand mining | 25
+Nickel ore mining | 2
+Construction material mining | 16
+Other non-metallic mineral mining and quarrying n.e.c. | 16
+Petroleum exploration services | 9
+Mineral exploration services | 18
+Other mining support services | 27
+
+## MANUFACTURING
+
+Heading | Lives
+Meat processing | 199
+Poultry processing | 30
+Cured meat and smallgoods manufacturing | 37
+Dairy product manufacturing | 118
+Fruit and vegetable processing | 128
+Oil and fat manufacturing | 62
+Grain mill product manufacturing | 79
+Cereal and pasta product manufacturing | 51
+Bakery product manufacturing | 25
+Bakery product manufacturing (non-factory based) | 11
+Sugar manufacturing | 134
+Confectionery manufacturing | 25
+Prepared animal and bird feed manufacturing | 151
+Other food product manufacturing n.e.c. | 178
+Soft drink, cordial and syrup manufacturing | 60
+Beer manufacturing (except non-alcoholic beer) | 68
+Spirit manufacturing | 23
+Wine and other alcoholic beverage manufacturing | 80
+Wool scouring | 11
+Natural textile manufacturing | 5
+Leather tanning, fur dressing and leather product manufacturing | 2
+Textile floor covering manufacturing | 18
+Rope, cordage and twine manufacturing | 1
+Textile finishing and other textile product manufacturing | 2
+Knitted product manufacturing | 2
+Clothing manufacturing | 18
+Footwear manufacturing | 3
+Log sawmilling and timber dressing | 22
+Other wood product manufacturing | 7
+Plywood and veneer manufacturing | 20
+Reconstituted wood product manufacturing | 24
+Pulp, paper and converted paper product manufacturing | 17
+Paper stationery manufacturing | 1
+Sanitary paper product manufacturing | 16
+Printing | 44
+Printing support services | 37
+Petroleum refining | 44
+Industrial gas manufacturing | 91
+Basic organic chemical manufacturing | 86
+Basic inorganic chemical manufacturing | 146
+Fertiliser manufacturing | 1
+Human pharmaceutical and medicinal product manufacturing | 47
+Cleaning compound manufacturing | 1
+Explosive manufacturing | 1
+Other basic chemical product manufacturing n.e.c. | 2
+Polymer film and sheet packaging material manufacturing | 20
+Rigid and semi-rigid polymer product manufacturing | 51
+Adhesive manufacturing | 1
+Paint and coatings manufacturing | 34
+Natural rubber product manufacturing | 2
+Glass and glass product manufacturing | 62
+Ceramic product manufacturing | 17
+Cement manufacturing | 55
+Plaster product manufacturing | 35
+Ready-mixed concrete manufacturing | 25
+Concrete product manufacturing | 123
+Other non-metallic mineral product manufacturing | 2
+Iron smelting and steel manufacturing | 388
+Alumina production | 18
+Aluminium smelting | 16
+Non-ferrous metal casting | 34
+Steel coil roll forming, slitting and blanking and sheet metal forming | 107
+Boiler, tank and other heavy gauge metal container manufacturing | 21
+Spring and wire product manufacturing | 3
+Metal coating and finishing | 1
+Other fabricated metal product manufacturing n.e.c. | 2
+Motor vehicle manufacturing | 153
+Motor vehicle body and trailer manufacturing | 0
+Other motor vehicle parts manufacturing | 4
+Railway rolling stock manufacturing and repair services | 66
+Aircraft manufacturing and repair services | 42
+Other transport equipment manufacturing n.e.c. | 1
+Photographic, optical and ophthalmic equipment manufacturing | 18
+Other professional and scientific equipment manufacturing n.e.c. | 1
+Wooden furniture and upholstered seat manufacturing | 27
+Jewellery and silverware manufacturing | 1
+Other manufacturing n.e.c. | 4
+
+## ELECTRICITY, GAS, WATER AND WASTE SERVICES
+
+Heading | Lives
+Electricity supply | 104
+Gas supply | 16
+Water supply | 64
+Sewerage and drainage services | 61
+Solid waste collection services | 17
+Waste treatment and disposal services | 27
+Waste remediation and materials recovery services | 36
+
+## CONSTRUCTION
+
+Heading | Lives
+CONSTRUCTION (rows for the whole division) | 58
+Other heavy and civil engineering construction | 1
+
+## WHOLESALE TRADE
+
+Heading | Lives
+WHOLESALE TRADE (rows for the whole division) | 16
+Wool wholesaling | 1
+Petroleum product wholesaling | 67
+Commission-based wholesaling | 1
+
+## RETAIL TRADE
+
+Heading | Lives
+RETAIL TRADE (rows for the whole division) | 21
+Motor vehicle tyre or tube retailing | 29
+Fuel retailing | 37
+Food retailing | 1
+Supermarket and grocery stores | 62
+Other store-based retailing | 2
+
+## ACCOMMODATION AND FOOD SERVICES
+
+Heading | Lives
+Accommodation | 43
+Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality) | 31
+
+## TRANSPORT, POSTAL AND WAREHOUSING
+
+Heading | Lives
+Road transport | 15
+Tramway and light rail passenger transport services | 22
+Rail freight and passenger transport services | 49
+Water transport and support services | 81
+Other air and space transport | 4
+Scenic and sightseeing transport | 18
+Pipeline transport | 4
+Other transport n.e.c. | 20
+Postal services | 17
+Courier pick-up and delivery services | 12
+Airport operations and other air transport support services | 44
+Other transport support services n.e.c. | 3
+Other warehousing and storage services | 29
+
+## INFORMATION MEDIA AND TELECOMMUNICATIONS
+
+Heading | Lives
+Motion picture and video activities | 91
+Motion picture exhibition | 18
+Radio broadcasting | 35
+Television broadcasting | 51
+Internet publishing and broadcasting | 0
+Telecommunications services | 35
+Electronic information storage services | 22
+Library and other information services | 2
+
+## FINANCIAL AND INSURANCE SERVICES
+
+Heading | Lives
+Banking, building society and credit union operations | 11
+
+## RENTAL, HIRING AND REAL ESTATE SERVICES
+
+Heading | Lives
+Rental and hiring services (except real estate) | 70
+Residential property operators | 167
+Non-residential property operators | 13
+
+## PROFESSIONAL, SCIENTIFIC AND TECHNICAL SERVICES
+
+Heading | Lives
+Scientific research services | 44
+Surveying and mapping services | 35
+Scientific testing and analysis services | 86
+Advertising services | 0
+Veterinary services | 21
+Professional photographic services | 21
+
+## ADMINISTRATIVE AND SUPPORT SERVICES
+
+Heading | Lives
+Building and other industrial cleaning services | 19
+Gardening services | 22
+Packaging services | 26
+
+## EDUCATION AND TRAINING
+
+Heading | Lives
+EDUCATION AND TRAINING (rows for the whole division) | 0
+
+## HEALTH CARE AND SOCIAL ASSISTANCE
+
+Heading | Lives
+HEALTH CARE AND SOCIAL ASSISTANCE (rows for the whole division) | 4
+Hospitals | 63
+General practice medical services | 36
+Specialist medical services n.e.c | 8
+Pathology and diagnostic imaging services | 30
+Dental services | 25
+Optometry and optical dispensing | 38
+Podiatry services | 18
+Retirement village and accommodation for the aged operation | 57
+Child care services | 35
+
+## ARTS AND RECREATION SERVICES
+
+Heading | Lives
+Museum operation | 1
+Nature reserves and conservation parks operation | 6
+Creative and performing arts activities | 1
+Health and fitness centres and gymnasia operation | 10
+Sports and physical recreation clubs n.e.c. | 1
+Squash and tennis court operation | 3
+Sports and physical recreation venues, grounds and facilities operations n.e.c. | 13
+Horse training (racing) | 22
+Amusement parks and centres operation and amusement and other recreational activities n.e.c. | 42
+Gambling activities | 2
+Casino operations | 21
+
+## OTHER SERVICES
+
+Heading | Lives
+Automotive repair and maintenance | 107
+Automotive body, paint and interior repair n.e.c. | 39
+Other machinery and equipment repair and maintenance | 93
+Hairdressing and beauty services | 19
+Funeral, crematorium and cemetery services | 21
+Laundry and dry cleaning services | 37
+Photographic film processing | 45
+Parking services | 0
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- AGRICULTURE, FORESTRY AND FISHING (rows for the whole division): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/
+- Agriculture: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/
+- Nursery and floriculture production: https://duguid.com.au/tools/depreciation-rates/industry/nursery-and-floriculture-production/
+- Mushroom growing: https://duguid.com.au/tools/depreciation-rates/industry/mushroom-growing/
+- Vegetable growing (under cover): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-under-cover/
+- Vegetable growing (outdoors) and sugar cane growing: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/
+- Fruit and tree nut growing: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/
+- Sheep farming: https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/
+- Beef cattle farming: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/
+- Beef cattle feedlots: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/
+- Grain-sheep or grain-beef cattle farming: https://duguid.com.au/tools/depreciation-rates/industry/grain-sheep-or-grain-beef-cattle-farming/
+- Dairy cattle farming: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/
+- Poultry farming for breeding, eggs and meat: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/
+- Poultry hatcheries: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/
+- Horse farming: https://duguid.com.au/tools/depreciation-rates/industry/horse-farming/
+- Pig farming: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/
+- Beekeeping: https://duguid.com.au/tools/depreciation-rates/industry/beekeeping/
+- Aquaculture: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/
+- Forestry and logging: https://duguid.com.au/tools/depreciation-rates/industry/forestry-and-logging/
+- Fishing: https://duguid.com.au/tools/depreciation-rates/industry/fishing/
+- Forestry support services: https://duguid.com.au/tools/depreciation-rates/industry/forestry-support-services/
+- Other agriculture and fishing support services: https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/
+- MINING (rows for the whole division): https://duguid.com.au/tools/depreciation-rates/industry/mining/
+- Coal mining: https://duguid.com.au/tools/depreciation-rates/industry/coal-mining/
+- Oil and gas extraction: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/
+- Iron ore mining: https://duguid.com.au/tools/depreciation-rates/industry/iron-ore-mining/
+- Gold ore mining: https://duguid.com.au/tools/depreciation-rates/industry/gold-ore-mining/
+- Mineral sand mining: https://duguid.com.au/tools/depreciation-rates/industry/mineral-sand-mining/
+- Nickel ore mining: https://duguid.com.au/tools/depreciation-rates/industry/nickel-ore-mining/
+- Construction material mining: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/
+- Other non-metallic mineral mining and quarrying n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/
+- Petroleum exploration services: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-exploration-services/
+- Mineral exploration services: https://duguid.com.au/tools/depreciation-rates/industry/mineral-exploration-services/
+- Other mining support services: https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/
+- Meat processing: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/
+- Poultry processing: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/
+- Cured meat and smallgoods manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/
+- Dairy product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/
+- Fruit and vegetable processing: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/
+- Oil and fat manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/
+- Grain mill product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/
+- Cereal and pasta product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/
+- Bakery product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/
+- Bakery product manufacturing (non-factory based): https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing-non-factory/
+- Sugar manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/
+- Confectionery manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/
+- Prepared animal and bird feed manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/
+- Other food product manufacturing n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/
+- Soft drink, cordial and syrup manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/
+- Beer manufacturing (except non-alcoholic beer): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/
+- Spirit manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/
+- Wine and other alcoholic beverage manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/
+- Wool scouring: https://duguid.com.au/tools/depreciation-rates/industry/wool-scouring/
+- Natural textile manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/natural-textile-manufacturing/
+- Leather tanning, fur dressing and leather product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/leather-tanning-fur-dressing-and-leather/
+- Textile floor covering manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/textile-floor-covering-manufacturing/
+- Rope, cordage and twine manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/rope-cordage-and-twine-manufacturing/
+- Textile finishing and other textile product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/textile-finishing-and-other-textile/
+- Knitted product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/knitted-product-manufacturing/
+- Clothing manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/
+- Footwear manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/footwear-manufacturing/
+- Log sawmilling and timber dressing: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/
+- Other wood product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/other-wood-product-manufacturing/
+- Plywood and veneer manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-veneer-manufacturing/
+- Reconstituted wood product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/reconstituted-wood-product-manufacturing/
+- Pulp, paper and converted paper product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/pulp-paper-and-converted-paper-product/
+- Paper stationery manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/paper-stationery-manufacturing/
+- Sanitary paper product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/
+- Printing: https://duguid.com.au/tools/depreciation-rates/industry/printing/
+- Printing support services: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/
+- Petroleum refining: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/
+- Industrial gas manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/
+- Basic organic chemical manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/
+- Basic inorganic chemical manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/
+- Fertiliser manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/fertiliser-manufacturing/
+- Human pharmaceutical and medicinal product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/
+- Cleaning compound manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/cleaning-compound-manufacturing/
+- Explosive manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/explosive-manufacturing/
+- Other basic chemical product manufacturing n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-basic-chemical-product/
+- Polymer film and sheet packaging material manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/
+- Rigid and semi-rigid polymer product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/
+- Adhesive manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/adhesive-manufacturing/
+- Paint and coatings manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/
+- Natural rubber product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/natural-rubber-product-manufacturing/
+- Glass and glass product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/
+- Ceramic product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/ceramic-product-manufacturing/
+- Cement manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/
+- Plaster product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/
+- Ready-mixed concrete manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/
+- Concrete product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/
+- Other non-metallic mineral product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-product/
+- Iron smelting and steel manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/
+- Alumina production: https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/
+- Aluminium smelting: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/
+- Non-ferrous metal casting: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/
+- Steel coil roll forming, slitting and blanking and sheet metal forming: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/
+- Boiler, tank and other heavy gauge metal container manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/
+- Spring and wire product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/spring-and-wire-product-manufacturing/
+- Metal coating and finishing: https://duguid.com.au/tools/depreciation-rates/industry/metal-coating-and-finishing/
+- Other fabricated metal product manufacturing n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-fabricated-metal-product/
+- Motor vehicle manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/
+- Motor vehicle body and trailer manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-body-and-trailer/
+- Other motor vehicle parts manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/other-motor-vehicle-parts-manufacturing/
+- Railway rolling stock manufacturing and repair services: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/
+- Aircraft manufacturing and repair services: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/
+- Other transport equipment manufacturing n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-equipment-manufacturing/
+- Photographic, optical and ophthalmic equipment manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/
+- Other professional and scientific equipment manufacturing n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-professional-and-scientific/
+- Wooden furniture and upholstered seat manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/
+- Jewellery and silverware manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/jewellery-and-silverware-manufacturing/
+- Other manufacturing n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-manufacturing-n-e-c/
+- Electricity supply: https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/
+- Gas supply: https://duguid.com.au/tools/depreciation-rates/industry/gas-supply/
+- Water supply: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/
+- Sewerage and drainage services: https://duguid.com.au/tools/depreciation-rates/industry/sewerage-and-drainage-services/
+- Solid waste collection services: https://duguid.com.au/tools/depreciation-rates/industry/solid-waste-collection-services/
+- Waste treatment and disposal services: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/
+- Waste remediation and materials recovery services: https://duguid.com.au/tools/depreciation-rates/industry/waste-remediation-and-materials-recovery/
+- CONSTRUCTION (rows for the whole division): https://duguid.com.au/tools/depreciation-rates/industry/construction/
+- Other heavy and civil engineering construction: https://duguid.com.au/tools/depreciation-rates/industry/other-heavy-and-civil-engineering/
+- WHOLESALE TRADE (rows for the whole division): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/
+- Wool wholesaling: https://duguid.com.au/tools/depreciation-rates/industry/wool-wholesaling/
+- Petroleum product wholesaling: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/
+- Commission-based wholesaling: https://duguid.com.au/tools/depreciation-rates/industry/commission-based-wholesaling/
+- RETAIL TRADE (rows for the whole division): https://duguid.com.au/tools/depreciation-rates/industry/retail-trade/
+- Motor vehicle tyre or tube retailing: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-tyre-or-tube-retailing/
+- Fuel retailing: https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/
+- Food retailing: https://duguid.com.au/tools/depreciation-rates/industry/food-retailing/
+- Supermarket and grocery stores: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/
+- Other store-based retailing: https://duguid.com.au/tools/depreciation-rates/industry/other-store-based-retailing/
+- Accommodation: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/
+- Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality): https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/
+- Road transport: https://duguid.com.au/tools/depreciation-rates/industry/road-transport/
+- Tramway and light rail passenger transport services: https://duguid.com.au/tools/depreciation-rates/industry/tramway-and-light-rail-passenger/
+- Rail freight and passenger transport services: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/
+- Water transport and support services: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/
+- Other air and space transport: https://duguid.com.au/tools/depreciation-rates/industry/other-air-and-space-transport/
+- Scenic and sightseeing transport: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/
+- Pipeline transport: https://duguid.com.au/tools/depreciation-rates/industry/pipeline-transport/
+- Other transport n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/
+- Postal services: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/
+- Courier pick-up and delivery services: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/
+- Airport operations and other air transport support services: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/
+- Other transport support services n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-support-services-n-e-c/
+- Other warehousing and storage services: https://duguid.com.au/tools/depreciation-rates/industry/other-warehousing-and-storage-services/
+- Motion picture and video activities: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/
+- Motion picture exhibition: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/
+- Radio broadcasting: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/
+- Television broadcasting: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/
+- Internet publishing and broadcasting: https://duguid.com.au/tools/depreciation-rates/industry/internet-publishing-and-broadcasting/
+- Telecommunications services: https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/
+- Electronic information storage services: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/
+- Library and other information services: https://duguid.com.au/tools/depreciation-rates/industry/library-and-other-information-services/
+- Banking, building society and credit union operations: https://duguid.com.au/tools/depreciation-rates/industry/banking-building-society-and-credit/
+- Rental and hiring services (except real estate): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/
+- Residential property operators: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/
+- Non-residential property operators: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/
+- Scientific research services: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/
+- Surveying and mapping services: https://duguid.com.au/tools/depreciation-rates/industry/surveying-and-mapping-services/
+- Scientific testing and analysis services: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/
+- Advertising services: https://duguid.com.au/tools/depreciation-rates/industry/advertising-services/
+- Veterinary services: https://duguid.com.au/tools/depreciation-rates/industry/veterinary-services/
+- Professional photographic services: https://duguid.com.au/tools/depreciation-rates/industry/professional-photographic-services/
+- Building and other industrial cleaning services: https://duguid.com.au/tools/depreciation-rates/industry/building-and-other-industrial-cleaning/
+- Gardening services: https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/
+- Packaging services: https://duguid.com.au/tools/depreciation-rates/industry/packaging-services/
+- EDUCATION AND TRAINING (rows for the whole division): https://duguid.com.au/tools/depreciation-rates/industry/education-and-training/
+- HEALTH CARE AND SOCIAL ASSISTANCE (rows for the whole division): https://duguid.com.au/tools/depreciation-rates/industry/health-care-and-social-assistance/
+- Hospitals: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/
+- General practice medical services: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/
+- Specialist medical services n.e.c: https://duguid.com.au/tools/depreciation-rates/industry/specialist-medical-services-n-e-c/
+- Pathology and diagnostic imaging services: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/
+- Dental services: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/
+- Optometry and optical dispensing: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/
+- Podiatry services: https://duguid.com.au/tools/depreciation-rates/industry/podiatry-services/
+- Retirement village and accommodation for the aged operation: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/
+- Child care services: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/
+- Museum operation: https://duguid.com.au/tools/depreciation-rates/industry/museum-operation/
+- Nature reserves and conservation parks operation: https://duguid.com.au/tools/depreciation-rates/industry/nature-reserves-and-conservation-parks/
+- Creative and performing arts activities: https://duguid.com.au/tools/depreciation-rates/industry/creative-and-performing-arts-activities/
+- Health and fitness centres and gymnasia operation: https://duguid.com.au/tools/depreciation-rates/industry/health-and-fitness-centres-and-gymnasia/
+- Sports and physical recreation clubs n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-clubs-n-e/
+- Squash and tennis court operation: https://duguid.com.au/tools/depreciation-rates/industry/squash-and-tennis-court-operation/
+- Sports and physical recreation venues, grounds and facilities operations n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/
+- Horse training (racing): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/
+- Amusement parks and centres operation and amusement and other recreational activities n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/amusement-parks-and-centres-operation/
+- Gambling activities: https://duguid.com.au/tools/depreciation-rates/industry/gambling-activities/
+- Casino operations: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/
+- Automotive repair and maintenance: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/
+- Automotive body, paint and interior repair n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/
+- Other machinery and equipment repair and maintenance: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/
+- Hairdressing and beauty services: https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/
+- Funeral, crematorium and cemetery services: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/
+- Laundry and dry cleaning services: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/
+- Photographic film processing: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/
+- Parking services: https://duguid.com.au/tools/depreciation-rates/industry/parking-services/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

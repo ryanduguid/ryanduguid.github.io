@@ -1,0 +1,79 @@
+# LNG holding facility assets effective life: 30 years, Assets …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/lng-holding-facility-assets/
+
+> LNG holding facility assets …, Assets …: effective life 30 years, prime cost 3.33%, diminishing value 6.67%, last updated 1 July 2002 (Table A, 2025 determination).
+
+# Assets used to manufacture condensate, crude oil, domestic gas, liquid natural gas … or liquid petroleum gas … but not if the manufacture occurs in an oil refinery: LNG holding facility assets …
+
+‘Assets used to manufacture condensate, crude oil, domestic gas, liquid natural gas … or liquid petroleum gas … but not if the manufacture occurs in an oil refinery: LNG holding facility assets …’, for an asset used in Oil and gas extraction, has an effective life of 30 years (F2025L01097), last reviewed on 1 July 2002.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | LNG holding facility assets (including boil off gas compressors, cryogenic storage tanks, loading arms, pumps and tanks)
+Under | Assets used to manufacture condensate, crude oil, domestic gas, liquid natural gas (LNG) or liquid petroleum gas (LPG) but not if the manufacture occurs in an oil refinery:
+Table | Table A (industry categories), MINING / Oil and gas extraction, ANZSIC 07000
+Effective life | 30 years
+Prime cost rate | 3.33% (100% ÷ life, section 40-75)
+Diminishing value rate | 6.67% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2002
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+Capped life | Marked #: a capped life is available under section 40-102. See capped lives.
+
+## Reading this row
+
+An asset used in Oil and gas extraction takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 July 2002. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Assets used to manufacture condensate, crude oil, domestic gas, liquid natural gas (LNG) or liquid petroleum gas (LPG) but not if the manufacture occurs in an oil refinery
+
+Row | Life | Prime cost | Diminishing value
+Control systems | 10 years | 10.00% | 20.00%
+Domestic gas processing assets (including centrifugal compressor, column, gas turbine, heat exchanger, piping and turbo expander) | 30 years | 3.33% | 6.67%
+Flare towers for gas flares | 25 years | 4.00% | 8.00%
+Fractionation train assets (including air coolers, columns, compressors, heat exchangers, piping and pumps) | 30 years | 3.33% | 6.67%
+Hot water system assets | 17 1/2 years | 5.71% | 11.43%
+Instruments | 12 1/2 years | 8.00% | 16.00%
+LNG holding facility assets (including boil off gas compressors, cryogenic storage tanks, loading arms, pumps and tanks) (this page) | 30 years | 3.33% | 6.67%
+LNG train assets (including centrifugal compressors, columns, cryogenic heat exchangers, gas turbine drivers and other heat exchangers) | 30 years | 3.33% | 6.67%
+Stabiliser process assets (including columns, heat exchangers, pumps and reciprocating compressors) | 30 years | 3.33% | 6.67%
+Storage and loading assets (including cryogenic storage tanks, jetties, loading arms, LPG chillers and pumps) | 30 years | 3.33% | 6.67%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 30 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- capped lives: https://duguid.com.au/tools/depreciation-rates/#capped-lives
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/assets-used-to-manufacture-control-systems/
+- Domestic gas processing assets (including centrifugal compressor, column, gas turbine, heat exchanger, piping and turbo expander): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/domestic-gas-processing-assets/
+- Flare towers for gas flares: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/flare-towers-for-gas-flares/
+- Fractionation train assets (including air coolers, columns, compressors, heat exchangers, piping and pumps): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/fractionation-train-assets/
+- Hot water system assets: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/hot-water-system-assets/
+- Instruments: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/assets-used-to-manufacture-instruments/
+- LNG train assets (including centrifugal compressors, columns, cryogenic heat exchangers, gas turbine drivers and other heat exchangers): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/lng-train-assets/
+- Stabiliser process assets (including columns, heat exchangers, pumps and reciprocating compressors): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/stabiliser-process-assets/
+- Storage and loading assets (including cryogenic storage tanks, jetties, loading arms, LPG chillers and pumps): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/storage-and-loading-assets/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

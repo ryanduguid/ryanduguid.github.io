@@ -1,0 +1,62 @@
+# Beef cattle farming effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/
+
+> Beef cattle farming, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Beef cattle farming
+
+13 effective lives in Table A of the Commissioner’s 2025 effective life determination for Beef cattle farming.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Cattle handling assets: | | | |
+Cattle handling assets: / Calf cradles | 10 years | 10.00% | 20.00% | 1 January 2007
+Cattle handling assets: / Cattle crushes (hydraulic and manual) | 10 years | 10.00% | 20.00% | 1 January 2007
+Cattle handling assets: / NLIS and other readers | 5 years | 20.00% | 40.00% | 1 January 2007
+Cattle handling assets: / Scales, weigh indicators and loading bars | 5 years | 20.00% | 40.00% | 1 January 2007
+Cattle yards (including races and coolers (steel and timber)): | | | |
+Cattle yards (including races and coolers (steel and timber)): / Permanent types | 30 years | 3.33% | 6.67% | 1 January 2007
+Cattle yards (including races and coolers (steel and timber)): / Portable types | 20 years | 5.00% | 10.00% | 1 January 2007
+Feed bins (including hay racks) | 15 years | 6.67% | 13.33% | 1 January 2007
+Feed handling assets: | | | |
+Feed handling assets: / Bale feeders | 10 years | 10.00% | 20.00% | 1 January 2007
+Feed handling assets: / Feed mixers | 10 years | 10.00% | 20.00% | 1 January 2007
+Feed handling assets: / Silage and feedout wagons | 10 years | 10.00% | 20.00% | 1 January 2007
+Loading ramps | 20 years | 5.00% | 10.00% | 1 January 2007
+Manure and fertiliser spreaders | 10 years | 10.00% | 20.00% | 1 January 2007
+Saddlery and harness | 10 years | 10.00% | 20.00% | 1 January 2007
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Calf cradles: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/calf-cradles/
+- Cattle crushes (hydraulic and manual): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/cattle-crushes/
+- NLIS and other readers: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/nlis-and-other-readers/
+- Scales, weigh indicators and loading bars: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/scales-weigh-indicators-and-loading-bars/
+- Permanent types: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/permanent-types/
+- Portable types: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/portable-types/
+- Feed bins (including hay racks): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/feed-bins/
+- Bale feeders: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/bale-feeders/
+- Feed mixers: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/feed-mixers/
+- Silage and feedout wagons: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/silage-and-feedout-wagons/
+- Loading ramps: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/loading-ramps/
+- Manure and fertiliser spreaders: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/manure-and-fertiliser-spreaders/
+- Saddlery and harness: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-farming/saddlery-and-harness/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

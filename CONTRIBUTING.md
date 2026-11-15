@@ -247,11 +247,55 @@ determinations, rulings and law' names the current instrument):
    move its Sources checked date. Finish as for any content edit: a changelog
    row, `build_feed --write`, `build_llms_full --write`, `check_design
    --update-baseline` and `check_site`.
+7. Rebuild the effective life pages from the new file, as 'Effective life pages'
+   below describes, before step 6's `check_site`, which fails until they match.
+
+### Effective life pages
+
+`site-tools build_effective_life_pages --write` writes a page for every life in
+`effective-life.json` under `tools/depreciation-rates/industry/` and
+`tools/depreciation-rates/asset/`, a group page for each Table A sub-industry and
+each Table B asset with rows under it, the 2 index pages, a text mirror of each
+page, `tools/depreciation-rates/sitemap.xml`, `tools/depreciation-rates/llms.txt`
+and `_includes/effective-life-groups.html`, which the depreciation rates page
+includes to link every group page. A Table B asset with a life of its own has an
+asset page; one that only points to another row has none. Never edit these files
+by hand. `--check` compares them with the data and writes
+nothing; `check_site` runs it before Jekyll.
+
+`tools/depreciation-rates/effective-life-pages.json` is the address map: each
+page's key (its table, headings and wording), address, date published, date
+modified and content hash. It is the only source of addresses and dates. An
+address, once in the map, does not change; `published` never moves; `--write`
+moves `modified` to today only for a page whose content changed.
+
+After a new determination:
+
+1. Run `--write`. If the data no longer has a page the map holds, it lists each
+   one and refuses, as a published address must not disappear.
+2. Note each listed page's `url` and `published`, delete its record and run
+   `--write`: the rows that are new to the map get records of their own.
+3. For each listed page, find the row it became (a reworded row, or one moved to
+   another heading), set that row's `url` and `published` back to the noted ones
+   and run `--write` again, which moves the page to its old address. A row removed
+   outright has no successor: its address now returns 404, since GitHub Pages
+   cannot send a 301. Record each such removal in the changelog row.
+4. Run `--check` and review the diff: the map shows each page that changed as a
+   moved `modified` date. `scripts/tests/effective_life_pages.rs` pins the page
+   counts and lists the pages whose opening sentence may run long (`LONG_LEADS`):
+   update both from the new determination after reading the pages they name.
+5. After the change is deployed, tell search engines once. `--indexnow` prints
+   the IndexNow request body for the pages dated by the last `--write`; POST it to
+   a search engine's `/indexnow` endpoint as JSON. A 200 or 202 is success; 403
+   means the key file at the site root does not match; 422 means a URL is on
+   another host. Run `--indexnow` after the last `--write` and before the next:
+   a second `--write` on another day dates only what it changed, so the first
+   batch is no longer listed.
 
 ## Ozzit reference examples
 
-The ten examples use the Apache-2.0 Ozzit v3.5.0 function index in
-`assets/ozzit-functions-v3.5.0.csv`. Edit the reviewed examples in
+The ten examples use the Ozzit v3.6.0 function index in
+`assets/ozzit-functions-v3.6.0.csv`. Edit the reviewed examples in
 `scripts/ozzit_reference_examples.json`, then run
 `site-tools build_ozzit_reference --write`. The builder takes the documented tag
 and workbook hash from `scripts/release_record.json`, so a release bump adds the
@@ -260,17 +304,17 @@ fails when a page states a function, help-table or named-formula count that
 differs from the index. The ordinary site checks
 require the generated include to match both inputs. They also require every
 formula to match the native Excel inputs and results in
-`assets/ozzit-reference-v3.5.0.json`. Each example records its result shape and a
+`assets/ozzit-reference-v3.6.0.json`. Each example records its result shape and a
 Python format template. The generator formats every recorded result and requires
 that display to equal the reviewed expected text, including array values and totals.
 
 Changing a formula requires a new native Excel check against the named release;
 editing an expected display also requires checking it against the raw result.
-The workbook remains the authority. The 19 October 2026 record used Ozzit's
-existing `tools/excel_eval_formulas_verified.ps1`, opened the workbook from the
-signed tag, whose SHA-256 equals the release asset's, read-only and confirmed the
-hash was unchanged after closing it without saving. The v3.4.2 index and its
-25 September 2026 record stay in `assets/` for links to the earlier release.
+The workbook remains the authority. The 15 November 2026 record used the v3.6.0
+`tools/excel_eval_formulas_verified.ps1`, opened the release asset, whose SHA-256
+equals the workbook at the signed tag, read-only and confirmed the hash was
+unchanged after closing it without saving. The v3.5.0 and v3.4.2 indexes and their
+records stay in `assets/` for links to the earlier releases.
 The results establish arithmetic for these examples, not an accounting treatment.
 
 The 6 module pages under `tools/ozzit/functions/` come from

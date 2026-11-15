@@ -1,0 +1,48 @@
+# Levels effective lives, Table B
+
+Source: https://duguid.com.au/tools/depreciation-rates/asset/levels/
+
+> Levels, Table B (asset categories), letter L: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Levels
+
+7 effective lives in Table B of the Commissioner’s 2025 effective life determination under Levels.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Automatic optical levels (dumpy levels) | 7 years | 14.29% | 28.57% | 1 July 2015
+Laser levels: | | | |
+Laser levels: / Grade laying (dial-in grade) | 6 years | 16.67% | 33.33% | 1 July 2015
+Laser levels: / Laser plummets | 5 years | 20.00% | 40.00% | 1 July 2015
+Laser levels: / Line and plumb/point and cross line | 4 years | 25.00% | 50.00% | 1 July 2015
+Laser levels: / Pipe laying | 6 years | 16.67% | 33.33% | 1 July 2015
+Laser levels: / Rotating | 6 years | 16.67% | 33.33% | 1 July 2015
+Laser levels: / Tunnelling and plumbing | 6 years | 16.67% | 33.33% | 1 July 2015
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Automatic optical levels (dumpy levels): https://duguid.com.au/tools/depreciation-rates/asset/levels/automatic-optical-levels/
+- Grade laying (dial-in grade): https://duguid.com.au/tools/depreciation-rates/asset/levels/grade-laying/
+- Laser plummets: https://duguid.com.au/tools/depreciation-rates/asset/levels/laser-plummets/
+- Line and plumb/point and cross line: https://duguid.com.au/tools/depreciation-rates/asset/levels/line-and-plumb-point-and-cross-line/
+- Pipe laying: https://duguid.com.au/tools/depreciation-rates/asset/levels/pipe-laying/
+- Rotating: https://duguid.com.au/tools/depreciation-rates/asset/levels/rotating/
+- Tunnelling and plumbing: https://duguid.com.au/tools/depreciation-rates/asset/levels/tunnelling-and-plumbing/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

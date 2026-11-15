@@ -1,0 +1,81 @@
+# Condensers/heat exchangers effective life: 10 years, Poultry …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/condensers-heat-exchangers/
+
+> Condensers/heat exchangers: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 January 2007 (Table A, 2025 determination).
+
+# Condensers/heat exchangers
+
+‘Condensers/heat exchangers’, for an asset used in Poultry hatcheries, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Condensers/heat exchangers
+Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Poultry hatcheries, ANZSIC 01710 to 01720
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 January 2007
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Poultry hatcheries takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 January 2007. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Poultry hatcheries
+
+Row | Life | Prime cost | Diminishing value
+Air handlers | 20 years | 5.00% | 10.00%
+Boilers | 20 years | 5.00% | 10.00%
+Candling equipment | 20 years | 5.00% | 10.00%
+Chick counters | 20 years | 5.00% | 10.00%
+Chilled water plants | 20 years | 5.00% | 10.00%
+Condensers/heat exchangers (this page) | 10 years | 10.00% | 20.00%
+Control systems (excluding personal computers) | 10 years | 10.00% | 20.00%
+Conveyors | 20 years | 5.00% | 10.00%
+Generators (emergency) | 20 years | 5.00% | 10.00%
+Hatcher baskets | 10 years | 10.00% | 20.00%
+Hatcher trolleys/dollies | 10 years | 10.00% | 20.00%
+Hatchers (including integrated controller units) | 20 years | 5.00% | 10.00%
+
+25 rows share this heading. The Poultry hatcheries page lists them all.
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Air handlers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/air-handlers/
+- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/boilers/
+- Candling equipment: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/candling-equipment/
+- Chick counters: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/chick-counters/
+- Chilled water plants: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/chilled-water-plants/
+- Control systems (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/control-systems/
+- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/conveyors/
+- Generators (emergency): https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/generators/
+- Hatcher baskets: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/hatcher-baskets/
+- Hatcher trolleys/dollies: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/hatcher-trolleys-dollies/
+- Hatchers (including integrated controller units): https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/hatchers/
+- Poultry hatcheries: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

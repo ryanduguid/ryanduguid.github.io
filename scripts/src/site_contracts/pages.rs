@@ -8,6 +8,8 @@ use crate::py;
 use crate::pyre::{S, re};
 use crate::pyval::{Val, find, repr_list};
 use crate::seo_core::{self as core, Tree};
+use std::collections::HashMap;
+use std::sync::{LazyLock, Mutex, PoisonError};
 
 pub fn check_homepage_contract(html: &str, failures: &mut Vec<String>) {
     let titles = re(r"<title>(.*?)</title>", S).findall(html);
@@ -772,24 +774,13 @@ pub fn check_calculator_contract(html: &str, failures: &mut Vec<String>, module_
 
 /// Require one skip target and the exact global primary navigation.
 pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
-    let tree = core::parse_structure(html);
-    let mains = rendered(&tree, Some("main"));
-    if mains.len() != 1 || tree.attr(mains[0], "id") != Some("main") {
-        failures.push(format!(
-            "{rel}: expected exactly one rendered main#main, found {} main elements",
-            mains.len()
-        ));
-    }
-    let skip_links = rendered(&tree, Some("a"))
-        .into_iter()
-        .filter(|l| tree.has_class(*l, "skip-link") && tree.attr(*l, "href") == Some("#main"))
-        .count();
-    if skip_links != 1 {
-        failures.push(format!(
-            "{rel}: expected exactly one .skip-link targeting #main, found {skip_links}"
-        ));
-    }
-    let primary: Vec<usize> = rendered(&tree, Some("nav"))
+    shared_shell(&core::parse_structure(html), rel, failures);
+}
+
+/// `check_shared_shell` on a page already parsed.
+pub(super) fn shared_shell(tree: &Tree, rel: &str, failures: &mut Vec<String>) {
+    skip_target(tree, rel, failures);
+    let primary: Vec<usize> = rendered(tree, Some("nav"))
         .into_iter()
         .filter(|n| tree.attr(*n, "aria-label") == Some("Primary"))
         .collect();
@@ -817,9 +808,34 @@ pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
             repr_list(PRIMARY_NAV_LINKS)
         ));
     }
+    primary_nav_current(tree, &anchors, rel, failures);
+}
+
+/// Require exactly one rendered main#main and one `.skip-link` targeting it.
+fn skip_target(tree: &Tree, rel: &str, failures: &mut Vec<String>) {
+    let mains = rendered(tree, Some("main"));
+    if mains.len() != 1 || tree.attr(mains[0], "id") != Some("main") {
+        failures.push(format!(
+            "{rel}: expected exactly one rendered main#main, found {} main elements",
+            mains.len()
+        ));
+    }
+    let skip_links = rendered(tree, Some("a"))
+        .into_iter()
+        .filter(|l| tree.has_class(*l, "skip-link") && tree.attr(*l, "href") == Some("#main"))
+        .count();
+    if skip_links != 1 {
+        failures.push(format!(
+            "{rel}: expected exactly one .skip-link targeting #main, found {skip_links}"
+        ));
+    }
+}
+
+/// The href and `aria-current` value of each primary link that page `rel` marks current.
+fn expected_nav_current(rel: &str) -> Vec<(&'static str, &'static str)> {
     // Evaluations sit with the tools they evaluate; Contact has no
     // primary link, so no link claims it.
-    let expected_current: Vec<(&str, &str)> = if rel == "tools/index.html" {
+    if rel == "tools/index.html" {
         vec![("/tools/", "page")]
     } else if rel == "tools/accounting-questions/index.html" {
         vec![("/tools/accounting-questions/", "page")]
@@ -840,10 +856,15 @@ pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
         vec![("/about/", "page")]
     } else {
         vec![]
-    };
+    }
+}
+
+/// Require the primary links' `aria-current` states to be exactly `expected_nav_current`.
+fn primary_nav_current(tree: &Tree, anchors: &[usize], rel: &str, failures: &mut Vec<String>) {
+    let expected_current = expected_nav_current(rel);
     // A dict comprehension: a repeated href keeps its first position and its last value.
     let mut actual_current: Vec<(Option<&str>, &str)> = Vec::new();
-    for link in &anchors {
+    for link in anchors {
         let Some(current) = tree.attr(*link, "aria-current") else {
             continue;
         };
@@ -879,20 +900,60 @@ pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
     }
 }
 
+/// One linked step of a breadcrumb: its visible name, href and canonical URL.
+fn step(name: &str, href: &str) -> (String, Option<String>, String) {
+    (
+        name.to_owned(),
+        Some(href.to_owned()),
+        format!("{SITE}{href}"),
+    )
+}
+
+/// The parent steps of an effective life page's trail: the depreciation rates page, its
+/// table's index page and, for a row, its group page, named `group` (that page's H1).
+fn effective_life_parents(rel: &str, group: &str) -> Option<Vec<(String, Option<String>, String)>> {
+    if !crate::effective_life_pages::is_page(rel) {
+        return None;
+    }
+    let rest = rel
+        .strip_prefix("tools/depreciation-rates/")?
+        .strip_suffix("index.html")?;
+    let parts: Vec<&str> = rest.split('/').filter(|part| !part.is_empty()).collect();
+    let index = match parts[0] {
+        "industry" => "Table A: effective lives by industry",
+        _ => "Table B: effective lives by asset",
+    };
+    let mut steps = vec![
+        step("Home", "/"),
+        step("Tools", "/tools/"),
+        step("Depreciation rates", "/tools/depreciation-rates/"),
+    ];
+    if parts.len() >= 2 {
+        steps.push(step(
+            index,
+            &format!("/tools/depreciation-rates/{}/", parts[0]),
+        ));
+    }
+    if parts.len() == 3 {
+        steps.push(step(
+            group,
+            &format!("/tools/depreciation-rates/{}/{}/", parts[0], parts[1]),
+        ));
+    }
+    Some(steps)
+}
+
 /// Visible name, href and canonical URL for each step of a collection breadcrumb.
+/// `group` names an effective life row page's group: its group page's H1.
 pub fn collection_breadcrumb_shape(
     rel: &str,
     current_name: &str,
+    group: &str,
 ) -> Option<Vec<(String, Option<String>, String)>> {
-    let home = ("Home".to_owned(), Some("/".to_owned()), format!("{SITE}/"));
-    let step = |name: &str, href: &str| {
-        (
-            name.to_owned(),
-            Some(href.to_owned()),
-            format!("{SITE}{href}"),
-        )
-    };
-    let mut parents = if rel == "tools/index.html"
+    let home = step("Home", "/");
+    let mut parents = if let Some(parents) = effective_life_parents(rel, group) {
+        parents
+    } else if rel == "tools/index.html"
         || rel == "evaluate/index.html"
         || rel == "rates/index.html"
         || rel.starts_with("examples/")
@@ -933,10 +994,54 @@ pub fn collection_breadcrumb_shape(
     Some(parents)
 }
 
+/// The H1 of the group page above an effective life row page, which its trail names;
+/// empty for any other page, or when the group page is missing (the trail then fails).
+fn effective_life_group(root: &Path, rel: &str) -> String {
+    let Some(group) = rel
+        .strip_suffix("index.html")
+        .filter(|_| crate::effective_life_pages::is_page(rel))
+        .and_then(|rest| rest.trim_end_matches('/').rsplit_once('/'))
+        .map(|(group, _)| format!("{group}/index.html"))
+        .filter(|group| group.matches('/').count() == 4)
+    else {
+        return String::new();
+    };
+    let Ok(html) = crate::read(&super::site_path(root, &group)) else {
+        return String::new();
+    };
+    first_h1_text(html)
+}
+
+/// The text of a page's first rendered H1, kept by page content: every row page of a
+/// group names the same group page, which would otherwise be parsed again for each row.
+fn first_h1_text(html: String) -> String {
+    static NAMES: LazyLock<Mutex<HashMap<String, String>>> = LazyLock::new(Default::default);
+    let names = || NAMES.lock().unwrap_or_else(PoisonError::into_inner);
+    if let Some(name) = names().get(&html) {
+        return name.clone();
+    }
+    let tree = core::parse_structure(&html);
+    let name = rendered(&tree, Some("h1"))
+        .first()
+        .map_or_else(String::new, |h1| tree.text(*h1));
+    names().insert(html, name.clone());
+    name
+}
+
 /// Keep visible and structured collection breadcrumbs in the same hierarchy.
-pub fn check_collection_breadcrumb(html: &str, rel: &str, failures: &mut Vec<String>) {
-    let tree = core::parse_structure(html);
-    let h1s = rendered(&tree, Some("h1"));
+pub fn check_collection_breadcrumb(html: &str, rel: &str, root: &Path, failures: &mut Vec<String>) {
+    collection_breadcrumb(&core::parse_structure(html), html, rel, root, failures);
+}
+
+/// `check_collection_breadcrumb` on a page already parsed: `tree` is `html`'s structure.
+pub(super) fn collection_breadcrumb(
+    tree: &Tree,
+    html: &str,
+    rel: &str,
+    root: &Path,
+    failures: &mut Vec<String>,
+) {
+    let h1s = rendered(tree, Some("h1"));
     if h1s.len() != 1 {
         failures.push(format!("{rel}: collection breadcrumb needs exactly one H1"));
         return;
@@ -945,10 +1050,22 @@ pub fn check_collection_breadcrumb(html: &str, rel: &str, failures: &mut Vec<Str
         .iter()
         .find(|(r, _)| *r == rel)
         .map_or_else(|| tree.text(h1s[0]), |(_, n)| (*n).to_owned());
-    let Some(expected) = collection_breadcrumb_shape(rel, &leaf) else {
+    let group = effective_life_group(root, rel);
+    let Some(expected) = collection_breadcrumb_shape(rel, &leaf, &group) else {
         return;
     };
-    let breadcrumbs: Vec<usize> = rendered(&tree, Some("nav"))
+    visible_breadcrumb(tree, rel, &expected, failures);
+    structured_breadcrumb(html, rel, &expected, failures);
+}
+
+/// Require one breadcrumb nav whose items show `expected`'s names.
+fn visible_breadcrumb(
+    tree: &Tree,
+    rel: &str,
+    expected: &[(String, Option<String>, String)],
+    failures: &mut Vec<String>,
+) {
+    let breadcrumbs: Vec<usize> = rendered(tree, Some("nav"))
         .into_iter()
         .filter(|n| tree.attr(*n, "aria-label") == Some("Breadcrumb"))
         .collect();
@@ -957,45 +1074,66 @@ pub fn check_collection_breadcrumb(html: &str, rel: &str, failures: &mut Vec<Str
             "{rel}: expected exactly one nav labelled Breadcrumb, found {}",
             breadcrumbs.len()
         ));
-    } else {
-        let items = tree.descendants(breadcrumbs[0], Some("li"), true);
-        let actual_names: Vec<String> = items.iter().map(|i| tree.text(*i)).collect();
-        let expected_names: Vec<&String> = expected.iter().map(|(n, _, _)| n).collect();
-        if actual_names.iter().collect::<Vec<_>>() != expected_names {
+        return;
+    }
+    let items = tree.descendants(breadcrumbs[0], Some("li"), true);
+    let actual_names: Vec<String> = items.iter().map(|i| tree.text(*i)).collect();
+    let expected_names: Vec<&String> = expected.iter().map(|(n, _, _)| n).collect();
+    if actual_names.iter().collect::<Vec<_>>() != expected_names {
+        failures.push(format!(
+            "{rel}: visible breadcrumb is {}, expected {}",
+            repr_list(&actual_names),
+            repr_list(expected_names)
+        ));
+    }
+    breadcrumb_links(tree, rel, expected, &items, failures);
+}
+
+/// Require each breadcrumb item to link to `expected`'s href, and the current page's item
+/// to be unlinked and marked current.
+fn breadcrumb_links(
+    tree: &Tree,
+    rel: &str,
+    expected: &[(String, Option<String>, String)],
+    items: &[usize],
+    failures: &mut Vec<String>,
+) {
+    for (index, (name, href, _)) in expected.iter().enumerate() {
+        if index >= items.len() {
+            break;
+        }
+        let links = tree.descendants(items[index], Some("a"), true);
+        let actual_href = if links.len() == 1 {
+            tree.attr(links[0], "href")
+        } else {
+            None
+        };
+        if href.is_some() && actual_href != href.as_deref() {
             failures.push(format!(
-                "{rel}: visible breadcrumb is {}, expected {}",
-                repr_list(&actual_names),
-                repr_list(expected_names)
+                "{rel}: breadcrumb {} points to {}, expected {}",
+                py::repr_str(name),
+                Val::from(actual_href).repr(),
+                Val::from(href.as_deref()).repr()
             ));
         }
-        for (index, (name, href, _)) in expected.iter().enumerate() {
-            if index >= items.len() {
-                break;
-            }
-            let links = tree.descendants(items[index], Some("a"), true);
-            let actual_href = if links.len() == 1 {
-                tree.attr(links[0], "href")
-            } else {
-                None
-            };
-            if href.is_some() && actual_href != href.as_deref() {
-                failures.push(format!(
-                    "{rel}: breadcrumb {} points to {}, expected {}",
-                    py::repr_str(name),
-                    Val::from(actual_href).repr(),
-                    Val::from(href.as_deref()).repr()
-                ));
-            }
-            if href.is_none()
-                && (!links.is_empty() || tree.attr(items[index], "aria-current") != Some("page"))
-            {
-                failures.push(format!(
-                    "{rel}: current breadcrumb {} must be unlinked and aria-current=page",
-                    py::repr_str(name)
-                ));
-            }
+        if href.is_none()
+            && (!links.is_empty() || tree.attr(items[index], "aria-current") != Some("page"))
+        {
+            failures.push(format!(
+                "{rel}: current breadcrumb {} must be unlinked and aria-current=page",
+                py::repr_str(name)
+            ));
         }
     }
+}
+
+/// Require exactly one BreadcrumbList, listing `expected`'s names and canonical URLs.
+fn structured_breadcrumb(
+    html: &str,
+    rel: &str,
+    expected: &[(String, Option<String>, String)],
+    failures: &mut Vec<String>,
+) {
     let mut parse_failures = Vec::new();
     let structured: Vec<Json> = core::json_ld_blocks(html, rel, &mut parse_failures)
         .iter()

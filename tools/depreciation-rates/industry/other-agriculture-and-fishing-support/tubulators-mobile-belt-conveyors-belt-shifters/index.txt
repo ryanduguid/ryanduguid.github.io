@@ -1,0 +1,67 @@
+# Tubulators/Mobile … effective life: 10 years, Product and raw …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/tubulators-mobile-belt-conveyors-belt-shifters/
+
+> Product and raw material handling and receiving assets: Tubulators/Mobile belt conveyors/Belt shifters: effective life 10 years, last updated 1 July 2017 (Table A).
+
+# Product and raw material handling and receiving assets: Tubulators/Mobile belt conveyors/Belt shifters
+
+‘Product and raw material handling and receiving assets: Tubulators/Mobile belt conveyors/Belt shifters’, for an asset used in Other agriculture and fishing support services, has an effective life of 10 years (F2025L01097), last reviewed and determined on 1 July 2017.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Tubulators/Mobile belt conveyors/Belt shifters
+Under | Pulse and seed processing assets: / Product and raw material handling and receiving assets:
+Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Other agriculture and fishing support services, ANZSIC 05290
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2017
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Other agriculture and fishing support services takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2017. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Product and raw material handling and receiving assets
+
+Row | Life | Prime cost | Diminishing value
+Augers | 12 years | 8.33% | 16.67%
+Chaser bins | 15 years | 6.67% | 13.33%
+Elevators (including bucket elevators) | 15 years | 6.67% | 13.33%
+Field bins | 10 years | 10.00% | 20.00%
+Silos – conditioning | 20 years | 5.00% | 10.00%
+Tubulators/Mobile belt conveyors/Belt shifters (this page) | 10 years | 10.00% | 20.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Augers: https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/augers/
+- Chaser bins: https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/chaser-bins/
+- Elevators (including bucket elevators): https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/elevators/
+- Field bins: https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/field-bins/
+- Silos – conditioning: https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/silos-conditioning/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

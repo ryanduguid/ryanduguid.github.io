@@ -1,0 +1,61 @@
+# Vacuum press effective life: 23 years, Laminators
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/vacuum-press/
+
+> Laminators: Vacuum press: effective life 23 years, prime cost 4.35%, diminishing value 8.70%, last updated 1 July 2017 (Table A, 2025 determination).
+
+# Laminators: Vacuum press
+
+‘Laminators: Vacuum press’, for an asset used in Photographic film processing, has an effective life of 23 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2017.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Vacuum press
+Under | Finishing assets: / Laminators:
+Table | Table A (industry categories), OTHER SERVICES / Photographic film processing, ANZSIC 95320
+Effective life | 23 years
+Prime cost rate | 4.35% (100% ÷ life, section 40-75)
+Diminishing value rate | 8.70% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2017
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Photographic film processing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2017. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Laminators
+
+Row | Life | Prime cost | Diminishing value
+Cold | 10 years | 10.00% | 20.00%
+Heat assisted | 7 years | 14.29% | 28.57%
+Vacuum press (this page) | 23 years | 4.35% | 8.70%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 23 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Cold: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/cold/
+- Heat assisted: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/heat-assisted/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

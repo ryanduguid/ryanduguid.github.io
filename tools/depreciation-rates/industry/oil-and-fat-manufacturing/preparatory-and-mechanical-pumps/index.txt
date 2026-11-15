@@ -1,0 +1,115 @@
+# Pumps effective life: 8 years, Preparatory and mechanical …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/preparatory-and-mechanical-pumps/
+
+> Preparatory and mechanical extraction assets: Pumps: effective life 8 years, last updated 1 July 2012 (Table A).
+
+# Preparatory and mechanical extraction assets: Pumps
+
+‘Preparatory and mechanical extraction assets: Pumps’, for an asset used in Oil and fat manufacturing, has an effective life of 8 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Pumps
+Under | Edible oil or fat, blended, modified, refined or solvent extracted manufacturing assets (including canola, safflower, soybean): / Preparatory and extraction assets: / Preparatory and mechanical extraction assets:
+Table | Table A (industry categories), MANUFACTURING / Oil and fat manufacturing, ANZSIC 11500
+Effective life | 8 years
+Prime cost rate | 12.50% (100% ÷ life, section 40-75)
+Diminishing value rate | 25.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2012
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Oil and fat manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Preparatory and mechanical extraction assets
+
+Row | Life | Prime cost | Diminishing value
+Breaking assets (including dehullers and crackers) | 20 years | 5.00% | 10.00%
+Cookers (including conditioners and preheaters) | 25 years | 4.00% | 8.00%
+Extruders (including screw presses) | 20 years | 5.00% | 10.00%
+Milling and grinding assets (including flakers, hammer mills and roller mills) | 20 years | 5.00% | 10.00%
+Pumps (this page) | 8 years | 12.50% | 25.00%
+Vibratory screens | 15 years | 6.67% | 13.33%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 45 are shown.
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Pumps | AGRICULTURE, FORESTRY AND FISHING | 3 years | 33.33% | 66.67%
+Pumps | AGRICULTURE, FORESTRY AND FISHING | 12 years | 8.33% | 16.67%
+Pumps | Mushroom growing | 3 years | 33.33% | 66.67%
+Pumps | Fruit and tree nut growing | 3 years | 33.33% | 66.67%
+Pumps | Mineral sand mining | 20 years | 5.00% | 10.00%
+Pumps | Other mining support services | 8 years | 12.50% | 25.00%
+Pumps (including cavity, diaphragm and lobe) | Fruit and vegetable processing | 15 years | 6.67% | 13.33%
+Pumps | Fruit and vegetable processing | 10 years | 10.00% | 20.00%
+Pumps | Sugar manufacturing | 15 years | 6.67% | 13.33%
+Pumps | Sugar manufacturing | 15 years | 6.67% | 13.33%
+Pumps (including liquid feed) | Prepared animal and bird feed manufacturing | 10 years | 10.00% | 20.00%
+Pumps (including heat, molasses and water pumps) | Prepared animal and bird feed manufacturing | 7 years | 14.29% | 28.57%
+Pumps | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
+Pumps (including cavity pumps, centrifugal pumps, lobe pumps etc) | Other food product manufacturing n.e.c. | 10 years | 10.00% | 20.00%
+Pumps | Soft drink, cordial and syrup manufacturing | 15 years | 6.67% | 13.33%
+Pumps | Beer manufacturing (except non-alcoholic beer) | 15 years | 6.67% | 13.33%
+Pumps (including macerating pumps) | Spirit manufacturing | 7 years | 14.29% | 28.57%
+Pumps | Wine and other alcoholic beverage manufacturing | 15 years | 6.67% | 13.33%
+Pumps | Industrial gas manufacturing | 10 years | 10.00% | 20.00%
+Pumps | Basic organic chemical manufacturing | 15 years | 6.67% | 13.33%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 8 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Breaking assets (including dehullers and crackers): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/breaking-assets/
+- Cookers (including conditioners and preheaters): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/edible-oil-or-fat-blended-cookers/
+- Extruders (including screw presses): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/edible-oil-or-fat-blended-extruders/
+- Milling and grinding assets (including flakers, hammer mills and roller mills): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/milling-and-grinding-assets/
+- Vibratory screens: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/vibratory-screens/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/fertigation-systems-pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-assets-pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/mushroom-growing/pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/mineral-sand-mining/pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/pumps/
+- Pumps (including cavity, diaphragm and lobe): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-pumps/
+- Pumps (including liquid feed): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-pumps/
+- Pumps (including heat, molasses and water pumps): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/coffee-processing-assets-pumps/
+- Pumps (including cavity pumps, centrifugal pumps, lobe pumps etc): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/pumps/
+- Pumps (including macerating pumps): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/pumps/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/pumps/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

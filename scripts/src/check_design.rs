@@ -28,6 +28,10 @@ const FONT_URL_PATTERN: &str = r#"url\(["\']?(/assets/fonts/[^)"\']+\.woff2)"#;
 const SOURCE_URL_PATTERN: &str = r#"url\(\s*["\']?([^)"\']+)"#;
 const FONT_FACE_PATTERN: &str = r"@font-face\s*\{(.*?)\}";
 pub const LAMBDA_MARKUP: &str = "<span class=\"function-symbol\">\u{3bb}</span>";
+/// The symbol markup, which shows a sign in the native maths fonts, so the sign need not
+/// be in the site fonts' ranges. The font check skips only the λ and the effective life
+/// pages' signs in it.
+const SYMBOL_OPEN: &str = "<span class=\"function-symbol\">";
 const RAW_COLOUR_PATTERN: &str = r"#[0-9a-f]{3,8}\b";
 pub const ACCOUNTING_LINK: &str =
     "<link rel=\"stylesheet\" href=\"/assets/accounting-pages.css?v=20261007b\" />";
@@ -601,32 +605,9 @@ fn rglob_text(directory: &Path, suffix: &str) -> Result<Vec<String>, String> {
 pub fn check_font_delivery(root: &Path, tokens_css: &str) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
     let faces = re(FONT_FACE_PATTERN, S | I).findall(tokens_css);
-    let mut rendered_text = Vec::new();
-    let mut uses_symbol_font = false;
-    for path in core::html_files(root) {
-        let raw = crate::read(&path)?;
-        uses_symbol_font = uses_symbol_font || raw.contains(LAMBDA_MARKUP);
-        rendered_text.push(core::raw_text(&raw.replace(LAMBDA_MARKUP, "")));
-        rendered_text.extend(script_contents(&raw));
-    }
+    let (mut rendered_text, uses_symbol_font) = pages_rendered_text(root)?;
     if uses_symbol_font {
-        if !re(
-            r#"--font-symbol:\s*"Cambria Math",\s*"STIX Two Math",\s*"DejaVu Serif",\s*serif;"#,
-            0,
-        )
-        .is_match(tokens_css)
-        {
-            failures.push("lambda fallback must retain the native maths font stack".into());
-        }
-        let site_css = crate::read(&root.join("assets").join("site.css"))?;
-        if !re(
-            r"\.function-symbol\s*\{\s*font-family:\s*var\(--font-symbol\);\s*\}",
-            0,
-        )
-        .is_match(&site_css)
-        {
-            failures.push("lambda markup must use the symbol font".into());
-        }
+        check_symbol_font(root, tokens_css, &mut failures)?;
     }
     rendered_text.extend(rglob_text(&root.join("assets"), ".mjs")?);
     let visible = rendered_text.join(" ");
@@ -656,6 +637,72 @@ pub fn check_font_delivery(root: &Path, tokens_css: &str) -> Result<Vec<String>,
             ));
         }
     }
+    check_font_sizes(root, tokens_css, &mut failures)?;
+    Ok(failures)
+}
+
+/// The text each page renders in the site fonts, without its symbol markup, and whether
+/// any page uses the symbol font.
+fn pages_rendered_text(root: &Path) -> Result<(Vec<String>, bool), String> {
+    let mut rendered_text = Vec::new();
+    let mut uses_symbol_font = false;
+    let markups: Vec<String> = std::iter::once('\u{3bb}')
+        .chain(crate::effective_life_pages::SYMBOLS)
+        .map(|sign| format!("{SYMBOL_OPEN}{sign}</span>"))
+        .collect();
+    for path in core::html_files(root) {
+        let raw = crate::read(&path)?;
+        uses_symbol_font = uses_symbol_font || raw.contains(SYMBOL_OPEN);
+        let shown = markups
+            .iter()
+            .fold(raw.clone(), |text, markup| text.replace(markup, ""));
+        if crate::effective_life_pages::is_page(&core::rel(&path, root)) {
+            // These pages quote the determination in their head and structured data too,
+            // which no web font draws; only the body is rendered text.
+            let body = shown
+                .find("<body>")
+                .map_or(shown.as_str(), |at| &shown[at..]);
+            rendered_text.push(core::raw_text(body));
+        } else {
+            rendered_text.push(core::raw_text(&shown));
+            rendered_text.extend(script_contents(&raw));
+        }
+    }
+    Ok((rendered_text, uses_symbol_font))
+}
+
+/// Require the symbol font's native maths stack and its use by the symbol markup.
+fn check_symbol_font(
+    root: &Path,
+    tokens_css: &str,
+    failures: &mut Vec<String>,
+) -> Result<(), String> {
+    if !re(
+        r#"--font-symbol:\s*"Cambria Math",\s*"STIX Two Math",\s*"DejaVu Serif",\s*serif;"#,
+        0,
+    )
+    .is_match(tokens_css)
+    {
+        failures.push("lambda fallback must retain the native maths font stack".into());
+    }
+    let site_css = crate::read(&root.join("assets").join("site.css"))?;
+    if !re(
+        r"\.function-symbol\s*\{\s*font-family:\s*var\(--font-symbol\);\s*\}",
+        0,
+    )
+    .is_match(&site_css)
+    {
+        failures.push("lambda markup must use the symbol font".into());
+    }
+    Ok(())
+}
+
+/// Keep each declared font, and all of them together, within the delivery budgets.
+fn check_font_sizes(
+    root: &Path,
+    tokens_css: &str,
+    failures: &mut Vec<String>,
+) -> Result<(), String> {
     let mut declared: Vec<String> = re(FONT_URL_PATTERN, 0)
         .findall(tokens_css)
         .iter()
@@ -684,7 +731,7 @@ pub fn check_font_delivery(root: &Path, tokens_css: &str) -> Result<Vec<String>,
             "declared fonts total {total} bytes, over {MAX_TOTAL_FONT_BYTES}-byte budget"
         ));
     }
-    Ok(failures)
+    Ok(())
 }
 
 /// `baseline.get(key, {})` iterated: a dict's keys, a list's items or a string's characters.
@@ -921,7 +968,12 @@ pub fn check_copy(root: &Path) -> Result<Vec<String>, String> {
     let mut documents = Vec::new();
     for path in core::html_files(root) {
         let rel = core::rel(&path, root);
-        let surfaces = copy_surfaces(&crate::read(&path)?, &rel);
+        // The effective life pages quote the determination, whose words these rules do
+        // not govern; `page_copy_failures` holds their own wording to the rules instead.
+        if crate::effective_life_pages::is_page(&rel) {
+            continue;
+        }
+        let surfaces = copy_surfaces(&without_group_names(&crate::read(&path)?), &rel);
         documents.push((rel, surfaces));
     }
     for rel in COPY_TEXT_FILES {
@@ -933,23 +985,50 @@ pub fn check_copy(root: &Path) -> Result<Vec<String>, String> {
         documents.push((rel.to_owned(), vec![("text", crate::read(&path)?)]));
     }
     for (rel, surfaces) in documents {
-        for (surface, text) in surfaces {
-            if banned_screen(&text) {
-                for (label, pattern) in BANNED_VISIBLE_PATTERNS {
-                    if re(pattern, I).is_match(&text) {
-                        failures.push(format!(
-                            "{rel}: banned {surface} phrase {}",
-                            py::repr_str(label)
-                        ));
-                    }
-                }
-            }
-            if surface == "visible" && re(EMOJI_PATTERN, 0).is_match(&text) {
-                failures.push(format!("{rel}: decorative emoji is not permitted"));
-            }
-        }
+        failures.extend(surface_copy_failures(&rel, surfaces));
     }
     Ok(failures)
+}
+
+/// The rates page's list of the effective life group pages (`effective_life_pages`
+/// writes it to `_includes`) names each group in the determination's words, which the
+/// copy rules do not govern, as on the pages themselves ('Other fabricated metal product
+/// manufacturing'). Each item is blanked; the list's own wording stays checked.
+fn without_group_names(html: &str) -> std::borrow::Cow<'_, str> {
+    let Some(start) = html.find("<section id=\"every-life\">") else {
+        return html.into();
+    };
+    let end = html[start..]
+        .find("</section>")
+        .map_or(html.len(), |i| start + i);
+    let list = re(r"<li>.*?</li>", S).sub(" ", &html[start..end]);
+    format!("{}{list}{}", &html[..start], &html[end..]).into()
+}
+
+/// Where one page breaks the copy rules: banned phrases and decorative emoji.
+pub fn page_copy_failures(rel: &str, html: &str) -> Vec<String> {
+    surface_copy_failures(rel, copy_surfaces(html, rel))
+}
+
+fn surface_copy_failures<S: AsRef<str>>(rel: &str, surfaces: Vec<(S, String)>) -> Vec<String> {
+    let mut failures = Vec::new();
+    for (surface, text) in surfaces {
+        let surface = surface.as_ref();
+        if banned_screen(&text) {
+            for (label, pattern) in BANNED_VISIBLE_PATTERNS {
+                if re(pattern, I).is_match(&text) {
+                    failures.push(format!(
+                        "{rel}: banned {surface} phrase {}",
+                        py::repr_str(label)
+                    ));
+                }
+            }
+        }
+        if surface == "visible" && re(EMOJI_PATTERN, 0).is_match(&text) {
+            failures.push(format!("{rel}: decorative emoji is not permitted"));
+        }
+    }
+    failures
 }
 
 /// Invented data is 'fictional' in reader copy (4 November 2026): visible text,
@@ -960,31 +1039,15 @@ pub fn check_fictional_wording(root: &Path) -> Result<Vec<String>, String> {
     let mut documents = Vec::new();
     for path in core::html_files(root) {
         let rel = core::rel(&path, root);
-        let html = crate::read(&path)?;
-        let prose = re(r"<(code|pre)\b[^>]*>.*?</\1>", I | S).sub(" ", &html);
-        let values = |pattern: &str, source: &str| {
-            re(pattern, I)
-                .findall(source)
-                .iter()
-                .map(|v| unescape(v))
-                .collect::<Vec<_>>()
-                .join(" ")
-        };
-        let mut strings = Vec::new();
-        for block in core::json_ld_blocks(&html, &rel, &mut Vec::new()) {
-            json_ld_strings(&block, &mut strings);
+        // As in `check_copy`: `page_fictional_failures` holds these pages' own wording.
+        if crate::effective_life_pages::is_page(&rel) {
+            continue;
         }
-        let surfaces = vec![
-            ("visible", core::raw_text(&prose)),
-            ("accessible name", values(ACCESSIBLE_NAME_PATTERN, &prose)),
-            ("description", values(DESCRIPTION_META_PATTERN, &html)),
-            (
-                "image description",
-                values(IMAGE_DESCRIPTION_META_PATTERN, &html),
-            ),
-            ("JSON-LD", strings.join(" ")),
-        ];
-        documents.push((rel, surfaces));
+        let html = crate::read(&path)?;
+        documents.push((
+            rel.clone(),
+            fictional_surfaces(&without_group_names(&html), &rel),
+        ));
     }
     for rel in COPY_TEXT_FILES {
         let path = site_path(root, rel);
@@ -992,24 +1055,61 @@ pub fn check_fictional_wording(root: &Path) -> Result<Vec<String>, String> {
             documents.push((rel.to_owned(), vec![("text", crate::read(&path)?)]));
         }
     }
-    let invented = re(INVENTED_DATA_PATTERN, I);
     for (rel, surfaces) in documents {
-        for (surface, text) in surfaces {
-            let mut words: Vec<String> = invented
-                .findall(&text)
-                .iter()
-                .map(|w| w.to_lowercase())
-                .collect();
-            words.sort();
-            words.dedup();
-            for word in words {
-                failures.push(format!(
-                    "{rel}: {surface} copy says '{word}'; write 'fictional' for invented data"
-                ));
-            }
-        }
+        failures.extend(fictional_surface_failures(&rel, surfaces));
     }
     Ok(failures)
+}
+
+/// Where one page calls invented data anything but 'fictional'.
+pub fn page_fictional_failures(rel: &str, html: &str) -> Vec<String> {
+    fictional_surface_failures(rel, fictional_surfaces(html, rel))
+}
+
+fn fictional_surfaces(html: &str, rel: &str) -> Vec<(&'static str, String)> {
+    let prose = re(r"<(code|pre)\b[^>]*>.*?</\1>", I | S).sub(" ", html);
+    let values = |pattern: &str, source: &str| {
+        re(pattern, I)
+            .findall(source)
+            .iter()
+            .map(|v| unescape(v))
+            .collect::<Vec<_>>()
+            .join(" ")
+    };
+    let mut strings = Vec::new();
+    for block in core::json_ld_blocks(html, rel, &mut Vec::new()) {
+        json_ld_strings(&block, &mut strings);
+    }
+    vec![
+        ("visible", core::raw_text(&prose)),
+        ("accessible name", values(ACCESSIBLE_NAME_PATTERN, &prose)),
+        ("description", values(DESCRIPTION_META_PATTERN, html)),
+        (
+            "image description",
+            values(IMAGE_DESCRIPTION_META_PATTERN, html),
+        ),
+        ("JSON-LD", strings.join(" ")),
+    ]
+}
+
+fn fictional_surface_failures(rel: &str, surfaces: Vec<(&str, String)>) -> Vec<String> {
+    let mut failures = Vec::new();
+    let invented = re(INVENTED_DATA_PATTERN, I);
+    for (surface, text) in surfaces {
+        let mut words: Vec<String> = invented
+            .findall(&text)
+            .iter()
+            .map(|w| w.to_lowercase())
+            .collect();
+        words.sort();
+        words.dedup();
+        for word in words {
+            failures.push(format!(
+                "{rel}: {surface} copy says '{word}'; write 'fictional' for invented data"
+            ));
+        }
+    }
+    failures
 }
 
 /// A tool page states its current release once before its first section;
@@ -1311,6 +1411,14 @@ pub fn check_document_delivery(root: &Path, baseline: &Json) -> Result<Vec<Strin
     }
     let mut styled = indexable.clone();
     styled.push("404.html".into());
+    // The effective life pages are not pinned in the baseline, as the generator owns
+    // their structured data, but they are delivered like every other page.
+    styled.extend(
+        core::html_files(root)
+            .iter()
+            .map(|path| core::rel(path, root))
+            .filter(|rel| crate::effective_life_pages::is_page(rel)),
+    );
     styled.sort();
     styled.dedup();
     let csp = CSP_META.to_owned();
@@ -1736,7 +1844,10 @@ fn refresh_page_entries(root: &Path, sections: &mut [(String, Json)]) -> Result<
     if let Some((_, Json::Object(entries))) = sections.iter_mut().find(|(k, _)| k == "json_ld") {
         for path in &pages {
             let rel = core::rel(path, root);
-            if entries.iter().any(|(k, _)| *k == rel) {
+            // The generator's tests own these pages' structured data (see
+            // `check_document_delivery`); pinning 7,000 digests here would only repeat them.
+            if entries.iter().any(|(k, _)| *k == rel) || crate::effective_life_pages::is_page(&rel)
+            {
                 continue;
             }
             let (values, parse_failures) = json_ld_digests(&rendered_page(root, &rel)?)?;

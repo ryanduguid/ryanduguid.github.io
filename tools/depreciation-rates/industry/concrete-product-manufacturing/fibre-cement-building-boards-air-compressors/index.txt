@@ -1,0 +1,115 @@
+# Air compressors effective life: 10 years, General assets
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-air-compressors/
+
+> General assets: Air compressors (rotary screw): effective life 10 years, last updated 1 July 2012 (Table A).
+
+# General assets: Air compressors (rotary screw)
+
+‘General assets: Air compressors (rotary screw)’, for an asset used in Concrete product manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Air compressors (rotary screw)
+Under | Fibre cement building boards manufacturing assets: / General assets:
+Table | Table A (industry categories), MANUFACTURING / Concrete product manufacturing, ANZSIC 20340
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2012
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Concrete product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under General assets
+
+Row | Life | Prime cost | Diminishing value
+Air compressors (rotary screw) (this page) | 10 years | 10.00% | 20.00%
+Control systems | 10 years | 10.00% | 20.00%
+Conveyors | 20 years | 5.00% | 10.00%
+Dust collection assets | 20 years | 5.00% | 10.00%
+Oil tanks | 30 years | 3.33% | 6.67%
+Stackers/unstackers (including pilers/unpilers) | 15 years | 6.67% | 13.33%
+Steel templates | 7 years | 14.29% | 28.57%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 21 are shown.
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Air compressors | Dairy cattle farming | 5 years | 20.00% | 40.00%
+Air Compressors | Other agriculture and fishing support services | 7 years | 14.29% | 28.57%
+Air compressors | Meat processing | 10 years | 10.00% | 20.00%
+Air compressors | Prepared animal and bird feed manufacturing | 10 years | 10.00% | 20.00%
+Air compressors | Other food product manufacturing n.e.c. | 12 years | 8.33% | 16.67%
+Air compressors | Wine and other alcoholic beverage manufacturing | 15 years | 6.67% | 13.33%
+Air compressors | Clothing manufacturing | 10 years | 10.00% | 20.00%
+Air compressors | Petroleum refining | 30 years | 3.33% | 6.67%
+Air compressors | Basic organic chemical manufacturing | 15 years | 6.67% | 13.33%
+Air compressors (incorporating air drying and filtering assets) | Basic inorganic chemical manufacturing | 15 years | 6.67% | 13.33%
+Air compressors | Paint and coatings manufacturing | 10 years | 10.00% | 20.00%
+Air compressors | Glass and glass product manufacturing | 20 years | 5.00% | 10.00%
+Air compressors | Ready-mixed concrete manufacturing | 10 years | 10.00% | 20.00%
+Air compressors | Steel coil roll forming, slitting and blanking and sheet metal forming | 7 years | 14.29% | 28.57%
+Air compressors | Steel coil roll forming, slitting and blanking and sheet metal forming | 7 years | 14.29% | 28.57%
+Air compressors | Motor vehicle manufacturing | 15 years | 6.67% | 13.33%
+Air compressors | Motor vehicle manufacturing | 15 years | 6.67% | 13.33%
+Air compressors | Motor vehicle manufacturing | 15 years | 6.67% | 13.33%
+Air compressors | Dental services | 10 years | 10.00% | 20.00%
+Air compressors | Automotive body, paint and interior repair n.e.c. | 10 years | 10.00% | 20.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-control-systems/
+- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-conveyors/
+- Dust collection assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/dust-collection-assets/
+- Oil tanks: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-oil-tanks/
+- Stackers/unstackers (including pilers/unpilers): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/stackers-unstackers/
+- Steel templates: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/steel-templates/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/air-compressors/
+- Air Compressors: https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/clothing-manufacturing/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/air-compressors/
+- Air compressors (incorporating air drying and filtering assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/bus-and-truck-manufacturing-air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/motor-car-engine-assembly-and-air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/air-compressors/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/air-compressors/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

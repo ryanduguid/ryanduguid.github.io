@@ -1,0 +1,124 @@
+# Child care services effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/
+
+> Child care services, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Child care services
+
+35 effective lives in Table A of the Commissioner’s 2025 effective life determination for Child care services.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Audio visual assets | 5 years | 20.00% | 40.00% | 1 July 2020
+Augmented reality (AR) interactive sandboxes (incorporating projectors) | 5 years | 20.00% | 40.00% | 1 July 2020
+Electronic whiteboards (including touch screen interactive digital boards) | 6 years | 16.67% | 33.33% | 1 July 2020
+Furniture used by children, freestanding: | | | |
+Furniture used by children, freestanding: / Age specific (including cots, changing tables, floor sleeping mattresses, high and low feeding chairs, and stackable beds) | 5 years | 20.00% | 40.00% | 1 July 2020
+Furniture used by children, freestanding: / Carpet mats (including rugs and floor mats/cushions) | 5 years | 20.00% | 40.00% | 1 July 2020
+Furniture used by children, freestanding: / Others (including bookcases, chairs and sofas, coat/dress-up racks, easels, room dividers, tables and storage shelving units) | 10 years | 10.00% | 20.00% | 1 July 2020
+Play area assets: | | | |
+Play area assets: / Furniture, freestanding (including tables, seating and toy storage boxes) | 5 years | 20.00% | 40.00% | 1 July 2020
+Play area assets: / Pet enclosures and structures, freestanding (including bird aviaries, chicken coops, fish tanks, guinea pig cages and rabbit hutches) | 10 years | 10.00% | 20.00% | 1 July 2020
+Play area assets: / Playground flooring: | | | |
+Play area assets: / Playground flooring: / Artificial grass/synthetic lawn | 7 years | 14.29% | 28.57% | 1 July 2020
+Play area assets: / Playground flooring: / Soft fall flooring (including wet pour rubber and rubber mats) | 5 years | 20.00% | 40.00% | 1 July 2020
+Play area assets: / Playsets (including cubby houses, forts, slides, swing sets and trestle frames) | 8 years | 12.50% | 25.00% | 1 July 2020
+Play area assets: / Pole and post padding/protectors | 5 years | 20.00% | 40.00% | 1 July 2020
+Play area assets: / Sandpits, freestanding (including portable sandpits and sandpit covers) | 7 years | 14.29% | 28.57% | 1 July 2020
+Play area assets: / Tents, portable (including gazebos, marquees and tepee play tents) | 5 years | 20.00% | 40.00% | 1 July 2020
+Play area assets: / Toys (not specified elsewhere) | 3 years | 33.33% | 66.67% | 1 July 2020
+Play area assets: / Tricycles and bicycles (including balance bicycles and tricycle scooters) | 5 years | 20.00% | 40.00% | 1 July 2020
+Play area assets: / Water play area filtration assets and water pumps | 7 years | 14.29% | 28.57% | 1 July 2020
+Support assets: | | | |
+Support assets: / Automated external defibrillators (AEDs) – see Table B Automated external defibrillators (AEDs) | | | |
+Support assets: / Fascia signs (including freestanding signs) – see Table B Advertising signs | | | |
+Support assets: / Fire control and alarm assets – see Table B Fire control and alarm assets | | | |
+Support assets: / Floor coverings – see Table B Floor coverings (removable without damage) | | | |
+Support assets: / Garden sheds, freestanding | 15 years | 6.67% | 13.33% | 1 July 2020
+Support assets: / Hand dryers – see Table B Hand dryers (electrical) | | | |
+Support assets: / Kiosk stands, freestanding | 10 years | 10.00% | 20.00% | 1 July 2020
+Support assets: / Kitchen assets: | | | |
+Support assets: / Kitchen assets: / Dishwashers | 5 years | 20.00% | 40.00% | 1 July 2020
+Support assets: / Kitchen assets: / Food cooking assets (including combination ovens, cooktops, fryers, soup kettles and stoves) | 10 years | 10.00% | 20.00% | 1 July 2020
+Support assets: / Kitchen assets: / Grease traps | 10 years | 10.00% | 20.00% | 1 July 2020
+Support assets: / Kitchen assets: / Kitchen trolleys | 5 years | 20.00% | 40.00% | 1 July 2020
+Support assets: / Kitchen assets: / Microwave ovens | 5 years | 20.00% | 40.00% | 1 July 2020
+Support assets: / Kitchen assets: / Refrigerators/freezers | 10 years | 10.00% | 20.00% | 1 July 2020
+Support assets: / Kitchen assets: / Small appliances (including blenders, food processors, mixers and toasters) | 4 years | 25.00% | 50.00% | 1 July 2020
+Support assets: / Laundry assets: | | | |
+Support assets: / Laundry assets: / Dryers | 5 years | 20.00% | 40.00% | 1 July 2020
+Support assets: / Laundry assets: / Washing machines | 5 years | 20.00% | 40.00% | 1 July 2020
+Support assets: / Reception furniture, freestanding (including lobby chairs, desks, lounges, sofas and tables) – see Table B Office furniture, freestanding | | | |
+Support assets: / Security and monitoring assets – see Table B Security and monitoring assets | | | |
+Support assets: / Steam cleaners | 3 years | 33.33% | 66.67% | 1 July 2020
+Support assets: / Strollers: | | | |
+Support assets: / Strollers: / Commercial multi seat (including buggies) | 10 years | 10.00% | 20.00% | 1 July 2020
+Support assets: / Strollers: / Others | 5 years | 20.00% | 40.00% | 1 July 2020
+Support assets: / Time attendance devices (including fingerprint and vein scanners) | 7 years | 14.29% | 28.57% | 1 July 2020
+Support assets: / Vacuum cleaners | 3 years | 33.33% | 66.67% | 1 July 2020
+Table games | 5 years | 20.00% | 40.00% | 1 July 2020
+Television sets | 8 years | 12.50% | 25.00% | 1 July 2020
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Audio visual assets: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/audio-visual-assets/
+- Augmented reality (AR) interactive sandboxes (incorporating projectors): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/augmented-reality-interactive-sandboxes/
+- Electronic whiteboards (including touch screen interactive digital boards): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/electronic-whiteboards/
+- Age specific (including cots, changing tables, floor sleeping mattresses, high and low feeding chairs, and stackable beds): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/age-specific/
+- Carpet mats (including rugs and floor mats/cushions): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/carpet-mats/
+- Others (including bookcases, chairs and sofas, coat/dress-up racks, easels, room dividers, tables and storage shelving units): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/furniture-used-by-children-others/
+- Furniture, freestanding (including tables, seating and toy storage boxes): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/furniture-freestanding/
+- Pet enclosures and structures, freestanding (including bird aviaries, chicken coops, fish tanks, guinea pig cages and rabbit hutches): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/pet-enclosures-and-structures-freestanding/
+- Artificial grass/synthetic lawn: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/artificial-grass-synthetic-lawn/
+- Soft fall flooring (including wet pour rubber and rubber mats): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/soft-fall-flooring/
+- Playsets (including cubby houses, forts, slides, swing sets and trestle frames): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/playsets/
+- Pole and post padding/protectors: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/pole-and-post-padding-protectors/
+- Sandpits, freestanding (including portable sandpits and sandpit covers): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/sandpits-freestanding/
+- Tents, portable (including gazebos, marquees and tepee play tents): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/tents-portable/
+- Toys (not specified elsewhere): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/toys/
+- Tricycles and bicycles (including balance bicycles and tricycle scooters): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/tricycles-and-bicycles/
+- Water play area filtration assets and water pumps: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/water-play-area-filtration-assets-and-water-pumps/
+- Automated external defibrillators (AEDs) – see Table B Automated external defibrillators (AEDs): https://duguid.com.au/tools/depreciation-rates/asset/automated-external-defibrillators/
+- Fascia signs (including freestanding signs) – see Table B Advertising signs: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/
+- Fire control and alarm assets – see Table B Fire control and alarm assets: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/
+- Floor coverings – see Table B Floor coverings (removable without damage): https://duguid.com.au/tools/depreciation-rates/asset/floor-coverings/
+- Garden sheds, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/garden-sheds-freestanding/
+- Hand dryers – see Table B Hand dryers (electrical): https://duguid.com.au/tools/depreciation-rates/asset/hand-dryers/
+- Kiosk stands, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/kiosk-stands-freestanding/
+- Dishwashers: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/dishwashers/
+- Food cooking assets (including combination ovens, cooktops, fryers, soup kettles and stoves): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/food-cooking-assets/
+- Grease traps: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/grease-traps/
+- Kitchen trolleys: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/kitchen-trolleys/
+- Microwave ovens: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/microwave-ovens/
+- Refrigerators/freezers: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/refrigerators-freezers/
+- Small appliances (including blenders, food processors, mixers and toasters): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/small-appliances/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/dryers/
+- Washing machines: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/washing-machines/
+- Reception furniture, freestanding (including lobby chairs, desks, lounges, sofas and tables) – see Table B Office furniture, freestanding: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/
+- Security and monitoring assets – see Table B Security and monitoring assets: https://duguid.com.au/tools/depreciation-rates/asset/security-and-monitoring-assets/
+- Steam cleaners: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/steam-cleaners/
+- Commercial multi seat (including buggies): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/commercial-multi-seat/
+- Others: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/support-assets-others/
+- Time attendance devices (including fingerprint and vein scanners): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/time-attendance-devices/
+- Vacuum cleaners: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/vacuum-cleaners/
+- Table games: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/table-games/
+- Television sets: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/television-sets/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

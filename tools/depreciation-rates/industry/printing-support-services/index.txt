@@ -1,0 +1,117 @@
+# Printing support services effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/
+
+> Printing support services, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Printing support services
+
+37 effective lives in Table A of the Commissioner’s 2025 effective life determination for Printing support services.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Post-press (finishing) trade services assets: | | | |
+Post-press (finishing) trade services assets: / Addressing and mailing assets: | | | |
+Post-press (finishing) trade services assets: / Addressing and mailing assets: / Combination addressing, folding and gluing mailing units | 10 years | 10.00% | 20.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Addressing and mailing assets: / Inkjet addressing printers | 5 years | 20.00% | 40.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Bagging and wrapping machines (including palletisers) | 10 years | 10.00% | 20.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Banding and tying machines | 12 1/2 years | 8.00% | 16.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Benchtop finishing assets used in small printing establishments (including benchtop guillotines, coil, plastic comb and spiral binders, portable banding and tying machines, small roll laminators and tabletop folders) | 5 years | 20.00% | 40.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Binding assets: | | | |
+Post-press (finishing) trade services assets: / Binding assets: / Binding lines (including case binding lines and perfect binding lines) | 15 years | 6.67% | 13.33% | 1 January 2006
+Post-press (finishing) trade services assets: / Binding assets: / Perfect binders – standalone | 10 years | 10.00% | 20.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Binding assets: / Stitchers: | | | |
+Post-press (finishing) trade services assets: / Binding assets: / Stitchers: / Generally (including drum stitchers, saddle stitching lines and side stitchers) | 12 1/2 years | 8.00% | 16.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Binding assets: / Stitchers: / Saddle stitchers – standalone (bookletmakers) | 7 1/2 years | 13.33% | 26.67% | 1 January 2006
+Post-press (finishing) trade services assets: / Casemakers | 10 years | 10.00% | 20.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Collators | 15 years | 6.67% | 13.33% | 1 January 2006
+Post-press (finishing) trade services assets: / Die cutters | 15 years | 6.67% | 13.33% | 1 January 2006
+Post-press (finishing) trade services assets: / Drilling units | 10 years | 10.00% | 20.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Foil stamping machines | 10 years | 10.00% | 20.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Folders | 12 1/2 years | 8.00% | 16.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Guillotines and ancillary assets (including joggers, stackers and transomats) | 15 years | 6.67% | 13.33% | 1 January 2006
+Post-press (finishing) trade services assets: / Laminators | 10 years | 10.00% | 20.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Mail inserters | 5 years | 20.00% | 40.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Newspaper mailroom assets: | | | |
+Post-press (finishing) trade services assets: / Newspaper mailroom assets: / Bundle conveying and sorting systems (including bundle sorting and barcode reading stations and bundle conveyors) | 12 1/2 years | 8.00% | 16.00% | 1 January 2007
+Post-press (finishing) trade services assets: / Newspaper mailroom assets: / Inserters and inserting systems (incorporating feeders and feeder chains) | 10 years | 10.00% | 20.00% | 1 January 2007
+Post-press (finishing) trade services assets: / Newspaper mailroom assets: / Stackers | 15 years | 6.67% | 13.33% | 1 January 2007
+Post-press (finishing) trade services assets: / Newspaper mailroom assets: / Trimmers (including rotary and scissor action trimmers) | 15 years | 6.67% | 13.33% | 1 January 2007
+Post-press (finishing) trade services assets: / Perforators | 10 years | 10.00% | 20.00% | 1 January 2006
+Post-press (finishing) trade services assets: / Sewing machines | 15 years | 6.67% | 13.33% | 1 January 2006
+Post-press (finishing) trade services assets: / Three knife trimmers | 15 years | 6.67% | 13.33% | 1 January 2006
+Pre-press trade services assets: | | | |
+Pre-press trade services assets: / Conventional flexographic plate making assets (including combination units, dryers, post exposure units, UV light exposure units and washout units) | 7 years | 14.29% | 28.57% | 1 January 2006
+Pre-press trade services assets: / Film and plate processors | 6 years | 16.67% | 33.33% | 1 January 2006
+Pre-press trade services assets: / Film projection camera systems (including backing board and processing assets) | 10 years | 10.00% | 20.00% | 1 January 2006
+Pre-press trade services assets: / Platesetters: | | | |
+Pre-press trade services assets: / Platesetters: / Computer-to-plate (CtP) platesetters (including thermal and visible-light platesetters) and Direct-to-plate flexographic platesetters (Computer digital imagers) | 5 years | 20.00% | 40.00% | 1 January 2006
+Pre-press trade services assets: / Platesetters: / Film image platesetters (imagesetters) | 7 years | 14.29% | 28.57% | 1 January 2006
+Pre-press trade services assets: / Plate punch benders: | | | |
+Pre-press trade services assets: / Plate punch benders: / Automatic (optical) | 5 years | 20.00% | 40.00% | 1 January 2007
+Pre-press trade services assets: / Plate punch benders: / Manual | 10 years | 10.00% | 20.00% | 1 January 2007
+Pre-press trade services assets: / Plotters | 5 years | 20.00% | 40.00% | 1 January 2006
+Pre-press trade services assets: / Proofers: | | | |
+Pre-press trade services assets: / Proofers: / Analogue film or photographic proofers | 7 years | 14.29% | 28.57% | 1 January 2006
+Pre-press trade services assets: / Proofers: / Digital and ink-jet proofers | 5 years | 20.00% | 40.00% | 1 January 2006
+Pre-press trade services assets: / Scanners: | | | |
+Pre-press trade services assets: / Scanners: / Drum | 10 years | 10.00% | 20.00% | 1 January 2006
+Pre-press trade services assets: / Scanners: / Flatbed | 5 years | 20.00% | 40.00% | 1 January 2006
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Combination addressing, folding and gluing mailing units: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/combination-addressing-folding-and-gluing-mailing-units/
+- Inkjet addressing printers: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/inkjet-addressing-printers/
+- Bagging and wrapping machines (including palletisers): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/bagging-and-wrapping-machines/
+- Banding and tying machines: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/banding-and-tying-machines/
+- Benchtop finishing assets used in small printing establishments (including benchtop guillotines, coil, plastic comb and spiral binders, portable banding and tying machines, small roll laminators and tabletop folders): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/benchtop-finishing-assets-used-in-small-printing/
+- Binding lines (including case binding lines and perfect binding lines): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/binding-lines/
+- Perfect binders – standalone: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/perfect-binders-standalone/
+- Generally (including drum stitchers, saddle stitching lines and side stitchers): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/generally/
+- Saddle stitchers – standalone (bookletmakers): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/saddle-stitchers-standalone/
+- Casemakers: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/casemakers/
+- Collators: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/collators/
+- Die cutters: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/die-cutters/
+- Drilling units: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/drilling-units/
+- Foil stamping machines: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/foil-stamping-machines/
+- Folders: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/folders/
+- Guillotines and ancillary assets (including joggers, stackers and transomats): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/guillotines-and-ancillary-assets/
+- Laminators: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/laminators/
+- Mail inserters: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/mail-inserters/
+- Bundle conveying and sorting systems (including bundle sorting and barcode reading stations and bundle conveyors): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/bundle-conveying-and-sorting-systems/
+- Inserters and inserting systems (incorporating feeders and feeder chains): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/inserters-and-inserting-systems/
+- Stackers: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/stackers/
+- Trimmers (including rotary and scissor action trimmers): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/trimmers/
+- Perforators: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/perforators/
+- Sewing machines: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/sewing-machines/
+- Three knife trimmers: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/three-knife-trimmers/
+- Conventional flexographic plate making assets (including combination units, dryers, post exposure units, UV light exposure units and washout units): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/conventional-flexographic-plate-making-assets/
+- Film and plate processors: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/film-and-plate-processors/
+- Film projection camera systems (including backing board and processing assets): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/film-projection-camera-systems/
+- Computer-to-plate (CtP) platesetters (including thermal and visible-light platesetters) and Direct-to-plate flexographic platesetters (Computer digital imagers): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/computer-to-plate-platesetters-and-direct-to-plate/
+- Film image platesetters (imagesetters): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/film-image-platesetters/
+- Automatic (optical): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/automatic/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/manual/
+- Plotters: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/plotters/
+- Analogue film or photographic proofers: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/analogue-film-or-photographic-proofers/
+- Digital and ink-jet proofers: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/digital-and-ink-jet-proofers/
+- Drum: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/drum/
+- Flatbed: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/flatbed/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

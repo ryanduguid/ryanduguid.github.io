@@ -1,0 +1,352 @@
+# Prepared animal and bird … effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/
+
+> Prepared animal and bird feed manufacturing, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Prepared animal and bird feed manufacturing
+
+151 effective lives in Table A of the Commissioner’s 2025 effective life determination for Prepared animal and bird feed manufacturing.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Pet food manufacturing assets: | | | |
+Pet food manufacturing assets: / Dry process assets: | | | |
+Pet food manufacturing assets: / Dry process assets: / Batching systems | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Blowing systems | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Coating assets (including oil, tumble and vacuum coaters) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Coolers (including counterflow, horizontal and vertical) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Cooling systems (including fans and cyclones) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Dehumidifying systems (including silo munters) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Dosing systems (including liquid) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Dryers | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Extruders | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Hammer mills | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Hoppers (including batch and surge) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Mixers (including batch and paddle) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Ovens (including horizontal, tunnel and vertical) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Dry process assets: / Pre-conditioners | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Packaging assets: | | | |
+Pet food manufacturing assets: / Packaging assets: / Bagging machines (including flow wrappers, form fill and seal machines and roll wrapping machines) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Packaging assets: / Can and tray labelling assets | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Packaging assets: / Case erecting, packing and closing machines (including cartoners) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Packaging assets: / Inspection equipment (including checkweighers, metal detectors, counting machines etc) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Packaging assets: / Multihead and singlehead weighers | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Packaging assets: / Palletisers and depalletisers | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Packaging assets: / Robotic lid, tray and sealing assets | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Packaging assets: / Robotic pick and place assets | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Packaging assets: / Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: | | | |
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: / Chutes | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: / Conveyors (including belt, chain, drag, screw and walking beam conveyors) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: / Elevators and distributors (including bucket and transfer elevators) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: / Hoppers (including batch and weigh hoppers) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: / Receival assets | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: / Screw and weigh belt feeders | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: / Silos | 20 years | 5.00% | 10.00% | 1 July 2013
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: / Storage bins | 20 years | 5.00% | 10.00% | 1 July 2013
+Pet food manufacturing assets: / Raw material receiving, storage and handling assets: / Tanks (including holding, liquid storage and water) | 20 years | 5.00% | 10.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: | | | |
+Pet food manufacturing assets: / Support assets: / Access platforms | 20 years | 5.00% | 10.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Air compressors and receivers | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Bins (including tippers and raw material bins) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Cleaning systems (including vacuum) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Contra shears and drum filters | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Effluent pumps | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Effluent screens and filters | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Emissions and odour control systems (incorporating exhaust fans, ducting and biofilters) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Fire prevention systems (incorporating fire protection system and water tanks) | 20 years | 5.00% | 10.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Laboratory and analysing assets (including probes and samplers) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Pumps (including liquid feed) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Racking | 20 years | 5.00% | 10.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Safety systems | 20 years | 5.00% | 10.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Waste water ponds | 25 years | 4.00% | 8.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Waste water treatment assets | 20 years | 5.00% | 10.00% | 1 July 2013
+Pet food manufacturing assets: / Support assets: / Weighing assets (including weigh cells, heads and hoppers) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: | | | |
+Pet food manufacturing assets: / Wet process assets: / Air purification and recycling systems | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Basket tippers | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Blending, dicing and mincing assets | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Blowers | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Canning and tray assets (including closers and fillers) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Chillers | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Cool rooms | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Cooling towers | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Cutting assets (including knife and blade assemblies) | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Dewatering assets | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Drying assets | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Extruders | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Freezers | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Frozen block warmers | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Gravy make-up stations | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Grinders | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Hoppers (including batch and surge) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Mix slides and chutes | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Mixers (including batch and paddle) | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Pallet lifters and hoists | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Refrigeration compressors | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Retort cooking vessels | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Retort trays | 15 years | 6.67% | 13.33% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Seal thickness testing assets | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Slicing and shredding assets | 10 years | 10.00% | 20.00% | 1 July 2013
+Pet food manufacturing assets: / Wet process assets: / Stacking assets | 15 years | 6.67% | 13.33% | 1 July 2013
+Prepared animal and bird feed manufacturing assets generally: | | | |
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: | | | |
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Bins (including mash, outloading, surge, supply and raw material bins) | 30 years | 3.33% | 6.67% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Control systems (including batching systems) | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Dressers | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Drum magnets | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Evaporative coolers | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Grinders | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Hammer and roller mills | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Heating chambers (including coils and heat exchangers) | 12 years | 8.33% | 16.67% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Hoppers (including expansion, grinder, weigh and surge hoppers) | 25 years | 4.00% | 8.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Liquid tanks (including molasses and tallow) | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Load cells | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Mixers (including paddle, premix and ribbon screw) | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Pumps (including heat, molasses and water pumps) | 7 years | 14.29% | 28.57% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Rotary valves | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Shears | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Batching, grinding and mixing assets: / Turn heads | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: | | | |
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: / Coating assets (including oil, tumble and vacuum coaters) | 12 years | 8.33% | 16.67% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: / Coolers (including counterflow, horizontal and vertical) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: / Cooling fans and cyclones | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: / Dryers | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: / Injection systems (including tallow) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: / Meters (including counterflow meters) | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: / Post pellet addition systems (incorporating mixers) | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: / Screening and sieving assets | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Drying, coating, cooling and addition assets: / Vacuum pump and piping | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: | | | |
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Augers, conveyors and elevators | 7 years | 14.29% | 28.57% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Bladders for molasses ponds | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Bulk bag hangers | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Covers for molasses ponds | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Hoppers | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Liners for tanks | 5 years | 20.00% | 40.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Micro scales | 7 years | 14.29% | 28.57% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Mixers | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Mixing tanks for clay and other products | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Pumps: | | | |
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Pumps: / Acid and urea pumps | 3 years | 33.33% | 66.67% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Pumps: / Heat, molasses and water pumps | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Silos (including polyvinylchloride (PVC) and steel construction) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets: / Storage tanks (including polyvinylchloride (PVC) and steel construction) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Packaging assets: | | | |
+Prepared animal and bird feed manufacturing assets generally: / Packaging assets: / Bagging machines (including flow wrappers, form fill and seal machines and roll wrapping machines) | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Packaging assets: / Case erecting, packing and closing machines (including cartoners) | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Packaging assets: / Inspection equipment (including checkweighers, metal detectors, counting machines) | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Packaging assets: / Multihead and singlehead weighers | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Packaging assets: / Palletisers and depalletisers | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Packaging assets: / Robotic pick and place, lid, tray and sealing assets | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Packaging assets: / Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines) | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Pre-conditioning and extrusion assets: | | | |
+Prepared animal and bird feed manufacturing assets generally: / Pre-conditioning and extrusion assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Pre-conditioning and extrusion assets: / Conditioners | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Pre-conditioning and extrusion assets: / Crumble rollers | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Pre-conditioning and extrusion assets: / Extruders | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Pre-conditioning and extrusion assets: / Pellet presses (including air flow and die feeder presses) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Pre-conditioning and extrusion assets: / Pellet testers | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: | | | |
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Augers | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Bulkheads | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Chutes, deadboxes and diverters | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Conveyors (including belt, drag, grain and screw conveyors) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Elevators and distributors (including bucket and transfer elevators) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Grain cleaning and shifting assets (including grain blowers and grain shifters) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Grain transfer drag chains | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Portable conveying assets (including augers and belt conveyors) | 5 years | 20.00% | 40.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Receival pits | 30 years | 3.33% | 6.67% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Rotary and slide gates | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Silos | 30 years | 3.33% | 6.67% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Raw material receiving, storage and handling assets: / Storage bins | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Salt manufacturing and refining assets – see Table A Basic inorganic chemical manufacturing (18130) | | | |
+Prepared animal and bird feed manufacturing assets generally: / Support assets: | | | |
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Air compressors | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Emissions and odour control systems (incorporating exhaust fans, ducting and biofilters) | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Feed delivery bins | 15 years | 6.67% | 13.33% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Fire prevention systems (incorporating fire protection system and water tanks) | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Grain vacuum and silo sampling probes | 5 years | 20.00% | 40.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Laboratory assets (including grain testing assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Near infrared transmission systems and analysers | 7 years | 14.29% | 28.57% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Racking | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Waste water treatment assets | 20 years | 5.00% | 10.00% | 1 July 2012
+Prepared animal and bird feed manufacturing assets generally: / Support assets: / Weighbridges | 25 years | 4.00% | 8.00% | 1 July 2012
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Batching systems: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/batching-systems/
+- Blowing systems: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/blowing-systems/
+- Coating assets (including oil, tumble and vacuum coaters): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-coating-assets/
+- Coolers (including counterflow, horizontal and vertical): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-coolers/
+- Cooling systems (including fans and cyclones): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/cooling-systems/
+- Dehumidifying systems (including silo munters): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/dehumidifying-systems/
+- Dosing systems (including liquid): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/dosing-systems/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-dryers/
+- Extruders: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/dry-process-assets-extruders/
+- Hammer mills: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/hammer-mills/
+- Hoppers (including batch and surge): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/dry-process-assets-hoppers/
+- Mixers (including batch and paddle): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/dry-process-assets-mixers/
+- Ovens (including horizontal, tunnel and vertical): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/ovens/
+- Pre-conditioners: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pre-conditioners/
+- Bagging machines (including flow wrappers, form fill and seal machines and roll wrapping machines): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-bagging-machines/
+- Can and tray labelling assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/can-and-tray-labelling-assets/
+- Case erecting, packing and closing machines (including cartoners): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-case-erecting-packing-and-closing-machines/
+- Inspection equipment (including checkweighers, metal detectors, counting machines etc): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-inspection-equipment/
+- Multihead and singlehead weighers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-multihead-and-singlehead-weighers/
+- Palletisers and depalletisers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-palletisers-and-depalletisers/
+- Robotic lid, tray and sealing assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/robotic-lid-tray-and-sealing-assets/
+- Robotic pick and place assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/robotic-pick-and-place-assets/
+- Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-wrapping-machines/
+- Chutes: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/chutes/
+- Conveyors (including belt, chain, drag, screw and walking beam conveyors): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-conveyors/
+- Elevators and distributors (including bucket and transfer elevators): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-elevators-and-distributors/
+- Hoppers (including batch and weigh hoppers): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/raw-material-receiving-storage-hoppers/
+- Receival assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/receival-assets/
+- Screw and weigh belt feeders: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/screw-and-weigh-belt-feeders/
+- Silos: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-silos/
+- Storage bins: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-storage-bins/
+- Tanks (including holding, liquid storage and water): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/tanks/
+- Access platforms: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/access-platforms/
+- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/air-compressors-and-receivers/
+- Bins (including tippers and raw material bins): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-bins/
+- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-boilers/
+- Cleaning systems (including vacuum): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/cleaning-systems/
+- Contra shears and drum filters: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/contra-shears-and-drum-filters/
+- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-control-systems/
+- Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-dust-management-assets/
+- Effluent pumps: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/effluent-pumps/
+- Effluent screens and filters: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/effluent-screens-and-filters/
+- Emissions and odour control systems (incorporating exhaust fans, ducting and biofilters): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-emissions-and-odour-control-systems/
+- Fire prevention systems (incorporating fire protection system and water tanks): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-fire-prevention-systems/
+- Laboratory and analysing assets (including probes and samplers): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/laboratory-and-analysing-assets/
+- Pumps (including liquid feed): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-pumps/
+- Racking: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-racking/
+- Safety systems: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/safety-systems/
+- Waste water ponds: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/waste-water-ponds/
+- Waste water treatment assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-waste-water-treatment-assets/
+- Weighing assets (including weigh cells, heads and hoppers): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/weighing-assets/
+- Air purification and recycling systems: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/air-purification-and-recycling-systems/
+- Basket tippers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/basket-tippers/
+- Blending, dicing and mincing assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/blending-dicing-and-mincing-assets/
+- Blowers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/blowers/
+- Canning and tray assets (including closers and fillers): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/canning-and-tray-assets/
+- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/chillers/
+- Cool rooms: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/cool-rooms/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/cooling-towers/
+- Cutting assets (including knife and blade assemblies): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/cutting-assets/
+- Dewatering assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/dewatering-assets/
+- Drying assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/drying-assets/
+- Extruders: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/wet-process-assets-extruders/
+- Freezers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/freezers/
+- Frozen block warmers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/frozen-block-warmers/
+- Gravy make-up stations: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/gravy-make-up-stations/
+- Grinders: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-grinders/
+- Hoppers (including batch and surge): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/wet-process-assets-hoppers/
+- Mix slides and chutes: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/mix-slides-and-chutes/
+- Mixers (including batch and paddle): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/wet-process-assets-mixers/
+- Pallet lifters and hoists: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pallet-lifters-and-hoists/
+- Refrigeration compressors: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/refrigeration-compressors/
+- Retort cooking vessels: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/retort-cooking-vessels/
+- Retort trays: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/retort-trays/
+- Seal thickness testing assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/seal-thickness-testing-assets/
+- Slicing and shredding assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/slicing-and-shredding-assets/
+- Stacking assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/stacking-assets/
+- Bins (including mash, outloading, surge, supply and raw material bins): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-bins/
+- Control systems (including batching systems): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-control-systems/
+- Dressers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/dressers/
+- Drum magnets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/drum-magnets/
+- Evaporative coolers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/evaporative-coolers/
+- Grinders: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-grinders/
+- Hammer and roller mills: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/hammer-and-roller-mills/
+- Heating chambers (including coils and heat exchangers): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/heating-chambers/
+- Hoppers (including expansion, grinder, weigh and surge hoppers): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/batching-grinding-and-mixing-hoppers/
+- Liquid tanks (including molasses and tallow): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-tanks/
+- Load cells: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/load-cells/
+- Mixers (including paddle, premix and ribbon screw): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/batching-grinding-and-mixing-mixers/
+- Pumps (including heat, molasses and water pumps): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-pumps/
+- Rotary valves: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/rotary-valves/
+- Shears: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/shears/
+- Turn heads: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/turn-heads/
+- Coating assets (including oil, tumble and vacuum coaters): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-coating-assets/
+- Coolers (including counterflow, horizontal and vertical): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-coolers/
+- Cooling fans and cyclones: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/cooling-fans-and-cyclones/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-dryers/
+- Injection systems (including tallow): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/injection-systems/
+- Meters (including counterflow meters): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/meters/
+- Post pellet addition systems (incorporating mixers): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/post-pellet-addition-systems/
+- Screening and sieving assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/screening-and-sieving-assets/
+- Vacuum pump and piping: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/vacuum-pump-and-piping/
+- Augers, conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/augers-conveyors-and-elevators/
+- Bladders for molasses ponds: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/bladders-for-molasses-ponds/
+- Bulk bag hangers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/bulk-bag-hangers/
+- Covers for molasses ponds: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/covers-for-molasses-ponds/
+- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-hoppers/
+- Liners for tanks: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liners-for-tanks/
+- Micro scales: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/micro-scales/
+- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-mixers/
+- Mixing tanks for clay and other products: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/mixing-tanks-for-clay-and-other-products/
+- Acid and urea pumps: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/acid-and-urea-pumps/
+- Heat, molasses and water pumps: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/heat-molasses-and-water-pumps/
+- Silos (including polyvinylchloride (PVC) and steel construction): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-silos/
+- Storage tanks (including polyvinylchloride (PVC) and steel construction): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/storage-tanks/
+- Bagging machines (including flow wrappers, form fill and seal machines and roll wrapping machines): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-bagging-machines/
+- Case erecting, packing and closing machines (including cartoners): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-case-erecting-packing-and-closing-machines/
+- Inspection equipment (including checkweighers, metal detectors, counting machines): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-inspection-equipment/
+- Multihead and singlehead weighers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-multihead-and-singlehead-weighers/
+- Palletisers and depalletisers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-palletisers-and-depalletisers/
+- Robotic pick and place, lid, tray and sealing assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/robotic-pick-and-place-lid-tray-and-sealing-assets/
+- Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-wrapping-machines/
+- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-boilers/
+- Conditioners: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/conditioners/
+- Crumble rollers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/crumble-rollers/
+- Extruders: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-extruders/
+- Pellet presses (including air flow and die feeder presses): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pellet-presses/
+- Pellet testers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pellet-testers/
+- Augers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/augers/
+- Bulkheads: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/bulkheads/
+- Chutes, deadboxes and diverters: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/chutes-deadboxes-and-diverters/
+- Conveyors (including belt, drag, grain and screw conveyors): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-conveyors/
+- Elevators and distributors (including bucket and transfer elevators): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-elevators-and-distributors/
+- Grain cleaning and shifting assets (including grain blowers and grain shifters): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/grain-cleaning-and-shifting-assets/
+- Grain transfer drag chains: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/grain-transfer-drag-chains/
+- Portable conveying assets (including augers and belt conveyors): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/portable-conveying-assets/
+- Receival pits: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/receival-pits/
+- Rotary and slide gates: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/rotary-and-slide-gates/
+- Silos: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/raw-material-receiving-storage-silos/
+- Storage bins: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-storage-bins/
+- Salt manufacturing and refining assets – see Table A Basic inorganic chemical manufacturing (18130): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/air-compressors/
+- Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-dust-management-assets/
+- Emissions and odour control systems (incorporating exhaust fans, ducting and biofilters): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-emissions-and-odour-control-systems/
+- Feed delivery bins: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/feed-delivery-bins/
+- Fire prevention systems (incorporating fire protection system and water tanks): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-fire-prevention-systems/
+- Grain vacuum and silo sampling probes: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/grain-vacuum-and-silo-sampling-probes/
+- Laboratory assets (including grain testing assets): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/laboratory-assets/
+- Near infrared transmission systems and analysers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/near-infrared-transmission-systems-and-analysers/
+- Racking: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-racking/
+- Waste water treatment assets: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-waste-water-treatment-assets/
+- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/weighbridges/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

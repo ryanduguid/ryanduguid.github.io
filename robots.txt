@@ -71,3 +71,4 @@ User-agent: meta-externalagent
 Allow: /
 
 Sitemap: https://duguid.com.au/sitemap.xml
+Sitemap: https://duguid.com.au/tools/depreciation-rates/sitemap.xml

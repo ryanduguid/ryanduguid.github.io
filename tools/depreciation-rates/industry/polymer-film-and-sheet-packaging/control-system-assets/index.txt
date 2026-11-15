@@ -1,0 +1,89 @@
+# Support assets … effective life: 10 years, Polymer film …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/control-system-assets/
+
+> Support assets: Control system assets … (Polymer film and sheet packaging material manufacturing): effective life 10 years, last updated 1 July 2014 (Table A).
+
+# Support assets: Control system assets … (Polymer film and sheet packaging material manufacturing)
+
+‘Support assets: Control system assets …’, for an asset used in Polymer film and sheet packaging material manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2014.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Control system assets (including control cabinets and panels, programmable logic controllers (PLCs), switchgear and variable speed drives (VSDs))
+Under | Support assets:
+Table | Table A (industry categories), MANUFACTURING / Polymer film and sheet packaging material manufacturing, ANZSIC 19110
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2014
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Polymer film and sheet packaging material manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
+
+The life was last reviewed and determined on 1 July 2014. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Support assets
+
+Row | Life | Prime cost | Diminishing value
+Air compressors and receivers | 15 years | 6.67% | 13.33%
+Boilers | 20 years | 5.00% | 10.00%
+Control system assets (including control cabinets and panels, programmable logic controllers (PLCs), switchgear and variable speed drives (VSDs)) (this page) | 10 years | 10.00% | 20.00%
+Jib cranes | 15 years | 6.67% | 13.33%
+Silos | 25 years | 4.00% | 8.00%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Control system assets (excluding personal computers but including program logic controllers (PLCs) and switchgear) | Fruit and vegetable processing | 10 years | 10.00% | 20.00%
+Control system assets (including programmable logic controllers (PLCs) and variable speed drives (VSDs)) | Other food product manufacturing n.e.c. | 10 years | 10.00% | 20.00%
+Control system assets (including control cabinets and switchgear, instrumentation, programmable logic controllers (PLCs) and variable speed drives (VSDs)) | Other food product manufacturing n.e.c. | 10 years | 10.00% | 20.00%
+Control system assets (excluding personal computers, but including program logic controllers (PLCs) and switchgear) | Soft drink, cordial and syrup manufacturing | 10 years | 10.00% | 20.00%
+Control system assets (excluding personal computers) | Beer manufacturing (except non-alcoholic beer) | 10 years | 10.00% | 20.00%
+Control system assets | Paint and coatings manufacturing | 10 years | 10.00% | 20.00%
+Control system assets | Concrete product manufacturing | 10 years | 10.00% | 20.00%
+Control system assets (including supervisory control and data acquisition (SCADA) systems and vehicle preparation systems) | Railway rolling stock manufacturing and repair services | 10 years | 10.00% | 20.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/air-compressors-and-receivers/
+- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/boilers/
+- Jib cranes: https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/jib-cranes/
+- Silos: https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/silos/
+- Control system assets (excluding personal computers but including program logic controllers (PLCs) and switchgear): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/control-system-assets/
+- Control system assets (including programmable logic controllers (PLCs) and variable speed drives (VSDs)): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/coffee-processing-assets-control-system-assets/
+- Control system assets (including control cabinets and switchgear, instrumentation, programmable logic controllers (PLCs) and variable speed drives (VSDs)): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/tea-processing-assets-control-system-assets/
+- Control system assets (excluding personal computers, but including program logic controllers (PLCs) and switchgear): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/control-system-assets/
+- Control system assets (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/control-system-assets/
+- Control system assets: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/control-system-assets/
+- Control system assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/control-system-assets/
+- Control system assets (including supervisory control and data acquisition (SCADA) systems and vehicle preparation systems): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/control-system-assets/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/
