@@ -57,7 +57,11 @@ fn remove_at_exit(path: &Path) {
     SITE_COPY.set(path.to_path_buf()).unwrap();
     // SAFETY: `atexit` only records the function pointer, which is a plain `extern "C"`
     // function with no arguments that stays valid for the life of the process.
-    assert_eq!(unsafe { atexit(remove_site_copy) }, 0, "atexit refused the hook");
+    assert_eq!(
+        unsafe { atexit(remove_site_copy) },
+        0,
+        "atexit refused the hook"
+    );
 }
 
 /// A digest of every file the render reads from the repository.
