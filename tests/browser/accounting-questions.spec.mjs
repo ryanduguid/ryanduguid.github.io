@@ -496,6 +496,10 @@ test('FBT car works the operating cost method at the Type 2 gross-up offline', a
     + '365 days of 365 available for private use, operating costs $19,580.00 at 75% business use, employee contributions $2,000.00, '
     + 'Type 2 gross-up 1.8868. Base value: $50,000.00. Statutory formula taxable value: $8,000.00. Operating cost taxable value: $2,895.00. '
     + 'Taxable value: $2,895.00. Grossed-up taxable value: $5,462.29. FBT at 47%: $2,567.28.');
+  // A percentage limit reads as a figure, not as dollars.
+  await form.getByLabel('Business use percentage, operating cost method only').fill('101');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('.field-error')).toHaveText('Enter 100 or less.');
 });
 
 test('fixed fee takes its rounding step from a radio and shows one payment for one instalment', async ({ page }) => {

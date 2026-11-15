@@ -528,6 +528,22 @@ test('FBT car rates are the rate table row for the FBT year ending 31 March 2027
   assert.equal(fbtDays, '365');
 });
 
+// ATO, 'Fringe benefits tax return 2026' (NAT 1067), item 14, read 15 November 2026: 'Calculated
+// fringe benefits taxable amounts (whole dollars only)', and the benefits table 'WHOLE DOLLARS ONLY'.
+// The calculator keeps cents, so the page must say a return can differ.
+test('FBT car page says the FBT return takes whole dollars', () => {
+  const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
+  assert.match(html, /FBT return for the year ending 31 March 2026, read 15 November 2026, asks for whole dollars/);
+});
+
+// ATO, chapter 7 of the guide for employers, read 15 November 2026: 'This guide is being reviewed as a
+// result of a recent court decision', naming SEPL Pty Ltd as trustee of the SFT Trust v Commissioner
+// of Taxation [2026] FCAFC 36, judgment date 27 March 2026 in the decision impact statement.
+test('FBT car page dates the review of the ATO guide chapter it applies', () => {
+  const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
+  assert.match(html, /On 15 November 2026 chapter 7 of the ATO’s guide said it was being reviewed after the Full Federal Court’s decision of 27 March 2026 in SEPL Pty Ltd as trustee of the SFT Trust v Commissioner of Taxation \[2026\] FCAFC 36/);
+});
+
 // The values each form opens with, read from its include: an input's value or
 // checked state, the checked radio's value, and a select's selected option (else its first).
 const formDefaults = (html) => {
