@@ -13,6 +13,8 @@ use std::time::{Duration, Instant};
 
 pub const AUDIT_WORKFLOW: &str = ".github/workflows/no-ai-attribution.yml";
 pub const AUDIT_JOB: &str = "Attribution policy / Attribution policy runner";
+/// The run CodeQL default setup makes for each push to main.
+pub const CODEQL_WORKFLOW: &str = "dynamic/github-code-scanning/codeql";
 const SHA: &str = "[0-9a-f]{40}";
 const REPOSITORY: &str = "[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+";
 const USAGE: &str = include_str!("help/check_publication.usage");
@@ -172,11 +174,13 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
         "workflow_runs",
     )?;
     let mut audits = Vec::new();
+    let mut analyses = Vec::new();
     for run in &runs {
         let Some(path) = text(run, "path") else {
             return refuse("Unreadable workflow path");
         };
-        if path != AUDIT_WORKFLOW {
+        let analysis = path == CODEQL_WORKFLOW;
+        if path != AUDIT_WORKFLOW && !analysis {
             continue;
         }
         if ["path", "head_sha", "event", "head_branch", "status"]
@@ -198,12 +202,24 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
         }
         let expected_owner = py::casefold(repository);
         let event = text(run, "event").unwrap_or_default();
-        if !matches!(event, "push" | "workflow_dispatch")
+        let trusted_event = if analysis {
+            event == "dynamic"
+        } else {
+            matches!(event, "push" | "workflow_dispatch")
+        };
+        if !trusted_event
             || !is(run, "head_branch", "main")
             || !is(run, "head_sha", commit)
             || owners[0] != expected_owner
             || owners[1] != expected_owner
         {
+            continue;
+        }
+        if analysis {
+            if is(run, "status", "completed") && !is(run, "conclusion", "success") {
+                return refuse("CodeQL analysis of main did not succeed");
+            }
+            analyses.push(succeeded(run));
             continue;
         }
         let id = int(run.get("id")).expect("items checked the id");
@@ -239,14 +255,54 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
         }
         audits.push(selected.first().is_some_and(|job| succeeded(job)));
     }
-    let ready = !codeql.is_empty()
-        && codeql.iter().all(|v| succeeded(v))
-        && !audits.is_empty()
-        && audits.iter().all(|a| *a);
+    let checked = !codeql.is_empty() && codeql.iter().all(|v| succeeded(v));
+    // Main gets no CodeQL check. Its default-setup analysis of this commit, with no
+    // open alert the pull request check would fail on, stands in for it.
+    let analysed = !analyses.is_empty() && analyses.iter().all(|a| *a);
+    let ready = (checked || analysed) && !audits.is_empty() && audits.iter().all(|a| *a);
     if ready {
+        if !checked {
+            require_no_failing_alerts(repository, fetch)?;
+        }
         require_main(repository, commit, fetch)?;
     }
     Ok(ready)
+}
+
+/// The CodeQL pull request check fails, at GitHub's default threshold, on an alert of
+/// high or critical security severity or of error severity. Refuse while main has one open.
+fn require_no_failing_alerts(repository: &str, fetch: &mut Fetch) -> Result<()> {
+    let payload = fetch(
+        &format!(
+            "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&per_page=100"
+        ),
+        true,
+    )?;
+    let Json::Array(pages) = &payload else {
+        return refuse("Unreadable alert listing");
+    };
+    for page in pages {
+        let Json::Array(alerts) = page else {
+            return refuse("Unreadable alert listing");
+        };
+        for alert in alerts {
+            let rule = match alert.get("rule") {
+                Some(rule @ Json::Object(_)) => rule,
+                _ => return refuse("Unreadable alert rule"),
+            };
+            if is(rule, "severity", "error")
+                || matches!(
+                    text(rule, "security_severity_level"),
+                    Some("high" | "critical")
+                )
+            {
+                return refuse(
+                    "Main has an open CodeQL alert the pull request check would fail on",
+                );
+            }
+        }
+    }
+    Ok(())
 }
 
 /// `gh api <endpoint> [--paginate --slurp]` with check=True and a 60-second timeout.

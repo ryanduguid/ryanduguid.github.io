@@ -3,7 +3,8 @@
 
 //! scripts/test_check_publication.py: publication refusals using fabricated GitHub results.
 use site_tools::check_publication::{
-    AUDIT_JOB, AUDIT_WORKFLOW, Clock, Refusal, evaluate, items, main_with, stable_items,
+    AUDIT_JOB, AUDIT_WORKFLOW, CODEQL_WORKFLOW, Clock, Refusal, evaluate, items, main_with,
+    stable_items,
 };
 use site_tools::pyjson::{self, Json};
 use std::cell::RefCell;
@@ -58,6 +59,7 @@ struct Site {
     checks: Vec<Json>,
     runs: Vec<Json>,
     jobs: Vec<Json>,
+    alerts: Json,
 }
 
 impl Site {
@@ -76,6 +78,7 @@ impl Site {
             checks: vec![check.clone()],
             runs: vec![run.clone()],
             jobs: vec![job.clone()],
+            alerts: Json::Array(vec![Json::Array(vec![])]),
             check,
             run,
             job,
@@ -89,7 +92,10 @@ impl Site {
             return json(&format!(r#"{{"object": {{"sha": "{}"}}}}"#, self.main));
         }
         assert!(paginate);
-        if endpoint.contains("check-runs") {
+        if endpoint.contains("code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL")
+        {
+            self.alerts.clone()
+        } else if endpoint.contains("check-runs") {
             page("check_runs", &self.checks)
         } else if endpoint.contains("/jobs?") {
             page("jobs", &self.jobs)
@@ -101,6 +107,27 @@ impl Site {
     fn evaluate(&self) -> Result<bool, Refusal> {
         evaluate(REPO, &commit(), &mut |e, p| Ok(self.fetch(e, p)))
     }
+}
+
+/// Main as it is: no CodeQL check, and a default-setup analysis of the commit.
+fn analysed_main() -> (Site, Json) {
+    let mut site = Site::new();
+    let analysis = with(
+        &site.run,
+        &[
+            ("id", n(4)),
+            ("path", s(CODEQL_WORKFLOW)),
+            ("event", s("dynamic")),
+            ("conclusion", s("success")),
+        ],
+    );
+    site.checks = vec![];
+    site.runs = vec![site.run.clone(), analysis.clone()];
+    (site, analysis)
+}
+
+fn alert(rule: &str) -> Json {
+    json(&format!(r#"{{"number": 1, "rule": {rule}}}"#))
 }
 
 fn value_error(result: Result<bool, Refusal>) -> String {
@@ -616,4 +643,105 @@ fn a_renamed_workflow_cannot_drop_the_jobs_its_gate_required() {
     assert_eq!(output.status.code(), Some(1), "{stderr}");
     assert!(stderr.contains("These jobs were removed"), "{stderr}");
     assert!(stderr.contains("lint"), "{stderr}");
+}
+
+#[test]
+fn a_main_analysis_without_failing_alerts_authorises_publication() {
+    let (mut site, _) = analysed_main();
+    assert_eq!(site.evaluate(), Ok(true));
+    // Below the pull request check's default threshold.
+    site.alerts = Json::Array(vec![Json::Array(vec![
+        alert(r#"{"severity": "warning", "security_severity_level": "medium"}"#),
+        alert(r#"{"severity": null, "security_severity_level": null}"#),
+        alert(r#"{"severity": "note"}"#),
+    ])]);
+    assert_eq!(site.evaluate(), Ok(true));
+}
+
+#[test]
+fn an_open_alert_the_pull_request_check_fails_on_refuses_publication() {
+    let (mut site, _) = analysed_main();
+    for rule in [
+        r#"{"severity": "error", "security_severity_level": null}"#,
+        r#"{"severity": "warning", "security_severity_level": "high"}"#,
+        r#"{"severity": "warning", "security_severity_level": "critical"}"#,
+    ] {
+        site.alerts = Json::Array(vec![
+            Json::Array(vec![alert(r#"{"severity": "note"}"#)]),
+            Json::Array(vec![alert(rule)]),
+        ]);
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Main has an open CodeQL alert the pull request check would fail on"
+        );
+    }
+}
+
+#[test]
+fn an_unreadable_alert_listing_refuses_publication() {
+    let (mut site, _) = analysed_main();
+    for (alerts, message) in [
+        (
+            json(r#"{"message": "Not Found"}"#),
+            "Unreadable alert listing",
+        ),
+        (json(r#"[{"number": 1}]"#), "Unreadable alert listing"),
+        (json(r#"[[{"number": 1}]]"#), "Unreadable alert rule"),
+        (
+            json(r#"[[{"number": 1, "rule": "error"}]]"#),
+            "Unreadable alert rule",
+        ),
+    ] {
+        site.alerts = alerts;
+        assert_eq!(value_error(site.evaluate()), message);
+    }
+}
+
+#[test]
+fn an_unfinished_main_analysis_waits_and_a_failed_one_refuses() {
+    let (mut site, analysis) = analysed_main();
+    site.runs = vec![
+        site.run.clone(),
+        with(
+            &analysis,
+            &[("status", s("in_progress")), ("conclusion", Json::Null)],
+        ),
+    ];
+    assert_eq!(site.evaluate(), Ok(false));
+    for conclusion in ["failure", "cancelled", "skipped"] {
+        site.runs = vec![
+            site.run.clone(),
+            with(&analysis, &[("id", n(5)), ("conclusion", s(conclusion))]),
+            analysis.clone(),
+        ];
+        assert_eq!(
+            value_error(site.evaluate()),
+            "CodeQL analysis of main did not succeed"
+        );
+    }
+}
+
+#[test]
+fn untrusted_analyses_do_not_stand_in_for_the_codeql_check() {
+    let (mut site, analysis) = analysed_main();
+    let fork = json(r#"{"full_name": "someone/site"}"#);
+    for changes in [
+        vec![("event", s("pull_request"))],
+        vec![("event", s("push"))],
+        vec![("head_branch", s("feature"))],
+        vec![("head_sha", s(&"b".repeat(40)))],
+        vec![("head_repository", fork.clone())],
+        vec![("repository", fork.clone())],
+        vec![("path", s(".github/workflows/codeql.yml"))],
+    ] {
+        site.runs = vec![site.run.clone(), with(&analysis, &changes)];
+        assert_eq!(site.evaluate(), Ok(false), "{changes:?}");
+    }
+}
+
+#[test]
+fn a_main_analysis_still_needs_the_attribution_audit() {
+    let (mut site, analysis) = analysed_main();
+    site.runs = vec![analysis];
+    assert_eq!(site.evaluate(), Ok(false));
 }

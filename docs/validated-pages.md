@@ -6,12 +6,15 @@ admission to `github-pages`. Deployment is serialised, and only the deploy job
 holds Pages and identity-token write permissions. PR, scheduled and manual runs
 cannot publish. The artifact name includes the source SHA and run attempt.
 
-Deployment is held while `PAGES_VALIDATED_DEPLOYMENT` is absent or false. Before
-enabling it, map and verify the main commit's `CodeQL` results check from app
-57789. Default setup currently reports successful analysis jobs on main; those
-are not equivalent to its PR results policy. The proposed guard therefore
-refuses publication when that result is missing. Resolve the main results
-contract before changing this guard or the activation variable.
+Deployment is held while `PAGES_VALIDATED_DEPLOYMENT` is absent or false. The
+`CodeQL` results check from app 57789 exists only on pull requests; main gets
+CodeQL default setup's `dynamic/github-code-scanning/codeql` run instead. So
+`site-tools check_publication` accepts either that check or, for the exact main
+commit, a successful default-setup run from this repository plus no open CodeQL
+alert on main at the check's default failure threshold (error severity, or high
+or critical security severity). It refuses a failed analysis or a failing alert,
+and waits while the analysis runs. The `checks-gates` and `deploy` jobs read the
+alerts with `security-events: read`.
 
 ## Activation and hosted checks
 
