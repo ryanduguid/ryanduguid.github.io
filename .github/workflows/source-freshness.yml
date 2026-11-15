@@ -1,8 +1,9 @@
 name: source-freshness
 
 # Re-reads the last commit date of every tool source and opens a pull request
-# when a date has moved. The site itself stays static: the dates are baked into
-# tools/index.html, so no visitor request ever reaches the GitHub API.
+# when a date has moved, set to squash-merge once the required checks pass. The
+# site itself stays static: the dates are baked into tools/index.html, so no
+# visitor request ever reaches the GitHub API.
 # A separate job flags newer stable releases for editorial review in a tracking
 # issue; it never rewrites capability descriptions or evaluation references.
 #
@@ -309,6 +310,14 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           git apply --index "$RUNNER_TEMP/stamps/stamps.patch"
+          # Auto-merge lands this change unreviewed, so it may touch only the
+          # stamped page and its text mirrors.
+          unexpected=$(git diff --cached --name-only |
+            grep -Ev '^(tools/index\.(html|txt)|llms-full(-[a-z0-9-]+)?\.txt)$' || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::The stamp patch changes files outside the stamp contract: $unexpected"
+            exit 1
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$BRANCH"
@@ -320,5 +329,9 @@ jobs:
               --base main \
               --head "$BRANCH" \
               --title "Refresh source freshness stamps" \
-              --body "The last commit date of one or more tool sources has moved. Dates come from the GitHub API at build time and are baked into tools/index.html, so the published site makes no runtime request. The offline site checks passed on this branch before it was pushed; the checks workflow runs on this pull request."
+              --body "The last commit date of one or more tool sources has moved. Dates come from the GitHub API at build time and are baked into tools/index.html, so the published site makes no runtime request. The offline site checks passed on this branch before it was pushed; the checks workflow runs on this pull request, which squash-merges once the required checks pass."
+          fi
+          # Required checks, including Codacy and SonarCloud, still gate the merge.
+          if [ "$(gh pr view "$BRANCH" --json autoMergeRequest --jq '.autoMergeRequest != null')" != true ]; then
+            gh pr merge "$BRANCH" --auto --squash
           fi
