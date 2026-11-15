@@ -345,6 +345,7 @@ fn geo_leftovers_surface() {
         "https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv",
         "https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv",
         "https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv",
+        "https://duguid.com.au/rates/transfer-duty/transfer-duty-rates.csv",
     ] {
         assert_eq!(tables.matches(url).count(), 1, "{url}");
     }
@@ -2295,20 +2296,20 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
             "a hub modified before a calculator with no check",
             loan,
             r#""dateModified": "2026-11-13""#,
-            r#""dateModified": "2026-11-14""#,
-            "tools/business-calculators/index.html: dateModified 2026-11-13 is older than tools/business-calculators/loan/index.html's 2026-11-14",
+            r#""dateModified": "2026-11-16""#,
+            "tools/business-calculators/index.html: dateModified 2026-11-15 is older than tools/business-calculators/loan/index.html's 2026-11-16",
         ),
         (
             "a hub checked before a calculator",
             hub,
-            r#"Last checked <time datetime="2026-11-13">"#,
+            r#"Last checked <time datetime="2026-11-15">"#,
             r#"Last checked <time datetime="2026-09-27">"#,
-            "tools/business-calculators/index.html: Last checked is not the newest calculator check, 2026-11-13",
+            "tools/business-calculators/index.html: Last checked is not the newest calculator check, 2026-11-15",
         ),
         (
             "a hub modified before a calculator",
             hub,
-            r#""dateModified": "2026-11-13""#,
+            r#""dateModified": "2026-11-15""#,
             r#""dateModified": "2026-09-27""#,
             "tools/business-calculators/index.html: dateModified 2026-09-27 is older than tools/business-calculators/break-even/index.html's 2026-11-13",
         ),

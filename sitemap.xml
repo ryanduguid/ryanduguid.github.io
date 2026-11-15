@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/rates/</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/rates/announced-not-yet-law/</loc>
@@ -83,6 +83,10 @@
   <url>
     <loc>https://duguid.com.au/rates/payg-withholding/</loc>
     <lastmod>2026-11-14</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/rates/transfer-duty/</loc>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/</loc>
@@ -158,7 +162,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/depreciation-rates/</loc>
@@ -243,6 +247,10 @@
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/cash/</loc>
     <lastmod>2026-11-13</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/transfer-duty/</loc>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/privacy/</loc>

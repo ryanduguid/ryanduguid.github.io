@@ -121,11 +121,12 @@ static ATO_URL: LazyLock<Regex> = LazyLock::new(|| {
 static ESCAPE: LazyLock<Regex> = LazyLock::new(|| pattern("%[0-9A-Fa-f]{2}"));
 
 // Pages outside the ATO behind values their publishers revise: the NSW budget in June,
-// the land tax year in January and the Coal LSL corporation when it announces a new
-// levy. They are read every run whether or not a file cites them, and a change lists
-// every file using each value, because the calculators and examples reuse the values
-// without citing the page.
-pub const WATCHED: [(&str, &[&str]); 3] = [
+// the land tax year in January, the Coal LSL corporation when it announces a new levy,
+// and each state and territory's transfer duty scale, by a figure from that scale.
+// They are read every run whether or not a file cites them,
+// and a change lists every file using each value, because the calculators and examples
+// reuse the values without citing the page.
+pub const WATCHED: [(&str, &[&str]); 11] = [
     (
         "https://coallsl.com.au/employer/administer-lsl/levy",
         &["2.7%"],
@@ -137,6 +138,38 @@ pub const WATCHED: [(&str, &[&str]); 3] = [
     (
         "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/lodge-and-pay-returns/thresholds-and-rates",
         &["5.45%", "$1,200,000"],
+    ),
+    (
+        "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+        &["$52,237", "52237"],
+    ),
+    (
+        "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
+        &["$2,870", "2870"],
+    ),
+    (
+        "https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/",
+        &["$38,025", "38025"],
+    ),
+    (
+        "https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment",
+        &["$28,453", "28453"],
+    ),
+    (
+        "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+        &["$21,330", "21330"],
+    ),
+    (
+        "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
+        &["$27,810", "27810"],
+    ),
+    (
+        "https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html",
+        &["$36,950", "36950"],
+    ),
+    (
+        "https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978",
+        &["0.06571441"],
     ),
 ];
 

@@ -139,6 +139,42 @@ export function div7aMinimumRepayment(balance, benchmarkRate, remainingTerm) {
     principal: Number(repayment - interest) / 100 };
 }
 
+const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula'];
+
+/** General transfer (stamp) duty on one dutiable value, from one jurisdiction's scale in
+ * rates/transfer-duty/transfer-duty-rates.csv. A bracket covers values above `over` up to and
+ * including `to` ('' for no limit). Its rule says how the rate applies:
+ * excess-rounded-up-to-100: base plus the rate for every $100, or part of $100, over `over`;
+ * excess: base plus the rate per cent of the excess over `over`;
+ * whole-value: the rate per cent of the whole value;
+ * nt-formula: Stamp Duty Act 1978 (NT) Schedule 1 clause 1(2)(a): (0.06571441 x V squared)
+ * + 15V, V being the value divided by 1,000.
+ * A fraction of a cent rounds half up.
+ * @param {string} value the dutiable value in whole dollars
+ * @param {readonly (readonly string[])[]} scale
+ *   [over, to, base, rate per cent, rule] for each bracket, lowest first */
+export function transferDuty(value, scale) {
+  const dollars = number(value, { min: 1, max: 1e9, integer: true, money: true });
+  const contiguous = Array.isArray(scale) && scale.length > 0 && scale.every(([over, to, , , rule], index) =>
+    TRANSFER_DUTY_RULES.includes(rule) && over === (index ? scale[index - 1][1] : '0')
+      && (to === '') === (index === scale.length - 1));
+  if (!contiguous) throw new Error('This jurisdiction’s rate table is not usable.');
+  const bracket = scale.findIndex(([, to]) => to === '' || dollars <= Number(to));
+  const [over, , base, rate, rule] = scale[bracket];
+  const whole = BigInt(dollars);
+  const excess = whole - BigInt(over);
+  // A rate has at most 2 decimal places: whole hundredths of 1%, or cents for every $100.
+  const hundredths = BigInt(Math.round(number(rate, { max: 100 }) * 100));
+  const baseCents = BigInt(number(base, { integer: true })) * 100n;
+  let duty;
+  if (rule === 'excess-rounded-up-to-100') duty = baseCents + hundredths * ((excess + 99n) / 100n);
+  else if (rule === 'excess') duty = baseCents + ratioCents(hundredths * excess, 100n);
+  else if (rule === 'whole-value') duty = ratioCents(hundredths * whole, 100n);
+  // (0.06571441 V^2 + 15 V) dollars with V = value / 1,000 is (6571441 value^2 + 15 x 10^11 value) / 10^12 cents.
+  else duty = ratioCents(6571441n * whole * whole + 1500000000000n * whole, 1000000000000n);
+  return { duty: Number(duty) / 100, bracket };
+}
+
 /** @param {string} wages @param {string} superAmount @param {string} other */
 export function staffCost(wages, superAmount, other) {
   const annual = (cents(wages) + cents(superAmount) + cents(other)) / 100;

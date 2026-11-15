@@ -60,7 +60,7 @@
       "a54c46b17496a7db5df4959f53e7109ba929131bbc746beac866f900900a02a8"
     ],
     "rates/index.html": [
-      "db0850b33d6a183e665512d590cc49f3bb73a4bd7c89d4c8e48455bf969d655a"
+      "4b8875f74307c55b8cd1009350d251e5ab2d160b4b1dc78d40e23b87eb818f8e"
     ],
     "rates/individual-income-tax/index.html": [
       "3fc768054c5d7d470cda1bb3495ecf2d74348aaab56b5d5ebb71bbf5248d407e"
@@ -76,6 +76,9 @@
     ],
     "rates/super-guarantee/index.html": [
       "f6e7ef2e7e594a027c27dc0afd1d2f8201825154a2c3f3be22fdc610da5f2bc8"
+    ],
+    "rates/transfer-duty/index.html": [
+      "3cbedd0e468939539cf2ec27059e26ea130ea7ed4efc844568b2168adcc4238c"
     ],
     "tools/accounting-questions/bookkeeping-close/index.html": [
       "a23f00f4d35ff39dc2d112dbf6aee5549d8abd2e74a76820f5ac7af5087fee61"
@@ -135,7 +138,7 @@
       "09009820d32183e1c06e3cda812448aff6ae99a892ce80300aa733bea396b162"
     ],
     "tools/business-calculators/index.html": [
-      "dbadd901e56d87325546a3acd9dca536723b3116241b7efcdae0c3f5496b9654"
+      "10050773de6adf5d7a5484d76e04f31fe140edf421680e9ae7d3710db92c339f"
     ],
     "tools/business-calculators/loan/index.html": [
       "00e8f471a1a214ac7371829dd529f66386b31c082e8a72883887dbbc4b3dc5fe"
@@ -145,6 +148,9 @@
     ],
     "tools/business-calculators/staff/index.html": [
       "930b60fcb3290aced2f73259fbe00cefcd4fefa0dd02cc90da95b7fb587f96de"
+    ],
+    "tools/business-calculators/transfer-duty/index.html": [
+      "e74e9577ffe424efc597a18080925f614e59506bf4904d304320d62dba07967a"
     ],
     "tools/business-calculators/variance/index.html": [
       "4500a6bc850850a6e78feaa69aea69943633f54546ed2d169e44a764509b731c"
@@ -223,9 +229,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "6c8efe4a0110faab54b704a35acb3eaa440e7c73a76fdc3be3ca548c9db8bde4",
+    "llms.txt": "825971b1a2a2d67da2586c8e170ee9139ea060a7a538536aa658ead13319352a",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "f1b5d2a628356fe23ff8b1888655a63f340cc8560c13cc513cb0d1c18d35d506"
+    "sitemap.xml": "4ffe02003b9637041bcf45fb9b6ae5bd6c8111d057f0b72cb69263daa799a69a"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -285,7 +291,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7743,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7745,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

@@ -28,5 +28,9 @@ void tool.execute({ amount: '110.00', inclusive: true });
 calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
 // @ts-expect-error A Division 7A benchmark rate is a decimal string, as the rate table writes it.
 calculate.div7aMinimumRepayment('100000', 8.77, '5');
+const duty: number = calculate.transferDuty('1350000', [['0', '', '0', '1', 'excess']]).duty;
+// @ts-expect-error A dutiable value is a decimal string, as the form field gives it.
+calculate.transferDuty(1350000, [['0', '', '0', '1', 'excess']]);
+void duty;
 void tax;
 void formatted;

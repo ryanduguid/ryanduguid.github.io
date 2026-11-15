@@ -55,6 +55,7 @@ fn a_rate_headline_does_not_hide_an_overlong_lead() {
         "payg-withholding",
         "study-loan-repayment",
         "super-guarantee",
+        "transfer-duty",
     ] {
         let page = format!("rates/{slug}/index.html");
         let html = common::read_text(common::root(), &page);

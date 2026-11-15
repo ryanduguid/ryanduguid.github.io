@@ -312,6 +312,26 @@ function initialiseCalculators([calculate, fieldErrors]) {
               rows: [['Minimum yearly repayment', aud(r.repayment)], ['Interest for the year, if repaid on 30 June', aud(r.interest)], ['Principal, if repaid on 30 June', aud(r.principal)]] };
             break;
           }
+          case 'transfer-duty': {
+            // The chosen jurisdiction's radio carries its rows of the site's rate table:
+            // over,to,base,rate,rule for each bracket, separated by semicolons.
+            const place = form.querySelector('input[name="jurisdiction"]:checked');
+            const scale = place.dataset.scale.split(';').map(row => row.split(','));
+            const r = calculate.transferDuty(value('value'), scale);
+            const [over, , base, rate, rule] = scale[r.bracket];
+            const whole = text => `$${Number(text).toLocaleString('en-AU')}`;
+            const plus = Number(base) ? `${whole(base)} plus ` : '';
+            let ruleText = {
+              'excess-rounded-up-to-100': `${plus}$${Number(rate).toFixed(2)} for every $100, or part of $100, over ${whole(over)}`,
+              excess: `${plus}${rate}% of the value over ${whole(over)}`,
+              'whole-value': `${rate}% of the whole value`,
+              'nt-formula': '(0.06571441 × V × V) + 15V, where V is the value ÷ 1,000',
+            }[rule];
+            if (rule !== 'nt-formula' && Number(rate) === 0) ruleText = Number(base) ? `a fixed ${whole(base)}` : 'nil';
+            result = { inputs: `${place.dataset.name}, dutiable value ${money('value')}`, principal: 0,
+              rows: [['General transfer duty', aud(r.duty)], ['Rate applied', ruleText]] };
+            break;
+          }
           case 'staff': {
             const r = calculate.staffCost(value('wages'), value('super'), value('other'));
             result = { inputs: `wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}`, principal: 0,
