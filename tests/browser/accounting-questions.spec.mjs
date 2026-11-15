@@ -464,7 +464,7 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
 });
 
 // Each calculator opens on a fictional example, its first boundary case, already worked.
-const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash', 'objection-deadline'];
+const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash', 'objection-deadline', 'payg-instalments'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -576,4 +576,30 @@ test('objection deadline takes the later of an amended assessment’s 2 dates of
   await form.getByLabel('Amended assessments only: day notice of the first assessment for the year was given or served').fill('2028-09-02');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toHaveText('The first assessment’s notice cannot be later than the amended one.');
+});
+
+test('a varied PAYG instalment rate gives the instalment and its credit offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/payg-instalments/');
+  const form = page.locator('#payg-instalments form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Option 2, varied: a rate from your estimates for the year').check();
+  await form.getByLabel('Varying only: estimated tax on instalment income for the year, T8 (AUD)').fill('10125');
+  await form.getByLabel('Varied rate only: estimated instalment income for the year (AUD)').fill('82480');
+  await form.getByLabel('Option 2: instalment income for the quarter at T1 (AUD)').fill('20620');
+  await form.getByLabel('Option 2: instalment rate at T2 (%)').fill('16.84');
+  await form.getByLabel('Varying only: earlier instalments this income year, as at 5A (AUD)').fill('6944');
+  await form.getByLabel('Varied rate only: instalment income of the earlier quarters (AUD)').fill('41240');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  // The ATO's example 2 rate; the instalment and credit are worked by hand: $20,620 × 12.27% = $2,530.07,
+  // and $6,944 − $41,240 × 12.27% ($5,060.15) = $1,883.85.
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: varied instalment rate (option 2), estimated tax $10,125.00 on estimated instalment income $82,480.00 for the year, '
+    + 'instalment income $20,620.00 at T1, instalment rate 16.84% at T2, earlier instalments $6,944.00 less credits claimed $0.00, '
+    + 'on earlier instalment income $41,240.00. Varied rate at T3: 12.27%. T1 × T3: $2,530.07. '
+    + 'Instalment at T11 and 5A, whole dollars: $2,530.00. Credit to claim at 5B, whole dollars: $1,883.00. '
+    + 'A credit applies only when the varied rate is lower than the rate at T2.');
+  await form.getByLabel('Varying only: estimated tax on instalment income for the year, T8 (AUD)').fill('82480.01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('Estimated tax cannot exceed estimated instalment income.');
 });

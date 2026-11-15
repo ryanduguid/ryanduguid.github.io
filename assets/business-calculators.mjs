@@ -267,3 +267,55 @@ export function objectionDeadline(decision, group, notice, first) {
   const lastDay = new Date(periodEnds.getTime() + (weekday === 6 ? 2 : weekday === 0 ? 1 : 0) * DAY);
   return { rule, periodEnds: isoDay(periodEnds), lastDay: isoDay(lastDay), amendedEnds, firstEnds };
 }
+
+/** @typedef {'amount' | 'varied-amount' | 'rate' | 'varied-rate'} InstalmentMethod
+ * @typedef {{method: InstalmentMethod, notified: string, instalment: string, estimatedTax: string, earlier: string,
+ *   credits: string, income: string, rate: string, estimatedIncome: string, earlierIncome: string}} InstalmentInputs */
+/** Cents down to whole dollars, as an activity statement takes them. @param {number} value cents, not negative */
+const wholeDollars = (value) => Math.floor(value / 100);
+
+/** One quarterly PAYG instalment under Division 45 in Schedule 1 to the Taxation Administration
+ * Act 1953, worked as the ATO's activity statement steps work it: the notified amount (s 45-112),
+ * an amount varied from estimated tax (s 45-410), instalment income times the rate (s 45-110), or
+ * times a varied rate (s 45-205) with any credit for earlier quarters (s 45-215). Each method reads
+ * only its own fields. Money rounds half up to the cent; a figure for the activity statement then
+ * drops its cents, and a varied rate drops what follows its second decimal place.
+ * @param {InstalmentInputs} inputs
+ * @returns {{amount: number, instalment: number, credit: number, due: number | null, instalmentRate: number | null}} */
+export function paygInstalment(inputs) {
+  const { method } = inputs;
+  if (method === 'amount') {
+    const notified = cents(inputs.notified);
+    return { amount: notified / 100, instalment: wholeDollars(notified), credit: 0, due: null, instalmentRate: null };
+  }
+  const earlierLessCredits = () => {
+    const [earlier, credits] = [cents(inputs.earlier), cents(inputs.credits)];
+    if (credits > earlier) throw new Error('Credits claimed cannot exceed the earlier instalments.');
+    return earlier - credits;
+  };
+  if (method === 'varied-amount') {
+    const instalment = number(inputs.instalment, { min: 1, max: 4, integer: true });
+    // 25%, 50%, 75% or 100% of estimated tax, less earlier instalments net of credits claimed.
+    const due = Number(ratioCents(BigInt(cents(inputs.estimatedTax)) * BigInt(instalment), 4n));
+    if (instalment === 1 && cents(inputs.earlier)) throw new Error('The first instalment of the year has no earlier instalments.');
+    const amount = due - earlierLessCredits();
+    return { amount: amount / 100, instalment: wholeDollars(Math.max(0, amount)), credit: wholeDollars(Math.max(0, -amount)),
+      due: due / 100, instalmentRate: null };
+  }
+  if (method !== 'rate' && method !== 'varied-rate') throw new Error('Choose how this instalment is worked out.');
+  // Rates are whole hundredths of a per cent.
+  const given = Math.round(number(inputs.rate, { max: 100 }) * 100);
+  let rate = given;
+  let credit = 0;
+  if (method === 'varied-rate') {
+    const [tax, yearIncome] = [BigInt(cents(inputs.estimatedTax)), BigInt(cents(inputs.estimatedIncome))];
+    if (tax > yearIncome) throw new Error('Estimated tax cannot exceed estimated instalment income.');
+    rate = yearIncome ? Number(tax * 10000n / yearIncome) : 0;
+    if (rate < given) {
+      const earlierAtRate = Number(ratioCents(BigInt(cents(inputs.earlierIncome)) * BigInt(rate), 10000n));
+      credit = wholeDollars(Math.max(0, earlierLessCredits() - earlierAtRate));
+    }
+  }
+  const amount = Number(ratioCents(BigInt(cents(inputs.income)) * BigInt(rate), 10000n));
+  return { amount: amount / 100, instalment: wholeDollars(amount), credit, due: null, instalmentRate: rate / 100 };
+}
