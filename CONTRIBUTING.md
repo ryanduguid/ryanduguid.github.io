@@ -9,7 +9,11 @@ before changing a page.
 Use Ruby 3.3 with Bundler, Rust through rustup, Python 3.14 or newer and Node 24 LTS.
 Run `bundle install` once for the locked Jekyll build and
 `cargo install --locked --path scripts` for `site-tools` (again after pulling
-changes). `.github/workflows/checks.yml` runs the pinned linters first, then the
+changes). A `site-tools` built from other `scripts/` sources than the checkout
+refuses to write there (`--write`, `--update-baseline`, the `build_*` commands,
+`check_ato_sources` with a baseline, report or issue path, and the other commands
+that write files) and warns before any other command; the message names both
+source digests. `.github/workflows/checks.yml` runs the pinned linters first, then the
 site checks:
 
 ```bash
