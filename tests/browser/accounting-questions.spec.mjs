@@ -475,7 +475,7 @@ test('PCG 2021/4 refuses a failed gateway and scores case study 7 on all 3 facto
   await gateway2.getByLabel('Yes').check();
   await form.getByLabel('Amount the IPP returns in their own tax return (AUD)').fill('360000');
   await form.getByLabel('Tax paid by the IPP and associated entities on that firm income (AUD)').fill('199934');
-  await form.getByLabel('All 3 factors').check();
+  await form.getByLabel('All 3 factors', { exact: true }).check();
   await form.getByLabel('Remuneration the IPP returns, all 3 factors only (AUD)').fill('360000');
   await form.getByLabel('Commercial benchmark for the IPP’s services, all 3 factors only (AUD)').fill('350000');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
