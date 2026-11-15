@@ -3869,7 +3869,7 @@ A quarterly BAS is due on the 28th day of the month after the quarter, except qu
 
 Quarterly BAS due dates, July 2026 to June 2027
 
-Quarter | Due date | Lodged online yourself | Registered agent concession
+Quarter | Due date | Lodged online yourself, if eligible | Registered agent concession
 Quarter 1 2026-27 | Wed 28 Oct 2026 | Wed 11 Nov 2026 | Wed 25 Nov 2026
 Quarter 2 2026-27 | Sun 28 Feb 2027 | No later date | Not applicable
 Quarter 3 2026-27 | Wed 28 Apr 2027 | Wed 12 May 2027 | Wed 26 May 2027
@@ -3887,7 +3887,7 @@ Four dates in the tables fall on a weekend: Saturday 21 November 2026, Sunday 21
 
 ## Who gets the later BAS dates
 
-The online dates are the ATO’s 2-week lodgment concession. A business that receives and lodges its quarterly activity statement online gets 2 more weeks for quarters 1, 3 and 4, without applying; the later date shows on the statement once it generates. It does not apply to monthly statements, monthly GST reporters with quarterly PAYG instalments, quarterly instalment notices (forms R, S and T), head companies’ quarterly PAYG instalments or large business clients with a substituted accounting period.
+The online dates are the ATO’s 2-week lodgment concession. A business that receives and lodges its quarterly activity statement online may get 2 more weeks to lodge and pay for quarters 1, 3 and 4, without applying; if it qualifies, the later date shows on the statement once it generates. It does not apply to monthly statements, monthly GST reporters with quarterly PAYG instalments, quarterly instalment notices (forms R, S and T), head companies’ quarterly PAYG instalments, large business clients with a substituted accounting period or any other statement whose original due date is not the 28th.
 
 The agent dates are the BAS agent lodgment program for 2026-27. They apply to eligible quarterly statements, and to the December monthly statement, lodged through Online services for agents or the Practitioner lodgment service. A statement qualifies once the client’s previous activity statement was lodged electronically; a first statement, or one after a paper lodgment, may be due earlier.
 
