@@ -589,6 +589,26 @@ test('GIC payment plan works a weekly plan and one past the published rates offl
   await expect(form.locator('.field-error')).toHaveText('Enter 120 or less.');
 });
 
+test('transfer duty takes a first home buyer chosen by keyboard and says where there is no concession', async ({ page }) => {
+  await page.goto('/tools/business-calculators/transfer-duty/');
+  const form = page.locator('#transfer-duty form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await form.getByLabel('Queensland').check();
+  await form.getByLabel('Eligible first home buyer, established home').focus();
+  await page.keyboard.press('Space');
+  await expect(form.getByLabel('Eligible first home buyer, established home')).toBeChecked();
+  await form.getByLabel('Dutiable value (whole dollars)').fill('730000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: Queensland, dutiable value $730,000.00, eligible first home buyer, established home. '
+    + 'Duty for an eligible first home buyer: $6,555.00. General transfer duty: $25,875.00. '
+    + 'Rate applied: $17,325 plus $4.50 for every $100, or part of $100, over $540,000.');
+  await form.getByLabel('Tasmania').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText(
+    'Duty for an eligible first home buyer: none for this home, so general duty applies.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',

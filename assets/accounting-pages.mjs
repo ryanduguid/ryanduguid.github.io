@@ -350,6 +350,13 @@ function initialiseCalculators([calculate, fieldErrors]) {
             if (place.value === 'AU-NSW' && r.bracket === scale.length - 1) {
               result.note = 'Premium duty applies to residential land only; other land continues at $5.50 for every $100 over $1,290,000';
             }
+            const home = form.querySelector('input[name="buyer"]:checked').value;
+            if (home !== 'general') {
+              const f = calculate.firstHomeDuty(value('value'), scale, place.value, home);
+              result.inputs += `, eligible first home buyer, ${home} home`;
+              result.rows.unshift(['Duty for an eligible first home buyer',
+                f.concession ? aud(f.duty) : 'none for this home, so general duty applies']);
+            }
             break;
           }
           case 'fbt-car': {

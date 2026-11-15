@@ -47,6 +47,10 @@
 //! debt over the sum of each instalment's discount factor, and the final instalment is
 //! the balance carried day by day, where the engine grows the debt and the instalments
 //! forward together.
+//!
+//! A further 200 seeded first home purchases, from their own seed, and every value either side
+//! of each concession threshold type each jurisdiction's first home buyer rule from its source.
+//! Queensland's amount is counted in $10,000 bands, where the engine looks it up in a table.
 mod common;
 
 use chrono::{Datelike, NaiveDate, Weekday};
@@ -63,6 +67,8 @@ const FBT_CASES: usize = 60;
 const BALLOON_CASES: usize = 120;
 /// Seeded transfer duty values, beside every band boundary of every jurisdiction.
 const DUTY_CASES: usize = 160;
+/// Seeded first home values, from their own seed, mostly within the concessions' ranges.
+const FIRST_HOME_CASES: usize = 200;
 /// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
 /// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
@@ -78,7 +84,7 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r#"
 import { readFileSync } from 'node:fs';
-import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan } from './assets/business-calculators.mjs';
+import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, firstHomeDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 // Each jurisdiction's scale as the rendered calculator page gives it to the browser.
 const page = readFileSync('tools/business-calculators/transfer-duty/index.html', 'utf8');
@@ -107,6 +113,10 @@ const run = {
   etp: ({ payment, year }) => Object.fromEntries(Object.entries(terminationPayment(payment, year))
     .map(([key, value]) => [key, typeof value === 'number' ? money(value) : value])),
   duty: ({ value, place }) => ({ duty: money(transferDuty(value, scales[place]).duty) }),
+  firstHome: ({ value, place, home }) => {
+    const result = firstHomeDuty(value, scales[place], place, home);
+    return { duty: money(result.duty), general: money(result.general) };
+  },
   fee: ({ hours, rate, margin, roundTo, gst, instalments }) => {
     try {
       const result = fixedFee(hours, rate, margin, roundTo, gst, instalments);
@@ -1027,6 +1037,148 @@ fn the_transfer_duty_engine_agrees_with_the_oracle_at_every_band_boundary() {
     let (cases, expected): (Vec<Value>, Vec<Value>) = values
         .iter()
         .map(|&(place, dollars)| duty_case(place, dollars))
+        .unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Queensland's home concession rate in cents: $1 for each $100, or part of $100, to $350,000,
+/// then $3.50, $4.50 and $5.75 for each $100, or part, over $350,000, $540,000 and $1,000,000.
+fn qld_home_rate(dollars: u64) -> u64 {
+    let over = |from: u64| (dollars - from).div_ceil(100);
+    match dollars {
+        ..=350_000 => 100 * dollars.div_ceil(100),
+        ..=540_000 => 350_000 + 350 * over(350_000),
+        ..=1_000_000 => 1_015_000 + 450 * over(540_000),
+        _ => 3_085_000 + 575 * over(1_000_000),
+    }
+}
+
+/// Duty in cents for an eligible first home buyer of a home, typed from each source as read
+/// on 16 November 2026 (AEDT), not from the engine's tables:
+/// - NSW: <https://www.revenue.nsw.gov.au/grants-schemes/assistance-scheme> (09:25), the
+///   reduced rate table at <https://www.nsw.gov.au/housing-and-construction/buying-and-selling-property/home-buying-assistance/first-home-buyers-assistance-scheme>
+///   (09:28) and <https://www.apps09.revenue.nsw.gov.au/erevenue/calculators/fhba.php> (09:29, 09:41).
+/// - Vic: Duties Act 2000 s 57JA, <https://www.legislation.vic.gov.au/in-force/acts/duties-act-2000/141> (09:33).
+/// - Qld: <https://qro.qld.gov.au/duties/transfer-duty/calculate/concession-rates/> (09:36).
+/// - WA: <https://www.wa.gov.au/government/publications/duties-fact-sheet-first-home-owner-rate> (09:38).
+/// - SA: <https://www.revenuesa.sa.gov.au/stamp-duty/first-home-buyer-relief/relief-available> (09:38).
+/// - Tas: <https://www.sro.tas.gov.au/property-transfer-duties/concessions-exemptions/first-home-buyers-of-established-homes-duty-relief> (09:25).
+/// - ACT: <https://www.revenue.act.gov.au/home-buyer-assistance/home-buyer-concession-scheme/about-the-home-buyer-concession-scheme> (09:36).
+/// - NT: <https://nt.gov.au/property/home-owner-assistance> (09:25).
+///
+/// Queensland's first home amount is worked as $1,735 for each $10,000 band below $800,000, at
+/// most 10, where the engine looks the band up in a table.
+fn first_home_oracle(place: &str, home: &str, dollars: u64) -> u64 {
+    let general = duty_oracle(place, dollars);
+    match (place, home) {
+        ("AU-NSW", _) if dollars <= 800_000 => 0,
+        ("AU-NSW", _) if dollars >= 1_000_000 => general,
+        ("AU-NSW", _) => {
+            // Revenue NSW's calculator rounds the concession to the cent; $20 is the minimum.
+            let off = exact_half_up(
+                u128::from(duty_oracle(place, 800_000)) * u128::from(1_000_000 - dollars),
+                200_000,
+            );
+            (general - u64::try_from(off).unwrap()).max(2_000)
+        }
+        ("AU-VIC", _) => match dollars {
+            ..=600_000 => 0,
+            ..=750_000 => u64::try_from(exact_half_up(
+                u128::from(general) * u128::from(dollars - 600_000),
+                150_000,
+            ))
+            .unwrap(),
+            _ => general,
+        },
+        ("AU-QLD", "established") => {
+            let bands = if dollars < 800_000 {
+                (80 - dollars / 10_000).min(10)
+            } else {
+                0
+            };
+            qld_home_rate(dollars).saturating_sub(bands * 173_500)
+        }
+        ("AU-WA", _) => match dollars {
+            ..=600_000 => 0,
+            ..=800_000 => 1_615 * (dollars - 600_000).div_ceil(100),
+            _ => general,
+        },
+        ("AU-QLD" | "AU-SA", "new") | ("AU-ACT", _) => 0,
+        _ => general,
+    }
+}
+
+#[test]
+fn the_first_home_oracle_gives_the_published_figures() {
+    for (place, home, dollars, cents, source) in [
+        ("AU-NSW", "established", 850_000, 979_675, "NSW Government 2026-27 table"),
+        ("AU-NSW", "established", 900_000, 1_959_350, "NSW Government 2026-27 table"),
+        ("AU-NSW", "established", 950_000, 2_939_025, "NSW Government 2026-27 table"),
+        ("AU-NSW", "established", 990_000, 3_722_765, "NSW Government 2026-27 table"),
+        ("AU-NSW", "established", 800_000, 0, "Revenue NSW calculator"),
+        ("AU-NSW", "established", 800_001, 2_000, "Revenue NSW calculator"),
+        ("AU-NSW", "established", 800_099, 2_000, "Revenue NSW calculator"),
+        ("AU-NSW", "established", 850_001, 980_140, "Revenue NSW calculator"),
+        ("AU-NSW", "established", 850_050, 980_880, "Revenue NSW calculator"),
+        ("AU-NSW", "new", 850_050, 980_880, "Revenue NSW calculator"),
+        ("AU-NSW", "established", 987_654, 3_677_006, "Revenue NSW calculator"),
+        ("AU-NSW", "established", 997_000, 3_859_919, "Revenue NSW calculator"),
+        ("AU-NSW", "new", 995_000, 3_820_732, "Revenue NSW calculator"),
+        ("AU-NSW", "established", 999_000, 3_899_106, "Revenue NSW calculator"),
+        ("AU-NSW", "established", 999_999, 3_918_685, "Revenue NSW calculator"),
+        ("AU-NSW", "new", 999_999, 3_918_685, "Revenue NSW calculator"),
+        ("AU-NSW", "established", 1_000_000, 3_918_700, "Revenue NSW calculator"),
+        ("AU-QLD", "established", 650_000, 0, "Queensland Revenue Office example"),
+        ("AU-QLD", "established", 730_000, 655_500, "Queensland Revenue Office example"),
+        ("AU-QLD", "established", 850_000, 2_410_000, "Queensland Revenue Office example"),
+        // By hand: $37,070 general duty x 100,000 / 150,000, and $16.15 x 1,000.
+        ("AU-VIC", "established", 700_000, 2_471_333, "hand-worked"),
+        ("AU-WA", "established", 700_000, 1_615_000, "hand-worked"),
+    ] {
+        assert_eq!(
+            first_home_oracle(place, home, dollars),
+            cents,
+            "{place} {home} {dollars}: {source}"
+        );
+    }
+}
+
+#[test]
+fn the_first_home_engine_agrees_with_the_oracle_either_side_of_every_threshold() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1116_F125_7403);
+    let places = [
+        "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+    ];
+    let homes = ["established", "new"];
+    let mut values = Vec::new();
+    for place in places {
+        for home in homes {
+            for edge in [600_000, 700_000, 710_000, 750_000, 790_000, 800_000, 1_000_000] {
+                values.extend([edge - 1, edge, edge + 1].map(|v| (place, home, v)));
+            }
+            values.extend([(place, home, 1), (place, home, 1_000_000_000)]);
+        }
+    }
+    for _ in 0..FIRST_HOME_CASES {
+        let (place, home) = (rng.pick(&places), rng.pick(&homes));
+        values.push((place, home, 500_000 + rng.below(600_001)));
+    }
+    let (cases, expected): (Vec<Value>, Vec<Value>) = values
+        .iter()
+        .map(|&(place, home, dollars)| {
+            (
+                json!({"kind": "firstHome", "value": dollars.to_string(), "place": place, "home": home}),
+                json!({"duty": shown(first_home_oracle(place, home, dollars)),
+                    "general": shown(duty_oracle(place, dollars))}),
+            )
+        })
         .unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
