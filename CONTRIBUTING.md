@@ -499,6 +499,15 @@ the asset size in bytes.
 For a component with engine pins, an older guide must also record its release's
 pins in `documented.pinned_engines`. The checker validates the guide against those
 pins; the component's `pinned_engines` still describes the published release.
+When the MCP registry still lists an older version than the published one, record
+it as `published.registry_lag` with that version and the sentence the documented
+page uses; `--verify-live` then reports drift once the registry catches up, and the
+offline check refuses a documented page that says the registry still lists, shows
+or has not caught up with a version whilst the record holds no lag. Other pages
+that name the published release are listed in the component's
+`published_mentions`, each with the text the page must show, where `{version}` is
+the published version and `{<engine>}` that engine's pin in the component's
+`pinned_engines`, the published release's pins.
 
 ## What an agent can be made to run
 
