@@ -331,6 +331,20 @@ function initialiseCalculators([calculate, fieldErrors]) {
             result.principal = result.rows.length - 1;
             break;
           }
+          case 'gic-payment-plan': {
+            const plan = { debt: value('debt'), start: value('start'), count: value('count'), frequency: value('frequency'),
+              assumedRate: value('assumedRate') };
+            const r = calculate.gicPaymentPlan(plan);
+            result = { inputs: `debt ${money('debt')}, first instalment ${calendarDate(plan.start)}, ${count(plan.count, `${plan.frequency} instalment`)}, `
+              + `${plan.assumedRate}% a year assumed after December 2026`,
+            rows: [['Paid in full now', money('debt')],
+              ...(Number(plan.count) === 1 ? [] : [['Each instalment but the last', aud(r.instalment)]]),
+              [`Final instalment, ${calendarDate(r.lastDate)}`, aud(r.final)], ['Total paid on the plan', aud(r.totalPaid)],
+              ['GIC on the plan, over paying now', aud(r.gic)]],
+            note: r.assumedDays ? `${count(String(r.assumedDays), 'day')} after December 2026 use the assumed rate` : undefined };
+            result.principal = result.rows.length - 1;
+            break;
+          }
           case 'staff': {
             const r = calculate.staffCost(value('wages'), value('super'), value('other'));
             result = { inputs: `wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}`, principal: 0,

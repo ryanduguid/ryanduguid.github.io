@@ -264,3 +264,108 @@ export function pcgRisk(arrangement) {
   return { returned: ratioPercent(returned, entitlement), factor1, taxRate: ratioPercent(tax, entitlement), factor2,
     benchmarkShare, factor3, total, zone: total <= green ? 'green' : total <= amber ? 'amber' : 'red' };
 }
+
+/** The general interest charge annual rate for each quarter, from its first day, as the ATO's
+ * 'General interest charge (GIC) rates' page lists it; the same rows as
+ * rates/general-interest-charge/general-interest-charge-rates.csv, which a Node test holds them to.
+ * @type {ReadonlyArray<readonly [string, string]>} */
+export const GIC_QUARTERS = [
+  ['1999-07-01', '12.72'], ['1999-10-01', '12.73'], ['2000-01-01', '13.08'], ['2000-04-01', '13.65'],
+  ['2000-07-01', '14.00'], ['2000-10-01', '13.86'], ['2001-01-01', '13.86'], ['2001-04-01', '13.86'],
+  ['2001-07-01', '11.89'], ['2001-10-01', '11.95'], ['2002-01-01', '11.28'], ['2002-04-01', '11.31'],
+  ['2002-07-01', '11.84'], ['2002-10-01', '11.96'], ['2003-01-01', '11.84'], ['2003-04-01', '11.75'],
+  ['2003-07-01', '11.78'], ['2003-10-01', '11.82'], ['2004-01-01', '12.31'], ['2004-04-01', '12.57'],
+  ['2004-07-01', '12.51'], ['2004-10-01', '12.44'], ['2005-01-01', '12.43'], ['2005-04-01', '12.63'],
+  ['2005-07-01', '12.68'], ['2005-10-01', '12.62'], ['2006-01-01', '12.63'], ['2006-04-01', '12.61'],
+  ['2006-07-01', '12.87'], ['2006-10-01', '13.19'], ['2007-01-01', '13.37'], ['2007-04-01', '13.37'],
+  ['2007-07-01', '13.37'], ['2007-10-01', '13.75'], ['2008-01-01', '14.15'], ['2008-04-01', '14.69'],
+  ['2008-07-01', '14.75'], ['2008-10-01', '14.31'], ['2009-01-01', '11.76'], ['2009-04-01', '10.16'],
+  ['2009-07-01', '10.13'], ['2009-10-01', '10.30'], ['2010-01-01', '10.95'], ['2010-04-01', '11.16'],
+  ['2010-07-01', '11.80'], ['2010-10-01', '11.74'], ['2011-01-01', '12.02'], ['2011-04-01', '11.92'],
+  ['2011-07-01', '12.00'], ['2011-10-01', '11.86'], ['2012-01-01', '11.62'], ['2012-04-01', '11.37'],
+  ['2012-07-01', '10.66'], ['2012-10-01', '10.62'], ['2013-01-01', '10.24'], ['2013-04-01', '9.95'],
+  ['2013-07-01', '9.82'], ['2013-10-01', '9.60'], ['2014-01-01', '9.59'], ['2014-04-01', '9.63'],
+  ['2014-07-01', '9.69'], ['2014-10-01', '9.63'], ['2015-01-01', '9.75'], ['2015-04-01', '9.36'],
+  ['2015-07-01', '9.15'], ['2015-10-01', '9.14'], ['2016-01-01', '9.22'], ['2016-04-01', '9.28'],
+  ['2016-07-01', '9.01'], ['2016-10-01', '8.76'], ['2017-01-01', '8.76'], ['2017-04-01', '8.78'],
+  ['2017-07-01', '8.73'], ['2017-10-01', '8.70'], ['2018-01-01', '8.72'], ['2018-04-01', '8.77'],
+  ['2018-07-01', '8.96'], ['2018-10-01', '8.96'], ['2019-01-01', '8.94'], ['2019-04-01', '8.96'],
+  ['2019-07-01', '8.54'], ['2019-10-01', '7.98'], ['2020-01-01', '7.91'], ['2020-04-01', '7.89'],
+  ['2020-07-01', '7.10'], ['2020-10-01', '7.10'], ['2021-01-01', '7.02'], ['2021-04-01', '7.01'],
+  ['2021-07-01', '7.04'], ['2021-10-01', '7.01'], ['2022-01-01', '7.04'], ['2022-04-01', '7.07'],
+  ['2022-07-01', '8.00'], ['2022-10-01', '9.31'], ['2023-01-01', '10.06'], ['2023-04-01', '10.46'],
+  ['2023-07-01', '10.90'], ['2023-10-01', '11.15'], ['2024-01-01', '11.38'], ['2024-04-01', '11.34'],
+  ['2024-07-01', '11.36'], ['2024-10-01', '11.38'], ['2025-01-01', '11.42'], ['2025-04-01', '11.17'],
+  ['2025-07-01', '10.78'], ['2025-10-01', '10.61'], ['2026-01-01', '10.65'], ['2026-04-01', '10.96'],
+  ['2026-07-01', '11.43'], ['2026-10-01', '11.51'],
+];
+const DAY = 86400000;
+/** @param {number} year */
+const yearDays = (year) => (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 366 : 365);
+/** @param {string} date an ISO calendar date, as a whole number of days since 1970 */
+const dayNumber = (date) => Date.parse(`${date}T00:00:00Z`) / DAY;
+/** @param {number} day @returns {string} */
+const isoDay = (day) => new Date(day * DAY).toISOString().slice(0, 10);
+// Each quarter's first day and annual rate in hundredths of 1%, and the day after the table ends.
+const GIC_FROM = GIC_QUARTERS.map(([from, rate]) => ({ from: dayNumber(from), rate: Math.round(Number(rate) * 100) }));
+const GIC_TABLE_END = (() => {
+  const last = new Date(GIC_FROM[GIC_FROM.length - 1].from * DAY);
+  return Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 3, 1) / DAY;
+})();
+
+/** Instalment days: every 7 or 14 days, or the same day of each month, or the month's last day.
+ * @param {number} start @param {number} count @param {'weekly' | 'fortnightly' | 'monthly'} frequency */
+function instalmentDays(start, count, frequency) {
+  const first = new Date(start * DAY);
+  return Array.from({ length: count }, (_, k) => {
+    if (frequency !== 'monthly') return start + k * (frequency === 'weekly' ? 7 : 14);
+    const [year, month] = [first.getUTCFullYear(), first.getUTCMonth() + k];
+    const last = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+    return Date.UTC(year, month, Math.min(first.getUTCDate(), last)) / DAY;
+  });
+}
+
+/** The general interest charge on a tax debt paid by equal instalments, against paying it all now.
+ * GIC for a day is the GIC rate for that day times the debt and earlier GIC still unpaid at
+ * its end (Taxation Administration Act 1953 s 8AAC); the rate for a day is the quarter's annual
+ * rate divided by the days in its calendar year (s 8AAD(1)). Instalments start on the start
+ * date. The equal instalment is worked exactly and rounded down to the cent; the final
+ * instalment pays the rest, half up to the cent. Days after the last quarter in the table
+ * use the assumed annual rate.
+ * @param {{debt: string, start: string, count: string, frequency: 'weekly' | 'fortnightly' | 'monthly',
+ *   assumedRate: string}} plan */
+export function gicPaymentPlan(plan) {
+  const debt = BigInt(cents(plan.debt));
+  if (debt === 0n) throw new Error('Enter a debt above nil.');
+  const start = dayNumber(plan.start);
+  if (typeof plan.start !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(plan.start) || !Number.isInteger(start)
+    || isoDay(start) !== plan.start || start < GIC_FROM[0].from || plan.start > '2099-12-31') {
+    throw new Error(`Enter a start date from ${GIC_QUARTERS[0][0]} to 2099-12-31.`);
+  }
+  const count = number(plan.count, { min: 1, max: 120, integer: true });
+  if (!['weekly', 'fortnightly', 'monthly'].includes(plan.frequency)) throw new Error('Choose weekly, fortnightly or monthly.');
+  const assumed = Math.round(number(plan.assumedRate, { min: 0.01, max: 100 }) * 100);
+  const days = instalmentDays(start, count, plan.frequency);
+  const last = days[days.length - 1];
+  // Over a common denominator: the debt grown to each day, and the growth of 1 cent paid on each
+  // instalment day. Each day's factor is (10,000 x days in the year + rate) / (10,000 x days in the year).
+  let [grown, paid, scale, assumedDays, quarter] = [debt, 0n, 1n, 0, 0];
+  for (let day = start, next = 0; ; day += 1) {
+    if (day === days[next]) {
+      paid += scale;
+      next += 1;
+    }
+    if (day === last) break;
+    while (quarter + 1 < GIC_FROM.length && GIC_FROM[quarter + 1].from <= day) quarter += 1;
+    const rate = day < GIC_TABLE_END ? GIC_FROM[quarter].rate : assumed;
+    if (day >= GIC_TABLE_END) assumedDays += 1;
+    const base = 10000n * BigInt(yearDays(new Date(day * DAY).getUTCFullYear()));
+    [grown, paid, scale] = [grown * (base + BigInt(rate)), paid * (base + BigInt(rate)), scale * base];
+  }
+  const instalment = grown / paid;
+  const left = grown - instalment * (paid - scale);
+  const final = (2n * left + scale) / (2n * scale);
+  const totalPaid = instalment * BigInt(count - 1) + final;
+  return { instalment: Number(instalment) / 100, final: Number(final) / 100, totalPaid: Number(totalPaid) / 100,
+    gic: Number(totalPaid - debt) / 100, lastDate: isoDay(last), assumedDays };
+}

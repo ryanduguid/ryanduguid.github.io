@@ -1230,6 +1230,22 @@ fn rate_fact(slug: &str) -> RateFact {
             );
             (rows, fact)
         }
+        "general-interest-charge" => {
+            let rows = csv_rows("rates/general-interest-charge/general-interest-charge-rates.csv");
+            let row = latest(&rows, "quarter_start");
+            let start = field(row, "quarter_start");
+            let months = match &start[5..7] {
+                "01" => "January to March",
+                "04" => "April to June",
+                "07" => "July to September",
+                _ => "October to December",
+            };
+            let fact = (
+                format!("{months} {}", &start[..4]),
+                percent(field(row, "annual_rate_percent")),
+            );
+            (rows, fact)
+        }
         "announced-not-yet-law" => {
             let rows = csv_rows("rates/announced-not-yet-law/announced-measures.csv");
             let tbd = rows.iter().filter(|r| field(r, "status") == "TBD").count();
