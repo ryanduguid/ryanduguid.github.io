@@ -526,6 +526,180 @@ fn payday_business_days_csv_matches_the_calendar_copy() {
     }
 }
 
+const BAS_DUE_SOURCE: &str = "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/due-dates-for-lodging-and-paying-your-bas";
+const BAS_ONLINE_SOURCE: &str = "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/reports-and-returns/due-dates-for-lodging-and-paying/due-dates-by-topic/activity-statements";
+const BAS_ONLINE_TERMS: &str = "https://www.ato.gov.au/online-services/businesses-and-organisations-online-services/lodgments-in-online-services-for-business/two-week-lodgment-concession-terms-and-conditions";
+const BAS_AGENT_SOURCE: &str = "https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/bas-agent-lodgment-program-2026-27";
+
+/// BAS due dates for 2026-27 as the 4 ATO pages above showed them on 15 November 2026:
+/// period, start, end, due date, online date, agent date and agent status, one CSV row each.
+/// The due dates page gives the 21st and 28th rules and quarter 2; the due dates by topic
+/// page gives the online dates; the BAS agent lodgment program 2026-27 gives the agent
+/// dates, quarter 4's as 'to be confirmed'.
+const BAS_DUE_DATES: [&str; 16] = [
+    "July 2026,2026-07-01,2026-07-31,2026-08-21,,,not applicable",
+    "August 2026,2026-08-01,2026-08-31,2026-09-21,,,not applicable",
+    "September 2026,2026-09-01,2026-09-30,2026-10-21,,,not applicable",
+    "October 2026,2026-10-01,2026-10-31,2026-11-21,,,not applicable",
+    "November 2026,2026-11-01,2026-11-30,2026-12-21,,,not applicable",
+    "December 2026,2026-12-01,2026-12-31,2027-01-21,,2027-02-21,published",
+    "January 2027,2027-01-01,2027-01-31,2027-02-21,,,not applicable",
+    "February 2027,2027-02-01,2027-02-28,2027-03-21,,,not applicable",
+    "March 2027,2027-03-01,2027-03-31,2027-04-21,,,not applicable",
+    "April 2027,2027-04-01,2027-04-30,2027-05-21,,,not applicable",
+    "May 2027,2027-05-01,2027-05-31,2027-06-21,,,not applicable",
+    "June 2027,2027-06-01,2027-06-30,2027-07-21,,,not applicable",
+    "Quarter 1 2026-27,2026-07-01,2026-09-30,2026-10-28,2026-11-11,2026-11-25,published",
+    "Quarter 2 2026-27,2026-10-01,2026-12-31,2027-02-28,,,not applicable",
+    "Quarter 3 2026-27,2027-01-01,2027-03-31,2027-04-28,2027-05-12,2027-05-26,published",
+    "Quarter 4 2026-27,2027-04-01,2027-06-30,2027-07-28,2027-08-11,2027-08-25,to be confirmed",
+];
+
+fn bas_due_dates() -> Vec<[&'static str; 7]> {
+    BAS_DUE_DATES
+        .iter()
+        .map(|row| row.split(',').collect::<Vec<_>>().try_into().unwrap())
+        .collect()
+}
+
+/// The BAS due dates CSV must hold every ATO date with the page it came from, the page
+/// must list each source and name every weekend date, and the rendered tables must show
+/// the CSV's dates. No weekday date may be a whole-state holiday on the Payday Super
+/// calendar, as the page says.
+#[test]
+fn bas_due_dates_csv_holds_the_ato_dates_and_sources() {
+    use chrono::{Datelike, NaiveDate};
+    let repository = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let source = |rel: &str| site_tools::read(&repository.join(rel)).unwrap();
+    let parse = |date: &str| NaiveDate::parse_from_str(date, "%Y-%m-%d").unwrap();
+    let rows = bas_due_dates();
+    let columns = [
+        "frequency",
+        "period",
+        "period_start",
+        "period_end",
+        "due_date",
+        "online_due_date",
+        "agent_due_date",
+        "agent_status",
+    ];
+    let csv = source("tools/bas-due-dates/bas-due-dates-2026-27.csv");
+    assert_eq!(
+        csv.lines().next(),
+        Some(&*format!(
+            "{},due_source,online_source,agent_source,checked_at",
+            columns.join(",")
+        ))
+    );
+    let records = pycsv::dict_reader(&csv).unwrap();
+    assert_eq!(records.len(), rows.len(), "CSV rows against the ATO dates");
+    for (record, row) in records.iter().zip(&rows) {
+        let [period, .., online, _, _] = row;
+        let frequency = if period.starts_with("Quarter") {
+            "quarterly"
+        } else {
+            "monthly"
+        };
+        let actual: Vec<&str> = columns.iter().map(|name| field(record, name)).collect();
+        let mut expected = vec![frequency];
+        expected.extend(row);
+        assert_eq!(actual, expected, "{period}");
+        let online_source = if online.is_empty() {
+            BAS_ONLINE_TERMS
+        } else {
+            BAS_ONLINE_SOURCE
+        };
+        let sources = ["due_source", "online_source", "agent_source"].map(|n| field(record, n));
+        assert_eq!(
+            sources,
+            [BAS_DUE_SOURCE, online_source, BAS_AGENT_SOURCE],
+            "{period}"
+        );
+        let checked = site_tools::py::Date::fromisoformat(field(record, "checked_at"));
+        assert!(
+            checked.is_some(),
+            "{period}: checked_at must be an ISO date"
+        );
+    }
+
+    let page = source("tools/bas-due-dates/index.html");
+    for url in [
+        BAS_DUE_SOURCE,
+        BAS_ONLINE_SOURCE,
+        BAS_ONLINE_TERMS,
+        BAS_AGENT_SOURCE,
+    ] {
+        assert!(
+            page.contains(&format!(r#"<a href="{url}">"#)),
+            "{url} must be listed under Sources"
+        );
+    }
+    let calendar = pyjson::loads(&source("_data/payday_super_business_days.json")).unwrap();
+    let Json::Array(days) = get(&calendar, "non_business_days") else {
+        panic!("non_business_days must be a list");
+    };
+    let holidays: Vec<String> = days.iter().map(|day| text_of(get(day, "date"))).collect();
+    let until = text_of(get(&calendar, "verified_until"));
+    let dates: Vec<&str> = rows
+        .iter()
+        .flat_map(|row| [row[3], row[4], row[5]])
+        .filter(|date| !date.is_empty())
+        .collect();
+    for &date in &dates {
+        let parsed = parse(date);
+        if parsed.weekday().number_from_monday() <= 5 {
+            assert!(
+                date <= until.as_str(),
+                "{date} is past the holiday calendar"
+            );
+            assert!(!holidays.iter().any(|h| h == date), "{date} is a holiday");
+        } else {
+            let named = parsed.format("%A %-d %B %Y").to_string();
+            assert!(page.contains(&named), "the page must name {named}");
+        }
+    }
+
+    if !rendered() {
+        return;
+    }
+    let html = read("tools/bas-due-dates/index.html");
+    let shown = |date: &str| parse(date).format("%a %-d %b %Y").to_string();
+    let visible = measure_rows(&html);
+    assert_eq!(
+        visible.len(),
+        rows.len(),
+        "table rows against the ATO dates"
+    );
+    for (cells, &[period, _, _, due, online, agent, status]) in visible.iter().zip(&rows) {
+        let mut expected = vec![period.to_owned(), shown(due)];
+        if period.starts_with("Quarter") {
+            expected.push(if online.is_empty() {
+                "No later date".to_owned()
+            } else {
+                shown(online)
+            });
+        }
+        expected.push(match status {
+            "published" => shown(agent),
+            "to be confirmed" => format!("{} (to be confirmed)", shown(agent)),
+            _ => "Not applicable".to_owned(),
+        });
+        assert_eq!(cells, &expected, "{period}");
+    }
+    let tree = parse_structure(&html);
+    let times: Vec<&str> = tree
+        .descendants(Tree::ROOT, Some("tbody"), false)
+        .into_iter()
+        .flat_map(|body| tree.descendants(body, Some("time"), false))
+        .filter_map(|time| tree.attr(time, "datetime"))
+        .collect();
+    let mut by_row: Vec<&str> = Vec::new();
+    for &[_, _, _, due, online, agent, _] in &rows {
+        by_row.extend([due, online, agent].into_iter().filter(|d| !d.is_empty()));
+    }
+    assert_eq!(times, by_row);
+}
+
 #[test]
 fn payday_super_receipts_workbooks_and_qualifications() {
     if !rendered() {

@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 140] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 143] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -88,6 +88,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 140] = [
     "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business",
     "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business/overview-of-record-keeping-rules-for-business",
     "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business/overview-of-record-keeping-rules-for-business/records-to-keep-longer-than-five-years",
+    "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/reports-and-returns/due-dates-for-lodging-and-paying/due-dates-by-topic/activity-statements",
     "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/car-thresholds-from-1-july",
     "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/changes-to-credit-card-payments",
     "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/finalise-your-stp-data-by-14-july",
@@ -150,7 +151,9 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 140] = [
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-80",
     "https://www.ato.gov.au/law/view/document?docid=TXR/TR20221W/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
+    "https://www.ato.gov.au/online-services/businesses-and-organisations-online-services/lodgments-in-online-services-for-business/two-week-lodgment-concession-terms-and-conditions",
     "https://www.ato.gov.au/single-page-applications/legaldatabase",
+    "https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/bas-agent-lodgment-program-2026-27",
     "https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/tax-time/tax-time-toolkits/tax-time-toolkit-small-business/small-business-guides/using-business-money-and-assets",
     "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rate-changes",
     "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates",
