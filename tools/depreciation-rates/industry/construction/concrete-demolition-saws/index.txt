@@ -1,0 +1,86 @@
+# Concreting assets … effective life: 3 years, CONSTRUCTION
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-demolition-saws/
+
+> Concreting assets: Concrete demolition saws: effective life 3 years, last updated 1 July 2008 (Table A).
+
+# Concreting assets: Concrete demolition saws (CONSTRUCTION)
+
+‘Concreting assets: Concrete demolition saws’, for an asset used in CONSTRUCTION, has an effective life of 3 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2008.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Concrete demolition saws
+Under | Concreting assets:
+Table | Table A (industry categories), CONSTRUCTION, rows for the whole division, ANZSIC 30110 to 32990
+Effective life | 3 years
+Prime cost rate | 33.33% (100% ÷ life, section 40-75)
+Diminishing value rate | 66.67% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2008
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in CONSTRUCTION takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2008. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Concreting assets
+
+Row | Life | Prime cost | Diminishing value
+Brick and paving saws | 5 years | 20.00% | 40.00%
+Buggies or dumpers (motorised) | 5 years | 20.00% | 40.00%
+Concrete demolition saws (this page) | 3 years | 33.33% | 66.67%
+Concrete kibble buckets | 15 years | 6.67% | 13.33%
+Concrete mixers | 4 years | 25.00% | 50.00%
+Concrete surface preparation assets (including floor grinders, planers and scarifiers) | 5 years | 20.00% | 40.00%
+Concrete vibrating screeders | 5 years | 20.00% | 40.00%
+Concrete wheeled saws | 6 years | 16.67% | 33.33%
+Hoppers, skips and hoist buckets | 10 years | 10.00% | 20.00%
+
+10 rows share this heading. The CONSTRUCTION page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Concrete demolition saws | Rental and hiring services (except real estate) | 3 years | 33.33% | 66.67%
+Concrete demolition saws | Table B, Concreting assets | 3 years | 33.33% | 66.67%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 3 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Brick and paving saws: https://duguid.com.au/tools/depreciation-rates/industry/construction/brick-and-paving-saws/
+- Buggies or dumpers (motorised): https://duguid.com.au/tools/depreciation-rates/industry/construction/buggies-or-dumpers/
+- Concrete kibble buckets: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-kibble-buckets/
+- Concrete mixers: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-mixers/
+- Concrete surface preparation assets (including floor grinders, planers and scarifiers): https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-surface-preparation-assets/
+- Concrete vibrating screeders: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-vibrating-screeders/
+- Concrete wheeled saws: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-wheeled-saws/
+- Hoppers, skips and hoist buckets: https://duguid.com.au/tools/depreciation-rates/industry/construction/hoppers-skips-and-hoist-buckets/
+- CONSTRUCTION: https://duguid.com.au/tools/depreciation-rates/industry/construction/
+- Concrete demolition saws: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-demolition-saws/
+- Concrete demolition saws: https://duguid.com.au/tools/depreciation-rates/asset/concreting-assets/concrete-demolition-saws/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

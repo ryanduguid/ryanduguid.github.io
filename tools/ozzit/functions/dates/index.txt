@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/tools/ozzit/functions/dates/
 
-> Parameters and worked examples for 15 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels.
+> Parameters and worked examples for 17 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels.
 
 # Ozzit Dates functions
 
-The 15 Dates formulas cover periods, timelines, schedules, overlaps and Australian financial year labels. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
+The 17 Dates formulas cover periods, timelines, schedules, overlaps and Australian financial year labels. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
 
-Release v3.5.0. Read from the released Dates formula source, which the workbook compiles.
+Release v3.6.0. Read from the released Dates formula source, which the workbook compiles.
 
 Published 20 October 2026. Last reviewed 20 October 2026.
 
@@ -16,9 +16,9 @@ Published 20 October 2026. Last reviewed 20 October 2026.
 
 Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
 
-The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+The text below is the help each function carries in the v3.6.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
 
-## All 15 functions
+## All 17 functions
 
 - oz.AboutDatesλ
 - oz.CountDOWλ
@@ -33,6 +33,8 @@ The text below is the help each function carries in the v3.5.0 workbook. The wor
 - oz.ScheduleValuesByItemsλ
 - oz.Timelineλ
 - oz.FinancialYearλ
+- oz.FinancialMonthλ
+- oz.FinancialQuarterλ
 - oz.RateAtDateλ
 - oz.DateDifλ
 
@@ -122,7 +124,7 @@ oz.IsOccurrenceDateλ(Dates, FirstOccurrence, [LastOccurrence], [Repeats])
 
 Returns TRUE if Date passed is when something happens. This was developed for budgeting where we have expenses that start, and sometimes repeat at regular intervals.
 
-Returns TRUE if a Date is when something happens. This was developed for budgeting where we have expenses that start, and sometimes repeat at regular intervals.
+Returns TRUE if a Date is when something happens. Developed for budgeting, where expenses start and sometimes repeat at regular intervals.
 
 Note: A monthly, quarterly, semi-annual or annual item that starts on the 29th, 30th or 31st falls on the last day of any shorter month.
 
@@ -516,6 +518,58 @@ The workbook help shows FY2027.
 
 Previous name: nabla.d.FinancialYearλ.
 
+### oz.FinancialMonthλ
+
+oz.FinancialMonthλ(Dates, [StartMonth])
+
+Numbers each date's month within its financial year, so July is month 1 when the year starts on 1 July
+
+Numbers each date's month within its financial year, from 1 to 12.
+
+Note: With the default 1 July start, July is month 1 and June is month 12. Dates may be one date or a range, and the result takes their shape. FinancialYearλ() labels the year and FinancialQuarterλ() the quarter.
+
+Parameters:
+
+Dates (required)
+
+One or more dates, numeric or text. A blank cell returns a blank.
+
+StartMonth (optional, Default = 7)
+
+Month the financial year starts, one whole number from 1 to 12. Blank cells and empty text use 7.
+
+```
+=oz.FinancialMonthλ(DATE(2026,8,15))
+```
+
+The workbook help shows 2.
+
+### oz.FinancialQuarterλ
+
+oz.FinancialQuarterλ(Dates, [StartMonth])
+
+Numbers each date's quarter within its financial year, so July to September is quarter 1 when the year starts on 1 July
+
+Numbers each date's quarter within its financial year, from 1 to 4.
+
+Note: Each quarter is 3 months counted from StartMonth. With the default 1 July start, July to September is quarter 1 and April to June is quarter 4. Dates may be one date or a range, and the result takes their shape.
+
+Parameters:
+
+Dates (required)
+
+One or more dates, numeric or text. A blank cell returns a blank.
+
+StartMonth (optional, Default = 7)
+
+Month the financial year starts, one whole number from 1 to 12. Blank cells and empty text use 7.
+
+```
+=oz.FinancialQuarterλ(DATE(2026,11,15))
+```
+
+The workbook help shows 2.
+
 ### oz.RateAtDateλ
 
 oz.RateAtDateλ(EffectiveDates, Rates, Dates)
@@ -589,7 +643,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Dates.txt
+- Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Dates.txt
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
 - oz.CountDOW λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
@@ -604,6 +658,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.ScheduleValuesByItems λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevaluesbyitems
 - oz.Timeline λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-timeline
 - oz.FinancialYear λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialyear
+- oz.FinancialMonth λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialmonth
+- oz.FinancialQuarter λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialquarter
 - oz.RateAtDate λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-rateatdate
 - oz.DateDif λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
 - Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/

@@ -592,8 +592,10 @@ main p {
 }
 
 /* A page whose body opens with a heading straight after the header rule
-   (Contact, Evaluations) takes the 32px gap the other pages have there. */
-.article-header + .site-shell > .article-body > h2:first-child {
+   (Contact, Evaluations, the effective life pages) takes the 32px gap the
+   other pages have there. */
+.article-header + .site-shell > .article-body > h2:first-child,
+.article-header + .accounting-content > section:first-child > h2:first-child {
   margin-top: var(--space-6);
 }
 
@@ -951,6 +953,13 @@ caption {
    link may break anywhere and the table still fits a 320px phone. */
 .facts--kv :is(th, td) {
   overflow-wrap: anywhere;
+}
+
+/* The effective life tables hold figures and the determination's headings in
+   capitals ('TELECOMMUNICATIONS'), so in their scroll regions a cell wraps
+   between words, as other scroll regions do, and a long word scrolls. */
+.depreciation-page .table-scroll .facts--kv td {
+  overflow-wrap: break-word;
 }
 
 /* Tables that compare figures across columns right-align every value column,

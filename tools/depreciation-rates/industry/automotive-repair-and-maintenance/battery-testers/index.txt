@@ -1,0 +1,80 @@
+# Battery testers effective life: 5 years, Automotive and heavy …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/battery-testers/
+
+> Automotive and heavy vehicle repair and maintenance assets: Battery testers: effective life 5 years, last updated 1 July 2011 (Table A).
+
+# Automotive and heavy vehicle repair and maintenance assets: Battery testers
+
+‘Automotive and heavy vehicle repair and maintenance assets: Battery testers’, for an asset used in Automotive repair and maintenance, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2011.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Battery testers
+Under | Automotive and heavy vehicle repair and maintenance assets:
+Table | Table A (industry categories), OTHER SERVICES / Automotive repair and maintenance, ANZSIC 94110 to 94199
+Effective life | 5 years
+Prime cost rate | 20.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 40.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2011
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Automotive repair and maintenance takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2011. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Automotive and heavy vehicle repair and maintenance assets
+
+Row | Life | Prime cost | Diminishing value
+Air tools (including ratchet guns) | 2 years | 50.00% | 100.00%
+Automatic transmission flush and fill machines | 5 years | 20.00% | 40.00%
+Axle and ball joint play testers or shakers | 10 years | 10.00% | 20.00%
+Battery chargers | 5 years | 20.00% | 40.00%
+Battery testers (this page) | 5 years | 20.00% | 40.00%
+Brake fluid testers | 5 years | 20.00% | 40.00%
+Brake shoe riveters | 5 years | 20.00% | 40.00%
+Brake system flushers | 5 years | 20.00% | 40.00%
+Continuous diesel engine particulate testers | 5 years | 20.00% | 40.00%
+Cooling system flushers | 5 years | 20.00% | 40.00%
+Decelerometer brake testers | 7 years | 14.29% | 28.57%
+
+51 rows share this heading. The Automotive repair and maintenance page lists them all.
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 5 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Air tools (including ratchet guns): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/air-tools/
+- Automatic transmission flush and fill machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/automatic-transmission-flush-and-fill-machines/
+- Axle and ball joint play testers or shakers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/axle-and-ball-joint-play-testers-or-shakers-2538af/
+- Battery chargers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/battery-chargers/
+- Brake fluid testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/brake-fluid-testers/
+- Brake shoe riveters: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/brake-shoe-riveters/
+- Brake system flushers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/brake-system-flushers/
+- Continuous diesel engine particulate testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/continuous-diesel-engine-particulate-testers/
+- Cooling system flushers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/cooling-system-flushers/
+- Decelerometer brake testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/decelerometer-brake-testers/
+- Automotive repair and maintenance: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

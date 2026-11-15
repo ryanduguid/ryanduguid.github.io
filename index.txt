@@ -54,9 +54,9 @@ Browse reproducible evaluations Set up AI tools
 
 ### Latest tool releases
 
-- Workpaper Review Gate v1.0.0 13 November 2026
-- Monthly Close Controls v1.0.0 13 November 2026
-- Subcontractor ledger skills for construction and mining v0.6.0 12 November 2026
+- Workpaper Review Gate v1.0.1 14 November 2026
+- Subcontractor ledger skills for construction and mining v0.7.0 14 November 2026
+- Ozzit v3.6.0 14 November 2026
 
 ## Links
 
@@ -73,5 +73,5 @@ Browse reproducible evaluations Set up AI tools
 - Evidence behind the tools: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Workpaper Review Gate v1.0.0: https://duguid.com.au/tools/workpaper-review-gate/
-- Subcontractor ledger skills for construction and mining v0.6.0: https://duguid.com.au/tools/subcontractor-ledgers/
+- Workpaper Review Gate v1.0.1: https://duguid.com.au/tools/workpaper-review-gate/
+- Subcontractor ledger skills for construction and mining v0.7.0: https://duguid.com.au/tools/subcontractor-ledgers/

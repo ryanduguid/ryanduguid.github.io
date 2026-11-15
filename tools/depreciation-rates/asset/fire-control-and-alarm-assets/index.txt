@@ -1,0 +1,78 @@
+# Fire control and alarm assets effective lives, Table B
+
+Source: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/
+
+> Fire control and alarm assets, Table B …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Fire control and alarm assets
+
+20 effective lives in Table B of the Commissioner’s 2025 effective life determination under Fire control and alarm assets.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Alarms: | | | |
+Alarms: / Heat | 6 years | 16.67% | 33.33% | 1 July 2004
+Alarms: / Smoke | 6 years | 16.67% | 33.33% | 1 July 2004
+Detection and alarm systems: | | | |
+Detection and alarm systems: / Alarm bells | 12 years | 8.33% | 16.67% | 1 July 2004
+Detection and alarm systems: / Detectors: | | | |
+Detection and alarm systems: / Detectors: / Aspirated smoke | 12 years | 8.33% | 16.67% | 1 July 2004
+Detection and alarm systems: / Detectors: / Heat | 20 years | 5.00% | 10.00% | 1 July 2004
+Detection and alarm systems: / Detectors: / Manual call point (addressable type only) | 20 years | 5.00% | 10.00% | 1 July 2004
+Detection and alarm systems: / Detectors: / Multi type | 20 years | 5.00% | 10.00% | 1 July 2004
+Detection and alarm systems: / Detectors: / Smoke | 20 years | 5.00% | 10.00% | 1 July 2004
+Detection and alarm systems: / Fire indicator panels | 12 years | 8.33% | 16.67% | 1 July 2004
+Detection and alarm systems: / Gas suppression cylinders | 25 years | 4.00% | 8.00% | 1 July 2004
+Emergency warning and intercommunication systems: | | | |
+Emergency warning and intercommunication systems: / Master emergency control panels | 12 years | 8.33% | 16.67% | 1 July 2004
+Emergency warning and intercommunication systems: / Speakers | 12 years | 8.33% | 16.67% | 1 July 2004
+Emergency warning and intercommunication systems: / Strobe lights | 12 years | 8.33% | 16.67% | 1 July 2004
+Emergency warning and intercommunication systems: / Warden intercom phones | 12 years | 8.33% | 16.67% | 1 July 2004
+Extinguishers | 15 years | 6.67% | 13.33% | 1 July 2004
+Hoses and nozzles | 10 years | 10.00% | 20.00% | 1 July 2004
+Pumps (including diesel and electric) | 25 years | 4.00% | 8.00% | 1 July 2004
+Stair pressurisation assets: | | | |
+Stair pressurisation assets: / AC variable speed drives (VSDs) | 10 years | 10.00% | 20.00% | 1 July 2004
+Stair pressurisation assets: / Pressurisation and extraction fans | 25 years | 4.00% | 8.00% | 1 July 2004
+Stair pressurisation assets: / Sensors | 10 years | 10.00% | 20.00% | 1 July 2004
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Heat: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/alarms-heat/
+- Smoke: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/alarms-smoke/
+- Alarm bells: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/alarm-bells/
+- Aspirated smoke: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/aspirated-smoke/
+- Heat: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/detection-and-alarm-systems-heat/
+- Manual call point (addressable type only): https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/manual-call-point/
+- Multi type: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/multi-type/
+- Smoke: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/detection-and-alarm-systems-smoke/
+- Fire indicator panels: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/fire-indicator-panels/
+- Gas suppression cylinders: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/gas-suppression-cylinders/
+- Master emergency control panels: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/master-emergency-control-panels/
+- Speakers: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/speakers/
+- Strobe lights: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/strobe-lights/
+- Warden intercom phones: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/warden-intercom-phones/
+- Extinguishers: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/extinguishers/
+- Hoses and nozzles: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/hoses-and-nozzles/
+- Pumps (including diesel and electric): https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/pumps/
+- AC variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/ac-variable-speed-drives/
+- Pressurisation and extraction fans: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/pressurisation-and-extraction-fans/
+- Sensors: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/sensors/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

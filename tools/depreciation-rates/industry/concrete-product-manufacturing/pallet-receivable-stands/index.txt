@@ -1,0 +1,80 @@
+# Pallet receivable stands effective life: 20 years, Automated …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pallet-receivable-stands/
+
+> Automated panel manufacturing assets: Pallet receivable stands (excluding pallet vibrating stands): effective life 20 years, last updated 1 July 2013 (Table A).
+
+# Automated panel manufacturing assets: Pallet receivable stands (excluding pallet vibrating stands)
+
+‘Automated panel manufacturing assets: Pallet receivable stands (excluding pallet vibrating stands)’, for an asset used in Concrete product manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Pallet receivable stands (excluding pallet vibrating stands)
+Under | Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets:
+Table | Table A (industry categories), MANUFACTURING / Concrete product manufacturing, ANZSIC 20340
+Effective life | 20 years
+Prime cost rate | 5.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 10.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2013
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Concrete product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Automated panel manufacturing assets
+
+Row | Life | Prime cost | Diminishing value
+Automated trowel machines (incorporating crane and trowel) | 15 years | 6.67% | 13.33%
+Curing chambers | 25 years | 4.00% | 8.00%
+Laser beam alignment systems | 10 years | 10.00% | 20.00%
+Pallet cleaning machines | 15 years | 6.67% | 13.33%
+Pallet receivable stands (excluding pallet vibrating stands) (this page) | 20 years | 5.00% | 10.00%
+Pallet vibrating stands | 10 years | 10.00% | 20.00%
+Pallets | 15 years | 6.67% | 13.33%
+Rack feeders | 15 years | 6.67% | 13.33%
+Shutter cleaning machines | 15 years | 6.67% | 13.33%
+Shutter transporting assets (including automated roller conveyors) | 15 years | 6.67% | 13.33%
+Shutters | 8 years | 12.50% | 25.00%
+
+12 rows share this heading. The Concrete product manufacturing page lists them all.
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Automated trowel machines (incorporating crane and trowel): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/automated-trowel-machines/
+- Curing chambers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/curing-chambers/
+- Laser beam alignment systems: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/laser-beam-alignment-systems/
+- Pallet cleaning machines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pallet-cleaning-machines/
+- Pallet vibrating stands: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pallet-vibrating-stands/
+- Pallets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/automated-panel-manufacturing-pallets/
+- Rack feeders: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/rack-feeders/
+- Shutter cleaning machines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shutter-cleaning-machines/
+- Shutter transporting assets (including automated roller conveyors): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shutter-transporting-assets/
+- Shutters: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shutters/
+- Concrete product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

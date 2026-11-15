@@ -1,0 +1,134 @@
+# Airport operations … effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/
+
+> Airport operations and other air transport support …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Airport operations and other air transport support services
+
+44 effective lives in Table A of the Commissioner’s 2025 effective life determination for Airport operations and other air transport support services.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Aircraft maintenance assets – see Table A Aircraft manufacturing and repair services (23940) | | | |
+Aircraft training assets: | | | |
+Aircraft training assets: / Flight simulators | 8 years | 12.50% | 25.00% | 1 January 2001
+Aircraft training assets: / Link trainers | 8 years | 12.50% | 25.00% | 1 January 2001
+Airport assets: | | | |
+Airport assets: / Aerobridges | 20 years | 5.00% | 10.00% | 1 January 2003
+Airport assets: / Baggage handling assets: | | | |
+Airport assets: / Baggage handling assets: / Baggage check-in stations (incorporating scales and check-in conveyors) | 10 years | 10.00% | 20.00% | 1 January 2003
+Airport assets: / Baggage handling assets: / Baggage outbound conveyor systems (incorporating belts, diverters, gearboxes, motors, ploughs, rollers, structures and tag readers) | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Baggage handling assets: / Baggage reclaim conveyor systems (incorporating belts, gearboxes, motors, rollers and structures) | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Control systems (excluding computers) | 10 years | 10.00% | 20.00% | 1 January 2003
+Airport assets: / Fire safety and rescue assets: | | | |
+Airport assets: / Fire safety and rescue assets: / Breathing units | 10 years | 10.00% | 20.00% | 1 January 2003
+Airport assets: / Fire safety and rescue assets: / Drills, air powered | 10 years | 10.00% | 20.00% | 1 January 2003
+Airport assets: / Fire safety and rescue assets: / Fire fighting vehicles | 20 years | 5.00% | 10.00% | 1 January 2003
+Airport assets: / Fire safety and rescue assets: / Rescue boats: | | | |
+Airport assets: / Fire safety and rescue assets: / Rescue boats: / Aluminium | 20 years | 5.00% | 10.00% | 1 January 2003
+Airport assets: / Fire safety and rescue assets: / Rescue boats: / Inflatable | 8 years | 12.50% | 25.00% | 1 January 2003
+Airport assets: / Fire safety and rescue assets: / Rescue units (jaws of life) | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Fuel supply assets: | | | |
+Airport assets: / Fuel supply assets: / Aircraft fueller vehicles | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Fuel supply assets: / Aircraft hydrant dispenser vehicles | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Fuel supply assets: / Filters, fuel | 25 years | 4.00% | 8.00% | 1 January 2003
+Airport assets: / Fuel supply assets: / Fire fighting systems | 25 years | 4.00% | 8.00% | 1 January 2003
+Airport assets: / Fuel supply assets: / Piping | 25 years | 4.00% | 8.00% | 1 January 2003
+Airport assets: / Fuel supply assets: / Pumps, fuel | 25 years | 4.00% | 8.00% | 1 January 2003
+Airport assets: / Fuel supply assets: / Tanks | 25 years | 4.00% | 8.00% | 1 January 2003
+Airport assets: / Ground support assets: | | | |
+Airport assets: / Ground support assets: / Aircraft loader/unloader vehicles | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Ground support assets: / Aircraft stairs: | | | |
+Airport assets: / Ground support assets: / Aircraft stairs: / Manual | 20 years | 5.00% | 10.00% | 1 January 2003
+Airport assets: / Ground support assets: / Aircraft stairs: / Vehicle mounted | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Ground support assets: / Airstart units | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Ground support assets: / Containers, air cargo (used to transport goods by air) | 5 years | 20.00% | 40.00% | 1 January 2001
+Airport assets: / Ground support assets: / Ground power units | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Ground support assets: / High lift service vehicles (including catering, lavatory, maintenance and water vehicles) | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Ground support assets: / Tow tractors | 20 years | 5.00% | 10.00% | 1 January 2003
+Airport assets: / Ground support assets: / Tractors, baggage | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Ground support assets: / Tractor trolleys (including baggage and container trolleys, and dollies) | 10 years | 10.00% | 20.00% | 1 January 2003
+Airport assets: / Navigation aids: | | | |
+Airport assets: / Navigation aids: / Distance measuring assets | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Navigation aids: / Instrument landing systems | 10 years | 10.00% | 20.00% | 1 January 2003
+Airport assets: / Navigation aids: / Non-directional beacons (excluding towers) | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Navigation aids: / Radar sensors | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Navigation aids: / Towers | 30 years | 3.33% | 6.67% | 1 January 2003
+Airport assets: / Navigation aids: / VHF omni range assets (excluding towers) | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Runway sweepers | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Terminal building assets: | | | |
+Airport assets: / Terminal building assets: / Flight information display signs (including monitors and LED screens) | 7 years | 14.29% | 28.57% | 1 January 2003
+Airport assets: / Terminal building assets: / Security scanning assets (including explosive detection systems, hand-held and walk through detectors, and x-ray screening systems) | 5 years | 20.00% | 40.00% | 1 January 2003
+Airport assets: / Visual aids assets: | | | |
+Airport assets: / Visual aids assets: / Docking guidance systems | 10 years | 10.00% | 20.00% | 1 January 2003
+Airport assets: / Visual aids assets: / Lighting systems (including apron floodlighting, runway lighting and taxiway lighting) | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Visual aids assets: / Movement area guidance signs | 10 years | 10.00% | 20.00% | 1 January 2003
+Airport assets: / Visual aids assets: / Visual approach slope indicator systems (PAPI) | 15 years | 6.67% | 13.33% | 1 January 2003
+Airport assets: / Visual aids assets: / Wind direction indicators, illuminated | 10 years | 10.00% | 20.00% | 1 January 2003
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Aircraft maintenance assets – see Table A Aircraft manufacturing and repair services (23940): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/
+- Flight simulators: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/flight-simulators/
+- Link trainers: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/link-trainers/
+- Aerobridges: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/aerobridges/
+- Baggage check-in stations (incorporating scales and check-in conveyors): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/baggage-check-in-stations/
+- Baggage outbound conveyor systems (incorporating belts, diverters, gearboxes, motors, ploughs, rollers, structures and tag readers): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/baggage-outbound-conveyor-systems/
+- Baggage reclaim conveyor systems (incorporating belts, gearboxes, motors, rollers and structures): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/baggage-reclaim-conveyor-systems/
+- Control systems (excluding computers): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/control-systems/
+- Breathing units: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/breathing-units/
+- Drills, air powered: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/drills-air-powered/
+- Fire fighting vehicles: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/fire-fighting-vehicles/
+- Aluminium: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/aluminium/
+- Inflatable: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/inflatable/
+- Rescue units (jaws of life): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/rescue-units/
+- Aircraft fueller vehicles: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/aircraft-fueller-vehicles/
+- Aircraft hydrant dispenser vehicles: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/aircraft-hydrant-dispenser-vehicles/
+- Filters, fuel: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/filters-fuel/
+- Fire fighting systems: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/fire-fighting-systems/
+- Piping: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/piping/
+- Pumps, fuel: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/pumps-fuel/
+- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/tanks/
+- Aircraft loader/unloader vehicles: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/aircraft-loader-unloader-vehicles/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/manual/
+- Vehicle mounted: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/vehicle-mounted/
+- Airstart units: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/airstart-units/
+- Containers, air cargo (used to transport goods by air): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/containers-air-cargo/
+- Ground power units: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/ground-power-units/
+- High lift service vehicles (including catering, lavatory, maintenance and water vehicles): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/high-lift-service-vehicles/
+- Tow tractors: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/tow-tractors/
+- Tractors, baggage: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/tractors-baggage/
+- Tractor trolleys (including baggage and container trolleys, and dollies): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/tractor-trolleys/
+- Distance measuring assets: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/distance-measuring-assets/
+- Instrument landing systems: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/instrument-landing-systems/
+- Non-directional beacons (excluding towers): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/non-directional-beacons/
+- Radar sensors: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/radar-sensors/
+- Towers: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/towers/
+- VHF omni range assets (excluding towers): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/vhf-omni-range-assets/
+- Runway sweepers: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/runway-sweepers/
+- Flight information display signs (including monitors and LED screens): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/flight-information-display-signs/
+- Security scanning assets (including explosive detection systems, hand-held and walk through detectors, and x-ray screening systems): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/security-scanning-assets/
+- Docking guidance systems: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/docking-guidance-systems/
+- Lighting systems (including apron floodlighting, runway lighting and taxiway lighting): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/lighting-systems/
+- Movement area guidance signs: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/movement-area-guidance-signs/
+- Visual approach slope indicator systems (PAPI): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/visual-approach-slope-indicator-systems/
+- Wind direction indicators, illuminated: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/wind-direction-indicators-illuminated/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

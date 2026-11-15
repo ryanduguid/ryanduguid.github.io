@@ -1,0 +1,135 @@
+# Petroleum refining effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/
+
+> Petroleum refining, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Petroleum refining
+
+44 effective lives in Table A of the Commissioner’s 2025 effective life determination for Petroleum refining.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Assets used to manufacture condensate, crude oil, domestic gas, liquid natural gas (LNG) or liquid petroleum gas (LPG) but not if the manufacture occurs in an oil refinery – see Table A Oil and gas extraction (07000) | | | |
+Oil refinery assets: | | | |
+Oil refinery assets: / Assets used in acid, caustic or clay treating, alkylation, polymerisation or sour water stripping | 15 years | 6.67% | 13.33% | 1 July 2002
+Oil refinery assets: / Assets used in sulphur recovery: | | | |
+Oil refinery assets: / Assets used in sulphur recovery: / Generally | 15 years | 6.67% | 13.33% | 1 July 2002
+Oil refinery assets: / Assets used in sulphur recovery: / Sulphur pits | 10 years | 10.00% | 20.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: | | | |
+Oil refinery assets: / Assets used in other processes: / Air compressors | 30 years | 3.33% | 6.67% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Catalyst regenerators | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Chemical injection systems | 5 years | 20.00% | 40.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Coke drums | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Distillation columns | 30 years | 3.33% | 6.67% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Drums: | | | |
+Oil refinery assets: / Assets used in other processes: / Drums: / Generally | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Drums: / Used in amine treating, bitumen blowing, potassium carbonate treating or vacuum distillation | 15 years | 6.67% | 13.33% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Electric desalters | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Expansion turbines | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Fans/blowers | 30 years | 3.33% | 6.67% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Filters/coalescers: | | | |
+Oil refinery assets: / Assets used in other processes: / Filters/coalescers: / Generally | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Filters/coalescers: / Used in amine treating, continuous coking, delayed coking, potassium carbonate treating, visbreaking or vacuum distillation | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Flare stacks | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Flare tips | 5 years | 20.00% | 40.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Fractionating columns | 30 years | 3.33% | 6.67% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Furnaces: | | | |
+Oil refinery assets: / Assets used in other processes: / Furnaces: / Generally | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Furnaces: / Used in continuous coking, delayed coking or visbreaking | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Gas absorbers: | | | |
+Oil refinery assets: / Assets used in other processes: / Gas absorbers: / Generally | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Gas absorbers: / Used in amine treating or potassium carbonate treating | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Gas adsorbers | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Heat exchangers: | | | |
+Oil refinery assets: / Assets used in other processes: / Heat exchangers: / Generally | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Heat exchangers: / Used in amine treating, bitumen blowing, catalytic de-waxing, continuous coking, delayed coking, hydrodesulphurisation, hydrotreating, potassium carbonate treating, vacuum distillation or visbreaking | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Jet ejectors | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Liquid extraction columns: | | | |
+Oil refinery assets: / Assets used in other processes: / Liquid extraction columns: / Generally | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Liquid extraction columns: / Used in amine treating | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Piping | 30 years | 3.33% | 6.67% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Process gas compressors | 30 years | 3.33% | 6.67% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Pumps: | | | |
+Oil refinery assets: / Assets used in other processes: / Pumps: / Generally | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Pumps: / Used in amine treating, bitumen blowing, catalytic de-waxing, continuous coking, delayed coking, potassium carbonate treating, vacuum distillation or visbreaking | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Reactors | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Rotary filters | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Scrubbers | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Side stream strippers | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Storage tanks: | | | |
+Oil refinery assets: / Assets used in other processes: / Storage tanks: / Generally | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Storage tanks: / Used in amine treating, merox extraction, merox sweetening or potassium carbonate treating | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Strippers: | | | |
+Oil refinery assets: / Assets used in other processes: / Strippers: / Generally | 25 years | 4.00% | 8.00% | 1 July 2002
+Oil refinery assets: / Assets used in other processes: / Strippers: / Used in amine treating or potassium carbonate treating | 20 years | 5.00% | 10.00% | 1 July 2002
+Oil refinery assets: / Bunds (other than formed with earth) | 100 years | 1.00% | 2.00% | 1 January 2001
+Oil refinery assets: / Control systems assets (excluding computers) | 10 years | 10.00% | 20.00% | 1 July 2002
+Oil refinery assets: / Effluent separators (concrete) | 40 years | 2.50% | 5.00% | 1 January 2001
+Oil refinery assets: / Laboratory equipment | 20 years | 5.00% | 10.00% | 1 January 2001
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Assets used to manufacture condensate, crude oil, domestic gas, liquid natural gas (LNG) or liquid petroleum gas (LPG) but not if the manufacture occurs in an oil refinery – see Table A Oil and gas extraction (07000): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/
+- Assets used in acid, caustic or clay treating, alkylation, polymerisation or sour water stripping: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/assets-used-in-acid-caustic-or-clay-treating-alkylation/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/assets-used-in-sulphur-recovery-generally/
+- Sulphur pits: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/sulphur-pits/
+- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/air-compressors/
+- Catalyst regenerators: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/catalyst-regenerators/
+- Chemical injection systems: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/chemical-injection-systems/
+- Coke drums: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/coke-drums/
+- Distillation columns: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/distillation-columns/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/drums-generally/
+- Used in amine treating, bitumen blowing, potassium carbonate treating or vacuum distillation: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/used-in-amine-treating-bitumen-blowing-potassium-carbonate/
+- Electric desalters: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/electric-desalters/
+- Expansion turbines: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/expansion-turbines/
+- Fans/blowers: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/fans-blowers/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/filters-coalescers-generally/
+- Used in amine treating, continuous coking, delayed coking, potassium carbonate treating, visbreaking or vacuum distillation: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/used-in-amine-treating-continuous-coking-delayed-coking/
+- Flare stacks: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/flare-stacks/
+- Flare tips: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/flare-tips/
+- Fractionating columns: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/fractionating-columns/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/furnaces-generally/
+- Used in continuous coking, delayed coking or visbreaking: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/used-in-continuous-coking-delayed-coking-or-visbreaking/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/gas-absorbers-generally/
+- Used in amine treating or potassium carbonate treating: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/gas-absorbers-used-in-amine-treating-or-potassium-carbonate-treating/
+- Gas adsorbers: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/gas-adsorbers/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/heat-exchangers-generally/
+- Used in amine treating, bitumen blowing, catalytic de-waxing, continuous coking, delayed coking, hydrodesulphurisation, hydrotreating, potassium carbonate treating, vacuum distillation or visbreaking: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/used-in-amine-treating-bitumen-blowing-catalytic-de-waxing-39301c/
+- Jet ejectors: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/jet-ejectors/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/liquid-extraction-columns-generally/
+- Used in amine treating: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/used-in-amine-treating/
+- Piping: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/piping/
+- Process gas compressors: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/process-gas-compressors/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/pumps-generally/
+- Used in amine treating, bitumen blowing, catalytic de-waxing, continuous coking, delayed coking, potassium carbonate treating, vacuum distillation or visbreaking: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/pumps-used-in-amine-treating-bitumen-blowing-catalytic-de-waxing/
+- Reactors: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/reactors/
+- Rotary filters: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/rotary-filters/
+- Scrubbers: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/scrubbers/
+- Side stream strippers: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/side-stream-strippers/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/storage-tanks-generally/
+- Used in amine treating, merox extraction, merox sweetening or potassium carbonate treating: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/used-in-amine-treating-merox-extraction-merox-sweetening-or/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/strippers-generally/
+- Used in amine treating or potassium carbonate treating: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/strippers-used-in-amine-treating-or-potassium-carbonate-treating/
+- Bunds (other than formed with earth): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/bunds/
+- Control systems assets (excluding computers): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/control-systems-assets/
+- Effluent separators (concrete): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/effluent-separators/
+- Laboratory equipment: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-refining/laboratory-equipment/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

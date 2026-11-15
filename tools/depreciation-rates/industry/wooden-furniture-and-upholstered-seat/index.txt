@@ -1,0 +1,102 @@
+# Wooden furniture … effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/
+
+> Table A (industry categories), MANUFACTURING / Wooden …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Wooden furniture and upholstered seat manufacturing
+
+27 effective lives in Table A of the Commissioner’s 2025 effective life determination for Wooden furniture and upholstered seat manufacturing.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Dust management assets: | | | |
+Dust management assets: / Portable dust extractors | 5 years | 20.00% | 40.00% | 1 July 2022
+Dust management assets: / Portable wet and dry vacuum cleaners | 5 years | 20.00% | 40.00% | 1 July 2022
+Dust management assets: / Stationary dust collection systems (incorporating bags, motors, pipes etc) | 12 years | 8.33% | 16.67% | 1 July 2022
+Spray booth assets: | | | |
+Spray booth assets: / Full face air fed masks | 3 years | 33.33% | 66.67% | 1 July 2022
+Spray booth assets: / Paint pumps | 5 years | 20.00% | 40.00% | 1 July 2022
+Spray booth assets: / Spray booths | 15 years | 6.67% | 13.33% | 1 July 2022
+Spray booth assets: / Spray guns | 3 years | 33.33% | 66.67% | 1 July 2022
+Support assets: | | | |
+Support assets: / Air compression assets – see Table B Air compression assets | | | |
+Support assets: / Air compressors (portable) – see Table B Air compressors (portable) | | | |
+Support assets: / Forklifts – see Table B Forklifts | | | |
+Support assets: / Racks | 15 years | 6.67% | 13.33% | 1 July 2022
+Support assets: / Trolleys (carts) | 10 years | 10.00% | 20.00% | 1 July 2022
+Support assets: / Vacuum lifters | 5 years | 20.00% | 40.00% | 1 July 2022
+Support assets: / Work benches and tables | 10 years | 10.00% | 20.00% | 1 July 2022
+Tools: | | | |
+Tools: / Benchtop power tools (including biscuit/domino joiners, drill presses, jigsaws, laminate trimmers, mortisers, planners, routers, spindle sanders etc but excluding saws) | 5 years | 20.00% | 40.00% | 1 July 2022
+Tools: / Clamps | 10 years | 10.00% | 20.00% | 1 July 2022
+Tools: / Hand tools (manual operated) – see Table B Hand tools (manual operated) | | | |
+Tools: / Handheld power tools (including air, battery, and electric) – see Table B Power tools, hand tools | | | |
+Tools: / Sawing machines: | | | |
+Tools: / Sawing machines: / Band saws | 8 years | 12.50% | 25.00% | 1 July 2022
+Tools: / Sawing machines: / Circular saws | 8 years | 12.50% | 25.00% | 1 July 2022
+Tools: / Sawing machines: / Mitre saws (drop saws) | 7 years | 14.29% | 28.57% | 1 July 2022
+Tools: / Sawing machines: / Panel saws | 8 years | 12.50% | 25.00% | 1 July 2022
+Tools: / Sawing machines: / Table saws | 10 years | 10.00% | 20.00% | 1 July 2022
+Tools: / Stationary machines: | | | |
+Tools: / Stationary machines: / Computer numerical control (CNC) machines (including CNC routers) | 10 years | 10.00% | 20.00% | 1 July 2022
+Tools: / Stationary machines: / Edge banders | 8 years | 12.50% | 25.00% | 1 July 2022
+Tools: / Stationary machines: / Pedestal drills (drill presses) | 10 years | 10.00% | 20.00% | 1 July 2022
+Tools: / Stationary machines: / Sanders (including belt sanders, drum sanders, edge sanders, spindle sanders etc) | 12 years | 8.33% | 16.67% | 1 July 2022
+Tools: / Stationary machines: / Spindle moulders | 10 years | 10.00% | 20.00% | 1 July 2022
+Tools: / Stationary machines: / Thicknessers/Buzzers | 15 years | 6.67% | 13.33% | 1 July 2022
+Upholstery assets: | | | |
+Upholstery assets: / CNC fabric cutters | 10 years | 10.00% | 20.00% | 1 July 2022
+Upholstery assets: / Hand fabric cutters | 5 years | 20.00% | 40.00% | 1 July 2022
+Upholstery assets: / Sewing machines | 10 years | 10.00% | 20.00% | 1 July 2022
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Portable dust extractors: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/portable-dust-extractors/
+- Portable wet and dry vacuum cleaners: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/portable-wet-and-dry-vacuum-cleaners/
+- Stationary dust collection systems (incorporating bags, motors, pipes etc): https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/stationary-dust-collection-systems/
+- Full face air fed masks: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/full-face-air-fed-masks/
+- Paint pumps: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/paint-pumps/
+- Spray booths: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/spray-booths/
+- Spray guns: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/spray-guns/
+- Air compression assets – see Table B Air compression assets: https://duguid.com.au/tools/depreciation-rates/asset/air-compression-assets/
+- Forklifts – see Table B Forklifts: https://duguid.com.au/tools/depreciation-rates/asset/forklifts/
+- Racks: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/racks/
+- Trolleys (carts): https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/trolleys/
+- Vacuum lifters: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/vacuum-lifters/
+- Work benches and tables: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/work-benches-and-tables/
+- Benchtop power tools (including biscuit/domino joiners, drill presses, jigsaws, laminate trimmers, mortisers, planners, routers, spindle sanders etc but excluding saws): https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/benchtop-power-tools/
+- Clamps: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/clamps/
+- Hand tools (manual operated) – see Table B Hand tools (manual operated): https://duguid.com.au/tools/depreciation-rates/asset/hand-tools/
+- Band saws: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/band-saws/
+- Circular saws: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/circular-saws/
+- Mitre saws (drop saws): https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/mitre-saws/
+- Panel saws: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/panel-saws/
+- Table saws: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/table-saws/
+- Computer numerical control (CNC) machines (including CNC routers): https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/computer-numerical-control-machines/
+- Edge banders: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/edge-banders/
+- Pedestal drills (drill presses): https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/pedestal-drills/
+- Sanders (including belt sanders, drum sanders, edge sanders, spindle sanders etc): https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/sanders/
+- Spindle moulders: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/spindle-moulders/
+- Thicknessers/Buzzers: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/thicknessers-buzzers/
+- CNC fabric cutters: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/cnc-fabric-cutters/
+- Hand fabric cutters: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/hand-fabric-cutters/
+- Sewing machines: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/sewing-machines/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

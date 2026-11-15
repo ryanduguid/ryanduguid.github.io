@@ -1,0 +1,69 @@
+# Postal services effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/
+
+> Postal services, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Postal services
+
+17 effective lives in Table A of the Commissioner’s 2025 effective life determination for Postal services.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Mail house assets: | | | |
+Mail house assets: / Envelope inserters | 7 years | 14.29% | 28.57% | 1 July 2015
+Mail house assets: / Folders | 12 1/2 years | 8.00% | 16.00% | 1 July 2015
+Mail house assets: / Guillotines | 15 years | 6.67% | 13.33% | 1 July 2015
+Mail house assets: / Heat sealers | 10 years | 10.00% | 20.00% | 1 July 2015
+Mail house assets: / Printers | 5 years | 20.00% | 40.00% | 1 July 2015
+Mail house assets: / Racks | 20 years | 5.00% | 10.00% | 1 July 2015
+Mail house assets: / Scales | 5 years | 20.00% | 40.00% | 1 July 2015
+Mail house assets: / Scanners | 5 years | 20.00% | 40.00% | 1 July 2015
+Mail house assets: / Trolleys | 8 years | 12.50% | 25.00% | 1 July 2015
+Postal delivery services: | | | |
+Postal delivery services: / Control systems and control system assets | 10 years | 10.00% | 20.00% | 1 July 2016
+Postal delivery services: / Flat mail optical character reading and sorting machines | 12 years | 8.33% | 16.67% | 1 July 2016
+Postal delivery services: / Letter boxes (bulk private) | 30 years | 3.33% | 6.67% | 1 July 2016
+Postal delivery services: / Letter sorting assets (including bar code sorters, culler facer cancellers and multiline optical character readers) | 12 years | 8.33% | 16.67% | 1 July 2016
+Postal delivery services: / Motorcycles | 5 years | 20.00% | 40.00% | 1 July 2016
+Postal delivery services: / Parcel lockers | 10 years | 10.00% | 20.00% | 1 July 2016
+Postal delivery services: / Parcel sorting system assets (excluding control systems and control system assets) | 15 years | 6.67% | 13.33% | 1 July 2016
+Postal delivery services: / Post boxes (street type) | 20 years | 5.00% | 10.00% | 1 July 2016
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Envelope inserters: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/envelope-inserters/
+- Folders: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/folders/
+- Guillotines: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/guillotines/
+- Heat sealers: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/heat-sealers/
+- Printers: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/printers/
+- Racks: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/racks/
+- Scales: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/scales/
+- Scanners: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/scanners/
+- Trolleys: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/trolleys/
+- Control systems and control system assets: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/control-systems-and-control-system-assets/
+- Flat mail optical character reading and sorting machines: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/flat-mail-optical-character-reading-and-sorting-machines/
+- Letter boxes (bulk private): https://duguid.com.au/tools/depreciation-rates/industry/postal-services/letter-boxes/
+- Letter sorting assets (including bar code sorters, culler facer cancellers and multiline optical character readers): https://duguid.com.au/tools/depreciation-rates/industry/postal-services/letter-sorting-assets/
+- Motorcycles: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/motorcycles/
+- Parcel lockers: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/parcel-lockers/
+- Parcel sorting system assets (excluding control systems and control system assets): https://duguid.com.au/tools/depreciation-rates/industry/postal-services/parcel-sorting-system-assets/
+- Post boxes (street type): https://duguid.com.au/tools/depreciation-rates/industry/postal-services/post-boxes/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

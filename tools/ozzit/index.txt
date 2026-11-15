@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/tools/ozzit/
 
-> A free Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
+> A free Excel workbook of 150 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
 
 # Ozzit
 
-The Ozzit workbook holds 143 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
+The Ozzit workbook holds 150 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
 
-Current release Ozzit v3.5.0, 19 October 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 21 October 2026.
+Current release Ozzit v3.6.0, 14 November 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 15 November 2026.
 
 Delivery
 
@@ -22,9 +22,9 @@ Boundary
 
 Calculates only. The reviewer decides the accounting treatment and the tax position.
 
-Download Ozzit v3.5.0 Browse worked formulas
+Download Ozzit v3.6.0 Browse worked formulas
 
-XLSX, 462,490 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
+XLSX, 485,256 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
 
 ## Extract GST from $1,100
 
@@ -40,9 +40,11 @@ Assumes a wholly taxable, GST-inclusive amount at 10%. Read the workings, the Ex
 
 An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native LAMBDA stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.
 
-The v3.5.0 workbook carries 148 named formulas: 143 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s src/ folder and indexed in functions.csv.
+The v3.6.0 workbook carries 155 named formulas: 150 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s src/ folder and indexed in functions.csv.
 
 The Australian helpers are deliberately small: GST addition and extraction with a 10% default rate, a 1 July financial year label, 5 helpers for the ATO’s small business benchmark ratios, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
+
+Release v3.6.0 adds 7 functions: oz.Varianceλ and oz.VariancePctλ for budget variance, oz.FinancialMonthλ, oz.FinancialQuarterλ and oz.YearToDateλ for financial-year periods, oz.LevelPaymentλ for a level loan payment when each period has its own rate, and oz.CorkscrewRateλ for a corkscrew whose interest runs on the average of each period’s opening and closing balances. Each has its entry in the index below.
 
 ## Who it is for and what it needs
 
@@ -53,14 +55,14 @@ What the workbook needs. Scroll sideways on small screens.
 Requires | Microsoft 365 or Excel 2024 or later, with LAMBDA and dynamic arrays
 Does not run in | LibreOffice and Excel versions before 2024, which cannot evaluate the functions
 Contains | No VBA, no macros, no add-in and no external link
-Licence | Apache License 2.0 from v3.5.0, covering the workbook, the formula source and the function index. v3.4.2 and earlier releases stay under MIT
+Licence | Ryan Duguid Public Attribution Licence 1.0 from v3.6.0: FSL-1.1-ALv2 plus a public attribution condition. v3.5.0 stays under the Apache License 2.0, and v3.4.2 and earlier releases under MIT
 Author | Ryan Duguid. Built from scratch, with provenance recorded in the repository
 
 ## Ten worked formulas
 
-Open an example for its arguments, formula, expected display and limits. These examples describe v3.5.0 and need Microsoft 365 or Excel 2024 or later. Enter them in the Ozzit workbook with space for any spilled result.
+Open an example for its arguments, formula, expected display and limits. These examples describe v3.6.0 and need Microsoft 365 or Excel 2024 or later. Enter them in the Ozzit workbook with space for any spilled result.
 
-All ten were evaluated in Excel 16.0 build 20527 on 19 October 2026 against the unchanged released workbook. Read the inputs and raw results. The check verifies these calculations, not an accounting treatment.
+All ten were evaluated in Excel 16.0 build 20625 on 15 November 2026 against the unchanged released workbook. Read the inputs and raw results. The check verifies these calculations, not an accounting treatment.
 
 ### Extract GST from an inclusive amount
 
@@ -222,11 +224,67 @@ Limits: One outflow of 1,000 followed by an inflow of 1,100 one year later. Othe
 
 Link to this example · Released formula source
 
-## All 148 named formulas
+## All 155 named formulas
 
-Each module below lists the names its source file defines in the v3.5.0 workbook, with the released signature of each. Square brackets mark optional arguments. Each name links to its entry on a module page with its parameters, notes and worked examples: Dates, Essentials, Financial, Ratios, Utilities and Debt.
+Each module below lists the names its source file defines in the v3.6.0 workbook, with the released signature of each. Square brackets mark optional arguments. Each name links to its entry on a module page with its parameters, notes and worked examples: Dates, Essentials, Financial, Ratios, Utilities and Debt.
 
-Download the full v3.5.0 function index (CSV) for a one-line description of each, or read it on GitHub.
+Download the full v3.6.0 function index (CSV) for a one-line description of each, or read it on GitHub.
+
+### Financial, 51 named formulas
+
+- oz.AboutFinancialλ
+- oz.Allocateλ(Amounts, [FromInterval], [ToInterval])
+- oz.Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd])
+- oz.AmortiseλDV
+- oz.AnnualRateλ(PeriodRate, [PeriodsPerYear])
+- oz.CorkScrewReversalλ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4])
+- oz.CorkscrewRateλ(Opening, Rates, Flow1, [Flow2], [Flow3], [Flow4])
+- oz.Corkscrewλ( Opening, Flow1, [Flow2], [Flow3], [Flow4])
+- oz.CorkscrewλDV
+- oz.Cumulativeλ( Totals, [OpeningBalance])
+- oz.DBλ(Cost, Salvage, Life, [Months])
+- oz.DDBλ(Cost, Salvage, Life, [Factor])
+- oz.DayCountRateλ(Timeline, APR, [Convention], [EndDates])
+- oz.Depreciateλ(InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors])
+- oz.DepreciateλDV
+- oz.DiminishingValueλ(Cost, Life)
+- oz.FilterContainsλ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] )
+- oz.GSTAddλ(Amounts, [Rate])
+- oz.GSTExtractλ(Amounts, [Rate])
+- oz.IRRλ( Values, Dates)
+- oz.IntOnIntλ( Principal, Rate)
+- oz.LabelAmortiseλ(LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms])
+- oz.LabelDepreciateλ( AssetNames)
+- oz.LeaseLiabilityλ(Payments, Rate, [InAdvance])
+- oz.LeaseRemeasureλ(RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance])
+- oz.LeaseScheduleλ(Payments, Rate, [InAdvance])
+- oz.LevelPaymentλ(Principal, Rates, [Balloon])
+- oz.Movementλ( [BeginningValues], Values)
+- oz.PeriodDiffλ(StartDate, EndDate, Interval)
+- oz.PeriodRateλ(AnnualRate, [PeriodsPerYear])
+- oz.PeriodStartλ(AnyPeriodStart, MonthsPerPeriod, DateOfInterest)
+- oz.PrimeCostλ(Cost, Life)
+- oz.ROUScheduleλ(Cost, Periods)
+- oz.RangeToDAλ( Cell, [Rows], [Columns])
+- oz.Reversalλ( [OpeningValue], RowToReverse)
+- oz.RollingAvgλ( Values, Size)
+- oz.RollingMaxλ( Values, Size)
+- oz.RollingMinλ( Values, Size)
+- oz.RollingSumλ( Values, Size)
+- oz.SLNλ(Cost, Salvage, Life)
+- oz.SYDλ(Cost, Salvage, Life)
+- oz.SumAmortiseλ(AmortisationSchedule)
+- oz.SumContainsλ(ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?])
+- oz.SumDepreciateλ(DepreciationSchedule)
+- oz.SumPeriodsλ( Values, Dates, PeriodStarts)
+- oz.TimelineOffsetλ(Date, Timeline)
+- oz.TimelinePositionλ(Array, Timeline, Offset)
+- oz.VDBλ(Cost, Salvage, Life, [Factor], [No_Switch])
+- oz.VariancePctλ(Actual, Budget, [Type])
+- oz.Varianceλ(Actual, Budget, [Type])
+- oz.YearToDateλ(Values, Dates, AsAt, [StartMonth])
+
+Released Financial source
 
 ### Ratios, 48 named formulas
 
@@ -245,7 +303,7 @@ Download the full v3.5.0 function index (CSV) for a one-line description of each
 - oz.CurrentRatioλ( Assets, Liabilities)
 - oz.DPRλ( DividendsPaid, NetIncome )
 - oz.DSCRλ( NetOperatingIncome, TotalDebtService)
-- oz.DSIλ( AverageInventory, CostOfGoodsSold)
+- oz.DSIλ( AverageInventory, CostOfGoodsSold, [Days])
 - oz.DebtRatioλ( TotalDebt, TotalAssets)
 - oz.DebtToAssetRatioλ( TotalDebt, TotalAssets)
 - oz.DebtToCapitalRatioλ( Debt, ShareholdersEquity)
@@ -281,56 +339,27 @@ Download the full v3.5.0 function index (CSV) for a one-line description of each
 
 Released Ratios source
 
-### Financial, 46 named formulas
+### Dates, 17 named formulas
 
-- oz.AboutFinancialλ
-- oz.Allocateλ(Amounts, [FromInterval], [ToInterval])
-- oz.Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd])
-- oz.AmortiseλDV
-- oz.AnnualRateλ(PeriodRate, [PeriodsPerYear])
-- oz.CorkScrewReversalλ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4])
-- oz.Corkscrewλ( Opening, Flow1, [Flow2], [Flow3], [Flow4])
-- oz.CorkscrewλDV
-- oz.Cumulativeλ( Totals, [OpeningBalance])
-- oz.DBλ(Cost, Salvage, Life, [Months])
-- oz.DDBλ(Cost, Salvage, Life, [Factor])
-- oz.DayCountRateλ(Timeline, APR, [Convention], [EndDates])
-- oz.Depreciateλ(InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors])
-- oz.DepreciateλDV
-- oz.DiminishingValueλ(Cost, Life)
-- oz.FilterContainsλ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] )
-- oz.GSTAddλ(Amounts, [Rate])
-- oz.GSTExtractλ(Amounts, [Rate])
-- oz.IRRλ( Values, Dates)
-- oz.IntOnIntλ( Principal, Rate)
-- oz.LabelAmortiseλ(LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms])
-- oz.LabelDepreciateλ( AssetNames)
-- oz.LeaseLiabilityλ(Payments, Rate, [InAdvance])
-- oz.LeaseRemeasureλ(RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance])
-- oz.LeaseScheduleλ(Payments, Rate, [InAdvance])
-- oz.Movementλ( [BeginningValues], Values)
-- oz.PeriodDiffλ(StartDate, EndDate, Interval)
-- oz.PeriodRateλ(AnnualRate, [PeriodsPerYear])
-- oz.PeriodStartλ(AnyPeriodStart, MonthsPerPeriod, DateOfInterest)
-- oz.PrimeCostλ(Cost, Life)
-- oz.ROUScheduleλ(Cost, Periods)
-- oz.RangeToDAλ( Cell, [Rows], [Columns])
-- oz.Reversalλ( [OpeningValue], RowToReverse)
-- oz.RollingAvgλ( Values, Size)
-- oz.RollingMaxλ( Values, Size)
-- oz.RollingMinλ( Values, Size)
-- oz.RollingSumλ( Values, Size)
-- oz.SLNλ(Cost, Salvage, Life)
-- oz.SYDλ(Cost, Salvage, Life)
-- oz.SumAmortiseλ(AmortisationSchedule)
-- oz.SumContainsλ(ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?])
-- oz.SumDepreciateλ(DepreciationSchedule)
-- oz.SumPeriodsλ( Values, Dates, PeriodStarts)
-- oz.TimelineOffsetλ(Date, Timeline)
-- oz.TimelinePositionλ(Array, Timeline, Offset)
-- oz.VDBλ(Cost, Salvage, Life, [Factor], [No_Switch])
+- oz.AboutDatesλ
+- oz.CountDOWλ(Starts, Ends, DayOfWeek)
+- oz.DateDifλ(StartDate, EndDate, [Unit])
+- oz.FinancialMonthλ(Dates, [StartMonth])
+- oz.FinancialQuarterλ(Dates, [StartMonth])
+- oz.FinancialYearλ(Dates, [StartMonth])
+- oz.IsBetweenλ(Values, Low, High, [Inclusive])
+- oz.IsOccurrenceDateλ(Dates, FirstOccurrence, [LastOccurrence], [Repeats])
+- oz.OverLapDaysλ(Period1Start, Period1End, Period2Start, Period2End)
+- oz.PeriodLabelλ(Date, [Interval])
+- oz.Periodsλ(Starts, Ends, [Intervals])
+- oz.RateAtDateλ(EffectiveDates, Rates, Dates)
+- oz.ScheduleRatesByItemsλ(PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList)
+- oz.ScheduleRatesλ(PeriodEnds, RateStarts, Rates)
+- oz.ScheduleValuesByItemsλ(PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList)
+- oz.ScheduleValuesλ(PeriodStarts, PeriodEnds, Values, EffectiveDates)
+- oz.Timelineλ(StartDate, Periods, Interval, PeriodStarts?)
 
-Released Financial source
+Released Dates source
 
 ### Essentials, 17 named formulas
 
@@ -376,26 +405,6 @@ Released Essentials source
 
 Released Utilities source
 
-### Dates, 15 named formulas
-
-- oz.AboutDatesλ
-- oz.CountDOWλ(Starts, Ends, DayOfWeek)
-- oz.DateDifλ(StartDate, EndDate, [Unit])
-- oz.FinancialYearλ(Dates, [StartMonth])
-- oz.IsBetweenλ(Values, Low, High, [Inclusive])
-- oz.IsOccurrenceDateλ(Dates, FirstOccurrence, [LastOccurrence], [Repeats])
-- oz.OverLapDaysλ(Period1Start, Period1End, Period2Start, Period2End)
-- oz.PeriodLabelλ(Date, [Interval])
-- oz.Periodsλ(Starts, Ends, [Intervals])
-- oz.RateAtDateλ(EffectiveDates, Rates, Dates)
-- oz.ScheduleRatesByItemsλ(PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList)
-- oz.ScheduleRatesλ(PeriodEnds, RateStarts, Rates)
-- oz.ScheduleValuesByItemsλ(PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList)
-- oz.ScheduleValuesλ(PeriodStarts, PeriodEnds, Values, EffectiveDates)
-- oz.Timelineλ(StartDate, Periods, Interval, PeriodStarts?)
-
-Released Dates source
-
 ### Debt, 5 named formulas
 
 - oz.AmortiseBλ(Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod])
@@ -420,26 +429,27 @@ That is the whole of the function’s contribution: 10% arithmetic on an amount 
 
 Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.
 
-The 19 October 2026 native Excel record evaluates this formula against the exact v3.5.0 release workbook. It returned 99.999999999999986 before display rounding. The file hash was unchanged after the check. The repository also retains its historical v3.2.0 screenshot record.
+The 15 November 2026 native Excel record evaluates this formula against the exact v3.6.0 release workbook. It returned 99.999999999999986 before display rounding. The file hash was unchanged after the check. The repository also retains its historical v3.2.0 screenshot record.
 
 ## Download and use it
 
 Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.
 
-- Download the v3.5.0 workbook. The release page also publishes SHA256SUMS and a provenance record.
-- Check the file before you trust it: the v3.5.0 asset is 462,490 bytes with SHA-256 76d3722c785abd3813ffffffc5fbb2d6ab80628da10fb7f36cea7c67fd171330.
+- Download the v3.6.0 workbook. The release page also publishes SHA256SUMS and a provenance record.
+- Check the file before you trust it: the v3.6.0 asset is 485,256 bytes with SHA-256 95006168d685496f27b04ab95099a7c103d3013cf031178046ffcbfcfd88d65b.
 - Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
 
-To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.5.0 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
+To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.6.0 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
 
 ## Release verification
 
-Release v3.5.0 was built from a signed tag and gated before publication. On 19 October 2026, in Excel 16.0 build 20527:
+Release v3.6.0 was built from a signed tag. Its provenance record lists the static gates it passed:
 
-- 1,129 formulas recalculated with 0 in error.
-- 1,065 assertions ran with 0 failures: 741 written by hand, 23 of them randomised against independent formulas, and 324 generated from the workbook’s own help.
-- 19,446 cached values were confirmed to equal what their formulas produce.
-- The published formula source reproduced all 148 named formulas, and the workbook was byte-identical before and after the Excel checks.
+- The published formula source reproduced all 155 named formulas in the workbook.
+- All 155 rows of the function index matched the workbook and the source modules.
+- All 147 signatures, parameter tables and example blocks described their own function.
+
+The repository’s release process requires a native Excel run before publication: 1,129 formulas recalculated with 0 in error, 1,294 assertions with 0 failures (951 written by hand, 23 of them randomised, and 343 generated from the workbook’s own help), and every cached value equal to what its formula produces. The provenance record does not include those native results, so this page does not state when they ran or in which Excel build. On 15 November 2026 the ten worked formulas above returned the same results against the v3.6.0 workbook as against v3.5.0.
 
 Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct.
 
@@ -459,7 +469,7 @@ The functions calculate; a person decides the accounting treatment and signs off
 
 ### What is Ozzit?
 
-An Excel workbook containing 143 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Apache License 2.0. It has no add-in, macro or external dependency.
+An Excel workbook containing 150 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Ryan Duguid Public Attribution Licence 1.0. It has no add-in, macro or external dependency.
 
 ### Which Excel versions can run it?
 
@@ -471,7 +481,7 @@ No. It performs 10% GST arithmetic and labels Australian financial years, and it
 
 ### Where do I get the current release?
 
-Release v3.5.0, published on 19 October 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use.
+Release v3.6.0, published on 14 November 2026, is the current release and the one this page documents. It adds 7 functions, bringing the total to 150, and is the first release under the Ryan Duguid Public Attribution Licence 1.0; v3.5.0 stays under the Apache License 2.0. Each release ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use. Read the v3.6.0 release page.
 
 ## Related
 
@@ -485,17 +495,17 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- v3.5.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0
+- v3.6.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.0
 - Ozzit: https://github.com/ryanduguid/Ozzit/tree/main
-- Download Ozzit v3.5.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx
+- Download Ozzit v3.6.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.6.0/ozzit.xlsx
 - Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
 - Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example
-- Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.5.0.json
+- Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.6.0.json
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract
-- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Financial.txt
+- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Financial.txt
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstadd
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-financialyear
-- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Dates.txt
+- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Dates.txt
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-primecost
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-diminishingvalue
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-amortise
@@ -509,8 +519,59 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Ratios: https://duguid.com.au/tools/ozzit/functions/ratios/
 - Utilities: https://duguid.com.au/tools/ozzit/functions/utilities/
 - Debt: https://duguid.com.au/tools/ozzit/functions/debt/
-- Download the full v3.5.0 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.5.0.csv
-- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/functions.csv
+- Download the full v3.6.0 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.6.0.csv
+- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/functions.csv
+- oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
+- oz.Allocate λ (Amounts, [FromInterval], [ToInterval]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-allocate
+- oz.Amortise λ ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortise
+- oz.Amortise λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortisedv
+- oz.AnnualRate λ (PeriodRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-annualrate
+- oz.CorkScrewReversal λ ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewreversal
+- oz.CorkscrewRate λ (Opening, Rates, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewrate
+- oz.Corkscrew λ ( Opening, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew
+- oz.Corkscrew λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewdv
+- oz.Cumulative λ ( Totals, [OpeningBalance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-cumulative
+- oz.DB λ (Cost, Salvage, Life, [Months]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-db
+- oz.DDB λ (Cost, Salvage, Life, [Factor]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-ddb
+- oz.DayCountRate λ (Timeline, APR, [Convention], [EndDates]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-daycountrate
+- oz.Depreciate λ (InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciate
+- oz.Depreciate λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciatedv
+- oz.DiminishingValue λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-diminishingvalue
+- oz.FilterContains λ ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] ): https://duguid.com.au/tools/ozzit/functions/financial/#oz-filtercontains
+- oz.GSTAdd λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstadd
+- oz.GSTExtract λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstextract
+- oz.IRR λ ( Values, Dates): https://duguid.com.au/tools/ozzit/functions/financial/#oz-irr
+- oz.IntOnInt λ ( Principal, Rate): https://duguid.com.au/tools/ozzit/functions/financial/#oz-intonint
+- oz.LabelAmortise λ (LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labelamortise
+- oz.LabelDepreciate λ ( AssetNames): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labeldepreciate
+- oz.LeaseLiability λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseliability
+- oz.LeaseRemeasure λ (RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseremeasure
+- oz.LeaseSchedule λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseschedule
+- oz.LevelPayment λ (Principal, Rates, [Balloon]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-levelpayment
+- oz.Movement λ ( [BeginningValues], Values): https://duguid.com.au/tools/ozzit/functions/financial/#oz-movement
+- oz.PeriodDiff λ (StartDate, EndDate, Interval): https://duguid.com.au/tools/ozzit/functions/financial/#oz-perioddiff
+- oz.PeriodRate λ (AnnualRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodrate
+- oz.PeriodStart λ (AnyPeriodStart, MonthsPerPeriod, DateOfInterest): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodstart
+- oz.PrimeCost λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-primecost
+- oz.ROUSchedule λ (Cost, Periods): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rouschedule
+- oz.RangeToDA λ ( Cell, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rangetoda
+- oz.Reversal λ ( [OpeningValue], RowToReverse): https://duguid.com.au/tools/ozzit/functions/financial/#oz-reversal
+- oz.RollingAvg λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingavg
+- oz.RollingMax λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmax
+- oz.RollingMin λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmin
+- oz.RollingSum λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingsum
+- oz.SLN λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sln
+- oz.SYD λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-syd
+- oz.SumAmortise λ (AmortisationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumamortise
+- oz.SumContains λ (ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumcontains
+- oz.SumDepreciate λ (DepreciationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumdepreciate
+- oz.SumPeriods λ ( Values, Dates, PeriodStarts): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumperiods
+- oz.TimelineOffset λ (Date, Timeline): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineoffset
+- oz.TimelinePosition λ (Array, Timeline, Offset): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineposition
+- oz.VDB λ (Cost, Salvage, Life, [Factor], [No_Switch]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-vdb
+- oz.VariancePct λ (Actual, Budget, [Type]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-variancepct
+- oz.Variance λ (Actual, Budget, [Type]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-variance
+- oz.YearToDate λ (Values, Dates, AsAt, [StartMonth]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-yeartodate
 - oz.ATOBenchmarkRatio λ (Amount, Turnover): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atobenchmarkratio
 - oz.ATOCostOfSalesRatio λ (CostOfSales, Turnover, [IncludedWages]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atocostofsalesratio
 - oz.ATOLabourRatio λ (SalaryWages, Contractors, Turnover, [AssociatePayments], [W1]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atolabourratio
@@ -526,7 +587,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.CurrentRatio λ ( Assets, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-currentratio
 - oz.DPR λ ( DividendsPaid, NetIncome ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dpr
 - oz.DSCR λ ( NetOperatingIncome, TotalDebtService): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dscr
-- oz.DSI λ ( AverageInventory, CostOfGoodsSold): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dsi
+- oz.DSI λ ( AverageInventory, CostOfGoodsSold, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dsi
 - oz.DebtRatio λ ( TotalDebt, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debtratio
 - oz.DebtToAssetRatio λ ( TotalDebt, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoassetratio
 - oz.DebtToCapitalRatio λ ( Debt, ShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttocapitalratio
@@ -559,53 +620,24 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.RetentionRatio λ ( RetainedEarnings, NetIncome ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-retentionratio
 - oz.WIPDays λ (WIP, RelatedFlow, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-wipdays
 - oz.WorkingCapitalTurnoverRatio λ ( NetAnnualSales, WorkingCapital): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-workingcapitalturnoverratio
-- Released Ratios source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt
-- oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
-- oz.Allocate λ (Amounts, [FromInterval], [ToInterval]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-allocate
-- oz.Amortise λ ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortise
-- oz.Amortise λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortisedv
-- oz.AnnualRate λ (PeriodRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-annualrate
-- oz.CorkScrewReversal λ ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewreversal
-- oz.Corkscrew λ ( Opening, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew
-- oz.Corkscrew λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewdv
-- oz.Cumulative λ ( Totals, [OpeningBalance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-cumulative
-- oz.DB λ (Cost, Salvage, Life, [Months]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-db
-- oz.DDB λ (Cost, Salvage, Life, [Factor]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-ddb
-- oz.DayCountRate λ (Timeline, APR, [Convention], [EndDates]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-daycountrate
-- oz.Depreciate λ (InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciate
-- oz.Depreciate λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciatedv
-- oz.DiminishingValue λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-diminishingvalue
-- oz.FilterContains λ ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] ): https://duguid.com.au/tools/ozzit/functions/financial/#oz-filtercontains
-- oz.GSTAdd λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstadd
-- oz.GSTExtract λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstextract
-- oz.IRR λ ( Values, Dates): https://duguid.com.au/tools/ozzit/functions/financial/#oz-irr
-- oz.IntOnInt λ ( Principal, Rate): https://duguid.com.au/tools/ozzit/functions/financial/#oz-intonint
-- oz.LabelAmortise λ (LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labelamortise
-- oz.LabelDepreciate λ ( AssetNames): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labeldepreciate
-- oz.LeaseLiability λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseliability
-- oz.LeaseRemeasure λ (RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseremeasure
-- oz.LeaseSchedule λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseschedule
-- oz.Movement λ ( [BeginningValues], Values): https://duguid.com.au/tools/ozzit/functions/financial/#oz-movement
-- oz.PeriodDiff λ (StartDate, EndDate, Interval): https://duguid.com.au/tools/ozzit/functions/financial/#oz-perioddiff
-- oz.PeriodRate λ (AnnualRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodrate
-- oz.PeriodStart λ (AnyPeriodStart, MonthsPerPeriod, DateOfInterest): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodstart
-- oz.PrimeCost λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-primecost
-- oz.ROUSchedule λ (Cost, Periods): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rouschedule
-- oz.RangeToDA λ ( Cell, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rangetoda
-- oz.Reversal λ ( [OpeningValue], RowToReverse): https://duguid.com.au/tools/ozzit/functions/financial/#oz-reversal
-- oz.RollingAvg λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingavg
-- oz.RollingMax λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmax
-- oz.RollingMin λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmin
-- oz.RollingSum λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingsum
-- oz.SLN λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sln
-- oz.SYD λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-syd
-- oz.SumAmortise λ (AmortisationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumamortise
-- oz.SumContains λ (ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumcontains
-- oz.SumDepreciate λ (DepreciationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumdepreciate
-- oz.SumPeriods λ ( Values, Dates, PeriodStarts): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumperiods
-- oz.TimelineOffset λ (Date, Timeline): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineoffset
-- oz.TimelinePosition λ (Array, Timeline, Offset): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineposition
-- oz.VDB λ (Cost, Salvage, Life, [Factor], [No_Switch]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-vdb
+- Released Ratios source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Ratios.txt
+- oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
+- oz.CountDOW λ (Starts, Ends, DayOfWeek): https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
+- oz.DateDif λ (StartDate, EndDate, [Unit]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
+- oz.FinancialMonth λ (Dates, [StartMonth]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialmonth
+- oz.FinancialQuarter λ (Dates, [StartMonth]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialquarter
+- oz.FinancialYear λ (Dates, [StartMonth]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialyear
+- oz.IsBetween λ (Values, Low, High, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isbetween
+- oz.IsOccurrenceDate λ (Dates, FirstOccurrence, [LastOccurrence], [Repeats]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isoccurrencedate
+- oz.OverLapDays λ (Period1Start, Period1End, Period2Start, Period2End): https://duguid.com.au/tools/ozzit/functions/dates/#oz-overlapdays
+- oz.PeriodLabel λ (Date, [Interval]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periodlabel
+- oz.Periods λ (Starts, Ends, [Intervals]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periods
+- oz.RateAtDate λ (EffectiveDates, Rates, Dates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-rateatdate
+- oz.ScheduleRatesByItems λ (PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-scheduleratesbyitems
+- oz.ScheduleRates λ (PeriodEnds, RateStarts, Rates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulerates
+- oz.ScheduleValuesByItems λ (PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevaluesbyitems
+- oz.ScheduleValues λ (PeriodStarts, PeriodEnds, Values, EffectiveDates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevalues
+- oz.Timeline λ (StartDate, Periods, Interval, PeriodStarts?): https://duguid.com.au/tools/ozzit/functions/dates/#oz-timeline
 - oz.AboutEssentials λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-aboutessentials
 - oz.AvgCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgcols
 - oz.AvgRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgrows
@@ -623,7 +655,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.RangeToDAE λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-rangetodae
 - oz.SumCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumcols
 - oz.SumRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumrows
-- Released Essentials source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Essentials.txt
+- Released Essentials source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Essentials.txt
 - oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
 - oz.AvgColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgcolsu
 - oz.AvgRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgrowsu
@@ -641,32 +673,19 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.RangeToDAU λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-rangetodau
 - oz.SumColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumcolsu
 - oz.SumRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumrowsu
-- Released Utilities source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Utilities.txt
-- oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
-- oz.CountDOW λ (Starts, Ends, DayOfWeek): https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
-- oz.DateDif λ (StartDate, EndDate, [Unit]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
-- oz.FinancialYear λ (Dates, [StartMonth]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialyear
-- oz.IsBetween λ (Values, Low, High, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isbetween
-- oz.IsOccurrenceDate λ (Dates, FirstOccurrence, [LastOccurrence], [Repeats]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isoccurrencedate
-- oz.OverLapDays λ (Period1Start, Period1End, Period2Start, Period2End): https://duguid.com.au/tools/ozzit/functions/dates/#oz-overlapdays
-- oz.PeriodLabel λ (Date, [Interval]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periodlabel
-- oz.Periods λ (Starts, Ends, [Intervals]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periods
-- oz.RateAtDate λ (EffectiveDates, Rates, Dates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-rateatdate
-- oz.ScheduleRatesByItems λ (PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-scheduleratesbyitems
-- oz.ScheduleRates λ (PeriodEnds, RateStarts, Rates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulerates
-- oz.ScheduleValuesByItems λ (PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevaluesbyitems
-- oz.ScheduleValues λ (PeriodStarts, PeriodEnds, Values, EffectiveDates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevalues
-- oz.Timeline λ (StartDate, Periods, Interval, PeriodStarts?): https://duguid.com.au/tools/ozzit/functions/dates/#oz-timeline
+- Released Utilities source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Utilities.txt
 - oz.AmortiseB λ (Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-amortiseb
 - oz.DebtSculptFixed λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptfixed
 - oz.DebtSculptVariableLRV λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariablelrv
 - oz.DebtSculptVariable λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariable
 - oz.InterestLRV λ (CFADS, DSCR, Principal, InterestRate): https://duguid.com.au/tools/ozzit/functions/debt/#oz-interestlrv
-- Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Debt.txt
-- historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/docs/native-gst-capture.md
+- Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Debt.txt
+- historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/docs/native-gst-capture.md
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
-- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/docs/workbook-use.md
-- the v3.5.0 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/CITATION.cff
+- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/docs/workbook-use.md
+- the v3.6.0 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/CITATION.cff
+- provenance record: https://github.com/ryanduguid/Ozzit/releases/download/v3.6.0/provenance.json
+- release process: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/RELEASING.md
 - Profit vs cash flow: an Australian Excel worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Browser calculators, nothing to install: https://duguid.com.au/tools/business-calculators/
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/

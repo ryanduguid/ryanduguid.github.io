@@ -9,7 +9,11 @@ before changing a page.
 Use Ruby 3.3 with Bundler, Rust through rustup, Python 3.14 or newer and Node 24 LTS.
 Run `bundle install` once for the locked Jekyll build and
 `cargo install --locked --path scripts` for `site-tools` (again after pulling
-changes). `.github/workflows/checks.yml` runs the pinned linters first, then the
+changes). A `site-tools` built from other `scripts/` sources than the checkout
+refuses to write there (`--write`, `--update-baseline`, the `build_*` commands,
+`check_ato_sources` with a baseline, report or issue path, and the other commands
+that write files) and warns before any other command; the message names both
+source digests. `.github/workflows/checks.yml` runs the pinned linters first, then the
 site checks:
 
 ```bash
@@ -45,8 +49,11 @@ separate from each request's 30-second timeout. Exhausted retries and permanent
 HTTP errors still fail the live check, except on pull requests that run live
 link checks: there `check_site --ci` passes `--transient-warnings`, and a link
 still failing with HTTP 429, 5xx or a timeout after its retries is reported as a
-warning (a `WARN` line and an Actions annotation) instead. HTTP 4xx other than
-the allow-listed denials below, DNS and other transport failures still fail pull
+warning (a `WARN` line and an Actions annotation) instead, as is a
+`web.archive.org` snapshot that fails with any transport error (such as a
+refused connection), because the archive refuses bursts of automated requests.
+HTTP 4xx other than the allow-listed denials below, including a 404 from the
+archive, and DNS and other transport failures on other hosts still fail pull
 requests, and an own-repository link that warns still gets its identity and
 archive lookup. The weekly scheduled and manual runs keep
 every failure strict, so a host that stays down fails within a week.
@@ -129,7 +136,13 @@ no jobs; App-raised runs start normally. The App is installed on this repository
 only, with Contents and Pull requests read and write and no Workflows permission.
 Its client ID is the repository variable `SOURCE_FRESHNESS_APP_CLIENT_ID` and its
 private key the secret `SOURCE_FRESHNESS_APP_PRIVATE_KEY`; the job requests a
-token limited to those 2 permissions.
+token limited to those 2 permissions. The job then enables squash auto-merge, so
+the pull request lands once the required checks pass and the branch is up to date
+with `main`; it refuses a patch that changes anything but `tools/index.html`,
+`tools/index.txt` and the `llms-full` mirrors. GitHub never updates the branch by
+itself, so every run of the workflow on `main` brings an open stamp pull request up
+to date with the same App token. A required check that fails leaves the pull
+request open for a fix.
 
 The same workflow runs `site-tools check_production`, which fetches the
 live pages and holds them to the delivery promises in the README: the five
@@ -247,11 +260,55 @@ determinations, rulings and law' names the current instrument):
    move its Sources checked date. Finish as for any content edit: a changelog
    row, `build_feed --write`, `build_llms_full --write`, `check_design
    --update-baseline` and `check_site`.
+7. Rebuild the effective life pages from the new file, as 'Effective life pages'
+   below describes, before step 6's `check_site`, which fails until they match.
+
+### Effective life pages
+
+`site-tools build_effective_life_pages --write` writes a page for every life in
+`effective-life.json` under `tools/depreciation-rates/industry/` and
+`tools/depreciation-rates/asset/`, a group page for each Table A sub-industry and
+each Table B asset with rows under it, the 2 index pages, a text mirror of each
+page, `tools/depreciation-rates/sitemap.xml`, `tools/depreciation-rates/llms.txt`
+and `_includes/effective-life-groups.html`, which the depreciation rates page
+includes to link every group page. A Table B asset with a life of its own has an
+asset page; one that only points to another row has none. Never edit these files
+by hand. `--check` compares them with the data and writes
+nothing; `check_site` runs it before Jekyll.
+
+`tools/depreciation-rates/effective-life-pages.json` is the address map: each
+page's key (its table, headings and wording), address, date published, date
+modified and content hash. It is the only source of addresses and dates. An
+address, once in the map, does not change; `published` never moves; `--write`
+moves `modified` to today only for a page whose content changed.
+
+After a new determination:
+
+1. Run `--write`. If the data no longer has a page the map holds, it lists each
+   one and refuses, as a published address must not disappear.
+2. Note each listed page's `url` and `published`, delete its record and run
+   `--write`: the rows that are new to the map get records of their own.
+3. For each listed page, find the row it became (a reworded row, or one moved to
+   another heading), set that row's `url` and `published` back to the noted ones
+   and run `--write` again, which moves the page to its old address. A row removed
+   outright has no successor: its address now returns 404, since GitHub Pages
+   cannot send a 301. Record each such removal in the changelog row.
+4. Run `--check` and review the diff: the map shows each page that changed as a
+   moved `modified` date. `scripts/tests/effective_life_pages.rs` pins the page
+   counts and lists the pages whose opening sentence may run long (`LONG_LEADS`):
+   update both from the new determination after reading the pages they name.
+5. After the change is deployed, tell search engines once. `--indexnow` prints
+   the IndexNow request body for the pages dated by the last `--write`; POST it to
+   a search engine's `/indexnow` endpoint as JSON. A 200 or 202 is success; 403
+   means the key file at the site root does not match; 422 means a URL is on
+   another host. Run `--indexnow` after the last `--write` and before the next:
+   a second `--write` on another day dates only what it changed, so the first
+   batch is no longer listed.
 
 ## Ozzit reference examples
 
-The ten examples use the Apache-2.0 Ozzit v3.5.0 function index in
-`assets/ozzit-functions-v3.5.0.csv`. Edit the reviewed examples in
+The ten examples use the Ozzit v3.6.0 function index in
+`assets/ozzit-functions-v3.6.0.csv`. Edit the reviewed examples in
 `scripts/ozzit_reference_examples.json`, then run
 `site-tools build_ozzit_reference --write`. The builder takes the documented tag
 and workbook hash from `scripts/release_record.json`, so a release bump adds the
@@ -260,17 +317,17 @@ fails when a page states a function, help-table or named-formula count that
 differs from the index. The ordinary site checks
 require the generated include to match both inputs. They also require every
 formula to match the native Excel inputs and results in
-`assets/ozzit-reference-v3.5.0.json`. Each example records its result shape and a
+`assets/ozzit-reference-v3.6.0.json`. Each example records its result shape and a
 Python format template. The generator formats every recorded result and requires
 that display to equal the reviewed expected text, including array values and totals.
 
 Changing a formula requires a new native Excel check against the named release;
 editing an expected display also requires checking it against the raw result.
-The workbook remains the authority. The 19 October 2026 record used Ozzit's
-existing `tools/excel_eval_formulas_verified.ps1`, opened the workbook from the
-signed tag, whose SHA-256 equals the release asset's, read-only and confirmed the
-hash was unchanged after closing it without saving. The v3.4.2 index and its
-25 September 2026 record stay in `assets/` for links to the earlier release.
+The workbook remains the authority. The 15 November 2026 record used the v3.6.0
+`tools/excel_eval_formulas_verified.ps1`, opened the release asset, whose SHA-256
+equals the workbook at the signed tag, read-only and confirmed the hash was
+unchanged after closing it without saving. The v3.5.0 and v3.4.2 indexes and their
+records stay in `assets/` for links to the earlier releases.
 The results establish arithmetic for these examples, not an accounting treatment.
 
 The 6 module pages under `tools/ozzit/functions/` come from
@@ -418,6 +475,11 @@ the withdrawal notice for TR 2022/1. They were added to the same list before a C
 because the runner had received HTTP 403 for the page's other ATO links. A browser
 loaded each with the expected text on 14 November 2026.
 
+The BAS due dates page cites 3 ATO pages not linked elsewhere: activity statement due
+dates by topic, the two week lodgment concession terms and the BAS agent lodgment program
+2026-27. They were added to the same list before a CI run for the same reason. A browser
+loaded each with the expected dates on 15 November 2026.
+
 ## Release claims
 
 `scripts/release_record.json` is the reviewed statement of which release each page
@@ -444,6 +506,15 @@ the asset size in bytes.
 For a component with engine pins, an older guide must also record its release's
 pins in `documented.pinned_engines`. The checker validates the guide against those
 pins; the component's `pinned_engines` still describes the published release.
+When the MCP registry still lists an older version than the published one, record
+it as `published.registry_lag` with that version and the sentence the documented
+page uses; `--verify-live` then reports drift once the registry catches up, and the
+offline check refuses a documented page that says the registry still lists, shows
+or has not caught up with a version whilst the record holds no lag. Other pages
+that name the published release are listed in the component's
+`published_mentions`, each with the text the page must show, where `{version}` is
+the published version and `{<engine>}` that engine's pin in the component's
+`pinned_engines`, the published release's pins.
 
 ## What an agent can be made to run
 
@@ -527,6 +598,12 @@ changelog edit, and regenerate `llms-full.txt` with `site-tools build_llms_full
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those
 copies by hand.
+
+`.github/review-generated.json` lists the generated files that a pre-merge review
+may omit, because its build reproduces them and the `--check` runs in CI fail when
+the committed copies are stale. The review tooling reads it from the pull
+request's base, so a pull request cannot widen its own list. A generated file it
+does not name, such as a new `llms-full` part, stays in review until it is added.
 
 Concurrent pull requests each add a dated row at the top of a changelog table,
 so a plain rebase stops in `changelog/index.html` and again in

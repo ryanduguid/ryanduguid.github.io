@@ -32,9 +32,18 @@ unicode-normalization = "0.1.26"
 ureq = { version = "3.4.2", default-features = false, features = ["rustls"] }
 url = "2.5.8"
 
+# build.rs embeds the digest of the sources it builds from (src/source_identity.rs).
+[build-dependencies]
+sha2 = "0.11.1"
+
 [profile.release]
 codegen-units = 1
 lto = true
+
+# CI runs every site check with a debug build of site-tools, over thousands of pages;
+# level 1 runs them about 3 times faster than level 0.
+[profile.dev]
+opt-level = 1
 
 # The regex engines dominate test time; optimise dependencies in debug builds.
 [profile.dev.package."*"]

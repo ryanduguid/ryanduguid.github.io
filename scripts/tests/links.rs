@@ -644,6 +644,53 @@ fn transient_warnings_cover_only_exhausted_rate_limits_server_errors_and_timeout
 }
 
 #[test]
+fn unanswered_archive_snapshots_warn_only_on_pull_requests() {
+    let snapshot = "https://web.archive.org/web/2026/https://example.com/page";
+    let refused = || Err(NetError::Url("Connection refused (os error 111)".into()));
+    for (href, answer, inconclusive, shown) in [
+        (
+            snapshot,
+            refused(),
+            true,
+            "<urlopen error Connection refused (os error 111)>",
+        ),
+        (
+            snapshot,
+            Err(NetError::Url("failed to lookup address information".into())),
+            true,
+            "<urlopen error failed to lookup address information>",
+        ),
+        (snapshot, http(404), false, "HTTP 404"),
+        // Only archive.org snapshots: a refusal elsewhere stays a failure.
+        (
+            "https://example.com/page",
+            refused(),
+            false,
+            "<urlopen error Connection refused (os error 111)>",
+        ),
+    ] {
+        for warn in [false, true] {
+            let harness = Harness::new(vec![answer.clone()]);
+            let (failures, warnings) = harness.run(|c| {
+                c.transient_warnings = warn;
+                let failures = c
+                    .check_hrefs("page.html", &strings(&[href]), false)
+                    .unwrap();
+                (failures, c.warnings.clone())
+            });
+            let expected = vec![format!("page.html: {href} -> {shown}")];
+            if warn && inconclusive {
+                assert!(failures.is_empty(), "{failures:?}");
+                assert_eq!(warnings, expected);
+            } else {
+                assert_eq!(failures, expected, "{href} warn={warn}");
+                assert!(warnings.is_empty(), "{warnings:?}");
+            }
+        }
+    }
+}
+
+#[test]
 fn transient_own_repository_links_keep_strict_identity_and_archive_lookups() {
     let href = "https://github.com/ryanduguid/Ozzit";
     for (verdict, failure) in [
@@ -1004,6 +1051,7 @@ fn site_runner_passes_link_modes_only_to_the_link_checker() {
         let words = |items: &[&str]| items.iter().map(|w| (*w).to_owned()).collect::<Vec<_>>();
         let mut expected = vec![
             words(&["site-tools", "build_ozzit_reference", "--check"]),
+            words(&["site-tools", "build_effective_life_pages", "--check"]),
             words(&["cargo", "test", "--locked", "--test", "build_site"]),
             words(&["cargo", "test", "--locked", "--test", "ci_link_selection"]),
             words(&["cargo", "test", "--locked", "--test", "publication"]),

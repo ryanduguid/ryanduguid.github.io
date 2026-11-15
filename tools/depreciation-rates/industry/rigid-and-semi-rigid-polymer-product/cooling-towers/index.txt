@@ -1,0 +1,123 @@
+# Cooling towers effective life: 15 years, Rigid and semi-rigid …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/cooling-towers/
+
+> Cooling towers: effective life 15 years, prime cost 6.67%, diminishing value 13.33%, last updated 1 July 2016 (Table A, 2025 determination).
+
+# Cooling towers
+
+‘Cooling towers’, for an asset used in Rigid and semi-rigid polymer product manufacturing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2016.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Cooling towers
+Table | Table A (industry categories), MANUFACTURING / Rigid and semi-rigid polymer product manufacturing, ANZSIC 19120
+Effective life | 15 years
+Prime cost rate | 6.67% (100% ÷ life, section 40-75)
+Diminishing value rate | 13.33% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2016
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Rigid and semi-rigid polymer product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2016. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Rigid and semi-rigid polymer product manufacturing
+
+Row | Life | Prime cost | Diminishing value
+Bandsaws | 10 years | 10.00% | 20.00%
+Bending machines | 10 years | 10.00% | 20.00%
+Bins | 10 years | 10.00% | 20.00%
+Blow moulding machines | 13 years | 7.69% | 15.38%
+Chilled water plant (incorporating chiller, pipes, pumps etc) | 12 years | 8.33% | 16.67%
+Conveyor systems (including framework) | 15 years | 6.67% | 13.33%
+Cooling towers (this page) | 15 years | 6.67% | 13.33%
+Die carts | 15 years | 6.67% | 13.33%
+Driers (pellet or resin) | 10 years | 10.00% | 20.00%
+Drop testers and strength testers | 16 years | 6.25% | 12.50%
+Flange makers (pipes) and belling machines | 10 years | 10.00% | 20.00%
+Granule transfer assets (including feeders, loaders, and vacuum transfer systems) | 10 years | 10.00% | 20.00%
+Heat exchangers | 15 years | 6.67% | 13.33%
+
+40 rows share this heading. The Rigid and semi-rigid polymer product manufacturing page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Cooling towers | Dairy product manufacturing | 15 years | 6.67% | 13.33%
+Cooling towers (including packaged type) | Oil and fat manufacturing | 20 years | 5.00% | 10.00%
+Cooling towers | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
+Cooling towers | Wine and other alcoholic beverage manufacturing | 15 years | 6.67% | 13.33%
+Cooling towers | Basic organic chemical manufacturing | 20 years | 5.00% | 10.00%
+Cooling towers | Basic inorganic chemical manufacturing | 20 years | 5.00% | 10.00%
+Cooling towers (incorporating fans, motors, access platforms and stairs) | Iron smelting and steel manufacturing | 20 years | 5.00% | 10.00%
+Cooling towers (incorporating fans, motors, access platforms and stairs) | Iron smelting and steel manufacturing | 20 years | 5.00% | 10.00%
+Cooling towers (incorporating fans, motors, access platforms and stairs) | Iron smelting and steel manufacturing | 25 years | 4.00% | 8.00%
+Cooling towers (incorporating fans, motors, access platforms and stairs) | Iron smelting and steel manufacturing | 20 years | 5.00% | 10.00%
+Cooling towers | Iron smelting and steel manufacturing | 20 years | 5.00% | 10.00%
+Cooling towers | Railway rolling stock manufacturing and repair services | 15 years | 6.67% | 13.33%
+Cooling towers (concrete or timber) | Electricity supply | 30 years | 3.33% | 6.67%
+Cooling towers | Other transport n.e.c. | 15 years | 6.67% | 13.33%
+Cooling towers | Electronic information storage services | 10 years | 10.00% | 20.00%
+Cooling towers | Residential property operators | 15 years | 6.67% | 13.33%
+Cooling towers | Table B, Air-conditioning assets (excluding pipes, duct work and vents) | 15 years | 6.67% | 13.33%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Bandsaws: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/bandsaws/
+- Bending machines: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/bending-machines/
+- Bins: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/bins/
+- Blow moulding machines: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/blow-moulding-machines/
+- Chilled water plant (incorporating chiller, pipes, pumps etc): https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/chilled-water-plant/
+- Conveyor systems (including framework): https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/conveyor-systems/
+- Die carts: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/die-carts/
+- Driers (pellet or resin): https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/driers/
+- Drop testers and strength testers: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/drop-testers-and-strength-testers/
+- Flange makers (pipes) and belling machines: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/flange-makers-and-belling-machines/
+- Granule transfer assets (including feeders, loaders, and vacuum transfer systems): https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/granule-transfer-assets/
+- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/heat-exchangers/
+- Rigid and semi-rigid polymer product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/rigid-and-semi-rigid-polymer-product/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cooling-towers/
+- Cooling towers (including packaged type): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cooling-towers/
+- Cooling towers (incorporating fans, motors, access platforms and stairs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-cooling-towers/
+- Cooling towers (incorporating fans, motors, access platforms and stairs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-cooling-towers/
+- Cooling towers (incorporating fans, motors, access platforms and stairs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-cooling-towers/
+- Cooling towers (incorporating fans, motors, access platforms and stairs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-railway-track-product-cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/cooling-towers/
+- Cooling towers (concrete or timber): https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cooling-towers/
+- Cooling towers: https://duguid.com.au/tools/depreciation-rates/asset/air-conditioning-assets/cooling-towers/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -1,0 +1,92 @@
+# Piping, pipelines … effective life: 20 years, Ancillary …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/piping-pipelines-and-pipework/
+
+> Ancillary and support assets: Piping, pipelines and pipework: effective life 20 years, last updated 1 July 2016 (Table A).
+
+# Ancillary and support assets: Piping, pipelines and pipework
+
+‘Ancillary and support assets: Piping, pipelines and pipework’, for an asset used in Dairy product manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2016.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Piping, pipelines and pipework
+Under | Ancillary and support assets:
+Table | Table A (industry categories), MANUFACTURING / Dairy product manufacturing, ANZSIC 11310 to 11330
+Effective life | 20 years
+Prime cost rate | 5.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 10.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2016
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Dairy product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2016. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Ancillary and support assets
+
+Row | Life | Prime cost | Diminishing value
+Dust extractors and collectors | 20 years | 5.00% | 10.00%
+Floor scrubbers and polishers | 10 years | 10.00% | 20.00%
+Foamers | 10 years | 10.00% | 20.00%
+Infeed water treatment assets (excluding water storage tanks) | 15 years | 6.67% | 13.33%
+Instrumentation (including flow meters, level transmitters, pressure transmitters etc) | 10 years | 10.00% | 20.00%
+Milk tankers (incorporating tank and trailer) | 15 years | 6.67% | 13.33%
+Piping, pipelines and pipework (this page) | 20 years | 5.00% | 10.00%
+Power transformers | 40 years | 2.50% | 5.00%
+Racking | 15 years | 6.67% | 13.33%
+Resin beads for milk and protein processing and water filtration | 5 years | 20.00% | 40.00%
+Scales | 10 years | 10.00% | 20.00%
+Shelving | 12 years | 8.33% | 16.67%
+Silos | 20 years | 5.00% | 10.00%
+
+35 rows share this heading. The Dairy product manufacturing page lists them all.
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Piping, pipelines and pipework (stainless steel) | Cured meat and smallgoods manufacturing | 20 years | 5.00% | 10.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Dust extractors and collectors: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/dust-extractors-and-collectors/
+- Floor scrubbers and polishers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/floor-scrubbers-and-polishers/
+- Foamers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/foamers/
+- Infeed water treatment assets (excluding water storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/infeed-water-treatment-assets/
+- Instrumentation (including flow meters, level transmitters, pressure transmitters etc): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/instrumentation/
+- Milk tankers (incorporating tank and trailer): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/milk-tankers/
+- Power transformers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/power-transformers/
+- Racking: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/racking/
+- Resin beads for milk and protein processing and water filtration: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/resin-beads-for-milk-and-protein-processing-and-water/
+- Scales: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/scales/
+- Shelving: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/shelving/
+- Silos: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/silos/
+- Dairy product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/
+- Piping, pipelines and pipework (stainless steel): https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/piping-pipelines-and-pipework/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -1,0 +1,93 @@
+# Spirit manufacturing effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/
+
+> Table A (industry categories), MANUFACTURING / Spirit …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Spirit manufacturing
+
+23 effective lives in Table A of the Commissioner’s 2025 effective life determination for Spirit manufacturing.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Barrels, tanks and tuns: | | | |
+Barrels, tanks and tuns: / Barrels or casks (wooden): | | | |
+Barrels, tanks and tuns: / Barrels or casks (wooden): / Capacity greater than 150 litres | 10 years | 10.00% | 20.00% | 1 July 2018
+Barrels, tanks and tuns: / Barrels or casks (wooden): / Capacity of 150 litres or less | 4 years | 25.00% | 50.00% | 1 July 2018
+Barrels, tanks and tuns: / Fermenters, washbacks, vats and holding tanks | 25 years | 4.00% | 8.00% | 1 July 2018
+Barrels, tanks and tuns: / Intermediate bulk containers (IBC) | 8 years | 12.50% | 25.00% | 1 July 2018
+Barrels, tanks and tuns: / Mash tuns and lauter tuns | 20 years | 5.00% | 10.00% | 1 July 2018
+Bottling assets: | | | |
+Bottling assets: / Bottle fillers: | | | |
+Bottling assets: / Bottle fillers: / Automated (including bottle rinsers/washers, cappers, capsule applicators and foilers) | 15 years | 6.67% | 13.33% | 1 July 2018
+Bottling assets: / Bottle fillers: / Manual | 7 years | 14.29% | 28.57% | 1 July 2018
+Bottling assets: / Labellers | 10 years | 10.00% | 20.00% | 1 July 2018
+Bottling assets: / Printers and ink coders | 8 years | 12.50% | 25.00% | 1 July 2018
+Distillation assets | | | |
+Distillation assets / Laboratory and testing assets (including alcoholmeters, alcolyzers, density meters, gas chromatographs, Graham condensers, homogenisers, hydrometers, Inland Revenue condensers and sugar testers) | 7 years | 14.29% | 28.57% | 1 July 2018
+Distillation assets / Stainless steel stills (continuous/vacuum stills, marc stills producing grape spirit, neutral spirit or potable ethanol [incorporating analyser/stripping columns, purifier columns, rectifying columns, condensers and dephlegmators/reflux condensers and methanol/fusel oil isolators]) | 25 years | 4.00% | 8.00% | 1 July 2018
+Distillation assets / Stills generally (copper stills, pot stills, spirit stills and wash stills [incorporating botanical baskets, condensers, head tubes/necks, rectifiers, rectifying columns and still columns]) | 15 years | 6.67% | 13.33% | 1 July 2018
+Support assets: | | | |
+Support assets: / Barrel racks: | | | |
+Support assets: / Barrel racks: / Steel | 20 years | 5.00% | 10.00% | 1 July 2018
+Support assets: / Barrel racks: / Wooden | 15 years | 6.67% | 13.33% | 1 July 2018
+Support assets: / CCTV, security and monitoring systems assets – see Table B Security and monitoring assets | | | |
+Support assets: / Chillers | 15 years | 6.67% | 13.33% | 1 July 2018
+Support assets: / Floor scales (platform scales) | 10 years | 10.00% | 20.00% | 1 July 2018
+Support assets: / Flow meters | 10 years | 10.00% | 20.00% | 1 July 2018
+Support assets: / Furnaces, barley smokers, crispers and malt kilns | 15 years | 6.67% | 13.33% | 1 July 2018
+Support assets: / Gristmills | 15 years | 6.67% | 13.33% | 1 July 2018
+Support assets: / Heat exchangers (plate or tube) | 15 years | 6.67% | 13.33% | 1 July 2018
+Support assets: / Programmable logic control (PLC) system assets – see Table B Control systems and control system assets | | | |
+Support assets: / Pumps (including macerating pumps) | 7 years | 14.29% | 28.57% | 1 July 2018
+Support assets: / Water filters, reverse osmosis (RO) filters and water softeners | 10 years | 10.00% | 20.00% | 1 July 2018
+Support assets: / Water heating assets: | | | |
+Support assets: / Water heating assets: / Boilers – see Table B Boilers | | | |
+Support assets: / Water heating assets: / Water heaters (including small steam boilers [up to 500 KW]) | 10 years | 10.00% | 20.00% | 1 July 2018
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Capacity greater than 150 litres: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/capacity-greater-than-150-litres/
+- Capacity of 150 litres or less: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/capacity-of-150-litres-or-less/
+- Fermenters, washbacks, vats and holding tanks: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/fermenters-washbacks-vats-and-holding-tanks/
+- Intermediate bulk containers (IBC): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/intermediate-bulk-containers/
+- Mash tuns and lauter tuns: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/mash-tuns-and-lauter-tuns/
+- Automated (including bottle rinsers/washers, cappers, capsule applicators and foilers): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/automated/
+- Manual: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/manual/
+- Labellers: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/labellers/
+- Printers and ink coders: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/printers-and-ink-coders/
+- Laboratory and testing assets (including alcoholmeters, alcolyzers, density meters, gas chromatographs, Graham condensers, homogenisers, hydrometers, Inland Revenue condensers and sugar testers): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/laboratory-and-testing-assets/
+- Stainless steel stills (continuous/vacuum stills, marc stills producing grape spirit, neutral spirit or potable ethanol [incorporating analyser/stripping columns, purifier columns, rectifying columns, condensers and dephlegmators/reflux condensers and methanol/fusel oil isolators]): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/stainless-steel-stills/
+- Stills generally (copper stills, pot stills, spirit stills and wash stills [incorporating botanical baskets, condensers, head tubes/necks, rectifiers, rectifying columns and still columns]): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/stills-generally/
+- Steel: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/steel/
+- Wooden: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/wooden/
+- CCTV, security and monitoring systems assets – see Table B Security and monitoring assets: https://duguid.com.au/tools/depreciation-rates/asset/security-and-monitoring-assets/
+- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/chillers/
+- Floor scales (platform scales): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/floor-scales/
+- Flow meters: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/flow-meters/
+- Furnaces, barley smokers, crispers and malt kilns: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/furnaces-barley-smokers-crispers-and-malt-kilns/
+- Gristmills: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/gristmills/
+- Heat exchangers (plate or tube): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/heat-exchangers/
+- Programmable logic control (PLC) system assets – see Table B Control systems and control system assets: https://duguid.com.au/tools/depreciation-rates/asset/control-systems-and-control-system/
+- Pumps (including macerating pumps): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/pumps/
+- Water filters, reverse osmosis (RO) filters and water softeners: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/water-filters-reverse-osmosis-filters-and-water-softeners/
+- Boilers – see Table B Boilers: https://duguid.com.au/tools/depreciation-rates/asset/boilers/
+- Water heaters (including small steam boilers [up to 500 KW]): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/water-heaters/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

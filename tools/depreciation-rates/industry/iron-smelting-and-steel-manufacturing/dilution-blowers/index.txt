@@ -1,0 +1,73 @@
+# Dilution blowers effective life: 10 years, Walking beam furnace …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/dilution-blowers/
+
+> Walking beam furnace assets: Dilution blowers: effective life 10 years, last updated 1 July 2010 (Table A).
+
+# Walking beam furnace assets: Dilution blowers
+
+‘Walking beam furnace assets: Dilution blowers’, for an asset used in Iron smelting and steel manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Dilution blowers
+Under | Hot strip mill assets: / Walking beam furnace assets:
+Table | Table A (industry categories), MANUFACTURING / Iron smelting and steel manufacturing, ANZSIC 21100
+Effective life | 10 years
+Prime cost rate | 10.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 20.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2010
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Iron smelting and steel manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2010. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Walking beam furnace assets
+
+Row | Life | Prime cost | Diminishing value
+Air dilution manifolds | 20 years | 5.00% | 10.00%
+Air ducts | 10 years | 10.00% | 20.00%
+Coke ovens gas systems | 15 years | 6.67% | 13.33%
+Cold combustion air systems | 20 years | 5.00% | 10.00%
+Dilution blowers (this page) | 10 years | 10.00% | 20.00%
+Extractors | 10 years | 10.00% | 20.00%
+Furnaces (incorporating structure, charging machines with synchronising drive trains, refractories, walking beam floors, furnace hydraulic systems, and charge and discharge doors) | 20 years | 5.00% | 10.00%
+Nitrogen purge systems | 15 years | 6.67% | 13.33%
+Tracking lasers (incorporating cables and adapters) | 5 years | 20.00% | 40.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Air dilution manifolds: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/air-dilution-manifolds/
+- Air ducts: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/air-ducts/
+- Coke ovens gas systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-ovens-gas-systems/
+- Cold combustion air systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cold-combustion-air-systems/
+- Extractors: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/extractors/
+- Furnaces (incorporating structure, charging machines with synchronising drive trains, refractories, walking beam floors, furnace hydraulic systems, and charge and discharge doors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hot-strip-mill-assets-furnaces/
+- Nitrogen purge systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/nitrogen-purge-systems/
+- Tracking lasers (incorporating cables and adapters): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tracking-lasers/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

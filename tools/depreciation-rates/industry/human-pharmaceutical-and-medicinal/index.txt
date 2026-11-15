@@ -1,0 +1,134 @@
+# Human pharmaceutical … effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/
+
+> Table A (industry categories), MANUFACTURING / Human …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Human pharmaceutical and medicinal product manufacturing
+
+47 effective lives in Table A of the Commissioner’s 2025 effective life determination for Human pharmaceutical and medicinal product manufacturing.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Laboratory assets: | | | |
+Laboratory assets: / Bench top autoclaves | 5 years | 20.00% | 40.00% | 1 January 2004
+Laboratory assets: / Incubators | 6 years | 16.67% | 33.33% | 1 January 2004
+Laboratory assets: / Laboratory analysers (including coagulators, carbon analysers, colour readers, gas chromatographs, high performance liquid chromatographs (HPLCs), and spectrophotometers) | 5 years | 20.00% | 40.00% | 1 January 2004
+Laboratory assets: / Particle sizers | 5 years | 20.00% | 40.00% | 1 January 2004
+Packaging assets: | | | |
+Packaging assets: / Accumulators | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Batch, barcode, label, and volume readers | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Blister pack packaging machines | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Blow-fill-seal (BFS) machines | 12 years | 8.33% | 16.67% | 1 January 2004
+Packaging assets: / Bottle and vial inverters and blowers | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Bottle and vial unscramblers | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Bundlers and bundle packing machines | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Cappers and sealers (including tamper proof sealers) | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Cartoners | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Check weighers | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Cream, liquid and powder filling and sealing machines (including bag, bottle, syringe and tube fillers and sealers) | 12 years | 8.33% | 16.67% | 1 January 2004
+Packaging assets: / Desiccant and cotton wool depositors/inserters | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Dropper and leaflet inserters | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Flaming stations | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Flow wrappers and shrink wrappers | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Ink jet batch label printers | 7 years | 14.29% | 28.57% | 1 January 2004
+Packaging assets: / Labelling machines | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Palletisers | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Pinhole inspectors | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Robotic pick and place packaging machines | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Sleevers | 10 years | 10.00% | 20.00% | 1 January 2004
+Packaging assets: / Tablet/capsule fillers, feeders and counters | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: | | | |
+Production assets: / Autoclaves (for terminal sterilisation) | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: / Drying ovens | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: / Encapsulators | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: / Fluid bed dryers | 12 years | 8.33% | 16.67% | 1 January 2004
+Production assets: / Granulators and mixer/granulators | 12 years | 8.33% | 16.67% | 1 January 2004
+Production assets: / Homogenisers | 7 years | 14.29% | 28.57% | 1 January 2004
+Production assets: / Intermediate bulk containers, bins and vessels (including instruments, pipes, pumps and valves) used to hold and transfer formulations during various stages of production | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: / Metal detectors | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: / Mixers and blenders (including cream, liquid, powder, and syrup mixers and blenders) | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: / Sizing mills | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: / Tablet and capsule coating machines, coating drums and coating pans | 12 years | 8.33% | 16.67% | 1 January 2004
+Production assets: / Tablet dedusters | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: / Tablet presses | 10 years | 10.00% | 20.00% | 1 January 2004
+Production assets: / Vibrating sieves | 10 years | 10.00% | 20.00% | 1 January 2004
+Raw material storage and dispensing assets: | | | |
+Raw material storage and dispensing assets: / Demountable strong rooms | 20 years | 5.00% | 10.00% | 1 January 2004
+Raw material storage and dispensing assets: / Dispensing booths and associated air filtration systems | 10 years | 10.00% | 20.00% | 1 January 2004
+Raw material storage and dispensing assets: / Laminar flow benches and biohazard cabinets | 8 years | 12.50% | 25.00% | 1 January 2004
+Raw material storage and dispensing assets: / Safes | 20 years | 5.00% | 10.00% | 1 January 2004
+Raw material storage and dispensing assets: / Weighing scales | 10 years | 10.00% | 20.00% | 1 January 2004
+Scientific medical and pharmaceutical research assets – see Table A Scientific research services (69100) | | | |
+Services: | | | |
+Services: / Air filtration systems | 10 years | 10.00% | 20.00% | 1 January 2004
+Services: / Water purification plant | 10 years | 10.00% | 20.00% | 1 January 2004
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Bench top autoclaves: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/bench-top-autoclaves/
+- Incubators: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/incubators/
+- Laboratory analysers (including coagulators, carbon analysers, colour readers, gas chromatographs, high performance liquid chromatographs (HPLCs), and spectrophotometers): https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/laboratory-analysers/
+- Particle sizers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/particle-sizers/
+- Accumulators: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/accumulators/
+- Batch, barcode, label, and volume readers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/batch-barcode-label-and-volume-readers/
+- Blister pack packaging machines: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/blister-pack-packaging-machines/
+- Blow-fill-seal (BFS) machines: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/blow-fill-seal-machines/
+- Bottle and vial inverters and blowers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/bottle-and-vial-inverters-and-blowers/
+- Bottle and vial unscramblers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/bottle-and-vial-unscramblers/
+- Bundlers and bundle packing machines: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/bundlers-and-bundle-packing-machines/
+- Cappers and sealers (including tamper proof sealers): https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/cappers-and-sealers/
+- Cartoners: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/cartoners/
+- Check weighers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/check-weighers/
+- Cream, liquid and powder filling and sealing machines (including bag, bottle, syringe and tube fillers and sealers): https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/cream-liquid-and-powder-filling-and-sealing-machines/
+- Desiccant and cotton wool depositors/inserters: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/desiccant-and-cotton-wool-depositors-inserters/
+- Dropper and leaflet inserters: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/dropper-and-leaflet-inserters/
+- Flaming stations: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/flaming-stations/
+- Flow wrappers and shrink wrappers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/flow-wrappers-and-shrink-wrappers/
+- Ink jet batch label printers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/ink-jet-batch-label-printers/
+- Labelling machines: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/labelling-machines/
+- Palletisers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/palletisers/
+- Pinhole inspectors: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/pinhole-inspectors/
+- Robotic pick and place packaging machines: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/robotic-pick-and-place-packaging-machines/
+- Sleevers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/sleevers/
+- Tablet/capsule fillers, feeders and counters: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/tablet-capsule-fillers-feeders-and-counters/
+- Autoclaves (for terminal sterilisation): https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/autoclaves/
+- Drying ovens: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/drying-ovens/
+- Encapsulators: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/encapsulators/
+- Fluid bed dryers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/fluid-bed-dryers/
+- Granulators and mixer/granulators: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/granulators-and-mixer-granulators/
+- Homogenisers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/homogenisers/
+- Intermediate bulk containers, bins and vessels (including instruments, pipes, pumps and valves) used to hold and transfer formulations during various stages of production: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/intermediate-bulk-containers-bins-and-vessels-used-to-hold/
+- Metal detectors: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/metal-detectors/
+- Mixers and blenders (including cream, liquid, powder, and syrup mixers and blenders): https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/mixers-and-blenders/
+- Sizing mills: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/sizing-mills/
+- Tablet and capsule coating machines, coating drums and coating pans: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/tablet-and-capsule-coating-machines-coating-drums-and/
+- Tablet dedusters: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/tablet-dedusters/
+- Tablet presses: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/tablet-presses/
+- Vibrating sieves: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/vibrating-sieves/
+- Demountable strong rooms: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/demountable-strong-rooms/
+- Dispensing booths and associated air filtration systems: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/dispensing-booths-and-associated-air-filtration-systems/
+- Laminar flow benches and biohazard cabinets: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/laminar-flow-benches-and-biohazard-cabinets/
+- Safes: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/safes/
+- Weighing scales: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/weighing-scales/
+- Scientific medical and pharmaceutical research assets – see Table A Scientific research services (69100): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/
+- Air filtration systems: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/air-filtration-systems/
+- Water purification plant: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/water-purification-plant/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

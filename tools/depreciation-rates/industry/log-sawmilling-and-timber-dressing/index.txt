@@ -1,0 +1,85 @@
+# Log sawmilling … effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/
+
+> Table A (industry categories), MANUFACTURING / Log …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Log sawmilling and timber dressing
+
+22 effective lives in Table A of the Commissioner’s 2025 effective life determination for Log sawmilling and timber dressing.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Saw milling equipment: | | | |
+Saw milling equipment: / Dry or planner mill plant: | | | |
+Saw milling equipment: / Dry or planner mill plant: / Generally (includes multi saw/trimmer, pack docker, planner/molder, resaw or optimiser docker, stress grader and tilt hoist) | 10 years | 10.00% | 20.00% | 1 January 2001
+Saw milling equipment: / Dry or planner mill plant: / Stackers | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Dry or planner mill plant: / Tray sorters | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Green mill plant: | | | |
+Saw milling equipment: / Green mill plant: / Edger line plant (includes board edger and resaw) | 10 years | 10.00% | 20.00% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Heating plant (includes storage bins/silos) | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Kiln drying plant: | | | |
+Saw milling equipment: / Green mill plant: / Kiln drying plant: / Generally (includes kiln trolleys/carriages, traverser and weights) | 10 years | 10.00% | 20.00% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Kiln drying plant: / Timber drying kilns and reconditioners | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Log debarking plant (includes decks, carriages, hydraulic grabs and fixed cranes, butt reducer, debarker, kicker sorter and bins/pockets) | 10 years | 10.00% | 20.00% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Log, lumber and waste transfer equipment | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Log yard equipment: | | | |
+Saw milling equipment: / Green mill plant: / Log yard equipment: / Fixed and mobile cranes | 12 years | 8.33% | 16.67% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Log yard equipment: / Mobile equipment (including log loaders with log grabs) | 7 years | 14.29% | 28.57% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Log yard equipment: / Watering systems | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Main saw line plant (includes saws, chipper canter, board separator and cant turner) | 10 years | 10.00% | 20.00% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Miscellaneous plant: | | | |
+Saw milling equipment: / Green mill plant: / Miscellaneous plant: / Generally (includes air compressors, extraction systems and pollution and air monitoring equipment) | 10 years | 10.00% | 20.00% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Miscellaneous plant: / Moisture meters | 3 years | 33.33% | 66.67% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Miscellaneous plant: / Saw and knife sharpening equipment | 10 years | 10.00% | 20.00% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Miscellaneous plant: / Walkways | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Sorter and trimming line plant: | | | |
+Saw milling equipment: / Green mill plant: / Sorter and trimming line plant: / Generally (includes grade mark reader and multi trimmer) | 10 years | 10.00% | 20.00% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Sorter and trimming line plant: / Stackers | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Sorter and trimming line plant: / Vertical bin sorters | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Waste processing equipment: | | | |
+Saw milling equipment: / Green mill plant: / Waste processing equipment: / Bins – waste, chip and fuel | 15 years | 6.67% | 13.33% | 1 January 2001
+Saw milling equipment: / Green mill plant: / Waste processing equipment: / Chippers, shakers/screens and hoggers | 10 years | 10.00% | 20.00% | 1 January 2001
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Generally (includes multi saw/trimmer, pack docker, planner/molder, resaw or optimiser docker, stress grader and tilt hoist): https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/dry-or-planner-mill-plant-generally/
+- Stackers: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/dry-or-planner-mill-plant-stackers/
+- Tray sorters: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/tray-sorters/
+- Edger line plant (includes board edger and resaw): https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/edger-line-plant/
+- Heating plant (includes storage bins/silos): https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/heating-plant/
+- Generally (includes kiln trolleys/carriages, traverser and weights): https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/kiln-drying-plant-generally/
+- Timber drying kilns and reconditioners: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/timber-drying-kilns-and-reconditioners/
+- Log debarking plant (includes decks, carriages, hydraulic grabs and fixed cranes, butt reducer, debarker, kicker sorter and bins/pockets): https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/log-debarking-plant/
+- Log, lumber and waste transfer equipment: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/log-lumber-and-waste-transfer-equipment/
+- Fixed and mobile cranes: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/fixed-and-mobile-cranes/
+- Mobile equipment (including log loaders with log grabs): https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/mobile-equipment/
+- Watering systems: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/watering-systems/
+- Main saw line plant (includes saws, chipper canter, board separator and cant turner): https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/main-saw-line-plant/
+- Generally (includes air compressors, extraction systems and pollution and air monitoring equipment): https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/miscellaneous-plant-generally/
+- Moisture meters: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/moisture-meters/
+- Saw and knife sharpening equipment: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/saw-and-knife-sharpening-equipment/
+- Walkways: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/walkways/
+- Generally (includes grade mark reader and multi trimmer): https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/sorter-and-trimming-line-plant-generally/
+- Stackers: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/sorter-and-trimming-line-plant-stackers/
+- Vertical bin sorters: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/vertical-bin-sorters/
+- Bins – waste, chip and fuel: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/bins-waste-chip-and-fuel/
+- Chippers, shakers/screens and hoggers: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/chippers-shakers-screens-and-hoggers/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

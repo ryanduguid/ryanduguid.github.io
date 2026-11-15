@@ -1,0 +1,157 @@
+# Agriculture effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/
+
+> Agriculture, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Agriculture
+
+54 effective lives in Table A of the Commissioner’s 2025 effective life determination for Agriculture.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Bridges (wooden) | 20 years | 5.00% | 10.00% | 1 January 2001
+Grain, cotton, peanut and rice assets: | | | |
+Grain, cotton, peanut and rice assets: / Chemical spraying assets: | | | |
+Grain, cotton, peanut and rice assets: / Chemical spraying assets: / Generally (including broad acre trailed or linkage boom and utility) | 10 years | 10.00% | 20.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Chemical spraying assets: / Self-propelled | 8 years | 12.50% | 25.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / General assets: | | | |
+Grain, cotton, peanut and rice assets: / General assets: / Aeration assets: | | | |
+Grain, cotton, peanut and rice assets: / General assets: / Aeration assets: / Controllers | 10 years | 10.00% | 20.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / General assets: / Aeration assets: / Kits | 15 years | 6.67% | 13.33% | 1 January 2007
+Grain, cotton, peanut and rice assets: / General assets: / Augers (including conveyors) | 15 years | 6.67% | 13.33% | 1 January 2007
+Grain, cotton, peanut and rice assets: / General assets: / Dryers | 20 years | 5.00% | 10.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / General assets: / Moisture meters | 5 years | 20.00% | 40.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / General assets: / Mulchers | 10 years | 10.00% | 20.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / General assets: / Peanut pre-cleaners | 10 years | 10.00% | 20.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / General assets: / Slashers | 7 years | 14.29% | 28.57% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: | | | |
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Boll buggies | 15 years | 6.67% | 13.33% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Chaser bins | 15 years | 6.67% | 13.33% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Combine harvesters | 12 years | 8.33% | 16.67% | 1 July 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Cotton picker/strippers | 10 years | 10.00% | 20.00% | 1 July 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Field bins | 20 years | 5.00% | 10.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Fuel trailers | 15 years | 6.67% | 13.33% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Module builders | 15 years | 6.67% | 13.33% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Module tarpaulins | 5 years | 20.00% | 40.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Peanut diggers (including peanut pullers) | 10 years | 10.00% | 20.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Harvesting assets: / Peanut threshers | 12 years | 8.33% | 16.67% | 1 July 2007
+Grain, cotton, peanut and rice assets: / Precision farming assets (including GPS, controllers, lightbars, variable rate technology assets, but excluding hydraulic automated steering) | 5 years | 20.00% | 40.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Seeding and fertilizing assets: | | | |
+Grain, cotton, peanut and rice assets: / Seeding and fertilizing assets: / Fertilizer spreaders (including linkage and trailed) | 10 years | 10.00% | 20.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Seeding and fertilizing assets: / Planters (including bar, box, combined seeders, precision planters and row crop planters) | 15 years | 6.67% | 13.33% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Seeding and fertilizing assets: / Seed and fertilizer bins | 15 years | 6.67% | 13.33% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Tillage assets: | | | |
+Grain, cotton, peanut and rice assets: / Tillage assets: / Generally | 15 years | 6.67% | 13.33% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Tillage assets: / Harrows | 5 years | 20.00% | 40.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Tillage assets: / Laser controlled scraping assets: | | | |
+Grain, cotton, peanut and rice assets: / Tillage assets: / Laser controlled scraping assets: / Buckets | 10 years | 10.00% | 20.00% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Tillage assets: / Laser controlled scraping assets: / Transmitters | 7 years | 14.29% | 28.57% | 1 January 2007
+Grain, cotton, peanut and rice assets: / Tillage assets: / Rippers | 10 years | 10.00% | 20.00% | 1 January 2007
+Harvesters/sweepers | 6 2/3 years | 15.00% | 30.00% | 1 January 2001
+Hay and foraging assets: | | | |
+Hay and foraging assets: / Bale handling attachments (including accumulator grabs, bale stackers, hay forks/spikes/spears (incorporating metal frame), round bale grabs) | 12 years | 8.33% | 16.67% | 1 January 2007
+Hay and foraging assets: / Balers | 10 years | 10.00% | 20.00% | 1 January 2007
+Hay and foraging assets: / Bale wrappers | 10 years | 10.00% | 20.00% | 1 January 2007
+Hay and foraging assets: / Baler and wrappers | 10 years | 10.00% | 20.00% | 1 January 2007
+Hay and foraging assets: / Forage harvesters | 10 years | 10.00% | 20.00% | 1 July 2007
+Hay and foraging assets: / Hay rakes (including finger wheel, rotary and parallel) | 10 years | 10.00% | 20.00% | 1 January 2007
+Hay and foraging assets: / Moisture probes | 5 years | 20.00% | 40.00% | 1 January 2007
+Hay and foraging assets: / Mower conditioners: | | | |
+Hay and foraging assets: / Mower conditioners: / Self-propelled: | | | |
+Hay and foraging assets: / Mower conditioners: / Self-propelled: / Attachments | 8 years | 12.50% | 25.00% | 1 January 2007
+Hay and foraging assets: / Mower conditioners: / Self-propelled: / Prime movers | 12 years | 8.33% | 16.67% | 1 January 2007
+Hay and foraging assets: / Mower conditioners: / Trailed | 8 years | 12.50% | 25.00% | 1 January 2007
+Hay and foraging assets: / Super conditioners (hay re-conditioners) | 8 years | 12.50% | 25.00% | 1 January 2007
+Hay and foraging assets: / Tedders | 10 years | 10.00% | 20.00% | 1 January 2007
+Hay and foraging assets: / Trailed bale handling assets: | | | |
+Hay and foraging assets: / Trailed bale handling assets: / Big square bale stackers | 10 years | 10.00% | 20.00% | 1 January 2007
+Hay and foraging assets: / Trailed bale handling assets: / Generally (including accumulators and bale carriers) | 15 years | 6.67% | 13.33% | 1 January 2007
+Hay and foraging assets: / Windrowers: | | | |
+Hay and foraging assets: / Windrowers: / Self-propelled: | | | |
+Hay and foraging assets: / Windrowers: / Self-propelled: / Attachments | 8 years | 12.50% | 25.00% | 1 January 2007
+Hay and foraging assets: / Windrowers: / Self-propelled: / Prime movers | 12 years | 8.33% | 16.67% | 1 January 2007
+Hay and foraging assets: / Windrowers: / Trailed | 8 years | 12.50% | 25.00% | 1 January 2007
+Hop growers’ plant: | | | |
+Hop growers’ plant: / Hop picking machines | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
+Hop growers’ plant: / Kilns | 20 years | 5.00% | 10.00% | 1 January 2001
+Levee banks and revetments | 40 years | 2.50% | 5.00% | 1 January 2001
+Silos: | | | |
+Silos: / Ancillary equipment | 20 years | 5.00% | 10.00% | 1 January 2001
+Silos: / Grain (metal) | 30 years | 3.33% | 6.67% | 1 July 2001
+Trellis | 20 years | 5.00% | 10.00% | 1 January 2001
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Bridges (wooden): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/bridges/
+- Generally (including broad acre trailed or linkage boom and utility): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/chemical-spraying-assets-generally/
+- Self-propelled: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/self-propelled/
+- Controllers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/controllers/
+- Kits: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/kits/
+- Augers (including conveyors): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/augers/
+- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/dryers/
+- Moisture meters: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/moisture-meters/
+- Mulchers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/mulchers/
+- Peanut pre-cleaners: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/peanut-pre-cleaners/
+- Slashers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/slashers/
+- Boll buggies: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/boll-buggies/
+- Chaser bins: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/chaser-bins/
+- Combine harvesters: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/combine-harvesters/
+- Cotton picker/strippers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/cotton-picker-strippers/
+- Field bins: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/field-bins/
+- Fuel trailers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/fuel-trailers/
+- Module builders: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/module-builders/
+- Module tarpaulins: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/module-tarpaulins/
+- Peanut diggers (including peanut pullers): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/peanut-diggers/
+- Peanut threshers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/peanut-threshers/
+- Precision farming assets (including GPS, controllers, lightbars, variable rate technology assets, but excluding hydraulic automated steering): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/precision-farming-assets/
+- Fertilizer spreaders (including linkage and trailed): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/fertilizer-spreaders/
+- Planters (including bar, box, combined seeders, precision planters and row crop planters): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/planters/
+- Seed and fertilizer bins: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/seed-and-fertilizer-bins/
+- Generally: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/tillage-assets-generally/
+- Harrows: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/harrows/
+- Buckets: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/buckets/
+- Transmitters: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/transmitters/
+- Rippers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/rippers/
+- Harvesters/sweepers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/harvesters-sweepers/
+- Bale handling attachments (including accumulator grabs, bale stackers, hay forks/spikes/spears (incorporating metal frame), round bale grabs): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/bale-handling-attachments/
+- Balers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/balers/
+- Bale wrappers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/bale-wrappers/
+- Baler and wrappers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/baler-and-wrappers/
+- Forage harvesters: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/forage-harvesters/
+- Hay rakes (including finger wheel, rotary and parallel): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/hay-rakes/
+- Moisture probes: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/moisture-probes/
+- Attachments: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/hay-and-foraging-assets-mower-conditioners-self-propelled-attachments/
+- Prime movers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/hay-and-foraging-assets-mower-conditioners-self-propelled-prime-movers/
+- Trailed: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/mower-conditioners-trailed/
+- Super conditioners (hay re-conditioners): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/super-conditioners/
+- Tedders: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/tedders/
+- Big square bale stackers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/big-square-bale-stackers/
+- Generally (including accumulators and bale carriers): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/hay-and-foraging-assets-generally/
+- Attachments: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/hay-and-foraging-assets-windrowers-self-propelled-attachments/
+- Prime movers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/hay-and-foraging-assets-windrowers-self-propelled-prime-movers/
+- Trailed: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/windrowers-trailed/
+- Hop picking machines: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/hop-picking-machines/
+- Kilns: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/kilns/
+- Levee banks and revetments: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/levee-banks-and-revetments/
+- Ancillary equipment: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/ancillary-equipment/
+- Grain (metal): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/grain/
+- Trellis: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/trellis/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

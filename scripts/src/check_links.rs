@@ -9,7 +9,8 @@
 //! failures, HTTP 429 and 5xx; hrefs must not be empty; retired names and em or en dashes
 //! must not appear; and no own-repository link may point at an archived repository.
 //! With `--transient-warnings`, links still failing with HTTP 429, 5xx or a timeout
-//! after their retries are reported as warnings instead.
+//! after their retries, and web.archive.org snapshots that fail with a transport
+//! error, are reported as warnings instead.
 //! Transport, clock and output are passed in so tests can answer for the network.
 use crate::check_links_data::*;
 use crate::htmlparser::{self, Event};
@@ -18,7 +19,7 @@ use crate::pyjson::{self, Json};
 use crate::pyobj::type_name;
 use crate::pyre::{I, fullmatch, re};
 use crate::pyurl::{self, Split};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::time::Duration;
 
@@ -168,6 +169,19 @@ pub fn is_transient(error: &NetError) -> bool {
     }
 }
 
+/// Whether a link that exhausted its retries is inconclusive rather than broken:
+/// [`is_transient`], or a web.archive.org snapshot that failed with a transport
+/// error (such as a refused connection), as the archive refuses bursts of automated
+/// requests. A definite answer from the archive, such as 404, is still a failure.
+pub fn is_inconclusive(url: &str, error: &NetError) -> bool {
+    is_transient(error)
+        || (matches!(error, NetError::Url(_))
+            && pyurl::urlsplit(url)
+                .ok()
+                .and_then(|split| pyurl::hostname(&split.netloc))
+                .is_some_and(|host| host == "web.archive.org"))
+}
+
 pub fn is_accepted_automation_denial(url: &str, status: u16) -> bool {
     (status == 403 && HTTP_403_AUTOMATION_DENIAL_URLS.contains(&url))
         || (status == 999 && LINKEDIN_AUTOMATION_DENIAL_URLS.contains(&url))
@@ -272,6 +286,9 @@ pub struct Checker<'a> {
     pub prefetched_verdicts: PrefetchedVerdicts,
     fetched: HashMap<String, (u16, String)>,
     verdicts: HashMap<String, Verdict>,
+    /// The ids and names each same-origin target declares, read once per file; `None`
+    /// for a target any fragment passes (see [`fragment_targets`]).
+    fragments: HashMap<PathBuf, Option<HashSet<String>>>,
 }
 
 /// Each URL's fetch outcome and the retry lines it printed.
@@ -446,7 +463,21 @@ impl<'a> Checker<'a> {
             prefetched_verdicts: PrefetchedVerdicts::new(),
             fetched: HashMap::new(),
             verdicts: HashMap::new(),
+            fragments: HashMap::new(),
         }
+    }
+
+    /// True when a same-origin target declares an element with that id or name, or
+    /// passes any fragment. Each target is read once: thousands of effective life pages
+    /// link to the same few pages.
+    fn fragment_exists(&mut self, target: &Path, fragment: &str) -> Result<bool, String> {
+        if !self.fragments.contains_key(target) {
+            let ids = fragment_targets(target)?;
+            self.fragments.insert(target.to_path_buf(), ids);
+        }
+        Ok(self.fragments[target]
+            .as_ref()
+            .is_none_or(|ids| ids.contains(fragment)))
     }
 
     fn say(&mut self, line: &str) {
@@ -699,7 +730,8 @@ impl<'a> Checker<'a> {
                     failures.push(format!(
                         "{rel}: {href} -> no file at {shown} (same-origin link does not resolve on disk)"
                     ));
-                } else if !parts.fragment.is_empty() && !fragment_exists(&target, &parts.fragment)?
+                } else if !parts.fragment.is_empty()
+                    && !self.fragment_exists(&target, &parts.fragment)?
                 {
                     failures.push(format!(
                         "{rel}: {href} -> no element with id or name {} in {shown}",
@@ -718,7 +750,7 @@ impl<'a> Checker<'a> {
             }
             let (status, final_url) = match self.fetch_final_url(href) {
                 Ok(found) => found,
-                Err(error) if self.transient_warnings && is_transient(&error) => {
+                Err(error) if self.transient_warnings && is_inconclusive(href, &error) => {
                     let shown = match error {
                         NetError::Http { code, .. } => format!("HTTP {code}"),
                         other => other.to_string(),
@@ -799,9 +831,13 @@ impl<'a> Checker<'a> {
                 failures.push(format!("{rel}: retired repository name: {name}"));
             }
         }
-        for (c, label) in [('\u{2014}', "em dash"), ('\u{2013}', "en dash")] {
-            if html.contains(c) {
-                failures.push(format!("{rel}: {label} present"));
+        // The effective life pages quote the determination, whose dashes are its own; the
+        // generator's tests hold the pages' own wording to this rule.
+        if !crate::effective_life_pages::is_page(&rel) {
+            for (c, label) in [('\u{2014}', "em dash"), ('\u{2013}', "en dash")] {
+                if html.contains(c) {
+                    failures.push(format!("{rel}: {label} present"));
+                }
             }
         }
         failures.extend(self.check_hrefs(&rel, &hrefs, offline)?);
@@ -835,21 +871,23 @@ fn join(root: &Path, rel: &str) -> PathBuf {
         .fold(root.to_path_buf(), |path, part| path.join(part))
 }
 
-/// True when an HTML target declares an element with that id or name; other targets
-/// and Liquid-templated pages pass.
-fn fragment_exists(target: &Path, fragment: &str) -> Result<bool, String> {
+/// The ids and names an HTML target declares, or `None` when any fragment passes: a
+/// target that is not HTML, or a Liquid-templated page whose ids are not all in its source.
+fn fragment_targets(target: &Path) -> Result<Option<HashSet<String>>, String> {
     let suffix = crate::suffix(target).to_lowercase();
     if suffix != ".html" && suffix != ".htm" {
-        return Ok(true);
+        return Ok(None);
     }
     let text = crate::read(target)?;
-    if re(FRAGMENT_TARGET, 0)
-        .captures_iter(&text)
-        .any(|m| m.get(2).is_some_and(|g| g.as_str() == fragment))
-    {
-        return Ok(true);
+    if text.contains("{%") && text.contains("{{") {
+        return Ok(None);
     }
-    Ok(text.contains("{%") && text.contains("{{"))
+    Ok(Some(
+        re(FRAGMENT_TARGET, 0)
+            .captures_iter(&text)
+            .filter_map(|m| m.get(2).map(|g| g.as_str().to_owned()))
+            .collect(),
+    ))
 }
 
 /// Every link and own-repository verdict the pass over `pages` and llms.txt will

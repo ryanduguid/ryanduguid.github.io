@@ -1,0 +1,86 @@
+# Horse training … effective lives and depreciation rates
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/
+
+> Horse training (racing), Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+
+# Horse training (racing)
+
+22 effective lives in Table A of the Commissioner’s 2025 effective life determination for Horse training (racing).
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## The rows
+
+A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Row | Life | Prime cost | Diminishing value | Last updated
+Arena and track maintenance assets: | | | |
+Arena and track maintenance assets: / Arena rakes | 4 years | 25.00% | 50.00% | 1 July 2021
+Arena and track maintenance assets: / Others (including grader blades, smudgers, levellers etc) | 10 years | 10.00% | 20.00% | 1 July 2021
+Arena and track maintenance assets: / Quad bikes/All-terrain vehicles (ATVs) | 5 years | 20.00% | 40.00% | 1 July 2021
+Lead and companion ponies (horses) | 5 years | 20.00% | 40.00% | 1 July 2021
+Racehorses: | | | |
+Racehorses: / Flat racing (thoroughbred horses) | 5 years | 20.00% | 40.00% | 1 July 2021
+Racehorses: / Harness racing (standardbred horses) | 7 years | 14.29% | 28.57% | 1 July 2021
+Racehorses: / Jumps racing (thoroughbred horses) | 10 years | 10.00% | 20.00% | 1 July 2021
+Support assets: | | | |
+Support assets: / Horse floats | 20 years | 5.00% | 10.00% | 1 July 2021
+Support assets: / Horse rugs (including turnout rugs) | 2 years | 50.00% | 100.00% | 1 July 2021
+Support assets: / Horse tack (including bits, bridles, harnesses (hobbles), headgear, saddles etc) | 4 years | 25.00% | 50.00% | 1 July 2021
+Support assets: / Horse trucks – see Table B Motor vehicles and trailers | | | |
+Support assets: / Platform scales | 7 years | 14.29% | 28.57% | 1 July 2021
+Support assets: / Rubber mats | 5 years | 20.00% | 40.00% | 1 July 2021
+Support assets: / Security and monitoring assets – see Table B Security and monitoring assets | | | |
+Support assets: / Tack room furniture, freestanding (including lockers, racks, seats etc) | 10 years | 10.00% | 20.00% | 1 July 2021
+Support assets: / Washing machines and dryers (used for washing horse rugs, saddle pads etc) | 3 years | 33.33% | 66.67% | 1 July 2021
+Training and rehabilitation assets: | | | |
+Training and rehabilitation assets: / Barriers | 15 years | 6.67% | 13.33% | 1 July 2021
+Training and rehabilitation assets: / Horses training pools | 30 years | 3.33% | 6.67% | 1 July 2021
+Training and rehabilitation assets: / Horse training pool assets: | | | |
+Training and rehabilitation assets: / Horse training pool assets: / Cleaning assets | 5 years | 20.00% | 40.00% | 1 July 2021
+Training and rehabilitation assets: / Horse training pool assets: / Filtration assets (including pumps) | 8 years | 12.50% | 25.00% | 1 July 2021
+Training and rehabilitation assets: / Stables, portable types | 15 years | 6.67% | 13.33% | 1 July 2021
+Training and rehabilitation assets: / Sulkies | 2 years | 50.00% | 100.00% | 1 July 2021
+Training and rehabilitation assets: / Treadmills (including water types) | 15 years | 6.67% | 13.33% | 1 July 2021
+Training and rehabilitation assets: / Walkers (including water walkers) | 20 years | 5.00% | 10.00% | 1 July 2021
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- Arena rakes: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/arena-rakes/
+- Others (including grader blades, smudgers, levellers etc): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/others/
+- Quad bikes/All-terrain vehicles (ATVs): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/quad-bikes-all-terrain-vehicles/
+- Lead and companion ponies (horses): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/lead-and-companion-ponies/
+- Flat racing (thoroughbred horses): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/flat-racing/
+- Harness racing (standardbred horses): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/harness-racing/
+- Jumps racing (thoroughbred horses): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/jumps-racing/
+- Horse floats: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/horse-floats/
+- Horse rugs (including turnout rugs): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/horse-rugs/
+- Horse tack (including bits, bridles, harnesses (hobbles), headgear, saddles etc): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/horse-tack/
+- Horse trucks – see Table B Motor vehicles and trailers: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/
+- Platform scales: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/platform-scales/
+- Rubber mats: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/rubber-mats/
+- Security and monitoring assets – see Table B Security and monitoring assets: https://duguid.com.au/tools/depreciation-rates/asset/security-and-monitoring-assets/
+- Tack room furniture, freestanding (including lockers, racks, seats etc): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/tack-room-furniture-freestanding/
+- Washing machines and dryers (used for washing horse rugs, saddle pads etc): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/washing-machines-and-dryers/
+- Barriers: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/barriers/
+- Horses training pools: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/horses-training-pools/
+- Cleaning assets: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/cleaning-assets/
+- Filtration assets (including pumps): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/filtration-assets/
+- Stables, portable types: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/stables-portable-types/
+- Sulkies: https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/sulkies/
+- Treadmills (including water types): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/treadmills/
+- Walkers (including water walkers): https://duguid.com.au/tools/depreciation-rates/industry/horse-training-racing/walkers/
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

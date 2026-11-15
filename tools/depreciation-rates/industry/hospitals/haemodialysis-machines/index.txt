@@ -1,0 +1,82 @@
+# Haemodialysis machines effective life: 7 years, Hospital assets
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/haemodialysis-machines/
+
+> Hospital assets: Haemodialysis machines: effective life 7 years, last updated 1 January 2003 (Table A).
+
+# Hospital assets: Haemodialysis machines
+
+‘Hospital assets: Haemodialysis machines’, for an asset used in Hospitals, has an effective life of 7 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2003.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Haemodialysis machines
+Under | Hospital assets:
+Table | Table A (industry categories), HEALTH CARE AND SOCIAL ASSISTANCE / Hospitals, ANZSIC 84010 to 84020
+Effective life | 7 years
+Prime cost rate | 14.29% (100% ÷ life, section 40-75)
+Diminishing value rate | 28.57% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 January 2003
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Hospitals takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 January 2003. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Hospital assets
+
+Row | Life | Prime cost | Diminishing value
+Anaesthesia machines | 10 years | 10.00% | 20.00%
+Cell savers and cell separators | 7 years | 14.29% | 28.57%
+Colposcopes | 10 years | 10.00% | 20.00%
+Defibrillators | 10 years | 10.00% | 20.00%
+Diathermy and cautery machines/electrosurgical generators | 10 years | 10.00% | 20.00%
+Haemodialysis machines (this page) | 7 years | 14.29% | 28.57%
+Head lights | 7 years | 14.29% | 28.57%
+Insufflators | 10 years | 10.00% | 20.00%
+Lithotriptors used for extra-corporeal shock wave lithotripsy | 7 years | 14.29% | 28.57%
+Natal care assets (including incubators, infant warmers and mobile infant warmers) | 7 years | 14.29% | 28.57%
+Operating theatre lights | 8 years | 12.50% | 25.00%
+Pan flushers | 10 years | 10.00% | 20.00%
+
+20 rows share this heading. The Hospitals page lists them all.
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 7 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Anaesthesia machines: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/anaesthesia-machines/
+- Cell savers and cell separators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/cell-savers-and-cell-separators/
+- Colposcopes: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/colposcopes/
+- Defibrillators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/defibrillators/
+- Diathermy and cautery machines/electrosurgical generators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/diathermy-and-cautery-machines-electrosurgical-generators/
+- Head lights: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/head-lights/
+- Insufflators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/insufflators/
+- Lithotriptors used for extra-corporeal shock wave lithotripsy: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/lithotriptors-used-for-extra-corporeal-shock-wave/
+- Natal care assets (including incubators, infant warmers and mobile infant warmers): https://duguid.com.au/tools/depreciation-rates/industry/hospitals/natal-care-assets/
+- Operating theatre lights: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/operating-theatre-lights/
+- Pan flushers: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/pan-flushers/
+- Hospitals: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -216,6 +216,15 @@ tool: coal-lsl-levy
         </p>
       </div>
 
+      <h2 class="section-title" id="api">HTTP API</h2>
+      <p>The same calculation runs as a JSON API with no key or sign-up, at <code>https://coal-lsl-levy.coal-lsl-levy-service.workers.dev</code>, from this page's engine, <code>assets/levy.mjs</code>. Its source and tests are in <a href="https://github.com/ryanduguid/ryanduguid.github.io/tree/main/service/coal-lsl-levy"><code>service/coal-lsl-levy</code></a>.</p>
+      <ul>
+        <li><a href="https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/v1/calculators"><code>GET /v1/calculators</code></a> lists the calculator, its supported reporting months, its limits and the path to post a calculation to.</li>
+        <li><a href="https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/openapi.json"><code>GET /openapi.json</code></a> is the OpenAPI 3.1 document for every route, request and response.</li>
+      </ul>
+      <pre tabindex="0" role="region" aria-label="Example request to the Coal LSL levy API"><code>curl https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/v1/calculators</code></pre>
+      <p>A calculation is one employee and one reporting month, posted as JSON with amounts as decimal strings. A request it does not answer gets 400 with a refusal class, and an invalid one gets 422 naming the field.</p>
+
       <!-- geo-blocks -->
       <h2 class="section-title">Common questions</h2>
       <div class="faq">

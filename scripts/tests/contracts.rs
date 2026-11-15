@@ -95,6 +95,60 @@ fn set(object: &Json, key: &str, value: Json) -> Json {
     Json::Object(pairs)
 }
 
+/// A minimal AI-agent page carrying the given visible review date and the two
+/// structured `dateModified` values.
+fn mcp_page(visible: &str, article: &str, web_page: &str) -> String {
+    format!(
+        r#"<main><p class="page-meta">Published 25 August 2026. Last reviewed {visible}.</p></main>
+<script type="application/ld+json">{{"@context": "https://schema.org", "@graph": [
+{{"@type": "TechArticle", "datePublished": "2026-08-25", "dateModified": "{article}"}},
+{{"@type": "WebPage", "datePublished": "2026-08-25", "dateModified": "{web_page}"}}]}}</script>"#
+    )
+}
+
+#[test]
+fn mcp_review_dates_follow_a_consistent_redate() {
+    assert_clean(
+        "AI-agent page redated consistently",
+        &contracts::check_mcp_review_dates(&mcp_page(
+            "3 December 2026",
+            "2026-12-03",
+            "2026-12-03",
+        )),
+    );
+}
+
+#[test]
+fn mcp_review_dates_refuse_an_inconsistent_redate() {
+    expect_failure(
+        "visible date moved alone",
+        &contracts::check_mcp_review_dates(&mcp_page(
+            "3 December 2026",
+            "2026-11-15",
+            "2026-11-15",
+        )),
+        "TechArticle dateModified '2026-11-15' does not match the visible review date 2026-12-03",
+    );
+    expect_failure(
+        "one structured date moved alone",
+        &contracts::check_mcp_review_dates(&mcp_page(
+            "3 December 2026",
+            "2026-12-03",
+            "2026-11-15",
+        )),
+        "WebPage dateModified '2026-11-15' does not match the visible review date 2026-12-03",
+    );
+    expect_failure(
+        "visible date unreadable",
+        &contracts::check_mcp_review_dates(&mcp_page(
+            "31 November 2026",
+            "2026-11-31",
+            "2026-11-31",
+        )),
+        "visible review date must read 'Published 25 August 2026. Last reviewed D Month YYYY.'",
+    );
+}
+
 #[test]
 fn parked_consultancy_surface() {
     if !rendered() {
@@ -560,8 +614,12 @@ fn public_contracts_page_and_site_checks() {
         .iter()
         .filter(|p| !contracts::NOT_INDEXED.contains(&core::rel(p, root()).as_str()))
         .count();
-    // The sitemap lists every indexable page, so the count follows it.
-    let listed = core::sitemap_urls(root()).unwrap().len();
+    // The sitemaps list every indexable page, so the count follows them: the site's, and
+    // the effective life pages' own.
+    let family =
+        std::fs::read_to_string(root().join(site_tools::effective_life_pages::SITEMAP_REL))
+            .map_or(0, |xml| xml.matches("<loc>").count());
+    let listed = core::sitemap_urls(root()).unwrap().len() + family;
     assert_eq!(
         indexed, listed,
         "expected {listed} canonical HTML pages, as the sitemap lists, found {indexed}"
@@ -1488,7 +1546,7 @@ fn public_contracts_calculator_mutations() {
 #[test]
 fn nested_collection_breadcrumbs_name_their_hub() {
     let names = |rel: &str| -> Vec<String> {
-        contracts::collection_breadcrumb_shape(rel, "Leaf")
+        contracts::collection_breadcrumb_shape(rel, "Leaf", "")
             .unwrap()
             .into_iter()
             .map(|(name, _, _)| name)
@@ -1541,6 +1599,7 @@ fn public_contracts_structure_and_assets() {
         contracts::check_collection_breadcrumb(
             &read_text(root, "tools/xero-trial-balance/index.html"),
             "tools/xero-trial-balance/index.html",
+            root,
             &mut found,
         );
         Ok(found)
@@ -1996,10 +2055,16 @@ fn rendered_checked_tree_command_output() {
         stdout.starts_with(&format!("checked 404.html{eol}")),
         "{stdout}"
     );
-    let listed = core::sitemap_urls(root()).unwrap().len();
-    assert!(stdout.ends_with(&format!(
-        "checked sitemap.xml ({listed} URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
-    )));
+    let family =
+        std::fs::read_to_string(root().join(site_tools::effective_life_pages::SITEMAP_REL))
+            .map_or(0, |xml| xml.matches("<loc>").count());
+    let listed = core::sitemap_urls(root()).unwrap().len() + family;
+    assert!(
+        stdout.ends_with(&format!(
+            "checked the sitemaps ({listed} URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
+        )),
+        "{stdout}"
+    );
 }
 
 fn vocabulary_failures(block: &str) -> Vec<String> {
@@ -2283,21 +2348,21 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
         (
             "a hub modified before a calculator with no check",
             loan,
-            r#""dateModified": "2026-11-13""#,
-            r#""dateModified": "2026-11-14""#,
-            "tools/business-calculators/index.html: dateModified 2026-11-13 is older than tools/business-calculators/loan/index.html's 2026-11-14",
+            r#""dateModified": "2026-11-15""#,
+            r#""dateModified": "2026-11-16""#,
+            "tools/business-calculators/index.html: dateModified 2026-11-15 is older than tools/business-calculators/loan/index.html's 2026-11-16",
         ),
         (
             "a hub checked before a calculator",
             hub,
-            r#"Last checked <time datetime="2026-11-13">"#,
+            r#"Last checked <time datetime="2026-11-15">"#,
             r#"Last checked <time datetime="2026-09-27">"#,
-            "tools/business-calculators/index.html: Last checked is not the newest calculator check, 2026-11-13",
+            "tools/business-calculators/index.html: Last checked is not the newest calculator check, 2026-11-15",
         ),
         (
             "a hub modified before a calculator",
             hub,
-            r#""dateModified": "2026-11-13""#,
+            r#""dateModified": "2026-11-15""#,
             r#""dateModified": "2026-09-27""#,
             "tools/business-calculators/index.html: dateModified 2026-09-27 is older than tools/business-calculators/break-even/index.html's 2026-11-13",
         ),

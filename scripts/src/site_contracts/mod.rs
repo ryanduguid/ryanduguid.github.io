@@ -109,7 +109,9 @@ pub fn check_file_contracts(path: &Path, root: &Path) -> Result<Vec<String>, Str
     let mut failures = Vec::new();
     let rel = crate::seo_core::rel(path, root);
     let html = crate::read(path)?;
-    check_shared_shell(&html, &rel, &mut failures);
+    // The shell and breadcrumb checks read the same structure; parse the page once.
+    let tree = crate::seo_core::parse_structure(&html);
+    pages::shared_shell(&tree, &rel, &mut failures);
     if rel == "index.html" {
         check_homepage_contract(&html, &mut failures);
     }
@@ -125,7 +127,7 @@ pub fn check_file_contracts(path: &Path, root: &Path) -> Result<Vec<String>, Str
     }
     check_approved_page_opening(&html, &rel, &mut failures);
     check_header_review_date(&html, &rel, &mut failures);
-    check_collection_breadcrumb(&html, &rel, &mut failures);
+    pages::collection_breadcrumb(&tree, &html, &rel, root, &mut failures);
     check_question_answers(&html, &rel, &mut failures);
     Ok(failures)
 }

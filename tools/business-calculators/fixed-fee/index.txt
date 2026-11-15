@@ -1,0 +1,56 @@
+# Fixed fee pricing calculator for accountants and advisers
+
+Source: https://duguid.com.au/tools/business-calculators/fixed-fee/
+
+> Price a fixed fee from hours at a rate or a cost and margin, with GST, monthly instalments that add up to the cent and the effective hourly rate, in your browser.
+
+# Fixed fee pricing calculator
+
+A fixed fee from estimated hours at a rate or a cost and margin, with GST, monthly instalments that add up to the cent and the effective hourly rate.
+
+Published 15 November 2026. Last checked 15 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Fixed fee pricing inputs
+
+Estimated hours for the work Hourly rate or cost per hour, before GST (AUD) Target margin on the fee (%) Monthly instalments Round the fee up to The cent The next $10 The next $50 The next $100
+
+Add GST at 10%
+
+Enter a 0% margin when the rate already includes your profit. The hourly pricing calculator works out a rate from annual costs, target profit and billable hours; with a target profit of $0 it gives your cost per hour.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 18.5 hours at $95.00 an hour, 40% margin, fee rounded up to the next $10, GST added, 12 monthly instalments. Fee before GST $2,930.00 GST $293.00 Fee including GST $3,223.00 First instalment $268.62 Instalments 2 to 12, each $268.58 Effective hourly rate before GST $158.38
+
+## How the fixed fee pricing calculator works
+
+The fixed fee pricing calculator turns an estimate of hours into a fee you can quote before the work starts. Enter your hourly rate with a 0% margin, or your cost per hour with the margin you want the fee to carry: fee = hours × rate / (1 − margin). A margin is a share of the fee, so a 40% margin on a $95 cost is $158.33 an hour, not the $133 a 40% markup would give. The fee then rounds up to the cent or to the next $10, $50 or $100, so rounding never takes it below your rate or margin.
+
+GST at 10% is added to the fee when you tick the box, and the fee including GST is split into monthly instalments. Each instalment is the total divided evenly and rounded down to the cent; the first instalment also carries the cents left over, at most one cent for each instalment after it. The instalments add up to the fee to the cent, every instalment after the first is the same amount for a recurring payment, and if the engagement ends early the client has paid at least an even share of the fee for each month paid. The effective hourly rate is the fee before GST over the hours, so you can see what rounding and the margin earn an hour.
+
+## What the fixed fee pricing calculator leaves out
+
+The fixed fee pricing calculator prices one piece of work. For several services or entities, price each and add the fees. It does not suggest a market rate, allow for work beyond the hours you estimated, or decide whether your supply is taxable: add GST only if you are registered for GST and the supply is taxable.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Fixed fee pricing calculator
+
+Case | Inputs | Result
+A cost and margin, rounded up to $10, in 12 instalments | 18.5 hours at $95.00 an hour, 40% margin, rounded up to $10, GST added, 12 instalments | Fee $2,930.00, GST $293.00, total $3,223.00, first instalment $268.62, each later instalment $268.58, effective rate $158.38
+The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0% margin, rounded up to the cent, GST added, 7 instalments | Fee $300.00, GST $30.00, total $330.00, first instalment $47.16, each later instalment $47.14, effective rate $100.00
+A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
+A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
+
+One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
+- twelve business calculators: https://duguid.com.au/tools/business-calculators/

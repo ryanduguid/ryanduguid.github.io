@@ -28,7 +28,7 @@ const results = [
   ['variance', { actual: '10000', budget: '10000', kind: 'income' }, 0,
     'Inputs: actual $10,000.00, budget $10,000.00, figure type income. Actual minus budget: $0.00. Difference as a share of absolute budget: 0.00%. On budget.'],
   ['loan', { principal: '50000', rate: '7.5', months: '60' }, 0,
-    'Inputs: principal $50,000.00, 7.5% annual nominal rate, 60 monthly payments. Monthly payment: $1,001.90. First payment interest: $312.50. First payment principal: $689.40. Estimated total interest: $10,113.85.'],
+    'Inputs: principal $50,000.00, 7.5% annual nominal rate, 60 monthly payments in arrears, balloon $0.00. Monthly payment: $1,001.90. First payment interest: $312.50. First payment principal: $689.40. Estimated total interest: $10,113.85.'],
   ['staff', { wages: '80000', super: '9600', other: '2500' }, 0,
     'Inputs: wages $80,000.00, super $9,600.00, other costs $2,500.00. Annual staff cost: $92,100.00. Monthly average: $7,675.00.'],
 ];

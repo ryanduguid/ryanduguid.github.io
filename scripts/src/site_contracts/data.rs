@@ -76,8 +76,6 @@ pub const RETIRED_GITHUB_SOURCE_INSTALL_PATTERN: &str = concat!(
 pub const CA_ANZ_NON_ENDORSEMENT: &str =
     "I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.";
 pub const MCP_REL: &str = "tools/australian-tax-ai-agents/index.html";
-pub const MCP_REVIEW_DATE: &str = "2026-11-13";
-pub const MCP_VISIBLE_REVIEW_DATE: &str = "13 November 2026";
 pub const ASSURANCE_ANCHORS: [(&str, &str); 11] = [
     ("results-you-can-check", "Results you can check"),
     (
@@ -142,7 +140,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "Ozzit",
         "ozzit",
         "https://github.com/ryanduguid/Ozzit",
-        "143 native Excel LAMBDA functions plus five help tables for AU modelling and GST arithmetic.",
+        "150 native Excel LAMBDA functions plus five help tables for AU modelling and GST arithmetic.",
     ),
     (
         "accounting-excel-toolkit",
@@ -154,7 +152,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "aus-accounting-mcp",
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.8.0 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and fictional SBR fixtures.",
+        "Local MCP server v0.9.0 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and fictional SBR fixtures.",
     ),
     (
         "australian-accounting-skills",
@@ -739,7 +737,7 @@ pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
 ];
-pub const ARTICLE_PATTERN_PAGES: [&str; 39] = [
+pub const ARTICLE_PATTERN_PAGES: [&str; 40] = [
     "works-with/index.html",
     "works-with/xero/index.html",
     "works-with/claude/index.html",
@@ -762,6 +760,7 @@ pub const ARTICLE_PATTERN_PAGES: [&str; 39] = [
     "tools/company-tax-franking/index.html",
     "tools/payday-super/index.html",
     "tools/payday-super/business-days/index.html",
+    "tools/bas-due-dates/index.html",
     "tools/workpaper-review-gate/index.html",
     "tools/refusals/index.html",
     "tools/limitations/index.html",

@@ -1,0 +1,101 @@
+# Valves effective life: 7 years, Pumping systems
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumping-systems-valves/
+
+> Pumping systems: Valves: effective life 7 years, prime cost 14.29%, diminishing value 28.57%, last updated 1 July 2010 (Table A, 2025 determination).
+
+# Pumping systems: Valves
+
+‘Pumping systems: Valves’, for an asset used in Petroleum product wholesaling, has an effective life of 7 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
+
+Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Valves
+Under | LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems:
+Table | Table A (industry categories), WHOLESALE TRADE / Petroleum product wholesaling, ANZSIC 33210
+Effective life | 7 years
+Prime cost rate | 14.29% (100% ÷ life, section 40-75)
+Diminishing value rate | 28.57% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2010
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Petroleum product wholesaling takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2010. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Pumping systems
+
+Row | Life | Prime cost | Diminishing value
+Guns and nozzles | 3 years | 33.33% | 66.67%
+Hoses | 5 years | 20.00% | 40.00%
+Hose reels | 7 years | 14.29% | 28.57%
+Pipes and fittings | 7 years | 14.29% | 28.57%
+Pumps | 7 years | 14.29% | 28.57%
+Valves (this page) | 7 years | 14.29% | 28.57%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Valves | Oil and gas extraction | 12 1/2 years | 8.00% | 16.00%
+Valves | Oil and gas extraction | 12 1/2 years | 8.00% | 16.00%
+Valves | Dairy product manufacturing | 15 years | 6.67% | 13.33%
+Valves | Fruit and vegetable processing | 10 years | 10.00% | 20.00%
+Valves | Sugar manufacturing | 10 years | 10.00% | 20.00%
+Valves | Sugar manufacturing | 10 years | 10.00% | 20.00%
+Valves | Other food product manufacturing n.e.c. | 10 years | 10.00% | 20.00%
+Valves | Soft drink, cordial and syrup manufacturing | 10 years | 10.00% | 20.00%
+Valves | Beer manufacturing (except non-alcoholic beer) | 10 years | 10.00% | 20.00%
+Valves | Wine and other alcoholic beverage manufacturing | 10 years | 10.00% | 20.00%
+Valves | Industrial gas manufacturing | 10 years | 10.00% | 20.00%
+Valves | Basic organic chemical manufacturing | 10 years | 10.00% | 20.00%
+Valves | Basic inorganic chemical manufacturing | 10 years | 10.00% | 20.00%
+Valves | Water supply | 40 years | 2.50% | 5.00%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 7 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Guns and nozzles: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumping-systems-guns-and-nozzles/
+- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-pumping-systems-hoses/
+- Hose reels: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-hose-reels/
+- Pipes and fittings: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-pipes-and-fittings/
+- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumping-systems-pumps/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/oil-production-assets-valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/valves/
+- Valves: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/valves/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

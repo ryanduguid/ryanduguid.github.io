@@ -1,0 +1,89 @@
+# Clarifiers effective life: 20 years, Grain mill product …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/clarifiers/
+
+> Waste water treatment assets: Clarifiers (Grain mill product manufacturing): effective life 20 years, last updated 1 July 2008 (Table A).
+
+# Waste water treatment assets: Clarifiers (Grain mill product manufacturing)
+
+‘Waste water treatment assets: Clarifiers’, for an asset used in Grain mill product manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2008.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Clarifiers
+Under | Malt manufacturing assets: / Waste water treatment assets:
+Table | Table A (industry categories), MANUFACTURING / Grain mill product manufacturing, ANZSIC 11610
+Effective life | 20 years
+Prime cost rate | 5.00% (100% ÷ life, section 40-75)
+Diminishing value rate | 10.00% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2008
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Grain mill product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2008. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Waste water treatment assets
+
+Row | Life | Prime cost | Diminishing value
+Aerators | 20 years | 5.00% | 10.00%
+Blowers | 20 years | 5.00% | 10.00%
+Clarifiers (this page) | 20 years | 5.00% | 10.00%
+Digester/aeration tanks | 25 years | 4.00% | 8.00%
+Reverse osmosis system assets | 20 years | 5.00% | 10.00%
+
+## The same wording elsewhere
+
+Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Row | Industry or table | Life | Prime cost | Diminishing value
+Clarifiers | Meat processing | 20 years | 5.00% | 10.00%
+Clarifiers | Sugar manufacturing | 25 years | 4.00% | 8.00%
+Clarifiers | Sugar manufacturing | 25 years | 4.00% | 8.00%
+Clarifiers | Sugar manufacturing | 25 years | 4.00% | 8.00%
+Clarifiers (including dissolved air floatation equipment and screens) | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
+Clarifiers | Soft drink, cordial and syrup manufacturing | 20 years | 5.00% | 10.00%
+Clarifiers | Beer manufacturing (except non-alcoholic beer) | 20 years | 5.00% | 10.00%
+Clarifiers | Wine and other alcoholic beverage manufacturing | 10 years | 10.00% | 20.00%
+Clarifiers (incorporating scrapers) | Water supply | 80 years | 1.25% | 2.50%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Aerators: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/aerators/
+- Blowers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/blowers/
+- Digester/aeration tanks: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/digester-aeration-tanks/
+- Reverse osmosis system assets: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/reverse-osmosis-system-assets/
+- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/clarifiers/
+- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cane-juice-filtration-and-clarifiers/
+- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/water-treatment-and-cooling-clarifiers/
+- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-clarifiers/
+- Clarifiers (including dissolved air floatation equipment and screens): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/clarifiers/
+- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/clarifiers/
+- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/clarifiers/
+- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/clarifiers/
+- Clarifiers (incorporating scrapers): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/clarifiers/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/ozzit/functions/utilities/
 
 The 17 Utilities formulas cover standalone copies of the Essentials functions, each with a U suffix. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
 
-Release v3.5.0. Read from the released Utilities formula source, which the workbook compiles.
+Release v3.6.0. Read from the released Utilities formula source, which the workbook compiles.
 
 Published 20 October 2026. Last reviewed 20 October 2026.
 
@@ -16,7 +16,7 @@ Published 20 October 2026. Last reviewed 20 October 2026.
 
 Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
 
-The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+The text below is the help each function carries in the v3.6.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
 
 ## All 17 functions
 
@@ -417,7 +417,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Utilities formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Utilities.txt
+- Utilities formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Utilities.txt
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
 - oz.CountCU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcu

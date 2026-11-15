@@ -94,7 +94,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/limitations/</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/coal-lsl-levy/</loc>
@@ -107,6 +107,10 @@
   <url>
     <loc>https://duguid.com.au/tools/payday-super/business-days/</loc>
     <lastmod>2026-11-14</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/bas-due-dates/</loc>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/ato-benchmarks/</loc>
@@ -134,7 +138,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/australian-tax-ai-agents/</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/workpaper-review-gate/</loc>
@@ -158,7 +162,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/depreciation-rates/</loc>
@@ -225,16 +229,24 @@
     <lastmod>2026-11-13</lastmod>
   </url>
   <url>
+    <loc>https://duguid.com.au/tools/business-calculators/fixed-fee/</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
     <loc>https://duguid.com.au/tools/business-calculators/variance/</loc>
     <lastmod>2026-11-13</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/loan/</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/div7a/</loc>
     <lastmod>2026-11-13</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/fbt-car/</loc>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/staff/</loc>
@@ -254,7 +266,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/ozzit/</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/ozzit/functions/dates/</loc>

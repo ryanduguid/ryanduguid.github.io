@@ -1,0 +1,73 @@
+# Toys (not specified elsewhere) effective life: 3 years, Play …
+
+Source: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/toys/
+
+> Play area assets: Toys (not specified elsewhere): effective life 3 years, last updated 1 July 2020 (Table A).
+
+# Play area assets: Toys (not specified elsewhere)
+
+‘Play area assets: Toys (not specified elsewhere)’, for an asset used in Child care services, has an effective life of 3 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2020.
+
+Published 14 November 2026. Page updated 15 November 2026. Sources checked 13 November 2026.
+
+## Effective life and rates
+
+The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+
+Row | Toys (not specified elsewhere)
+Under | Play area assets:
+Table | Table A (industry categories), HEALTH CARE AND SOCIAL ASSISTANCE / Child care services, ANZSIC 87100
+Effective life | 3 years
+Prime cost rate | 33.33% (100% ÷ life, section 40-75)
+Diminishing value rate | 66.67% (200% ÷ life, section 40-72, for an asset you started to hold on or after 10 May 2006)
+Last reviewed and determined | 1 July 2020
+Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing review of the determination.
+
+## Reading this row
+
+An asset used in Child care services takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+
+The life was last reviewed and determined on 1 July 2020. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+
+## Other rows under Play area assets
+
+Row | Life | Prime cost | Diminishing value
+Furniture, freestanding (including tables, seating and toy storage boxes) | 5 years | 20.00% | 40.00%
+Pet enclosures and structures, freestanding (including bird aviaries, chicken coops, fish tanks, guinea pig cages and rabbit hutches) | 10 years | 10.00% | 20.00%
+Playsets (including cubby houses, forts, slides, swing sets and trestle frames) | 8 years | 12.50% | 25.00%
+Pole and post padding/protectors | 5 years | 20.00% | 40.00%
+Sandpits, freestanding (including portable sandpits and sandpit covers) | 7 years | 14.29% | 28.57%
+Tents, portable (including gazebos, marquees and tepee play tents) | 5 years | 20.00% | 40.00%
+Toys (not specified elsewhere) (this page) | 3 years | 33.33% | 66.67%
+Tricycles and bicycles (including balance bicycles and tricycle scooters) | 5 years | 20.00% | 40.00%
+Water play area filtration assets and water pumps | 7 years | 14.29% | 28.57%
+
+## Work out a deduction
+
+The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 3 years.
+
+## Source
+
+Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+
+Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
+
+The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+
+## Links
+
+- which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
+- Furniture, freestanding (including tables, seating and toy storage boxes): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/furniture-freestanding/
+- Pet enclosures and structures, freestanding (including bird aviaries, chicken coops, fish tanks, guinea pig cages and rabbit hutches): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/pet-enclosures-and-structures-freestanding/
+- Playsets (including cubby houses, forts, slides, swing sets and trestle frames): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/playsets/
+- Pole and post padding/protectors: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/pole-and-post-padding-protectors/
+- Sandpits, freestanding (including portable sandpits and sandpit covers): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/sandpits-freestanding/
+- Tents, portable (including gazebos, marquees and tepee play tents): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/tents-portable/
+- Tricycles and bicycles (including balance bicycles and tricycle scooters): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/tricycles-and-bicycles/
+- Water play area filtration assets and water pumps: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/water-play-area-filtration-assets-and-water-pumps/
+- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- https://www.legislation.gov.au: https://www.legislation.gov.au
+- Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

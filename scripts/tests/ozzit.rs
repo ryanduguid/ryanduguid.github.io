@@ -166,7 +166,11 @@ fn documented_release_comes_from_the_record() {
     let ozzit = record.get("components").unwrap().get("ozzit").unwrap();
     let documented = ozzit.get("documented").unwrap();
     assert!(Json::Str(tag.clone()).py_eq(documented.get("tag").unwrap()));
-    assert!(sha256.py_eq(ozzit.get("published").unwrap().get("asset_sha256").unwrap()));
+    // A page documenting an older release carries that release's own hash.
+    let expected = documented
+        .get("asset_sha256")
+        .unwrap_or_else(|| ozzit.get("published").unwrap().get("asset_sha256").unwrap());
+    assert!(sha256.py_eq(expected));
     let index = render_index(&repository()).unwrap();
     assert!(index.contains(&format!(
         "https://github.com/ryanduguid/Ozzit/blob/{tag}/src/"
@@ -188,6 +192,9 @@ fn older_documented_release_needs_its_own_hash() {
         let documented = member(ozzit, "documented");
         *member(documented, "version") = Json::Str("3.4.2".into());
         *member(documented, "tag") = Json::Str("v3.4.2".into());
+        if let Json::Object(pairs) = documented {
+            pairs.retain(|(key, _)| key != "asset_sha256");
+        }
     });
     assert!(render_error(root.path()).contains("Record asset_sha256"));
     edit_release(root.path(), |ozzit| {
@@ -408,7 +415,7 @@ fn wrong_or_missing_counts_are_reported() {
             "another page",
             "llms.txt",
             llms.replace(&format!("{lambdas} native LAMBDA"), "1 native LAMBDA"),
-            "llms.txt: states [1, 143] LAMBDA functions",
+            "llms.txt: states [1, 150] LAMBDA functions",
         ),
     ];
     for (label, rel, changed, message) in cases {
@@ -539,7 +546,7 @@ fn every_index_entry_links_to_its_module_page_entry() {
         );
         count += 1;
     }
-    assert_eq!(count, 148);
+    assert_eq!(count, 155);
 }
 
 #[test]
@@ -628,7 +635,7 @@ fn rows_after_an_introducing_colon_render_as_a_list() {
         .find(|(r, _)| r.contains("/financial/"))
         .unwrap()
         .1;
-    assert!(financial.contains("A date here is not a life: the arguments read"));
+    assert!(financial.contains("A date here is not a life: check the argument order."));
 }
 
 fn with_reference(

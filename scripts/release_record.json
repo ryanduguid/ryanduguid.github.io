@@ -8,7 +8,9 @@
     "documented: the release each page's prose, links and structured data describe.",
     "Release instants are UTC. 'reviewed' and 'verified' are Australia/Melbourne dates.",
     "evaluations[].label is the namespaced tag each evaluation page must keep visible. It names the component as well as the version, so an unrelated occurrence of the same number cannot satisfy the contract.",
-    "documented.supporting_files are release-specific files a page cites as evidence. Each must be linked at documented.tag, so a reader sees the files belonging to the release the page documents rather than a later default branch."
+    "documented.supporting_files are release-specific files a page cites as evidence. Each must be linked at documented.tag, so a reader sees the files belonging to the release the page documents rather than a later default branch.",
+    "published.registry_lag records an MCP registry that still lists an older version than published.version: its version and the sentence the documented page uses to say so. --verify-live expects the registry to report that version and reports drift once it catches up. It needs registry_url and documented.page. Without it, a documented page may not say the registry still lists, shows or has not caught up with a version.",
+    "published_mentions are other pages that name the published release. Each page must show text with {version} replaced by published.version and {<engine>} by that engine's pin in the component's pinned_engines, the published release's pins."
   ],
   "components": {
     "aus-accounting-mcp": {
@@ -18,19 +20,19 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.8.0",
-        "released_utc": "2026-11-12T12:44:47Z",
-        "verified": "2026-11-13",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.8.0",
+        "version": "0.9.0",
+        "released_utc": "2026-11-14T05:21:13Z",
+        "verified": "2026-11-15",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
       },
       "documented": {
         "page": "tools/australian-tax-ai-agents/index.html",
-        "version": "0.8.0",
-        "visible_label": "Current release aus-accounting-mcp v0.8.0",
-        "software_version": "0.8.0",
+        "version": "0.9.0",
+        "visible_label": "Current release aus-accounting-mcp v0.9.0",
+        "software_version": "0.9.0",
         "pinned_engines": {
           "payday-super-checker": "0.2.3",
           "ato-benchmark-compare": "0.2.2",
@@ -55,13 +57,20 @@
         "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
       ],
+      "published_mentions": [
+        {
+          "page": "tools/limitations/index.html",
+          "text": "The published server, aus-accounting-mcp {version}, pins checker {payday-super-checker}"
+        }
+      ],
       "notes": [
-        "GitHub, PyPI and the MCP registry publish 0.8.0, verified on 13 November 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
+        "GitHub, PyPI and the MCP registry publish 0.9.0, verified on 15 November 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
         "0.6.0 adds GST coding review and BAS reconciliation through gst-review 0.1.0 and pins the Apache-2.0 releases of the payday, benchmark and Division 7A engines, which change no check, comparison or review.",
-        "The guide names current 0.8.0 first; its recorded demonstration remains pinned to 0.2.8. Documented engine pins belong to current 0.8.0.",
+        "The guide names current 0.9.0 first; its recorded demonstration remains pinned to 0.2.8. Documented engine pins belong to current 0.9.0.",
         "0.7.0 adds lodgment due-date lookup through lodgment-calendar 0.1.0 and a bundled-data freshness report. Missing facts or recorded periods remain UNKNOWN.",
         "0.7.1 pins payday-super-checker 0.2.3, whose only change is to its Employment Hero export profile. The server imports no vendor export, so no tool output changes except engine_version, now 0.2.3 for the payday tools.",
-        "0.8.0 moves to the Ryan Duguid Public Attribution Licence 1.0 and lists 25 tools, up from 22, adding get_reviewed_rate, validate_abn and validate_acn. Its searches match whole words only and search_tax_rates leaves out superseded rows by default, both breaking changes. Engine pins are unchanged."
+        "0.8.0 moves to the Ryan Duguid Public Attribution Licence 1.0 and lists 25 tools, up from 22, adding get_reviewed_rate, validate_abn and validate_acn. Its searches match whole words only and search_tax_rates leaves out superseded rows by default, both breaking changes. Engine pins are unchanged.",
+        "0.9.0 adds no tool. review_div7a_loan refuses a remaining term longer than the Act allows, so a call that returned a figure in 0.8.0 can be refused; get_reviewed_rate adds the Division 296 rates. Engine pins are unchanged."
       ]
     },
     "ozzit": {
@@ -69,25 +78,27 @@
       "distribution": "ozzit.xlsx",
       "repository": "https://github.com/ryanduguid/Ozzit",
       "published": {
-        "version": "3.5.0",
-        "released_utc": "2026-10-19T08:14:34Z",
-        "verified": "2026-10-19",
-        "release_url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0",
-        "download_url": "https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx",
-        "asset_sha256": "76d3722c785abd3813ffffffc5fbb2d6ab80628da10fb7f36cea7c67fd171330",
-        "asset_bytes": 462490
+        "version": "3.6.0",
+        "released_utc": "2026-11-14T01:25:36Z",
+        "verified": "2026-11-15",
+        "release_url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.0",
+        "download_url": "https://github.com/ryanduguid/Ozzit/releases/download/v3.6.0/ozzit.xlsx",
+        "asset_sha256": "95006168d685496f27b04ab95099a7c103d3013cf031178046ffcbfcfd88d65b",
+        "asset_bytes": 485256
       },
       "documented": {
         "page": "tools/ozzit/index.html",
-        "version": "3.5.0",
-        "visible_label": "Current release Ozzit v3.5.0",
-        "software_version": "3.5.0",
-        "tag": "v3.5.0",
+        "version": "3.6.0",
+        "visible_label": "Current release Ozzit v3.6.0",
+        "software_version": "3.6.0",
+        "tag": "v3.6.0",
         "supporting_files": [
           "CITATION.cff",
           "functions.csv",
           "docs/workbook-use.md"
-        ]
+        ],
+        "asset_sha256": "95006168d685496f27b04ab95099a7c103d3013cf031178046ffcbfcfd88d65b",
+        "asset_bytes": 485256
       }
     },
     "au-fpa-pack": {
@@ -95,10 +106,10 @@
       "distribution": "au-fpa-pack",
       "repository": "https://github.com/ryanduguid/au-fpa-pack",
       "published": {
-        "version": "0.5.0",
-        "released_utc": "2026-11-13T01:51:13Z",
-        "verified": "2026-11-14",
-        "release_url": "https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.5.0",
+        "version": "0.6.0",
+        "released_utc": "2026-11-13T20:41:57Z",
+        "verified": "2026-11-15",
+        "release_url": "https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.6.0",
         "pypi_url": "https://pypi.org/project/au-fpa-pack/"
       },
       "documented": {
