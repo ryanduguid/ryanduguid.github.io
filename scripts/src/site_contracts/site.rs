@@ -315,14 +315,22 @@ pub fn check_llms_authority_surface(llms: &str) -> Vec<String> {
     }
 }
 
-/// Keep the AI-agent page's visible and structured review dates aligned.
+/// Keep the AI-agent page's visible and structured review dates aligned: its
+/// TechArticle and WebPage `dateModified` must be the visible review date, whatever
+/// that date is. check_sitemap holds the sitemap lastmod to `dateModified`.
 pub fn check_mcp_review_dates(html: &str) -> Vec<String> {
     let mut failures = Vec::new();
     let visible = core::visible_text(html);
-    let expected = format!("Published 25 August 2026. Last reviewed {MCP_VISIBLE_REVIEW_DATE}.");
-    if !visible.contains(&expected) {
+    let reviewed = re(
+        r"Published 25 August 2026\. Last reviewed (?P<date>\d{1,2} [A-Z][a-z]+ \d{4})\.",
+        0,
+    )
+    .search(&visible)
+    .and_then(|m| crate::pytime::strptime_day_month_year(&m["date"]))
+    .map(|date| date.isoformat());
+    if reviewed.is_none() {
         failures.push(format!(
-            "{MCP_REL}: visible review date must be {MCP_VISIBLE_REVIEW_DATE}"
+            "{MCP_REL}: visible review date must read 'Published 25 August 2026. Last reviewed D Month YYYY.'"
         ));
     }
     let mut parse_failures = Vec::new();
@@ -331,9 +339,17 @@ pub fn check_mcp_review_dates(html: &str) -> Vec<String> {
     failures.extend(parse_failures);
     for schema in ["TechArticle", "WebPage"] {
         let matches: Vec<&&Json> = nodes.iter().filter(|n| core::has_type(n, schema)).collect();
-        if matches.len() != 1 || !eq(matches[0].get("dateModified"), &s(MCP_REVIEW_DATE)) {
+        let [node] = matches.as_slice() else {
+            failures.push(format!("{MCP_REL}: expected exactly one {schema}"));
+            continue;
+        };
+        let modified = node.get("dateModified");
+        if let Some(reviewed) = &reviewed
+            && !eq(modified, &s(reviewed))
+        {
             failures.push(format!(
-                "{MCP_REL}: {schema} dateModified must be {MCP_REVIEW_DATE}"
+                "{MCP_REL}: {schema} dateModified {} does not match the visible review date {reviewed}",
+                Val::Json(modified.cloned().unwrap_or(Json::Null)).repr()
             ));
         }
     }
