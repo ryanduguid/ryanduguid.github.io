@@ -1882,10 +1882,10 @@ const PCG_CASES: usize = 120;
 
 /// One band of PCG 2021/4 Table 1 (paragraph 76) as the table writes it: the lower and upper
 /// percentages and whether each is included. `None` is an open end.
-type Band = (Option<(u64, bool)>, Option<(u64, bool)>);
+type PcgBand = (Option<(u64, bool)>, Option<(u64, bool)>);
 
 /// Table 1, scores 1 to 6 for each factor, in the table's own words: '>90%', '>75% to ≤90%' ...
-const PCG_TABLE_1: [[Band; 6]; 3] = [
+const PCG_TABLE_1: [[PcgBand; 6]; 3] = [
     [
         (Some((90, false)), None),
         (Some((75, false)), Some((90, true))),
@@ -1915,7 +1915,7 @@ const PCG_TABLE_1: [[Band; 6]; 3] = [
 /// The one score whose band holds part / whole as a percentage, compared in exact integers.
 fn pcg_band(factor: usize, part: u64, whole: u64) -> u64 {
     let (part, whole) = (u128::from(part) * 100, u128::from(whole));
-    let holds = |(lower, upper): Band| {
+    let holds = |(lower, upper): PcgBand| {
         lower.is_none_or(|(p, inclusive)| {
             let bound = u128::from(p) * whole;
             if inclusive {
@@ -2057,7 +2057,7 @@ fn civil(days: i64) -> (i64, i64, i64) {
     (year_of_era + era * 400 + i64::from(month <= 2), month, day)
 }
 
-fn iso(days: i64) -> String {
+fn iso_day(days: i64) -> String {
     let (year, month, day) = civil(days);
     format!("{year:04}-{month:02}-{day:02}")
 }
@@ -2190,12 +2190,12 @@ fn gic_case(rng: &mut Seeded, quarters: &[(i64, i64, u64)]) -> (Value, Value) {
     let (instalment, last, assumed_days) = gic_oracle(quarters, debt, &days, assumed);
     let total = instalment * (count - 1) + last;
     let plan = json!({
-        "debt": dollars(debt), "start": iso(start), "count": count.to_string(),
+        "debt": dollars(debt), "start": iso_day(start), "count": count.to_string(),
         "frequency": frequency, "assumedRate": format!("{}.{:02}", assumed / 100, assumed % 100),
     });
     let expected = json!({
         "instalment": shown(instalment), "final": shown(last), "totalPaid": shown(total),
-        "gic": shown(total - debt), "lastDate": iso(days[days.len() - 1]),
+        "gic": shown(total - debt), "lastDate": iso_day(days[days.len() - 1]),
         "assumedDays": assumed_days.to_string(),
     });
     (json!({"kind": "gic", "plan": plan}), expected)
@@ -2206,11 +2206,11 @@ fn the_gic_oracle_works_the_hand_worked_plan() {
     let quarters = gic_quarters();
     assert_eq!(quarters.len(), 110);
     assert_eq!(
-        (iso(quarters[0].0), quarters[0].2),
+        (iso_day(quarters[0].0), quarters[0].2),
         ("2026-10-01".to_owned(), 1151)
     );
     let days = gic_instalment_days(day_number(2026, 10, 1), 3, "monthly");
-    let shown_days: Vec<String> = days.iter().map(|day| iso(*day)).collect();
+    let shown_days: Vec<String> = days.iter().map(|day| iso_day(*day)).collect();
     assert_eq!(shown_days, ["2026-10-01", "2026-11-01", "2026-12-01"]);
     // $1,000 by 3 monthly instalments at 11.51%: $336.56, $336.56 and a final $336.56.
     assert_eq!(
@@ -2221,7 +2221,7 @@ fn the_gic_oracle_works_the_hand_worked_plan() {
     let leap = gic_instalment_days(day_number(2024, 1, 31), 2, "monthly");
     let ordinary = gic_instalment_days(day_number(2026, 1, 31), 2, "monthly");
     assert_eq!(
-        (iso(leap[1]), iso(ordinary[1])),
+        (iso_day(leap[1]), iso_day(ordinary[1])),
         ("2024-02-29".to_owned(), "2026-02-28".to_owned())
     );
 }
