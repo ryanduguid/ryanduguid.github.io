@@ -487,7 +487,7 @@ test('ETP withholding takes the date of birth and works both caps offline', asyn
 
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'staff', 'cash',
-  'objection-deadline', 'payg-instalments', 'termination-payment'];
+  'objection-deadline', 'payg-instalments', 'termination-payment', 'transfer-duty'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
