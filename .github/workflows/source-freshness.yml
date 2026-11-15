@@ -1,8 +1,9 @@
 name: source-freshness
 
 # Re-reads the last commit date of every tool source and opens a pull request
-# when a date has moved. The site itself stays static: the dates are baked into
-# tools/index.html, so no visitor request ever reaches the GitHub API.
+# when a date has moved, set to squash-merge once the required checks pass. The
+# site itself stays static: the dates are baked into tools/index.html, so no
+# visitor request ever reaches the GitHub API.
 # A separate job flags newer stable releases for editorial review in a tracking
 # issue; it never rewrites capability descriptions or evaluation references.
 #
@@ -275,6 +276,34 @@ jobs:
           overwrite: true
           retention-days: 1
 
+  # Branch protection merges only a branch that is up to date with main, and GitHub
+  # never updates one by itself, so every run brings an open stamp pull request up
+  # to date and auto-merge then lands it once the checks pass again.
+  update-stamp-pr:
+    if: github.ref == 'refs/heads/main'
+    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    permissions: {}
+    steps:
+      - name: Mint the pull request token
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.SOURCE_FRESHNESS_APP_CLIENT_ID }}
+          private-key: ${{ secrets.SOURCE_FRESHNESS_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Update the stamp pull request when main has moved
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          status=$(gh pr list --head "$BRANCH" --state open --json mergeStateStatus \
+            --jq '.[0].mergeStateStatus // empty')
+          if [ "$status" = BEHIND ]; then
+            gh pr update-branch "$BRANCH"
+          fi
+
   publish:
     needs: stamp
     if: needs.stamp.outputs.changed == 'true'
@@ -309,6 +338,15 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           git apply --index "$RUNNER_TEMP/stamps/stamps.patch"
+          # Auto-merge lands this change unreviewed, so it may touch only the
+          # stamped page and its text mirrors.
+          unexpected=$(git diff --cached --name-only --no-renames -- . \
+            ':(exclude)tools/index.html' ':(exclude)tools/index.txt' ':(exclude,glob)llms-full*.txt')
+          if [ -n "$unexpected" ]; then
+            printf '%s\n' "$unexpected" >&2
+            echo "::error::The stamp patch changes files outside the stamp contract"
+            exit 1
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$BRANCH"
@@ -320,5 +358,9 @@ jobs:
               --base main \
               --head "$BRANCH" \
               --title "Refresh source freshness stamps" \
-              --body "The last commit date of one or more tool sources has moved. Dates come from the GitHub API at build time and are baked into tools/index.html, so the published site makes no runtime request. The offline site checks passed on this branch before it was pushed; the checks workflow runs on this pull request."
+              --body "The last commit date of one or more tool sources has moved. Dates come from the GitHub API at build time and are baked into tools/index.html, so the published site makes no runtime request. The offline site checks passed on this branch before it was pushed; the checks workflow runs on this pull request, which squash-merges once the required checks pass."
+          fi
+          # Required checks, including Codacy and SonarCloud, still gate the merge.
+          if [ "$(gh pr view "$BRANCH" --json autoMergeRequest --jq '.autoMergeRequest != null')" != true ]; then
+            gh pr merge "$BRANCH" --auto --squash
           fi
