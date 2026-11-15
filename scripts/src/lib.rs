@@ -48,6 +48,7 @@ pub mod seo_core;
 pub mod serve_site;
 pub mod site_contracts;
 pub mod source_freshness;
+pub mod source_identity;
 pub mod visibility;
 
 use std::io::{self, Write};
