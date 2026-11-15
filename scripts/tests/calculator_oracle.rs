@@ -1049,11 +1049,14 @@ fn the_transfer_duty_engine_agrees_with_the_oracle_at_every_band_boundary() {
 /// then $3.50, $4.50 and $5.75 for each $100, or part, over $350,000, $540,000 and $1,000,000.
 fn qld_home_rate(dollars: u64) -> u64 {
     let over = |from: u64| (dollars - from).div_ceil(100);
-    match dollars {
-        ..=350_000 => 100 * dollars.div_ceil(100),
-        ..=540_000 => 350_000 + 350 * over(350_000),
-        ..=1_000_000 => 1_015_000 + 450 * over(540_000),
-        _ => 3_085_000 + 575 * over(1_000_000),
+    if dollars <= 350_000 {
+        100 * dollars.div_ceil(100)
+    } else if dollars <= 540_000 {
+        350_000 + 350 * over(350_000)
+    } else if dollars <= 1_000_000 {
+        1_015_000 + 450 * over(540_000)
+    } else {
+        3_085_000 + 575 * over(1_000_000)
     }
 }
 
@@ -1085,15 +1088,12 @@ fn first_home_oracle(place: &str, home: &str, dollars: u64) -> u64 {
             );
             (general - u64::try_from(off).unwrap()).max(2_000)
         }
-        ("AU-VIC", _) => match dollars {
-            ..=600_000 => 0,
-            ..=750_000 => u64::try_from(exact_half_up(
-                u128::from(general) * u128::from(dollars - 600_000),
-                150_000,
-            ))
-            .unwrap(),
-            _ => general,
-        },
+        ("AU-VIC", _) if dollars <= 600_000 => 0,
+        ("AU-VIC", _) if dollars <= 750_000 => u64::try_from(exact_half_up(
+            u128::from(general) * u128::from(dollars - 600_000),
+            150_000,
+        ))
+        .unwrap(),
         ("AU-QLD", "established") => {
             let bands = if dollars < 800_000 {
                 (80 - dollars / 10_000).min(10)
@@ -1102,11 +1102,8 @@ fn first_home_oracle(place: &str, home: &str, dollars: u64) -> u64 {
             };
             qld_home_rate(dollars).saturating_sub(bands * 173_500)
         }
-        ("AU-WA", _) => match dollars {
-            ..=600_000 => 0,
-            ..=800_000 => 1_615 * (dollars - 600_000).div_ceil(100),
-            _ => general,
-        },
+        ("AU-WA", _) if dollars <= 600_000 => 0,
+        ("AU-WA", _) if dollars <= 800_000 => 1_615 * (dollars - 600_000).div_ceil(100),
         ("AU-QLD" | "AU-SA", "new") | ("AU-ACT", _) => 0,
         _ => general,
     }
@@ -1115,26 +1112,140 @@ fn first_home_oracle(place: &str, home: &str, dollars: u64) -> u64 {
 #[test]
 fn the_first_home_oracle_gives_the_published_figures() {
     for (place, home, dollars, cents, source) in [
-        ("AU-NSW", "established", 850_000, 979_675, "NSW Government 2026-27 table"),
-        ("AU-NSW", "established", 900_000, 1_959_350, "NSW Government 2026-27 table"),
-        ("AU-NSW", "established", 950_000, 2_939_025, "NSW Government 2026-27 table"),
-        ("AU-NSW", "established", 990_000, 3_722_765, "NSW Government 2026-27 table"),
-        ("AU-NSW", "established", 800_000, 0, "Revenue NSW calculator"),
-        ("AU-NSW", "established", 800_001, 2_000, "Revenue NSW calculator"),
-        ("AU-NSW", "established", 800_099, 2_000, "Revenue NSW calculator"),
-        ("AU-NSW", "established", 850_001, 980_140, "Revenue NSW calculator"),
-        ("AU-NSW", "established", 850_050, 980_880, "Revenue NSW calculator"),
+        (
+            "AU-NSW",
+            "established",
+            850_000,
+            979_675,
+            "NSW Government 2026-27 table",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            900_000,
+            1_959_350,
+            "NSW Government 2026-27 table",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            950_000,
+            2_939_025,
+            "NSW Government 2026-27 table",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            990_000,
+            3_722_765,
+            "NSW Government 2026-27 table",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            800_000,
+            0,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            800_001,
+            2_000,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            800_099,
+            2_000,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            850_001,
+            980_140,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            850_050,
+            980_880,
+            "Revenue NSW calculator",
+        ),
         ("AU-NSW", "new", 850_050, 980_880, "Revenue NSW calculator"),
-        ("AU-NSW", "established", 987_654, 3_677_006, "Revenue NSW calculator"),
-        ("AU-NSW", "established", 997_000, 3_859_919, "Revenue NSW calculator"),
-        ("AU-NSW", "new", 995_000, 3_820_732, "Revenue NSW calculator"),
-        ("AU-NSW", "established", 999_000, 3_899_106, "Revenue NSW calculator"),
-        ("AU-NSW", "established", 999_999, 3_918_685, "Revenue NSW calculator"),
-        ("AU-NSW", "new", 999_999, 3_918_685, "Revenue NSW calculator"),
-        ("AU-NSW", "established", 1_000_000, 3_918_700, "Revenue NSW calculator"),
-        ("AU-QLD", "established", 650_000, 0, "Queensland Revenue Office example"),
-        ("AU-QLD", "established", 730_000, 655_500, "Queensland Revenue Office example"),
-        ("AU-QLD", "established", 850_000, 2_410_000, "Queensland Revenue Office example"),
+        (
+            "AU-NSW",
+            "established",
+            987_654,
+            3_677_006,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            997_000,
+            3_859_919,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "new",
+            995_000,
+            3_820_732,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            999_000,
+            3_899_106,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            999_999,
+            3_918_685,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "new",
+            999_999,
+            3_918_685,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            1_000_000,
+            3_918_700,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-QLD",
+            "established",
+            650_000,
+            0,
+            "Queensland Revenue Office example",
+        ),
+        (
+            "AU-QLD",
+            "established",
+            730_000,
+            655_500,
+            "Queensland Revenue Office example",
+        ),
+        (
+            "AU-QLD",
+            "established",
+            850_000,
+            2_410_000,
+            "Queensland Revenue Office example",
+        ),
         // By hand: $37,070 general duty x 100,000 / 150,000, and $16.15 x 1,000.
         ("AU-VIC", "established", 700_000, 2_471_333, "hand-worked"),
         ("AU-WA", "established", 700_000, 1_615_000, "hand-worked"),
@@ -1160,7 +1271,9 @@ fn the_first_home_engine_agrees_with_the_oracle_either_side_of_every_threshold()
     let mut values = Vec::new();
     for place in places {
         for home in homes {
-            for edge in [600_000, 700_000, 710_000, 750_000, 790_000, 800_000, 1_000_000] {
+            for edge in [
+                600_000, 700_000, 710_000, 750_000, 790_000, 800_000, 1_000_000,
+            ] {
                 values.extend([edge - 1, edge, edge + 1].map(|v| (place, home, v)));
             }
             values.extend([(place, home, 1), (place, home, 1_000_000_000)]);
