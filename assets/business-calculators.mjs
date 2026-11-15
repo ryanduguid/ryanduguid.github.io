@@ -212,6 +212,9 @@ export function fbtCar(car, year) {
   const operating = car.method === 'operating'
     ? net(BigInt(cents(car.costs)) * (10000n - BigInt(Math.round(number(car.businessUse, { max: 100 }) * 100))), 10000n)
     : null;
+  // Operating costs always include the car's deemed depreciation and interest or its lease
+  // charges, so nil means none were entered, not a car that cost nothing to run.
+  if (operating !== null && cents(car.costs) === 0) throw new Error('Enter the car’s operating costs for the year to use the operating cost method.');
   const taxable = Math.min(statutory, operating ?? statutory);
   const grossedUp = ratioCents(BigInt(taxable) * BigInt(Math.round(number(year.grossUp, { min: 1, max: 3, places: 4 }) * 10000)), 10000n);
   const fbt = ratioCents(grossedUp * BigInt(Math.round(number(year.fbtRate, { min: 0.01, max: 100 }) * 100)), 10000n);

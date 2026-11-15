@@ -516,6 +516,9 @@ test('FBT car refuses an unknown method, a missing answer and out-of-range figur
   assert.throws(() => calculations.fbtCar(fbtInputs({ method: 'operating', businessUse: '100.01' }), fbtYear[1]),
     { message: 'Enter an amount between 0 and 100.' });
   assert.throws(() => calculations.fbtCar(fbtInputs({ days: '1.5' }), fbtYear[1]), { message: 'Enter a whole number between 0 and 365.' });
+  // Nil operating costs would give nil FBT under the operating cost method.
+  assert.throws(() => calculations.fbtCar(fbtInputs({ method: 'operating', cost: '60000', businessUse: '20' }), fbtYear[1]),
+    { message: 'Enter the car’s operating costs for the year to use the operating cost method.' });
   assert.equal(calculations.fbtCar(fbtInputs({ days: '366' }), { ...fbtYear[1], days: '366' }).statutory, 0);
 });
 

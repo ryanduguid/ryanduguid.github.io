@@ -332,7 +332,8 @@ fn fbt_case(rng: &mut Seeded) -> (Value, Value) {
         days: rng.pick(&[0, 1, 182, 364, 365, any_days, any_days]),
         operating: (rng.below(2) == 1).then(|| {
             (
-                rng.cents(10_000_000),
+                // The engine refuses nil operating costs, so a drawn nil becomes 1 cent.
+                rng.cents(10_000_000).max(1),
                 rng.pick(&[0, 2_500, 3_158, 7_500, 10_000, any_use, any_use]),
             )
         }),
