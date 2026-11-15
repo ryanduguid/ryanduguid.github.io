@@ -413,7 +413,7 @@ The full `/tools/` register groups the 12 controls by the work they stop or chec
 - Control incomplete work before manager review.
 - Inspect sources, evidence and AI boundaries.
 
-`/evaluate/` groups the 3 reproducible evaluation packs and `/rates/` groups the 11 maintained reference tables, each led by its current value. These registers are not second homepage essays. Each entry names the observable control, delivery form, source and human boundary.
+`/evaluate/` groups the 3 reproducible evaluation packs and `/rates/` groups the 12 maintained reference tables, each led by its current value. These registers are not second homepage essays. Each entry names the observable control, delivery form, source and human boundary.
 
 ## Inner-page system
 
