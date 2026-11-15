@@ -49,8 +49,11 @@ separate from each request's 30-second timeout. Exhausted retries and permanent
 HTTP errors still fail the live check, except on pull requests that run live
 link checks: there `check_site --ci` passes `--transient-warnings`, and a link
 still failing with HTTP 429, 5xx or a timeout after its retries is reported as a
-warning (a `WARN` line and an Actions annotation) instead. HTTP 4xx other than
-the allow-listed denials below, DNS and other transport failures still fail pull
+warning (a `WARN` line and an Actions annotation) instead, as is a
+`web.archive.org` snapshot that fails with any transport error (such as a
+refused connection), because the archive refuses bursts of automated requests.
+HTTP 4xx other than the allow-listed denials below, including a 404 from the
+archive, and DNS and other transport failures on other hosts still fail pull
 requests, and an own-repository link that warns still gets its identity and
 archive lookup. The weekly scheduled and manual runs keep
 every failure strict, so a host that stays down fails within a week.

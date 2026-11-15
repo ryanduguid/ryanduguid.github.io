@@ -694,7 +694,8 @@ pub fn main_with(root: &Path, args: &[String], host: &mut dyn Host) -> Result<u8
     let checked = host.checked(&rendered)?;
     for step in CHECKS {
         // A pull request warns on links still failing with HTTP 429, 5xx or a timeout
-        // after their retries; the weekly schedule and manual runs keep them strict.
+        // after their retries, and on unanswered web.archive.org snapshots; the weekly
+        // schedule and manual runs keep them strict.
         let extra: &[&str] = match step {
             Check::Tool(["check_links"]) if offline => &["--offline"],
             Check::Tool(["check_links"]) if ci && event.as_deref() == Some("pull_request") => {
