@@ -592,7 +592,7 @@ test('objection deadline takes the later of an amended assessment’s 2 dates of
     + 'first assessment’s notice given 23 October 2024. 60 days after the amended notice: Friday 1 December 2028. '
     + '4 years after the first notice: Monday 23 October 2028. Period ends, subsection 14ZW(1B): Friday 1 December 2028. '
     + 'Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901: Friday 1 December 2028. '
-    + 'If that day is a public holiday or bank holiday where the objection is lodged, it may be lodged on the next day '
+    + 'If that day is a public holiday where the objection is lodged, or the office is closed all day, it may be lodged on the next day '
     + 'that is not a Saturday, Sunday or holiday. After the last day, an objection needs a written request under '
     + 'subsection 14ZW(2), which the Commissioner decides under section 14ZX.');
   await form.getByLabel('Day notice of the decision was given or served').fill('2028-09-01');

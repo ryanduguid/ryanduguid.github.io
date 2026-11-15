@@ -385,7 +385,7 @@ function initialiseCalculators([calculate, fieldErrors]) {
             rows: [...(amended ? [['60 days after the amended notice', dayAndDate(r.amendedEnds)], [`${years} years after the first notice`, dayAndDate(r.firstEnds)]] : []),
               [`Period ends, ${r.rule}`, dayAndDate(r.periodEnds)],
               ['Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901', dayAndDate(r.lastDay)]],
-            note: 'If that day is a public holiday or bank holiday where the objection is lodged, it may be lodged on the next day that is not a Saturday, Sunday or holiday. '
+            note: 'If that day is a public holiday where the objection is lodged, or the office is closed all day, it may be lodged on the next day that is not a Saturday, Sunday or holiday. '
               + 'After the last day, an objection needs a written request under subsection 14ZW(2), which the Commissioner decides under section 14ZX' };
             result.principal = result.rows.length - 1;
             break;
