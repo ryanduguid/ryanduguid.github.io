@@ -8,7 +8,7 @@ use std::path::Path;
 
 use oxc_allocator::Allocator;
 use oxc_codegen::{Codegen, CodegenOptions};
-use oxc_minifier::{Minifier, MinifierOptions};
+use oxc_minifier::{MangleOptions, MangleOptionsKeepNames, Minifier, MinifierOptions};
 use oxc_parser::Parser;
 use oxc_span::SourceType;
 
@@ -65,7 +65,12 @@ pub fn javascript(source: &str, module: bool) -> Result<String, String> {
         return Err("the parser stopped before the end".into());
     }
     let mut program = parsed.program;
+    // Functions and classes keep their `name` property, which script can read.
     let options = MinifierOptions {
+        mangle: Some(MangleOptions {
+            keep_names: MangleOptionsKeepNames::all_true(),
+            ..MangleOptions::default()
+        }),
         compress: None,
         ..MinifierOptions::default()
     };
@@ -107,6 +112,8 @@ pub fn css(source: &str) -> Result<String, String> {
     let mut custom: Option<u32> = None;
     // Whether that value has begun: the whitespace before it is not part of it.
     let mut custom_started = false;
+    // Whether the identifier being copied holds an escape.
+    let mut escaped_name = false;
     while let Some(c) = chars.next() {
         if c == '/' && chars.peek() == Some(&'*') {
             chars.next();
@@ -138,6 +145,9 @@ pub fn css(source: &str) -> Result<String, String> {
         let needed = !out.is_empty()
             && !out.ends_with(['{', '}', ';', ',', ':', '('])
             && !matches!(c, '{' | '}' | ';' | ',' | ')');
+        if gap != Gap::None {
+            escaped_name = false;
+        }
         match gap {
             Gap::Space if needed => out.push(' '),
             // `.a/**/.b` is one compound selector; a space would make it two.
@@ -149,7 +159,7 @@ pub fn css(source: &str) -> Result<String, String> {
             custom = match c {
                 '(' | '[' | '{' => Some(depth + 1),
                 ')' | ']' | '}' if depth > 0 => Some(depth - 1),
-                ';' | '}' => {
+                ';' | '}' if depth == 0 => {
                     // Whitespace after the value is not part of it.
                     out.truncate(out.trim_end_matches(css_space).len());
                     None
@@ -158,11 +168,19 @@ pub fn css(source: &str) -> Result<String, String> {
             };
             custom_started = custom.is_some();
         }
-        // `\;` is part of a name, not a separator.
-        if c == '}' && out.ends_with(';') && !out.ends_with("\\;") {
+        // `\;` is part of a name, not a separator, and a custom property's value keeps
+        // the semicolons in its blocks.
+        if c == '}' && custom.is_none() && out.ends_with(';') && !out.ends_with("\\;") {
             out.pop();
         }
         out.push(c);
+        // An escaped function name, such as `u\72l(`, can spell url(, whose contents are
+        // not CSS tokens. None is expected, so refuse one rather than decode it.
+        if c == '(' && escaped_name {
+            return Err("escaped function name".into());
+        }
+        escaped_name = c == '\\'
+            || (escaped_name && (c.is_alphanumeric() || matches!(c, '-' | '_') || !c.is_ascii()));
         if matches!(c, '{' | '}' | ';') {
             statement_start = out.len();
         } else if c == ':'

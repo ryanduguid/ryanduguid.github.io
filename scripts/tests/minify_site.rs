@@ -46,6 +46,19 @@ fn a_classic_script_keeps_its_global_names() {
 }
 
 #[test]
+fn functions_and_classes_keep_their_names() {
+    let source = "export function run() {
+  function inner() {}
+  class Local {}
+  return [inner.name, Local.name];
+}
+";
+    let minified = javascript(source, true).unwrap();
+    assert!(minified.contains("inner"), "{minified}");
+    assert!(minified.contains("Local"), "{minified}");
+}
+
+#[test]
 fn unparseable_javascript_is_refused() {
     assert!(javascript("export const = ;", true).is_err());
 }
@@ -102,6 +115,11 @@ fn css_keeps_every_token_boundary() {
             ":root {\n  --font: \"A\", B,  serif;\n  --gap:   calc( 1px + 2px ) ;\n  --set: { a: b }\n}\n.a { color: var(--gap) }",
             ":root{--font:\"A\", B,  serif;--gap:calc( 1px + 2px );--set:{ a: b }}.a{color:var(--gap)}",
         ),
+        // A semicolon or brace in a block of a custom property's value is part of it.
+        (
+            "a { --x: fn(a; b  c); --set: { a: b; } ; color: red }",
+            "a{--x:fn(a; b  c);--set:{ a: b; };color:red}",
+        ),
         // An escaped `;` is part of a name, so it stays before `}`.
         ("a { --x: b\\; }", "a{--x:b\\;}"),
         // An unquoted url() is one token, comment-like text included.
@@ -129,6 +147,28 @@ fn unterminated_css_is_refused() {
     ] {
         assert!(css(source).is_err(), "{source:?}");
     }
+}
+
+/// An escaped function name can spell url(, whose contents a stripper must not touch.
+#[test]
+fn an_escaped_function_name_is_refused() {
+    for source in [
+        r"a { background: u\72l(a/*b*/c.png) }",
+        // The space ends the hex escape, so this is `url(` too.
+        r"a { background: u\72 l(a.png) }",
+        r"a { width: c\alc(1px + 2px) }",
+    ] {
+        assert_eq!(
+            css(source).unwrap_err(),
+            "escaped function name",
+            "{source:?}"
+        );
+    }
+    // An escape elsewhere in a name, or whitespace before `(`, is not a function name.
+    assert_eq!(
+        css(r".a\:b:is(.c) { } .x\31  (a) { }").unwrap(),
+        r".a\:b:is(.c){}.x\31  (a){}"
+    );
 }
 
 /// Lightning CSS parses each published stylesheet to the same rules as its source.
