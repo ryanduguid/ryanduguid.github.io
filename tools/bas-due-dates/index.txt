@@ -42,7 +42,7 @@ Quarter 2 2026-27 | Sun 28 Feb 2027 | No later date | Not applicable
 Quarter 3 2026-27 | Wed 28 Apr 2027 | Wed 12 May 2027 | Wed 26 May 2027
 Quarter 4 2026-27 | Wed 28 Jul 2027 | Wed 11 Aug 2027 | Wed 25 Aug 2027 (to be confirmed)
 
-The ATO publishes the quarter 4 agent date of 25 August 2027 as ‘to be confirmed when the BAS agent lodgment program 2027–28 is developed’.
+The ATO publishes the quarter 4 agent date of 25 August 2027 as ‘to be confirmed when the BAS agent lodgment program 2027-28 is developed’.
 
 Download both tables as CSV: one row per month or quarter, with the period, each due date, the agent date’s status, the ATO page behind each date and the date the row was checked (checked_at).
 
@@ -76,8 +76,8 @@ Each ATO page below was read on 15 November 2026.
 
 - ATO, Due dates for lodging and paying your BAS, last updated 17 September 2026: the monthly and quarterly due dates, quarter 2 and the weekend and public holiday rule.
 - ATO, Activity statements (due dates by topic), last updated 11 December 2017: the online due dates of 11 November, 12 May and 11 August.
-- ATO, Two week lodgment concession – terms and conditions, last updated 18 August 2025: who gets the online dates.
-- ATO, BAS agent lodgment program 2026–27, last updated 1 July 2026: the agent dates and their conditions.
+- ATO, Two week lodgment concession: terms and conditions, last updated 18 August 2025: who gets the online dates.
+- ATO, BAS agent lodgment program 2026-27, last updated 1 July 2026: the agent dates and their conditions.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -87,5 +87,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Payday Super business days calendar: https://duguid.com.au/tools/payday-super/business-days/
 - Due dates for lodging and paying your BAS: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/due-dates-for-lodging-and-paying-your-bas
 - Activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/reports-and-returns/due-dates-for-lodging-and-paying/due-dates-by-topic/activity-statements
-- Two week lodgment concession – terms and conditions: https://www.ato.gov.au/online-services/businesses-and-organisations-online-services/lodgments-in-online-services-for-business/two-week-lodgment-concession-terms-and-conditions
-- BAS agent lodgment program 2026–27: https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/bas-agent-lodgment-program-2026-27
+- Two week lodgment concession: terms and conditions: https://www.ato.gov.au/online-services/businesses-and-organisations-online-services/lodgments-in-online-services-for-business/two-week-lodgment-concession-terms-and-conditions
+- BAS agent lodgment program 2026-27: https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/bas-agent-lodgment-program-2026-27
