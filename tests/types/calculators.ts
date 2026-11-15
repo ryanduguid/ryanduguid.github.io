@@ -60,3 +60,24 @@ calculate.terminationPayment({ ...etpPayment, years: 5 }, etpYear);
 const reachedText: string = calculate.terminationPayment(etpPayment, etpYear).reached;
 void withheld;
 void reachedText;
+const car = { method: 'statutory', cost: '60000', accessories: '0', reduced: false, days: '182', costs: '0',
+  businessUse: '0', contribution: '1000' } as const;
+const fbtYear = { days: '365', grossUp: '2.0802', fbtRate: '47' };
+const fbt: number = calculate.fbtCar(car, fbtYear).fbt;
+// @ts-expect-error The 4-year answer is a boolean, as the form passes it.
+calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
+// @ts-expect-error The operating cost value is null under the statutory formula.
+const operatingValue: number = calculate.fbtCar(car, fbtYear).operating;
+void fbt;
+void operatingValue;
+calculate.loan('60000', '7.5', '60', '18000', 'advance');
+// @ts-expect-error Loan payments fall in arrears or in advance, nothing else.
+calculate.loan('60000', '7.5', '60', '18000', 'start');
+void tax;
+void formatted;
+const fee: number = calculate.fixedFee('18.5', '95', '40', '10', true, '12').first;
+// @ts-expect-error A fixed fee rounds up to the cent, $10, $50 or $100 only.
+calculate.fixedFee('18.5', '95', '40', '5', true, '12');
+// @ts-expect-error Adding GST is a boolean flag.
+calculate.fixedFee('18.5', '95', '40', '10', 'yes', '12');
+void fee;

@@ -296,6 +296,18 @@ function initialiseCalculators([calculate, fieldErrors]) {
             result = { inputs: `annual costs ${money('cost')}, target profit ${money('profit')}, ${count(value('hours'), 'billable hour')}`, principal: 0,
               rows: [['Required hourly rate before GST', aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)]] };
             break;
+          case 'fixed-fee': {
+            const addGst = form.elements.namedItem('gst').checked;
+            const step = value('round');
+            const months = Number(value('instalments'));
+            const r = calculate.fixedFee(value('hours'), value('rate'), value('margin'), step, addGst, value('instalments'));
+            result = { inputs: `${count(value('hours'), 'hour')} at ${money('rate')} an hour, ${value('margin')}% margin, fee rounded up to ${step === '0.01' ? 'the cent' : `the next $${step}`}, ${addGst ? 'GST added' : 'no GST'}, ${count(value('instalments'), 'monthly instalment')}`, principal: 2,
+              rows: [['Fee before GST', aud(r.fee)], ['GST', aud(r.gst)], ['Fee including GST', aud(r.total)],
+                [months === 1 ? 'Paid at once' : 'First instalment', aud(r.first)],
+                ...(months === 1 ? [] : [[`Instalments 2 to ${months}, each`, aud(r.instalment)]]),
+                ['Effective hourly rate before GST', aud(r.effectiveRate)]] };
+            break;
+          }
           case 'variance': {
             const r = calculate.variance(value('actual'), value('budget'), value('kind'));
             result = { inputs: `actual ${money('actual')}, budget ${money('budget')}, figure type ${value('kind')}`, principal: 0,
@@ -303,8 +315,8 @@ function initialiseCalculators([calculate, fieldErrors]) {
             break;
           }
           case 'loan': {
-            const r = calculate.loan(value('principal'), value('rate'), value('months'));
-            result = { inputs: `principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${count(value('months'), 'monthly payment')}`, principal: 0,
+            const r = calculate.loan(value('principal'), value('rate'), value('months'), value('balloon'), value('timing'));
+            result = { inputs: `principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${count(value('months'), 'monthly payment')} in ${value('timing')}, balloon ${money('balloon')}`, principal: 0,
               rows: [['Monthly payment', aud(r.payment)], ['First payment interest', aud(r.firstInterest)], ['First payment principal', aud(r.firstPrincipal)], ['Estimated total interest', aud(r.totalInterest)]] };
             break;
           }
@@ -334,6 +346,25 @@ function initialiseCalculators([calculate, fieldErrors]) {
             if (rule !== 'nt-formula' && Number(rate) === 0) ruleText = Number(base) ? `a fixed ${whole(base)}` : 'nil';
             result = { inputs: `${place.dataset.name}, dutiable value ${money('value')}`, principal: 0,
               rows: [['General transfer duty', aud(r.duty)], ['Rate applied', ruleText]] };
+            break;
+          }
+          case 'fbt-car': {
+            // The gross-up comes from the checked option and the year's days and FBT rate from the
+            // form; the Node tests bind all three to the site's FBT rate table.
+            const type = form.querySelector('input[name="type"]:checked');
+            const operating = value('method') === 'operating';
+            const reduced = value('reduced') === 'yes';
+            const r = calculate.fbtCar({ method: value('method'), cost: value('cost'), accessories: value('accessories'), reduced,
+              days: value('days'), costs: value('costs'), businessUse: value('business-use'), contribution: value('contribution') },
+            { days: form.dataset.yearDays, grossUp: type.dataset.grossUp, fbtRate: form.dataset.fbtRate });
+            result = { inputs: `${operating ? 'operating cost method' : 'statutory formula'}, cost price ${money('cost')}, later non-business accessories ${money('accessories')}, `
+              + `first held ${reduced ? 'before' : 'on or after'} 1 April 2022, ${count(value('days'), 'day')} of ${form.dataset.yearDays} available for private use, `
+              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up ${type.dataset.grossUp}`,
+            rows: [['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
+              ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []), ['Taxable value', aud(r.taxableValue)],
+              ['Grossed-up taxable value', aud(r.grossedUp)], [`FBT at ${form.dataset.fbtRate}%`, aud(r.fbt)]],
+            note: operating && r.statutory < r.operating ? 'The statutory formula value is lower, so it applies under subsection 10(5)' : undefined };
+            result.principal = result.rows.length - 1;
             break;
           }
           case 'staff': {

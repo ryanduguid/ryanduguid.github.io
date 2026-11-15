@@ -920,6 +920,31 @@ test('GST page registers a read-only WebMCP tool only where the browser offers m
     output: { excludingGst: '1000.00', gst: '100.00', includingGst: '1100.00' } });
 });
 
+for (const [path, name, input, expected] of [
+  ['/tools/business-calculators/div7a/', 'calculate_div7a_minimum_repayment',
+    { balance: '1000', benchmarkRate: '8.77', remainingTerm: 1 }, { minimumRepayment: '1087.70' }],
+  ['/tools/depreciation-rates/', 'calculate_decline_in_value',
+    { cost: '1500', effectiveLife: '5', startDate: '2025-07-01', incomeYearEnding: 2026, method: 'prime-cost' }, { rate: '20.00%' }],
+  ['/tools/coal-lsl-levy/', 'calculate_coal_lsl_levy',
+    { reportingMonth: '2026-09', branch: 'baseRate', baseRate: '6000' }, { levy: '162.00' }],
+]) {
+  test(`${path} registers ${name} where the browser offers modelContext`, async ({ page }) => {
+    await page.addInitScript(() => {
+      window.registeredTools = [];
+      Object.defineProperty(document, 'modelContext', {
+        value: { registerTool: async tool => { window.registeredTools.push(tool); } },
+      });
+    });
+    await page.goto(path);
+    await page.waitForFunction(() => window.registeredTools.length === 1);
+    const result = await page.evaluate(async input => {
+      const [tool] = window.registeredTools;
+      return { name: tool.name, readOnly: tool.annotations.readOnlyHint, output: await tool.execute(input) };
+    }, input);
+    expect(result).toMatchObject({ name, readOnly: true, output: expected });
+  });
+}
+
 test('a failing WebMCP registration leaves the GST calculator working', async ({ page }) => {
   const errors = [];
   const warnings = [];

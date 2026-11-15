@@ -2295,7 +2295,7 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
         (
             "a hub modified before a calculator with no check",
             loan,
-            r#""dateModified": "2026-11-13""#,
+            r#""dateModified": "2026-11-15""#,
             r#""dateModified": "2026-11-16""#,
             "tools/business-calculators/index.html: dateModified 2026-11-15 is older than tools/business-calculators/loan/index.html's 2026-11-16",
         ),

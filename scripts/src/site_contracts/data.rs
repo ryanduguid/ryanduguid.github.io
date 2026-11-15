@@ -766,6 +766,7 @@ pub const ARTICLE_PATTERN_PAGES: [&str; 40] = [
     "tools/company-tax-franking/index.html",
     "tools/payday-super/index.html",
     "tools/payday-super/business-days/index.html",
+    "tools/bas-due-dates/index.html",
     "tools/workpaper-review-gate/index.html",
     "tools/refusals/index.html",
     "tools/limitations/index.html",

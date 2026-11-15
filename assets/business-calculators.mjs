@@ -88,6 +88,39 @@ export function hourlyRate(cost, profit, hours) {
   return { rate: Number((numerator + time - 1n) / time) / 100 };
 }
 
+/** Rounding steps a fixed fee can round up to, in cents. */
+const FEE_STEPS = new Map([['0.01', 1n], ['10', 1000n], ['50', 5000n], ['100', 10000n]]);
+
+/** A fixed fee from estimated hours at an hourly rate, or at a cost per hour with a target
+ * margin on the fee, then GST and monthly instalments that add up to it to the cent.
+ * @param {string} hours estimated hours for the work
+ * @param {string} rate hourly rate, or cost per hour, before GST
+ * @param {string} marginPercent margin as a share of the fee; 0 when the rate already includes profit
+ * @param {'0.01' | '10' | '50' | '100'} roundTo the dollar step the fee rounds up to
+ * @param {boolean} addGst add GST at 10% of the fee
+ * @param {string} instalments the number of monthly instalments */
+export function fixedFee(hours, rate, marginPercent, roundTo, addGst, instalments) {
+  const step = FEE_STEPS.get(roundTo);
+  if (!step) throw new Error('Choose a rounding step.');
+  const time = BigInt(Math.round(number(hours, { min: 0.01, max: 8784 }) * 100));
+  const margin = BigInt(Math.round(number(marginPercent, { max: 99.99 }) * 100));
+  const count = BigInt(number(instalments, { min: 1, max: 24, integer: true }));
+  // hours x rate / (1 - margin), in cents, rounded up to the step so the fee keeps the margin.
+  const numerator = time * BigInt(cents(rate)) * 100n;
+  const denominator = (10000n - margin) * step;
+  const fee = (numerator + denominator - 1n) / denominator * step;
+  const tax = addGst ? ratioCents(fee, 10n) : 0n;
+  const total = fee + tax;
+  if (total > 100000000000n) throw new Error('The fee is over $1,000,000,000. Use smaller amounts.');
+  // Each instalment is the total divided evenly, rounded down to the cent; the first also
+  // carries the cents left over, so the instalments add up to the total and the share paid
+  // after any number of months is never less than that many months' share of the fee.
+  const instalment = total / count;
+  return { fee: Number(fee) / 100, gst: Number(tax) / 100, total: Number(total) / 100,
+    first: Number(total - instalment * (count - 1n)) / 100, instalment: Number(instalment) / 100,
+    effectiveRate: ratioMoney(fee * 100n, time) };
+}
+
 /** @param {string} actual @param {string} budget @param {'income' | 'cost'} kind */
 export function variance(actual, budget, kind) {
   if (!['income', 'cost'].includes(kind)) throw new Error('Choose income or cost.');
@@ -97,25 +130,35 @@ export function variance(actual, budget, kind) {
     effect: difference === 0 ? 'On budget' : (difference * (kind === 'income' ? 1 : -1) > 0 ? 'Favourable' : 'Unfavourable') };
 }
 
-/** @param {string} principal @param {string} annualRate @param {string} months */
-export function loan(principal, annualRate, months) {
+/** @param {string} principal @param {string} annualRate @param {string} months
+ * @param {string} [balloon] the lump sum still owed at the end of the term
+ * @param {'arrears' | 'advance'} [timing] payments at the end or the start of each month */
+export function loan(principal, annualRate, months, balloon = '0', timing = 'arrears') {
+  if (!['arrears', 'advance'].includes(timing)) throw new Error('Choose payments in arrears or in advance.');
   const balanceCents = BigInt(cents(principal));
   const rateUnits = BigInt(Math.round(number(annualRate, { max: 100, places: 4 }) * 10000));
   const term = BigInt(number(months, { min: 1, max: 600, integer: true }));
+  const residual = BigInt(cents(balloon));
+  if (residual > balanceCents) throw new Error('The balloon cannot be more than the loan principal.');
+  const advance = timing === 'advance';
   const rateScale = 12000000n;
-  const firstInterest = ratioMoney(balanceCents * rateUnits, rateScale);
+  // A payment in advance falls before any interest accrues.
+  const firstInterest = advance ? 0 : ratioMoney(balanceCents * rateUnits, rateScale);
   if (rateUnits === 0n) {
-    const payment = ratioMoney(balanceCents, term);
+    const payment = ratioMoney(balanceCents - residual, term);
     return { payment, firstInterest: 0, firstPrincipal: payment, totalInterest: 0 };
   }
-  // Multiply through by rateScale ** term to keep the amortisation fractions exact.
+  // Multiply through by rateScale ** term to keep the amortisation fractions exact. The
+  // balloon's value today comes off the principal; each payment in advance is discounted
+  // one month less, so the payment is one month's growth smaller.
   const growth = (rateScale + rateUnits) ** term;
   const scale = rateScale ** term;
-  const denominator = rateScale * (growth - scale);
-  const paymentNumerator = balanceCents * rateUnits * growth;
-  return { payment: ratioMoney(paymentNumerator, denominator), firstInterest,
-    firstPrincipal: ratioMoney(balanceCents * rateUnits * scale, denominator),
-    totalInterest: ratioMoney(paymentNumerator * term - balanceCents * denominator, denominator) };
+  const denominator = (advance ? rateScale + rateUnits : rateScale) * (growth - scale);
+  const paymentNumerator = (balanceCents * growth - residual * scale) * rateUnits;
+  const payment = ratioMoney(paymentNumerator, denominator);
+  return { payment, firstInterest,
+    firstPrincipal: advance ? payment : ratioMoney((balanceCents - residual) * rateUnits * scale, denominator),
+    totalInterest: ratioMoney(paymentNumerator * term - (balanceCents - residual) * denominator, denominator) };
 }
 
 /** Division 7A minimum yearly repayment of an amalgamated loan: s 109E(6) of the Income
@@ -173,6 +216,46 @@ export function transferDuty(value, scale) {
   // (0.06571441 V^2 + 15 V) dollars with V = value / 1,000 is (6571441 value^2 + 15 x 10^11 value) / 10^12 cents.
   else duty = ratioCents(6571441n * whole * whole + 1500000000000n * whole, 1000000000000n);
   return { duty: Number(duty) / 100, bracket };
+}
+
+/**
+ * @typedef {{method: 'statutory' | 'operating', cost: string, accessories: string, reduced: boolean,
+ *   days: string, costs: string, businessUse: string, contribution: string}} FbtCar
+ * @typedef {{days: string, grossUp: string, fbtRate: string}} FbtYear
+ */
+
+/** FBT on one car's fringe benefits for one FBT year. The statutory formula is s 9 of the
+ * Fringe Benefits Tax Assessment Act 1986, base value × 20% × days available ÷ days in the
+ * year, less the recipient's payment, with the cost price cut to two-thirds under s 9(2)(a)
+ * once the car has been held 4 years. The operating cost method is s 10(2), operating costs
+ * × (100% − business use) less the recipient's payment, and s 10(5) keeps the statutory
+ * value when it is lower. The Act prescribes no rounding: each value rounds half up to the
+ * cent before the payment comes off, never below nil, and the grossed-up value and the FBT
+ * round half up from the figure before them.
+ * @param {FbtCar} car the car's figures as entered
+ * @param {FbtYear} year the FBT year's days, gross-up rate and FBT rate, from the caller */
+export function fbtCar(car, year) {
+  if (!['statutory', 'operating'].includes(car.method)) throw new Error('Choose a valuation method.');
+  if (typeof car.reduced !== 'boolean') throw new Error('Say whether the car was held for 4 years.');
+  const yearDays = number(year.days, { min: 365, max: 366, integer: true });
+  const days = BigInt(number(car.days, { max: yearDays, integer: true }));
+  // The base value in thirds of a cent, so two-thirds of any cost price stays exact.
+  const base = BigInt(cents(car.cost)) * (car.reduced ? 2n : 3n) + 3n * BigInt(cents(car.accessories));
+  const payment = cents(car.contribution);
+  /** @param {bigint} numerator @param {bigint} denominator */
+  const net = (numerator, denominator) => Math.max(0, Number(ratioCents(numerator, denominator)) - payment);
+  const statutory = net(base * 20n * days, 300n * BigInt(yearDays));
+  const operating = car.method === 'operating'
+    ? net(BigInt(cents(car.costs)) * (10000n - BigInt(Math.round(number(car.businessUse, { max: 100 }) * 100))), 10000n)
+    : null;
+  // Operating costs always include the car's deemed depreciation and interest or its lease
+  // charges, so nil means none were entered, not a car that cost nothing to run.
+  if (operating !== null && cents(car.costs) === 0) throw new Error('Enter the car’s operating costs for the year to use the operating cost method.');
+  const taxable = Math.min(statutory, operating ?? statutory);
+  const grossedUp = ratioCents(BigInt(taxable) * BigInt(Math.round(number(year.grossUp, { min: 1, max: 3, places: 4 }) * 10000)), 10000n);
+  const fbt = ratioCents(grossedUp * BigInt(Math.round(number(year.fbtRate, { min: 0.01, max: 100 }) * 100)), 10000n);
+  return { baseValue: ratioMoney(base, 3n), statutory: statutory / 100, operating: operating === null ? null : operating / 100,
+    taxableValue: taxable / 100, grossedUp: Number(grossedUp) / 100, fbt: Number(fbt) / 100 };
 }
 
 /** @param {string} wages @param {string} superAmount @param {string} other */

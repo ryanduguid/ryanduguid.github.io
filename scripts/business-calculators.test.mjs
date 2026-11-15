@@ -161,6 +161,48 @@ test('break-even rounds units up and refuses non-positive contributions', () => 
   assert.throws(() => breakEven('1000000000', '1000000000', '999999999.99'));
 });
 
+// Worked by hand: 18.5 hours x $95 / (1 - 40%) = $2,929.1666..., up to the next $10 is
+// $2,930; GST $293; $3,223 / 12 = $268.5833... rounds down to $268.58, 11 of which are
+// $2,954.38, so the first is $3,223 - $2,954.38 = $268.62; $2,930 / 18.5 = $158.378... is
+// $158.38 an hour. 12 hours at $180 is $2,160, up to the next $50 is $2,200, with GST $2,420:
+// $201.66 a month after a first of $201.74; $2,200 / 12 hours = $183.33.
+test('a fixed fee comes from hours at a rate or a cost and margin, rounded up to the step', () => {
+  assert.deepEqual(calculations.fixedFee('18.5', '95', '40', '10', true, '12'),
+    { fee: 2930, gst: 293, total: 3223, first: 268.62, instalment: 268.58, effectiveRate: 158.38 });
+  assert.deepEqual(calculations.fixedFee('12', '180', '0', '50', true, '12'),
+    { fee: 2200, gst: 220, total: 2420, first: 201.74, instalment: 201.66, effectiveRate: 183.33 });
+  // Exactly on a step stays there; 1 cent over goes to the next step.
+  assert.equal(calculations.fixedFee('10', '100', '0', '100', false, '1').fee, 1000);
+  assert.equal(calculations.fixedFee('10', '100.01', '0', '100', false, '1').fee, 1100);
+  // A margin is a share of the fee: $120 at 45% is $218.1818..., up to $218.19.
+  assert.equal(calculations.fixedFee('1', '120', '45', '0.01', false, '1').fee, 218.19);
+  assert.equal(calculations.fixedFee('1', '120', '45', '0.01', true, '1').gst, 21.82);
+});
+
+test('fixed fee instalments add up to the fee to the cent, the first carrying the cents left over', () => {
+  for (const total of ['0.01', '1', '10.13', '330', '999.99', '3223', '1234567.89']) {
+    for (const count of [1, 2, 3, 7, 11, 12, 13, 23, 24]) {
+      const result = calculations.fixedFee('1', total, '0', '0.01', false, String(count));
+      const [whole, first, each] = [result.total, result.first, result.instalment].map((value) => Math.round(value * 100));
+      assert.equal(whole, Math.round(Number(total) * 100));
+      assert.equal(first + each * (count - 1), whole, `${total} over ${count}`);
+      assert.ok(first - each >= 0 && first - each < count, `${total} over ${count}`);
+      // After any number of months the client has paid at least that many months' even share.
+      for (let paid = 1; paid <= count; paid += 1) assert.ok((first + each * (paid - 1)) * count >= whole * paid);
+    }
+  }
+});
+
+test('fixed fee refuses a full margin, an unknown step, an instalment count outside 1 to 24 and a fee over $1 billion', () => {
+  const refuse = (args, message) => assert.throws(() => calculations.fixedFee(...args), { message });
+  refuse(['10', '100', '100', '10', true, '12'], 'Enter an amount between 0 and 99.99.');
+  refuse(['10', '100', '0', '5', true, '12'], 'Choose a rounding step.');
+  for (const count of ['0', '25', '1.5']) refuse(['10', '100', '0', '10', true, count], 'Enter a whole number between 1 and 24.');
+  refuse(['8784', '1000000', '99.99', '10', false, '1'], 'The fee is over $1,000,000,000. Use smaller amounts.');
+  assert.equal(calculations.fixedFee('1', '909090909.09', '0', '0.01', true, '1').total, 1000000000);
+  refuse(['1', '909090909.1', '0', '0.01', true, '1'], 'The fee is over $1,000,000,000. Use smaller amounts.');
+});
+
 test('hourly pricing uses billable hours and annual target profit', () => {
   assert.equal(hourlyRate('80000', '20000', '1000').rate, 100);
   assert.throws(() => hourlyRate('80000', '20000', '0'));
@@ -184,6 +226,36 @@ test('variance changes favourability for costs and keeps zero budget undefined',
   assert.equal(variance('20', '0', 'cost').percent, null);
   assert.equal(variance('-80', '-100', 'income').percent, 20);
   assert.throws(() => variance('1', '1', 'anything'));
+});
+
+// Each balloon or advance result here was worked separately in exact fractions: the
+// payment is (principal - balloon v^n) over the sum of v^k, for k = 1 to n in arrears and
+// 0 to n - 1 in advance, with v = 1 / (1 + r); total interest is n payments plus the
+// balloon less the principal. The first 2 are also AusCalc's worked example on its vehicle
+// finance page, read 15 November 2026: $954.09 a month and total interest $15,245.63, and
+// $1,202.28 and $12,136.61 with no residual.
+for (const [inputs, expected] of [
+  [['60000', '7.5', '60', '18000'], { payment: 954.09, firstInterest: 375, firstPrincipal: 579.09, totalInterest: 15245.63 }],
+  [['60000', '7.5', '60', '0'], { payment: 1202.28, firstInterest: 375, firstPrincipal: 827.28, totalInterest: 12136.61 }],
+  [['60000', '7.5', '60', '18000', 'advance'], { payment: 948.17, firstInterest: 0, firstPrincipal: 948.17, totalInterest: 14890.07 }],
+  [['60000', '7.5', '60', '0', 'advance'], { payment: 1194.81, firstInterest: 0, firstPrincipal: 1194.81, totalInterest: 11688.56 }],
+  // A balloon equal to the principal leaves interest only: 1% of $1,000 a month in arrears,
+  // and 1% discounted a month, 1,000 x 0.01 / 1.01, in advance.
+  [['1000', '12', '12', '1000'], { payment: 10, firstInterest: 10, firstPrincipal: 0, totalInterest: 120 }],
+  [['1000', '12', '1', '1000', 'advance'], { payment: 9.9, firstInterest: 0, firstPrincipal: 9.9, totalInterest: 9.9 }],
+  // At nil interest the balloon comes off the principal and the rest divides evenly.
+  [['1200', '0', '12', '200', 'advance'], { payment: 83.33, firstInterest: 0, firstPrincipal: 83.33, totalInterest: 0 }],
+  [['1200', '0', '12', '1200'], { payment: 0, firstInterest: 0, firstPrincipal: 0, totalInterest: 0 }],
+]) {
+  test(`loan takes a balloon and payments in advance: ${inputs.join(' / ')}`, () => {
+    assert.deepEqual(loan(...inputs), expected);
+  });
+}
+
+test('loan refuses a balloon above the principal and an unknown payment timing', () => {
+  assert.throws(() => loan('1000', '12', '12', '1000.01'), { message: 'The balloon cannot be more than the loan principal.' });
+  assert.throws(() => loan('1000', '12', '12', '0', 'start'), { message: 'Choose payments in arrears or in advance.' });
+  assert.throws(() => loan('1000', '12', '12', '-1'), /between 0 and/);
 });
 
 test('loan handles zero interest and a hand-calculated one-period loan', () => {
@@ -263,7 +335,10 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   contribution: 'contribution', sales: 'sales', rate: 'rate', difference: 'difference', payment: 'payment',
   firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
   annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
-  deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal', duty: 'duty' };
+  deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal',
+  fee: 'fee', total: 'total', first: 'first instalment', instalment: 'each later instalment', effectiveRate: 'effective rate', duty: 'duty' };
+Object.assign(LABELS, { baseValue: 'base value', statutory: 'statutory formula value', operating: 'operating cost value',
+  taxableValue: 'taxable value', grossedUp: 'grossed-up value', fbt: 'FBT' });
 // A date as the objection deadline page writes it: 'Saturday 18 November 2028'.
 const longDay = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
   { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -297,13 +372,20 @@ const INPUTS = {
   breakEven: (fixed, price, variable) =>
     `Fixed ${dollars(fixed)}, price ${dollars(price)}, variable ${dollars(variable)}`,
   hourlyRate: (costs, profit, hours) => `Costs ${dollars(costs)}, profit ${dollars(profit)}, ${hours} hours`,
+  fixedFee: (hours, rate, margin, roundTo, addGst, instalments) => `${hours} ${hours === '1' ? 'hour' : 'hours'} at `
+    + `${dollars(rate)} an hour, ${margin}% margin, rounded up to ${roundTo === '0.01' ? 'the cent' : `$${roundTo}`}, `
+    + `${addGst ? 'GST added' : 'no GST'}, ${instalments} ${instalments === '1' ? 'instalment' : 'instalments'}`,
   variance: (actual, budget, kind) => `Actual ${dollars(actual)}, budget ${dollars(budget)}, ${kind}`,
-  loan: (principal, rate, months) =>
-    `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`,
+  loan: (principal, rate, months, balloon = '0', timing = 'arrears') =>
+    `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`
+    + `${balloon === '0' ? '' : `, balloon ${dollars(balloon)}`}${timing === 'advance' ? ', paid in advance' : ''}`,
   staffCost: (wages, superannuation, other) =>
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
   div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
   transferDuty: (value, place) => `${PLACES[place]}, ${dollars(value)}`,
+  fbtCar: (car, year) => `${car.method === 'operating' ? `Operating cost ${dollars(car.costs)} at ${car.businessUse}% business use; `
+    : 'Statutory formula; '}cost price ${dollars(car.cost)}${car.accessories === '0' ? '' : ` plus ${dollars(car.accessories)} accessories`}`
+    + `${car.reduced ? ', held 4 years' : ''}, ${car.days} of ${year.days} days, contributions ${dollars(car.contribution)}, gross-up ${year.grossUp}`,
   cashForecast: (opening, weeks, buffer, delayed) => {
     const week = weeks.findIndex(({ receipts }) => receipts !== '0');
     assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
@@ -471,8 +553,79 @@ test('transfer duty at the top of a band uses that band and rejects a broken tab
   }
 });
 
+// The FBT car form passes the checked option's gross-up and the form's days and FBT rate; the
+// FBT car test below binds those to this row of the table.
+const fbtRow = readFileSync(new URL('../rates/fbt-rate/fbt-rates.csv', import.meta.url), 'utf8')
+  .trim().split(/\r?\n/).map((line) => line.split(',')).find(([ending]) => ending === '2027-03-31');
+const fbtDays = String((Date.parse(fbtRow[0]) - Date.parse(`${Number(fbtRow[0].slice(0, 4)) - 1}${fbtRow[0].slice(4)}`)) / 86400000);
+const fbtYear = { 1: { days: fbtDays, grossUp: fbtRow[2], fbtRate: fbtRow[1] }, 2: { days: fbtDays, grossUp: fbtRow[3], fbtRate: fbtRow[1] } };
+// ATO, 'Fringe benefits tax – a guide for employers', chapter 7 (current document 22 November 2024),
+// read 15 November 2026: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
+// Example 28: '$60,000 × 0.2 = $12,000', '2,184,000 ÷ 365 = $5,983', '$5,983 - $1,000 = $4,983'.
+// Example 31: '$19,580 × 25% = $4,895', '$4, 895 - $2,000 = $2,895 (taxable value)'.
+// Example 23: a $39,000 car 'may be reduced by $13,000', and $4,000 of later accessories join the base value.
+const fbtInputs = (fields) => ({ method: 'statutory', cost: '0', accessories: '0', reduced: false, days: '365',
+  costs: '0', businessUse: '0', contribution: '0', ...fields });
+test('FBT car values agree with the ATO guide’s worked examples', () => {
+  const example28 = calculations.fbtCar(fbtInputs({ cost: '60000', days: '182', contribution: '1000' }), fbtYear[1]);
+  // The guide leaves out the cents of $5,983.56 at step 4.
+  assert.equal(Math.trunc(example28.statutory + 1000), 5983);
+  assert.equal(Math.trunc(example28.taxableValue), 4983);
+  const example31 = fbtInputs({ method: 'operating', cost: '100000', costs: '19580', businessUse: '75', contribution: '2000' });
+  assert.equal(calculations.fbtCar(example31, fbtYear[1]).taxableValue, 2895);
+  const example23 = calculations.fbtCar(fbtInputs({ cost: '39000', accessories: '4000', reduced: true }), fbtYear[1]);
+  assert.equal(example23.baseValue, 39000 - 13000 + 4000);
+});
+
+// Worked by hand: $4,983.56 × 2.0802 = $10,366.801512, so $10,366.80, and 47% of that is $4,872.396,
+// so $4,872.40. An operating cost of 1 cent at 50% business use is exactly half a cent, so 1 cent.
+test('FBT car values, gross-up and FBT round half up from the figure before them', () => {
+  const opening = calculations.fbtCar(fbtInputs({ cost: '60000', days: '182', contribution: '1000' }), fbtYear[1]);
+  assert.deepEqual([opening.grossedUp, opening.fbt], [10366.8, 4872.4]);
+  const half = calculations.fbtCar(fbtInputs({ method: 'operating', cost: '1000', costs: '0.01', businessUse: '50' }), fbtYear[1]);
+  assert.deepEqual([half.operating, half.taxableValue], [0.01, 0.01]);
+  assert.equal(calculations.fbtCar(fbtInputs({ cost: '0.01', reduced: true }), fbtYear[1]).baseValue, 0.01);
+});
+
+test('FBT car refuses an unknown method, a missing answer and out-of-range figures', () => {
+  assert.throws(() => calculations.fbtCar(fbtInputs({ method: 'logbook' }), fbtYear[1]), { message: 'Choose a valuation method.' });
+  assert.throws(() => calculations.fbtCar(fbtInputs({ reduced: 'yes' }), fbtYear[1]), { message: 'Say whether the car was held for 4 years.' });
+  assert.throws(() => calculations.fbtCar(fbtInputs({ method: 'operating', businessUse: '100.01' }), fbtYear[1]),
+    { message: 'Enter an amount between 0 and 100.' });
+  assert.throws(() => calculations.fbtCar(fbtInputs({ days: '1.5' }), fbtYear[1]), { message: 'Enter a whole number between 0 and 365.' });
+  // Nil operating costs would give nil FBT under the operating cost method.
+  assert.throws(() => calculations.fbtCar(fbtInputs({ method: 'operating', cost: '60000', businessUse: '20' }), fbtYear[1]),
+    { message: 'Enter the car’s operating costs for the year to use the operating cost method.' });
+  assert.equal(calculations.fbtCar(fbtInputs({ days: '366' }), { ...fbtYear[1], days: '366' }).statutory, 0);
+});
+
+// The form's gross-up options, days and FBT rate are the rate table's row for the year ending 31 March 2027.
+test('FBT car rates are the rate table row for the FBT year ending 31 March 2027', () => {
+  const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
+  const options = [...html.matchAll(/<input type="radio" name="type" value="(\d)" data-gross-up="([^"]+)"/g)];
+  assert.deepEqual(options.map(([, type, rate]) => [type, rate]), [['1', fbtYear[1].grossUp], ['2', fbtYear[2].grossUp]]);
+  assert.ok(html.includes(`data-year-days="${fbtDays}" data-fbt-rate="${fbtRow[1]}"`));
+  assert.equal(fbtDays, '365');
+});
+
+// ATO, 'Fringe benefits tax return 2026' (NAT 1067), item 14, read 15 November 2026: 'Calculated
+// fringe benefits taxable amounts (whole dollars only)', and the benefits table 'WHOLE DOLLARS ONLY'.
+// The calculator keeps cents, so the page must say a return can differ.
+test('FBT car page says the FBT return takes whole dollars', () => {
+  const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
+  assert.match(html, /FBT return for the year ending 31 March 2026, read 15 November 2026, asks for whole dollars/);
+});
+
+// ATO, chapter 7 of the guide for employers, read 15 November 2026: 'This guide is being reviewed as a
+// result of a recent court decision', naming SEPL Pty Ltd as trustee of the SFT Trust v Commissioner
+// of Taxation [2026] FCAFC 36, judgment date 27 March 2026 in the decision impact statement.
+test('FBT car page dates the review of the ATO guide chapter it applies', () => {
+  const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
+  assert.match(html, /On 15 November 2026 chapter 7 of the ATO’s guide said it was being reviewed after the Full Federal Court’s decision of 27 March 2026 in SEPL Pty Ltd as trustee of the SFT Trust v Commissioner of Taxation \[2026\] FCAFC 36/);
+});
+
 // The values each form opens with, read from its include: an input's value or
-// checked state, and a select's selected option (else its first).
+// checked state, the checked radio's value, and a select's selected option (else its first).
 const formDefaults = (html) => {
   const fields = {};
   for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
@@ -499,11 +652,14 @@ const FORM_CALLS = {
   margin: (f) => [f.sales, f.cost],
   breakEven: (f) => [f.fixed, f.price, f.variable],
   hourlyRate: (f) => [f.cost, f.profit, f.hours],
+  fixedFee: (f) => [f.hours, f.rate, f.margin, f.round, f.gst, f.instalments],
   variance: (f) => [f.actual, f.budget, f.kind],
-  loan: (f) => [f.principal, f.rate, f.months],
+  loan: (f) => [f.principal, f.rate, f.months, f.balloon, f.timing],
   div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],
   // The radio's scale is bound to the rate table by its own test, so the call names the jurisdiction.
   transferDuty: (f) => [f.value, f.jurisdiction],
+  fbtCar: (f) => [{ method: f.method, cost: f.cost, accessories: f.accessories, reduced: f.reduced === 'yes', days: f.days,
+    costs: f.costs, businessUse: f['business-use'], contribution: f.contribution }, fbtYear[f.type]],
   staffCost: (f) => [f.wages, f.super, f.other],
   cashForecast: (f) => [f.opening,
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),

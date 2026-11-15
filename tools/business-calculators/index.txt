@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Eleven calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Twelve calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
@@ -19,9 +19,11 @@ Published 11 September 2026. Last checked 15 November 2026, the newest of the ca
 - Margin and markup calculator Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 - Break-even sales calculator Whole units and sales required to cover fixed costs from price and variable cost per unit.
 - Hourly pricing calculator Required hourly rate before GST from annual costs, target profit and billable hours.
+- Fixed fee pricing calculator A fixed fee from estimated hours at a rate or a cost and margin, with GST, monthly instalments and the effective hourly rate.
 - Budget variance calculator Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
-- Monthly loan payment calculator Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
+- Monthly loan payment calculator Fixed monthly payment, first-payment interest and principal, and estimated total interest, in arrears or in advance, with an optional balloon.
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
+- FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, before any concession or surcharge.
@@ -36,9 +38,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
 - Break-even sales calculator: https://duguid.com.au/tools/business-calculators/break-even/
 - Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
+- Fixed fee pricing calculator: https://duguid.com.au/tools/business-calculators/fixed-fee/
 - Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
 - Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
+- FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/

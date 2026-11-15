@@ -88,6 +88,19 @@ The notes below distinguish rules in the Act from questions this tool does not r
 
 The Act, the Regulations and the guidance note publish no rounding rule. This tool rounds the levy half up to the nearest cent at the final step only, and shows the unrounded figure above whenever it differs from the rounded figure.
 
+## HTTP API
+
+The same calculation runs as a JSON API with no key or sign-up, at https://coal-lsl-levy.coal-lsl-levy-service.workers.dev, from this page's engine, assets/levy.mjs. Its source and tests are in service/coal-lsl-levy.
+
+- GET /v1/calculators lists the calculator, its supported reporting months, its limits and the path to post a calculation to.
+- GET /openapi.json is the OpenAPI 3.1 document for every route, request and response.
+
+```
+curl https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/v1/calculators
+```
+
+A calculation is one employee and one reporting month, posted as JSON with amounts as decimal strings. A request it does not answer gets 400 with a refusal class, and an invalid one gets 422 naming the field.
+
 ## Common questions
 
 ### What levy rate does this calculator use?
@@ -146,6 +159,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - 0bd409d: https://github.com/ryanduguid/ryanduguid.github.io/commit/0bd409dff58b08fca414d3aab027193c9385e501
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
+- service/coal-lsl-levy: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/service/coal-lsl-levy
+- GET /v1/calculators: https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/v1/calculators
+- GET /openapi.json: https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/openapi.json
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - contact page: https://duguid.com.au/contact/
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
