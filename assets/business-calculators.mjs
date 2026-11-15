@@ -203,3 +203,67 @@ export function cashForecast(opening, weeks, buffer, scenario = NO_DEFERRAL) {
   return { rows: result, closing: balance / 100, minimum: minimum / 100,
     funding: Math.max(0, minimumBuffer - minimum) / 100, deferred: deferred / 100 };
 }
+
+const DAY = 86400000;
+/** @param {unknown} text @returns {Date} midnight UTC on that calendar day */
+function noticeDay(text) {
+  const date = new Date(`${text}T00:00:00Z`);
+  if (typeof text !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(text) || !Number.isFinite(date.getTime())
+    || date.toISOString().slice(0, 10) !== text || text < '1900-01-01' || text > '9989-12-31') {
+    throw new Error('Enter a date from 1 January 1900 to 31 December 9989.');
+  }
+  return date;
+}
+/** @param {Date} date */
+const isoDay = (date) => date.toISOString().slice(0, 10);
+/** The last day of a period of whole years after a day. Under s 36(1) item 6 of the Acts
+ * Interpretation Act 1901 the period starts the next day, and it runs to the day before that
+ * date in the later year; a 29 February start with no 29 February then runs to 28 February.
+ * @param {Date} day @param {number} years */
+function yearsAfter(day, years) {
+  const start = new Date(day.getTime() + DAY);
+  return new Date(Date.UTC(start.getUTCFullYear() + years, start.getUTCMonth(), start.getUTCDate()) - DAY);
+}
+/** @param {Date} day */
+const sixtyDaysAfter = (day) => new Date(day.getTime() + 60 * DAY);
+
+/** @typedef {'assessment' | 'amended' | 'fbt' | 'amended-fbt' | 'other'} ObjectionDecision */
+/** The last day to lodge a taxation objection under s 14ZW of the Taxation Administration Act
+ * 1953, and the day s 36(2) of the Acts Interpretation Act 1901 allows when it is a Saturday or
+ * Sunday. Public holidays depend on the place of lodgement and are not applied.
+ * @param {ObjectionDecision} decision
+ * @param {'2' | '4'} group the s 170(1) item that applies to an income tax assessment: '2' for
+ *   item 1, 2, 3 or 3A, '4' otherwise; not read for other decisions
+ * @param {string} notice the day notice of the decision was given or served
+ * @param {string} first for an amended assessment, the day notice of the first assessment for the year was given
+ * @returns {{rule: string, periodEnds: string, lastDay: string, amendedEnds: string | null, firstEnds: string | null}} */
+export function objectionDeadline(decision, group, notice, first) {
+  if (!['assessment', 'amended', 'fbt', 'amended-fbt', 'other'].includes(decision)) throw new Error('Choose the decision objected to.');
+  const income = decision === 'assessment' || decision === 'amended';
+  if (income && group !== '2' && group !== '4') throw new Error('Choose whether item 1, 2, 3 or 3A applies.');
+  const years = decision === 'fbt' || decision === 'amended-fbt' || group === '4' ? 4 : 2;
+  const day = noticeDay(notice);
+  let rule = decision === 'other' ? 'paragraph 14ZW(1)(c)' : decision === 'fbt' ? 'paragraph 14ZW(1)(aaa)'
+    : `subparagraph 14ZW(1)(aa)(${years === 2 ? 'i' : 'ii'})`;
+  let periodEnds = decision === 'other' ? sixtyDaysAfter(day) : yearsAfter(day, years);
+  /** @type {string | null} */
+  let amendedEnds = null;
+  /** @type {string | null} */
+  let firstEnds = null;
+  if (decision === 'amended' || decision === 'amended-fbt') {
+    // Subsections (1B) and (1BA): the later of 60 days after the amended notice and the
+    // original period after the first assessment's notice (subsection (1C)).
+    const firstDay = noticeDay(first);
+    if (firstDay.getTime() > day.getTime()) throw new Error('The first assessment’s notice cannot be later than the amended one.');
+    const amended = sixtyDaysAfter(day);
+    const original = yearsAfter(firstDay, years);
+    amendedEnds = isoDay(amended);
+    firstEnds = isoDay(original);
+    rule = years === 2 ? 'subsection 14ZW(1BA)' : 'subsection 14ZW(1B)';
+    periodEnds = amended.getTime() > original.getTime() ? amended : original;
+  }
+  // s 36(2): a Saturday or Sunday moves to the next day that is not one.
+  const weekday = periodEnds.getUTCDay();
+  const lastDay = new Date(periodEnds.getTime() + (weekday === 6 ? 2 : weekday === 0 ? 1 : 0) * DAY);
+  return { rule, periodEnds: isoDay(periodEnds), lastDay: isoDay(lastDay), amendedEnds, firstEnds };
+}

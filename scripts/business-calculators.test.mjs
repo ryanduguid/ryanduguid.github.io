@@ -246,13 +246,19 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
   annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
   deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal' };
+// A date as the objection deadline page writes it: 'Saturday 18 November 2028'.
+const longDay = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
+  { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const shownField = (field, value) => {
-  if (field === 'effect') return value;
+  if (field === 'effect' || field === 'rule') return value;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return `${LABELS[field]} ${longDay(value)}`;
   if (field === 'units') return `${value} units`;
   if (field === 'percent') return value === null ? 'no percentage' : `${value.toFixed(2)}%`;
   if (field === 'margin' || field === 'markup') return value === null ? `no ${field}` : `${field} ${value.toFixed(2)}%`;
   return `${LABELS[field]} ${dollars(value)}`;
 };
+Object.assign(LABELS, { periodEnds: 'period ends', lastDay: 'last day', amendedEnds: '60 days after the amended notice',
+  firstEnds: 'first notice period ends' });
 
 test('every business calculator shows its boundary cases', () => {
   const pages = readdirSync(new URL('../tools/business-calculators/', import.meta.url), { withFileTypes: true })
@@ -281,6 +287,14 @@ const INPUTS = {
     assert.equal(delayed.week, week + 1);
     return `Opening ${dollars(opening)}, buffer ${dollars(buffer)}, ${dollars(weeks[week].receipts)} received in `
       + `week ${week + 1}, ${dollars(delayed.amount)} of it delayed ${delayed.delay} week`;
+  },
+  objectionDeadline: (decision, group, notice, first) => {
+    const date = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
+      { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    const kind = { assessment: 'Income tax assessment', amended: 'Amended income tax assessment', fbt: 'FBT assessment',
+      'amended-fbt': 'Amended FBT assessment', other: 'Other decision' }[decision];
+    return `${kind}${decision === 'assessment' || decision === 'amended' ? `, ${group} years` : ''}, notice ${date(notice)}`
+      + `${decision.startsWith('amended') ? `, first notice ${date(first)}` : ''}`;
   },
 };
 const wholeDollars = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -400,6 +414,7 @@ const formDefaults = (html) => {
   const fields = {};
   for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
     const name = tag.match(/\bname="([^"]+)"/)?.[1];
+    if (/\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
     if (name) fields[name] = /\btype="checkbox"/.test(tag) ? /\bchecked\b/.test(tag) : tag.match(/\bvalue="([^"]*)"/)?.[1];
   }
   for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
@@ -427,6 +442,7 @@ const FORM_CALLS = {
   cashForecast: (f) => [f.opening,
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
     f.buffer, { week: Number(f.week), amount: f.amount, delay: Number(f.delay) }],
+  objectionDeadline: (f) => [f.decision, f.group, f.notice, f.first],
 };
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
@@ -442,4 +458,44 @@ test('blank, non-finite, over-precise and unsafe amounts cannot become a zero re
   for (const value of ['', ' ', 'NaN', 'Infinity', '1e10', '100.001', '-1', '1000000001', null]) {
     assert.throws(() => gst(value, false), String(value));
   }
+});
+
+// Taxation Administration Act 1953 s 14ZW (Compilation No. 227, 1 October 2026) and Acts
+// Interpretation Act 1901 s 36 (Compilation No. 39, 28 March 2026), both read 15 November 2026:
+// https://www.legislation.gov.au/C1953A00001/latest/text and https://www.legislation.gov.au/C1901A00002/latest/text
+// s 36(2) example: 'If a person has until 31 March to make an application and 31 March is a
+// Saturday, the application may be made on Monday 2 April.' 31 March 2029 is a Saturday.
+test('objection deadline moves a weekend last day as the Acts Interpretation Act example does', () => {
+  const act = calculations.objectionDeadline('other', '2', '2029-01-30', '2029-01-30');
+  assert.deepEqual([act.periodEnds, act.lastDay], ['2029-03-31', '2029-04-02']);
+  // Worked by hand: notice on Wednesday 18 November 2026; the 2 years start on 19 November 2026
+  // and end on Saturday 18 November 2028, so subsection 36(2) allows Monday 20 November 2028.
+  assert.equal(calculations.objectionDeadline('assessment', '2', '2026-11-18', '2026-11-18').lastDay, '2028-11-20');
+});
+
+test('objection periods are 2 or 4 years, 60 days, or the later of an amendment’s 2 dates', () => {
+  const on = (decision, group, notice, first = notice) => calculations.objectionDeadline(decision, group, notice, first).periodEnds;
+  assert.equal(on('assessment', '2', '2027-06-15'), '2029-06-15');
+  assert.equal(on('assessment', '4', '2027-06-15'), '2031-06-15');
+  assert.equal(on('fbt', '2', '2027-06-15'), '2031-06-15');
+  assert.equal(on('other', '4', '2027-06-15'), '2027-08-14');
+  // 60 days after 31 December 2027 run through a 29-day February to 29 February 2028.
+  assert.equal(on('other', '2', '2027-12-31'), '2028-02-29');
+  // The later date wins either way round; a first notice on the amended notice's day is allowed.
+  assert.equal(on('amended', '4', '2027-06-15', '2024-01-10'), '2028-01-10');
+  assert.equal(on('amended', '2', '2027-06-15', '2024-01-10'), '2027-08-14');
+  assert.equal(on('amended-fbt', '2', '2027-06-15', '2027-06-15'), '2031-06-15');
+  assert.equal(calculations.objectionDeadline('amended-fbt', '2', '2027-06-15', '2027-06-15').rule, 'subsection 14ZW(1B)');
+});
+
+test('objection deadline refuses an unknown decision or item and an impossible date', () => {
+  assert.throws(() => calculations.objectionDeadline('ruling', '2', '2026-11-18', '2026-11-18'),
+    { message: 'Choose the decision objected to.' });
+  assert.throws(() => calculations.objectionDeadline('assessment', '3', '2026-11-18', '2026-11-18'),
+    { message: 'Choose whether item 1, 2, 3 or 3A applies.' });
+  for (const notice of ['2026-02-29', '2026-13-01', '18/11/2026', '', '1899-12-31', '9990-01-01']) {
+    assert.throws(() => calculations.objectionDeadline('other', '2', notice, notice),
+      { message: 'Enter a date from 1 January 1900 to 31 December 9989.' }, notice);
+  }
+  assert.equal(calculations.objectionDeadline('other', '2', '9989-12-31', '').periodEnds, '9990-03-01');
 });

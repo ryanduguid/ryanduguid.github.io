@@ -30,3 +30,10 @@ calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
 calculate.div7aMinimumRepayment('100000', 8.77, '5');
 void tax;
 void formatted;
+const objection: string = calculate.objectionDeadline('assessment', '2', '2026-11-18', '2026-11-18').lastDay;
+// @ts-expect-error A private ruling is not one of the decisions the checker covers.
+calculate.objectionDeadline('ruling', '2', '2026-11-18', '2026-11-18');
+// @ts-expect-error The 60 days after an amended notice are null for an unamended assessment.
+const amendedEnds: string = calculate.objectionDeadline('assessment', '2', '2026-11-18', '2026-11-18').amendedEnds;
+void objection;
+void amendedEnds;

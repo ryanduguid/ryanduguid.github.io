@@ -18,6 +18,7 @@
 //! needs no change to the expected values, which are never stored.
 mod common;
 
+use chrono::{Datelike, NaiveDate, Weekday};
 use num_bigint::BigUint;
 use serde_json::{Value, json};
 use std::io::Write;
@@ -303,8 +304,13 @@ fn levy_case(rng: &mut Seeded) -> (Value, Value) {
 }
 
 fn engines(cases: &[Value]) -> Vec<Value> {
+    run_node(HARNESS, cases)
+}
+
+/// Runs `harness` in one Node process with `cases` on its standard input.
+fn run_node(harness: &str, cases: &[Value]) -> Vec<Value> {
     let mut node = Command::new("node")
-        .args(["--input-type=module", "--eval", HARNESS])
+        .args(["--input-type=module", "--eval", harness])
         .current_dir(common::root())
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
@@ -398,6 +404,160 @@ fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
     }
     assert_eq!(cases.len(), 300);
     let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the tax administration engines, as `HARNESS` runs the others.
+const TAX_HARNESS: &str = r"
+import { objectionDeadline } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const run = {
+  objection: ({ decision, group, notice, first }) => {
+    const { periodEnds, lastDay, amendedEnds, firstEnds } = objectionDeadline(decision, group, notice, first);
+    return { periodEnds, lastDay, amendedEnds, firstEnds };
+  },
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
+";
+
+const OBJECTION_CASES: usize = 240;
+
+/// The last day of `years` years after `notice`, worked with chrono's calendar where the
+/// engine rolls JavaScript dates: the period starts the next day (s 36(1) item 6 of the Acts
+/// Interpretation Act 1901) and ends the day before the same date in the later year, which
+/// for a 29 February start with none that year is the day before 1 March.
+fn years_after(notice: NaiveDate, years: i32) -> NaiveDate {
+    let start = notice.succ_opt().unwrap();
+    let same = start
+        .with_year(start.year() + years)
+        .unwrap_or_else(|| NaiveDate::from_ymd_opt(start.year() + years, 3, 1).unwrap());
+    same.pred_opt().unwrap()
+}
+
+/// 60 days after `notice`, one day at a time.
+fn sixty_days_after(notice: NaiveDate) -> NaiveDate {
+    (0..60).fold(notice, |day, _| day.succ_opt().unwrap())
+}
+
+/// s 36(2): a Saturday or Sunday last day moves to the next weekday.
+fn lodging_day(end: NaiveDate) -> NaiveDate {
+    let mut day = end;
+    while matches!(day.weekday(), Weekday::Sat | Weekday::Sun) {
+        day = day.succ_opt().unwrap();
+    }
+    day
+}
+
+/// The period's end, the lodging day, and for an amended assessment its 2 candidate ends, from
+/// s 14ZW(1)(aa), (aaa) and (c), and (1B) and (1BA).
+fn objection_oracle(
+    decision: &str,
+    group: i32,
+    notice: NaiveDate,
+    first: NaiveDate,
+) -> [Option<NaiveDate>; 4] {
+    let years = match decision {
+        "fbt" | "amended-fbt" => 4,
+        _ => group,
+    };
+    let (end, amended, original) = match decision {
+        "other" => (sixty_days_after(notice), None, None),
+        "amended" | "amended-fbt" => {
+            let (amended, original) = (sixty_days_after(notice), years_after(first, years));
+            (amended.max(original), Some(amended), Some(original))
+        }
+        _ => (years_after(notice, years), None, None),
+    };
+    [Some(end), Some(lodging_day(end)), amended, original]
+}
+
+fn iso(day: Option<NaiveDate>) -> Value {
+    day.map_or(Value::Null, |day| json!(day.format("%Y-%m-%d").to_string()))
+}
+
+/// A notice date weighted to the boundaries: month ends, 28 and 29 February, leap and
+/// century years, and the first and last years the engine accepts.
+fn notice_day(rng: &mut Seeded) -> NaiveDate {
+    let any_year = 1900 + rng.below(8090) as i32;
+    let year = rng.pick(&[1900, 2000, 2026, 2027, 2028, 2100, 9989, any_year, any_year]);
+    let month = 1 + rng.below(12) as u32;
+    let last = (28..=31)
+        .rev()
+        .find(|day| NaiveDate::from_ymd_opt(year, month, *day).is_some())
+        .unwrap();
+    let any_day = 1 + rng.below(u64::from(last)) as u32;
+    let day = rng
+        .pick(&[1, 28, 29, last, last, any_day, any_day])
+        .min(last);
+    NaiveDate::from_ymd_opt(year, month, day).unwrap()
+}
+
+fn objection_case(rng: &mut Seeded) -> (Value, Value) {
+    let decision = rng.pick(&["assessment", "amended", "fbt", "amended-fbt", "other"]);
+    let group = rng.pick(&[2, 4]);
+    let notice = notice_day(rng);
+    // A first notice on or before the amended one, up to about 6 years earlier.
+    let floor = NaiveDate::from_ymd_opt(1900, 1, 1).unwrap();
+    let first = (0..rng.below(2200)).fold(notice, |day, _| day.pred_opt().unwrap().max(floor));
+    (
+        json!({
+            "kind": "objection",
+            "decision": decision,
+            "group": group.to_string(),
+            "notice": notice.format("%Y-%m-%d").to_string(),
+            "first": first.format("%Y-%m-%d").to_string(),
+        }),
+        {
+            let [period, last, amended, original] =
+                objection_oracle(decision, group, notice, first);
+            json!({"periodEnds": iso(period), "lastDay": iso(last),
+                "amendedEnds": iso(amended), "firstEnds": iso(original)})
+        },
+    )
+}
+
+fn date(year: i32, month: u32, day: u32) -> NaiveDate {
+    NaiveDate::from_ymd_opt(year, month, day).unwrap()
+}
+
+#[test]
+fn the_objection_oracle_counts_leap_days_month_ends_and_weekends_by_hand() {
+    // The Acts Interpretation Act's s 36(2) example: 31 March is a Saturday, so Monday 2 April.
+    assert_eq!(lodging_day(date(2029, 3, 31)), date(2029, 4, 2));
+    assert_eq!(lodging_day(date(2030, 11, 17)), date(2030, 11, 18));
+    assert_eq!(lodging_day(date(2027, 3, 2)), date(2027, 3, 2));
+    // The day notice is given is not counted: 60 days after 1 January 2027 is 2 March 2027.
+    assert_eq!(sixty_days_after(date(2027, 1, 1)), date(2027, 3, 2));
+    // 2 years starting 1 March 2026 end on 29 February 2028; starting 1 March 2028, on 28 February 2030.
+    assert_eq!(years_after(date(2026, 2, 28), 2), date(2028, 2, 29));
+    assert_eq!(years_after(date(2028, 2, 29), 2), date(2030, 2, 28));
+    // Starting on 29 February 2028, 2 years end on 28 February 2030 and 4 years on 28 February 2032.
+    assert_eq!(years_after(date(2028, 2, 28), 2), date(2030, 2, 28));
+    assert_eq!(years_after(date(2028, 2, 28), 4), date(2032, 2, 28));
+    // Month and year ends: 31 December 2026 runs to 31 December 2028.
+    assert_eq!(years_after(date(2026, 12, 31), 2), date(2028, 12, 31));
+    assert_eq!(
+        objection_oracle("amended", 2, date(2028, 10, 2), date(2026, 10, 20)),
+        [
+            Some(date(2028, 12, 1)),
+            Some(date(2028, 12, 1)),
+            Some(date(2028, 12, 1)),
+            Some(date(2028, 10, 20))
+        ]
+    );
+}
+
+#[test]
+fn the_objection_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1115_0B1E_C710);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..OBJECTION_CASES)
+        .map(|_| objection_case(&mut rng))
+        .unzip();
+    let actual = run_node(TAX_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
