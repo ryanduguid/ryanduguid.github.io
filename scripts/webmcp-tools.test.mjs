@@ -74,6 +74,13 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
   }
 });
 
+test('every calculator tool description names its currency and says the result is general information', () => {
+  for (const t of [...Object.values(tools), declineInValue, levy]) {
+    assert.match(t.description, /\bAUD\b|Australian dollar/, t.name);
+    assert.match(t.description, / General information only, not advice\.$/, t.name);
+  }
+});
+
 test('the business calculator tools pass the page function the strings its form would', async () => {
   const calls = [];
   const spy = Object.fromEntries(['gst', 'div7aMinimumRepayment', 'loan', 'breakEven'].map(name =>

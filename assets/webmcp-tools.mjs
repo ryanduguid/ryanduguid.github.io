@@ -76,13 +76,15 @@ function checked(value, schema, name) {
 }
 
 /**
- * A read-only tool whose calculation runs only on input its schema accepts.
+ * A read-only tool whose calculation runs only on input its schema accepts. Its description
+ * ends by saying the result is general information.
  * @param {{name: string, title: string, description: string, inputSchema: Schema,
  *   run: (input: Record<string, any>) => Record<string, unknown>}} spec
  */
 function tool({ name, title, description, inputSchema, run }) {
   return {
-    name, title, description, inputSchema, annotations: { readOnlyHint: true },
+    name, title, description: `${description} General information only, not advice.`, inputSchema,
+    annotations: { readOnlyHint: true },
     /** @param {unknown} [input] */
     async execute(input = {}) {
       return run(checked(input, inputSchema, 'input'));
@@ -119,7 +121,7 @@ const gstTool = (gst) => tool({
 const div7aTool = (minimumRepayment) => tool({
   name: 'calculate_div7a_minimum_repayment',
   title: 'Division 7A minimum yearly repayment calculator',
-  description: 'Minimum yearly repayment of one amalgamated Division 7A loan for an income year, under subsection '
+  description: 'Minimum yearly repayment in AUD of one amalgamated Division 7A loan for an income year, under subsection '
     + '109E(6) of the Income Tax Assessment Act 1936, with its interest and principal parts if repaid on the '
     + 'last day of the year, each rounded half up to the cent. Supply the benchmark interest rate for the income '
     + 'year: 8.77 for 2026-27 (https://duguid.com.au/rates/div7a-benchmark-rate/). It does not decide whether a '
@@ -143,7 +145,7 @@ const div7aTool = (minimumRepayment) => tool({
 const loanTool = (loan) => tool({
   name: 'calculate_loan_payment',
   title: 'Monthly loan payment calculator',
-  description: 'Fixed monthly payment on an amortising loan with payments at the end of each month and interest '
+  description: 'Fixed monthly payment in AUD on an amortising loan with payments at the end of each month and interest '
     + 'at the annual rate divided by 12, with the interest and principal in the first payment and the total '
     + 'interest, each rounded half up to the cent. Planning estimate only: a lender\'s fees, rounding and '
     + 'payment dates can differ.',
@@ -166,7 +168,7 @@ const loanTool = (loan) => tool({
 const breakEvenTool = (breakEven) => tool({
   name: 'calculate_break_even',
   title: 'Break-even sales calculator',
-  description: 'Whole units, and the sales they bring in, that cover a period\'s fixed costs: contribution per '
+  description: 'Whole units, and the sales in AUD they bring in, that cover a period\'s fixed costs: contribution per '
     + 'unit is price less variable cost, units are fixed costs divided by contribution and rounded up, and sales '
     + 'are those units times the price. The price must exceed the variable cost per unit.',
   inputSchema: record({
@@ -205,7 +207,7 @@ export function depreciationTools({ parseCents, parseLife, parseUse, rates, sche
     declineInValue: tool({
       name: 'calculate_decline_in_value',
       title: 'Depreciating asset decline in value calculator',
-      description: 'Decline in value of one depreciating asset for each income year from the year it was first used '
+      description: 'Decline in value in AUD of one depreciating asset for each income year from the year it was first used '
         + 'or installed ready for use to the year asked for, by prime cost (section 40-75 ITAA 1997) or diminishing '
         + 'value (section 40-72, 200%), and the deduction for its taxable use, each rounded half up to the cent. '
         + 'Income years end on 30 June. It assumes the asset is held all of each later year with no second element '
@@ -271,9 +273,10 @@ export function levyTools({ computeEntry, levyCents }) {
     levy: tool({
       name: 'calculate_coal_lsl_levy',
       title: 'Coal LSL levy calculator',
-      description: 'Eligible wages for one employee\'s month under section 3B of the Coal Mining Industry (Long '
+      description: 'Eligible wages in AUD for one employee\'s month under section 3B of the Coal Mining Industry (Long '
         + 'Service Leave) Payroll Levy Collection Act 1992 and the 2.7% payroll levy on them, rounded half up to '
-        + 'the cent at the last step. Bonuses count only where paid at least monthly. It does not decide whether '
+        + 'the cent at the last step. The 2.7% rate applies to wages paid from July 2023; earlier months are '
+        + 'refused. Bonuses count only where paid at least monthly. It does not decide whether '
         + 'the employer or employee is in the coal mining industry.',
       inputSchema: LEVY_INPUTS,
       run({ bonuses = [], ...fields }) {
