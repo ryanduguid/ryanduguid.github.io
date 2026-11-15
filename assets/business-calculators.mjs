@@ -139,6 +139,43 @@ export function div7aMinimumRepayment(balance, benchmarkRate, remainingTerm) {
     principal: Number(repayment - interest) / 100 };
 }
 
+/**
+ * @typedef {{method: 'statutory' | 'operating', cost: string, accessories: string, reduced: boolean,
+ *   days: string, costs: string, businessUse: string, contribution: string}} FbtCar
+ * @typedef {{days: string, grossUp: string, fbtRate: string}} FbtYear
+ */
+
+/** FBT on one car's fringe benefits for one FBT year. The statutory formula is s 9 of the
+ * Fringe Benefits Tax Assessment Act 1986, base value × 20% × days available ÷ days in the
+ * year, less the recipient's payment, with the cost price cut to two-thirds under s 9(2)(a)
+ * once the car has been held 4 years. The operating cost method is s 10(2), operating costs
+ * × (100% − business use) less the recipient's payment, and s 10(5) keeps the statutory
+ * value when it is lower. The Act prescribes no rounding: each value rounds half up to the
+ * cent before the payment comes off, never below nil, and the grossed-up value and the FBT
+ * round half up from the figure before them.
+ * @param {FbtCar} car the car's figures as entered
+ * @param {FbtYear} year the FBT year's days, gross-up rate and FBT rate, from the caller */
+export function fbtCar(car, year) {
+  if (!['statutory', 'operating'].includes(car.method)) throw new Error('Choose a valuation method.');
+  if (typeof car.reduced !== 'boolean') throw new Error('Say whether the car was held for 4 years.');
+  const yearDays = number(year.days, { min: 365, max: 366, integer: true });
+  const days = BigInt(number(car.days, { max: yearDays, integer: true }));
+  // The base value in thirds of a cent, so two-thirds of any cost price stays exact.
+  const base = BigInt(cents(car.cost)) * (car.reduced ? 2n : 3n) + 3n * BigInt(cents(car.accessories));
+  const payment = cents(car.contribution);
+  /** @param {bigint} numerator @param {bigint} denominator */
+  const net = (numerator, denominator) => Math.max(0, Number(ratioCents(numerator, denominator)) - payment);
+  const statutory = net(base * 20n * days, 300n * BigInt(yearDays));
+  const operating = car.method === 'operating'
+    ? net(BigInt(cents(car.costs)) * (10000n - BigInt(Math.round(number(car.businessUse, { max: 100 }) * 100))), 10000n)
+    : null;
+  const taxable = Math.min(statutory, operating ?? statutory);
+  const grossedUp = ratioCents(BigInt(taxable) * BigInt(Math.round(number(year.grossUp, { min: 1, max: 3, places: 4 }) * 10000)), 10000n);
+  const fbt = ratioCents(grossedUp * BigInt(Math.round(number(year.fbtRate, { min: 0.01, max: 100 }) * 100)), 10000n);
+  return { baseValue: ratioMoney(base, 3n), statutory: statutory / 100, operating: operating === null ? null : operating / 100,
+    taxableValue: taxable / 100, grossedUp: Number(grossedUp) / 100, fbt: Number(fbt) / 100 };
+}
+
 /** @param {string} wages @param {string} superAmount @param {string} other */
 export function staffCost(wages, superAmount, other) {
   const annual = (cents(wages) + cents(superAmount) + cents(other)) / 100;
