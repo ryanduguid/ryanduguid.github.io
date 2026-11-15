@@ -52,11 +52,10 @@ fn page(key: &str, records: &[Json]) -> Json {
 }
 
 struct Site {
-    check: Json,
     run: Json,
+    analysis: Json,
     job: Json,
     main: String,
-    checks: Vec<Json>,
     runs: Vec<Json>,
     jobs: Vec<Json>,
     analyses: Json,
@@ -69,25 +68,33 @@ struct Site {
 impl Site {
     fn new() -> Self {
         let c = commit();
-        let check = json(&format!(
-            r#"{{"id": 1, "name": "CodeQL", "app": {{"id": 57789}}, "head_sha": "{c}", "status": "completed", "conclusion": "success"}}"#
-        ));
         let run = json(&format!(
             r#"{{"id": 2, "path": "{AUDIT_WORKFLOW}", "event": "push", "head_sha": "{c}", "head_branch": "main", "status": "completed", "repository": {{"full_name": "{REPO}"}}, "head_repository": {{"full_name": "{REPO}"}}}}"#
         ));
+        let analysis = with(
+            &run,
+            &[
+                ("id", n(4)),
+                ("path", s(CODEQL_WORKFLOW)),
+                ("event", s("dynamic")),
+                ("conclusion", s("success")),
+                ("run_started_at", s("2026-11-16T00:00:00Z")),
+            ],
+        );
         let job = json(&format!(
             r#"{{"id": 3, "name": "{AUDIT_JOB}", "head_sha": "{c}", "status": "completed", "conclusion": "success"}}"#
         ));
         Site {
-            checks: vec![check.clone()],
-            runs: vec![run.clone()],
+            runs: vec![run.clone(), analysis.clone()],
             jobs: vec![job.clone()],
-            analyses: json(&format!(r#"[[{{"id": 9, "commit_sha": "{c}"}}]]"#)),
+            analyses: json(&format!(
+                r#"[[{{"id": 9, "commit_sha": "{c}", "created_at": "2026-11-16T00:02:30Z"}}]]"#
+            )),
             alerts: Json::Array(vec![Json::Array(vec![])]),
             alerts_later: None,
             alert_reads: Cell::new(0),
-            check,
             run,
+            analysis,
             job,
             main: c,
         }
@@ -111,8 +118,6 @@ impl Site {
             commit()
         )) {
             self.analyses.clone()
-        } else if endpoint.contains("check-runs") {
-            page("check_runs", &self.checks)
         } else if endpoint.contains("/jobs?") {
             page("jobs", &self.jobs)
         } else {
@@ -125,20 +130,10 @@ impl Site {
     }
 }
 
-/// Main as it is: no CodeQL check, and a default-setup analysis of the commit.
+/// Main as it is: an attribution audit and a default-setup analysis of the commit.
 fn analysed_main() -> (Site, Json) {
-    let mut site = Site::new();
-    let analysis = with(
-        &site.run,
-        &[
-            ("id", n(4)),
-            ("path", s(CODEQL_WORKFLOW)),
-            ("event", s("dynamic")),
-            ("conclusion", s("success")),
-        ],
-    );
-    site.checks = vec![];
-    site.runs = vec![site.run.clone(), analysis.clone()];
+    let site = Site::new();
+    let analysis = site.analysis.clone();
     (site, analysis)
 }
 
@@ -159,32 +154,34 @@ fn exact_successful_producers_pass() {
 }
 
 #[test]
-fn missing_or_analyze_only_codeql_never_authorises_publication() {
+fn a_codeql_check_run_neither_authorises_nor_blocks_publication() {
+    // A pull request whose head is this commit gets a CodeQL check run on it, which
+    // compares with that pull request's base, not main. It is never read.
     let mut site = Site::new();
-    let check = site.check.clone();
-    for checks in [
-        vec![],
-        vec![with(&check, &[("name", s("Analyze (python)"))])],
-        vec![with(&check, &[("app", json(r#"{"id": 15368}"#))])],
-        vec![with(&check, &[("head_sha", s(&"b".repeat(40)))])],
-    ] {
-        site.checks = checks;
-        assert_eq!(site.evaluate(), Ok(false));
-    }
+    let mut check_reads = 0;
+    let result = evaluate(REPO, &commit(), &mut |e, p| {
+        if e.contains("check-runs") {
+            check_reads += 1;
+        }
+        Ok(site.fetch(e, p))
+    });
+    assert_eq!((result, check_reads), (Ok(true), 0));
+    site.runs = vec![site.run.clone()];
+    assert_eq!(site.evaluate(), Ok(false));
 }
 
 #[test]
 fn unsuccessful_or_unfinished_results_fail_or_wait() {
     for conclusion in ["failure", "cancelled", "skipped", "neutral"] {
         let mut site = Site::new();
-        site.checks = vec![with(&site.check, &[("conclusion", s(conclusion))])];
-        assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
-        let mut site = Site::new();
         site.jobs = vec![with(&site.job, &[("conclusion", s(conclusion))])];
         assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
     }
     let mut site = Site::new();
-    site.checks = vec![with(&site.check, &[("status", s("in_progress"))])];
+    site.runs = vec![
+        site.run.clone(),
+        with(&site.analysis, &[("status", s("in_progress"))]),
+    ];
     assert_eq!(site.evaluate(), Ok(false));
 }
 
@@ -219,7 +216,7 @@ fn untrusted_runs_do_not_supply_a_missing_main_audit() {
         ("path", s(".github/workflows/other.yml")),
         ("head_repository", json(r#"{"full_name": "someone/fork"}"#)),
     ] {
-        site.runs = vec![with(&site.run, &[change])];
+        site.runs = vec![with(&site.run, &[change]), site.analysis.clone()];
         assert_eq!(site.evaluate(), Ok(false));
     }
 }
@@ -231,7 +228,10 @@ fn ambiguous_and_missing_completed_jobs_fail() {
     assert!(value_error(site.evaluate()).contains("Ambiguous"));
     site.jobs = vec![];
     assert!(value_error(site.evaluate()).contains("without"));
-    site.runs = vec![with(&site.run, &[("status", s("in_progress"))])];
+    site.runs = vec![
+        with(&site.run, &[("status", s("in_progress"))]),
+        site.analysis.clone(),
+    ];
     assert_eq!(site.evaluate(), Ok(false));
 }
 
@@ -288,7 +288,7 @@ fn final_main_read_must_be_readable() {
 #[test]
 fn incomplete_results_do_not_take_a_final_main_read() {
     let mut site = Site::new();
-    site.checks = vec![];
+    site.runs = vec![site.run.clone()];
     let mut main_reads = 0;
     let result = evaluate(REPO, &commit(), &mut |e, p| {
         if e.ends_with("heads/main") {
@@ -440,21 +440,6 @@ fn api_failures_do_not_reveal_response_text() {
 }
 
 #[test]
-fn one_success_cannot_hide_failed_codeql_or_unreadable_identity() {
-    let mut site = Site::new();
-    site.checks.push(with(
-        &site.check,
-        &[("id", n(4)), ("conclusion", s("failure"))],
-    ));
-    assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
-    site.checks = vec![
-        site.check.clone(),
-        with(&site.check, &[("id", n(4)), ("name", Json::Null)]),
-    ];
-    assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
-}
-
-#[test]
 fn malformed_records_and_incomplete_pagination_fail() {
     for bad in [
         "[]",
@@ -469,9 +454,6 @@ fn malformed_records_and_incomplete_pagination_fail() {
     ] {
         assert!(items(&json(bad), "jobs").is_err(), "{bad}");
     }
-    let mut site = Site::new();
-    site.checks = vec![with(&site.check, &[("app", Json::Null)])];
-    assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
 }
 
 /// Fuzzing never runs on pull requests, and a fuzz finding after merge must not hold
@@ -710,6 +692,20 @@ fn an_unreadable_alert_listing_refuses_publication() {
         (json("[[1]]"), "Unreadable alert listing"),
         (json(r#"[[{"number": 1}]]"#), "Unreadable alert rule"),
         (
+            json(r#"[[{"number": 1, "rule": {}}]]"#),
+            "Unreadable alert rule",
+        ),
+        (
+            json(r#"[[{"number": 1, "rule": {"severity": 3}}]]"#),
+            "Unreadable alert rule",
+        ),
+        (
+            json(
+                r#"[[{"number": 1, "rule": {"severity": "note", "security_severity_level": 9}}]]"#,
+            ),
+            "Unreadable alert rule",
+        ),
+        (
             json(r#"[[{"number": 1, "rule": "error"}]]"#),
             "Unreadable alert rule",
         ),
@@ -787,11 +783,35 @@ fn main_results_wait_for_this_commits_analysis_and_a_settled_alert_listing() {
 }
 
 #[test]
-fn an_unfinished_codeql_check_is_not_replaced_by_the_analysis() {
+fn an_analysis_from_before_this_run_started_does_not_count() {
+    let (mut site, analysis) = analysed_main();
+    site.analyses = json(&format!(
+        r#"[[{{"id": 8, "commit_sha": "{}", "created_at": "2026-11-15T23:59:59Z"}}]]"#,
+        commit()
+    ));
+    assert_eq!(site.evaluate(), Ok(false));
+    // A rerun of the analysis: the earlier run's results do not stand in for it.
     let (mut site, _) = analysed_main();
-    site.checks = vec![with(
-        &site.check,
-        &[("status", s("in_progress")), ("conclusion", Json::Null)],
-    )];
+    site.runs = vec![
+        site.run.clone(),
+        analysis.clone(),
+        with(
+            &analysis,
+            &[("id", n(5)), ("run_started_at", s("2026-11-16T01:00:00Z"))],
+        ),
+    ];
+    assert_eq!(site.evaluate(), Ok(false));
+    site.runs = vec![
+        site.run.clone(),
+        with(&analysis, &[("run_started_at", Json::Null)]),
+    ];
+    assert_eq!(value_error(site.evaluate()), "Unreadable analysis start");
+}
+
+#[test]
+fn an_alert_whose_level_changes_between_reads_waits() {
+    let (mut site, _) = analysed_main();
+    site.alerts = json(r#"[[{"number": 1, "rule": {"severity": "warning"}}]]"#);
+    site.alerts_later = Some(json(r#"[[{"number": 1, "rule": {"severity": "error"}}]]"#));
     assert_eq!(site.evaluate(), Ok(false));
 }

@@ -7,12 +7,13 @@ holds Pages and identity-token write permissions. PR, scheduled and manual runs
 cannot publish. The artifact name includes the source SHA and run attempt.
 
 Deployment is held while `PAGES_VALIDATED_DEPLOYMENT` is absent or false. The
-`CodeQL` results check from app 57789 exists only on pull requests; main gets
-CodeQL default setup's `dynamic/github-code-scanning/codeql` run instead. So
-`site-tools check_publication` accepts the check where there is one. Where there
-is none, it accepts a successful default-setup run for the exact main commit
-from this repository, once code scanning lists that commit's CodeQL analysis and
-2 reads of main's open CodeQL alerts agree. Any open alert on main at GitHub's
+`CodeQL` results check from app 57789 exists only on pull requests, and one from
+a pull request whose head is a main commit would attach to that commit, so
+`site-tools check_publication` does not read it. It needs CodeQL default setup's
+`dynamic/github-code-scanning/codeql` run for the exact main commit from this
+repository to succeed, code scanning to list a CodeQL analysis of that commit
+created after the latest such run started, and 2 reads of main's open CodeQL
+alerts to agree on each alert's severities. Any open alert on main at GitHub's
 default failure threshold for that check (error severity, or high or critical
 security severity), however old, refuses publication; a repository setting that
 changes the threshold is not read. It also refuses a failed analysis, and waits

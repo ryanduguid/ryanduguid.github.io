@@ -133,42 +133,10 @@ fn require_main(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<()>
 
 pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<bool> {
     require_main(repository, commit, fetch)?;
-    let checks = stable_items(
-        fetch,
-        &format!("repos/{repository}/commits/{commit}/check-runs?filter=all"),
-        "check_runs",
-    )?;
-    let mut codeql = Vec::new();
-    for value in &checks {
-        if ["name", "head_sha", "status"]
-            .iter()
-            .any(|field| text(value, field).is_none())
-        {
-            return refuse("Unreadable check identity");
-        }
-        let app_id = match value.get("app") {
-            Some(app @ Json::Object(_)) => int(app.get("id")),
-            _ => None,
-        };
-        let Some(app_id) = app_id else {
-            return refuse("Unreadable check producer");
-        };
-        if is(value, "name", "CodeQL")
-            && *app_id == BigInt::from(57789)
-            && is(value, "head_sha", commit)
-        {
-            codeql.push(value);
-        }
-    }
-    // An Analyze job is not the CodeQL results policy. Only the CodeQL check, or on
-    // main the code scanning results read below, can authorise publication.
+    // The `CodeQL` check run is not read: GitHub creates it only for pull requests, and
+    // one from a pull request whose head is this commit, against another base, would
+    // attach to this commit too. Main's own analysis and alerts decide instead.
     let succeeded = |v: &Json| is(v, "status", "completed") && is(v, "conclusion", "success");
-    if codeql
-        .iter()
-        .any(|v| is(v, "status", "completed") && !is(v, "conclusion", "success"))
-    {
-        return refuse("CodeQL results did not succeed");
-    }
     let runs = stable_items(
         fetch,
         &format!("repos/{repository}/actions/runs?head_sha={commit}"),
@@ -176,6 +144,7 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
     )?;
     let mut audits = Vec::new();
     let mut analyses = Vec::new();
+    let mut started = Vec::new();
     for run in &runs {
         let Some(path) = text(run, "path") else {
             return refuse("Unreadable workflow path");
@@ -224,6 +193,10 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
             if is(run, "status", "completed") && !is(run, "conclusion", "success") {
                 return refuse("CodeQL analysis of main did not succeed");
             }
+            let Some(start) = text(run, "run_started_at") else {
+                return refuse("Unreadable analysis start");
+            };
+            started.push(start);
             analyses.push(succeeded(run));
             continue;
         }
@@ -260,13 +233,10 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
         }
         audits.push(selected.first().is_some_and(|job| succeeded(job)));
     }
-    let checked = !codeql.is_empty() && codeql.iter().all(|v| succeeded(v));
     let audited = !audits.is_empty() && audits.iter().all(|a| *a);
-    // Main gets no CodeQL check. When there is none, a successful default-setup
-    // analysis of this commit, with no open alert the pull request check would fail
-    // on, stands in for it.
-    let analysed = codeql.is_empty() && !analyses.is_empty() && analyses.iter().all(|a| *a);
-    let ready = audited && (checked || (analysed && main_results_pass(repository, commit, fetch)?));
+    let analysed = !analyses.is_empty() && analyses.iter().all(|a| *a);
+    let latest = started.into_iter().max().unwrap_or_default();
+    let ready = audited && analysed && main_results_pass(repository, commit, latest, fetch)?;
     if ready {
         require_main(repository, commit, fetch)?;
     }
@@ -301,48 +271,71 @@ fn array_items(payload: &Json, what: &str) -> Result<Vec<Json>> {
 /// open alerts reaches the pull request check's default failure threshold: error
 /// severity, or high or critical security severity. Any such alert refuses
 /// publication, however old. False while the results are still being processed or
-/// the listing changes between reads.
-fn main_results_pass(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<bool> {
+/// the listing changes between reads. Only an analysis created once the latest
+/// analysis run of the commit had started counts: an earlier analysis of the same
+/// commit can hold results that run replaces.
+fn main_results_pass(
+    repository: &str,
+    commit: &str,
+    started: &str,
+    fetch: &mut Fetch,
+) -> Result<bool> {
     let analyses = fetch(
         &format!(
             "repos/{repository}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&sha={commit}&per_page=100"
         ),
         true,
     )?;
-    if !array_items(&analyses, "analysis")?
-        .iter()
-        .any(|analysis| is(analysis, "commit_sha", commit))
-    {
+    // GitHub writes both times as UTC `YYYY-MM-DDTHH:MM:SSZ`, which sort as text.
+    if !array_items(&analyses, "analysis")?.iter().any(|analysis| {
+        is(analysis, "commit_sha", commit)
+            && text(analysis, "created_at").is_some_and(|created| created >= started)
+    }) {
         return Ok(false);
     }
     let endpoint = format!(
         "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&per_page=100"
     );
-    let alerts = array_items(&fetch(&endpoint, true)?, "alert")?;
-    let again = array_items(&fetch(&endpoint, true)?, "alert")?;
-    if ids_of(&alerts, "number") != ids_of(&again, "number") {
+    let alerts = alert_levels(&fetch(&endpoint, true)?)?;
+    if alert_levels(&fetch(&endpoint, true)?)? != alerts {
         return Ok(false);
     }
-    for alert in &alerts {
-        let rule = match alert.get("rule") {
-            Some(rule @ Json::Object(_)) => rule,
-            _ => return refuse("Unreadable alert rule"),
-        };
-        if is(rule, "severity", "error")
-            || matches!(
-                text(rule, "security_severity_level"),
-                Some("high" | "critical")
-            )
-        {
-            return refuse("Main has an open CodeQL alert the pull request check would fail on");
-        }
+    if alerts.iter().any(|(_, severity, security)| {
+        severity.as_deref() == Some("error")
+            || matches!(security.as_deref(), Some("high" | "critical"))
+    }) {
+        return refuse("Main has an open CodeQL alert the pull request check would fail on");
     }
     Ok(true)
 }
 
-/// Each record's integer `key`, `None` where it has none.
-fn ids_of(records: &[Json], key: &str) -> Vec<Option<BigInt>> {
-    records.iter().map(|r| int(r.get(key)).cloned()).collect()
+/// An open alert's number, rule severity and rule security severity.
+type AlertLevel = (Option<BigInt>, Option<String>, Option<String>);
+
+/// Each open alert's level. A rule must hold a severity, as text or null, and any
+/// security severity as text or null, or the alert is unreadable.
+fn alert_levels(listing: &Json) -> Result<Vec<AlertLevel>> {
+    array_items(listing, "alert")?
+        .iter()
+        .map(|alert| {
+            let rule = match alert.get("rule") {
+                Some(rule @ Json::Object(_)) => rule,
+                _ => return refuse("Unreadable alert rule"),
+            };
+            let readable = |key: &str| matches!(rule.get(key), Some(Json::Str(_) | Json::Null));
+            if !readable("severity")
+                || !(rule.get("security_severity_level").is_none()
+                    || readable("security_severity_level"))
+            {
+                return refuse("Unreadable alert rule");
+            }
+            Ok((
+                int(alert.get("number")).cloned(),
+                text(rule, "severity").map(str::to_owned),
+                text(rule, "security_severity_level").map(str::to_owned),
+            ))
+        })
+        .collect()
 }
 
 /// `gh api <endpoint> [--paginate --slurp]` with check=True and a 60-second timeout.
