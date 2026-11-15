@@ -309,6 +309,8 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 Published 11 September 2026. Last checked 15 November 2026, the newest of the calculators’ source checks.
 
+## Pricing, planning and loans
+
 - GST calculator Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 - Business use share calculator Apportion an eligible cost by a supported business use percentage. It does not decide deductibility, depreciation or record sufficiency.
 - Margin and markup calculator Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
@@ -317,12 +319,21 @@ Published 11 September 2026. Last checked 15 November 2026, the newest of the ca
 - Fixed fee pricing calculator A fixed fee from estimated hours at a rate or a cost and margin, with GST, monthly instalments and the effective hourly rate.
 - Budget variance calculator Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 - Monthly loan payment calculator Fixed monthly payment, first-payment interest and principal, and estimated total interest, in arrears or in advance, with an optional balloon.
+
+## Division 7A, FBT, professional firms and GIC
+
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
+
+## Staff and cash
+
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
+
+## Objections, instalments, termination and duty
+
 - Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
 - PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
