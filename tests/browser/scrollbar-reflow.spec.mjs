@@ -2,16 +2,10 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 import { test, expect } from '@playwright/test';
-import { chromiumLaunchOptions } from '../../playwright.config.mjs';
 
 // Playwright hides scrollbars by default. Keep the real desktop gutter for
 // this regression without changing the existing visual baselines.
-test.use({
-  launchOptions: {
-    ...chromiumLaunchOptions,
-    ignoreDefaultArgs: [...(chromiumLaunchOptions.ignoreDefaultArgs ?? []), '--hide-scrollbars'],
-  },
-});
+test.use({ launchOptions: { ignoreDefaultArgs: ['--hide-scrollbars'] } });
 test.skip(({ browserName, isMobile }) => browserName !== 'chromium' || isMobile,
   'Traditional Chromium desktop scrollbar coverage');
 
