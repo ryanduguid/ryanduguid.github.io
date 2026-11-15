@@ -161,6 +161,48 @@ test('break-even rounds units up and refuses non-positive contributions', () => 
   assert.throws(() => breakEven('1000000000', '1000000000', '999999999.99'));
 });
 
+// Worked by hand: 18.5 hours x $95 / (1 - 40%) = $2,929.1666..., up to the next $10 is
+// $2,930; GST $293; $3,223 / 12 = $268.5833... rounds down to $268.58, 11 of which are
+// $2,954.38, so the first is $3,223 - $2,954.38 = $268.62; $2,930 / 18.5 = $158.378... is
+// $158.38 an hour. 12 hours at $180 is $2,160, up to the next $50 is $2,200, with GST $2,420:
+// $201.66 a month after a first of $201.74; $2,200 / 12 hours = $183.33.
+test('a fixed fee comes from hours at a rate or a cost and margin, rounded up to the step', () => {
+  assert.deepEqual(calculations.fixedFee('18.5', '95', '40', '10', true, '12'),
+    { fee: 2930, gst: 293, total: 3223, first: 268.62, instalment: 268.58, effectiveRate: 158.38 });
+  assert.deepEqual(calculations.fixedFee('12', '180', '0', '50', true, '12'),
+    { fee: 2200, gst: 220, total: 2420, first: 201.74, instalment: 201.66, effectiveRate: 183.33 });
+  // Exactly on a step stays there; 1 cent over goes to the next step.
+  assert.equal(calculations.fixedFee('10', '100', '0', '100', false, '1').fee, 1000);
+  assert.equal(calculations.fixedFee('10', '100.01', '0', '100', false, '1').fee, 1100);
+  // A margin is a share of the fee: $120 at 45% is $218.1818..., up to $218.19.
+  assert.equal(calculations.fixedFee('1', '120', '45', '0.01', false, '1').fee, 218.19);
+  assert.equal(calculations.fixedFee('1', '120', '45', '0.01', true, '1').gst, 21.82);
+});
+
+test('fixed fee instalments add up to the fee to the cent, the first carrying the cents left over', () => {
+  for (const total of ['0.01', '1', '10.13', '330', '999.99', '3223', '1234567.89']) {
+    for (const count of [1, 2, 3, 7, 11, 12, 13, 23, 24]) {
+      const result = calculations.fixedFee('1', total, '0', '0.01', false, String(count));
+      const [whole, first, each] = [result.total, result.first, result.instalment].map((value) => Math.round(value * 100));
+      assert.equal(whole, Math.round(Number(total) * 100));
+      assert.equal(first + each * (count - 1), whole, `${total} over ${count}`);
+      assert.ok(first - each >= 0 && first - each < count, `${total} over ${count}`);
+      // After any number of months the client has paid at least that many months' even share.
+      for (let paid = 1; paid <= count; paid += 1) assert.ok((first + each * (paid - 1)) * count >= whole * paid);
+    }
+  }
+});
+
+test('fixed fee refuses a full margin, an unknown step, an instalment count outside 1 to 24 and a fee over $1 billion', () => {
+  const refuse = (args, message) => assert.throws(() => calculations.fixedFee(...args), { message });
+  refuse(['10', '100', '100', '10', true, '12'], 'Enter an amount between 0 and 99.99.');
+  refuse(['10', '100', '0', '5', true, '12'], 'Choose a rounding step.');
+  for (const count of ['0', '25', '1.5']) refuse(['10', '100', '0', '10', true, count], 'Enter a whole number between 1 and 24.');
+  refuse(['8784', '1000000', '99.99', '10', false, '1'], 'The fee is over $1,000,000,000. Use smaller amounts.');
+  assert.equal(calculations.fixedFee('1', '909090909.09', '0', '0.01', true, '1').total, 1000000000);
+  refuse(['1', '909090909.1', '0', '0.01', true, '1'], 'The fee is over $1,000,000,000. Use smaller amounts.');
+});
+
 test('hourly pricing uses billable hours and annual target profit', () => {
   assert.equal(hourlyRate('80000', '20000', '1000').rate, 100);
   assert.throws(() => hourlyRate('80000', '20000', '0'));
@@ -275,7 +317,8 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   contribution: 'contribution', sales: 'sales', rate: 'rate', difference: 'difference', payment: 'payment',
   firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
   annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
-  deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal' };
+  deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal',
+  fee: 'fee', total: 'total', first: 'first instalment', instalment: 'each later instalment', effectiveRate: 'effective rate' };
 Object.assign(LABELS, { baseValue: 'base value', statutory: 'statutory formula value', operating: 'operating cost value',
   taxableValue: 'taxable value', grossedUp: 'grossed-up value', fbt: 'FBT' });
 const shownField = (field, value) => {
@@ -301,6 +344,9 @@ const INPUTS = {
   breakEven: (fixed, price, variable) =>
     `Fixed ${dollars(fixed)}, price ${dollars(price)}, variable ${dollars(variable)}`,
   hourlyRate: (costs, profit, hours) => `Costs ${dollars(costs)}, profit ${dollars(profit)}, ${hours} hours`,
+  fixedFee: (hours, rate, margin, roundTo, addGst, instalments) => `${hours} ${hours === '1' ? 'hour' : 'hours'} at `
+    + `${dollars(rate)} an hour, ${margin}% margin, rounded up to ${roundTo === '0.01' ? 'the cent' : `$${roundTo}`}, `
+    + `${addGst ? 'GST added' : 'no GST'}, ${instalments} ${instalments === '1' ? 'instalment' : 'instalments'}`,
   variance: (actual, budget, kind) => `Actual ${dollars(actual)}, budget ${dollars(budget)}, ${kind}`,
   loan: (principal, rate, months, balloon = '0', timing = 'arrears') =>
     `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`
@@ -509,6 +555,7 @@ const FORM_CALLS = {
   margin: (f) => [f.sales, f.cost],
   breakEven: (f) => [f.fixed, f.price, f.variable],
   hourlyRate: (f) => [f.cost, f.profit, f.hours],
+  fixedFee: (f) => [f.hours, f.rate, f.margin, f.round, f.gst, f.instalments],
   variance: (f) => [f.actual, f.budget, f.kind],
   loan: (f) => [f.principal, f.rate, f.months, f.balloon, f.timing],
   div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],

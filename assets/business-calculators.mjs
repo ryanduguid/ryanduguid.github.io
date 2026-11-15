@@ -88,6 +88,39 @@ export function hourlyRate(cost, profit, hours) {
   return { rate: Number((numerator + time - 1n) / time) / 100 };
 }
 
+/** Rounding steps a fixed fee can round up to, in cents. */
+const FEE_STEPS = new Map([['0.01', 1n], ['10', 1000n], ['50', 5000n], ['100', 10000n]]);
+
+/** A fixed fee from estimated hours at an hourly rate, or at a cost per hour with a target
+ * margin on the fee, then GST and monthly instalments that add up to it to the cent.
+ * @param {string} hours estimated hours for the work
+ * @param {string} rate hourly rate, or cost per hour, before GST
+ * @param {string} marginPercent margin as a share of the fee; 0 when the rate already includes profit
+ * @param {'0.01' | '10' | '50' | '100'} roundTo the dollar step the fee rounds up to
+ * @param {boolean} addGst add GST at 10% of the fee
+ * @param {string} instalments the number of monthly instalments */
+export function fixedFee(hours, rate, marginPercent, roundTo, addGst, instalments) {
+  const step = FEE_STEPS.get(roundTo);
+  if (!step) throw new Error('Choose a rounding step.');
+  const time = BigInt(Math.round(number(hours, { min: 0.01, max: 8784 }) * 100));
+  const margin = BigInt(Math.round(number(marginPercent, { max: 99.99 }) * 100));
+  const count = BigInt(number(instalments, { min: 1, max: 24, integer: true }));
+  // hours x rate / (1 - margin), in cents, rounded up to the step so the fee keeps the margin.
+  const numerator = time * BigInt(cents(rate)) * 100n;
+  const denominator = (10000n - margin) * step;
+  const fee = (numerator + denominator - 1n) / denominator * step;
+  const tax = addGst ? ratioCents(fee, 10n) : 0n;
+  const total = fee + tax;
+  if (total > 100000000000n) throw new Error('The fee is over $1,000,000,000. Use smaller amounts.');
+  // Each instalment is the total divided evenly, rounded down to the cent; the first also
+  // carries the cents left over, so the instalments add up to the total and the share paid
+  // after any number of months is never less than that many months' share of the fee.
+  const instalment = total / count;
+  return { fee: Number(fee) / 100, gst: Number(tax) / 100, total: Number(total) / 100,
+    first: Number(total - instalment * (count - 1n)) / 100, instalment: Number(instalment) / 100,
+    effectiveRate: ratioMoney(fee * 100n, time) };
+}
+
 /** @param {string} actual @param {string} budget @param {'income' | 'cost'} kind */
 export function variance(actual, budget, kind) {
   if (!['income', 'cost'].includes(kind)) throw new Error('Choose income or cost.');

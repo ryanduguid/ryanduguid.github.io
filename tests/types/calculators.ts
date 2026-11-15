@@ -43,3 +43,9 @@ calculate.loan('60000', '7.5', '60', '18000', 'advance');
 calculate.loan('60000', '7.5', '60', '18000', 'start');
 void tax;
 void formatted;
+const fee: number = calculate.fixedFee('18.5', '95', '40', '10', true, '12').first;
+// @ts-expect-error A fixed fee rounds up to the cent, $10, $50 or $100 only.
+calculate.fixedFee('18.5', '95', '40', '5', true, '12');
+// @ts-expect-error Adding GST is a boolean flag.
+calculate.fixedFee('18.5', '95', '40', '10', 'yes', '12');
+void fee;

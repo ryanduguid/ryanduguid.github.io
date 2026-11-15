@@ -292,6 +292,18 @@ function initialiseCalculators([calculate, fieldErrors]) {
             result = { inputs: `annual costs ${money('cost')}, target profit ${money('profit')}, ${count(value('hours'), 'billable hour')}`, principal: 0,
               rows: [['Required hourly rate before GST', aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)]] };
             break;
+          case 'fixed-fee': {
+            const addGst = form.elements.namedItem('gst').checked;
+            const step = value('round');
+            const months = Number(value('instalments'));
+            const r = calculate.fixedFee(value('hours'), value('rate'), value('margin'), step, addGst, value('instalments'));
+            result = { inputs: `${count(value('hours'), 'hour')} at ${money('rate')} an hour, ${value('margin')}% margin, fee rounded up to ${step === '0.01' ? 'the cent' : `the next $${step}`}, ${addGst ? 'GST added' : 'no GST'}, ${count(value('instalments'), 'monthly instalment')}`, principal: 2,
+              rows: [['Fee before GST', aud(r.fee)], ['GST', aud(r.gst)], ['Fee including GST', aud(r.total)],
+                [months === 1 ? 'Paid at once' : 'First instalment', aud(r.first)],
+                ...(months === 1 ? [] : [[`Instalments 2 to ${months}, each`, aud(r.instalment)]]),
+                ['Effective hourly rate before GST', aud(r.effectiveRate)]] };
+            break;
+          }
           case 'variance': {
             const r = calculate.variance(value('actual'), value('budget'), value('kind'));
             result = { inputs: `actual ${money('actual')}, budget ${money('budget')}, figure type ${value('kind')}`, principal: 0,

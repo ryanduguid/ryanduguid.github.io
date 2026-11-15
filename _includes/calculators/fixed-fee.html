@@ -1,0 +1,28 @@
+<section class="business-calculator" id="fixed-fee">
+<form class="calculator-split" data-calculator="fixed-fee">
+<fieldset disabled><legend>Fixed fee pricing inputs</legend><div class="form-grid"><label class="field" for="fixed-fee-hours">Estimated hours for the work<input id="fixed-fee-hours" name="hours" type="number" min="0.01" max="8784" step=".01" value="18.5" required /></label>
+<label class="field" for="fixed-fee-rate">Hourly rate or cost per hour, before GST (AUD)<input id="fixed-fee-rate" name="rate" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="95" required /></label>
+<label class="field" for="fixed-fee-margin">Target margin on the fee (%)<input id="fixed-fee-margin" name="margin" type="number" min="0" max="99.99" step=".01" value="40" required /></label>
+<label class="field" for="fixed-fee-instalments">Monthly instalments<input id="fixed-fee-instalments" name="instalments" type="number" min="1" max="24" step="1" value="12" required /></label>
+<fieldset><legend>Round the fee up to</legend>
+<label><input type="radio" name="round" value="0.01" /> The cent</label>
+<label><input type="radio" name="round" value="10" checked /> The next $10</label>
+<label><input type="radio" name="round" value="50" /> The next $50</label>
+<label><input type="radio" name="round" value="100" /> The next $100</label>
+</fieldset>
+<label class="check-field"><input type="checkbox" name="gst" checked /> Add GST at 10%</label></div>
+<p class="field-note">Enter a 0% margin when the rate already includes your profit. The <a href="/tools/business-calculators/hourly/">hourly pricing calculator</a> works out a rate from annual costs, target profit and billable hours; with a target profit of $0 it gives your cost per hour.</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+{% include calculator-example.html inputs="18.5 hours at $95.00 an hour, 40% margin, fee rounded up to the next $10, GST added, 12 monthly instalments" rows="Fee before GST|$2,930.00;GST|$293.00;Fee including GST|$3,223.00;First instalment|$268.62;Instalments 2 to 12, each|$268.58;Effective hourly rate before GST|$158.38" principal="2" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>Formula: fee = hours × rate / (1 − margin), rounded up to the step you chose. Instalment = fee including GST / number of instalments, rounded down to the cent, with the cents left over added to the first. Effective hourly rate = fee before GST / hours.</li>
+<li>Rate: GST is 10% of the fee, rounded once to cents. <a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works">ATO: How GST works</a>, read 15 November 2026; <a href="https://www.legislation.gov.au/C2004A00446/latest/text">A New Tax System (Goods and Services Tax) Act 1999</a>.</li>
+<li>Supplied by you: the hours, the rate or cost per hour, the margin, the rounding step, whether GST applies and the number of instalments. No market rate is applied.</li>
+</ul>
+</div>
+</form>
+<h2>How the fixed fee pricing calculator works</h2><p>The fixed fee pricing calculator turns an estimate of hours into a fee you can quote before the work starts. Enter your hourly rate with a 0% margin, or your cost per hour with the margin you want the fee to carry: fee = hours × rate / (1 − margin). A margin is a share of the fee, so a 40% margin on a $95 cost is $158.33 an hour, not the $133 a 40% markup would give. The fee then rounds up to the cent or to the next $10, $50 or $100, so rounding never takes it below your rate or margin.</p><p>GST at 10% is added to the fee when you tick the box, and the fee including GST is split into monthly instalments. Each instalment is the total divided evenly and rounded down to the cent; the first instalment also carries the cents left over, at most one cent for each instalment after it. The instalments add up to the fee to the cent, every instalment after the first is the same amount for a recurring payment, and if the engagement ends early the client has paid at least an even share of the fee for each month paid. The effective hourly rate is the fee before GST over the hours, so you can see what rounding and the margin earn an hour.</p>
+<h2>What the fixed fee pricing calculator leaves out</h2><p>The fixed fee pricing calculator prices one piece of work. For several services or entities, price each and add the fees. It does not suggest a market rate, allow for work beyond the hours you estimated, or decide whether your supply is taxable: add GST only if you are registered for GST and the supply is taxable.</p>
+</section>

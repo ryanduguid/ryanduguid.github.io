@@ -393,6 +393,7 @@ for (const [id, inputs, expected] of [
   ['margin', { sales: '150', cost: '100' }, 'Margin: 33.33%'],
   ['break-even', { fixed: '12000', price: '80', variable: '50' }, '400 whole units'],
   ['hourly', { cost: '80000', profit: '20000', hours: '1000' }, '$100.00'],
+  ['fixed-fee', { hours: '12', rate: '180', margin: '0', instalments: '12' }, 'Fee including GST: $2,376.00'],
   ['variance', { actual: '120', budget: '100', kind: 'cost' }, 'Unfavourable'],
   ['loan', { principal: '1000', rate: '12', months: '1' }, '$1,010.00'],
   ['staff', { wages: '80000', super: '9600', other: '4000' }, '$93,600.00'],
@@ -497,8 +498,23 @@ test('FBT car works the operating cost method at the Type 2 gross-up offline', a
     + 'Taxable value: $2,895.00. Grossed-up taxable value: $5,462.29. FBT at 47%: $2,567.28.');
 });
 
+test('fixed fee takes its rounding step from a radio and shows one payment for one instalment', async ({ page }) => {
+  await page.goto('/tools/business-calculators/fixed-fee/');
+  const form = page.locator('#fixed-fee form');
+  await form.getByLabel('Estimated hours for the work').fill('1');
+  await form.getByLabel('Hourly rate or cost per hour, before GST (AUD)').fill('120');
+  await form.getByLabel('Target margin on the fee (%)').fill('45');
+  await form.getByLabel('Monthly instalments').fill('1');
+  await form.getByRole('radio', { name: 'The cent', exact: true }).check();
+  await form.getByLabel('Add GST at 10%').uncheck();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: 1 hour at $120.00 an hour, 45% margin, fee rounded up to the cent, no GST, 1 monthly instalment. '
+    + 'Fee before GST: $218.19. GST: $0.00. Fee including GST: $218.19. Paid at once: $218.19. Effective hourly rate before GST: $218.19.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
-const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'variance', 'loan', 'div7a', 'fbt-car', 'staff', 'cash'];
+const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a', 'fbt-car', 'staff', 'cash'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

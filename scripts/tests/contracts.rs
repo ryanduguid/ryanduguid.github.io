@@ -2301,9 +2301,9 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
         (
             "a hub checked before a calculator",
             hub,
-            r#"Last checked <time datetime="2026-11-13">"#,
+            r#"Last checked <time datetime="2026-11-15">"#,
             r#"Last checked <time datetime="2026-09-27">"#,
-            "tools/business-calculators/index.html: Last checked is not the newest calculator check, 2026-11-13",
+            "tools/business-calculators/index.html: Last checked is not the newest calculator check, 2026-11-15",
         ),
         (
             "a hub modified before a calculator",
