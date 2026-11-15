@@ -15,6 +15,7 @@ use std::sync::LazyLock;
 /// directory, keyed by the source it rendered, and later suites reuse it.
 pub static SITE: LazyLock<Option<tempfile::TempDir>> = LazyLock::new(|| {
     let checked = tempfile::tempdir().unwrap();
+    remove_at_exit(checked.path());
     if let Some(prepared) = std::env::var_os("SITE_CHECKED") {
         copy_tree(Path::new(&prepared), checked.path());
         return Some(checked);
@@ -34,6 +35,30 @@ pub static SITE: LazyLock<Option<tempfile::TempDir>> = LazyLock::new(|| {
     let _ = std::fs::rename(&partial, &kept);
     Some(checked)
 });
+
+/// The copy `SITE` holds. A static is never dropped, so its `TempDir` cannot remove the
+/// copy itself; without this every test binary would leave a whole site in the
+/// temporary directory.
+static SITE_COPY: std::sync::OnceLock<PathBuf> = std::sync::OnceLock::new();
+
+unsafe extern "C" {
+    /// The C library's exit hook, run when the test binary returns from `main` or calls
+    /// `std::process::exit`, as the test harness does after a failure.
+    fn atexit(callback: extern "C" fn()) -> std::ffi::c_int;
+}
+
+extern "C" fn remove_site_copy() {
+    if let Some(path) = SITE_COPY.get() {
+        let _ = std::fs::remove_dir_all(path);
+    }
+}
+
+fn remove_at_exit(path: &Path) {
+    SITE_COPY.set(path.to_path_buf()).unwrap();
+    // SAFETY: `atexit` only records the function pointer, which is a plain `extern "C"`
+    // function with no arguments that stays valid for the life of the process.
+    assert_eq!(unsafe { atexit(remove_site_copy) }, 0, "atexit refused the hook");
+}
 
 /// A digest of every file the render reads from the repository.
 fn fingerprint(repository: &Path) -> String {
