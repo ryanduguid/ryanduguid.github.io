@@ -8,8 +8,11 @@ test('Chromium gets one feature list, with Windows port randomisation off', asyn
   const server = await chromium.launchServer(testInfo.project.use.launchOptions);
   try {
     const switches = server.process().spawnargs.filter((arg) => arg.startsWith('--disable-features='));
-    // A second switch means an upgrade changed Playwright's list. Chromium uses the
-    // last one, so the stale copy in playwright.config.mjs would replace the new list.
+    // Since Chromium 141, on Windows 11 22H2 and later, Chromium sets SO_RANDOMIZE_PORT
+    // on each connection (crbug.com/40744069), which is implicated in rare connect
+    // failures reported as net::ERR_NO_BUFFER_SPACE. Playwright has turned the feature
+    // off itself since 1.65; this fails if an upgrade stops doing so. Chromium uses the
+    // last --disable-features switch, so a second one would replace Playwright's list.
     expect(switches).toHaveLength(1);
     expect(switches[0].slice('--disable-features='.length).split(',')).toContain('TcpPortRandomizationWin');
   } finally {
