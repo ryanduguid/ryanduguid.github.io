@@ -15,7 +15,7 @@
       "635006171072dbe725c3df34c563b7c6ad45544ef535648cb6db42fa72949bc0"
     ],
     "changelog/index.html": [
-      "97987e90623422dfb42ca903e23260c239aafec9d319fbd549d77fcda689541b"
+      "00488cd21eaacbd73c8c930a2f865af39413f510c835520e67a1234da2aef681"
     ],
     "contact/index.html": [
       "d08a9bc5bf2a3f3ae26074b92e9077ef9cbf5aa80703e883cb9b2532062918bb"
@@ -45,7 +45,7 @@
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "58f80523076ff98d7609296940305bf8a5ecb6e237e4b0085ad9f556c0e94b82"
+      "906b7f6eda90796d276b24e22a27394bd58e84a92fa8765189395178289edb66"
     ],
     "rates/car-limit/index.html": [
       "229b692aa9d83d7bbbda20c29d000436c849bb45566d88a0b8dbb99d40dfdcd5"
@@ -87,13 +87,13 @@
       "cbfb0f38556e365081604183e355285045468169a0918d64380bf15c972df782"
     ],
     "tools/accounting-questions/company-compliance/index.html": [
-      "8292405cc2a69cee9e4b8786e52e325187470032d5a40eaa08a08adf90a41bdd"
+      "c8996c7209628e63cf074ca345f18596972b4fa03cffb1cbd5a58fc13738a4a0"
     ],
     "tools/accounting-questions/deductions/index.html": [
       "0bb20b9b7a5ead5d62e3b706d89528ab081ac06138d3b76d1774a1e53849d237"
     ],
     "tools/accounting-questions/general-tax/index.html": [
-      "46fce77af212aec4f3649f2ce508f125091ad050d5d352f06ceb7d82b1626e79"
+      "45d4ae143fa31eaf1e1f02ac6bfb8ffbcc9514c67b22797d9c31c332b4b97c87"
     ],
     "tools/accounting-questions/gst-bas/index.html": [
       "726b375514198487bc67850f2584735ac2c0256c5cf3a9fe848424462e0a9aac"
@@ -234,7 +234,7 @@
   "protected_files": {
     "llms.txt": "d6c96a7886dd08a2c7894c1e653829582206948b5b4ce1ddead130346f1bbb53",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "8d604b7b57249c4a8df9ba24808acb3076f60ec49ee5aec560a7eb0857772ba6"
+    "sitemap.xml": "7e41cf93fab4fe5a0eccee85636e759c8e256332ab5670b59c8bc0d290b415ab"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

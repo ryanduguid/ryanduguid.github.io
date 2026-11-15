@@ -1814,6 +1814,10 @@ Other exceptions cover new residential dwellings and prescribed activities, wide
 
 The negative gearing acquisition cut-off is not a general CGT grandfathering rule. Schedule 1 has separate rules: items 82 to 84 address income year and CGT-event application, and item 60 inserts transitional section 119-1 for the minimum tax on gains from CGT events on or after 1 July 2027. Check the asset, event and applicable transition provisions separately before calculating a gain.
 
+### Negative gearing and CGT: a bill before Parliament
+
+A bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing. Parliament’s summary of the bill says it would also clarify and adjust the operation of the capital gains tax adjustment provisions, including their application to trusts and managed investment vehicles. The ATO summary, last updated 9 November 2026, lists it and the Income Tax Rates Amendment (Minimum Tax on Discretionary Trusts) Bill 2026, both introduced on 14 October 2026, against the negative gearing and CGT discount reform. The No. 3 Bill’s third reading was agreed in the House on 29 October 2026. It is not law: check its stage and text before relying on the exceptions above.
+
 ## Legislated: earlier application
 
 For these 9 measures the ATO summary names an Act or instrument and an application date on or before 22 September 2026. This table reproduces that summary; it does not independently establish every eligibility condition, application rule or transitional exception. Read the measure and legislation for the period being calculated.
@@ -3024,7 +3028,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Xero Node SDK (official): https://github.com/XeroAPI/xero-node
 - tap-xero Singer tap for the Xero API: https://github.com/Matatika/tap-xero
 - Excel Labs Advanced Formula Environment: https://github.com/microsoft/excel-labs
-- STP Phase 2 employer reporting guidelines: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines
+- STP Phase 2 employer reporting guidelines: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
 - Federal Register of Legislation: https://www.legislation.gov.au/
 - ATO Legal Database: https://www.ato.gov.au/single-page-applications/legaldatabase
 - ATO dataset catalogue on data.gov.au (archived 19 April 2026): https://web.archive.org/web/20260419123949/https://data.gov.au/data/organization/australiantaxationoffice
@@ -5121,6 +5125,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+16 November 2026 | The announced measures page notes a bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, that the ATO’s summary now lists against the negative gearing and CGT discount reform. Parliament’s summary says it would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing; it is not law. Accounting questions 2 and 89 were rechecked on 16 November 2026 against the ATO’s updated standard deduction and payment plans pages, with no change to either answer.
 15 November 2026 | Two new business calculators: FBT on a car for the FBT year ending 31 March 2027, by the statutory formula or the operating cost method, and fixed fee pricing from hours at a rate or a cost and margin, with GST and monthly instalments that add up to the cent. The loan calculator takes a balloon and payments in advance. A new page lists the 2026-27 BAS due dates for monthly and quarterly lodgers, with a CSV, each date checked at the ATO on 15 November 2026. The Coal LSL levy page links its API and OpenAPI document, and WebMCP tools now cover the Division 7A, loan, break-even, depreciation and Coal LSL calculators as well as GST.
 15 November 2026 | The Ozzit page documents v3.6.0, published on 14 November: 150 LAMBDA functions and 5 help tables, the Ryan Duguid Public Attribution Licence 1.0 and the new download hash. The index and module pages add the 7 new functions for budget variance, financial-year periods, level loan payments and an average-balance corkscrew. Its ten worked formulas were rerun in desktop Excel against the v3.6.0 workbook with unchanged results, and the Evaluations page's Ozzit check now downloads v3.6.0.
 15 November 2026 | The tool pages, changelog and release record name the releases of 14 November: monthly-close-control-plane/v1.1.0, review-ready-gate/v1.0.1, aus-accounting-mcp/v0.9.0, Australian Accounting Skills v0.7.0 and Ozzit v3.6.0, and au-fpa-pack v0.6.0 of 13 November. The Ozzit page still documents v3.5.0 and its worked examples. The MCP registry still listed aus-accounting-mcp v0.8.0 on 15 November.
@@ -6713,7 +6718,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 Practical steps, records and official guidance on tax returns.
 
-10 of 10 answers checked between 27 September 2026 and 2 November 2026. Other guidance reviewed 11 September 2026. Page updated 2 November 2026.
+10 of 10 answers checked between 27 September 2026 and 16 November 2026. Other guidance reviewed 11 September 2026. Page updated 16 November 2026.
 
 Search or build a checklist
 
@@ -6759,7 +6764,7 @@ A receipt proves spending, but does not by itself establish deductibility.
 
 Deductions you can claim · Claiming deductions · Standard deduction for work-related expenses · Business use apportionment calculator
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 16 November 2026.
 
 Link to question 2
 
@@ -8694,7 +8699,7 @@ Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 Practical steps, records and official guidance on companies and trusts.
 
-10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
+10 of 10 answers checked between 27 September 2026 and 16 November 2026. Other guidance reviewed 11 September 2026. Page updated 16 November 2026.
 
 Search or build a checklist
 
@@ -8859,7 +8864,7 @@ A forecast does not establish acceptance, interest relief or removal of other ob
 
 Paying the ATO · Payment plans · 13-week cash forecast
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 16 November 2026.
 
 Link to question 89
 
