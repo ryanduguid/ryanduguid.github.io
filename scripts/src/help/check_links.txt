@@ -48,4 +48,6 @@ options:
   -h, --help            show this help message and exit
   --offline             skip external requests; check local links and content
   --transient-warnings  report links still failing with HTTP 429, 5xx or a
-                        timeout after their retries as warnings, not failures
+                        timeout after their retries, and web.archive.org
+                        snapshots that fail with a transport error, as
+                        warnings, not failures

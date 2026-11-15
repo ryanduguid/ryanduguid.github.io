@@ -9,7 +9,8 @@
 //! failures, HTTP 429 and 5xx; hrefs must not be empty; retired names and em or en dashes
 //! must not appear; and no own-repository link may point at an archived repository.
 //! With `--transient-warnings`, links still failing with HTTP 429, 5xx or a timeout
-//! after their retries are reported as warnings instead.
+//! after their retries, and web.archive.org snapshots that fail with a transport
+//! error, are reported as warnings instead.
 //! Transport, clock and output are passed in so tests can answer for the network.
 use crate::check_links_data::*;
 use crate::htmlparser::{self, Event};
@@ -166,6 +167,19 @@ pub fn is_transient(error: &NetError) -> bool {
         NetError::Timeout(_) => true,
         _ => false,
     }
+}
+
+/// Whether a link that exhausted its retries is inconclusive rather than broken:
+/// [`is_transient`], or a web.archive.org snapshot that failed with a transport
+/// error (such as a refused connection), as the archive refuses bursts of automated
+/// requests. A definite answer from the archive, such as 404, is still a failure.
+pub fn is_inconclusive(url: &str, error: &NetError) -> bool {
+    is_transient(error)
+        || (matches!(error, NetError::Url(_))
+            && pyurl::urlsplit(url)
+                .ok()
+                .and_then(|split| pyurl::hostname(&split.netloc))
+                .is_some_and(|host| host == "web.archive.org"))
 }
 
 pub fn is_accepted_automation_denial(url: &str, status: u16) -> bool {
@@ -736,7 +750,7 @@ impl<'a> Checker<'a> {
             }
             let (status, final_url) = match self.fetch_final_url(href) {
                 Ok(found) => found,
-                Err(error) if self.transient_warnings && is_transient(&error) => {
+                Err(error) if self.transient_warnings && is_inconclusive(href, &error) => {
                     let shown = match error {
                         NetError::Http { code, .. } => format!("HTTP {code}"),
                         other => other.to_string(),
