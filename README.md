@@ -257,7 +257,7 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. All 64 canonical pages
+GitHub Pages builds the repository with Jekyll. All 81 canonical pages
 include `_includes/site-header.html` and `_includes/site-footer.html`,
 directly or through a layout in `_layouts/`; the header sets the current page
 or section from each page's URL. The count is the number of URLs in
