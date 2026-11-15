@@ -179,3 +179,66 @@ fn standard_handler_responses() {
     );
     assert_eq!(offset.status, 200, "only UTC dates are compared");
 }
+
+/// A file path with a trailing slash, literal or encoded, names no file.
+#[test]
+fn file_paths_with_a_trailing_slash_are_not_found() {
+    let site = tempfile::tempdir().unwrap();
+    std::fs::write(site.path().join("index.html"), "<p>Home</p>").unwrap();
+    std::fs::write(site.path().join("robots.txt"), "User-agent: *\n").unwrap();
+    let port = start(site.path());
+    let response = get(port, "/robots.txt?q=/", &[("Accept-Encoding", "gzip")]);
+    assert_eq!(response.status, 200);
+    assert_eq!(response.header("Content-Encoding"), Some("gzip"));
+    assert_eq!(gunzip(&response.body), b"User-agent: *\n");
+    for method in ["GET", "HEAD"] {
+        for target in [
+            "/robots.txt/",
+            "/robots.txt/?q=1",
+            "/robots.txt%2F",
+            "/robots.txt%2f",
+            "/index.html/",
+        ] {
+            let response = request(
+                &mut connect(port),
+                method,
+                target,
+                &[("Accept-Encoding", "gzip")],
+            );
+            assert_eq!(response.status, 404, "{method} {target}");
+            assert_eq!(
+                response.header("Content-Encoding"),
+                None,
+                "{method} {target}"
+            );
+            if method == "HEAD" {
+                assert!(response.body.is_empty(), "{target}");
+            }
+        }
+    }
+}
+
+/// An encoded trailing slash on a real directory keeps the standard handler's index and
+/// listing; only the unslashed name redirects.
+#[test]
+fn directories_with_an_encoded_trailing_slash_keep_standard_behaviour() {
+    let site = tempfile::tempdir().unwrap();
+    std::fs::create_dir(site.path().join("tools")).unwrap();
+    std::fs::create_dir(site.path().join("empty")).unwrap();
+    std::fs::write(site.path().join("tools/index.html"), "<p>Tools</p>").unwrap();
+    let port = start(site.path());
+    for target in ["/tools%2F", "/tools%2f", "/tools/"] {
+        let response = get(port, target, &[]);
+        assert_eq!(response.status, 200, "{target}");
+        assert_eq!(response.body, b"<p>Tools</p>", "{target}");
+    }
+    let listing = get(port, "/empty%2F", &[]);
+    assert_eq!(listing.status, 200);
+    assert!(
+        String::from_utf8_lossy(&listing.body).contains("Directory listing"),
+        "listing"
+    );
+    let redirect = get(port, "/tools", &[]);
+    assert_eq!(redirect.status, 301);
+    assert_eq!(redirect.header("Location"), Some("/tools/"));
+}

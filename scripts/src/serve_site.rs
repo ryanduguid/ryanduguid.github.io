@@ -138,52 +138,9 @@ pub fn guess_type(path: &str) -> &'static str {
         .unwrap_or("application/octet-stream")
 }
 
-/// `urllib.parse.unquote(text, errors=...)`: only ASCII runs are percent-decoded.
-/// `strict` stands in for `surrogatepass`: Rust strings cannot hold the lone surrogates
-/// that error handler admits, so such paths take the `replace` fallback.
-fn unquote(text: &str, strict: bool) -> Option<String> {
-    if !text.contains('%') {
-        return Some(text.to_owned());
-    }
-    let mut out = String::with_capacity(text.len());
-    let mut rest = text;
-    while !rest.is_empty() {
-        let ascii = rest.find(|c: char| !c.is_ascii()).unwrap_or(rest.len());
-        let (run, tail) = rest.split_at(ascii);
-        let mut bytes = Vec::with_capacity(run.len());
-        let mut bits = run.as_bytes().split(|b| *b == b'%');
-        bytes.extend_from_slice(bits.next().unwrap_or_default());
-        for item in bits {
-            let hex = item.get(..2).and_then(|h| std::str::from_utf8(h).ok());
-            match hex.and_then(|h| {
-                u8::from_str_radix(h, 16)
-                    .ok()
-                    .filter(|_| h.bytes().all(|b| b.is_ascii_hexdigit()))
-            }) {
-                Some(byte) => {
-                    bytes.push(byte);
-                    bytes.extend_from_slice(&item[2..]);
-                }
-                None => {
-                    bytes.push(b'%');
-                    bytes.extend_from_slice(item);
-                }
-            }
-        }
-        match String::from_utf8(bytes) {
-            Ok(decoded) => out.push_str(&decoded),
-            Err(_) if strict => return None,
-            Err(e) => out.push_str(&String::from_utf8_lossy(e.as_bytes())),
-        }
-        let non_ascii = tail.find(|c: char| c.is_ascii()).unwrap_or(tail.len());
-        out.push_str(&tail[..non_ascii]);
-        rest = &tail[non_ascii..];
-    }
-    Some(out)
-}
-
 fn unquote_path(text: &str) -> String {
-    unquote(text, true).unwrap_or_else(|| unquote(text, false).expect("replace never fails"))
+    crate::pyurl::unquote(text, true)
+        .unwrap_or_else(|| crate::pyurl::unquote(text, false).expect("replace never fails"))
 }
 
 /// `urllib.parse.quote(text)` with `/` safe.
@@ -696,18 +653,20 @@ impl Handler {
 
     /// The site handler's send_head: gzip text responses, else SimpleHTTPRequestHandler's.
     fn send_head(&mut self) -> io::Result<Option<Body>> {
-        // pathlib drops a trailing slash, so `/robots.txt%2f` names robots.txt here.
-        let mut path: PathBuf = Path::new(&translate_path(&self.directory, &self.path))
-            .components()
-            .collect();
-        if path.is_dir()
-            && split_path(&self.path)?.ends_with('/')
-            && let Some(index) = ["index.html", "index.htm"]
+        let translated = translate_path(&self.directory, &self.path);
+        let mut path: PathBuf = Path::new(&translated).components().collect();
+        if path.is_dir() && split_path(&self.path)?.ends_with('/') {
+            if let Some(index) = ["index.html", "index.htm"]
                 .iter()
                 .map(|name| path.join(name))
                 .find(|p| p.is_file())
-        {
-            path = index;
+            {
+                path = index;
+            }
+        } else if translated.ends_with('/') {
+            // `path` has lost the slash, so `/robots.txt/` and `/robots.txt%2f` would name
+            // robots.txt; the standard handler answers them 404.
+            return self.simple_send_head();
         }
         if !self.accepts_gzip()?
             || self.header("If-Modified-Since").is_some()

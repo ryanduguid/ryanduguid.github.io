@@ -800,3 +800,358 @@ fn release_based_facts_require_review_after_a_release() {
         }
     }
 }
+
+/// Serialised captures that repeat a name; each surviving value would validate.
+fn repeated_captures() -> Vec<(String, String, &'static str)> {
+    let plain = pyjson::dumps(&base_capture(), Default::default());
+    let replaced = |target: &str, fragment: &str| {
+        assert_eq!(plain.matches(target).count(), 1, "{target}");
+        plain.replacen(target, fragment, 1)
+    };
+    let extra = |members: &str| format!("{}, \"extra\": {members}}}", &plain[..plain.len() - 1]);
+    let mut cases: Vec<(String, String, &'static str)> =
+        ["null", "false", r#""""#, r#"["E1-namesake"]"#, "[]"]
+            .iter()
+            .enumerate()
+            .map(|(index, value)| {
+                (
+                    format!("factual-first-{index}"),
+                    replaced(
+                        r#""factual_errors": []"#,
+                        &format!(r#""factual_errors": {value}, "factual_errors": []"#),
+                    ),
+                    "factual_errors",
+                )
+            })
+            .collect();
+    cases.extend([
+        (
+            "recorder".into(),
+            format!(r#"{{"recorded_by": "",{}"#, &plain[1..]),
+            "recorded_by",
+        ),
+        (
+            "answer-key".into(),
+            format!(r#"{{"answer_key_sha256": "wrong",{}"#, &plain[1..]),
+            "answer_key_sha256",
+        ),
+        (
+            "schema".into(),
+            format!(r#"{{"schema": false,{}"#, &plain[1..]),
+            "schema",
+        ),
+        (
+            "status".into(),
+            replaced(
+                r#""status": "complete""#,
+                r#""status": "blocked", "status": "complete""#,
+            ),
+            "status",
+        ),
+        (
+            "identical-mention".into(),
+            replaced(
+                r#""mentioned": true"#,
+                r#""mentioned": true, "mentioned": true"#,
+            ),
+            "mentioned",
+        ),
+        (
+            "escaped-first".into(),
+            replaced(
+                r#""factual_errors": []"#,
+                r#""\u0066actual_errors": ["E1-namesake"], "factual_errors": []"#,
+            ),
+            "factual_errors",
+        ),
+        (
+            "escaped-last".into(),
+            replaced(
+                r#""factual_errors": []"#,
+                r#""factual_errors": [], "\u0066actual_errors": ["E1-namesake"]"#,
+            ),
+            "factual_errors",
+        ),
+        (
+            "unknown-object".into(),
+            extra(r#"{"result": 1, "result": 2}"#),
+            "result",
+        ),
+        ("unknown-array".into(), extra(r#"[{"x": 1, "x": 1}]"#), "x"),
+        ("empty-name".into(), extra(r#"{"": 1, "": 2}"#), ""),
+        (
+            "unicode-name".into(),
+            extra(r#"{"\u00e9": 1, "\u00e9": 2}"#),
+            "é",
+        ),
+        (
+            "mixed-unicode-name".into(),
+            extra(r#"{"é": 1, "\u00e9": 2}"#),
+            "é",
+        ),
+    ]);
+    cases
+}
+
+#[test]
+fn repeated_json_names_are_rejected_not_collapsed() {
+    let dir = tempfile::tempdir().unwrap();
+    let good = written(&base_capture(), dir.path(), "good.json");
+    for (name, text, member) in repeated_captures() {
+        let path = dir.path().join(format!("{name}.json"));
+        std::fs::write(&path, &text).unwrap();
+        let expected = format!(
+            "repeated JSON object name {}",
+            site_tools::py::repr_str(member)
+        );
+        let error = load_capture(&path).expect_err(&name);
+        assert!(error.contains(&expected), "{name}: {error}");
+        let failures = check_capture(&path, &prompts()).unwrap();
+        assert_eq!(failures.len(), 1, "{name}: {failures:?}");
+        assert!(failures[0].contains(&format!("{name}.json")) && failures[0].contains(&expected));
+        let (loaded, failures) =
+            validated(&[named(good.clone()), named(path.clone())], &prompts()).unwrap();
+        assert_eq!(loaded.len(), 1, "{name}");
+        assert_eq!(failures.len(), 1, "{name}: {failures:?}");
+        let shown = path.to_string_lossy().into_owned();
+        let (code, stdout, _) = run_cli(&["--summary", &good.to_string_lossy(), &shown]);
+        assert_eq!(code, Some(1), "{name}: {stdout}");
+        assert!(
+            stdout.contains(&expected) && !stdout.contains("mentions:"),
+            "{stdout}"
+        );
+    }
+}
+
+#[test]
+fn a_prompt_is_observed_once_per_round() {
+    let mut unrun = complete_observation(BRANDED_ID);
+    for key in ["system", "mentioned", "site_cited", "cited_urls"] {
+        unset(&mut unrun, key);
+    }
+    set(&mut unrun, "status", Json::Str("not_run".into()));
+    set(&mut unrun, "reason", Json::Str("rate limited".into()));
+    for second in [complete_observation(BRANDED_ID), unrun] {
+        let mut capture = base_capture();
+        push_observation(&mut capture, second);
+        let failures = failures_for(&capture);
+        assert_eq!(failures.len(), 1, "{failures:?}");
+        expect(
+            "repeated prompt",
+            &failures,
+            &format!("observation 2: repeated prompt_id '{BRANDED_ID}' in one round"),
+        );
+    }
+    let mut capture = base_capture();
+    push_observation(&mut capture, complete_observation(UNBRANDED_ID));
+    assert!(failures_for(&capture).is_empty());
+}
+
+#[test]
+fn site_hosts_allow_one_root_dot_and_no_empty_labels() {
+    for url in [
+        "https://duguid.com.au./about/",
+        "https://www.duguid.com.au./about/",
+        "http://DOCS.DUGUID.COM.AU.:8443/about/",
+    ] {
+        assert!(site_cited_url(Some(&Json::Str(url.into()))), "{url}");
+        let mut capture = base_capture();
+        set(
+            observation(&mut capture, 0),
+            "cited_urls",
+            json(&format!("[\"{url}\"]")),
+        );
+        assert!(failures_for(&capture).is_empty(), "{url}");
+    }
+    for url in [
+        "https://.duguid.com.au/about/",
+        "https://docs..duguid.com.au/about/",
+        "https://..duguid.com.au/about/",
+        "https://duguid.com.au../about/",
+        "https://www.duguid.com.au../about/",
+        "https://duguid.com.au.example.org./about/",
+    ] {
+        assert!(!site_cited_url(Some(&Json::Str(url.into()))), "{url}");
+        let mut capture = base_capture();
+        set(
+            observation(&mut capture, 0),
+            "cited_urls",
+            json(&format!("[\"{url}\"]")),
+        );
+        expect(url, &failures_for(&capture), "no cited URL is on");
+    }
+}
+
+/// A fresh round that mentions and cites the site, and a reused-session round that
+/// does neither and declares a factual error.
+fn session_rounds() -> [Json; 2] {
+    let first_error = prompts()
+        .into_iter()
+        .find(|(k, _)| k == BRANDED_ID)
+        .and_then(|(_, p)| match p.get("common_errors") {
+            Some(Json::Array(errors)) => errors[0].get("id").cloned(),
+            _ => None,
+        })
+        .unwrap();
+    let mut reused = base_capture();
+    let observation = observation(&mut reused, 0);
+    set(observation, "fresh_session", Json::Bool(false));
+    set(observation, "mentioned", Json::Bool(false));
+    set(observation, "site_cited", Json::Bool(false));
+    set(observation, "cited_urls", Json::Array(vec![]));
+    set(
+        observation,
+        "factual_errors",
+        Json::Array(vec![first_error]),
+    );
+    [base_capture(), reused]
+}
+
+/// The fresh group's block, with its excluded count, and the reused group's block.
+fn session_blocks(excluded: usize) -> [String; 2] {
+    let block = |lines: &[&str]| lines.iter().map(|line| format!("{line}\n")).collect();
+    [
+        block(&[
+            "Test Assistant, branded prompts, search on",
+            "  mentions:   1/1 completed answers",
+            "  citations:  1/1 completed answers",
+            "  no declared factual error: 1/1",
+            &format!("  excluded (not run or blocked): {excluded}"),
+        ]),
+        block(&[
+            "Test Assistant, branded prompts, search on, without a fresh session",
+            "  mentions:   0/1 completed answers",
+            "  citations:  0/1 completed answers",
+            "  no declared factual error: 0/1",
+            "  excluded (not run or blocked): 0",
+            "  recorded without a fresh session: 1/1, not comparable with the rest",
+        ]),
+    ]
+}
+
+#[test]
+fn reused_sessions_keep_their_own_denominators() {
+    for (fixture, include_fixtures) in [(false, false), (true, true)] {
+        let mut rounds = session_rounds();
+        set(&mut rounds[1], "fixture", Json::Bool(fixture));
+        let reversed = [rounds[1].clone(), rounds[0].clone()];
+        for ordered in [&rounds, &reversed] {
+            let summary = summary_of(ordered, include_fixtures);
+            for block in session_blocks(0) {
+                assert!(summary.contains(&block), "{block}\n{summary}");
+            }
+        }
+    }
+    let mut rounds = session_rounds();
+    set(&mut rounds[1], "fixture", Json::Bool(true));
+    let summary = summary_of(&rounds, false);
+    assert!(summary.contains(&session_blocks(0)[0]), "{summary}");
+    assert!(!summary.contains("without a fresh session"), "{summary}");
+    for status in ["not_run", "blocked"] {
+        let mut unrun = base_capture();
+        let observation = observation(&mut unrun, 0);
+        set(observation, "status", Json::Str(status.into()));
+        set(observation, "reason", Json::Str("not attempted".into()));
+        set(observation, "fresh_session", Json::Bool(false));
+        let [fresh, reused] = session_rounds();
+        let summary = summary_of(&[fresh, reused, unrun], false);
+        let [fresh_block, _] = session_blocks(1);
+        let [_, reused_block] = session_blocks(0);
+        for block in [fresh_block, reused_block] {
+            assert!(summary.contains(&block), "{status} {block}\n{summary}");
+        }
+    }
+}
+
+#[test]
+fn a_capture_selected_twice_counts_once() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::create_dir(dir.path().join("nested")).unwrap();
+    let path = written(&base_capture(), dir.path(), "round.json");
+    let parent = dir.path().join("nested").join("..").join("round.json");
+    let spelt = |p: &Path, shown: &str| Named {
+        shown: shown.to_owned(),
+        path: p.to_path_buf(),
+    };
+    let (loaded, failures) = validated(
+        &[spelt(&path, "a"), spelt(&path, "b"), spelt(&parent, "c")],
+        &prompts(),
+    )
+    .unwrap();
+    assert!(failures.is_empty(), "{failures:?}");
+    assert_eq!(loaded.len(), 1);
+    let (shown, again) = (path.to_string_lossy(), parent.to_string_lossy());
+    let (code, single, _) = run_cli(&["--summary", &shown]);
+    let (code_twice, twice, _) = run_cli(&["--summary", &shown, &again, &shown]);
+    assert_eq!((code, code_twice), (Some(0), Some(0)));
+    assert_eq!(twice, single);
+    let (code, checked, _) = run_cli(&["--check", &shown, &again]);
+    assert_eq!(code, Some(0));
+    assert!(checked.contains("1 file(s)"), "{checked}");
+
+    let bad = dir.path().join("bad.json");
+    std::fs::write(&bad, "{ not JSON").unwrap();
+    let (_, failures) = validated(&[named(bad.clone()), named(bad.clone())], &prompts()).unwrap();
+    assert_eq!(failures.len(), 1, "{failures:?}");
+
+    let second = written(&base_capture(), dir.path(), "second.json");
+    let (loaded, failures) = validated(
+        &[named(path.clone()), named(second), named(path)],
+        &prompts(),
+    )
+    .unwrap();
+    assert!(failures.is_empty());
+    assert_eq!(loaded.len(), 2, "separate files stay separate rounds");
+}
+
+#[test]
+fn prompts_with_a_repeated_name_are_refused() {
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("docs/visibility-benchmark/prompts.json");
+    std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+    let text = std::fs::read_to_string(repository().join("docs/visibility-benchmark/prompts.json"))
+        .unwrap();
+    assert!(load_prompts(dir.path()).is_err());
+    std::fs::write(&path, &text).unwrap();
+    assert_eq!(load_prompts(dir.path()).unwrap(), prompts());
+    let repeated = text.replacen('{', r#"{"prompts": [], "#, 1);
+    std::fs::write(&path, repeated).unwrap();
+    let error = load_prompts(dir.path()).unwrap_err();
+    assert!(
+        error.contains("repeated JSON object name 'prompts'"),
+        "{error}"
+    );
+}
+
+#[test]
+fn prompts_with_a_repeated_id_are_refused() {
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("docs/visibility-benchmark/prompts.json");
+    std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+    let mut data = pyjson::loads(
+        &std::fs::read_to_string(repository().join("docs/visibility-benchmark/prompts.json"))
+            .unwrap(),
+    )
+    .unwrap();
+    let Json::Object(pairs) = &mut data else {
+        panic!("prompts.json is an object")
+    };
+    let Some((_, Json::Array(entries))) = pairs.iter_mut().find(|(k, _)| k == "prompts") else {
+        panic!("prompts list")
+    };
+    let mut changed = entries[0].clone();
+    set(
+        &mut changed,
+        "prompt",
+        Json::Str("A different question".into()),
+    );
+    entries.push(changed);
+    std::fs::write(&path, pyjson::dumps(&data, Default::default())).unwrap();
+    let error = load_prompts(dir.path()).unwrap_err();
+    assert!(
+        error.contains(&format!(
+            "repeated prompt id '{BRANDED_ID}' in prompts.json"
+        )),
+        "{error}"
+    );
+}
