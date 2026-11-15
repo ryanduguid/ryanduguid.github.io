@@ -267,18 +267,20 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
 // A date as the objection deadline page writes it: 'Saturday 18 November 2028'.
 const longDay = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
   { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-const shownField = (field, value) => {
+const shownField = (field, value, labels = LABELS) => {
   if (field === 'effect' || field === 'rule') return value;
   if (field === 'instalmentRate') return `instalment rate ${value.toFixed(2)}%`;
-  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return `${LABELS[field]} ${longDay(value)}`;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return `${labels[field]} ${longDay(value)}`;
   if (field === 'units') return `${value} units`;
   if (field === 'percent') return value === null ? 'no percentage' : `${value.toFixed(2)}%`;
   if (field === 'margin' || field === 'markup') return value === null ? `no ${field}` : `${field} ${value.toFixed(2)}%`;
-  return `${LABELS[field]} ${dollars(value)}`;
+  return `${labels[field]} ${dollars(value)}`;
 };
 Object.assign(LABELS, { periodEnds: 'period ends', lastDay: 'last day', amendedEnds: '60 days after the amended notice',
   firstEnds: 'first notice period ends' });
-Object.assign(LABELS, { amount: 'amount', instalment: 'instalment', credit: 'credit', due: 'due by this instalment' });
+Object.assign(LABELS, { amount: 'amount', credit: 'credit', due: 'due by this instalment' });
+// A field another calculator labels differently, by engine.
+const ENGINE_LABELS = { paygInstalment: { instalment: 'instalment' } };
 
 test('every business calculator shows its boundary cases', () => {
   const pages = readdirSync(new URL('../tools/business-calculators/', import.meta.url), { withFileTypes: true })
@@ -363,11 +365,11 @@ const assertPeerReading = (name, peer, result) => {
   assert.equal(peer.verdict, verdict);
 };
 
-const assertShown = (actual, { result, output }) => {
+const assertShown = (actual, { result, output }, labels = LABELS) => {
   const fields = Object.entries(result);
   for (const [field, value] of fields) assert.equal(actual[field], value, field);
   assert.equal(output.replace(/ on the \S+ borrowed$/, '').toLowerCase(),
-    fields.map(([field, value]) => shownField(field, value)).join(', ').toLowerCase());
+    fields.map(([field, value]) => shownField(field, value, labels)).join(', ').toLowerCase());
 };
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
@@ -388,7 +390,7 @@ for (const [page, { function: name, peer, rows }] of Object.entries(shownCases))
         assert.equal(row.output, `Refused: ${row.refused[0].toLowerCase()}${row.refused.slice(1, -1)}`);
         return;
       }
-      assertShown(calculations[name](...engineArgs(name, row.call)), row);
+      assertShown(calculations[name](...engineArgs(name, row.call)), row, { ...LABELS, ...ENGINE_LABELS[name] });
     });
   }
 }
