@@ -17,6 +17,11 @@
 //! FBT rounding (each value to the cent before contributions, the gross-up and the FBT from
 //! the figure before them), so it cannot show those are the right conventions.
 //!
+//! A further 120 seeded loans, from their own seed so the 300 above are unchanged, add a
+//! balloon owed at the end of the term and payments in arrears or in advance; the oracle
+//! discounts the balloon and sums each timing's factors month by month, where the engine
+//! takes the closed form and divides by one month's growth for advance.
+//!
 //! Nothing here imports an engine or a constant from one, and a change to the case seed
 //! needs no change to the expected values, which are never stored.
 mod common;
@@ -30,6 +35,7 @@ const LOAN_CASES: usize = 120;
 const DIV7A_CASES: usize = 60;
 const LEVY_CASES: usize = 120;
 const FBT_CASES: usize = 60;
+const BALLOON_CASES: usize = 120;
 /// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
 /// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
@@ -52,8 +58,8 @@ const money = (value) => String(value);
 const levy = (result) => ({ branch: result.branch, winner: result.winner ?? null,
   quarters: result.eligibleWagesCents * 4, levy: levyCents(result.eligibleWagesCents) });
 const run = {
-  loan: ({ principal, rate, months }) => {
-    const result = loan(principal, rate, months);
+  loan: ({ principal, rate, months, balloon, timing }) => {
+    const result = loan(principal, rate, months, balloon, timing);
     return { payment: money(result.payment), firstInterest: money(result.firstInterest),
       firstPrincipal: money(result.firstPrincipal), totalInterest: money(result.totalInterest) };
   },
@@ -562,6 +568,158 @@ fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
         expected.push(result);
     }
     assert_eq!(cases.len(), 360);
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// A loan with a balloon owed at the end of the term, paid in arrears or in advance:
+/// exact payment, first interest, first principal and total interest, in cents. The
+/// payment is the principal less the balloon's discounted value, over the sum of the
+/// monthly discount factors (scale/growth)^k, for k = 1 to n in arrears and 0 to n - 1 in
+/// advance, each summed here one month at a time over the common denominator growth^n.
+fn financed_loan_oracle(
+    principal: u64,
+    rate: u64,
+    months: u32,
+    balloon: u64,
+    advance: bool,
+) -> [u64; 4] {
+    let scale = BigUint::from(MONTHLY_SCALE);
+    let growth = BigUint::from(MONTHLY_SCALE + rate);
+    let mut factors = BigUint::ZERO;
+    let mut scale_power = BigUint::from(1_u8);
+    let mut growth_power = BigUint::from(1_u8);
+    for _ in 0..months {
+        // In arrears this month adds scale^(k+1); in advance, one month earlier, scale^k.
+        let term = if advance {
+            &scale_power * &growth
+        } else {
+            &scale_power * &scale
+        };
+        factors = factors * &growth + term;
+        scale_power *= &scale;
+        growth_power *= &growth;
+    }
+    let (principal, balloon) = (BigUint::from(principal), BigUint::from(balloon));
+    let payment_top = &principal * &growth_power - &balloon * &scale_power;
+    let payment = half_up(&payment_top, &factors);
+    let first_interest_top = if advance {
+        BigUint::ZERO
+    } else {
+        &principal * rate
+    };
+    let first_principal_top = &payment_top * &scale - &first_interest_top * &factors;
+    let total_interest_top = &payment_top * months - (&principal - &balloon) * &factors;
+    [
+        payment,
+        half_up(&first_interest_top, &scale),
+        half_up(&first_principal_top, &(&factors * &scale)),
+        half_up(&total_interest_top, &factors),
+    ]
+}
+
+fn balloon_case(rng: &mut Seeded) -> (Value, Value) {
+    let principal = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let any_rate = rng.below(1_000_001);
+    let rate = rng.pick(&[0, 1, 75_000, 1_000_000, any_rate, any_rate]);
+    let any_term = 1 + rng.below(600);
+    let months = rng.pick(&[1, 2, 48, 60, 600, any_term, any_term]) as u32;
+    // Nil, all of it, 30% of it (whole cents, rounded down) or any amount up to it.
+    let any_balloon = rng.below(principal + 1);
+    let balloon = rng.pick(&[0, principal, principal * 3 / 10, any_balloon]);
+    let advance = rng.below(2) == 1;
+    let [payment, first_interest, first_principal, total_interest] =
+        financed_loan_oracle(principal, rate, months, balloon, advance);
+    (
+        json!({
+            "kind": "loan",
+            "principal": dollars(principal),
+            "rate": format!("{}.{:04}", rate / 10_000, rate % 10_000),
+            "months": months.to_string(),
+            "balloon": dollars(balloon),
+            "timing": if advance { "advance" } else { "arrears" },
+        }),
+        json!({
+            "payment": shown(payment),
+            "firstInterest": shown(first_interest),
+            "firstPrincipal": shown(first_principal),
+            "totalInterest": shown(total_interest),
+        }),
+    )
+}
+
+/// Month by month in whole cents: each payment is taken at the start (advance) or the end
+/// (arrears) of the month, and the month's interest rounds half up. Returns each month's
+/// interest and closing balance.
+fn balloon_schedule(
+    principal: u64,
+    rate: u64,
+    months: u32,
+    payment: u64,
+    advance: bool,
+) -> Vec<(u64, u64)> {
+    let mut balance = principal;
+    (0..months)
+        .map(|_| {
+            if advance {
+                balance -= payment;
+            }
+            let interest = (balance * rate * 2 + MONTHLY_SCALE) / (2 * MONTHLY_SCALE);
+            balance += interest;
+            if !advance {
+                balance -= payment;
+            }
+            (interest, balance)
+        })
+        .collect()
+}
+
+#[test]
+fn a_30_percent_balloon_loan_matches_a_hand_worked_schedule() {
+    // $60,000 at 7.5% a year (0.625% a month) over 60 months, with a 30% balloon of $18,000.
+    // In arrears the oracle's payment is $954.09: AusCalc's vehicle finance example,
+    // read 15 November 2026, gives the same payment and $15,245.63 of total interest.
+    let arrears = financed_loan_oracle(6_000_000, 75_000, 60, 1_800_000, false);
+    assert_eq!(arrears, [95_409, 37_500, 57_909, 1_524_563]);
+    // By hand: month 1 charges $60,000.00 x 0.625% = $375.00, so $60,000.00 + $375.00 -
+    // $954.09 leaves $59,420.91; month 2 charges $371.38 (371.3806...), leaving $58,838.20.
+    let rows = balloon_schedule(6_000_000, 75_000, 60, 95_409, false);
+    assert_eq!(rows[0], (37_500, 5_942_091));
+    assert_eq!(rows[1], (37_138, 5_883_820));
+    // After 60 payments the cent-rounded schedule owes $18,000.26: the balloon plus 26
+    // cents of rounding, which a lender settles in the final amount.
+    assert_eq!(rows[59], (11_773, 1_800_026));
+    // In advance the payment is the arrears one over 1.00625: $948.17, the first with no
+    // interest. Month 1: $60,000.00 - $948.17 = $59,051.83, which earns $369.07 (369.0739...)
+    // to close at $59,420.90.
+    let advance = financed_loan_oracle(6_000_000, 75_000, 60, 1_800_000, true);
+    assert_eq!(advance, [94_817, 0, 94_817, 1_489_007]);
+    let rows = balloon_schedule(6_000_000, 75_000, 60, 94_817, true);
+    assert_eq!(rows[0], (36_907, 5_942_090));
+    assert_eq!(rows[59], (11_180, 1_799_983));
+    // No balloon in arrears is the existing oracle's loan, to the cent.
+    for (principal, rate, months) in [(10_000_000, 60_000, 360), (6_000_000, 75_000, 60)] {
+        assert_eq!(
+            financed_loan_oracle(principal, rate, months, 0, false),
+            loan_oracle(principal, rate, months)
+        );
+    }
+}
+
+#[test]
+fn the_engine_agrees_with_the_oracle_on_every_seeded_balloon_and_advance_loan() {
+    let mut rng = Seeded(0x2026_1115_BA11_0017);
+    let (cases, expected): (Vec<Value>, Vec<Value>) =
+        (0..BALLOON_CASES).map(|_| balloon_case(&mut rng)).unzip();
+    assert!(cases.iter().any(|case| case["timing"] == "advance"));
+    assert!(
+        cases
+            .iter()
+            .any(|case| case["balloon"] == case["principal"])
+    );
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {

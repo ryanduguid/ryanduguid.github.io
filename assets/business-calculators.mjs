@@ -97,25 +97,35 @@ export function variance(actual, budget, kind) {
     effect: difference === 0 ? 'On budget' : (difference * (kind === 'income' ? 1 : -1) > 0 ? 'Favourable' : 'Unfavourable') };
 }
 
-/** @param {string} principal @param {string} annualRate @param {string} months */
-export function loan(principal, annualRate, months) {
+/** @param {string} principal @param {string} annualRate @param {string} months
+ * @param {string} [balloon] the lump sum still owed at the end of the term
+ * @param {'arrears' | 'advance'} [timing] payments at the end or the start of each month */
+export function loan(principal, annualRate, months, balloon = '0', timing = 'arrears') {
+  if (!['arrears', 'advance'].includes(timing)) throw new Error('Choose payments in arrears or in advance.');
   const balanceCents = BigInt(cents(principal));
   const rateUnits = BigInt(Math.round(number(annualRate, { max: 100, places: 4 }) * 10000));
   const term = BigInt(number(months, { min: 1, max: 600, integer: true }));
+  const residual = BigInt(cents(balloon));
+  if (residual > balanceCents) throw new Error('The balloon cannot be more than the loan principal.');
+  const advance = timing === 'advance';
   const rateScale = 12000000n;
-  const firstInterest = ratioMoney(balanceCents * rateUnits, rateScale);
+  // A payment in advance falls before any interest accrues.
+  const firstInterest = advance ? 0 : ratioMoney(balanceCents * rateUnits, rateScale);
   if (rateUnits === 0n) {
-    const payment = ratioMoney(balanceCents, term);
+    const payment = ratioMoney(balanceCents - residual, term);
     return { payment, firstInterest: 0, firstPrincipal: payment, totalInterest: 0 };
   }
-  // Multiply through by rateScale ** term to keep the amortisation fractions exact.
+  // Multiply through by rateScale ** term to keep the amortisation fractions exact. The
+  // balloon's value today comes off the principal; each payment in advance is discounted
+  // one month less, so the payment is one month's growth smaller.
   const growth = (rateScale + rateUnits) ** term;
   const scale = rateScale ** term;
-  const denominator = rateScale * (growth - scale);
-  const paymentNumerator = balanceCents * rateUnits * growth;
-  return { payment: ratioMoney(paymentNumerator, denominator), firstInterest,
-    firstPrincipal: ratioMoney(balanceCents * rateUnits * scale, denominator),
-    totalInterest: ratioMoney(paymentNumerator * term - balanceCents * denominator, denominator) };
+  const denominator = (advance ? rateScale + rateUnits : rateScale) * (growth - scale);
+  const paymentNumerator = (balanceCents * growth - residual * scale) * rateUnits;
+  const payment = ratioMoney(paymentNumerator, denominator);
+  return { payment, firstInterest,
+    firstPrincipal: advance ? payment : ratioMoney((balanceCents - residual) * rateUnits * scale, denominator),
+    totalInterest: ratioMoney(paymentNumerator * term - (balanceCents - residual) * denominator, denominator) };
 }
 
 /** Division 7A minimum yearly repayment of an amalgamated loan: s 109E(6) of the Income

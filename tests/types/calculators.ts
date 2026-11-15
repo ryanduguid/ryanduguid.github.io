@@ -38,5 +38,8 @@ calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
 const operatingValue: number = calculate.fbtCar(car, fbtYear).operating;
 void fbt;
 void operatingValue;
+calculate.loan('60000', '7.5', '60', '18000', 'advance');
+// @ts-expect-error Loan payments fall in arrears or in advance, nothing else.
+calculate.loan('60000', '7.5', '60', '18000', 'start');
 void tax;
 void formatted;
