@@ -7,7 +7,7 @@ use site_tools::check_publication::{
     stable_items,
 };
 use site_tools::pyjson::{self, Json};
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::collections::VecDeque;
 use std::path::Path;
 
@@ -59,7 +59,11 @@ struct Site {
     checks: Vec<Json>,
     runs: Vec<Json>,
     jobs: Vec<Json>,
+    analyses: Json,
     alerts: Json,
+    /// The alert listing from the second read on, when it differs from the first.
+    alerts_later: Option<Json>,
+    alert_reads: Cell<usize>,
 }
 
 impl Site {
@@ -78,7 +82,10 @@ impl Site {
             checks: vec![check.clone()],
             runs: vec![run.clone()],
             jobs: vec![job.clone()],
+            analyses: json(&format!(r#"[[{{"id": 9, "commit_sha": "{c}"}}]]"#)),
             alerts: Json::Array(vec![Json::Array(vec![])]),
+            alerts_later: None,
+            alert_reads: Cell::new(0),
             check,
             run,
             job,
@@ -94,7 +101,16 @@ impl Site {
         assert!(paginate);
         if endpoint.contains("code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL")
         {
-            self.alerts.clone()
+            self.alert_reads.set(self.alert_reads.get() + 1);
+            match &self.alerts_later {
+                Some(later) if self.alert_reads.get() > 1 => later.clone(),
+                _ => self.alerts.clone(),
+            }
+        } else if endpoint.contains(&format!(
+            "code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&sha={}",
+            commit()
+        )) {
+            self.analyses.clone()
         } else if endpoint.contains("check-runs") {
             page("check_runs", &self.checks)
         } else if endpoint.contains("/jobs?") {
@@ -686,6 +702,8 @@ fn an_unreadable_alert_listing_refuses_publication() {
             "Unreadable alert listing",
         ),
         (json(r#"[{"number": 1}]"#), "Unreadable alert listing"),
+        (json("[]"), "Unreadable alert listing"),
+        (json("[[1]]"), "Unreadable alert listing"),
         (json(r#"[[{"number": 1}]]"#), "Unreadable alert rule"),
         (
             json(r#"[[{"number": 1, "rule": "error"}]]"#),
@@ -743,5 +761,33 @@ fn untrusted_analyses_do_not_stand_in_for_the_codeql_check() {
 fn a_main_analysis_still_needs_the_attribution_audit() {
     let (mut site, analysis) = analysed_main();
     site.runs = vec![analysis];
+    assert_eq!(site.evaluate(), Ok(false));
+}
+
+#[test]
+fn main_results_wait_for_this_commits_analysis_and_a_settled_alert_listing() {
+    let (mut site, _) = analysed_main();
+    site.analyses = json(&format!(
+        r#"[[{{"id": 8, "commit_sha": "{}"}}], []]"#,
+        "b".repeat(40)
+    ));
+    assert_eq!(site.evaluate(), Ok(false));
+    site.analyses = json("[[]]");
+    assert_eq!(site.evaluate(), Ok(false));
+    site.analyses = json(r#"{"message": "Not Found"}"#);
+    assert_eq!(value_error(site.evaluate()), "Unreadable analysis listing");
+
+    let (mut site, _) = analysed_main();
+    site.alerts_later = Some(json(r#"[[{"number": 2, "rule": {"severity": "note"}}]]"#));
+    assert_eq!(site.evaluate(), Ok(false));
+}
+
+#[test]
+fn an_unfinished_codeql_check_is_not_replaced_by_the_analysis() {
+    let (mut site, _) = analysed_main();
+    site.checks = vec![with(
+        &site.check,
+        &[("status", s("in_progress")), ("conclusion", Json::Null)],
+    )];
     assert_eq!(site.evaluate(), Ok(false));
 }

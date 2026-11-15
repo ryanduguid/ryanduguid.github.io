@@ -160,7 +160,8 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
             codeql.push(value);
         }
     }
-    // An Analyze job is not the CodeQL results policy. No mapped result means no publication.
+    // An Analyze job is not the CodeQL results policy. Only the CodeQL check, or on
+    // main the code scanning results read below, can authorise publication.
     let succeeded = |v: &Json| is(v, "status", "completed") && is(v, "conclusion", "success");
     if codeql
         .iter()
@@ -196,7 +197,11 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
                 _ => None,
             };
             let Some(name) = name else {
-                return refuse("Unreadable audit repository");
+                return refuse(if analysis {
+                    "Unreadable analysis repository"
+                } else {
+                    "Unreadable audit repository"
+                });
             };
             owners.push(py::casefold(name));
         }
@@ -256,53 +261,88 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
         audits.push(selected.first().is_some_and(|job| succeeded(job)));
     }
     let checked = !codeql.is_empty() && codeql.iter().all(|v| succeeded(v));
-    // Main gets no CodeQL check. Its default-setup analysis of this commit, with no
-    // open alert the pull request check would fail on, stands in for it.
-    let analysed = !analyses.is_empty() && analyses.iter().all(|a| *a);
-    let ready = (checked || analysed) && !audits.is_empty() && audits.iter().all(|a| *a);
+    let audited = !audits.is_empty() && audits.iter().all(|a| *a);
+    // Main gets no CodeQL check. When there is none, a successful default-setup
+    // analysis of this commit, with no open alert the pull request check would fail
+    // on, stands in for it.
+    let analysed = codeql.is_empty() && !analyses.is_empty() && analyses.iter().all(|a| *a);
+    let ready = audited && (checked || (analysed && main_results_pass(repository, commit, fetch)?));
     if ready {
-        if !checked {
-            require_no_failing_alerts(repository, fetch)?;
-        }
         require_main(repository, commit, fetch)?;
     }
     Ok(ready)
 }
 
-/// The CodeQL pull request check fails, at GitHub's default threshold, on an alert of
-/// high or critical security severity or of error severity. Refuse while main has one open.
-fn require_no_failing_alerts(repository: &str, fetch: &mut Fetch) -> Result<()> {
-    let payload = fetch(
+/// The records of a `gh api --paginate --slurp` listing that returns a bare array.
+fn array_items(payload: &Json, what: &str) -> Result<Vec<Json>> {
+    let unreadable = || refuse(&format!("Unreadable {what} listing"));
+    let Json::Array(pages) = payload else {
+        return unreadable();
+    };
+    if pages.is_empty() {
+        return unreadable();
+    }
+    let mut found = Vec::new();
+    for page in pages {
+        let Json::Array(records) = page else {
+            return unreadable();
+        };
+        for record in records {
+            if !matches!(record, Json::Object(_)) {
+                return unreadable();
+            }
+            found.push(record.clone());
+        }
+    }
+    Ok(found)
+}
+
+/// Whether code scanning holds main's CodeQL results for `commit` and none of its
+/// open alerts reaches the pull request check's default failure threshold: error
+/// severity, or high or critical security severity. Any such alert refuses
+/// publication, however old. False while the results are still being processed or
+/// the listing changes between reads.
+fn main_results_pass(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<bool> {
+    let analyses = fetch(
         &format!(
-            "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&per_page=100"
+            "repos/{repository}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&sha={commit}&per_page=100"
         ),
         true,
     )?;
-    let Json::Array(pages) = &payload else {
-        return refuse("Unreadable alert listing");
-    };
-    for page in pages {
-        let Json::Array(alerts) = page else {
-            return refuse("Unreadable alert listing");
+    if !array_items(&analyses, "analysis")?
+        .iter()
+        .any(|analysis| is(analysis, "commit_sha", commit))
+    {
+        return Ok(false);
+    }
+    let endpoint = format!(
+        "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&per_page=100"
+    );
+    let alerts = array_items(&fetch(&endpoint, true)?, "alert")?;
+    let again = array_items(&fetch(&endpoint, true)?, "alert")?;
+    if ids_of(&alerts, "number") != ids_of(&again, "number") {
+        return Ok(false);
+    }
+    for alert in &alerts {
+        let rule = match alert.get("rule") {
+            Some(rule @ Json::Object(_)) => rule,
+            _ => return refuse("Unreadable alert rule"),
         };
-        for alert in alerts {
-            let rule = match alert.get("rule") {
-                Some(rule @ Json::Object(_)) => rule,
-                _ => return refuse("Unreadable alert rule"),
-            };
-            if is(rule, "severity", "error")
-                || matches!(
-                    text(rule, "security_severity_level"),
-                    Some("high" | "critical")
-                )
-            {
-                return refuse(
-                    "Main has an open CodeQL alert the pull request check would fail on",
-                );
-            }
+        if is(rule, "severity", "error")
+            || matches!(
+                text(rule, "security_severity_level"),
+                Some("high" | "critical")
+            )
+        {
+            return refuse("Main has an open CodeQL alert the pull request check would fail on");
         }
     }
-    Ok(())
+    Ok(true)
+}
+
+/// Each record's integer `key`, `None` where it has none.
+fn ids_of(records: &[Json], key: &str) -> Vec<Option<BigInt>> {
+    records.iter().map(|r| int(r.get(key)).cloned()).collect()
 }
 
 /// `gh api <endpoint> [--paginate --slurp]` with check=True and a 60-second timeout.

@@ -1,7 +1,7 @@
 # Publish the validated Pages artifact
 
 The proposed publisher uses the Jekyll tree checked by the main `checks` job.
-It waits for `checks-gates`, then rechecks main and the external results after
+It waits for `checks-gates` and `publication`, then rechecks main and the external results after
 admission to `github-pages`. Deployment is serialised, and only the deploy job
 holds Pages and identity-token write permissions. PR, scheduled and manual runs
 cannot publish. The artifact name includes the source SHA and run attempt.
@@ -9,12 +9,16 @@ cannot publish. The artifact name includes the source SHA and run attempt.
 Deployment is held while `PAGES_VALIDATED_DEPLOYMENT` is absent or false. The
 `CodeQL` results check from app 57789 exists only on pull requests; main gets
 CodeQL default setup's `dynamic/github-code-scanning/codeql` run instead. So
-`site-tools check_publication` accepts either that check or, for the exact main
-commit, a successful default-setup run from this repository plus no open CodeQL
-alert on main at the check's default failure threshold (error severity, or high
-or critical security severity). It refuses a failed analysis or a failing alert,
-and waits while the analysis runs. The `checks-gates` and `deploy` jobs read the
-alerts with `security-events: read`.
+`site-tools check_publication` accepts the check where there is one. Where there
+is none, it accepts a successful default-setup run for the exact main commit
+from this repository, once code scanning lists that commit's CodeQL analysis and
+2 reads of main's open CodeQL alerts agree. Any open alert on main at GitHub's
+default failure threshold for that check (error severity, or high or critical
+security severity), however old, refuses publication; a repository setting that
+changes the threshold is not read. It also refuses a failed analysis, and waits
+while the analysis runs or the alerts settle. Only the main-only `publication`
+job and the `deploy` job read the alerts with `security-events: read`, so pull
+request code never gets that permission.
 
 ## Activation and hosted checks
 
@@ -30,7 +34,8 @@ Verify successful publication, a failed mandatory dependency, a cancelled
 validation run, delayed external results, missing results and a run delayed
 until main advances. Confirm that each browser and Lighthouse shard remains
 mandatory, and that a new non-exempt job omitted from the aggregate fails.
-`deploy` is the only aggregate exemption.
+`deploy` and `publication`, which run only on main pushes, are the only aggregate
+exemptions besides the scheduled fuzzing job.
 
 The package retains `.well-known`, which the native Pages upload action excludes.
 Its deployment metadata supplies the published SHA for the smoke check. The

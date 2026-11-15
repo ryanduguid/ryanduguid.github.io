@@ -485,8 +485,6 @@ jobs:
       contents: read
       actions: read
       checks: read
-      # check_publication reads main's open CodeQL alerts.
-      security-events: read
     steps:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
@@ -501,14 +499,26 @@ jobs:
       - name: Require every job to be listed, kept and successful
         env:
           RESULTS: ${{ toJSON(needs) }}
-        run: python3 .github/ci/check_gates.py .github/workflows/checks.yml checks-gates --exempt deploy --exempt fuzzing
+        run: python3 .github/ci/check_gates.py .github/workflows/checks.yml checks-gates --exempt deploy --exempt fuzzing --exempt publication
+
+  publication:
+    # Its own job so that only main pushes, never pull request code, get the
+    # token that reads code scanning alerts (check_publication reads main's).
+    needs: checks-gates
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.checks-gates.result == 'success' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      checks: read
+      security-events: read
+    steps:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
         with:
           name: site-tools-Linux
           path: ${{ runner.temp }}/site-tools
       - name: Require external publication results for this main commit
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -516,8 +526,8 @@ jobs:
           "$RUNNER_TEMP/site-tools/site-tools" check_publication --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
 
   deploy:
-    needs: checks-gates
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.checks-gates.result == 'success' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
+    needs: [checks-gates, publication]
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.checks-gates.result == 'success' && needs.publication.result == 'success' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
