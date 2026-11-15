@@ -101,6 +101,13 @@ test('Division 7A tool returns the page worked example', async () => {
   assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/div7a/');
 });
 
+test('Division 7A tool names the newest benchmark rate in the rate table', () => {
+  const rows = readFileSync(new URL('../rates/div7a-benchmark-rate/div7a-benchmark-rates.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).slice(1).map((line) => line.split(','));
+  const [year, rate] = rows[rows.length - 1];
+  assert.ok(tools.div7a.description.includes(`${rate} for ${year}`), tools.div7a.description);
+});
+
 test('Division 7A tool refuses a term as text, out of range or under another name', async () => {
   const valid = { balance: '1000', benchmarkRate: '8.77', remainingTerm: 1 };
   await assert.rejects(tools.div7a.execute({ ...valid, remainingTerm: '1' }), /remainingTerm must be a whole number from 1 to 25/);
