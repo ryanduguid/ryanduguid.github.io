@@ -10,7 +10,7 @@ import {
   levyCents, LEVY_RATE_AS_AT, LEVY_RATE_FROM_MONTH, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR, LEVY_RATE_SOURCE, MAX_WAGES_CENTS,
 } from '/assets/levy.mjs';
 import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
-import { compute } from '/assets/levy-form.mjs';
+import { compute, computeEntry } from '/assets/levy-form.mjs';
 import {
   clearFieldError, describedByTokens, ensureControlId, reportFirstInvalid,
 } from '/assets/field-errors.mjs';
@@ -401,3 +401,13 @@ document.getElementById('export-csv').addEventListener('click', () => {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   setUndownloaded(false);
 });
+
+// WebMCP: offer this calculator to the browser's agent, as the business calculators do.
+// The draft spec puts modelContext on document; early Chrome builds used navigator.
+// Other browsers skip the import, and a failure leaves the page untouched.
+const modelContext = document.modelContext ?? navigator.modelContext;
+if (modelContext?.registerTool) {
+  import('/assets/webmcp-tools.mjs').then(async ({ levyTools }) => {
+    await modelContext.registerTool(levyTools({ computeEntry, levyCents }).levy);
+  }).catch((error) => console.warn('WebMCP tool registration failed:', error));
+}

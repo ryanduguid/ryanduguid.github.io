@@ -299,3 +299,13 @@ try {
 } catch (error) {
   output.textContent = `${error instanceof Error ? error.message : 'The link could not be read.'} Enter the inputs and work out the deduction.`;
 }
+
+// WebMCP: offer this calculator to the browser's agent, as the business calculators do.
+// The draft spec puts modelContext on document; early Chrome builds used navigator.
+// Other browsers skip the import, and a failure leaves the page untouched.
+const modelContext = document.modelContext ?? navigator.modelContext;
+if (modelContext?.registerTool) {
+  import('./webmcp-tools.mjs').then(async ({ depreciationTools }) => {
+    await modelContext.registerTool(depreciationTools({ parseCents, parseLife, parseUse, rates, schedule }).declineInValue);
+  }).catch((error) => console.warn('WebMCP tool registration failed:', error));
+}

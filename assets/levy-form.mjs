@@ -17,16 +17,36 @@ function readBonuses(root) {
   }));
 }
 
+// The form's pay fields, in dollars. A field an entry leaves out counts as 0.
+const PAY_FIELDS = ['annualSalary', 'sacrificed', 'casualBasePay', 'casualLoading', 'ordinaryPay',
+  'baseRate', 'overtime', 'allowances'];
+
 export function compute(form) {
-  // Enforced once here for every branch. casualWages() also enforces it in
-  // the engine, so no path can price a pre-July-2023 month at the 2.7% rate.
-  const reportingMonth = form.elements.reportingMonth?.value;
-  assertReportingMonthSupported(reportingMonth);
-  const branch = form.querySelector('input[name="branch"]:checked').value;
-  const bonuses = readBonuses(form);
   // Fields for the branches that are hidden do not exist in the DOM,
   // so form.elements[name] is undefined. Optional chaining, not a crash.
   const num = (name) => Number(form.elements[name]?.value || 0);
+  const entry = {
+    reportingMonth: form.elements.reportingMonth?.value,
+    branch: form.querySelector('input[name="branch"]:checked').value,
+    bonuses: readBonuses(form),
+    ...Object.fromEntries(PAY_FIELDS.map((name) => [name, num(name)])),
+  };
+  if (entry.branch === 'casual') {
+    entry.instrumentSpecifiesLoading = form.elements.instrumentSpecifiesLoading.checked;
+    entry.loadingQuantifiable = form.elements.loadingQuantifiable.checked;
+  }
+  return computeEntry(entry);
+}
+
+// The levy for one entry with the form's field names, from the page or its
+// WebMCP tool: the branch, the reporting month, bonuses as {amount, frequency}
+// and each pay field in dollars.
+export function computeEntry(entry) {
+  // Enforced once here for every branch. casualWages() also enforces it in
+  // the engine, so no path can price a pre-July-2023 month at the 2.7% rate.
+  const { reportingMonth, branch, bonuses = [] } = entry;
+  assertReportingMonthSupported(reportingMonth);
+  const num = (name) => entry[name] ?? 0;
 
   if (branch === 'annual') {
     return {
@@ -49,8 +69,8 @@ export function compute(form) {
     return {
       ...casualWages({
         reportingMonth,
-        instrumentSpecifiesLoading: form.elements.instrumentSpecifiesLoading.checked,
-        loadingQuantifiable: form.elements.loadingQuantifiable.checked,
+        instrumentSpecifiesLoading: entry.instrumentSpecifiesLoading ?? false,
+        loadingQuantifiable: entry.loadingQuantifiable ?? false,
         baseRatePayCents: toCents(num('casualBasePay')),
         casualLoadingCents: toCents(num('casualLoading')),
         ordinaryRatePayCents: toCents(num('ordinaryPay')),
