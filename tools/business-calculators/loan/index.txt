@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/tools/business-calculators/loan/
 
-> Estimate a fixed monthly loan payment, first-month interest and principal, and total interest from principal, annual rate and term, in your browser.
+> Estimate a fixed monthly loan payment and total interest from principal, rate, term, a balloon and payments in arrears or in advance, in your browser.
 
 # Monthly loan payment calculator
 
-Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
+Fixed monthly payment, first-payment interest and principal, and estimated total interest, in arrears or in advance, with an optional balloon.
 
 Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
@@ -14,19 +14,23 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Monthly loan payments inputs
 
-Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments
+Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments Balloon or residual owed at the end (AUD) Payments fall At the end of each month (in arrears) At the start of each month (in advance)
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: principal $100,000.00, 6% annual nominal rate, 360 monthly payments. Monthly payment $599.55 First payment interest $500.00 First payment principal $99.55 Estimated total interest $115,838.19
+The balloon is due at the end of the term: with the last payment in arrears, or a month after it in advance. For a passenger car, the car limit for the income year it is first used or leased caps the cost you can depreciate, whatever the loan or balloon.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: principal $100,000.00, 6% annual nominal rate, 360 monthly payments in arrears, balloon $0.00. Monthly payment $599.55 First payment interest $500.00 First payment principal $99.55 Estimated total interest $115,838.19
 
 ## How the monthly loan payment calculator works
 
 The monthly loan payment calculator works out a fixed monthly payment, the interest and principal in the first payment, and estimated total interest. For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n.
 
+A balloon, or residual, is a lump sum still owed at the end of the term, as in vehicle and equipment finance. Its value today, balloon × (1 + r) raised to −n, comes off the principal before the payment is worked out. Payments in advance fall at the start of each month, so the first carries no interest and each payment is the arrears payment divided by (1 + r). This is the same payment as a spreadsheet’s PMT with the balloon as the future value and type 1 for advance. Total interest is the payments plus the balloon, less the principal.
+
 No statutory rate or external source is applied. The interest rate is yours, not a market or lender rate.
 
 ## What the monthly loan payment calculator leaves out
 
-The monthly loan payment calculator assumes payments in arrears, with no fees or balloon, and a rate that does not change. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45. The result is not a lender’s quote.
+The monthly loan payment calculator assumes a rate that does not change and no fees. It does not work out GST, stamp duty or the tax treatment of the interest or the vehicle. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45. The result is not a lender’s quote.
 
 Loan reconciliation checklist
 
@@ -40,10 +44,13 @@ Case | Inputs | Result
 A 30-year amortising loan | $100,000.00 at 6% over 360 months | Payment $599.55, first interest $500.00, first principal $99.55, total interest $115,838.19
 One month repays the balance and one month’s interest | $1,000.00 at 12% over 1 month | Payment $1,010.00, first interest $10.00, first principal $1,000.00, total interest $10.00
 Nil interest divides the balance | $20.15 at 0% over 2 months | Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00
+A 30% balloon on a 5-year vehicle loan | $60,000.00 at 7.5% over 60 months, balloon $18,000.00 | Payment $954.09, first interest $375.00, first principal $579.09, total interest $15,245.63
+Paid in advance, the first payment carries no interest | $60,000.00 at 7.5% over 60 months, balloon $18,000.00, paid in advance | Payment $948.17, first interest $0.00, first principal $948.17, total interest $14,890.07
+A balloon above the principal is refused | $1,000.00 at 12% over 12 months, balloon $1,000.01 | Refused: the balloon cannot be more than the loan principal
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the ten business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -51,6 +58,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- car limit: https://duguid.com.au/rates/car-limit/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- ten business calculators: https://duguid.com.au/tools/business-calculators/
+- twelve business calculators: https://duguid.com.au/tools/business-calculators/
