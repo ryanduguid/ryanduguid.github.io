@@ -582,8 +582,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # Pages reports an http:// URL, which the CDN answers with a redirect to HTTPS.
+          site="https://${PAGE_URL#*://}"
           curl --fail --silent --show-error --retry 3 --max-time 30 \
-            "${PAGE_URL%/}/.well-known/deployment.json?revision=$GITHUB_SHA" \
+            "${site%/}/.well-known/deployment.json?revision=$GITHUB_SHA" \
             -o "$RUNNER_TEMP/deployment.json"
           python3 -c 'import json,os,pathlib; assert json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"deployment.json").read_text())["sha"] == os.environ["GITHUB_SHA"]'
           "$RUNNER_TEMP/site-tools/site-tools" check_production --source-root "$RUNNER_TEMP/validated-site"
