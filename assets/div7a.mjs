@@ -42,6 +42,7 @@ export const DIV7A_PUBLISHED_RATES = /** @type {const} */ ([
   ['2021-22', '4.52'], ['2022-23', '4.77'], ['2023-24', '8.27'], ['2024-25', '8.77'],
   ['2025-26', '8.37'], ['2026-27', '8.77'],
 ]);
+/** @type {Map<string, bigint>} */
 const PUBLISHED = new Map(DIV7A_PUBLISHED_RATES.map(([year, rate]) => [year, BigInt(Math.round(Number(rate) * 100))]));
 const FIRST_YEAR = Number(DIV7A_PUBLISHED_RATES[0][0].slice(0, 4));
 const LAST_YEAR = Number(DIV7A_PUBLISHED_RATES[DIV7A_PUBLISHED_RATES.length - 1][0].slice(0, 4));
