@@ -1,0 +1,58 @@
+# FBT loan calculator: statutory interest rate and otherwise deductible rule
+
+Source: https://duguid.com.au/tools/business-calculators/fbt-loan/
+
+> The taxable value of a loan fringe benefit for the FBT year ending 31 March 2027: notional interest at 8.27% less interest accrued, reduced by the otherwise deductible rule.
+
+# FBT loan calculator
+
+Taxable value of a loan fringe benefit for the FBT year ending 31 March 2027, at the 8.27% statutory interest rate, with the otherwise deductible rule.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+FBT loan inputs for the FBT year 1 April 2026 to 31 March 2027
+
+Total of the loan’s daily balances for the days the employee owed it in the year (AUD) Interest that accrued on the loan for the year (AUD) Share of the loan used to produce the employee’s assessable income (%) Deduction the employee could claim for the interest that accrued (AUD)
+
+A balance of $50,000 owed every day of the year totals $50,000 × 365 = $18,250,000. Enter 0% income use for a loan to an associate, or where the employee has not given you the loan declaration: the reduction then does not apply.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: daily balances totalling $18,250,000.00, interest accrued $2,000.00, 60% income use, deduction for the interest accrued $1,200.00. Notional interest at 8.27% $4,135.00 Gross taxable value $2,135.00 Gross deduction $2,481.00 Notional deduction $1,281.00 Reduction applied $1,281.00 Taxable value $854.00
+
+## How the FBT loan calculator works
+
+The FBT loan calculator values one loan fringe benefit for the FBT year from 1 April 2026 to 31 March 2027. The notional interest is the interest the loan would have earned at the statutory interest rate, 8.27%, on its balance at the end of each day: the total of the daily balances × 8.27% ÷ 365. The gross taxable value is the amount by which that exceeds the interest that accrued on the loan for the year, never below nil.
+
+Where the employee, not an associate, would have been able to deduct interest on the loan, the otherwise deductible rule reduces the value. The gross deduction is the notional interest × the share of the loan used to produce the employee’s assessable income. The notional deduction is the gross deduction less the deduction the employee could claim for the interest that accrued. The taxable value is the gross taxable value less the notional deduction, never below nil.
+
+Section 8.8 of the ATO’s guide for employers works a $50,000 loan at 4% for the whole year, 60% used for interest-bearing investments, at the 5.65% rate of 2016-17: $825 less a $495 reduction, a taxable value of $330. This page opens on the same loan at 8.27%: notional interest of $4,135.00 less $2,000.00 accrued is $2,135.00; the gross deduction of $2,481.00 less the $1,200.00 deduction for the interest accrued leaves $1,281.00; the taxable value is $854.00. Run at 5.65%, the same steps give the guide’s $330, and its section 8.5 example’s $325; the tests hold both.
+
+## What the FBT loan calculator does not cover
+
+The calculator does not decide whether a loan fringe benefit arises or whether an exemption in section 17 applies, such as a loan at an arm’s length rate by a lender to the public or an advance for work expenses accounted for within 6 months. It does not treat deferred or unpaid interest, which can be a further loan or a debt waiver fringe benefit, a loan made before 1 July 1986 or a housing loan made before 3 April 1986, which can take a lower rate, a car loan, whose otherwise deductible amount follows the car substantiation rules in subsection 19(1), or a loan provided jointly to an employee and an associate. It does not work out the employee’s deduction, and it does not check the declaration the rule requires. A loan fringe benefit carries no GST credit, so it is grossed up at the Type 2 rate, 1.8868; this calculator stops at the taxable value and does not gross it up or work out FBT. Confirm the figures with the ATO’s guide or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: FBT loan calculator
+
+Case | Inputs | Result
+The guide’s section 8.8 loan at the 8.27% rate for 2027 | Daily balances $18,250,000.00, accrued $2,000.00, income use 60%, deduction $1,200.00, at 8.27% | Notional interest $4,135.00, gross taxable value $2,135.00, gross deduction $2,481.00, notional deduction $1,281.00, reduction $1,281.00, taxable value $854.00
+Section 8.8 at the guide’s 2016-17 rate of 5.65%, its $330 | Daily balances $18,250,000.00, accrued $2,000.00, income use 60%, deduction $1,200.00, at 5.65% | Notional interest $2,825.00, gross taxable value $825.00, gross deduction $1,695.00, notional deduction $495.00, reduction $495.00, taxable value $330.00
+Section 8.8, rate set with regard to use: never below nil | Daily balances $18,250,000.00, accrued $2,000.00, income use 60%, deduction $282.50, at 5.65% | Notional deduction $1,412.50, reduction $825.00, taxable value $0.00
+Interest at the statutory rate leaves no value | Daily balances $18,250,000.00, accrued $4,135.00, income use 0%, deduction $0.00, at 8.27% | Notional interest $4,135.00, gross taxable value $0.00, taxable value $0.00
+A $20,000 loan owed for 100 days accrues by the day | Daily balances $2,000,000.00, accrued $0.00, income use 0%, deduction $0.00, at 8.27% | Notional interest $453.15, taxable value $453.15
+A deduction above the interest accrued is refused | Daily balances $18,250,000.00, accrued $1,000.00, income use 60%, deduction $1,000.01, at 8.27% | Refused: the deduction for the interest accrued cannot be more than that interest
+
+One of the twenty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009
+- twenty-one business calculators: https://duguid.com.au/tools/business-calculators/

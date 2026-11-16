@@ -301,13 +301,13 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Eighteen calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Twenty-one calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last checked 15 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
 
 ## Pricing, planning and loans
 
@@ -324,6 +324,9 @@ Published 11 September 2026. Last checked 15 November 2026, the newest of the ca
 
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
+- FBT car parking calculator Whether car parking fringe benefits arise against the $11.48 threshold, and their taxable value by any of the 5 methods, for the FBT year ending 31 March 2027.
+- FBT loan calculator Taxable value of a loan fringe benefit at the 8.27% statutory interest rate, with the otherwise deductible rule, for the FBT year ending 31 March 2027.
+- Meal entertainment calculator Taxable value of meal entertainment fringe benefits by the 50/50 split or 12-week register method, for the FBT year ending 31 March 2027.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
 
@@ -354,6 +357,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
+- FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
+- FBT loan calculator: https://duguid.com.au/tools/business-calculators/fbt-loan/
+- Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/

@@ -64,7 +64,7 @@ The ACT’s flat rate on the whole value, worked by hand | Australian Capital Te
 The Northern Territory formula, worked by hand | Northern Territory, $500,000.00 | Duty $23,928.60
 Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
 
-One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -73,4 +73,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
-- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-one business calculators: https://duguid.com.au/tools/business-calculators/
