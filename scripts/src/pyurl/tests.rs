@@ -1,8 +1,8 @@
 use super::*;
 
-/// Expected values from CPython 3.15's urljoin.
+/// Expected values from CPython 3.15's urljoin, for links on one of this site's pages.
 #[test]
-fn joins_like_urllib() {
+fn joins_page_links_like_urllib() {
     for (base, url, expected) in [
         (
             "https://duguid.com.au/rates/example/",
@@ -44,6 +44,15 @@ fn joins_like_urllib() {
             "HTTP://Example.TEST/A",
             "HTTP://Example.TEST/A",
         ),
+    ] {
+        assert_eq!(urljoin(base, url).unwrap(), expected, "{base} + {url}");
+    }
+}
+
+/// Expected values from CPython 3.15's urljoin.
+#[test]
+fn joins_like_urllib() {
+    for (base, url, expected) in [
         ("https://a.test/b/c", "./", "https://a.test/b/"),
         ("https://a.test/b/c", "..", "https://a.test/"),
         ("https://a.test/b/c?x#y", "", "https://a.test/b/c?x#y"),
