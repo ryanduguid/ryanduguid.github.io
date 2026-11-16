@@ -610,10 +610,49 @@ test('transfer duty notes NSW premium duty from the first dollar over $3,870,000
   await expect(output.locator('.result-note')).toHaveCount(0);
 });
 
+test('vehicle classifier works LCTD 2023/1’s dual cab and the 2025-26 car limit offline, and refuses what it cannot weigh', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/vehicle-class/');
+  const form = page.locator('#vehicle-class form');
+  // A row by its whole label, so a label's words inside another row's answer do not match.
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  const calculate = () => form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  // LCTD 2023/1 example 5: 5 seats and a 960 kg load, 340 kg against 480 kg.
+  await form.getByLabel('Dual or extra cab ute').check();
+  await form.getByLabel('Basic kerb weight (kg), 0 if unknown').fill('2040');
+  await form.getByLabel('Price including GST, before luxury car tax (AUD)').fill('85000');
+  await calculate();
+  await expect(row('Designed principally to carry passengers')).toHaveText('No: 5 seats × 68 kg = 340 kg, not more than the 620 kg left (MT 2024)');
+  await expect(row('Car limit, section 40-230')).toHaveText('Does not apply');
+  await expect(row('GST credit, section 69-10 of the GST Act')).toHaveText('$7,727.27: the GST in the price, with no car limit cap');
+  await expect(row(/^Luxury car tax at the /)).toHaveText('Cannot apply: a commercial vehicle not designed principally to carry passengers (LCTD 2023/1)');
+  await expect(row('FBT on an employee’s private use')).toHaveText('Exempt under paragraph 8(2)(a)(ii), if private use was as limited as you state');
+  await expect(form.locator('output .result-note')).toHaveText(
+    'LCTD 2023/1’s simplified method assumes the ute is a goods vehicle under the Australian Design Rules (paragraph 57).');
+  // The ATO's instant asset write-off example: $75,000 in 2025-26 gives a $6,334 credit and a $68,666 cost.
+  await form.getByLabel('Passenger body (sedan, wagon, SUV)').check();
+  await form.getByLabel('Basic kerb weight (kg), 0 if unknown').fill('2135');
+  await form.getByLabel('Price including GST, before luxury car tax (AUD)').fill('75000');
+  await form.getByLabel('2025-26').check();
+  await calculate();
+  await expect(row('Car limit, section 40-230')).toHaveText('Applies: $69,674.00');
+  await expect(row('GST credit, section 69-10 of the GST Act')).toHaveText('$6,334.00: the GST in the price, up to 1/11 of the car limit');
+  await expect(row('First element of cost for decline in value')).toHaveText('$68,666.00');
+  await form.getByLabel('Another body, such as a truck or bus').check();
+  await calculate();
+  await expect(form.locator('output')).toHaveText('Whether this body was designed principally to carry passengers turns on its appearance, '
+    + 'marketing and specifications (TD 94/19), which this page does not weigh.');
+  await form.getByLabel('Yes, figures unknown').check();
+  await calculate();
+  await expect(form.locator('output')).toHaveText('A modified vehicle is classified on its manufacturer’s figures from the compliance plate; '
+    + 'without them this page cannot classify it.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
-  'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
-  'transfer-duty'];
+  'fbt-car', 'vehicle-class', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
+  'termination-payment', 'transfer-duty'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

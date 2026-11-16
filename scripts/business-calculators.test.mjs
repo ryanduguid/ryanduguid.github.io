@@ -365,6 +365,25 @@ Object.assign(LABELS, { amount: 'amount', credit: 'credit', due: 'due by this in
 const ENGINE_LABELS = { paygInstalment: { instalment: 'instalment' }, pcgRisk: PCG_SHOWN,
   gicPaymentPlan: { instalment: 'instalment', lastDate: (v) => `last instalment ${v}`,
     assumedDays: (v) => `${v} ${v === 1 ? 'day' : 'days'} at the assumed rate` } };
+// The vehicle classifier's results are answers, a load in kg and money.
+const kgs = (value) => `${Number(value).toLocaleString('en-AU')} kg`;
+ENGINE_LABELS.vehicleClass = { load: (v) => `load ${kgs(v)}`, car: (v) => (v ? 'a car' : 'not a car'),
+  passengers: (v) => (v ? 'designed for passengers' : 'not designed for passengers'),
+  carLimit: (v) => (v ? 'car limit applies' : 'no car limit'),
+  capApplies: (v) => (v === null ? 'GST credit cap not decided' : v ? 'GST credit cap applies' : 'no GST credit cap'),
+  credit: (v) => (v === null ? 'GST credit not decided' : `GST credit ${dollars(v)}`), cost: (v) => `cost ${dollars(v)}`,
+  luxury: (v) => ({ 'not-a-car': 'not a car for LCT', under: 'LCT cannot apply', over: 'LCT can apply',
+    commercial: 'a commercial vehicle for LCT', undetermined: 'LCT not decided' })[v],
+  over: (v) => `${dollars(v)} over the LCT threshold`,
+  fbt: (v) => ({ '47(6)': 'FBT subsection 47(6)', '8(2)(a)(i)': 'FBT paragraph 8(2)(a)(i)', '8(2)(a)(ii)': 'FBT paragraph 8(2)(a)(ii)',
+    'car-benefit': 'a car fringe benefit' })[v],
+  exempt: (v) => (v ? 'exempt on the stated use' : 'not exempt') };
+// The vehicle classifier's years, as its form's radios carry them; a test below binds them to their sources.
+const vehicleYears = Object.fromEntries([...readFileSync(new URL('../_includes/calculators/vehicle-class.html', import.meta.url), 'utf8')
+  .matchAll(/name="year" value="([^"]+)" data-car-limit="(\d+)" data-fuel-efficient="(\d+)" data-other="(\d+)"/g)]
+  .map(([, year, carLimit, fuelEfficientThreshold, otherThreshold]) => [year, { carLimit, fuelEfficientThreshold, otherThreshold }]));
+const VEHICLE_BODIES = { passenger: 'Passenger body', 'single-cab': 'Single cab ute', 'dual-cab': 'Dual cab ute', van: 'Panel van',
+  other: 'Another body', motorcycle: 'Motor cycle' };
 
 test('every business calculator shows its boundary cases', () => {
   const pages = readdirSync(new URL('../tools/business-calculators/', import.meta.url), { withFileTypes: true })
@@ -400,6 +419,12 @@ const INPUTS = {
     + `${a.factor3 ? `, remuneration ${dollars(a.remuneration)} against ${dollars(a.benchmark)}` : ''}`,
   gicPaymentPlan: (p) => `${dollars(p.debt)} from ${p.start}, ${p.count} ${p.frequency} `
     + `${p.count === '1' ? 'instalment' : 'instalments'}, ${p.assumedRate}% assumed after the table`,
+  vehicleClass: (v, y) => `${VEHICLE_BODIES[v.body]}, ${v.seats} ${v.seats === '1' ? 'seat' : 'seats'}, gross vehicle mass ${kgs(v.gvm)}`
+    + `${v.kerb === '0' ? '' : `, kerb weight ${kgs(v.kerb)}`}${v.payload === '0' ? '' : `, payload ${kgs(v.payload)}`}`
+    + `${{ no: '', plated: ', modified, manufacturer’s figures', unplated: ', modified, manufacturer’s figures unknown' }[v.modified]}`
+    + `, ${Object.keys(vehicleYears).find((year) => JSON.stringify(vehicleYears[year]) === JSON.stringify(y))}, price ${dollars(Number(v.cost))}`
+    + `${v.credit === 'none' ? ', no GST credit' : ''}${v.fuel === 'efficient' ? ', fuel-efficient' : ''}`
+    + `${v.use === 'other' ? ', private use more than limited' : ''}`,
   cashForecast: (opening, weeks, buffer, delayed) => {
     const week = weeks.findIndex(({ receipts }) => receipts !== '0');
     assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
@@ -677,6 +702,8 @@ const FORM_CALLS = {
   pcgRisk: (f) => [{ gateway1: f.gateway1 === 'yes', gateway2: f.gateway2 === 'yes', entitlement: f.entitlement,
     returned: f.returned, tax: f.tax, factor3: f.factor3 === 'yes', remuneration: f.remuneration, benchmark: f.benchmark }],
   gicPaymentPlan: (f) => [{ debt: f.debt, start: f.start, count: f.count, frequency: f.frequency, assumedRate: f.assumedRate }],
+  vehicleClass: (f) => [{ body: f.body, seats: f.seats, gvm: f.gvm, kerb: f.kerb, payload: f.payload, modified: f.modified,
+    cost: f.cost, credit: f.credit, fuel: f.fuel, use: f.use }, vehicleYears[f.year]],
   staffCost: (f) => [f.wages, f.super, f.other],
   cashForecast: (f) => [f.opening,
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
@@ -1085,4 +1112,139 @@ test('GIC payment plan refuses inputs it cannot work', () => {
   ]) {
     assert.throws(() => calculations.gicPaymentPlan({ ...plan, ...fields }), { message }, JSON.stringify(fields));
   }
+});
+
+// ATO, 'Luxury car tax rate and thresholds' (QC38161, last updated 1 June 2026), read 16 November 2026:
+// https://www.ato.gov.au/tax-rates-and-codes/luxury-car-tax-rate-and-thresholds
+// '2026-27 $91,661 $80,809' and '2025–26 $91,387 $80,567' (fuel-efficient vehicles, other vehicles).
+const LCT_THRESHOLDS = { '2026-27': ['91661', '80809'], '2025-26': ['91387', '80567'] };
+test('the vehicle classifier’s years are the car limit table’s rows and the ATO’s LCT thresholds', () => {
+  const limits = Object.fromEntries(readFileSync(new URL('../rates/car-limit/car-limit.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).slice(1).map((line) => line.split(',').slice(0, 2)));
+  assert.deepEqual(Object.keys(vehicleYears), ['2026-27', '2025-26']);
+  for (const [year, { carLimit, fuelEfficientThreshold, otherThreshold }] of Object.entries(vehicleYears)) {
+    assert.equal(carLimit, limits[year], year);
+    assert.deepEqual([fuelEfficientThreshold, otherThreshold], LCT_THRESHOLDS[year], year);
+  }
+});
+
+const vehicle = (fields) => ({ body: 'passenger', seats: '5', gvm: '3000', kerb: '2135', payload: '0', modified: 'no',
+  cost: '75000', credit: 'full', fuel: 'other', use: 'limited', ...fields });
+// ATO, 'Instant asset write-off for eligible businesses' (last updated 28 August 2026), read 16 November 2026:
+// https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
+// '$69,674 ÷ 11 = $6,334', '($75,000 − $6,334 = $68,666)' and, not registered, 'the car limit ($69,674 in 2025–26)'.
+// ATO, 'Car thresholds from 1 July' (QC 107449, published 9 June 2026), read 16 November 2026:
+// 'For 2026–27, the most GST credit you can claim is $6,353 (that is, 1/11 × $69,883)'.
+test('the GST credit cap and the car limit agree with the ATO’s worked examples', () => {
+  const registered = calculations.vehicleClass(vehicle({}), vehicleYears['2025-26']);
+  assert.deepEqual([registered.credit, registered.cost], [6334, 68666]);
+  assert.equal(calculations.vehicleClass(vehicle({ credit: 'none' }), vehicleYears['2025-26']).cost, 69674);
+  assert.equal(calculations.vehicleClass(vehicle({ cost: '200000' }), vehicleYears['2026-27']).credit, 6353);
+});
+
+// TD 2006/40, read 16 November 2026: https://www.ato.gov.au/law/view/document?docid=TXD/TD200640/NAT/ATO/00001
+// Example 1: '$77,000 is reduced by the input tax credit of $5,182 (1/11 of $57,009) ... to $71,818', then to
+// '$57,009'. Example 2: '$60,000 ... reduced by the input tax credit of $5,182 ... to $54,818'. The
+// determination leaves out the cents of 1/11 of $57,009, $5,182.636..., which rounds to $5,182.64.
+test('the car limit applies after the GST credit, as TD 2006/40’s 2 examples show', () => {
+  const year = { carLimit: '57009', fuelEfficientThreshold: '91661', otherThreshold: '80809' };
+  const first = calculations.vehicleClass(vehicle({ cost: '77000' }), year);
+  assert.deepEqual([Math.trunc(first.credit), first.credit, first.cost], [5182, 5182.64, 57009]);
+  const second = calculations.vehicleClass(vehicle({ cost: '60000' }), year);
+  assert.deepEqual([second.cost, 60000 - Math.trunc(second.credit)], [54817.36, 54818]);
+});
+
+// MT 2024 (consolidated 22 October 2008), read 16 November 2026:
+// https://www.ato.gov.au/law/view/document?docid=MTR/MT2024/NAT/ATO/00001
+// Paragraph 17: 'a gross vehicle weight of 2,000 kgs, a basic kerb weight of 1,400 kgs, and ... a designed seating
+// capacity of five ... the total load capacity is 600 kgs of which the majority, 340 kgs, would be absorbed'.
+// FBT guide for employers, chapter 7, example 19: 1,950 kg and 1,400 kg with 5 seats is 'designed principally for
+// carrying passengers'. LCTD 2023/1, read 16 November 2026, example 5: 5 seats and a 960 kg load, '340 kg' against
+// '960 kg × 0.5 = 480 kg', so the Commissioner will not review it as a luxury car. TD 94/19's 4-wheel drive
+// wagon with 5 seats and 865 kg 'is designed principally for carrying passengers'.
+test('the design tests agree with MT 2024, the FBT guide, LCTD 2023/1 and TD 94/19', () => {
+  const year = vehicleYears['2026-27'];
+  for (const [fields, passengers, fbt] of [
+    [{ body: 'dual-cab', gvm: '2000', kerb: '1400' }, true, 'car-benefit'],
+    [{ body: 'dual-cab', gvm: '1950', kerb: '1400' }, true, 'car-benefit'],
+    [{ body: 'dual-cab', gvm: '3000', kerb: '2040' }, false, '8(2)(a)(ii)'],
+    [{ body: 'passenger', gvm: '3000', kerb: '2135' }, true, 'car-benefit'],
+  ]) {
+    const result = calculations.vehicleClass(vehicle(fields), year);
+    assert.deepEqual([result.passengers, result.fbt], [passengers, fbt], JSON.stringify(fields));
+  }
+  assert.equal(calculations.vehicleClass(vehicle({ body: 'dual-cab', gvm: '3000', kerb: '2040', cost: '85000' }), year).luxury,
+    'commercial');
+  // LCTD 2023/1 paragraphs 52 and 53: a cargo or delivery van is low risk, so no luxury car and no GST credit cap.
+  const van = calculations.vehicleClass(vehicle({ body: 'van', seats: '3', gvm: '3000', kerb: '2100', cost: '90000' }), year);
+  assert.deepEqual([van.luxury, van.capApplies, van.credit], ['commercial', false, 8181.82]);
+});
+
+// Each test turns on one edge: a load of 1 tonne (s 995-1) or 2 tonnes (LCT Act s 27-1), 9 seats, MT 2024's
+// 'exceeds the remaining load', LCTD 2023/1's 'less than 50%', a price over the threshold or the car limit.
+test('the vehicle classifier changes its answer at each edge the law sets', () => {
+  const year = vehicleYears['2026-27'];
+  const at = (fields) => calculations.vehicleClass(vehicle(fields), year);
+  assert.deepEqual([at({ kerb: '2001' }).car, at({ kerb: '2000' }).car], [true, false]);
+  assert.deepEqual([at({ kerb: '1001', cost: '90000' }).luxury, at({ kerb: '1000', cost: '90000' }).luxury], ['over', 'not-a-car']);
+  assert.deepEqual([at({ seats: '8' }).car, at({ seats: '9' }).car, at({ seats: '9' }).fbt], [true, false, '47(6)']);
+  // 5 seats are 340 kg: a 679 kg load leaves 339 kg, 680 kg leaves 340 kg.
+  assert.deepEqual([at({ body: 'dual-cab', kerb: '2321' }).passengers, at({ body: 'dual-cab', kerb: '2320' }).passengers], [true, false]);
+  // LCTD 2023/1's simplified method needs 340 kg below half the load: 681 kg is, 680 kg is not.
+  assert.deepEqual([at({ body: 'dual-cab', kerb: '2319', cost: '90000' }).luxury, at({ body: 'dual-cab', kerb: '2320', cost: '90000' }).luxury],
+    ['commercial', 'undetermined']);
+  assert.deepEqual([at({ fuel: 'efficient', cost: '91661' }).luxury, at({ fuel: 'efficient', cost: '91661.01' }).over], ['under', 0.01]);
+  assert.deepEqual([at({ cost: '80809.01' }).luxury, at({ cost: '80809.01', fuel: 'efficient' }).luxury], ['over', 'under']);
+  // At the car limit the GST in the price is already 1/11 of it; a cent over, the cap holds the credit.
+  assert.deepEqual([at({ cost: '69883' }).credit, at({ cost: '69883.01' }).credit], [6353, 6353]);
+  assert.deepEqual([at({ cost: '69883' }).cost, at({ cost: '69883.11' }).cost], [63530, 63530.11]);
+  // An undecided LCT design leaves the credit undecided only above the car limit.
+  assert.deepEqual([at({ body: 'dual-cab', kerb: '2320', cost: '69883' }).credit, at({ body: 'dual-cab', kerb: '2320', cost: '69883.01' }).credit],
+    [6353, null]);
+  assert.equal(at({ body: 'motorcycle', seats: '1', gvm: '400', kerb: '220' }).car, false);
+});
+
+test('a stated payload stands alone or agrees with the mass and kerb weight', () => {
+  const year = vehicleYears['2026-27'];
+  assert.equal(calculations.vehicleClass(vehicle({ kerb: '0', payload: '865' }), year).load, 865);
+  assert.equal(calculations.vehicleClass(vehicle({ payload: '865' }), year).load, 865);
+});
+
+// The page takes private use as the user's statement and never concludes it: the statement moves only the exemption.
+test('the stated private use changes only whether an eligible vehicle is exempt', () => {
+  const year = vehicleYears['2026-27'];
+  for (const fields of [{ body: 'van', seats: '3' }, { seats: '9' }, { body: 'passenger' }]) {
+    const limited = calculations.vehicleClass(vehicle({ ...fields, use: 'limited' }), year);
+    const other = calculations.vehicleClass(vehicle({ ...fields, use: 'other' }), year);
+    assert.deepEqual({ ...limited, exempt: null }, { ...other, exempt: null }, JSON.stringify(fields));
+    assert.deepEqual([limited.exempt, other.exempt], [limited.fbt !== 'car-benefit', false], JSON.stringify(fields));
+  }
+});
+
+test('the vehicle classifier refuses a specification it cannot classify', () => {
+  const year = vehicleYears['2026-27'];
+  for (const [fields, message] of [
+    [{ kerb: '3000' }, 'The kerb weight and the payload must each be less than the gross vehicle mass.'],
+    [{ kerb: '0', payload: '3000' }, 'The kerb weight and the payload must each be less than the gross vehicle mass.'],
+    [{ kerb: '0' }, 'Enter the kerb weight or the payload.'],
+    [{ payload: '866' }, 'The payload is not the gross vehicle mass less the kerb weight: check the specification.'],
+    [{ modified: 'unplated' }, 'A modified vehicle is classified on its manufacturer’s figures from the compliance plate; '
+      + 'without them this page cannot classify it.'],
+    [{ body: 'other' }, 'Whether this body was designed principally to carry passengers turns on its appearance, '
+      + 'marketing and specifications (TD 94/19), which this page does not weigh.'],
+    [{ body: 'bus' }, 'Choose the body type.'],
+    [{ modified: 'yes' }, 'Say whether the vehicle was modified.'],
+    [{ credit: 'part' }, 'Say whether a full GST credit is claimed.'],
+    [{ fuel: 'hybrid' }, 'Choose the fuel consumption.'],
+    [{ use: 'minor' }, 'Choose the private use you state.'],
+    [{ seats: '0' }, 'Enter a whole number between 1 and 99.'],
+    [{ seats: '5.5' }, 'Enter a whole number between 1 and 99.'],
+    [{ gvm: '2500.5' }, 'Enter a whole number between 1 and 100000.'],
+    [{ cost: '0' }, 'Enter a price above nil.'],
+  ]) {
+    assert.throws(() => calculations.vehicleClass(vehicle(fields), year), { message }, JSON.stringify(fields));
+  }
+  // A body other than a passenger body, ute, van or motor cycle is classified once it is not a car.
+  assert.equal(calculations.vehicleClass(vehicle({ body: 'other', kerb: '1000' }), year).fbt, '47(6)');
+  assert.equal(calculations.vehicleClass(vehicle({ body: 'other', kerb: '1500', cost: '90000' }), year).luxury, 'undetermined');
 });

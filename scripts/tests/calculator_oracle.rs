@@ -47,6 +47,12 @@
 //! debt over the sum of each instalment's discount factor, and the final instalment is
 //! the balance carried day by day, where the engine grows the debt and the instalments
 //! forward together.
+//!
+//! A further 240 seeded vehicles, from their own seed, take each year's car limit and LCT
+//! thresholds as the ATO publishes them, not from the page's radio buttons, and weigh the
+//! seats against half the load once for both MT 2024 and LCTD 2023/1. The GST credit is the
+//! lesser of 1/11 of the price and 1/11 of the car limit, where the engine asks whether the
+//! price exceeds the limit. Both round each 1/11 half up to the cent.
 mod common;
 
 use chrono::{Datelike, NaiveDate, Weekday};
@@ -78,12 +84,16 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r#"
 import { readFileSync } from 'node:fs';
-import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan } from './assets/business-calculators.mjs';
+import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan, vehicleClass } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 // Each jurisdiction's scale as the rendered calculator page gives it to the browser.
 const page = readFileSync('tools/business-calculators/transfer-duty/index.html', 'utf8');
 const scales = Object.fromEntries([...page.matchAll(/value="(AU-[A-Z]+)" data-name="[^"]+" data-scale="([^"]+)"/g)]
   .map(([, place, scale]) => [place, scale.split(';').map((row) => row.split(','))]));
+// Each year's car limit and LCT thresholds as the rendered vehicle classifier's radio buttons carry them.
+const vehicleYears = Object.fromEntries([...readFileSync('tools/business-calculators/vehicle-class/index.html', 'utf8')
+  .matchAll(/name="year" value="([^"]+)" data-car-limit="(\d+)" data-fuel-efficient="(\d+)" data-other="(\d+)"/g)]
+  .map(([, year, carLimit, fuelEfficientThreshold, otherThreshold]) => [year, { carLimit, fuelEfficientThreshold, otherThreshold }]));
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const money = (value) => String(value);
@@ -118,6 +128,14 @@ const run = {
   pcg: ({ arrangement }) => Object.fromEntries(Object.entries(pcgRisk(arrangement))
     .map(([key, value]) => [key, value === null ? null : String(value)])),
   gic: ({ plan }) => Object.fromEntries(Object.entries(gicPaymentPlan(plan)).map(([key, value]) => [key, String(value)])),
+  vehicle: ({ vehicle, year }) => {
+    try {
+      return Object.fromEntries(Object.entries(vehicleClass(vehicle, vehicleYears[year]))
+        .map(([key, value]) => [key, typeof value === 'number' ? money(value) : value]));
+    } catch (error) {
+      return { refused: error.message };
+    }
+  },
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 "#;
@@ -2235,6 +2253,212 @@ fn the_gic_engine_agrees_with_the_oracle_on_every_seeded_case() {
         .unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), GIC_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+const VEHICLE_CASES: usize = 240;
+
+/// Each year, its car limit and its LCT thresholds for fuel-efficient and other vehicles, in
+/// dollars, from the ATO's 'Car thresholds from 1 July' (QC 107449) and 'Luxury car tax rate and
+/// thresholds' (QC 38161), both read 16 November 2026.
+const VEHICLE_YEARS: [(&str, u64, u64, u64); 2] = [
+    ("2026-27", 69_883, 91_661, 80_809),
+    ("2025-26", 69_674, 91_387, 80_567),
+];
+
+/// MT 2024 paragraph 15 and LCTD 2023/1 paragraph 55: 68 kg for each seat, the driver's included.
+const KG_A_SEAT: u64 = 68;
+
+const OTHER_BODY: &str = "Whether this body was designed principally to carry passengers turns on its \
+    appearance, marketing and specifications (TD 94/19), which this page does not weigh.";
+
+/// A vehicle as the oracle sees it: the designed load in kg and the price in cents.
+struct Vehicle {
+    body: &'static str,
+    seats: u64,
+    load: u64,
+    price: u64,
+    full_credit: bool,
+    limited_use: bool,
+}
+
+/// What the engine must return for a vehicle at a car limit and an LCT threshold in dollars.
+fn vehicle_oracle(v: &Vehicle, limit: u64, threshold: u64) -> Value {
+    let (limit, threshold) = (limit * 100, threshold * 100);
+    let motor = v.body != "motorcycle";
+    // ITAA 1997 s 995-1: a load under 1 tonne and fewer than 9 passengers; LCT Act s 27-1: under 2 tonnes.
+    let car = motor && v.load < 1_000 && v.seats < 9;
+    let lct_car = motor && v.load < 2_000 && v.seats < 9;
+    // The seats against half the load: more than half, they outweigh what is left (MT 2024
+    // paragraph 16); less than half, LCTD 2023/1 paragraph 55 takes a ute as commercial.
+    let seats_to_half = (2 * v.seats * KG_A_SEAT).cmp(&v.load);
+    let passengers = match v.body {
+        _ if !car => None,
+        "other" => return json!({"refused": OTHER_BODY}),
+        "dual-cab" => Some(seats_to_half.is_gt()),
+        body => Some(body == "passenger"),
+    };
+    let design = lct_car.then(|| match v.body {
+        "passenger" => "passengers",
+        "van" => "commercial",
+        "single-cab" | "dual-cab" if seats_to_half.is_lt() => "commercial",
+        _ => "undetermined",
+    });
+    let luxury = match design {
+        None => "not-a-car",
+        Some(_) if v.price <= threshold => "under",
+        Some("passengers") => "over",
+        Some(other) => other,
+    };
+    // GST Act s 69-10(4)(a): no cap for a car LCT Act s 25-1(2) keeps from being a luxury car.
+    let cap_applies = match design {
+        _ if !car => Some(false),
+        Some("undetermined") => None,
+        other => Some(other == Some("passengers")),
+    };
+    let eleventh = |cents: u64| half_up(&BigUint::from(cents), &BigUint::from(11_u8));
+    let credit = match cap_applies {
+        _ if !v.full_credit => Some(0),
+        None if v.price > limit => None,
+        Some(true) => Some(eleventh(v.price).min(eleventh(limit))),
+        _ => Some(eleventh(v.price)),
+    };
+    // TD 2006/40: the cost less the credit, then no more than the car limit.
+    let cost = credit
+        .filter(|_| passengers == Some(true))
+        .map(|credit| (v.price - credit).min(limit));
+    let fbt = match v.body {
+        _ if !car => "47(6)",
+        "single-cab" | "van" => "8(2)(a)(i)",
+        _ if passengers == Some(true) => "car-benefit",
+        _ => "8(2)(a)(ii)",
+    };
+    json!({
+        "load": v.load.to_string(), "car": car, "passengers": passengers,
+        "carLimit": passengers == Some(true), "capApplies": cap_applies,
+        "cap": (cap_applies == Some(true)).then(|| shown(eleventh(limit))),
+        "credit": credit.map(shown), "cost": cost.map(shown), "luxury": luxury,
+        "threshold": shown(threshold),
+        "over": (luxury == "over").then(|| shown(v.price - threshold)),
+        "fbt": fbt, "exempt": fbt != "car-benefit" && v.limited_use,
+        "belowThreshold": v.price < threshold,
+    })
+}
+
+/// A vehicle near the edges the law sets: the load beside 1 and 2 tonnes or twice the seats'
+/// weight, and the price beside the car limit or the LCT threshold.
+fn vehicle_case(rng: &mut Seeded) -> (Value, Value) {
+    let body = rng.pick(&[
+        "passenger",
+        "single-cab",
+        "dual-cab",
+        "dual-cab",
+        "van",
+        "other",
+        "motorcycle",
+    ]);
+    let any_seats = 1 + rng.below(20);
+    let seats = rng.pick(&[1, 2, 3, 5, 5, 7, 8, 9, any_seats]);
+    let any_load = 1 + rng.below(3_000);
+    let near = rng.pick(&[999, 1_000, 1_999, 2_000, 2 * seats * KG_A_SEAT, any_load]);
+    let load = near.saturating_add_signed(rng.pick(&[-1, 0, 0, 1])).max(1);
+    let kerb = 1 + rng.below(3_000);
+    let (year, limit, efficient, other) = rng.pick(&VEHICLE_YEARS);
+    let fuel_efficient = rng.below(2) == 1;
+    let threshold = if fuel_efficient { efficient } else { other };
+    let any_price = 1 + rng.cents(20_000_000);
+    let edge = rng.pick(&[limit, threshold]) * 100;
+    let price = rng.pick(&[edge - 1, edge, edge + 1, any_price, any_price]);
+    let full_credit = rng.below(4) != 0;
+    let limited_use = rng.below(2) == 1;
+    // The kerb weight, the payload, or both, which agree.
+    let (kerb_field, payload_field) = match rng.below(3) {
+        0 => (kerb, 0),
+        1 => (0, load),
+        _ => (kerb, load),
+    };
+    let vehicle = json!({
+        "body": body, "seats": seats.to_string(), "gvm": (kerb + load).to_string(),
+        "kerb": kerb_field.to_string(), "payload": payload_field.to_string(),
+        "modified": rng.pick(&["no", "no", "plated"]), "cost": dollars(price),
+        "credit": if full_credit { "full" } else { "none" },
+        "fuel": if fuel_efficient { "efficient" } else { "other" },
+        "use": if limited_use { "limited" } else { "other" },
+    });
+    let v = Vehicle {
+        body,
+        seats,
+        load,
+        price,
+        full_credit,
+        limited_use,
+    };
+    (
+        json!({"kind": "vehicle", "vehicle": vehicle, "year": year}),
+        vehicle_oracle(&v, limit, threshold),
+    )
+}
+
+#[test]
+fn the_vehicle_oracle_works_the_regulators_examples() {
+    let at = |body, seats, load, whole_dollars: u64| Vehicle {
+        body,
+        seats,
+        load,
+        price: whole_dollars * 100,
+        full_credit: true,
+        limited_use: true,
+    };
+    let field = |result: &Value, name: &str| result[name].clone();
+    // TD 94/19: a wagon with 5 seats and an 865 kg load carries passengers; at $75,000 in 2025-26
+    // the ATO's instant asset write-off page gives a $6,334 credit and a $68,666 cost.
+    let wagon = vehicle_oracle(&at("passenger", 5, 865, 75_000), 69_674, 80_567);
+    assert_eq!(
+        [
+            field(&wagon, "credit"),
+            field(&wagon, "cost"),
+            field(&wagon, "fbt")
+        ],
+        [json!("6334"), json!("68666"), json!("car-benefit")]
+    );
+    // MT 2024 paragraph 17 (600 kg) and the FBT guide's example 19 (550 kg): 340 kg of 5 seats
+    // outweighs the load left, and LCTD 2023/1 paragraph 59 leaves LCT undecided. Its example 5
+    // (960 kg): 340 kg is under 480 kg, so a commercial vehicle.
+    for (load, passengers, luxury) in [
+        (600, true, "undetermined"),
+        (550, true, "undetermined"),
+        (960, false, "commercial"),
+    ] {
+        let ute = vehicle_oracle(&at("dual-cab", 5, load, 85_000), 69_883, 80_809);
+        assert_eq!(
+            [field(&ute, "passengers"), field(&ute, "luxury")],
+            [json!(passengers), json!(luxury)],
+            "{load}"
+        );
+    }
+    // TD 2006/40 at a $57,009 limit: $77,000 falls to the limit; $60,000 less 1/11 of the limit,
+    // $5,182.64 (the determination's $5,182), is $54,817.36.
+    let first = vehicle_oracle(&at("passenger", 5, 865, 77_000), 57_009, 80_809);
+    let second = vehicle_oracle(&at("passenger", 5, 865, 60_000), 57_009, 80_809);
+    assert_eq!(
+        [
+            field(&first, "credit"),
+            field(&first, "cost"),
+            field(&second, "cost")
+        ],
+        [json!("5182.64"), json!("57009"), json!("54817.36")]
+    );
+}
+
+#[test]
+fn the_vehicle_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1116_0CA2_9951);
+    let (cases, expected): (Vec<_>, Vec<_>) =
+        (0..VEHICLE_CASES).map(|_| vehicle_case(&mut rng)).unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), VEHICLE_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

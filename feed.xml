@@ -8,6 +8,13 @@
   <updated>2026-11-16T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new vehicle classifier works out from a manufacturer’s specification whether…</title>
+    <link href="https://duguid.com.au/changelog/#entry-428f360104b8da36" />
+    <id>https://duguid.com.au/changelog/#entry-428f360104b8da36</id>
+    <updated>2026-11-16T00:00:00Z</updated>
+    <summary>A new vehicle classifier works out from a manufacturer’s specification whether a vehicle is a car under section 995-1, so whether the car limit and the GST credit cap apply, whether luxury car tax can apply at the 2025-26 or 2026-27 threshold and whether an employer’s FBT exemption for an eligible vehicle can apply on the private use you state. It works MT 2024’s dual cab test, LCTD 2023/1’s ute method and TD 2006/40’s order of the credit and the car limit, and refuses a modified vehicle without its compliance plate figures, a payload that disagrees with the mass and kerb weight, and any other body it cannot weigh.</summary>
+  </entry>
+  <entry>
     <title>The announced measures page notes a bill before Parliament, the Treasury Laws…</title>
     <link href="https://duguid.com.au/changelog/#entry-f28e1789eb59fdee" />
     <id>https://duguid.com.au/changelog/#entry-f28e1789eb59fdee</id>
