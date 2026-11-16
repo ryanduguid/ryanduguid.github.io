@@ -47,13 +47,14 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 {% include site-header.html %}
+{% if page.section == "individual-tax" %}{% assign hub_name = "Individual tax calculators" %}{% assign hub_url = "/tools/individual-tax/" %}{% assign hub_cases = site.data.individual_tax_cases %}{% assign hub_count = "three individual tax calculators" %}{% assign hub_test = "individual-tax" %}{% assign hub_category = "FinanceApplication" %}{% else %}{% assign hub_name = "Business calculators" %}{% assign hub_url = "/tools/business-calculators/" %}{% assign hub_cases = site.data.calculator_cases %}{% assign hub_count = "eighteen business calculators" %}{% assign hub_test = "business-calculators" %}{% assign hub_category = "BusinessApplication" %}{% endif %}
   <main id="main" class="site-main accounting-page">
     <article class="article">
       <header class="article-header site-shell">
-        <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li><a href="/tools/business-calculators/">Business calculators</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
+        <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li><a href="{{ hub_url }}">{{ hub_name }}</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        {% assign published = page.date_published | default: "2026-09-20" %}{% assign boundary = site.data.calculator_cases[page.calculator] %}
+        {% assign published = page.date_published | default: "2026-09-20" %}{% assign boundary = hub_cases[page.calculator] %}
         <p class="page-meta">Published {{ published | date: "%-d %B %Y" }}. {% if boundary.checked %}Last checked <time datetime="{{ boundary.checked }}">{{ boundary.checked | date: "%-d %B %Y" }}</time>{% else %}Last reviewed 27 September 2026{% endif %}.{% unless page.date_published %} Boundary cases added 5 November 2026.{% endunless %}</p>
       </header>
       <div class="site-shell accounting-content">
@@ -61,7 +62,7 @@
 {% include calculators/{{ page.calculator }}.html %}
         <section aria-labelledby="boundary-cases">
           <h2 id="boundary-cases">Boundary cases</h2>
-          <p>Each row is a test: <code>scripts/business-calculators.test.mjs</code> runs this calculator on these fictional inputs and fails if the result differs from the one shown.</p>
+          <p>Each row is a test: <code>scripts/{{ hub_test }}.test.mjs</code> runs this calculator on these fictional inputs and fails if the result differs from the one shown.</p>
           <div class="table-scroll" role="region" aria-label="Boundary cases: {{ page.heading }}" tabindex="0">
             <table class="facts">
               <caption>Boundary cases: {{ page.heading }}</caption>
@@ -73,7 +74,7 @@
           </div>
 {% if boundary.peer %}          <p>Official comparison on {{ boundary.peer.checked }}, on one fictional input: for {{ boundary.peer.input }}, the <a href="{{ boundary.peer.url }}">{{ boundary.peer.name }}</a> gave {{ boundary.peer.peer_result }}, and this calculator gave {{ boundary.peer.output }}. {{ boundary.peer.verdict }}. This records that date only and is not a standing match.</p>
 {% endif %}        </section>
-        <p>One of the <a href="/tools/business-calculators/">eighteen business calculators</a>. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.{% if page.calculator == "cash" %} Use Save inputs to download a local scenario file, then Load inputs to resume it.{% endif %}</p>
+        <p>One of the <a href="{{ hub_url }}">{{ hub_count }}</a>. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.{% if page.calculator == "cash" %} Use Save inputs to download a local scenario file, then Load inputs to resume it.{% endif %}</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up{% if page.calculator == "hourly" %}; the required hourly rate rounds up to the next cent{% endif %}{% if page.calculator == "fixed-fee" %}; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first{% endif %}{% if page.calculator == "margin" or page.calculator == "variance" %}; percentages round to two decimal places, with exact halves rounded away from zero{% endif %}{% if page.calculator == "payg-instalments" %}; the instalment rounds down to whole dollars, as the activity statement takes it{% endif %}{% if page.calculator == "termination-payment" %}; each amount withheld rounds to the nearest dollar, with 50 cents rounded up{% endif %}.</p>
       <p class="byline">
         Written by Ryan Duguid in his own time and on his own equipment.
@@ -120,7 +121,7 @@
       "name": {{ page.heading | jsonify }},
       "description": {{ page.lead | jsonify }},
       "url": "https://duguid.com.au{{ page.url }}",
-      "applicationCategory": "BusinessApplication",
+      "applicationCategory": "{{ hub_category }}",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript.",
       "isAccessibleForFree": true,
@@ -158,8 +159,8 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Business calculators",
-          "item": "https://duguid.com.au/tools/business-calculators/"
+          "name": "{{ hub_name }}",
+          "item": "https://duguid.com.au{{ hub_url }}"
         },
         {
           "@type": "ListItem",

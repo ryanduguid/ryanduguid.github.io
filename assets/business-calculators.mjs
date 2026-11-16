@@ -12,7 +12,7 @@
 
 /** @param {unknown} value
  * @param {{min?: number, max?: number, places?: number, integer?: boolean, money?: boolean}} [options] */
-function number(value, { min = 0, max = 1e9, places = 2, integer = false, money = false } = {}) {
+export function number(value, { min = 0, max = 1e9, places = 2, integer = false, money = false } = {}) {
   const text = typeof value === 'string' ? value.trim() : '';
   // Thousands may be grouped in 3s ('85,000'), and money may start with '$' after
   // any minus sign. A number field accepts exponent notation such as 1e3; ask for

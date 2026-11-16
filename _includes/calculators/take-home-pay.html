@@ -1,0 +1,46 @@
+<section class="business-calculator" id="take-home-pay">
+<form class="calculator-split" data-calculator="take-home-pay">
+<fieldset disabled><legend>Take-home pay inputs for one full income year</legend><div class="form-grid"><fieldset><legend>Income year</legend>
+<label><input type="radio" name="year" value="2026-27" checked /> 2026-27</label>
+<label><input type="radio" name="year" value="2025-26" /> 2025-26</label>
+<label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
+</fieldset>
+<fieldset><legend>Residency for tax purposes, all year</legend>
+<label><input type="radio" name="residency" value="resident" checked /> Australian resident</label>
+<label><input type="radio" name="residency" value="foreign" /> Foreign resident</label>
+<label><input type="radio" name="residency" value="working-holiday" /> Working holiday maker (visa 417 or 462)</label>
+</fieldset>
+<label class="field" for="take-home-salary">Annual salary (whole dollars)<input id="take-home-salary" name="salary" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="75000" required /></label>
+<fieldset><legend>Does that amount include super?</legend>
+<label><input type="radio" name="super" value="excluded" checked /> No, super is paid on top</label>
+<label><input type="radio" name="super" value="included" /> Yes, it is a package including super guarantee</label>
+</fieldset>
+<fieldset><legend>Do you have a study or training loan, such as HELP?</legend>
+<label><input type="radio" name="study-loan" value="no" checked /> No</label>
+<label><input type="radio" name="study-loan" value="yes" /> Yes</label>
+</fieldset>
+</div>
+<p class="field-note">For one job paid evenly all year, with no other income or deductions, so the salary is the taxable income. For a single person with no dependants.</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+{% include calculator-example.html inputs="2026-27, Australian resident, salary $75,000.00 plus super, no study or training loan" rows="Salary|$75,000.00;Employer super guarantee|$9,000.00;Income tax less the low income tax offset|$13,020.00;Medicare levy|$1,500.00;Study and training loan repayment|$0.00;Take-home pay for the year|$60,480.00;Each month, a twelfth|$5,040.00;Each fortnight, a 26th|$2,326.15;Each week, a 52nd|$1,163.08" principal="5" note="The year’s tax on this salary spread evenly, not the amounts an employer withholds each pay" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>Income tax, the low income tax offset and the Medicare levy: as the <a href="/tools/individual-tax/income-tax/">income tax calculator</a> works them out and cites them, on the salary in whole dollars as taxable income.</li>
+<li>Study and training loan repayment: as the <a href="/tools/individual-tax/study-loan/">study and training loan repayment calculator</a> works it out and cites it, with the same taxable income as repayment income.</li>
+<li>Super guarantee: for 2026-27, the charge percentage of 12 in section 17A(2) of the <a href="https://www.legislation.gov.au/C2004A04402/latest/text">Superannuation Guarantee (Administration) Act 1992</a> (Compilation No. 78, 1 July 2026), read 17 November 2026, on qualifying earnings up to the maximum contributions base of $270,830 for the year (section 10A(5)); for 2025-26 and 2024-25, 12% and 11.5% on ordinary time earnings up to a quarterly base of $62,500 and $65,070, which is $250,000 and $260,280 for a year paid evenly. Rates and bases from <a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee">ATO: Super guarantee</a> (Tables 21, 23 and 24, last updated 17 April 2026), read 17 November 2026, and this site’s <a href="/rates/super-guarantee/">super guarantee</a> and <a href="/rates/maximum-contribution-base/">maximum contribution base</a> tables.</li>
+<li>A package including super splits so that salary and super add back to it: super is the rate ÷ (100 + the rate) of the package, or the most the base allows. Each amount rounds half up to the cent.</li>
+<li>Supplied by you: the year, your residency, the salary and whether it includes super, and whether you have a loan.</li>
+</ul>
+</div>
+</form>
+<h2>How the take-home pay calculator works</h2><p>The take-home pay calculator takes one annual salary and works out the year’s income tax, low income tax offset, Medicare levy and any study or training loan repayment on it, then what is left for the year, a month, a fortnight and a week. It also gives the super guarantee an employer must pay on that salary, which is paid to a super fund and is not part of take-home pay.</p><p>These are the year’s tax on that income spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay under the ATO’s PAYG withholding schedules, which round each pay’s withholding and can differ from the year’s tax, with the difference settled when the tax return is assessed. Use the ATO’s <a href="https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator">tax withheld calculator</a> for the amount withheld each pay.</p><p>When the salary includes super, the calculator splits it: at 12%, a package of $112,000 is $100,000 of salary and $12,000 of super. Super guarantee stops at the year’s maximum contribution base, so above it the super stays at the most the base allows.</p>
+<h2>What the take-home pay calculator does not compute</h2><p>The calculator assumes one employer, a salary paid evenly over the full year, and no other income, deductions, offsets or salary sacrifice. It does not compute:</p>
+<ul>
+<li>the PAYG amount withheld each pay, overtime, bonuses, allowances or leave loading;</li>
+<li>salary sacrifice, reportable fringe benefits, or reportable super contributions, which would change repayment income;</li>
+<li>everything the <a href="/tools/individual-tax/income-tax/">income tax calculator</a> leaves out, such as the Medicare levy reduction for families, the Medicare levy surcharge and the seniors and pensioners tax offset;</li>
+<li>whether an employee is entitled to super guarantee, or a second employer’s separate maximum contribution base.</li>
+</ul>
+<p>Confirm the figures with the ATO’s <a href="https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator">Simple tax calculator</a> or a registered tax agent.</p>
+</section>
