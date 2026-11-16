@@ -322,14 +322,14 @@ impl AnalysisJob {
     }
 }
 
-/// The time at `key` when it is a UTC `YYYY-MM-DDTHH:MM:SSZ` time, or None.
+/// The time at `key` when it is a real UTC `YYYY-MM-DDTHH:MM:SSZ` time, or None.
 fn timestamp<'a>(record: &'a Json, key: &str) -> Option<&'a str> {
     text(record, key).filter(|time| {
         fullmatch(
             "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z",
             0,
             time,
-        )
+        ) && chrono::NaiveDateTime::parse_from_str(time, "%Y-%m-%dT%H:%M:%SZ").is_ok()
     })
 }
 

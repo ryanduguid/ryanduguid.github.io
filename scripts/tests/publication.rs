@@ -1108,6 +1108,8 @@ fn analysis_times_must_be_utc_seconds() {
         s(""),
         s("2026-11-16 00:00:05"),
         s("2026-11-16T00:00:05.5Z"),
+        s("2026-11-16T99:99:99Z"),
+        s("2026-02-30T00:00:05Z"),
     ] {
         let (mut site, _) = analysed_main();
         site.analysis_jobs = vec![with(
