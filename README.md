@@ -323,31 +323,34 @@ site-tools favicon_render
 ## About portrait provenance
 
 The portrait at the top of `about/index.html` is an ASCII rendering of a
-headshot Ryan supplied; the photo itself is not in the repository.
-`scripts/render_about_portrait.py` draws it and rewrites the `pre` in place:
+headshot Ryan supplied, cut out on a transparent background; the photo itself
+is not in the repository. `site-tools render_about_portrait` draws it and
+rewrites the `pre` in place:
 
 ```bash
-uv run --script scripts/render_about_portrait.py path/to/headshot.jpg
+site-tools render_about_portrait path/to/cutout.png
 ```
 
-The script declares its own pinned dependencies (OpenCV, NumPy, Pillow and
-fontTools), so uv installs them for that run only. GrabCut separates Ryan from
-the studio backdrop, which becomes empty space. The crop centres his head
-between the ears, keeps the hair and collar, and fades the shoulders out at the
-bottom and lower corners rather than ending on the photo's edges. The tone
-gets gentle local contrast, an edge boost for the eyes, brows and beard line,
-and a faint floor inside the silhouette so the dark suit still reads. Each cell
-of the 120-column grid then gets its own glyph: every candidate's ink is
-measured from the site's own Spline Sans Mono in the 0.6em by 1em cell the page
-draws, in 3 rows by 2 columns of zones, and the closest glyph wins, with
-a light ordered dither so large even areas do not form blocks. The glyphs are
-23 symbols and the space, none of which needs HTML escaping or can open a
-Liquid tag. Running it again on the same photo reproduces the same text.
+The cutout's alpha channel is the silhouette, and the command refuses a photo
+without a transparent background. The head is found from the silhouette: its
+widest row, then the neck below it. The crop centres the head, keeps the hair
+and collar, and fades the shoulders out at the bottom and lower corners rather
+than ending on the photo's edges. The tone is CIE lightness with local contrast
+against its surroundings within the figure, a gentle gamma, a faint floor so
+the dark hair and suit still read, and a thin rim along the silhouette so the
+outline reads on the black canvas. Each cell of the 140-column grid is sampled
+as 6 rows by 4 columns and gets the glyph whose bitmap, drawn from the site's
+own Spline Sans Mono in the 0.6em by 1em cell the page draws, is closest.
+Floyd and Steinberg's error diffusion carries each cell's leftover tone to the
+cells not yet drawn, so even areas get an even texture. The glyphs are 21 symbols and the space, none of which needs HTML
+escaping or can open a Liquid tag; `|` and `-` are left out because stacked
+rows join them into stripes. Running it again on the same photo reproduces the
+same text.
 
-The 75 rows are real text in a `pre`, with trailing spaces trimmed. A
+The 85 rows are real text in a `pre`, with trailing spaces trimmed. A
 `role="img"` wrapper carries the accessible name and the `pre` is
 `aria-hidden`, so screen readers and the text mirrors skip the characters.
-`.about-portrait pre` in `assets/site.css` sizes the font so 120 columns fill
+`.about-portrait pre` in `assets/site.css` sizes the font so 140 columns fill
 the frame and sets each row one em tall, the cell the art was sampled for.
 
 ## Credential documents
