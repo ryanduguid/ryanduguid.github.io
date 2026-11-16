@@ -37,13 +37,17 @@ fn cutout(opaque: bool) -> Vec<u8> {
             pixels.extend([grey, grey, grey, alpha]);
         }
     }
+    encode(size, size, &pixels)
+}
+
+fn encode(width: u32, height: u32, pixels: &[u8]) -> Vec<u8> {
     let mut out = Vec::new();
     {
-        let mut encoder = png::Encoder::new(&mut out, size, size);
+        let mut encoder = png::Encoder::new(&mut out, width, height);
         encoder.set_color(png::ColorType::Rgba);
         encoder.set_depth(png::BitDepth::Eight);
         let mut writer = encoder.write_header().unwrap();
-        writer.write_image_data(&pixels).unwrap();
+        writer.write_image_data(pixels).unwrap();
     }
     out
 }
@@ -83,6 +87,28 @@ fn a_cutout_renders_the_same_text_every_time_within_the_grid() {
 fn a_photo_without_a_transparent_background_is_refused() {
     let error = about_portrait::render(&cutout(true), &font()).unwrap_err();
     assert!(error.contains("transparent"), "{error}");
+}
+
+#[test]
+fn a_head_far_taller_than_it_is_wide_is_refused() {
+    // A head 2 pixels wide and 9 tall, a 1-pixel neck, then shoulders: its
+    // crop would need over 300 rows.
+    let (width, height) = (3u32, 11u32);
+    let mut pixels = Vec::new();
+    for y in 0..height {
+        for x in 0..width {
+            let inside = match y {
+                0..9 => x < 2,
+                9 => x == 0,
+                _ => true,
+            };
+            let grey = 100 + 10 * y as u8;
+            let alpha = if inside { 255 } else { 0 };
+            pixels.extend([grey, grey, grey, alpha]);
+        }
+    }
+    let error = about_portrait::render(&encode(width, height, &pixels), &font()).unwrap_err();
+    assert!(error.contains("rows; check the cutout"), "{error}");
 }
 
 #[test]

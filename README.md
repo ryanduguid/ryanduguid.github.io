@@ -340,10 +340,10 @@ outline reads on the black canvas. Each cell of the 140-column grid is sampled
 as 6 rows by 4 columns and gets the glyph whose bitmap, drawn from the site's
 own Spline Sans Mono in the 0.6em by 1em cell the page draws, is closest.
 Floyd and Steinberg's error diffusion carries each cell's leftover tone to the
-cells not yet drawn, so even areas get an even texture. The glyphs are 21 symbols and the space, none of which needs HTML
-escaping or can open a Liquid tag; `|` and `-` are left out because stacked
-rows join them into stripes. Running it again on the same photo reproduces the
-same text.
+cells not yet drawn, so even areas get an even texture. The glyphs are 21
+symbols and the space, none of which needs HTML escaping or can open a Liquid
+tag; `|` and `-` are left out because stacked rows join them into stripes.
+Running it again on the same photo reproduces the same text.
 
 The 85 rows are real text in a `pre`, with trailing spaces trimmed. A
 `role="img"` wrapper carries the accessible name and the `pre` is
