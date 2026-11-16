@@ -625,7 +625,7 @@
       "id": 2,
       "topic": "general-tax",
       "question": "Which expenses reduce my taxable income?",
-      "answer": "An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.",
+      "answer": "Most deductible expenses need a connection to earning assessable income and the evidence required for that type of claim; a few, such as gifts and donations, do not need that connection. Private spending and reimbursed amounts need separate treatment.",
       "steps": [
         "List each expense, its purpose, date, amount and reimbursement.",
         "Record your work use calculation and check the ATO category before claiming."
@@ -2047,7 +2047,7 @@
       "boundary": "A forecast does not establish acceptance, interest relief or removal of other obligations.",
       "source": "pay",
       "tool": "cash",
-      "fact": "A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and income tax and activity statement debts need separate plans.",
+      "fact": "A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and each account with an overdue debt, such as income tax and activity statement accounts, must be paid in full or have its own plan.",
       "fact_sources": [
         "payment-plans"
       ],
