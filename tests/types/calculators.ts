@@ -105,3 +105,10 @@ calculate.landTaxYear(1100000, { name: 'Tasmania', scale: '0,0,0,0,excess' });
 // @ts-expect-error A foreign or absentee owner is a boolean flag.
 calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess' }, { foreign: 'yes' });
 void landTax;
+const payroll: number = calculate.payrollTax('1500000', '', 'AU-NSW').total;
+// @ts-expect-error Wages are decimal strings, as the form passes them.
+calculate.payrollTax(1500000, '', 'AU-NSW');
+// @ts-expect-error A tax line's rate is the text the page shows.
+const payrollRate: number = calculate.payrollTax('1500000', '', 'AU-NSW').lines[0].rate;
+void payroll;
+void payrollRate;

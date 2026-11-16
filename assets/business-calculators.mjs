@@ -710,3 +710,5 @@ export function gicPaymentPlan(plan) {
   return { instalment: Number(instalment) / 100, final: Number(final) / 100, totalPaid: Number(totalPaid) / 100,
     gic: Number(totalPaid - debt) / 100, lastDate: isoDayNumber(last), assumedDays };
 }
+
+export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';
