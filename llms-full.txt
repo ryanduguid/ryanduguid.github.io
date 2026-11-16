@@ -10279,11 +10279,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# FBT car parking calculator: threshold test and 5 valuation methods
+# FBT car parking calculator: threshold test and 5 methods
 
 Source: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
 
-> The car parking threshold test and the taxable value of car parking fringe benefits for the FBT year ending 31 March 2027, by the commercial parking station, market value, average cost, 12-week register or spaces method.
+> The car parking threshold test and the taxable value of car parking fringe benefits for the FBT year ending 31 March 2027, by any of the 5 methods.
 
 # FBT car parking calculator
 
@@ -10295,9 +10295,9 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Car parking inputs for one work car park, FBT year 1 April 2026 to 31 March 2027
 
-Valuation method Commercial parking station method Market value method, elected, with a valuer’s report Average cost method, elected 12-week register method, elected Spaces method, elected Highest of the lowest all-day fees charged by commercial parking stations within 1 km on Wednesday 1 April 2026, the first business day of the year (AUD) Station, market value or average cost: number of car parking benefits Station or market value: value of each benefit, the lowest all-day fee on its day or the valuer’s amount (AUD) Average cost only: lowest all-day fee on the first day a benefit was provided in the year (AUD) Average cost only: lowest all-day fee on the last day a benefit was provided in the year (AUD) 12-week register only: total value of the car parking benefits it records, after employee contributions, valued as if it had been kept this year (AUD) 12-week register only: days from the first to the last day in the year a benefit was provided 12-week register only: FBT year it was first valid for, the year ending 31 March Spaces only: daily rate amount of each space, its value by the station, market value or average cost method before contributions (AUD) Spaces only: days in each space’s availability period Spaces only: number of spaces Spaces only: employees the election covers at the start of the parking period Spaces only: employees the election covers at the end of the parking period Spaces only: eligible spaces at the start of the parking period Spaces only: eligible spaces at the end of the parking period Every method but the register: employee contributions for these benefits (AUD)
+Valuation method Commercial parking station method Market value method, elected, with a valuer’s report Average cost method, elected 12-week register method, elected Spaces method, elected Highest of the lowest all-day fees of commercial parking stations within 1 km on Wednesday 1 April 2026, the year’s first business day (AUD) Station, market value or average cost: number of car parking benefits Station or market value: each benefit’s value, the lowest all-day fee on its day or the valuer’s amount (AUD) Average cost only: lowest all-day fee on the year’s first day with a benefit (AUD) Average cost only: lowest all-day fee on the year’s last day with a benefit (AUD) 12-week register only: value of the benefits it records as if kept this year, after employee contributions (AUD) 12-week register only: days from the first to the last day in the year a benefit was provided 12-week register only: FBT year it was first valid for, the year ending 31 March Spaces only: daily rate amount of each space, by the station, market value or average cost method, before contributions (AUD) Spaces only: days in each space’s availability period Spaces only: number of spaces Spaces only: employees the election covers at the start of the parking period Spaces only: employees the election covers at the end of the parking period Spaces only: eligible spaces at the start of the parking period Spaces only: eligible spaces at the end of the parking period Every method but the register: employee contributions for these benefits (AUD)
 
-Each method reads only its own fields and the first business day fee. A weekly or monthly fee counts as its daily rate: the fee ÷ the business days in the period. The car parking threshold for the year is $11.48.
+Each method reads only its own fields and the first business day fee. A weekly or monthly fee counts as the fee ÷ the business days in the period.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: commercial parking station method, first business day fee $12.36, 22 benefits at $12.36, employee contributions $0.00. Gross taxable value $271.92 Employee contributions applied $0.00 Excess contributions $0.00 Taxable value $271.92
 
@@ -10313,7 +10313,7 @@ The method is the employer’s choice, made by election for every method but the
 
 ## What the FBT car parking calculator does not cover
 
-The calculator does not decide whether a car parking benefit arises apart from the threshold test: that a car was parked for more than 4 hours between 7 am and 7 pm at premises the employer controls near the employee’s primary place of employment, that the car was used to travel between home and work that day, and that a facility is a commercial parking station within 1 km by the shortest practicable route. It does not check that a fee is representative (sections 39AA and 39AB) or set at arm’s length (subsection 39E(2)), or that an election, valuer’s report or register is valid; it checks only a register’s age, not the 10% increase rule in subsection 39GF(3). It does not apply exemptions, such as the small business exemption in section 58GA, the exempt employers or the disabled persons’ parking exclusion. It values one work car park: under the commercial parking station method it takes one value for every benefit, and under the spaces method one group of spaces sharing a daily rate amount and availability period. It does not split the value between Type 1 and Type 2 benefits, gross it up or work out FBT. Confirm the figures with the ATO’s guide or a registered tax agent.
+Apart from the threshold test, the calculator does not decide whether a car parking benefit arises. It does not check that a car was parked for more than 4 hours between 7 am and 7 pm at premises the employer controls near the employee’s primary place of employment, that the car was used to travel between home and work that day, and that a facility is a commercial parking station within 1 km by the shortest practicable route. It does not check that a fee is representative (sections 39AA and 39AB) or set at arm’s length (subsection 39E(2)), or that an election, valuer’s report or register is valid; it checks only a register’s age, not the 10% increase rule in subsection 39GF(3). It does not apply exemptions, such as the small business exemption in section 58GA, the exempt employers or the disabled persons’ parking exclusion. It values one work car park: under the commercial parking station method it takes one value for every benefit, and under the spaces method one group of spaces sharing a daily rate amount and availability period. It does not split the value between Type 1 and Type 2 benefits, gross it up or work out FBT. Confirm the figures with the ATO’s guide or a registered tax agent.
 
 ## Boundary cases
 
@@ -10345,11 +10345,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# FBT loan calculator: statutory interest rate and otherwise deductible rule
+# FBT loan calculator with the otherwise deductible rule
 
 Source: https://duguid.com.au/tools/business-calculators/fbt-loan/
 
-> The taxable value of a loan fringe benefit for the FBT year ending 31 March 2027: notional interest at 8.27% less interest accrued, reduced by the otherwise deductible rule.
+> A loan fringe benefit’s taxable value for the FBT year ending 31 March 2027: interest at 8.27% less interest accrued, then the otherwise deductible rule.
 
 # FBT loan calculator
 
@@ -10406,11 +10406,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Meal entertainment FBT calculator: 50/50 split and 12-week register
+# Meal entertainment FBT calculator: 50/50 split or register
 
 Source: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
 
-> The taxable value of meal entertainment fringe benefits for the FBT year ending 31 March 2027 under the 50/50 split method or the 12-week register method, with the register's validity checks.
+> The taxable value of meal entertainment fringe benefits for the FBT year ending 31 March 2027, by the 50/50 split or the 12-week register method.
 
 # Meal entertainment calculator
 

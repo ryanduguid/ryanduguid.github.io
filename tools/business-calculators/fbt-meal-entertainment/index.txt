@@ -1,8 +1,8 @@
-# Meal entertainment FBT calculator: 50/50 split and 12-week register
+# Meal entertainment FBT calculator: 50/50 split or register
 
 Source: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
 
-> The taxable value of meal entertainment fringe benefits for the FBT year ending 31 March 2027 under the 50/50 split method or the 12-week register method, with the register's validity checks.
+> The taxable value of meal entertainment fringe benefits for the FBT year ending 31 March 2027, by the 50/50 split or the 12-week register method.
 
 # Meal entertainment calculator
 
