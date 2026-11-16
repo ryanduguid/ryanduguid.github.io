@@ -727,6 +727,8 @@ test('objection periods are 2 or 4 years, 60 days, or the later of an amendmentâ
   assert.equal(on('amended', '4', '2027-06-15', '2024-01-10'), '2028-01-10');
   assert.equal(on('amended', '2', '2027-06-15', '2024-01-10'), '2027-08-14');
   assert.equal(on('amended-fbt', '2', '2027-06-15', '2027-06-15'), '2031-06-15');
+  assert.equal(on('amended-fbt', '2', '2027-06-15', '2024-01-10'), '2028-01-10');
+  assert.equal(on('amended-fbt', '2', '2027-06-15', '2023-01-10'), '2027-08-14');
   assert.equal(calculations.objectionDeadline('amended-fbt', '2', '2027-06-15', '2027-06-15').rule, 'subsection 14ZW(1B)');
 });
 
@@ -969,6 +971,8 @@ test('PCG 2021/4 refuses a failed gateway and figures it cannot score', () => {
     [{ tax: '1000.01' }, 'The tax cannot exceed the firm income.'],
     [{ factor3: true, remuneration: '10' }, 'Enter a commercial benchmark above nil.'],
     [{ tax: '-1' }, 'Enter an amount between 0 and 1000000000.'],
+    [{ factor3: 'false' }, 'Factor 3 must be true or false.'],
+    [{ factor3: undefined }, 'Factor 3 must be true or false.'],
   ]) {
     assert.throws(() => calculations.pcgRisk(pcgArrangement(fields)), { message }, JSON.stringify(fields));
   }

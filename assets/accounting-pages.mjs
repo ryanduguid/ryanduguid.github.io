@@ -346,6 +346,10 @@ function initialiseCalculators([calculate, fieldErrors]) {
             if (rule !== 'nt-formula' && Number(rate) === 0) ruleText = Number(base) ? `a fixed ${whole(base)}` : 'nil';
             result = { inputs: `${place.dataset.name}, dutiable value ${money('value')}`, principal: 0,
               rows: [['General transfer duty', aud(r.duty)], ['Rate applied', ruleText]] };
+            // NSW premium duty, the scale's last bracket, applies to residential land only.
+            if (place.value === 'AU-NSW' && r.bracket === scale.length - 1) {
+              result.note = 'Premium duty applies to residential land only; other land continues at $5.50 for every $100 over $1,290,000';
+            }
             break;
           }
           case 'fbt-car': {

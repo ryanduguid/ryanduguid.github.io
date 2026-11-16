@@ -527,6 +527,7 @@ const pcgScore = (part, whole, factor) => {
 export function pcgRisk(arrangement) {
   const failed = [arrangement.gateway1, arrangement.gateway2].findIndex((passed) => passed !== true);
   if (failed !== -1) throw new Error(`The arrangement fails Gateway ${failed + 1}, so PCG 2021/4 gives it no risk score.`);
+  if (typeof arrangement.factor3 !== 'boolean') throw new Error('Factor 3 must be true or false.');
   const entitlement = cents(arrangement.entitlement);
   const returned = cents(arrangement.returned);
   if (entitlement === 0) throw new Error('Enter a profit entitlement above nil.');
