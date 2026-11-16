@@ -8,12 +8,12 @@ Source: https://github.com/ryanduguid/ryanduguid.github.io
 
 /* SITE */
 
-Last update: 2026-10-29
+Last update: 2026-11-16
 Language: Australian English
 Build: Jekyll static files, hosted on GitHub Pages and delivered through Cloudflare
 Scripts: the site's own modules only; no analytics script is delivered (https://duguid.com.au/privacy/)
 Typefaces: Besley, Public Sans and Spline Sans Mono, self-hosted under the SIL Open Font License 1.1
-Portrait: the About page portrait is text, drawn from a headshot Ryan supplied by scripts/render_about_portrait.py
+Portrait: the About page portrait is text, drawn from a headshot Ryan supplied by site-tools render_about_portrait
 Checks: Playwright with axe on every page, Lighthouse, Node tests and the repository's Rust site-tools checks
 Design record: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/DESIGN.md
 
