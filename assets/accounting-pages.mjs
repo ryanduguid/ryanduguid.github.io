@@ -11,8 +11,9 @@ export function download(text, name, type) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-// Only question pages load their script, so its failure cannot stop a calculator page's.
-if (document.querySelector('details.question')) import('./accounting-questions.mjs');
+// Only question pages load their script, so its failure cannot stop a calculator page's. If it
+// fails, the question controls stay disabled and the page reads as plain text.
+if (document.querySelector('details.question')) void import('./accounting-questions.mjs');
 
 const currencyFormat = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
 // Page copy writes negatives with the minus sign, U+2212; the CSV keeps ASCII.
