@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
+import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
   staffCost, cashForecast, div7aMinimumRepayment, transferDuty } from '../assets/business-calculators.mjs';
 
@@ -1085,4 +1086,124 @@ test('GIC payment plan refuses inputs it cannot work', () => {
   ]) {
     assert.throws(() => calculations.gicPaymentPlan({ ...plan, ...fields }), { message }, JSON.stringify(fields));
   }
+});
+
+// Division 296, read 17 November 2026 on the Federal Register of Legislation: ITAA 1997 ss 296-30
+// and 296-35 (compilation 268, 1 October 2026), https://www.legislation.gov.au/C2004A05138/latest/text:
+// 'for the 2026‑27 income year—$3,000,000' and '$10,000,000'; the Superannuation (Building a Stronger
+// and Fairer Super System) Imposition Act 2026 s 5, https://www.legislation.gov.au/C2026A00009/asmade/text:
+// '15% of the person’s taxable superannuation earnings' and '10% of the person’s very large
+// superannuation balance earnings component'.
+const DIVISION_296_LAW = { largeThreshold: '3000000', veryLargeThreshold: '10000000', rate: '15', veryLargeRate: '10' };
+const division296Html = readFileSync(new URL('../_includes/calculators/division-296.html', import.meta.url), 'utf8');
+// The form's data attributes, as assets/accounting-pages.mjs passes them in form.dataset.
+const division296Year = Object.fromEntries([...division296Html.match(/<form [^>]*>/)[0].matchAll(/ data-([a-z-]+)="([^"]*)"/g)]
+  .filter(([, name]) => name !== 'calculator')
+  .map(([, name, value]) => [name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()), value]));
+const noException = { child: false, settlement: false, died: false };
+const division296 = (balance, earnings, flags = {}) =>
+  calculations.division296({ balance, earnings, ...noException, ...flags }, DIVISION_296_LAW);
+const DIVISION_296_SHOWN = { 'not-above': 'not liable: balance not above $3,000,000', 'no-earnings': 'not liable: earnings not above nil',
+  liable: 'liable', 'rounds-to-nil': 'liable, share rounds to nil', child: 'not liable: child recipient',
+  settlement: 'not liable: structured settlement', died: 'not liable: died' };
+Object.assign(INPUTS, { division296: (member, year) => {
+  assert.deepEqual(year, DIVISION_296_LAW);
+  const flags = { child: 'child recipient', settlement: 'structured settlement', died: 'died by 30 June 2027' };
+  return `Balance ${dollars(member.balance)}, earnings ${dollars(member.earnings)}`
+    + Object.keys(flags).filter((flag) => member[flag]).map((flag) => `, ${flags[flag]}`).join('');
+} });
+Object.assign(FORM_CALLS, { division296: (f) => [{ balance: f.balance, earnings: f.earnings, child: f.child === 'yes',
+  settlement: f.settlement === 'yes', died: f.died === 'yes' }, division296Year] });
+Object.assign(ENGINE_LABELS, { division296: { liability: (v) => DIVISION_296_SHOWN[v],
+  percentage: (v) => `${v.toFixed(2)}% above $3,000,000`, veryLargePercentage: (v) => `${v.toFixed(2)}% above $10,000,000`,
+  taxable: 'taxable earnings', component: (v) => (v === null ? 'no very large component (negative)' : `very large component ${dollars(v)}`),
+  tax: '15% tax', veryLargeTax: '10% tax', total: 'Division 296 tax' } });
+
+test('the Division 296 form carries the 2026-27 thresholds and rates of the Acts', () => {
+  assert.deepEqual(division296Year, DIVISION_296_LAW);
+});
+
+// The Explanatory Memorandum to the Treasury Laws Amendment (Building a Stronger and Fairer Super System)
+// Bill 2026, read 17 November 2026 on ParlInfo (r7437): example 1.1, Jordan, '$4 million', '$100,000',
+// '25 per cent', '$25,000', '$3,750'; example 1.2, Kelly, '$12 million', '$500,000', '75 per cent',
+// '16.67 per cent', '$375,000', '$83,350', '$56,250', '$8,335', '$64,585'.
+test('Division 296 tax agrees with the Explanatory Memorandum’s examples 1.1 and 1.2', () => {
+  assert.deepEqual(division296('4000000', '100000'), { liability: 'liable', percentage: 25, veryLargePercentage: 0,
+    taxable: 25000, component: 0, tax: 3750, veryLargeTax: 0, total: 3750 });
+  assert.deepEqual(division296('12000000', '500000'), { liability: 'liable', percentage: 75, veryLargePercentage: 16.67,
+    taxable: 375000, component: 83350, tax: 56250, veryLargeTax: 8335, total: 64585 });
+});
+
+// ss 296-40(3) and 296-45(3): 'rounded to 2 decimal places (rounding up if the third decimal place is 5
+// or more)'. $150 over $3 million is 0.004999...% and $150.01 is 0.005000...%; $500.02 over $10 million
+// is 0.004999...% and $500.03 is 0.005000...%; $32 million is 90.625% and 68.75% exactly.
+test('Division 296 shares round to 2 places, up from a third decimal place of 5', () => {
+  assert.equal(division296('3000150', '100000').percentage, 0);
+  assert.equal(division296('3000150', '100000').liability, 'rounds-to-nil');
+  assert.equal(division296('3000150.01', '100000').percentage, 0.01);
+  assert.equal(division296('10000500.02', '100000').veryLargePercentage, 0);
+  assert.deepEqual(division296('10000500.03', '100000'), { liability: 'liable', percentage: 70, veryLargePercentage: 0.01,
+    taxable: 70000, component: 10, tax: 10500, veryLargeTax: 1, total: 10501 });
+  const tie = division296('32000000', '100000');
+  assert.deepEqual([tie.percentage, tie.veryLargePercentage, tie.total], [90.63, 68.75, 20469.5]);
+});
+
+test('Division 296 balances must be greater than each threshold, not equal to it', () => {
+  for (const balance of ['0', '2999999.99', '3000000']) assert.equal(division296(balance, '100000').liability, 'not-above', balance);
+  for (const balance of ['9999999.99', '10000000', '10000000.01']) {
+    const result = division296(balance, '100000');
+    assert.deepEqual([result.percentage, result.veryLargePercentage, result.total], [70, 0, 10500], balance);
+  }
+});
+
+// Each amount stays exact and rounds half up to the cent once: 25% of $0.38 is $0.095 and its tax
+// $0.01425; $12 million and $0.04 give taxes of $0.0045 and $0.000667, a total of $0.01.
+test('Division 296 amounts round to the cent only when shown', () => {
+  assert.deepEqual(division296('4000000', '0.38'), { liability: 'liable', percentage: 25, veryLargePercentage: 0,
+    taxable: 0.1, component: 0, tax: 0.01, veryLargeTax: 0, total: 0.01 });
+  const small = division296('12000000', '0.04');
+  assert.deepEqual([small.tax, small.veryLargeTax, small.total], [0, 0, 0.01]);
+  assert.equal(division296('6000000', '0.20').total, 0.02);
+});
+
+test('Division 296 earnings of nil or less give no tax, and a negative very large component shows as none', () => {
+  for (const earnings of ['0', '-0', '-50000', '-1000000000']) {
+    const result = division296('12000000', earnings);
+    assert.deepEqual([result.liability, result.taxable, result.tax, result.veryLargeTax, result.total],
+      ['no-earnings', 0, 0, 0, 0], earnings);
+    assert.equal(result.component, earnings === '0' || earnings === '-0' ? 0 : null, earnings);
+  }
+  assert.equal(division296('10000000.01', '-50000').component, 0);
+});
+
+test('each Division 296 exception removes the liability, and death makes the balance nil', () => {
+  assert.deepEqual(division296('4000000', '100000', { child: true }), { liability: 'child', percentage: 25,
+    veryLargePercentage: 0, taxable: 25000, component: 0, tax: 0, veryLargeTax: 0, total: 0 });
+  assert.equal(division296('4000000', '100000', { settlement: true }).liability, 'settlement');
+  assert.equal(division296('4000000', '100000', { settlement: true }).taxable, 25000);
+  assert.deepEqual(division296('12000000', '500000', { died: true }), { liability: 'died', percentage: 0,
+    veryLargePercentage: 0, taxable: 0, component: 0, tax: 0, veryLargeTax: 0, total: 0 });
+  assert.equal(division296('4000000', '100000', { child: true, died: true }).liability, 'child');
+  assert.equal(division296('4000000', '100000', { child: true, died: true }).taxable, 0);
+});
+
+test('Division 296 refuses an unanswered exception and figures it cannot work', () => {
+  assert.throws(() => division296('4000000', '100000', { died: 'no' }), { message: 'Answer each question about the exceptions.' });
+  assert.throws(() => division296('4000000', '100000', { child: undefined }), { message: 'Answer each question about the exceptions.' });
+  for (const [balance, earnings, message] of [['-0.01', '0', 'Enter an amount between 0 and 1000000000.'],
+    ['1000000000.01', '0', 'Enter an amount between 0 and 1000000000.'], ['4000000.001', '0', 'Enter a number with no more than 2 decimal places.'],
+    ['4000000', '-1000000000.01', 'Enter an amount between -1000000000 and 1000000000.'], ['4000000', 'NaN', 'Enter a number using digits only.']]) {
+    assert.throws(() => division296(balance, earnings), { message }, `${balance} ${earnings}`);
+  }
+});
+
+test('the Division 296 page opens on the result its calculation gives for the form’s inputs', () => {
+  const example = division296Html.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const result = calculations.division296Result({ balance: '4000000', earnings: '100000', ...noException }, division296Year, aud);
+  assert.equal(result.inputs, example[1]);
+  assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
+  assert.equal(String(result.principal), example[3]);
+  assert.equal(result.note, example[4]);
+  assert.equal(result.note, DIVISION_296_LIABILITY.liable);
 });

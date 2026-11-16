@@ -98,3 +98,12 @@ calculate.fixedFee('18.5', '95', '40', '5', true, '12');
 // @ts-expect-error Adding GST is a boolean flag.
 calculate.fixedFee('18.5', '95', '40', '10', 'yes', '12');
 void fee;
+const member = { balance: '4000000', earnings: '100000', child: false, settlement: false, died: false };
+const division296Year = { largeThreshold: '3000000', veryLargeThreshold: '10000000', rate: '15', veryLargeRate: '10' };
+const division296Total: number = calculate.division296(member, division296Year).total;
+// @ts-expect-error Each exception is a boolean answer, as the form passes it.
+calculate.division296({ ...member, died: 'no' }, division296Year);
+// @ts-expect-error The very large component is null when negative.
+const component: number = calculate.division296(member, division296Year).component;
+void division296Total;
+void component;

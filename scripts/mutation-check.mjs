@@ -20,6 +20,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const levy = { file: 'assets/levy.mjs', test: 'scripts/levy.test.mjs' };
 const business = { file: 'assets/business-calculators.mjs', test: 'scripts/business-calculators.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
+const division296 = { ...business, file: 'assets/division-296.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -118,6 +119,15 @@ const MUTATIONS = [
   { ...business, name: 'ETP preservation age table is a year out', find: 'july - 1904', replace: 'july - 1903' },
   { ...business, name: 'ETP accepts a date of birth after the year', find: 'born > year.yearEnd', replace: 'born > \'9999\'' },
   { ...business, name: 'ETP accepts 151 years of service', find: 'max: 150, integer: true', replace: 'max: 151, integer: true' },
+  { ...division296, name: 'Division 296 shares truncate', find: 'ratioCents((balance - threshold) * 10000n, balance)', replace: '((balance - threshold) * 10000n / balance)' },
+  { ...division296, name: 'Division 296 taxes a balance equal to the threshold', find: 'reference <= BigInt(cents(year.largeThreshold))', replace: 'reference < BigInt(cents(year.largeThreshold))' },
+  { ...division296, name: 'Division 296 keeps the balance after death', find: 'member.died ? 0n : balance', replace: 'balance' },
+  { ...division296, name: 'Division 296 taxes negative earnings', find: 'earnings > 0n ? earnings * percentage : 0n', replace: 'earnings * percentage' },
+  { ...division296, name: 'Division 296 takes the 10% on taxable earnings', find: 'component * hundredths(year.veryLargeRate)', replace: 'taxable * hundredths(year.veryLargeRate)' },
+  { ...division296, name: 'Division 296 ignores the exceptions', find: "const liable = liability === 'liable' || liability === 'rounds-to-nil';", replace: 'const liable = true;' },
+  { ...division296, name: 'Division 296 rounds each tax before the total', find: 'shown(tax + veryLargeTax, 100000000n)', replace: 'shown(tax, 100000000n) + shown(veryLargeTax, 100000000n)' },
+  { ...division296, name: 'Division 296 shows a negative component as nil', find: 'component < 0n ? null', replace: 'component < 0n ? 0' },
+  { ...division296, name: 'Division 296 accepts an exception answered with text', find: "typeof flag !== 'boolean'", replace: 'false' },
 ];
 
 // Runs that must read as invalid, not as caught.

@@ -488,6 +488,11 @@ dates by topic, the two week lodgment concession terms and the BAS agent lodgmen
 2026-27. They were added to the same list before a CI run for the same reason. A browser
 loaded each with the expected dates on 15 November 2026.
 
+The Division 296 tax calculator cites the ATO's Division 296 tax on large super balances
+page, not linked elsewhere. It was added to the same list before a CI run for the same
+reason. It returned HTTP 200 with the expected thresholds and rates to a local request on
+17 November 2026.
+
 ## Release claims
 
 `scripts/release_record.json` is the reviewed statement of which release each page

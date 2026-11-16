@@ -503,6 +503,13 @@ function initialiseCalculators([calculate, fieldErrors]) {
             note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
             break;
           }
+          case 'division-296': {
+            // The thresholds and rates come from the form; the Node tests bind them to the Acts.
+            const yes = name => value(name) === 'yes';
+            result = calculate.division296Result({ balance: value('balance'), earnings: value('earnings'), child: yes('child'),
+              settlement: yes('settlement'), died: yes('died') }, form.dataset, aud);
+            break;
+          }
           default: throw new Error('Unknown calculator.');
         }
         renderResult(output, result);
