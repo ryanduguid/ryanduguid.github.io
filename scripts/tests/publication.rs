@@ -60,6 +60,9 @@ struct Site {
     jobs: Vec<Json>,
     analysis_jobs: Vec<Json>,
     analyses: Json,
+    /// The second page of the analysis listing; later pages are empty.
+    older_analyses: Json,
+    analysis_reads: Cell<usize>,
     /// The processing status of each analysis upload.
     upload: &'static str,
     alerts: Json,
@@ -91,6 +94,8 @@ impl Site {
             jobs: vec![job.clone()],
             analysis_jobs: vec![analysis_job("python")],
             analyses: Json::Array(vec![uploaded("python", "2026-11-16T00:02:30Z")]),
+            older_analyses: json("[]"),
+            analysis_reads: Cell::new(0),
             upload: "complete",
             alerts: Json::Array(vec![Json::Array(vec![])]),
             alerts_later: None,
@@ -107,27 +112,29 @@ impl Site {
             assert!(!paginate);
             return json(&format!(r#"{{"object": {{"sha": "{}"}}}}"#, self.main));
         }
-        if endpoint
-            == format!(
-                "repos/{REPO}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100"
-            )
-        {
+        if let Some(page) = endpoint.strip_prefix(&format!(
+            "repos/{REPO}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100&page="
+        )) {
             assert!(!paginate);
-            return self.analyses.clone();
+            self.analysis_reads.set(self.analysis_reads.get() + 1);
+            return match page {
+                "1" => self.analyses.clone(),
+                "2" => self.older_analyses.clone(),
+                _ => json("[]"),
+            };
         }
-        if endpoint == format!("repos/{REPO}/code-scanning/sarifs/0a-1") {
+        if endpoint.starts_with(&format!("repos/{REPO}/code-scanning/sarifs/")) {
             assert!(!paginate);
             return json(&format!(r#"{{"processing_status": "{}"}}"#, self.upload));
         }
         assert!(paginate);
-        if endpoint.contains("code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL")
-        {
+        if endpoint.contains("code-scanning/alerts?ref=refs/heads/main&tool_name=CodeQL&") {
             self.alert_reads.set(self.alert_reads.get() + 1);
             match &self.alerts_later {
                 Some(later) if self.alert_reads.get() > 1 => later.clone(),
                 _ => self.alerts.clone(),
             }
-        } else if endpoint.contains("/runs/6/jobs?") {
+        } else if endpoint.contains("/runs/6/jobs?") || endpoint.contains("/runs/5/jobs?") {
             page("jobs", &self.analysis_jobs)
         } else if endpoint.contains("/jobs?") {
             page("jobs", &self.jobs)
@@ -156,16 +163,22 @@ fn analysis_job(language: &str) -> Json {
     ))
 }
 
-/// The analysis of `language` code scanning lists for the commit, created at `created`.
+/// The analysis of `language` code scanning lists for the commit, created at `created`,
+/// with no results.
 fn uploaded(language: &str, created: &str) -> Json {
     json(&format!(
-        r#"{{"id": 9, "commit_sha": "{}", "category": "/language:{language}", "created_at": "{created}", "sarif_id": "0a-1"}}"#,
+        r#"{{"id": {}, "commit_sha": "{}", "category": "/language:{language}", "created_at": "{created}", "sarif_id": "0a-1", "results_count": 0}}"#,
+        100 + language.len(),
         commit()
     ))
 }
 
+/// An open alert with `rule`, last found by this commit's python analysis.
 fn alert(rule: &str) -> Json {
-    json(&format!(r#"{{"number": 1, "rule": {rule}}}"#))
+    json(&format!(
+        r#"{{"number": 1, "state": "open", "rule": {rule}, "most_recent_instance": {{"commit_sha": "{}", "category": "/language:python"}}}}"#,
+        commit()
+    ))
 }
 
 fn value_error(result: Result<bool, Refusal>) -> String {
@@ -811,7 +824,10 @@ fn main_results_wait_for_this_commits_analysis_and_a_settled_alert_listing() {
     }
 
     let (mut site, _) = analysed_main();
-    site.alerts_later = Some(json(r#"[[{"number": 2, "rule": {"severity": "note"}}]]"#));
+    site.alerts_later = Some(Json::Array(vec![Json::Array(vec![with(
+        &alert(r#"{"severity": "note"}"#),
+        &[("number", n(2))],
+    )])]));
     assert_eq!(site.evaluate(), Ok(false));
 }
 
@@ -882,7 +898,95 @@ fn analysis_jobs_must_be_readable_and_present() {
 #[test]
 fn an_alert_whose_level_changes_between_reads_waits() {
     let (mut site, _) = analysed_main();
-    site.alerts = json(r#"[[{"number": 1, "rule": {"severity": "warning"}}]]"#);
-    site.alerts_later = Some(json(r#"[[{"number": 1, "rule": {"severity": "error"}}]]"#));
+    site.alerts = Json::Array(vec![Json::Array(vec![alert(r#"{"severity": "warning"}"#)])]);
+    site.alerts_later = Some(Json::Array(vec![Json::Array(vec![alert(
+        r#"{"severity": "error"}"#,
+    )])]));
     assert_eq!(site.evaluate(), Ok(false));
+}
+
+#[test]
+fn overlapping_analysis_runs_cannot_share_one_upload() {
+    let (mut site, analysis) = analysed_main();
+    site.runs = vec![
+        site.run.clone(),
+        analysis.clone(),
+        with(&analysis, &[("id", n(5))]),
+    ];
+    assert_eq!(site.evaluate(), Ok(false));
+    site.analyses = Json::Array(vec![
+        with(
+            &uploaded("python", "2026-11-16T00:02:40Z"),
+            &[("id", n(200))],
+        ),
+        uploaded("python", "2026-11-16T00:02:30Z"),
+    ]);
+    assert_eq!(site.evaluate(), Ok(true));
+}
+
+#[test]
+fn analyses_are_read_page_by_page_until_found_or_older_than_the_jobs() {
+    // Newer analyses of other commits fill the first page.
+    let (mut site, _) = analysed_main();
+    let other = with(
+        &uploaded("python", "2026-11-16T00:02:59Z"),
+        &[("id", n(300)), ("commit_sha", s(&"b".repeat(40)))],
+    );
+    site.analyses = Json::Array(vec![other.clone()]);
+    site.older_analyses = Json::Array(vec![uploaded("python", "2026-11-16T00:02:30Z")]);
+    assert_eq!(site.evaluate(), Ok(true));
+    assert_eq!(site.analysis_reads.get(), 2);
+    // A page ending before the earliest job started ends the search.
+    let (mut site, _) = analysed_main();
+    site.analyses = Json::Array(vec![with(
+        &other,
+        &[("created_at", s("2026-11-16T00:00:04Z"))],
+    )]);
+    site.older_analyses = Json::Array(vec![uploaded("python", "2026-11-16T00:02:30Z")]);
+    assert_eq!(site.evaluate(), Ok(false));
+    assert_eq!(site.analysis_reads.get(), 1);
+}
+
+#[test]
+fn alerts_must_reflect_this_commits_analyses() {
+    let elsewhere = |category: &str| {
+        Json::Array(vec![Json::Array(vec![with(
+            &alert(r#"{"severity": "note"}"#),
+            &[(
+                "most_recent_instance",
+                json(&format!(
+                    r#"{{"commit_sha": "{}", "category": "{category}"}}"#,
+                    "b".repeat(40)
+                )),
+            )],
+        )])])
+    };
+    // An analysis with results, before any alert points at this commit.
+    let (mut site, _) = analysed_main();
+    site.analyses = Json::Array(vec![with(
+        &uploaded("python", "2026-11-16T00:02:30Z"),
+        &[("results_count", n(1))],
+    )]);
+    assert_eq!(site.evaluate(), Ok(false));
+    site.alerts = Json::Array(vec![Json::Array(vec![alert(r#"{"severity": "note"}"#)])]);
+    assert_eq!(site.evaluate(), Ok(true));
+    // An open alert in an analysed category still pointing at an older commit.
+    let (mut site, _) = analysed_main();
+    site.alerts = elsewhere("/language:python");
+    assert_eq!(site.evaluate(), Ok(false));
+    // One in a category this run did not analyse does not hold publication.
+    site.alerts = elsewhere("/language:ruby");
+    assert_eq!(site.evaluate(), Ok(true));
+}
+
+#[test]
+fn an_alert_without_its_state_or_instance_is_unreadable() {
+    let (mut site, _) = analysed_main();
+    for change in [("state", Json::Null), ("most_recent_instance", Json::Null)] {
+        site.alerts = Json::Array(vec![Json::Array(vec![with(
+            &alert(r#"{"severity": "note"}"#),
+            &[change],
+        )])]);
+        assert_eq!(value_error(site.evaluate()), "Unreadable alert instance");
+    }
 }

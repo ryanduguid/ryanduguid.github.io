@@ -12,10 +12,12 @@ a pull request whose head is a main commit would attach to that commit, so
 `site-tools check_publication` does not read it. It needs CodeQL default setup's
 `dynamic/github-code-scanning/codeql` run for the exact main commit from this
 repository to succeed. Each `Analyze (<language>)` job in that run's latest
-attempt must have uploaded an analysis of the commit in category
-`/language:<language>` whilst it ran, and code scanning must report that upload
-processed before main's open CodeQL alerts are read. 2 reads of the alerts must
-agree on each alert's severities. Any open alert on main at GitHub's
+attempt must have its own upload of the commit in category
+`/language:<language>`, made whilst it ran, and code scanning must report that
+upload processed before main's CodeQL alerts are read. 2 reads of the alerts must
+agree on each alert's state and severities, every open alert in an analysed
+category must have this commit as its most recent instance, and an analysis with
+results must have an alert that does. Any open alert on main at GitHub's
 default failure threshold for that check (error severity, or high or critical
 security severity), however old, refuses publication; a repository setting that
 changes the threshold is not read. It also refuses a failed analysis, and waits

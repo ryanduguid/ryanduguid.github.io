@@ -268,35 +268,66 @@ fn array_items(payload: &Json, what: &str) -> Result<Vec<Json>> {
 /// Whether code scanning holds main's CodeQL results for `commit` and none of its
 /// open alerts reaches the pull request check's default failure threshold: error
 /// severity, or high or critical security severity. Any such alert refuses
-/// publication, however old. False while the results are still being processed or
-/// the alert listing changes between reads. Each `Analyze (<language>)` job of the
-/// commit's analysis runs, in its latest attempt, must have uploaded an analysis of
-/// the commit in category `/language:<language>` whilst it ran, and code scanning
-/// must have finished processing that upload, so the alerts read afterwards hold its
-/// results. An earlier attempt's analysis was uploaded before the job started.
+/// publication, however old. False while the results are still being processed, the
+/// alert listing changes between reads or does not yet reflect this commit's
+/// analyses.
 fn main_results_pass(
     repository: &str,
     commit: &str,
     runs: &[String],
     fetch: &mut Fetch,
 ) -> Result<bool> {
-    // shortcut: only the newest 100 analyses on main are read. The listing ignores a
-    // commit filter, and paging through main's history on every poll is slow; main
-    // gets 4 analyses a push, and check_publication only runs for main's head.
-    let listing = fetch(
-        &format!(
-            "repos/{repository}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100"
-        ),
-        false,
-    )?;
-    let analyses = array_items(&Json::Array(vec![listing]), "analysis")?;
+    let Some(analysed) = processed_analyses(repository, commit, runs, fetch)? else {
+        return Ok(false);
+    };
+    let endpoint = format!(
+        "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&tool_name=CodeQL&per_page=100"
+    );
+    let alerts = alert_levels(&fetch(&endpoint, true)?)?;
+    if alert_levels(&fetch(&endpoint, true)?)? != alerts || !current(&alerts, &analysed, commit) {
+        return Ok(false);
+    }
+    if alerts.iter().any(|(_, alert)| {
+        alert.open
+            && (alert.severity.as_deref() == Some("error")
+                || matches!(alert.security.as_deref(), Some("high" | "critical")))
+    }) {
+        return refuse("Main has an open CodeQL alert the pull request check would fail on");
+    }
+    Ok(true)
+}
+
+/// A job of an analysis run: its language and when it started and finished.
+struct AnalysisJob {
+    category: String,
+    started: String,
+    completed: String,
+}
+
+impl AnalysisJob {
+    /// Whether `analysis` is this job's upload of `commit`: its category, created
+    /// whilst the job ran. GitHub writes these times as UTC `YYYY-MM-DDTHH:MM:SSZ`,
+    /// which sort as text.
+    fn uploaded(&self, analysis: &Json, commit: &str) -> bool {
+        let created = text(analysis, "created_at").unwrap_or_default();
+        is(analysis, "commit_sha", commit)
+            && is(analysis, "category", &self.category)
+            && created > self.started.as_str()
+            && created <= self.completed.as_str()
+    }
+}
+
+/// The `Analyze (<language>)` jobs of each run's latest attempt. A run without one,
+/// or a job without both times, refuses.
+fn analysis_jobs(repository: &str, runs: &[String], fetch: &mut Fetch) -> Result<Vec<AnalysisJob>> {
+    let mut found = Vec::new();
     for run in runs {
         let jobs = stable_items(
             fetch,
             &format!("repos/{repository}/actions/runs/{run}/jobs?filter=latest"),
             "jobs",
         )?;
-        let mut languages = 0;
+        let before = found.len();
         for job in &jobs {
             let Some(language) = text(job, "name")
                 .and_then(|name| name.strip_prefix("Analyze ("))
@@ -304,65 +335,160 @@ fn main_results_pass(
             else {
                 continue;
             };
-            languages += 1;
             let (Some(started), Some(completed)) =
                 (text(job, "started_at"), text(job, "completed_at"))
             else {
                 return refuse("Unreadable analysis job");
             };
-            let category = format!("/language:{language}");
-            // GitHub writes these times as UTC `YYYY-MM-DDTHH:MM:SSZ`, which sort as text.
-            let Some(analysis) = analyses.iter().find(|analysis| {
-                is(analysis, "commit_sha", commit)
-                    && is(analysis, "category", &category)
-                    && text(analysis, "created_at")
-                        .is_some_and(|created| created > started && created <= completed)
-            }) else {
-                return Ok(false);
-            };
-            let upload = match text(analysis, "sarif_id") {
-                Some(id) if fullmatch("[0-9a-f-]+", 0, id) => id,
-                _ => return refuse("Unreadable analysis upload"),
-            };
-            let status = fetch(
-                &format!("repos/{repository}/code-scanning/sarifs/{upload}"),
-                false,
-            )?;
-            match text(&status, "processing_status") {
-                Some("complete") => {}
-                Some("pending") => return Ok(false),
-                Some("failed") => {
-                    return refuse("Code scanning could not process main's CodeQL results");
-                }
-                _ => return refuse("Unreadable analysis upload"),
-            }
+            found.push(AnalysisJob {
+                category: format!("/language:{language}"),
+                started: started.to_owned(),
+                completed: completed.to_owned(),
+            });
         }
-        if languages == 0 {
+        if found.len() == before {
             return refuse("CodeQL analysis of main has no Analyze job");
         }
     }
-    let endpoint = format!(
-        "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&per_page=100"
-    );
-    let alerts = alert_levels(&fetch(&endpoint, true)?)?;
-    if alert_levels(&fetch(&endpoint, true)?)? != alerts {
-        return Ok(false);
-    }
-    if alerts.iter().any(|(_, severity, security)| {
-        severity.as_deref() == Some("error")
-            || matches!(security.as_deref(), Some("high" | "critical"))
-    }) {
-        return refuse("Main has an open CodeQL alert the pull request check would fail on");
-    }
-    Ok(true)
+    Ok(found)
 }
 
-/// An open alert's number, rule severity and rule security severity.
-type AlertLevel = (Option<BigInt>, Option<String>, Option<String>);
+/// Each analysis job's own upload of the commit, made whilst the job ran, once code
+/// scanning has processed it: each upload's category and result count. None while
+/// an upload is missing or pending. A rerun attempt's jobs start after the earlier
+/// attempt finished, so its upload falls outside their windows, and no upload counts
+/// for 2 jobs.
+fn processed_analyses(
+    repository: &str,
+    commit: &str,
+    runs: &[String],
+    fetch: &mut Fetch,
+) -> Result<Option<Vec<(String, BigInt)>>> {
+    let jobs = analysis_jobs(repository, runs, fetch)?;
+    let Some(uploads) = job_uploads(repository, commit, &jobs, fetch)? else {
+        return Ok(None);
+    };
+    let mut analysed = Vec::new();
+    for upload in &uploads {
+        let (Some(id), Some(results)) =
+            (text(upload, "sarif_id"), int(upload.get("results_count")))
+        else {
+            return refuse("Unreadable analysis upload");
+        };
+        if !fullmatch("[0-9a-f-]+", 0, id) {
+            return refuse("Unreadable analysis upload");
+        }
+        let status = fetch(
+            &format!("repos/{repository}/code-scanning/sarifs/{id}"),
+            false,
+        )?;
+        match text(&status, "processing_status") {
+            Some("complete") => {}
+            Some("pending") => return Ok(None),
+            Some("failed") => {
+                return refuse("Code scanning could not process main's CodeQL results");
+            }
+            _ => return refuse("Unreadable analysis upload"),
+        }
+        let category = text(upload, "category").unwrap_or_default().to_owned();
+        analysed.push((category, results.clone()));
+    }
+    Ok(Some(analysed))
+}
 
-/// Each open alert's level. A rule must hold a severity, as text or null, and any
-/// security severity as text or null, or the alert is unreadable.
-fn alert_levels(listing: &Json) -> Result<Vec<AlertLevel>> {
+/// For each job, an analysis of `commit` in its category created whilst it ran and
+/// not matched to another job. The listing is newest first and ignores a commit
+/// filter, so pages are read until every job has its upload or the page reaches
+/// analyses older than the earliest job. None while a job has no upload.
+fn job_uploads(
+    repository: &str,
+    commit: &str,
+    jobs: &[AnalysisJob],
+    fetch: &mut Fetch,
+) -> Result<Option<Vec<Json>>> {
+    let earliest = jobs
+        .iter()
+        .map(|job| job.started.as_str())
+        .min()
+        .unwrap_or_default();
+    let mut matched: Vec<Option<Json>> = jobs.iter().map(|_| None).collect();
+    for page in 1.. {
+        let listing = fetch(
+            &format!(
+                "repos/{repository}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100&page={page}"
+            ),
+            false,
+        )?;
+        let analyses = array_items(&Json::Array(vec![listing]), "analysis")?;
+        for analysis in &analyses {
+            let taken = |m: &Option<Json>| {
+                m.as_ref()
+                    .is_some_and(|m| m.get("id") == analysis.get("id"))
+            };
+            if matched.iter().any(taken) {
+                continue;
+            }
+            if let Some(slot) = jobs.iter().zip(matched.iter_mut()).find_map(|(job, slot)| {
+                (slot.is_none() && job.uploaded(analysis, commit)).then_some(slot)
+            }) {
+                *slot = Some(analysis.clone());
+            }
+        }
+        let done = matched.iter().all(Option::is_some);
+        let older = analyses
+            .last()
+            .is_none_or(|last| text(last, "created_at").unwrap_or_default() <= earliest);
+        if done || older {
+            break;
+        }
+    }
+    Ok(matched.into_iter().collect())
+}
+
+/// Whether the alert listing reflects this commit's analyses. Code scanning moves
+/// an alert's most recent instance to the commit whose analysis found it again and
+/// closes the alerts that analysis did not find. So every open alert in an analysed
+/// category must point at the commit, and an analysis with results must have at
+/// least one alert, in any state, pointing at it.
+fn current(
+    alerts: &[(Option<BigInt>, AlertLevel)],
+    analysed: &[(String, BigInt)],
+    commit: &str,
+) -> bool {
+    let alerts: Vec<&AlertLevel> = alerts.iter().map(|(_, alert)| alert).collect();
+    let at_commit = |alert: &AlertLevel| alert.commit.as_deref() == Some(commit);
+    let analysed_category = |alert: &AlertLevel| {
+        analysed
+            .iter()
+            .any(|(category, _)| alert.category.as_deref() == Some(category.as_str()))
+    };
+    let stale = alerts
+        .iter()
+        .any(|alert| alert.open && analysed_category(alert) && !at_commit(alert));
+    let unseen = analysed.iter().any(|(category, results)| {
+        *results > BigInt::from(0)
+            && !alerts.iter().any(|alert| {
+                alert.category.as_deref() == Some(category.as_str()) && at_commit(alert)
+            })
+    });
+    !stale && !unseen
+}
+
+/// Whether an alert is open, its rule's severities and its most recent instance's
+/// category and commit.
+#[derive(PartialEq)]
+struct AlertLevel {
+    open: bool,
+    severity: Option<String>,
+    security: Option<String>,
+    category: Option<String>,
+    commit: Option<String>,
+}
+
+/// Each alert's number and level. A rule must hold a severity, as text or null, and any
+/// security severity as text or null; an alert must have a state and a most recent
+/// instance with a commit, or it is unreadable.
+fn alert_levels(listing: &Json) -> Result<Vec<(Option<BigInt>, AlertLevel)>> {
     array_items(listing, "alert")?
         .iter()
         .map(|alert| {
@@ -377,11 +503,22 @@ fn alert_levels(listing: &Json) -> Result<Vec<AlertLevel>> {
             {
                 return refuse("Unreadable alert rule");
             }
-            Ok((
-                int(alert.get("number")).cloned(),
-                text(rule, "severity").map(str::to_owned),
-                text(rule, "security_severity_level").map(str::to_owned),
-            ))
+            let (Some(state), Some(instance @ Json::Object(_))) =
+                (text(alert, "state"), alert.get("most_recent_instance"))
+            else {
+                return refuse("Unreadable alert instance");
+            };
+            let Some(commit) = text(instance, "commit_sha") else {
+                return refuse("Unreadable alert instance");
+            };
+            let level = AlertLevel {
+                open: state == "open",
+                severity: text(rule, "severity").map(str::to_owned),
+                security: text(rule, "security_severity_level").map(str::to_owned),
+                category: text(instance, "category").map(str::to_owned),
+                commit: Some(commit.to_owned()),
+            };
+            Ok((int(alert.get("number")).cloned(), level))
         })
         .collect()
 }
