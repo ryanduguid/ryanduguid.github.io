@@ -2275,11 +2275,36 @@ fn hundredths(rate: u64) -> String {
     format!("{}.{:02}", rate / 100, rate % 100)
 }
 
+/// A year's interest in cents on `opening` at `rate` hundredths of 1% for the income year
+/// starting 1 July of `start`, with `repayment` made on 30 June: the opening balance from 1 July
+/// to 29 June, then the balance the repayment leaves for that day, each period half up to the
+/// cent over the year's calendar days; one period when nothing is repaid.
+fn div7a_year_interest(opening: u64, rate: u64, start: i32, repayment: u64) -> u64 {
+    let july = |year| NaiveDate::from_ymd_opt(year, 7, 1).unwrap();
+    let days = u128::try_from(
+        july(start + 1)
+            .signed_duration_since(july(start))
+            .num_days(),
+    )
+    .unwrap();
+    let whole = u128::from(opening) * u128::from(rate);
+    let part = if repayment == 0 {
+        exact_half_up(whole, 10_000)
+    } else {
+        exact_half_up(whole * (days - 1), 10_000 * days)
+            + exact_half_up(
+                u128::from(opening.saturating_sub(repayment)) * u128::from(rate),
+                10_000 * days,
+            )
+    };
+    u64::try_from(part).unwrap()
+}
+
 /// One seeded loan and its schedule: the repayments are chosen a year at a time against the
 /// minimum the oracle works for that year, so short, extra and final repayments all appear.
-/// Each year's minimum and interest come from `div7a_oracle`, which sums discount factors;
-/// a repayment meets the interest first, and the dividend that funds it is the repayment
-/// grossed up for tax at the marginal rate, less the franking credit, rounded up to the cent.
+/// Each year's minimum comes from `div7a_oracle`, which sums discount factors, and its days
+/// from the calendar; a repayment meets the interest first, and the dividend that funds it is
+/// the repayment grossed up for tax at the marginal rate, less the franking credit, rounded up.
 fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
     let first = NaiveDate::from_ymd_opt(2020, 7, 1).unwrap();
     let last = NaiveDate::from_ymd_opt(2027, 6, 30).unwrap();
@@ -2320,20 +2345,27 @@ fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
             projected_from = json!(income_year(start));
         }
         let remaining = term - k + 1;
-        let [minimum, interest, _] = div7a_oracle(opening, rate, remaining);
-        let room = opening + interest - minimum.min(opening + interest);
+        let [minimum, _, _] = div7a_oracle(opening, rate, remaining);
+        let interest_on = |repayment| div7a_year_interest(opening, rate, start, repayment);
+        let payoff = opening + interest_on(opening);
+        let due = minimum.min(payoff);
         let chosen = match rng.below(10) {
-            5 | 6 if room > 1 => Some(minimum + 1 + rng.cents(room - 1)),
-            7 if minimum > 0 => Some(rng.below(minimum)),
-            8 => Some(opening + interest),
-            9 => Some(minimum),
+            5 | 6 if payoff > due + 1 => Some(due + 1 + rng.cents(payoff - due - 1)),
+            7 if due > 0 => Some(rng.below(due)),
+            8 => Some(payoff),
+            9 => Some(due),
             _ => None,
         }
         .filter(|&value| value <= MAX_PRINCIPAL);
         entries.push(chosen.map_or_else(String::new, dollars));
-        let repayment = chosen.unwrap_or(minimum);
+        let repayment = chosen.unwrap_or(due);
+        let interest = interest_on(repayment);
         let principal = repayment.saturating_sub(interest);
-        let shortfall = minimum.saturating_sub(repayment);
+        let shortfall = if principal < opening {
+            minimum.saturating_sub(repayment)
+        } else {
+            0
+        };
         let funding = marginal.map(|m| {
             let top = u128::from(repayment) * u128::from(10_000 - corporate);
             json!(shown(
@@ -2374,20 +2406,17 @@ fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
 }
 
 #[test]
-fn the_div7a_schedule_oracle_pays_the_loan_off_over_its_term() {
-    // $100,000 made in 2022-23 over 7 years at the minimum: 2023-24 at 8.27% needs $19,384.96,
-    // and the last year's minimum is the balance and a year's interest, so nothing is left.
-    let mut opening = 10_000_000;
-    let rates = [827, 877, 837, 877, 877, 877, 877];
-    for (k, rate) in rates.into_iter().enumerate() {
-        let [minimum, interest, principal] =
-            div7a_oracle(opening, rate, 7 - u32::try_from(k).unwrap());
-        if k == 0 {
-            assert_eq!((minimum, interest), (1_938_496, 827_000));
-        }
-        opening -= principal;
-    }
-    assert_eq!(opening, 0);
+fn the_div7a_schedule_oracle_charges_30_june_on_the_reduced_balance() {
+    // $100,000 at 8.27% for 2023-24, which holds 29 February: 365 of 366 days give $8,247.40,
+    // and 30 June on the $80,615.04 left after the $19,384.96 minimum gives $18.22.
+    assert_eq!(div7a_oracle(10_000_000, 827, 7)[0], 1_938_496);
+    assert_eq!(
+        div7a_year_interest(10_000_000, 827, 2023, 1_938_496),
+        826_562
+    );
+    assert_eq!(div7a_year_interest(10_000_000, 827, 2023, 0), 827_000);
+    // 2024-25 has 365 days: $88,880.66 at 8.77% is $7,773.48 for 364, then $20.15 on $83,880.66.
+    assert_eq!(div7a_year_interest(8_888_066, 877, 2024, 500_000), 779_363);
 }
 
 #[test]

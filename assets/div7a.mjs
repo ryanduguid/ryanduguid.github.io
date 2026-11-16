@@ -121,16 +121,30 @@ function checkedLoan(loan) {
   return { made, amount, term, assumed, marginal, corporate, entered: enteredRepayments(loan.repayments, term) };
 }
 
+/** Days in the income year starting on 1 July of `start`: 366 when it holds 29 February.
+ * @param {number} start */
+const yearDays = (start) => BigInt(new Date(Date.UTC(start + 1, 2, 0)).getUTCDate() === 29 ? 366 : 365);
+
+/** A year's interest at the benchmark rate on the balance from time to time (s 109E(7)), as the
+ * ATO's 'Loans by private companies' works it: daily, a repayment reducing the balance from the
+ * day it is made, each period's interest rounded half up to the cent. A repayment on 30 June
+ * leaves that one day on the reduced balance, or on nil once the repayment passes the balance.
+ * @param {bigint} opening @param {bigint} repayment @param {bigint} rate @param {bigint} days */
+function yearInterest(opening, repayment, rate, days) {
+  if (repayment === 0n) return ratioCents(opening * rate, 10000n);
+  const after = opening > repayment ? opening - repayment : 0n;
+  return ratioCents(opening * rate * (days - 1n), 10000n * days) + ratioCents(after * rate, 10000n * days);
+}
+
 /** The schedule of a complying Division 7A loan, from the first income year after the year it
  * was made. Each year's minimum yearly repayment is s 109E(6) on the amount not repaid at the
  * end of the previous year, at that year's benchmark rate, over the remaining term: the 7 or
- * 25 years of s 109N(3) less the years since the year the loan was made. Interest is the
- * benchmark rate on the balance (s 109E(7)) with each repayment made on 30 June, so it is the
- * year's rate on the opening balance, half up to the cent. A repayment meets the interest first
- * and only the rest repays the loan, as the ATO's 'Loans by private companies' works it. A
- * repayment short of the minimum is the shortfall s 109E(1) and (2) take to be a dividend,
- * subject to s 109Y, at the end of that year; the schedule stops there. Years after the ATO's
- * published rates use the assumed rate and are marked projected.
+ * 25 years of s 109N(3) less the years since the year the loan was made. Each repayment is made
+ * on 30 June; a blank one is the minimum, or the amount that repays the loan if that is less.
+ * A repayment meets the year's interest first and only the rest repays the loan. One short of
+ * the minimum, with the loan not repaid, is the shortfall s 109E(1) and (2) take to be a
+ * dividend, subject to s 109Y, at the end of that year; the schedule stops there. Years after
+ * the ATO's published rates use the assumed rate and are marked projected.
  * @param {Div7aLoan} loan */
 export function div7aSchedule(loan) {
   const { made, amount, term, assumed, marginal, corporate, entered } = checkedLoan(loan);
@@ -142,13 +156,16 @@ export function div7aSchedule(loan) {
     const rate = PUBLISHED.get(label) ?? assumed;
     const remainingTerm = term - k + 1;
     const minimum = minimumCents(opening, rate, BigInt(remainingTerm));
-    const interest = ratioCents(opening * rate, 10000n);
-    const repayment = entered[k - 1] ?? minimum;
+    const days = yearDays(made + k);
+    // Repaying in full on 30 June: interest to 29 June, as the last day carries no balance.
+    const payoff = opening + yearInterest(opening, opening, rate, days);
+    const repayment = entered[k - 1] ?? (minimum < payoff ? minimum : payoff);
+    const interest = yearInterest(opening, repayment, rate, days);
     if (repayment > opening + interest) {
-      throw new Error(`The ${label} repayment is more than the balance and that year’s interest, $${dollars(opening + interest).toLocaleString('en-AU', { minimumFractionDigits: 2 })}.`);
+      throw new Error(`The ${label} repayment is more than $${dollars(payoff).toLocaleString('en-AU', { minimumFractionDigits: 2 })}, which repays the loan on 30 June.`);
     }
     const principal = repayment > interest ? repayment - interest : 0n;
-    const shortfall = repayment < minimum ? minimum - repayment : 0n;
+    const shortfall = principal < opening && repayment < minimum ? minimum - repayment : 0n;
     years.push({ year: label, rate: Number(rate) / 100, projected: !PUBLISHED.has(label), remainingTerm,
       opening: dollars(opening), minimum: dollars(minimum), repayment: dollars(repayment), interest: dollars(interest),
       principal: dollars(principal), closing: dollars(opening - principal), shortfall: dollars(shortfall),

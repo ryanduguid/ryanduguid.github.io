@@ -1128,25 +1128,33 @@ test('each Division 7A schedule year is the s 109E(6) minimum on the balance the
   let opening = 100000;
   for (const row of years) {
     const single = div7aMinimumRepayment(String(row.opening), String(row.rate), String(row.remainingTerm));
-    assert.deepEqual([row.opening, row.minimum, row.repayment, row.interest, row.principal],
-      [opening, single.repayment, single.repayment, single.interest, single.principal], row.year);
+    assert.deepEqual([row.opening, row.minimum], [opening, single.repayment], row.year);
+    assert.equal(Math.round((row.repayment - row.interest) * 100) / 100, row.principal, row.year);
     assert.equal(Math.round((row.opening - row.principal) * 100) / 100, row.closing, row.year);
     opening = row.closing;
   }
-  // In the last year the remaining term is 1, so the minimum is the balance and a year's interest.
-  assert.equal(years.at(-1).closing, 0);
+  // In the last year the minimum is the balance and a full year's interest, more than repaying the
+  // loan on 30 June needs, as that day carries no balance; the blank entry repays it and no more.
+  const last = years.at(-1);
+  assert.ok(last.repayment < last.minimum);
+  assert.deepEqual([last.closing, last.shortfall], [0, 0]);
 });
 
-// 'Loans by private companies': 'The amount of the loan repaid during an income year is obtained by
-// deducting the interest from the actual repayments made during the year. The opening balance of the
-// loan for the next year is the opening balance at the beginning of the previous year less the
-// principal repaid during that year.'
-test('a Division 7A repayment meets the interest first, and unpaid interest is not added to the loan', () => {
-  const [, short] = schedule({ repayments: '; 5000' }).years;
+// 'Loans by private companies' works interest 'annually in arrears by reference to the daily
+// balance', a repayment reducing the balance from its day, and says: 'The amount of the loan repaid
+// during an income year is obtained by deducting the interest from the actual repayments made during
+// the year.' Worked by hand: 2023-24 holds 29 February, so 365 days at $100,000 and 8.27% are
+// $8,247.40 and 30 June at $80,615.04 is $18.22; 2024-25 at $88,880.66 and 8.77% is $7,773.48 for
+// 364 days and then $20.15 on $83,880.66 or $18.95 on $78,880.66.
+test('a Division 7A repayment on 30 June leaves that day on the reduced balance, and meets the interest first', () => {
+  const [first, short] = schedule({ repayments: '; 5000' }).years;
+  assert.deepEqual([first.interest, first.principal, first.closing], [8265.62, 11119.34, 88880.66]);
   assert.deepEqual([short.opening, short.interest, short.repayment, short.principal, short.closing],
-    [88885.04, 7795.22, 5000, 0, 88885.04]);
+    [88880.66, 7793.63, 5000, 0, 88880.66]);
   const [, partial] = schedule({ repayments: '; 10000' }).years;
-  assert.deepEqual([partial.principal, partial.closing], [2204.78, 86680.26]);
+  assert.deepEqual([partial.interest, partial.principal, partial.closing], [7792.43, 2207.57, 86673.09]);
+  // With no repayment the whole year is one period: 8.27% of $100,000.
+  assert.equal(schedule({ repayments: '0' }).years[0].interest, 8270);
 });
 
 test('a Division 7A repayment a cent short of the minimum is the shortfall, and the schedule stops', () => {
@@ -1164,8 +1172,13 @@ test('a larger Division 7A repayment lowers the later minimums and can end the l
   const extra = schedule({ repayments: '40000' }).years.map((row) => row.minimum);
   assert.equal(extra[0], minimums[0]);
   for (let k = 1; k < 7; k += 1) assert.ok(extra[k] < minimums[k], String(k));
-  const early = schedule({ repayments: '50000; 63380.28' });
-  assert.deepEqual([early.years.length, early.closing, early.lastYear], [2, 0, '2024-25']);
+  // $50,000 leaves $58,258.70; 364 days at 8.77% add $5,095.29, so $63,353.99 repays it.
+  const early = schedule({ repayments: '50000; 63353.99' });
+  assert.deepEqual([early.years.length, early.closing, early.shortfall, early.lastYear], [2, 0, 0, '2024-25']);
+  assert.throws(() => schedule({ repayments: '50000; 63354' }), { message: 'The 2024-25 repayment is more than $63,353.99, which repays the loan on 30 June.' });
+  // Repaying in full is no shortfall, even below a minimum: subsection 109E(1)(b) needs the loan unpaid.
+  const full = schedule({ repayments: '108247.40' });
+  assert.deepEqual([full.years.length, full.closing, full.shortfall], [1, 0, 0]);
 });
 
 test('only the Division 7A years after 2026-27 move with the assumed rate', () => {
@@ -1212,10 +1225,10 @@ test('the Division 7A schedule refuses what its sources do not cover', () => {
     [{ franking: 'toString' }, /^Choose unfranked/], [{ amount: '0' }, /^Enter an amount between 0.01 and/],
     [{ marginalRate: '100' }, /^Enter an amount between 0 and 99.99\.$/], [{ assumedRate: '0' }, /^Enter an amount between 0.01 and 100\.$/],
     [{ repayments: '1;1;1;1;1;1;1;1' }, /no more than 7 repayments/], [{ repayments: '-1' }, /^Enter an amount between 0 and/],
-    [{ repayments: '108270.01' }, /\$108,270\.00\.$/], [{ repayments: '50000; 63380.28; ' }, /repaid in 2024-25/]]) {
+    [{ repayments: '108247.41' }, /more than \$108,247\.40, which repays the loan on 30 June\.$/], [{ repayments: '50000; 63353.99; 1' }, /repaid in 2024-25/]]) {
     assert.throws(() => schedule(fields), { message }, JSON.stringify(fields));
   }
-  assert.equal(schedule({ repayments: '108270' }).closing, 0);
+  assert.equal(schedule({ repayments: '108247.40' }).closing, 0);
 });
 
 test('the Division 7A schedule page opens on the result its calculation gives for the form’s inputs', () => {
