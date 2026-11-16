@@ -2656,7 +2656,12 @@ fn vehicle_case(rng: &mut Seeded) -> (Value, Value) {
     let load = near.saturating_add_signed(rng.pick(&[-1, 0, 0, 1])).max(1);
     // None, any weight below the load, or the weight that leaves the seats exactly half the load.
     let any_accessories = rng.below(load);
-    let accessories = rng.pick(&[0, 0, any_accessories, load.saturating_sub(2 * seats * KG_A_SEAT)]);
+    let accessories = rng.pick(&[
+        0,
+        0,
+        any_accessories,
+        load.saturating_sub(2 * seats * KG_A_SEAT),
+    ]);
     let kerb = 1 + rng.below(3_000);
     let (year, limit, efficient, other) = rng.pick(&VEHICLE_YEARS);
     let fuel_efficient = rng.below(2) == 1;

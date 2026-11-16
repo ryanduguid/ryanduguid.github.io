@@ -634,7 +634,7 @@ test('vehicle classifier works LCTD 2023/1’s dual cab and the 2025-26 car limi
   await expect(form.locator('output .result-note')).toHaveText(
     'LCTD 2023/1’s simplified method assumes the ute is a goods vehicle under the Australian Design Rules (paragraph 57).');
   // LCTD 2023/1 paragraph 56: 280 kg of accessories fitted at supply leave 680 kg, exactly twice the seats.
-  const accessories = form.getByLabel('Accessories fitted at supply, not in the kerb weight (kg), 0 if none');
+  const accessories = form.getByLabel('Accessories at supply, not in kerb weight (kg), 0 if none');
   await accessories.fill('280');
   await calculate();
   await expect(row(/^Luxury car tax at the /)).toHaveText('Not decided here: whether it is a commercial vehicle turns on LCTD 2023/1 paragraph 13');
