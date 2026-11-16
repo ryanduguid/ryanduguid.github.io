@@ -16,6 +16,11 @@ fn font() -> Vec<u8> {
 /// right with a dark band for the eyes, a neck and widening shoulders. The
 /// real photo stays out of the repository.
 fn cutout(opaque: bool) -> Vec<u8> {
+    encode(300, 300, &bust(opaque))
+}
+
+/// The bust's RGBA pixels, 300 by 300.
+fn bust(opaque: bool) -> Vec<u8> {
     let size = 300u32;
     let mut pixels = Vec::new();
     for y in 0..size {
@@ -37,7 +42,7 @@ fn cutout(opaque: bool) -> Vec<u8> {
             pixels.extend([grey, grey, grey, alpha]);
         }
     }
-    encode(size, size, &pixels)
+    pixels
 }
 
 fn encode(width: u32, height: u32, pixels: &[u8]) -> Vec<u8> {
@@ -87,6 +92,22 @@ fn a_cutout_renders_the_same_text_every_time_within_the_grid() {
 fn a_photo_without_a_transparent_background_is_refused() {
     let error = about_portrait::render(&cutout(true), &font()).unwrap_err();
     assert!(error.contains("transparent"), "{error}");
+    // One clear pixel on the edge of an opaque photo is not a transparent background.
+    let mut pixels = bust(true);
+    pixels[150 * 300 * 4 + 3] = 0;
+    let error = about_portrait::render(&encode(300, 300, &pixels), &font()).unwrap_err();
+    assert!(error.contains("transparent"), "{error}");
+}
+
+#[test]
+fn a_file_over_128_mib_is_refused_before_it_is_read() {
+    let root = tempfile::tempdir().unwrap();
+    let photo = root.path().join("huge.png");
+    let file = std::fs::File::create(&photo).unwrap();
+    file.set_len((128 << 20) + 1).unwrap();
+    let args = [photo.to_string_lossy().into_owned()];
+    let error = about_portrait::run(root.path(), &args).unwrap_err();
+    assert!(error.contains("over 128 MiB"), "{error}");
 }
 
 #[test]

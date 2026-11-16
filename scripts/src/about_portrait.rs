@@ -12,6 +12,7 @@
 //! neighbours, so even areas such as the forehead get an even texture.
 use ab_glyph::{Font, FontRef, PxScale, point};
 use regex::Regex;
+use std::io::Read as _;
 use std::path::Path;
 
 pub const PAGE: &str = "about/index.html";
@@ -244,7 +245,9 @@ fn percentile(sorted: &[f64], p: f64) -> f64 {
 /// samples a cell, and the number of rows.
 fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
     let (lightness, alpha) = lightness_and_alpha(png)?;
-    if alpha.data.iter().all(|&a| a > 0.99) {
+    // A cutout's background is a clear area around the figure, not a stray clear pixel.
+    let clear = alpha.data.iter().filter(|&&a| a <= 0.5).count();
+    if clear * 100 < alpha.data.len() {
         return Err("the photo has no transparent background; supply a cutout PNG".into());
     }
     let head = find_head(&alpha)?;
@@ -451,7 +454,16 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let [photo] = args else {
         return Err("usage: site-tools render_about_portrait <cutout.png>".into());
     };
-    let png = std::fs::read(photo).map_err(|e| format!("{photo}: {e}"))?;
+    // Twice the decoder's 64 MiB allocation limit: refuse a stray huge file without
+    // reading it all into memory.
+    const MAX_PHOTO_BYTES: u64 = 128 << 20;
+    let mut png = Vec::new();
+    std::fs::File::open(photo)
+        .and_then(|file| file.take(MAX_PHOTO_BYTES + 1).read_to_end(&mut png))
+        .map_err(|e| format!("{photo}: {e}"))?;
+    if png.len() as u64 > MAX_PHOTO_BYTES {
+        return Err(format!("{photo}: over 128 MiB; supply the cutout PNG"));
+    }
     let font = std::fs::read(root.join(FONT)).map_err(|e| format!("{FONT}: {e}"))?;
     let art = render(&png, &font)?;
     let page_path = root.join(PAGE);
