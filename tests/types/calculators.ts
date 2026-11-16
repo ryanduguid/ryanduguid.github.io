@@ -98,3 +98,7 @@ calculate.fixedFee('18.5', '95', '40', '5', true, '12');
 // @ts-expect-error Adding GST is a boolean flag.
 calculate.fixedFee('18.5', '95', '40', '10', 'yes', '12');
 void fee;
+const landTax: number = calculate.landTax('1100000', [['0', '0', '0', '0', 'excess']], '1778').tax;
+// @ts-expect-error A land value is a decimal string, as the form field gives it.
+calculate.landTax(1100000, [['0', '0', '0', '0', 'excess']]);
+void landTax;

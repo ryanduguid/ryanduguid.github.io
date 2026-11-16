@@ -613,7 +613,7 @@ test('transfer duty notes NSW premium duty from the first dollar over $3,870,000
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
-  'transfer-duty'];
+  'transfer-duty', 'land-tax'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -751,4 +751,18 @@ test('a varied PAYG instalment rate gives the instalment and its credit offline'
   await form.getByLabel('Varying only: estimated tax on instalment income for the year, T8 (AUD)').fill('82480.01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toHaveText('Estimated tax cannot exceed estimated instalment income.');
+});
+
+test('land tax adds the ACT fixed charge and names the band it applied, offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/land-tax/');
+  const form = page.locator('#land-tax form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Australian Capital Territory', { exact: true }).check();
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('600000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  // Worked by hand from DI2026-152: $1,778 + $1,610 + 1.24% of $325,000.
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: Australian Capital Territory, total taxable land value $600,000.00. Land tax for the year: $7,418.00. '
+    + 'Rate applied: the $1,778 fixed charge plus $1,610 plus 1.24% of the value over $275,000.');
 });

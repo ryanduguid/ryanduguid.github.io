@@ -117,6 +117,12 @@ const MUTATIONS = [
   { ...business, name: 'ETP preservation age table is a year out', find: 'july - 1904', replace: 'july - 1903' },
   { ...business, name: 'ETP accepts a date of birth after the year', find: 'born > year.yearEnd', replace: 'born > \'9999\'' },
   { ...business, name: 'ETP accepts 151 years of service', find: 'max: 150, integer: true', replace: 'max: 151, integer: true' },
+  { ...business, name: 'a land tax band starts a dollar above its first value', find: 'dollars >= Number(from)', replace: 'dollars > Number(from)' },
+  { ...business, name: 'land tax ignores part of $100', find: '(excess + 99n) / 100n * hundredths', replace: 'excess / 100n * hundredths' },
+  { ...business, name: 'the ACT fixed charge is left out', find: 'cents(base) + cents(fixed)', replace: 'cents(base)' },
+  { ...business, name: 'land tax takes the rate on the whole value', find: 'BigInt(dollars) - BigInt(over)', replace: 'BigInt(dollars)' },
+  { ...business, name: 'a land tax rate may start above its band', find: 'Number(over) <= Number(from)', replace: 'true' },
+  { ...business, name: 'a broken land tax table is used', find: 'if (!usable) throw', replace: 'if (false) throw' },
 ];
 
 // Runs that must read as invalid, not as caught.

@@ -184,6 +184,24 @@
       {"case": "Part years of service are refused", "input": "Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996", "call": [{"redundancy": "48000", "years": "5.5", "excluded": "0", "nonExcluded": "0", "other": "0", "born": "1996-08-01"}, {"yearEnd": "2027-06-30", "etpCap": "270000", "wholeOfIncomeCap": "180000", "baseAmount": "13598", "serviceAmount": "6801", "rateUnder": "32", "rateReached": "17", "rateAbove": "47"}], "refused": "Enter a whole number between 0 and 150.", "output": "Refused: enter a whole number between 0 and 150"}
     ]
   },
+  "land-tax": {
+    "checked": "2026-11-16",
+    "function": "landTax",
+    "rows": [
+      {"case": "Revenue NSW’s 3-year average example", "input": "New South Wales, $1,100,000.00", "call": ["1100000", "AU-NSW"], "result": {"tax": 500}, "output": "Land tax $500.00"},
+      {"case": "Nil at the NSW general threshold itself", "input": "New South Wales, $1,075,000.00", "call": ["1075000", "AU-NSW"], "result": {"tax": 0}, "output": "Land tax $0.00"},
+      {"case": "The Victorian SRO’s example", "input": "Victoria, $1,100,000.00", "call": ["1100000", "AU-VIC"], "result": {"tax": 5550}, "output": "Land tax $5,550.00"},
+      {"case": "Victoria’s $1,350 band starts at $300,000", "input": "Victoria, $300,000.00", "call": ["300000", "AU-VIC"], "result": {"tax": 1350}, "output": "Land tax $1,350.00"},
+      {"case": "The Queensland Revenue Office’s example 1 for an individual", "input": "Queensland, $680,000.00", "call": ["680000", "AU-QLD"], "result": {"tax": 1300}, "output": "Land tax $1,300.00"},
+      {"case": "The Queensland Revenue Office’s example 2 for an individual", "input": "Queensland, $6,400,000.00", "call": ["6400000", "AU-QLD"], "result": {"tax": 87000}, "output": "Land tax $87,000.00"},
+      {"case": "Western Australia, worked by hand", "input": "Western Australia, $1,500,000.00", "call": ["1500000", "AU-WA"], "result": {"tax": 6250}, "output": "Land tax $6,250.00"},
+      {"case": "RevenueSA’s 2026-27 guide, example 1", "input": "South Australia, $1,470,000.00", "call": ["1470000", "AU-SA"], "result": {"tax": 2670}, "output": "Land tax $2,670.00"},
+      {"case": "Part of $100 over the South Australian threshold counts as a whole $100", "input": "South Australia, $936,050.00", "call": ["936050", "AU-SA"], "result": {"tax": 0.5}, "output": "Land tax $0.50"},
+      {"case": "Tasmania, worked by hand", "input": "Tasmania, $600,000.00", "call": ["600000", "AU-TAS"], "result": {"tax": 3237.5}, "output": "Land tax $3,237.50"},
+      {"case": "The ACT’s fixed charge and valuation charge, worked by hand", "input": "Australian Capital Territory, $600,000.00", "call": ["600000", "AU-ACT"], "result": {"tax": 7418}, "output": "Land tax $7,418.00"},
+      {"case": "Cents are refused", "input": "New South Wales, $1,100,000.50", "call": ["1100000.50", "AU-NSW"], "refused": "Enter a whole number between 0 and 1000000000.", "output": "Refused: enter a whole number between 0 and 1000000000"}
+    ]
+  },
   "transfer-duty": {
     "checked": "2026-11-15",
     "function": "transferDuty",

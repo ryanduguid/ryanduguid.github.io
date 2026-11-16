@@ -47,6 +47,12 @@
 //! debt over the sum of each instalment's discount factor, and the final instalment is
 //! the balance carried day by day, where the engine grows the debt and the instalments
 //! forward together.
+//!
+//! Land tax types each jurisdiction's general scale here from its revenue office or
+//! legislation, with each band's lowest and highest value as the source words them, and
+//! finds the band whose range holds the value, where the engine takes the last band that
+//! starts at or below it. The engine is checked either side of every band threshold and on
+//! 140 seeded values, with its own harness.
 mod common;
 
 use chrono::{Datelike, NaiveDate, Weekday};
@@ -2235,6 +2241,262 @@ fn the_gic_engine_agrees_with_the_oracle_on_every_seeded_case() {
         .unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), GIC_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Seeded land tax values, beside every band boundary of every jurisdiction.
+const LAND_TAX_CASES: usize = 140;
+
+/// Runs land tax cases through the engine with each jurisdiction's scale and fixed charge
+/// as the rendered calculator page gives them to the browser. A jurisdiction the page lacks
+/// comes back as missing, so the comparison fails on it.
+const LAND_TAX_HARNESS: &str = r#"
+import { readFileSync } from 'node:fs';
+import { landTax } from './assets/business-calculators.mjs';
+const page = readFileSync('tools/business-calculators/land-tax/index.html', 'utf8');
+const places = Object.fromEntries([...page.matchAll(/value="(AU-[A-Z]+)" data-name="[^"]+"(?: data-fixed="([^"]+)")? data-scale="([^"]+)"/g)]
+  .map(([, place, fixed, scale]) => [place, [scale.split(';').map((row) => row.split(',')), fixed ?? '0']]));
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+process.stdout.write(JSON.stringify(JSON.parse(input).map(({ value, place }) => {
+  if (!places[place]) return { missing: place };
+  const [scale, fixed] = places[place];
+  return { tax: String(landTax(value, scale, fixed).tax) };
+})));
+"#;
+
+/// One band of a general land tax scale, typed from the revenue office's or the legislation's
+/// own wording as read on 16 November 2026, not from the calculator page. It holds the
+/// whole-dollar values from `low` to `high` and charges `base` cents plus `points` hundredths
+/// of a per cent of the value over `over`, or, when `per_hundred`, `points` cents for every
+/// $100, or part of $100, over `over`.
+#[derive(Clone, Copy)]
+struct LandBand {
+    low: u64,
+    high: u64,
+    base: u64,
+    points: u64,
+    over: u64,
+    per_hundred: bool,
+}
+
+const fn land(low: u64, high: u64, base: u64, points: u64, over: u64) -> LandBand {
+    LandBand {
+        low,
+        high,
+        base,
+        points,
+        over,
+        per_hundred: false,
+    }
+}
+
+const fn land_per_hundred(low: u64, high: u64, base: u64, points: u64, over: u64) -> LandBand {
+    LandBand {
+        per_hundred: true,
+        ..land(low, high, base, points, over)
+    }
+}
+
+/// No upper limit.
+const TOP: u64 = u64::MAX;
+
+/// Each scale with its fixed charge in cents, base amounts in cents.
+const LAND_TAX_SCALES: [(&str, u64, &[LandBand]); 7] = [
+    // Revenue NSW, thresholds and rates for the 2024 land tax year onwards: more than $1,075,000
+    // but less than $6,571,000, $100 + 1.6% above $1,075,000; more than $6,571,000, $88,036 + 2%.
+    // Exactly $6,571,000 falls in neither row; both give $88,036 there.
+    (
+        "AU-NSW",
+        0,
+        &[
+            land(0, 1_075_000, 0, 0, 0),
+            land(1_075_001, 6_571_000, 10_000, 160, 1_075_000),
+            land(6_571_001, TOP, 8_803_600, 200, 6_571_000),
+        ],
+    ),
+    // State Revenue Office Victoria, general rates for the 2024 to 2033 land tax years.
+    (
+        "AU-VIC",
+        0,
+        &[
+            land(0, 49_999, 0, 0, 0),
+            land(50_000, 99_999, 50_000, 0, 0),
+            land(100_000, 299_999, 97_500, 0, 0),
+            land(300_000, 599_999, 135_000, 30, 300_000),
+            land(600_000, 999_999, 225_000, 60, 600_000),
+            land(1_000_000, 1_799_999, 465_000, 90, 1_000_000),
+            land(1_800_000, 2_999_999, 1_185_000, 165, 1_800_000),
+            land(3_000_000, TOP, 3_165_000, 265, 3_000_000),
+        ],
+    ),
+    // Queensland Revenue Office, rates for individuals: cents for each $1 more than the threshold.
+    (
+        "AU-QLD",
+        0,
+        &[
+            land(0, 599_999, 0, 0, 0),
+            land(600_000, 999_999, 50_000, 100, 600_000),
+            land(1_000_000, 2_999_999, 450_000, 165, 1_000_000),
+            land(3_000_000, 4_999_999, 3_750_000, 125, 3_000_000),
+            land(5_000_000, 9_999_999, 6_250_000, 175, 5_000_000),
+            land(10_000_000, TOP, 15_000_000, 225, 10_000_000),
+        ],
+    ),
+    // RevenueWA land tax rates: dollars for each $1 in excess of the threshold.
+    (
+        "AU-WA",
+        0,
+        &[
+            land(0, 300_000, 0, 0, 0),
+            land(300_001, 420_000, 30_000, 0, 0),
+            land(420_001, 1_000_000, 30_000, 25, 420_000),
+            land(1_000_001, 1_800_000, 175_000, 90, 1_000_000),
+            land(1_800_001, 5_000_000, 895_000, 180, 1_800_000),
+            land(5_000_001, 11_000_000, 6_655_000, 200, 5_000_000),
+            land(11_000_001, TOP, 18_655_000, 267, 11_000_000),
+        ],
+    ),
+    // RevenueSA 2026-27 general rates: exceeding one figure but not exceeding the next.
+    (
+        "AU-SA",
+        0,
+        &[
+            land(0, 936_000, 0, 0, 0),
+            land_per_hundred(936_001, 1_504_000, 0, 50, 936_000),
+            land_per_hundred(1_504_001, 2_188_000, 284_000, 100, 1_504_000),
+            land_per_hundred(2_188_001, 3_504_000, 968_000, 200, 2_188_000),
+            land_per_hundred(3_504_001, TOP, 3_600_000, 240, 3_504_000),
+        ],
+    ),
+    // State Revenue Office Tasmania, rates from 1 July 2025: nil to $124,999.99.
+    (
+        "AU-TAS",
+        0,
+        &[
+            land(0, 124_999, 0, 0, 0),
+            land(125_000, 499_999, 5_000, 45, 125_000),
+            land(500_000, TOP, 173_750, 150, 500_000),
+        ],
+    ),
+    // ACT DI2026-152: fixed charge $1,778 and Table 1 on the base value.
+    (
+        "AU-ACT",
+        177_800,
+        &[
+            land(0, 150_000, 0, 54, 0),
+            land(150_001, 275_000, 81_000, 64, 150_000),
+            land(275_001, 1_000_000, 161_000, 124, 275_000),
+            land(1_000_001, 2_000_000, 1_060_000, 125, 1_000_000),
+            land(2_000_001, TOP, 2_310_000, 126, 2_000_000),
+        ],
+    ),
+];
+
+/// Land tax for a full year in cents on a whole-dollar value: the band whose range holds it.
+fn land_tax_oracle(place: &str, dollars: u64) -> u64 {
+    let (_, fixed, bands) = LAND_TAX_SCALES.iter().find(|(p, ..)| *p == place).unwrap();
+    let band = bands
+        .iter()
+        .find(|band| band.low <= dollars && dollars <= band.high)
+        .unwrap();
+    let excess = dollars - band.over;
+    let charge = if band.per_hundred {
+        band.points * excess.div_ceil(100)
+    } else {
+        u64::try_from(exact_half_up(
+            u128::from(band.points) * u128::from(excess),
+            100,
+        ))
+        .unwrap()
+    };
+    fixed + band.base + charge
+}
+
+/// Each revenue office's own worked figure, read 16 November 2026, and hand-worked figures
+/// where none is published. The scales also cover every whole dollar without a gap.
+#[test]
+fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
+    for (place, _, bands) in LAND_TAX_SCALES {
+        assert_eq!(bands[0].low, 0, "{place}");
+        assert_eq!(bands[bands.len() - 1].high, TOP, "{place}");
+        for pair in bands.windows(2) {
+            assert_eq!(pair[1].low, pair[0].high + 1, "{place}");
+        }
+    }
+    for (place, dollars, cents, source) in [
+        (
+            "AU-NSW",
+            1_100_000,
+            50_000,
+            "Revenue NSW 3-year average example",
+        ),
+        (
+            "AU-VIC",
+            1_100_000,
+            555_000,
+            "SRO Victoria, Anika's assessment",
+        ),
+        ("AU-QLD", 680_000, 130_000, "QRO individuals example 1"),
+        ("AU-QLD", 6_400_000, 8_700_000, "QRO individuals example 2"),
+        (
+            "AU-SA",
+            1_470_000,
+            267_000,
+            "RevenueSA 2026-27 guide example 1",
+        ),
+        (
+            "AU-SA",
+            1_575_000,
+            355_000,
+            "RevenueSA land tax assessment example",
+        ),
+        // By hand: $1,750 + 0.9% of $500,000.
+        ("AU-WA", 1_500_000, 625_000, "hand-worked"),
+        // By hand: $1,737.50 + 1.5% of $100,000.
+        ("AU-TAS", 600_000, 323_750, "hand-worked"),
+        // By hand: $1,778 + $1,610 + 1.24% of $325,000.
+        ("AU-ACT", 600_000, 741_800, "hand-worked"),
+    ] {
+        assert_eq!(
+            land_tax_oracle(place, dollars),
+            cents,
+            "{place} {dollars}: {source}"
+        );
+    }
+}
+
+#[test]
+fn the_land_tax_engine_agrees_with_the_oracle_at_every_band_boundary() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1116_1A4D_7A85);
+    let mut values = Vec::new();
+    for (place, _, bands) in LAND_TAX_SCALES {
+        for band in bands {
+            values.extend([band.low.saturating_sub(1), band.low, band.low + 1].map(|v| (place, v)));
+        }
+        values.extend([(place, 0), (place, 1_000_000_000)]);
+    }
+    // Seeded whole-dollar values spread across magnitudes, for every jurisdiction.
+    for _ in 0..LAND_TAX_CASES {
+        let (place, ..) = LAND_TAX_SCALES[rng.below(7) as usize];
+        values.push((place, rng.cents(1_000_000_000)));
+    }
+    let (cases, expected): (Vec<Value>, Vec<Value>) = values
+        .iter()
+        .map(|&(place, dollars)| {
+            (
+                json!({"value": dollars.to_string(), "place": place}),
+                json!({"tax": shown(land_tax_oracle(place, dollars))}),
+            )
+        })
+        .unzip();
+    let actual = run_node(LAND_TAX_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
