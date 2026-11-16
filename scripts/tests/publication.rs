@@ -1080,3 +1080,62 @@ fn every_upload_in_a_jobs_window_has_its_results_checked() {
         "Main's CodeQL analysis has a result the pull request check would fail on"
     );
 }
+
+#[test]
+fn an_upload_in_the_second_a_job_started_is_checked_but_not_its_own() {
+    // At second resolution an upload stamped with the job's start second may be the
+    // job's or an earlier attempt's; its results count, but it cannot be the job's.
+    let (mut site, _) = analysed_main();
+    let at_start = with(
+        &uploaded("python", "2026-11-16T00:00:05Z"),
+        &[("id", n(200))],
+    );
+    site.analyses = Json::Array(vec![at_start.clone()]);
+    assert_eq!(site.evaluate(), Ok(false));
+    site.analyses = Json::Array(vec![uploaded("python", "2026-11-16T00:02:40Z"), at_start]);
+    assert_eq!(site.evaluate(), Ok(true));
+    site.sarifs = vec![("200".to_owned(), sarif(&format!("[{}]", result(1, None))))];
+    assert_eq!(
+        value_error(site.evaluate()),
+        "Main's CodeQL analysis has a result the pull request check would fail on"
+    );
+}
+
+#[test]
+fn analysis_times_must_be_utc_seconds() {
+    for time in [
+        Json::Null,
+        s(""),
+        s("2026-11-16 00:00:05"),
+        s("2026-11-16T00:00:05.5Z"),
+    ] {
+        let (mut site, _) = analysed_main();
+        site.analysis_jobs = vec![with(
+            &analysis_job("python"),
+            &[("started_at", time.clone())],
+        )];
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis job",
+            "{time:?}"
+        );
+        // An analysis without a readable creation time could end the paging early.
+        let (mut site, _) = analysed_main();
+        site.analyses = Json::Array(vec![
+            uploaded("python", "2026-11-16T00:02:40Z"),
+            with(
+                &uploaded("ruby", "2026-11-16T00:02:35Z"),
+                &[("created_at", time.clone())],
+            ),
+        ]);
+        site.older_analyses = Json::Array(vec![with(
+            &uploaded("python", "2026-11-16T00:02:30Z"),
+            &[("id", n(200))],
+        )]);
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis listing",
+            "{time:?}"
+        );
+    }
+}

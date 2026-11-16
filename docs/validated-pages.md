@@ -15,7 +15,7 @@ repository to succeed. Each `Analyze (<language>)` job in that run's latest
 attempt must have its own upload of the commit in category
 `/language:<language>`, made whilst it ran, and code scanning must report that
 upload processed. Each upload of the commit in a job's category made whilst that
-job ran, its own and any further one, has its SARIF results checked, because a
+job ran, counting the second it started, has its SARIF results checked, because a
 later upload in the same category replaces an earlier one's alerts. A result at
 GitHub's default failure threshold for that check (error level, or a security
 severity of 7.0 or more, which is high or critical) refuses publication, as does

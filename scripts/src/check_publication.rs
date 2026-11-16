@@ -303,20 +303,38 @@ struct AnalysisJob {
 }
 
 impl AnalysisJob {
-    /// Whether `analysis` is this job's upload of `commit`: its category, created
-    /// whilst the job ran. GitHub writes these times as UTC `YYYY-MM-DDTHH:MM:SSZ`,
-    /// which sort as text.
-    fn uploaded(&self, analysis: &Json, commit: &str) -> bool {
+    /// Whether `analysis` is an upload of `commit` in this job's category that may
+    /// have been made whilst the job ran, its start second included. GitHub writes
+    /// these times as UTC `YYYY-MM-DDTHH:MM:SSZ`, which sort as text.
+    fn covers(&self, analysis: &Json, commit: &str) -> bool {
         let created = text(analysis, "created_at").unwrap_or_default();
         is(analysis, "commit_sha", commit)
             && is(analysis, "category", &self.category)
-            && created > self.started.as_str()
+            && created >= self.started.as_str()
             && created <= self.completed.as_str()
+    }
+
+    /// Whether `analysis` can be this job's own upload: covered and made after the
+    /// second the job started, which an earlier attempt's upload could share.
+    fn uploaded(&self, analysis: &Json, commit: &str) -> bool {
+        self.covers(analysis, commit)
+            && text(analysis, "created_at").unwrap_or_default() > self.started.as_str()
     }
 }
 
+/// The time at `key` when it is a UTC `YYYY-MM-DDTHH:MM:SSZ` time, or None.
+fn timestamp<'a>(record: &'a Json, key: &str) -> Option<&'a str> {
+    text(record, key).filter(|time| {
+        fullmatch(
+            "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z",
+            0,
+            time,
+        )
+    })
+}
+
 /// The `Analyze (<language>)` jobs of each run's latest attempt. A run without one,
-/// or a job without both times, refuses.
+/// or a job without both times in UTC, refuses.
 fn analysis_jobs(repository: &str, runs: &[String], fetch: &mut Fetch) -> Result<Vec<AnalysisJob>> {
     let mut found = Vec::new();
     for run in runs {
@@ -334,7 +352,7 @@ fn analysis_jobs(repository: &str, runs: &[String], fetch: &mut Fetch) -> Result
                 continue;
             };
             let (Some(started), Some(completed)) =
-                (text(job, "started_at"), text(job, "completed_at"))
+                (timestamp(job, "started_at"), timestamp(job, "completed_at"))
             else {
                 return refuse("Unreadable analysis job");
             };
@@ -474,7 +492,8 @@ fn rule_of<'a>(run: &'a Json, result: &Json) -> Option<&'a Json> {
     rules.get(rule?)
 }
 
-/// Page `page` of main's CodeQL analyses, newest first.
+/// Page `page` of main's CodeQL analyses, newest first. An analysis without its
+/// creation time in UTC refuses.
 fn analysis_page(repository: &str, page: usize, fetch: &mut Fetch) -> Result<Vec<Json>> {
     let listing = fetch(
         &format!(
@@ -482,15 +501,22 @@ fn analysis_page(repository: &str, page: usize, fetch: &mut Fetch) -> Result<Vec
         ),
         false,
     )?;
-    array_items(&Json::Array(vec![listing]), "analysis")
+    let analyses = array_items(&Json::Array(vec![listing]), "analysis")?;
+    if analyses
+        .iter()
+        .any(|a| timestamp(a, "created_at").is_none())
+    {
+        return refuse("Unreadable analysis listing");
+    }
+    Ok(analyses)
 }
 
-/// Every analysis of `commit` in a job's category created whilst that job ran. Each
-/// job needs its own, not matched to another job; any further one in a job's window
-/// is returned too, because a later upload replaces an earlier one's alerts. The
-/// listing is newest first and ignores a commit filter, so pages are read until one
-/// is empty or reaches analyses older than the earliest job. None while a job has no
-/// upload.
+/// Every analysis of `commit` in a job's category created whilst that job ran, its
+/// start second included. Each job needs its own, made after that second and not
+/// matched to another job; any further one is returned too, because a later upload
+/// replaces an earlier one's alerts. The listing is newest first and ignores a
+/// commit filter, so pages are read until one is empty or reaches analyses older
+/// than the earliest job. None while a job has no upload.
 fn job_uploads(
     repository: &str,
     commit: &str,
@@ -512,7 +538,7 @@ fn job_uploads(
                 .flatten()
                 .chain(&surplus)
                 .any(|m| m.get("id") == analysis.get("id"));
-            if seen || !jobs.iter().any(|job| job.uploaded(analysis, commit)) {
+            if seen || !jobs.iter().any(|job| job.covers(analysis, commit)) {
                 continue;
             }
             match jobs.iter().zip(matched.iter_mut()).find_map(|(job, slot)| {
@@ -524,7 +550,7 @@ fn job_uploads(
         }
         let older = analyses
             .last()
-            .is_none_or(|last| text(last, "created_at").unwrap_or_default() <= earliest);
+            .is_none_or(|last| text(last, "created_at").unwrap_or_default() < earliest);
         if older {
             break;
         }
