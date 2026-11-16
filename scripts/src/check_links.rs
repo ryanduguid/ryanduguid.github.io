@@ -352,6 +352,8 @@ fn odd_spelling(href: &str, written: &Split) -> Option<&'static str> {
         && (!written.scheme.is_empty() || pyurl::has_authority(href) == Ok(true))
     {
         Some("no host after the scheme or //")
+    } else if !written.netloc.is_empty() && !plain_host(&written.netloc) {
+        Some("a host that is not plain ASCII, which a browser may rewrite")
     } else if written.path.contains("//")
         // urljoin can drop an empty segment that a browser keeps; external paths keep
         // theirs. A scheme-relative link takes the site's https.
@@ -366,6 +368,23 @@ fn odd_spelling(href: &str, written: &Split) -> Option<&'static str> {
     } else {
         None
     }
+}
+
+/// Whether urlsplit's host is one a browser keeps as written: dot-separated labels of
+/// ASCII letters, digits, hyphens and underscores, an optional trailing dot, and a last
+/// label that starts with a letter, so a browser cannot read the host as an IPv4 number.
+/// A browser maps or decodes anything else (full-width letters, IDNs, percent escapes,
+/// IP literals) to a host other than the one the checker compares.
+fn plain_host(netloc: &str) -> bool {
+    pyurl::hostname(netloc).is_some_and(|host| {
+        let host = host.strip_suffix('.').unwrap_or(&host);
+        host.bytes()
+            .all(|b| b.is_ascii_alphanumeric() || matches!(b, b'-' | b'_' | b'.'))
+            && host
+                .rsplit('.')
+                .next()
+                .is_some_and(|last| last.starts_with(|c: char| c.is_ascii_alphabetic()))
+    })
 }
 
 /// True for the schemes the checker follows: http, https or none (relative); urlsplit

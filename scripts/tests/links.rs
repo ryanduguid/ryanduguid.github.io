@@ -1605,6 +1605,7 @@ fn odd_spellings_are_refused_not_repaired() {
     const HOST: &str = "no host after the scheme or //";
     const EMPTY: &str = "an empty path segment (//)";
     const SPACE: &str = "a tab, a newline, or a space or control character at either end";
+    const HOSTNAME: &str = "a host that is not plain ASCII, which a browser may rewrite";
     // Every target a repair could name exists, so only the refusal can fail the link.
     let dir = tempfile::tempdir().unwrap();
     for rel in ["x.html", "a/x.html", "b/x.html", "example.org/a"] {
@@ -1638,6 +1639,17 @@ fn odd_spellings_are_refused_not_repaired() {
         (" https://duguid.com.au/x.html", SPACE),
         ("/\t//example.org/a", SPACE),
         ("http:/\n/example.org/a", SPACE),
+        // Hosts a browser rewrites: mapped or decoded letters, an IDN, IP literals.
+        (
+            "https://\u{ff44}\u{ff55}\u{ff47}\u{ff55}\u{ff49}\u{ff44}.com.au/x.html",
+            HOSTNAME,
+        ),
+        ("//dug\u{ad}uid.com.au/x.html", HOSTNAME),
+        ("https://%64uguid.com.au/x.html", HOSTNAME),
+        ("https://b\u{fc}cher.example/a", HOSTNAME),
+        ("https://127.1/a", HOSTNAME),
+        ("https://example.0x1/a", HOSTNAME),
+        ("https://[0:0::1]/a", HOSTNAME),
     ] {
         let harness = Harness::new(vec![]);
         let fetched = Rc::new(RefCell::new(Vec::new()));
@@ -1660,15 +1672,19 @@ fn odd_spellings_are_refused_not_repaired() {
         }
     }
     assert!(wrong.is_empty(), "{wrong:#?}");
-    // An external path keeps its empty segments, and a scheme-relative link its origin.
+    // An external path keeps its empty segments, a scheme-relative link its origin, and a
+    // plain host its case, trailing dot, user information and port.
     let plain = strings(&[
         "https://web.archive.org/web/2026/https://example.org/",
         "//example.org/a//b",
         "//duguid.com.au/b/x.html",
+        "https://DUGUID.COM.AU:443/b/x.html",
+        "https://user@a_b.example.org.:8443/a",
     ]);
     let fetchable = strings(&[
         "https://web.archive.org/web/2026/https://example.org/",
         "https://example.org/a//b",
+        "https://user@a_b.example.org.:8443/a",
     ]);
     let harness = Harness::new(vec![]);
     let fetched = Rc::new(RefCell::new(Vec::new()));

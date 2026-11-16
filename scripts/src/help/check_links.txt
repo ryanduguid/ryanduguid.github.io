@@ -14,7 +14,9 @@ name in the target, literally or percent-decoded, and #top always passes. An
 http(s) or relative link spelt oddly fails its page unchecked: a tab, a
 newline, or a space or control character at either end, a backslash before
 the query, no host after
-http(s): or // (as in ///example.org/), or an empty path segment (//) in a
+http(s): or // (as in ///example.org/), a host that is not plain ASCII
+labels ending in a letter (full-width or IDN letters, percent escapes, IP
+literals), which a browser may rewrite, or an empty path segment (//) in a
 link to this site. A malformed URL or port is a failure.
 The site is served from main; this
 branch's own pages are not live yet, so fetching them would fail even when the
