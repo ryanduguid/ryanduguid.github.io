@@ -2298,7 +2298,9 @@ fn vehicle_oracle(v: &Vehicle, limit: u64, threshold: u64) -> Value {
         _ if !car => None,
         "other" => return json!({"refused": OTHER_BODY}),
         "dual-cab" => Some(seats_to_half.is_gt()),
-        body => Some(body == "passenger"),
+        "passenger" => Some(true),
+        // TD 94/19 leaves a single cab ute or panel van to factors the page does not weigh.
+        _ => None,
     };
     let design = lct_car.then(|| match v.body {
         "passenger" => "passengers",
@@ -2337,7 +2339,8 @@ fn vehicle_oracle(v: &Vehicle, limit: u64, threshold: u64) -> Value {
     };
     json!({
         "load": v.load.to_string(), "car": car, "passengers": passengers,
-        "carLimit": passengers == Some(true), "capApplies": cap_applies,
+        "carLimit": if car && passengers.is_none() { Value::Null } else { json!(passengers == Some(true)) },
+        "capApplies": cap_applies,
         "cap": (cap_applies == Some(true)).then(|| shown(eleventh(limit))),
         "credit": credit.map(shown), "cost": cost.map(shown), "luxury": luxury,
         "threshold": shown(threshold),

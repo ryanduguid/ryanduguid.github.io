@@ -168,8 +168,8 @@ function vehicleRows(r, f, year) {
   const passengerWeight = Number(f.seats) * 68;
   const design = {
     passenger: 'Yes: a passenger body (TD 94/19)',
-    'single-cab': 'No: a utility truck (paragraph 8(2)(a)(i) of the FBT Act)',
-    van: 'No: a panel van (paragraph 8(2)(a)(i) of the FBT Act)',
+    'single-cab': 'Not decided here: TD 94/19 weighs a single cab ute’s appearance, marketing and specifications',
+    van: 'Not decided here: TD 94/19 weighs a panel van’s appearance, marketing and specifications',
     'dual-cab': `${r.passengers ? 'Yes' : 'No'}: ${f.seats} seats × 68 kg = ${kg(passengerWeight)}, `
       + `${r.passengers ? 'more than' : 'not more than'} the ${kg(r.load - passengerWeight)} left (MT 2024)`,
   }[f.body];
@@ -179,12 +179,16 @@ function vehicleRows(r, f, year) {
   const credit = f.credit === 'none' ? 'None claimed: the GST stays in the cost'
     : r.credit === null ? 'Not decided here: it turns on whether LCTD 2023/1 makes the ute a commercial vehicle'
       : `${aud(r.credit)}: the GST in the price, ${r.capApplies ? 'up to 1/11 of the car limit'
-        : r.capApplies === false ? 'with no car limit cap' : 'which is within the car limit'}`;
+        : r.capApplies === false ? `with no car limit cap${r.car ? ', the car treated as a commercial vehicle' : ''}`
+          : 'which is within the car limit'}`;
   const luxury = {
     'not-a-car': 'Cannot apply: not a car for luxury car tax, which needs a load under 2 tonnes and fewer than 9 seats',
     under: 'Cannot apply: the price is not over the threshold',
     over: `Can apply: the price is ${aud(r.over)} over the threshold`,
-    commercial: 'Cannot apply: a commercial vehicle not designed principally to carry passengers (LCTD 2023/1)',
+    commercial: f.body === 'van'
+      ? 'Treated as a commercial vehicle: the ATO will not review a cargo or delivery van (LCTD 2023/1 paragraphs 52 and 53)'
+      : 'Treated as a commercial vehicle: the seats at 68 kg are less than half the load, so the ATO will not review it '
+        + '(LCTD 2023/1 paragraph 55)',
     undetermined: 'Not decided here: whether it is a commercial vehicle turns on LCTD 2023/1 paragraph 13',
   }[r.luxury];
   const section = r.fbt === '47(6)' ? 'subsection 47(6)' : `paragraph ${r.fbt}`;
@@ -197,7 +201,8 @@ function vehicleRows(r, f, year) {
     r.exempt ? 'evidence that private use stayed limited, such as odometer readings' : 'the records to value the fringe benefit'];
   return [['Designed load: gross vehicle mass less kerb weight', kg(r.load)], ['A car under section 995-1 of ITAA 1997', car],
     ...(r.car ? [['Designed principally to carry passengers', design]] : []),
-    ['Car limit, section 40-230', r.carLimit ? `Applies: ${aud(Number(year.carLimit))}` : 'Does not apply'],
+    ['Car limit, section 40-230', r.carLimit ? `Applies: ${aud(Number(year.carLimit))}`
+      : r.carLimit === null ? 'Not decided here: it applies only to a car designed mainly for carrying passengers' : 'Does not apply'],
     ['GST credit, section 69-10 of the GST Act', credit],
     ...(r.carLimit ? [['First element of cost for decline in value', r.cost === null ? 'Not decided here: it turns on the GST credit' : aud(r.cost)]] : []),
     [`Luxury car tax at the ${aud(r.threshold)} threshold`, luxury], ['FBT on an employee’s private use', fbt],

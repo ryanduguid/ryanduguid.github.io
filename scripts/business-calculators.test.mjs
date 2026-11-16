@@ -368,8 +368,8 @@ const ENGINE_LABELS = { paygInstalment: { instalment: 'instalment' }, pcgRisk: P
 // The vehicle classifier's results are answers, a load in kg and money.
 const kgs = (value) => `${Number(value).toLocaleString('en-AU')} kg`;
 ENGINE_LABELS.vehicleClass = { load: (v) => `load ${kgs(v)}`, car: (v) => (v ? 'a car' : 'not a car'),
-  passengers: (v) => (v ? 'designed for passengers' : 'not designed for passengers'),
-  carLimit: (v) => (v ? 'car limit applies' : 'no car limit'),
+  passengers: (v) => (v === null ? 'passenger design not decided' : v ? 'designed for passengers' : 'not designed for passengers'),
+  carLimit: (v) => (v === null ? 'car limit not decided' : v ? 'car limit applies' : 'no car limit'),
   capApplies: (v) => (v === null ? 'GST credit cap not decided' : v ? 'GST credit cap applies' : 'no GST credit cap'),
   credit: (v) => (v === null ? 'GST credit not decided' : `GST credit ${dollars(v)}`), cost: (v) => `cost ${dollars(v)}`,
   luxury: (v) => ({ 'not-a-car': 'not a car for LCT', under: 'LCT cannot apply', over: 'LCT can apply',
@@ -1128,6 +1128,18 @@ test('the vehicle classifier’s years are the car limit table’s rows and the 
   }
 });
 
+// ITAA 1997 s 40-230(1), read 16 November 2026 (https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-230):
+// 'The first element of the cost of a car designed mainly for carrying passengers'; s 995-1: a car carries 'a load of
+// less than 1 tonne'. A ute or van at exactly 1 tonne is not a car, and a car not designed mainly for carrying
+// passengers is outside the limit whatever its body, so the car limit table must not tie utes and vans to the load alone.
+test('the car limit table names the vehicles section 40-230 reaches', () => {
+  const page = readFileSync(new URL('../rates/car-limit/index.html', import.meta.url), 'utf8');
+  const answer = page.match(/q: "Which vehicles does the car limit apply to\?"\n {4}a: "([^"]+)"/)[1];
+  assert.match(answer, /^A car designed mainly for carrying passengers \(section 40-230\)\./);
+  assert.match(answer, /less than 1 tonne and fewer than 9 passengers \(section 995-1\), so a ute or van designed to carry 1 tonne or more/);
+  assert.match(answer, /a car not designed mainly for carrying passengers/);
+});
+
 const vehicle = (fields) => ({ body: 'passenger', seats: '5', gvm: '3000', kerb: '2135', payload: '0', modified: 'no',
   cost: '75000', credit: 'full', fuel: 'other', use: 'limited', ...fields });
 // ATO, 'Instant asset write-off for eligible businesses' (last updated 28 August 2026), read 16 November 2026:
@@ -1178,6 +1190,13 @@ test('the design tests agree with MT 2024, the FBT guide, LCTD 2023/1 and TD 94/
   // LCTD 2023/1 paragraphs 52 and 53: a cargo or delivery van is low risk, so no luxury car and no GST credit cap.
   const van = calculations.vehicleClass(vehicle({ body: 'van', seats: '3', gvm: '3000', kerb: '2100', cost: '90000' }), year);
   assert.deepEqual([van.luxury, van.capApplies, van.credit], ['commercial', false, 8181.82]);
+  // TD 94/19 leaves a body other than a dual cab to its appearance, marketing and specifications, and no ATO
+  // source says whether a single cab ute or panel van is designed mainly for carrying passengers: the car limit
+  // is left undecided, whilst FBT's paragraph 8(2)(a)(i) covers both without asking.
+  for (const body of ['single-cab', 'van']) {
+    const result = calculations.vehicleClass(vehicle({ body, seats: '3', gvm: '3000', kerb: '2100', cost: '90000' }), year);
+    assert.deepEqual([result.car, result.passengers, result.carLimit, result.cost, result.fbt], [true, null, null, null, '8(2)(a)(i)'], body);
+  }
 });
 
 // Each test turns on one edge: a load of 1 tonne (s 995-1) or 2 tonnes (LCT Act s 27-1), 9 seats, MT 2024's

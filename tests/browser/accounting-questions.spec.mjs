@@ -625,8 +625,9 @@ test('vehicle classifier works LCTD 2023/1’s dual cab and the 2025-26 car limi
   await calculate();
   await expect(row('Designed principally to carry passengers')).toHaveText('No: 5 seats × 68 kg = 340 kg, not more than the 620 kg left (MT 2024)');
   await expect(row('Car limit, section 40-230')).toHaveText('Does not apply');
-  await expect(row('GST credit, section 69-10 of the GST Act')).toHaveText('$7,727.27: the GST in the price, with no car limit cap');
-  await expect(row(/^Luxury car tax at the /)).toHaveText('Cannot apply: a commercial vehicle not designed principally to carry passengers (LCTD 2023/1)');
+  await expect(row('GST credit, section 69-10 of the GST Act')).toHaveText('$7,727.27: the GST in the price, with no car limit cap, the car treated as a commercial vehicle');
+  await expect(row(/^Luxury car tax at the /)).toHaveText('Treated as a commercial vehicle: the seats at 68 kg are less than half the load, so the ATO will not review it '
+    + '(LCTD 2023/1 paragraph 55)');
   await expect(row('FBT on an employee’s private use')).toHaveText('Exempt under paragraph 8(2)(a)(ii), if private use was as limited as you state');
   await expect(form.locator('output .result-note')).toHaveText(
     'LCTD 2023/1’s simplified method assumes the ute is a goods vehicle under the Australian Design Rules (paragraph 57).');
@@ -639,6 +640,14 @@ test('vehicle classifier works LCTD 2023/1’s dual cab and the 2025-26 car limi
   await expect(row('Car limit, section 40-230')).toHaveText('Applies: $69,674.00');
   await expect(row('GST credit, section 69-10 of the GST Act')).toHaveText('$6,334.00: the GST in the price, up to 1/11 of the car limit');
   await expect(row('First element of cost for decline in value')).toHaveText('$68,666.00');
+  // No ATO source says whether a single cab ute is designed mainly for carrying passengers.
+  await form.getByLabel('Single cab ute').check();
+  await calculate();
+  await expect(row('Designed principally to carry passengers'))
+    .toHaveText('Not decided here: TD 94/19 weighs a single cab ute’s appearance, marketing and specifications');
+  await expect(row('Car limit, section 40-230'))
+    .toHaveText('Not decided here: it applies only to a car designed mainly for carrying passengers');
+  await expect(row('First element of cost for decline in value')).toHaveCount(0);
   await form.getByLabel('Another body, such as a truck or bus').check();
   await calculate();
   await expect(form.locator('output')).toHaveText('Whether this body was designed principally to carry passengers turns on its appearance, '

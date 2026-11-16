@@ -689,23 +689,25 @@ function designedLoad(vehicle) {
 }
 
 /** Whether a car was designed for the principal purpose of carrying passengers, as FBTAA
- * s 8(2) and ITAA 1997 s 40-230 ask: a passenger body is (TD 94/19), a utility truck or panel van
- * is a goods body (s 8(2)(a)(i)), and a dual cab is when its seats at 68 kg outweigh the load
- * left (MT 2024 paragraphs 14 to 16). TD 94/19 leaves any other body to factors not entered here.
- * @param {VehicleBody} body @param {number} load @param {number} seats */
+ * s 8(2) and ITAA 1997 s 40-230 ask: a passenger body is (TD 94/19), and a dual cab is when its
+ * seats at 68 kg outweigh the load left (MT 2024 paragraphs 14 to 16). TD 94/19 leaves every
+ * other body to factors not entered here: null for a single cab ute or a panel van, whose FBT
+ * exemption under s 8(2)(a)(i) does not ask, and a refusal for any other body, whose does.
+ * @param {VehicleBody} body @param {number} load @param {number} seats @returns {boolean | null} */
 function designedForPassengers(body, load, seats) {
   if (body === 'other') {
     throw new Error('Whether this body was designed principally to carry passengers turns on its appearance, '
       + 'marketing and specifications (TD 94/19), which this page does not weigh.');
   }
   if (body === 'dual-cab') return seats * SEAT_KG > load - seats * SEAT_KG;
-  return body === 'passenger';
+  return body === 'passenger' ? true : null;
 }
 
-/** Whether LCT Act s 25-1(2)(c) excludes the car as a commercial vehicle not designed
- * principally for passengers, as LCTD 2023/1 applies it: passenger bodies are unlikely to be
- * (paragraph 50), vans are low risk (paragraph 53), and a ute is when its seats at 68 kg are less
- * than half its load (paragraph 55). Anything else needs paragraph 13's factors.
+/** Whether the car is treated as a commercial vehicle not designed principally for passengers
+ * (LCT Act s 25-1(2)(c)) under LCTD 2023/1's compliance approach, the Commissioner's view:
+ * passenger bodies are unlikely to be (paragraph 50), and the ATO will not review a cargo or
+ * delivery van (paragraph 53) or a ute whose seats at 68 kg are less than half its load
+ * (paragraph 55). Anything else needs paragraph 13's factors.
  * @param {VehicleBody} body @param {number} load @param {number} seats
  * @returns {'passengers' | 'commercial' | 'undetermined'} */
 function luxuryDesign(body, load, seats) {
@@ -765,7 +767,7 @@ export function vehicleClass(vehicle, year) {
   const cost = passengers && credit !== null ? Math.min(price - Number(credit), limit) : null;
   /** @type {VehicleFbt} */
   const fbt = !car ? '47(6)' : ['single-cab', 'van'].includes(vehicle.body) ? '8(2)(a)(i)' : passengers ? 'car-benefit' : '8(2)(a)(ii)';
-  return { load, car, passengers, carLimit: passengers === true, capApplies, cap: capApplies ? Number(cap) / 100 : null,
+  return { load, car, passengers, carLimit: car && passengers === null ? null : passengers === true, capApplies, cap: capApplies ? Number(cap) / 100 : null,
     credit: credit === null ? null : Number(credit) / 100, cost: cost === null ? null : cost / 100, luxury,
     threshold: threshold / 100, over: luxury === 'over' ? (price - threshold) / 100 : null, fbt,
     exempt: fbt !== 'car-benefit' && vehicle.use === 'limited', belowThreshold: price < threshold };
