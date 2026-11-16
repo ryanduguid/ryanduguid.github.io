@@ -589,6 +589,27 @@ test('GIC payment plan works a weekly plan and one past the published rates offl
   await expect(form.locator('.field-error')).toHaveText('Enter 120 or less.');
 });
 
+test('transfer duty notes NSW premium duty from the first dollar over $3,870,000 only', async ({ page }) => {
+  await page.goto('/tools/business-calculators/transfer-duty/');
+  const form = page.locator('#transfer-duty form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  const duty = async (value) => {
+    await form.getByLabel('Dutiable value (whole dollars)').fill(value);
+    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    return form.locator('output');
+  };
+  let output = await duty('3870000');
+  await expect(output.locator('.result-row strong').first()).toHaveText('$194,137.00');
+  await expect(output.locator('.result-note')).toHaveCount(0);
+  output = await duty('3870001');
+  await expect(output.locator('.result-row strong').first()).toHaveText('$194,144.00');
+  await expect(output.locator('.result-note')).toHaveText(
+    'Premium duty applies to residential land only; other land continues at $5.50 for every $100 over $1,290,000.');
+  await form.getByLabel('Victoria').check();
+  output = await duty('4000000');
+  await expect(output.locator('.result-note')).toHaveCount(0);
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
