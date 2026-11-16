@@ -58,7 +58,10 @@ struct Site {
     main: String,
     runs: Vec<Json>,
     jobs: Vec<Json>,
+    analysis_jobs: Vec<Json>,
     analyses: Json,
+    /// The processing status of each analysis upload.
+    upload: &'static str,
     alerts: Json,
     /// The alert listing from the second read on, when it differs from the first.
     alerts_later: Option<Json>,
@@ -78,7 +81,6 @@ impl Site {
                 ("path", s(CODEQL_WORKFLOW)),
                 ("event", s("dynamic")),
                 ("conclusion", s("success")),
-                ("run_started_at", s("2026-11-16T00:00:00Z")),
             ],
         );
         let job = json(&format!(
@@ -87,9 +89,9 @@ impl Site {
         Site {
             runs: vec![run.clone(), analysis.clone()],
             jobs: vec![job.clone()],
-            analyses: json(&format!(
-                r#"[[{{"id": 9, "commit_sha": "{c}", "created_at": "2026-11-16T00:02:30Z"}}]]"#
-            )),
+            analysis_jobs: vec![analysis_job("python")],
+            analyses: Json::Array(vec![uploaded("python", "2026-11-16T00:02:30Z")]),
+            upload: "complete",
             alerts: Json::Array(vec![Json::Array(vec![])]),
             alerts_later: None,
             alert_reads: Cell::new(0),
@@ -105,6 +107,18 @@ impl Site {
             assert!(!paginate);
             return json(&format!(r#"{{"object": {{"sha": "{}"}}}}"#, self.main));
         }
+        if endpoint
+            == format!(
+                "repos/{REPO}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100"
+            )
+        {
+            assert!(!paginate);
+            return self.analyses.clone();
+        }
+        if endpoint == format!("repos/{REPO}/code-scanning/sarifs/0a-1") {
+            assert!(!paginate);
+            return json(&format!(r#"{{"processing_status": "{}"}}"#, self.upload));
+        }
         assert!(paginate);
         if endpoint.contains("code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL")
         {
@@ -113,11 +127,8 @@ impl Site {
                 Some(later) if self.alert_reads.get() > 1 => later.clone(),
                 _ => self.alerts.clone(),
             }
-        } else if endpoint.contains(&format!(
-            "code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&sha={}",
-            commit()
-        )) {
-            self.analyses.clone()
+        } else if endpoint.contains("/runs/6/jobs?") {
+            page("jobs", &self.analysis_jobs)
         } else if endpoint.contains("/jobs?") {
             page("jobs", &self.jobs)
         } else {
@@ -135,6 +146,22 @@ fn analysed_main() -> (Site, Json) {
     let site = Site::new();
     let analysis = site.analysis.clone();
     (site, analysis)
+}
+
+/// The default-setup job that analyses `language`, from 00:00:05 to 00:03:00.
+fn analysis_job(language: &str) -> Json {
+    json(&format!(
+        r#"{{"id": 7, "name": "Analyze ({language})", "head_sha": "{}", "status": "completed", "conclusion": "success", "started_at": "2026-11-16T00:00:05Z", "completed_at": "2026-11-16T00:03:00Z"}}"#,
+        commit()
+    ))
+}
+
+/// The analysis of `language` code scanning lists for the commit, created at `created`.
+fn uploaded(language: &str, created: &str) -> Json {
+    json(&format!(
+        r#"{{"id": 9, "commit_sha": "{}", "category": "/language:{language}", "created_at": "{created}", "sarif_id": "0a-1"}}"#,
+        commit()
+    ))
 }
 
 fn alert(rule: &str) -> Json {
@@ -767,15 +794,21 @@ fn a_main_analysis_still_needs_the_attribution_audit() {
 #[test]
 fn main_results_wait_for_this_commits_analysis_and_a_settled_alert_listing() {
     let (mut site, _) = analysed_main();
-    site.analyses = json(&format!(
-        r#"[[{{"id": 8, "commit_sha": "{}"}}], []]"#,
-        "b".repeat(40)
-    ));
+    site.analyses = Json::Array(vec![with(
+        &uploaded("python", "2026-11-16T00:02:30Z"),
+        &[("commit_sha", s(&"b".repeat(40)))],
+    )]);
     assert_eq!(site.evaluate(), Ok(false));
-    site.analyses = json("[[]]");
+    site.analyses = json("[]");
     assert_eq!(site.evaluate(), Ok(false));
-    site.analyses = json(r#"{"message": "Not Found"}"#);
-    assert_eq!(value_error(site.evaluate()), "Unreadable analysis listing");
+    for listing in [r#"{"message": "Not Found"}"#, "[1]", "[[]]"] {
+        site.analyses = json(listing);
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis listing",
+            "{listing}"
+        );
+    }
 
     let (mut site, _) = analysed_main();
     site.alerts_later = Some(json(r#"[[{"number": 2, "rule": {"severity": "note"}}]]"#));
@@ -783,29 +816,67 @@ fn main_results_wait_for_this_commits_analysis_and_a_settled_alert_listing() {
 }
 
 #[test]
-fn an_analysis_from_before_this_run_started_does_not_count() {
-    let (mut site, analysis) = analysed_main();
-    site.analyses = json(&format!(
-        r#"[[{{"id": 8, "commit_sha": "{}", "created_at": "2026-11-15T23:59:59Z"}}]]"#,
-        commit()
-    ));
-    assert_eq!(site.evaluate(), Ok(false));
-    // A rerun of the analysis: the earlier run's results do not stand in for it.
+fn only_an_analysis_each_job_uploaded_whilst_it_ran_counts() {
+    // Uploaded before the job started (an earlier attempt), in the same second it
+    // started, or after it finished.
+    for created in [
+        "2026-11-15T23:59:59Z",
+        "2026-11-16T00:00:05Z",
+        "2026-11-16T00:03:01Z",
+    ] {
+        let (mut site, _) = analysed_main();
+        site.analyses = Json::Array(vec![uploaded("python", created)]);
+        assert_eq!(site.evaluate(), Ok(false), "{created}");
+    }
     let (mut site, _) = analysed_main();
-    site.runs = vec![
-        site.run.clone(),
-        analysis.clone(),
-        with(
-            &analysis,
-            &[("id", n(5)), ("run_started_at", s("2026-11-16T01:00:00Z"))],
-        ),
-    ];
+    site.analyses = Json::Array(vec![uploaded("python", "2026-11-16T00:03:00Z")]);
+    assert_eq!(site.evaluate(), Ok(true));
+    // Every language the run analysed needs its own analysis.
+    let mut ruby = analysis_job("ruby");
+    ruby = with(&ruby, &[("id", n(8))]);
+    site.analysis_jobs.push(ruby);
     assert_eq!(site.evaluate(), Ok(false));
-    site.runs = vec![
-        site.run.clone(),
-        with(&analysis, &[("run_started_at", Json::Null)]),
-    ];
-    assert_eq!(value_error(site.evaluate()), "Unreadable analysis start");
+    site.analyses = Json::Array(vec![
+        uploaded("python", "2026-11-16T00:02:30Z"),
+        uploaded("ruby", "2026-11-16T00:02:40Z"),
+    ]);
+    assert_eq!(site.evaluate(), Ok(true));
+}
+
+#[test]
+fn alerts_are_read_only_once_code_scanning_has_processed_each_upload() {
+    let (mut site, _) = analysed_main();
+    site.upload = "pending";
+    assert_eq!(site.evaluate(), Ok(false));
+    assert_eq!(site.alert_reads.get(), 0);
+    site.upload = "failed";
+    assert_eq!(
+        value_error(site.evaluate()),
+        "Code scanning could not process main's CodeQL results"
+    );
+    site.upload = "unknown";
+    assert_eq!(value_error(site.evaluate()), "Unreadable analysis upload");
+    let (mut site, _) = analysed_main();
+    site.analyses = Json::Array(vec![with(
+        &uploaded("python", "2026-11-16T00:02:30Z"),
+        &[("sarif_id", s("../alerts"))],
+    )]);
+    assert_eq!(value_error(site.evaluate()), "Unreadable analysis upload");
+}
+
+#[test]
+fn analysis_jobs_must_be_readable_and_present() {
+    let (mut site, _) = analysed_main();
+    site.analysis_jobs = vec![with(
+        &analysis_job("python"),
+        &[("completed_at", Json::Null)],
+    )];
+    assert_eq!(value_error(site.evaluate()), "Unreadable analysis job");
+    site.analysis_jobs = vec![with(&analysis_job("python"), &[("name", s("Upload"))])];
+    assert_eq!(
+        value_error(site.evaluate()),
+        "CodeQL analysis of main has no Analyze job"
+    );
 }
 
 #[test]

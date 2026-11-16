@@ -144,7 +144,7 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
     )?;
     let mut audits = Vec::new();
     let mut analyses = Vec::new();
-    let mut started = Vec::new();
+    let mut analysis_runs = Vec::new();
     for run in &runs {
         let Some(path) = text(run, "path") else {
             return refuse("Unreadable workflow path");
@@ -193,10 +193,8 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
             if is(run, "status", "completed") && !is(run, "conclusion", "success") {
                 return refuse("CodeQL analysis of main did not succeed");
             }
-            let Some(start) = text(run, "run_started_at") else {
-                return refuse("Unreadable analysis start");
-            };
-            started.push(start);
+            let id = int(run.get("id")).expect("items checked the id");
+            analysis_runs.push(py::int_repr(id).map_err(Refusal::Value)?);
             analyses.push(succeeded(run));
             continue;
         }
@@ -235,8 +233,8 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
     }
     let audited = !audits.is_empty() && audits.iter().all(|a| *a);
     let analysed = !analyses.is_empty() && analyses.iter().all(|a| *a);
-    let latest = started.into_iter().max().unwrap_or_default();
-    let ready = audited && analysed && main_results_pass(repository, commit, latest, fetch)?;
+    let ready =
+        audited && analysed && main_results_pass(repository, commit, &analysis_runs, fetch)?;
     if ready {
         require_main(repository, commit, fetch)?;
     }
@@ -271,27 +269,77 @@ fn array_items(payload: &Json, what: &str) -> Result<Vec<Json>> {
 /// open alerts reaches the pull request check's default failure threshold: error
 /// severity, or high or critical security severity. Any such alert refuses
 /// publication, however old. False while the results are still being processed or
-/// the listing changes between reads. Only an analysis created once the latest
-/// analysis run of the commit had started counts: an earlier analysis of the same
-/// commit can hold results that run replaces.
+/// the alert listing changes between reads. Each `Analyze (<language>)` job of the
+/// commit's analysis runs, in its latest attempt, must have uploaded an analysis of
+/// the commit in category `/language:<language>` whilst it ran, and code scanning
+/// must have finished processing that upload, so the alerts read afterwards hold its
+/// results. An earlier attempt's analysis was uploaded before the job started.
 fn main_results_pass(
     repository: &str,
     commit: &str,
-    started: &str,
+    runs: &[String],
     fetch: &mut Fetch,
 ) -> Result<bool> {
-    let analyses = fetch(
+    // shortcut: only the newest 100 analyses on main are read. The listing ignores a
+    // commit filter, and paging through main's history on every poll is slow; main
+    // gets 4 analyses a push, and check_publication only runs for main's head.
+    let listing = fetch(
         &format!(
-            "repos/{repository}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&sha={commit}&per_page=100"
+            "repos/{repository}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100"
         ),
-        true,
+        false,
     )?;
-    // GitHub writes both times as UTC `YYYY-MM-DDTHH:MM:SSZ`, which sort as text.
-    if !array_items(&analyses, "analysis")?.iter().any(|analysis| {
-        is(analysis, "commit_sha", commit)
-            && text(analysis, "created_at").is_some_and(|created| created >= started)
-    }) {
-        return Ok(false);
+    let analyses = array_items(&Json::Array(vec![listing]), "analysis")?;
+    for run in runs {
+        let jobs = stable_items(
+            fetch,
+            &format!("repos/{repository}/actions/runs/{run}/jobs?filter=latest"),
+            "jobs",
+        )?;
+        let mut languages = 0;
+        for job in &jobs {
+            let Some(language) = text(job, "name")
+                .and_then(|name| name.strip_prefix("Analyze ("))
+                .and_then(|name| name.strip_suffix(')'))
+            else {
+                continue;
+            };
+            languages += 1;
+            let (Some(started), Some(completed)) =
+                (text(job, "started_at"), text(job, "completed_at"))
+            else {
+                return refuse("Unreadable analysis job");
+            };
+            let category = format!("/language:{language}");
+            // GitHub writes these times as UTC `YYYY-MM-DDTHH:MM:SSZ`, which sort as text.
+            let Some(analysis) = analyses.iter().find(|analysis| {
+                is(analysis, "commit_sha", commit)
+                    && is(analysis, "category", &category)
+                    && text(analysis, "created_at")
+                        .is_some_and(|created| created > started && created <= completed)
+            }) else {
+                return Ok(false);
+            };
+            let upload = match text(analysis, "sarif_id") {
+                Some(id) if fullmatch("[0-9a-f-]+", 0, id) => id,
+                _ => return refuse("Unreadable analysis upload"),
+            };
+            let status = fetch(
+                &format!("repos/{repository}/code-scanning/sarifs/{upload}"),
+                false,
+            )?;
+            match text(&status, "processing_status") {
+                Some("complete") => {}
+                Some("pending") => return Ok(false),
+                Some("failed") => {
+                    return refuse("Code scanning could not process main's CodeQL results");
+                }
+                _ => return refuse("Unreadable analysis upload"),
+            }
+        }
+        if languages == 0 {
+            return refuse("CodeQL analysis of main has no Analyze job");
+        }
     }
     let endpoint = format!(
         "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&per_page=100"

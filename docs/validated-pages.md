@@ -11,15 +11,17 @@ Deployment is held while `PAGES_VALIDATED_DEPLOYMENT` is absent or false. The
 a pull request whose head is a main commit would attach to that commit, so
 `site-tools check_publication` does not read it. It needs CodeQL default setup's
 `dynamic/github-code-scanning/codeql` run for the exact main commit from this
-repository to succeed, code scanning to list a CodeQL analysis of that commit
-created after the latest such run started, and 2 reads of main's open CodeQL
-alerts to agree on each alert's severities. Any open alert on main at GitHub's
+repository to succeed. Each `Analyze (<language>)` job in that run's latest
+attempt must have uploaded an analysis of the commit in category
+`/language:<language>` whilst it ran, and code scanning must report that upload
+processed before main's open CodeQL alerts are read. 2 reads of the alerts must
+agree on each alert's severities. Any open alert on main at GitHub's
 default failure threshold for that check (error severity, or high or critical
 security severity), however old, refuses publication; a repository setting that
 changes the threshold is not read. It also refuses a failed analysis, and waits
-while the analysis runs or the alerts settle. Only the main-only `publication`
-job and the `deploy` job read the alerts with `security-events: read`, so pull
-request code never gets that permission.
+while the analysis runs, its uploads are processed or the alerts settle. Only
+the main-only `publication` job and the `deploy` job read the alerts with
+`security-events: read`, so pull request code never gets that permission.
 
 ## Activation and hosted checks
 
