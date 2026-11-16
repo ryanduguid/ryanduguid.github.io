@@ -1,6 +1,7 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
+pub mod about_portrait;
 pub mod agent_files;
 pub mod agent_skills;
 pub mod ato_sources;

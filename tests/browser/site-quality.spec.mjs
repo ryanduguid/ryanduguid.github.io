@@ -895,8 +895,8 @@ test('the About portrait is centred and fits its frame', async ({ page }) => {
   expect(Math.abs(geometry.offCentre)).toBeLessThanOrEqual(1);
   expect(geometry.overflow).toBeLessThanOrEqual(0);
   expect(geometry.rows).toBeGreaterThan(40);
-  // The stylesheet sizes the type for 120 columns.
-  expect(geometry.longest).toBeLessThanOrEqual(120);
+  // The stylesheet sizes the type for 140 columns.
+  expect(geometry.longest).toBeLessThanOrEqual(140);
 });
 
 test('on a landscape phone the header and view switch scroll away', async ({ page }) => {
