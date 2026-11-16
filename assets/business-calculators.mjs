@@ -200,7 +200,7 @@ export function transferDuty(value, scale) {
   const dollars = number(value, { min: 1, max: 1e9, integer: true, money: true });
   const contiguous = Array.isArray(scale) && scale.length > 0 && scale.every(([over, to, , , rule], index) =>
     TRANSFER_DUTY_RULES.includes(rule) && over === (index ? scale[index - 1][1] : '0')
-      && (to === '') === (index === scale.length - 1));
+      && (index === scale.length - 1 ? to === '' : /^\d+$/.test(to) && Number(to) > Number(over)));
   if (!contiguous) throw new Error('This jurisdiction’s rate table is not usable.');
   const bracket = scale.findIndex(([, to]) => to === '' || dollars <= Number(to));
   const [over, , base, rate, rule] = scale[bracket];

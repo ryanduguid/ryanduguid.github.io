@@ -576,6 +576,16 @@ test('transfer duty at the top of a band uses that band and rejects a broken tab
     nsw.map((row, index) => (index ? row : [...row.slice(0, 4), 'per-cent']))]) {
     assert.throws(() => transferDuty('1000', broken), { message: 'This jurisdiction’s rate table is not usable.' });
   }
+  // A band ending part way through a dollar, or at or below where it starts, is refused even
+  // for a value in a band that is still well formed.
+  for (const broken of [[['0', '1000.5', '0', '1', 'excess'], ['1000.5', '', '10', '2', 'excess']],
+    [['0', '1000', '0', '1', 'excess'], ['1000', '1000', '10', '2', 'excess'], ['1000', '', '10', '3', 'excess']],
+    [['0', '5000', '0', '1', 'excess'], ['5000', '3000', '50', '2', 'excess'], ['3000', '', '10', '3', 'excess']]]) {
+    for (const value of ['500', '2000', '9000']) {
+      assert.throws(() => transferDuty(value, broken), { message: 'This jurisdiction’s rate table is not usable.' },
+        `${JSON.stringify(broken)} ${value}`);
+    }
+  }
 });
 
 // The FBT car form passes the checked option's gross-up and the form's days and FBT rate; the
