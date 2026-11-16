@@ -13,6 +13,8 @@ use std::time::{Duration, Instant};
 
 pub const AUDIT_WORKFLOW: &str = ".github/workflows/no-ai-attribution.yml";
 pub const AUDIT_JOB: &str = "Attribution policy / Attribution policy runner";
+/// The run CodeQL default setup makes for each push to main.
+pub const CODEQL_WORKFLOW: &str = "dynamic/github-code-scanning/codeql";
 const SHA: &str = "[0-9a-f]{40}";
 const REPOSITORY: &str = "[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+";
 const USAGE: &str = include_str!("help/check_publication.usage");
@@ -131,52 +133,24 @@ fn require_main(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<()>
 
 pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<bool> {
     require_main(repository, commit, fetch)?;
-    let checks = stable_items(
-        fetch,
-        &format!("repos/{repository}/commits/{commit}/check-runs?filter=all"),
-        "check_runs",
-    )?;
-    let mut codeql = Vec::new();
-    for value in &checks {
-        if ["name", "head_sha", "status"]
-            .iter()
-            .any(|field| text(value, field).is_none())
-        {
-            return refuse("Unreadable check identity");
-        }
-        let app_id = match value.get("app") {
-            Some(app @ Json::Object(_)) => int(app.get("id")),
-            _ => None,
-        };
-        let Some(app_id) = app_id else {
-            return refuse("Unreadable check producer");
-        };
-        if is(value, "name", "CodeQL")
-            && *app_id == BigInt::from(57789)
-            && is(value, "head_sha", commit)
-        {
-            codeql.push(value);
-        }
-    }
-    // An Analyze job is not the CodeQL results policy. No mapped result means no publication.
+    // The `CodeQL` check run is not read: GitHub creates it only for pull requests, and
+    // one from a pull request whose head is this commit, against another base, would
+    // attach to this commit too. Main's own analysis and alerts decide instead.
     let succeeded = |v: &Json| is(v, "status", "completed") && is(v, "conclusion", "success");
-    if codeql
-        .iter()
-        .any(|v| is(v, "status", "completed") && !is(v, "conclusion", "success"))
-    {
-        return refuse("CodeQL results did not succeed");
-    }
     let runs = stable_items(
         fetch,
         &format!("repos/{repository}/actions/runs?head_sha={commit}"),
         "workflow_runs",
     )?;
     let mut audits = Vec::new();
+    let mut analyses = Vec::new();
+    let mut analysis_runs = Vec::new();
     for run in &runs {
         let Some(path) = text(run, "path") else {
             return refuse("Unreadable workflow path");
         };
-        if path != AUDIT_WORKFLOW {
+        let analysis = path == CODEQL_WORKFLOW;
+        if path != AUDIT_WORKFLOW && !analysis {
             continue;
         }
         if ["path", "head_sha", "event", "head_branch", "status"]
@@ -192,18 +166,36 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
                 _ => None,
             };
             let Some(name) = name else {
-                return refuse("Unreadable audit repository");
+                return refuse(if analysis {
+                    "Unreadable analysis repository"
+                } else {
+                    "Unreadable audit repository"
+                });
             };
             owners.push(py::casefold(name));
         }
         let expected_owner = py::casefold(repository);
         let event = text(run, "event").unwrap_or_default();
-        if !matches!(event, "push" | "workflow_dispatch")
+        let trusted_event = if analysis {
+            event == "dynamic"
+        } else {
+            matches!(event, "push" | "workflow_dispatch")
+        };
+        if !trusted_event
             || !is(run, "head_branch", "main")
             || !is(run, "head_sha", commit)
             || owners[0] != expected_owner
             || owners[1] != expected_owner
         {
+            continue;
+        }
+        if analysis {
+            if is(run, "status", "completed") && !is(run, "conclusion", "success") {
+                return refuse("CodeQL analysis of main did not succeed");
+            }
+            let id = int(run.get("id")).expect("items checked the id");
+            analysis_runs.push(py::int_repr(id).map_err(Refusal::Value)?);
+            analyses.push(succeeded(run));
             continue;
         }
         let id = int(run.get("id")).expect("items checked the id");
@@ -239,20 +231,374 @@ pub fn evaluate(repository: &str, commit: &str, fetch: &mut Fetch) -> Result<boo
         }
         audits.push(selected.first().is_some_and(|job| succeeded(job)));
     }
-    let ready = !codeql.is_empty()
-        && codeql.iter().all(|v| succeeded(v))
-        && !audits.is_empty()
-        && audits.iter().all(|a| *a);
+    let audited = !audits.is_empty() && audits.iter().all(|a| *a);
+    let analysed = !analyses.is_empty() && analyses.iter().all(|a| *a);
+    let ready =
+        audited && analysed && main_results_pass(repository, commit, &analysis_runs, fetch)?;
     if ready {
         require_main(repository, commit, fetch)?;
     }
     Ok(ready)
 }
 
+/// The records of a `gh api --paginate --slurp` listing that returns a bare array.
+fn array_items(payload: &Json, what: &str) -> Result<Vec<Json>> {
+    let unreadable = || refuse(&format!("Unreadable {what} listing"));
+    let Json::Array(pages) = payload else {
+        return unreadable();
+    };
+    if pages.is_empty() {
+        return unreadable();
+    }
+    let mut found = Vec::new();
+    for page in pages {
+        let Json::Array(records) = page else {
+            return unreadable();
+        };
+        for record in records {
+            if !matches!(record, Json::Object(_)) {
+                return unreadable();
+            }
+            found.push(record.clone());
+        }
+    }
+    Ok(found)
+}
+
+/// Whether code scanning holds main's CodeQL results for `commit` and neither those
+/// results nor main's open alerts reach the pull request check's default failure
+/// threshold: error severity, or high or critical security severity. Any such alert
+/// refuses publication, however old. False while the results are still being
+/// processed or the alert listing changes between reads.
+fn main_results_pass(
+    repository: &str,
+    commit: &str,
+    runs: &[String],
+    fetch: &mut Fetch,
+) -> Result<bool> {
+    if !analyses_pass(repository, commit, runs, fetch)? {
+        return Ok(false);
+    }
+    let endpoint = format!(
+        "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&per_page=100"
+    );
+    let alerts = alert_levels(&fetch(&endpoint, true)?)?;
+    if alert_levels(&fetch(&endpoint, true)?)? != alerts {
+        return Ok(false);
+    }
+    if alerts.iter().any(|(_, severity, security)| {
+        severity.as_deref() == Some("error")
+            || matches!(security.as_deref(), Some("high" | "critical"))
+    }) {
+        return refuse("Main has an open CodeQL alert the pull request check would fail on");
+    }
+    Ok(true)
+}
+
+/// A job of an analysis run: its language and when it started and finished.
+struct AnalysisJob {
+    category: String,
+    started: String,
+    completed: String,
+}
+
+impl AnalysisJob {
+    /// Whether `analysis` is an upload of `commit` in this job's category that may
+    /// have been made whilst the job ran, its start second included. GitHub writes
+    /// these times as UTC `YYYY-MM-DDTHH:MM:SSZ`, which sort as text.
+    fn covers(&self, analysis: &Json, commit: &str) -> bool {
+        let created = text(analysis, "created_at").unwrap_or_default();
+        is(analysis, "commit_sha", commit)
+            && is(analysis, "category", &self.category)
+            && created >= self.started.as_str()
+            && created <= self.completed.as_str()
+    }
+
+    /// Whether `analysis` can be this job's own upload: covered and made after the
+    /// second the job started, which an earlier attempt's upload could share.
+    fn uploaded(&self, analysis: &Json, commit: &str) -> bool {
+        self.covers(analysis, commit)
+            && text(analysis, "created_at").unwrap_or_default() > self.started.as_str()
+    }
+}
+
+/// The time at `key` when it is a real UTC `YYYY-MM-DDTHH:MM:SSZ` time, or None.
+fn timestamp<'a>(record: &'a Json, key: &str) -> Option<&'a str> {
+    text(record, key).filter(|time| {
+        fullmatch(
+            "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z",
+            0,
+            time,
+        ) && chrono::NaiveDateTime::parse_from_str(time, "%Y-%m-%dT%H:%M:%SZ").is_ok()
+    })
+}
+
+/// The `Analyze (<language>)` jobs of each run's latest attempt. A run without one,
+/// or a job without both times in UTC, refuses.
+fn analysis_jobs(repository: &str, runs: &[String], fetch: &mut Fetch) -> Result<Vec<AnalysisJob>> {
+    let mut found = Vec::new();
+    for run in runs {
+        let jobs = stable_items(
+            fetch,
+            &format!("repos/{repository}/actions/runs/{run}/jobs?filter=latest"),
+            "jobs",
+        )?;
+        let before = found.len();
+        for job in &jobs {
+            let Some(language) = text(job, "name")
+                .and_then(|name| name.strip_prefix("Analyze ("))
+                .and_then(|name| name.strip_suffix(')'))
+            else {
+                continue;
+            };
+            let (Some(started), Some(completed)) =
+                (timestamp(job, "started_at"), timestamp(job, "completed_at"))
+            else {
+                return refuse("Unreadable analysis job");
+            };
+            found.push(AnalysisJob {
+                category: format!("/language:{language}"),
+                started: started.to_owned(),
+                completed: completed.to_owned(),
+            });
+        }
+        if found.len() == before {
+            return refuse("CodeQL analysis of main has no Analyze job");
+        }
+    }
+    Ok(found)
+}
+
+/// Whether each analysis job's own upload of the commit, made whilst the job ran, has
+/// been processed and holds no result at the threshold. Each upload's own results are
+/// read, because a later upload in the same category replaces an earlier one's alerts
+/// and the alert listing cannot show which upload it reflects. False while an upload
+/// is missing or pending. A rerun attempt's jobs start after the earlier attempt
+/// finished, so its upload falls outside their windows, and no upload counts for 2
+/// jobs.
+fn analyses_pass(
+    repository: &str,
+    commit: &str,
+    runs: &[String],
+    fetch: &mut Fetch,
+) -> Result<bool> {
+    let jobs = analysis_jobs(repository, runs, fetch)?;
+    let Some(uploads) = job_uploads(repository, commit, &jobs, fetch)? else {
+        return Ok(false);
+    };
+    for upload in &uploads {
+        let (Some(sarif), Some(id)) = (text(upload, "sarif_id"), int(upload.get("id"))) else {
+            return refuse("Unreadable analysis upload");
+        };
+        if !fullmatch("[0-9a-f-]+", 0, sarif) {
+            return refuse("Unreadable analysis upload");
+        }
+        let status = fetch(
+            &format!("repos/{repository}/code-scanning/sarifs/{sarif}"),
+            false,
+        )?;
+        match text(&status, "processing_status") {
+            Some("complete") => {}
+            Some("pending") => return Ok(false),
+            Some("failed") => {
+                return refuse("Code scanning could not process main's CodeQL results");
+            }
+            _ => return refuse("Unreadable analysis upload"),
+        }
+        let id = py::int_repr(id).map_err(Refusal::Value)?;
+        let results = fetch(
+            &format!("repos/{repository}/code-scanning/analyses/{id}"),
+            false,
+        )?;
+        if sarif_fails(&results)? {
+            return refuse(
+                "Main's CodeQL analysis has a result the pull request check would fail on",
+            );
+        }
+    }
+    Ok(true)
+}
+
+/// The JSON array at `key`, or None.
+fn array_at<'a>(value: Option<&'a Json>, key: &str) -> Option<&'a [Json]> {
+    match value?.get(key)? {
+        Json::Array(items) => Some(items),
+        _ => None,
+    }
+}
+
+/// Whether an analysis's SARIF holds a result at the pull request check's default
+/// threshold: error level, or a rule security severity of 7.0 or more (high or
+/// critical). A result without a level takes its rule's default level, then SARIF's
+/// default, warning. A result whose rule cannot be found, or a security severity
+/// that is not a number, is unreadable.
+fn sarif_fails(sarif: &Json) -> Result<bool> {
+    let unreadable = || refuse("Unreadable analysis results");
+    let Some(runs) = array_at(Some(sarif), "runs") else {
+        return unreadable();
+    };
+    for run in runs {
+        let Some(results) = array_at(Some(run), "results") else {
+            return unreadable();
+        };
+        for result in results {
+            let Some(rule) = rule_of(run, result) else {
+                return unreadable();
+            };
+            let level = text(result, "level")
+                .or_else(|| {
+                    rule.get("defaultConfiguration")
+                        .and_then(|c| text(c, "level"))
+                })
+                .unwrap_or("warning");
+            let security = match rule
+                .get("properties")
+                .and_then(|p| p.get("security-severity"))
+            {
+                None => 0.0,
+                Some(Json::Str(score)) => match score.parse::<f64>() {
+                    Ok(score) => score,
+                    Err(_) => return unreadable(),
+                },
+                Some(_) => return unreadable(),
+            };
+            if level == "error" || security >= 7.0 {
+                return Ok(true);
+            }
+        }
+    }
+    Ok(false)
+}
+
+/// The rule a SARIF result names: `rule.index` in the tool extension at
+/// `rule.toolComponent.index`, or in the driver without one, or `ruleIndex` in the
+/// driver.
+fn rule_of<'a>(run: &'a Json, result: &Json) -> Option<&'a Json> {
+    let tool = run.get("tool");
+    let index = |value: Option<&Json>| int(value).and_then(|i| usize::try_from(i).ok());
+    let (component, rule) = match result.get("rule") {
+        Some(reference @ Json::Object(_)) => (
+            reference
+                .get("toolComponent")
+                .map(|c| index(c.get("index"))),
+            index(reference.get("index")),
+        ),
+        _ => (None, index(result.get("ruleIndex"))),
+    };
+    let rules = match component {
+        Some(component) => array_at(array_at(tool, "extensions")?.get(component?), "rules")?,
+        None => array_at(tool.and_then(|t| t.get("driver")), "rules")?,
+    };
+    rules.get(rule?)
+}
+
+/// Page `page` of main's CodeQL analyses, newest first. An analysis without its id,
+/// commit, category or creation time in UTC refuses.
+fn analysis_page(repository: &str, page: usize, fetch: &mut Fetch) -> Result<Vec<Json>> {
+    let listing = fetch(
+        &format!(
+            "repos/{repository}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100&page={page}"
+        ),
+        false,
+    )?;
+    let analyses = array_items(&Json::Array(vec![listing]), "analysis")?;
+    if analyses.iter().any(|a| {
+        int(a.get("id")).is_none()
+            || text(a, "commit_sha").is_none()
+            || text(a, "category").is_none()
+            || timestamp(a, "created_at").is_none()
+    }) {
+        return refuse("Unreadable analysis listing");
+    }
+    Ok(analyses)
+}
+
+/// Every analysis of `commit` in a job's category created whilst that job ran, its
+/// start second included. Each job needs its own, made after that second and not
+/// matched to another job; any further one is returned too, because a later upload
+/// replaces an earlier one's alerts. The listing is newest first and ignores a
+/// commit filter, so pages are read until one is empty or reaches analyses older
+/// than the earliest job. None while a job has no upload.
+fn job_uploads(
+    repository: &str,
+    commit: &str,
+    jobs: &[AnalysisJob],
+    fetch: &mut Fetch,
+) -> Result<Option<Vec<Json>>> {
+    let earliest = jobs
+        .iter()
+        .map(|job| job.started.as_str())
+        .min()
+        .unwrap_or_default();
+    let mut matched: Vec<Option<Json>> = jobs.iter().map(|_| None).collect();
+    let mut surplus: Vec<Json> = Vec::new();
+    for page in 1.. {
+        let analyses = analysis_page(repository, page, fetch)?;
+        for analysis in &analyses {
+            let seen = matched
+                .iter()
+                .flatten()
+                .chain(&surplus)
+                .any(|m| m.get("id") == analysis.get("id"));
+            if seen || !jobs.iter().any(|job| job.covers(analysis, commit)) {
+                continue;
+            }
+            match jobs.iter().zip(matched.iter_mut()).find_map(|(job, slot)| {
+                (slot.is_none() && job.uploaded(analysis, commit)).then_some(slot)
+            }) {
+                Some(slot) => *slot = Some(analysis.clone()),
+                None => surplus.push(analysis.clone()),
+            }
+        }
+        let older = analyses
+            .last()
+            .is_none_or(|last| text(last, "created_at").unwrap_or_default() < earliest);
+        if older {
+            break;
+        }
+    }
+    let Some(mut uploads) = matched.into_iter().collect::<Option<Vec<Json>>>() else {
+        return Ok(None);
+    };
+    uploads.extend(surplus);
+    Ok(Some(uploads))
+}
+
+/// An open alert's number, rule severity and rule security severity.
+type AlertLevel = (Option<BigInt>, Option<String>, Option<String>);
+
+/// Each open alert's level. A rule must hold a severity and a security severity,
+/// each as text or null, or the alert is unreadable: a missing security severity
+/// could hide a high or critical alert.
+fn alert_levels(listing: &Json) -> Result<Vec<AlertLevel>> {
+    array_items(listing, "alert")?
+        .iter()
+        .map(|alert| {
+            let rule = match alert.get("rule") {
+                Some(rule @ Json::Object(_)) => rule,
+                _ => return refuse("Unreadable alert rule"),
+            };
+            let readable = |key: &str| matches!(rule.get(key), Some(Json::Str(_) | Json::Null));
+            if !readable("severity") || !readable("security_severity_level") {
+                return refuse("Unreadable alert rule");
+            }
+            Ok((
+                int(alert.get("number")).cloned(),
+                text(rule, "severity").map(str::to_owned),
+                text(rule, "security_severity_level").map(str::to_owned),
+            ))
+        })
+        .collect()
+}
+
 /// `gh api <endpoint> [--paginate --slurp]` with check=True and a 60-second timeout.
 fn gh_json(endpoint: &str, paginate: bool) -> Result<Json> {
     let mut command = Command::new("gh");
     command.args(["api", endpoint]);
+    // An analysis read by its id returns its SARIF only when asked for it.
+    if endpoint.contains("/code-scanning/analyses/") {
+        command.args(["-H", "Accept: application/sarif+json"]);
+    }
     if paginate {
         command.args(["--paginate", "--slurp"]);
     }
@@ -273,19 +619,7 @@ fn gh_json(endpoint: &str, paginate: bool) -> Result<Json> {
         let mut buffer = Vec::new();
         let _ = stderr.read_to_end(&mut buffer);
     });
-    let deadline = Instant::now() + Duration::from_secs(60);
-    let status = loop {
-        match child.try_wait() {
-            Ok(Some(status)) => break status,
-            Ok(None) if Instant::now() >= deadline => {
-                let _ = child.kill();
-                let _ = child.wait();
-                return Err(Refusal::External);
-            }
-            Ok(None) => std::thread::sleep(Duration::from_millis(20)),
-            Err(_) => return Err(Refusal::External),
-        }
-    };
+    let status = wait_up_to_a_minute(&mut child)?;
     let stdout = out.join().unwrap_or_default();
     let _ = err.join();
     if !status.success() {
@@ -300,6 +634,23 @@ fn gh_json(endpoint: &str, paginate: bool) -> Result<Json> {
             Refusal::Value(text)
         }
     })
+}
+
+/// The child's exit status, or External once it has run for 60 seconds and been killed.
+fn wait_up_to_a_minute(child: &mut std::process::Child) -> Result<std::process::ExitStatus> {
+    let deadline = Instant::now() + Duration::from_secs(60);
+    loop {
+        match child.try_wait() {
+            Ok(Some(status)) => return Ok(status),
+            Ok(None) if Instant::now() >= deadline => {
+                let _ = child.kill();
+                let _ = child.wait();
+                return Err(Refusal::External);
+            }
+            Ok(None) => std::thread::sleep(Duration::from_millis(20)),
+            Err(_) => return Err(Refusal::External),
+        }
+    }
 }
 
 /// The monotonic clock and sleep the wait loop uses, replaceable in tests.
