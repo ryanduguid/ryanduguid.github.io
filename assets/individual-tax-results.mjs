@@ -35,8 +35,9 @@ function takeHomeResult(value, aud) {
   const r = takeHomePay({ year: value('year'), residency: value('residency'), salary: value('salary'),
     includesSuper: included, studyLoan: loan });
   return { inputs: `${value('year')}, ${RESIDENCY[value('residency')]}, salary ${aud(Number(value('salary')))} `
-    + `${included ? 'including' : 'plus'} super, ${loan ? 'with a' : 'no'} study or training loan`, principal: 5,
+    + `${included ? 'including' : 'plus'} super, ${loan ? 'with a' : 'no'} study or training loan`, principal: 6,
   rows: [['Salary', aud(r.salary)], ['Employer super guarantee', aud(r.superGuarantee)],
+    ['Standard deduction for work-related expenses', aud(r.deduction)],
     ['Income tax less the low income tax offset', aud((cents(r.tax) - cents(r.offset)) / 100)], ['Medicare levy', aud(r.medicare)],
     ['Study and training loan repayment', aud(r.studyLoan)], ['Take-home pay for the year', aud(r.net)],
     ['Each month, a twelfth', aud(r.monthly)], ['Each fortnight, a 26th', aud(r.fortnightly)], ['Each week, a 52nd', aud(r.weekly)]],

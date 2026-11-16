@@ -4,7 +4,7 @@
 import { test, expect } from '@playwright/test';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
-const CALCULATORS = { 'income-tax': '$1,126.90', 'take-home-pay': '$60,480.00', 'study-loan': '$2,527.80' };
+const CALCULATORS = { 'income-tax': '$1,126.90', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

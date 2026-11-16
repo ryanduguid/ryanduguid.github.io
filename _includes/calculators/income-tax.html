@@ -12,7 +12,7 @@
 </fieldset>
 <label class="field" for="income-tax-income">Taxable income (whole dollars)<input id="income-tax-income" name="income" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="29000" required aria-describedby="income-tax-income-note" /></label>
 </div>
-<p class="field-note" id="income-tax-income-note">Taxable income is assessable income less deductions, as on a tax return. For a single person with no dependants who is not entitled to the seniors and pensioners tax offset.</p>
+<p class="field-note" id="income-tax-income-note">Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a single person with no dependants who is not entitled to the seniors and pensioners tax offset.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="2025-26, Australian resident, taxable income $29,000.00" rows="Tax on taxable income|$1,728.00;Low income tax offset|$700.00;Medicare levy|$98.90;Total tax and Medicare levy|$1,126.90" principal="3" %}
 <div class="sources-applied" hidden>

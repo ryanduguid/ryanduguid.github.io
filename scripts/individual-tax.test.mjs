@@ -180,6 +180,20 @@ test('take-home pay is the salary less the year’s tax, levy and repayment, spr
   assert.equal(p.superGuarantee, 10314);
 });
 
+test('from 2026-27 a resident’s salary has the standard deduction of up to $1,000 (ITAA 1997 s 25-130)', () => {
+  const pay = (year, residency, salary) => takeHomePay({ year, residency, salary, includesSuper: false, studyLoan: true });
+  const r = pay('2026-27', 'resident', '75000');
+  assert.equal(r.deduction, 1000);
+  assert.equal(r.tax, incomeTax('74000', '2026-27', 'resident').tax);
+  assert.equal(r.medicare, 1480);
+  assert.equal(pay('2026-27', 'resident', '600').deduction, 600);
+  assert.equal(pay('2026-27', 'resident', '150000').studyLoan,
+    studyLoanRepayment({ taxable: '149000', fringe: '0', losses: '0', super: '0', foreign: '0' }, '2026-27').repayment);
+  for (const [year, residency] of [['2025-26', 'resident'], ['2026-27', 'foreign'], ['2026-27', 'working-holiday']]) {
+    assert.equal(pay(year, residency, '75000').deduction, 0, `${year} ${residency}`);
+  }
+});
+
 test('the engines refuse inputs they cannot work', () => {
   assert.throws(() => incomeTax('50000', '2023-24', 'resident'), { message: 'Choose an income year from 2024-25 to 2026-27.' });
   assert.throws(() => incomeTax('50000', '2026-27', 'part-year'),

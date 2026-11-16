@@ -235,7 +235,14 @@ fn pay_oracle(salary: u64, year: &str, residency: &str, included: bool, loan: bo
         half_up(cap * mille, 1000)
     };
     let salary = if included { entered - sg } else { entered };
-    let taxable = salary / 100;
+    // ITAA 1997 s 25-130 from 2026-27: a resident deducts the lesser of $1,000 and the salary.
+    let dollars = salary / 100;
+    let deduction = if year == "2026-27" && residency == "resident" {
+        dollars.min(1000)
+    } else {
+        0
+    };
+    let taxable = dollars - deduction;
     let tax = tax_oracle(taxable, year, residency);
     let repayment = if loan {
         loan_oracle(taxable, year)["repayment"].as_u64().unwrap()
@@ -243,7 +250,7 @@ fn pay_oracle(salary: u64, year: &str, residency: &str, included: bool, loan: bo
         0
     };
     let net = salary - tax["total"].as_u64().unwrap() - repayment;
-    json!({"salary": salary, "superGuarantee": sg, "tax": tax["tax"], "offset": tax["offset"],
+    json!({"salary": salary, "superGuarantee": sg, "deduction": deduction * 100, "tax": tax["tax"], "offset": tax["offset"],
         "medicare": tax["medicare"], "studyLoan": repayment, "net": net, "monthly": half_up(net, 12),
         "fortnightly": half_up(net, 26), "weekly": half_up(net, 52)})
 }
@@ -346,7 +353,7 @@ fn the_take_home_pay_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let (cases, expected): (Vec<Value>, Vec<Value>) = (0..PAY_CASES)
         .map(|_| {
             let salary = rng.income(&[
-                250_000, 260_280, 270_830, 280_000, 303_330, 290_212, 112_000, 37_500,
+                250_000, 260_280, 270_830, 280_000, 303_330, 290_212, 112_000, 37_500, 1_000, 1_001,
             ]);
             let (year, residency) = (rng.pick(&YEARS), rng.pick(&RESIDENCY));
             let (included, loan) = (rng.below(2) == 0, rng.below(2) == 0);
