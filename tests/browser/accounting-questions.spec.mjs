@@ -814,3 +814,28 @@ test('land tax adds a foreign owner surcharge and MRIT from the radios and check
     + 'Land tax for the year: $6,250.00. Rate applied: $1,750 plus 0.9% of the value over $1,000,000. '
     + 'Metropolitan region improvement tax: $1,680.00. Total for the year: $7,930.00.');
 });
+
+test('land tax says RevenueSA assesses nothing under $20 only when the South Australian figure is under $20', async ({ page }) => {
+  await page.goto('/tools/business-calculators/land-tax/');
+  const form = page.locator('#land-tax form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  const note = form.locator('output .result-note');
+  await form.getByLabel('South Australia', { exact: true }).check();
+  // $50 over the threshold is a whole $100 at 50 cents; $939,900 is 39 lots of $100, $19.50.
+  for (const [value, shown] of [['936050', '$0.50'], ['939900', '$19.50']]) {
+    await form.getByLabel('Total taxable land value (whole dollars)').fill(value);
+    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    await expect(form.locator('output .result-row strong').first()).toHaveText(shown);
+    await expect(note).toHaveText('RevenueSA issues no land tax assessment where the calculated land tax is under $20.');
+  }
+  // $940,000 is 40 lots of $100, $20.00, and New South Wales has no such rule.
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('940000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row strong').first()).toHaveText('$20.00');
+  await expect(note).toHaveCount(0);
+  await form.getByLabel('New South Wales', { exact: true }).check();
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('1075001');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row strong').first()).toHaveText('$100.02');
+  await expect(note).toHaveCount(0);
+});

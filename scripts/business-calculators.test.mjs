@@ -1186,6 +1186,9 @@ test('land tax radios carry a scale for each of the 7 jurisdictions that levy la
     ['absenteeScale', 'fixed', 'mrit', 'name', 'scale', 'surcharge', 'surchargeBase', 'trustScale', 'trustSurcharge']);
   assert.equal(landTaxPlaces['AU-ACT'].data.fixed, '1778');
   assert.match(landTaxHtml, /The Northern Territory has no land tax\./);
+  // Each scale's land tax year, and RevenueSA's $20 rule, are stated on the page.
+  assert.match(landTaxHtml, /the 2026 calendar year in New South Wales and Victoria, and the 2026-27 financial year in Queensland, Western Australia, South Australia, Tasmania and the Australian Capital Territory\./);
+  assert.match(landTaxHtml, /RevenueSA issues no assessment where the calculated land tax is under \$20/);
 });
 
 // Worked by hand from the rates read on 16 November 2026: each surcharge and MRIT starts at its

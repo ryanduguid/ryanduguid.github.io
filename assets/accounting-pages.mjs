@@ -436,6 +436,9 @@ function initialiseCalculators([calculate, fieldErrors]) {
             result = { inputs: `${place.dataset.name}${trust ? ', trust rates' : ''}${foreign ? ', foreign or absentee owner' : ''}, `
               + `total taxable land value ${money('value')}${separate ? `, surcharge value ${money('surcharge-value')}` : ''}`
               + `${metro ? ', all in the Perth metropolitan region' : ''}`, principal: rows.length > 2 ? rows.length - 1 : 0, rows };
+            if (place.value === 'AU-SA' && r.tax > 0 && r.tax < 20) {
+              result.note = 'RevenueSA issues no land tax assessment where the calculated land tax is under $20';
+            }
             break;
           }
           case 'staff': {
