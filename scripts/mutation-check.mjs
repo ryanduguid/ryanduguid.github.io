@@ -159,7 +159,7 @@ try {
   }
   for (const { test } of [levy, business]) copyFileSync(join(root, test), join(work, test));
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
-    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge']) {
+    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', 'llms.txt', '.well-known/llms.txt']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
