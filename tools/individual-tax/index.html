@@ -51,7 +51,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Individual tax calculators</li></ol></nav>
         <h1>Individual tax calculators</h1>
-        <p class="lead-note">Three calculators for one person’s tax year, each on its own page with every rate and threshold cited to its Act, and tested against the ATO’s worked examples. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
+        <p class="lead-note">Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
         <p class="field-note">Estimates in AUD for a full income year from 2024-25 to 2026-27, for a single person with no dependants. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.</p>
         {% assign checked = "" %}{% for calculator in site.data.individual_tax_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 17 November 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>

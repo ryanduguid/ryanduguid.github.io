@@ -136,10 +136,9 @@ test('the resident scales and Medicare thresholds are the site’s rate table ro
       .map((row) => [Number(row.income_from) - 1, Number(row.rate_percent)]);
     assert.deepEqual(RESIDENT_SCALES[year], table, year);
     const medicare = rows.find((row) => row.income_year === year && row.component === 'medicare_levy_low_income_single');
-    // The table has no 2026-27 row; s 3(1) of the Act's current compilation gives the 2025-26 figures.
-    if (medicare) assert.deepEqual(MEDICARE_THRESHOLDS[year], [Number(medicare.income_from), Number(medicare.income_to)], year);
+    assert.ok(medicare, `${year} has a Medicare levy threshold row`);
+    assert.deepEqual(MEDICARE_THRESHOLDS[year], [Number(medicare.income_from), Number(medicare.income_to)], year);
   }
-  assert.deepEqual(MEDICARE_THRESHOLDS['2026-27'], MEDICARE_THRESHOLDS['2025-26']);
 });
 
 test('the study loan years are the site’s repayment table rows', () => {
