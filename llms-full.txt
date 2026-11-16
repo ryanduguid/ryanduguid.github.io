@@ -6292,7 +6292,7 @@ Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last checked 16 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
 
 ## Pricing, planning and loans
 
@@ -10273,6 +10273,86 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - guide’s chapter 2: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
+- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Vehicle classifier: car limit, GST credit, LCT and FBT exemption
+
+Source: https://duguid.com.au/tools/business-calculators/vehicle-class/
+
+> Whether a vehicle is a car under section 995-1, and whether the car limit, the GST credit cap, luxury car tax and an FBT exemption for eligible vehicles apply.
+
+# Vehicle classifier
+
+Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
+
+Published 16 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Vehicle classifier inputs
+
+Body type Passenger body (sedan, wagon, SUV) Single cab ute Dual or extra cab ute Panel or cargo van Another body, such as a truck or bus Motor cycle Seats, driver included Gross vehicle mass (kg) Basic kerb weight (kg), 0 if unknown Stated payload (kg), 0 if none Accessories at supply, not in kerb weight (kg), 0 if none Modified after manufacture? No Yes, with plate figures Yes, figures unknown Year first held and used 2026-27 2025-26 Price including GST, before luxury car tax (AUD) Full GST credit claimed? Yes No Combined fuel consumption More than 3.5 litres per 100 km 3.5 litres per 100 km or less Private use you state Work-related travel and minor, infrequent and irregular use only More than that
+
+Enter the manufacturer’s figures; kerb weight includes fuel and fluids but no people or goods, and a cab-chassis’s tray. The price stands for market value and luxury car tax value on an outright purchase.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, not modified, 2026-27, price $75,000.00, full GST credit, more than 3.5 litres per 100 km, private use limited as you state. Designed load: gross vehicle mass less kerb weight 865 kg A car under section 995-1 of ITAA 1997 Yes: 865 kg is under 1 tonne and 5 seats are fewer than 9 Designed principally to carry passengers Yes: a passenger body (TD 94/19) Car limit, section 40-230 Applies: $69,883.00 GST credit, section 69-10 of the GST Act $6,353.00: the GST in the price, up to 1/11 of the car limit First element of cost for decline in value $68,647.00 Luxury car tax at the $80,809.00 threshold Cannot apply: the price is not over the threshold FBT on an employee’s private use No exemption: a car fringe benefit Records The compliance plate or specification, a log book of 12 continuous weeks with odometer records or a record of business kilometres for an individual or partnership, and the records to value the fringe benefit
+
+## How the vehicle classifier works
+
+The vehicle classifier works out whether one vehicle bought in 2025-26 or 2026-27 is a car for income tax, GST and FBT, and what follows. The designed load is the gross vehicle mass on the compliance plate less the basic kerb weight, or the stated payload, which must agree with them. Under section 995-1 of ITAA 1997, a motor vehicle other than a motor cycle is a car if designed to carry a load under 1 tonne and fewer than 9 passengers, the driver counted.
+
+For a car, the classifier asks whether it was designed principally to carry passengers. A passenger body was. A dual cab was if its seats, at 68 kg each (MT 2024), weigh more than the load left. For a single cab ute or panel van the answer turns on factors the page does not weigh (TD 94/19). The dual cab test is MT 2024’s, for FBT; no ATO ruling applies it to the car limit. So for a passenger body section 40-230 caps the cost to depreciate at the car limit, after any GST credit, and for a dual cab, a single cab ute or a panel van the car limit is not decided here. Section 69-10 of the GST Act caps the credit at 1/11 of the limit.
+
+## Luxury car tax, the GST credit and FBT
+
+Luxury car tax has its own car: a load under 2 tonnes and fewer than 9 passengers. The tax can apply above the threshold for its fuel consumption, unless it is a commercial vehicle not designed principally to carry passengers. For utes the classifier uses LCTD 2023/1’s simplified method, the ATO’s compliance approach: seats at 68 kg weighing less than half the load at supply, which is the designed load less any accessories then fitted. That approach says when the ATO will not review a sale, not whether the vehicle is a commercial vehicle in law, so it does not lift the GST credit cap: above the car limit the credit on a ute or van is not decided here. At exactly half, the 2 tests part: MT 2024 counts a dual cab as designed for passengers only when its seats weigh more than the load left, whilst LCTD 2023/1’s method needs them to weigh less than half the load. A 5-seat dual cab with a 680 kg load can therefore be exempt from FBT, whilst luxury car tax and the GST credit cap are not decided here.
+
+For FBT, a single cab ute, a panel van, a dual cab not designed principally for passengers and any vehicle that is not a car can be exempt only if an employee’s private use was work-related travel or minor, infrequent and irregular use. You state that fact; the classifier never concludes it. A car designed principally for passengers gives a car fringe benefit, which the FBT car calculator values.
+
+TD 94/19’s 4-wheel drive wagon, with 5 seats and an 865 kg load, carries passengers; at $75,000 in 2025-26 the ATO’s instant asset write-off page gives a $6,334 credit and a $68,666 cost, or the $69,674 car limit without a credit. MT 2024’s dual cab has 340 kg of passengers against 260 kg left. LCTD 2023/1’s example 5, a dual cab with 5 seats and 960 kg, is one the ATO will not review for luxury car tax. TD 2006/40’s $5,182 credit is $5,182.64 here, with its cents.
+
+## What the vehicle classifier does not cover
+
+The classifier does not decide whether private use was minor, infrequent and irregular, or whether a dual cab, single cab ute or panel van was designed mainly for carrying passengers for the car limit. Nor does it decide whether a ute or van is a commercial vehicle for the GST credit cap, whether a modification permanently changed a vehicle’s design (MT 2033 and LCTD 2023/1 paragraphs 16 to 30), or the principal purpose of a truck, bus or other body under 1 tonne, which turns on factors it does not weigh. Where LCTD 2023/1’s simplified method is not met it says the question is not decided here, and that method assumes a ute the Australian Design Rules class as a goods vehicle. It does not cover cars fitted out to carry people in wheelchairs, emergency vehicles, motor homes and campervans, taxis and limousines, leases and hire, a dealer quoting an ABN, a partly creditable purchase, or a year before 2025-26. It does not work out decline in value, luxury car tax payable or the taxable value of a fringe benefit. A classification is not advice: confirm it with the ATO’s guidance or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Vehicle classifier
+
+Case | Inputs | Result
+TD 94/19’s 4-wheel drive wagon at $75,000: a car designed for passengers, its credit capped | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Load 865 kg, a car, designed for passengers, car limit applies, GST credit $6,353.00, cost $68,647.00, LCT cannot apply, a car fringe benefit
+The ATO’s $75,000 car in 2025-26: credit $6,334, cost $68,666 | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2025-26, price $75,000.00 | GST credit $6,334.00, cost $68,666.00
+Not registered for GST: the cost is the $69,674 car limit | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2025-26, price $75,000.00, no GST credit | GST credit $0.00, cost $69,674.00
+MT 2024’s dual cab: 340 kg of passengers against 260 kg left, for FBT; its car limit is not decided here | Dual cab ute, 5 seats, gross vehicle mass 2,000 kg, kerb weight 1,400 kg, 2026-27, price $50,000.00 | Load 600 kg, designed for passengers, car limit not decided, GST credit $4,545.45, LCT cannot apply
+The FBT guide’s example 19: a dual cab with a 550 kg load is designed for passengers | Dual cab ute, 5 seats, gross vehicle mass 1,950 kg, kerb weight 1,400 kg, 2026-27, price $50,000.00 | Load 550 kg, designed for passengers, a car fringe benefit
+LCTD 2023/1’s example 5: a dual cab with a 960 kg load is treated as a commercial vehicle, which does not lift the GST credit cap | Dual cab ute, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,040 kg, 2026-27, price $85,000.00 | Load 960 kg, not designed for passengers, car limit not decided, GST credit cap not decided, GST credit not decided, a commercial vehicle for LCT, FBT paragraph 8(2)(a)(ii), exempt on the stated use
+Passengers at exactly half the load: FBT exempts, LCT is not decided | Dual cab ute, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,320 kg, 2026-27, price $90,000.00 | Load 680 kg, not designed for passengers, GST credit cap not decided, GST credit not decided, LCT not decided, FBT paragraph 8(2)(a)(ii)
+Accessories fitted at supply come off the load for LCT: 690 kg less 20 kg is not more than twice 340 kg | Dual cab ute, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,310 kg, accessories at supply 20 kg, 2026-27, price $90,000.00 | Load 690 kg, not designed for passengers, LCT not decided, FBT paragraph 8(2)(a)(ii)
+A 1 tonne load is not a car | Dual cab ute, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,000 kg, 2026-27, price $90,000.00 | Load 1,000 kg, not a car, no car limit, no GST credit cap, a commercial vehicle for LCT, FBT subsection 47(6)
+A single cab ute with a 999 kg load is a car; whether the car limit applies is not decided here | Single cab ute, 3 seats, gross vehicle mass 2,999 kg, kerb weight 2,000 kg, 2026-27, price $40,000.00 | Load 999 kg, a car, passenger design not decided, car limit not decided, FBT paragraph 8(2)(a)(i), exempt on the stated use
+8 seats, the driver’s included, is still a car | Passenger body, 8 seats, gross vehicle mass 3,000 kg, kerb weight 2,100 kg, 2026-27, price $60,000.00 | Load 900 kg, a car, car limit applies
+9 seats, the driver’s included, is not a car | Passenger body, 9 seats, gross vehicle mass 3,000 kg, kerb weight 2,100 kg, 2026-27, price $60,000.00 | Not a car, no car limit, not a car for LCT, FBT subsection 47(6)
+A fuel-efficient car $1 over the 2026-27 threshold | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $91,662.00, fuel-efficient | GST credit $6,353.00, cost $69,883.00, LCT can apply, $1.00 over the LCT threshold
+A fuel-efficient car at the threshold exactly | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $91,661.00, fuel-efficient | LCT cannot apply
+A panel van whose private use went beyond the exemption | Panel van, 3 seats, gross vehicle mass 3,000 kg, kerb weight 2,100 kg, payload 900 kg, 2026-27, price $45,000.00, private use more than limited | Load 900 kg, car limit not decided, LCT cannot apply, FBT paragraph 8(2)(a)(i), not exempt
+A motor cycle is not a car | Motor cycle, 1 seat, gross vehicle mass 400 kg, kerb weight 220 kg, 2026-27, price $30,000.00 | Not a car, not a car for LCT, FBT subsection 47(6)
+A payload that disagrees with the mass and kerb weight is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, payload 800 kg, 2026-27, price $75,000.00 | Refused: the payload is not the gross vehicle mass less the kerb weight: check the specification
+A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
+Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
+
+One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - nineteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
