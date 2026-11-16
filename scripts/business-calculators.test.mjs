@@ -1189,6 +1189,11 @@ test('land tax radios carry a scale for each of the 7 jurisdictions that levy la
   // Each scale's land tax year, and RevenueSA's $20 rule, are stated on the page.
   assert.match(landTaxHtml, /the 2026 calendar year in New South Wales and Victoria, and the 2026-27 financial year in Queensland, Western Australia, South Australia, Tasmania and the Australian Capital Territory\./);
   assert.match(landTaxHtml, /RevenueSA issues no assessment where the calculated land tax is under \$20/);
+  // The indexes describe what the page computes: trust rates and surcharges, not only the general scale.
+  for (const index of ['../llms.txt', '../.well-known/llms.txt', '../tools/business-calculators/index.html']) {
+    const entry = readFileSync(new URL(index, import.meta.url), 'utf8').split('\n').find((line) => line.includes('/land-tax/'));
+    assert.match(entry, /at the general or trust rates, with a foreign or absentee owner surcharge and WA.s metropolitan region improvement tax where chosen, before any exemption\./, index);
+  }
 });
 
 // Worked by hand from the rates read on 16 November 2026: each surcharge and MRIT starts at its
