@@ -963,7 +963,8 @@ fn analyses_are_read_page_by_page_until_found_or_older_than_the_jobs() {
     site.analyses = Json::Array(vec![other.clone()]);
     site.older_analyses = Json::Array(vec![uploaded("python", "2026-11-16T00:02:30Z")]);
     assert_eq!(site.evaluate(), Ok(true));
-    assert_eq!(site.analysis_reads.get(), 2);
+    // Read on to the empty third page, as further uploads in a job's window count too.
+    assert_eq!(site.analysis_reads.get(), 3);
     // A page ending before the earliest job started ends the search.
     let (mut site, _) = analysed_main();
     site.analyses = Json::Array(vec![with(
@@ -1058,4 +1059,24 @@ fn unreadable_analysis_results_refuse_publication() {
             "{log:?}"
         );
     }
+}
+
+#[test]
+fn every_upload_in_a_jobs_window_has_its_results_checked() {
+    // One job, 2 uploads whilst it ran: the newer is benign and replaces the older's
+    // alerts; the older's own results still refuse.
+    let (mut site, _) = analysed_main();
+    site.analyses = Json::Array(vec![
+        uploaded("python", "2026-11-16T00:02:40Z"),
+        with(
+            &uploaded("python", "2026-11-16T00:02:30Z"),
+            &[("id", n(200))],
+        ),
+    ]);
+    assert_eq!(site.evaluate(), Ok(true));
+    site.sarifs = vec![("200".to_owned(), sarif(&format!("[{}]", result(1, None))))];
+    assert_eq!(
+        value_error(site.evaluate()),
+        "Main's CodeQL analysis has a result the pull request check would fail on"
+    );
 }

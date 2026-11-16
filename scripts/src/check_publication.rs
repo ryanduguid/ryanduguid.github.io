@@ -474,10 +474,23 @@ fn rule_of<'a>(run: &'a Json, result: &Json) -> Option<&'a Json> {
     rules.get(rule?)
 }
 
-/// For each job, an analysis of `commit` in its category created whilst it ran and
-/// not matched to another job. The listing is newest first and ignores a commit
-/// filter, so pages are read until every job has its upload or the page reaches
-/// analyses older than the earliest job. None while a job has no upload.
+/// Page `page` of main's CodeQL analyses, newest first.
+fn analysis_page(repository: &str, page: usize, fetch: &mut Fetch) -> Result<Vec<Json>> {
+    let listing = fetch(
+        &format!(
+            "repos/{repository}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100&page={page}"
+        ),
+        false,
+    )?;
+    array_items(&Json::Array(vec![listing]), "analysis")
+}
+
+/// Every analysis of `commit` in a job's category created whilst that job ran. Each
+/// job needs its own, not matched to another job; any further one in a job's window
+/// is returned too, because a later upload replaces an earlier one's alerts. The
+/// listing is newest first and ignores a commit filter, so pages are read until one
+/// is empty or reaches analyses older than the earliest job. None while a job has no
+/// upload.
 fn job_uploads(
     repository: &str,
     commit: &str,
@@ -490,37 +503,37 @@ fn job_uploads(
         .min()
         .unwrap_or_default();
     let mut matched: Vec<Option<Json>> = jobs.iter().map(|_| None).collect();
+    let mut surplus: Vec<Json> = Vec::new();
     for page in 1.. {
-        let listing = fetch(
-            &format!(
-                "repos/{repository}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100&page={page}"
-            ),
-            false,
-        )?;
-        let analyses = array_items(&Json::Array(vec![listing]), "analysis")?;
+        let analyses = analysis_page(repository, page, fetch)?;
         for analysis in &analyses {
-            let taken = |m: &Option<Json>| {
-                m.as_ref()
-                    .is_some_and(|m| m.get("id") == analysis.get("id"))
-            };
-            if matched.iter().any(taken) {
+            let seen = matched
+                .iter()
+                .flatten()
+                .chain(&surplus)
+                .any(|m| m.get("id") == analysis.get("id"));
+            if seen || !jobs.iter().any(|job| job.uploaded(analysis, commit)) {
                 continue;
             }
-            if let Some(slot) = jobs.iter().zip(matched.iter_mut()).find_map(|(job, slot)| {
+            match jobs.iter().zip(matched.iter_mut()).find_map(|(job, slot)| {
                 (slot.is_none() && job.uploaded(analysis, commit)).then_some(slot)
             }) {
-                *slot = Some(analysis.clone());
+                Some(slot) => *slot = Some(analysis.clone()),
+                None => surplus.push(analysis.clone()),
             }
         }
-        let done = matched.iter().all(Option::is_some);
         let older = analyses
             .last()
             .is_none_or(|last| text(last, "created_at").unwrap_or_default() <= earliest);
-        if done || older {
+        if older {
             break;
         }
     }
-    Ok(matched.into_iter().collect())
+    let Some(mut uploads) = matched.into_iter().collect::<Option<Vec<Json>>>() else {
+        return Ok(None);
+    };
+    uploads.extend(surplus);
+    Ok(Some(uploads))
 }
 
 /// An open alert's number, rule severity and rule security severity.
