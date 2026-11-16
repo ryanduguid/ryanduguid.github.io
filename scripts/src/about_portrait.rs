@@ -254,16 +254,8 @@ fn percentile(sorted: &[f64], p: f64) -> f64 {
     sorted[low] + (sorted[high] - sorted[low]) * (rank - low as f64)
 }
 
-/// Tone to draw, 0 (canvas) to 1 (brightest glyph), at `SUB_X` by `SUB_Y`
-/// samples a cell, and the number of rows.
-fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
-    let (lightness, alpha) = lightness_and_alpha(png)?;
-    // A cutout's background is a clear area around the figure, not a stray clear pixel.
-    let clear = alpha.data.iter().filter(|&&a| a <= 0.5).count();
-    if clear * 100 < alpha.data.len() {
-        return Err("the photo has no transparent background; supply a cutout PNG".into());
-    }
-    let head = find_head(&alpha)?;
+/// The crop box around the head, in photo pixels, and the number of rows it draws.
+fn crop(head: &Head) -> Result<([i64; 4], usize), String> {
     // The hair just inside the top edge, the shoulders below the collar.
     let crop_w = 1.85 * head.width;
     let crop_h = 1.5 * head.height;
@@ -279,17 +271,16 @@ fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
             head.width, head.height
         ));
     }
-    let (width, height) = (COLUMNS * SUB_X, rows * SUB_Y);
-    let premultiplied = lightness.zip(&alpha, |l, a| l * a);
-    let person = crop_resize(&alpha, bounds, width, height);
-    let value = crop_resize(&premultiplied, bounds, width, height)
-        .zip(&person, |v, m| if m > 1e-3 { v / m } else { 0.0 });
+    Ok((bounds, rows))
+}
 
-    // Local contrast: each sample against its surroundings within the figure,
-    // so the shadowed cheek keeps its modelling and the lit one does not clip.
-    let sigma = 0.06 * width as f64;
-    let weighted = blur(&value.zip(&person, |v, m| v * m), sigma, false);
-    let base = weighted.zip(&blur(&person, sigma, false), |n, d| n / d.max(1e-6));
+/// Local contrast, then the figure's tonal range stretched to 0 to 1.
+fn contrast(value: &Grey, person: &Grey) -> Result<Grey, String> {
+    // Each sample against its surroundings within the figure, so the shadowed
+    // cheek keeps its modelling and the lit one does not clip.
+    let sigma = 0.06 * value.width as f64;
+    let weighted = blur(&value.zip(person, |v, m| v * m), sigma, false);
+    let base = weighted.zip(&blur(person, sigma, false), |n, d| n / d.max(1e-6));
     let value = value.zip(&base, |v, b| v + 0.9 * (v - b));
 
     let mut inside: Vec<f64> = value
@@ -308,14 +299,17 @@ fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
         return Err("the figure has no tonal range to draw; check the photo".into());
     }
     // A gentle gamma, and a faint floor so the dark hair and suit still read.
-    let value = value.map(|v| {
+    Ok(value.map(|v| {
         ((v - low) / (high - low))
             .clamp(0.0, 1.0)
             .powf(1.2)
             .max(0.1)
-    });
+    }))
+}
 
-    // A rim along the silhouette, so the head's outline reads against the canvas.
+/// A rim along the silhouette, so the head's outline reads against the canvas.
+fn rim(person: &Grey) -> Grey {
+    let (width, height) = (person.width, person.height);
     let mut rim = Grey::new(width, height);
     for y in 0..height {
         for x in 0..width {
@@ -330,10 +324,13 @@ fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
             rim.data[y * width + x] = 0.7 * (person.at(x, y) - eroded).clamp(0.0, 1.0);
         }
     }
-    let mut out = value.zip(&rim, f64::max).zip(&person, |v, m| v * m);
+    rim
+}
 
-    // Fade the bust out at the bottom and the lower corners rather than ending
-    // on the photo's edges.
+/// Fade the bust out at the bottom and the lower corners rather than ending
+/// on the photo's edges.
+fn fade(out: &mut Grey) {
+    let (width, height) = (out.width, out.height);
     let fade = height / 5;
     for y in 0..height {
         let bottom = if y + fade >= height && fade > 1 {
@@ -348,6 +345,28 @@ fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
             out.data[y * width + x] *= bottom * corner;
         }
     }
+}
+
+/// Tone to draw, 0 (canvas) to 1 (brightest glyph), at `SUB_X` by `SUB_Y`
+/// samples a cell, and the number of rows.
+fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
+    let (lightness, alpha) = lightness_and_alpha(png)?;
+    // A cutout's background is a clear area around the figure, not a stray clear pixel.
+    let clear = alpha.data.iter().filter(|&&a| a <= 0.5).count();
+    if clear * 100 < alpha.data.len() {
+        return Err("the photo has no transparent background; supply a cutout PNG".into());
+    }
+    let (bounds, rows) = crop(&find_head(&alpha)?)?;
+    let (width, height) = (COLUMNS * SUB_X, rows * SUB_Y);
+    let premultiplied = lightness.zip(&alpha, |l, a| l * a);
+    let person = crop_resize(&alpha, bounds, width, height);
+    let value = crop_resize(&premultiplied, bounds, width, height)
+        .zip(&person, |v, m| if m > 1e-3 { v / m } else { 0.0 });
+    let value = contrast(&value, &person)?;
+    let mut out = value
+        .zip(&rim(&person), f64::max)
+        .zip(&person, |v, m| v * m);
+    fade(&mut out);
     Ok((out, rows))
 }
 
@@ -404,7 +423,6 @@ fn glyph_samples(font: &[u8]) -> Result<Vec<Samples>, String> {
 pub fn render(png: &[u8], font: &[u8]) -> Result<String, String> {
     let (target, rows) = tone(png)?;
     let glyphs = glyph_samples(font)?;
-    let glyph_chars: Vec<char> = GLYPHS.chars().collect();
     let means: Vec<f64> = glyphs
         .iter()
         .map(|(g, _)| g.iter().sum::<f64>() / g.len() as f64)
@@ -444,6 +462,13 @@ pub fn render(png: &[u8], font: &[u8]) -> Result<String, String> {
             error[at(r + 1, c + 1)] += left_over / 16.0;
         }
     }
+    text(&picks)
+}
+
+/// The picked glyphs as rows of text, trailing spaces and empty rows at either
+/// end trimmed.
+fn text(picks: &[usize]) -> Result<String, String> {
+    let glyph_chars: Vec<char> = GLYPHS.chars().collect();
     let lines: Vec<String> = picks
         .chunks(COLUMNS)
         .map(|row| {
