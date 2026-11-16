@@ -401,21 +401,30 @@ function initialiseCalculators([calculate, fieldErrors]) {
             break;
           }
           case 'land-tax': {
-            // The chosen jurisdiction's radio carries its scale, from,base,rate,over,rule for each
+            // The chosen jurisdiction's radio carries its scales, from,base,rate,over,rule for each
             // band separated by semicolons, and the ACT's radio its fixed charge.
             const place = form.querySelector('input[name="jurisdiction"]:checked');
-            const scale = place.dataset.scale.split(';').map(row => row.split(','));
+            const trust = form.querySelector('input[name="owner"]:checked').value === 'trust';
+            const foreign = form.querySelector('input[name="foreign"]:checked').value === 'yes';
+            const metro = form.elements.namedItem('metro').checked;
             const fixed = place.dataset.fixed ?? '0';
-            const r = calculate.landTax(value('value'), scale, fixed);
-            const [, base, rate, over, rule] = scale[r.bracket];
+            const r = calculate.landTaxYear(value('value'), place.dataset,
+              { trust, foreign, surchargeValue: value('surcharge-value'), metro });
+            const [, base, rate, over, rule] = r.band;
             const dollars = text => `$${Number(text).toLocaleString('en-AU', { minimumFractionDigits: Number(text) % 1 ? 2 : 0 })}`;
             const plus = Number(base) ? `${dollars(base)} plus ` : '';
             let ruleText = rule === 'excess' ? `${plus}${rate}% of the value${Number(over) ? ` over ${dollars(over)}` : ''}`
               : `${plus}$${Number(rate).toFixed(2)} for every $100, or part of $100, over ${dollars(over)}`;
             if (Number(rate) === 0) ruleText = Number(base) ? `a fixed ${dollars(base)}` : 'nil';
             if (Number(fixed)) ruleText = `the ${dollars(fixed)} fixed charge plus ${ruleText}`;
-            result = { inputs: `${place.dataset.name}, total taxable land value ${money('value')}`, principal: 0,
-              rows: [['Land tax for the year', aud(r.tax)], ['Rate applied', ruleText]] };
+            const rows = [['Land tax for the year', aud(r.tax)], ['Rate applied', ruleText]];
+            if (foreign) rows.push(['Foreign or absentee owner surcharge', aud(r.surcharge)]);
+            if (metro) rows.push(['Metropolitan region improvement tax', aud(r.mrit)]);
+            if (foreign || metro) rows.push(['Total for the year', aud(r.total)]);
+            const separate = foreign && place.dataset.surchargeBase === 'separate';
+            result = { inputs: `${place.dataset.name}${trust ? ', trust rates' : ''}${foreign ? ', foreign or absentee owner' : ''}, `
+              + `total taxable land value ${money('value')}${separate ? `, surcharge value ${money('surcharge-value')}` : ''}`
+              + `${metro ? ', all in the Perth metropolitan region' : ''}`, principal: rows.length > 2 ? rows.length - 1 : 0, rows };
             break;
           }
           case 'staff': {

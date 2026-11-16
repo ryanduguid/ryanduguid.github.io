@@ -745,3 +745,31 @@ test('land tax adds the ACT fixed charge and names the band it applied, offline'
     'Inputs: Australian Capital Territory, total taxable land value $600,000.00. Land tax for the year: $7,418.00. '
     + 'Rate applied: the $1,778 fixed charge plus $1,610 plus 1.24% of the value over $275,000.');
 });
+
+test('land tax adds a foreign owner surcharge and MRIT from the radios and checkbox, offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/land-tax/');
+  const form = page.locator('#land-tax form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  const text = () => form.locator('output').evaluate((element) => element.textContent);
+  // Revenue NSW's surcharge land tax example 1.
+  await form.getByLabel('Yes', { exact: true }).check();
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('1200000');
+  await form.getByLabel('Surcharge value, New South Wales and Tasmania only (whole dollars)').fill('1200000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await text()).toBe('Inputs: New South Wales, foreign or absentee owner, total taxable land value $1,200,000.00, '
+    + 'surcharge value $1,200,000.00. Land tax for the year: $2,100.00. Rate applied: $100 plus 1.6% of the value over $1,075,000. '
+    + 'Foreign or absentee owner surcharge: $60,000.00. Total for the year: $62,100.00.');
+  // Western Australia has no surcharge here, so the choice is refused rather than ignored.
+  await form.getByLabel('Western Australia', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await text()).toBe('This calculator has no foreign or absentee owner rates for Western Australia.');
+  // Worked by hand: $1,750 + 0.9% of $500,000, and MRIT of 0.14% of $1,200,000.
+  await form.getByLabel('No', { exact: true }).check();
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('1500000');
+  await form.getByLabel('All the land is in the Perth metropolitan region (Western Australia)').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await text()).toBe('Inputs: Western Australia, total taxable land value $1,500,000.00, all in the Perth metropolitan region. '
+    + 'Land tax for the year: $6,250.00. Rate applied: $1,750 plus 0.9% of the value over $1,000,000. '
+    + 'Metropolitan region improvement tax: $1,680.00. Total for the year: $7,930.00.');
+});
