@@ -10777,7 +10777,7 @@ Western Australia charges its metropolitan region improvement tax of 0.14% of th
 
 The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is. These are not computed:
 
-- New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 2% above the premium threshold according to the group’s combined value rather than its own.
+- New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
 - Victoria: exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
 - Queensland: exemptions and relief, exemptions from the foreign surcharge and the aggregation of land held for trusts with the same beneficiaries.
 - Western Australia: land tax exemptions, and the metropolitan region improvement tax on holdings only partly in the Perth metropolitan region.
