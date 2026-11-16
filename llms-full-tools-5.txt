@@ -1357,3 +1357,64 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
 - nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# PCG 2021/4 professional firm profits risk scorer
+
+Source: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
+
+> Score an IPP’s profit allocation under PCG 2021/4: the 2 gateways, the 3 risk assessment factors and the green, amber or red zone, as the guideline sets them out.
+
+# PCG 2021/4 risk scorer
+
+The ATO’s risk zone for a professional firm profit allocation, after both gateways.
+
+Published 15 November 2026. Last checked 15 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+PCG 2021/4 risk assessment inputs for one IPP and one year
+
+Gateway 1: is the arrangement commercially driven, as paragraphs 39 to 46 describe? Yes No Gateway 2: is the arrangement free of high-risk features, as paragraphs 47 to 63 describe? Yes No Profit entitlement of the IPP and associated entities from the whole of firm group (AUD) Amount the IPP returns in their own tax return (AUD) Tax paid by the IPP and associated entities on that firm income (AUD) Risk assessment factors to use Factors 1 and 2: a commercial benchmark is impractical All 3 factors Remuneration the IPP returns, all 3 factors only (AUD) Commercial benchmark for the IPP’s services, all 3 factors only (AUD)
+
+Tax is, for each of the IPP and each associated entity, the larger of the tax on its firm income alone and its tax for the year less the tax it would pay without that income (paragraph 85), with no Medicare levy or other levy on taxable income. Include superannuation, fringe benefits at their grossed-up value and the FBT on them (paragraphs 72, 73 and 95 to 99).
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: gateways 1 and 2 passed, profit entitlement $600,000.00, returned by the IPP $330,000.00, tax on that firm income $189,367.00, factors 1 and 2. Factor 1: profit entitlement returned by the IPP 55.00%, score 4 Factor 2: total effective tax rate 31.56%, score 3 Aggregate score 7 Risk zone Green: low risk
+
+## How the PCG 2021/4 risk scorer works
+
+Practical Compliance Guideline PCG 2021/4 sets out how the ATO rates the risk that an individual professional practitioner (IPP) does not return enough of their professional firm’s profit in their own hands. The scorer first asks the 2 gateways. If the arrangement is not commercially driven (Gateway 1) or has a high-risk feature (Gateway 2), it gives no score, because paragraph 12 makes the risk assessment framework unavailable.
+
+It then scores up to 3 factors from 1 (lowest risk) to 6 (highest), using Table 1 at paragraph 76: the share of the whole of firm group profit entitlement the IPP returns personally, the total effective tax rate paid by the IPP and associated entities on that income, and, if you choose, the IPP’s remuneration as a percentage of a commercial benchmark for their services. It adds the scores and places the total in the green, amber or red zone of Table 2 at paragraph 78. If the IPP returns the whole entitlement, paragraph 81 makes the arrangement low risk and no other factor is scored.
+
+The scorer reproduces the scores and zones of all 12 case studies in the guideline’s appendix. Case study 1 opens the page: Nicolas returns $330,000 of a $600,000 entitlement, 55% and a score of 4, and he and his company pay $189,367 of tax on it, 31.56% and a score of 3, so his aggregate of 7 is green. In case study 7, Jacinta’s $360,000 against a $350,000 benchmark adds a factor 3 score of 3, for an aggregate of 10 against all 3 factors, also green.
+
+## What the PCG 2021/4 risk scorer does not cover
+
+The scorer does not decide whether the guideline applies: whether the IPP provides professional services or manages the firm and is an equity holder, whether the firm’s income is personal services income and whether the structure is legally effective (paragraph 28). It does not test the gateways; it takes your answers. It does not work out the entitlement, the tax for each entity under paragraph 85, a part-time IPP’s full-time equivalent (paragraph 71) or a commercial benchmark. A green zone is not a ruling: PCG 2021/4 does not change the law, Part IVA can still apply, and the ATO may still review an arrangement whose profit allocation drifts (paragraph 107). Confirm the assessment with the guideline or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: PCG 2021/4 risk scorer
+
+Case | Inputs | Result
+Case study 1: Nicolas returns 55% and is green on 2 factors | Gateways passed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Returned 55.00%, factor 1 score 4, tax rate 31.56%, factor 2 score 3, aggregate 7, green zone
+Case study 10: Astrid’s aggregate of 8 is amber | Gateways passed; entitlement $400,000.00, returned $200,000.00, tax $114,234.00 | Returned 50.00%, factor 1 score 4, tax rate 28.56%, factor 2 score 4, aggregate 8, amber zone
+Case study 7: Jacinta is green on all 3 factors at 10 | Gateways passed; entitlement $600,000.00, returned $360,000.00, tax $199,934.00, remuneration $360,000.00 against $350,000.00 | Returned 60.00%, factor 1 score 4, tax rate 33.32%, factor 2 score 3, 102.86% of benchmark, factor 3 score 3, aggregate 10, green zone
+Case study 6: returning the whole entitlement is green with no other factor | Gateways passed; entitlement $65,000.00, returned $65,000.00, tax $11,592.00 | Returned 100.00%, factor 1 score 1, no aggregate, green zone
+Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways passed; entitlement $1,000.00, returned $500.00, tax $300.00 | Returned 50.00%, factor 1 score 4, tax rate 30.00%, factor 2 score 3, aggregate 7, green zone
+One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
+A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
+
+One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- nineteen business calculators: https://duguid.com.au/tools/business-calculators/

@@ -155,6 +155,9 @@
     "tools/business-calculators/index.html": [
       "f2dcf958bf48b6b1c713ba5542ee9ac118f87fc7f892a72df4daa1a8a7110294"
     ],
+    "tools/business-calculators/land-tax/index.html": [
+      "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
+    ],
     "tools/business-calculators/loan/index.html": [
       "874ac86fe78e8ead8141bd24b50670b4593e01899fec387ac1e9b8b7f74c5ef1"
     ],
@@ -177,7 +180,7 @@
       "342d434b9131565b6b8311a332f9701fee620aa7247bdd16f288e46629847055"
     ],
     "tools/business-calculators/transfer-duty/index.html": [
-      "c54924f2c67f3453cbcbf6bd959fecf89a017fb43956ecd2dd74d6a2d7daae30"
+      "d6d94998df89089a8bbb70e1e120145f78fe37b761c1ae9133a7da58a2ce4012"
     ],
     "tools/business-calculators/variance/index.html": [
       "4f1496eb7a4b0b99b7dd224f877a8a779709eaf56171a421e4ba64b94ede334e"
@@ -259,9 +262,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "2723e05e0131238bfdb687fd4edafe3d032fa121402e713024eab9f685712a42",
+    "llms.txt": "16cfb1959ca9914e47c375b3afd8d1f2492a0deba832148135f6ea1195cf600c",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "eb7e44e990bc214da4ce11030888965c9b6b8e181571e87ee07d016dcfbe17fe"
+    "sitemap.xml": "e1d55a6cf49f9f9aba0b4194742950b421a60aea3491dcfbeacf505017662403"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

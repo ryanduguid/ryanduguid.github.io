@@ -48,6 +48,19 @@
 //! the balance carried day by day, where the engine grows the debt and the instalments
 //! forward together.
 //!
+//! Land tax types each jurisdiction's general, trust and absentee scales here from its
+//! revenue office or legislation, with each band's lowest and highest value as the source
+//! words them, and finds the band whose range holds the value, where the engine takes the
+//! last band that starts at or below it. Victoria's absentee owner surcharge is the SRO's
+//! table with the surcharge less its table without it; the other surcharges and WA's
+//! metropolitan region improvement tax are each source's formula. The engine is checked
+//! either side of every band threshold and on 140 seeded values, for every choice each
+//! jurisdiction computes, with its own harness.
+//!
+//! A further 200 seeded first home purchases, from their own seed, and every value either side
+//! of each concession threshold type each jurisdiction's first home buyer rule from its source.
+//! Queensland's amount is counted in $10,000 bands, where the engine looks it up in a table.
+//!
 //! A further 240 seeded vehicles, from their own seed, take each year's car limit and LCT
 //! thresholds as the ATO publishes them, not from the page's radio buttons, and weigh the
 //! seats against half the load once for both MT 2024 and LCTD 2023/1. The GST credit is the
@@ -69,6 +82,8 @@ const FBT_CASES: usize = 60;
 const BALLOON_CASES: usize = 120;
 /// Seeded transfer duty values, beside every band boundary of every jurisdiction.
 const DUTY_CASES: usize = 160;
+/// Seeded first home values, from their own seed, mostly within the concessions' ranges.
+const FIRST_HOME_CASES: usize = 200;
 /// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
 /// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
@@ -84,7 +99,7 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r#"
 import { readFileSync } from 'node:fs';
-import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan, vehicleClass } from './assets/business-calculators.mjs';
+import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, firstHomeDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan, vehicleClass } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 // Each jurisdiction's scale as the rendered calculator page gives it to the browser.
 const page = readFileSync('tools/business-calculators/transfer-duty/index.html', 'utf8');
@@ -117,6 +132,10 @@ const run = {
   etp: ({ payment, year }) => Object.fromEntries(Object.entries(terminationPayment(payment, year))
     .map(([key, value]) => [key, typeof value === 'number' ? money(value) : value])),
   duty: ({ value, place }) => ({ duty: money(transferDuty(value, scales[place]).duty) }),
+  firstHome: ({ value, place, home }) => {
+    const result = firstHomeDuty(value, scales[place], place, home);
+    return { duty: money(result.duty), general: money(result.general) };
+  },
   fee: ({ hours, rate, margin, roundTo, gst, instalments }) => {
     try {
       const result = fixedFee(hours, rate, margin, roundTo, gst, instalments);
@@ -1045,6 +1064,263 @@ fn the_transfer_duty_engine_agrees_with_the_oracle_at_every_band_boundary() {
     let (cases, expected): (Vec<Value>, Vec<Value>) = values
         .iter()
         .map(|&(place, dollars)| duty_case(place, dollars))
+        .unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Queensland's home concession rate in cents: $1 for each $100, or part of $100, to $350,000,
+/// then $3.50, $4.50 and $5.75 for each $100, or part, over $350,000, $540,000 and $1,000,000.
+fn qld_home_rate(dollars: u64) -> u64 {
+    let over = |from: u64| (dollars - from).div_ceil(100);
+    if dollars <= 350_000 {
+        100 * dollars.div_ceil(100)
+    } else if dollars <= 540_000 {
+        350_000 + 350 * over(350_000)
+    } else if dollars <= 1_000_000 {
+        1_015_000 + 450 * over(540_000)
+    } else {
+        3_085_000 + 575 * over(1_000_000)
+    }
+}
+
+/// Duty in cents for an eligible first home buyer of a home, typed from each source as read
+/// on 16 November 2026 (AEDT), not from the engine's tables:
+/// - NSW: <https://www.revenue.nsw.gov.au/grants-schemes/assistance-scheme> (09:25), the
+///   reduced rate table at <https://www.nsw.gov.au/housing-and-construction/buying-and-selling-property/home-buying-assistance/first-home-buyers-assistance-scheme>
+///   (09:28) and <https://www.apps09.revenue.nsw.gov.au/erevenue/calculators/fhba.php> (09:29, 09:41).
+/// - Vic: Duties Act 2000 s 57JA, <https://www.legislation.vic.gov.au/in-force/acts/duties-act-2000/141> (09:33).
+/// - Qld: <https://qro.qld.gov.au/duties/transfer-duty/calculate/concession-rates/> (09:36).
+/// - WA: <https://www.wa.gov.au/government/publications/duties-fact-sheet-first-home-owner-rate> (09:38).
+/// - SA: <https://www.revenuesa.sa.gov.au/stamp-duty/first-home-buyer-relief/relief-available> (09:38).
+/// - Tas: <https://www.sro.tas.gov.au/property-transfer-duties/concessions-exemptions/first-home-buyers-of-established-homes-duty-relief> (09:25).
+/// - ACT: <https://www.revenue.act.gov.au/home-buyer-assistance/home-buyer-concession-scheme/about-the-home-buyer-concession-scheme> (09:36).
+/// - NT: <https://nt.gov.au/property/home-owner-assistance> (09:25).
+///
+/// Queensland's first home amount is worked as $1,735 for each $10,000 band below $800,000, at
+/// most 10, where the engine looks the band up in a table.
+fn first_home_oracle(place: &str, home: &str, dollars: u64) -> u64 {
+    let general = duty_oracle(place, dollars);
+    match (place, home) {
+        ("AU-NSW", _) if dollars <= 800_000 => 0,
+        ("AU-NSW", _) if dollars >= 1_000_000 => general,
+        ("AU-NSW", _) => {
+            // Revenue NSW's calculator rounds the concession to the cent; $20 is the minimum.
+            let off = exact_half_up(
+                u128::from(duty_oracle(place, 800_000)) * u128::from(1_000_000 - dollars),
+                200_000,
+            );
+            (general - u64::try_from(off).unwrap()).max(2_000)
+        }
+        ("AU-VIC", _) if dollars <= 600_000 => 0,
+        ("AU-VIC", _) if dollars <= 750_000 => u64::try_from(exact_half_up(
+            u128::from(general) * u128::from(dollars - 600_000),
+            150_000,
+        ))
+        .unwrap(),
+        ("AU-QLD", "established") => {
+            let bands = if dollars < 800_000 {
+                (80 - dollars / 10_000).min(10)
+            } else {
+                0
+            };
+            qld_home_rate(dollars).saturating_sub(bands * 173_500)
+        }
+        ("AU-WA", _) if dollars <= 600_000 => 0,
+        ("AU-WA", _) if dollars <= 800_000 => 1_615 * (dollars - 600_000).div_ceil(100),
+        ("AU-QLD" | "AU-SA", "new") | ("AU-ACT", _) => 0,
+        _ => general,
+    }
+}
+
+#[test]
+fn the_first_home_oracle_gives_the_published_figures() {
+    for (place, home, dollars, cents, source) in [
+        (
+            "AU-NSW",
+            "established",
+            850_000,
+            979_675,
+            "NSW Government 2026-27 table",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            900_000,
+            1_959_350,
+            "NSW Government 2026-27 table",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            950_000,
+            2_939_025,
+            "NSW Government 2026-27 table",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            990_000,
+            3_722_765,
+            "NSW Government 2026-27 table",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            800_000,
+            0,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            800_001,
+            2_000,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            800_099,
+            2_000,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            850_001,
+            980_140,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            850_050,
+            980_880,
+            "Revenue NSW calculator",
+        ),
+        ("AU-NSW", "new", 850_050, 980_880, "Revenue NSW calculator"),
+        (
+            "AU-NSW",
+            "established",
+            987_654,
+            3_677_006,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            997_000,
+            3_859_919,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "new",
+            995_000,
+            3_820_732,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            999_000,
+            3_899_106,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            999_999,
+            3_918_685,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "new",
+            999_999,
+            3_918_685,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-NSW",
+            "established",
+            1_000_000,
+            3_918_700,
+            "Revenue NSW calculator",
+        ),
+        (
+            "AU-QLD",
+            "established",
+            650_000,
+            0,
+            "Queensland Revenue Office example",
+        ),
+        (
+            "AU-QLD",
+            "established",
+            730_000,
+            655_500,
+            "Queensland Revenue Office example",
+        ),
+        (
+            "AU-QLD",
+            "established",
+            850_000,
+            2_410_000,
+            "Queensland Revenue Office example",
+        ),
+        // By hand: $37,070 general duty x 100,000 / 150,000, and $16.15 x 1,000.
+        ("AU-VIC", "established", 700_000, 2_471_333, "hand-worked"),
+        ("AU-WA", "established", 700_000, 1_615_000, "hand-worked"),
+    ] {
+        assert_eq!(
+            first_home_oracle(place, home, dollars),
+            cents,
+            "{place} {home} {dollars}: {source}"
+        );
+    }
+}
+
+#[test]
+fn the_first_home_engine_agrees_with_the_oracle_either_side_of_every_threshold() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1116_F125_7403);
+    let places = [
+        "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+    ];
+    let homes = ["established", "new"];
+    let mut values = Vec::new();
+    for place in places {
+        for home in homes {
+            // Every $10,000 step of Queensland's first home amount, and each other threshold.
+            for edge in [600_000, 750_000, 1_000_000]
+                .into_iter()
+                .chain((700_000..=800_000).step_by(10_000))
+            {
+                values.extend([edge - 1, edge, edge + 1].map(|v| (place, home, v)));
+            }
+            values.extend([(place, home, 1), (place, home, 1_000_000_000)]);
+        }
+    }
+    for _ in 0..FIRST_HOME_CASES {
+        let (place, home) = (rng.pick(&places), rng.pick(&homes));
+        values.push((place, home, 500_000 + rng.below(600_001)));
+    }
+    let (cases, expected): (Vec<Value>, Vec<Value>) = values
+        .iter()
+        .map(|&(place, home, dollars)| {
+            (
+                json!({"kind": "firstHome", "value": dollars.to_string(), "place": place, "home": home}),
+                json!({"duty": shown(first_home_oracle(place, home, dollars)),
+                    "general": shown(duty_oracle(place, dollars))}),
+            )
+        })
         .unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
@@ -2462,6 +2738,604 @@ fn the_vehicle_engine_agrees_with_the_oracle_on_every_seeded_case() {
         (0..VEHICLE_CASES).map(|_| vehicle_case(&mut rng)).unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), VEHICLE_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Seeded land tax values, beside every band boundary of every jurisdiction.
+const LAND_TAX_CASES: usize = 140;
+
+/// Runs land tax cases through the engine with each jurisdiction's data as the rendered
+/// calculator page gives it to the browser, keyed as the browser's dataset keys it. A
+/// jurisdiction the page lacks comes back as missing, so the comparison fails on it.
+const LAND_TAX_HARNESS: &str = r#"
+import { readFileSync } from 'node:fs';
+import { landTaxYear } from './assets/business-calculators.mjs';
+const page = readFileSync('tools/business-calculators/land-tax/index.html', 'utf8');
+const places = Object.fromEntries([...page.matchAll(/value="(AU-[A-Z]+)"((?: data-[a-z-]+="[^"]*")+)/g)]
+  .map(([, place, attributes]) => [place, Object.fromEntries([...attributes.matchAll(/data-([a-z-]+)="([^"]*)"/g)]
+    .map(([, key, value]) => [key.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()), value]))]));
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+process.stdout.write(JSON.stringify(JSON.parse(input).map(({ value, place, choices }) => {
+  if (!places[place]) return { missing: place };
+  const r = landTaxYear(value, places[place], choices);
+  return { tax: String(r.tax), surcharge: String(r.surcharge), mrit: String(r.mrit), total: String(r.total) };
+})));
+"#;
+
+/// One band of a land tax scale, typed from the revenue office's or the legislation's own
+/// wording as read on 16 November 2026, not from the calculator page. It holds the
+/// whole-dollar values from `low` to `high` and charges `base` cents plus `rate`
+/// ten-thousandths of a per cent of the value over `over`, or, when `per_hundred`, `rate`
+/// ten-thousandths of a dollar for every $100, or part of $100, over `over`.
+#[derive(Clone, Copy)]
+struct LandBand {
+    low: u64,
+    high: u64,
+    base: u64,
+    rate: u64,
+    over: u64,
+    per_hundred: bool,
+}
+
+/// A band charging `points` hundredths of a per cent of the value over `over`.
+const fn land(low: u64, high: u64, base: u64, points: u64, over: u64) -> LandBand {
+    land_fine(low, high, base, points * 100, over)
+}
+
+/// A band charging `rate` ten-thousandths of a per cent, as Victoria's trust rates need.
+const fn land_fine(low: u64, high: u64, base: u64, rate: u64, over: u64) -> LandBand {
+    LandBand {
+        low,
+        high,
+        base,
+        rate,
+        over,
+        per_hundred: false,
+    }
+}
+
+/// A band charging `points` cents for every $100, or part of $100, over `over`.
+const fn land_per_hundred(low: u64, high: u64, base: u64, points: u64, over: u64) -> LandBand {
+    LandBand {
+        per_hundred: true,
+        ..land(low, high, base, points, over)
+    }
+}
+
+/// No upper limit.
+const TOP: u64 = u64::MAX;
+
+/// Each scale with its fixed charge in cents, base amounts in cents.
+const LAND_TAX_SCALES: [(&str, u64, &[LandBand]); 7] = [
+    // Revenue NSW, thresholds and rates for the 2024 land tax year onwards: more than $1,075,000
+    // but less than $6,571,000, $100 + 1.6% above $1,075,000; more than $6,571,000, $88,036 + 2%.
+    // Exactly $6,571,000 falls in neither row; both give $88,036 there.
+    (
+        "AU-NSW",
+        0,
+        &[
+            land(0, 1_075_000, 0, 0, 0),
+            land(1_075_001, 6_571_000, 10_000, 160, 1_075_000),
+            land(6_571_001, TOP, 8_803_600, 200, 6_571_000),
+        ],
+    ),
+    // State Revenue Office Victoria, general rates for the 2024 to 2033 land tax years.
+    (
+        "AU-VIC",
+        0,
+        &[
+            land(0, 49_999, 0, 0, 0),
+            land(50_000, 99_999, 50_000, 0, 0),
+            land(100_000, 299_999, 97_500, 0, 0),
+            land(300_000, 599_999, 135_000, 30, 300_000),
+            land(600_000, 999_999, 225_000, 60, 600_000),
+            land(1_000_000, 1_799_999, 465_000, 90, 1_000_000),
+            land(1_800_000, 2_999_999, 1_185_000, 165, 1_800_000),
+            land(3_000_000, TOP, 3_165_000, 265, 3_000_000),
+        ],
+    ),
+    // Queensland Revenue Office, rates for individuals: cents for each $1 more than the threshold.
+    (
+        "AU-QLD",
+        0,
+        &[
+            land(0, 599_999, 0, 0, 0),
+            land(600_000, 999_999, 50_000, 100, 600_000),
+            land(1_000_000, 2_999_999, 450_000, 165, 1_000_000),
+            land(3_000_000, 4_999_999, 3_750_000, 125, 3_000_000),
+            land(5_000_000, 9_999_999, 6_250_000, 175, 5_000_000),
+            land(10_000_000, TOP, 15_000_000, 225, 10_000_000),
+        ],
+    ),
+    // RevenueWA land tax rates: dollars for each $1 in excess of the threshold.
+    (
+        "AU-WA",
+        0,
+        &[
+            land(0, 300_000, 0, 0, 0),
+            land(300_001, 420_000, 30_000, 0, 0),
+            land(420_001, 1_000_000, 30_000, 25, 420_000),
+            land(1_000_001, 1_800_000, 175_000, 90, 1_000_000),
+            land(1_800_001, 5_000_000, 895_000, 180, 1_800_000),
+            land(5_000_001, 11_000_000, 6_655_000, 200, 5_000_000),
+            land(11_000_001, TOP, 18_655_000, 267, 11_000_000),
+        ],
+    ),
+    // RevenueSA 2026-27 general rates: exceeding one figure but not exceeding the next.
+    (
+        "AU-SA",
+        0,
+        &[
+            land(0, 936_000, 0, 0, 0),
+            land_per_hundred(936_001, 1_504_000, 0, 50, 936_000),
+            land_per_hundred(1_504_001, 2_188_000, 284_000, 100, 1_504_000),
+            land_per_hundred(2_188_001, 3_504_000, 968_000, 200, 2_188_000),
+            land_per_hundred(3_504_001, TOP, 3_600_000, 240, 3_504_000),
+        ],
+    ),
+    // State Revenue Office Tasmania, rates from 1 July 2025: nil to $124,999.99.
+    (
+        "AU-TAS",
+        0,
+        &[
+            land(0, 124_999, 0, 0, 0),
+            land(125_000, 499_999, 5_000, 45, 125_000),
+            land(500_000, TOP, 173_750, 150, 500_000),
+        ],
+    ),
+    // ACT DI2026-152: fixed charge $1,778 and Table 1 on the base value.
+    (
+        "AU-ACT",
+        177_800,
+        &[
+            land(0, 150_000, 0, 54, 0),
+            land(150_001, 275_000, 81_000, 64, 150_000),
+            land(275_001, 1_000_000, 161_000, 124, 275_000),
+            land(1_000_001, 2_000_000, 1_060_000, 125, 1_000_000),
+            land(2_000_001, TOP, 2_310_000, 126, 2_000_000),
+        ],
+    ),
+];
+
+/// Each trust scale, from the same sources: the rates a land tax page's trust choice applies.
+const LAND_TAX_TRUST_SCALES: [(&str, &[LandBand]); 4] = [
+    // Revenue NSW, how trusts are assessed: a special trust is taxed at a flat 1.6% up to the
+    // premium threshold, then 2% on the value above $6,571,000.
+    (
+        "AU-NSW",
+        &[
+            land(0, 6_571_000, 0, 160, 0),
+            land(6_571_001, TOP, 10_513_600, 200, 6_571_000),
+        ],
+    ),
+    // State Revenue Office Victoria, trust surcharge rates from the 2024 land tax year.
+    (
+        "AU-VIC",
+        &[
+            land(0, 24_999, 0, 0, 0),
+            land_fine(25_000, 49_999, 8_200, 3_750, 25_000),
+            land_fine(50_000, 99_999, 67_600, 3_750, 50_000),
+            land_fine(100_000, 249_999, 133_800, 3_750, 100_000),
+            land_fine(250_000, 599_999, 190_100, 6_750, 250_000),
+            land_fine(600_000, 999_999, 426_300, 9_750, 600_000),
+            land_fine(1_000_000, 1_799_999, 816_300, 12_750, 1_000_000),
+            land_fine(1_800_000, 2_999_999, 1_836_300, 11_072, 1_800_000),
+            land_fine(3_000_000, TOP, 3_165_000, 26_500, 3_000_000),
+        ],
+    ),
+    // Queensland Revenue Office, rates for companies and trustees: cents for each $1 more
+    // than the threshold.
+    (
+        "AU-QLD",
+        &[
+            land(0, 349_999, 0, 0, 0),
+            land(350_000, 2_249_999, 145_000, 170, 350_000),
+            land(2_250_000, 4_999_999, 3_375_000, 150, 2_250_000),
+            land(5_000_000, 9_999_999, 7_500_000, 225, 5_000_000),
+            land(10_000_000, TOP, 18_750_000, 275, 10_000_000),
+        ],
+    ),
+    // RevenueSA 2026-27 trust rates: exceeding one figure but not exceeding the next.
+    (
+        "AU-SA",
+        &[
+            land(0, 25_000, 0, 0, 0),
+            land_per_hundred(25_001, 936_000, 12_500, 50, 25_000),
+            land_per_hundred(936_001, 1_504_000, 468_000, 100, 936_000),
+            land_per_hundred(1_504_001, 2_188_000, 1_036_000, 150, 1_504_000),
+            land_per_hundred(2_188_001, 3_504_000, 2_062_000, 240, 2_188_000),
+            land_per_hundred(3_504_001, TOP, 5_220_400, 240, 3_504_000),
+        ],
+    ),
+];
+
+/// Queensland Revenue Office, rates for absentees, which an absentee individual pays instead
+/// of the rates for individuals.
+const QLD_ABSENTEE: &[LandBand] = &[
+    land(0, 349_999, 0, 0, 0),
+    land(350_000, 2_249_999, 145_000, 170, 350_000),
+    land(2_250_000, 4_999_999, 3_375_000, 150, 2_250_000),
+    land(5_000_000, 9_999_999, 7_500_000, 200, 5_000_000),
+    land(10_000_000, TOP, 17_500_000, 250, 10_000_000),
+];
+
+/// State Revenue Office Victoria, general rates with the absentee owner surcharge from the
+/// 2024 land tax year: the engine's general tax and surcharge must add up to it.
+const VIC_GENERAL_AOS: &[LandBand] = &[
+    land(0, 49_999, 0, 0, 0),
+    land(50_000, 99_999, 250_000, 400, 50_000),
+    land(100_000, 299_999, 497_500, 400, 100_000),
+    land(300_000, 599_999, 1_335_000, 430, 300_000),
+    land(600_000, 999_999, 2_625_000, 460, 600_000),
+    land(1_000_000, 1_799_999, 4_465_000, 490, 1_000_000),
+    land(1_800_000, 2_999_999, 8_385_000, 565, 1_800_000),
+    land(3_000_000, TOP, 15_165_000, 665, 3_000_000),
+];
+
+/// State Revenue Office Victoria, trust surcharge rates with the absentee owner surcharge.
+const VIC_TRUST_AOS: &[LandBand] = &[
+    land(0, 24_999, 0, 0, 0),
+    land_fine(25_000, 49_999, 108_200, 43_750, 25_000),
+    land_fine(50_000, 99_999, 267_600, 43_750, 50_000),
+    land_fine(100_000, 249_999, 533_800, 43_750, 100_000),
+    land_fine(250_000, 599_999, 1_190_100, 46_750, 250_000),
+    land_fine(600_000, 999_999, 2_826_300, 49_750, 600_000),
+    land_fine(1_000_000, 1_799_999, 4_816_300, 52_750, 1_000_000),
+    land_fine(1_800_000, 2_999_999, 9_036_300, 51_072, 1_800_000),
+    land_fine(3_000_000, TOP, 15_165_000, 66_500, 3_000_000),
+];
+
+/// Every typed scale, for the coverage check.
+fn every_land_scale() -> Vec<(&'static str, &'static [LandBand])> {
+    let mut scales: Vec<_> = LAND_TAX_SCALES
+        .iter()
+        .map(|&(place, _, bands)| (place, bands))
+        .collect();
+    scales.extend(LAND_TAX_TRUST_SCALES);
+    scales.extend([
+        ("AU-QLD absentee", QLD_ABSENTEE),
+        ("AU-VIC general AOS", VIC_GENERAL_AOS),
+        ("AU-VIC trust AOS", VIC_TRUST_AOS),
+    ]);
+    scales
+}
+
+/// Tax in cents on a whole-dollar value from one scale: the band whose range holds it.
+fn band_tax(bands: &[LandBand], dollars: u64) -> u64 {
+    let band = bands
+        .iter()
+        .find(|band| band.low <= dollars && dollars <= band.high)
+        .unwrap();
+    let excess = u128::from(dollars - band.over);
+    let rate = u128::from(band.rate);
+    let charge = if band.per_hundred {
+        exact_half_up(rate * excess.div_ceil(100), 100)
+    } else {
+        exact_half_up(rate * excess, 10_000)
+    };
+    band.base + u64::try_from(charge).unwrap()
+}
+
+/// What a land tax page offers beside the value: trust rates, a foreign or absentee owner,
+/// the value a separate surcharge applies to, and land all in the Perth metropolitan region.
+#[derive(Clone, Copy, Default)]
+struct LandChoices {
+    trust: bool,
+    foreign: bool,
+    separate: u64,
+    metro: bool,
+}
+
+/// `hundredths` hundredths of a per cent of a whole-dollar value, in cents, half up.
+fn per_cent(hundredths: u128, dollars: u64) -> u64 {
+    u64::try_from(exact_half_up(hundredths * u128::from(dollars), 100)).unwrap()
+}
+
+/// A full year's land tax, foreign or absentee owner surcharge and MRIT in cents.
+fn land_tax_oracle(place: &str, dollars: u64, choices: LandChoices) -> [u64; 3] {
+    let (_, fixed, general) = LAND_TAX_SCALES.iter().find(|(p, ..)| *p == place).unwrap();
+    let main = if choices.trust {
+        LAND_TAX_TRUST_SCALES
+            .iter()
+            .find(|(p, _)| *p == place)
+            .unwrap()
+            .1
+    } else if choices.foreign && place == "AU-QLD" {
+        QLD_ABSENTEE
+    } else {
+        general
+    };
+    let tax = fixed + band_tax(main, dollars);
+    let surcharge = match (choices.foreign, place) {
+        (false, _) => 0,
+        // Revenue NSW: 5% of the land value of the residential land, with no threshold.
+        (true, "AU-NSW") => per_cent(500, choices.separate),
+        // SRO Victoria: its table with the absentee owner surcharge less the table without it.
+        (true, "AU-VIC") => {
+            let with = if choices.trust {
+                VIC_TRUST_AOS
+            } else {
+                VIC_GENERAL_AOS
+            };
+            band_tax(with, dollars) - band_tax(main, dollars)
+        }
+        // QRO: (taxable value - $350,000) x 3%, from $350,000.
+        (true, "AU-QLD") => per_cent(300, dollars.saturating_sub(350_000)),
+        // SRO Tasmania: 2% of the assessed land value of the foreign-owned share.
+        (true, "AU-TAS") => per_cent(200, choices.separate),
+        // DI2026-152 section 7: 0.75% of the base value.
+        (true, "AU-ACT") => per_cent(75, dollars),
+        (true, _) => unreachable!("{place} has no surcharge"),
+    };
+    // RevenueWA MRIT: nil to $300,000, then 0.0014 dollars for each $1 in excess of $300,000.
+    let mrit = if choices.metro {
+        per_cent(14, dollars.saturating_sub(300_000))
+    } else {
+        0
+    };
+    [tax, surcharge, mrit]
+}
+
+/// Each revenue office's own worked figure, read 16 November 2026, and hand-worked figures
+/// where none is published. The scales also cover every whole dollar without a gap.
+#[test]
+fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
+    for (place, bands) in every_land_scale() {
+        assert_eq!(bands[0].low, 0, "{place}");
+        assert_eq!(bands[bands.len() - 1].high, TOP, "{place}");
+        for pair in bands.windows(2) {
+            assert_eq!(pair[1].low, pair[0].high + 1, "{place}");
+        }
+    }
+    let general = LandChoices::default();
+    let trust = LandChoices {
+        trust: true,
+        ..general
+    };
+    let foreign = LandChoices {
+        foreign: true,
+        ..general
+    };
+    for (place, dollars, choices, cents, source) in [
+        (
+            "AU-NSW",
+            1_100_000,
+            general,
+            [50_000, 0, 0],
+            "Revenue NSW 3-year average example",
+        ),
+        (
+            "AU-NSW",
+            600_000,
+            trust,
+            [960_000, 0, 0],
+            "Revenue NSW special trust example",
+        ),
+        (
+            "AU-NSW",
+            1_200_000,
+            LandChoices {
+                separate: 1_200_000,
+                ..foreign
+            },
+            [210_000, 6_000_000, 0],
+            "Revenue NSW surcharge land tax example 1",
+        ),
+        (
+            "AU-NSW",
+            0,
+            LandChoices {
+                separate: 500_000,
+                ..foreign
+            },
+            [0, 2_500_000, 0],
+            "Revenue NSW surcharge land tax example 2",
+        ),
+        (
+            "AU-VIC",
+            1_100_000,
+            general,
+            [555_000, 0, 0],
+            "SRO Victoria, Anika's assessment",
+        ),
+        (
+            "AU-VIC",
+            1_000_000,
+            foreign,
+            [465_000, 4_000_000, 0],
+            "SRO Victoria general rates with the absentee owner surcharge, $44,650",
+        ),
+        (
+            "AU-VIC",
+            1_800_000,
+            LandChoices {
+                trust: true,
+                ..foreign
+            },
+            [1_836_300, 7_200_000, 0],
+            "SRO Victoria trust rates with the absentee owner surcharge, $90,363",
+        ),
+        (
+            "AU-QLD",
+            680_000,
+            general,
+            [130_000, 0, 0],
+            "QRO individuals example 1",
+        ),
+        (
+            "AU-QLD",
+            6_400_000,
+            general,
+            [8_700_000, 0, 0],
+            "QRO individuals example 2",
+        ),
+        (
+            "AU-QLD",
+            6_400_000,
+            trust,
+            [10_650_000, 0, 0],
+            "QRO companies example 1",
+        ),
+        (
+            "AU-QLD",
+            760_000,
+            trust,
+            [842_000, 0, 0],
+            "QRO SMSF trustee example 2",
+        ),
+        (
+            "AU-QLD",
+            400_000,
+            foreign,
+            [230_000, 150_000, 0],
+            "QRO absentee example",
+        ),
+        (
+            "AU-QLD",
+            400_000,
+            LandChoices {
+                trust: true,
+                ..foreign
+            },
+            [230_000, 150_000, 0],
+            "QRO foreign company example",
+        ),
+        (
+            "AU-SA",
+            1_470_000,
+            general,
+            [267_000, 0, 0],
+            "RevenueSA 2026-27 guide example 1",
+        ),
+        (
+            "AU-SA",
+            1_575_000,
+            general,
+            [355_000, 0, 0],
+            "RevenueSA land tax assessment example",
+        ),
+        (
+            "AU-TAS",
+            400_000,
+            LandChoices {
+                separate: 400_000,
+                ..foreign
+            },
+            [128_750, 800_000, 0],
+            "SRO Tasmania FILTS guideline example 1",
+        ),
+        // By hand: $1,750 + 0.9% of $500,000, and MRIT of 0.14% of $1,200,000.
+        (
+            "AU-WA",
+            1_500_000,
+            LandChoices {
+                metro: true,
+                ..general
+            },
+            [625_000, 0, 168_000],
+            "hand-worked",
+        ),
+        // By hand: $125 + 50 cents for each of 4,750 lots of $100.
+        ("AU-SA", 500_000, trust, [250_000, 0, 0], "hand-worked"),
+        // By hand: $1,737.50 + 1.5% of $100,000.
+        ("AU-TAS", 600_000, general, [323_750, 0, 0], "hand-worked"),
+        // By hand: $1,778 + $1,610 + 1.24% of $325,000, and 0.75% of $600,000.
+        (
+            "AU-ACT",
+            600_000,
+            foreign,
+            [741_800, 450_000, 0],
+            "hand-worked",
+        ),
+    ] {
+        assert_eq!(
+            land_tax_oracle(place, dollars, choices),
+            cents,
+            "{place} {dollars}: {source}"
+        );
+    }
+}
+
+/// Every combination of choices a jurisdiction computes: trust rates where it has them, a
+/// foreign or absentee owner where it has a surcharge, and MRIT in Western Australia.
+fn land_choice_sets(place: &str) -> Vec<LandChoices> {
+    let trust = LAND_TAX_TRUST_SCALES.iter().any(|(p, _)| *p == place);
+    let foreign = ["AU-NSW", "AU-VIC", "AU-QLD", "AU-TAS", "AU-ACT"].contains(&place);
+    let metro = place == "AU-WA";
+    let mut sets = Vec::new();
+    for t in [false, true].into_iter().filter(|&t| !t || trust) {
+        for f in [false, true].into_iter().filter(|&f| !f || foreign) {
+            for m in [false, true].into_iter().filter(|&m| !m || metro) {
+                sets.push(LandChoices {
+                    trust: t,
+                    foreign: f,
+                    separate: 0,
+                    metro: m,
+                });
+            }
+        }
+    }
+    sets
+}
+
+#[test]
+fn the_land_tax_engine_agrees_with_the_oracle_at_every_band_boundary() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1116_1A4D_7A85);
+    let mut values = Vec::new();
+    for (place, ..) in LAND_TAX_SCALES {
+        let mut edges = vec![0, 300_000, 350_000, 1_000_000_000];
+        for (scale, bands) in every_land_scale() {
+            if scale.starts_with(place) {
+                edges.extend(bands.iter().map(|band| band.low));
+            }
+        }
+        for edge in edges {
+            for v in [edge.saturating_sub(1), edge, edge + 1] {
+                if v <= 1_000_000_000 {
+                    values.push((place, v));
+                }
+            }
+        }
+    }
+    // Seeded whole-dollar values spread across magnitudes, for every jurisdiction.
+    for _ in 0..LAND_TAX_CASES {
+        let (place, ..) = LAND_TAX_SCALES[rng.below(7) as usize];
+        values.push((place, rng.cents(1_000_000_000)));
+    }
+    let mut cases = Vec::new();
+    let mut expected = Vec::new();
+    for (place, dollars) in values {
+        for mut choices in land_choice_sets(place) {
+            if choices.foreign && ["AU-NSW", "AU-TAS"].contains(&place) {
+                choices.separate = rng.cents(1_000_000_000);
+            }
+            let [tax, surcharge, mrit] = land_tax_oracle(place, dollars, choices);
+            cases.push(json!({
+                "value": dollars.to_string(),
+                "place": place,
+                "choices": {
+                    "trust": choices.trust,
+                    "foreign": choices.foreign,
+                    "surchargeValue": choices.separate.to_string(),
+                    "metro": choices.metro,
+                },
+            }));
+            expected.push(json!({
+                "tax": shown(tax),
+                "surcharge": shown(surcharge),
+                "mrit": shown(mrit),
+                "total": shown(tax + surcharge + mrit),
+            }));
+        }
+    }
+    let actual = run_node(LAND_TAX_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

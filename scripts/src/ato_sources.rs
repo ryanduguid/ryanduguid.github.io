@@ -122,11 +122,11 @@ static ESCAPE: LazyLock<Regex> = LazyLock::new(|| pattern("%[0-9A-Fa-f]{2}"));
 
 // Pages outside the ATO behind values their publishers revise: the NSW budget in June,
 // the land tax year in January, the Coal LSL corporation when it announces a new levy,
-// and each state and territory's transfer duty scale, by a figure from that scale.
-// They are read every run whether or not a file cites them,
+// and each state and territory's transfer duty scale and land tax scale, by a figure from
+// that scale. They are read every run whether or not a file cites them,
 // and a change lists every file using each value, because the calculators and examples
 // reuse the values without citing the page.
-pub const WATCHED: [(&str, &[&str]); 11] = [
+pub const WATCHED: [(&str, &[&str]); 17] = [
     (
         "https://coallsl.com.au/employer/administer-lsl/levy",
         &["2.7%"],
@@ -170,6 +170,30 @@ pub const WATCHED: [(&str, &[&str]); 11] = [
     (
         "https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978",
         &["0.06571441"],
+    ),
+    (
+        "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-tax-current-rates",
+        &["$31,650", "31650"],
+    ),
+    (
+        "https://qro.qld.gov.au/land-tax/calculate/individual/",
+        &["$37,500", "37500"],
+    ),
+    (
+        "https://www.wa.gov.au/organisation/department-of-treasury-and-finance/land-tax-assessment",
+        &["$186,550", "186550"],
+    ),
+    (
+        "https://www.revenuesa.sa.gov.au/landtax/rates-and-thresholds",
+        &["$9,680", "9680"],
+    ),
+    (
+        "https://www.sro.tas.gov.au/land-tax/rates-of-land-tax",
+        &["$1,737.50", "1737.50"],
+    ),
+    (
+        "https://www.legislation.act.gov.au/View/di/2026-152/current/html/2026-152.html",
+        &["$1,778", "1778"],
     ),
 ];
 

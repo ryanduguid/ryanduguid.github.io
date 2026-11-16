@@ -98,6 +98,13 @@ calculate.fixedFee('18.5', '95', '40', '5', true, '12');
 // @ts-expect-error Adding GST is a boolean flag.
 calculate.fixedFee('18.5', '95', '40', '10', 'yes', '12');
 void fee;
+const landTax: number = calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess', surcharge: '0,0,2,0,excess' },
+  { foreign: true, surchargeValue: '400000' }).total;
+// @ts-expect-error A land value is a decimal string, as the form field gives it.
+calculate.landTaxYear(1100000, { name: 'Tasmania', scale: '0,0,0,0,excess' });
+// @ts-expect-error A foreign or absentee owner is a boolean flag.
+calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess' }, { foreign: 'yes' });
+void landTax;
 const dualCab = { body: 'dual-cab', seats: '5', gvm: '2000', kerb: '1400', payload: '0', modified: 'no', cost: '50000',
   credit: 'full', fuel: 'other', use: 'limited' } as const;
 const vehicleYear = { carLimit: '69883', fuelEfficientThreshold: '91661', otherThreshold: '80809' };
