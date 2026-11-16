@@ -492,8 +492,8 @@ fn rule_of<'a>(run: &'a Json, result: &Json) -> Option<&'a Json> {
     rules.get(rule?)
 }
 
-/// Page `page` of main's CodeQL analyses, newest first. An analysis without its
-/// creation time in UTC refuses.
+/// Page `page` of main's CodeQL analyses, newest first. An analysis without its id,
+/// commit, category or creation time in UTC refuses.
 fn analysis_page(repository: &str, page: usize, fetch: &mut Fetch) -> Result<Vec<Json>> {
     let listing = fetch(
         &format!(
@@ -502,10 +502,12 @@ fn analysis_page(repository: &str, page: usize, fetch: &mut Fetch) -> Result<Vec
         false,
     )?;
     let analyses = array_items(&Json::Array(vec![listing]), "analysis")?;
-    if analyses
-        .iter()
-        .any(|a| timestamp(a, "created_at").is_none())
-    {
+    if analyses.iter().any(|a| {
+        int(a.get("id")).is_none()
+            || text(a, "commit_sha").is_none()
+            || text(a, "category").is_none()
+            || timestamp(a, "created_at").is_none()
+    }) {
         return refuse("Unreadable analysis listing");
     }
     Ok(analyses)

@@ -1141,3 +1141,22 @@ fn analysis_times_must_be_utc_seconds() {
         );
     }
 }
+
+#[test]
+fn an_analysis_without_its_id_commit_or_category_is_unreadable() {
+    for key in ["id", "commit_sha", "category"] {
+        let (mut site, _) = analysed_main();
+        site.analyses = Json::Array(vec![
+            uploaded("python", "2026-11-16T00:02:40Z"),
+            with(
+                &uploaded("python", "2026-11-16T00:02:30Z"),
+                &[(key, Json::Null)],
+            ),
+        ]);
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis listing",
+            "{key}"
+        );
+    }
+}
