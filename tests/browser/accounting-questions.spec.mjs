@@ -606,6 +606,51 @@ test('GIC payment plan works a weekly plan and one past the published rates offl
   await expect(form.locator('.field-error')).toHaveText('Enter 120 or less.');
 });
 
+// TR 2022/3 example 22 (paragraphs 210 to 214): Kevin's brother's company is an associate, and Pebbles and
+// GemCo found him through his website; equal thirds are this test's figures. Then an agent paid 75% commission,
+// whom section 87-40 may cover, is refused.
+test('PSI rules checker works TR 2022/3 example 22 and refuses an agent it cannot assess offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/psi-determination/');
+  const form = page.locator('#psi-determination form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  for (const [payer, amount] of [[1, '30000'], [2, '30000'], [3, '30000']]) {
+    await form.getByLabel(`PSI from payer ${payer} (AUD)`, { exact: true }).fill(amount);
+  }
+  // The page opens on example 20, with payer 1 paid for a result; Kevin's payers are not.
+  for (const condition of ['pays for a result', 'needs them to supply the plant, equipment or tools',
+    'leaves them liable for the cost of defects']) {
+    await form.getByLabel(`Payer 1 ${condition}`).uncheck();
+  }
+  await form.getByLabel('Payer 1 is an associate of the individual or entity').check();
+  for (const payer of [2, 3]) {
+    await form.getByLabel(`Payer ${payer} engaged them as a direct result of an offer to the public`).check();
+  }
+  await form.getByLabel('Market value of principal work by others engaged, in the year (AUD)').fill('0');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: Received by the individual as a contractor, mainly a reward for personal efforts or skills, no PSB '
+    + 'determination; payer 1 $30,000.00, ticked: an associate; payer 2 $30,000.00, ticked: won by a public offer; '
+    + 'payer 3 $30,000.00, ticked: won by a public offer; principal work by others $0.00, no apprentice; business '
+    + 'premises conditions: none; not an agent. Outcome: Section 87-20: a personal services business, so Divisions 85 '
+    + 'and 86 do not apply. Subsection 84-5(1): income mainly a reward for the individual’s personal efforts or '
+    + 'skills: Yes, as you answered. Paragraph 87-15(1)(a): a personal services business determination in force: No, '
+    + 'as you answered. Subsection 87-18(1): PSI paid for a result, with the tools supplied and liability for '
+    + 'defects: 0.00%, under 75%: not met. Subsection 87-15(3): largest share of the PSI from one payer and its '
+    + 'associates: 33.33%, under 80%. Section 87-20: unrelated payers that engaged the individual or entity as a '
+    + 'direct result of offers to the public: 2, at least 2: met. Section 87-25: principal work by others engaged, by '
+    + 'market value, or an apprentice: 0.00%, under 20%, no apprentice for half the year: not met. Section 87-30: '
+    + 'business premises meeting all 4 conditions at all times in the year: No: not met. The PSI is still reported in '
+    + 'the tax return, and Part IVA can still apply to splitting it (TR 2022/3 paragraphs 25 and 160).');
+  await form.getByRole('group', { name: 'Paid as an agent by a principal for services to its customers (section 87-40)?' })
+    .getByLabel('Yes').check();
+  await form.getByLabel('Agent: the principal’s payments in the year (AUD)').fill('100000');
+  await form.getByLabel('Agent: commission or performance fees in them (AUD)').fill('75000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('At least 75% of the principal’s payments are commission or performance fees, '
+    + 'so section 87-40 may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40.');
+});
+
 test('transfer duty notes NSW premium duty from the first dollar over $3,870,000 only', async ({ page }) => {
   await page.goto('/tools/business-calculators/transfer-duty/');
   const form = page.locator('#transfer-duty form');
@@ -650,7 +695,7 @@ test('transfer duty takes a first home buyer chosen by keyboard and says where t
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
-  'transfer-duty', 'land-tax'];
+  'transfer-duty', 'land-tax', 'psi-determination'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

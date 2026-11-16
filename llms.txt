@@ -113,6 +113,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [FBT car calculator](https://duguid.com.au/tools/business-calculators/fbt-car/): Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or the operating cost method.
 - [PCG 2021/4 risk scorer](https://duguid.com.au/tools/business-calculators/pcg-2021-4/): The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - [GIC payment plan calculator](https://duguid.com.au/tools/business-calculators/gic-payment-plan/): What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
+- [PSI rules checker](https://duguid.com.au/tools/business-calculators/psi-determination/): Whether the personal services income rules apply, step by step through Divisions 84 to 87.
 - [Staff cost calculator](https://duguid.com.au/tools/business-calculators/staff/): Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - [13-week cash forecast](https://duguid.com.au/tools/business-calculators/cash/): Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - [Objection deadline checker](https://duguid.com.au/tools/business-calculators/objection-deadline/): The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
