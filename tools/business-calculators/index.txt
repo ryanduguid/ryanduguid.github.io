@@ -12,7 +12,7 @@ Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last checked 15 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 16 November 2026, the newest of the calculators’ source checks.
 
 ## Pricing, planning and loans
 
@@ -42,7 +42,7 @@ Published 11 September 2026. Last checked 15 November 2026, the newest of the ca
 - Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
 - PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
-- Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, before any concession or surcharge.
+- Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 

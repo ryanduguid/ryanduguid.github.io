@@ -2,19 +2,21 @@
 
 Source: https://duguid.com.au/tools/business-calculators/transfer-duty/
 
-> General transfer (stamp) duty on a residential purchase in all 8 states and territories, from each one’s primary source as read on 15 November 2026.
+> Transfer (stamp) duty on a residential purchase in all 8 states and territories, at the general rates or with each first home buyer concession, from primary sources.
 
 # Transfer duty calculator
 
-General transfer (stamp) duty on a residential purchase in any Australian state or territory, from each revenue office’s current rates.
+General transfer (stamp) duty on a residential purchase in any Australian state or territory, from each revenue office’s current rates, and the duty for an eligible first home buyer.
 
-Published 15 November 2026. Last checked 15 November 2026.
+Published 15 November 2026. Last checked 16 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 Transfer duty inputs
 
 State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+
+Buyer General rates Eligible first home buyer, established home Eligible first home buyer, new home
 
 Dutiable value (whole dollars)
 
@@ -28,17 +30,33 @@ The transfer duty calculator applies one state or territory’s general rates to
 
 Where a revenue office publishes worked figures, the calculator gives the same amount. Revenue NSW’s worked examples give $55,537 on $1,350,000, $14,437 on $450,000 and $203,237 on $4,000,000; its Transfer of Land or Business Calculator gave $14,441.50 on $450,050 when tried on 15 November 2026. The Victorian State Revenue Office gives $28,070 at the standard rate on $550,000 and $19,070 on $400,000. The Queensland Revenue Office gives $31,275 on $850,000. RevenueSA’s foreign ownership surcharge example gives stamp duty of $26,830 on $600,000. The Tasmanian duty calculator gave $18,247.50 on $500,000 on 15 November 2026. For Western Australia, the Australian Capital Territory and the Northern Territory the tests work examples by hand from the published rates: $32,315.50 on $800,000 in Western Australia, $17,880 on $650,000 in the Australian Capital Territory and $23,928.60 on $500,000 in the Northern Territory.
 
+## Duty for a first home buyer
+
+For an eligible first home buyer, the calculator applies the state or territory’s first home buyer concession on a home, new or established, bought to live in. Each scheme’s conditions, such as citizenship or residency, never having owned a home, age and moving in within a set time, are in the sources listed and are not tested.
+
+- New South Wales: no duty up to $800,000. Below $1 million, the duty on $800,000, scaled down evenly to nil at $1 million, comes off the general duty, with the $20 minimum.
+- Victoria: no duty up to $600,000. Up to $750,000, the general duty multiplied by the value over $600,000 and divided by $150,000.
+- Queensland: the home concession rate less the first home concession amount for the value’s $10,000 band, from $17,350 below $710,000 down to nil from $800,000, so no duty up to $700,000. No duty on a new home, whatever its value.
+- Western Australia: no duty up to $600,000. Up to $800,000, $16.15 for every $100, or part of $100, over $600,000.
+- South Australia: no duty on a new home, whatever its value. An established home pays the general rate.
+- Australian Capital Territory: no duty under the Home Buyer Concession Scheme, whatever the value. The scheme is open to buyers who have not owned property in the past 5 years, not only first home buyers.
+- Tasmania and the Northern Territory: no first home buyer duty concession on a home, so the general rate applies. Tasmania’s exemption for established homes ended with settlements on 30 June 2026.
+
+The NSW Government’s 2026-27 table gives $9,796.75 on $850,000, $19,593.50 on $900,000, $29,390.25 on $950,000 and $37,227.65 on $990,000. Revenue NSW’s First Home Buyers Assistance calculator gave $38,991.06 on $999,000 and $20 on $800,001 when tried on 16 November 2026. The Queensland Revenue Office gives $6,555 on $730,000 and $24,100 on $850,000 for an established first home. For Victoria and Western Australia the tests work examples by hand: $24,713.33 on $700,000 in Victoria and $16,150 on $700,000 in Western Australia.
+
+First home owner grants are payments to the buyer, not duty concessions, and are not computed: New South Wales, Victoria, Queensland, Western Australia, South Australia, Tasmania, the Northern Territory’s HomeGrown Territory Grant, and the Australian Capital Territory’s First Home Owner Grant, which stopped on 1 July 2019.
+
 ## What the transfer duty calculator does not compute
 
-The transfer duty calculator gives general transfer duty only. It applies no concession, exemption, surcharge or first home buyer scheme, and does not decide whether a transaction is dutiable or what its dutiable value is. These are not computed:
+The transfer duty calculator gives general transfer duty, and duty for an eligible first home buyer of a home. It applies no other concession, exemption or surcharge, does not test whether a buyer is eligible, and does not decide whether a transaction is dutiable or what its dutiable value is. These are not computed:
 
-- New South Wales: duty on land other than residential land over $3,870,000, which the premium rate does not reach (the calculator applies it and says so in its result), the First Home Buyers Assistance Scheme, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
-- Victoria: the principal place of residence concession, duty relief for a first home buyer, the City of Melbourne new residential property concession and exemption, the pensioner exemption and concession, and foreign purchaser additional duty.
-- Queensland: the home concession, first home concession, first home (new home) concession and first home vacant land concession, and additional foreign acquirer duty, which also reaches companies and trusts.
-- Western Australia: the concessional rate for a principal place of residence or WA business asset up to $200,000, the first home owner rate, the off-the-plan concession or rebate, and foreign transfer duty.
-- South Australia: stamp duty relief for eligible first home buyers, seniors downsizing stamp duty relief, home buyer ex gratia relief for victim-survivors of family, domestic or sexual violence, and the foreign ownership surcharge.
+- New South Wales: duty on land other than residential land over $3,870,000, which the premium rate does not reach (the calculator applies it and says so in its result), the First Home Buyers Assistance Scheme on vacant land, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
+- Victoria: the principal place of residence concession, the first home buyer concession on vacant land, the off-the-plan concession, the City of Melbourne new residential property concession and exemption, the pensioner exemption and concession, and foreign purchaser additional duty.
+- Queensland: the home concession for a buyer who is not a first home buyer, the first home vacant land concession, and additional foreign acquirer duty, which also reaches companies and trusts.
+- Western Australia: the concessional rate for a principal place of residence or WA business asset up to $200,000, the first home owner rate on vacant land, the off-the-plan concession or rebate, and foreign transfer duty.
+- South Australia: stamp duty relief for eligible first home buyers on vacant land, seniors downsizing stamp duty relief, home buyer ex gratia relief for victim-survivors of family, domestic or sexual violence, and the foreign ownership surcharge.
 - Tasmania: concessions and exemptions, and the foreign investor duty surcharge.
-- Australian Capital Territory: the lower rate for an eligible owner occupier transaction (Table 1 of the determination), home buyer concessions, and the rates for commercial property.
+- Australian Capital Territory: the lower rate for an eligible owner occupier transaction (Table 1 of the determination), the Home Buyer Concession Scheme on vacant land, and the rates for commercial property.
 - Northern Territory: the house and land package exemption and the home incentive schemes in Part 5 of the Act.
 
 Duty on a trust acquisition, a landholder or corporate trustee acquisition, a lease premium or a business sale, and the land tax that follows a purchase, are not computed either. Confirm the figure with the revenue office’s own calculator or a conveyancer before relying on it.
@@ -62,6 +80,14 @@ RevenueSA’s example | South Australia, $600,000.00 | Duty $26,830.00
 As Tasmania’s duty calculator gave | Tasmania, $500,000.00 | Duty $18,247.50
 The ACT’s flat rate on the whole value, worked by hand | Australian Capital Territory, $1,500,000.00 | Duty $68,100.00
 The Northern Territory formula, worked by hand | Northern Territory, $500,000.00 | Duty $23,928.60
+The NSW Government’s 2026-27 first home example | New South Wales, $900,000.00, first home buyer, established home | Duty $19,593.50, general duty $34,687.00
+Revenue NSW’s calculator rounds the concession to the cent | New South Wales, $999,000.00, first home buyer, new home | Duty $38,991.06, general duty $39,142.00
+Victoria’s first home concession, worked by hand | Victoria, $700,000.00, first home buyer, established home | Duty $24,713.33, general duty $37,070.00
+The Queensland Revenue Office’s first home example | Queensland, $730,000.00, first home buyer, established home | Duty $6,555.00, general duty $25,875.00
+Western Australia’s first home owner rate, worked by hand | Western Australia, $700,000.00, first home buyer, established home | Duty $16,150.00, general duty $27,265.00
+South Australia’s relief on a new home | South Australia, $600,000.00, first home buyer, new home | Duty $0.00, general duty $26,830.00
+No first home buyer concession in Tasmania | Tasmania, $500,000.00, first home buyer, established home | Duty $18,247.50, general duty $18,247.50
+The ACT Home Buyer Concession Scheme has no value limit | Australian Capital Territory, $1,500,000.00, first home buyer, established home | Duty $0.00, general duty $68,100.00
 Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
 
 One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
@@ -73,4 +99,12 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
+- New South Wales: https://www.revenue.nsw.gov.au/grants-schemes/first-home-owner-new-homes-grant
+- Victoria: https://www.sro.vic.gov.au/first-home-owner
+- Queensland: https://qro.qld.gov.au/property-concessions-grants/first-home-grant/
+- Western Australia: https://www.wa.gov.au/government/publications/about-the-first-home-owner-grant
+- South Australia: https://www.revenuesa.sa.gov.au/grants-and-concessions/first-home-owners
+- Tasmania: https://www.sro.tas.gov.au/first-home-owner
+- HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
+- First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
 - eighteen business calculators: https://duguid.com.au/tools/business-calculators/
