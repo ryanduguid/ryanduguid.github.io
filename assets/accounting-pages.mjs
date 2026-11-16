@@ -285,7 +285,7 @@ function initialiseCalculators([calculate, fieldErrors]) {
             // The year's car limit and LCT thresholds come from the checked option; the Node
             // tests bind them to the car limit table and the ATO's LCT thresholds.
             const year = form.querySelector('input[name="year"]:checked').dataset;
-            const f = Object.fromEntries(['body', 'seats', 'gvm', 'kerb', 'payload', 'modified', 'cost', 'credit', 'fuel', 'use']
+            const f = Object.fromEntries(['body', 'seats', 'gvm', 'kerb', 'payload', 'accessories', 'modified', 'cost', 'credit', 'fuel', 'use']
               .map(name => [name, value(name)]));
             const r = calculate.vehicleClass(f, { carLimit: year.carLimit, fuelEfficientThreshold: year.fuelEfficient,
               otherThreshold: year.other });
@@ -298,6 +298,7 @@ function initialiseCalculators([calculate, fieldErrors]) {
                 + '(paragraph 6(c)); its other conditions are yours to check'] : [])];
             result = { inputs: `${BODY_NAMES[f.body]}, ${count(f.seats, 'seat')}, gross vehicle mass ${kg(f.gvm)}, `
               + `${Number(f.kerb) ? `kerb weight ${kg(f.kerb)}, ` : ''}${Number(f.payload) ? `payload ${kg(f.payload)}, ` : ''}`
+              + `${Number(f.accessories) ? `accessories at supply ${kg(f.accessories)}, ` : ''}`
               + `${f.modified === 'no' ? 'not modified' : 'modified, manufacturer’s figures'}, ${value('year')}, price ${money('cost')}, `
               + `${f.credit === 'full' ? 'full GST credit' : 'no GST credit'}, `
               + `${f.fuel === 'efficient' ? '3.5 litres per 100 km or less' : 'more than 3.5 litres per 100 km'}, `

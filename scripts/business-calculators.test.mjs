@@ -433,6 +433,7 @@ const INPUTS = {
     + `${p.count === '1' ? 'instalment' : 'instalments'}, ${p.assumedRate}% assumed after the table`,
   vehicleClass: (v, y) => `${VEHICLE_BODIES[v.body]}, ${v.seats} ${v.seats === '1' ? 'seat' : 'seats'}, gross vehicle mass ${kgs(v.gvm)}`
     + `${v.kerb === '0' ? '' : `, kerb weight ${kgs(v.kerb)}`}${v.payload === '0' ? '' : `, payload ${kgs(v.payload)}`}`
+    + `${v.accessories === '0' ? '' : `, accessories at supply ${kgs(v.accessories)}`}`
     + `${{ no: '', plated: ', modified, manufacturer’s figures', unplated: ', modified, manufacturer’s figures unknown' }[v.modified]}`
     + `, ${Object.keys(vehicleYears).find((year) => JSON.stringify(vehicleYears[year]) === JSON.stringify(y))}, price ${dollars(Number(v.cost))}`
     + `${v.credit === 'none' ? ', no GST credit' : ''}${v.fuel === 'efficient' ? ', fuel-efficient' : ''}`
@@ -770,7 +771,8 @@ const FORM_CALLS = {
   pcgRisk: (f) => [{ gateway1: f.gateway1 === 'yes', gateway2: f.gateway2 === 'yes', entitlement: f.entitlement,
     returned: f.returned, tax: f.tax, factor3: f.factor3 === 'yes', remuneration: f.remuneration, benchmark: f.benchmark }],
   gicPaymentPlan: (f) => [{ debt: f.debt, start: f.start, count: f.count, frequency: f.frequency, assumedRate: f.assumedRate }],
-  vehicleClass: (f) => [{ body: f.body, seats: f.seats, gvm: f.gvm, kerb: f.kerb, payload: f.payload, modified: f.modified,
+  vehicleClass: (f) => [{ body: f.body, seats: f.seats, gvm: f.gvm, kerb: f.kerb, payload: f.payload, accessories: f.accessories,
+    modified: f.modified,
     cost: f.cost, credit: f.credit, fuel: f.fuel, use: f.use }, vehicleYears[f.year]],
   staffCost: (f) => [f.wages, f.super, f.other],
   cashForecast: (f) => [f.opening,
@@ -1215,8 +1217,8 @@ test('the car limit table names the vehicles section 40-230 reaches', () => {
   assert.match(answer, /a car not designed mainly for carrying passengers/);
 });
 
-const vehicle = (fields) => ({ body: 'passenger', seats: '5', gvm: '3000', kerb: '2135', payload: '0', modified: 'no',
-  cost: '75000', credit: 'full', fuel: 'other', use: 'limited', ...fields });
+const vehicle = (fields) => ({ body: 'passenger', seats: '5', gvm: '3000', kerb: '2135', payload: '0', accessories: '0',
+  modified: 'no', cost: '75000', credit: 'full', fuel: 'other', use: 'limited', ...fields });
 // ATO, 'Instant asset write-off for eligible businesses' (last updated 28 August 2026), read 16 November 2026:
 // https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
 // '$69,674 ÷ 11 = $6,334', '($75,000 − $6,334 = $68,666)' and, not registered, 'the car limit ($69,674 in 2025–26)'.
@@ -1262,15 +1264,61 @@ test('the design tests agree with MT 2024, the FBT guide, LCTD 2023/1 and TD 94/
   }
   assert.equal(calculations.vehicleClass(vehicle({ body: 'dual-cab', gvm: '3000', kerb: '2040', cost: '85000' }), year).luxury,
     'commercial');
-  // LCTD 2023/1 paragraphs 52 and 53: a cargo or delivery van is low risk, so no luxury car and no GST credit cap.
+  // LCTD 2023/1 paragraphs 52 and 53: the ATO will not review a cargo or delivery van as a luxury car.
   const van = calculations.vehicleClass(vehicle({ body: 'van', seats: '3', gvm: '3000', kerb: '2100', cost: '90000' }), year);
-  assert.deepEqual([van.luxury, van.capApplies, van.credit], ['commercial', false, 8181.82]);
+  assert.equal(van.luxury, 'commercial');
   // TD 94/19 leaves a body other than a dual cab to its appearance, marketing and specifications, and no ATO
   // source says whether a single cab ute or panel van is designed mainly for carrying passengers: the car limit
   // is left undecided, whilst FBT's paragraph 8(2)(a)(i) covers both without asking.
   for (const body of ['single-cab', 'van']) {
     const result = calculations.vehicleClass(vehicle({ body, seats: '3', gvm: '3000', kerb: '2100', cost: '90000' }), year);
     assert.deepEqual([result.car, result.passengers, result.carLimit, result.cost, result.fbt], [true, null, null, null, '8(2)(a)(i)'], body);
+  }
+});
+
+// ITAA 1997 s 40-230(1), read 17 November 2026 (https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-230),
+// reaches 'a car designed mainly for carrying passengers'. MT 2024 paragraphs 14 to 16 set the dual cab test for FBT's
+// subsection 8(2), TD 94/19 confines that method to dual cabs, and TD 2006/39 paragraph 7 carries only MT 2033's
+// modification reasoning to s 40-230 (each read 17 November 2026). No ATO ruling applies MT 2024's test to the car
+// limit, so a dual cab's car limit is not decided here, whatever its FBT answer.
+test('a dual cab’s car limit is not decided here, whatever MT 2024 says for FBT', () => {
+  const year = vehicleYears['2026-27'];
+  for (const [gvm, kerb, passengers, fbt] of [['2000', '1400', true, 'car-benefit'], ['3000', '2040', false, '8(2)(a)(ii)']]) {
+    const result = calculations.vehicleClass(vehicle({ body: 'dual-cab', gvm, kerb, cost: '50000' }), year);
+    assert.deepEqual([result.passengers, result.fbt, result.carLimit, result.cost], [passengers, fbt, null, null], kerb);
+  }
+});
+
+// GST Act s 69-10(4)(a), read 17 November 2026 (https://www.ato.gov.au/law/view/document?docid=PAC/19990055/69-10),
+// lifts the cap only for 'a car that is not a luxury car because of subsection 25-1(2)' of the LCT Act, whose
+// paragraph (c) asks whether a commercial vehicle is 'designed for the principal purpose of carrying passengers'.
+// LCTD 2023/1 paragraphs 53, 55 and 58 say only when the ATO will not apply compliance resources, and paragraph 59
+// says the simplified method 'does not affect the determination of the principal purpose' (read 17 November 2026).
+// So above the car limit a van's or ute's GST credit is not decided here.
+test('the ATO’s LCT compliance approach does not lift the GST credit cap', () => {
+  const year = vehicleYears['2026-27'];
+  for (const fields of [{ body: 'van', seats: '3', gvm: '3000', kerb: '2100' }, { body: 'dual-cab', gvm: '3000', kerb: '2040' }]) {
+    const over = calculations.vehicleClass(vehicle({ ...fields, cost: '90000' }), year);
+    assert.deepEqual([over.luxury, over.capApplies, over.credit], ['commercial', null, null], fields.body);
+    // Within the car limit the credit is the GST in the price, capped or not.
+    assert.equal(calculations.vehicleClass(vehicle({ ...fields, cost: '60000' }), year).credit, 5454.55, fields.body);
+  }
+});
+
+// LCTD 2023/1, read 17 November 2026: paragraph 55 takes the simplified method's load carrying capacity as 'the
+// difference between the GVM and the unladen mass', with 'all options fitted', and paragraph 56 adds 'If the
+// vehicle has been fitted with accessories at the time of supply, then the weight of those accessories must be
+// taken into account'. MT 2024 paragraph 11's basic kerb weight is without them, so they come off the load for
+// luxury car tax only.
+test('accessories fitted at supply come off the load for LCTD 2023/1’s simplified method only', () => {
+  const year = vehicleYears['2026-27'];
+  // 5 seats are 340 kg: a 690 kg load is more than twice that, 690 kg less 20 kg of accessories is not.
+  const ute = (accessories) => calculations.vehicleClass(vehicle({ body: 'dual-cab', kerb: '2310', cost: '90000', accessories }), year);
+  assert.deepEqual([ute('0').luxury, ute('20').luxury], ['commercial', 'undetermined']);
+  assert.deepEqual([ute('20').load, ute('20').passengers, ute('20').fbt], [690, false, '8(2)(a)(ii)']);
+  for (const [accessories, message] of [['690', 'The accessories fitted at supply must weigh less than the designed load.'],
+    ['1.5', 'Enter a whole number between 0 and 100000.'], ['', 'Enter a number using digits only.']]) {
+    assert.throws(() => ute(accessories), { message }, accessories);
   }
 });
 

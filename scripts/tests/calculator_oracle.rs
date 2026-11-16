@@ -2550,11 +2550,13 @@ const KG_A_SEAT: u64 = 68;
 const OTHER_BODY: &str = "Whether this body was designed principally to carry passengers turns on its \
     appearance, marketing and specifications (TD 94/19), which this page does not weigh.";
 
-/// A vehicle as the oracle sees it: the designed load in kg and the price in cents.
+/// A vehicle as the oracle sees it: the designed load and the accessories fitted at supply in kg,
+/// and the price in cents.
 struct Vehicle {
     body: &'static str,
     seats: u64,
     load: u64,
+    accessories: u64,
     price: u64,
     full_credit: bool,
     limited_use: bool,
@@ -2568,12 +2570,13 @@ fn vehicle_oracle(v: &Vehicle, limit: u64, threshold: u64) -> Value {
     let car = motor && v.load < 1_000 && v.seats < 9;
     let lct_car = motor && v.load < 2_000 && v.seats < 9;
     // The seats against half the load: more than half, they outweigh what is left (MT 2024
-    // paragraph 16); less than half, LCTD 2023/1 paragraph 55 takes a ute as commercial.
-    let seats_to_half = (2 * v.seats * KG_A_SEAT).cmp(&v.load);
+    // paragraph 16); less than half the load at supply, accessories then fitted taken off, LCTD
+    // 2023/1 paragraphs 55 and 56 take a ute as commercial.
+    let twice_seats = 2 * v.seats * KG_A_SEAT;
     let passengers = match v.body {
         _ if !car => None,
         "other" => return json!({"refused": OTHER_BODY}),
-        "dual-cab" => Some(seats_to_half.is_gt()),
+        "dual-cab" => Some(twice_seats > v.load),
         "passenger" => Some(true),
         // TD 94/19 leaves a single cab ute or panel van to factors the page does not weigh.
         _ => None,
@@ -2581,7 +2584,7 @@ fn vehicle_oracle(v: &Vehicle, limit: u64, threshold: u64) -> Value {
     let design = lct_car.then(|| match v.body {
         "passenger" => "passengers",
         "van" => "commercial",
-        "single-cab" | "dual-cab" if seats_to_half.is_lt() => "commercial",
+        "single-cab" | "dual-cab" if twice_seats < v.load - v.accessories => "commercial",
         _ => "undetermined",
     });
     let luxury = match design {
@@ -2590,11 +2593,13 @@ fn vehicle_oracle(v: &Vehicle, limit: u64, threshold: u64) -> Value {
         Some("passengers") => "over",
         Some(other) => other,
     };
-    // GST Act s 69-10(4)(a): no cap for a car LCT Act s 25-1(2) keeps from being a luxury car.
+    // GST Act s 69-10(4)(a): no cap for a car LCT Act s 25-1(2) keeps from being a luxury car,
+    // which LCTD 2023/1's compliance approach does not decide (paragraph 59): only a passenger
+    // body is settled.
     let cap_applies = match design {
         _ if !car => Some(false),
-        Some("undetermined") => None,
-        other => Some(other == Some("passengers")),
+        Some("passengers") => Some(true),
+        _ => None,
     };
     let eleventh = |cents: u64| half_up(&BigUint::from(cents), &BigUint::from(11_u8));
     let credit = match cap_applies {
@@ -2603,9 +2608,15 @@ fn vehicle_oracle(v: &Vehicle, limit: u64, threshold: u64) -> Value {
         Some(true) => Some(eleventh(v.price).min(eleventh(limit))),
         _ => Some(eleventh(v.price)),
     };
-    // TD 2006/40: the cost less the credit, then no more than the car limit.
+    // s 40-230: no ATO ruling applies MT 2024's dual cab test to the car limit, so only a
+    // passenger body is settled. TD 2006/40: the cost less the credit, then no more than the limit.
+    let car_limit = match v.body {
+        _ if !car => Some(false),
+        "passenger" => Some(true),
+        _ => None,
+    };
     let cost = credit
-        .filter(|_| passengers == Some(true))
+        .filter(|_| car_limit == Some(true))
         .map(|credit| (v.price - credit).min(limit));
     let fbt = match v.body {
         _ if !car => "47(6)",
@@ -2615,7 +2626,7 @@ fn vehicle_oracle(v: &Vehicle, limit: u64, threshold: u64) -> Value {
     };
     json!({
         "load": v.load.to_string(), "car": car, "passengers": passengers,
-        "carLimit": if car && passengers.is_none() { Value::Null } else { json!(passengers == Some(true)) },
+        "carLimit": car_limit,
         "capApplies": cap_applies,
         "cap": (cap_applies == Some(true)).then(|| shown(eleventh(limit))),
         "credit": credit.map(shown), "cost": cost.map(shown), "luxury": luxury,
@@ -2643,6 +2654,9 @@ fn vehicle_case(rng: &mut Seeded) -> (Value, Value) {
     let any_load = 1 + rng.below(3_000);
     let near = rng.pick(&[999, 1_000, 1_999, 2_000, 2 * seats * KG_A_SEAT, any_load]);
     let load = near.saturating_add_signed(rng.pick(&[-1, 0, 0, 1])).max(1);
+    // None, any weight below the load, or the weight that leaves the seats exactly half the load.
+    let any_accessories = rng.below(load);
+    let accessories = rng.pick(&[0, 0, any_accessories, load.saturating_sub(2 * seats * KG_A_SEAT)]);
     let kerb = 1 + rng.below(3_000);
     let (year, limit, efficient, other) = rng.pick(&VEHICLE_YEARS);
     let fuel_efficient = rng.below(2) == 1;
@@ -2661,6 +2675,7 @@ fn vehicle_case(rng: &mut Seeded) -> (Value, Value) {
     let vehicle = json!({
         "body": body, "seats": seats.to_string(), "gvm": (kerb + load).to_string(),
         "kerb": kerb_field.to_string(), "payload": payload_field.to_string(),
+        "accessories": accessories.to_string(),
         "modified": rng.pick(&["no", "no", "plated"]), "cost": dollars(price),
         "credit": if full_credit { "full" } else { "none" },
         "fuel": if fuel_efficient { "efficient" } else { "other" },
@@ -2670,6 +2685,7 @@ fn vehicle_case(rng: &mut Seeded) -> (Value, Value) {
         body,
         seats,
         load,
+        accessories,
         price,
         full_credit,
         limited_use,
@@ -2686,6 +2702,7 @@ fn the_vehicle_oracle_works_the_regulators_examples() {
         body,
         seats,
         load,
+        accessories: 0,
         price: whole_dollars * 100,
         full_credit: true,
         limited_use: true,

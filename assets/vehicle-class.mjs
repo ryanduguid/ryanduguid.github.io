@@ -4,7 +4,7 @@
 import { number, cents, ratioCents } from './money.mjs';
 
 /** @typedef {'passenger' | 'single-cab' | 'dual-cab' | 'van' | 'other' | 'motorcycle'} VehicleBody
- * @typedef {{body: VehicleBody, seats: string, gvm: string, kerb: string, payload: string,
+ * @typedef {{body: VehicleBody, seats: string, gvm: string, kerb: string, payload: string, accessories: string,
  *   modified: 'no' | 'plated' | 'unplated', cost: string, credit: 'full' | 'none',
  *   fuel: 'efficient' | 'other', use: 'limited' | 'other'}} Vehicle
  * @typedef {{carLimit: string, fuelEfficientThreshold: string, otherThreshold: string}} VehicleYear
@@ -31,7 +31,7 @@ function designedLoad(vehicle) {
 }
 
 /** Whether a car was designed for the principal purpose of carrying passengers, as FBTAA
- * s 8(2) and ITAA 1997 s 40-230 ask: a passenger body is (TD 94/19), and a dual cab is when its
+ * s 8(2) asks: a passenger body is (TD 94/19), and a dual cab is when its
  * seats at 68 kg outweigh the load left (MT 2024 paragraphs 14 to 16). TD 94/19 leaves every
  * other body to factors not entered here: null for a single cab ute or a panel van, whose FBT
  * exemption under s 8(2)(a)(i) does not ask, and a refusal for any other body, whose does.
@@ -48,8 +48,9 @@ function designedForPassengers(body, load, seats) {
 /** Whether the car is treated as a commercial vehicle not designed principally for passengers
  * (LCT Act s 25-1(2)(c)) under LCTD 2023/1's compliance approach, the Commissioner's view:
  * passenger bodies are unlikely to be (paragraph 50), and the ATO will not review a cargo or
- * delivery van (paragraph 53) or a ute whose seats at 68 kg are less than half its load
- * (paragraph 55). Anything else needs paragraph 13's factors.
+ * delivery van (paragraph 53) or a ute whose seats at 68 kg are less than half its load at
+ * supply, accessories then fitted included (paragraphs 55 and 56). Anything else needs
+ * paragraph 13's factors.
  * @param {VehicleBody} body @param {number} load @param {number} seats
  * @returns {'passengers' | 'commercial' | 'undetermined'} */
 function luxuryDesign(body, load, seats) {
@@ -87,6 +88,8 @@ export function vehicleClass(vehicle, year) {
   vehicleChoices(vehicle);
   const seats = number(vehicle.seats, { min: 1, max: 99, integer: true });
   const load = designedLoad(vehicle);
+  const accessories = number(vehicle.accessories, { max: 100000, integer: true });
+  if (accessories >= load) throw new Error('The accessories fitted at supply must weigh less than the designed load.');
   const price = cents(vehicle.cost);
   if (price === 0) throw new Error('Enter a price above nil.');
   const limit = cents(year.carLimit);
@@ -95,21 +98,25 @@ export function vehicleClass(vehicle, year) {
   const car = motor && load < 1000 && seats < 9;
   const passengers = car ? designedForPassengers(vehicle.body, load, seats) : null;
   const lctCar = motor && load < 2000 && seats < 9;
-  const design = lctCar ? luxuryDesign(vehicle.body, load, seats) : null;
+  const design = lctCar ? luxuryDesign(vehicle.body, load - accessories, seats) : null;
   /** @type {LuxuryCar} */
   let luxury = 'not-a-car';
   if (design) luxury = price <= threshold ? 'under' : design === 'passengers' ? 'over' : design;
-  // s 69-10(4)(a): no cap for a car that s 25-1(2) keeps from being a luxury car.
-  const capApplies = !car ? false : design === 'undetermined' ? null : design === 'passengers';
+  // s 69-10(4)(a): no cap for a car that s 25-1(2) keeps from being a luxury car. LCTD 2023/1's
+  // compliance approach does not decide that (paragraph 59), so only a passenger body is settled.
+  const capApplies = !car ? false : design === 'passengers' ? true : null;
   const cap = ratioCents(BigInt(limit), 11n);
   const exceeds = price > limit;
   // An undecided cap leaves the credit undecided only when the price exceeds the car limit.
   const credit = vehicle.credit === 'none' ? 0n : capApplies === null && exceeds ? null
     : capApplies && exceeds ? cap : ratioCents(BigInt(price), 11n);
-  const cost = passengers && credit !== null ? Math.min(price - Number(credit), limit) : null;
+  // s 40-230: no ATO ruling applies MT 2024's dual cab test to the car limit, so only a passenger
+  // body is settled as designed mainly for carrying passengers.
+  const carLimit = !car ? false : vehicle.body === 'passenger' ? true : null;
+  const cost = carLimit && credit !== null ? Math.min(price - Number(credit), limit) : null;
   /** @type {VehicleFbt} */
   const fbt = !car ? '47(6)' : ['single-cab', 'van'].includes(vehicle.body) ? '8(2)(a)(i)' : passengers ? 'car-benefit' : '8(2)(a)(ii)';
-  return { load, car, passengers, carLimit: car && passengers === null ? null : passengers === true, capApplies, cap: capApplies ? Number(cap) / 100 : null,
+  return { load, car, passengers, carLimit, capApplies, cap: capApplies ? Number(cap) / 100 : null,
     credit: credit === null ? null : Number(credit) / 100, cost: cost === null ? null : cost / 100, luxury,
     threshold: threshold / 100, over: luxury === 'over' ? (price - threshold) / 100 : null, fbt,
     exempt: fbt !== 'car-benefit' && vehicle.use === 'limited', belowThreshold: price < threshold };

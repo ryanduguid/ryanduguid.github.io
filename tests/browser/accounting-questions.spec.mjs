@@ -624,13 +624,22 @@ test('vehicle classifier works LCTD 2023/1’s dual cab and the 2025-26 car limi
   await form.getByLabel('Price including GST, before luxury car tax (AUD)').fill('85000');
   await calculate();
   await expect(row('Designed principally to carry passengers')).toHaveText('No: 5 seats × 68 kg = 340 kg, not more than the 620 kg left (MT 2024)');
-  await expect(row('Car limit, section 40-230')).toHaveText('Does not apply');
-  await expect(row('GST credit, section 69-10 of the GST Act')).toHaveText('$7,727.27: the GST in the price, with no car limit cap, the car treated as a commercial vehicle');
-  await expect(row(/^Luxury car tax at the /)).toHaveText('Treated as a commercial vehicle: the seats at 68 kg are less than half the load, so the ATO will not review it '
-    + '(LCTD 2023/1 paragraph 55)');
+  await expect(row('Car limit, section 40-230'))
+    .toHaveText('Not decided here: MT 2024’s dual cab test is for FBT, and no ATO ruling applies it to the car limit');
+  await expect(row('GST credit, section 69-10 of the GST Act')).toHaveText('Not decided here: above the car limit it turns on whether the vehicle '
+    + 'is a commercial vehicle not designed principally to carry passengers (LCT Act paragraph 25-1(2)(c)), which the ATO’s compliance approach does not decide');
+  await expect(row(/^Luxury car tax at the /)).toHaveText('Treated as a commercial vehicle: the seats at 68 kg are less than half the 960 kg load at supply, '
+    + 'so the ATO will not review it (LCTD 2023/1 paragraphs 55 and 56)');
   await expect(row('FBT on an employee’s private use')).toHaveText('Exempt under paragraph 8(2)(a)(ii), if private use was as limited as you state');
   await expect(form.locator('output .result-note')).toHaveText(
     'LCTD 2023/1’s simplified method assumes the ute is a goods vehicle under the Australian Design Rules (paragraph 57).');
+  // LCTD 2023/1 paragraph 56: 280 kg of accessories fitted at supply leave 680 kg, exactly twice the seats.
+  const accessories = form.getByLabel('Accessories fitted at supply, not in the kerb weight (kg), 0 if none');
+  await accessories.fill('280');
+  await calculate();
+  await expect(row(/^Luxury car tax at the /)).toHaveText('Not decided here: whether it is a commercial vehicle turns on LCTD 2023/1 paragraph 13');
+  await expect(row('Designed load: gross vehicle mass less kerb weight')).toHaveText('960 kg');
+  await accessories.fill('0');
   // The ATO's instant asset write-off example: $75,000 in 2025-26 gives a $6,334 credit and a $68,666 cost.
   await form.getByLabel('Passenger body (sedan, wagon, SUV)').check();
   await form.getByLabel('Basic kerb weight (kg), 0 if unknown').fill('2135');

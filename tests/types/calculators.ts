@@ -105,8 +105,8 @@ calculate.landTaxYear(1100000, { name: 'Tasmania', scale: '0,0,0,0,excess' });
 // @ts-expect-error A foreign or absentee owner is a boolean flag.
 calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess' }, { foreign: 'yes' });
 void landTax;
-const dualCab = { body: 'dual-cab', seats: '5', gvm: '2000', kerb: '1400', payload: '0', modified: 'no', cost: '50000',
-  credit: 'full', fuel: 'other', use: 'limited' } as const;
+const dualCab = { body: 'dual-cab', seats: '5', gvm: '2000', kerb: '1400', payload: '0', accessories: '0', modified: 'no',
+  cost: '50000', credit: 'full', fuel: 'other', use: 'limited' } as const;
 const vehicleYear = { carLimit: '69883', fuelEfficientThreshold: '91661', otherThreshold: '80809' };
 const passengers: boolean | null = calculate.vehicleClass(dualCab, vehicleYear).passengers;
 // @ts-expect-error Private use is the user's stated fact, limited or other, not a conclusion the page draws.

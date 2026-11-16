@@ -21,9 +21,10 @@ export function vehicleRows(r, f, year, aud) {
     : f.body === 'motorcycle' ? 'No: a motor cycle'
       : r.load >= 1000 ? `No: ${kg(r.load)} is 1 tonne or more` : `No: ${f.seats} seats are 9 or more`;
   const credit = f.credit === 'none' ? 'None claimed: the GST stays in the cost'
-    : r.credit === null ? 'Not decided here: it turns on whether LCTD 2023/1 makes the ute a commercial vehicle'
+    : r.credit === null ? 'Not decided here: above the car limit it turns on whether the vehicle is a commercial vehicle not '
+      + 'designed principally to carry passengers (LCT Act paragraph 25-1(2)(c)), which the ATO’s compliance approach does not decide'
       : `${aud(r.credit)}: the GST in the price, ${r.capApplies ? 'up to 1/11 of the car limit'
-        : r.capApplies === false ? `with no car limit cap${r.car ? ', the car treated as a commercial vehicle' : ''}`
+        : r.capApplies === false ? 'with no car limit cap, as it is not a car'
           : 'which is within the car limit'}`;
   const luxury = {
     'not-a-car': 'Cannot apply: not a car for luxury car tax, which needs a load under 2 tonnes and fewer than 9 seats',
@@ -31,8 +32,8 @@ export function vehicleRows(r, f, year, aud) {
     over: `Can apply: the price is ${aud(r.over)} over the threshold`,
     commercial: f.body === 'van'
       ? 'Treated as a commercial vehicle: the ATO will not review a cargo or delivery van (LCTD 2023/1 paragraphs 52 and 53)'
-      : 'Treated as a commercial vehicle: the seats at 68 kg are less than half the load, so the ATO will not review it '
-        + '(LCTD 2023/1 paragraph 55)',
+      : `Treated as a commercial vehicle: the seats at 68 kg are less than half the ${kg(r.load - Number(f.accessories))} load at supply, `
+        + 'so the ATO will not review it (LCTD 2023/1 paragraphs 55 and 56)',
     undetermined: 'Not decided here: whether it is a commercial vehicle turns on LCTD 2023/1 paragraph 13',
   }[r.luxury];
   const section = r.fbt === '47(6)' ? 'subsection 47(6)' : `paragraph ${r.fbt}`;
@@ -46,7 +47,9 @@ export function vehicleRows(r, f, year, aud) {
   return [['Designed load: gross vehicle mass less kerb weight', kg(r.load)], ['A car under section 995-1 of ITAA 1997', car],
     ...(r.car ? [['Designed principally to carry passengers', design]] : []),
     ['Car limit, section 40-230', r.carLimit ? `Applies: ${aud(Number(year.carLimit))}`
-      : r.carLimit === null ? 'Not decided here: it applies only to a car designed mainly for carrying passengers' : 'Does not apply'],
+      : r.carLimit === null ? (f.body === 'dual-cab'
+        ? 'Not decided here: MT 2024’s dual cab test is for FBT, and no ATO ruling applies it to the car limit'
+        : 'Not decided here: it applies only to a car designed mainly for carrying passengers') : 'Does not apply'],
     ['GST credit, section 69-10 of the GST Act', credit],
     ...(r.carLimit ? [['First element of cost for decline in value', r.cost === null ? 'Not decided here: it turns on the GST credit' : aud(r.cost)]] : []),
     [`Luxury car tax at the ${aud(r.threshold)} threshold`, luxury], ['FBT on an employee’s private use', fbt],
