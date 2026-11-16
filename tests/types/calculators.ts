@@ -105,3 +105,14 @@ calculate.landTaxYear(1100000, { name: 'Tasmania', scale: '0,0,0,0,excess' });
 // @ts-expect-error A foreign or absentee owner is a boolean flag.
 calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess' }, { foreign: 'yes' });
 void landTax;
+const allocationYear = { scale: '0,0,0;18201,0,15;45001,4020,30;135001,31020,37;190001,51370,45', baseRate: '25', companyRate: '30' };
+const allocation = { gateway1: true, gateway2: true, factor3: false, benchmark: '0',
+  recipients: [{ kind: 'individual' as const, firm: '330000', deductions: '0', other: '0' }] };
+const counted: number | null = calculate.pcgAllocation(allocation, allocationYear).taxRate;
+// @ts-expect-error A recipient's kind is one the form offers, not a free label.
+calculate.pcgAllocation({ ...allocation, recipients: [{ kind: 'trust', firm: '1', deductions: '0', other: '0' }] }, allocationYear);
+// @ts-expect-error Other income less other deductions is a decimal string, which may be negative.
+calculate.pcgAllocation({ ...allocation, recipients: [{ kind: 'individual', firm: '1', deductions: '0', other: -50 }] }, allocationYear);
+// @ts-expect-error The year's company rates come from the form as decimal strings.
+calculate.pcgAllocation(allocation, { ...allocationYear, baseRate: 25 });
+void counted;

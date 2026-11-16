@@ -291,6 +291,11 @@ function initialiseCalculators([calculate, fieldErrors]) {
             result.principal = result.rows.length - 1;
             break;
           }
+          case 'pcg-2021-4-allocation': {
+            const year = form.querySelector('input[name="year"]:checked');
+            result = calculate.pcgAllocationResult(value, { name: year.value, ...year.dataset }, aud, percent);
+            break;
+          }
           case 'gic-payment-plan': {
             const plan = { debt: value('debt'), start: value('start'), count: value('count'), frequency: value('frequency'),
               assumedRate: value('assumedRate') };

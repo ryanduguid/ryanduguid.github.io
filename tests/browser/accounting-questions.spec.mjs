@@ -579,6 +579,31 @@ test('PCG 2021/4 refuses a failed gateway and scores case study 7 on all 3 facto
     + 'Factor 3: remuneration as a share of the benchmark: 102.86%, score 3. Aggregate score: 10. Risk zone: Green: low risk.');
 });
 
+// PCG 2021/4 case study 2: Donald returns $480,000, a company $320,000 and an adult beneficiary $80,000 of the
+// service trust's income; the guideline's tax is $186,667, $83,200 and $16,467, 32.54% in all.
+test('PCG 2021/4 allocation works case study 2 and refuses a recipient it cannot tax offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/pcg-2021-4-allocation/');
+  const form = page.locator('#pcg-2021-4-allocation form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('IPP firm income', { exact: true }).fill('480000');
+  await form.getByLabel('Associate 1 firm income', { exact: true }).fill('320000');
+  await form.getByRole('group', { name: 'Who associate 2 is' }).getByLabel('Individual').check();
+  await form.getByLabel('Associate 2 firm income', { exact: true }).fill('80000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: 2020-21 rates, gateways 1 and 2 passed, IPP: firm income $480,000.00; associate 1, company (base rate entity): '
+    + 'firm income $320,000.00; associate 2, individual: firm income $80,000.00; factors 1 and 2. '
+    + 'IPP: tax counted, paragraph 85(a): $186,667.00. Associate 1: tax counted, paragraph 85(a): $83,200.00. '
+    + 'Associate 2: tax counted, paragraph 85(a): $16,467.00. Firm income of the IPP and associates: $880,000.00. '
+    + 'Tax counted on that firm income: $286,334.00. Factor 1: profit entitlement returned by the IPP: 54.55%, score 4. '
+    + 'Factor 2: total effective tax rate: 32.54%, score 3. Aggregate score: 7. Risk zone: Green: low risk.');
+  await form.getByRole('group', { name: 'Who associate 3 is' }).getByLabel('Another kind').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('Associate 3 is a recipient this calculator cannot tax; '
+    + 'work out its tax yourself and enter the total in the PCG 2021/4 risk scorer.');
+});
+
 test('GIC payment plan works a weekly plan and one past the published rates offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/gic-payment-plan/');
   const form = page.locator('#gic-payment-plan form');
@@ -649,8 +674,8 @@ test('transfer duty takes a first home buyer chosen by keyboard and says where t
 
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
-  'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
-  'transfer-duty', 'land-tax'];
+  'fbt-car', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
+  'termination-payment', 'transfer-duty', 'land-tax'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

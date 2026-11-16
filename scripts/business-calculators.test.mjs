@@ -338,7 +338,8 @@ const transferDutyScales = (() => {
 // A boundary case names its jurisdiction; the engine takes that jurisdiction's scale.
 const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]]
   : name === 'firstHomeDuty' ? [call[0], transferDutyScales[call[1]], call[1], call[2]]
-  : name === 'landTaxYear' ? landTaxArgs(call) : call);
+  : name === 'landTaxYear' ? landTaxArgs(call)
+  : name === 'pcgAllocation' ? [call[0], pcgYears[call[1]]] : call);
 const dollars = (value) => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-AU',
   { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 // How each result reads on a page, so a value shown under the wrong label fails.
@@ -1050,6 +1051,154 @@ test('PCG 2021/4 refuses a failed gateway and figures it cannot score', () => {
     [{ factor3: undefined }, 'Factor 3 must be true or false.'],
   ]) {
     assert.throws(() => calculations.pcgRisk(pcgArrangement(fields)), { message }, JSON.stringify(fields));
+  }
+});
+
+// PCG 2021/4 allocation, with each recipient's tax worked out (assets/pcg-2021-4.mjs). The guideline
+// as updated 19 June 2024, read 17 November 2026 at the URL above. Paragraph 122: the case studies
+// use 2020-21 rates; footnote 7: a corporate taxpayer is a base rate entity at 26%. Every figure
+// below is the guideline's own, from its text or the alt text of its effective tax rate formulas.
+const pcgAllocationHtml = readFileSync(new URL('../_includes/calculators/pcg-2021-4-allocation.html', import.meta.url), 'utf8');
+// Each year radio's data, as assets/accounting-pages.mjs passes the checked one.
+const pcgYears = Object.fromEntries([...pcgAllocationHtml.matchAll(
+  /name="year" value="([^"]+)" data-scale="([^"]+)" data-base-rate="([^"]+)" data-company-rate="([^"]+)"/g)]
+  .map(([, year, scale, baseRate, companyRate]) => [year, { scale, baseRate, companyRate }]));
+const PCG_WHO = { individual: 'individual', 'base-rate-company': 'base rate company', company: 'company', other: 'other',
+  none: 'not used' };
+Object.assign(INPUTS, { pcgAllocation: (a, year) => [`${year} rates`,
+  a.gateway1 && a.gateway2 ? 'gateways passed' : `Gateway ${a.gateway1 ? 2 : 1} failed`,
+  ...a.recipients.flatMap((r, i) => (r.kind === 'none' && [r.firm, r.deductions, r.other].every((v) => v === '0') ? []
+    : [`${i ? `associate ${i} ${PCG_WHO[r.kind]}` : 'IPP'} ${dollars(r.firm)}`
+      + `${r.deductions === '0' ? '' : ` less ${dollars(r.deductions)} firm deductions`}${r.other === '0' ? '' : `, other ${dollars(r.other)}`}`])),
+  ...(a.factor3 ? [`benchmark ${dollars(a.benchmark)}`] : [])].join('; ') });
+Object.assign(FORM_CALLS, { pcgAllocation: (f) => [{ gateway1: f.gateway1 === 'yes', gateway2: f.gateway2 === 'yes',
+  factor3: f.factor3 === 'yes', benchmark: f.benchmark, recipients: Array.from({ length: 6 }, (_, i) => ({
+    kind: i ? f[`kind-${i}`] : 'individual', firm: f[`firm-${i}`], deductions: f[`deductions-${i}`], other: f[`other-${i}`] })) },
+f.year] });
+Object.assign(ENGINE_LABELS, { pcgAllocation: { ...PCG_SHOWN, firmIncome: 'firm income', tax: 'tax counted' } });
+
+const pcgRecipient = ([kind, firm, other = '0', deductions = '0']) => ({ kind, firm, deductions, other });
+const pcgAllocate = (recipients, fields = {}, year = '2020-21') => calculations.pcgAllocation({ gateway1: true,
+  gateway2: true, factor3: false, benchmark: '0', ...fields, recipients: recipients.map(pcgRecipient) }, pcgYears[year]);
+
+// Each case study: its recipients (the IPP first), the tax the guideline gives each, its effective
+// tax rate, scores, aggregate and zone. Case study 4 counts Bernie's and Jane's $20,225 shares of the rental loss
+// as other income less deductions; the guideline disregards them (paragraph 144), and paragraph 85(a) does too.
+const PCG_ALLOCATED = [
+  ['1 Nicolas', [['individual', '330000'], ['base-rate-company', '270000']], [119167, 70200], 31.56, [4, 3], 7, 'green'],
+  ['2 Donald', [['individual', '480000'], ['base-rate-company', '320000'], ['individual', '80000']],
+    [186667, 83200, 16467], 32.54, [4, 3], 7, 'green'],
+  ['3 Hilary', [['individual', '162500'], ['base-rate-company', '87500']], [45192, 22750], 27.18, [3, 4], 7, 'green'],
+  ['4 Bernie', [['individual', '325000', '-20225'], ['individual', '175000', '-20225']], [116916, 49817], 33.35, [3, 3], 6, 'green'],
+  ['5 Frank', [['individual', '300000'], ['base-rate-company', '200000']], [105666, 52000], 31.53, [4, 3], 7, 'green'],
+  ['8 Maria', [['individual', '360000'], ['individual', '180000'], ['base-rate-company', '60000']],
+    [132667, 51667, 15600], 33.32, [4, 3], 7, 'green'],
+  ['9 David', [['individual', '300000'], ['base-rate-company', '300000']], [105667, 78000], 30.61, [4, 3], 7, 'green'],
+  ['10 Astrid', [['individual', '200000'], ['individual', '150000'], ['base-rate-company', '50000']],
+    [60667, 40567, 13000], 28.56, [4, 4], 8, 'amber'],
+  ['11 Yan', [['individual', '300000'], ['base-rate-company', '100000']], [105667, 26000], 32.92, [3, 3], 6, 'green'],
+  ['12 Benjamin', [['individual', '300000'], ['individual', '100000'], ['base-rate-company', '200000']],
+    [105667, 22967, 52000], 30.11, [4, 3], 7, 'green'],
+];
+for (const [name, recipients, taxes, rate, [factor1, factor2], total, zone] of PCG_ALLOCATED) {
+  test(`PCG 2021/4 allocation works out case study ${name}’s tax and scores as the guideline does`, () => {
+    const result = pcgAllocate(recipients);
+    // The 2020-21 scale gives $116,917 on Bernie's $325,000 and $105,667 on Frank's $300,000, as it
+    // does for David, Yan and Benjamin; the guideline prints each $1 less, with the same rate.
+    const printed = { '4 Bernie': [1, 0], '5 Frank': [1, 0] }[name] ?? taxes.map(() => 0);
+    assert.deepEqual(result.recipients.map((one) => one.tax), taxes.map((tax, i) => tax + printed[i]));
+    assert.deepEqual([result.taxRate, result.factor1, result.factor2, result.total, result.zone],
+      [rate, factor1, factor2, total, zone]);
+  });
+}
+
+// Case study 7: Jacinta, her spouse and a company; '($360,000 ÷ $350,000) × 100 = 103%', a factor 3
+// score of 3 and an aggregate of 10, green on all 3. Case study 6: Felix returns all $65,000 and pays
+// $11,592, green with no other factor (paragraphs 81, 152 to 154).
+test('PCG 2021/4 allocation scores case study 7 on all 3 factors and case study 6 on the whole entitlement', () => {
+  const jacinta = pcgAllocate([['individual', '360000'], ['individual', '180000'], ['base-rate-company', '60000']],
+    { factor3: true, benchmark: '350000' });
+  assert.deepEqual(jacinta.recipients.map((one) => one.tax), [132667, 51667, 15600]);
+  assert.deepEqual([jacinta.taxRate, jacinta.benchmarkShare, jacinta.factor3, jacinta.total, jacinta.zone],
+    [33.32, 102.86, 3, 10, 'green']);
+  const felix = pcgAllocate([['individual', '65000']]);
+  assert.deepEqual([felix.recipients[0].tax, felix.factor1, felix.total, felix.zone], [11592, 1, null, 'green']);
+});
+
+// Example 4 (paragraphs 87 to 93): the IPP's $240,667 on $600,000; associate 1 $22,967; associate 2
+// $33,850 under 85(b) ($40,567 less $6,717); associates 3 and 4 $22,967 under 85(a), as (b) gives
+// $6,717 and nil; associate 5 $22,967 under both. '... multiply by 100 equals 33.3%'.
+test('PCG 2021/4 allocation follows example 4 recipient by recipient', () => {
+  const result = pcgAllocate([['individual', '600000'], ['individual', '100000'], ['individual', '100000', '50000'],
+    ['individual', '100000', '-50000'], ['individual', '100000', '-100000'], ['individual', '100000']]);
+  assert.deepEqual(result.recipients, [{ tax: 240667, rule: '85(a)' }, { tax: 22967, rule: '85(a)' },
+    { tax: 33850, rule: '85(b)' }, { tax: 22967, rule: '85(a)' }, { tax: 22967, rule: '85(a)' }, { tax: 22967, rule: '85(a)' }]);
+  assert.deepEqual([result.firmIncome, result.tax, Math.round(result.taxRate * 10) / 10], [1100000, 366385, 33.3]);
+});
+
+// Example 5 (paragraph 94): $600,000 from the firm, a $40,000 firm-related interest deduction and $50,000
+// of other income. Under 85(a) the tax on $560,000 is $222,667; under 85(b) it is $245,167 less $6,717,
+// $238,450, which counts. Example 6 (paragraphs 98 and 99): $60,667 on a $200,000 salary, 30.33%, and
+// $14,842 on a $75,000 salary, 19.79%; its FBT is outside this calculator.
+test('PCG 2021/4 allocation follows examples 5 and 6', () => {
+  assert.deepEqual(pcgAllocate([['individual', '600000', '50000', '40000']]).recipients, [{ tax: 238450, rule: '85(b)' }]);
+  assert.deepEqual(pcgAllocate([['individual', '600000', '0', '40000']]).recipients, [{ tax: 222667, rule: '85(a)' }]);
+  for (const [salary, tax, rate] of [['200000', 60667, 30.33], ['75000', 14842, 19.79]]) {
+    const ipp = pcgAllocate([['individual', salary]]);
+    assert.equal(ipp.recipients[0].tax, tax);
+    assert.equal(Math.round(tax / Number(salary) * 10000) / 100, rate);
+  }
+});
+
+// The site's individual income tax table, rows 'resident_tax' for each year the form offers. Company
+// rates: ATO 'Tax rates 2011–12 to 2020–21' (26%) and 'Tax rates 2022–23' to 'Tax rates 2025–26' (25%),
+// read 17 November 2026; for 2026-27, Income Tax Rates Act 1986 s 23(2), Compilation No. 66 (1 July 2026),
+// read 17 November 2026: 'if the company is a base rate entity for a year of income—25%; or otherwise—30%'.
+test('PCG 2021/4 allocation years carry the site’s resident scales and the company rates', () => {
+  const rows = readFileSync(new URL('../rates/individual-income-tax/individual-income-tax-rates.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).map((line) => line.split(',')).filter(([, component]) => component === 'resident_tax');
+  assert.deepEqual(Object.keys(pcgYears), ['2026-27', '2025-26', '2024-25', '2023-24', '2022-23', '2020-21']);
+  for (const [year, { scale, baseRate, companyRate }] of Object.entries(pcgYears)) {
+    assert.equal(scale, rows.filter(([income]) => income === year).map(([, , from, , base, rate]) => `${from},${base},${rate}`)
+      .join(';'), year);
+    assert.deepEqual([baseRate, companyRate], [year === '2020-21' ? '26' : '25', '30'], year);
+  }
+});
+
+// Worked by hand on the 2020-21 scale: $45,000.02 is 2 cents into the 32.5% band, 0.65 cents, so 1 cent;
+// $45,000.01 gives 0.325 cents, so none. A company at 30% on $0.05 owes 1.5 cents, so 2 cents.
+test('PCG 2021/4 allocation rounds each tax half up to the cent and counts nil on a firm loss', () => {
+  const tax = (recipients) => pcgAllocate(recipients).recipients.map((one) => one.tax);
+  assert.deepEqual(tax([['individual', '45000.02']]), [5092.01]);
+  assert.deepEqual(tax([['individual', '45000.01']]), [5092]);
+  assert.deepEqual(tax([['individual', '1'], ['company', '0.05']]), [0, 0.02]);
+  assert.deepEqual(tax([['individual', '100'], ['individual', '100', '0', '200']]), [0, 0]);
+});
+
+test('PCG 2021/4 allocation refuses recipients and figures it cannot use', () => {
+  const ipp = ['individual', '300000'];
+  for (const [recipients, message, year = '2020-21'] of [
+    [[['base-rate-company', '300000']], 'The IPP is an individual.'],
+    [[ipp, ['trust', '1']], 'Choose who each associate is.'],
+    [[ipp, ['toString', '1']], 'Choose who each associate is.'],
+    [[ipp, ['none', '0', '-1']], 'Associate 1 is marked not used but has amounts; choose who it is or set them to 0.'],
+    [[ipp, ipp, ipp, ['other', '0']], 'Associate 3 is a recipient this calculator cannot tax; work out its tax yourself '
+      + 'and enter the total in the PCG 2021/4 risk scorer.'],
+    [[], 'Enter the IPP and up to 5 associates.'],
+    [Array(7).fill(ipp), 'Enter the IPP and up to 5 associates.'],
+    [[['individual', '600000000'], ['individual', '400000000.01']],
+      'The firm income of all recipients together cannot exceed $1,000,000,000.'],
+    [[['individual', '0']], 'Enter a profit entitlement above nil.'],
+    [[['individual', '1', '-1000000000.01']], 'Enter an amount between -1000000000 and 1000000000.'],
+    [[ipp], 'This income year’s tax rates are not usable.', '2021-22'],
+  ]) {
+    assert.throws(() => pcgAllocate(recipients, {}, year), { message }, JSON.stringify(recipients));
+  }
+  const year = pcgYears['2026-27'];
+  for (const broken of [{ ...year, scale: year.scale.replace('0,0,0;', '') }, { ...year, scale: '0,0,0;100,0,15;50,0,30' },
+    { ...year, scale: year.scale.replace(',15;', ',15.125;') }, { ...year, baseRate: '' }, { ...year, companyRate: '101' }]) {
+    assert.throws(() => calculations.pcgAllocation({ gateway1: true, gateway2: true, factor3: false, benchmark: '0',
+      recipients: [pcgRecipient(ipp)] }, broken), { message: 'This income year’s tax rates are not usable.' }, JSON.stringify(broken));
   }
 });
 

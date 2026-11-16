@@ -112,6 +112,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [Division 7A loan calculator](https://duguid.com.au/tools/business-calculators/div7a/): Minimum yearly repayment, interest and principal on one amalgamated loan.
 - [FBT car calculator](https://duguid.com.au/tools/business-calculators/fbt-car/): Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or the operating cost method.
 - [PCG 2021/4 risk scorer](https://duguid.com.au/tools/business-calculators/pcg-2021-4/): The ATO’s risk zone for a professional firm profit allocation, after both gateways.
+- [PCG 2021/4 allocation](https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/): Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.
 - [GIC payment plan calculator](https://duguid.com.au/tools/business-calculators/gic-payment-plan/): What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
 - [Staff cost calculator](https://duguid.com.au/tools/business-calculators/staff/): Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - [13-week cash forecast](https://duguid.com.au/tools/business-calculators/cash/): Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.

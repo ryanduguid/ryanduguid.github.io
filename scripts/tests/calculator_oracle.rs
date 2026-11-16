@@ -42,6 +42,11 @@
 //! each band's lower and upper bounds as Table 1 writes them and the zone ranges of
 //! Table 2, where the engine takes the first band whose lower bound a percentage reaches.
 //!
+//! A further 120 seeded PCG 2021/4 allocations, from their own seed, tax each individual
+//! recipient by adding each band's slice of a resident scale typed here from the ATO's page,
+//! where the engine takes the site's base amount for the band plus the top band's rate, then
+//! apply paragraph 85's larger of (a) and (b) and score the result as above.
+//!
 //! A further 120 seeded GIC payment plans read each quarter's rate from the published CSV,
 //! not the engine's copy, and count their own calendar days. The equal instalment is the
 //! debt over the sum of each instalment's discount factor, and the final instalment is
@@ -94,11 +99,17 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 const HARNESS: &str = r#"
 import { readFileSync } from 'node:fs';
 import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, firstHomeDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan } from './assets/business-calculators.mjs';
+import { pcgAllocation } from './assets/pcg-2021-4.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 // Each jurisdiction's scale as the rendered calculator page gives it to the browser.
 const page = readFileSync('tools/business-calculators/transfer-duty/index.html', 'utf8');
 const scales = Object.fromEntries([...page.matchAll(/value="(AU-[A-Z]+)" data-name="[^"]+" data-scale="([^"]+)"/g)]
   .map(([, place, scale]) => [place, scale.split(';').map((row) => row.split(','))]));
+// Each income year's scale and company rates as the rendered PCG 2021/4 allocation page gives them.
+const pcgForm = readFileSync('tools/business-calculators/pcg-2021-4-allocation/index.html', 'utf8');
+const pcgYears = Object.fromEntries([...pcgForm.matchAll(
+  /name="year" value="([^"]+)" data-scale="([^"]+)" data-base-rate="([^"]+)" data-company-rate="([^"]+)"/g)]
+  .map(([, year, scale, baseRate, companyRate]) => [year, { scale, baseRate, companyRate }]));
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const money = (value) => String(value);
@@ -137,6 +148,11 @@ const run = {
   pcg: ({ arrangement }) => Object.fromEntries(Object.entries(pcgRisk(arrangement))
     .map(([key, value]) => [key, value === null ? null : String(value)])),
   gic: ({ plan }) => Object.fromEntries(Object.entries(gicPaymentPlan(plan)).map(([key, value]) => [key, String(value)])),
+  pcgAllocation: ({ arrangement, year }) => {
+    const { recipients, ...rest } = pcgAllocation(arrangement, pcgYears[year]);
+    return { taxes: recipients.map((one) => one && `${one.tax}:${one.rule}`),
+      ...Object.fromEntries(Object.entries(rest).map(([key, value]) => [key, value === null ? null : String(value)])) };
+  },
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 "#;
@@ -2300,6 +2316,254 @@ fn the_pcg_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let (cases, expected): (Vec<_>, Vec<_>) = (0..PCG_CASES).map(|_| pcg_case(&mut rng)).unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), PCG_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+const PCG_ALLOCATION_CASES: usize = 120;
+
+/// The resident scales as the ATO's 'Tax rates – Australian residents' page writes them (last
+/// updated 13 August 2026, read 17 November 2026): each band's top dollar and its cents in the
+/// dollar over the band below, in hundredths of a cent. No base amount is typed here; the oracle
+/// adds each band's slice, where the engine takes the site's base amount plus the top band's rate.
+const PCG_SCALES: [(&str, [(u64, u64); 5]); 6] = [
+    (
+        "2026-27",
+        [
+            (18_200, 0),
+            (45_000, 1_500),
+            (135_000, 3_000),
+            (190_000, 3_700),
+            (u64::MAX, 4_500),
+        ],
+    ),
+    (
+        "2025-26",
+        [
+            (18_200, 0),
+            (45_000, 1_600),
+            (135_000, 3_000),
+            (190_000, 3_700),
+            (u64::MAX, 4_500),
+        ],
+    ),
+    (
+        "2024-25",
+        [
+            (18_200, 0),
+            (45_000, 1_600),
+            (135_000, 3_000),
+            (190_000, 3_700),
+            (u64::MAX, 4_500),
+        ],
+    ),
+    (
+        "2023-24",
+        [
+            (18_200, 0),
+            (45_000, 1_900),
+            (120_000, 3_250),
+            (180_000, 3_700),
+            (u64::MAX, 4_500),
+        ],
+    ),
+    (
+        "2022-23",
+        [
+            (18_200, 0),
+            (45_000, 1_900),
+            (120_000, 3_250),
+            (180_000, 3_700),
+            (u64::MAX, 4_500),
+        ],
+    ),
+    (
+        "2020-21",
+        [
+            (18_200, 0),
+            (45_000, 1_900),
+            (120_000, 3_250),
+            (180_000, 3_700),
+            (u64::MAX, 4_500),
+        ],
+    ),
+];
+
+/// A company's rate for the year in hundredths of a per cent, from the ATO's company tax rate
+/// pages (26% for a base rate entity in 2020-21, 25% from 2022-23) and Income Tax Rates Act 1986
+/// s 23(2) for 2026-27; 30% otherwise.
+fn pcg_company_rate(year: &str, base_rate_entity: bool) -> u64 {
+    match (year, base_rate_entity) {
+        ("2020-21", true) => 2_600,
+        (_, true) => 2_500,
+        (_, false) => 3_000,
+    }
+}
+
+/// Tax in cents on a taxable income in cents: every band's slice of the income at its rate,
+/// summed exactly, then half up to the cent once.
+fn pcg_scale_tax(year: &str, income: i128) -> u64 {
+    let Ok(income) = u64::try_from(income) else {
+        return 0;
+    };
+    let (_, bands) = PCG_SCALES.iter().find(|(name, _)| *name == year).unwrap();
+    let (mut exact, mut below) = (0_u128, 0_u64);
+    for (top, rate) in bands {
+        let top = top.saturating_mul(100);
+        if income > below {
+            exact += u128::from(income.min(top) - below) * u128::from(*rate);
+        }
+        below = top;
+    }
+    half_up(&BigUint::from(exact), &BigUint::from(10_000_u32))
+}
+
+/// The tax paragraph 85 counts for one recipient and the subparagraph that gives it: the larger
+/// of (a) the tax on the firm income less firm-related deductions alone and (b) the tax on all
+/// income less the tax without the firm amounts, with (a) named when they are equal.
+fn pcg_counted(
+    tax: &dyn Fn(i128) -> u64,
+    firm: u64,
+    deductions: u64,
+    other: i64,
+) -> (u64, &'static str) {
+    let net = i128::from(firm) - i128::from(deductions);
+    let alone = tax(net.max(0));
+    let difference = i128::from(tax((net + i128::from(other)).max(0)))
+        - i128::from(tax(i128::from(other).max(0)));
+    if difference > i128::from(alone) {
+        (u64::try_from(difference).unwrap(), "85(b)")
+    } else {
+        (alone, "85(a)")
+    }
+}
+
+fn signed_dollars(cents: i64) -> String {
+    let magnitude = dollars(cents.unsigned_abs());
+    if cents < 0 {
+        format!("-{magnitude}")
+    } else {
+        magnitude
+    }
+}
+
+fn pcg_allocation_case(rng: &mut Seeded) -> (Value, Value) {
+    let year = rng.pick(&PCG_SCALES.map(|(name, _)| name));
+    let used = 1 + rng.below(6) as usize;
+    let mut recipients = Vec::new();
+    let mut taxes = Vec::new();
+    let (mut firm_income, mut total_tax, mut ipp_firm) = (0_u64, 0_u64, 0_u64);
+    for index in 0..6 {
+        if index >= used {
+            recipients.push(json!({"kind": "none", "firm": "0", "deductions": "0", "other": "0"}));
+            taxes.push(Value::Null);
+            continue;
+        }
+        let kind = if index == 0 {
+            "individual"
+        } else {
+            rng.pick(&["individual", "base-rate-company", "company"])
+        };
+        let firm = 1 + rng.cents(100_000_000);
+        let deductions = if rng.below(3) == 0 {
+            rng.cents(firm)
+        } else {
+            0
+        };
+        let other = match rng.below(4) {
+            0 => i64::try_from(rng.cents(50_000_000)).unwrap(),
+            1 => -i64::try_from(rng.cents(50_000_000)).unwrap(),
+            _ => 0,
+        };
+        let tax = |income: i128| match kind {
+            "individual" => pcg_scale_tax(year, income),
+            _ => {
+                let rate = pcg_company_rate(year, kind == "base-rate-company");
+                half_up(
+                    &BigUint::from(u64::try_from(income).unwrap() * rate),
+                    &BigUint::from(10_000_u32),
+                )
+            }
+        };
+        let (counted, rule) = pcg_counted(&tax, firm, deductions, other);
+        if index == 0 {
+            ipp_firm = firm;
+        }
+        firm_income += firm;
+        total_tax += counted;
+        taxes.push(json!(format!("{}:{rule}", shown(counted))));
+        recipients.push(
+            json!({"kind": kind, "firm": dollars(firm), "deductions": dollars(deductions),
+            "other": signed_dollars(other)}),
+        );
+    }
+    let all = rng.below(2) == 1;
+    let benchmark = 1 + rng.cents(100_000_000);
+    let arrangement = json!({"gateway1": true, "gateway2": true, "factor3": all, "benchmark": dollars(benchmark),
+        "recipients": recipients});
+    let mut expected =
+        json!({"taxes": taxes, "firmIncome": shown(firm_income), "tax": shown(total_tax)});
+    let scores = if ipp_firm == firm_income {
+        // Paragraph 81: the whole entitlement returned is low risk with no other factor.
+        json!({"returned": "100", "factor1": "1", "taxRate": null, "factor2": null,
+            "benchmarkShare": null, "factor3": null, "total": null, "zone": "green"})
+    } else {
+        let (factor1, factor2) = (
+            pcg_band(0, ipp_firm, firm_income),
+            pcg_band(1, total_tax, firm_income),
+        );
+        let factor3 = all.then(|| pcg_band(2, ipp_firm, benchmark));
+        let total = factor1 + factor2 + factor3.unwrap_or(0);
+        json!({
+            "returned": pcg_percent(ipp_firm, firm_income), "factor1": factor1.to_string(),
+            "taxRate": pcg_percent(total_tax, firm_income), "factor2": factor2.to_string(),
+            "benchmarkShare": all.then(|| pcg_percent(ipp_firm, benchmark)),
+            "factor3": factor3.map(|score| score.to_string()), "total": total.to_string(),
+            "zone": pcg_zone(total, if all { 3 } else { 2 }),
+        })
+    };
+    expected
+        .as_object_mut()
+        .unwrap()
+        .extend(scores.as_object().unwrap().clone());
+    (
+        json!({"kind": "pcgAllocation", "arrangement": arrangement, "year": year}),
+        expected,
+    )
+}
+
+#[test]
+fn the_pcg_allocation_oracle_works_the_guideline_examples() {
+    let individual = |income: i128| pcg_scale_tax("2020-21", income);
+    // Example 4: $240,667 on $600,000 and $22,967 on $100,000; associate 2 counts $33,850 under 85(b).
+    assert_eq!(individual(60_000_000), 24_066_700);
+    assert_eq!(
+        pcg_counted(&individual, 10_000_000, 0, 5_000_000),
+        (3_385_000, "85(b)")
+    );
+    assert_eq!(
+        pcg_counted(&individual, 10_000_000, 0, -10_000_000),
+        (2_296_700, "85(a)")
+    );
+    // Example 5: $238,450 under 85(b), from a $40,000 deduction and $50,000 of other income.
+    assert_eq!(
+        pcg_counted(&individual, 60_000_000, 4_000_000, 5_000_000),
+        (23_845_000, "85(b)")
+    );
+    // Case study 1: 26% of $270,000 is $70,200; 2026-27: $4,020 on $45,000.
+    assert_eq!(pcg_company_rate("2020-21", true) * 270_000 / 10_000, 70_200);
+    assert_eq!(pcg_scale_tax("2026-27", 4_500_000), 402_000);
+}
+
+#[test]
+fn the_pcg_allocation_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1117_0FC6_2021);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..PCG_ALLOCATION_CASES)
+        .map(|_| pcg_allocation_case(&mut rng))
+        .unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), PCG_ALLOCATION_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

@@ -21,6 +21,7 @@ const levy = { file: 'assets/levy.mjs', test: 'scripts/levy.test.mjs' };
 const business = { file: 'assets/business-calculators.mjs', test: 'scripts/business-calculators.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
+const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -86,15 +87,28 @@ const MUTATIONS = [
   { ...business, name: 'FBT is worked on the taxable value, not the grossed-up value', find: 'ratioCents(grossedUp * BigInt', replace: 'ratioCents(BigInt(taxable) * BigInt' },
   { ...business, name: 'FBT car accepts nil operating costs', find: 'cents(car.costs) === 0', replace: 'cents(car.costs) < 0' },
   { ...business, name: 'FBT car accepts more days than the year has', find: 'max: yearDays, integer: true', replace: 'max: yearDays + 1, integer: true' },
-  { ...business, name: 'PCG 2021/4 puts exactly 50% returned in the band below', find: '[50, true]', replace: '[50, false]' },
-  { ...business, name: 'PCG 2021/4 puts an exactly 30% tax rate in the band below', find: '[30, true]', replace: '[30, false]' },
-  { ...business, name: 'PCG 2021/4 puts exactly 100% of the benchmark in the band above', find: '[100, false]', replace: '[100, true]' },
-  { ...business, name: 'PCG 2021/4 counts an aggregate of 8 on 2 factors as green', find: '2: [7, 8]', replace: '2: [8, 8]' },
-  { ...business, name: 'PCG 2021/4 counts an aggregate of 13 on 3 factors as amber', find: '3: [10, 12]', replace: '3: [10, 13]' },
-  { ...business, name: 'PCG 2021/4 scores an arrangement that fails a gateway', find: 'if (failed !== -1)', replace: 'if (false)' },
-  { ...business, name: 'PCG 2021/4 scores factor 2 when the whole entitlement is returned', find: 'if (returned === entitlement) {', replace: 'if (false) {' },
-  { ...business, name: 'PCG 2021/4 divides the tax by the amount returned', find: 'pcgScore(tax, entitlement, 1)', replace: 'pcgScore(tax, returned || 1, 1)' },
-  { ...business, name: 'PCG 2021/4 applies the 2-factor zones to all 3', find: 'PCG_ZONES[factor3 === null ? 2 : 3]', replace: 'PCG_ZONES[2]' },
+  { ...pcg, name: 'PCG 2021/4 puts exactly 50% returned in the band below', find: '[50, true]', replace: '[50, false]' },
+  { ...pcg, name: 'PCG 2021/4 puts an exactly 30% tax rate in the band below', find: '[30, true]', replace: '[30, false]' },
+  { ...pcg, name: 'PCG 2021/4 puts exactly 100% of the benchmark in the band above', find: '[100, false]', replace: '[100, true]' },
+  { ...pcg, name: 'PCG 2021/4 counts an aggregate of 8 on 2 factors as green', find: '2: [7, 8]', replace: '2: [8, 8]' },
+  { ...pcg, name: 'PCG 2021/4 counts an aggregate of 13 on 3 factors as amber', find: '3: [10, 12]', replace: '3: [10, 13]' },
+  { ...pcg, name: 'PCG 2021/4 scores an arrangement that fails a gateway', find: 'if (failed !== -1)', replace: 'if (false)' },
+  { ...pcg, name: 'PCG 2021/4 scores factor 2 when the whole entitlement is returned', find: 'if (returned === entitlement) {', replace: 'if (false) {' },
+  { ...pcg, name: 'PCG 2021/4 divides the tax by the amount returned', find: 'pcgScore(tax, entitlement, 1)', replace: 'pcgScore(tax, returned || 1, 1)' },
+  { ...pcg, name: 'PCG 2021/4 applies the 2-factor zones to all 3', find: 'PCG_ZONES[factor3 === null ? 2 : 3]', replace: 'PCG_ZONES[2]' },
+  { ...pcg, name: 'PCG 2021/4 allocation takes the tax on the firm income alone', find: 'Math.max(alone, difference) / 100, rule', replace: 'alone / 100, rule' },
+  { ...pcg, name: 'PCG 2021/4 allocation counts the smaller of 85(a) and 85(b)', find: 'totalTax += Math.max(alone, difference);', replace: 'totalTax += Math.min(alone, difference);' },
+  { ...pcg, name: 'PCG 2021/4 allocation names 85(b) when the 2 are equal', find: 'rule: difference > alone ?', replace: 'rule: difference >= alone ?' },
+  { ...pcg, name: 'PCG 2021/4 allocation ignores other income under 85(b)', find: 'tax(Math.max(net + rest, 0)) - tax(Math.max(rest, 0))', replace: 'tax(Math.max(net, 0))' },
+  { ...pcg, name: 'PCG 2021/4 allocation ignores firm-related deductions', find: 'const net = received - firmDeductions;', replace: 'const net = received;' },
+  { ...pcg, name: 'PCG 2021/4 allocation taxes a base rate entity at the full rate', find: "kind === 'base-rate-company' ? baseRate : companyRate", replace: 'companyRate' },
+  { ...pcg, name: 'PCG 2021/4 allocation starts each band at its first dollar', find: 'Math.max(Number(from) - 1, 0) * 100', replace: 'Number(from) * 100' },
+  { ...pcg, name: 'PCG 2021/4 allocation drops the tax below a band', find: 'return band.base + Number(', replace: 'return Number(' },
+  { ...pcg, name: 'PCG 2021/4 allocation truncates each tax', find: 'ratioCents(BigInt(income - band.over) * BigInt(band.rate), 10000n)', replace: '(BigInt(income - band.over) * BigInt(band.rate) / 10000n)' },
+  { ...pcg, name: 'PCG 2021/4 allocation drops amounts on an unused row', find: 'if (received || firmDeductions || rest) {', replace: 'if (false) {' },
+  { ...pcg, name: 'PCG 2021/4 allocation taxes a recipient it cannot', find: "if (kind === 'other') {", replace: 'if (false) {' },
+  { ...pcg, name: 'PCG 2021/4 allocation scores factor 3 on the whole firm income', find: 'remuneration: decimal(cents(recipients[0].firm))', replace: 'remuneration: decimal(firmIncome)' },
+  { ...pcg, name: 'PCG 2021/4 allocation uses a scale out of order', find: 'Number(row[0]) > Number(rows[index - 1][0])', replace: 'true' },
   { ...business, name: 'GIC divides by 365 in a leap year', find: '? 366 : 365', replace: '? 365 : 365' },
   { ...business, name: 'GIC moves to a new quarter rate a day late', find: 'GIC_FROM[quarter + 1].from <= day', replace: 'GIC_FROM[quarter + 1].from < day' },
   { ...business, name: 'GIC ignores the assumed rate after the table', find: 'day < GIC_TABLE_END ? GIC_FROM[quarter].rate : assumed', replace: 'GIC_FROM[quarter].rate' },
@@ -164,7 +178,8 @@ try {
   }
   for (const { test } of [levy, business]) copyFileSync(join(root, test), join(work, test));
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
-    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', 'llms.txt', '.well-known/llms.txt']) {
+    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge',
+    'rates/individual-income-tax', 'llms.txt', '.well-known/llms.txt']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
