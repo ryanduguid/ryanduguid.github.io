@@ -103,154 +103,222 @@ fn css_space(c: char) -> bool {
 /// 2026: Lightning CSS folded `animation-timeline` into the `animation` shorthand,
 /// which browsers reject, and dropped fallback declarations.
 pub fn css(source: &str) -> Result<String, String> {
-    let mut out = String::with_capacity(source.len());
-    let mut chars = source.chars().peekable();
-    let mut gap = Gap::None;
+    let mut sheet = Stylesheet {
+        chars: source.chars().peekable(),
+        out: String::with_capacity(source.len()),
+        gap: Gap::None,
+        statement_start: 0,
+        custom: None,
+        custom_started: false,
+        escaped_name: false,
+    };
+    while let Some(c) = sheet.chars.next() {
+        if c == '/' && sheet.chars.peek() == Some(&'*') {
+            sheet.skip_comment()?;
+        } else if css_space(c) {
+            sheet.space(c);
+        } else {
+            sheet.token(c)?;
+        }
+    }
+    Ok(format!("{}{}", header(source), sheet.out))
+}
+
+/// The state of one stylesheet being minified.
+struct Stylesheet<'a> {
+    chars: std::iter::Peekable<std::str::Chars<'a>>,
+    out: String,
+    gap: Gap,
     // Where the current declaration or rule starts in `out`, and, inside a custom
     // property's value, the depth of brackets open in it.
-    let mut statement_start = 0;
-    let mut custom: Option<u32> = None;
+    statement_start: usize,
+    custom: Option<u32>,
     // Whether that value has begun: the whitespace before it is not part of it.
-    let mut custom_started = false;
+    custom_started: bool,
     // Whether the identifier being copied holds an escape.
-    let mut escaped_name = false;
-    while let Some(c) = chars.next() {
-        if c == '/' && chars.peek() == Some(&'*') {
-            chars.next();
-            let mut previous = ' ';
-            loop {
-                match chars.next() {
-                    Some('/') if previous == '*' => break,
-                    Some(next) => previous = next,
-                    None => return Err("unterminated comment".into()),
-                }
+    escaped_name: bool,
+}
+
+impl Stylesheet<'_> {
+    /// Skip a comment whose `/` has been read.
+    fn skip_comment(&mut self) -> Result<(), String> {
+        self.chars.next();
+        let mut previous = ' ';
+        loop {
+            match self.chars.next() {
+                Some('/') if previous == '*' => break,
+                Some(next) => previous = next,
+                None => return Err("unterminated comment".into()),
             }
-            if gap == Gap::None {
-                gap = Gap::Comment;
-            }
-            continue;
         }
-        if css_space(c) {
-            // A custom property's value keeps its whitespace: script reads the value
-            // as written. Only the whitespace before it goes.
-            if custom.is_some() && custom_started {
-                out.push(c);
-            } else {
-                gap = Gap::Space;
-            }
-            continue;
+        if self.gap == Gap::None {
+            self.gap = Gap::Comment;
         }
-        // Nothing is needed after these characters or before the closing ones. A space
-        // before `(` or `:` can be a token boundary (`and (`, `.a :hover`), so it stays.
-        let needed = !out.is_empty()
-            && !out.ends_with(['{', '}', ';', ',', ':', '('])
-            && !matches!(c, '{' | '}' | ';' | ',' | ')');
-        if gap != Gap::None {
-            escaped_name = false;
+        Ok(())
+    }
+
+    fn space(&mut self, c: char) {
+        // A custom property's value keeps its whitespace: script reads the value as
+        // written. Only the whitespace before it goes.
+        if self.custom.is_some() && self.custom_started {
+            self.out.push(c);
+        } else {
+            self.gap = Gap::Space;
         }
-        match gap {
-            Gap::Space if needed => out.push(' '),
-            // `.a/**/.b` is one compound selector; a space would make it two.
-            Gap::Comment if needed => out.push_str("/**/"),
-            _ => {}
-        }
-        gap = Gap::None;
-        if let Some(depth) = custom {
-            custom = match c {
-                '(' | '[' | '{' => Some(depth + 1),
-                ')' | ']' | '}' if depth > 0 => Some(depth - 1),
-                ';' | '}' if depth == 0 => {
-                    // Whitespace after the value is not part of it.
-                    out.truncate(out.trim_end_matches(css_space).len());
-                    None
-                }
-                _ => Some(depth),
-            };
-            custom_started = custom.is_some();
-        }
+    }
+
+    /// Copy one character that is neither whitespace nor part of a comment, with the
+    /// rest of its token when it opens a string, an escape or an unquoted url().
+    fn token(&mut self, c: char) -> Result<(), String> {
+        self.separate(c);
+        self.track_custom_depth(c);
         // `\;` is part of a name, not a separator, and a custom property's value keeps
         // the semicolons in its blocks.
-        if c == '}' && custom.is_none() && out.ends_with(';') && !out.ends_with("\\;") {
+        let out = &mut self.out;
+        if c == '}' && self.custom.is_none() && out.ends_with(';') && !out.ends_with("\\;") {
             out.pop();
         }
         out.push(c);
         // An escaped function name, such as `u\72l(`, can spell url(, whose contents are
         // not CSS tokens. None is expected, so refuse one rather than decode it.
-        if c == '(' && escaped_name {
+        if c == '(' && self.escaped_name {
             return Err("escaped function name".into());
         }
-        escaped_name = c == '\\'
-            || (escaped_name && (c.is_alphanumeric() || matches!(c, '-' | '_') || !c.is_ascii()));
-        if matches!(c, '{' | '}' | ';') {
-            statement_start = out.len();
-        } else if c == ':'
-            && custom.is_none()
-            && out
-                .get(statement_start..)
-                .is_some_and(|statement| statement.starts_with("--"))
-        {
-            custom = Some(0);
-            custom_started = false;
-        }
+        self.escaped_name = c == '\\'
+            || (self.escaped_name
+                && (c.is_alphanumeric() || matches!(c, '-' | '_') || !c.is_ascii()));
+        self.track_statement(c);
         match c {
-            // An unquoted url() is one token: `/*` inside it is not a comment.
-            '(' if out
-                .get(out.len().saturating_sub(4)..)
-                .is_some_and(|name| name.eq_ignore_ascii_case("url("))
-                && !matches!(
-                    chars.clone().find(|c| !css_space(*c)),
-                    Some('"' | '\'') | None
-                ) =>
-            {
-                while chars.next_if(|c| css_space(*c)).is_some() {}
-                loop {
-                    let next = chars.next().ok_or("unterminated url()")?;
-                    out.push(next);
-                    match next {
-                        ')' => break,
-                        '\\' => out.push(chars.next().ok_or("unterminated url()")?),
-                        _ => {}
-                    }
-                }
-            }
-            '\\' => {
-                let escaped = chars.next().ok_or("escape at the end of the file")?;
-                out.push(escaped);
-                // A hex escape is up to 6 digits, and one whitespace after it is part
-                // of it, not a token boundary.
-                if escaped.is_ascii_hexdigit() {
-                    for _ in 1..6 {
-                        match chars.next_if(char::is_ascii_hexdigit) {
-                            Some(digit) => out.push(digit),
-                            None => break,
-                        }
-                    }
-                    if let Some(space) = chars.next_if(|c| css_space(*c)) {
-                        out.push(space);
-                        // CSS reads CR LF as one newline.
-                        if space == '\r'
-                            && let Some(newline) = chars.next_if_eq(&'\n')
-                        {
-                            out.push(newline);
-                        }
-                    }
-                }
-            }
-            '"' | '\'' => loop {
-                let next = chars.next().ok_or("unterminated string")?;
-                out.push(next);
-                if next == '\\' {
-                    out.push(chars.next().ok_or("unterminated string")?);
-                } else if next == c {
-                    break;
-                } else if matches!(next, '\n' | '\r' | '\x0c') {
-                    return Err("unterminated string".into());
-                }
-            },
-            _ => {}
+            '(' if self.at_unquoted_url() => self.copy_url(),
+            '\\' => self.copy_escape(),
+            '"' | '\'' => self.copy_string(c),
+            _ => Ok(()),
         }
     }
-    Ok(format!("{}{out}", header(source)))
+
+    /// Write what the gap before `c` needs: nothing after these characters or before
+    /// the closing ones. A space before `(` or `:` can be a token boundary (`and (`,
+    /// `.a :hover`), so it stays.
+    fn separate(&mut self, c: char) {
+        let needed = !self.out.is_empty()
+            && !self.out.ends_with(['{', '}', ';', ',', ':', '('])
+            && !matches!(c, '{' | '}' | ';' | ',' | ')');
+        if self.gap != Gap::None {
+            self.escaped_name = false;
+        }
+        match self.gap {
+            Gap::Space if needed => self.out.push(' '),
+            // `.a/**/.b` is one compound selector; a space would make it two.
+            Gap::Comment if needed => self.out.push_str("/**/"),
+            _ => {}
+        }
+        self.gap = Gap::None;
+    }
+
+    /// Follow the brackets of a custom property's value, ending it at a `;` or `}`
+    /// outside them.
+    fn track_custom_depth(&mut self, c: char) {
+        let Some(depth) = self.custom else {
+            return;
+        };
+        self.custom = match c {
+            '(' | '[' | '{' => Some(depth + 1),
+            ')' | ']' | '}' if depth > 0 => Some(depth - 1),
+            ';' | '}' if depth == 0 => {
+                // Whitespace after the value is not part of it.
+                self.out
+                    .truncate(self.out.trim_end_matches(css_space).len());
+                None
+            }
+            _ => Some(depth),
+        };
+        self.custom_started = self.custom.is_some();
+    }
+
+    /// Note where a statement starts, and whether a `:` begins a custom property's value.
+    fn track_statement(&mut self, c: char) {
+        if matches!(c, '{' | '}' | ';') {
+            self.statement_start = self.out.len();
+        } else if c == ':'
+            && self.custom.is_none()
+            && self
+                .out
+                .get(self.statement_start..)
+                .is_some_and(|statement| statement.starts_with("--"))
+        {
+            self.custom = Some(0);
+            self.custom_started = false;
+        }
+    }
+
+    /// Whether the `(` just copied opens an unquoted url(): one token, in which `/*`
+    /// is not a comment.
+    fn at_unquoted_url(&self) -> bool {
+        self.out
+            .get(self.out.len().saturating_sub(4)..)
+            .is_some_and(|name| name.eq_ignore_ascii_case("url("))
+            && !matches!(
+                self.chars.clone().find(|c| !css_space(*c)),
+                Some('"' | '\'') | None
+            )
+    }
+
+    fn copy_url(&mut self) -> Result<(), String> {
+        while self.chars.next_if(|c| css_space(*c)).is_some() {}
+        loop {
+            let next = self.chars.next().ok_or("unterminated url()")?;
+            self.out.push(next);
+            match next {
+                ')' => return Ok(()),
+                '\\' => self
+                    .out
+                    .push(self.chars.next().ok_or("unterminated url()")?),
+                _ => {}
+            }
+        }
+    }
+
+    /// Copy the rest of an escape whose `\` has been copied. A hex escape is up to 6
+    /// digits, and one whitespace after it is part of it, not a token boundary.
+    fn copy_escape(&mut self) -> Result<(), String> {
+        let escaped = self.chars.next().ok_or("escape at the end of the file")?;
+        self.out.push(escaped);
+        if !escaped.is_ascii_hexdigit() {
+            return Ok(());
+        }
+        for _ in 1..6 {
+            match self.chars.next_if(char::is_ascii_hexdigit) {
+                Some(digit) => self.out.push(digit),
+                None => break,
+            }
+        }
+        if let Some(space) = self.chars.next_if(|c| css_space(*c)) {
+            self.out.push(space);
+            // CSS reads CR LF as one newline.
+            if space == '\r'
+                && let Some(newline) = self.chars.next_if_eq(&'\n')
+            {
+                self.out.push(newline);
+            }
+        }
+        Ok(())
+    }
+
+    /// Copy the rest of a string whose opening `quote` has been copied.
+    fn copy_string(&mut self, quote: char) -> Result<(), String> {
+        loop {
+            let next = self.chars.next().ok_or("unterminated string")?;
+            self.out.push(next);
+            if next == '\\' {
+                self.out
+                    .push(self.chars.next().ok_or("unterminated string")?);
+            } else if next == quote {
+                return Ok(());
+            } else if matches!(next, '\n' | '\r' | '\x0c') {
+                return Err("unterminated string".into());
+            }
+        }
+    }
 }
 
 /// Minify every .js, .mjs and .css file under `directory`; returns the file count and
