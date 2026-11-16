@@ -1,0 +1,51 @@
+jurisdiction,in_force_from,value_over,value_to,base_amount,rate_percent,rule,notes,source_url,checked_at
+AU-NSW,2026-07-01,0,1600,20,0,excess-rounded-up-to-100,Revenue NSW: $1.25 for every $100 with a minimum of $20; to $1600 the minimum applies,https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty,2026-11-15
+AU-NSW,2026-07-01,1600,18000,20,1.25,excess-rounded-up-to-100,Revenue NSW: $1.25 for every $100; restated from $1600 so the $20 minimum is the base,https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty,2026-11-15
+AU-NSW,2026-07-01,18000,38000,225,1.5,excess-rounded-up-to-100,,https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty,2026-11-15
+AU-NSW,2026-07-01,38000,103000,525,1.75,excess-rounded-up-to-100,,https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty,2026-11-15
+AU-NSW,2026-07-01,103000,387000,1662,3.5,excess-rounded-up-to-100,,https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty,2026-11-15
+AU-NSW,2026-07-01,387000,1290000,11602,4.5,excess-rounded-up-to-100,,https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty,2026-11-15
+AU-NSW,2026-07-01,1290000,3870000,52237,5.5,excess-rounded-up-to-100,,https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty,2026-11-15
+AU-NSW,2026-07-01,3870000,,194137,7,excess-rounded-up-to-100,Premium duty: residential land only,https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty,2026-11-15
+AU-VIC,2021-07-01,0,25000,0,1.4,excess,General (non-principal place of residence) rates for contracts from 1 July 2021,https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates,2026-11-15
+AU-VIC,2021-07-01,25000,130000,350,2.4,excess,,https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates,2026-11-15
+AU-VIC,2021-07-01,130000,960000,2870,6,excess,,https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates,2026-11-15
+AU-VIC,2021-07-01,960000,2000000,0,5.5,whole-value,5.5% of the whole dutiable value,https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates,2026-11-15
+AU-VIC,2021-07-01,2000000,,110000,6.5,excess,Premium rate over $2 million,https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates,2026-11-15
+AU-QLD,2012-09-21,0,5000,0,0,excess-rounded-up-to-100,QRO: earlier rates apply to transactions dated before 21 September 2012,https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/,2026-11-15
+AU-QLD,2012-09-21,5000,75000,0,1.5,excess-rounded-up-to-100,,https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/,2026-11-15
+AU-QLD,2012-09-21,75000,540000,1050,3.5,excess-rounded-up-to-100,,https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/,2026-11-15
+AU-QLD,2012-09-21,540000,1000000,17325,4.5,excess-rounded-up-to-100,,https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/,2026-11-15
+AU-QLD,2012-09-21,1000000,,38025,5.75,excess-rounded-up-to-100,,https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/,2026-11-15
+AU-WA,2014-07-02,0,120000,0,1.9,excess-rounded-up-to-100,General rate; WA gives earlier rates on request for transactions before 2 July 2014,https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment,2026-11-15
+AU-WA,2014-07-02,120000,150000,2280,2.85,excess-rounded-up-to-100,,https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment,2026-11-15
+AU-WA,2014-07-02,150000,360000,3135,3.8,excess-rounded-up-to-100,,https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment,2026-11-15
+AU-WA,2014-07-02,360000,725000,11115,4.75,excess-rounded-up-to-100,,https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment,2026-11-15
+AU-WA,2014-07-02,725000,,28453,5.15,excess-rounded-up-to-100,,https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment,2026-11-15
+AU-SA,2002-09-05,0,12000,0,1,excess-rounded-up-to-100,RevenueSA conveyance rates; its rates chart runs from 5 September 2002,https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty,2026-11-15
+AU-SA,2002-09-05,12000,30000,120,2,excess-rounded-up-to-100,,https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty,2026-11-15
+AU-SA,2002-09-05,30000,50000,480,3,excess-rounded-up-to-100,,https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty,2026-11-15
+AU-SA,2002-09-05,50000,100000,1080,3.5,excess-rounded-up-to-100,,https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty,2026-11-15
+AU-SA,2002-09-05,100000,200000,2830,4,excess-rounded-up-to-100,,https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty,2026-11-15
+AU-SA,2002-09-05,200000,250000,6830,4.25,excess-rounded-up-to-100,,https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty,2026-11-15
+AU-SA,2002-09-05,250000,300000,8955,4.75,excess-rounded-up-to-100,,https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty,2026-11-15
+AU-SA,2002-09-05,300000,500000,11330,5,excess-rounded-up-to-100,,https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty,2026-11-15
+AU-SA,2002-09-05,500000,,21330,5.5,excess-rounded-up-to-100,,https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty,2026-11-15
+AU-TAS,2013-10-21,0,3000,50,0,excess-rounded-up-to-100,$50 on a dutiable value up to $3000,https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty,2026-11-15
+AU-TAS,2013-10-21,3000,25000,50,1.75,excess-rounded-up-to-100,,https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty,2026-11-15
+AU-TAS,2013-10-21,25000,75000,435,2.25,excess-rounded-up-to-100,,https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty,2026-11-15
+AU-TAS,2013-10-21,75000,200000,1560,3.5,excess-rounded-up-to-100,,https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty,2026-11-15
+AU-TAS,2013-10-21,200000,375000,5935,4,excess-rounded-up-to-100,,https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty,2026-11-15
+AU-TAS,2013-10-21,375000,725000,12935,4.25,excess-rounded-up-to-100,,https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty,2026-11-15
+AU-TAS,2013-10-21,725000,,27810,4.5,excess-rounded-up-to-100,,https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty,2026-11-15
+AU-ACT,2026-07-01,0,200000,0,1.2,excess-rounded-up-to-100,DI2026-155 Table 2: a transaction that is not an eligible owner occupier transaction,https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html,2026-11-15
+AU-ACT,2026-07-01,200000,300000,2400,2.2,excess-rounded-up-to-100,,https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html,2026-11-15
+AU-ACT,2026-07-01,300000,500000,4600,3.4,excess-rounded-up-to-100,,https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html,2026-11-15
+AU-ACT,2026-07-01,500000,750000,11400,4.32,excess-rounded-up-to-100,,https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html,2026-11-15
+AU-ACT,2026-07-01,750000,1000000,22200,5.9,excess-rounded-up-to-100,,https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html,2026-11-15
+AU-ACT,2026-07-01,1000000,1455000,36950,6.4,excess-rounded-up-to-100,,https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html,2026-11-15
+AU-ACT,2026-07-01,1455000,,0,4.54,whole-value,A flat $4.54 per $100 of the whole dutiable amount,https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html,2026-11-15
+AU-NT,2025-07-01,0,525000,0,0,nt-formula,Schedule 1 clause 1(2)(a): D = (0.06571441 x V squared) + 15V where V is the dutiable value divided by 1000; in force at 1 July 2025,https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978,2026-11-15
+AU-NT,2025-07-01,525000,2999999,0,4.95,whole-value,Schedule 1 clause 1(2)(b): more than $525000 and less than $3 million,https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978,2026-11-15
+AU-NT,2025-07-01,2999999,4999999,0,5.75,whole-value,Schedule 1 clause 1(2)(c): $3 million or more and less than $5 million,https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978,2026-11-15
+AU-NT,2025-07-01,4999999,,0,5.95,whole-value,Schedule 1 clause 1(2)(d): $5 million or more,https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978,2026-11-15

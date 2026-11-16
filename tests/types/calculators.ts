@@ -28,6 +28,55 @@ void tool.execute({ amount: '110.00', inclusive: true });
 calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
 // @ts-expect-error A Division 7A benchmark rate is a decimal string, as the rate table writes it.
 calculate.div7aMinimumRepayment('100000', 8.77, '5');
+const duty: number = calculate.transferDuty('1350000', [['0', '', '0', '1', 'excess']]).duty;
+// @ts-expect-error A dutiable value is a decimal string, as the form field gives it.
+calculate.transferDuty(1350000, [['0', '', '0', '1', 'excess']]);
+void duty;
+const arrangement = { gateway1: true, gateway2: true, entitlement: '600000', returned: '330000', tax: '189367',
+  factor3: false, remuneration: '0', benchmark: '0' };
+const zone: string = calculate.pcgRisk(arrangement).zone;
+// @ts-expect-error A gateway answer is a boolean, as the form passes it.
+calculate.pcgRisk({ ...arrangement, gateway1: 'yes' });
+// @ts-expect-error Factor 3's score is null when only factors 1 and 2 are used.
+const factor3: number = calculate.pcgRisk(arrangement).factor3;
+const plan = { debt: '1000', start: '2026-10-01', count: '3', frequency: 'monthly', assumedRate: '11.51' } as const;
+const gic: number = calculate.gicPaymentPlan(plan).gic;
+// @ts-expect-error A plan's frequency is weekly, fortnightly or monthly.
+calculate.gicPaymentPlan({ ...plan, frequency: 'quarterly' });
+// @ts-expect-error The last instalment date is an ISO date string.
+const lastDay: Date = calculate.gicPaymentPlan(plan).lastDate;
+void gic;
+void lastDay;
+void zone;
+void factor3;
+void tax;
+void formatted;
+const objection: string = calculate.objectionDeadline('assessment', '2', '2026-11-18', '2026-11-18').lastDay;
+// @ts-expect-error A private ruling is not one of the decisions the checker covers.
+calculate.objectionDeadline('ruling', '2', '2026-11-18', '2026-11-18');
+// @ts-expect-error The 60 days after an amended notice are null for an unamended assessment.
+const amendedEnds: string = calculate.objectionDeadline('assessment', '2', '2026-11-18', '2026-11-18').amendedEnds;
+void objection;
+void amendedEnds;
+const payg = { method: 'rate', notified: '0', instalment: '1', estimatedTax: '0', earlier: '0', credits: '0', income: '20100',
+  rate: '1.7', estimatedIncome: '0', earlierIncome: '0' } as const;
+const instalment: number = calculate.paygInstalment(payg).instalment;
+// @ts-expect-error Annual instalments are not one of the methods the calculator covers.
+calculate.paygInstalment({ ...payg, method: 'annual' });
+// @ts-expect-error The amount due by an instalment is null under the instalment rate method.
+const due: number = calculate.paygInstalment(payg).due;
+void instalment;
+void due;
+const etpYear = { yearEnd: '2027-06-30', etpCap: '270000', wholeOfIncomeCap: '180000', baseAmount: '13598',
+  serviceAmount: '6801', rateUnder: '32', rateReached: '17', rateAbove: '47' };
+const etpPayment = { redundancy: '48000', years: '5', excluded: '0', nonExcluded: '17678', other: '140000', born: '1996-08-01' };
+const withheld: number = calculate.terminationPayment(etpPayment, etpYear).withholding;
+// @ts-expect-error Years of service are a decimal string, as the form passes them.
+calculate.terminationPayment({ ...etpPayment, years: 5 }, etpYear);
+// @ts-expect-error Whether preservation age is reached is a boolean, not text.
+const reachedText: string = calculate.terminationPayment(etpPayment, etpYear).reached;
+void withheld;
+void reachedText;
 const car = { method: 'statutory', cost: '60000', accessories: '0', reduced: false, days: '182', costs: '0',
   businessUse: '0', contribution: '1000' } as const;
 const fbtYear = { days: '365', grossUp: '2.0802', fbtRate: '47' };

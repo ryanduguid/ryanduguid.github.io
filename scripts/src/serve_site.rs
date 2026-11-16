@@ -1064,11 +1064,13 @@ pub fn serve(listener: TcpListener, directory: &Path) -> io::Result<()> {
 }
 
 pub fn run(root: &Path) -> Result<u8, String> {
-    crate::build_site::build(root, root)?;
+    let site = crate::build_site::build(root, root)?;
+    // The browser and Lighthouse checks see the minified files the deploy publishes.
+    crate::minify_site::minify_tree(&site)?;
     let listener = create_server(PORT).map_err(|e| e.to_string())?;
     let port = listener.local_addr().map_err(|e| e.to_string())?.port();
     crate::print_text(&format!("Serving HTTP on {HOST} port {port}\n"), false)
         .map_err(|e| e.to_string())?;
-    serve(listener, &py::resolve(root).join("_site")).map_err(|e| e.to_string())?;
+    serve(listener, &site).map_err(|e| e.to_string())?;
     Ok(0)
 }

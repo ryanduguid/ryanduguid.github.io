@@ -3,13 +3,14 @@
 
 use std::process::ExitCode;
 
-const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_effective_life, build_effective_life_pages, build_feed, build_llms_full, build_ozzit_reference, build_rates_json, build_site, check_agent_files, check_ato_sources, check_design, check_links, check_passages, check_production, check_publication, check_rates_register, check_seo, check_site, encode_cash_chart_webp, extract_xero_badge, favicon_render, merge_driver, pin_rates_dataset, release_record, serve_site, stamp_source_freshness, visibility_benchmark\n";
+const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_effective_life, build_effective_life_pages, build_feed, build_llms_full, build_ozzit_reference, build_rates_json, build_site, check_agent_files, check_ato_sources, check_design, check_links, check_passages, check_production, check_publication, check_rates_register, check_seo, check_site, encode_cash_chart_webp, extract_xero_badge, favicon_render, merge_driver, minify_site, pin_rates_dataset, release_record, serve_site, stamp_source_freshness, visibility_benchmark\n";
 
 /// Commands that write files whatever their arguments, besides the `build_*` commands.
-const WRITING_COMMANDS: [&str; 4] = [
+const WRITING_COMMANDS: [&str; 5] = [
     "encode_cash_chart_webp",
     "extract_xero_badge",
     "favicon_render",
+    "minify_site",
     "pin_rates_dataset",
 ];
 
@@ -87,6 +88,7 @@ fn main() -> ExitCode {
             "check_design" => site_tools::check_design::run(&root, rest),
             "encode_cash_chart_webp" => site_tools::cash_chart_webp::run(&root),
             "favicon_render" => site_tools::favicon_render::run(&root),
+            "minify_site" => site_tools::minify_site::run(&root, rest),
             "pin_rates_dataset" => site_tools::pin_rates::run(&root, rest),
             "release_record" => site_tools::release_record::run(&root, rest),
             "serve_site" => site_tools::serve_site::run(&root),

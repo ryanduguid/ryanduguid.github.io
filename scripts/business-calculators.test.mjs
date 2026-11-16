@@ -6,7 +6,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
-  staffCost, cashForecast, div7aMinimumRepayment } from '../assets/business-calculators.mjs';
+  staffCost, cashForecast, div7aMinimumRepayment, transferDuty } from '../assets/business-calculators.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -310,6 +310,24 @@ test('cash keeps out-of-horizon receipts visible and includes opening deficits',
 // The boundary cases each calculator page shows are data this test runs, so a page
 // cannot state a result the engine does not return.
 const shownCases = JSON.parse(readFileSync(new URL('../_data/calculator_cases.json', import.meta.url), 'utf8'));
+// Each jurisdiction's transfer duty scale as rates/transfer-duty/transfer-duty-rates.csv holds it:
+// over, to, base, rate, rule for each bracket. No cell in that table is quoted.
+const PLACES = { 'AU-NSW': 'New South Wales', 'AU-VIC': 'Victoria', 'AU-QLD': 'Queensland',
+  'AU-WA': 'Western Australia', 'AU-SA': 'South Australia', 'AU-TAS': 'Tasmania',
+  'AU-ACT': 'Australian Capital Territory', 'AU-NT': 'Northern Territory' };
+const transferDutyScales = (() => {
+  const [header, ...lines] = readFileSync(new URL('../rates/transfer-duty/transfer-duty-rates.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).map((line) => (assert.ok(!line.includes('"')), line.split(',')));
+  const column = (name) => header.indexOf(name);
+  const scales = {};
+  for (const cells of lines) {
+    (scales[cells[column('jurisdiction')]] ??= []).push(
+      ['value_over', 'value_to', 'base_amount', 'rate_percent', 'rule'].map((name) => cells[column(name)]));
+  }
+  return scales;
+})();
+// A boundary case names its jurisdiction; the engine takes that jurisdiction's scale.
+const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]] : call);
 const dollars = (value) => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-AU',
   { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 // How each result reads on a page, so a value shown under the wrong label fails.
@@ -318,16 +336,35 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   firstInterest: 'first interest', firstPrincipal: 'first principal', totalInterest: 'total interest',
   annual: 'annual', monthly: 'monthly', closing: 'closing', minimum: 'minimum', funding: 'funding',
   deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal',
-  fee: 'fee', total: 'total', first: 'first instalment', instalment: 'each later instalment', effectiveRate: 'effective rate' };
+  fee: 'fee', total: 'total', first: 'first instalment', instalment: 'each later instalment', effectiveRate: 'effective rate', duty: 'duty' };
 Object.assign(LABELS, { baseValue: 'base value', statutory: 'statutory formula value', operating: 'operating cost value',
   taxableValue: 'taxable value', grossedUp: 'grossed-up value', fbt: 'FBT' });
-const shownField = (field, value) => {
-  if (field === 'effect') return value;
+Object.assign(LABELS, { final: 'final instalment', totalPaid: 'total paid', gic: 'GIC' });
+// PCG 2021/4 results are scores, a zone and percentages of the entitlement or the benchmark.
+const PCG_SHOWN = { returned: (v) => `returned ${v.toFixed(2)}%`, taxRate: (v) => `tax rate ${v.toFixed(2)}%`,
+  benchmarkShare: (v) => `${v.toFixed(2)}% of benchmark`, factor1: (v) => `factor 1 score ${v}`,
+  factor2: (v) => `factor 2 score ${v}`, factor3: (v) => `factor 3 score ${v}`,
+  total: (v) => (v === null ? 'no aggregate' : `aggregate ${v}`), zone: (v) => `${v} zone` };
+// A date as the objection deadline page writes it: 'Saturday 18 November 2028'.
+const longDay = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
+  { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const shownField = (field, value, labels = LABELS) => {
+  if (typeof labels[field] === 'function') return labels[field](value);
+  if (field === 'effect' || field === 'rule') return value;
+  if (field === 'instalmentRate') return `instalment rate ${value.toFixed(2)}%`;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return `${labels[field]} ${longDay(value)}`;
   if (field === 'units') return `${value} units`;
   if (field === 'percent') return value === null ? 'no percentage' : `${value.toFixed(2)}%`;
   if (field === 'margin' || field === 'markup') return value === null ? `no ${field}` : `${field} ${value.toFixed(2)}%`;
-  return `${LABELS[field]} ${dollars(value)}`;
+  return `${labels[field]} ${dollars(value)}`;
 };
+Object.assign(LABELS, { periodEnds: 'period ends', lastDay: 'last day', amendedEnds: '60 days after the amended notice',
+  firstEnds: 'first notice period ends' });
+Object.assign(LABELS, { amount: 'amount', credit: 'credit', due: 'due by this instalment' });
+// Fields an engine shows its own way, by engine: a label, or a function that writes the value.
+const ENGINE_LABELS = { paygInstalment: { instalment: 'instalment' }, pcgRisk: PCG_SHOWN,
+  gicPaymentPlan: { instalment: 'instalment', lastDate: (v) => `last instalment ${v}`,
+    assumedDays: (v) => `${v} ${v === 1 ? 'day' : 'days'} at the assumed rate` } };
 
 test('every business calculator shows its boundary cases', () => {
   const pages = readdirSync(new URL('../tools/business-calculators/', import.meta.url), { withFileTypes: true })
@@ -354,9 +391,15 @@ const INPUTS = {
   staffCost: (wages, superannuation, other) =>
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
   div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
+  transferDuty: (value, place) => `${PLACES[place]}, ${dollars(value)}`,
   fbtCar: (car, year) => `${car.method === 'operating' ? `Operating cost ${dollars(car.costs)} at ${car.businessUse}% business use; `
     : 'Statutory formula; '}cost price ${dollars(car.cost)}${car.accessories === '0' ? '' : ` plus ${dollars(car.accessories)} accessories`}`
     + `${car.reduced ? ', held 4 years' : ''}, ${car.days} of ${year.days} days, contributions ${dollars(car.contribution)}, gross-up ${year.grossUp}`,
+  pcgRisk: (a) => `${a.gateway1 && a.gateway2 ? 'Gateways passed' : `Gateway ${a.gateway1 ? 2 : 1} failed`}; entitlement `
+    + `${dollars(a.entitlement)}, returned ${dollars(a.returned)}, tax ${dollars(a.tax)}`
+    + `${a.factor3 ? `, remuneration ${dollars(a.remuneration)} against ${dollars(a.benchmark)}` : ''}`,
+  gicPaymentPlan: (p) => `${dollars(p.debt)} from ${p.start}, ${p.count} ${p.frequency} `
+    + `${p.count === '1' ? 'instalment' : 'instalments'}, ${p.assumedRate}% assumed after the table`,
   cashForecast: (opening, weeks, buffer, delayed) => {
     const week = weeks.findIndex(({ receipts }) => receipts !== '0');
     assert.ok(weeks.every(({ receipts, payments }, index) => payments === '0' && (index === week || receipts === '0')));
@@ -364,6 +407,23 @@ const INPUTS = {
     return `Opening ${dollars(opening)}, buffer ${dollars(buffer)}, ${dollars(weeks[week].receipts)} received in `
       + `week ${week + 1}, ${dollars(delayed.amount)} of it delayed ${delayed.delay} week`;
   },
+  objectionDeadline: (decision, group, notice, first) => {
+    const date = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
+      { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    const kind = { assessment: 'Income tax assessment', amended: 'Amended income tax assessment', fbt: 'FBT assessment',
+      'amended-fbt': 'Amended FBT assessment', other: 'Other decision' }[decision];
+    return `${kind}${decision === 'assessment' || decision === 'amended' ? `, ${group} years` : ''}, notice ${date(notice)}`
+      + `${decision.startsWith('amended') ? `, first notice ${date(first)}` : ''}`;
+  },
+  paygInstalment: (f) => ({
+    amount: `Instalment amount ${dollars(f.notified)}`,
+    'varied-amount': `Varied amount, instalment ${f.instalment}; estimated tax ${dollars(f.estimatedTax)}, `
+      + `earlier instalments ${dollars(f.earlier)}, credits ${dollars(f.credits)}`,
+    rate: `Instalment income ${dollars(f.income)} at ${f.rate}%`,
+    'varied-rate': `Varied rate from estimated tax ${dollars(f.estimatedTax)} on ${dollars(f.estimatedIncome)}; `
+      + `instalment income ${dollars(f.income)}, rate at T2 ${f.rate}%; earlier instalments ${dollars(f.earlier)}, `
+      + `credits ${dollars(f.credits)}, on ${dollars(f.earlierIncome)}`,
+  })[f.method],
 };
 const wholeDollars = (value) => `$${Number(value).toLocaleString('en-AU')}`;
 const PEER_INPUTS = {
@@ -401,11 +461,11 @@ const assertPeerReading = (name, peer, result) => {
   assert.equal(peer.verdict, verdict);
 };
 
-const assertShown = (actual, { result, output }) => {
+const assertShown = (actual, { result, output }, labels = LABELS) => {
   const fields = Object.entries(result);
   for (const [field, value] of fields) assert.equal(actual[field], value, field);
   assert.equal(output.replace(/ on the \S+ borrowed$/, '').toLowerCase(),
-    fields.map(([field, value]) => shownField(field, value)).join(', ').toLowerCase());
+    fields.map(([field, value]) => shownField(field, value, labels)).join(', ').toLowerCase());
 };
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
@@ -422,11 +482,11 @@ for (const [page, { function: name, peer, rows }] of Object.entries(shownCases))
     test(`${page} boundary case returns what its page shows: ${row.case}`, () => {
       assert.equal(INPUTS[name](...row.call), row.input);
       if (row.refused) {
-        assert.throws(() => calculations[name](...row.call), { message: row.refused });
+        assert.throws(() => calculations[name](...engineArgs(name, row.call)), { message: row.refused });
         assert.equal(row.output, `Refused: ${row.refused[0].toLowerCase()}${row.refused.slice(1, -1)}`);
         return;
       }
-      assertShown(calculations[name](...row.call), row);
+      assertShown(calculations[name](...engineArgs(name, row.call)), row, { ...LABELS, ...ENGINE_LABELS[name] });
     });
   }
 }
@@ -474,6 +534,37 @@ test('Division 7A years and rates are the rate table rows, newest first', () => 
     .map(([, year, rate, label]) => (assert.equal(label, `${year} (${rate}%)`), [year, rate]));
   assert.equal(options.length, (html.match(/<option\b/g) ?? []).length);
   assert.deepEqual(options, table);
+});
+
+// Each jurisdiction's radio carries exactly its rows of the rate table, in the table's order.
+test('transfer duty radios carry the rate table rows for all 8 jurisdictions', () => {
+  const html = readFileSync(new URL('../_includes/calculators/transfer-duty.html', import.meta.url), 'utf8');
+  const radios = [...html.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)" data-name="([^"]+)" data-scale="([^"]+)"(?: checked)? \/> ([^<]+)<\/label>/g)]
+    .map(([, code, name, scale, label]) => (assert.equal(label, name), assert.equal(PLACES[code], name),
+      [code, scale.split(';').map((row) => row.split(','))]));
+  assert.equal(radios.length, (html.match(/type="radio"/g) ?? []).length);
+  assert.equal((html.match(/ checked /g) ?? []).length, 1);
+  assert.deepEqual(Object.fromEntries(radios), transferDutyScales);
+  assert.deepEqual(radios.map(([code]) => code), Object.keys(PLACES));
+});
+
+// Worked by hand from the scales read on 15 November 2026: at the top of a band the lower band
+// applies, so WA $725,000 is $11,115 + 3,650 x $4.75 and NSW $103,000 is $525 + 650 x $1.75.
+test('transfer duty at the top of a band uses that band and rejects a broken table', () => {
+  assert.equal(transferDuty('725000', transferDutyScales['AU-WA']).duty, 28452.5);
+  assert.equal(transferDuty('725001', transferDutyScales['AU-WA']).duty, 28458.15);
+  assert.equal(transferDuty('103000', transferDutyScales['AU-NSW']).duty, 1662.5);
+  // NT: (0.06571441 x 525^2) + 15 x 525 = 25,987.53425625, then 4.95% of the whole value.
+  assert.equal(transferDuty('525000', transferDutyScales['AU-NT']).duty, 25987.53);
+  assert.equal(transferDuty('525001', transferDutyScales['AU-NT']).duty, 25987.55);
+  // Victoria rounds nothing before the cent: 2.4% of $25,001 - $25,000 is 2.4 cents.
+  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350.02);
+  assert.throws(() => transferDuty('0', transferDutyScales['AU-NSW']), { message: 'Enter a whole number between 1 and 1000000000.' });
+  const nsw = transferDutyScales['AU-NSW'];
+  for (const broken of [[], nsw.slice(1), nsw.slice(0, -1), [...nsw.slice(0, 2), ...nsw.slice(3)],
+    nsw.map((row, index) => (index ? row : [...row.slice(0, 4), 'per-cent']))]) {
+    assert.throws(() => transferDuty('1000', broken), { message: 'This jurisdiction’s rate table is not usable.' });
+  }
 });
 
 // The FBT car form passes the checked option's gross-up and the form's days and FBT rate; the
@@ -553,7 +644,8 @@ const formDefaults = (html) => {
   const fields = {};
   for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
     const name = tag.match(/\bname="([^"]+)"/)?.[1];
-    if (/\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
+    // A radio group opens on its checked button.
+    if (name && /\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
     if (name) fields[name] = /\btype="checkbox"/.test(tag) ? /\bchecked\b/.test(tag) : tag.match(/\bvalue="([^"]*)"/)?.[1];
   }
   for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
@@ -578,12 +670,21 @@ const FORM_CALLS = {
   variance: (f) => [f.actual, f.budget, f.kind],
   loan: (f) => [f.principal, f.rate, f.months, f.balloon, f.timing],
   div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],
+  // The radio's scale is bound to the rate table by its own test, so the call names the jurisdiction.
+  transferDuty: (f) => [f.value, f.jurisdiction],
   fbtCar: (f) => [{ method: f.method, cost: f.cost, accessories: f.accessories, reduced: f.reduced === 'yes', days: f.days,
     costs: f.costs, businessUse: f['business-use'], contribution: f.contribution }, fbtYear[f.type]],
+  pcgRisk: (f) => [{ gateway1: f.gateway1 === 'yes', gateway2: f.gateway2 === 'yes', entitlement: f.entitlement,
+    returned: f.returned, tax: f.tax, factor3: f.factor3 === 'yes', remuneration: f.remuneration, benchmark: f.benchmark }],
+  gicPaymentPlan: (f) => [{ debt: f.debt, start: f.start, count: f.count, frequency: f.frequency, assumedRate: f.assumedRate }],
   staffCost: (f) => [f.wages, f.super, f.other],
   cashForecast: (f) => [f.opening,
     Array.from({ length: 13 }, (_, i) => ({ receipts: f[`receipts-${i + 1}`], payments: f[`payments-${i + 1}`] })),
     f.buffer, { week: Number(f.week), amount: f.amount, delay: Number(f.delay) }],
+  objectionDeadline: (f) => [f.decision, f.group, f.notice, f.first],
+  paygInstalment: (f) => [{ method: f.method, notified: f.notified, instalment: f.instalment, estimatedTax: f['estimated-tax'],
+    earlier: f.earlier, credits: f.credits, income: f.income, rate: f.rate, estimatedIncome: f['estimated-income'],
+    earlierIncome: f['earlier-income'] }],
 };
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
@@ -598,5 +699,390 @@ for (const [page, { function: name, rows: [first] }] of Object.entries(shownCase
 test('blank, non-finite, over-precise and unsafe amounts cannot become a zero result', () => {
   for (const value of ['', ' ', 'NaN', 'Infinity', '1e10', '100.001', '-1', '1000000001', null]) {
     assert.throws(() => gst(value, false), String(value));
+  }
+});
+
+// Taxation Administration Act 1953 s 14ZW (Compilation No. 227, 1 October 2026) and Acts
+// Interpretation Act 1901 s 36 (Compilation No. 39, 28 March 2026), both read 15 November 2026:
+// https://www.legislation.gov.au/C1953A00001/latest/text and https://www.legislation.gov.au/C1901A00002/latest/text
+// s 36(2) example: 'If a person has until 31 March to make an application and 31 March is a
+// Saturday, the application may be made on Monday 2 April.' 31 March 2029 is a Saturday.
+test('objection deadline moves a weekend last day as the Acts Interpretation Act example does', () => {
+  const act = calculations.objectionDeadline('other', '2', '2029-01-30', '2029-01-30');
+  assert.deepEqual([act.periodEnds, act.lastDay], ['2029-03-31', '2029-04-02']);
+  // Worked by hand: notice on Wednesday 18 November 2026; the 2 years start on 19 November 2026
+  // and end on Saturday 18 November 2028, so subsection 36(2) allows Monday 20 November 2028.
+  assert.equal(calculations.objectionDeadline('assessment', '2', '2026-11-18', '2026-11-18').lastDay, '2028-11-20');
+});
+
+test('objection periods are 2 or 4 years, 60 days, or the later of an amendment’s 2 dates', () => {
+  const on = (decision, group, notice, first = notice) => calculations.objectionDeadline(decision, group, notice, first).periodEnds;
+  assert.equal(on('assessment', '2', '2027-06-15'), '2029-06-15');
+  assert.equal(on('assessment', '4', '2027-06-15'), '2031-06-15');
+  assert.equal(on('fbt', '2', '2027-06-15'), '2031-06-15');
+  assert.equal(on('other', '4', '2027-06-15'), '2027-08-14');
+  // 60 days after 31 December 2027 run through a 29-day February to 29 February 2028.
+  assert.equal(on('other', '2', '2027-12-31'), '2028-02-29');
+  // The later date wins either way round; a first notice on the amended notice's day is allowed.
+  assert.equal(on('amended', '4', '2027-06-15', '2024-01-10'), '2028-01-10');
+  assert.equal(on('amended', '2', '2027-06-15', '2024-01-10'), '2027-08-14');
+  assert.equal(on('amended-fbt', '2', '2027-06-15', '2027-06-15'), '2031-06-15');
+  assert.equal(on('amended-fbt', '2', '2027-06-15', '2024-01-10'), '2028-01-10');
+  assert.equal(on('amended-fbt', '2', '2027-06-15', '2023-01-10'), '2027-08-14');
+  assert.equal(calculations.objectionDeadline('amended-fbt', '2', '2027-06-15', '2027-06-15').rule, 'subsection 14ZW(1B)');
+});
+
+test('objection deadline refuses an unknown decision or item and an impossible date', () => {
+  assert.throws(() => calculations.objectionDeadline('ruling', '2', '2026-11-18', '2026-11-18'),
+    { message: 'Choose the decision objected to.' });
+  assert.throws(() => calculations.objectionDeadline('assessment', '3', '2026-11-18', '2026-11-18'),
+    { message: 'Choose whether item 1, 2, 3 or 3A applies.' });
+  for (const notice of ['2026-02-29', '2026-13-01', '18/11/2026', '', '1899-12-31', '9990-01-01']) {
+    assert.throws(() => calculations.objectionDeadline('other', '2', notice, notice),
+      { message: 'Enter a date from 1 January 1900 to 31 December 9989.' }, notice);
+  }
+  assert.equal(calculations.objectionDeadline('other', '2', '9989-12-31', '').periodEnds, '9990-03-01');
+});
+
+// The ATO's worked examples, read 15 November 2026:
+// https://www.ato.gov.au/forms-and-instructions/payg-instalments-how-to-complete-your-activity-statement
+//   (last updated 9 January 2023): Sophia, '$20,100 × 1.7% = $341.70', 'She enters 341 at both T11 and 5A';
+//   Bill, rate 10% then varied to 5%, $10,000 a quarter: '($10,000 x 5%) = instalment payment of $500', 5B $500.
+// https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/calculate-your-payg-instalments
+//   (last updated 9 March 2022): Julie Co, '$106,000 × 11% = $11,660'.
+// https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/how-to-vary-your-payg-instalments
+//   (last updated 23 June 2026): example 1, Cari, '$14,000 × 75% = $10,500', '$10,500 − ($5,000 + $5,000) = $500',
+//   '$14,000 − ($5,000 + $5,000 + $500) = $3,500'; example 2, Harmander, '($10,125 ÷ $82,480) × 100 = 12.27%'.
+const instalment = (fields) => calculations.paygInstalment({ method: 'rate', notified: '0', instalment: '1', estimatedTax: '0',
+  earlier: '0', credits: '0', income: '0', rate: '0', estimatedIncome: '0', earlierIncome: '0', ...fields });
+test('PAYG instalments agree with the ATO’s worked examples', () => {
+  const sophia = instalment({ income: '20100', rate: '1.7' });
+  assert.deepEqual([sophia.amount, sophia.instalment], [341.7, 341]);
+  assert.equal(instalment({ income: '106000', rate: '11' }).instalment, 11660);
+  assert.equal(instalment({ method: 'varied-amount', instalment: '3', estimatedTax: '14000', earlier: '10000' }).instalment, 500);
+  assert.equal(instalment({ method: 'varied-amount', instalment: '4', estimatedTax: '14000', earlier: '10500' }).instalment, 3500);
+  assert.equal(instalment({ method: 'varied-rate', estimatedTax: '10125', estimatedIncome: '82480', rate: '16.84' }).instalmentRate, 12.27);
+  const bill = instalment({ method: 'varied-rate', estimatedTax: '500', estimatedIncome: '10000', income: '10000', rate: '10',
+    earlier: '1000', earlierIncome: '10000' });
+  assert.deepEqual([bill.instalmentRate, bill.instalment, bill.credit], [5, 500, 500]);
+});
+
+test('PAYG instalments read only the fields of the chosen method', () => {
+  const unused = { notified: 'x', instalment: 'x', estimatedTax: 'x', earlier: 'x', credits: 'x', estimatedIncome: 'x', earlierIncome: 'x' };
+  assert.equal(instalment({ ...unused, income: '1000', rate: '10' }).instalment, 100);
+  assert.equal(instalment({ ...unused, method: 'amount', notified: '99.99' }).instalment, 99);
+  // A higher varied rate reads no earlier figures, as no credit can arise.
+  assert.equal(instalment({ ...unused, method: 'varied-rate', estimatedTax: '30', estimatedIncome: '100', income: '1000',
+    rate: '10' }).instalment, 300);
+});
+
+test('PAYG instalments refuse what the activity statement cannot hold', () => {
+  assert.throws(() => instalment({ method: 'annual' }), { message: 'Choose how this instalment is worked out.' });
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '1', earlier: '1' }),
+    { message: 'The first instalment of the year has no earlier instalments.' });
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '5' }), { message: 'Enter a whole number between 1 and 4.' });
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '2', earlier: '100', credits: '101' }),
+    { message: 'Credits claimed cannot exceed the earlier instalments.' });
+  assert.throws(() => instalment({ method: 'varied-rate', estimatedTax: '101', estimatedIncome: '100', rate: '10' }),
+    { message: 'Estimated tax cannot exceed estimated instalment income.' });
+  assert.throws(() => instalment({ income: '100', rate: '100.01' }), { message: 'Enter an amount between 0 and 100.' });
+  assert.throws(() => instalment({ income: '100', rate: '1.005' }), { message: 'Enter a number with no more than 2 decimal places.' });
+  // Nil estimated income varies the rate to nil, as the ATO allows.
+  assert.equal(instalment({ method: 'varied-rate', income: '100', rate: '10' }).instalmentRate, 0);
+});
+
+// Redundancy and ETP withholding. Schedule 11, 'Tax table for employment termination payments', in the
+// Taxation Administration (Withholding Schedules) Instrument 2026 (F2026L00716, in force, no later
+// replacement), read on legislation.gov.au 15 November 2026, and on the ATO's page (last updated
+// 17 June 2026), read 15 November 2026 at 12:13 AEDT:
+// https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
+// 'The ETP cap amount for the 2026–27 income year is $270,000'; 'The whole-of-income cap amount for the
+// 2026–27 income year is $180,000'; note 1: 'The tax-free base limit for the 2026–27 income year is $13,598
+// plus $6,801 for each completed year of service'; Table A: 32% under preservation age and 17% at or over
+// it up to the cap, 47% above it; preservation age 'by the end of the income year'.
+const SCHEDULE_11 = { yearEnd: '2027-06-30', etpCap: '270000', wholeOfIncomeCap: '180000', baseAmount: '13598',
+  serviceAmount: '6801', rateUnder: '32', rateReached: '17', rateAbove: '47' };
+const etpHtml = readFileSync(new URL('../_includes/calculators/termination-payment.html', import.meta.url), 'utf8');
+// The form's data attributes, as assets/accounting-pages.mjs passes them in form.dataset.
+const etpYear = Object.fromEntries([...etpHtml.match(/<form [^>]*>/)[0].matchAll(/ data-([a-z-]+)="([^"]*)"/g)]
+  .filter(([, name]) => name !== 'calculator')
+  .map(([, name, value]) => [name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()), value]));
+const noEtp = { redundancy: '0', years: '0', excluded: '0', nonExcluded: '0', other: '0', born: '1996-08-01' };
+const etp = (fields, year = etpYear) => calculations.terminationPayment({ ...noEtp, ...fields }, year);
+const longDate = (iso) => new Date(`${iso}T00:00:00Z`)
+  .toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+Object.assign(LABELS, { taxFreeLimit: 'tax-free limit', taxFree: 'tax-free part', excluded: 'code R taxable component',
+  excludedWithholding: 'withheld from code R', wholeOfIncomeCap: 'whole-of-income cap left', cap: 'code O cap',
+  nonExcludedWithholding: 'withheld from code O', withholding: 'total withheld' });
+Object.assign(INPUTS, { terminationPayment: (payment, year) => {
+  assert.deepEqual(year, SCHEDULE_11);
+  return `Redundancy payment ${dollars(payment.redundancy)} after ${payment.years} ${payment.years === '1' ? 'year' : 'years'}, `
+    + `other code R ${dollars(payment.excluded)}, code O ${dollars(payment.nonExcluded)}, other payments ${dollars(payment.other)}, `
+    + `born ${longDate(payment.born)}`;
+} });
+Object.assign(FORM_CALLS, { terminationPayment: (f) => [{ redundancy: f.redundancy, years: f.years, excluded: f.excluded,
+  nonExcluded: f['non-excluded'], other: f.other, born: f.born }, etpYear] });
+
+test('the ETP form carries Schedule 11’s caps, amounts and rates for 2026-27', () => {
+  assert.deepEqual(etpYear, SCHEDULE_11);
+});
+
+// Example 1 gives only the ETP, the part of a genuine redundancy payment over its limit, so it is
+// entered as a code R amount. Ages are those the examples give.
+test('ETP withholding agrees with Schedule 11’s 4 examples', () => {
+  // Example 1, Lloyd, 41: 'BigBiz withholds $14,400 from Lloyd’s ETP. This is 32% of ... $45,000.'
+  assert.equal(etp({ excluded: '45000', born: '1985-01-01' }).withholding, 14400);
+  // Example 2, Jane, 50, paid $84,000: whole-of-income cap '$96,000'; 'SmallBiz withholds $3,200'.
+  const jane = etp({ nonExcluded: '10000', other: '84000', born: '1976-01-01' });
+  assert.deepEqual([jane.wholeOfIncomeCap, jane.cap, jane.withholding], [96000, 96000, 3200]);
+  // Example 3, Chris, paid $50,000 of leave and $50,000 of wages: '$25,600 ($80,000 × 32%) plus
+  // $18,800 ($40,000 × 47%)', '$44,400'.
+  const chris = etp({ nonExcluded: '120000', other: '100000' });
+  assert.deepEqual([chris.cap, chris.withholding], [80000, 44400]);
+  // Example 4, Alec, 30, paid $140,000: '$48,000 less $47,603 due to the 5 years of service', 'withholds
+  // $127 (32% of $397)', then the gratuity's cap is the $40,000 whole-of-income cap, below 'the ETP cap of
+  // $269,603', and 'withholds ... $5,657 from the $17,678 gratuity part'.
+  const alec = etp({ redundancy: '48000', years: '5', nonExcluded: '17678', other: '140000' });
+  assert.deepEqual([alec.taxFreeLimit, alec.taxFree, alec.excluded, alec.excludedWithholding, alec.wholeOfIncomeCap,
+    alec.cap, alec.nonExcludedWithholding, alec.withholding, alec.reached, alec.rate],
+  [47603, 47603, 397, 127, 40000, 40000, 5657, 5784, false, 32]);
+});
+
+// Schedule 11's table: born before 1 July 1960, 55; each later year from 1 July, a year more; after
+// 30 June 1964, 60. Each row's first and last birthday reaches its age on that birthday, not the day before.
+test('preservation age follows Schedule 11’s table and counts if reached by the year’s last day', () => {
+  for (const [born, age] of [['1950-01-01', 55], ['1960-06-30', 55], ['1960-07-01', 56], ['1961-06-30', 56],
+    ['1961-07-01', 57], ['1962-07-01', 58], ['1963-07-01', 59], ['1964-06-30', 59], ['1964-07-01', 60], ['1996-08-01', 60]]) {
+    const birthday = `${Number(born.slice(0, 4)) + age}${born.slice(4)}`;
+    const dayBefore = new Date(Date.parse(`${birthday}T00:00:00Z`) - 86400000).toISOString().slice(0, 10);
+    assert.equal(etp({ born }, { ...etpYear, yearEnd: birthday }).reached, true, born);
+    assert.equal(etp({ born }, { ...etpYear, yearEnd: dayBefore }).reached, false, born);
+  }
+  assert.deepEqual([etp({ born: '1967-06-30' }).rate, etp({ born: '1967-07-01' }).rate], [17, 32]);
+});
+
+// Worked by hand: each part rounds on its own, so $1.57 of each at 32% ($0.5024) withholds $1 twice,
+// where their $3.14 together would withhold $1; 17% of $26.47 is $4.4999, so $4.
+test('ETP withholding rounds each part to the nearest dollar, 50 cents up', () => {
+  assert.deepEqual([etp({ excluded: '1.57', nonExcluded: '1.57' }).withholding, etp({ nonExcluded: '3.14' }).withholding], [2, 1]);
+  assert.equal(etp({ nonExcluded: '26.47', born: '1960-06-30' }).withholding, 4);
+  // Over the cap: $10,000 of other payments leave a $170,000 cap; $200,000 is $54,400 + $14,100.
+  assert.equal(etp({ nonExcluded: '200000', other: '10000' }).withholding, 54400 + 14100);
+  // Other payments over $180,000 leave no whole-of-income cap, so all of code O is at 47%.
+  const over = etp({ nonExcluded: '1000', other: '200000' });
+  assert.deepEqual([over.wholeOfIncomeCap, over.cap, over.withholding], [0, 0, 470]);
+});
+
+test('ETP withholding refuses an impossible date of birth and years of service outside 0 to 150', () => {
+  for (const born of ['', '1996-02-30', '1899-12-31', '2027-07-01', '1 August 1996']) {
+    assert.throws(() => etp({ born }), { message: 'Enter a valid date of birth from 1900 to the end of the income year.' }, born);
+  }
+  assert.equal(etp({ born: '2027-06-30' }).reached, false);
+  for (const years of ['-1', '151', '2.5']) {
+    assert.throws(() => etp({ years }), { message: 'Enter a whole number between 0 and 150.' }, years);
+  }
+  assert.equal(etp({ redundancy: '1000000', years: '150' }).taxFreeLimit, 13598 + 150 * 6801);
+});
+
+// PCG 2021/4, read 15 November 2026 (updated guideline of 19 June 2024):
+// https://www.ato.gov.au/law/view/document?docid=COG/PCG20214/NAT/ATO/00001
+// Each case study in the appendix: entitlement, amount the IPP returns, the tax of every recipient
+// on the firm income as its effective tax rate formula adds them, the guideline's 2 percentages,
+// its scores and its zone. Case study 2's 54.5% is rounded to one place there.
+const PCG_CASE_STUDIES = [
+  ['1 Nicolas', '600000', '330000', [119167, 70200], [55, 31.56], [4, 3], 7, 'green'],
+  ['2 Donald', '880000', '480000', [186667, 83200, 16467], [54.5, 32.54], [4, 3], 7, 'green'],
+  ['3 Hilary', '250000', '162500', [45192, 22750], [65, 27.18], [3, 4], 7, 'green'],
+  ['4 Bernie', '500000', '325000', [116916, 49817], [65, 33.35], [3, 3], 6, 'green'],
+  ['5 Frank', '500000', '300000', [105666, 52000], [60, 31.53], [4, 3], 7, 'green'],
+  ['8 Maria', '600000', '360000', [132667, 51667, 15600], [60, 33.32], [4, 3], 7, 'green'],
+  ['9 David', '600000', '300000', [105667, 78000], [50, 30.61], [4, 3], 7, 'green'],
+  ['10 Astrid', '400000', '200000', [60667, 40567, 13000], [50, 28.56], [4, 4], 8, 'amber'],
+  ['11 Yan', '400000', '300000', [105667, 26000], [75, 32.92], [3, 3], 6, 'green'],
+  ['12 Benjamin', '600000', '300000', [105667, 52000, 22967], [50, 30.11], [4, 3], 7, 'green'],
+];
+const pcgArrangement = (fields) => ({ gateway1: true, gateway2: true, entitlement: '1000', returned: '0', tax: '0',
+  factor3: false, remuneration: '0', benchmark: '0', ...fields });
+for (const [name, entitlement, returned, taxes, [share, rate], [factor1, factor2], total, zone] of PCG_CASE_STUDIES) {
+  test(`PCG 2021/4 scores case study ${name} as the guideline does`, () => {
+    const tax = String(taxes.reduce((sum, amount) => sum + amount, 0));
+    const result = calculations.pcgRisk(pcgArrangement({ entitlement, returned, tax }));
+    assert.equal(Math.trunc(result.returned * 10) / 10, share);
+    assert.deepEqual([result.taxRate, result.factor1, result.factor2, result.total, result.zone],
+      [rate, factor1, factor2, total, zone]);
+    assert.equal(result.factor3, null);
+  });
+}
+
+// Case study 7: '($360,000 ÷ $350,000) × 100 = 103%', a factor 3 score of 3, aggregate 10, green on all 3.
+// Case study 6: Felix returns all of his $65,000, so he is green with no other factor (paragraphs 81, 154).
+test('PCG 2021/4 scores case studies 7 and 6, which use factor 3 and the whole entitlement', () => {
+  assert.deepEqual(calculations.pcgRisk(pcgArrangement({ entitlement: '600000', returned: '360000',
+    tax: String(132667 + 51667 + 15600), factor3: true, remuneration: '360000', benchmark: '350000' })),
+  { returned: 60, factor1: 4, taxRate: 33.32, factor2: 3, benchmarkShare: 102.86, factor3: 3, total: 10, zone: 'green' });
+  assert.deepEqual(calculations.pcgRisk(pcgArrangement({ entitlement: '65000', returned: '65000', tax: '11592' })),
+    { returned: 100, factor1: 1, taxRate: null, factor2: null, benchmarkShare: null, factor3: null, total: null, zone: 'green' });
+});
+
+// Table 1 at paragraph 76, band by band: each boundary percentage of $100, one cent above it and,
+// where the band includes its boundary, one cent below. Written from the table, not the engine.
+const PCG_BOUNDARIES = {
+  factor1: [['90.01', 1], ['90', 2], ['75.01', 2], ['75', 3], ['60.01', 3], ['60', 4], ['50', 4], ['49.99', 5],
+    ['25.01', 5], ['25', 6], ['0', 6]],
+  factor2: [['40.01', 1], ['40', 2], ['35.01', 2], ['35', 3], ['30', 3], ['29.99', 4], ['25.01', 4], ['25', 5],
+    ['20.01', 5], ['20', 6], ['0', 6]],
+  factor3: [['200.01', 1], ['200', 2], ['150.01', 2], ['150', 3], ['100.01', 3], ['100', 4], ['90.01', 4],
+    ['90', 5], ['70.01', 5], ['70', 6], ['0', 6]],
+};
+for (const [factor, cases] of Object.entries(PCG_BOUNDARIES)) {
+  test(`PCG 2021/4 ${factor} changes score at each boundary in Table 1`, () => {
+    for (const [percent, score] of cases) {
+      const fields = { factor1: { returned: percent, tax: '30' }, factor2: { returned: '55', tax: percent },
+        factor3: { returned: '55', tax: '30', factor3: true, remuneration: percent, benchmark: '100' } }[factor];
+      assert.equal(calculations.pcgRisk(pcgArrangement({ entitlement: '100', ...fields }))[factor], score, percent);
+    }
+  });
+}
+
+// Table 2 at paragraph 78: every aggregate either side of each zone boundary.
+test('PCG 2021/4 zones follow Table 2 for 2 factors and for all 3', () => {
+  for (const [fields, total, zone] of [
+    [{ returned: '55', tax: '31' }, 7, 'green'], [{ returned: '55', tax: '28' }, 8, 'amber'],
+    [{ returned: '40', tax: '28' }, 9, 'red'], [{ returned: '10', tax: '0' }, 12, 'red'],
+    [{ returned: '55', tax: '31', factor3: true, remuneration: '120' }, 10, 'green'],
+    [{ returned: '55', tax: '31', factor3: true, remuneration: '95' }, 11, 'amber'],
+    [{ returned: '55', tax: '31', factor3: true, remuneration: '80' }, 12, 'amber'],
+    [{ returned: '55', tax: '31', factor3: true, remuneration: '50' }, 13, 'red'],
+    [{ returned: '95', tax: '45', factor3: true, remuneration: '250' }, 3, 'green'],
+  ]) {
+    const result = calculations.pcgRisk(pcgArrangement({ entitlement: '100', benchmark: '100', ...fields }));
+    assert.deepEqual([result.total, result.zone], [total, zone], JSON.stringify(fields));
+  }
+});
+
+test('PCG 2021/4 refuses a failed gateway and figures it cannot score', () => {
+  for (const [fields, message] of [
+    [{ gateway1: false }, 'The arrangement fails Gateway 1, so PCG 2021/4 gives it no risk score.'],
+    [{ gateway1: false, gateway2: false }, 'The arrangement fails Gateway 1, so PCG 2021/4 gives it no risk score.'],
+    [{ gateway2: false }, 'The arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score.'],
+    [{ gateway1: 'yes' }, 'The arrangement fails Gateway 1, so PCG 2021/4 gives it no risk score.'],
+    [{ entitlement: '0' }, 'Enter a profit entitlement above nil.'],
+    [{ returned: '1000.01' }, 'The amount returned cannot exceed the profit entitlement.'],
+    [{ tax: '1000.01' }, 'The tax cannot exceed the firm income.'],
+    [{ factor3: true, remuneration: '10' }, 'Enter a commercial benchmark above nil.'],
+    [{ tax: '-1' }, 'Enter an amount between 0 and 1000000000.'],
+    [{ factor3: 'false' }, 'Factor 3 must be true or false.'],
+    [{ factor3: undefined }, 'Factor 3 must be true or false.'],
+  ]) {
+    assert.throws(() => calculations.pcgRisk(pcgArrangement(fields)), { message }, JSON.stringify(fields));
+  }
+});
+
+// General interest charge, Taxation Administration Act 1953 ss 8AAC and 8AAD (Compilation No. 227,
+// 1 October 2026), read 15 November 2026: https://www.legislation.gov.au/C1953A00001/latest/text
+// A day's rate is the annual rate divided by the days in the calendar year, applied to the debt and
+// the GIC still unpaid at the end of the day.
+//
+// $1,000 by 3 monthly instalments from 1 October 2026, worked by hand at 11.51% (October to December
+// 2026, 365 days): one day's growth g = 1 + 0.1151 / 365 = 1.000315342466. The instalments fall on
+// 1 October, 1 November (31 days later) and 1 December (30 days later), so an equal instalment P
+// clears the debt when 1000 x g^61 = P x (g^61 + g^30 + 1), and P = 1000 x 1.019414 / 3.028907 =
+// 336.5616: $336.56, rounded down to the cent.
+//   1 October:  1000.00 - 336.56 = 663.44, which grows by g^31 = 1.009822 to 669.9563 on 1 November.
+//   1 November: 669.9563 - 336.56 = 333.3963, which grows by g^30 = 1.009504 to 336.5648 on 1 December.
+//   1 December: the final instalment pays 336.5648, which is $336.56.
+// Total paid 336.56 + 336.56 + 336.56 = $1,009.68, so the plan costs $9.68 of GIC over paying now.
+test('GIC on 3 monthly instalments matches the hand-worked example', () => {
+  const g = 1 + 0.1151 / 365;
+  const exact = 1000 * g ** 61 / (g ** 61 + g ** 30 + 1);
+  assert.equal(Math.floor(exact * 100) / 100, 336.56);
+  const second = (1000 - 336.56) * g ** 31 - 336.56;
+  assert.equal(Math.round(second * g ** 30 * 100) / 100, 336.56);
+  assert.deepEqual(calculations.gicPaymentPlan({ debt: '1000', start: '2026-10-01', count: '3', frequency: 'monthly',
+    assumedRate: '11.51' }), { instalment: 336.56, final: 336.56, totalPaid: 1009.68, gic: 9.68, lastDate: '2026-12-01',
+    assumedDays: 0 });
+});
+
+// The rate table CSV is the ATO's list, read 15 November 2026 from
+// https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates (last updated 4 September 2026).
+const GIC_SOURCE = 'https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates';
+const gicCsv = readFileSync(new URL('../rates/general-interest-charge/general-interest-charge-rates.csv', import.meta.url), 'utf8')
+  .trim().split(/\r?\n/);
+const gicRows = gicCsv.slice(1).map((line) => Object.fromEntries(line.split(',').map((cell, i) => [gicCsv[0].split(',')[i], cell])));
+test('GIC rate CSV: contiguous quarters from July 1999, each daily rate from its annual rate, each with its source', () => {
+  assert.equal(gicCsv[0], 'quarter_start,quarter_end,annual_rate_percent,daily_rate_percent,source_url,checked_at');
+  const oldest = [...gicRows].reverse();
+  assert.equal(oldest[0].quarter_start, '1999-07-01');
+  oldest.forEach((row, i) => {
+    const start = new Date(`${row.quarter_start}T00:00:00Z`);
+    assert.equal(start.getUTCDate(), 1, row.quarter_start);
+    assert.equal(start.getUTCMonth() % 3, 0, row.quarter_start);
+    const end = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 3, 0)).toISOString().slice(0, 10);
+    assert.equal(row.quarter_end, end, row.quarter_start);
+    if (i > 0) assert.equal(Date.parse(row.quarter_start) - Date.parse(oldest[i - 1].quarter_end), 86400000);
+    // The ATO's daily rate is the annual rate over the days in the calendar year to 8 places; in 13
+    // quarters its last place is 1 away from the nearest rounding, never more.
+    const year = start.getUTCFullYear();
+    const days = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 366 : 365;
+    assert.match(row.annual_rate_percent, /^\d{1,2}\.\d{2}$/);
+    assert.match(row.daily_rate_percent, /^0\.\d{8}$/);
+    const [annual, daily] = [Math.round(Number(row.annual_rate_percent) * 100), Number(row.daily_rate_percent.slice(2))];
+    assert.ok(Math.abs(daily * days - annual * 1000000) < 1.5 * days, row.quarter_start);
+    assert.equal(row.source_url, GIC_SOURCE);
+    assert.equal(row.checked_at, '2026-11-15');
+  });
+  // The rate page says 13 quarters differ from the nearest rounding.
+  assert.equal(gicRows.filter((row) => {
+    const year = Number(row.quarter_start.slice(0, 4));
+    const days = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 366 : 365;
+    return Number(row.daily_rate_percent.slice(2)) !== Math.round(Math.round(Number(row.annual_rate_percent) * 100) * 1000000 / days);
+  }).length, 13);
+  // The latest 2 quarters, as the ATO page states them.
+  assert.deepEqual(gicRows.slice(0, 2).map((row) => [row.quarter_start, row.annual_rate_percent, row.daily_rate_percent]),
+    [['2026-10-01', '11.51', '0.03153425'], ['2026-07-01', '11.43', '0.03131507']]);
+});
+
+test('the GIC engine uses the CSV rates, and the pages name the month its table ends', () => {
+  assert.deepEqual(calculations.GIC_QUARTERS, [...gicRows].reverse().map((row) => [row.quarter_start, row.annual_rate_percent]));
+  const end = new Date(`${gicRows[0].quarter_end}T00:00:00Z`).toLocaleDateString('en-AU', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const html = readFileSync(new URL('../_includes/calculators/gic-payment-plan.html', import.meta.url), 'utf8');
+  const script = readFileSync(new URL('../assets/accounting-pages.mjs', import.meta.url), 'utf8');
+  const named = [...html.matchAll(/after (\w+ \d{4})/g), ...script.matchAll(/after (\w+ \d{4})/g)].map((m) => m[1]);
+  assert.equal(named.length, 6);
+  assert.ok(named.every((month) => month === end), named.join(', '));
+  assert.match(html, new RegExp(`up to ${new Date(`${gicRows[0].quarter_end}T00:00:00Z`).toLocaleDateString('en-AU',
+    { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })} comes from`));
+});
+
+// The rate page's example: $10,000 unpaid for the 92 days of October to December 2026 at 11.51%.
+test('the GIC rate page example compounds 92 days of the October to December 2026 rate', () => {
+  const grown = (1000000n * 3651151n ** 92n * 2n + 3650000n ** 92n) / (2n * 3650000n ** 92n);
+  assert.equal(grown, 1029432n);
+  const page = readFileSync(new URL('../rates/general-interest-charge/index.html', import.meta.url), 'utf8');
+  assert.match(page, /grows\s+to \$10,294\.32: \$294\.32 of GIC/);
+});
+
+test('GIC instalments fall on the same day each month, or the last day of a shorter month', () => {
+  const plan = (start, count, frequency) => calculations.gicPaymentPlan({ debt: '100', start, count, frequency, assumedRate: '11.51' });
+  assert.equal(plan('2026-01-31', '2', 'monthly').lastDate, '2026-02-28');
+  assert.equal(plan('2026-01-31', '3', 'monthly').lastDate, '2026-03-31');
+  assert.equal(plan('2026-08-31', '5', 'monthly').lastDate, '2026-12-31');
+  assert.equal(plan('2026-12-31', '2', 'fortnightly').lastDate, '2027-01-14');
+  assert.equal(plan('2026-12-31', '2', 'fortnightly').assumedDays, 13);
+});
+
+test('GIC payment plan refuses inputs it cannot work', () => {
+  const plan = { debt: '1000', start: '2026-10-01', count: '3', frequency: 'monthly', assumedRate: '11.51' };
+  for (const [fields, message] of [
+    [{ start: '2026-02-30' }, 'Enter a start date from 1999-07-01 to 2099-12-31.'],
+    [{ start: '2100-01-01' }, 'Enter a start date from 1999-07-01 to 2099-12-31.'],
+    [{ start: '1 October 2026' }, 'Enter a start date from 1999-07-01 to 2099-12-31.'],
+    [{ count: '2.5' }, 'Enter a whole number between 1 and 120.'],
+    [{ count: '0' }, 'Enter a whole number between 1 and 120.'],
+    [{ frequency: 'quarterly' }, 'Choose weekly, fortnightly or monthly.'],
+    [{ assumedRate: '0' }, 'Enter an amount between 0.01 and 100.'],
+    [{ debt: '-1' }, 'Enter an amount between 0 and 1000000000.'],
+  ]) {
+    assert.throws(() => calculations.gicPaymentPlan({ ...plan, ...fields }), { message }, JSON.stringify(fields));
   }
 });

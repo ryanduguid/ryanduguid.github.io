@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 Practical steps, records and official guidance on companies and trusts.
 
-10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
+10 of 10 answers checked between 27 September 2026 and 16 November 2026. Other guidance reviewed 11 September 2026. Page updated 16 November 2026.
 
 Search or build a checklist
 
@@ -164,7 +164,7 @@ Link to question 88
 
 ### What information do I need to prepare an ATO payment plan proposal?
 
-A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and income tax and activity statement debts need separate plans. Prepare a proposal that shows how the debt and ongoing obligations could be paid.
+A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and each account with an overdue debt, such as income tax and activity statement accounts, must be paid in full or have its own plan. Prepare a proposal that shows how the debt and ongoing obligations could be paid.
 
 - Reconcile the ATO debt, outstanding lodgements and available cash, and prepare a realistic payment forecast.
 - Use the ATO support route to discuss terms and retain any accepted arrangement.
@@ -173,7 +173,7 @@ A forecast does not establish acceptance, interest relief or removal of other ob
 
 Paying the ATO · Payment plans · 13-week cash forecast
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 16 November 2026.
 
 Link to question 89
 

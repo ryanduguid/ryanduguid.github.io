@@ -478,6 +478,28 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
   await expect(form.locator('.field-error')).toHaveText('Enter 25 or less.');
 });
 
+test('ETP withholding takes the date of birth and works both caps offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/termination-payment/');
+  const form = page.locator('#termination-payment form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Genuine redundancy or early retirement scheme payment, before its tax-free part (AUD)').fill('0');
+  await form.getByLabel('Completed years of service').fill('0');
+  await form.locator('[name="non-excluded"]').fill('120000');
+  await form.getByLabel('Other taxable payments you made to the employee in 2026-27, excluding the ETP (AUD)').fill('100000');
+  await form.getByLabel('Employee’s date of birth').fill('1960-03-15');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: genuine redundancy or early retirement scheme payment $0.00 after 0 completed years of service, other code R taxable component $0.00, '
+    + 'code O taxable component $120,000.00, other taxable payments in 2026-27 $100,000.00, born 15 Mar 1960. Tax-free limit: $13,598.00. '
+    + 'Tax-free part of the redundancy payment: $0.00. Code R taxable component: $0.00. Withhold from the code R part: $0.00. '
+    + 'Whole-of-income cap left: $80,000.00. Cap for the code O part: $80,000.00. Withhold from the code O part: $32,400.00. '
+    + 'Total to withhold: $32,400.00. Preservation age or older on 30 June 2027: 17% within each cap and 47% above it.');
+  await form.getByLabel('Completed years of service').fill('151');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('.field-error')).toHaveText('Enter 150 or less.');
+});
+
 test('FBT car works the operating cost method at the Type 2 gross-up offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/fbt-car/');
   const form = page.locator('#fbt-car form');
@@ -517,8 +539,81 @@ test('fixed fee takes its rounding step from a radio and shows one payment for o
     + 'Fee before GST: $218.19. GST: $0.00. Fee including GST: $218.19. Paid at once: $218.19. Effective hourly rate before GST: $218.19.');
 });
 
+test('PCG 2021/4 refuses a failed gateway and scores case study 7 on all 3 factors offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/pcg-2021-4/');
+  const form = page.locator('#pcg-2021-4 form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  const gateway2 = form.getByRole('group', { name: 'Gateway 2: is the arrangement free of high-risk features, as paragraphs 47 to 63 describe?' });
+  await gateway2.getByLabel('No').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('The arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score.');
+  await gateway2.getByLabel('Yes').check();
+  await form.getByLabel('Amount the IPP returns in their own tax return (AUD)').fill('360000');
+  await form.getByLabel('Tax paid by the IPP and associated entities on that firm income (AUD)').fill('199934');
+  await form.getByLabel('All 3 factors', { exact: true }).check();
+  await form.getByLabel('Remuneration the IPP returns, all 3 factors only (AUD)').fill('360000');
+  await form.getByLabel('Commercial benchmark for the IPP’s services, all 3 factors only (AUD)').fill('350000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: gateways 1 and 2 passed, profit entitlement $600,000.00, returned by the IPP $360,000.00, tax on that firm income $199,934.00, '
+    + 'remuneration $360,000.00 against a commercial benchmark of $350,000.00, all 3 factors. '
+    + 'Factor 1: profit entitlement returned by the IPP: 60.00%, score 4. Factor 2: total effective tax rate: 33.32%, score 3. '
+    + 'Factor 3: remuneration as a share of the benchmark: 102.86%, score 3. Aggregate score: 10. Risk zone: Green: low risk.');
+});
+
+test('GIC payment plan works a weekly plan and one past the published rates offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/gic-payment-plan/');
+  const form = page.locator('#gic-payment-plan form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Tax debt on the plan’s first day (AUD)').fill('1000000');
+  await form.getByLabel('Date of the first instalment').fill('2026-09-30');
+  await form.getByLabel('Number of equal instalments').fill('2');
+  await form.getByLabel('Weekly').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: debt $1,000,000.00, first instalment 30 Sept 2026, 2 weekly instalments, 11.51% a year assumed after December 2026. '
+    + 'Paid in full now: $1,000,000.00. Each instalment but the last: $500,551.21. Final instalment, 7 Oct 2026: $500,551.22. '
+    + 'Total paid on the plan: $1,001,102.43. GIC on the plan, over paying now: $1,102.43.');
+  await form.getByLabel('Tax debt on the plan’s first day (AUD)').fill('20000');
+  await form.getByLabel('Date of the first instalment').fill('2026-11-15');
+  await form.getByLabel('Number of equal instalments').fill('12');
+  await form.getByLabel('Monthly, on the same day of the month').check();
+  await form.getByLabel('Annual GIC rate to assume after December 2026 (%)').fill('9');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('GIC on the plan, over paying now: $891.43.');
+  await expect(form.locator('output .result-note')).toHaveText('287 days after December 2026 use the assumed rate.');
+  await form.getByLabel('Number of equal instalments').fill('121');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('.field-error')).toHaveText('Enter 120 or less.');
+});
+
+test('transfer duty notes NSW premium duty from the first dollar over $3,870,000 only', async ({ page }) => {
+  await page.goto('/tools/business-calculators/transfer-duty/');
+  const form = page.locator('#transfer-duty form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  const duty = async (value) => {
+    await form.getByLabel('Dutiable value (whole dollars)').fill(value);
+    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    return form.locator('output');
+  };
+  let output = await duty('3870000');
+  await expect(output.locator('.result-row strong').first()).toHaveText('$194,137.00');
+  await expect(output.locator('.result-note')).toHaveCount(0);
+  output = await duty('3870001');
+  await expect(output.locator('.result-row strong').first()).toHaveText('$194,144.00');
+  await expect(output.locator('.result-note')).toHaveText(
+    'Premium duty applies to residential land only; other land continues at $5.50 for every $100 over $1,290,000.');
+  await form.getByLabel('Victoria').check();
+  output = await duty('4000000');
+  await expect(output.locator('.result-note')).toHaveCount(0);
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
-const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a', 'fbt-car', 'staff', 'cash'];
+const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
+  'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
+  'transfer-duty'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -554,7 +649,9 @@ for (const id of CALCULATORS) {
     expect(calculated.replace(/^Inputs: week 1 from [^,]+, /, 'Inputs: ')).toBe(example);
     await page.reload();
     await expect(form.locator('fieldset').first()).toBeEnabled();
-    await form.locator('input[type=number]').first().fill('1');
+    // The objection deadline form has dates and choices only.
+    const edit = form.locator('input[type=number], input[type=date]').first();
+    await edit.fill(await edit.getAttribute('type') === 'date' ? '2027-01-01' : '1');
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
@@ -605,3 +702,53 @@ for (const route of ['/tools/accounting-questions/', '/tools/accounting-question
     }
   });
 }
+
+test('objection deadline takes the later of an amended assessment’s 2 dates offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/objection-deadline/');
+  const form = page.locator('#objection-deadline form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Amended income tax assessment', { exact: true }).check();
+  await form.getByLabel('No: 4 years').check();
+  await form.getByLabel('Day notice of the decision was given or served').fill('2028-10-02');
+  await form.getByLabel('Amended assessments only: day notice of the first assessment for the year was given or served').fill('2024-10-23');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: amended income tax assessment, no item 1, 2, 3 or 3A (4 years), notice given 2 October 2028, '
+    + 'first assessment’s notice given 23 October 2024. 60 days after the amended notice: Friday 1 December 2028. '
+    + '4 years after the first notice: Monday 23 October 2028. Period ends, subsection 14ZW(1B): Friday 1 December 2028. '
+    + 'Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901: Friday 1 December 2028. '
+    + 'If that day is a public holiday where the objection is lodged, or the office is closed all day, it may be lodged on the next day '
+    + 'that is not a Saturday, Sunday or holiday. After the last day, an objection needs a written request under '
+    + 'subsection 14ZW(2), which the Commissioner decides under section 14ZX.');
+  await form.getByLabel('Day notice of the decision was given or served').fill('2028-09-01');
+  await form.getByLabel('Amended assessments only: day notice of the first assessment for the year was given or served').fill('2028-09-02');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('The first assessment’s notice cannot be later than the amended one.');
+});
+
+test('a varied PAYG instalment rate gives the instalment and its credit offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/payg-instalments/');
+  const form = page.locator('#payg-instalments form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Option 2, varied: a rate from your estimates for the year').check();
+  await form.getByLabel('Varying only: estimated tax on instalment income for the year, T8 (AUD)').fill('10125');
+  await form.getByLabel('Varied rate only: estimated instalment income for the year (AUD)').fill('82480');
+  await form.getByLabel('Option 2: instalment income for the quarter at T1 (AUD)').fill('20620');
+  await form.getByLabel('Option 2: instalment rate at T2 (%)').fill('16.84');
+  await form.getByLabel('Varying only: earlier instalments this income year, as at 5A (AUD)').fill('6944');
+  await form.getByLabel('Varied rate only: instalment income of the earlier quarters (AUD)').fill('41240');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  // The ATO's example 2 rate; the instalment and credit are worked by hand: $20,620 × 12.27% = $2,530.07,
+  // and $6,944 − $41,240 × 12.27% ($5,060.15) = $1,883.85.
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: varied instalment rate (option 2), estimated tax $10,125.00 on estimated instalment income $82,480.00 for the year, '
+    + 'instalment income $20,620.00 at T1, instalment rate 16.84% at T2, earlier instalments $6,944.00 less credits claimed $0.00, '
+    + 'on earlier instalment income $41,240.00. Varied rate at T3: 12.27%. T1 × T3: $2,530.07. '
+    + 'Instalment at T11 and 5A, whole dollars: $2,530.00. Credit to claim at 5B, whole dollars: $1,883.00. '
+    + 'A credit applies only when the varied rate is lower than the rate at T2.');
+  await form.getByLabel('Varying only: estimated tax on instalment income for the year, T8 (AUD)').fill('82480.01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('Estimated tax cannot exceed estimated instalment income.');
+});
