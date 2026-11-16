@@ -420,29 +420,41 @@ Land tax inputs
 
 State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory
 
-Total taxable land value (whole dollars)
+Total taxable land value (whole dollars) Rates General rates Trust rates (in Queensland, companies and trustees) Foreign person or absentee owner? No Yes Surcharge value, New South Wales and Tasmania only (whole dollars) All the land is in the Perth metropolitan region (Western Australia)
 
 Enter the value the revenue office taxes, after exempt land is left out: in New South Wales the 3-year average of the land values, in Victoria and South Australia the total site value, in the Australian Capital Territory one parcel’s average unimproved value, and elsewhere the total land value of all the owner’s taxable land. The Northern Territory has no land tax.
+
+Trust rates are a special trust’s in New South Wales, the trust surcharge rates in Victoria, those for companies and trustees in Queensland and those for land held on trust in South Australia. The calculator has none for Western Australia, Tasmania or the Australian Capital Territory.
+
+The surcharge value is the land value the New South Wales or Tasmanian surcharge applies to, as set out below the calculator; elsewhere a surcharge applies to the taxable land value. The calculator has no foreign or absentee rates for Western Australia or South Australia.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, total taxable land value $1,100,000.00. Land tax for the year $500.00 Rate applied $100 plus 1.6% of the value over $1,075,000
 
 ## How the land tax calculator works
 
-The land tax calculator applies one state or territory’s general land tax scale to a total taxable land value and gives the tax for a full year. Below a jurisdiction’s threshold the tax is nil; the Australian Capital Territory has no threshold. Above it, each scale charges a base amount plus a percentage of the value over a band’s threshold, except that Victoria charges a flat $500 from $50,000 and $975 from $100,000 up to $300,000. South Australia charges for every $100, or part of $100, so the excess is rounded up to the next $100. The Australian Capital Territory adds its fixed charge of $1,778 to the valuation charge and assesses each quarter’s share by its days; the calculator gives the full-year amount.
+The land tax calculator applies one state or territory’s general or trust land tax scale to a total taxable land value and gives the tax for a full year. Below a jurisdiction’s threshold the tax is nil; the Australian Capital Territory has no threshold, and nor does a special trust in New South Wales. Above it, each scale charges a base amount plus a percentage of the value over a band’s threshold, except that Victoria charges a flat $500 from $50,000 and $975 from $100,000 up to $300,000. South Australia charges for every $100, or part of $100, so the excess is rounded up to the next $100. The Australian Capital Territory adds its fixed charge of $1,778 to the valuation charge and assesses each quarter’s share by its days; the calculator gives the full-year amount.
 
-Where a revenue office publishes worked figures, the calculator gives the same amount. Revenue NSW gives $500 on an average land value of $1,100,000. The Victorian State Revenue Office gives $5,550 on $1,100,000. The Queensland Revenue Office gives $1,300 on $680,000 and $87,000 on $6,400,000 for an individual. RevenueSA’s 2026-27 guide gives $2,670 on $1,470,000. For Western Australia, Tasmania and the Australian Capital Territory the tests work examples by hand from the published rates: $6,250 on $1,500,000 in Western Australia, $3,237.50 on $600,000 in Tasmania and $7,418 on an average unimproved value of $600,000 in the Australian Capital Territory.
+Where a revenue office publishes worked figures, the calculator gives the same amount. Revenue NSW gives $500 on an average land value of $1,100,000, $9,600 for a special trust on $600,000, and $2,100 of land tax and $60,000 of surcharge land tax for a foreign owner of $1,200,000 of residential land. The Victorian State Revenue Office gives $5,550 on $1,100,000, and its table with the absentee owner surcharge gives $44,650 on $1,000,000 at the general rates. The Queensland Revenue Office gives $1,300 on $680,000 and $87,000 on $6,400,000 for an individual, $106,500 on $6,400,000 for a company, $8,420 on $760,000 for the trustee of a self-managed super fund, and $3,800 on $400,000 for an absentee and for a foreign company, each with $1,500 of surcharge. RevenueSA’s 2026-27 guide gives $2,670 on $1,470,000. Tasmania’s foreign investor land tax surcharge guideline gives $8,000 of surcharge on an assessed land value of $400,000. For the rest the tests work examples by hand from the published rates: $6,250 on $1,500,000 in Western Australia with $1,680 of metropolitan region improvement tax, $2,500 at South Australia’s trust rates on $500,000, $3,237.50 on $600,000 in Tasmania and $7,418 on an average unimproved value of $600,000 in the Australian Capital Territory, with $4,500 of foreign ownership surcharge.
+
+## Trust rates, surcharges and the metropolitan region improvement tax
+
+Trust rates are a special trust’s rates in New South Wales, with no threshold; the trust surcharge rates in Victoria; the rates for companies and trustees, including super funds, in Queensland; and the trust rates in South Australia. Western Australia taxes a trustee’s land as if it were the trustee’s own, at the general rates.
+
+A foreign or absentee owner pays: in New South Wales surcharge land tax of 5% of the land value of the residential land a foreign person owns, their share only and including land exempt from land tax, entered as the surcharge value; in Victoria the absentee owner surcharge of 4% of the total taxable value, from $50,000 at the general rates and from $25,000 at the trust rates; in Queensland the absentee rates for an absentee individual, and for an absentee, a foreign company or the trustee of a foreign trust a surcharge of 3% of the value over $350,000; in Tasmania the foreign investor land tax surcharge of 2% of the assessed land value of the foreign-owned share of residential General Land acquired on or after 1 July 2022, entered as the surcharge value; and in the Australian Capital Territory the foreign ownership surcharge of 0.75% of the parcel’s average unimproved value.
+
+Western Australia charges its metropolitan region improvement tax of 0.14% of the value over $300,000 with land tax where the land is in the Perth metropolitan region; the calculator adds it when all the land is. A surcharge and this tax are shown apart from the land tax, with the total.
 
 ## What the land tax calculator does not compute
 
-The land tax calculator applies the general scale for an owner taxed at it, such as an individual who is not a foreign person or absentee. It does not decide which land is taxable, which scale applies or what the taxable value is. These are not computed:
+The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is. These are not computed:
 
-- New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, surcharge land tax for foreign owners, and the rates for special and discretionary trusts, which get no threshold.
-- Victoria: exemptions and concessions, the trust surcharge rates, the absentee owner surcharge and vacant residential land tax.
-- Queensland: exemptions and relief, the rates for companies and trustees, the rates for absentees and the foreign surcharge.
-- Western Australia: land tax exemptions and the metropolitan region improvement tax charged with land tax in the Perth metropolitan region.
-- South Australia: exemptions, waiver or relief and the trust rates for land held on trust.
-- Tasmania: zero rate classifications, exemptions and rebates, including principal residence and primary production land, and the foreign investor land tax surcharge.
-- Australian Capital Territory: land tax exemptions, the foreign ownership surcharge, a unit’s share by its unit entitlement and the split into quarters. Land tax there applies to residential property that is not a principal place of residence.
+- New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 2% above the premium threshold according to the group’s combined value rather than its own.
+- Victoria: exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
+- Queensland: exemptions and relief, exemptions from the foreign surcharge and the aggregation of land held for trusts with the same beneficiaries.
+- Western Australia: land tax exemptions, and the metropolitan region improvement tax on holdings only partly in the Perth metropolitan region.
+- South Australia: exemptions, waiver or relief, and which land held on trust qualifies for the general rates.
+- Tasmania: zero rate classifications, exemptions and rebates, including principal residence and primary production land, and which land the foreign investor land tax surcharge applies to.
+- Australian Capital Territory: land tax exemptions, when the foreign ownership surcharge applies, a unit’s share by its unit entitlement and the split into quarters. Land tax there applies to residential property that is not a principal place of residence.
 
 Joint ownership, grouping of related companies and the apportionment of the tax between properties are not computed either. Confirm the figure with the revenue office’s own calculator or assessment notice before relying on it.
 
@@ -464,6 +476,19 @@ RevenueSA’s 2026-27 guide, example 1 | South Australia, $1,470,000.00 | Land t
 Part of $100 over the South Australian threshold counts as a whole $100 | South Australia, $936,050.00 | Land tax $0.50
 Tasmania, worked by hand | Tasmania, $600,000.00 | Land tax $3,237.50
 The ACT’s fixed charge and valuation charge, worked by hand | Australian Capital Territory, $600,000.00 | Land tax $7,418.00
+Revenue NSW’s special trust example | New South Wales, trust rates, $600,000.00 | Land tax $9,600.00
+Revenue NSW’s surcharge land tax example 1 | New South Wales, foreign or absentee owner, $1,200,000.00, surcharge value $1,200,000.00 | Land tax $2,100.00, surcharge $60,000.00, total $62,100.00
+The Victorian SRO’s general rates with the absentee owner surcharge at $1,000,000 | Victoria, foreign or absentee owner, $1,000,000.00 | Land tax $4,650.00, surcharge $40,000.00, total $44,650.00
+The Victorian SRO’s trust surcharge rates with the absentee owner surcharge at $1,800,000 | Victoria, trust rates, foreign or absentee owner, $1,800,000.00 | Land tax $18,363.00, surcharge $72,000.00, total $90,363.00
+The Queensland Revenue Office’s example 1 for a company | Queensland, trust rates, $6,400,000.00 | Land tax $106,500.00
+The Queensland Revenue Office’s example 2, a self-managed super fund’s trustee | Queensland, trust rates, $760,000.00 | Land tax $8,420.00
+The Queensland Revenue Office’s absentee example | Queensland, foreign or absentee owner, $400,000.00 | Land tax $2,300.00, surcharge $1,500.00, total $3,800.00
+The Queensland Revenue Office’s foreign company example | Queensland, trust rates, foreign or absentee owner, $400,000.00 | Land tax $2,300.00, surcharge $1,500.00, total $3,800.00
+Western Australia with the metropolitan region improvement tax, worked by hand | Western Australia, $1,500,000.00, Perth metropolitan region | Land tax $6,250.00, MRIT $1,680.00, total $7,930.00
+South Australian trust rates, worked by hand | South Australia, trust rates, $500,000.00 | Land tax $2,500.00
+Tasmania’s foreign investor land tax surcharge guideline, example 1 | Tasmania, foreign or absentee owner, $400,000.00, surcharge value $400,000.00 | Land tax $1,287.50, surcharge $8,000.00, total $9,287.50
+The ACT’s foreign ownership surcharge, worked by hand | Australian Capital Territory, foreign or absentee owner, $600,000.00 | Land tax $7,418.00, surcharge $4,500.00, total $11,918.00
+Western Australia has no trust rates here | Western Australia, trust rates, $1,500,000.00 | Refused: this calculator has no trust rates for Western Australia
 Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole number between 0 and 1000000000
 
 One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
@@ -475,21 +500,18 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
-- surcharge land tax for foreign owners: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/surcharge-land-tax
-- special and discretionary trusts: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/understanding-land-tax/types-of-landowners/trusts
+- exemptions from surcharge land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/surcharge-land-tax
 - exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
-- absentee owner surcharge: https://www.sro.vic.gov.au/owning-property/land-tax/absentee-owner-surcharge
+- exemptions from the absentee owner surcharge: https://www.sro.vic.gov.au/owning-property/land-tax/absentee-owner-surcharge
 - exemptions and relief: https://qro.qld.gov.au/land-tax/relief/
-- rates for companies and trustees: https://qro.qld.gov.au/land-tax/calculate/company-trust/
-- rates for absentees: https://qro.qld.gov.au/land-tax/calculate/absentee/
-- foreign surcharge: https://qro.qld.gov.au/land-tax/foreign-surcharge/
+- exemptions from the foreign surcharge: https://qro.qld.gov.au/land-tax/foreign-surcharge/
 - land tax exemptions: https://www.wa.gov.au/service/financial-management/taxation-and-duty/apply-land-tax-exemption
 - exemptions, waiver or relief: https://www.revenuesa.sa.gov.au/land-tax/LTExemptions
-- trust rates: https://www.revenuesa.sa.gov.au/land-tax/trusts
+- land held on trust: https://www.revenuesa.sa.gov.au/land-tax/trusts
 - zero rate classifications, exemptions and rebates: https://www.sro.tas.gov.au/land-tax/exemptions-and-rebates
-- foreign investor land tax surcharge: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
+- which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
 - land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
-- foreign ownership surcharge: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
+- when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
 - nineteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
