@@ -24,6 +24,7 @@ pub mod htmlparser;
 pub mod llms_full;
 pub mod merge_driver;
 pub mod mimetypes;
+pub mod minify_site;
 pub mod node;
 pub mod ozzit_functions;
 pub mod ozzit_reference;

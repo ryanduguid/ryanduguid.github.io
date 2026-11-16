@@ -255,6 +255,9 @@ jobs:
           set -euo pipefail
           test -f _site/index.html
           test -f _site/.well-known/llms.txt
+          # The checks above read the readable build; the browser and Lighthouse
+          # jobs' server minifies the same way (site-tools serve_site).
+          "$RUNNER_TEMP/site-tools" minify_site _site
           printf '{"sha":"%s"}\n' "$GITHUB_SHA" > _site/.well-known/deployment.json
           # Preserve .well-known, which upload-pages-artifact excludes.
           tar --dereference --hard-dereference --directory _site -cf "$RUNNER_TEMP/artifact.tar" .
