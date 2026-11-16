@@ -590,7 +590,6 @@ pub fn stamp_tool_metadata(
                     }
                 }
             }
-            fields.shift_remove("offers");
             match tool.get("sameAs") {
                 Some(Value::Array(items)) if !items.is_empty() => {
                     fields.insert("sameAs".into(), Value::Array(items.clone()));
@@ -603,6 +602,13 @@ pub fn stamp_tool_metadata(
                 }
                 _ => {}
             }
+            // Every tool is free; Google's Software App result needs an offer or a rating
+            // (Ryan, 16 November 2026, reversing #434's metadata without Offers). Kept last.
+            fields.shift_remove("offers");
+            fields.insert(
+                "offers".into(),
+                serde_json::json!({"@type": "Offer", "price": "0", "priceCurrency": "AUD"}),
+            );
         }
         stamped.push_str(&format!(
             "<script type=\"application/ld+json\">\n{}\n</script>",

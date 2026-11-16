@@ -691,7 +691,20 @@ fn metadata_stamping_preserves_pinned_examples_whilst_replacing_current_product_
     let tool = json!({"name": "Tool", "alternateName": ["old"], "codeRepository": "https://example.com/source", "sameAs": ["https://pypi.org/project/tool/"]});
     let stamped = stamp_tool_metadata(&source, &tool, Some(&release)).unwrap();
     assert!(stamped.contains("Worked example v0.1.3"));
-    assert!(!stamped.contains("Offer"));
+    let stamped_tool = graph(&stamped)[1].clone();
+    assert_eq!(
+        stamped_tool["offers"],
+        json!({"@type": "Offer", "price": "0", "priceCurrency": "AUD"})
+    );
+    assert_eq!(
+        stamped_tool
+            .as_object()
+            .unwrap()
+            .keys()
+            .next_back()
+            .unwrap(),
+        "offers"
+    );
     assert!(stamped.contains("SoftwareSourceCode"));
     let stamped_graph = graph(&stamped);
     assert_eq!(stamped_graph[0]["dateModified"], "2026-10-21");
