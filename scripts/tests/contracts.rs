@@ -400,6 +400,8 @@ fn geo_leftovers_surface() {
         "https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv",
         "https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv",
         "https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv",
+        "https://duguid.com.au/rates/general-interest-charge/general-interest-charge-rates.csv",
+        "https://duguid.com.au/rates/transfer-duty/transfer-duty-rates.csv",
     ] {
         assert_eq!(tables.matches(url).count(), 1, "{url}");
     }

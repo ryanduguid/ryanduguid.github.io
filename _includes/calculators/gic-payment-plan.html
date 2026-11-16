@@ -1,0 +1,28 @@
+<section class="business-calculator" id="gic-payment-plan">
+<form class="calculator-split" data-calculator="gic-payment-plan">
+<fieldset disabled><legend>GIC payment plan inputs</legend><div class="form-grid"><label class="field" for="gic-payment-plan-debt">Tax debt on the plan’s first day (AUD)<input id="gic-payment-plan-debt" name="debt" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
+<label class="field" for="gic-payment-plan-start">Date of the first instalment<input id="gic-payment-plan-start" name="start" type="date" min="1999-07-01" max="2099-12-31" value="2026-10-01" required /></label>
+<label class="field" for="gic-payment-plan-count">Number of equal instalments<input id="gic-payment-plan-count" name="count" type="number" inputmode="numeric" min="1" max="120" step="1" value="3" required /></label>
+<fieldset class="field"><legend>How often the instalments fall</legend>
+<label><input type="radio" name="frequency" value="weekly" /> Weekly</label>
+<label><input type="radio" name="frequency" value="fortnightly" /> Fortnightly</label>
+<label><input type="radio" name="frequency" value="monthly" checked /> Monthly, on the same day of the month</label></fieldset>
+<label class="field" for="gic-payment-plan-assumed">Annual GIC rate to assume after December 2026 (%)<input id="gic-payment-plan-assumed" name="assumedRate" type="number" inputmode="decimal" min="0.01" max="100" step=".01" value="11.51" required /></label>
+</div>
+<p class="field-note">The rate for each day up to 31 December 2026 comes from the <a href="/rates/general-interest-charge/">quarterly GIC rate table</a>. The ATO has not yet published a rate for any later day, so a plan running past 2026 uses the rate you assume for those days.</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+{% include calculator-example.html inputs="debt $1,000.00, first instalment 1 Oct 2026, 3 monthly instalments, 11.51% a year assumed after December 2026" rows="Paid in full now|$1,000.00;Each instalment but the last|$336.56;Final instalment, 1 Dec 2026|$336.56;Total paid on the plan|$1,009.68;GIC on the plan, over paying now|$9.68" principal="4" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>Daily compounding: GIC for a day is the GIC rate for that day times the unpaid amount of the debt and the GIC from earlier days still unpaid at the end of that day, from section 8AAC of the <a href="https://www.legislation.gov.au/C1953A00001/latest/text"><em>Taxation Administration Act 1953</em></a> (Compilation No. 227, 1 October 2026), read 15 November 2026.</li>
+<li>Rate for a day: the base interest rate plus 7 percentage points, divided by the number of days in the calendar year, from section 8AAD(1) of the same Act, read the same day.</li>
+<li>Quarterly rates: the annual rate for each quarter from July 1999 to December 2026, from the ATO’s <a href="https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates">General interest charge (GIC) rates</a> (last updated 4 September 2026), read 15 November 2026, as the site’s <a href="/rates/general-interest-charge/general-interest-charge-rates.csv">rate table CSV</a> records them.</li>
+<li>Plans: a payment plan’s instalments fall weekly, fortnightly or monthly, and the debt on it keeps accruing GIC, which compounds daily, from the ATO’s <a href="https://www.ato.gov.au/individuals-and-families/paying-the-ato/help-with-paying/payment-plans">Payment plans</a> page (last updated 6 November 2026), read 15 November 2026.</li>
+<li>Supplied by you: the debt, the first instalment date, the number of instalments, how often they fall and the rate after December 2026. The calculator takes the first instalment on the first day of the plan, and a monthly instalment on the same day of each month, or the month’s last day when it is shorter.</li>
+</ul>
+</div>
+</form>
+<h2>How the GIC payment plan calculator works</h2><p>The calculator compares paying a tax debt in full today with paying it by equal instalments. It works day by day from the first instalment to the last. Each day, the unpaid debt and any unpaid GIC grow by that day’s rate: the quarter’s annual GIC rate divided by 365, or 366 in a leap year, as sections 8AAC and 8AAD of the <em>Taxation Administration Act 1953</em> set out. It finds the equal instalment that clears the debt and its GIC on the last instalment day, rounds it down to the cent, and lets the final instalment pay what is left. The GIC is the total paid on the plan less the debt.</p><p>In the example the page opens with, a $1,000 debt is paid in 3 monthly instalments from 1 October 2026, all at the October to December 2026 rate of 11.51%. Paying $336.56 on 1 October leaves $663.44, which grows by 31 days of GIC to $669.96 by 1 November. Paying $336.56 then leaves $333.40, which grows by 30 days to $336.56 on 1 December, the final instalment. The plan costs $1,009.68, so $9.68 of GIC over paying now.</p>
+<h2>What the GIC payment plan calculator does not cover</h2><p>The calculator does not work out the debt, its due date or any GIC that accrued before the plan starts; enter the debt as it stands on the first instalment day. It does not model a missed or late instalment, a plan the ATO varies, a GIC remission, a refund offset against the debt or the deductibility of GIC. Rates after December 2026 are your assumption until the ATO publishes them. The ATO sets the instalments of an actual plan, and its figures may differ by cents from these. Confirm the amount payable with the ATO or a registered tax agent.</p>
+</section>

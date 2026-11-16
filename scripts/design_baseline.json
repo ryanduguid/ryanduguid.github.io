@@ -59,8 +59,11 @@
     "rates/fbt-rate/index.html": [
       "a54c46b17496a7db5df4959f53e7109ba929131bbc746beac866f900900a02a8"
     ],
+    "rates/general-interest-charge/index.html": [
+      "1b14f2d75f22220602806f6ca1be3ba44d83869e3846ffa4b9cbc3c36c4d2038"
+    ],
     "rates/index.html": [
-      "db0850b33d6a183e665512d590cc49f3bb73a4bd7c89d4c8e48455bf969d655a"
+      "24e1d0d453b0341d899c052513821e6777383035f048c60f787496cba547be4f"
     ],
     "rates/individual-income-tax/index.html": [
       "3fc768054c5d7d470cda1bb3495ecf2d74348aaab56b5d5ebb71bbf5248d407e"
@@ -76,6 +79,9 @@
     ],
     "rates/super-guarantee/index.html": [
       "f6e7ef2e7e594a027c27dc0afd1d2f8201825154a2c3f3be22fdc610da5f2bc8"
+    ],
+    "rates/transfer-duty/index.html": [
+      "3cbedd0e468939539cf2ec27059e26ea130ea7ed4efc844568b2168adcc4238c"
     ],
     "tools/accounting-questions/bookkeeping-close/index.html": [
       "a23f00f4d35ff39dc2d112dbf6aee5549d8abd2e74a76820f5ac7af5087fee61"
@@ -137,6 +143,9 @@
     "tools/business-calculators/fixed-fee/index.html": [
       "92a8a36828e952b98e007144bffcb72766b67b31256bbdc8524917a09fc53ccf"
     ],
+    "tools/business-calculators/gic-payment-plan/index.html": [
+      "e3de2d186fb139dd4197a71b00171daff2f218a2ca2dda7c9188f891a7f6a1aa"
+    ],
     "tools/business-calculators/gst/index.html": [
       "22416c01f7ec1fdbfc3f1870cbb7ac7715321d1430e3c2878ef2b7824c04f948"
     ],
@@ -152,8 +161,23 @@
     "tools/business-calculators/margin/index.html": [
       "d03a1db0e3f831d4e7bf0c732357b3a42114c678b134c1a34dc1b51df26b0c2b"
     ],
+    "tools/business-calculators/objection-deadline/index.html": [
+      "1b7b975438b721f4d7d20b53117027ce850c30483486820b9a9b9a14dd72b193"
+    ],
+    "tools/business-calculators/payg-instalments/index.html": [
+      "10b2b6a2c30551f32d79808a41de0bd4cc6a0e0f4d337942ad06cac60db66329"
+    ],
+    "tools/business-calculators/pcg-2021-4/index.html": [
+      "d0df58ae369359e41db345abb40e22fdf0a72df3fde7b3c989beac2ba141de8a"
+    ],
     "tools/business-calculators/staff/index.html": [
       "18cb2ea2bdf64673742c95515d6085dac73f05327d8f54c68bd7c2879d0dc2fe"
+    ],
+    "tools/business-calculators/termination-payment/index.html": [
+      "342d434b9131565b6b8311a332f9701fee620aa7247bdd16f288e46629847055"
+    ],
+    "tools/business-calculators/transfer-duty/index.html": [
+      "c54924f2c67f3453cbcbf6bd959fecf89a017fb43956ecd2dd74d6a2d7daae30"
     ],
     "tools/business-calculators/variance/index.html": [
       "4f1496eb7a4b0b99b7dd224f877a8a779709eaf56171a421e4ba64b94ede334e"
@@ -232,9 +256,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "d6c96a7886dd08a2c7894c1e653829582206948b5b4ce1ddead130346f1bbb53",
+    "llms.txt": "b55866ee8138f27ba59b558b8915aeb5104e3fb3703f02011ac5290a3de9fd16",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "7e41cf93fab4fe5a0eccee85636e759c8e256332ab5670b59c8bc0d290b415ab"
+    "sitemap.xml": "2f6231b9d530a0313e2fbfa2fdd76a8f502214e8693932dca782123243fdaf81"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -294,7 +318,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7746,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7754,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

@@ -187,10 +187,11 @@ a later run. A page with a permanent redirect or answers to recheck counts as re
 longest ago, so its finding is raised every run unless new pages fill the run. `site-tools check_ato_sources --list` prints the URLs and citing files
 offline. Its tests run through the site check command.
 
-The same sweep reads three pages outside the ATO whose figures their publishers
+The same sweep reads 11 pages outside the ATO whose figures their publishers
 revise, listed in `WATCHED` in `scripts/src/ato_sources.rs`: the Coal LSL levy
-(2.7%), NSW land tax thresholds ($1,075,000) and NSW payroll tax thresholds and
-rates (5.45% above $1,200,000). It reads them whether or not a file cites them. When one changes,
+(2.7%), NSW land tax thresholds ($1,075,000), NSW payroll tax thresholds and
+rates (5.45% above $1,200,000), and the transfer duty scale of each of the 8
+states and territories, by one figure from each scale. It reads them whether or not a file cites them. When one changes,
 the report also lists every file containing each watched value, because the
 calculators and examples reuse these values without citing the page. Update the
 value in `WATCHED` with the pages that use it.
@@ -413,7 +414,11 @@ run 36531719107
 it timed out on the National AI Centre's
 [implementation guidance](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance)
 and [AI systems register](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register)
-pages, which returned HTTP 200 locally on 29 September 2026. The link checker
+pages, which returned HTTP 200 locally on 29 September 2026. In
+run 43794456386
+the runner's connection to Tasmania's
+[rates of duty](https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty)
+ended before a response, which returned HTTP 200 locally on 16 November 2026. The link checker
 reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
 GitHub Actions. Run `site-tools check_links` locally before changing any
 of them; local runs still fetch them all. Remove the CI exceptions when runner
@@ -431,6 +436,9 @@ locally on 11 September 2026. They are listed individually in
 `HTTP_403_AUTOMATION_DENIAL_URLS` in `scripts/src/check_links_data.rs`. Only HTTP 403 is accepted
 for those exact URLs; other errors and unlisted URLs still fail. Recheck them
 locally before changing a source link and remove exceptions when access permits.
+Run 43794456386 returned HTTP 403 for 6 more ATO sources cited by the PAYG
+instalments and termination payment calculators; each returned HTTP 200 locally
+on 16 November 2026 and is in the same list.
 
 The [Division 7A benchmark rate table](https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate)
 also returned HTTP 403 in run 34852175800.

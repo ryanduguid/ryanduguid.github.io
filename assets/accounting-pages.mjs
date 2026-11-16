@@ -7,6 +7,10 @@ const minus = text => text.replace(/^-/, '−');
 const aud = value => minus(currencyFormat.format(value));
 const dateFormat = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 const calendarDate = value => dateFormat.format(new Date(`${value}T00:00:00Z`));
+const longDateFormat = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const weekdayFormat = new Intl.DateTimeFormat('en-AU', { weekday: 'long', timeZone: 'UTC' });
+const longDate = value => longDateFormat.format(new Date(`${value}T00:00:00Z`));
+const dayAndDate = value => `${weekdayFormat.format(new Date(`${value}T00:00:00Z`))} ${longDate(value)}`;
 const percent = value => value === null ? 'undefined (zero base)' : minus(`${value.toFixed(2)}%`);
 const count = (text, noun) => `${Number(text).toLocaleString('en-AU', { maximumFractionDigits: 2 })} ${noun}${Number(text) === 1 ? '' : 's'}`;
 
@@ -324,6 +328,30 @@ function initialiseCalculators([calculate, fieldErrors]) {
               rows: [['Minimum yearly repayment', aud(r.repayment)], ['Interest for the year, if repaid on 30 June', aud(r.interest)], ['Principal, if repaid on 30 June', aud(r.principal)]] };
             break;
           }
+          case 'transfer-duty': {
+            // The chosen jurisdiction's radio carries its rows of the site's rate table:
+            // over,to,base,rate,rule for each bracket, separated by semicolons.
+            const place = form.querySelector('input[name="jurisdiction"]:checked');
+            const scale = place.dataset.scale.split(';').map(row => row.split(','));
+            const r = calculate.transferDuty(value('value'), scale);
+            const [over, , base, rate, rule] = scale[r.bracket];
+            const whole = text => `$${Number(text).toLocaleString('en-AU')}`;
+            const plus = Number(base) ? `${whole(base)} plus ` : '';
+            let ruleText = {
+              'excess-rounded-up-to-100': `${plus}$${Number(rate).toFixed(2)} for every $100, or part of $100, over ${whole(over)}`,
+              excess: `${plus}${rate}% of the value over ${whole(over)}`,
+              'whole-value': `${rate}% of the whole value`,
+              'nt-formula': '(0.06571441 × V × V) + 15V, where V is the value ÷ 1,000',
+            }[rule];
+            if (rule !== 'nt-formula' && Number(rate) === 0) ruleText = Number(base) ? `a fixed ${whole(base)}` : 'nil';
+            result = { inputs: `${place.dataset.name}, dutiable value ${money('value')}`, principal: 0,
+              rows: [['General transfer duty', aud(r.duty)], ['Rate applied', ruleText]] };
+            // NSW premium duty, the scale's last bracket, applies to residential land only.
+            if (place.value === 'AU-NSW' && r.bracket === scale.length - 1) {
+              result.note = 'Premium duty applies to residential land only; other land continues at $5.50 for every $100 over $1,290,000';
+            }
+            break;
+          }
           case 'fbt-car': {
             // The gross-up comes from the checked option and the year's days and FBT rate from the
             // form; the Node tests bind all three to the site's FBT rate table.
@@ -340,6 +368,39 @@ function initialiseCalculators([calculate, fieldErrors]) {
               ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []), ['Taxable value', aud(r.taxableValue)],
               ['Grossed-up taxable value', aud(r.grossedUp)], [`FBT at ${form.dataset.fbtRate}%`, aud(r.fbt)]],
             note: operating && r.statutory < r.operating ? 'The statutory formula value is lower, so it applies under subsection 10(5)' : undefined };
+            result.principal = result.rows.length - 1;
+            break;
+          }
+          case 'pcg-2021-4': {
+            const all = value('factor3') === 'yes';
+            const r = calculate.pcgRisk({ gateway1: value('gateway1') === 'yes', gateway2: value('gateway2') === 'yes',
+              entitlement: value('entitlement'), returned: value('returned'), tax: value('tax'), factor3: all,
+              remuneration: value('remuneration'), benchmark: value('benchmark') });
+            const zone = { green: 'Green: low risk', amber: 'Amber: moderate risk', red: 'Red: high risk' }[r.zone];
+            const scored = (share, score) => `${percent(share)}, score ${score}`;
+            result = { inputs: `gateways 1 and 2 passed, profit entitlement ${money('entitlement')}, returned by the IPP ${money('returned')}, `
+              + `${r.total === null ? 'the whole entitlement' : `tax on that firm income ${money('tax')}, ${all
+                ? `remuneration ${money('remuneration')} against a commercial benchmark of ${money('benchmark')}, all 3 factors` : 'factors 1 and 2'}`}`,
+            rows: r.total === null ? [['Factor 1: profit entitlement returned by the IPP', scored(r.returned, r.factor1)], ['Risk zone', zone]] : [
+              ['Factor 1: profit entitlement returned by the IPP', scored(r.returned, r.factor1)],
+              ['Factor 2: total effective tax rate', scored(r.taxRate, r.factor2)],
+              ...(all ? [['Factor 3: remuneration as a share of the benchmark', scored(r.benchmarkShare, r.factor3)]] : []),
+              ['Aggregate score', String(r.total)], ['Risk zone', zone]],
+            note: r.total === null ? 'The IPP returns the whole entitlement, so paragraph 81 makes the arrangement low risk with no other factor scored' : undefined };
+            result.principal = result.rows.length - 1;
+            break;
+          }
+          case 'gic-payment-plan': {
+            const plan = { debt: value('debt'), start: value('start'), count: value('count'), frequency: value('frequency'),
+              assumedRate: value('assumedRate') };
+            const r = calculate.gicPaymentPlan(plan);
+            result = { inputs: `debt ${money('debt')}, first instalment ${calendarDate(plan.start)}, ${count(plan.count, `${plan.frequency} instalment`)}, `
+              + `${plan.assumedRate}% a year assumed after December 2026`,
+            rows: [['Paid in full now', money('debt')],
+              ...(Number(plan.count) === 1 ? [] : [['Each instalment but the last', aud(r.instalment)]]),
+              [`Final instalment, ${calendarDate(r.lastDate)}`, aud(r.final)], ['Total paid on the plan', aud(r.totalPaid)],
+              ['GIC on the plan, over paying now', aud(r.gic)]],
+            note: r.assumedDays ? `${count(String(r.assumedDays), 'day')} after December 2026 use the assumed rate` : undefined };
             result.principal = result.rows.length - 1;
             break;
           }
@@ -377,6 +438,69 @@ function initialiseCalculators([calculate, fieldErrors]) {
               `Funding gap,${r.funding.toFixed(2)}`, '', 'Week,Start date,End date,Opening,Receipts,Payments,Closing',
               ...r.rows.map(row => [row.week, dates[row.week - 1].start, dates[row.week - 1].end, row.opening.toFixed(2), row.receipts.toFixed(2), row.payments.toFixed(2), row.closing.toFixed(2)].join(','))].join('\r\n');
             cashDownload.disabled = false;
+            break;
+          }
+          case 'objection-deadline': {
+            const decision = value('decision');
+            const income = decision === 'assessment' || decision === 'amended';
+            const amended = decision === 'amended' || decision === 'amended-fbt';
+            const years = income && value('group') === '2' ? 2 : 4;
+            const r = calculate.objectionDeadline(decision, value('group'), value('notice'), value('first'));
+            const kind = { assessment: 'income tax assessment', amended: 'amended income tax assessment', fbt: 'FBT assessment',
+              'amended-fbt': 'amended FBT assessment', other: 'other decision' }[decision];
+            result = { inputs: `${kind}, ${income ? `${years === 2 ? 'item 1, 2, 3 or 3A applies (2 years)' : 'no item 1, 2, 3 or 3A (4 years)'}, ` : ''}`
+              + `notice given ${longDate(value('notice'))}${amended ? `, first assessment’s notice given ${longDate(value('first'))}` : ''}`,
+            rows: [...(amended ? [['60 days after the amended notice', dayAndDate(r.amendedEnds)], [`${years} years after the first notice`, dayAndDate(r.firstEnds)]] : []),
+              [`Period ends, ${r.rule}`, dayAndDate(r.periodEnds)],
+              ['Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901', dayAndDate(r.lastDay)]],
+            note: 'If that day is a public holiday where the objection is lodged, or the office is closed all day, it may be lodged on the next day that is not a Saturday, Sunday or holiday. '
+              + 'After the last day, an objection needs a written request under subsection 14ZW(2), which the Commissioner decides under section 14ZX' };
+            result.principal = result.rows.length - 1;
+            break;
+          }
+          case 'payg-instalments': {
+            const method = value('method');
+            const r = calculate.paygInstalment({ method, notified: value('notified'), instalment: value('instalment'),
+              estimatedTax: value('estimated-tax'), earlier: value('earlier'), credits: value('credits'), income: value('income'),
+              rate: value('rate'), estimatedIncome: value('estimated-income'), earlierIncome: value('earlier-income') });
+            const earlier = `earlier instalments ${money('earlier')} less credits claimed ${money('credits')}`;
+            const credit = ['Credit to claim at 5B, whole dollars', aud(r.credit)];
+            if (method === 'amount') {
+              result = { inputs: `instalment amount (option 1), ${money('notified')} at T7`, principal: 0,
+                rows: [['Instalment at 5A, whole dollars', aud(r.instalment)]],
+                note: 'For 2026-27 the amount the ATO notifies includes its GDP adjustment of 5%' };
+            } else if (method === 'varied-amount') {
+              result = { inputs: `varied instalment amount (option 1), instalment ${value('instalment')} of the income year, `
+                + `estimated tax ${money('estimated-tax')} at T8, ${earlier}`, principal: 2,
+              rows: [[`${Number(value('instalment')) * 25}% of estimated tax`, aud(r.due)], ['Varied amount', aud(r.amount)],
+                ['Varied amount at T9 and 5A, whole dollars', aud(r.instalment)], credit] };
+            } else if (method === 'rate') {
+              result = { inputs: `instalment rate (option 2), instalment income ${money('income')} at T1, instalment rate ${value('rate')}% at T2`,
+                principal: 1, rows: [['T1 × T2', aud(r.amount)], ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)]] };
+            } else {
+              result = { inputs: `varied instalment rate (option 2), estimated tax ${money('estimated-tax')} on estimated instalment income `
+                + `${money('estimated-income')} for the year, instalment income ${money('income')} at T1, instalment rate ${value('rate')}% at T2, `
+                + `${earlier}, on earlier instalment income ${money('earlier-income')}`, principal: 2,
+              rows: [['Varied rate at T3', `${r.instalmentRate.toFixed(2)}%`], ['T1 × T3', aud(r.amount)],
+                ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)], credit],
+              note: 'A credit applies only when the varied rate is lower than the rate at T2' };
+            }
+            break;
+          }
+          case 'termination-payment': {
+            // The year's last day, caps, amounts and Table A rates come from the form; the Node
+            // tests bind them to Schedule 11.
+            const year = form.dataset;
+            const r = calculate.terminationPayment({ redundancy: value('redundancy'), years: value('years'), excluded: value('excluded'),
+              nonExcluded: value('non-excluded'), other: value('other'), born: value('born') }, year);
+            result = { inputs: `genuine redundancy or early retirement scheme payment ${money('redundancy')} after ${count(value('years'), 'completed year')} of service, `
+              + `other code R taxable component ${money('excluded')}, code O taxable component ${money('non-excluded')}, `
+              + `other taxable payments in 2026-27 ${money('other')}, born ${calendarDate(value('born'))}`, principal: 7,
+            rows: [['Tax-free limit', aud(r.taxFreeLimit)], ['Tax-free part of the redundancy payment', aud(r.taxFree)],
+              ['Code R taxable component', aud(r.excluded)], ['Withhold from the code R part', aud(r.excludedWithholding)],
+              ['Whole-of-income cap left', aud(r.wholeOfIncomeCap)], ['Cap for the code O part', aud(r.cap)],
+              ['Withhold from the code O part', aud(r.nonExcludedWithholding)], ['Total to withhold', aud(r.withholding)]],
+            note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
             break;
           }
           default: throw new Error('Unknown calculator.');

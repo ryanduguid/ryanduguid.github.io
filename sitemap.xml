@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/rates/</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/rates/announced-not-yet-law/</loc>
@@ -83,6 +83,14 @@
   <url>
     <loc>https://duguid.com.au/rates/payg-withholding/</loc>
     <lastmod>2026-11-14</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/rates/general-interest-charge/</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/rates/transfer-duty/</loc>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/</loc>
@@ -249,12 +257,36 @@
     <lastmod>2026-11-15</lastmod>
   </url>
   <url>
+    <loc>https://duguid.com.au/tools/business-calculators/pcg-2021-4/</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/gic-payment-plan/</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
     <loc>https://duguid.com.au/tools/business-calculators/staff/</loc>
     <lastmod>2026-11-13</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/cash/</loc>
     <lastmod>2026-11-13</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/objection-deadline/</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/payg-instalments/</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/termination-payment/</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/transfer-duty/</loc>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/privacy/</loc>
