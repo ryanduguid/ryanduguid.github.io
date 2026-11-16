@@ -1,17 +1,30 @@
 # Publish the validated Pages artifact
 
 The proposed publisher uses the Jekyll tree checked by the main `checks` job.
-It waits for `checks-gates`, then rechecks main and the external results after
+It waits for `checks-gates` and `publication`, then rechecks main and the external results after
 admission to `github-pages`. Deployment is serialised, and only the deploy job
 holds Pages and identity-token write permissions. PR, scheduled and manual runs
 cannot publish. The artifact name includes the source SHA and run attempt.
 
-Deployment is held while `PAGES_VALIDATED_DEPLOYMENT` is absent or false. Before
-enabling it, map and verify the main commit's `CodeQL` results check from app
-57789. Default setup currently reports successful analysis jobs on main; those
-are not equivalent to its PR results policy. The proposed guard therefore
-refuses publication when that result is missing. Resolve the main results
-contract before changing this guard or the activation variable.
+Deployment is held while `PAGES_VALIDATED_DEPLOYMENT` is absent or false. The
+`CodeQL` results check from app 57789 exists only on pull requests, and one from
+a pull request whose head is a main commit would attach to that commit, so
+`site-tools check_publication` does not read it. It needs CodeQL default setup's
+`dynamic/github-code-scanning/codeql` run for the exact main commit from this
+repository to succeed. Each `Analyze (<language>)` job in that run's latest
+attempt must have its own upload of the commit in category
+`/language:<language>`, made whilst it ran, and code scanning must report that
+upload processed. Each upload of the commit in a job's category made whilst that
+job ran, counting the second it started, has its SARIF results checked, because a
+later upload in the same category replaces an earlier one's alerts. A result at
+GitHub's default failure threshold for that check (error level, or a security
+severity of 7.0 or more, which is high or critical) refuses publication, as does
+any open CodeQL alert on main at that threshold, however old; 2 reads of the open
+alerts must agree. A repository setting that changes the threshold is not read.
+It also refuses a failed analysis or unreadable results, and waits while the
+analysis runs, its uploads are processed or the alerts settle. Only
+the main-only `publication` job and the `deploy` job read the alerts with
+`security-events: read`, so pull request code never gets that permission.
 
 ## Activation and hosted checks
 
@@ -27,7 +40,8 @@ Verify successful publication, a failed mandatory dependency, a cancelled
 validation run, delayed external results, missing results and a run delayed
 until main advances. Confirm that each browser and Lighthouse shard remains
 mandatory, and that a new non-exempt job omitted from the aggregate fails.
-`deploy` is the only aggregate exemption.
+`deploy` and `publication`, which run only on main pushes, are the only aggregate
+exemptions besides the scheduled fuzzing job.
 
 The package minifies the checked tree's JavaScript and CSS with
 `site-tools minify_site`; the browser and Lighthouse jobs test the same minified
