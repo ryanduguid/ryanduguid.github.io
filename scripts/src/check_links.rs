@@ -310,11 +310,15 @@ const WORKERS: usize = 8;
 pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
     let mut targets: Vec<String> = Vec::new();
     for href in hrefs {
-        if !pyurl::urlsplit(href).is_ok_and(|parts| web_scheme(&parts.scheme)) {
+        let Some(href) = pyurl::urlsplit(href)
+            .ok()
+            .filter(|parts| web_scheme(&parts.scheme))
+            .map(|parts| browser_href(href, parts))
+        else {
             continue;
-        }
+        };
         // A scheme-relative link takes the site's https; a relative one stays on the site.
-        let Ok(href) = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), href) else {
+        let Ok(href) = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), &href) else {
             continue;
         };
         if (actions && CI_MANUAL_URLS.contains(&href.as_str())) || targets.contains(&href) {
@@ -329,6 +333,19 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
         }
     }
     targets
+}
+
+/// An http(s) or relative href as a browser reads it, before it is resolved: a backslash
+/// in its path is a slash.
+fn browser_href(href: &str, parts: Split) -> String {
+    if parts.path.contains('\\') {
+        pyurl::urlunsplit(&Split {
+            path: parts.path.replace('\\', "/"),
+            ..parts
+        })
+    } else {
+        href.to_owned()
+    }
 }
 
 /// True for the schemes the checker follows: http, https or none (relative); urlsplit
@@ -734,18 +751,19 @@ impl<'a> Checker<'a> {
         let mut resolved_own = Vec::new();
         let page = crate::seo_core::site_url(rel, SELF_ORIGIN);
         for href in hrefs {
-            let scheme = match pyurl::urlsplit(href) {
-                Ok(parts) => parts.scheme,
+            let parts = match pyurl::urlsplit(href) {
+                Ok(parts) => parts,
                 Err(error) => {
                     failures.push(format!("{rel}: {href} -> invalid URL: {error}"));
                     continue;
                 }
             };
-            if !web_scheme(&scheme) {
+            if !web_scheme(&parts.scheme) {
                 continue;
             }
             // Relative and scheme-relative links are checked where a browser would go.
-            let href = &pyurl::urljoin(&page, href).map_err(|e| format!("ValueError: {e}"))?;
+            let href = &pyurl::urljoin(&page, &browser_href(href, parts))
+                .map_err(|e| format!("ValueError: {e}"))?;
             if seen.contains(href) {
                 continue;
             }
@@ -766,15 +784,12 @@ impl<'a> Checker<'a> {
             };
             if same_origin {
                 // urljoin keeps the dot segments of a URL with a host; resolve them as a
-                // browser does, with backslashes as slashes, so no link reaches above the site
-                // root. The leading "/." keeps the absolute-path rules root-relative links get.
-                let path = pyurl::urljoin(
-                    &format!("{SELF_ORIGIN}/"),
-                    &format!("/.{}", parts.path.replace('\\', "/")),
-                )
-                .and_then(|url| pyurl::urlsplit(&url))
-                .map_err(|e| format!("ValueError: {e}"))?
-                .path;
+                // browser does, so no link reaches above the site root. The leading "/."
+                // keeps the absolute-path rules root-relative links get.
+                let path = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), &format!("/.{}", parts.path))
+                    .and_then(|url| pyurl::urlsplit(&url))
+                    .map_err(|e| format!("ValueError: {e}"))?
+                    .path;
                 let target = self.self_origin_target(&path);
                 let shown = self.rel_to_root(&target);
                 if !target.is_file() {

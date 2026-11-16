@@ -1593,13 +1593,40 @@ fn host_links_resolve_dot_segments_within_the_site() {
                 failures,
                 vec![format!(
                     "index.html: https:{} -> no file at {shown} (same-origin link does not resolve on disk)",
-                    href.trim_start_matches("https:")
+                    href.trim_start_matches("https:").replace('\\', "/")
                 )],
                 "{href}"
             ),
             None => assert!(failures.is_empty(), "{href}: {failures:?}"),
         }
     }
+}
+
+/// A browser reads a backslash in an http(s) path as a slash, however the link is spelt.
+#[test]
+fn backslashes_in_paths_are_slashes() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(dir.path().join("x.html"), "<h1>X</h1>").unwrap();
+    for href in [
+        "https://duguid.com.au/a\\b/../x.html",
+        "/a\\b/../x.html",
+        "a\\b/../x.html",
+    ] {
+        let harness = Harness::new(vec![]);
+        let failures = harness.with(dir.path().to_path_buf(), |c| {
+            c.check_hrefs("index.html", &strings(&[href]), true)
+                .unwrap()
+        });
+        assert_eq!(failures.len(), 1, "{href}: {failures:?}");
+        assert!(
+            failures[0].contains("-> no file at a/x.html"),
+            "{href}: {failures:?}"
+        );
+    }
+    assert_eq!(
+        site_tools::check_links::fetch_targets(&strings(&["https://example.org/a\\b"]), false),
+        strings(&["https://example.org/a/b"])
+    );
 }
 
 /// #top passes without reading its target, which may not even be text.
