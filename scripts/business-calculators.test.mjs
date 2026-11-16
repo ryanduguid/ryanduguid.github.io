@@ -1211,8 +1211,8 @@ test('the vehicle classifier’s years are the car limit table’s rows and the 
 // passengers is outside the limit whatever its body, so the car limit table must not tie utes and vans to the load alone.
 test('the car limit table names the vehicles section 40-230 reaches', () => {
   const page = readFileSync(new URL('../rates/car-limit/index.html', import.meta.url), 'utf8');
-  const answer = page.match(/q: "Which vehicles does the car limit apply to\?"\n {4}a: "([^"]+)"/)[1];
-  assert.match(answer, /^A car designed mainly for carrying passengers \(section 40-230\)\./);
+  // check_site runs this against the rendered page, where the FAQ is HTML rather than front matter.
+  const answer = page.match(/A car designed mainly for carrying passengers \(section 40-230\)\.[^"<]+/)?.[0] ?? '';
   assert.match(answer, /less than 1 tonne and fewer than 9 passengers \(section 995-1\), so a ute or van designed to carry 1 tonne or more/);
   assert.match(answer, /a car not designed mainly for carrying passengers/);
 });
