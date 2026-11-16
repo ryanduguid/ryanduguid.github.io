@@ -1602,8 +1602,9 @@ fn host_links_resolve_dot_segments_within_the_site() {
 #[test]
 fn odd_spellings_are_refused_not_repaired() {
     const SLASH: &str = "a backslash, which a browser reads as a slash";
-    const HOST: &str = "no // before the host";
+    const HOST: &str = "no host after the scheme or //";
     const EMPTY: &str = "an empty path segment (//)";
+    const SPACE: &str = "a tab, a newline, or a space or control character at either end";
     // Every target a repair could name exists, so only the refusal can fail the link.
     let dir = tempfile::tempdir().unwrap();
     for rel in ["x.html", "a/x.html", "b/x.html", "example.org/a"] {
@@ -1611,6 +1612,7 @@ fn odd_spellings_are_refused_not_repaired() {
         std::fs::create_dir_all(path.parent().unwrap()).unwrap();
         std::fs::write(path, "<h1>X</h1>").unwrap();
     }
+    let mut wrong = Vec::new();
     for (href, odd) in [
         ("https://duguid.com.au/..\\x.html", SLASH),
         ("https://duguid.com.au/b//../x.html", EMPTY),
@@ -1627,25 +1629,37 @@ fn odd_spellings_are_refused_not_repaired() {
         ("https:////example.org/a", HOST),
         ("//duguid.com.au/b//../x.html", EMPTY),
         ("https://example.org/a\\b", SLASH),
+        // An empty authority: a browser skips the extra slashes and finds a host.
+        ("///example.org/a", HOST),
+        ("////example.org/a", HOST),
+        ("https:///example.org/a", HOST),
+        // Spaces and controls a browser drops, which urlsplit or urljoin keep.
+        ("x.html ", SPACE),
+        (" https://duguid.com.au/x.html", SPACE),
+        ("/\t//example.org/a", SPACE),
+        ("http:/\n/example.org/a", SPACE),
     ] {
         let harness = Harness::new(vec![]);
+        let fetched = Rc::new(RefCell::new(Vec::new()));
         let failures = harness.with(dir.path().to_path_buf(), |c| {
-            c.fetch_hook = Some(Box::new(|url| panic!("{url} fetched")));
+            let log = fetched.clone();
+            c.fetch_hook = Some(Box::new(move |url| {
+                log.borrow_mut().push(url.to_owned());
+                Ok((200, url.to_owned()))
+            }));
             c.check_hrefs("index.html", &strings(&[href]), false)
                 .unwrap()
         });
-        assert_eq!(
-            failures,
-            vec![format!(
-                "index.html: {href} -> refused: {odd}; write the link plainly"
-            )],
-            "{href}"
-        );
-        assert!(
-            site_tools::check_links::fetch_targets(&strings(&[href]), false).is_empty(),
-            "{href}"
-        );
+        let refusal = format!("index.html: {href} -> refused: {odd}; write the link plainly");
+        let targets = site_tools::check_links::fetch_targets(&strings(&[href]), false);
+        if failures != [refusal] || !fetched.borrow().is_empty() || !targets.is_empty() {
+            wrong.push(format!(
+                "{href:?}: {failures:?}, fetched {:?}, fetch targets {targets:?}",
+                fetched.borrow()
+            ));
+        }
     }
+    assert!(wrong.is_empty(), "{wrong:#?}");
     // An external path keeps its empty segments, and a scheme-relative link its origin.
     let plain = strings(&[
         "https://web.archive.org/web/2026/https://example.org/",

@@ -89,6 +89,12 @@ pub fn urlsplit(url: &str) -> Result<Split, String> {
     })
 }
 
+/// Whether `url` opens a `//` authority, even an empty one: `_urlsplit`'s netloc is not
+/// `None`. `urlsplit` gives `''` either way.
+pub fn has_authority(url: &str) -> Result<bool, String> {
+    Ok(split_parts(url)?.netloc.is_some())
+}
+
 const USES_RELATIVE: [&str; 20] = [
     "", "ftp", "http", "gopher", "nntp", "imap", "wais", "file", "https", "shttp", "mms",
     "prospero", "rtsp", "rtsps", "rtspu", "sftp", "svn", "svn+ssh", "ws", "wss",

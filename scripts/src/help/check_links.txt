@@ -11,9 +11,11 @@ file on disk instead of being fetched. Absolute https://duguid.com.au/... hrefs
 relative ones like "../index.html" are resolved against their page, dot
 segments included, and checked; a fragment must name an element id or <a>
 name in the target, literally or percent-decoded, and #top always passes. An
-http(s) or relative link spelt oddly fails its page unchecked: a backslash
-before the query, http(s): without // before the host, or an empty path
-segment (//) in a link to this site. A malformed URL or port is a failure.
+http(s) or relative link spelt oddly fails its page unchecked: a tab, a
+newline, or a space or control character at either end, a backslash before
+the query, no host after
+http(s): or // (as in ///example.org/), or an empty path segment (//) in a
+link to this site. A malformed URL or port is a failure.
 The site is served from main; this
 branch's own pages are not live yet, so fetching them would fail even when the
 link is correct. Checking the file on disk catches a typo immediately, sooner

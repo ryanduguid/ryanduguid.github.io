@@ -312,7 +312,7 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
     for href in hrefs {
         // A refused spelling is reported by the link pass, never fetched.
         if !pyurl::urlsplit(href)
-            .is_ok_and(|parts| web_scheme(&parts.scheme) && odd_spelling(&parts).is_none())
+            .is_ok_and(|parts| web_scheme(&parts.scheme) && odd_spelling(href, &parts).is_none())
         {
             continue;
         }
@@ -337,11 +337,21 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
 /// What makes a written http(s) or relative href one the checker refuses: a spelling a
 /// browser repairs and urllib resolves differently. Only plain links are checked, so a
 /// link that passes is one the checker resolved exactly.
-fn odd_spelling(written: &Split) -> Option<&'static str> {
-    if written.netloc.contains('\\') || written.path.contains('\\') {
+fn odd_spelling(href: &str, written: &Split) -> Option<&'static str> {
+    // A browser drops these; urlsplit keeps a trailing space, and urljoin returns an
+    // href with another scheme as written, tabs and newlines included.
+    if href.contains(['\t', '\n', '\r'])
+        || href.starts_with(|c: char| c <= ' ')
+        || href.ends_with(|c: char| c <= ' ')
+    {
+        Some("a tab, a newline, or a space or control character at either end")
+    } else if written.netloc.contains('\\') || written.path.contains('\\') {
         Some("a backslash, which a browser reads as a slash")
-    } else if !written.scheme.is_empty() && written.netloc.is_empty() {
-        Some("no // before the host")
+    } else if written.netloc.is_empty()
+        // A browser skips extra slashes before a host that urlsplit reads as empty.
+        && (!written.scheme.is_empty() || pyurl::has_authority(href) == Ok(true))
+    {
+        Some("no host after the scheme or //")
     } else if written.path.contains("//")
         // urljoin can drop an empty segment that a browser keeps; external paths keep
         // theirs. A scheme-relative link takes the site's https.
@@ -771,7 +781,7 @@ impl<'a> Checker<'a> {
             if !web_scheme(&parts.scheme) {
                 continue;
             }
-            if let Some(odd) = odd_spelling(&parts) {
+            if let Some(odd) = odd_spelling(href, &parts) {
                 failures.push(format!(
                     "{rel}: {href} -> refused: {odd}; write the link plainly"
                 ));
