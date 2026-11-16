@@ -1,0 +1,78 @@
+# Income tax calculator for 2026-27, 2025-26 and 2024-25
+
+Source: https://duguid.com.au/tools/individual-tax/income-tax/
+
+> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act as read on 17 November 2026.
+
+# Income tax calculator
+
+One individual’s income tax, low income tax offset and Medicare levy for a full income year from 2024-25 to 2026-27, for an Australian resident, a foreign resident or a working holiday maker.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Income tax inputs for one full income year
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
+
+Taxable income (whole dollars)
+
+Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a single person with no dependants who is not entitled to the seniors and pensioners tax offset.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, taxable income $29,000.00. Tax on taxable income $1,728.00 Low income tax offset $700.00 Medicare levy $98.90 Total tax and Medicare levy $1,126.90
+
+## How the income tax calculator works
+
+The income tax calculator works out one individual’s tax for a full income year: the tax on taxable income at the year’s rates, the low income tax offset, and the Medicare levy. An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. A foreign resident pays from the first dollar at 30%, 37% and 45%. A working holiday maker pays 15% up to $45,000 and then the same rates as a resident.
+
+The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does; its example on What is the Medicare levy gives Matthew $1,500 on $75,000.
+
+For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2026, the same as 2025-26. If Parliament raises them for 2026-27, a person just above $28,011 will pay less than shown here.
+
+## What the income tax calculator does not compute
+
+The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
+
+- the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
+- the Medicare levy surcharge or the private health insurance rebate;
+- a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
+- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
+- study loan repayments, which the study and training loan repayment calculator works out, and the tax already withheld or a refund.
+
+Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Income tax calculator
+
+Case | Inputs | Result
+ATO example: Angie, in the Medicare levy shade-in | $29,000 taxable income, 2025-26, Australian resident | Tax $1,728.00, offset $700.00, Medicare levy $98.90, total $1,126.90
+Tax-free threshold | $18,200 taxable income, 2026-27, Australian resident | Tax $0.00, offset $0.00, Medicare levy $0.00, total $0.00
+Medicare levy phase-in limit | $35,013 taxable income, 2026-27, Australian resident | Tax $2,521.95, offset $700.00, Medicare levy $700.20, total $2,522.15
+A dollar above the phase-in limit: 2% of the whole | $35,014 taxable income, 2026-27, Australian resident | Tax $2,522.10, offset $700.00, Medicare levy $700.28, total $2,522.38
+Offset of $324.985 rounds half up | $45,001 taxable income, 2026-27, Australian resident | Tax $4,020.30, offset $324.99, Medicare levy $900.02, total $4,595.33
+Offset cut-out: half a cent below nil is nil | $66,667 taxable income, 2026-27, Australian resident | Tax $10,520.10, offset $0.00, Medicare levy $1,333.34, total $11,853.44
+Top rate | $250,000 taxable income, 2026-27, Australian resident | Tax $78,370.00, offset $0.00, Medicare levy $5,000.00, total $83,370.00
+2024-25 rates | $90,000 taxable income, 2024-25, Australian resident | Tax $17,788.00, offset $0.00, Medicare levy $1,800.00, total $19,588.00
+Foreign resident: no offset or Medicare levy | $100,000 taxable income, 2026-27, foreign resident | Tax $30,000.00, offset $0.00, Medicare levy $0.00, total $30,000.00
+Working holiday maker | $50,000 taxable income, 2026-27, working holiday maker | Tax $8,250.00, offset $0.00, Medicare levy $0.00, total $8,250.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
+- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
+- study and training loan repayment calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
