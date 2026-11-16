@@ -92,6 +92,11 @@ enum Gap {
     Space,
 }
 
+// The string delimiters, named because Codacy's function-length scan misreads a
+// quote mark written as a character literal and runs one function into the next.
+const QUOTE: char = '\u{22}';
+const APOSTROPHE: char = '\u{27}';
+
 /// CSS whitespace; other spaces, such as U+00A0, are part of a token.
 fn css_space(c: char) -> bool {
     matches!(c, ' ' | '\t' | '\n' | '\r' | '\x0c')
@@ -191,7 +196,7 @@ impl Stylesheet<'_> {
         match c {
             '(' if self.at_unquoted_url() => self.copy_url(),
             '\\' => self.copy_escape(),
-            '"' | '\'' => self.copy_string(c),
+            QUOTE | APOSTROPHE => self.copy_string(c),
             _ => Ok(()),
         }
     }
@@ -259,7 +264,7 @@ impl Stylesheet<'_> {
             .is_some_and(|name| name.eq_ignore_ascii_case("url("))
             && !matches!(
                 self.chars.clone().find(|c| !css_space(*c)),
-                Some('"' | '\'') | None
+                Some(QUOTE | APOSTROPHE) | None
             )
     }
 
