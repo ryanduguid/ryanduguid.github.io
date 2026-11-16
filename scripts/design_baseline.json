@@ -153,7 +153,10 @@
       "09009820d32183e1c06e3cda812448aff6ae99a892ce80300aa733bea396b162"
     ],
     "tools/business-calculators/index.html": [
-      "10050773de6adf5d7a5484d76e04f31fe140edf421680e9ae7d3710db92c339f"
+      "f2dcf958bf48b6b1c713ba5542ee9ac118f87fc7f892a72df4daa1a8a7110294"
+    ],
+    "tools/business-calculators/land-tax/index.html": [
+      "47811fa34a03777ba23d02693e5ccd97fb8f4605c65307f7e53f6554488314e9"
     ],
     "tools/business-calculators/loan/index.html": [
       "af147161fb96dd1d7805b87400628435184fe1d4a3bfce394abd663871846e0e"
@@ -256,9 +259,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "b55866ee8138f27ba59b558b8915aeb5104e3fb3703f02011ac5290a3de9fd16",
+    "llms.txt": "372cec0b671c05e79c35dc91cf0caba69bfda35be04ff1b15e876911443c4eb0",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "0424a384e3d80b3970233bf77f6502961a71082839e82b02df5180f652d4bb80"
+    "sitemap.xml": "641024f4db2923f921028c6f639c1a3fdc0f245ef99fea529b36703543f6158e"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -318,7 +321,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7754,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7755,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
