@@ -255,6 +255,14 @@ fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
     let left = head.centre - crop_w / 2.0;
     let bounds = [left, top, left + crop_w, top + crop_h].map(|v| v.round() as i64);
     let rows = (crop_h / crop_w * COLUMNS as f64 * ADVANCE).round() as usize;
+    // A head far taller than it is wide is a bad cutout, and its grid would
+    // need gigabytes of samples.
+    if rows > 2 * COLUMNS {
+        return Err(format!(
+            "the head is {} by {} pixels, which would draw {rows} rows; check the cutout",
+            head.width, head.height
+        ));
+    }
     let (width, height) = (COLUMNS * SUB_X, rows * SUB_Y);
     let premultiplied = lightness.zip(&alpha, |l, a| l * a);
     let person = crop_resize(&alpha, bounds, width, height);
