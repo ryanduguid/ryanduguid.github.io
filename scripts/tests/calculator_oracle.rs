@@ -1280,9 +1280,11 @@ fn the_first_home_engine_agrees_with_the_oracle_either_side_of_every_threshold()
     let mut values = Vec::new();
     for place in places {
         for home in homes {
-            for edge in [
-                600_000, 700_000, 710_000, 750_000, 790_000, 800_000, 1_000_000,
-            ] {
+            // Every $10,000 step of Queensland's first home amount, and each other threshold.
+            for edge in [600_000, 750_000, 1_000_000]
+                .into_iter()
+                .chain((700_000..=800_000).step_by(10_000))
+            {
                 values.extend([edge - 1, edge, edge + 1].map(|v| (place, home, v)));
             }
             values.extend([(place, home, 1), (place, home, 1_000_000_000)]);
