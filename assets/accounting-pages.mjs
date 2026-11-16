@@ -400,6 +400,24 @@ function initialiseCalculators([calculate, fieldErrors]) {
             result.principal = result.rows.length - 1;
             break;
           }
+          case 'land-tax': {
+            // The chosen jurisdiction's radio carries its scale, from,base,rate,over,rule for each
+            // band separated by semicolons, and the ACT's radio its fixed charge.
+            const place = form.querySelector('input[name="jurisdiction"]:checked');
+            const scale = place.dataset.scale.split(';').map(row => row.split(','));
+            const fixed = place.dataset.fixed ?? '0';
+            const r = calculate.landTax(value('value'), scale, fixed);
+            const [, base, rate, over, rule] = scale[r.bracket];
+            const dollars = text => `$${Number(text).toLocaleString('en-AU', { minimumFractionDigits: Number(text) % 1 ? 2 : 0 })}`;
+            const plus = Number(base) ? `${dollars(base)} plus ` : '';
+            let ruleText = rule === 'excess' ? `${plus}${rate}% of the value${Number(over) ? ` over ${dollars(over)}` : ''}`
+              : `${plus}$${Number(rate).toFixed(2)} for every $100, or part of $100, over ${dollars(over)}`;
+            if (Number(rate) === 0) ruleText = Number(base) ? `a fixed ${dollars(base)}` : 'nil';
+            if (Number(fixed)) ruleText = `the ${dollars(fixed)} fixed charge plus ${ruleText}`;
+            result = { inputs: `${place.dataset.name}, total taxable land value ${money('value')}`, principal: 0,
+              rows: [['Land tax for the year', aud(r.tax)], ['Rate applied', ruleText]] };
+            break;
+          }
           case 'staff': {
             const r = calculate.staffCost(value('wages'), value('super'), value('other'));
             result = { inputs: `wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}`, principal: 0,

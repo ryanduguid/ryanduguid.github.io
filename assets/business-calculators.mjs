@@ -659,3 +659,34 @@ export function gicPaymentPlan(plan) {
   return { instalment: Number(instalment) / 100, final: Number(final) / 100, totalPaid: Number(totalPaid) / 100,
     gic: Number(totalPaid - debt) / 100, lastDate: isoDayNumber(last), assumedDays };
 }
+
+const LAND_TAX_RULES = ['excess', 'excess-rounded-up-to-100'];
+
+/** Land tax for a full year on one total taxable land value, from one jurisdiction's general
+ * scale. A band covers the values from its `from` up to the next band's `from`, so a band that
+ * starts at a threshold applies at that value. Its rule says how the rate applies above `over`:
+ * excess: base plus the rate per cent of the value over `over`;
+ * excess-rounded-up-to-100: base plus the rate for every $100, or part of $100, over `over`.
+ * `fixed` is a charge added at every value, as the ACT adds its fixed charge to the valuation
+ * charge. A fraction of a cent rounds half up.
+ * @param {string} value the total taxable land value in whole dollars
+ * @param {readonly (readonly string[])[]} scale
+ *   [from, base, rate per cent, over, rule] for each band, lowest first
+ * @param {string} [fixed] a fixed charge in dollars */
+export function landTax(value, scale, fixed = '0') {
+  const dollars = number(value, { max: 1e9, integer: true, money: true });
+  const whole = (/** @type {string} */ text) => /^\d+$/.test(text);
+  const usable = Array.isArray(scale) && scale.length > 0 && scale.every(([from, , , over, rule], index) =>
+    LAND_TAX_RULES.includes(rule) && whole(from) && whole(over) && Number(over) <= Number(from)
+      && (index ? Number(from) > Number(scale[index - 1][0]) : from === '0'));
+  if (!usable) throw new Error('This jurisdiction’s rate table is not usable.');
+  const bracket = scale.filter(([from]) => dollars >= Number(from)).length - 1;
+  const [, base, rate, over, rule] = scale[bracket];
+  const excess = BigInt(dollars) - BigInt(over);
+  // A rate has at most 2 decimal places: whole hundredths of 1%, or cents for every $100.
+  const hundredths = BigInt(Math.round(number(rate, { max: 100 }) * 100));
+  const charges = BigInt(cents(base) + cents(fixed));
+  const tax = rule === 'excess' ? charges + ratioCents(hundredths * excess, 100n)
+    : charges + (excess + 99n) / 100n * hundredths;
+  return { tax: Number(tax) / 100, bracket };
+}

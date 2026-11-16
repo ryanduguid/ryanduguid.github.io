@@ -310,6 +310,14 @@ test('cash keeps out-of-horizon receipts visible and includes opening deficits',
 // The boundary cases each calculator page shows are data this test runs, so a page
 // cannot state a result the engine does not return.
 const shownCases = JSON.parse(readFileSync(new URL('../_data/calculator_cases.json', import.meta.url), 'utf8'));
+// Each land tax jurisdiction's scale (from, base, rate, over, rule for each band) and fixed charge,
+// as its radio in the land tax include holds them.
+const landTaxHtml = readFileSync(new URL('../_includes/calculators/land-tax.html', import.meta.url), 'utf8');
+const landTaxRadios = [...landTaxHtml.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)" data-name="([^"]+)"(?: data-fixed="([^"]+)")? data-scale="([^"]+)"(?: checked)? \/> ([^<]+)<\/label>/g)]
+  .map(([, code, name, fixed, scale, label]) => ({ code, name, label, fixed: fixed ?? '0',
+    scale: scale.split(';').map((row) => row.split(',')) }));
+const landTaxPlaces = Object.fromEntries(landTaxRadios.map((radio) => [radio.code, radio]));
+const landTaxArgs = ([value, place]) => [value, landTaxPlaces[place].scale, landTaxPlaces[place].fixed];
 // Each jurisdiction's transfer duty scale as rates/transfer-duty/transfer-duty-rates.csv holds it:
 // over, to, base, rate, rule for each bracket. No cell in that table is quoted.
 const PLACES = { 'AU-NSW': 'New South Wales', 'AU-VIC': 'Victoria', 'AU-QLD': 'Queensland',
@@ -327,7 +335,8 @@ const transferDutyScales = (() => {
   return scales;
 })();
 // A boundary case names its jurisdiction; the engine takes that jurisdiction's scale.
-const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]] : call);
+const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]]
+  : name === 'landTax' ? landTaxArgs(call) : call);
 const dollars = (value) => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-AU',
   { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 // How each result reads on a page, so a value shown under the wrong label fails.
@@ -425,6 +434,8 @@ const INPUTS = {
       + `credits ${dollars(f.credits)}, on ${dollars(f.earlierIncome)}`,
   })[f.method],
 };
+Object.assign(INPUTS, { landTax: (value, place) => `${PLACES[place]}, ${dollars(value)}` });
+Object.assign(ENGINE_LABELS, { landTax: { tax: 'land tax' } });
 const wholeDollars = (value) => `$${Number(value).toLocaleString('en-AU')}`;
 const PEER_INPUTS = {
   margin: (sales, cost) => `${wholeDollars(sales)} total revenue and ${wholeDollars(cost)} cost of goods sold`,
@@ -686,6 +697,8 @@ const FORM_CALLS = {
     earlier: f.earlier, credits: f.credits, income: f.income, rate: f.rate, estimatedIncome: f['estimated-income'],
     earlierIncome: f['earlier-income'] }],
 };
+// The radio's scale is read by the tests below, so the call names the jurisdiction.
+Object.assign(FORM_CALLS, { landTax: (f) => [f.value, f.jurisdiction] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -1080,5 +1093,50 @@ test('GIC payment plan refuses inputs it cannot work', () => {
     [{ debt: '-1' }, 'Enter an amount between 0 and 1000000000.'],
   ]) {
     assert.throws(() => calculations.gicPaymentPlan({ ...plan, ...fields }), { message }, JSON.stringify(fields));
+  }
+});
+
+// One radio for each of the 7 states and territories that levy land tax, in the transfer duty
+// order; the page says the Northern Territory has none.
+test('land tax radios carry a scale for each of the 7 jurisdictions that levy land tax', () => {
+  assert.equal(landTaxRadios.length, (landTaxHtml.match(/type="radio"/g) ?? []).length);
+  assert.equal((landTaxHtml.match(/ checked /g) ?? []).length, 1);
+  assert.deepEqual(landTaxRadios.map(({ code }) => code), Object.keys(PLACES).filter((code) => code !== 'AU-NT'));
+  for (const { code, name, label } of landTaxRadios) {
+    assert.equal(label, name);
+    assert.equal(PLACES[code], name);
+  }
+  assert.deepEqual(landTaxRadios.filter(({ fixed }) => fixed !== '0').map(({ code, fixed }) => [code, fixed]),
+    [['AU-ACT', '1778']]);
+  assert.match(landTaxHtml, /The Northern Territory has no land tax\./);
+});
+
+// Worked by hand from the scales read on 16 November 2026: a band applies from its first value.
+test('land tax applies a band from its first value, adds the ACT fixed charge and rejects a broken table', () => {
+  const tax = (value, place) => calculations.landTax(...landTaxArgs([value, place])).tax;
+  for (const [value, place, expected] of [
+    // Victoria: nil below $50,000, a flat $500, then $975 to $299,999 and $1,350 + 0.3% from $300,000.
+    ['49999', 'AU-VIC', 0], ['50000', 'AU-VIC', 500], ['299999', 'AU-VIC', 975], ['300010', 'AU-VIC', 1350.03],
+    // Queensland: $600,000 itself pays $500.
+    ['599999', 'AU-QLD', 0], ['600000', 'AU-QLD', 500],
+    // Western Australia: nil to $300,000, then a flat $300 to $420,000.
+    ['300000', 'AU-WA', 0], ['300001', 'AU-WA', 300], ['420000', 'AU-WA', 300], ['420001', 'AU-WA', 300],
+    // New South Wales: $100 + 1.6% of $1 above the threshold, and 2% above the premium threshold.
+    ['1075001', 'AU-NSW', 100.02], ['6571000', 'AU-NSW', 88036], ['6571001', 'AU-NSW', 88036.02],
+    // South Australia: $1 over a band's threshold is a whole $100 at that band's rate.
+    ['1504001', 'AU-SA', 2841], ['3504001', 'AU-SA', 36002.4],
+    // Tasmania: $125,000 itself pays $50, and $500,000 pays $1,737.50.
+    ['124999', 'AU-TAS', 0], ['125000', 'AU-TAS', 50], ['500000', 'AU-TAS', 1737.5],
+    // The ACT: the $1,778 fixed charge at any value, and 0.54% of $1 is 0.54 cents, so 1 cent.
+    ['0', 'AU-ACT', 1778], ['1', 'AU-ACT', 1778.01], ['150000', 'AU-ACT', 2588], ['2000001', 'AU-ACT', 24878.01],
+  ]) {
+    assert.equal(tax(value, place), expected, `${place} ${value}`);
+  }
+  const nsw = landTaxPlaces['AU-NSW'].scale;
+  assert.throws(() => calculations.landTax('-1', nsw), { message: 'Enter a whole number between 0 and 1000000000.' });
+  for (const broken of [[], nsw.slice(1), [nsw[0], nsw[2], nsw[1]], [nsw[0], ['1075001', '100', '1.6', '1075002', 'excess']],
+    [nsw[0], ['1075000.5', '100', '1.6', '1075000', 'excess']], [nsw[0], ['1075001', '100', '1.6', '1075000', 'whole-value']]]) {
+    assert.throws(() => calculations.landTax('2000000', broken), { message: 'This jurisdiction’s rate table is not usable.' },
+      JSON.stringify(broken));
   }
 });
