@@ -1,8 +1,6 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-import { fbtBenefitResult } from './fbt-benefit-forms.mjs';
-
 const currencyFormat = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
 // Page copy writes negatives with the minus sign, U+2212; the CSV keeps ASCII.
 const minus = text => text.replace(/^-/, '−');
@@ -163,7 +161,7 @@ if (questions.length) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -505,10 +503,7 @@ function initialiseCalculators([calculate, fieldErrors]) {
             note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
             break;
           }
-          case 'fbt-car-parking': case 'fbt-loan': case 'fbt-meal-entertainment':
-            result = fbtBenefitResult(form, calculate, { aud, value, money });
-            break;
-          default: throw new Error('Unknown calculator.');
+          default: result = fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
         form.dataset.calculated = 'true';
@@ -532,7 +527,7 @@ function initialiseCalculators([calculate, fieldErrors]) {
 function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
-  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`)])
+  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`)])
     .then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {

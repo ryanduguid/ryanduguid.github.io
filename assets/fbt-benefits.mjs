@@ -102,6 +102,9 @@ export function fbtMealEntertainment(meal, year) {
     throw new Error('Enter the expenses of each FBT year from the register’s first valid year to the year before this one.');
   }
   const earlier = meal.earlier.map((value) => money(value));
+  // s 37CC(1): meal entertainment is provided throughout the register's 12 weeks, so a nil
+  // first year is a blank entry, against which the 20% rule below would check nothing.
+  if (earlier[0] === 0n) throw new Error('Enter the expenses of the register’s first valid year: they cannot be nil.');
   // The first year's expenses times 1.2, compared in tenths of a cent.
   const limit = earlier.length ? earlier[0] * 12n : 0n;
   const over = earlier.findIndex((value) => value * 10n > limit);

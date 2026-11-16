@@ -53,7 +53,12 @@ function parking(form, calculate, { aud, value, money }) {
       note: `No car parking benefit arises: the first business day fee is not more than the $${year.threshold} threshold` };
   }
   const rows = parkingRows(r, aud);
-  return { ...result, rows, principal: rows.length - 1 };
+  // s 39GF(3): a 10% rise on any day of an earlier year ended the register then; the user must check it.
+  const last = Number(year.ended) - 1;
+  const note = p.method === 'register' && Number(p.firstYear) <= last ? 'Valid only if the number of car parking '
+    + `fringe benefits did not rise by more than 10% on any day in the years ending 31 March ${p.firstYear} to ${last} `
+    + '(subsection 39GF(3)), which this calculator does not check' : undefined;
+  return { ...result, rows, principal: rows.length - 1, note };
 }
 
 function loan(form, calculate, { aud, value, money }) {
@@ -93,6 +98,8 @@ function meal(form, calculate, { aud, value, money }) {
  * @param {HTMLFormElement} form @param {Record<string, Function>} calculate the engines
  * @param {{aud: Function, value: Function, money: Function}} format the page's helpers */
 export function fbtBenefitResult(form, calculate, format) {
-  return { 'fbt-car-parking': parking, 'fbt-loan': loan, 'fbt-meal-entertainment': meal }[form.dataset.calculator](
-    form, calculate, format);
+  const result = new Map([['fbt-car-parking', parking], ['fbt-loan', loan], ['fbt-meal-entertainment', meal]])
+    .get(form.dataset.calculator);
+  if (!result) throw new Error('Unknown calculator.');
+  return result(form, calculate, format);
 }

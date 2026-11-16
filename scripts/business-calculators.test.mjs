@@ -7,6 +7,7 @@ import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
   staffCost, cashForecast, div7aMinimumRepayment, transferDuty } from '../assets/business-calculators.mjs';
+import { fbtBenefitResult } from '../assets/fbt-benefit-forms.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -1255,4 +1256,24 @@ test('FBT benefits agree with the australian-accounting engines on every differe
     assert.doesNotThrow(() => { result = calculations[name](...call); }, source);
     assert.deepEqual(Object.fromEntries(Object.keys(amounts).map((k) => [k, result[k].toFixed(2)])), amounts, source);
   }
+});
+
+// FBTAA s 39GF(3), Compilation No. 97, read 17 November 2026: a register 'ceases to be valid at the end of
+// that FBT year if the number of car parking fringe benefits ... increases by more than 10% on any day in
+// that FBT year'. The calculator cannot see daily counts, so a register kept before this year carries the
+// condition in its result; one kept this year has no earlier year to check.
+test('FBT car parking register results name the 10% rule they do not check', () => {
+  const fields = { method: 'register', fee: '12.36', 'register-value': '2500', days: '183', 'first-year': '2025', contribution: '0' };
+  const form = { dataset: { calculator: 'fbt-car-parking', threshold: '11.48', yearDays: '365', yearEnded: '2027' } };
+  const value = (name) => fields[name] ?? '0';
+  const result = () => fbtBenefitResult(form, calculations, { aud: String, value, money: value });
+  assert.equal(result().note, 'Valid only if the number of car parking fringe benefits did not rise by more than 10% '
+    + 'on any day in the years ending 31 March 2025 to 2026 (subsection 39GF(3)), which this calculator does not check');
+  assert.equal(result().rows.at(-1)[1], '5416.67');
+  fields['first-year'] = '2027';
+  assert.equal(result().note, undefined);
+  fields.method = 'station';
+  fields['first-year'] = '2025';
+  assert.equal(result().note, undefined);
+  assert.throws(() => fbtBenefitResult({ dataset: { calculator: 'fbt-boat' } }, calculations, {}), { message: 'Unknown calculator.' });
 });
