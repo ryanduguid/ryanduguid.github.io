@@ -20,6 +20,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const levy = { file: 'assets/levy.mjs', test: 'scripts/levy.test.mjs' };
 const business = { file: 'assets/business-calculators.mjs', test: 'scripts/business-calculators.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
+const div7a = { ...business, file: 'assets/div7a.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -57,9 +58,9 @@ const MUTATIONS = [
   { ...business, name: 'a balloon above the principal is accepted', find: 'residual > balanceCents', replace: 'residual > balanceCents + 1n' },
   { ...business, name: 'staff cost spreads over 13 months', find: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 12n', replace: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 13n' },
   { ...business, name: 'funding uses the closing balance', find: 'minimumBuffer - minimum', replace: 'minimumBuffer - balance' },
-  { ...business, name: 'Division 7A compounds over one year too many', find: '(10000n + rate) ** term', replace: '(10000n + rate) ** (term + 1n)' },
-  { ...business, name: 'Division 7A interest is taken on the repayment', find: 'ratioCents(balanceCents * rate, 10000n)', replace: 'ratioCents(repayment * rate, 10000n)' },
-  { ...business, name: 'Division 7A accepts a 26-year term', find: 'max: 25, integer: true', replace: 'max: 26, integer: true' },
+  { ...div7a, name: 'Division 7A compounds over one year too many', find: '(10000n + rate) ** term', replace: '(10000n + rate) ** (term + 1n)' },
+  { ...div7a, name: 'Division 7A interest is taken on the repayment', find: 'ratioCents(balanceCents * rate, 10000n)', replace: 'ratioCents(repayment * rate, 10000n)' },
+  { ...div7a, name: 'Division 7A accepts a 26-year term', find: 'max: 25, integer: true', replace: 'max: 26, integer: true' },
   { ...business, name: 'transfer duty ignores part of $100', find: '((excess + 99n) / 100n)', replace: '(excess / 100n)' },
   { ...business, name: 'transfer duty takes the next band at a band\'s top value', find: 'dollars <= Number(to)', replace: 'dollars < Number(to)' },
   { ...business, name: 'a whole-value band charges only the excess', find: 'ratioCents(hundredths * whole, 100n)', replace: 'ratioCents(hundredths * excess, 100n)' },
@@ -118,6 +119,17 @@ const MUTATIONS = [
   { ...business, name: 'ETP preservation age table is a year out', find: 'july - 1904', replace: 'july - 1903' },
   { ...business, name: 'ETP accepts a date of birth after the year', find: 'born > year.yearEnd', replace: 'born > \'9999\'' },
   { ...business, name: 'ETP accepts 151 years of service', find: 'max: 150, integer: true', replace: 'max: 151, integer: true' },
+  { ...div7a, name: 'Division 7A schedule counts the remaining term from the year made', find: 'const remainingTerm = term - k + 1;', replace: 'const remainingTerm = term - k + 2;' },
+  { ...div7a, name: 'Division 7A schedule adds unpaid interest to the loan', find: 'const principal = repayment > interest ? repayment - interest : 0n;', replace: 'const principal = repayment - interest;' },
+  { ...div7a, name: 'Division 7A schedule runs on past a shortfall', find: 'if (shortfall > 0n || opening === 0n) break;', replace: 'if (opening === 0n) break;' },
+  { ...div7a, name: 'Division 7A schedule finds a shortfall only below the interest', find: 'repayment < minimum ?', replace: 'repayment < interest ?' },
+  { ...div7a, name: 'Division 7A schedule ignores the assumed rate', find: 'PUBLISHED.get(label) ?? assumed', replace: 'PUBLISHED.get(label) ?? 877n' },
+  { ...div7a, name: 'Division 7A schedule puts a loan made on 30 June in the next year', find: "made.slice(5) >= '07-01'", replace: "made.slice(5) >= '06-30'" },
+  { ...div7a, name: 'Division 7A schedule works a loan made on 3 December 1997', find: "made < '1997-12-04'", replace: "made < '1997-12-03'" },
+  { ...div7a, name: 'Division 7A schedule accepts a repayment above the balance and interest', find: 'repayment > opening + interest', replace: 'repayment > opening + interest + 1n' },
+  { ...div7a, name: 'Division 7A schedule ignores repayments after the loan is repaid', find: 'if (opening === 0n && entered.length > years.length)', replace: 'if (false)' },
+  { ...div7a, name: 'a funding dividend rounds to the nearest cent', find: '+ 10000n - marginal - 1n) /', replace: '+ (10000n - marginal) / 2n) /' },
+  { ...div7a, name: 'a franked funding dividend ignores the corporate rate', find: 'repayment * (10000n - corporate)', replace: 'repayment * 10000n' },
 ];
 
 // Runs that must read as invalid, not as caught.

@@ -128,26 +128,7 @@ export function loan(principal, annualRate, months, balloon = '0', timing = 'arr
     totalInterest: ratioMoney(paymentNumerator * term - (balanceCents - residual) * denominator, denominator) };
 }
 
-/** Division 7A minimum yearly repayment of an amalgamated loan: s 109E(6) of the Income
- * Tax Assessment Act 1936, as the ATO's five steps state it. The Act prescribes no rounding;
- * each amount rounds half up to the cent. The interest part is the benchmark rate on the
- * whole balance for the year, so the parts assume one repayment on the year's last day.
- * @param {string} balance the loan not repaid at the end of the previous income year
- * @param {string} benchmarkRate the current year's benchmark interest rate, in per cent
- * @param {string} remainingTerm the remaining term in whole years */
-export function div7aMinimumRepayment(balance, benchmarkRate, remainingTerm) {
-  const balanceCents = BigInt(cents(balance));
-  // A benchmark rate has two decimal places: a whole number of 1/10,000ths a year.
-  const rate = BigInt(Math.round(number(benchmarkRate, { min: 0.01, max: 100 }) * 100));
-  const term = BigInt(number(remainingTerm, { min: 1, max: 25, integer: true }));
-  // balance x I / (1 - (1 / (1 + I)) ^ T), multiplied through by 10,000 ^ (T + 1).
-  const growth = (10000n + rate) ** term;
-  const scale = 10000n ** term;
-  const repayment = ratioCents(balanceCents * rate * growth, 10000n * (growth - scale));
-  const interest = ratioCents(balanceCents * rate, 10000n);
-  return { repayment: Number(repayment) / 100, interest: Number(interest) / 100,
-    principal: Number(repayment - interest) / 100 };
-}
+export { div7aMinimumRepayment, div7aSchedule, div7aScheduleResult } from './div7a.mjs';
 
 const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula'];
 
