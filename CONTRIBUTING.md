@@ -414,7 +414,11 @@ run 36531719107
 it timed out on the National AI Centre's
 [implementation guidance](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance)
 and [AI systems register](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register)
-pages, which returned HTTP 200 locally on 29 September 2026. The link checker
+pages, which returned HTTP 200 locally on 29 September 2026. In
+run 43794456386
+the runner's connection to Tasmania's
+[rates of duty](https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty)
+ended before a response, which returned HTTP 200 locally on 16 November 2026. The link checker
 reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
 GitHub Actions. Run `site-tools check_links` locally before changing any
 of them; local runs still fetch them all. Remove the CI exceptions when runner
@@ -432,6 +436,9 @@ locally on 11 September 2026. They are listed individually in
 `HTTP_403_AUTOMATION_DENIAL_URLS` in `scripts/src/check_links_data.rs`. Only HTTP 403 is accepted
 for those exact URLs; other errors and unlisted URLs still fail. Recheck them
 locally before changing a source link and remove exceptions when access permits.
+Run 43794456386 returned HTTP 403 for 6 more ATO sources cited by the PAYG
+instalments and termination payment calculators; each returned HTTP 200 locally
+on 16 November 2026 and is in the same list.
 
 The [Division 7A benchmark rate table](https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate)
 also returned HTTP 403 in run 34852175800.
