@@ -86,7 +86,9 @@ site-tools serve_site
 
 Then visit `http://127.0.0.1:4173/`. Restart the preview after editing a page
 or an include. `site-tools build_site` builds `_site/` without serving it.
-The preview compresses text when the browser accepts gzip, matching the
+The preview serves the JavaScript and CSS minified, as the validated Pages
+deploy packages them (`site-tools minify_site`; see `docs/validated-pages.md`);
+edit the readable sources in `assets/`. The preview compresses text when the browser accepts gzip, matching the
 compression verified on GitHub Pages. Lighthouse uses this same server.
 
 ## Checks
