@@ -14,7 +14,7 @@ pub const RETIRED_NAMES: [&str; 11] = [
     "LouisGoldberg",
 ];
 
-pub const CI_MANUAL_URLS: [&str; 9] = [
+pub const CI_MANUAL_URLS: [&str; 10] = [
     "https://softwaredevelopers.ato.gov.au/SuperStreamStandard",
     "https://www.abr.gov.au/business-super-funds-charities/applying-abn",
     "https://www.abr.gov.au/business-super-funds-charities/applying-abn/abn-entitlement",
@@ -23,10 +23,11 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.fairwork.gov.au/ending-employment/final-pay",
     "https://www.linkedin.com/in/ryan-duguid",
     "https://www.sbr.gov.au/",
+    "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 145] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 152] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -54,6 +55,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 145] = [
     "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-myths-debunked",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/accounting-for-gst-in-your-business/choosing-an-accounting-method",
+    "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/complete-your-bas",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/complete-your-bas/step-2-calculating-sales-using-the-calculation-worksheet",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/correcting-gst-errors/gst-errors-that-cannot-be-corrected-on-a-later-bas",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/correcting-gst-errors/how-to-correct-gst-errors",
@@ -71,12 +73,13 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 145] = [
     "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding/payments-you-need-to-withhold-from/payments-to-employees/types-of-payments-to-employees",
     "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll",
     "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/finalising-your-stp-data",
-    "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/backing-business-investment-accelerated-depreciation",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/general-depreciation-rules-capital-allowances/effective-life-of-an-asset/effective-life-determinations-rulings-and-law",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/what-is-a-non-commercial-loss",
+    "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/calculate-your-payg-instalments/how-we-calculate-your-payg-instalment-amount-or-rate",
+    "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/how-to-vary-your-payg-instalments",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/starting-payg-instalments",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/personal-services-income/working-out-if-the-psi-rules-apply/self-assessing-as-a-psb",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/sharing-economy-and-tax/types-of-activities-in-the-sharing-economy",
@@ -105,6 +108,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 145] = [
     "https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool",
     "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator",
     "https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form",
+    "https://www.ato.gov.au/forms-and-instructions/payg-instalments-how-to-complete-your-activity-statement",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/claiming-deductions",
@@ -145,6 +149,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 145] = [
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return",
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return/lodge-your-tax-return-online-with-mytax/pre-fill-availability",
     "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
+    "https://www.ato.gov.au/law/view/document?docid=COG/PCG20214/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=OPS/LI202520/00001",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/110-45",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-27",
@@ -162,12 +167,15 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 145] = [
     "https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate",
     "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
     "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
+    "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+    "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/employment-termination-payments",
     "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/about-this-schedule",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/sample-data/withholding-amounts-sample-data",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/using-a-formula",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/working-out-the-weekly-earnings",
+    "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments",
     "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
     "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
     "https://www.oaic.gov.au/",

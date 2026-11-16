@@ -400,6 +400,8 @@ fn geo_leftovers_surface() {
         "https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv",
         "https://duguid.com.au/rates/study-loan-repayment/study-loan-repayment-thresholds.csv",
         "https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv",
+        "https://duguid.com.au/rates/general-interest-charge/general-interest-charge-rates.csv",
+        "https://duguid.com.au/rates/transfer-duty/transfer-duty-rates.csv",
     ] {
         assert_eq!(tables.matches(url).count(), 1, "{url}");
     }
@@ -865,6 +867,42 @@ fn public_contracts_payday_example() {
             "<p>Without a fund receipt date, a line can only be \"at risk\".</p>",
         ),
         "must not say a missing receipt can only be at-risk or unknown",
+    );
+}
+
+#[test]
+fn every_software_app_has_two_of_googles_four_properties() {
+    // The Rich Results Test gave the calculator pages a critical issue on 15 November 2026:
+    // their WebApplication had applicationCategory alone.
+    let check = |block: &str| {
+        let mut failures = Vec::new();
+        core::check_software_apps(
+            &pyjson::loads(block).unwrap(),
+            "tools/x/index.html",
+            &mut failures,
+        );
+        failures
+    };
+    assert_clean(
+        "category and system",
+        &check(
+            r#"{"@type": ["WebApplication", "SoftwareSourceCode"], "name": "GST calculator",
+                  "applicationCategory": "BusinessApplication", "operatingSystem": "Any"}"#,
+        ),
+    );
+    assert_clean(
+        "not an app",
+        &check(r#"{"@type": "Dataset", "name": "Rates"}"#),
+    );
+    assert_eq!(
+        check(
+            r#"{"@graph": [{"@type": "WebApplication", "name": "GST calculator",
+                  "applicationCategory": "BusinessApplication"}]}"#
+        ),
+        [
+            "tools/x/index.html: software app 'GST calculator' has 1 of offers, aggregateRating, \
+          applicationCategory and operatingSystem; Google requires 2"
+        ]
     );
 }
 

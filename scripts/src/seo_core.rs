@@ -226,6 +226,7 @@ pub fn check_file_metadata(
         }
         check_item_lists(block, &rel, &mut failures);
         check_datasets(block, &rel, &mut failures);
+        check_software_apps(block, &rel, &mut failures);
         vocabulary.check_block(block, &rel, &mut failures);
         for node in nodes(block) {
             if node
@@ -1068,6 +1069,40 @@ pub fn check_faq_visible(node: &Json, html: &str, rel: &str, failures: &mut Vec<
             failures.push(format!(
                 "{rel}: FAQPage item {} answer does not match the visible FAQ",
                 index + 1
+            ));
+        }
+    }
+}
+
+/// Give every software app node the 2 properties Google's Rich Results Test requires from
+/// `offers`, `aggregateRating`, `applicationCategory` and `operatingSystem`; with one it
+/// reports a critical issue (15 November 2026, the calculator pages).
+pub fn check_software_apps(value: &Json, rel: &str, failures: &mut Vec<String>) {
+    const APP_TYPES: [&str; 4] = [
+        "SoftwareApplication",
+        "WebApplication",
+        "MobileApplication",
+        "VideoGame",
+    ];
+    const FIELDS: [&str; 4] = [
+        "offers",
+        "aggregateRating",
+        "applicationCategory",
+        "operatingSystem",
+    ];
+    for node in nodes(value) {
+        if !APP_TYPES.iter().any(|kind| has_type(node, kind)) {
+            continue;
+        }
+        let present = FIELDS
+            .iter()
+            .filter(|field| node.get(field).is_some())
+            .count();
+        if present < 2 {
+            let name = node.get("name").and_then(Json::as_str).unwrap_or("");
+            failures.push(format!(
+                "{rel}: software app '{name}' has {present} of offers, aggregateRating, \
+                 applicationCategory and operatingSystem; Google requires 2"
             ));
         }
     }

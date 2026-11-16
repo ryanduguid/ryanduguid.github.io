@@ -616,11 +616,13 @@ fn committed_rates_json_equals_the_rate_csvs() {
             "cents-per-kilometre",
             "div7a-benchmark-rate",
             "fbt-rate",
+            "general-interest-charge",
             "individual-income-tax",
             "maximum-contribution-base",
             "payg-withholding",
             "study-loan-repayment",
             "super-guarantee",
+            "transfer-duty",
         ]
     );
 }

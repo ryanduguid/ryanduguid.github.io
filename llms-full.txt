@@ -1292,13 +1292,13 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 Source: https://duguid.com.au/rates/
 
-> Maintained Australian income tax, study loan, PAYG withholding, super guarantee, Division 7A, car and FBT rates with source-checked dates and primary sources.
+> Maintained Australian income tax, study loan, PAYG withholding, super guarantee, Division 7A, GIC, car and FBT rates with source-checked dates and primary sources.
 
 # Rates
 
-Ten maintained Australian reference tables with the current value, source-checked date and primary material kept together.
+Twelve maintained Australian reference tables with the current value, source-checked date and primary material kept together.
 
-Last reviewed 14 November 2026.
+Last reviewed 15 November 2026.
 
 ## Super guarantee rate history
 
@@ -1444,6 +1444,22 @@ Schedule 1 weekly coefficients for scales 1 to 3 from 1 July 2026.
 
 Primary source Download CSV
 
+## General interest charge rate
+
+11.51%
+
+11.51% a year for October to December 2026, 0.03153425% a day, compounding daily on unpaid tax.
+
+Source checked
+
+15 November 2026
+
+Scope
+
+Annual and daily GIC rates for every quarter from July 1999.
+
+Primary source Download CSV
+
 ## Announced tax measures and enacted law
 
 8 TBD
@@ -1460,11 +1476,27 @@ Tax and super measures on the ATO’s Budget 2026-27 and MYEFO 2025-26 lists, by
 
 Primary source Download CSV
 
+## Transfer duty (stamp duty) rates by state and territory
+
+7%
+
+7% is the top general rate for 2026-27, New South Wales premium duty over $3,870,000. The general scale for each of the 8 states and territories, before concessions and surcharges.
+
+Source checked
+
+15 November 2026
+
+Scope
+
+General transfer duty scales for all 8 states and territories, with each one’s start date.
+
+Primary source Download CSV
+
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Source checked is the date a table was last checked against its primary source, from the CSV’s checked_at; last reviewed is this page’s editorial check.
 
-Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the nine rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
+Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the 11 rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
-All nine rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under this repository’s licence, the Ryan Duguid Public Attribution Licence 1.0.
+All 11 rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under this repository’s licence, the Ryan Duguid Public Attribution Licence 1.0.
 
 ## Use these tables in Excel
 
@@ -1497,7 +1529,7 @@ This imports the full SG history. A rate of 12.00 means 12%; divide by 100 if a 
 
 Use Data, Refresh All to fetch the current CSV again. A successful refresh confirms retrieval, not a source check. Check the linked rate page’s Source checked date and primary source. For a completed workpaper, keep a dated values-only copy of the table and its Source checked date; a live query can change on refresh.
 
-The other nine tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.
+The other 11 tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.
 
 Division 7A benchmark rates:
 
@@ -1675,6 +1707,27 @@ in
     Rates
 ```
 
+General interest charge rates:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/general-interest-charge/general-interest-charge-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"quarter_start", type date},
+        {"quarter_end", type date},
+        {"annual_rate_percent", type number},
+        {"daily_rate_percent", type number},
+        {"source_url", type text},
+        {"checked_at", type date}
+    }, "en-AU")
+in
+    Rates
+```
+
 Announced measures:
 
 ```
@@ -1704,7 +1757,32 @@ in
     Measures
 ```
 
-The queries from Division 7A to FBT and the announced measures query were each checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. On 14 November 2026 all 10 queries, with the columns added since and the 3 new tables, loaded the same way in build 20625, each against a copy of its CSV.
+Transfer duty rates:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/transfer-duty/transfer-duty-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"jurisdiction", type text},
+        {"in_force_from", type date},
+        {"value_over", Int64.Type},
+        {"value_to", Int64.Type},
+        {"base_amount", Int64.Type},
+        {"rate_percent", type number},
+        {"rule", type text},
+        {"notes", type text},
+        {"source_url", type text},
+        {"checked_at", type date}
+    }, "en-AU")
+in
+    Rates
+```
+
+The queries from Division 7A to FBT and the announced measures query were each checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors. On 14 November 2026 all 10 queries, with the columns added since and the 3 new tables, loaded the same way in build 20625, each against a copy of its CSV. The transfer duty query, added on 15 November 2026, has not yet been loaded in Excel.
 
 Follow updates with the Atom feed. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.
 
@@ -1736,10 +1814,16 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 - PAYG withholding: Schedule 1 coefficients: https://duguid.com.au/rates/payg-withholding/
 - Primary source: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/coefficients-to-use-in-formulas-for-withholding-from-weekly-payments
 - Download CSV: https://duguid.com.au/rates/payg-withholding/schedule-1-coefficients.csv
+- General interest charge rate: https://duguid.com.au/rates/general-interest-charge/
+- Primary source: https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates
+- Download CSV: https://duguid.com.au/rates/general-interest-charge/general-interest-charge-rates.csv
 - Announced tax measures and enacted law: https://duguid.com.au/rates/announced-not-yet-law/
 - Primary source: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
 - Download CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
-- All nine rate tables as one JSON file: https://duguid.com.au/rates/rates.json
+- Transfer duty (stamp duty) rates by state and territory: https://duguid.com.au/rates/transfer-duty/
+- Primary source: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty
+- Download CSV: https://duguid.com.au/rates/transfer-duty/transfer-duty-rates.csv
+- All 11 rate tables as one JSON file: https://duguid.com.au/rates/rates.json
 - Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
 - Microsoft’s Text/CSV guide: https://learn.microsoft.com/en-us/power-query/connectors/text-csv
 - Follow updates with the Atom feed: https://duguid.com.au/feed.xml
@@ -1813,6 +1897,10 @@ Other exceptions cover new residential dwellings and prescribed activities, wide
 ### CGT: separate application rules
 
 The negative gearing acquisition cut-off is not a general CGT grandfathering rule. Schedule 1 has separate rules: items 82 to 84 address income year and CGT-event application, and item 60 inserts transitional section 119-1 for the minimum tax on gains from CGT events on or after 1 July 2027. Check the asset, event and applicable transition provisions separately before calculating a gain.
+
+### Negative gearing and CGT: a bill before Parliament
+
+A bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing. Parliament’s summary of the bill says it would also clarify and adjust the operation of the capital gains tax adjustment provisions, including their application to trusts and managed investment vehicles. The ATO summary, last updated 9 November 2026, lists it and the Income Tax Rates Amendment (Minimum Tax on Discretionary Trusts) Bill 2026, both introduced on 14 October 2026, against the negative gearing and CGT discount reform. The No. 3 Bill’s third reading was agreed in the House on 29 October 2026, and the Senate Economics Legislation Committee reported on it on 13 November 2026; Parliament’s page listed no Senate reading on 16 November 2026. It is not law: check its stage and text before relying on the exceptions above.
 
 ## Legislated: earlier application
 
@@ -2743,6 +2831,357 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 
 ---
 
+# What is the GIC rate for October to December 2026? 11.51%
+
+Source: https://duguid.com.au/rates/general-interest-charge/
+
+> 11.51% a year, 0.03153425% a day, for October to December 2026. Every quarter’s GIC rate since July 1999 from the ATO, and how section 8AAD sets it.
+
+11.51%
+
+# General interest charge rate
+
+11.51% a year for October to December 2026, which is 0.03153425% a day. It was 11.43% for July to September 2026.
+
+The rate changes each quarter. Section 8AAD of the Taxation Administration Act 1953 sets it at the Reserve Bank’s monthly average yield of 90-day Bank Accepted Bills for a month before the quarter, plus 7 percentage points, and the rate for a day is that annual rate divided by the days in the calendar year.
+
+Published 15 November 2026. Last reviewed 15 November 2026. Source checked 15 November 2026.
+
+Read on 15 November 2026 from the ATO’s General interest charge (GIC) rates page (last updated 4 September 2026), which lists every quarter from July 1999. The method is in sections 8AAC and 8AAD of the Taxation Administration Act 1953 (Compilation No. 227, 1 October 2026), read the same day.
+
+## The rate, by quarter
+
+Quarter | Annual rate | Daily rate
+October to December 2026 | 11.51% | 0.03153425%
+July to September 2026 | 11.43% | 0.03131507%
+April to June 2026 | 10.96% | 0.03002740%
+January to March 2026 | 10.65% | 0.02917808%
+October to December 2025 | 10.61% | 0.02906849%
+July to September 2025 | 10.78% | 0.02953425%
+April to June 2025 | 11.17% | 0.03060274%
+January to March 2025 | 11.42% | 0.03128767%
+October to December 2024 | 11.38% | 0.03109290%
+July to September 2024 | 11.36% | 0.03103825%
+April to June 2024 | 11.34% | 0.03098361%
+January to March 2024 | 11.38% | 0.03109290%
+October to December 2023 | 11.15% | 0.03054794%
+July to September 2023 | 10.90% | 0.02986301%
+April to June 2023 | 10.46% | 0.02865753%
+January to March 2023 | 10.06% | 0.02756164%
+October to December 2022 | 9.31% | 0.02550685%
+July to September 2022 | 8.00% | 0.02191781%
+April to June 2022 | 7.07% | 0.01936986%
+January to March 2022 | 7.04% | 0.01928767%
+October to December 2021 | 7.01% | 0.01920548%
+July to September 2021 | 7.04% | 0.01928767%
+April to June 2021 | 7.01% | 0.01920548%
+January to March 2021 | 7.02% | 0.01923288%
+October to December 2020 | 7.10% | 0.01939891%
+July to September 2020 | 7.10% | 0.01939891%
+April to June 2020 | 7.89% | 0.02155738%
+January to March 2020 | 7.91% | 0.02161202%
+October to December 2019 | 7.98% | 0.02186301%
+July to September 2019 | 8.54% | 0.02339726%
+April to June 2019 | 8.96% | 0.02454794%
+January to March 2019 | 8.94% | 0.02449315%
+October to December 2018 | 8.96% | 0.02454794%
+July to September 2018 | 8.96% | 0.02454794%
+April to June 2018 | 8.77% | 0.02402740%
+January to March 2018 | 8.72% | 0.02389041%
+October to December 2017 | 8.70% | 0.02383562%
+July to September 2017 | 8.73% | 0.02391781%
+April to June 2017 | 8.78% | 0.02405479%
+January to March 2017 | 8.76% | 0.02400000%
+October to December 2016 | 8.76% | 0.02393443%
+July to September 2016 | 9.01% | 0.02461749%
+April to June 2016 | 9.28% | 0.02535519%
+January to March 2016 | 9.22% | 0.02519126%
+October to December 2015 | 9.14% | 0.02504109%
+July to September 2015 | 9.15% | 0.02506849%
+April to June 2015 | 9.36% | 0.02564383%
+January to March 2015 | 9.75% | 0.02671233%
+October to December 2014 | 9.63% | 0.02638356%
+July to September 2014 | 9.69% | 0.02654794%
+April to June 2014 | 9.63% | 0.02638356%
+January to March 2014 | 9.59% | 0.02627397%
+October to December 2013 | 9.60% | 0.02630137%
+July to September 2013 | 9.82% | 0.02690411%
+April to June 2013 | 9.95% | 0.02726027%
+January to March 2013 | 10.24% | 0.02805479%
+October to December 2012 | 10.62% | 0.02901639%
+July to September 2012 | 10.66% | 0.02912568%
+April to June 2012 | 11.37% | 0.03106557%
+January to March 2012 | 11.62% | 0.03174863%
+October to December 2011 | 11.86% | 0.03249315%
+July to September 2011 | 12.00% | 0.03287671%
+April to June 2011 | 11.92% | 0.03265753%
+January to March 2011 | 12.02% | 0.03293151%
+October to December 2010 | 11.74% | 0.03216438%
+July to September 2010 | 11.80% | 0.03232877%
+April to June 2010 | 11.16% | 0.03057534%
+January to March 2010 | 10.95% | 0.03000000%
+October to December 2009 | 10.30% | 0.02821918%
+July to September 2009 | 10.13% | 0.02775342%
+April to June 2009 | 10.16% | 0.02783562%
+January to March 2009 | 11.76% | 0.03221918%
+October to December 2008 | 14.31% | 0.03909836%
+July to September 2008 | 14.75% | 0.04030054%
+April to June 2008 | 14.69% | 0.04013661%
+January to March 2008 | 14.15% | 0.03866120%
+October to December 2007 | 13.75% | 0.03767123%
+July to September 2007 | 13.37% | 0.03663014%
+April to June 2007 | 13.37% | 0.03663014%
+January to March 2007 | 13.37% | 0.03663014%
+October to December 2006 | 13.19% | 0.03613699%
+July to September 2006 | 12.87% | 0.03526027%
+April to June 2006 | 12.61% | 0.03454794%
+January to March 2006 | 12.63% | 0.03460274%
+October to December 2005 | 12.62% | 0.03457534%
+July to September 2005 | 12.68% | 0.03473973%
+April to June 2005 | 12.63% | 0.03460274%
+January to March 2005 | 12.43% | 0.03405479%
+October to December 2004 | 12.44% | 0.03398907%
+July to September 2004 | 12.51% | 0.03418033%
+April to June 2004 | 12.57% | 0.03434426%
+January to March 2004 | 12.31% | 0.03363388%
+October to December 2003 | 11.82% | 0.03238357%
+July to September 2003 | 11.78% | 0.03227397%
+April to June 2003 | 11.75% | 0.03219178%
+January to March 2003 | 11.84% | 0.03243835%
+October to December 2002 | 11.96% | 0.03276712%
+July to September 2002 | 11.84% | 0.03243835%
+April to June 2002 | 11.31% | 0.03098630%
+January to March 2002 | 11.28% | 0.03090411%
+October to December 2001 | 11.95% | 0.03273973%
+July to September 2001 | 11.89% | 0.03257534%
+April to June 2001 | 13.86% | 0.03797260%
+January to March 2001 | 13.86% | 0.03797260%
+October to December 2000 | 13.86% | 0.03786885%
+July to September 2000 | 14.00% | 0.03825137%
+April to June 2000 | 13.65% | 0.03729508%
+January to March 2000 | 13.08% | 0.03573770%
+October to December 1999 | 12.73% | 0.03487671%
+July to September 1999 | 12.72% | 0.03484931%
+
+Each quarter runs from its first day to its last: January to March, April to June, July to September and October to December. The ATO generally announces the next quarter’s rate 2 weeks before it starts.
+
+Download the table as CSV. Each row of the CSV gives the quarter’s first and last days, the annual and daily rates, the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 15 November 2026. Cite as Duguid, R. (2026). General interest charge rates by quarter [Data set]. https://duguid.com.au/rates/general-interest-charge/. Verify against current ATO guidance before relying on a figure.
+
+## How GIC is worked out
+
+GIC for a day is that day’s rate times the unpaid amount and any GIC from earlier days still unpaid, so it compounds daily (section 8AAC). On a $10,000 debt left unpaid for all 92 days of October to December 2026, each day adds 11.51% ÷ 365 of the balance, and the debt grows to $10,294.32: $294.32 of GIC.
+
+The GIC payment plan calculator applies these rates day by day to a debt paid by equal weekly, fortnightly or monthly instalments, against paying it all now.
+
+## Common questions
+
+### What is the GIC rate for October to December 2026?
+
+11.51% a year, or 0.03153425% a day, as the ATO lists it. For July to September 2026 it was 11.43%.
+
+### How is the general interest charge rate set?
+
+Section 8AAD of the Taxation Administration Act 1953 adds 7 percentage points to a base interest rate. The base rate is the Reserve Bank’s monthly average yield of 90-day Bank Accepted Bills for the month the section names (November for January to March, February for April to June, May for July to September and August for October to December), rounded to 2 decimal places. The rate for a day divides the annual rate by the days in the calendar year.
+
+### Does GIC compound?
+
+Yes, daily. Under section 8AAC, the charge for a day is that day’s rate times the unpaid amount and the charge from previous days still unpaid. The ATO says tax debts on a payment plan continue to accrue GIC, which compounds daily.
+
+### Why can a daily rate differ in its last decimal place from the annual rate divided by 365?
+
+The daily rates here are the ATO’s published figures, to 8 decimal places: the annual rate divided by the days in the calendar year, which is 366 in a leap year. In 13 quarters the ATO’s last decimal place is one away from that division rounded to the nearest. The site’s payment plan calculator divides the annual rate itself, as section 8AAD(1) says.
+
+Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+
+## Related
+
+- GIC payment plan calculator
+- Division 7A benchmark interest rate
+- ATO: Payment plans
+- About Ryan Duguid
+
+## Links
+
+- General interest charge (GIC) rates: https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates
+- Taxation Administration Act 1953: https://www.legislation.gov.au/C1953A00001/latest/text
+- Download the table as CSV: https://duguid.com.au/rates/general-interest-charge/general-interest-charge-rates.csv
+- GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
+- Source and contact: https://github.com/ryanduguid
+- Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
+- ATO: Payment plans: https://www.ato.gov.au/individuals-and-families/paying-the-ato/help-with-paying/payment-plans
+- About Ryan Duguid: https://duguid.com.au/about/
+
+---
+
+# What is the top general transfer duty rate for 2026-27? 7%
+
+Source: https://duguid.com.au/rates/transfer-duty/
+
+> 7% is the top general transfer duty rate for 2026-27: NSW premium duty over $3,870,000. General scales for all 8 states and territories, from each revenue office.
+
+7%
+
+# Transfer duty (stamp duty) rates by state and territory
+
+7% is the top general transfer duty rate for 2026-27: New South Wales premium duty on residential land, on each $100 of value over $3,870,000.
+
+These are the general scales only, before any concession, exemption, first home buyer scheme or foreign purchaser surcharge. Each revenue office decides what is dutiable and the dutiable value.
+
+Published 15 November 2026. Last reviewed 15 November 2026. Source checked 15 November 2026.
+
+Read on 15 November 2026 from Revenue NSW, the State Revenue Office Victoria, the Queensland Revenue Office, the Western Australian Department of Treasury and Finance, RevenueSA, the State Revenue Office Tasmania, the ACT duty determination DI2026-155 and the Northern Territory Stamp Duty Act 1978. Each table names its source.
+
+## Scales by state and territory
+
+7% on the value over $3,870,000 in New South Wales. In each scale the base amount is the duty on the value up to the band’s lower limit. The transfer duty calculator applies these scales to a dutiable value.
+
+### New South Wales, from 1 July 2026
+
+Dutiable value | Duty
+$0 to $18,000 | $1.25 for every $100, or part of $100, with a minimum of $20
+$18,001 to $38,000 | $225 plus $1.50 for every $100, or part of $100, over $18,000
+$38,001 to $103,000 | $525 plus $1.75 for every $100, or part of $100, over $38,000
+$103,001 to $387,000 | $1,662 plus $3.50 for every $100, or part of $100, over $103,000
+$387,001 to $1,290,000 | $11,602 plus $4.50 for every $100, or part of $100, over $387,000
+$1,290,001 to $3,870,000 | $52,237 plus $5.50 for every $100, or part of $100, over $1,290,000
+Over $3,870,000, residential land | $194,137 plus $7.00 for every $100, or part of $100, over $3,870,000 (premium duty)
+
+Source: Revenue NSW, How to calculate transfer duty.
+
+### Victoria, contracts from 1 July 2021
+
+Dutiable value | Duty
+$0 to $25,000 | 1.4% of the value
+$25,001 to $130,000 | $350 plus 2.4% of the value over $25,000
+$130,001 to $960,000 | $2,870 plus 6% of the value over $130,000
+$960,001 to $2,000,000 | 5.5% of the whole value
+Over $2,000,000 | $110,000 plus 6.5% of the value over $2,000,000
+
+Source: State Revenue Office Victoria, non-principal place of residence current rates.
+
+### Queensland, from 21 September 2012
+
+Dutiable value | Duty
+$0 to $5,000 | Nil
+$5,001 to $75,000 | $1.50 for every $100, or part of $100, over $5,000
+$75,001 to $540,000 | $1,050 plus $3.50 for every $100, or part of $100, over $75,000
+$540,001 to $1,000,000 | $17,325 plus $4.50 for every $100, or part of $100, over $540,000
+Over $1,000,000 | $38,025 plus $5.75 for every $100, or part of $100, over $1,000,000
+
+Source: Queensland Revenue Office, Transfer duty rates.
+
+### Western Australia, from 2 July 2014
+
+Dutiable value | Duty
+$0 to $120,000 | $1.90 for every $100, or part of $100
+$120,001 to $150,000 | $2,280 plus $2.85 for every $100, or part of $100, over $120,000
+$150,001 to $360,000 | $3,135 plus $3.80 for every $100, or part of $100, over $150,000
+$360,001 to $725,000 | $11,115 plus $4.75 for every $100, or part of $100, over $360,000
+Over $725,000 | $28,453 plus $5.15 for every $100, or part of $100, over $725,000
+
+Source: Department of Treasury and Finance, Transfer duty assessment, general rate.
+
+### South Australia, from 5 September 2002
+
+Dutiable value | Duty
+$0 to $12,000 | $1.00 for every $100, or part of $100
+$12,001 to $30,000 | $120 plus $2.00 for every $100, or part of $100, over $12,000
+$30,001 to $50,000 | $480 plus $3.00 for every $100, or part of $100, over $30,000
+$50,001 to $100,000 | $1,080 plus $3.50 for every $100, or part of $100, over $50,000
+$100,001 to $200,000 | $2,830 plus $4.00 for every $100, or part of $100, over $100,000
+$200,001 to $250,000 | $6,830 plus $4.25 for every $100, or part of $100, over $200,000
+$250,001 to $300,000 | $8,955 plus $4.75 for every $100, or part of $100, over $250,000
+$300,001 to $500,000 | $11,330 plus $5.00 for every $100, or part of $100, over $300,000
+Over $500,000 | $21,330 plus $5.50 for every $100, or part of $100, over $500,000
+
+Source: RevenueSA, Rate of stamp duty, on conveyances.
+
+### Tasmania, from 21 October 2013
+
+Dutiable value | Duty
+$0 to $3,000 | $50
+$3,001 to $25,000 | $50 plus $1.75 for every $100, or part of $100, over $3,000
+$25,001 to $75,000 | $435 plus $2.25 for every $100, or part of $100, over $25,000
+$75,001 to $200,000 | $1,560 plus $3.50 for every $100, or part of $100, over $75,000
+$200,001 to $375,000 | $5,935 plus $4.00 for every $100, or part of $100, over $200,000
+$375,001 to $725,000 | $12,935 plus $4.25 for every $100, or part of $100, over $375,000
+Over $725,000 | $27,810 plus $4.50 for every $100, or part of $100, over $725,000
+
+Source: State Revenue Office Tasmania, Rates of duty.
+
+### Australian Capital Territory, from 1 July 2026
+
+Dutiable value | Duty
+$0 to $200,000 | $1.20 for every $100, or part of $100
+$200,001 to $300,000 | $2,400 plus $2.20 for every $100, or part of $100, over $200,000
+$300,001 to $500,000 | $4,600 plus $3.40 for every $100, or part of $100, over $300,000
+$500,001 to $750,000 | $11,400 plus $4.32 for every $100, or part of $100, over $500,000
+$750,001 to $1,000,000 | $22,200 plus $5.90 for every $100, or part of $100, over $750,000
+$1,000,001 to $1,455,000 | $36,950 plus $6.40 for every $100, or part of $100, over $1,000,000
+Over $1,455,000 | $4.54 for every $100 of the whole value
+
+Source: Table 2 of the ACT duty determination DI2026-155, for a transaction that is not an eligible owner occupier transaction.
+
+### Northern Territory, as in force at 1 July 2025
+
+Dutiable value | Duty
+$0 to $525,000 | (0.06571441 × V × V) + 15V, where V is the value divided by 1,000
+$525,001 to $2,999,999 | 4.95% of the whole value
+$3,000,000 to $4,999,999 | 5.75% of the whole value
+$5,000,000 and over | 5.95% of the whole value
+
+Source: Schedule 1, clause 1(2) of the Stamp Duty Act 1978.
+
+Download the table as CSV. Each row of the CSV gives the page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 15 November 2026. A row covers values above value_over up to and including value_to; an empty value_to has no upper limit. The rule column says whether the rate applies per $100 or part of $100 of the excess, to the exact excess, to the whole value, or through the Northern Territory formula. Cite as Duguid, R. (2026). General transfer duty scales by Australian state and territory [Data set]. https://duguid.com.au/rates/transfer-duty/. Verify against the revenue office before relying on a figure.
+
+## What the scales leave out
+
+Concessions, exemptions, first home buyer schemes and the surcharges on foreign purchasers and trusts change the duty payable and are not in these tables. The transfer duty calculator names each jurisdiction’s schemes. The Australian Capital Territory charges lower rates on an eligible owner occupier transaction, and Victoria on a principal place of residence; neither is listed.
+
+## Common questions
+
+### How much transfer duty is payable on a $1,350,000 home in New South Wales?
+
+$55,537 before any concession or surcharge: $52,237 plus $5.50 for every $100, or part of $100, over $1,290,000. That is Revenue NSW’s own worked example.
+
+### Do these rates include first home buyer concessions?
+
+No. They are the general scales. First home buyer schemes, principal place of residence concessions and foreign purchaser surcharges change the duty payable and are not included.
+
+### Which states round the value up to the next $100?
+
+New South Wales, Queensland, Western Australia, South Australia, Tasmania and the Australian Capital Territory charge for every $100 or part of $100, so the excess is rounded up. Victoria, the Northern Territory and the Australian Capital Territory’s band over $1,455,000 work from the exact value.
+
+Figures here reflect the sources named above as at the dates given. Check current revenue office guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+
+## Related
+
+- Transfer duty calculator
+- Individual income tax rates for residents
+- About Ryan Duguid
+
+## Links
+
+- transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- Revenue NSW, How to calculate transfer duty: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty
+- State Revenue Office Victoria, non-principal place of residence current rates: https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates
+- Queensland Revenue Office, Transfer duty rates: https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/
+- Department of Treasury and Finance, Transfer duty assessment: https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment
+- RevenueSA, Rate of stamp duty: https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty
+- State Revenue Office Tasmania, Rates of duty: https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty
+- ACT duty determination DI2026-155: https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html
+- Stamp Duty Act 1978: https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978
+- Download the table as CSV: https://duguid.com.au/rates/transfer-duty/transfer-duty-rates.csv
+- Source and contact: https://github.com/ryanduguid
+- Individual income tax rates for residents: https://duguid.com.au/rates/individual-income-tax/
+- About Ryan Duguid: https://duguid.com.au/about/
+
+---
+
 # Open source Australian accounting tools
 
 Source: https://duguid.com.au/tools/
@@ -2759,7 +3198,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 12 business planning calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 18 business planning calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -2967,7 +3406,7 @@ Fictional cash flow example: a worked forecast using au-fpa-pack, built on openf
 
 Third-party libraries, official guidance and primary sources this work depends on or sits beside. None is maintained here; each link goes to its own home.
 
-OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Node SDK (official) tap-xero Singer tap for the Xero API Excel Labs Advanced Formula Environment STP Phase 2 employer reporting guidelines Federal Register of Legislation ATO Legal Database ATO dataset catalogue on data.gov.au (archived 19 April 2026) Standard Business Reporting developer resources SuperStream technical standards
+OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Node SDK (official) tap-xero Singer tap for the Xero API Excel Labs Advanced Formula Environment STP employer reporting guidelines Federal Register of Legislation ATO Legal Database ATO dataset catalogue on data.gov.au (archived 19 April 2026) Standard Business Reporting developer resources SuperStream technical standards
 
 ## Links
 
@@ -2976,7 +3415,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun.: https://duguid.com.au/tools/monthly-close-controls/
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
-- 12 business planning calculators: https://duguid.com.au/tools/business-calculators/
+- 18 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -3024,7 +3463,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Xero Node SDK (official): https://github.com/XeroAPI/xero-node
 - tap-xero Singer tap for the Xero API: https://github.com/Matatika/tap-xero
 - Excel Labs Advanced Formula Environment: https://github.com/microsoft/excel-labs
-- STP Phase 2 employer reporting guidelines: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines
+- STP employer reporting guidelines: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
 - Federal Register of Legislation: https://www.legislation.gov.au/
 - ATO Legal Database: https://www.ato.gov.au/single-page-applications/legaldatabase
 - ATO dataset catalogue on data.gov.au (archived 19 April 2026): https://web.archive.org/web/20260419123949/https://data.gov.au/data/organization/australiantaxationoffice
@@ -5121,6 +5560,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+16 November 2026 | The announced measures page notes a bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, that the ATO’s summary now lists against the negative gearing and CGT discount reform. Parliament’s summary says it would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing; it is not law. Accounting questions 2 and 89 were rechecked on 16 November 2026 against the ATO’s claiming deductions page and its updated standard deduction and payment plans pages. Question 2 now says a few deductions, such as gifts and donations, need no connection to earning income, and question 89 says each account with an overdue debt must be paid in full or have its own payment plan.
+15 November 2026 | Six new business calculators: the last day to object to an income tax or FBT assessment, an amended assessment or another decision under section 14ZW, moved past a weekend; a quarterly PAYG instalment by the notified or varied amount or rate, with the credit to claim; the tax-free part of a genuine redundancy payment and the PAYG to withhold from an ETP for 2026-27; general transfer duty on a residential purchase in each of the 8 states and territories, from each one’s primary source; the ATO’s PCG 2021/4 risk zone for a professional firm’s profit allocation; and the GIC on a tax debt paid by weekly, fortnightly or monthly instalments. New rate tables give each state and territory’s transfer duty scale and every quarter’s GIC rate since July 1999.
 15 November 2026 | Two new business calculators: FBT on a car for the FBT year ending 31 March 2027, by the statutory formula or the operating cost method, and fixed fee pricing from hours at a rate or a cost and margin, with GST and monthly instalments that add up to the cent. The loan calculator takes a balloon and payments in advance. A new page lists the 2026-27 BAS due dates for monthly and quarterly lodgers, with a CSV, each date checked at the ATO on 15 November 2026. The Coal LSL levy page links its API and OpenAPI document, and WebMCP tools now cover the Division 7A, loan, break-even, depreciation and Coal LSL calculators as well as GST.
 15 November 2026 | The Ozzit page documents v3.6.0, published on 14 November: 150 LAMBDA functions and 5 help tables, the Ryan Duguid Public Attribution Licence 1.0 and the new download hash. The index and module pages add the 7 new functions for budget variance, financial-year periods, level loan payments and an average-balance corkscrew. Its ten worked formulas were rerun in desktop Excel against the v3.6.0 workbook with unchanged results, and the Evaluations page's Ozzit check now downloads v3.6.0.
 15 November 2026 | The tool pages, changelog and release record name the releases of 14 November: monthly-close-control-plane/v1.1.0, review-ready-gate/v1.0.1, aus-accounting-mcp/v0.9.0, Australian Accounting Skills v0.7.0 and Ozzit v3.6.0, and au-fpa-pack v0.6.0 of 13 November. The Ozzit page still documents v3.5.0 and its worked examples. The MCP registry still listed aus-accounting-mcp v0.8.0 on 15 November.
@@ -5844,13 +6285,15 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Twelve calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Eighteen calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
 Published 11 September 2026. Last checked 15 November 2026, the newest of the calculators’ source checks.
+
+## Pricing, planning and loans
 
 - GST calculator Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 - Business use share calculator Apportion an eligible cost by a supported business use percentage. It does not decide deductibility, depreciation or record sufficiency.
@@ -5860,10 +6303,25 @@ Published 11 September 2026. Last checked 15 November 2026, the newest of the ca
 - Fixed fee pricing calculator A fixed fee from estimated hours at a rate or a cost and margin, with GST, monthly instalments and the effective hourly rate.
 - Budget variance calculator Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 - Monthly loan payment calculator Fixed monthly payment, first-payment interest and principal, and estimated total interest, in arrears or in advance, with an optional balloon.
+
+## Division 7A, FBT, professional firms and GIC
+
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
+- PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
+- GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
+
+## Staff and cash
+
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
+
+## Objections, instalments, termination and duty
+
+- Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
+- PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
+- Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
+- Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, before any concession or surcharge.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -5880,8 +6338,14 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
+- PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
+- GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
+- PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
+- Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
+- Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 
 ---
 
@@ -6713,7 +7177,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 Practical steps, records and official guidance on tax returns.
 
-10 of 10 answers checked between 27 September 2026 and 2 November 2026. Other guidance reviewed 11 September 2026. Page updated 2 November 2026.
+10 of 10 answers checked between 27 September 2026 and 16 November 2026. Other guidance reviewed 11 September 2026. Page updated 16 November 2026.
 
 Search or build a checklist
 
@@ -6750,7 +7214,7 @@ Link to question 1
 
 ### Which expenses reduce my taxable income?
 
-To claim a work-related expense, you must have paid it yourself without reimbursement, it must directly relate to earning your income, and you need a record to prove it, usually a receipt. From 2026-27, eligible taxpayers can claim a standard deduction of up to $1,000 for work-related expenses without records; it is reduced by any work-related expenses they claim that it covers. An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.
+To claim a work-related expense, you must have paid it yourself without reimbursement, it must directly relate to earning your income, and you need a record to prove it, usually a receipt. From 2026-27, eligible taxpayers can claim a standard deduction of up to $1,000 for work-related expenses without records; it is reduced by any work-related expenses they claim that it covers. Most deductible expenses need a connection to earning assessable income and the evidence required for that type of claim; a few, such as gifts and donations, do not need that connection. Private spending and reimbursed amounts need separate treatment.
 
 - List each expense, its purpose, date, amount and reimbursement.
 - Record your work use calculation and check the ATO category before claiming.
@@ -6759,7 +7223,7 @@ A receipt proves spending, but does not by itself establish deductibility.
 
 Deductions you can claim · Claiming deductions · Standard deduction for work-related expenses · Business use apportionment calculator
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 16 November 2026.
 
 Link to question 2
 
@@ -8694,7 +9158,7 @@ Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 Practical steps, records and official guidance on companies and trusts.
 
-10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
+10 of 10 answers checked between 27 September 2026 and 16 November 2026. Other guidance reviewed 11 September 2026. Page updated 16 November 2026.
 
 Search or build a checklist
 
@@ -8850,7 +9314,7 @@ Link to question 88
 
 ### What information do I need to prepare an ATO payment plan proposal?
 
-A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and income tax and activity statement debts need separate plans. Prepare a proposal that shows how the debt and ongoing obligations could be paid.
+A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and each account with an overdue debt, such as income tax and activity statement accounts, must be paid in full or have its own plan. Prepare a proposal that shows how the debt and ongoing obligations could be paid.
 
 - Reconcile the ATO debt, outstanding lodgements and available cash, and prepare a realistic payment forecast.
 - Use the ATO support route to discuss terms and retain any accepted arrangement.
@@ -8859,7 +9323,7 @@ A forecast does not establish acceptance, interest relief or removal of other ob
 
 Paying the ATO · Payment plans · 13-week cash forecast
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 16 November 2026.
 
 Link to question 89
 
@@ -9254,7 +9718,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9265,7 +9729,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9312,7 +9776,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9322,7 +9786,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9369,7 +9833,7 @@ Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.
 
 Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -9379,7 +9843,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9425,7 +9889,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9434,7 +9898,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9478,7 +9942,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -9487,7 +9951,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9537,7 +10001,7 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
 
@@ -9546,7 +10010,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9597,7 +10061,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -9607,7 +10071,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9663,7 +10127,7 @@ A balloon above the principal is refused | $1,000.00 at 12% over 12 months, ball
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9674,7 +10138,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - car limit: https://duguid.com.au/rates/car-limit/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9727,7 +10191,7 @@ One year left repays the balance and a year’s interest | $1,000.00 at 8.77% ov
 The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
 No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9738,7 +10202,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9792,7 +10256,7 @@ The ATO’s example 23: a third off the cost price, none off later accessories |
 Contributions above the value leave nil | Statutory formula; cost price $10,000.00, 365 of 365 days, contributions $3,000.00, gross-up 2.0802 | Statutory formula value $0.00, taxable value $0.00, FBT $0.00
 More days than the FBT year are refused | Statutory formula; cost price $10,000.00, 366 of 365 days, contributions $0.00, gross-up 2.0802 | Refused: enter a whole number between 0 and 365
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9804,7 +10268,132 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - guide’s chapter 2: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# PCG 2021/4 professional firm profits risk scorer
+
+Source: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
+
+> Score an IPP’s profit allocation under PCG 2021/4: the 2 gateways, the 3 risk assessment factors and the green, amber or red zone, as the guideline sets them out.
+
+# PCG 2021/4 risk scorer
+
+The ATO’s risk zone for a professional firm profit allocation, after both gateways.
+
+Published 15 November 2026. Last checked 15 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+PCG 2021/4 risk assessment inputs for one IPP and one year
+
+Gateway 1: is the arrangement commercially driven, as paragraphs 39 to 46 describe? Yes No Gateway 2: is the arrangement free of high-risk features, as paragraphs 47 to 63 describe? Yes No Profit entitlement of the IPP and associated entities from the whole of firm group (AUD) Amount the IPP returns in their own tax return (AUD) Tax paid by the IPP and associated entities on that firm income (AUD) Risk assessment factors to use Factors 1 and 2: a commercial benchmark is impractical All 3 factors Remuneration the IPP returns, all 3 factors only (AUD) Commercial benchmark for the IPP’s services, all 3 factors only (AUD)
+
+Tax is, for each of the IPP and each associated entity, the larger of the tax on its firm income alone and its tax for the year less the tax it would pay without that income (paragraph 85), with no Medicare levy or other levy on taxable income. Include superannuation, fringe benefits at their grossed-up value and the FBT on them (paragraphs 72, 73 and 95 to 99).
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: gateways 1 and 2 passed, profit entitlement $600,000.00, returned by the IPP $330,000.00, tax on that firm income $189,367.00, factors 1 and 2. Factor 1: profit entitlement returned by the IPP 55.00%, score 4 Factor 2: total effective tax rate 31.56%, score 3 Aggregate score 7 Risk zone Green: low risk
+
+## How the PCG 2021/4 risk scorer works
+
+Practical Compliance Guideline PCG 2021/4 sets out how the ATO rates the risk that an individual professional practitioner (IPP) does not return enough of their professional firm’s profit in their own hands. The scorer first asks the 2 gateways. If the arrangement is not commercially driven (Gateway 1) or has a high-risk feature (Gateway 2), it gives no score, because paragraph 12 makes the risk assessment framework unavailable.
+
+It then scores up to 3 factors from 1 (lowest risk) to 6 (highest), using Table 1 at paragraph 76: the share of the whole of firm group profit entitlement the IPP returns personally, the total effective tax rate paid by the IPP and associated entities on that income, and, if you choose, the IPP’s remuneration as a percentage of a commercial benchmark for their services. It adds the scores and places the total in the green, amber or red zone of Table 2 at paragraph 78. If the IPP returns the whole entitlement, paragraph 81 makes the arrangement low risk and no other factor is scored.
+
+The scorer reproduces the scores and zones of all 12 case studies in the guideline’s appendix. Case study 1 opens the page: Nicolas returns $330,000 of a $600,000 entitlement, 55% and a score of 4, and he and his company pay $189,367 of tax on it, 31.56% and a score of 3, so his aggregate of 7 is green. In case study 7, Jacinta’s $360,000 against a $350,000 benchmark adds a factor 3 score of 3, for an aggregate of 10 against all 3 factors, also green.
+
+## What the PCG 2021/4 risk scorer does not cover
+
+The scorer does not decide whether the guideline applies: whether the IPP provides professional services or manages the firm and is an equity holder, whether the firm’s income is personal services income and whether the structure is legally effective (paragraph 28). It does not test the gateways; it takes your answers. It does not work out the entitlement, the tax for each entity under paragraph 85, a part-time IPP’s full-time equivalent (paragraph 71) or a commercial benchmark. A green zone is not a ruling: PCG 2021/4 does not change the law, Part IVA can still apply, and the ATO may still review an arrangement whose profit allocation drifts (paragraph 107). Confirm the assessment with the guideline or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: PCG 2021/4 risk scorer
+
+Case | Inputs | Result
+Case study 1: Nicolas returns 55% and is green on 2 factors | Gateways passed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Returned 55.00%, factor 1 score 4, tax rate 31.56%, factor 2 score 3, aggregate 7, green zone
+Case study 10: Astrid’s aggregate of 8 is amber | Gateways passed; entitlement $400,000.00, returned $200,000.00, tax $114,234.00 | Returned 50.00%, factor 1 score 4, tax rate 28.56%, factor 2 score 4, aggregate 8, amber zone
+Case study 7: Jacinta is green on all 3 factors at 10 | Gateways passed; entitlement $600,000.00, returned $360,000.00, tax $199,934.00, remuneration $360,000.00 against $350,000.00 | Returned 60.00%, factor 1 score 4, tax rate 33.32%, factor 2 score 3, 102.86% of benchmark, factor 3 score 3, aggregate 10, green zone
+Case study 6: returning the whole entitlement is green with no other factor | Gateways passed; entitlement $65,000.00, returned $65,000.00, tax $11,592.00 | Returned 100.00%, factor 1 score 1, no aggregate, green zone
+Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways passed; entitlement $1,000.00, returned $500.00, tax $300.00 | Returned 50.00%, factor 1 score 4, tax rate 30.00%, factor 2 score 3, aggregate 7, green zone
+One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
+A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
+
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# GIC on an ATO payment plan calculator
+
+Source: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
+
+> Compare paying a tax debt now with equal weekly, fortnightly or monthly instalments, with the general interest charge compounding daily at each quarter’s ATO rate.
+
+# GIC payment plan calculator
+
+What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
+
+Published 15 November 2026. Last checked 15 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+GIC payment plan inputs
+
+Tax debt on the plan’s first day (AUD) Date of the first instalment Number of equal instalments How often the instalments fall Weekly Fortnightly Monthly, on the same day of the month Annual GIC rate to assume after December 2026 (%)
+
+The rate for each day up to 31 December 2026 comes from the quarterly GIC rate table. The ATO has not yet published a rate for any later day, so a plan running past 2026 uses the rate you assume for those days.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: debt $1,000.00, first instalment 1 Oct 2026, 3 monthly instalments, 11.51% a year assumed after December 2026. Paid in full now $1,000.00 Each instalment but the last $336.56 Final instalment, 1 Dec 2026 $336.56 Total paid on the plan $1,009.68 GIC on the plan, over paying now $9.68
+
+## How the GIC payment plan calculator works
+
+The calculator compares paying a tax debt in full today with paying it by equal instalments. It works day by day from the first instalment to the last. Each day, the unpaid debt and any unpaid GIC grow by that day’s rate: the quarter’s annual GIC rate divided by 365, or 366 in a leap year, as sections 8AAC and 8AAD of the Taxation Administration Act 1953 set out. It finds the equal instalment that clears the debt and its GIC on the last instalment day, rounds it down to the cent, and lets the final instalment pay what is left. The GIC is the total paid on the plan less the debt.
+
+In the example the page opens with, a $1,000 debt is paid in 3 monthly instalments from 1 October 2026, all at the October to December 2026 rate of 11.51%. Paying $336.56 on 1 October leaves $663.44, which grows by 31 days of GIC to $669.96 by 1 November. Paying $336.56 then leaves $333.40, which grows by 30 days to $336.56 on 1 December, the final instalment. The plan costs $1,009.68, so $9.68 of GIC over paying now.
+
+## What the GIC payment plan calculator does not cover
+
+The calculator does not work out the debt, its due date or any GIC that accrued before the plan starts; enter the debt as it stands on the first instalment day. It does not model a missed or late instalment, a plan the ATO varies, a GIC remission, a refund offset against the debt or the deductibility of GIC. Rates after December 2026 are your assumption until the ATO publishes them. The ATO sets the instalments of an actual plan, and its figures may differ by cents from these. Confirm the amount payable with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: GIC payment plan calculator
+
+Case | Inputs | Result
+Hand-worked: $1,000 by 3 monthly instalments inside one quarter | $1,000.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Instalment $336.56, final instalment $336.56, total paid $1,009.68, GIC $9.68, last instalment 2026-12-01, 0 days at the assumed rate
+One instalment pays the debt on the first day, with no GIC | $2,500.00 from 2026-08-20, 1 weekly instalment, 11.51% assumed after the table | Instalment $2,500.00, final instalment $2,500.00, total paid $2,500.00, GIC $0.00, last instalment 2026-08-20, 0 days at the assumed rate
+Weekly instalments across the 1 October 2026 rate change | $5,000.00 from 2026-09-17, 4 weekly instalments, 11.51% assumed after the table | Instalment $1,254.11, final instalment $1,254.14, total paid $5,016.47, GIC $16.47, last instalment 2026-10-08, 0 days at the assumed rate
+A leap year divides by 366, and 31 January falls back to 29 February | $10,000.00 from 2024-01-31, 3 monthly instalments, 11.51% assumed after the table | Instalment $3,364.12, final instalment $3,364.12, total paid $10,092.36, GIC $92.36, last instalment 2024-03-31, 0 days at the assumed rate
+Fortnightly instalments across a year end and a rate change | $3,000.00 from 2025-12-18, 3 fortnightly instalments, 11.51% assumed after the table | Instalment $1,004.07, final instalment $1,004.09, total paid $3,012.23, GIC $12.23, last instalment 2026-01-15, 0 days at the assumed rate
+A plan past December 2026 uses the assumed rate for 287 days | $20,000.00 from 2026-11-15, 12 monthly instalments, 11.51% assumed after the table | Instalment $1,755.63, final instalment $1,755.66, total paid $21,067.59, GIC $1,067.59, last instalment 2027-10-15, 287 days at the assumed rate
+An assumed 9% after December 2026 lowers the GIC on the same plan | $20,000.00 from 2026-11-15, 12 monthly instalments, 9% assumed after the table | Instalment $1,740.95, final instalment $1,740.98, total paid $20,891.43, GIC $891.43, last instalment 2027-10-15, 287 days at the assumed rate
+$1,000,000 for 7 days, one of them at the July to September 2026 rate | $1,000,000.00 from 2026-09-30, 2 weekly instalments, 11.51% assumed after the table | Instalment $500,551.21, final instalment $500,551.22, total paid $1,001,102.43, GIC $1,102.43, last instalment 2026-10-07, 0 days at the assumed rate
+A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a start date from 1999-07-01 to 2099-12-31
+A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
+More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
+
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9850,7 +10439,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9860,7 +10449,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9935,7 +10524,7 @@ Case | Inputs | Result
 A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
 A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
-One of the twelve business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9945,7 +10534,277 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- twelve business calculators: https://duguid.com.au/tools/business-calculators/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# ATO objection deadline checker: 2 years, 4 years or 60 days
+
+Source: https://duguid.com.au/tools/business-calculators/objection-deadline/
+
+> The last day to lodge an objection under section 14ZW of the Taxation Administration Act 1953, counted as the Acts Interpretation Act 1901 counts time.
+
+# Objection deadline checker
+
+The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
+
+Published 15 November 2026. Last checked 15 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Objection deadline inputs
+
+Decision objected to Income tax assessment Amended income tax assessment FBT assessment Amended FBT assessment Another decision for which section 14ZW sets no other period Income tax only: does item 1, 2, 3 or 3A of the table in subsection 170(1) of the Income Tax Assessment Act 1936 apply to the assessment? Yes: 2 years No: 4 years Day notice of the decision was given or served Amended assessments only: day notice of the first assessment for the year was given or served
+
+Item 1 covers most individuals, and items 2 and 3 companies and trusts that are small or medium business entities; each excludes, for example, a scheme to obtain a tax benefit. Item 3A covers their requests to amend. Which item applies is not decided here.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: income tax assessment, item 1, 2, 3 or 3A applies (2 years), notice given 18 November 2026. Period ends, subparagraph 14ZW(1)(aa)(i) Saturday 18 November 2028 Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901 Monday 20 November 2028 If that day is a public holiday where the objection is lodged, or the office is closed all day, it may be lodged on the next day that is not a Saturday, Sunday or holiday. After the last day, an objection needs a written request under subsection 14ZW(2), which the Commissioner decides under section 14ZX.
+
+## How the objection deadline checker works
+
+The objection deadline checker gives the last day to lodge a taxation objection under section 14ZW of the Taxation Administration Act 1953. An income tax assessment allows 2 years after notice of the assessment is given when item 1, 2, 3 or 3A of the table in subsection 170(1) of the Income Tax Assessment Act 1936 applies, and 4 years otherwise. An FBT assessment allows 4 years. Any other decision for which the section sets no other period allows 60 days after notice is served.
+
+An amended assessment allows whichever ends later: 60 days after notice of the amended assessment, or the 2 or 4 years after notice of the first assessment for that year. The checker shows both dates and the later one.
+
+Each period starts the day after notice, because subsection 36(1) of the Acts Interpretation Act 1901 leaves out the day a period begins after. A 2-year period from notice given on 28 February 2026 therefore starts on 1 March 2026 and ends on 29 February 2028. When the last day is a Saturday or Sunday, subsection 36(2) lets the objection be lodged on the next day that is not a weekend or holiday. The Act’s own example: a person who has until Saturday 31 March may apply on Monday 2 April.
+
+## What the objection deadline checker does not cover
+
+The checker does not decide whether a decision can be objected to, which item of subsection 170(1) applies, or when notice was given, so keep the notice’s issue and receipt dates. It does not know public holidays: they differ by state and town, so check the last day and the day after it where you lodge. It does not cover private rulings, administrative penalties, retained refunds, deceased estates, specialised taxes or the other decisions for which section 14ZW sets its own period, or the time to seek review of an objection decision. Confirm the date with the notice of decision or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Objection deadline checker
+
+Case | Inputs | Result
+A last day on a Saturday moves to the Monday | Income tax assessment, 2 years, notice 18 November 2026 | Subparagraph 14ZW(1)(aa)(i), period ends Saturday 18 November 2028, last day Monday 20 November 2028
+A last day on a Sunday moves to the Monday | Income tax assessment, 4 years, notice 17 November 2026 | Subparagraph 14ZW(1)(aa)(ii), period ends Sunday 17 November 2030, last day Monday 18 November 2030
+The day notice is given is not counted | Other decision, notice 1 January 2027 | Paragraph 14ZW(1)(c), period ends Tuesday 2 March 2027, last day Tuesday 2 March 2027
+A period starting on 1 March 2026 ends on 29 February 2028 | Income tax assessment, 2 years, notice 28 February 2026 | Period ends Tuesday 29 February 2028, last day Tuesday 29 February 2028
+A period starting on 1 March 2028 ends on 28 February 2030 | Income tax assessment, 2 years, notice 29 February 2028 | Period ends Thursday 28 February 2030, last day Thursday 28 February 2030
+An amended assessment takes the later of its 2 dates | Amended income tax assessment, 2 years, notice 2 October 2028, first notice 20 October 2026 | Subsection 14ZW(1BA), 60 days after the amended notice Friday 1 December 2028, first notice period ends Friday 20 October 2028, period ends Friday 1 December 2028, last day Friday 1 December 2028
+An FBT assessment allows 4 years | FBT assessment, notice 15 November 2026 | Paragraph 14ZW(1)(aaa), period ends Friday 15 November 2030, last day Friday 15 November 2030
+A first notice after the amended notice is refused | Amended FBT assessment, notice 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the amended one
+
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# PAYG instalments calculator: instalment amount and rate methods
+
+Source: https://duguid.com.au/tools/business-calculators/payg-instalments/
+
+> One quarterly PAYG instalment by the ATO’s instalment amount or the instalment rate, notified or varied, with the credit to claim, as the activity statement asks.
+
+# PAYG instalments calculator
+
+One quarter’s PAYG instalment by the instalment amount or the instalment rate, as notified or varied, with any credit to claim.
+
+Published 15 November 2026. Last checked 15 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+PAYG instalment inputs for one quarter
+
+How this instalment is worked out Option 1: pay the instalment amount at T7 Option 1, varied: an amount from your estimated tax for the year Option 2: instalment income times the rate at T2 Option 2, varied: a rate from your estimates for the year Option 1: instalment amount at T7 (AUD) Option 2: instalment income for the quarter at T1 (AUD) Option 2: instalment rate at T2 (%) Varied amount only: which of this income year’s instalments is this? First: 25% of estimated tax Second: 50% Third: 75% Fourth: 100% Varying only: estimated tax on instalment income for the year, T8 (AUD) Varied rate only: estimated instalment income for the year (AUD) Varying only: earlier instalments this income year, as at 5A (AUD) Varying only: credits claimed at 5B this income year (AUD) Varied rate only: instalment income of the earlier quarters (AUD)
+
+Each option reads only its own fields. Instalment income is generally gross business and investment income, excluding GST.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: instalment rate (option 2), instalment income $20,100.00 at T1, instalment rate 1.7% at T2. T1 × T2 $341.70 Instalment at T11 and 5A, whole dollars $341.00
+
+## How the PAYG instalments calculator works
+
+The PAYG instalments calculator works out one quarterly pay as you go instalment by the method on the activity statement. Under option 1 the instalment is the amount the ATO notifies at T7. Varying it, the first instalment of the income year is 25% of the estimated tax for the year, the second 50%, the third 75% and the fourth 100%, each less the earlier instalments and plus any credits claimed for them. A negative result is a credit to claim at 5B.
+
+Under option 2 the instalment is the quarter’s instalment income at T1 times the instalment rate at T2. A varied rate is the estimated tax for the year divided by the estimated instalment income, times 100. If the varied rate is lower than the earlier rate, the earlier instalments less any credits claimed, less the earlier instalment income times the varied rate, is a credit for 5B.
+
+For 2026-27, the instalment amount the ATO notifies already includes its GDP adjustment of 5%, which raises the base year’s income to allow for growth; the adjustment does not change an instalment rate. The ATO’s own example: instalment income of $20,100 at a rate of 1.7% gives $341.70, entered as 341 at T11 and 5A.
+
+## What the PAYG instalments calculator does not cover
+
+The calculator does not work out instalment income, the tax on it or whether you can choose between the 2 options. It does not cover monthly instalments, the 2 instalments a year some payers make, annual instalments or consolidated groups, and it does not estimate general interest charge on a variation that proves too low. It does not check whether you may claim a credit or when an instalment is due. Confirm the figures with the ATO’s PAYG instalments calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: PAYG instalments calculator
+
+Case | Inputs | Result
+The ATO’s T1 × T2 example, cents dropped | Instalment income $20,100.00 at 1.7% | Amount $341.70, instalment $341.00, instalment rate 1.70%
+The ATO’s instalment rate example | Instalment income $106,000.00 at 11% | Amount $11,660.00, instalment $11,660.00, instalment rate 11.00%
+The notified amount stands | Instalment amount $5,000.00 | Amount $5,000.00, instalment $5,000.00, credit $0.00
+The ATO’s varied amount for a third instalment | Varied amount, instalment 3; estimated tax $14,000.00, earlier instalments $10,000.00, credits $0.00 | Due by this instalment $10,500.00, amount $500.00, instalment $500.00, credit $0.00
+The ATO’s varied amount for the fourth instalment | Varied amount, instalment 4; estimated tax $14,000.00, earlier instalments $10,500.00, credits $0.00 | Due by this instalment $14,000.00, amount $3,500.00, instalment $3,500.00
+A varied amount below nil is a credit | Varied amount, instalment 3; estimated tax $8,000.00, earlier instalments $10,000.00, credits $0.00 | Due by this instalment $6,000.00, amount -$4,000.00, instalment $0.00, credit $4,000.00
+Credits claimed are added back | Varied amount, instalment 4; estimated tax $8,000.00, earlier instalments $10,000.00, credits $4,000.00 | Due by this instalment $8,000.00, amount $2,000.00, instalment $2,000.00, credit $0.00
+The ATO’s varied rate, cut to 2 decimal places, with a credit | Varied rate from estimated tax $10,125.00 on $82,480.00; instalment income $20,620.00, rate at T2 16.84%; earlier instalments $6,944.00, credits $0.00, on $41,240.00 | Instalment rate 12.27%, amount $2,530.07, instalment $2,530.00, credit $1,883.00
+The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax $2,000.00 on $40,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 5.00%, amount $500.00, instalment $500.00, credit $500.00
+A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
+A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
+
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Redundancy and ETP withholding calculator for 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/termination-payment/
+
+> The tax-free part of a genuine redundancy payment, the ETP and whole-of-income caps, and the PAYG to withhold from an ETP under Schedule 11, for 2026-27.
+
+# Redundancy and ETP withholding
+
+The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
+
+Published 15 November 2026. Last checked 15 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Inputs for one life benefit ETP paid in 2026-27
+
+Genuine redundancy or early retirement scheme payment, before its tax-free part (AUD) Completed years of service Other code R taxable component: invalidity, or compensation for personal injury, unfair dismissal, harassment or discrimination (AUD) Code O taxable component: golden handshake, gratuity, non-genuine redundancy, severance pay, payment in lieu of notice, unused sick leave or unused rostered days off (AUD) Other taxable payments you made to the employee in 2026-27, excluding the ETP (AUD) Employee’s date of birth
+
+For an employee who has given you their TFN. Unused annual leave, leave loading and long service leave are not ETPs and are withheld under Schedule 7, but count them in other taxable payments, as Schedule 11’s example 3 counts $50,000 of leave entitlements paid as a lump sum.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: genuine redundancy or early retirement scheme payment $48,000.00 after 5 completed years of service, other code R taxable component $0.00, code O taxable component $17,678.00, other taxable payments in 2026-27 $140,000.00, born 1 Aug 1996. Tax-free limit $47,603.00 Tax-free part of the redundancy payment $47,603.00 Code R taxable component $397.00 Withhold from the code R part $127.00 Whole-of-income cap left $40,000.00 Cap for the code O part $40,000.00 Withhold from the code O part $5,657.00 Total to withhold $5,784.00 Under preservation age on 30 June 2027: 32% within each cap and 47% above it.
+
+This is the payer’s withholding under Schedule 11, a payroll and practitioner task; it does not estimate the employee’s take-home pay or the tax assessed on their return.
+
+## How the redundancy and ETP withholding calculator works
+
+The redundancy and ETP withholding calculator works out how much a payer withholds from one life benefit employment termination payment (ETP) made in 2026-27. A genuine redundancy or early retirement scheme payment is tax-free up to $13,598 plus $6,801 for each completed year of service. The part above that limit is a code R ETP, as are payments for invalidity and compensation for personal injury, unfair dismissal, harassment or discrimination. The code R part is withheld at the rate within the cap up to the $270,000 ETP cap and at 47% above it.
+
+The rest of the ETP is code O: a golden handshake, gratuity, non-genuine redundancy payment, severance pay, payment in lieu of notice, unused sick leave or unused rostered days off. Its cap is the smaller of the ETP cap left after the code R part and the whole-of-income cap, which is $180,000 less the other taxable payments you made to the employee in the year. The rate within the cap is 17% if the employee is their preservation age or older on 30 June 2027, otherwise 32%; 47% applies above the cap.
+
+Schedule 11’s example 4 takes Alec, 30, made redundant after 5 years of service with a $48,000 genuine redundancy payment and a $17,678 gratuity, having been paid $140,000 of salary and wages in the year. It works out a $397 ETP over the $47,603 tax-free limit, withholds $127 from it and $5,657 from the gratuity within the $40,000 whole-of-income cap. This calculator opens on those figures, with a date of birth that makes Alec 30, and gives the same amounts.
+
+## What the redundancy and ETP withholding calculator does not cover
+
+The calculator does not decide whether a termination is a genuine redundancy, whether a payment is an ETP or which code applies. It takes the taxable component as you enter it and does not work out a tax-free component other than the redundancy limit, such as an invalidity segment. It covers one life benefit ETP for one termination: not death benefit ETPs, delayed termination payments, a later instalment for the same termination, an earlier ETP in the same year, an employee who has not given you their TFN, a foreign resident or a working holiday maker. It does not work out withholding on unused leave, which Schedule 7 covers. Confirm the figures with Schedule 11 or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Redundancy and ETP withholding
+
+Case | Inputs | Result
+Schedule 11’s example 4, Alec: the redundancy payment over its tax-free part first, then the gratuity | Redundancy payment $48,000.00 after 5 years, other code R $0.00, code O $17,678.00, other payments $140,000.00, born 1 August 1996 | Tax-free limit $47,603.00, tax-free part $47,603.00, code R taxable component $397.00, withheld from code R $127.00, whole-of-income cap left $40,000.00, code O cap $40,000.00, withheld from code O $5,657.00, total withheld $5,784.00
+Schedule 11’s example 3, Chris: a golden handshake over the whole-of-income cap | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $120,000.00, other payments $100,000.00, born 1 August 1996 | Whole-of-income cap left $80,000.00, code O cap $80,000.00, withheld from code O $44,400.00, total withheld $44,400.00
+The code R part uses up the ETP cap left for the code O part | Redundancy payment $0.00 after 0 years, other code R $250,000.00, code O $50,000.00, other payments $0.00, born 1 August 1996 | Withheld from code R $80,000.00, whole-of-income cap left $180,000.00, code O cap $20,000.00, withheld from code O $20,500.00, total withheld $100,500.00
+Preservation age 60 reached on 30 June 2027, the year’s last day | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $10,000.00, other payments $0.00, born 30 June 1967 | Withheld from code O $1,700.00, total withheld $1,700.00
+Born a day later, still under preservation age | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $10,000.00, other payments $0.00, born 1 July 1967 | Withheld from code O $3,200.00, total withheld $3,200.00
+Withholding of exactly $8.50 rounds up to the next dollar | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960 | Withheld from code O $9.00, total withheld $9.00
+Part years of service are refused | Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996 | Refused: enter a whole number between 0 and 150
+
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Stamp duty calculator for every Australian state and territory
+
+Source: https://duguid.com.au/tools/business-calculators/transfer-duty/
+
+> General transfer (stamp) duty on a residential purchase in all 8 states and territories, from each one’s primary source as read on 15 November 2026.
+
+# Transfer duty calculator
+
+General transfer (stamp) duty on a residential purchase in any Australian state or territory, from each revenue office’s current rates.
+
+Published 15 November 2026. Last checked 15 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Transfer duty inputs
+
+State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+
+Dutiable value (whole dollars)
+
+Each revenue office decides what the dutiable value is. Revenue NSW, for example, uses the higher of the price you agreed to pay and the market value. The rates are those in the transfer duty rate table.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, dutiable value $1,350,000.00. General transfer duty $55,537.00 Rate applied $52,237 plus $5.50 for every $100, or part of $100, over $1,290,000
+
+## How the transfer duty calculator works
+
+The transfer duty calculator applies one state or territory’s general rates to a dutiable value. Most scales charge a base amount plus a rate for every $100, or part of $100, over a threshold, so the excess is rounded up to the next $100. Victoria takes a percentage of the excess without rounding it, and 5.5% of the whole value from $960,000 to $2 million. The Australian Capital Territory takes $4.54 per $100 of the whole value above $1,455,000. The Northern Territory uses a formula up to $525,000 and a single percentage of the whole value above it.
+
+Where a revenue office publishes worked figures, the calculator gives the same amount. Revenue NSW’s worked examples give $55,537 on $1,350,000, $14,437 on $450,000 and $203,237 on $4,000,000; its Transfer of Land or Business Calculator gave $14,441.50 on $450,050 when tried on 15 November 2026. The Victorian State Revenue Office gives $28,070 at the standard rate on $550,000 and $19,070 on $400,000. The Queensland Revenue Office gives $31,275 on $850,000. RevenueSA’s foreign ownership surcharge example gives stamp duty of $26,830 on $600,000. The Tasmanian duty calculator gave $18,247.50 on $500,000 on 15 November 2026. For Western Australia, the Australian Capital Territory and the Northern Territory the tests work examples by hand from the published rates: $32,315.50 on $800,000 in Western Australia, $17,880 on $650,000 in the Australian Capital Territory and $23,928.60 on $500,000 in the Northern Territory.
+
+## What the transfer duty calculator does not compute
+
+The transfer duty calculator gives general transfer duty only. It applies no concession, exemption, surcharge or first home buyer scheme, and does not decide whether a transaction is dutiable or what its dutiable value is. These are not computed:
+
+- New South Wales: duty on land other than residential land over $3,870,000, which the premium rate does not reach (the calculator applies it and says so in its result), the First Home Buyers Assistance Scheme, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
+- Victoria: the principal place of residence concession, duty relief for a first home buyer, the City of Melbourne new residential property concession and exemption, the pensioner exemption and concession, and foreign purchaser additional duty.
+- Queensland: the home concession, first home concession, first home (new home) concession and first home vacant land concession, and additional foreign acquirer duty, which also reaches companies and trusts.
+- Western Australia: the concessional rate for a principal place of residence or WA business asset up to $200,000, the first home owner rate, the off-the-plan concession or rebate, and foreign transfer duty.
+- South Australia: stamp duty relief for eligible first home buyers, seniors downsizing stamp duty relief, home buyer ex gratia relief for victim-survivors of family, domestic or sexual violence, and the foreign ownership surcharge.
+- Tasmania: concessions and exemptions, and the foreign investor duty surcharge.
+- Australian Capital Territory: the lower rate for an eligible owner occupier transaction (Table 1 of the determination), home buyer concessions, and the rates for commercial property.
+- Northern Territory: the house and land package exemption and the home incentive schemes in Part 5 of the Act.
+
+Duty on a trust acquisition, a landholder or corporate trustee acquisition, a lease premium or a business sale, and the land tax that follows a purchase, are not computed either. Confirm the figure with the revenue office’s own calculator or a conveyancer before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Transfer duty calculator
+
+Case | Inputs | Result
+Revenue NSW’s auction example | New South Wales, $1,350,000.00 | Duty $55,537.00
+Part of $100 counts as a whole $100, as Revenue NSW’s calculator gave | New South Wales, $450,050.00 | Duty $14,441.50
+The $20 minimum | New South Wales, $1,000.00 | Duty $20.00
+Premium duty on residential land, Revenue NSW’s example | New South Wales, $4,000,000.00 | Duty $203,237.00
+The Victorian SRO’s standard-rate example | Victoria, $550,000.00 | Duty $28,070.00
+5.5% of the whole value from $960,000 in Victoria | Victoria, $1,000,000.00 | Duty $55,000.00
+The Queensland Revenue Office’s example | Queensland, $850,000.00 | Duty $31,275.00
+Western Australia’s top rate, worked by hand | Western Australia, $800,000.00 | Duty $32,315.50
+RevenueSA’s example | South Australia, $600,000.00 | Duty $26,830.00
+As Tasmania’s duty calculator gave | Tasmania, $500,000.00 | Duty $18,247.50
+The ACT’s flat rate on the whole value, worked by hand | Australian Capital Territory, $1,500,000.00 | Duty $68,100.00
+The Northern Territory formula, worked by hand | Northern Territory, $500,000.00 | Duty $23,928.60
+Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
+
+One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
+- eighteen business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 

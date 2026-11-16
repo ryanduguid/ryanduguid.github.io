@@ -43,7 +43,9 @@ mandatory, and that a new non-exempt job omitted from the aggregate fails.
 `deploy` and `publication`, which run only on main pushes, are the only aggregate
 exemptions besides the scheduled fuzzing job.
 
-The package retains `.well-known`, which the native Pages upload action excludes.
+The package minifies the checked tree's JavaScript and CSS with
+`site-tools minify_site`; the browser and Lighthouse jobs test the same minified
+files through `serve_site`. The package retains `.well-known`, which the native Pages upload action excludes.
 Its deployment metadata supplies the published SHA for the smoke check. The
 deploy job downloads and extracts that exact artifact, verifies its metadata and
 page files before publication, and uses the extracted tree for the delivery

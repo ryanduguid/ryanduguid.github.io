@@ -1,7 +1,7 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-//! An independent oracle for the loan, Division 7A, FBT car and Coal LSL engines. 360 seeded
+//! An independent oracle for the loan, Division 7A, FBT car, Coal LSL and transfer duty engines. 360 seeded
 //! fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser module returns under Node. The loan sums
 //! its discount factors one month at a time, and the Division 7A minimum yearly repayment
@@ -10,6 +10,9 @@
 //! Payroll Levy Collection Act 1992 in quarter cents. The FBT car value adds the statutory
 //! formula's share of the base value one day at a time and takes the business use share off
 //! the operating costs, where the engine multiplies by the days and the private use share.
+//! Transfer duty types each jurisdiction's scale here from its revenue office or
+//! legislation, not from the site's rate table, and checks the engine either side of every
+//! band threshold and on 160 seeded values, so a slip in either transcription shows.
 //!
 //! The route is independent; the conventions are not. The oracle takes the same 12 equal
 //! months, payment count, unrounded total interest and half-up final rounding as the
@@ -23,13 +26,30 @@
 //! takes the closed form and divides by one month's growth for advance.
 //!
 //! Nothing here imports an engine or a constant from one, and a change to the case seed
-//! needs no change to the expected values, which are never stored.
+//! needs no change to the expected values, which are never stored. The objection deadline
+//! and PAYG instalment engines have oracles of their own, after the others.
 //!
 //! A further 120 seeded fixed fees, from their own seed, are worked by the definition of
 //! rounding up (the smallest whole number of steps whose fee keeps the margin) and their
 //! instalments by sharing out the cents left over, where the engine divides with a ceiling.
+//!
+//! A further 60 seeded termination payments, from their own seed, read preservation age from
+//! Schedule 11's table as date ranges and build the tax-free limit a year of service at a time,
+//! where the engine works the age out from the year of birth and multiplies. Both round each
+//! part's withholding to the dollar, 50 cents up, so the oracle cannot show that convention.
+//!
+//! A further 120 seeded PCG 2021/4 arrangements, from their own seed, are scored against
+//! each band's lower and upper bounds as Table 1 writes them and the zone ranges of
+//! Table 2, where the engine takes the first band whose lower bound a percentage reaches.
+//!
+//! A further 120 seeded GIC payment plans read each quarter's rate from the published CSV,
+//! not the engine's copy, and count their own calendar days. The equal instalment is the
+//! debt over the sum of each instalment's discount factor, and the final instalment is
+//! the balance carried day by day, where the engine grows the debt and the instalments
+//! forward together.
 mod common;
 
+use chrono::{Datelike, NaiveDate, Weekday};
 use num_bigint::BigUint;
 use serde_json::{Value, json};
 use std::io::Write;
@@ -41,6 +61,8 @@ const DIV7A_CASES: usize = 60;
 const LEVY_CASES: usize = 120;
 const FBT_CASES: usize = 60;
 const BALLOON_CASES: usize = 120;
+/// Seeded transfer duty values, beside every band boundary of every jurisdiction.
+const DUTY_CASES: usize = 160;
 /// A rate typed to 4 places is a whole number of ten-thousandths of 1% a year, which is
 /// a whole number of 1/12,000,000ths a month.
 const MONTHLY_SCALE: u64 = 12_000_000;
@@ -54,9 +76,14 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 
 /// Runs the cases through the engines in one Node process, from the repository root so
 /// the module paths resolve. A missing `node` fails the test.
-const HARNESS: &str = r"
-import { loan, div7aMinimumRepayment, fbtCar, fixedFee } from './assets/business-calculators.mjs';
+const HARNESS: &str = r#"
+import { readFileSync } from 'node:fs';
+import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan } from './assets/business-calculators.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
+// Each jurisdiction's scale as the rendered calculator page gives it to the browser.
+const page = readFileSync('tools/business-calculators/transfer-duty/index.html', 'utf8');
+const scales = Object.fromEntries([...page.matchAll(/value="(AU-[A-Z]+)" data-name="[^"]+" data-scale="([^"]+)"/g)]
+  .map(([, place, scale]) => [place, scale.split(';').map((row) => row.split(','))]));
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const money = (value) => String(value);
@@ -77,6 +104,9 @@ const run = {
   base: ({ inputs }) => levy(baseRateWages(inputs)),
   salary: ({ inputs }) => levy(annualSalaryWages(inputs)),
   casual: ({ inputs }) => levy(casualWages(inputs)),
+  etp: ({ payment, year }) => Object.fromEntries(Object.entries(terminationPayment(payment, year))
+    .map(([key, value]) => [key, typeof value === 'number' ? money(value) : value])),
+  duty: ({ value, place }) => ({ duty: money(transferDuty(value, scales[place]).duty) }),
   fee: ({ hours, rate, margin, roundTo, gst, instalments }) => {
     try {
       const result = fixedFee(hours, rate, margin, roundTo, gst, instalments);
@@ -85,9 +115,12 @@ const run = {
       return { refused: error.message };
     }
   },
+  pcg: ({ arrangement }) => Object.fromEntries(Object.entries(pcgRisk(arrangement))
+    .map(([key, value]) => [key, value === null ? null : String(value)])),
+  gic: ({ plan }) => Object.fromEntries(Object.entries(gicPaymentPlan(plan)).map(([key, value]) => [key, String(value)])),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
-";
+"#;
 
 /// A fixed sequence (xorshift64*), so a failure names a case that reappears on a rerun.
 struct Seeded(u64);
@@ -226,6 +259,228 @@ fn exact_half_up(numerator: u128, denominator: u128) -> u128 {
 /// Half up at the final step only, as the calculator page states.
 fn levy_oracle(quarters: u128) -> u128 {
     (2 * quarters * LEVY_NUMERATOR + LEVY_DENOMINATOR) / (2 * LEVY_DENOMINATOR)
+}
+
+/// One band of a general transfer duty scale, typed from the revenue office's or the
+/// legislation's own wording as read on 15 November 2026, not from the site's rate table.
+/// Each band applies to values above `over`; the scales list them lowest first.
+#[derive(Clone, Copy)]
+enum Band {
+    /// `base` dollars plus `cents` for every $100, or part of $100, over `over`.
+    PerHundred { over: u64, base: u64, cents: u64 },
+    /// `base` dollars plus `points` hundredths of a per cent of the excess over `over`.
+    Excess { over: u64, base: u64, points: u64 },
+    /// `points` hundredths of a per cent of the whole value, above `over`.
+    Whole { over: u64, points: u64 },
+}
+
+const fn per(over: u64, base: u64, cents: u64) -> Band {
+    Band::PerHundred { over, base, cents }
+}
+
+/// The 7 scales written as bands; the Northern Territory's is a formula ([`nt_duty`]).
+const DUTY_SCALES: [(&str, &[Band]); 7] = [
+    // Revenue NSW, 2026-27: $1.25 for every $100 (minimum $20), then the bands to the
+    // premium rate for residential property over $3,870,000.
+    (
+        "AU-NSW",
+        &[
+            per(0, 0, 125),
+            per(18_000, 225, 150),
+            per(38_000, 525, 175),
+            per(103_000, 1_662, 350),
+            per(387_000, 11_602, 450),
+            per(1_290_000, 52_237, 550),
+            per(3_870_000, 194_137, 700),
+        ],
+    ),
+    // State Revenue Office Victoria, non-principal place of residence, from 1 July 2021.
+    (
+        "AU-VIC",
+        &[
+            Band::Excess {
+                over: 0,
+                base: 0,
+                points: 140,
+            },
+            Band::Excess {
+                over: 25_000,
+                base: 350,
+                points: 240,
+            },
+            Band::Excess {
+                over: 130_000,
+                base: 2_870,
+                points: 600,
+            },
+            Band::Whole {
+                over: 960_000,
+                points: 550,
+            },
+            Band::Excess {
+                over: 2_000_000,
+                base: 110_000,
+                points: 650,
+            },
+        ],
+    ),
+    // Queensland Revenue Office: nil to $5,000, then for each $100, or part of $100.
+    (
+        "AU-QLD",
+        &[
+            per(0, 0, 0),
+            per(5_000, 0, 150),
+            per(75_000, 1_050, 350),
+            per(540_000, 17_325, 450),
+            per(1_000_000, 38_025, 575),
+        ],
+    ),
+    // WA Department of Treasury and Finance, general rate.
+    (
+        "AU-WA",
+        &[
+            per(0, 0, 190),
+            per(120_000, 2_280, 285),
+            per(150_000, 3_135, 380),
+            per(360_000, 11_115, 475),
+            per(725_000, 28_453, 515),
+        ],
+    ),
+    // RevenueSA, conveyances.
+    (
+        "AU-SA",
+        &[
+            per(0, 0, 100),
+            per(12_000, 120, 200),
+            per(30_000, 480, 300),
+            per(50_000, 1_080, 350),
+            per(100_000, 2_830, 400),
+            per(200_000, 6_830, 425),
+            per(250_000, 8_955, 475),
+            per(300_000, 11_330, 500),
+            per(500_000, 21_330, 550),
+        ],
+    ),
+    // State Revenue Office Tasmania, duty payable on or after 21 October 2013: $50 to $3,000.
+    (
+        "AU-TAS",
+        &[
+            per(0, 50, 0),
+            per(3_000, 50, 175),
+            per(25_000, 435, 225),
+            per(75_000, 1_560, 350),
+            per(200_000, 5_935, 400),
+            per(375_000, 12_935, 425),
+            per(725_000, 27_810, 450),
+        ],
+    ),
+    // ACT DI2026-155 Table 2, a transaction that is not an eligible owner occupier transaction.
+    (
+        "AU-ACT",
+        &[
+            per(0, 0, 120),
+            per(200_000, 2_400, 220),
+            per(300_000, 4_600, 340),
+            per(500_000, 11_400, 432),
+            per(750_000, 22_200, 590),
+            per(1_000_000, 36_950, 640),
+            Band::Whole {
+                over: 1_455_000,
+                points: 454,
+            },
+        ],
+    ),
+];
+
+fn band_over(band: Band) -> u64 {
+    match band {
+        Band::PerHundred { over, .. } | Band::Excess { over, .. } | Band::Whole { over, .. } => {
+            over
+        }
+    }
+}
+
+/// Stamp Duty Act 1978 (NT) Schedule 1 clause 1(2), as in force at 1 July 2025, in cents.
+fn nt_duty(dollars: u64) -> u64 {
+    let d = u128::from(dollars);
+    let cents = if dollars <= 525_000 {
+        // (0.06571441 x V^2) + 15V dollars, V = d / 1,000, is
+        // (6,571,441 d^2 + 15 x 10^11 d) / 10^12 cents.
+        (2 * (6_571_441 * d * d + 1_500_000_000_000 * d) + 1_000_000_000_000) / 2_000_000_000_000
+    } else {
+        let points = if dollars < 3_000_000 {
+            495
+        } else if dollars < 5_000_000 {
+            575
+        } else {
+            595
+        };
+        (2 * points * d + 100) / 200
+    };
+    u64::try_from(cents).unwrap()
+}
+
+/// General transfer duty in cents on a whole-dollar value.
+fn duty_oracle(place: &str, dollars: u64) -> u64 {
+    if place == "AU-NT" {
+        return nt_duty(dollars);
+    }
+    let (_, bands) = DUTY_SCALES.iter().find(|(p, _)| *p == place).unwrap();
+    // The band with the highest threshold the value exceeds; the first band also takes nil.
+    let band = *bands
+        .iter()
+        .rev()
+        .find(|band| dollars > band_over(**band))
+        .unwrap_or(&bands[0]);
+    let cents = match band {
+        Band::PerHundred { over, base, cents } => {
+            base * 100 + cents * (dollars - over).div_ceil(100)
+        }
+        Band::Excess { over, base, points } => {
+            let excess = u128::from(dollars - over);
+            base * 100 + u64::try_from((2 * u128::from(points) * excess + 100) / 200).unwrap()
+        }
+        Band::Whole { points, .. } => {
+            u64::try_from((2 * u128::from(points) * u128::from(dollars) + 100) / 200).unwrap()
+        }
+    };
+    // Revenue NSW: $1.25 for every $100 with a minimum of $20.
+    if place == "AU-NSW" {
+        cents.max(2_000)
+    } else {
+        cents
+    }
+}
+
+/// Every value either side of each band's threshold, for each jurisdiction, and the
+/// least and greatest values the field accepts.
+fn duty_boundaries() -> Vec<(&'static str, u64)> {
+    let mut values = Vec::new();
+    for (place, bands) in DUTY_SCALES {
+        for band in bands {
+            let over = band_over(*band);
+            values.extend([over.saturating_sub(1), over, over + 1].map(|v| (place, v)));
+        }
+    }
+    for over in [525_000, 2_999_999, 3_000_000, 4_999_999, 5_000_000] {
+        values.extend([over - 1, over, over + 1].map(|v| ("AU-NT", v)));
+    }
+    for place in [
+        "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+    ] {
+        values.extend([(place, 1), (place, 1_000_000_000)]);
+    }
+    // Revenue NSW's minimum stops at $1,600, where $1.25 for every $100 reaches $20.
+    values.extend([1_599, 1_600, 1_601].map(|v| ("AU-NSW", v)));
+    values.retain(|&(_, v)| v >= 1);
+    values
+}
+
+fn duty_case(place: &str, dollars: u64) -> (Value, Value) {
+    (
+        json!({"kind": "duty", "value": dollars.to_string(), "place": place}),
+        json!({"duty": shown(duty_oracle(place, dollars))}),
+    )
 }
 
 /// Bonuses that count under s 3B(4)(c) and (d) are those paid at least once a month.
@@ -449,8 +704,13 @@ fn levy_case(rng: &mut Seeded) -> (Value, Value) {
 }
 
 fn engines(cases: &[Value]) -> Vec<Value> {
+    run_node(HARNESS, cases)
+}
+
+/// Runs `harness` in one Node process with `cases` on its standard input.
+fn run_node(harness: &str, cases: &[Value]) -> Vec<Value> {
     let mut node = Command::new("node")
-        .args(["--input-type=module", "--eval", HARNESS])
+        .args(["--input-type=module", "--eval", harness])
         .current_dir(common::root())
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
@@ -666,6 +926,115 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
     assert_eq!(levy_oracle(75), 1);
 }
 
+/// Each revenue office's own worked figure, read 15 November 2026, and hand-worked figures
+/// where none is published.
+#[test]
+fn the_duty_oracle_gives_the_revenue_offices_worked_figures() {
+    for (place, dollars, cents, source) in [
+        (
+            "AU-NSW",
+            1_350_000,
+            5_553_700,
+            "Revenue NSW auction example",
+        ),
+        (
+            "AU-NSW",
+            450_000,
+            1_443_700,
+            "Revenue NSW family transfer example",
+        ),
+        (
+            "AU-NSW",
+            4_000_000,
+            20_323_700,
+            "Revenue NSW premium duty example",
+        ),
+        ("AU-NSW", 450_050, 1_444_150, "Revenue NSW calculator"),
+        ("AU-NSW", 1_601, 2_125, "Revenue NSW calculator"),
+        ("AU-NSW", 1_000, 2_000, "Revenue NSW calculator"),
+        (
+            "AU-NSW",
+            3_870_001,
+            19_414_400,
+            "Revenue NSW calculator, premium",
+        ),
+        (
+            "AU-VIC",
+            550_000,
+            2_807_000,
+            "SRO Victoria standard rate example",
+        ),
+        (
+            "AU-VIC",
+            400_000,
+            1_907_000,
+            "SRO Victoria standard rate example",
+        ),
+        ("AU-QLD", 850_000, 3_127_500, "QRO calculation example"),
+        (
+            "AU-SA",
+            600_000,
+            2_683_000,
+            "RevenueSA foreign ownership surcharge example 1",
+        ),
+        (
+            "AU-SA",
+            300_000,
+            1_133_000,
+            "RevenueSA foreign ownership surcharge example 2",
+        ),
+        (
+            "AU-SA",
+            1_000_000,
+            4_883_000,
+            "RevenueSA conveyance rate chart",
+        ),
+        ("AU-TAS", 500_000, 1_824_750, "Tasmanian duty calculator"),
+        ("AU-TAS", 725_050, 2_781_450, "Tasmanian duty calculator"),
+        ("AU-TAS", 3_001, 5_175, "Tasmanian duty calculator"),
+        ("AU-TAS", 3_000, 5_000, "Tasmanian duty calculator"),
+        // By hand: $28,453 + 750 x $5.15.
+        ("AU-WA", 800_000, 3_231_550, "hand-worked"),
+        // By hand: $11,400 + 1,500 x $4.32, and $4.54 per $100 of $1,500,000.
+        ("AU-ACT", 650_000, 1_788_000, "hand-worked"),
+        ("AU-ACT", 1_500_000, 6_810_000, "hand-worked"),
+        // By hand: 0.06571441 x 500^2 + 15 x 500 = 23,928.6025, and 4.95% of $600,000.
+        ("AU-NT", 500_000, 2_392_860, "hand-worked"),
+        ("AU-NT", 600_000, 2_970_000, "hand-worked"),
+    ] {
+        assert_eq!(
+            duty_oracle(place, dollars),
+            cents,
+            "{place} {dollars}: {source}"
+        );
+    }
+}
+
+#[test]
+fn the_transfer_duty_engine_agrees_with_the_oracle_at_every_band_boundary() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1115_D07E_5EED);
+    let places = [
+        "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+    ];
+    let mut values = duty_boundaries();
+    // Seeded whole-dollar values spread across magnitudes, for every jurisdiction.
+    for _ in 0..DUTY_CASES {
+        values.push((rng.pick(&places), 1 + rng.cents(999_999_999)));
+    }
+    let (cases, expected): (Vec<Value>, Vec<Value>) = values
+        .iter()
+        .map(|&(place, dollars)| duty_case(place, dollars))
+        .unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
 /// A schedule in whole cents: interest rounds half up each month, and the last payment
 /// clears the balance. Returns (total interest, last payment).
 fn cent_schedule(principal: u64, rate: u64, months: u32, payment: u64) -> (u64, u64) {
@@ -871,6 +1240,1001 @@ fn the_engine_agrees_with_the_oracle_on_every_seeded_balloon_and_advance_loan() 
     );
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the tax administration engines, as `HARNESS` runs the others.
+const TAX_HARNESS: &str = r"
+import { objectionDeadline, paygInstalment } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const shown = (value) => (value === null ? null : String(value));
+const run = {
+  objection: ({ decision, group, notice, first }) => {
+    const { periodEnds, lastDay, amendedEnds, firstEnds } = objectionDeadline(decision, group, notice, first);
+    return { periodEnds, lastDay, amendedEnds, firstEnds };
+  },
+  payg: ({ inputs }) => {
+    try {
+      const result = paygInstalment(inputs);
+      return { amount: shown(result.amount), instalment: result.instalment, credit: result.credit,
+        due: shown(result.due), instalmentRate: shown(result.instalmentRate) };
+    } catch (error) {
+      return { refused: error.message };
+    }
+  },
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
+";
+
+const OBJECTION_CASES: usize = 240;
+
+/// The last day of `years` years after `notice`, worked with chrono's calendar where the
+/// engine rolls JavaScript dates: the period starts the next day (s 36(1) item 6 of the Acts
+/// Interpretation Act 1901) and ends the day before the same date in the later year, which
+/// for a 29 February start with none that year is the day before 1 March.
+fn years_after(notice: NaiveDate, years: i32) -> NaiveDate {
+    let start = notice.succ_opt().unwrap();
+    let same = start
+        .with_year(start.year() + years)
+        .unwrap_or_else(|| NaiveDate::from_ymd_opt(start.year() + years, 3, 1).unwrap());
+    same.pred_opt().unwrap()
+}
+
+/// 60 days after `notice`, one day at a time.
+fn sixty_days_after(notice: NaiveDate) -> NaiveDate {
+    (0..60).fold(notice, |day, _| day.succ_opt().unwrap())
+}
+
+/// s 36(2): a Saturday or Sunday last day moves to the next weekday.
+fn lodging_day(end: NaiveDate) -> NaiveDate {
+    let mut day = end;
+    while matches!(day.weekday(), Weekday::Sat | Weekday::Sun) {
+        day = day.succ_opt().unwrap();
+    }
+    day
+}
+
+/// The period's end, the lodging day, and for an amended assessment its 2 candidate ends, from
+/// s 14ZW(1)(aa), (aaa) and (c), and (1B) and (1BA).
+fn objection_oracle(
+    decision: &str,
+    group: i32,
+    notice: NaiveDate,
+    first: NaiveDate,
+) -> [Option<NaiveDate>; 4] {
+    let years = match decision {
+        "fbt" | "amended-fbt" => 4,
+        _ => group,
+    };
+    let (end, amended, original) = match decision {
+        "other" => (sixty_days_after(notice), None, None),
+        "amended" | "amended-fbt" => {
+            let (amended, original) = (sixty_days_after(notice), years_after(first, years));
+            (amended.max(original), Some(amended), Some(original))
+        }
+        _ => (years_after(notice, years), None, None),
+    };
+    [Some(end), Some(lodging_day(end)), amended, original]
+}
+
+fn iso(day: Option<NaiveDate>) -> Value {
+    day.map_or(Value::Null, |day| json!(day.format("%Y-%m-%d").to_string()))
+}
+
+/// A notice date weighted to the boundaries: month ends, 28 and 29 February, leap and
+/// century years, and the first and last years the engine accepts.
+fn notice_day(rng: &mut Seeded) -> NaiveDate {
+    let any_year = 1900 + rng.below(8090) as i32;
+    let year = rng.pick(&[1900, 2000, 2026, 2027, 2028, 2100, 9989, any_year, any_year]);
+    let month = 1 + rng.below(12) as u32;
+    let last = (28..=31)
+        .rev()
+        .find(|day| NaiveDate::from_ymd_opt(year, month, *day).is_some())
+        .unwrap();
+    let any_day = 1 + rng.below(u64::from(last)) as u32;
+    let day = rng
+        .pick(&[1, 28, 29, last, last, any_day, any_day])
+        .min(last);
+    NaiveDate::from_ymd_opt(year, month, day).unwrap()
+}
+
+fn objection_case(rng: &mut Seeded) -> (Value, Value) {
+    let decision = rng.pick(&["assessment", "amended", "fbt", "amended-fbt", "other"]);
+    let group = rng.pick(&[2, 4]);
+    let notice = notice_day(rng);
+    // A first notice on or before the amended one, up to about 6 years earlier.
+    let floor = NaiveDate::from_ymd_opt(1900, 1, 1).unwrap();
+    let first = (0..rng.below(2200)).fold(notice, |day, _| day.pred_opt().unwrap().max(floor));
+    (
+        json!({
+            "kind": "objection",
+            "decision": decision,
+            "group": group.to_string(),
+            "notice": notice.format("%Y-%m-%d").to_string(),
+            "first": first.format("%Y-%m-%d").to_string(),
+        }),
+        {
+            let [period, last, amended, original] =
+                objection_oracle(decision, group, notice, first);
+            json!({"periodEnds": iso(period), "lastDay": iso(last),
+                "amendedEnds": iso(amended), "firstEnds": iso(original)})
+        },
+    )
+}
+
+fn date(year: i32, month: u32, day: u32) -> NaiveDate {
+    NaiveDate::from_ymd_opt(year, month, day).unwrap()
+}
+
+#[test]
+fn the_objection_oracle_counts_leap_days_month_ends_and_weekends_by_hand() {
+    // The Acts Interpretation Act's s 36(2) example: 31 March is a Saturday, so Monday 2 April.
+    assert_eq!(lodging_day(date(2029, 3, 31)), date(2029, 4, 2));
+    assert_eq!(lodging_day(date(2030, 11, 17)), date(2030, 11, 18));
+    assert_eq!(lodging_day(date(2027, 3, 2)), date(2027, 3, 2));
+    // The day notice is given is not counted: 60 days after 1 January 2027 is 2 March 2027.
+    assert_eq!(sixty_days_after(date(2027, 1, 1)), date(2027, 3, 2));
+    // 2 years starting 1 March 2026 end on 29 February 2028; starting 1 March 2028, on 28 February 2030.
+    assert_eq!(years_after(date(2026, 2, 28), 2), date(2028, 2, 29));
+    assert_eq!(years_after(date(2028, 2, 29), 2), date(2030, 2, 28));
+    // Starting on 29 February 2028, 2 years end on 28 February 2030 and 4 years on 28 February 2032.
+    assert_eq!(years_after(date(2028, 2, 28), 2), date(2030, 2, 28));
+    assert_eq!(years_after(date(2028, 2, 28), 4), date(2032, 2, 28));
+    // Month and year ends: 31 December 2026 runs to 31 December 2028.
+    assert_eq!(years_after(date(2026, 12, 31), 2), date(2028, 12, 31));
+    assert_eq!(
+        objection_oracle("amended", 2, date(2028, 10, 2), date(2026, 10, 20)),
+        [
+            Some(date(2028, 12, 1)),
+            Some(date(2028, 12, 1)),
+            Some(date(2028, 12, 1)),
+            Some(date(2028, 10, 20))
+        ]
+    );
+}
+
+#[test]
+fn the_objection_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1115_0B1E_C710);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..OBJECTION_CASES)
+        .map(|_| objection_case(&mut rng))
+        .unzip();
+    let actual = run_node(TAX_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+const PAYG_CASES: usize = 240;
+
+/// Half up from the quotient and remainder, where the engine adds half the divisor first.
+fn nearest(numerator: u128, denominator: u128) -> u128 {
+    let (quotient, remainder) = (numerator / denominator, numerator % denominator);
+    quotient + u128::from(2 * remainder >= denominator)
+}
+
+/// Estimated tax over estimated instalment income in hundredths of a per cent, by long
+/// division to 2 decimal places, dropping the rest as the ATO's example 2 does. Nil income
+/// varies the rate to nil.
+fn varied_rate(tax: u128, income: u128) -> u128 {
+    if income == 0 {
+        return 0;
+    }
+    let (mut rate, mut remainder) = (tax * 100 / income, tax * 100 % income);
+    for _ in 0..2 {
+        remainder *= 10;
+        rate = rate * 10 + remainder / income;
+        remainder %= income;
+    }
+    rate
+}
+
+/// One quarter's inputs, money in cents and the rate in hundredths of a per cent.
+struct Quarter {
+    method: &'static str,
+    notified: u128,
+    instalment: u128,
+    estimated_tax: u128,
+    earlier: u128,
+    credits: u128,
+    income: u128,
+    rate: u128,
+    estimated_income: u128,
+    earlier_income: u128,
+}
+
+/// The amount in cents, the instalment and credit in whole dollars (cents dropped, as the
+/// BAS instructions say), the amount due by this instalment and the rate applied.
+type Instalment = (i128, u128, u128, Option<u128>, Option<u128>);
+
+fn signed(cents: u128) -> i128 {
+    i128::try_from(cents).unwrap()
+}
+
+/// The instalment under Schedule 1 to the Taxation Administration Act 1953: s 45-112 (the
+/// notified amount), s 45-410 (a quarter's share of estimated tax less earlier instalments net
+/// of credits), s 45-110 (instalment income times the rate) and s 45-205 with s 45-215 (a
+/// varied rate, and a credit when it is lower than the rate the earlier quarters used).
+fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
+    let net_earlier = || {
+        quarter
+            .earlier
+            .checked_sub(quarter.credits)
+            .ok_or("Credits claimed cannot exceed the earlier instalments.")
+    };
+    match quarter.method {
+        "amount" => Ok((
+            signed(quarter.notified),
+            quarter.notified / 100,
+            0,
+            None,
+            None,
+        )),
+        "varied-amount" => {
+            // 25% a quarter, so the fourth instalment is 100%.
+            let due = nearest(quarter.estimated_tax * 25 * quarter.instalment, 100);
+            if quarter.instalment == 1 && quarter.earlier > 0 {
+                return Err("The first instalment of the year has no earlier instalments.");
+            }
+            let amount = signed(due) - signed(net_earlier()?);
+            let whole = |cents: i128| u128::try_from(cents.max(0)).unwrap() / 100;
+            Ok((amount, whole(amount), whole(-amount), Some(due), None))
+        }
+        _ => {
+            let (rate, credit) = if quarter.method == "varied-rate" {
+                if quarter.estimated_tax > quarter.estimated_income {
+                    return Err("Estimated tax cannot exceed estimated instalment income.");
+                }
+                let rate = varied_rate(quarter.estimated_tax, quarter.estimated_income);
+                let credit = if rate < quarter.rate {
+                    let at_rate = nearest(quarter.earlier_income * rate, 10_000);
+                    net_earlier()?.saturating_sub(at_rate) / 100
+                } else {
+                    0
+                };
+                (rate, credit)
+            } else {
+                (quarter.rate, 0)
+            };
+            let amount = nearest(quarter.income * rate, 10_000);
+            Ok((signed(amount), amount / 100, credit, None, Some(rate)))
+        }
+    }
+}
+
+/// `shown` for an amount that may be negative.
+fn shown_signed(cents: i128) -> String {
+    let magnitude = shown(u64::try_from(cents.unsigned_abs()).unwrap());
+    if cents < 0 {
+        format!("-{magnitude}")
+    } else {
+        magnitude
+    }
+}
+
+/// Cents up to the largest field, weighted to nil and to one cent either side of `pivot`.
+fn near(rng: &mut Seeded, pivot: u128) -> u128 {
+    let any = u128::from(rng.cents(MAX_PRINCIPAL));
+    rng.pick(&[0, pivot.saturating_sub(1), pivot, pivot + 1, any, any])
+        .min(u128::from(MAX_PRINCIPAL))
+}
+
+fn payg_case(rng: &mut Seeded) -> (Value, Value) {
+    let method = rng.pick(&["amount", "varied-amount", "rate", "varied-rate"]);
+    let estimated_income = u128::from(rng.cents(MAX_PRINCIPAL));
+    let earlier = u128::from(rng.cents(MAX_PRINCIPAL));
+    let any_rate = u128::from(rng.below(10_001));
+    let instalment = u128::from(1 + rng.below(4));
+    let quarter = Quarter {
+        method,
+        notified: u128::from(rng.cents(MAX_PRINCIPAL)),
+        instalment,
+        estimated_tax: near(rng, estimated_income),
+        // A first instalment mostly has no earlier ones.
+        earlier: if instalment == 1 && rng.below(4) > 0 {
+            0
+        } else {
+            earlier
+        },
+        credits: near(rng, earlier),
+        income: u128::from(rng.cents(MAX_PRINCIPAL)),
+        rate: rng.pick(&[0, 1, 170, 1100, 1684, 10_000, any_rate, any_rate]),
+        estimated_income,
+        earlier_income: u128::from(rng.cents(MAX_PRINCIPAL)),
+    };
+    let money = |cents: u128| dollars(u64::try_from(cents).unwrap());
+    let case = json!({"kind": "payg", "inputs": {
+        "method": method, "notified": money(quarter.notified),
+        "instalment": instalment.to_string(), "estimatedTax": money(quarter.estimated_tax),
+        "earlier": money(quarter.earlier), "credits": money(quarter.credits),
+        "income": money(quarter.income),
+        "rate": format!("{}.{:02}", quarter.rate / 100, quarter.rate % 100),
+        "estimatedIncome": money(quarter.estimated_income),
+        "earlierIncome": money(quarter.earlier_income),
+    }});
+    let figure = |hundredths: u128| shown(u64::try_from(hundredths).unwrap());
+    let result = match payg_oracle(&quarter) {
+        Ok((amount, instalment, credit, due, applied)) => json!({
+            "amount": shown_signed(amount), "instalment": instalment, "credit": credit,
+            "due": due.map(figure), "instalmentRate": applied.map(figure),
+        }),
+        Err(refused) => json!({ "refused": refused }),
+    };
+    (case, result)
+}
+
+fn blank(method: &'static str) -> Quarter {
+    Quarter {
+        method,
+        notified: 0,
+        instalment: 1,
+        estimated_tax: 0,
+        earlier: 0,
+        credits: 0,
+        income: 0,
+        rate: 0,
+        estimated_income: 0,
+        earlier_income: 0,
+    }
+}
+
+#[test]
+fn the_payg_oracle_works_the_atos_examples_by_hand() {
+    // Read 15 November 2026. Sophia: '$20,100 × 1.7% = $341.70', entered as 341.
+    let sophia = Quarter {
+        income: 2_010_000,
+        rate: 170,
+        ..blank("rate")
+    };
+    assert_eq!(payg_oracle(&sophia), Ok((34_170, 341, 0, None, Some(170))));
+    // Julie Co: '$106,000 × 11% = $11,660'.
+    let julie = Quarter {
+        income: 10_600_000,
+        rate: 1_100,
+        ..blank("rate")
+    };
+    assert_eq!(payg_oracle(&julie).unwrap().1, 11_660);
+    // Cari: '$14,000 × 75% = $10,500', '$10,500 − ($5,000 + $5,000) = $500', then $3,500.
+    let cari = Quarter {
+        instalment: 3,
+        estimated_tax: 1_400_000,
+        earlier: 1_000_000,
+        ..blank("varied-amount")
+    };
+    assert_eq!(
+        payg_oracle(&cari),
+        Ok((50_000, 500, 0, Some(1_050_000), None))
+    );
+    let fourth = Quarter {
+        instalment: 4,
+        earlier: 1_050_000,
+        ..cari
+    };
+    assert_eq!(payg_oracle(&fourth).unwrap().1, 3_500);
+    // Harmander: '($10,125 ÷ $82,480) × 100 = 12.27%', though the quotient is 12.2757%.
+    assert_eq!(varied_rate(1_012_500, 8_248_000), 1_227);
+    // Bill: 10% varied to 5% on $10,000 a quarter, $500 to pay and a $500 credit.
+    let bill = Quarter {
+        estimated_tax: 50_000,
+        estimated_income: 1_000_000,
+        income: 1_000_000,
+        rate: 1_000,
+        earlier: 100_000,
+        earlier_income: 1_000_000,
+        ..blank("varied-rate")
+    };
+    assert_eq!(payg_oracle(&bill), Ok((50_000, 500, 500, None, Some(500))));
+    // 1.5 cents rounds up and 1.4999 cents down.
+    assert_eq!((nearest(15, 10), nearest(14_999, 10_000)), (2, 1));
+}
+
+#[test]
+fn the_payg_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1115_9A76_0045);
+    let (cases, expected): (Vec<Value>, Vec<Value>) =
+        (0..PAYG_CASES).map(|_| payg_case(&mut rng)).unzip();
+    let actual = run_node(TAX_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Schedule 11 for 2026-27, in the Taxation Administration (Withholding Schedules) Instrument
+/// 2026 (F2026L00716) and on the ATO's Schedule 11 page (last updated 17 June 2026), both read
+/// 15 November 2026: the ETP cap, the whole-of-income cap and note 1's base and service amounts
+/// in cents; Table A's rates in whole per cent.
+const ETP_CAP: u64 = 27_000_000;
+const WHOLE_OF_INCOME_CAP: u64 = 18_000_000;
+const BASE_AMOUNT: u64 = 1_359_800;
+const SERVICE_AMOUNT: u64 = 680_100;
+const UNDER_RATE: u64 = 32;
+const REACHED_RATE: u64 = 17;
+const ABOVE_RATE: u64 = 47;
+const ETP_CASES: usize = 60;
+
+/// Schedule 11's preservation age table, by date of birth: each row's first birthday and age.
+const PRESERVATION_AGES: [((u64, u64, u64), u64); 6] = [
+    ((0, 1, 1), 55),
+    ((1960, 7, 1), 56),
+    ((1961, 7, 1), 57),
+    ((1962, 7, 1), 58),
+    ((1963, 7, 1), 59),
+    ((1964, 7, 1), 60),
+];
+
+/// One ETP's parts, amounts in cents.
+#[derive(Clone, Copy)]
+struct Etp {
+    redundancy: u64,
+    years: u64,
+    excluded: u64,
+    non_excluded: u64,
+    other: u64,
+    born: (u64, u64, u64),
+}
+
+/// Whether the employee is their preservation age by 30 June 2027 (Schedule 11's table, read
+/// as date ranges), and, in cents: the tax-free limit, the tax-free part, the code R taxable
+/// component and its withholding, the whole-of-income cap left, the code O cap and its
+/// withholding, and the total. The tax-free limit adds the service amount once a year
+/// (ITAA 1997 s 83-170(3)); each part is withheld at the rate within its cap and the top rate
+/// above it, to the dollar, 50 cents up, the code R part first within the ETP cap alone and the
+/// code O part within the smaller of the ETP cap left and the whole-of-income cap (Schedule 11,
+/// example 4).
+fn etp_oracle(etp: Etp) -> (bool, u64, [u64; 8]) {
+    let age = PRESERVATION_AGES
+        .iter()
+        .rev()
+        .find(|(from, _)| etp.born >= *from)
+        .map(|(_, age)| *age)
+        .unwrap();
+    let reached = (etp.born.0 + age, etp.born.1, etp.born.2) <= (2027, 6, 30);
+    let rate = if reached { REACHED_RATE } else { UNDER_RATE };
+    let mut limit = BASE_AMOUNT;
+    for _ in 0..etp.years {
+        limit += SERVICE_AMOUNT;
+    }
+    let tax_free = etp.redundancy.min(limit);
+    let excluded = etp.redundancy - tax_free + etp.excluded;
+    // Cents x per cent: whole dollars are 10,000 of them, and a remainder of 5,000 or more rounds up.
+    let withheld = |component: u64, cap: u64| {
+        let within = component.min(cap);
+        let total = u128::from(within) * u128::from(rate)
+            + u128::from(component - within) * u128::from(ABOVE_RATE);
+        let dollars = total / 10_000 + u128::from(total % 10_000 >= 5_000);
+        (within, u64::try_from(dollars * 100).unwrap())
+    };
+    let (excluded_within, excluded_withheld) = withheld(excluded, ETP_CAP);
+    let whole_of_income = WHOLE_OF_INCOME_CAP.saturating_sub(etp.other);
+    let cap = (ETP_CAP - excluded_within).min(whole_of_income);
+    let (_, non_excluded_withheld) = withheld(etp.non_excluded, cap);
+    (
+        reached,
+        rate,
+        [
+            limit,
+            tax_free,
+            excluded,
+            excluded_withheld,
+            whole_of_income,
+            cap,
+            non_excluded_withheld,
+            excluded_withheld + non_excluded_withheld,
+        ],
+    )
+}
+
+fn etp_case(rng: &mut Seeded) -> (Value, Value) {
+    let any_born = (1900 + rng.below(127), 1 + rng.below(12), 1 + rng.below(28));
+    let any_years = rng.below(151);
+    let any = [
+        rng.cents(MAX_PRINCIPAL),
+        rng.cents(50_000_000),
+        rng.cents(50_000_000),
+        rng.cents(30_000_000),
+    ];
+    let etp = Etp {
+        redundancy: rng.pick(&[0, 4_760_300, 4_800_000, any[0]]),
+        years: rng.pick(&[0, 1, 5, 40, 150, any_years, any_years]),
+        excluded: rng.pick(&[0, 0, ETP_CAP, any[1]]),
+        non_excluded: rng.pick(&[0, 5_000, 1_767_800, any[2]]),
+        other: rng.pick(&[
+            0,
+            14_000_000,
+            17_999_999,
+            WHOLE_OF_INCOME_CAP,
+            20_000_000,
+            any[3],
+        ]),
+        born: rng.pick(&[
+            (1960, 6, 30),
+            (1960, 7, 1),
+            (1964, 6, 30),
+            (1964, 7, 1),
+            (1967, 6, 30),
+            (1967, 7, 1),
+            (1996, 8, 1),
+            any_born,
+            any_born,
+        ]),
+    };
+    let (reached, rate, figures) = etp_oracle(etp);
+    let names = [
+        "taxFreeLimit",
+        "taxFree",
+        "excluded",
+        "excludedWithholding",
+        "wholeOfIncomeCap",
+        "cap",
+        "nonExcludedWithholding",
+        "withholding",
+    ];
+    let mut expected: serde_json::Map<String, Value> = names
+        .iter()
+        .zip(figures)
+        .map(|(name, cents)| ((*name).to_owned(), shown(cents).into()))
+        .collect();
+    expected.insert("reached".to_owned(), reached.into());
+    expected.insert("rate".to_owned(), rate.to_string().into());
+    let (year, month, day) = etp.born;
+    (
+        json!({
+            "kind": "etp",
+            "payment": {
+                "redundancy": dollars(etp.redundancy),
+                "years": etp.years.to_string(),
+                "excluded": dollars(etp.excluded),
+                "nonExcluded": dollars(etp.non_excluded),
+                "other": dollars(etp.other),
+                "born": format!("{year}-{month:02}-{day:02}"),
+            },
+            "year": {
+                "yearEnd": "2027-06-30",
+                "etpCap": "270000",
+                "wholeOfIncomeCap": "180000",
+                "baseAmount": "13598",
+                "serviceAmount": "6801",
+                "rateUnder": "32",
+                "rateReached": "17",
+                "rateAbove": "47",
+            },
+        }),
+        Value::Object(expected),
+    )
+}
+
+#[test]
+fn the_etp_oracle_works_schedule_11s_examples() {
+    let none = Etp {
+        redundancy: 0,
+        years: 0,
+        excluded: 0,
+        non_excluded: 0,
+        other: 0,
+        born: (1996, 8, 1),
+    };
+    // Example 4, Alec, 30: $48,000 after 5 years is $397 over $47,603, withheld $127; the
+    // $17,678 gratuity sits within the $40,000 whole-of-income cap, withheld $5,657.
+    let alec = Etp {
+        redundancy: 4_800_000,
+        years: 5,
+        non_excluded: 1_767_800,
+        other: 14_000_000,
+        ..none
+    };
+    assert_eq!(
+        etp_oracle(alec),
+        (
+            false,
+            32,
+            [
+                4_760_300, 4_760_300, 39_700, 12_700, 4_000_000, 4_000_000, 565_700, 578_400
+            ]
+        )
+    );
+    // Example 3, Chris: $120,000 over an $80,000 cap is $25,600 plus $18,800.
+    let chris = Etp {
+        non_excluded: 12_000_000,
+        other: 10_000_000,
+        ..none
+    };
+    assert_eq!(etp_oracle(chris).2[7], 4_440_000);
+    // Example 1, Lloyd: 32% of a $45,000 code R ETP is $14,400.
+    let lloyd = Etp {
+        excluded: 4_500_000,
+        ..none
+    };
+    assert_eq!(etp_oracle(lloyd).2[7], 1_440_000);
+    // Born 30 June 1967, 60 on the year's last day: 17% of $50.00 is exactly $8.50, so $9.
+    let reached = Etp {
+        non_excluded: 5_000,
+        born: (1967, 6, 30),
+        ..none
+    };
+    assert_eq!(etp_oracle(reached).2[7], 900);
+    assert!(
+        !etp_oracle(Etp {
+            born: (1967, 7, 1),
+            ..reached
+        })
+        .0
+    );
+}
+
+#[test]
+fn the_etp_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1115_0E7B_0011);
+    let (cases, expected): (Vec<Value>, Vec<Value>) =
+        (0..ETP_CASES).map(|_| etp_case(&mut rng)).unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+const PCG_CASES: usize = 120;
+
+/// One band of PCG 2021/4 Table 1 (paragraph 76) as the table writes it: the lower and upper
+/// percentages and whether each is included. `None` is an open end.
+type PcgBand = (Option<(u64, bool)>, Option<(u64, bool)>);
+
+/// Table 1, scores 1 to 6 for each factor, in the table's own words: '>90%', '>75% to ≤90%' ...
+const PCG_TABLE_1: [[PcgBand; 6]; 3] = [
+    [
+        (Some((90, false)), None),
+        (Some((75, false)), Some((90, true))),
+        (Some((60, false)), Some((75, true))),
+        (Some((50, true)), Some((60, true))),
+        (Some((25, false)), Some((50, false))),
+        (None, Some((25, true))),
+    ],
+    [
+        (Some((40, false)), None),
+        (Some((35, false)), Some((40, true))),
+        (Some((30, true)), Some((35, true))),
+        (Some((25, false)), Some((30, false))),
+        (Some((20, false)), Some((25, true))),
+        (None, Some((20, true))),
+    ],
+    [
+        (Some((200, false)), None),
+        (Some((150, false)), Some((200, true))),
+        (Some((100, false)), Some((150, true))),
+        (Some((90, false)), Some((100, true))),
+        (Some((70, false)), Some((90, true))),
+        (None, Some((70, true))),
+    ],
+];
+
+/// The one score whose band holds part / whole as a percentage, compared in exact integers.
+fn pcg_band(factor: usize, part: u64, whole: u64) -> u64 {
+    let (part, whole) = (u128::from(part) * 100, u128::from(whole));
+    let holds = |(lower, upper): PcgBand| {
+        lower.is_none_or(|(p, inclusive)| {
+            let bound = u128::from(p) * whole;
+            if inclusive {
+                part >= bound
+            } else {
+                part > bound
+            }
+        }) && upper.is_none_or(|(p, inclusive)| {
+            let bound = u128::from(p) * whole;
+            if inclusive {
+                part <= bound
+            } else {
+                part < bound
+            }
+        })
+    };
+    let scores: Vec<u64> = (1..=6)
+        .filter(|score| holds(PCG_TABLE_1[factor][*score as usize - 1]))
+        .collect();
+    assert_eq!(scores.len(), 1, "Table 1 bands overlap or leave a gap");
+    scores[0]
+}
+
+/// Table 2 (paragraph 78): green, amber or red for an aggregate over 2 factors or all 3.
+fn pcg_zone(total: u64, factors: u8) -> &'static str {
+    match (factors, total) {
+        (2, ..=7) | (3, ..=10) => "green",
+        (2, 8) | (3, 11..=12) => "amber",
+        _ => "red",
+    }
+}
+
+/// A percentage to 2 places, half up, as a JavaScript number prints it.
+fn pcg_percent(part: u64, whole: u64) -> String {
+    let hundredths = half_up(&(BigUint::from(part) * 10_000_u32), &BigUint::from(whole));
+    shown(hundredths)
+}
+
+/// An amount at an exact percentage of `whole` when one exists in cents, else any amount up to it.
+fn pcg_amount(rng: &mut Seeded, whole: u64, percents: &[u64]) -> u64 {
+    let percent = rng.pick(percents);
+    let exact = whole * percent;
+    match rng.below(4) {
+        0 => rng.below(whole + 1),
+        _ if exact.is_multiple_of(100) => {
+            (exact / 100).saturating_add_signed(rng.pick(&[-1, 0, 0, 1]))
+        }
+        _ => exact / 100,
+    }
+}
+
+fn pcg_case(rng: &mut Seeded) -> (Value, Value) {
+    let entitlement = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let returned = pcg_amount(rng, entitlement, &[0, 25, 50, 60, 75, 90, 100]).min(entitlement);
+    let tax = pcg_amount(rng, entitlement, &[0, 20, 25, 30, 35, 40, 100]).min(entitlement);
+    let all = rng.below(2) == 1;
+    let benchmark = 1 + rng.cents(100_000_000);
+    let remuneration = pcg_amount(rng, benchmark, &[70, 90, 100, 150, 200, 300]);
+    let arrangement = json!({
+        "gateway1": true, "gateway2": true, "entitlement": dollars(entitlement),
+        "returned": dollars(returned), "tax": dollars(tax), "factor3": all,
+        "remuneration": dollars(remuneration), "benchmark": dollars(benchmark),
+    });
+    let expected = if returned == entitlement {
+        // Paragraph 81: the whole entitlement returned is low risk with no other factor.
+        json!({"returned": "100", "factor1": "1", "taxRate": null, "factor2": null,
+            "benchmarkShare": null, "factor3": null, "total": null, "zone": "green"})
+    } else {
+        let (factor1, factor2) = (
+            pcg_band(0, returned, entitlement),
+            pcg_band(1, tax, entitlement),
+        );
+        let factor3 = all.then(|| pcg_band(2, remuneration, benchmark));
+        let total = factor1 + factor2 + factor3.unwrap_or(0);
+        json!({
+            "returned": pcg_percent(returned, entitlement), "factor1": factor1.to_string(),
+            "taxRate": pcg_percent(tax, entitlement), "factor2": factor2.to_string(),
+            "benchmarkShare": all.then(|| pcg_percent(remuneration, benchmark)),
+            "factor3": factor3.map(|score| score.to_string()), "total": total.to_string(),
+            "zone": pcg_zone(total, if all { 3 } else { 2 }),
+        })
+    };
+    (json!({"kind": "pcg", "arrangement": arrangement}), expected)
+}
+
+#[test]
+fn the_pcg_oracle_scores_the_guideline_case_studies() {
+    // Case study 1: $330,000 of $600,000 is 55%, a 4; $189,367 of tax is 31.56%, a 3; green at 7.
+    assert_eq!(
+        (pcg_band(0, 330_000, 600_000), pcg_band(1, 189_367, 600_000)),
+        (4, 3)
+    );
+    assert_eq!(pcg_percent(18_936_700, 60_000_000), "31.56");
+    // Case study 10: 50% is a 4 and 28.56% a 4, so 8 is amber.
+    assert_eq!(pcg_band(1, 114_234, 400_000), 4);
+    assert_eq!(pcg_zone(8, 2), "amber");
+    // Case study 7: $360,000 against a $350,000 benchmark is 103%, a 3; 10 on all 3 is green.
+    assert_eq!(pcg_band(2, 360_000, 350_000), 3);
+    assert_eq!(pcg_zone(10, 3), "green");
+    assert_eq!(pcg_zone(13, 3), "red");
+}
+
+#[test]
+fn the_pcg_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1115_0FC6_2021);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..PCG_CASES).map(|_| pcg_case(&mut rng)).unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), PCG_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+const GIC_CASES: usize = 120;
+
+/// Days since 1 January 1970 of a Gregorian calendar date (Howard Hinnant's days_from_civil).
+fn day_number(year: i64, month: i64, day: i64) -> i64 {
+    let year = if month <= 2 { year - 1 } else { year };
+    let era = year.div_euclid(400);
+    let of_era = year - era * 400;
+    let of_year = (153 * ((month + 9) % 12) + 2) / 5 + day - 1;
+    era * 146_097 + of_era * 365 + of_era / 4 - of_era / 100 + of_year - 719_468
+}
+
+/// The year, month and day of a day number (civil_from_days).
+fn civil(days: i64) -> (i64, i64, i64) {
+    let shifted = days + 719_468;
+    let era = shifted.div_euclid(146_097);
+    let of_era = shifted - era * 146_097;
+    let year_of_era = (of_era - of_era / 1460 + of_era / 36_524 - of_era / 146_096) / 365;
+    let of_year = of_era - (365 * year_of_era + year_of_era / 4 - year_of_era / 100);
+    let shifted_month = (5 * of_year + 2) / 153;
+    let day = of_year - (153 * shifted_month + 2) / 5 + 1;
+    let month = if shifted_month < 10 {
+        shifted_month + 3
+    } else {
+        shifted_month - 9
+    };
+    (year_of_era + era * 400 + i64::from(month <= 2), month, day)
+}
+
+fn iso_day(days: i64) -> String {
+    let (year, month, day) = civil(days);
+    format!("{year:04}-{month:02}-{day:02}")
+}
+
+fn parse_iso(text: &str) -> i64 {
+    let parts: Vec<i64> = text.split('-').map(|part| part.parse().unwrap()).collect();
+    day_number(parts[0], parts[1], parts[2])
+}
+
+/// Each quarter's first and last day and its annual rate in hundredths of 1%, read from the
+/// published CSV rather than the engine's copy.
+fn gic_quarters() -> Vec<(i64, i64, u64)> {
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../rates/general-interest-charge/general-interest-charge-rates.csv");
+    let csv = std::fs::read_to_string(path).unwrap();
+    csv.lines()
+        .skip(1)
+        .map(|line| {
+            let cells: Vec<&str> = line.split(',').collect();
+            let (whole, part) = cells[2].split_once('.').unwrap();
+            assert_eq!(part.len(), 2, "{line}");
+            let rate = whole.parse::<u64>().unwrap() * 100 + part.parse::<u64>().unwrap();
+            (parse_iso(cells[0]), parse_iso(cells[1]), rate)
+        })
+        .collect()
+}
+
+/// Instalment days: every 7 or 14 days, or the same day of each month, or the month's last day.
+fn gic_instalment_days(start: i64, count: u64, frequency: &str) -> Vec<i64> {
+    let (year, month, day) = civil(start);
+    (0..i64::try_from(count).unwrap())
+        .map(|k| match frequency {
+            "weekly" => start + 7 * k,
+            "fortnightly" => start + 14 * k,
+            _ => {
+                let months = year * 12 + month - 1 + k;
+                let (y, m) = (months.div_euclid(12), months.rem_euclid(12) + 1);
+                let length = day_number(y + m / 12, m % 12 + 1, 1) - day_number(y, m, 1);
+                day_number(y, m, day.min(length))
+            }
+        })
+        .collect()
+}
+
+/// The equal instalment and the final instalment in cents, and the days at the assumed rate.
+fn gic_oracle(
+    quarters: &[(i64, i64, u64)],
+    debt: u64,
+    days: &[i64],
+    assumed: u64,
+) -> (u64, u64, u64) {
+    let table_end = quarters.iter().map(|quarter| quarter.1).max().unwrap();
+    let (start, last) = (days[0], days[days.len() - 1]);
+    // Each day's growth as (10,000 x days in its year + rate) over 10,000 x days in its year.
+    let growth: Vec<(u64, u64)> = (start..last)
+        .map(|day| {
+            let rate = if day > table_end {
+                assumed
+            } else {
+                quarters
+                    .iter()
+                    .find(|q| q.0 <= day && day <= q.1)
+                    .unwrap()
+                    .2
+            };
+            let year = civil(day).0;
+            let length = day_number(year + 1, 1, 1) - day_number(year, 1, 1);
+            let base = 10_000 * u64::try_from(length).unwrap();
+            (base + rate, base)
+        })
+        .collect();
+    let splits: Vec<usize> = days
+        .iter()
+        .map(|day| usize::try_from(day - start).unwrap())
+        .collect();
+    // An instalment's discount factor is the product of base / (base + rate) over the days
+    // before it. Over the product of every (base + rate), that is the bases before it times
+    // the (base + rate) terms from its day on.
+    let mut from_day = vec![BigUint::ZERO; splits.len()];
+    let (mut all, mut index) = (BigUint::from(1_u8), growth.len());
+    for (split, slot) in splits.iter().zip(from_day.iter_mut()).rev() {
+        while index > *split {
+            index -= 1;
+            all *= growth[index].0;
+        }
+        *slot = all.clone();
+    }
+    let (mut factors, mut before, mut index) = (BigUint::ZERO, BigUint::from(1_u8), 0);
+    for (split, after) in splits.iter().zip(&from_day) {
+        while index < *split {
+            before *= growth[index].1;
+            index += 1;
+        }
+        factors += &before * after;
+    }
+    let instalment: u64 = (BigUint::from(debt) * &all / &factors).try_into().unwrap();
+    // The balance carried day by day: each instalment but the last is paid on its day, before
+    // that day's GIC; the final instalment is what is left on the last day.
+    let (mut numerator, mut denominator) = (BigUint::from(debt), BigUint::from(1_u8));
+    let mut index = 0;
+    for (k, split) in splits.iter().enumerate() {
+        while index < *split {
+            numerator *= growth[index].0;
+            denominator *= growth[index].1;
+            index += 1;
+        }
+        if k + 1 < splits.len() {
+            numerator -= BigUint::from(instalment) * &denominator;
+        }
+    }
+    let assumed_days = (start..last).filter(|day| *day > table_end).count();
+    (
+        instalment,
+        half_up(&numerator, &denominator),
+        assumed_days as u64,
+    )
+}
+
+fn gic_case(rng: &mut Seeded, quarters: &[(i64, i64, u64)]) -> (Value, Value) {
+    let debt = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let first = day_number(1999, 7, 1);
+    let span = u64::try_from(day_number(2028, 1, 1) - first).unwrap();
+    let start = first + i64::try_from(rng.below(span)).unwrap();
+    let any_count = 1 + rng.below(120);
+    let count = rng.pick(&[1, 2, 3, 12, 120, any_count, any_count]);
+    let frequency = rng.pick(&["weekly", "fortnightly", "monthly"]);
+    let any_rate = 1 + rng.below(10_000);
+    let assumed = rng.pick(&[1151, 900, any_rate]);
+    let days = gic_instalment_days(start, count, frequency);
+    let (instalment, last, assumed_days) = gic_oracle(quarters, debt, &days, assumed);
+    let total = instalment * (count - 1) + last;
+    let plan = json!({
+        "debt": dollars(debt), "start": iso_day(start), "count": count.to_string(),
+        "frequency": frequency, "assumedRate": format!("{}.{:02}", assumed / 100, assumed % 100),
+    });
+    let expected = json!({
+        "instalment": shown(instalment), "final": shown(last), "totalPaid": shown(total),
+        "gic": shown(total - debt), "lastDate": iso_day(days[days.len() - 1]),
+        "assumedDays": assumed_days.to_string(),
+    });
+    (json!({"kind": "gic", "plan": plan}), expected)
+}
+
+#[test]
+fn the_gic_oracle_works_the_hand_worked_plan() {
+    let quarters = gic_quarters();
+    assert_eq!(quarters.len(), 110);
+    assert_eq!(
+        (iso_day(quarters[0].0), quarters[0].2),
+        ("2026-10-01".to_owned(), 1151)
+    );
+    let days = gic_instalment_days(day_number(2026, 10, 1), 3, "monthly");
+    let shown_days: Vec<String> = days.iter().map(|day| iso_day(*day)).collect();
+    assert_eq!(shown_days, ["2026-10-01", "2026-11-01", "2026-12-01"]);
+    // $1,000 by 3 monthly instalments at 11.51%: $336.56, $336.56 and a final $336.56.
+    assert_eq!(
+        gic_oracle(&quarters, 100_000, &days, 1151),
+        (33_656, 33_656, 0)
+    );
+    // 31 January falls back to 29 February in a leap year and 28 February otherwise.
+    let leap = gic_instalment_days(day_number(2024, 1, 31), 2, "monthly");
+    let ordinary = gic_instalment_days(day_number(2026, 1, 31), 2, "monthly");
+    assert_eq!(
+        (iso_day(leap[1]), iso_day(ordinary[1])),
+        ("2024-02-29".to_owned(), "2026-02-28".to_owned())
+    );
+}
+
+#[test]
+fn the_gic_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let quarters = gic_quarters();
+    let mut rng = Seeded(0x2026_1115_061C_8AAC);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..GIC_CASES)
+        .map(|_| gic_case(&mut rng, &quarters))
+        .unzip();
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), GIC_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
