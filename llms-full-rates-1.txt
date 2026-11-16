@@ -532,6 +532,10 @@ Other exceptions cover new residential dwellings and prescribed activities, wide
 
 The negative gearing acquisition cut-off is not a general CGT grandfathering rule. Schedule 1 has separate rules: items 82 to 84 address income year and CGT-event application, and item 60 inserts transitional section 119-1 for the minimum tax on gains from CGT events on or after 1 July 2027. Check the asset, event and applicable transition provisions separately before calculating a gain.
 
+### Negative gearing and CGT: a bill before Parliament
+
+A bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing. Parliament’s summary of the bill says it would also clarify and adjust the operation of the capital gains tax adjustment provisions, including their application to trusts and managed investment vehicles. The ATO summary, last updated 9 November 2026, lists it and the Income Tax Rates Amendment (Minimum Tax on Discretionary Trusts) Bill 2026, both introduced on 14 October 2026, against the negative gearing and CGT discount reform. The No. 3 Bill’s third reading was agreed in the House on 29 October 2026, and the Senate Economics Legislation Committee reported on it on 13 November 2026; Parliament’s page listed no Senate reading on 16 November 2026. It is not law: check its stage and text before relying on the exceptions above.
+
 ## Legislated: earlier application
 
 For these 9 measures the ATO summary names an Act or instrument and an application date on or before 22 September 2026. This table reproduces that summary; it does not independently establish every eligibility condition, application rule or transitional exception. Read the measure and legislation for the period being calculated.
