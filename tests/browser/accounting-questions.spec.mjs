@@ -613,7 +613,7 @@ test('transfer duty notes NSW premium duty from the first dollar over $3,870,000
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
-  'transfer-duty'];
+  'transfer-duty', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

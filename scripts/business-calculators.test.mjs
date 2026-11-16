@@ -468,6 +468,30 @@ const assertShown = (actual, { result, output }, labels = LABELS) => {
     fields.map(([field, value]) => shownField(field, value, labels)).join(', ').toLowerCase());
 };
 
+// The FBT car parking, loan and meal entertainment cases: how each call and result reads.
+Object.assign(INPUTS, {
+  fbtLoan: (l, y) => `Daily balances ${dollars(l.balances)}, accrued ${dollars(l.accrued)}, income use ${l.incomeUse}%, `
+    + `deduction ${dollars(l.deduction)}, at ${y.rate}%`,
+  fbtMealEntertainment: (x) => (x.method === 'split' ? `50/50 split, expenses ${dollars(x.expenses)}`
+    : `Register, expenses ${dollars(x.expenses)}, ${dollars(x.registerBenefits)} of ${dollars(x.registerTotal)}, `
+      + `first valid ${x.firstYear}${x.earlier.length ? `, earlier years ${x.earlier.map(dollars).join(' and ')}` : ''}`),
+  fbtCarParking: (p, y) => `${{ station: `Station, ${p.benefits} at ${dollars(p.each)}`,
+    market: `Market value, ${p.benefits} at ${dollars(p.each)}`,
+    average: `Average cost, ${p.benefits} at fees ${dollars(p.firstFee)} and ${dollars(p.lastFee)}`,
+    register: `Register, ${dollars(p.registerValue)} over ${p.days} days, first valid ${p.firstYear}`,
+    spaces: `Spaces, ${p.spaces} at ${dollars(p.rate)} for ${p.spaceDays} days, employees ${p.employeesStart} and `
+      + `${p.employeesEnd}, spaces ${p.spacesStart} and ${p.spacesEnd}` }[p.method]}`
+    + `${p.method === 'register' ? '' : `, contributions ${dollars(p.contribution)}`}; fee ${dollars(p.fee)} against ${dollars(y.threshold)}`,
+});
+Object.assign(ENGINE_LABELS, {
+  fbtLoan: { notional: 'notional interest', gross: 'gross taxable value', grossDeduction: 'gross deduction',
+    notionalDeduction: 'notional deduction', reduction: 'reduction' },
+  fbtMealEntertainment: { registerPercent: (v) => `register percentage ${v.toFixed(2)}%` },
+  fbtCarParking: { benefit: (v) => (v ? 'benefit arises' : 'no benefit arises'), gross: 'gross taxable value',
+    contributionApplied: 'contributions applied', excess: 'excess contributions', average: 'average cost',
+    annual: 'annual value', statutoryBenefit: 'total statutory benefit' },
+});
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -686,6 +710,33 @@ const FORM_CALLS = {
     earlier: f.earlier, credits: f.credits, income: f.income, rate: f.rate, estimatedIncome: f['estimated-income'],
     earlierIncome: f['earlier-income'] }],
 };
+
+// The year each FBT benefit form passes, from its include's data attributes; a test below binds
+// them to the ATO's rates page.
+const fbtBenefitYear = (page) => Object.fromEntries([...readFileSync(new URL(`../_includes/calculators/${page}.html`,
+  import.meta.url), 'utf8').match(/<form [^>]*>/)[0].matchAll(/data-([a-z-]+)="([^"]*)"/g)]
+  .map(([, key, value]) => [key.replace(/-(\w)/g, (_, c) => c.toUpperCase()), value]));
+Object.assign(FORM_CALLS, {
+  fbtCarParking: (f) => {
+    const { threshold, yearDays, yearEnded } = fbtBenefitYear('fbt-car-parking');
+    return [{ method: f.method, fee: f.fee, benefits: f.benefits, each: f.each, firstFee: f['first-fee'], lastFee: f['last-fee'],
+      registerValue: f['register-value'], days: f.days, firstYear: f['first-year'], rate: f.rate, spaceDays: f['space-days'],
+      spaces: f.spaces, employeesStart: f['employees-start'], employeesEnd: f['employees-end'], spacesStart: f['spaces-start'],
+      spacesEnd: f['spaces-end'], contribution: f.contribution }, { threshold, days: yearDays, ended: yearEnded }];
+  },
+  fbtLoan: (f) => {
+    const { yearDays, statutoryRate } = fbtBenefitYear('fbt-loan');
+    return [{ balances: f.balances, accrued: f.accrued, incomeUse: f['income-use'], deduction: f.deduction },
+      { days: yearDays, rate: statutoryRate }];
+  },
+  fbtMealEntertainment: (f) => {
+    const { yearEnded } = fbtBenefitYear('fbt-meal-entertainment');
+    const earlier = [];
+    for (let year = Number(f['first-year']); year < Number(yearEnded); year += 1) earlier.push(f[`earlier-${year}`]);
+    return [{ method: f.method, expenses: f.expenses, registerBenefits: f['register-benefits'], registerTotal: f['register-total'],
+      firstYear: f['first-year'], earlier }, { ended: yearEnded }];
+  },
+});
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -1084,5 +1135,124 @@ test('GIC payment plan refuses inputs it cannot work', () => {
     [{ debt: '-1' }, 'Enter an amount between 0 and 1000000000.'],
   ]) {
     assert.throws(() => calculations.gicPaymentPlan({ ...plan, ...fields }), { message }, JSON.stringify(fields));
+  }
+});
+
+// ATO, 'Fringe benefits tax - rates and thresholds' (last updated 20 May 2026), read 17 November 2026:
+// https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
+// Table 9, car parking threshold, '31 March 2027 $11.48'; Table 10, statutory or benchmark interest
+// rate, '31 March 2027 8.27%'. The FBT year from 1 April 2026 to 31 March 2027 has 365 days.
+test('FBT benefit forms carry the ATO’s rate and threshold for the year ending 31 March 2027', () => {
+  assert.deepEqual(fbtBenefitYear('fbt-car-parking'), { calculator: 'fbt-car-parking', threshold: '11.48', yearDays: '365', yearEnded: '2027' });
+  assert.deepEqual(fbtBenefitYear('fbt-loan'), { calculator: 'fbt-loan', yearDays: '365', statutoryRate: '8.27' });
+  assert.deepEqual(fbtBenefitYear('fbt-meal-entertainment'), { calculator: 'fbt-meal-entertainment', yearEnded: '2027' });
+  assert.equal((Date.parse('2027-03-31') - Date.parse('2026-03-31')) / 86400000, 365);
+  const include = (page) => readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8');
+  assert.match(include('fbt-car-parking'), /threshold for the year ending 31 March 2027 is \$11\.48, from Table 9 of <a href="https:\/\/www\.ato\.gov\.au\/tax-rates-and-codes\/fringe-benefits-tax-rates-and-thresholds">/);
+  assert.match(include('fbt-loan'), /rate of 8\.27% for the FBT year ending 31 March 2027, from Table 10 of <a href="https:\/\/www\.ato\.gov\.au\/tax-rates-and-codes\/fringe-benefits-tax-rates-and-thresholds">/);
+});
+
+// ATO, 'Fringe benefits tax - a guide for employers', chapter 8, read 17 November 2026:
+// https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009 (statutory interest rate 5.65%).
+// 8.5: '$2,825 ($50,000 × 5.65%)' less '$2,500 ($50,000 × 5%)', 'The difference of $325'.
+// 8.8: 'Example – rate set without regard to employee's use of loan', '$825 - $495 = $330'; 'with regard
+// to employee's use', '$1,695 - $282.50 = $1,412.50', '$825 - $1,412.50 = 0'.
+test('FBT loan agrees with the guide’s worked examples at their 5.65% rate', () => {
+  const at = (accrued, use, deduction) => calculations.fbtLoan({ balances: '18250000', accrued, incomeUse: use, deduction },
+    { days: '365', rate: '5.65' });
+  assert.deepEqual([at('2500', '0', '0').notional, at('2500', '0', '0').taxableValue], [2825, 325]);
+  assert.deepEqual(at('2000', '60', '1200'), { notional: 2825, gross: 825, grossDeduction: 1695, notionalDeduction: 495,
+    reduction: 495, taxableValue: 330 });
+  assert.equal(at('2000', '60', '282.50').taxableValue, 0);
+});
+
+// s 19(1)(ba): RD above GD leaves no notional deduction, so the value is not increased. Worked by hand at
+// 8.27%: notional interest $4,135.00 less $4,000.00 accrued is $135.00; GD is 10% of $4,135.00, $413.50.
+test('FBT loan: a deduction for accrued interest above the gross deduction adds nothing', () => {
+  const r = calculations.fbtLoan({ balances: '18250000', accrued: '4000', incomeUse: '10', deduction: '4000' }, { days: '365', rate: '8.27' });
+  assert.deepEqual([r.gross, r.grossDeduction, r.notionalDeduction, r.reduction, r.taxableValue], [135, 413.5, 0, 0, 135]);
+});
+
+// s 18: the daily balances at the statutory rate are divided by the days in the year. Worked by hand:
+// $18,300,000 of daily balances at 8.27% over a 366-day year is $4,135.00; over 365 days, $4,146.33.
+test('FBT loan divides by the days in its FBT year', () => {
+  const at = (days) => calculations.fbtLoan({ balances: '18300000', accrued: '0', incomeUse: '0', deduction: '0' }, { days, rate: '8.27' });
+  assert.deepEqual([at('366').notional, at('365').notional], [4135, 4146.33]);
+});
+
+// ATO, 'Fringe benefits tax - a guide for employers', chapter 16, read 17 November 2026:
+// https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
+// Example 12: on 1 April 2022 stations charged $5.50 and $10, 'more than the car parking threshold of
+// $9.72', so 'Qstore can use the lower rate of $5.50'. Example 15: car park A '$18.50 ((17 + 20) ÷ 2)',
+// car park B '$12.50 ((10 + 15) ÷ 2)', B's lowest first business day fee being $10. Example 17
+// (1 October 2019 to 31 March 2020): '$2,500 × (52 ÷ 12) = $10,833.33', '183 ÷ 366', '$5,416.67'.
+// Example 18 (2022-23): '$4,535.08 × (3 ÷ 4) = $3,401.31', '$30 × 26 weeks × 3 employees = $2,340',
+// '$1,061.31'. Examples 17 and 18 say benefits arose, so a fee above the threshold is supplied for each.
+// ATO historical rates and thresholds (last updated 1 April 2026), read 17 November 2026: 31 March 2020, $8.95.
+test('FBT car parking agrees with the guide’s examples at their own years’ thresholds', () => {
+  const y2023 = { threshold: '9.72', days: '365', ended: '2023' };
+  const base = { method: 'station', fee: '10', benefits: '1', each: '0', firstFee: '0', lastFee: '0', registerValue: '0', days: '0',
+    firstYear: '2023', rate: '0', spaceDays: '1', spaces: '1', employeesStart: '0', employeesEnd: '0', spacesStart: '0',
+    spacesEnd: '0', contribution: '0' };
+  const park = (fields, year = y2023) => calculations.fbtCarParking({ ...base, ...fields }, year);
+  assert.equal(park({ each: '5.50' }).taxableValue, 5.5);
+  assert.equal(park({ method: 'average', fee: '17', firstFee: '17', lastFee: '20' }).average, 18.5);
+  assert.equal(park({ method: 'average', fee: '10', firstFee: '10', lastFee: '15' }).average, 12.5);
+  // Car park B's facts in the year ending 31 March 2027: $10 is not above $11.48, so no benefit arises.
+  assert.deepEqual(park({ method: 'average', fee: '10', firstFee: '10', lastFee: '15' },
+    { threshold: '11.48', days: '365', ended: '2027' }), { benefit: false, gross: 0, taxableValue: 0 });
+  const register = park({ method: 'register', fee: '9', registerValue: '2500', days: '183', firstYear: '2020' },
+    { threshold: '8.95', days: '366', ended: '2020' });
+  assert.deepEqual([register.annual, register.taxableValue], [10833.33, 5416.67]);
+  const spaces = park({ method: 'spaces', rate: '10', spaceDays: '182', spaces: '4', employeesStart: '3', employeesEnd: '3',
+    spacesStart: '4', spacesEnd: '4', contribution: '2340' });
+  assert.deepEqual([spaces.statutoryBenefit, spaces.gross, spaces.taxableValue], [4535.08, 3401.31, 1061.31]);
+});
+
+test('FBT benefits refuse inputs they cannot work', () => {
+  const year = { threshold: '11.48', days: '365', ended: '2027' };
+  const base = { method: 'station', fee: '12', benefits: '1', each: '12', firstFee: '0', lastFee: '0', registerValue: '0', days: '0',
+    firstYear: '2027', rate: '0', spaceDays: '1', spaces: '1', employeesStart: '0', employeesEnd: '0', spacesStart: '0',
+    spacesEnd: '0', contribution: '0' };
+  for (const [fields, message] of [
+    [{ method: 'actual' }, 'Choose a valuation method.'],
+    [{ benefits: '1.5' }, 'Enter a whole number between 0 and 1000000.'],
+    [{ method: 'register', days: '366' }, 'Enter a whole number between 0 and 365.'],
+    [{ method: 'register', firstYear: '2028' }, 'The register must have been first valid for an FBT year ending 31 March 2023 to 2027.'],
+    [{ method: 'spaces', spaceDays: '0' }, 'Enter a whole number between 1 and 365.'],
+    [{ method: 'spaces', employeesStart: '2.5' }, 'Enter a whole number between 0 and 1000000.'],
+  ]) {
+    assert.throws(() => calculations.fbtCarParking({ ...base, ...fields }, year), { message }, JSON.stringify(fields));
+  }
+  // Inputs are checked whether or not a benefit arises.
+  assert.throws(() => calculations.fbtCarParking({ ...base, fee: '1', benefits: '-1' }, year),
+    { message: 'Enter a whole number between 0 and 1000000.' });
+  const meal = { method: 'register', expenses: '100', registerBenefits: '1', registerTotal: '2', firstYear: '2026', earlier: ['100'] };
+  for (const [fields, message] of [
+    [{ method: 'actual' }, 'Choose a valuation method.'],
+    [{ registerTotal: '0', registerBenefits: '0' }, 'The register’s meal entertainment must be more than nil and at least its fringe benefits.'],
+    [{ registerBenefits: '3' }, 'The register’s meal entertainment must be more than nil and at least its fringe benefits.'],
+    [{ earlier: [] }, 'Enter the expenses of each FBT year from the register’s first valid year to the year before this one.'],
+  ]) {
+    assert.throws(() => calculations.fbtMealEntertainment({ ...meal, ...fields }, { ended: '2027' }), { message }, JSON.stringify(fields));
+  }
+  assert.throws(() => calculations.fbtLoan({ balances: '1', accrued: '0', incomeUse: '100.01', deduction: '0' }, { days: '365', rate: '8.27' }),
+    { message: 'Enter an amount between 0 and 100.' });
+  assert.throws(() => calculations.fbtLoan({ balances: '1', accrued: '0', incomeUse: '0', deduction: '0' }, { days: '365', rate: '0' }),
+    { message: 'Enter an amount between 0.01 and 100.' });
+});
+
+// The engines the FBT pages port, run on the same cases: see the fixture's engine line.
+test('FBT benefits agree with the australian-accounting engines on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./fbt-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 150);
+  for (const { name, source, call, amounts, refused } of cases) {
+    if (refused) {
+      assert.throws(() => calculations[name](...call), Error, `${source}: the engine refused, ${refused}`);
+      continue;
+    }
+    let result;
+    assert.doesNotThrow(() => { result = calculations[name](...call); }, source);
+    assert.deepEqual(Object.fromEntries(Object.keys(amounts).map((k) => [k, result[k].toFixed(2)])), amounts, source);
   }
 });

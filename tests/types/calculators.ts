@@ -98,3 +98,18 @@ calculate.fixedFee('18.5', '95', '40', '5', true, '12');
 // @ts-expect-error Adding GST is a boolean flag.
 calculate.fixedFee('18.5', '95', '40', '10', 'yes', '12');
 void fee;
+const parking = { method: 'station', fee: '12.36', benefits: '22', each: '12.36', firstFee: '0', lastFee: '0', registerValue: '0',
+  days: '0', firstYear: '2027', rate: '0', spaceDays: '1', spaces: '1', employeesStart: '0', employeesEnd: '0', spacesStart: '0',
+  spacesEnd: '0', contribution: '0' } as const;
+const parkingValue: number = calculate.fbtCarParking(parking, { threshold: '11.48', days: '365', ended: '2027' }).taxableValue;
+// @ts-expect-error The actual cost of a car park is not one of the 5 methods.
+calculate.fbtCarParking({ ...parking, method: 'actual' }, { threshold: '11.48', days: '365', ended: '2027' });
+const loanValue: number = calculate.fbtLoan({ balances: '18250000', accrued: '2000', incomeUse: '60', deduction: '1200' },
+  { days: '365', rate: '8.27' }).reduction;
+const meal = { method: 'register', expenses: '900', registerBenefits: '1000', registerTotal: '3000', firstYear: '2027', earlier: [] } as const;
+const mealValue: number = calculate.fbtMealEntertainment({ ...meal, earlier: [] }, { ended: '2027' }).taxableValue;
+// @ts-expect-error Earlier years' expenses are a list of decimal strings.
+calculate.fbtMealEntertainment({ ...meal, earlier: '1000' }, { ended: '2027' });
+void parkingValue;
+void loanValue;
+void mealValue;

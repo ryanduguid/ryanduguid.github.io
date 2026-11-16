@@ -1,6 +1,8 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
+import { fbtBenefitResult } from './fbt-benefit-forms.mjs';
+
 const currencyFormat = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
 // Page copy writes negatives with the minus sign, U+2212; the CSV keeps ASCII.
 const minus = text => text.replace(/^-/, '−');
@@ -503,6 +505,9 @@ function initialiseCalculators([calculate, fieldErrors]) {
             note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
             break;
           }
+          case 'fbt-car-parking': case 'fbt-loan': case 'fbt-meal-entertainment':
+            result = fbtBenefitResult(form, calculate, { aud, value, money });
+            break;
           default: throw new Error('Unknown calculator.');
         }
         renderResult(output, result);
