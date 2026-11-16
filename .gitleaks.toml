@@ -1,6 +1,6 @@
 # Secret and client-identifier scanning, run by .github/workflows/secrets.yml.
 #
-# The default gitleaks rules cover credentials. The 4 rules below add the
+# The default betterleaks rules cover credentials. The 4 rules below add the
 # identifiers this repository must never hold for a real person or client: a
 # tax file number, ABN, bank detail or Medicare number. They are the rules
 # australian-accounting-skills runs, anchored on the label rather than the
@@ -48,4 +48,13 @@ targetRules = ["au-tax-file-number", "au-business-number", "au-bank-account", "a
 regexes = [
   # The ABN this site publishes in its footer.
   '''^59[ -]?834[ -]?031[ -]?764$''',
+]
+
+[[allowlists]]
+description = "Placeholder passwords in URLs the source checks' tests expect them to refuse"
+targetRules = ["generic-credential-uri"]
+regexes = [
+  # https://user:password@... and https://user:pw@... in the ato_sources and
+  # rates tests, URLs carrying credentials the checks must reject.
+  '''^(?:password|pw)$''',
 ]
