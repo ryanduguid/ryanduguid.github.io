@@ -304,21 +304,20 @@ pub type Transport<'a> = dyn Fn() -> (Box<dyn Opener>, Box<dyn Clock>) + Sync + 
 const PER_HOST: usize = 3;
 const WORKERS: usize = 8;
 
-/// The external URLs the sequential pass fetches, in first-use order: every
-/// `http` or `https` link (scheme in any case) that is not same-origin and, on
+/// The external URLs the sequential pass fetches, in first-use order: every plainly
+/// written `http` or `https` link (scheme in any case) that is not same-origin and, on
 /// CI, not left to manual verification.
 pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
     let mut targets: Vec<String> = Vec::new();
     for href in hrefs {
-        let Some(href) = pyurl::urlsplit(href)
-            .ok()
-            .filter(|parts| web_scheme(&parts.scheme))
-            .map(|parts| browser_href(href, parts))
-        else {
+        // A refused spelling is reported by the link pass, never fetched.
+        if !pyurl::urlsplit(href)
+            .is_ok_and(|parts| web_scheme(&parts.scheme) && odd_spelling(&parts).is_none())
+        {
             continue;
-        };
+        }
         // A scheme-relative link takes the site's https; a relative one stays on the site.
-        let Ok(href) = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), &href) else {
+        let Ok(href) = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), href) else {
             continue;
         };
         if (actions && CI_MANUAL_URLS.contains(&href.as_str())) || targets.contains(&href) {
@@ -335,16 +334,27 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
     targets
 }
 
-/// An http(s) or relative href as a browser reads it, before it is resolved: a backslash
-/// in its path is a slash.
-fn browser_href(href: &str, parts: Split) -> String {
-    if parts.path.contains('\\') {
-        pyurl::urlunsplit(&Split {
-            path: parts.path.replace('\\', "/"),
-            ..parts
-        })
+/// What makes a written http(s) or relative href one the checker refuses: a spelling a
+/// browser repairs and urllib resolves differently. Only plain links are checked, so a
+/// link that passes is one the checker resolved exactly.
+fn odd_spelling(written: &Split) -> Option<&'static str> {
+    if written.netloc.contains('\\') || written.path.contains('\\') {
+        Some("a backslash, which a browser reads as a slash")
+    } else if !written.scheme.is_empty() && written.netloc.is_empty() {
+        Some("no // before the host")
+    } else if written.path.contains("//")
+        // urljoin can drop an empty segment that a browser keeps; external paths keep
+        // theirs. A scheme-relative link takes the site's https.
+        && (written.netloc.is_empty()
+            || (written.scheme != "http"
+                && is_self_origin(&Split {
+                    scheme: "https".to_owned(),
+                    ..written.clone()
+                }) == Ok(true)))
+    {
+        Some("an empty path segment (//)")
     } else {
-        href.to_owned()
+        None
     }
 }
 
@@ -761,9 +771,14 @@ impl<'a> Checker<'a> {
             if !web_scheme(&parts.scheme) {
                 continue;
             }
+            if let Some(odd) = odd_spelling(&parts) {
+                failures.push(format!(
+                    "{rel}: {href} -> refused: {odd}; write the link plainly"
+                ));
+                continue;
+            }
             // Relative and scheme-relative links are checked where a browser would go.
-            let href = &pyurl::urljoin(&page, &browser_href(href, parts))
-                .map_err(|e| format!("ValueError: {e}"))?;
+            let href = &pyurl::urljoin(&page, href).map_err(|e| format!("ValueError: {e}"))?;
             if seen.contains(href) {
                 continue;
             }
@@ -784,9 +799,8 @@ impl<'a> Checker<'a> {
             };
             if same_origin {
                 // urljoin keeps the dot segments of a URL with a host; resolve them as a
-                // browser does, so no link reaches above the site root. The leading "/."
-                // keeps the absolute-path rules root-relative links get.
-                let path = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), &format!("/.{}", parts.path))
+                // browser does, so no link reaches above the site root.
+                let path = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), &format!(".{}", parts.path))
                     .and_then(|url| pyurl::urlsplit(&url))
                     .map_err(|e| format!("ValueError: {e}"))?
                     .path;

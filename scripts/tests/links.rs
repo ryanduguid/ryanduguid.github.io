@@ -1575,13 +1575,8 @@ fn host_links_resolve_dot_segments_within_the_site() {
             Some("site/index.html"),
         ),
         ("//duguid.com.au/tools/../../x.html", Some("x.html")),
-        // A browser reads a backslash as a slash, so this names /x.html, not a parent file.
-        ("https://duguid.com.au/..\\x.html", Some("x.html")),
         ("https://duguid.com.au/a/../index.html", None),
         ("https://duguid.com.au/tools/..", None),
-        // An empty segment is a segment, as it is for the root-relative spelling.
-        ("https://duguid.com.au/b//../x.html", None),
-        ("/b//../x.html", None),
     ] {
         let harness = Harness::new(vec![]);
         let failures = harness.with(root.clone(), |c| {
@@ -1593,7 +1588,7 @@ fn host_links_resolve_dot_segments_within_the_site() {
                 failures,
                 vec![format!(
                     "index.html: https:{} -> no file at {shown} (same-origin link does not resolve on disk)",
-                    href.trim_start_matches("https:").replace('\\', "/")
+                    href.trim_start_matches("https:")
                 )],
                 "{href}"
             ),
@@ -1602,30 +1597,80 @@ fn host_links_resolve_dot_segments_within_the_site() {
     }
 }
 
-/// A browser reads a backslash in an http(s) path as a slash, however the link is spelt.
+/// A spelling a browser would repair fails its page as written, before any disk lookup or
+/// fetch; plain spellings around it still resolve.
 #[test]
-fn backslashes_in_paths_are_slashes() {
+fn odd_spellings_are_refused_not_repaired() {
+    const SLASH: &str = "a backslash, which a browser reads as a slash";
+    const HOST: &str = "no // before the host";
+    const EMPTY: &str = "an empty path segment (//)";
+    // Every target a repair could name exists, so only the refusal can fail the link.
     let dir = tempfile::tempdir().unwrap();
-    std::fs::write(dir.path().join("x.html"), "<h1>X</h1>").unwrap();
-    for href in [
-        "https://duguid.com.au/a\\b/../x.html",
-        "/a\\b/../x.html",
-        "a\\b/../x.html",
+    for rel in ["x.html", "a/x.html", "b/x.html", "example.org/a"] {
+        let path = dir.path().join(rel);
+        std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+        std::fs::write(path, "<h1>X</h1>").unwrap();
+    }
+    for (href, odd) in [
+        ("https://duguid.com.au/..\\x.html", SLASH),
+        ("https://duguid.com.au/b//../x.html", EMPTY),
+        ("/b//../x.html", EMPTY),
+        ("https://duguid.com.au/a\\b/../x.html", SLASH),
+        ("/a\\b/../x.html", SLASH),
+        ("a\\b/../x.html", SLASH),
+        ("https:/\\example.org/a", SLASH),
+        ("https:/example.org/a", HOST),
+        ("a\\/../x.html", SLASH),
+        ("a//../x.html", EMPTY),
+        ("https:x.html", HOST),
+        ("/\\example.org/a", SLASH),
+        ("https:////example.org/a", HOST),
+        ("//duguid.com.au/b//../x.html", EMPTY),
+        ("https://example.org/a\\b", SLASH),
     ] {
         let harness = Harness::new(vec![]);
         let failures = harness.with(dir.path().to_path_buf(), |c| {
-            c.check_hrefs("index.html", &strings(&[href]), true)
+            c.fetch_hook = Some(Box::new(|url| panic!("{url} fetched")));
+            c.check_hrefs("index.html", &strings(&[href]), false)
                 .unwrap()
         });
-        assert_eq!(failures.len(), 1, "{href}: {failures:?}");
+        assert_eq!(
+            failures,
+            vec![format!(
+                "index.html: {href} -> refused: {odd}; write the link plainly"
+            )],
+            "{href}"
+        );
         assert!(
-            failures[0].contains("-> no file at a/x.html"),
-            "{href}: {failures:?}"
+            site_tools::check_links::fetch_targets(&strings(&[href]), false).is_empty(),
+            "{href}"
         );
     }
+    // An external path keeps its empty segments, and a scheme-relative link its origin.
+    let plain = strings(&[
+        "https://web.archive.org/web/2026/https://example.org/",
+        "//example.org/a//b",
+        "//duguid.com.au/b/x.html",
+    ]);
+    let fetchable = strings(&[
+        "https://web.archive.org/web/2026/https://example.org/",
+        "https://example.org/a//b",
+    ]);
+    let harness = Harness::new(vec![]);
+    let fetched = Rc::new(RefCell::new(Vec::new()));
+    let failures = harness.with(dir.path().to_path_buf(), |c| {
+        let log = fetched.clone();
+        c.fetch_hook = Some(Box::new(move |url| {
+            log.borrow_mut().push(url.to_owned());
+            Ok((200, url.to_owned()))
+        }));
+        c.check_hrefs("index.html", &plain, false).unwrap()
+    });
+    assert!(failures.is_empty(), "{failures:?}");
+    assert_eq!(*fetched.borrow(), fetchable);
     assert_eq!(
-        site_tools::check_links::fetch_targets(&strings(&["https://example.org/a\\b"]), false),
-        strings(&["https://example.org/a/b"])
+        site_tools::check_links::fetch_targets(&plain, false),
+        fetchable
     );
 }
 
