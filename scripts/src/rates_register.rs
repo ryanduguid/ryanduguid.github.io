@@ -21,7 +21,7 @@ use std::path::{Path, PathBuf};
 
 const ADVICE_STATUS: &str =
     "Not advice. Verify each figure against its primary source at the time of use.";
-const PRIMARY_HOSTS: [&str; 16] = [
+const PRIMARY_HOSTS: [&str; 23] = [
     "www.legislation.gov.au",
     "legislation.gov.au",
     "www.ato.gov.au",
@@ -38,6 +38,14 @@ const PRIMARY_HOSTS: [&str; 16] = [
     "legislation.tas.gov.au",
     "legislation.act.gov.au",
     "legislation.nt.gov.au",
+    "www.legislation.act.gov.au",
+    // State revenue offices, for transfer duty scales.
+    "www.revenue.nsw.gov.au",
+    "www.sro.vic.gov.au",
+    "qro.qld.gov.au",
+    "www.wa.gov.au",
+    "revenuesa.sa.gov.au",
+    "www.sro.tas.gov.au",
 ];
 const UNITS: [&str; 5] = ["aud", "cents", "days", "fraction", "percent"];
 const JURISDICTIONS: [&str; 9] = [

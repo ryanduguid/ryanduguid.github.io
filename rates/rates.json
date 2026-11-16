@@ -271,6 +271,893 @@
       ]
     },
     {
+      "table": "general-interest-charge",
+      "page": "https://duguid.com.au/rates/general-interest-charge/",
+      "csv": "https://duguid.com.au/rates/general-interest-charge/general-interest-charge-rates.csv",
+      "rows": [
+        {
+          "quarter_start": "2026-10-01",
+          "quarter_end": "2026-12-31",
+          "annual_rate_percent": "11.51",
+          "daily_rate_percent": "0.03153425",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2026-07-01",
+          "quarter_end": "2026-09-30",
+          "annual_rate_percent": "11.43",
+          "daily_rate_percent": "0.03131507",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2026-04-01",
+          "quarter_end": "2026-06-30",
+          "annual_rate_percent": "10.96",
+          "daily_rate_percent": "0.03002740",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2026-01-01",
+          "quarter_end": "2026-03-31",
+          "annual_rate_percent": "10.65",
+          "daily_rate_percent": "0.02917808",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2025-10-01",
+          "quarter_end": "2025-12-31",
+          "annual_rate_percent": "10.61",
+          "daily_rate_percent": "0.02906849",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2025-07-01",
+          "quarter_end": "2025-09-30",
+          "annual_rate_percent": "10.78",
+          "daily_rate_percent": "0.02953425",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2025-04-01",
+          "quarter_end": "2025-06-30",
+          "annual_rate_percent": "11.17",
+          "daily_rate_percent": "0.03060274",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2025-01-01",
+          "quarter_end": "2025-03-31",
+          "annual_rate_percent": "11.42",
+          "daily_rate_percent": "0.03128767",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2024-10-01",
+          "quarter_end": "2024-12-31",
+          "annual_rate_percent": "11.38",
+          "daily_rate_percent": "0.03109290",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2024-07-01",
+          "quarter_end": "2024-09-30",
+          "annual_rate_percent": "11.36",
+          "daily_rate_percent": "0.03103825",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2024-04-01",
+          "quarter_end": "2024-06-30",
+          "annual_rate_percent": "11.34",
+          "daily_rate_percent": "0.03098361",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2024-01-01",
+          "quarter_end": "2024-03-31",
+          "annual_rate_percent": "11.38",
+          "daily_rate_percent": "0.03109290",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2023-10-01",
+          "quarter_end": "2023-12-31",
+          "annual_rate_percent": "11.15",
+          "daily_rate_percent": "0.03054794",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2023-07-01",
+          "quarter_end": "2023-09-30",
+          "annual_rate_percent": "10.90",
+          "daily_rate_percent": "0.02986301",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2023-04-01",
+          "quarter_end": "2023-06-30",
+          "annual_rate_percent": "10.46",
+          "daily_rate_percent": "0.02865753",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2023-01-01",
+          "quarter_end": "2023-03-31",
+          "annual_rate_percent": "10.06",
+          "daily_rate_percent": "0.02756164",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2022-10-01",
+          "quarter_end": "2022-12-31",
+          "annual_rate_percent": "9.31",
+          "daily_rate_percent": "0.02550685",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2022-07-01",
+          "quarter_end": "2022-09-30",
+          "annual_rate_percent": "8.00",
+          "daily_rate_percent": "0.02191781",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2022-04-01",
+          "quarter_end": "2022-06-30",
+          "annual_rate_percent": "7.07",
+          "daily_rate_percent": "0.01936986",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2022-01-01",
+          "quarter_end": "2022-03-31",
+          "annual_rate_percent": "7.04",
+          "daily_rate_percent": "0.01928767",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2021-10-01",
+          "quarter_end": "2021-12-31",
+          "annual_rate_percent": "7.01",
+          "daily_rate_percent": "0.01920548",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2021-07-01",
+          "quarter_end": "2021-09-30",
+          "annual_rate_percent": "7.04",
+          "daily_rate_percent": "0.01928767",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2021-04-01",
+          "quarter_end": "2021-06-30",
+          "annual_rate_percent": "7.01",
+          "daily_rate_percent": "0.01920548",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2021-01-01",
+          "quarter_end": "2021-03-31",
+          "annual_rate_percent": "7.02",
+          "daily_rate_percent": "0.01923288",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2020-10-01",
+          "quarter_end": "2020-12-31",
+          "annual_rate_percent": "7.10",
+          "daily_rate_percent": "0.01939891",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2020-07-01",
+          "quarter_end": "2020-09-30",
+          "annual_rate_percent": "7.10",
+          "daily_rate_percent": "0.01939891",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2020-04-01",
+          "quarter_end": "2020-06-30",
+          "annual_rate_percent": "7.89",
+          "daily_rate_percent": "0.02155738",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2020-01-01",
+          "quarter_end": "2020-03-31",
+          "annual_rate_percent": "7.91",
+          "daily_rate_percent": "0.02161202",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2019-10-01",
+          "quarter_end": "2019-12-31",
+          "annual_rate_percent": "7.98",
+          "daily_rate_percent": "0.02186301",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2019-07-01",
+          "quarter_end": "2019-09-30",
+          "annual_rate_percent": "8.54",
+          "daily_rate_percent": "0.02339726",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2019-04-01",
+          "quarter_end": "2019-06-30",
+          "annual_rate_percent": "8.96",
+          "daily_rate_percent": "0.02454794",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2019-01-01",
+          "quarter_end": "2019-03-31",
+          "annual_rate_percent": "8.94",
+          "daily_rate_percent": "0.02449315",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2018-10-01",
+          "quarter_end": "2018-12-31",
+          "annual_rate_percent": "8.96",
+          "daily_rate_percent": "0.02454794",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2018-07-01",
+          "quarter_end": "2018-09-30",
+          "annual_rate_percent": "8.96",
+          "daily_rate_percent": "0.02454794",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2018-04-01",
+          "quarter_end": "2018-06-30",
+          "annual_rate_percent": "8.77",
+          "daily_rate_percent": "0.02402740",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2018-01-01",
+          "quarter_end": "2018-03-31",
+          "annual_rate_percent": "8.72",
+          "daily_rate_percent": "0.02389041",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2017-10-01",
+          "quarter_end": "2017-12-31",
+          "annual_rate_percent": "8.70",
+          "daily_rate_percent": "0.02383562",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2017-07-01",
+          "quarter_end": "2017-09-30",
+          "annual_rate_percent": "8.73",
+          "daily_rate_percent": "0.02391781",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2017-04-01",
+          "quarter_end": "2017-06-30",
+          "annual_rate_percent": "8.78",
+          "daily_rate_percent": "0.02405479",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2017-01-01",
+          "quarter_end": "2017-03-31",
+          "annual_rate_percent": "8.76",
+          "daily_rate_percent": "0.02400000",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2016-10-01",
+          "quarter_end": "2016-12-31",
+          "annual_rate_percent": "8.76",
+          "daily_rate_percent": "0.02393443",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2016-07-01",
+          "quarter_end": "2016-09-30",
+          "annual_rate_percent": "9.01",
+          "daily_rate_percent": "0.02461749",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2016-04-01",
+          "quarter_end": "2016-06-30",
+          "annual_rate_percent": "9.28",
+          "daily_rate_percent": "0.02535519",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2016-01-01",
+          "quarter_end": "2016-03-31",
+          "annual_rate_percent": "9.22",
+          "daily_rate_percent": "0.02519126",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2015-10-01",
+          "quarter_end": "2015-12-31",
+          "annual_rate_percent": "9.14",
+          "daily_rate_percent": "0.02504109",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2015-07-01",
+          "quarter_end": "2015-09-30",
+          "annual_rate_percent": "9.15",
+          "daily_rate_percent": "0.02506849",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2015-04-01",
+          "quarter_end": "2015-06-30",
+          "annual_rate_percent": "9.36",
+          "daily_rate_percent": "0.02564383",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2015-01-01",
+          "quarter_end": "2015-03-31",
+          "annual_rate_percent": "9.75",
+          "daily_rate_percent": "0.02671233",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2014-10-01",
+          "quarter_end": "2014-12-31",
+          "annual_rate_percent": "9.63",
+          "daily_rate_percent": "0.02638356",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2014-07-01",
+          "quarter_end": "2014-09-30",
+          "annual_rate_percent": "9.69",
+          "daily_rate_percent": "0.02654794",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2014-04-01",
+          "quarter_end": "2014-06-30",
+          "annual_rate_percent": "9.63",
+          "daily_rate_percent": "0.02638356",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2014-01-01",
+          "quarter_end": "2014-03-31",
+          "annual_rate_percent": "9.59",
+          "daily_rate_percent": "0.02627397",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2013-10-01",
+          "quarter_end": "2013-12-31",
+          "annual_rate_percent": "9.60",
+          "daily_rate_percent": "0.02630137",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2013-07-01",
+          "quarter_end": "2013-09-30",
+          "annual_rate_percent": "9.82",
+          "daily_rate_percent": "0.02690411",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2013-04-01",
+          "quarter_end": "2013-06-30",
+          "annual_rate_percent": "9.95",
+          "daily_rate_percent": "0.02726027",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2013-01-01",
+          "quarter_end": "2013-03-31",
+          "annual_rate_percent": "10.24",
+          "daily_rate_percent": "0.02805479",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2012-10-01",
+          "quarter_end": "2012-12-31",
+          "annual_rate_percent": "10.62",
+          "daily_rate_percent": "0.02901639",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2012-07-01",
+          "quarter_end": "2012-09-30",
+          "annual_rate_percent": "10.66",
+          "daily_rate_percent": "0.02912568",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2012-04-01",
+          "quarter_end": "2012-06-30",
+          "annual_rate_percent": "11.37",
+          "daily_rate_percent": "0.03106557",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2012-01-01",
+          "quarter_end": "2012-03-31",
+          "annual_rate_percent": "11.62",
+          "daily_rate_percent": "0.03174863",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2011-10-01",
+          "quarter_end": "2011-12-31",
+          "annual_rate_percent": "11.86",
+          "daily_rate_percent": "0.03249315",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2011-07-01",
+          "quarter_end": "2011-09-30",
+          "annual_rate_percent": "12.00",
+          "daily_rate_percent": "0.03287671",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2011-04-01",
+          "quarter_end": "2011-06-30",
+          "annual_rate_percent": "11.92",
+          "daily_rate_percent": "0.03265753",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2011-01-01",
+          "quarter_end": "2011-03-31",
+          "annual_rate_percent": "12.02",
+          "daily_rate_percent": "0.03293151",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2010-10-01",
+          "quarter_end": "2010-12-31",
+          "annual_rate_percent": "11.74",
+          "daily_rate_percent": "0.03216438",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2010-07-01",
+          "quarter_end": "2010-09-30",
+          "annual_rate_percent": "11.80",
+          "daily_rate_percent": "0.03232877",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2010-04-01",
+          "quarter_end": "2010-06-30",
+          "annual_rate_percent": "11.16",
+          "daily_rate_percent": "0.03057534",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2010-01-01",
+          "quarter_end": "2010-03-31",
+          "annual_rate_percent": "10.95",
+          "daily_rate_percent": "0.03000000",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2009-10-01",
+          "quarter_end": "2009-12-31",
+          "annual_rate_percent": "10.30",
+          "daily_rate_percent": "0.02821918",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2009-07-01",
+          "quarter_end": "2009-09-30",
+          "annual_rate_percent": "10.13",
+          "daily_rate_percent": "0.02775342",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2009-04-01",
+          "quarter_end": "2009-06-30",
+          "annual_rate_percent": "10.16",
+          "daily_rate_percent": "0.02783562",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2009-01-01",
+          "quarter_end": "2009-03-31",
+          "annual_rate_percent": "11.76",
+          "daily_rate_percent": "0.03221918",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2008-10-01",
+          "quarter_end": "2008-12-31",
+          "annual_rate_percent": "14.31",
+          "daily_rate_percent": "0.03909836",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2008-07-01",
+          "quarter_end": "2008-09-30",
+          "annual_rate_percent": "14.75",
+          "daily_rate_percent": "0.04030054",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2008-04-01",
+          "quarter_end": "2008-06-30",
+          "annual_rate_percent": "14.69",
+          "daily_rate_percent": "0.04013661",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2008-01-01",
+          "quarter_end": "2008-03-31",
+          "annual_rate_percent": "14.15",
+          "daily_rate_percent": "0.03866120",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2007-10-01",
+          "quarter_end": "2007-12-31",
+          "annual_rate_percent": "13.75",
+          "daily_rate_percent": "0.03767123",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2007-07-01",
+          "quarter_end": "2007-09-30",
+          "annual_rate_percent": "13.37",
+          "daily_rate_percent": "0.03663014",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2007-04-01",
+          "quarter_end": "2007-06-30",
+          "annual_rate_percent": "13.37",
+          "daily_rate_percent": "0.03663014",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2007-01-01",
+          "quarter_end": "2007-03-31",
+          "annual_rate_percent": "13.37",
+          "daily_rate_percent": "0.03663014",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2006-10-01",
+          "quarter_end": "2006-12-31",
+          "annual_rate_percent": "13.19",
+          "daily_rate_percent": "0.03613699",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2006-07-01",
+          "quarter_end": "2006-09-30",
+          "annual_rate_percent": "12.87",
+          "daily_rate_percent": "0.03526027",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2006-04-01",
+          "quarter_end": "2006-06-30",
+          "annual_rate_percent": "12.61",
+          "daily_rate_percent": "0.03454794",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2006-01-01",
+          "quarter_end": "2006-03-31",
+          "annual_rate_percent": "12.63",
+          "daily_rate_percent": "0.03460274",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2005-10-01",
+          "quarter_end": "2005-12-31",
+          "annual_rate_percent": "12.62",
+          "daily_rate_percent": "0.03457534",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2005-07-01",
+          "quarter_end": "2005-09-30",
+          "annual_rate_percent": "12.68",
+          "daily_rate_percent": "0.03473973",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2005-04-01",
+          "quarter_end": "2005-06-30",
+          "annual_rate_percent": "12.63",
+          "daily_rate_percent": "0.03460274",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2005-01-01",
+          "quarter_end": "2005-03-31",
+          "annual_rate_percent": "12.43",
+          "daily_rate_percent": "0.03405479",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2004-10-01",
+          "quarter_end": "2004-12-31",
+          "annual_rate_percent": "12.44",
+          "daily_rate_percent": "0.03398907",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2004-07-01",
+          "quarter_end": "2004-09-30",
+          "annual_rate_percent": "12.51",
+          "daily_rate_percent": "0.03418033",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2004-04-01",
+          "quarter_end": "2004-06-30",
+          "annual_rate_percent": "12.57",
+          "daily_rate_percent": "0.03434426",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2004-01-01",
+          "quarter_end": "2004-03-31",
+          "annual_rate_percent": "12.31",
+          "daily_rate_percent": "0.03363388",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2003-10-01",
+          "quarter_end": "2003-12-31",
+          "annual_rate_percent": "11.82",
+          "daily_rate_percent": "0.03238357",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2003-07-01",
+          "quarter_end": "2003-09-30",
+          "annual_rate_percent": "11.78",
+          "daily_rate_percent": "0.03227397",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2003-04-01",
+          "quarter_end": "2003-06-30",
+          "annual_rate_percent": "11.75",
+          "daily_rate_percent": "0.03219178",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2003-01-01",
+          "quarter_end": "2003-03-31",
+          "annual_rate_percent": "11.84",
+          "daily_rate_percent": "0.03243835",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2002-10-01",
+          "quarter_end": "2002-12-31",
+          "annual_rate_percent": "11.96",
+          "daily_rate_percent": "0.03276712",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2002-07-01",
+          "quarter_end": "2002-09-30",
+          "annual_rate_percent": "11.84",
+          "daily_rate_percent": "0.03243835",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2002-04-01",
+          "quarter_end": "2002-06-30",
+          "annual_rate_percent": "11.31",
+          "daily_rate_percent": "0.03098630",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2002-01-01",
+          "quarter_end": "2002-03-31",
+          "annual_rate_percent": "11.28",
+          "daily_rate_percent": "0.03090411",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2001-10-01",
+          "quarter_end": "2001-12-31",
+          "annual_rate_percent": "11.95",
+          "daily_rate_percent": "0.03273973",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2001-07-01",
+          "quarter_end": "2001-09-30",
+          "annual_rate_percent": "11.89",
+          "daily_rate_percent": "0.03257534",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2001-04-01",
+          "quarter_end": "2001-06-30",
+          "annual_rate_percent": "13.86",
+          "daily_rate_percent": "0.03797260",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2001-01-01",
+          "quarter_end": "2001-03-31",
+          "annual_rate_percent": "13.86",
+          "daily_rate_percent": "0.03797260",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2000-10-01",
+          "quarter_end": "2000-12-31",
+          "annual_rate_percent": "13.86",
+          "daily_rate_percent": "0.03786885",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2000-07-01",
+          "quarter_end": "2000-09-30",
+          "annual_rate_percent": "14.00",
+          "daily_rate_percent": "0.03825137",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2000-04-01",
+          "quarter_end": "2000-06-30",
+          "annual_rate_percent": "13.65",
+          "daily_rate_percent": "0.03729508",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "2000-01-01",
+          "quarter_end": "2000-03-31",
+          "annual_rate_percent": "13.08",
+          "daily_rate_percent": "0.03573770",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "1999-10-01",
+          "quarter_end": "1999-12-31",
+          "annual_rate_percent": "12.73",
+          "daily_rate_percent": "0.03487671",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "quarter_start": "1999-07-01",
+          "quarter_end": "1999-09-30",
+          "annual_rate_percent": "12.72",
+          "daily_rate_percent": "0.03484931",
+          "source_url": "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+          "checked_at": "2026-11-15"
+        }
+      ]
+    },
+    {
       "table": "individual-income-tax",
       "page": "https://duguid.com.au/rates/individual-income-tax/",
       "csv": "https://duguid.com.au/rates/individual-income-tax/individual-income-tax-rates.csv",
@@ -2127,6 +3014,613 @@
           "notes": "Final scheduled step; payday super from 2026-07-01 changed timing not the rate",
           "source_url": "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
           "checked_at": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "table": "transfer-duty",
+      "page": "https://duguid.com.au/rates/transfer-duty/",
+      "csv": "https://duguid.com.au/rates/transfer-duty/transfer-duty-rates.csv",
+      "rows": [
+        {
+          "jurisdiction": "AU-NSW",
+          "in_force_from": "2026-07-01",
+          "value_over": "0",
+          "value_to": "1600",
+          "base_amount": "20",
+          "rate_percent": "0",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "Revenue NSW: $1.25 for every $100 with a minimum of $20; to $1600 the minimum applies",
+          "source_url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NSW",
+          "in_force_from": "2026-07-01",
+          "value_over": "1600",
+          "value_to": "18000",
+          "base_amount": "20",
+          "rate_percent": "1.25",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "Revenue NSW: $1.25 for every $100; restated from $1600 so the $20 minimum is the base",
+          "source_url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NSW",
+          "in_force_from": "2026-07-01",
+          "value_over": "18000",
+          "value_to": "38000",
+          "base_amount": "225",
+          "rate_percent": "1.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NSW",
+          "in_force_from": "2026-07-01",
+          "value_over": "38000",
+          "value_to": "103000",
+          "base_amount": "525",
+          "rate_percent": "1.75",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NSW",
+          "in_force_from": "2026-07-01",
+          "value_over": "103000",
+          "value_to": "387000",
+          "base_amount": "1662",
+          "rate_percent": "3.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NSW",
+          "in_force_from": "2026-07-01",
+          "value_over": "387000",
+          "value_to": "1290000",
+          "base_amount": "11602",
+          "rate_percent": "4.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NSW",
+          "in_force_from": "2026-07-01",
+          "value_over": "1290000",
+          "value_to": "3870000",
+          "base_amount": "52237",
+          "rate_percent": "5.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NSW",
+          "in_force_from": "2026-07-01",
+          "value_over": "3870000",
+          "value_to": "",
+          "base_amount": "194137",
+          "rate_percent": "7",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "Premium duty: residential land only",
+          "source_url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-VIC",
+          "in_force_from": "2021-07-01",
+          "value_over": "0",
+          "value_to": "25000",
+          "base_amount": "0",
+          "rate_percent": "1.4",
+          "rule": "excess",
+          "notes": "General (non-principal place of residence) rates for contracts from 1 July 2021",
+          "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-VIC",
+          "in_force_from": "2021-07-01",
+          "value_over": "25000",
+          "value_to": "130000",
+          "base_amount": "350",
+          "rate_percent": "2.4",
+          "rule": "excess",
+          "notes": "",
+          "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-VIC",
+          "in_force_from": "2021-07-01",
+          "value_over": "130000",
+          "value_to": "960000",
+          "base_amount": "2870",
+          "rate_percent": "6",
+          "rule": "excess",
+          "notes": "",
+          "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-VIC",
+          "in_force_from": "2021-07-01",
+          "value_over": "960000",
+          "value_to": "2000000",
+          "base_amount": "0",
+          "rate_percent": "5.5",
+          "rule": "whole-value",
+          "notes": "5.5% of the whole dutiable value",
+          "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-VIC",
+          "in_force_from": "2021-07-01",
+          "value_over": "2000000",
+          "value_to": "",
+          "base_amount": "110000",
+          "rate_percent": "6.5",
+          "rule": "excess",
+          "notes": "Premium rate over $2 million",
+          "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-QLD",
+          "in_force_from": "2012-09-21",
+          "value_over": "0",
+          "value_to": "5000",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "QRO: earlier rates apply to transactions dated before 21 September 2012",
+          "source_url": "https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-QLD",
+          "in_force_from": "2012-09-21",
+          "value_over": "5000",
+          "value_to": "75000",
+          "base_amount": "0",
+          "rate_percent": "1.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-QLD",
+          "in_force_from": "2012-09-21",
+          "value_over": "75000",
+          "value_to": "540000",
+          "base_amount": "1050",
+          "rate_percent": "3.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-QLD",
+          "in_force_from": "2012-09-21",
+          "value_over": "540000",
+          "value_to": "1000000",
+          "base_amount": "17325",
+          "rate_percent": "4.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-QLD",
+          "in_force_from": "2012-09-21",
+          "value_over": "1000000",
+          "value_to": "",
+          "base_amount": "38025",
+          "rate_percent": "5.75",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://qro.qld.gov.au/duties/transfer-duty/calculate/rates/",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-WA",
+          "in_force_from": "2014-07-02",
+          "value_over": "0",
+          "value_to": "120000",
+          "base_amount": "0",
+          "rate_percent": "1.9",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "General rate; WA gives earlier rates on request for transactions before 2 July 2014",
+          "source_url": "https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-WA",
+          "in_force_from": "2014-07-02",
+          "value_over": "120000",
+          "value_to": "150000",
+          "base_amount": "2280",
+          "rate_percent": "2.85",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-WA",
+          "in_force_from": "2014-07-02",
+          "value_over": "150000",
+          "value_to": "360000",
+          "base_amount": "3135",
+          "rate_percent": "3.8",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-WA",
+          "in_force_from": "2014-07-02",
+          "value_over": "360000",
+          "value_to": "725000",
+          "base_amount": "11115",
+          "rate_percent": "4.75",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-WA",
+          "in_force_from": "2014-07-02",
+          "value_over": "725000",
+          "value_to": "",
+          "base_amount": "28453",
+          "rate_percent": "5.15",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.wa.gov.au/organisation/department-of-treasury-and-finance/transfer-duty-assessment",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-SA",
+          "in_force_from": "2002-09-05",
+          "value_over": "0",
+          "value_to": "12000",
+          "base_amount": "0",
+          "rate_percent": "1",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "RevenueSA conveyance rates; its rates chart runs from 5 September 2002",
+          "source_url": "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-SA",
+          "in_force_from": "2002-09-05",
+          "value_over": "12000",
+          "value_to": "30000",
+          "base_amount": "120",
+          "rate_percent": "2",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-SA",
+          "in_force_from": "2002-09-05",
+          "value_over": "30000",
+          "value_to": "50000",
+          "base_amount": "480",
+          "rate_percent": "3",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-SA",
+          "in_force_from": "2002-09-05",
+          "value_over": "50000",
+          "value_to": "100000",
+          "base_amount": "1080",
+          "rate_percent": "3.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-SA",
+          "in_force_from": "2002-09-05",
+          "value_over": "100000",
+          "value_to": "200000",
+          "base_amount": "2830",
+          "rate_percent": "4",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-SA",
+          "in_force_from": "2002-09-05",
+          "value_over": "200000",
+          "value_to": "250000",
+          "base_amount": "6830",
+          "rate_percent": "4.25",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-SA",
+          "in_force_from": "2002-09-05",
+          "value_over": "250000",
+          "value_to": "300000",
+          "base_amount": "8955",
+          "rate_percent": "4.75",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-SA",
+          "in_force_from": "2002-09-05",
+          "value_over": "300000",
+          "value_to": "500000",
+          "base_amount": "11330",
+          "rate_percent": "5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-SA",
+          "in_force_from": "2002-09-05",
+          "value_over": "500000",
+          "value_to": "",
+          "base_amount": "21330",
+          "rate_percent": "5.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://revenuesa.sa.gov.au/stamp-duty/rate-of-stamp-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-TAS",
+          "in_force_from": "2013-10-21",
+          "value_over": "0",
+          "value_to": "3000",
+          "base_amount": "50",
+          "rate_percent": "0",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "$50 on a dutiable value up to $3000",
+          "source_url": "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-TAS",
+          "in_force_from": "2013-10-21",
+          "value_over": "3000",
+          "value_to": "25000",
+          "base_amount": "50",
+          "rate_percent": "1.75",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-TAS",
+          "in_force_from": "2013-10-21",
+          "value_over": "25000",
+          "value_to": "75000",
+          "base_amount": "435",
+          "rate_percent": "2.25",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-TAS",
+          "in_force_from": "2013-10-21",
+          "value_over": "75000",
+          "value_to": "200000",
+          "base_amount": "1560",
+          "rate_percent": "3.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-TAS",
+          "in_force_from": "2013-10-21",
+          "value_over": "200000",
+          "value_to": "375000",
+          "base_amount": "5935",
+          "rate_percent": "4",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-TAS",
+          "in_force_from": "2013-10-21",
+          "value_over": "375000",
+          "value_to": "725000",
+          "base_amount": "12935",
+          "rate_percent": "4.25",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-TAS",
+          "in_force_from": "2013-10-21",
+          "value_over": "725000",
+          "value_to": "",
+          "base_amount": "27810",
+          "rate_percent": "4.5",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-ACT",
+          "in_force_from": "2026-07-01",
+          "value_over": "0",
+          "value_to": "200000",
+          "base_amount": "0",
+          "rate_percent": "1.2",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "DI2026-155 Table 2: a transaction that is not an eligible owner occupier transaction",
+          "source_url": "https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-ACT",
+          "in_force_from": "2026-07-01",
+          "value_over": "200000",
+          "value_to": "300000",
+          "base_amount": "2400",
+          "rate_percent": "2.2",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-ACT",
+          "in_force_from": "2026-07-01",
+          "value_over": "300000",
+          "value_to": "500000",
+          "base_amount": "4600",
+          "rate_percent": "3.4",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-ACT",
+          "in_force_from": "2026-07-01",
+          "value_over": "500000",
+          "value_to": "750000",
+          "base_amount": "11400",
+          "rate_percent": "4.32",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-ACT",
+          "in_force_from": "2026-07-01",
+          "value_over": "750000",
+          "value_to": "1000000",
+          "base_amount": "22200",
+          "rate_percent": "5.9",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-ACT",
+          "in_force_from": "2026-07-01",
+          "value_over": "1000000",
+          "value_to": "1455000",
+          "base_amount": "36950",
+          "rate_percent": "6.4",
+          "rule": "excess-rounded-up-to-100",
+          "notes": "",
+          "source_url": "https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-ACT",
+          "in_force_from": "2026-07-01",
+          "value_over": "1455000",
+          "value_to": "",
+          "base_amount": "0",
+          "rate_percent": "4.54",
+          "rule": "whole-value",
+          "notes": "A flat $4.54 per $100 of the whole dutiable amount",
+          "source_url": "https://www.legislation.act.gov.au/View/di/2026-155/current/html/2026-155.html",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NT",
+          "in_force_from": "2025-07-01",
+          "value_over": "0",
+          "value_to": "525000",
+          "base_amount": "0",
+          "rate_percent": "0",
+          "rule": "nt-formula",
+          "notes": "Schedule 1 clause 1(2)(a): D = (0.06571441 x V squared) + 15V where V is the dutiable value divided by 1000; in force at 1 July 2025",
+          "source_url": "https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NT",
+          "in_force_from": "2025-07-01",
+          "value_over": "525000",
+          "value_to": "2999999",
+          "base_amount": "0",
+          "rate_percent": "4.95",
+          "rule": "whole-value",
+          "notes": "Schedule 1 clause 1(2)(b): more than $525000 and less than $3 million",
+          "source_url": "https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NT",
+          "in_force_from": "2025-07-01",
+          "value_over": "2999999",
+          "value_to": "4999999",
+          "base_amount": "0",
+          "rate_percent": "5.75",
+          "rule": "whole-value",
+          "notes": "Schedule 1 clause 1(2)(c): $3 million or more and less than $5 million",
+          "source_url": "https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978",
+          "checked_at": "2026-11-15"
+        },
+        {
+          "jurisdiction": "AU-NT",
+          "in_force_from": "2025-07-01",
+          "value_over": "4999999",
+          "value_to": "",
+          "base_amount": "0",
+          "rate_percent": "5.95",
+          "rule": "whole-value",
+          "notes": "Schedule 1 clause 1(2)(d): $5 million or more",
+          "source_url": "https://legislation.nt.gov.au/en/Legislation/STAMP-DUTY-ACT-1978",
+          "checked_at": "2026-11-15"
         }
       ]
     }

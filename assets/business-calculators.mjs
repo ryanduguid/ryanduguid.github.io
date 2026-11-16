@@ -182,6 +182,42 @@ export function div7aMinimumRepayment(balance, benchmarkRate, remainingTerm) {
     principal: Number(repayment - interest) / 100 };
 }
 
+const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula'];
+
+/** General transfer (stamp) duty on one dutiable value, from one jurisdiction's scale in
+ * rates/transfer-duty/transfer-duty-rates.csv. A bracket covers values above `over` up to and
+ * including `to` ('' for no limit). Its rule says how the rate applies:
+ * excess-rounded-up-to-100: base plus the rate for every $100, or part of $100, over `over`;
+ * excess: base plus the rate per cent of the excess over `over`;
+ * whole-value: the rate per cent of the whole value;
+ * nt-formula: Stamp Duty Act 1978 (NT) Schedule 1 clause 1(2)(a): (0.06571441 x V squared)
+ * + 15V, V being the value divided by 1,000.
+ * A fraction of a cent rounds half up.
+ * @param {string} value the dutiable value in whole dollars
+ * @param {readonly (readonly string[])[]} scale
+ *   [over, to, base, rate per cent, rule] for each bracket, lowest first */
+export function transferDuty(value, scale) {
+  const dollars = number(value, { min: 1, max: 1e9, integer: true, money: true });
+  const contiguous = Array.isArray(scale) && scale.length > 0 && scale.every(([over, to, , , rule], index) =>
+    TRANSFER_DUTY_RULES.includes(rule) && over === (index ? scale[index - 1][1] : '0')
+      && (to === '') === (index === scale.length - 1));
+  if (!contiguous) throw new Error('This jurisdiction’s rate table is not usable.');
+  const bracket = scale.findIndex(([, to]) => to === '' || dollars <= Number(to));
+  const [over, , base, rate, rule] = scale[bracket];
+  const whole = BigInt(dollars);
+  const excess = whole - BigInt(over);
+  // A rate has at most 2 decimal places: whole hundredths of 1%, or cents for every $100.
+  const hundredths = BigInt(Math.round(number(rate, { max: 100 }) * 100));
+  const baseCents = BigInt(number(base, { integer: true })) * 100n;
+  let duty;
+  if (rule === 'excess-rounded-up-to-100') duty = baseCents + hundredths * ((excess + 99n) / 100n);
+  else if (rule === 'excess') duty = baseCents + ratioCents(hundredths * excess, 100n);
+  else if (rule === 'whole-value') duty = ratioCents(hundredths * whole, 100n);
+  // (0.06571441 V^2 + 15 V) dollars with V = value / 1,000 is (6571441 value^2 + 15 x 10^11 value) / 10^12 cents.
+  else duty = ratioCents(6571441n * whole * whole + 1500000000000n * whole, 1000000000000n);
+  return { duty: Number(duty) / 100, bracket };
+}
+
 /**
  * @typedef {{method: 'statutory' | 'operating', cost: string, accessories: string, reduced: boolean,
  *   days: string, costs: string, businessUse: string, contribution: string}} FbtCar
@@ -285,4 +321,342 @@ export function cashForecast(opening, weeks, buffer, scenario = NO_DEFERRAL) {
   });
   return { rows: result, closing: balance / 100, minimum: minimum / 100,
     funding: Math.max(0, minimumBuffer - minimum) / 100, deferred: deferred / 100 };
+}
+
+const DAY = 86400000;
+/** @param {unknown} text @returns {Date} midnight UTC on that calendar day */
+function noticeDay(text) {
+  const date = new Date(`${text}T00:00:00Z`);
+  if (typeof text !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(text) || !Number.isFinite(date.getTime())
+    || date.toISOString().slice(0, 10) !== text || text < '1900-01-01' || text > '9989-12-31') {
+    throw new Error('Enter a date from 1 January 1900 to 31 December 9989.');
+  }
+  return date;
+}
+/** @param {Date} date */
+const isoDay = (date) => date.toISOString().slice(0, 10);
+/** The last day of a period of whole years after a day. Under s 36(1) item 6 of the Acts
+ * Interpretation Act 1901 the period starts the next day, and it runs to the day before that
+ * date in the later year; a 29 February start with no 29 February then runs to 28 February.
+ * @param {Date} day @param {number} years */
+function yearsAfter(day, years) {
+  const start = new Date(day.getTime() + DAY);
+  return new Date(Date.UTC(start.getUTCFullYear() + years, start.getUTCMonth(), start.getUTCDate()) - DAY);
+}
+/** @param {Date} day */
+const sixtyDaysAfter = (day) => new Date(day.getTime() + 60 * DAY);
+
+/** @typedef {'assessment' | 'amended' | 'fbt' | 'amended-fbt' | 'other'} ObjectionDecision */
+/** The last day to lodge a taxation objection under s 14ZW of the Taxation Administration Act
+ * 1953, and the day s 36(2) of the Acts Interpretation Act 1901 allows when it is a Saturday or
+ * Sunday. Public holidays depend on the place of lodgement and are not applied.
+ * @param {ObjectionDecision} decision
+ * @param {'2' | '4'} group the s 170(1) item that applies to an income tax assessment: '2' for
+ *   item 1, 2, 3 or 3A, '4' otherwise; not read for other decisions
+ * @param {string} notice the day notice of the decision was given or served
+ * @param {string} first for an amended assessment, the day notice of the first assessment for the year was given
+ * @returns {{rule: string, periodEnds: string, lastDay: string, amendedEnds: string | null, firstEnds: string | null}} */
+export function objectionDeadline(decision, group, notice, first) {
+  if (!['assessment', 'amended', 'fbt', 'amended-fbt', 'other'].includes(decision)) throw new Error('Choose the decision objected to.');
+  const income = decision === 'assessment' || decision === 'amended';
+  if (income && group !== '2' && group !== '4') throw new Error('Choose whether item 1, 2, 3 or 3A applies.');
+  const years = decision === 'fbt' || decision === 'amended-fbt' || group === '4' ? 4 : 2;
+  const day = noticeDay(notice);
+  let rule = decision === 'other' ? 'paragraph 14ZW(1)(c)' : decision === 'fbt' ? 'paragraph 14ZW(1)(aaa)'
+    : `subparagraph 14ZW(1)(aa)(${years === 2 ? 'i' : 'ii'})`;
+  let periodEnds = decision === 'other' ? sixtyDaysAfter(day) : yearsAfter(day, years);
+  /** @type {string | null} */
+  let amendedEnds = null;
+  /** @type {string | null} */
+  let firstEnds = null;
+  if (decision === 'amended' || decision === 'amended-fbt') {
+    // Subsections (1B) and (1BA): the later of 60 days after the amended notice and the
+    // original period after the first assessment's notice (subsection (1C)).
+    const firstDay = noticeDay(first);
+    if (firstDay.getTime() > day.getTime()) throw new Error('The first assessment’s notice cannot be later than the amended one.');
+    const amended = sixtyDaysAfter(day);
+    const original = yearsAfter(firstDay, years);
+    amendedEnds = isoDay(amended);
+    firstEnds = isoDay(original);
+    rule = years === 2 ? 'subsection 14ZW(1BA)' : 'subsection 14ZW(1B)';
+    periodEnds = amended.getTime() > original.getTime() ? amended : original;
+  }
+  // s 36(2): a Saturday or Sunday moves to the next day that is not one.
+  const weekday = periodEnds.getUTCDay();
+  const lastDay = new Date(periodEnds.getTime() + (weekday === 6 ? 2 : weekday === 0 ? 1 : 0) * DAY);
+  return { rule, periodEnds: isoDay(periodEnds), lastDay: isoDay(lastDay), amendedEnds, firstEnds };
+}
+
+/** @typedef {'amount' | 'varied-amount' | 'rate' | 'varied-rate'} InstalmentMethod
+ * @typedef {{method: InstalmentMethod, notified: string, instalment: string, estimatedTax: string, earlier: string,
+ *   credits: string, income: string, rate: string, estimatedIncome: string, earlierIncome: string}} InstalmentInputs */
+/** Cents down to whole dollars, as an activity statement takes them. @param {number} value cents, not negative */
+const wholeDollars = (value) => Math.floor(value / 100);
+
+/** One quarterly PAYG instalment under Division 45 in Schedule 1 to the Taxation Administration
+ * Act 1953, worked as the ATO's activity statement steps work it: the notified amount (s 45-112),
+ * an amount varied from estimated tax (s 45-410), instalment income times the rate (s 45-110), or
+ * times a varied rate (s 45-205) with any credit for earlier quarters (s 45-215). Each method reads
+ * only its own fields. Money rounds half up to the cent; a figure for the activity statement then
+ * drops its cents, and a varied rate drops what follows its second decimal place.
+ * @param {InstalmentInputs} inputs
+ * @returns {{amount: number, instalment: number, credit: number, due: number | null, instalmentRate: number | null}} */
+export function paygInstalment(inputs) {
+  const { method } = inputs;
+  if (method === 'amount') {
+    const notified = cents(inputs.notified);
+    return { amount: notified / 100, instalment: wholeDollars(notified), credit: 0, due: null, instalmentRate: null };
+  }
+  const earlierLessCredits = () => {
+    const [earlier, credits] = [cents(inputs.earlier), cents(inputs.credits)];
+    if (credits > earlier) throw new Error('Credits claimed cannot exceed the earlier instalments.');
+    return earlier - credits;
+  };
+  if (method === 'varied-amount') {
+    const instalment = number(inputs.instalment, { min: 1, max: 4, integer: true });
+    // 25%, 50%, 75% or 100% of estimated tax, less earlier instalments net of credits claimed.
+    const due = Number(ratioCents(BigInt(cents(inputs.estimatedTax)) * BigInt(instalment), 4n));
+    if (instalment === 1 && cents(inputs.earlier)) throw new Error('The first instalment of the year has no earlier instalments.');
+    const amount = due - earlierLessCredits();
+    return { amount: amount / 100, instalment: wholeDollars(Math.max(0, amount)), credit: wholeDollars(Math.max(0, -amount)),
+      due: due / 100, instalmentRate: null };
+  }
+  if (method !== 'rate' && method !== 'varied-rate') throw new Error('Choose how this instalment is worked out.');
+  // Rates are whole hundredths of a per cent.
+  const given = Math.round(number(inputs.rate, { max: 100 }) * 100);
+  let rate = given;
+  let credit = 0;
+  if (method === 'varied-rate') {
+    const [tax, yearIncome] = [BigInt(cents(inputs.estimatedTax)), BigInt(cents(inputs.estimatedIncome))];
+    if (tax > yearIncome) throw new Error('Estimated tax cannot exceed estimated instalment income.');
+    rate = yearIncome ? Number(tax * 10000n / yearIncome) : 0;
+    if (rate < given) {
+      const earlierAtRate = Number(ratioCents(BigInt(cents(inputs.earlierIncome)) * BigInt(rate), 10000n));
+      credit = wholeDollars(Math.max(0, earlierLessCredits() - earlierAtRate));
+    }
+  }
+  const amount = Number(ratioCents(BigInt(cents(inputs.income)) * BigInt(rate), 10000n));
+  return { amount: amount / 100, instalment: wholeDollars(amount), credit, due: null, instalmentRate: rate / 100 };
+}
+
+/**
+ * @typedef {{redundancy: string, years: string, excluded: string, nonExcluded: string,
+ *   other: string, born: string}} TerminationPayment
+ * @typedef {{yearEnd: string, etpCap: string, wholeOfIncomeCap: string, baseAmount: string,
+ *   serviceAmount: string, rateUnder: string, rateReached: string, rateAbove: string}} EtpYear
+ */
+
+/** The payer's withholding from one life benefit employment termination payment under
+ * Schedule 11 of the Taxation Administration (Withholding Schedules) Instrument 2026. The
+ * tax-free part of a genuine redundancy or early retirement scheme payment is the base amount
+ * plus the service amount for each completed year of service (ITAA 1997 s 83-170). The code R
+ * part (the redundancy payment over that, and other excluded payments) comes first, within the
+ * ETP cap alone; the code O part comes second, within the smaller of the ETP cap left and the
+ * whole-of-income cap less the payer's other taxable payments (Schedule 11, 'Steps to work out
+ * smallest cap' and example 4). Each part is withheld at the rate within its cap, set by
+ * whether the employee is their preservation age by the year's end, and the top rate above
+ * it, rounded to the nearest dollar with 50 cents up.
+ * @param {TerminationPayment} payment the payment's parts as entered, money in AUD
+ * @param {EtpYear} year the income year's last day, caps, amounts and Table A rates, from the caller */
+export function terminationPayment(payment, year) {
+  const born = payment.born;
+  const date = new Date(`${born}T00:00:00Z`);
+  if (typeof born !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(born) || !Number.isFinite(date.getTime())
+    || date.toISOString().slice(0, 10) !== born || born < '1900' || born > year.yearEnd) {
+    throw new Error('Enter a valid date of birth from 1900 to the end of the income year.');
+  }
+  // Schedule 11's preservation age table: 55 if born before 1 July 1960, a year more for each
+  // later year from 1 July, and 60 if born after 30 June 1964.
+  const july = Number(born.slice(0, 4)) - (Number(born.slice(5, 7)) < 7 ? 1 : 0);
+  const age = Math.min(60, Math.max(55, july - 1904));
+  const reached = `${Number(born.slice(0, 4)) + age}${born.slice(4)}` <= year.yearEnd;
+  /** @param {string} value a Table A rate in per cent, as hundredths of 1% */
+  const rate = (value) => BigInt(Math.round(number(value, { max: 100 }) * 100));
+  const [within, above] = [rate(reached ? year.rateReached : year.rateUnder), rate(year.rateAbove)];
+  /** @param {number} component cents @param {number} cap cents @returns {[number, number]} */
+  const part = (component, cap) => {
+    const inside = Math.min(component, cap);
+    // Cents times hundredths of 1% are millionths of a dollar.
+    const dollars = ratioCents(BigInt(inside) * within + BigInt(component - inside) * above, 1000000n);
+    return [inside, Number(dollars) * 100];
+  };
+  const etpCap = cents(year.etpCap);
+  const limit = cents(year.baseAmount) + cents(year.serviceAmount) * number(payment.years, { max: 150, integer: true });
+  const redundancy = cents(payment.redundancy);
+  const taxFree = Math.min(redundancy, limit);
+  const excluded = redundancy - taxFree + cents(payment.excluded);
+  const [excludedWithin, excludedWithholding] = part(excluded, etpCap);
+  const wholeOfIncomeCap = Math.max(0, cents(year.wholeOfIncomeCap) - cents(payment.other));
+  const cap = Math.min(etpCap - excludedWithin, wholeOfIncomeCap);
+  const [, nonExcludedWithholding] = part(cents(payment.nonExcluded), cap);
+  return { reached, rate: Number(within) / 100, taxFreeLimit: limit / 100, taxFree: taxFree / 100,
+    excluded: excluded / 100, excludedWithholding: excludedWithholding / 100, wholeOfIncomeCap: wholeOfIncomeCap / 100,
+    cap: cap / 100, nonExcludedWithholding: nonExcludedWithholding / 100,
+    withholding: (excludedWithholding + nonExcludedWithholding) / 100 };
+}
+
+// PCG 2021/4, Table 1 (paragraph 76): each risk assessment factor's bands, from score 1 to 5,
+// as a percentage and whether the band includes it; anything below the fifth band scores 6.
+// Factor 1 is the profit entitlement returned by the IPP, factor 2 the total effective tax
+// rate and factor 3 the IPP's remuneration as a share of the commercial benchmark.
+/** @type {ReadonlyArray<ReadonlyArray<readonly [number, boolean]>>} */
+const PCG_BANDS = [
+  [[90, false], [75, false], [60, false], [50, true], [25, false]],
+  [[40, false], [35, false], [30, true], [25, false], [20, false]],
+  [[200, false], [150, false], [100, false], [90, false], [70, false]],
+];
+// Table 2 (paragraph 78): the highest green and the highest amber aggregate, against 2 factors or all 3.
+/** @type {Readonly<Record<2 | 3, readonly [number, number]>>} */
+const PCG_ZONES = { 2: [7, 8], 3: [10, 12] };
+
+/** The score for part over whole: the first band it reaches, compared exactly in cents.
+ * @param {number} part @param {number} whole positive @param {number} factor 0, 1 or 2 */
+const pcgScore = (part, whole, factor) => {
+  const band = PCG_BANDS[factor].findIndex(([percent, inclusive]) =>
+    (inclusive ? part * 100 >= percent * whole : part * 100 > percent * whole));
+  return band === -1 ? 6 : band + 1;
+};
+
+/** PCG 2021/4, Allocation of professional firm profits: the ATO's risk zone for one IPP's
+ * arrangement. The guideline scores only an arrangement that passes both gateways
+ * (paragraphs 10 to 12). Returning the whole entitlement is low risk with no other factor
+ * scored (paragraph 81). Factor 3 is optional (paragraphs 77 to 80). Each factor's
+ * percentage is compared with its bands exactly; the percentages returned round to 0.01.
+ * @param {{gateway1: boolean, gateway2: boolean, entitlement: string, returned: string, tax: string,
+ *   factor3: boolean, remuneration: string, benchmark: string}} arrangement */
+export function pcgRisk(arrangement) {
+  const failed = [arrangement.gateway1, arrangement.gateway2].findIndex((passed) => passed !== true);
+  if (failed !== -1) throw new Error(`The arrangement fails Gateway ${failed + 1}, so PCG 2021/4 gives it no risk score.`);
+  if (typeof arrangement.factor3 !== 'boolean') throw new Error('Factor 3 must be true or false.');
+  const entitlement = cents(arrangement.entitlement);
+  const returned = cents(arrangement.returned);
+  if (entitlement === 0) throw new Error('Enter a profit entitlement above nil.');
+  const tax = cents(arrangement.tax);
+  if (returned > entitlement) throw new Error('The amount returned cannot exceed the profit entitlement.');
+  if (tax > entitlement) throw new Error('The tax cannot exceed the firm income.');
+  if (returned === entitlement) {
+    return { returned: 100, factor1: 1, taxRate: null, factor2: null, benchmarkShare: null, factor3: null,
+      total: null, zone: 'green' };
+  }
+  const factor1 = pcgScore(returned, entitlement, 0);
+  const factor2 = pcgScore(tax, entitlement, 1);
+  /** @type {number | null} */
+  let benchmarkShare = null;
+  /** @type {number | null} */
+  let factor3 = null;
+  if (arrangement.factor3) {
+    const benchmark = cents(arrangement.benchmark);
+    if (benchmark === 0) throw new Error('Enter a commercial benchmark above nil.');
+    const remuneration = cents(arrangement.remuneration);
+    benchmarkShare = ratioPercent(remuneration, benchmark);
+    factor3 = pcgScore(remuneration, benchmark, 2);
+  }
+  const total = factor1 + factor2 + (factor3 ?? 0);
+  const [green, amber] = PCG_ZONES[factor3 === null ? 2 : 3];
+  return { returned: ratioPercent(returned, entitlement), factor1, taxRate: ratioPercent(tax, entitlement), factor2,
+    benchmarkShare, factor3, total, zone: total <= green ? 'green' : total <= amber ? 'amber' : 'red' };
+}
+
+/** The general interest charge annual rate for each quarter, from its first day, as the ATO's
+ * 'General interest charge (GIC) rates' page lists it; the same rows as
+ * rates/general-interest-charge/general-interest-charge-rates.csv, which a Node test holds them to.
+ * @type {ReadonlyArray<readonly [string, string]>} */
+export const GIC_QUARTERS = [
+  ['1999-07-01', '12.72'], ['1999-10-01', '12.73'], ['2000-01-01', '13.08'], ['2000-04-01', '13.65'],
+  ['2000-07-01', '14.00'], ['2000-10-01', '13.86'], ['2001-01-01', '13.86'], ['2001-04-01', '13.86'],
+  ['2001-07-01', '11.89'], ['2001-10-01', '11.95'], ['2002-01-01', '11.28'], ['2002-04-01', '11.31'],
+  ['2002-07-01', '11.84'], ['2002-10-01', '11.96'], ['2003-01-01', '11.84'], ['2003-04-01', '11.75'],
+  ['2003-07-01', '11.78'], ['2003-10-01', '11.82'], ['2004-01-01', '12.31'], ['2004-04-01', '12.57'],
+  ['2004-07-01', '12.51'], ['2004-10-01', '12.44'], ['2005-01-01', '12.43'], ['2005-04-01', '12.63'],
+  ['2005-07-01', '12.68'], ['2005-10-01', '12.62'], ['2006-01-01', '12.63'], ['2006-04-01', '12.61'],
+  ['2006-07-01', '12.87'], ['2006-10-01', '13.19'], ['2007-01-01', '13.37'], ['2007-04-01', '13.37'],
+  ['2007-07-01', '13.37'], ['2007-10-01', '13.75'], ['2008-01-01', '14.15'], ['2008-04-01', '14.69'],
+  ['2008-07-01', '14.75'], ['2008-10-01', '14.31'], ['2009-01-01', '11.76'], ['2009-04-01', '10.16'],
+  ['2009-07-01', '10.13'], ['2009-10-01', '10.30'], ['2010-01-01', '10.95'], ['2010-04-01', '11.16'],
+  ['2010-07-01', '11.80'], ['2010-10-01', '11.74'], ['2011-01-01', '12.02'], ['2011-04-01', '11.92'],
+  ['2011-07-01', '12.00'], ['2011-10-01', '11.86'], ['2012-01-01', '11.62'], ['2012-04-01', '11.37'],
+  ['2012-07-01', '10.66'], ['2012-10-01', '10.62'], ['2013-01-01', '10.24'], ['2013-04-01', '9.95'],
+  ['2013-07-01', '9.82'], ['2013-10-01', '9.60'], ['2014-01-01', '9.59'], ['2014-04-01', '9.63'],
+  ['2014-07-01', '9.69'], ['2014-10-01', '9.63'], ['2015-01-01', '9.75'], ['2015-04-01', '9.36'],
+  ['2015-07-01', '9.15'], ['2015-10-01', '9.14'], ['2016-01-01', '9.22'], ['2016-04-01', '9.28'],
+  ['2016-07-01', '9.01'], ['2016-10-01', '8.76'], ['2017-01-01', '8.76'], ['2017-04-01', '8.78'],
+  ['2017-07-01', '8.73'], ['2017-10-01', '8.70'], ['2018-01-01', '8.72'], ['2018-04-01', '8.77'],
+  ['2018-07-01', '8.96'], ['2018-10-01', '8.96'], ['2019-01-01', '8.94'], ['2019-04-01', '8.96'],
+  ['2019-07-01', '8.54'], ['2019-10-01', '7.98'], ['2020-01-01', '7.91'], ['2020-04-01', '7.89'],
+  ['2020-07-01', '7.10'], ['2020-10-01', '7.10'], ['2021-01-01', '7.02'], ['2021-04-01', '7.01'],
+  ['2021-07-01', '7.04'], ['2021-10-01', '7.01'], ['2022-01-01', '7.04'], ['2022-04-01', '7.07'],
+  ['2022-07-01', '8.00'], ['2022-10-01', '9.31'], ['2023-01-01', '10.06'], ['2023-04-01', '10.46'],
+  ['2023-07-01', '10.90'], ['2023-10-01', '11.15'], ['2024-01-01', '11.38'], ['2024-04-01', '11.34'],
+  ['2024-07-01', '11.36'], ['2024-10-01', '11.38'], ['2025-01-01', '11.42'], ['2025-04-01', '11.17'],
+  ['2025-07-01', '10.78'], ['2025-10-01', '10.61'], ['2026-01-01', '10.65'], ['2026-04-01', '10.96'],
+  ['2026-07-01', '11.43'], ['2026-10-01', '11.51'],
+];
+/** @param {number} year */
+const yearDays = (year) => (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 366 : 365);
+/** @param {string} date an ISO calendar date, as a whole number of days since 1970 */
+const dayNumber = (date) => Date.parse(`${date}T00:00:00Z`) / DAY;
+/** @param {number} day a whole number of days since 1970 @returns {string} */
+const isoDayNumber = (day) => isoDay(new Date(day * DAY));
+// Each quarter's first day and annual rate in hundredths of 1%, and the day after the table ends.
+const GIC_FROM = GIC_QUARTERS.map(([from, rate]) => ({ from: dayNumber(from), rate: Math.round(Number(rate) * 100) }));
+const GIC_TABLE_END = (() => {
+  const last = new Date(GIC_FROM[GIC_FROM.length - 1].from * DAY);
+  return Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 3, 1) / DAY;
+})();
+
+/** Instalment days: every 7 or 14 days, or the same day of each month, or the month's last day.
+ * @param {number} start @param {number} count @param {'weekly' | 'fortnightly' | 'monthly'} frequency */
+function instalmentDays(start, count, frequency) {
+  const first = new Date(start * DAY);
+  return Array.from({ length: count }, (_, k) => {
+    if (frequency !== 'monthly') return start + k * (frequency === 'weekly' ? 7 : 14);
+    const [year, month] = [first.getUTCFullYear(), first.getUTCMonth() + k];
+    const last = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+    return Date.UTC(year, month, Math.min(first.getUTCDate(), last)) / DAY;
+  });
+}
+
+/** The general interest charge on a tax debt paid by equal instalments, against paying it all now.
+ * GIC for a day is the GIC rate for that day times the debt and earlier GIC still unpaid at
+ * its end (Taxation Administration Act 1953 s 8AAC); the rate for a day is the quarter's annual
+ * rate divided by the days in its calendar year (s 8AAD(1)). Instalments start on the start
+ * date. The equal instalment is worked exactly and rounded down to the cent; the final
+ * instalment pays the rest, half up to the cent. Days after the last quarter in the table
+ * use the assumed annual rate.
+ * @param {{debt: string, start: string, count: string, frequency: 'weekly' | 'fortnightly' | 'monthly',
+ *   assumedRate: string}} plan */
+export function gicPaymentPlan(plan) {
+  const debt = BigInt(cents(plan.debt));
+  if (debt === 0n) throw new Error('Enter a debt above nil.');
+  const start = dayNumber(plan.start);
+  if (typeof plan.start !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(plan.start) || !Number.isInteger(start)
+    || isoDayNumber(start) !== plan.start || start < GIC_FROM[0].from || plan.start > '2099-12-31') {
+    throw new Error(`Enter a start date from ${GIC_QUARTERS[0][0]} to 2099-12-31.`);
+  }
+  const count = number(plan.count, { min: 1, max: 120, integer: true });
+  if (!['weekly', 'fortnightly', 'monthly'].includes(plan.frequency)) throw new Error('Choose weekly, fortnightly or monthly.');
+  const assumed = Math.round(number(plan.assumedRate, { min: 0.01, max: 100 }) * 100);
+  const days = instalmentDays(start, count, plan.frequency);
+  const last = days[days.length - 1];
+  // Over a common denominator: the debt grown to each day, and the growth of 1 cent paid on each
+  // instalment day. Each day's factor is (10,000 x days in the year + rate) / (10,000 x days in the year).
+  let [grown, paid, scale, assumedDays, quarter] = [debt, 0n, 1n, 0, 0];
+  for (let day = start, next = 0; ; day += 1) {
+    if (day === days[next]) {
+      paid += scale;
+      next += 1;
+    }
+    if (day === last) break;
+    while (quarter + 1 < GIC_FROM.length && GIC_FROM[quarter + 1].from <= day) quarter += 1;
+    const rate = day < GIC_TABLE_END ? GIC_FROM[quarter].rate : assumed;
+    if (day >= GIC_TABLE_END) assumedDays += 1;
+    const base = 10000n * BigInt(yearDays(new Date(day * DAY).getUTCFullYear()));
+    [grown, paid, scale] = [grown * (base + BigInt(rate)), paid * (base + BigInt(rate)), scale * base];
+  }
+  const instalment = grown / paid;
+  const left = grown - instalment * (paid - scale);
+  const final = (2n * left + scale) / (2n * scale);
+  const totalPaid = instalment * BigInt(count - 1) + final;
+  return { instalment: Number(instalment) / 100, final: Number(final) / 100, totalPaid: Number(totalPaid) / 100,
+    gic: Number(totalPaid - debt) / 100, lastDate: isoDayNumber(last), assumedDays };
 }
