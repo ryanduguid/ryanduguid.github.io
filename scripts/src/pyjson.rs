@@ -242,171 +242,209 @@ fn parse(text: &str, unique: bool) -> Result<Json, DecodeError> {
             0,
         ));
     }
-    let len = s.len();
-    let skip = |mut i: usize| {
-        while i < len && is_ws(s[i]) {
-            i += 1;
-        }
-        i
-    };
-    let mut idx = skip(0);
+    let parser = Parser { s: &s, unique };
+    let mut idx = parser.skip(0);
     let mut stack: Vec<Frame> = Vec::new();
-    let expecting_value = |pos: usize| decode_error("Expecting value", &s, pos);
-
-    // Reads a key and its delimiter, leaving idx at the value.
-    let read_key = |idx: &mut usize| -> Result<String, DecodeError> {
-        if *idx >= len || s[*idx] != '"' {
-            return Err(decode_error(
-                "Expecting property name enclosed in double quotes",
-                &s,
-                *idx,
-            ));
-        }
-        let (key, next) = scanstring(&s, *idx + 1)?;
-        *idx = skip(next);
-        if *idx >= len || s[*idx] != ':' {
-            return Err(decode_error("Expecting ':' delimiter", &s, *idx));
-        }
-        *idx = skip(*idx + 1);
-        Ok(key)
-    };
-
-    'value: loop {
+    loop {
         // Scan one value starting at idx, or open a container.
-        if idx >= len {
-            return Err(expecting_value(idx));
-        }
-        let mut value = match s[idx] {
-            '"' => {
-                let (string, next) = scanstring(&s, idx + 1)?;
-                idx = next;
-                Json::Str(string)
-            }
-            '{' => {
-                idx = skip(idx + 1);
-                if idx < len && s[idx] == '}' {
-                    idx += 1;
-                    Json::Object(Vec::new())
-                } else {
-                    let key = read_key(&mut idx)?;
-                    stack.push(Frame::Object(Vec::new(), key));
-                    continue 'value;
-                }
-            }
-            '[' => {
-                idx = skip(idx + 1);
-                if idx < len && s[idx] == ']' {
-                    idx += 1;
-                    Json::Array(Vec::new())
-                } else {
-                    stack.push(Frame::Array(Vec::new()));
-                    continue 'value;
-                }
-            }
-            _ => {
-                let literal = |word: &str| {
-                    s[idx..]
-                        .iter()
-                        .take(word.chars().count())
-                        .copied()
-                        .eq(word.chars())
-                };
-                if literal("null") {
-                    idx += 4;
-                    Json::Null
-                } else if literal("true") {
-                    idx += 4;
-                    Json::Bool(true)
-                } else if literal("false") {
-                    idx += 5;
-                    Json::Bool(false)
-                } else if literal("NaN") {
-                    idx += 3;
-                    Json::Float(f64::NAN)
-                } else if literal("Infinity") {
-                    idx += 8;
-                    Json::Float(f64::INFINITY)
-                } else if literal("-Infinity") {
-                    idx += 9;
-                    Json::Float(f64::NEG_INFINITY)
-                } else {
-                    let (number, next) =
-                        match_number(&s, idx).ok_or_else(|| expecting_value(idx))??;
-                    idx = next;
-                    number
-                }
-            }
+        let Some(mut value) = parser.value(&mut idx, &mut stack)? else {
+            continue;
         };
         // Attach the finished value to its container, closing any that end here.
         loop {
-            let Some(frame) = stack.last_mut() else {
-                let end = skip(idx);
-                if end != len {
-                    return Err(decode_error("Extra data", &s, end));
-                }
-                return Ok(value);
-            };
-            match frame {
-                Frame::Array(items) => {
-                    items.push(value);
-                    idx = skip(idx);
-                    if idx < len && s[idx] == ']' {
-                        idx += 1;
-                        let Some(Frame::Array(items)) = stack.pop() else {
-                            unreachable!()
-                        };
-                        value = Json::Array(items);
-                        continue;
-                    }
-                    if idx >= len || s[idx] != ',' {
-                        return Err(decode_error("Expecting ',' delimiter", &s, idx));
-                    }
-                    let comma = idx;
-                    idx = skip(idx + 1);
-                    if idx < len && s[idx] == ']' {
-                        return Err(decode_error(
-                            "Illegal trailing comma before end of array",
-                            &s,
-                            comma,
-                        ));
-                    }
-                    continue 'value;
-                }
-                Frame::Object(pairs, key) => {
-                    pairs.push((std::mem::take(key), value));
-                    idx = skip(idx);
-                    if idx < len && s[idx] == '}' {
-                        idx += 1;
-                        let Some(Frame::Object(pairs, _)) = stack.pop() else {
-                            unreachable!()
-                        };
-                        value = Json::Object(if unique {
-                            no_repeats(pairs)?
-                        } else {
-                            dict(pairs)
-                        });
-                        continue;
-                    }
-                    if idx >= len || s[idx] != ',' {
-                        return Err(decode_error("Expecting ',' delimiter", &s, idx));
-                    }
-                    let comma = idx;
-                    idx = skip(idx + 1);
-                    if idx < len && s[idx] == '}' {
-                        return Err(decode_error(
-                            "Illegal trailing comma before end of object",
-                            &s,
-                            comma,
-                        ));
-                    }
-                    let next_key = read_key(&mut idx)?;
-                    if let Some(Frame::Object(_, key)) = stack.last_mut() {
-                        *key = next_key;
-                    }
-                    continue 'value;
-                }
+            match parser.attach(value, &mut idx, &mut stack)? {
+                Step::Attach(closed) => value = closed,
+                Step::Scan => break,
+                Step::Done(value) => return Ok(value),
             }
         }
+    }
+}
+
+/// The document being parsed, as characters so positions match Python's.
+struct Parser<'a> {
+    s: &'a [char],
+    unique: bool,
+}
+
+/// What attaching a finished value leaves to do.
+enum Step {
+    /// A container closed; attach it in turn.
+    Attach(Json),
+    /// Scan the next value.
+    Scan,
+    /// The top-level value is complete.
+    Done(Json),
+}
+
+impl Parser<'_> {
+    fn skip(&self, mut i: usize) -> usize {
+        while i < self.s.len() && is_ws(self.s[i]) {
+            i += 1;
+        }
+        i
+    }
+
+    /// Reads a key and its delimiter, leaving idx at the value.
+    fn read_key(&self, idx: &mut usize) -> Result<String, DecodeError> {
+        let (s, len) = (self.s, self.s.len());
+        if *idx >= len || s[*idx] != '"' {
+            return Err(decode_error(
+                "Expecting property name enclosed in double quotes",
+                s,
+                *idx,
+            ));
+        }
+        let (key, next) = scanstring(s, *idx + 1)?;
+        *idx = self.skip(next);
+        if *idx >= len || s[*idx] != ':' {
+            return Err(decode_error("Expecting ':' delimiter", s, *idx));
+        }
+        *idx = self.skip(*idx + 1);
+        Ok(key)
+    }
+
+    /// The value at idx, or None when it opens a non-empty container: its frame is then
+    /// on the stack and idx at its first member.
+    fn value(&self, idx: &mut usize, stack: &mut Vec<Frame>) -> Result<Option<Json>, DecodeError> {
+        let (s, len) = (self.s, self.s.len());
+        if *idx >= len {
+            return Err(decode_error("Expecting value", s, *idx));
+        }
+        Ok(Some(match s[*idx] {
+            '"' => {
+                let (string, next) = scanstring(s, *idx + 1)?;
+                *idx = next;
+                Json::Str(string)
+            }
+            '{' => {
+                *idx = self.skip(*idx + 1);
+                if *idx < len && s[*idx] == '}' {
+                    *idx += 1;
+                    Json::Object(Vec::new())
+                } else {
+                    let key = self.read_key(idx)?;
+                    stack.push(Frame::Object(Vec::new(), key));
+                    return Ok(None);
+                }
+            }
+            '[' => {
+                *idx = self.skip(*idx + 1);
+                if *idx < len && s[*idx] == ']' {
+                    *idx += 1;
+                    Json::Array(Vec::new())
+                } else {
+                    stack.push(Frame::Array(Vec::new()));
+                    return Ok(None);
+                }
+            }
+            _ => self.scalar(idx)?,
+        }))
+    }
+
+    /// The literal or number at idx.
+    fn scalar(&self, idx: &mut usize) -> Result<Json, DecodeError> {
+        let s = self.s;
+        let at = *idx;
+        let literal = |word: &str| {
+            s[at..]
+                .iter()
+                .take(word.chars().count())
+                .copied()
+                .eq(word.chars())
+        };
+        let (value, width) = if literal("null") {
+            (Json::Null, 4)
+        } else if literal("true") {
+            (Json::Bool(true), 4)
+        } else if literal("false") {
+            (Json::Bool(false), 5)
+        } else if literal("NaN") {
+            (Json::Float(f64::NAN), 3)
+        } else if literal("Infinity") {
+            (Json::Float(f64::INFINITY), 8)
+        } else if literal("-Infinity") {
+            (Json::Float(f64::NEG_INFINITY), 9)
+        } else {
+            let (number, next) =
+                match_number(s, at).ok_or_else(|| decode_error("Expecting value", s, at))??;
+            *idx = next;
+            return Ok(number);
+        };
+        *idx += width;
+        Ok(value)
+    }
+
+    /// Attaches a finished value to the innermost container.
+    fn attach(
+        &self,
+        value: Json,
+        idx: &mut usize,
+        stack: &mut Vec<Frame>,
+    ) -> Result<Step, DecodeError> {
+        match stack.last_mut() {
+            None => {
+                let end = self.skip(*idx);
+                if end != self.s.len() {
+                    return Err(decode_error("Extra data", self.s, end));
+                }
+                Ok(Step::Done(value))
+            }
+            Some(Frame::Array(items)) => {
+                items.push(value);
+                if !self.member_end(idx, ']', "array")? {
+                    return Ok(Step::Scan);
+                }
+                let Some(Frame::Array(items)) = stack.pop() else {
+                    unreachable!()
+                };
+                Ok(Step::Attach(Json::Array(items)))
+            }
+            Some(Frame::Object(pairs, key)) => {
+                pairs.push((std::mem::take(key), value));
+                if !self.member_end(idx, '}', "object")? {
+                    *key = self.read_key(idx)?;
+                    return Ok(Step::Scan);
+                }
+                let Some(Frame::Object(pairs, _)) = stack.pop() else {
+                    unreachable!()
+                };
+                Ok(Step::Attach(Json::Object(if self.unique {
+                    no_repeats(pairs)?
+                } else {
+                    dict(pairs)
+                })))
+            }
+        }
+    }
+
+    /// After a member: true when `close` ends the container, with idx past it; false
+    /// when a comma follows, with idx at the next member.
+    fn member_end(
+        &self,
+        idx: &mut usize,
+        close: char,
+        container: &str,
+    ) -> Result<bool, DecodeError> {
+        let (s, len) = (self.s, self.s.len());
+        *idx = self.skip(*idx);
+        if *idx < len && s[*idx] == close {
+            *idx += 1;
+            return Ok(true);
+        }
+        if *idx >= len || s[*idx] != ',' {
+            return Err(decode_error("Expecting ',' delimiter", s, *idx));
+        }
+        let comma = *idx;
+        *idx = self.skip(*idx + 1);
+        if *idx < len && s[*idx] == close {
+            return Err(decode_error(
+                &format!("Illegal trailing comma before end of {container}"),
+                s,
+                comma,
+            ));
+        }
+        Ok(false)
     }
 }
 
