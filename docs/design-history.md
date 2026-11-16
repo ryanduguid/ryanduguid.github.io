@@ -6,6 +6,20 @@ and DESIGN.md disagree, DESIGN.md is current.
 
 ## Current refinement record
 
+On 16 November 2026 the About portrait is redrawn from a new cutout of Ryan's
+headshot by `site-tools render_about_portrait`, which replaces the Python
+renderer and its OpenCV, NumPy, Pillow and fontTools dependencies. The 28
+September portrait read as a face only from a distance: the forehead and lit
+cheek were flat blocks of `$` and `@`, stacked `|` glyphs drew vertical stripes
+through the hair, neck and suit, the eyes sat in a featureless dark band and the
+dark hair thinned to scattered marks. The grid grows from 120 by 75 to 140 by
+85 (`font-size: calc(100cqi / 84)`), which gives the eyes, brows, smile and
+hair texture enough cells to read. The cutout's alpha channel replaces GrabCut,
+each cell is matched on its glyph's bitmap at 6 by 4 samples instead of 3 by 2
+zones of ink, error diffusion replaces the ordered dither, `|` and `-` leave the
+glyph set, and a thin rim keeps the head's outline on the black canvas. The
+frame, ink colour, accessible wrapper and print rule are unchanged.
+
 On 4 November 2026 the advice disclaimer appears once per page, in small print
 at the bottom. The footer's `.site-footer__legal` line, set in `--text-caption`,
 states the registration, advice and review-aid boundary, folds in the ATO, Xero

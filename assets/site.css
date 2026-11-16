@@ -490,7 +490,7 @@ main p {
   container-type: inline-size;
 }
 
-/* 120 columns of Spline Sans Mono (0.6em advance) fill the frame, and each
+/* 140 columns of Spline Sans Mono (0.6em advance) fill the frame, and each
    row is one em tall, the 0.6 by 1 cell the art was sampled for. A fallback
    font with a narrower advance leaves a small gap on the right. Greyscale
    stops subpixel antialiasing tinting the tiny glyphs. */
@@ -502,7 +502,7 @@ main p {
   border-radius: 0;
   color: var(--colour-ink);
   background: none;
-  font-size: calc(100cqi / 72);
+  font-size: calc(100cqi / 84);
   line-height: 1;
 }
 
