@@ -265,32 +265,30 @@ fn array_items(payload: &Json, what: &str) -> Result<Vec<Json>> {
     Ok(found)
 }
 
-/// Whether code scanning holds main's CodeQL results for `commit` and none of its
-/// open alerts reaches the pull request check's default failure threshold: error
-/// severity, or high or critical security severity. Any such alert refuses
-/// publication, however old. False while the results are still being processed, the
-/// alert listing changes between reads or does not yet reflect this commit's
-/// analyses.
+/// Whether code scanning holds main's CodeQL results for `commit` and neither those
+/// results nor main's open alerts reach the pull request check's default failure
+/// threshold: error severity, or high or critical security severity. Any such alert
+/// refuses publication, however old. False while the results are still being
+/// processed or the alert listing changes between reads.
 fn main_results_pass(
     repository: &str,
     commit: &str,
     runs: &[String],
     fetch: &mut Fetch,
 ) -> Result<bool> {
-    let Some(analysed) = processed_analyses(repository, commit, runs, fetch)? else {
-        return Ok(false);
-    };
-    let endpoint = format!(
-        "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&tool_name=CodeQL&per_page=100"
-    );
-    let alerts = alert_levels(&fetch(&endpoint, true)?)?;
-    if alert_levels(&fetch(&endpoint, true)?)? != alerts || !current(&alerts, &analysed, commit) {
+    if !analyses_pass(repository, commit, runs, fetch)? {
         return Ok(false);
     }
-    if alerts.iter().any(|(_, alert)| {
-        alert.open
-            && (alert.severity.as_deref() == Some("error")
-                || matches!(alert.security.as_deref(), Some("high" | "critical")))
+    let endpoint = format!(
+        "repos/{repository}/code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&per_page=100"
+    );
+    let alerts = alert_levels(&fetch(&endpoint, true)?)?;
+    if alert_levels(&fetch(&endpoint, true)?)? != alerts {
+        return Ok(false);
+    }
+    if alerts.iter().any(|(_, severity, security)| {
+        severity.as_deref() == Some("error")
+            || matches!(security.as_deref(), Some("high" | "critical"))
     }) {
         return refuse("Main has an open CodeQL alert the pull request check would fail on");
     }
@@ -353,47 +351,127 @@ fn analysis_jobs(repository: &str, runs: &[String], fetch: &mut Fetch) -> Result
     Ok(found)
 }
 
-/// Each analysis job's own upload of the commit, made whilst the job ran, once code
-/// scanning has processed it: each upload's category and result count. None while
-/// an upload is missing or pending. A rerun attempt's jobs start after the earlier
-/// attempt finished, so its upload falls outside their windows, and no upload counts
-/// for 2 jobs.
-fn processed_analyses(
+/// Whether each analysis job's own upload of the commit, made whilst the job ran, has
+/// been processed and holds no result at the threshold. Each upload's own results are
+/// read, because a later upload in the same category replaces an earlier one's alerts
+/// and the alert listing cannot show which upload it reflects. False while an upload
+/// is missing or pending. A rerun attempt's jobs start after the earlier attempt
+/// finished, so its upload falls outside their windows, and no upload counts for 2
+/// jobs.
+fn analyses_pass(
     repository: &str,
     commit: &str,
     runs: &[String],
     fetch: &mut Fetch,
-) -> Result<Option<Vec<(String, BigInt)>>> {
+) -> Result<bool> {
     let jobs = analysis_jobs(repository, runs, fetch)?;
     let Some(uploads) = job_uploads(repository, commit, &jobs, fetch)? else {
-        return Ok(None);
+        return Ok(false);
     };
-    let mut analysed = Vec::new();
     for upload in &uploads {
-        let (Some(id), Some(results)) =
-            (text(upload, "sarif_id"), int(upload.get("results_count")))
-        else {
+        let (Some(sarif), Some(id)) = (text(upload, "sarif_id"), int(upload.get("id"))) else {
             return refuse("Unreadable analysis upload");
         };
-        if !fullmatch("[0-9a-f-]+", 0, id) {
+        if !fullmatch("[0-9a-f-]+", 0, sarif) {
             return refuse("Unreadable analysis upload");
         }
         let status = fetch(
-            &format!("repos/{repository}/code-scanning/sarifs/{id}"),
+            &format!("repos/{repository}/code-scanning/sarifs/{sarif}"),
             false,
         )?;
         match text(&status, "processing_status") {
             Some("complete") => {}
-            Some("pending") => return Ok(None),
+            Some("pending") => return Ok(false),
             Some("failed") => {
                 return refuse("Code scanning could not process main's CodeQL results");
             }
             _ => return refuse("Unreadable analysis upload"),
         }
-        let category = text(upload, "category").unwrap_or_default().to_owned();
-        analysed.push((category, results.clone()));
+        let id = py::int_repr(id).map_err(Refusal::Value)?;
+        let results = fetch(
+            &format!("repos/{repository}/code-scanning/analyses/{id}"),
+            false,
+        )?;
+        if sarif_fails(&results)? {
+            return refuse(
+                "Main's CodeQL analysis has a result the pull request check would fail on",
+            );
+        }
     }
-    Ok(Some(analysed))
+    Ok(true)
+}
+
+/// The JSON array at `key`, or None.
+fn array_at<'a>(value: Option<&'a Json>, key: &str) -> Option<&'a [Json]> {
+    match value?.get(key)? {
+        Json::Array(items) => Some(items),
+        _ => None,
+    }
+}
+
+/// Whether an analysis's SARIF holds a result at the pull request check's default
+/// threshold: error level, or a rule security severity of 7.0 or more (high or
+/// critical). A result without a level takes its rule's default level, then SARIF's
+/// default, warning. A result whose rule cannot be found, or a security severity
+/// that is not a number, is unreadable.
+fn sarif_fails(sarif: &Json) -> Result<bool> {
+    let unreadable = || refuse("Unreadable analysis results");
+    let Some(runs) = array_at(Some(sarif), "runs") else {
+        return unreadable();
+    };
+    for run in runs {
+        let Some(results) = array_at(Some(run), "results") else {
+            return unreadable();
+        };
+        for result in results {
+            let Some(rule) = rule_of(run, result) else {
+                return unreadable();
+            };
+            let level = text(result, "level")
+                .or_else(|| {
+                    rule.get("defaultConfiguration")
+                        .and_then(|c| text(c, "level"))
+                })
+                .unwrap_or("warning");
+            let security = match rule
+                .get("properties")
+                .and_then(|p| p.get("security-severity"))
+            {
+                None => 0.0,
+                Some(Json::Str(score)) => match score.parse::<f64>() {
+                    Ok(score) => score,
+                    Err(_) => return unreadable(),
+                },
+                Some(_) => return unreadable(),
+            };
+            if level == "error" || security >= 7.0 {
+                return Ok(true);
+            }
+        }
+    }
+    Ok(false)
+}
+
+/// The rule a SARIF result names: `rule.index` in the tool extension at
+/// `rule.toolComponent.index`, or in the driver without one, or `ruleIndex` in the
+/// driver.
+fn rule_of<'a>(run: &'a Json, result: &Json) -> Option<&'a Json> {
+    let tool = run.get("tool");
+    let index = |value: Option<&Json>| int(value).and_then(|i| usize::try_from(i).ok());
+    let (component, rule) = match result.get("rule") {
+        Some(reference @ Json::Object(_)) => (
+            reference
+                .get("toolComponent")
+                .map(|c| index(c.get("index"))),
+            index(reference.get("index")),
+        ),
+        _ => (None, index(result.get("ruleIndex"))),
+    };
+    let rules = match component {
+        Some(component) => array_at(array_at(tool, "extensions")?.get(component?), "rules")?,
+        None => array_at(tool.and_then(|t| t.get("driver")), "rules")?,
+    };
+    rules.get(rule?)
 }
 
 /// For each job, an analysis of `commit` in its category created whilst it ran and
@@ -445,50 +523,12 @@ fn job_uploads(
     Ok(matched.into_iter().collect())
 }
 
-/// Whether the alert listing reflects this commit's analyses. Code scanning moves
-/// an alert's most recent instance to the commit whose analysis found it again and
-/// closes the alerts that analysis did not find. So every open alert in an analysed
-/// category must point at the commit, and an analysis with results must have at
-/// least one alert, in any state, pointing at it.
-fn current(
-    alerts: &[(Option<BigInt>, AlertLevel)],
-    analysed: &[(String, BigInt)],
-    commit: &str,
-) -> bool {
-    let alerts: Vec<&AlertLevel> = alerts.iter().map(|(_, alert)| alert).collect();
-    let at_commit = |alert: &AlertLevel| alert.commit.as_deref() == Some(commit);
-    let analysed_category = |alert: &AlertLevel| {
-        analysed
-            .iter()
-            .any(|(category, _)| alert.category.as_deref() == Some(category.as_str()))
-    };
-    let stale = alerts
-        .iter()
-        .any(|alert| alert.open && analysed_category(alert) && !at_commit(alert));
-    let unseen = analysed.iter().any(|(category, results)| {
-        *results > BigInt::from(0)
-            && !alerts.iter().any(|alert| {
-                alert.category.as_deref() == Some(category.as_str()) && at_commit(alert)
-            })
-    });
-    !stale && !unseen
-}
+/// An open alert's number, rule severity and rule security severity.
+type AlertLevel = (Option<BigInt>, Option<String>, Option<String>);
 
-/// Whether an alert is open, its rule's severities and its most recent instance's
-/// category and commit.
-#[derive(PartialEq)]
-struct AlertLevel {
-    open: bool,
-    severity: Option<String>,
-    security: Option<String>,
-    category: Option<String>,
-    commit: Option<String>,
-}
-
-/// Each alert's number and level. A rule must hold a severity, as text or null, and any
-/// security severity as text or null; an alert must have a state and a most recent
-/// instance with a commit, or it is unreadable.
-fn alert_levels(listing: &Json) -> Result<Vec<(Option<BigInt>, AlertLevel)>> {
+/// Each open alert's level. A rule must hold a severity, as text or null, and any
+/// security severity as text or null, or the alert is unreadable.
+fn alert_levels(listing: &Json) -> Result<Vec<AlertLevel>> {
     array_items(listing, "alert")?
         .iter()
         .map(|alert| {
@@ -503,22 +543,11 @@ fn alert_levels(listing: &Json) -> Result<Vec<(Option<BigInt>, AlertLevel)>> {
             {
                 return refuse("Unreadable alert rule");
             }
-            let (Some(state), Some(instance @ Json::Object(_))) =
-                (text(alert, "state"), alert.get("most_recent_instance"))
-            else {
-                return refuse("Unreadable alert instance");
-            };
-            let Some(commit) = text(instance, "commit_sha") else {
-                return refuse("Unreadable alert instance");
-            };
-            let level = AlertLevel {
-                open: state == "open",
-                severity: text(rule, "severity").map(str::to_owned),
-                security: text(rule, "security_severity_level").map(str::to_owned),
-                category: text(instance, "category").map(str::to_owned),
-                commit: Some(commit.to_owned()),
-            };
-            Ok((int(alert.get("number")).cloned(), level))
+            Ok((
+                int(alert.get("number")).cloned(),
+                text(rule, "severity").map(str::to_owned),
+                text(rule, "security_severity_level").map(str::to_owned),
+            ))
         })
         .collect()
 }
@@ -527,6 +556,10 @@ fn alert_levels(listing: &Json) -> Result<Vec<(Option<BigInt>, AlertLevel)>> {
 fn gh_json(endpoint: &str, paginate: bool) -> Result<Json> {
     let mut command = Command::new("gh");
     command.args(["api", endpoint]);
+    // An analysis read by its id returns its SARIF only when asked for it.
+    if endpoint.contains("/code-scanning/analyses/") {
+        command.args(["-H", "Accept: application/sarif+json"]);
+    }
     if paginate {
         command.args(["--paginate", "--slurp"]);
     }
@@ -547,19 +580,7 @@ fn gh_json(endpoint: &str, paginate: bool) -> Result<Json> {
         let mut buffer = Vec::new();
         let _ = stderr.read_to_end(&mut buffer);
     });
-    let deadline = Instant::now() + Duration::from_secs(60);
-    let status = loop {
-        match child.try_wait() {
-            Ok(Some(status)) => break status,
-            Ok(None) if Instant::now() >= deadline => {
-                let _ = child.kill();
-                let _ = child.wait();
-                return Err(Refusal::External);
-            }
-            Ok(None) => std::thread::sleep(Duration::from_millis(20)),
-            Err(_) => return Err(Refusal::External),
-        }
-    };
+    let status = wait_up_to_a_minute(&mut child)?;
     let stdout = out.join().unwrap_or_default();
     let _ = err.join();
     if !status.success() {
@@ -574,6 +595,23 @@ fn gh_json(endpoint: &str, paginate: bool) -> Result<Json> {
             Refusal::Value(text)
         }
     })
+}
+
+/// The child's exit status, or External once it has run for 60 seconds and been killed.
+fn wait_up_to_a_minute(child: &mut std::process::Child) -> Result<std::process::ExitStatus> {
+    let deadline = Instant::now() + Duration::from_secs(60);
+    loop {
+        match child.try_wait() {
+            Ok(Some(status)) => return Ok(status),
+            Ok(None) if Instant::now() >= deadline => {
+                let _ = child.kill();
+                let _ = child.wait();
+                return Err(Refusal::External);
+            }
+            Ok(None) => std::thread::sleep(Duration::from_millis(20)),
+            Err(_) => return Err(Refusal::External),
+        }
+    }
 }
 
 /// The monotonic clock and sleep the wait loop uses, replaceable in tests.

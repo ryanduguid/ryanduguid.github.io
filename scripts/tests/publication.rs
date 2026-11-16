@@ -65,6 +65,8 @@ struct Site {
     analysis_reads: Cell<usize>,
     /// The processing status of each analysis upload.
     upload: &'static str,
+    /// Each analysis's SARIF by analysis id; any other analysis has no results.
+    sarifs: Vec<(String, Json)>,
     alerts: Json,
     /// The alert listing from the second read on, when it differs from the first.
     alerts_later: Option<Json>,
@@ -97,6 +99,7 @@ impl Site {
             older_analyses: json("[]"),
             analysis_reads: Cell::new(0),
             upload: "complete",
+            sarifs: Vec::new(),
             alerts: Json::Array(vec![Json::Array(vec![])]),
             alerts_later: None,
             alert_reads: Cell::new(0),
@@ -123,12 +126,22 @@ impl Site {
                 _ => json("[]"),
             };
         }
+        if let Some(id) = endpoint.strip_prefix(&format!("repos/{REPO}/code-scanning/analyses/")) {
+            assert!(!paginate);
+            return self
+                .sarifs
+                .iter()
+                .find(|(sarif, _)| sarif == id)
+                .map_or_else(|| sarif("[]"), |(_, sarif)| sarif.clone());
+        }
         if endpoint.starts_with(&format!("repos/{REPO}/code-scanning/sarifs/")) {
             assert!(!paginate);
             return json(&format!(r#"{{"processing_status": "{}"}}"#, self.upload));
         }
         assert!(paginate);
-        if endpoint.contains("code-scanning/alerts?ref=refs/heads/main&tool_name=CodeQL&") {
+        if endpoint
+            .contains("code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&")
+        {
             self.alert_reads.set(self.alert_reads.get() + 1);
             match &self.alerts_later {
                 Some(later) if self.alert_reads.get() > 1 => later.clone(),
@@ -173,12 +186,27 @@ fn uploaded(language: &str, created: &str) -> Json {
     ))
 }
 
-/// An open alert with `rule`, last found by this commit's python analysis.
 fn alert(rule: &str) -> Json {
+    json(&format!(r#"{{"number": 1, "rule": {rule}}}"#))
+}
+
+/// A CodeQL SARIF log with `results`. The driver's rule 0 has no properties; the
+/// query pack extension's rules 0 to 2 are an error, a high security severity and a
+/// warning with a medium security severity.
+fn sarif(results: &str) -> Json {
     json(&format!(
-        r#"{{"number": 1, "state": "open", "rule": {rule}, "most_recent_instance": {{"commit_sha": "{}", "category": "/language:python"}}}}"#,
-        commit()
+        r#"{{"runs": [{{"tool": {{"driver": {{"name": "CodeQL", "rules": [{{"id": "plain"}}]}}, "extensions": [{{"name": "codeql/python-queries", "rules": [
+            {{"id": "py/error", "defaultConfiguration": {{"level": "error"}}}},
+            {{"id": "py/high", "defaultConfiguration": {{"level": "warning"}}, "properties": {{"security-severity": "7.0"}}}},
+            {{"id": "py/medium", "defaultConfiguration": {{"level": "warning"}}, "properties": {{"security-severity": "6.9"}}}}
+        ]}}]}}, "results": {results}}}]}}"#
     ))
+}
+
+/// A result of extension rule `index`, at `level` when given.
+fn result(index: usize, level: Option<&str>) -> String {
+    let level = level.map_or(String::new(), |level| format!(r#""level": "{level}", "#));
+    format!(r#"{{{level}"rule": {{"index": {index}, "toolComponent": {{"index": 0}}}}}}"#)
 }
 
 fn value_error(result: Result<bool, Refusal>) -> String {
@@ -948,45 +976,86 @@ fn analyses_are_read_page_by_page_until_found_or_older_than_the_jobs() {
 }
 
 #[test]
-fn alerts_must_reflect_this_commits_analyses() {
-    let elsewhere = |category: &str| {
-        Json::Array(vec![Json::Array(vec![with(
-            &alert(r#"{"severity": "note"}"#),
-            &[(
-                "most_recent_instance",
-                json(&format!(
-                    r#"{{"commit_sha": "{}", "category": "{category}"}}"#,
-                    "b".repeat(40)
-                )),
-            )],
-        )])])
-    };
-    // An analysis with results, before any alert points at this commit.
+fn an_upload_with_a_result_at_the_threshold_refuses_publication() {
+    let refused = "Main's CodeQL analysis has a result the pull request check would fail on";
+    for results in [
+        format!("[{}]", result(0, None)),
+        format!("[{}]", result(1, None)),
+        format!("[{}]", result(2, Some("error"))),
+        format!("[{}, {}]", result(2, None), result(1, Some("note"))),
+        r#"[{"ruleIndex": 0, "level": "error"}]"#.to_owned(),
+        r#"[{"rule": {"index": 0}, "level": "error"}]"#.to_owned(),
+    ] {
+        let (mut site, _) = analysed_main();
+        site.sarifs = vec![("106".to_owned(), sarif(&results))];
+        assert_eq!(value_error(site.evaluate()), refused, "{results}");
+    }
+    // Below the threshold, and a rule without a security severity.
     let (mut site, _) = analysed_main();
-    site.analyses = Json::Array(vec![with(
-        &uploaded("python", "2026-11-16T00:02:30Z"),
-        &[("results_count", n(1))],
-    )]);
-    assert_eq!(site.evaluate(), Ok(false));
-    site.alerts = Json::Array(vec![Json::Array(vec![alert(r#"{"severity": "note"}"#)])]);
-    assert_eq!(site.evaluate(), Ok(true));
-    // An open alert in an analysed category still pointing at an older commit.
-    let (mut site, _) = analysed_main();
-    site.alerts = elsewhere("/language:python");
-    assert_eq!(site.evaluate(), Ok(false));
-    // One in a category this run did not analyse does not hold publication.
-    site.alerts = elsewhere("/language:ruby");
+    site.sarifs = vec![(
+        "106".to_owned(),
+        sarif(&format!(
+            r#"[{}, {}, {}, {{"ruleIndex": 0}}]"#,
+            result(2, None),
+            result(2, Some("note")),
+            result(0, Some("warning"))
+        )),
+    )];
     assert_eq!(site.evaluate(), Ok(true));
 }
 
 #[test]
-fn an_alert_without_its_state_or_instance_is_unreadable() {
-    let (mut site, _) = analysed_main();
-    for change in [("state", Json::Null), ("most_recent_instance", Json::Null)] {
-        site.alerts = Json::Array(vec![Json::Array(vec![with(
-            &alert(r#"{"severity": "note"}"#),
-            &[change],
-        )])]);
-        assert_eq!(value_error(site.evaluate()), "Unreadable alert instance");
+fn each_overlapping_upload_has_its_own_results_checked() {
+    // A later upload in the same category replaces the earlier one's alerts, so the
+    // alert listing shows nothing; the earlier upload's own results still refuse.
+    let (mut site, analysis) = analysed_main();
+    site.runs = vec![
+        site.run.clone(),
+        analysis.clone(),
+        with(&analysis, &[("id", n(5))]),
+    ];
+    site.analyses = Json::Array(vec![
+        with(
+            &uploaded("python", "2026-11-16T00:02:40Z"),
+            &[("id", n(200))],
+        ),
+        uploaded("python", "2026-11-16T00:02:30Z"),
+    ]);
+    site.sarifs = vec![("106".to_owned(), sarif(&format!("[{}]", result(1, None))))];
+    assert_eq!(
+        value_error(site.evaluate()),
+        "Main's CodeQL analysis has a result the pull request check would fail on"
+    );
+}
+
+#[test]
+fn unreadable_analysis_results_refuse_publication() {
+    let unknown_rule = format!("[{}]", result(3, None));
+    let mut logs: Vec<Json> = [
+        r#"{"message": "Not Found"}"#,
+        r#"{"runs": [{"tool": {}}]}"#,
+        r#"{"runs": [{"tool": {}, "results": [{"ruleIndex": 0}]}]}"#,
+    ]
+    .into_iter()
+    .map(json)
+    .collect();
+    logs.push(sarif(&unknown_rule));
+    logs.push(sarif(
+        r#"[{"rule": {"index": 0, "toolComponent": {"index": 1}}}]"#,
+    ));
+    logs.push(sarif(r#"[{"level": "error"}]"#));
+    for score in [r#""high""#, "7"] {
+        logs.push(json(&format!(
+            r#"{{"runs": [{{"tool": {{"driver": {{"rules": [{{"properties": {{"security-severity": {score}}}}}]}}}}, "results": [{{"ruleIndex": 0}}]}}]}}"#
+        )));
+    }
+    for log in logs {
+        let (mut site, _) = analysed_main();
+        site.sarifs = vec![("106".to_owned(), log.clone())];
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis results",
+            "{log:?}"
+        );
     }
 }

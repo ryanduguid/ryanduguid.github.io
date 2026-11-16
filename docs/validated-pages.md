@@ -14,14 +14,14 @@ a pull request whose head is a main commit would attach to that commit, so
 repository to succeed. Each `Analyze (<language>)` job in that run's latest
 attempt must have its own upload of the commit in category
 `/language:<language>`, made whilst it ran, and code scanning must report that
-upload processed before main's CodeQL alerts are read. 2 reads of the alerts must
-agree on each alert's state and severities, every open alert in an analysed
-category must have this commit as its most recent instance, and an analysis with
-results must have an alert that does. Any open alert on main at GitHub's
-default failure threshold for that check (error severity, or high or critical
-security severity), however old, refuses publication; a repository setting that
-changes the threshold is not read. It also refuses a failed analysis, and waits
-while the analysis runs, its uploads are processed or the alerts settle. Only
+upload processed. Each upload's own SARIF results are then checked, because a
+later upload in the same category replaces an earlier one's alerts. A result at
+GitHub's default failure threshold for that check (error level, or a security
+severity of 7.0 or more, which is high or critical) refuses publication, as does
+any open CodeQL alert on main at that threshold, however old; 2 reads of the open
+alerts must agree. A repository setting that changes the threshold is not read.
+It also refuses a failed analysis or unreadable results, and waits while the
+analysis runs, its uploads are processed or the alerts settle. Only
 the main-only `publication` job and the `deploy` job read the alerts with
 `security-events: read`, so pull request code never gets that permission.
 
