@@ -187,7 +187,12 @@ fn uploaded(language: &str, created: &str) -> Json {
 }
 
 fn alert(rule: &str) -> Json {
-    json(&format!(r#"{{"number": 1, "rule": {rule}}}"#))
+    // GitHub lists the rule's security severity, null for a rule without one.
+    let mut rule = json(rule);
+    if rule.get("security_severity_level").is_none() {
+        rule = with(&rule, &[("security_severity_level", Json::Null)]);
+    }
+    with(&json(r#"{"number": 1}"#), &[("rule", rule)])
 }
 
 /// A CodeQL SARIF log with `results`. The driver's rule 0 has no properties; the
@@ -761,6 +766,10 @@ fn an_unreadable_alert_listing_refuses_publication() {
         (json(r#"[[{"number": 1}]]"#), "Unreadable alert rule"),
         (
             json(r#"[[{"number": 1, "rule": {}}]]"#),
+            "Unreadable alert rule",
+        ),
+        (
+            json(r#"[[{"number": 1, "rule": {"severity": "warning"}}]]"#),
             "Unreadable alert rule",
         ),
         (

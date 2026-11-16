@@ -567,8 +567,9 @@ fn job_uploads(
 /// An open alert's number, rule severity and rule security severity.
 type AlertLevel = (Option<BigInt>, Option<String>, Option<String>);
 
-/// Each open alert's level. A rule must hold a severity, as text or null, and any
-/// security severity as text or null, or the alert is unreadable.
+/// Each open alert's level. A rule must hold a severity and a security severity,
+/// each as text or null, or the alert is unreadable: a missing security severity
+/// could hide a high or critical alert.
 fn alert_levels(listing: &Json) -> Result<Vec<AlertLevel>> {
     array_items(listing, "alert")?
         .iter()
@@ -578,10 +579,7 @@ fn alert_levels(listing: &Json) -> Result<Vec<AlertLevel>> {
                 _ => return refuse("Unreadable alert rule"),
             };
             let readable = |key: &str| matches!(rule.get(key), Some(Json::Str(_) | Json::Null));
-            if !readable("severity")
-                || !(rule.get("security_severity_level").is_none()
-                    || readable("security_severity_level"))
-            {
+            if !readable("severity") || !readable("security_severity_level") {
                 return refuse("Unreadable alert rule");
             }
             Ok((
