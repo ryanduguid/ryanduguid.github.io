@@ -503,9 +503,7 @@ function initialiseCalculators([calculate, fieldErrors, { individualResult }]) {
             note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
             break;
           }
-          default:
-            result = individualResult(form.dataset.calculator, value, aud);
-            if (!result) throw new Error('Unknown calculator.');
+          default: result = individualResult(form.dataset.calculator, value, aud); if (!result) throw new Error('Unknown calculator.');
         }
         renderResult(output, result);
         form.dataset.calculated = 'true';
@@ -529,8 +527,7 @@ function initialiseCalculators([calculate, fieldErrors, { individualResult }]) {
 function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
-  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`),
-    import(`./individual-tax-results.mjs${suffix}`)])
+  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./individual-tax-results.mjs${suffix}`)])
     .then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
