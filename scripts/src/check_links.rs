@@ -27,8 +27,8 @@ pub const USER_AGENT: &str = "duguid-link-check/1.0";
 pub const MAX_FETCH_ATTEMPTS: u32 = 5;
 const MAX_RETRY_WAIT_SECONDS: f64 = 30.0;
 const SELF_ORIGIN: &str = "https://duguid.com.au";
+const SELF_HOST: &str = "duguid.com.au";
 const GITHUB_API: &str = "https://api.github.com/repos/ryanduguid/";
-const FRAGMENT_TARGET: &str = r#"\s(?:id|name)=(["'])([^"']+)\1"#;
 const OWN_REPO: &str = r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)";
 const MARKDOWN_LINK: &str = r"\]\((https?://[^)\s]+)\)";
 const USAGE: &str = include_str!("help/check_links.usage");
@@ -304,25 +304,102 @@ pub type Transport<'a> = dyn Fn() -> (Box<dyn Opener>, Box<dyn Clock>) + Sync + 
 const PER_HOST: usize = 3;
 const WORKERS: usize = 8;
 
-/// The external URLs the sequential pass fetches, in first-use order: every
-/// `http` link that is not same-origin and, on CI, not left to manual verification.
+/// The external URLs the sequential pass fetches, in first-use order: every plainly
+/// written `http` or `https` link (scheme in any case) that is not same-origin and, on
+/// CI, not left to manual verification.
 pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
     let mut targets: Vec<String> = Vec::new();
     for href in hrefs {
-        if !href.starts_with("http")
-            || (actions && CI_MANUAL_URLS.contains(&href.as_str()))
-            || targets.contains(href)
+        // A refused spelling is reported by the link pass, never fetched.
+        if !pyurl::urlsplit(href)
+            .is_ok_and(|parts| web_scheme(&parts.scheme) && odd_spelling(href, &parts).is_none())
         {
             continue;
         }
-        let Ok(parts) = pyurl::urlsplit(href) else {
+        // A scheme-relative link takes the site's https; a relative one stays on the site.
+        let Ok(href) = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), href) else {
             continue;
         };
-        if format!("{}://{}", parts.scheme, parts.netloc) != SELF_ORIGIN {
-            targets.push(href.clone());
+        if (actions && CI_MANUAL_URLS.contains(&href.as_str())) || targets.contains(&href) {
+            continue;
+        }
+        let Ok(parts) = pyurl::urlsplit(&href) else {
+            continue;
+        };
+        // A malformed port is reported by the link pass, never fetched.
+        if is_self_origin(&parts) == Ok(false) {
+            targets.push(href);
         }
     }
     targets
+}
+
+/// What makes a written http(s) or relative href one the checker refuses: a spelling a
+/// browser repairs and urllib resolves differently. Only plain links are checked, so a
+/// link that passes is one the checker resolved exactly.
+fn odd_spelling(href: &str, written: &Split) -> Option<&'static str> {
+    // A browser drops these; urlsplit keeps a trailing space, and urljoin returns an
+    // href with another scheme as written, tabs and newlines included.
+    if href.contains(['\t', '\n', '\r'])
+        || href.starts_with(|c: char| c <= ' ')
+        || href.ends_with(|c: char| c <= ' ')
+    {
+        Some("a tab, a newline, or a space or control character at either end")
+    } else if written.netloc.contains('\\') || written.path.contains('\\') {
+        Some("a backslash, which a browser reads as a slash")
+    } else if written.netloc.is_empty()
+        // A browser skips extra slashes before a host that urlsplit reads as empty.
+        && (!written.scheme.is_empty() || pyurl::has_authority(href) == Ok(true))
+    {
+        Some("no host after the scheme or //")
+    } else if !written.netloc.is_empty() && !plain_host(&written.netloc) {
+        Some("a host that is not plain ASCII, which a browser may rewrite")
+    } else if written.path.contains("//")
+        // urljoin can drop an empty segment that a browser keeps; external paths keep
+        // theirs. A scheme-relative link takes the site's https.
+        && (written.netloc.is_empty()
+            || (written.scheme != "http"
+                && is_self_origin(&Split {
+                    scheme: "https".to_owned(),
+                    ..written.clone()
+                }) == Ok(true)))
+    {
+        Some("an empty path segment (//)")
+    } else {
+        None
+    }
+}
+
+/// Whether urlsplit's host is one a browser keeps as written: dot-separated labels of
+/// ASCII letters, digits, hyphens and underscores, an optional trailing dot, and a last
+/// label that starts with a letter, so a browser cannot read the host as an IPv4 number.
+/// A browser maps or decodes anything else (full-width letters, IDNs, percent escapes,
+/// IP literals) to a host other than the one the checker compares.
+fn plain_host(netloc: &str) -> bool {
+    pyurl::hostname(netloc).is_some_and(|host| {
+        let host = host.strip_suffix('.').unwrap_or(&host);
+        host.bytes()
+            .all(|b| b.is_ascii_alphanumeric() || matches!(b, b'-' | b'_' | b'.'))
+            && host
+                .rsplit('.')
+                .next()
+                .is_some_and(|last| last.starts_with(|c: char| c.is_ascii_alphabetic()))
+    })
+}
+
+/// True for the schemes the checker follows: http, https or none (relative); urlsplit
+/// has lowercased it.
+fn web_scheme(scheme: &str) -> bool {
+    matches!(scheme, "" | "http" | "https")
+}
+
+/// Whether a split URL has this site's origin: https, the site's host in any case and
+/// port 443 by value, written or not; the `.port` error text for a malformed port.
+fn is_self_origin(parts: &Split) -> Result<bool, String> {
+    let port = pyurl::port(&parts.netloc)?;
+    Ok(parts.scheme == "https"
+        && pyurl::hostname(&parts.netloc).as_deref() == Some(SELF_HOST)
+        && port.unwrap_or(443) == 443)
 }
 
 /// Fetch `urls` concurrently, at most [`PER_HOST`] at a time per host, recording what
@@ -467,17 +544,22 @@ impl<'a> Checker<'a> {
         }
     }
 
-    /// True when a same-origin target declares an element with that id or name, or
-    /// passes any fragment. Each target is read once: thousands of effective life pages
-    /// link to the same few pages.
+    /// True when a same-origin target declares an element whose id or name is the
+    /// fragment, literally or percent-decoded, or the fragment is the document top, or
+    /// the target passes any fragment. Each target is read once: thousands of effective
+    /// life pages link to the same few pages.
     fn fragment_exists(&mut self, target: &Path, fragment: &str) -> Result<bool, String> {
+        let decoded = pyurl::unquote(fragment, false).expect("replace never fails");
+        if decoded.eq_ignore_ascii_case("top") {
+            return Ok(true);
+        }
         if !self.fragments.contains_key(target) {
             let ids = fragment_targets(target)?;
             self.fragments.insert(target.to_path_buf(), ids);
         }
         Ok(self.fragments[target]
             .as_ref()
-            .is_none_or(|ids| ids.contains(fragment)))
+            .is_none_or(|ids| ids.contains(fragment) || ids.contains(&decoded)))
     }
 
     fn say(&mut self, line: &str) {
@@ -703,17 +785,33 @@ impl<'a> Checker<'a> {
         offline: bool,
     ) -> Result<Vec<String>, String> {
         let mut failures = Vec::new();
-        let mut seen: Vec<&str> = Vec::new();
+        let mut seen: Vec<String> = Vec::new();
         let mut skipped = 0;
         let mut resolved_own = Vec::new();
+        let page = crate::seo_core::site_url(rel, SELF_ORIGIN);
         for href in hrefs {
-            if seen.contains(&href.as_str()) {
+            let parts = match pyurl::urlsplit(href) {
+                Ok(parts) => parts,
+                Err(error) => {
+                    failures.push(format!("{rel}: {href} -> invalid URL: {error}"));
+                    continue;
+                }
+            };
+            if !web_scheme(&parts.scheme) {
                 continue;
             }
-            if !(href.starts_with("http") || href.starts_with('/')) {
+            if let Some(odd) = odd_spelling(href, &parts) {
+                failures.push(format!(
+                    "{rel}: {href} -> refused: {odd}; write the link plainly"
+                ));
                 continue;
             }
-            seen.push(href);
+            // Relative and scheme-relative links are checked where a browser would go.
+            let href = &pyurl::urljoin(&page, href).map_err(|e| format!("ValueError: {e}"))?;
+            if seen.contains(href) {
+                continue;
+            }
+            seen.push(href.clone());
             if self.actions && CI_MANUAL_URLS.contains(&href.as_str()) {
                 self.say(&format!(
                     "manual verification {rel}: {href} (runner access unavailable; see CONTRIBUTING.md)"
@@ -721,10 +819,21 @@ impl<'a> Checker<'a> {
                 continue;
             }
             let parts = pyurl::urlsplit(href).map_err(|e| format!("ValueError: {e}"))?;
-            if href.starts_with('/')
-                || format!("{}://{}", parts.scheme, parts.netloc) == SELF_ORIGIN
-            {
-                let target = self.self_origin_target(&parts.path);
+            let same_origin = match is_self_origin(&parts) {
+                Ok(same_origin) => same_origin,
+                Err(error) => {
+                    failures.push(format!("{rel}: {href} -> invalid port: {error}"));
+                    continue;
+                }
+            };
+            if same_origin {
+                // urljoin keeps the dot segments of a URL with a host; resolve them as a
+                // browser does, so no link reaches above the site root.
+                let path = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), &format!(".{}", parts.path))
+                    .and_then(|url| pyurl::urlsplit(&url))
+                    .map_err(|e| format!("ValueError: {e}"))?
+                    .path;
+                let target = self.self_origin_target(&path);
                 let shown = self.rel_to_root(&target);
                 if !target.is_file() {
                     failures.push(format!(
@@ -871,7 +980,8 @@ fn join(root: &Path, rel: &str) -> PathBuf {
         .fold(root.to_path_buf(), |path, part| path.join(part))
 }
 
-/// The ids and names an HTML target declares, or `None` when any fragment passes: a
+/// The ids, and `<a>` names, an HTML target declares (the first of a repeated
+/// attribute counts, as a browser's does), or `None` when any fragment passes: a
 /// target that is not HTML, or a Liquid-templated page whose ids are not all in its source.
 fn fragment_targets(target: &Path) -> Result<Option<HashSet<String>>, String> {
     let suffix = crate::suffix(target).to_lowercase();
@@ -882,12 +992,23 @@ fn fragment_targets(target: &Path) -> Result<Option<HashSet<String>>, String> {
     if text.contains("{%") && text.contains("{{") {
         return Ok(None);
     }
-    Ok(Some(
-        re(FRAGMENT_TARGET, 0)
-            .captures_iter(&text)
-            .filter_map(|m| m.get(2).map(|g| g.as_str().to_owned()))
-            .collect(),
-    ))
+    let mut targets = HashSet::new();
+    for positioned in htmlparser::parse(&text, true) {
+        if let Event::StartTag(tag, attrs) | Event::StartEndTag(tag, attrs) = positioned.event {
+            let first = |wanted: &str| {
+                attrs
+                    .iter()
+                    .find(|(name, _)| name == wanted)
+                    .and_then(|(_, value)| value.clone())
+                    .filter(|value| !value.is_empty())
+            };
+            targets.extend(first("id"));
+            if tag == "a" {
+                targets.extend(first("name"));
+            }
+        }
+    }
+    Ok(Some(targets))
 }
 
 /// Every link and own-repository verdict the pass over `pages` and llms.txt will

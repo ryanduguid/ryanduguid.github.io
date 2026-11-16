@@ -43,6 +43,7 @@ directory holding `_config.yml` or `scripts/`, or `SITE_ROOT` when set.
 | `merge_driver <base> <current> <incoming>` | the `changelog-rows` Git merge driver (CONTRIBUTING.md) |
 | `pin_rates_dataset <checkout>` | `rates_dataset_extract.json` |
 | `release_record [--verify-live]` | release claims against `release_record.json` |
+| `render_about_portrait <cutout.png>` | the About page's ASCII portrait from a transparent-background headshot |
 | `serve_site` | the preview server on `127.0.0.1:4173` |
 | `stamp_source_freshness [--write \| --check-releases \| --write-tool-releases \| --build]` | the tool cards' last-commit stamps, release references and tool release snapshot |
 | `visibility_benchmark` | assistant-visibility captures |

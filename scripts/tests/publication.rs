@@ -3,10 +3,11 @@
 
 //! scripts/test_check_publication.py: publication refusals using fabricated GitHub results.
 use site_tools::check_publication::{
-    AUDIT_JOB, AUDIT_WORKFLOW, Clock, Refusal, evaluate, items, main_with, stable_items,
+    AUDIT_JOB, AUDIT_WORKFLOW, CODEQL_WORKFLOW, Clock, Refusal, evaluate, items, main_with,
+    stable_items,
 };
 use site_tools::pyjson::{self, Json};
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::collections::VecDeque;
 use std::path::Path;
 
@@ -51,33 +52,59 @@ fn page(key: &str, records: &[Json]) -> Json {
 }
 
 struct Site {
-    check: Json,
     run: Json,
+    analysis: Json,
     job: Json,
     main: String,
-    checks: Vec<Json>,
     runs: Vec<Json>,
     jobs: Vec<Json>,
+    analysis_jobs: Vec<Json>,
+    analyses: Json,
+    /// The second page of the analysis listing; later pages are empty.
+    older_analyses: Json,
+    analysis_reads: Cell<usize>,
+    /// The processing status of each analysis upload.
+    upload: &'static str,
+    /// Each analysis's SARIF by analysis id; any other analysis has no results.
+    sarifs: Vec<(String, Json)>,
+    alerts: Json,
+    /// The alert listing from the second read on, when it differs from the first.
+    alerts_later: Option<Json>,
+    alert_reads: Cell<usize>,
 }
 
 impl Site {
     fn new() -> Self {
         let c = commit();
-        let check = json(&format!(
-            r#"{{"id": 1, "name": "CodeQL", "app": {{"id": 57789}}, "head_sha": "{c}", "status": "completed", "conclusion": "success"}}"#
-        ));
         let run = json(&format!(
             r#"{{"id": 2, "path": "{AUDIT_WORKFLOW}", "event": "push", "head_sha": "{c}", "head_branch": "main", "status": "completed", "repository": {{"full_name": "{REPO}"}}, "head_repository": {{"full_name": "{REPO}"}}}}"#
         ));
+        let analysis = with(
+            &run,
+            &[
+                ("id", n(6)),
+                ("path", s(CODEQL_WORKFLOW)),
+                ("event", s("dynamic")),
+                ("conclusion", s("success")),
+            ],
+        );
         let job = json(&format!(
             r#"{{"id": 3, "name": "{AUDIT_JOB}", "head_sha": "{c}", "status": "completed", "conclusion": "success"}}"#
         ));
         Site {
-            checks: vec![check.clone()],
-            runs: vec![run.clone()],
+            runs: vec![run.clone(), analysis.clone()],
             jobs: vec![job.clone()],
-            check,
+            analysis_jobs: vec![analysis_job("python")],
+            analyses: Json::Array(vec![uploaded("python", "2026-11-16T00:02:30Z")]),
+            older_analyses: json("[]"),
+            analysis_reads: Cell::new(0),
+            upload: "complete",
+            sarifs: Vec::new(),
+            alerts: Json::Array(vec![Json::Array(vec![])]),
+            alerts_later: None,
+            alert_reads: Cell::new(0),
             run,
+            analysis,
             job,
             main: c,
         }
@@ -88,9 +115,40 @@ impl Site {
             assert!(!paginate);
             return json(&format!(r#"{{"object": {{"sha": "{}"}}}}"#, self.main));
         }
+        if let Some(page) = endpoint.strip_prefix(&format!(
+            "repos/{REPO}/code-scanning/analyses?ref=refs/heads/main&tool_name=CodeQL&per_page=100&page="
+        )) {
+            assert!(!paginate);
+            self.analysis_reads.set(self.analysis_reads.get() + 1);
+            return match page {
+                "1" => self.analyses.clone(),
+                "2" => self.older_analyses.clone(),
+                _ => json("[]"),
+            };
+        }
+        if let Some(id) = endpoint.strip_prefix(&format!("repos/{REPO}/code-scanning/analyses/")) {
+            assert!(!paginate);
+            return self
+                .sarifs
+                .iter()
+                .find(|(sarif, _)| sarif == id)
+                .map_or_else(|| sarif("[]"), |(_, sarif)| sarif.clone());
+        }
+        if endpoint.starts_with(&format!("repos/{REPO}/code-scanning/sarifs/")) {
+            assert!(!paginate);
+            return json(&format!(r#"{{"processing_status": "{}"}}"#, self.upload));
+        }
         assert!(paginate);
-        if endpoint.contains("check-runs") {
-            page("check_runs", &self.checks)
+        if endpoint
+            .contains("code-scanning/alerts?ref=refs/heads/main&state=open&tool_name=CodeQL&")
+        {
+            self.alert_reads.set(self.alert_reads.get() + 1);
+            match &self.alerts_later {
+                Some(later) if self.alert_reads.get() > 1 => later.clone(),
+                _ => self.alerts.clone(),
+            }
+        } else if endpoint.contains("/runs/6/jobs?") || endpoint.contains("/runs/5/jobs?") {
+            page("jobs", &self.analysis_jobs)
         } else if endpoint.contains("/jobs?") {
             page("jobs", &self.jobs)
         } else {
@@ -101,6 +159,59 @@ impl Site {
     fn evaluate(&self) -> Result<bool, Refusal> {
         evaluate(REPO, &commit(), &mut |e, p| Ok(self.fetch(e, p)))
     }
+}
+
+/// Main as it is: an attribution audit and a default-setup analysis of the commit.
+fn analysed_main() -> (Site, Json) {
+    let site = Site::new();
+    let analysis = site.analysis.clone();
+    (site, analysis)
+}
+
+/// The default-setup job that analyses `language`, from 00:00:05 to 00:03:00.
+fn analysis_job(language: &str) -> Json {
+    json(&format!(
+        r#"{{"id": 7, "name": "Analyze ({language})", "head_sha": "{}", "status": "completed", "conclusion": "success", "started_at": "2026-11-16T00:00:05Z", "completed_at": "2026-11-16T00:03:00Z"}}"#,
+        commit()
+    ))
+}
+
+/// The analysis of `language` code scanning lists for the commit, created at `created`,
+/// with no results.
+fn uploaded(language: &str, created: &str) -> Json {
+    json(&format!(
+        r#"{{"id": {}, "commit_sha": "{}", "category": "/language:{language}", "created_at": "{created}", "sarif_id": "0a-1", "results_count": 0}}"#,
+        100 + language.len(),
+        commit()
+    ))
+}
+
+fn alert(rule: &str) -> Json {
+    // GitHub lists the rule's security severity, null for a rule without one.
+    let mut rule = json(rule);
+    if rule.get("security_severity_level").is_none() {
+        rule = with(&rule, &[("security_severity_level", Json::Null)]);
+    }
+    with(&json(r#"{"number": 1}"#), &[("rule", rule)])
+}
+
+/// A CodeQL SARIF log with `results`. The driver's rule 0 has no properties; the
+/// query pack extension's rules 0 to 2 are an error, a high security severity and a
+/// warning with a medium security severity.
+fn sarif(results: &str) -> Json {
+    json(&format!(
+        r#"{{"runs": [{{"tool": {{"driver": {{"name": "CodeQL", "rules": [{{"id": "plain"}}]}}, "extensions": [{{"name": "codeql/python-queries", "rules": [
+            {{"id": "py/error", "defaultConfiguration": {{"level": "error"}}}},
+            {{"id": "py/high", "defaultConfiguration": {{"level": "warning"}}, "properties": {{"security-severity": "7.0"}}}},
+            {{"id": "py/medium", "defaultConfiguration": {{"level": "warning"}}, "properties": {{"security-severity": "6.9"}}}}
+        ]}}]}}, "results": {results}}}]}}"#
+    ))
+}
+
+/// A result of extension rule `index`, at `level` when given.
+fn result(index: usize, level: Option<&str>) -> String {
+    let level = level.map_or(String::new(), |level| format!(r#""level": "{level}", "#));
+    format!(r#"{{{level}"rule": {{"index": {index}, "toolComponent": {{"index": 0}}}}}}"#)
 }
 
 fn value_error(result: Result<bool, Refusal>) -> String {
@@ -116,32 +227,34 @@ fn exact_successful_producers_pass() {
 }
 
 #[test]
-fn missing_or_analyze_only_codeql_never_authorises_publication() {
+fn a_codeql_check_run_neither_authorises_nor_blocks_publication() {
+    // A pull request whose head is this commit gets a CodeQL check run on it, which
+    // compares with that pull request's base, not main. It is never read.
     let mut site = Site::new();
-    let check = site.check.clone();
-    for checks in [
-        vec![],
-        vec![with(&check, &[("name", s("Analyze (python)"))])],
-        vec![with(&check, &[("app", json(r#"{"id": 15368}"#))])],
-        vec![with(&check, &[("head_sha", s(&"b".repeat(40)))])],
-    ] {
-        site.checks = checks;
-        assert_eq!(site.evaluate(), Ok(false));
-    }
+    let mut check_reads = 0;
+    let result = evaluate(REPO, &commit(), &mut |e, p| {
+        if e.contains("check-runs") {
+            check_reads += 1;
+        }
+        Ok(site.fetch(e, p))
+    });
+    assert_eq!((result, check_reads), (Ok(true), 0));
+    site.runs = vec![site.run.clone()];
+    assert_eq!(site.evaluate(), Ok(false));
 }
 
 #[test]
 fn unsuccessful_or_unfinished_results_fail_or_wait() {
     for conclusion in ["failure", "cancelled", "skipped", "neutral"] {
         let mut site = Site::new();
-        site.checks = vec![with(&site.check, &[("conclusion", s(conclusion))])];
-        assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
-        let mut site = Site::new();
         site.jobs = vec![with(&site.job, &[("conclusion", s(conclusion))])];
         assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
     }
     let mut site = Site::new();
-    site.checks = vec![with(&site.check, &[("status", s("in_progress"))])];
+    site.runs = vec![
+        site.run.clone(),
+        with(&site.analysis, &[("status", s("in_progress"))]),
+    ];
     assert_eq!(site.evaluate(), Ok(false));
 }
 
@@ -176,7 +289,7 @@ fn untrusted_runs_do_not_supply_a_missing_main_audit() {
         ("path", s(".github/workflows/other.yml")),
         ("head_repository", json(r#"{"full_name": "someone/fork"}"#)),
     ] {
-        site.runs = vec![with(&site.run, &[change])];
+        site.runs = vec![with(&site.run, &[change]), site.analysis.clone()];
         assert_eq!(site.evaluate(), Ok(false));
     }
 }
@@ -188,7 +301,10 @@ fn ambiguous_and_missing_completed_jobs_fail() {
     assert!(value_error(site.evaluate()).contains("Ambiguous"));
     site.jobs = vec![];
     assert!(value_error(site.evaluate()).contains("without"));
-    site.runs = vec![with(&site.run, &[("status", s("in_progress"))])];
+    site.runs = vec![
+        with(&site.run, &[("status", s("in_progress"))]),
+        site.analysis.clone(),
+    ];
     assert_eq!(site.evaluate(), Ok(false));
 }
 
@@ -245,7 +361,7 @@ fn final_main_read_must_be_readable() {
 #[test]
 fn incomplete_results_do_not_take_a_final_main_read() {
     let mut site = Site::new();
-    site.checks = vec![];
+    site.runs = vec![site.run.clone()];
     let mut main_reads = 0;
     let result = evaluate(REPO, &commit(), &mut |e, p| {
         if e.ends_with("heads/main") {
@@ -397,21 +513,6 @@ fn api_failures_do_not_reveal_response_text() {
 }
 
 #[test]
-fn one_success_cannot_hide_failed_codeql_or_unreadable_identity() {
-    let mut site = Site::new();
-    site.checks.push(with(
-        &site.check,
-        &[("id", n(4)), ("conclusion", s("failure"))],
-    ));
-    assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
-    site.checks = vec![
-        site.check.clone(),
-        with(&site.check, &[("id", n(4)), ("name", Json::Null)]),
-    ];
-    assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
-}
-
-#[test]
 fn malformed_records_and_incomplete_pagination_fail() {
     for bad in [
         "[]",
@@ -426,21 +527,20 @@ fn malformed_records_and_incomplete_pagination_fail() {
     ] {
         assert!(items(&json(bad), "jobs").is_err(), "{bad}");
     }
-    let mut site = Site::new();
-    site.checks = vec![with(&site.check, &[("app", Json::Null)])];
-    assert!(matches!(site.evaluate(), Err(Refusal::Value(_))));
 }
 
 /// Fuzzing never runs on pull requests, and a fuzz finding after merge must not hold
-/// back an unrelated deployment. check_gates.py stays Python (shared with other
-/// repositories), so its run needs a Python interpreter; without one only the
-/// workflow text is checked.
+/// back an unrelated deployment. `publication` runs after the aggregate, on main
+/// pushes only. check_gates.py stays Python (shared with other repositories), so its
+/// run needs a Python interpreter; without one only the workflow text is checked.
 #[test]
-fn only_deploy_and_fuzzing_are_exempt_from_the_actual_aggregate() {
+fn only_deploy_fuzzing_and_publication_are_exempt_from_the_actual_aggregate() {
     let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let workflow =
         std::fs::read_to_string(repository.join(".github/workflows/checks.yml")).unwrap();
-    assert!(workflow.contains("checks-gates --exempt deploy --exempt fuzzing\n"));
+    assert!(
+        workflow.contains("checks-gates --exempt deploy --exempt fuzzing --exempt publication\n")
+    );
     let python = if cfg!(windows) { "python" } else { "python3" };
     if std::process::Command::new(python)
         .arg("--version")
@@ -479,6 +579,8 @@ fn only_deploy_and_fuzzing_are_exempt_from_the_actual_aggregate() {
                 "deploy",
                 "--exempt",
                 "fuzzing",
+                "--exempt",
+                "publication",
             ])
             .current_dir(root.path())
             .env("RESULTS", results)
@@ -616,4 +718,454 @@ fn a_renamed_workflow_cannot_drop_the_jobs_its_gate_required() {
     assert_eq!(output.status.code(), Some(1), "{stderr}");
     assert!(stderr.contains("These jobs were removed"), "{stderr}");
     assert!(stderr.contains("lint"), "{stderr}");
+}
+
+#[test]
+fn a_main_analysis_without_failing_alerts_authorises_publication() {
+    let (mut site, _) = analysed_main();
+    assert_eq!(site.evaluate(), Ok(true));
+    // Below the pull request check's default threshold.
+    site.alerts = Json::Array(vec![Json::Array(vec![
+        alert(r#"{"severity": "warning", "security_severity_level": "medium"}"#),
+        alert(r#"{"severity": null, "security_severity_level": null}"#),
+        alert(r#"{"severity": "note"}"#),
+    ])]);
+    assert_eq!(site.evaluate(), Ok(true));
+}
+
+#[test]
+fn an_open_alert_the_pull_request_check_fails_on_refuses_publication() {
+    let (mut site, _) = analysed_main();
+    for rule in [
+        r#"{"severity": "error", "security_severity_level": null}"#,
+        r#"{"severity": "warning", "security_severity_level": "high"}"#,
+        r#"{"severity": "warning", "security_severity_level": "critical"}"#,
+    ] {
+        site.alerts = Json::Array(vec![
+            Json::Array(vec![alert(r#"{"severity": "note"}"#)]),
+            Json::Array(vec![alert(rule)]),
+        ]);
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Main has an open CodeQL alert the pull request check would fail on"
+        );
+    }
+}
+
+#[test]
+fn an_unreadable_alert_listing_refuses_publication() {
+    let (mut site, _) = analysed_main();
+    for (alerts, message) in [
+        (
+            json(r#"{"message": "Not Found"}"#),
+            "Unreadable alert listing",
+        ),
+        (json(r#"[{"number": 1}]"#), "Unreadable alert listing"),
+        (json("[]"), "Unreadable alert listing"),
+        (json("[[1]]"), "Unreadable alert listing"),
+        (json(r#"[[{"number": 1}]]"#), "Unreadable alert rule"),
+        (
+            json(r#"[[{"number": 1, "rule": {}}]]"#),
+            "Unreadable alert rule",
+        ),
+        (
+            json(r#"[[{"number": 1, "rule": {"severity": "warning"}}]]"#),
+            "Unreadable alert rule",
+        ),
+        (
+            json(r#"[[{"number": 1, "rule": {"severity": 3}}]]"#),
+            "Unreadable alert rule",
+        ),
+        (
+            json(
+                r#"[[{"number": 1, "rule": {"severity": "note", "security_severity_level": 9}}]]"#,
+            ),
+            "Unreadable alert rule",
+        ),
+        (
+            json(r#"[[{"number": 1, "rule": "error"}]]"#),
+            "Unreadable alert rule",
+        ),
+    ] {
+        site.alerts = alerts;
+        assert_eq!(value_error(site.evaluate()), message);
+    }
+}
+
+#[test]
+fn an_unfinished_main_analysis_waits_and_a_failed_one_refuses() {
+    let (mut site, analysis) = analysed_main();
+    site.runs = vec![
+        site.run.clone(),
+        with(
+            &analysis,
+            &[("status", s("in_progress")), ("conclusion", Json::Null)],
+        ),
+    ];
+    assert_eq!(site.evaluate(), Ok(false));
+    for conclusion in ["failure", "cancelled", "skipped"] {
+        site.runs = vec![
+            site.run.clone(),
+            with(&analysis, &[("id", n(5)), ("conclusion", s(conclusion))]),
+            analysis.clone(),
+        ];
+        assert_eq!(
+            value_error(site.evaluate()),
+            "CodeQL analysis of main did not succeed"
+        );
+    }
+}
+
+#[test]
+fn untrusted_analyses_do_not_stand_in_for_the_codeql_check() {
+    let (mut site, analysis) = analysed_main();
+    let fork = json(r#"{"full_name": "someone/site"}"#);
+    for changes in [
+        vec![("event", s("pull_request"))],
+        vec![("event", s("push"))],
+        vec![("head_branch", s("feature"))],
+        vec![("head_sha", s(&"b".repeat(40)))],
+        vec![("head_repository", fork.clone())],
+        vec![("repository", fork.clone())],
+        vec![("path", s(".github/workflows/codeql.yml"))],
+    ] {
+        site.runs = vec![site.run.clone(), with(&analysis, &changes)];
+        assert_eq!(site.evaluate(), Ok(false), "{changes:?}");
+    }
+}
+
+#[test]
+fn a_main_analysis_still_needs_the_attribution_audit() {
+    let (mut site, analysis) = analysed_main();
+    site.runs = vec![analysis];
+    assert_eq!(site.evaluate(), Ok(false));
+}
+
+#[test]
+fn main_results_wait_for_this_commits_analysis_and_a_settled_alert_listing() {
+    let (mut site, _) = analysed_main();
+    site.analyses = Json::Array(vec![with(
+        &uploaded("python", "2026-11-16T00:02:30Z"),
+        &[("commit_sha", s(&"b".repeat(40)))],
+    )]);
+    assert_eq!(site.evaluate(), Ok(false));
+    site.analyses = json("[]");
+    assert_eq!(site.evaluate(), Ok(false));
+    for listing in [r#"{"message": "Not Found"}"#, "[1]", "[[]]"] {
+        site.analyses = json(listing);
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis listing",
+            "{listing}"
+        );
+    }
+
+    let (mut site, _) = analysed_main();
+    site.alerts_later = Some(Json::Array(vec![Json::Array(vec![with(
+        &alert(r#"{"severity": "note"}"#),
+        &[("number", n(2))],
+    )])]));
+    assert_eq!(site.evaluate(), Ok(false));
+}
+
+#[test]
+fn only_an_analysis_each_job_uploaded_whilst_it_ran_counts() {
+    // Uploaded before the job started (an earlier attempt), in the same second it
+    // started, or after it finished.
+    for created in [
+        "2026-11-15T23:59:59Z",
+        "2026-11-16T00:00:05Z",
+        "2026-11-16T00:03:01Z",
+    ] {
+        let (mut site, _) = analysed_main();
+        site.analyses = Json::Array(vec![uploaded("python", created)]);
+        assert_eq!(site.evaluate(), Ok(false), "{created}");
+    }
+    let (mut site, _) = analysed_main();
+    site.analyses = Json::Array(vec![uploaded("python", "2026-11-16T00:03:00Z")]);
+    assert_eq!(site.evaluate(), Ok(true));
+    // Every language the run analysed needs its own analysis.
+    let mut ruby = analysis_job("ruby");
+    ruby = with(&ruby, &[("id", n(8))]);
+    site.analysis_jobs.push(ruby);
+    assert_eq!(site.evaluate(), Ok(false));
+    site.analyses = Json::Array(vec![
+        uploaded("python", "2026-11-16T00:02:30Z"),
+        uploaded("ruby", "2026-11-16T00:02:40Z"),
+    ]);
+    assert_eq!(site.evaluate(), Ok(true));
+}
+
+#[test]
+fn alerts_are_read_only_once_code_scanning_has_processed_each_upload() {
+    let (mut site, _) = analysed_main();
+    site.upload = "pending";
+    assert_eq!(site.evaluate(), Ok(false));
+    assert_eq!(site.alert_reads.get(), 0);
+    site.upload = "failed";
+    assert_eq!(
+        value_error(site.evaluate()),
+        "Code scanning could not process main's CodeQL results"
+    );
+    site.upload = "unknown";
+    assert_eq!(value_error(site.evaluate()), "Unreadable analysis upload");
+    let (mut site, _) = analysed_main();
+    site.analyses = Json::Array(vec![with(
+        &uploaded("python", "2026-11-16T00:02:30Z"),
+        &[("sarif_id", s("../alerts"))],
+    )]);
+    assert_eq!(value_error(site.evaluate()), "Unreadable analysis upload");
+}
+
+#[test]
+fn analysis_jobs_must_be_readable_and_present() {
+    let (mut site, _) = analysed_main();
+    site.analysis_jobs = vec![with(
+        &analysis_job("python"),
+        &[("completed_at", Json::Null)],
+    )];
+    assert_eq!(value_error(site.evaluate()), "Unreadable analysis job");
+    site.analysis_jobs = vec![with(&analysis_job("python"), &[("name", s("Upload"))])];
+    assert_eq!(
+        value_error(site.evaluate()),
+        "CodeQL analysis of main has no Analyze job"
+    );
+}
+
+#[test]
+fn an_alert_whose_level_changes_between_reads_waits() {
+    let (mut site, _) = analysed_main();
+    site.alerts = Json::Array(vec![Json::Array(vec![alert(r#"{"severity": "warning"}"#)])]);
+    site.alerts_later = Some(Json::Array(vec![Json::Array(vec![alert(
+        r#"{"severity": "error"}"#,
+    )])]));
+    assert_eq!(site.evaluate(), Ok(false));
+}
+
+#[test]
+fn overlapping_analysis_runs_cannot_share_one_upload() {
+    let (mut site, analysis) = analysed_main();
+    site.runs = vec![
+        site.run.clone(),
+        analysis.clone(),
+        with(&analysis, &[("id", n(5))]),
+    ];
+    assert_eq!(site.evaluate(), Ok(false));
+    site.analyses = Json::Array(vec![
+        with(
+            &uploaded("python", "2026-11-16T00:02:40Z"),
+            &[("id", n(200))],
+        ),
+        uploaded("python", "2026-11-16T00:02:30Z"),
+    ]);
+    assert_eq!(site.evaluate(), Ok(true));
+}
+
+#[test]
+fn analyses_are_read_page_by_page_until_found_or_older_than_the_jobs() {
+    // Newer analyses of other commits fill the first page.
+    let (mut site, _) = analysed_main();
+    let other = with(
+        &uploaded("python", "2026-11-16T00:02:59Z"),
+        &[("id", n(300)), ("commit_sha", s(&"b".repeat(40)))],
+    );
+    site.analyses = Json::Array(vec![other.clone()]);
+    site.older_analyses = Json::Array(vec![uploaded("python", "2026-11-16T00:02:30Z")]);
+    assert_eq!(site.evaluate(), Ok(true));
+    // Read on to the empty third page, as further uploads in a job's window count too.
+    assert_eq!(site.analysis_reads.get(), 3);
+    // A page ending before the earliest job started ends the search.
+    let (mut site, _) = analysed_main();
+    site.analyses = Json::Array(vec![with(
+        &other,
+        &[("created_at", s("2026-11-16T00:00:04Z"))],
+    )]);
+    site.older_analyses = Json::Array(vec![uploaded("python", "2026-11-16T00:02:30Z")]);
+    assert_eq!(site.evaluate(), Ok(false));
+    assert_eq!(site.analysis_reads.get(), 1);
+}
+
+#[test]
+fn an_upload_with_a_result_at_the_threshold_refuses_publication() {
+    let refused = "Main's CodeQL analysis has a result the pull request check would fail on";
+    for results in [
+        format!("[{}]", result(0, None)),
+        format!("[{}]", result(1, None)),
+        format!("[{}]", result(2, Some("error"))),
+        format!("[{}, {}]", result(2, None), result(1, Some("note"))),
+        r#"[{"ruleIndex": 0, "level": "error"}]"#.to_owned(),
+        r#"[{"rule": {"index": 0}, "level": "error"}]"#.to_owned(),
+    ] {
+        let (mut site, _) = analysed_main();
+        site.sarifs = vec![("106".to_owned(), sarif(&results))];
+        assert_eq!(value_error(site.evaluate()), refused, "{results}");
+    }
+    // Below the threshold, and a rule without a security severity.
+    let (mut site, _) = analysed_main();
+    site.sarifs = vec![(
+        "106".to_owned(),
+        sarif(&format!(
+            r#"[{}, {}, {}, {{"ruleIndex": 0}}]"#,
+            result(2, None),
+            result(2, Some("note")),
+            result(0, Some("warning"))
+        )),
+    )];
+    assert_eq!(site.evaluate(), Ok(true));
+}
+
+#[test]
+fn each_overlapping_upload_has_its_own_results_checked() {
+    // A later upload in the same category replaces the earlier one's alerts, so the
+    // alert listing shows nothing; the earlier upload's own results still refuse.
+    let (mut site, analysis) = analysed_main();
+    site.runs = vec![
+        site.run.clone(),
+        analysis.clone(),
+        with(&analysis, &[("id", n(5))]),
+    ];
+    site.analyses = Json::Array(vec![
+        with(
+            &uploaded("python", "2026-11-16T00:02:40Z"),
+            &[("id", n(200))],
+        ),
+        uploaded("python", "2026-11-16T00:02:30Z"),
+    ]);
+    site.sarifs = vec![("106".to_owned(), sarif(&format!("[{}]", result(1, None))))];
+    assert_eq!(
+        value_error(site.evaluate()),
+        "Main's CodeQL analysis has a result the pull request check would fail on"
+    );
+}
+
+#[test]
+fn unreadable_analysis_results_refuse_publication() {
+    let unknown_rule = format!("[{}]", result(3, None));
+    let mut logs: Vec<Json> = [
+        r#"{"message": "Not Found"}"#,
+        r#"{"runs": [{"tool": {}}]}"#,
+        r#"{"runs": [{"tool": {}, "results": [{"ruleIndex": 0}]}]}"#,
+    ]
+    .into_iter()
+    .map(json)
+    .collect();
+    logs.push(sarif(&unknown_rule));
+    logs.push(sarif(
+        r#"[{"rule": {"index": 0, "toolComponent": {"index": 1}}}]"#,
+    ));
+    logs.push(sarif(r#"[{"level": "error"}]"#));
+    for score in [r#""high""#, "7"] {
+        logs.push(json(&format!(
+            r#"{{"runs": [{{"tool": {{"driver": {{"rules": [{{"properties": {{"security-severity": {score}}}}}]}}}}, "results": [{{"ruleIndex": 0}}]}}]}}"#
+        )));
+    }
+    for log in logs {
+        let (mut site, _) = analysed_main();
+        site.sarifs = vec![("106".to_owned(), log.clone())];
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis results",
+            "{log:?}"
+        );
+    }
+}
+
+#[test]
+fn every_upload_in_a_jobs_window_has_its_results_checked() {
+    // One job, 2 uploads whilst it ran: the newer is benign and replaces the older's
+    // alerts; the older's own results still refuse.
+    let (mut site, _) = analysed_main();
+    site.analyses = Json::Array(vec![
+        uploaded("python", "2026-11-16T00:02:40Z"),
+        with(
+            &uploaded("python", "2026-11-16T00:02:30Z"),
+            &[("id", n(200))],
+        ),
+    ]);
+    assert_eq!(site.evaluate(), Ok(true));
+    site.sarifs = vec![("200".to_owned(), sarif(&format!("[{}]", result(1, None))))];
+    assert_eq!(
+        value_error(site.evaluate()),
+        "Main's CodeQL analysis has a result the pull request check would fail on"
+    );
+}
+
+#[test]
+fn an_upload_in_the_second_a_job_started_is_checked_but_not_its_own() {
+    // At second resolution an upload stamped with the job's start second may be the
+    // job's or an earlier attempt's; its results count, but it cannot be the job's.
+    let (mut site, _) = analysed_main();
+    let at_start = with(
+        &uploaded("python", "2026-11-16T00:00:05Z"),
+        &[("id", n(200))],
+    );
+    site.analyses = Json::Array(vec![at_start.clone()]);
+    assert_eq!(site.evaluate(), Ok(false));
+    site.analyses = Json::Array(vec![uploaded("python", "2026-11-16T00:02:40Z"), at_start]);
+    assert_eq!(site.evaluate(), Ok(true));
+    site.sarifs = vec![("200".to_owned(), sarif(&format!("[{}]", result(1, None))))];
+    assert_eq!(
+        value_error(site.evaluate()),
+        "Main's CodeQL analysis has a result the pull request check would fail on"
+    );
+}
+
+#[test]
+fn analysis_times_must_be_utc_seconds() {
+    for time in [
+        Json::Null,
+        s(""),
+        s("2026-11-16 00:00:05"),
+        s("2026-11-16T00:00:05.5Z"),
+        s("2026-11-16T99:99:99Z"),
+        s("2026-02-30T00:00:05Z"),
+    ] {
+        let (mut site, _) = analysed_main();
+        site.analysis_jobs = vec![with(
+            &analysis_job("python"),
+            &[("started_at", time.clone())],
+        )];
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis job",
+            "{time:?}"
+        );
+        // An analysis without a readable creation time could end the paging early.
+        let (mut site, _) = analysed_main();
+        site.analyses = Json::Array(vec![
+            uploaded("python", "2026-11-16T00:02:40Z"),
+            with(
+                &uploaded("ruby", "2026-11-16T00:02:35Z"),
+                &[("created_at", time.clone())],
+            ),
+        ]);
+        site.older_analyses = Json::Array(vec![with(
+            &uploaded("python", "2026-11-16T00:02:30Z"),
+            &[("id", n(200))],
+        )]);
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis listing",
+            "{time:?}"
+        );
+    }
+}
+
+#[test]
+fn an_analysis_without_its_id_commit_or_category_is_unreadable() {
+    for key in ["id", "commit_sha", "category"] {
+        let (mut site, _) = analysed_main();
+        site.analyses = Json::Array(vec![
+            uploaded("python", "2026-11-16T00:02:40Z"),
+            with(
+                &uploaded("python", "2026-11-16T00:02:30Z"),
+                &[(key, Json::Null)],
+            ),
+        ]);
+        assert_eq!(
+            value_error(site.evaluate()),
+            "Unreadable analysis listing",
+            "{key}"
+        );
+    }
 }
