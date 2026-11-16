@@ -53,7 +53,7 @@ Link to question 1
 
 ### Which expenses reduce my taxable income?
 
-To claim a work-related expense, you must have paid it yourself without reimbursement, it must directly relate to earning your income, and you need a record to prove it, usually a receipt. From 2026-27, eligible taxpayers can claim a standard deduction of up to $1,000 for work-related expenses without records; it is reduced by any work-related expenses they claim that it covers. An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.
+To claim a work-related expense, you must have paid it yourself without reimbursement, it must directly relate to earning your income, and you need a record to prove it, usually a receipt. From 2026-27, eligible taxpayers can claim a standard deduction of up to $1,000 for work-related expenses without records; it is reduced by any work-related expenses they claim that it covers. Most deductible expenses need a connection to earning assessable income and the evidence required for that type of claim; a few, such as gifts and donations, do not need that connection. Private spending and reimbursed amounts need separate treatment.
 
 - List each expense, its purpose, date, amount and reimbursement.
 - Record your work use calculation and check the ATO category before claiming.
