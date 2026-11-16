@@ -328,7 +328,7 @@ A first instalment with earlier instalments is refused | Varied amount, instalme
 
 One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -391,7 +391,7 @@ Part years of service are refused | Redundancy payment $48,000.00 after 5.5 year
 
 One of the eighteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -436,7 +436,7 @@ Where a revenue office publishes worked figures, the calculator gives the same a
 
 The transfer duty calculator gives general transfer duty only. It applies no concession, exemption, surcharge or first home buyer scheme, and does not decide whether a transaction is dutiable or what its dutiable value is. These are not computed:
 
-- New South Wales: the First Home Buyers Assistance Scheme, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
+- New South Wales: duty on land other than residential land over $3,870,000, which the premium rate does not reach (the calculator applies it and says so in its result), the First Home Buyers Assistance Scheme, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
 - Victoria: the principal place of residence concession, duty relief for a first home buyer, the City of Melbourne new residential property concession and exemption, the pensioner exemption and concession, and foreign purchaser additional duty.
 - Queensland: the home concession, first home concession, first home (new home) concession and first home vacant land concession, and additional foreign acquirer duty, which also reaches companies and trusts.
 - Western Australia: the concessional rate for a principal place of residence or WA business asset up to $200,000, the first home owner rate, the off-the-plan concession or rebate, and foreign transfer duty.

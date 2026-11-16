@@ -32,7 +32,7 @@ Where a revenue office publishes worked figures, the calculator gives the same a
 
 The transfer duty calculator gives general transfer duty only. It applies no concession, exemption, surcharge or first home buyer scheme, and does not decide whether a transaction is dutiable or what its dutiable value is. These are not computed:
 
-- New South Wales: the First Home Buyers Assistance Scheme, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
+- New South Wales: duty on land other than residential land over $3,870,000, which the premium rate does not reach (the calculator applies it and says so in its result), the First Home Buyers Assistance Scheme, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
 - Victoria: the principal place of residence concession, duty relief for a first home buyer, the City of Melbourne new residential property concession and exemption, the pensioner exemption and concession, and foreign purchaser additional duty.
 - Queensland: the home concession, first home concession, first home (new home) concession and first home vacant land concession, and additional foreign acquirer duty, which also reaches companies and trusts.
 - Western Australia: the concessional rate for a principal place of residence or WA business asset up to $200,000, the first home owner rate, the off-the-plan concession or rebate, and foreign transfer duty.
