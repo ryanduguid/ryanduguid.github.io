@@ -70,8 +70,21 @@ impl Grey {
     }
 }
 
+/// The longest side accepted. The decoder sizes its output from the header
+/// alone, so this bounds it and the renderer's full-size planes (about 1.6 GB at
+/// 8192 by 8192) whilst admitting a 50-megapixel camera frame.
+const MAX_SIDE: u32 = 8192;
+
 /// CIE lightness (0 to 1) and alpha of each pixel of an sRGB PNG.
 fn lightness_and_alpha(png: &[u8]) -> Result<(Grey, Grey), String> {
+    let mut decoder = png::Decoder::new(std::io::Cursor::new(png));
+    let header = decoder.read_header_info().map_err(|e| e.to_string())?;
+    if header.width > MAX_SIDE || header.height > MAX_SIDE {
+        return Err(format!(
+            "the photo is {} by {} pixels; the limit is {MAX_SIDE} on a side",
+            header.width, header.height
+        ));
+    }
     let image = crate::cash_chart_webp::decode_png(png)?;
     let (width, height) = (image.width as usize, image.height as usize);
     let mut lightness = Grey::new(width, height);
@@ -454,15 +467,15 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let [photo] = args else {
         return Err("usage: site-tools render_about_portrait <cutout.png>".into());
     };
-    // Twice the decoder's 64 MiB allocation limit: refuse a stray huge file without
-    // reading it all into memory.
-    const MAX_PHOTO_BYTES: u64 = 128 << 20;
+    // A PNG within MAX_SIDE holds at most 256 MiB of 8-bit RGBA pixels; refuse a
+    // much larger file without reading it all into memory.
+    const MAX_PHOTO_BYTES: u64 = 384 << 20;
     let mut png = Vec::new();
     std::fs::File::open(photo)
         .and_then(|file| file.take(MAX_PHOTO_BYTES + 1).read_to_end(&mut png))
         .map_err(|e| format!("{photo}: {e}"))?;
     if png.len() as u64 > MAX_PHOTO_BYTES {
-        return Err(format!("{photo}: over 128 MiB; supply the cutout PNG"));
+        return Err(format!("{photo}: over 384 MiB; supply the cutout PNG"));
     }
     let font = std::fs::read(root.join(FONT)).map_err(|e| format!("{FONT}: {e}"))?;
     let art = render(&png, &font)?;

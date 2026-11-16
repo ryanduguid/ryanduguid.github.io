@@ -100,14 +100,22 @@ fn a_photo_without_a_transparent_background_is_refused() {
 }
 
 #[test]
-fn a_file_over_128_mib_is_refused_before_it_is_read() {
+fn a_photo_over_8192_pixels_on_a_side_is_refused() {
+    let mut pixels = vec![0u8; 8193 * 4];
+    pixels[4096 * 4..4100 * 4].fill(255);
+    let error = about_portrait::render(&encode(8193, 1, &pixels), &font()).unwrap_err();
+    assert!(error.contains("the limit is 8192 on a side"), "{error}");
+}
+
+#[test]
+fn a_file_over_384_mib_is_refused_before_it_is_read() {
     let root = tempfile::tempdir().unwrap();
     let photo = root.path().join("huge.png");
     let file = std::fs::File::create(&photo).unwrap();
-    file.set_len((128 << 20) + 1).unwrap();
+    file.set_len((384 << 20) + 1).unwrap();
     let args = [photo.to_string_lossy().into_owned()];
     let error = about_portrait::run(root.path(), &args).unwrap_err();
-    assert!(error.contains("over 128 MiB"), "{error}");
+    assert!(error.contains("over 384 MiB"), "{error}");
 }
 
 #[test]
