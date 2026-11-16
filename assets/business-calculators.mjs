@@ -757,9 +757,12 @@ const LAND_TAX_RULES = ['excess', 'excess-rounded-up-to-100'];
 function landTaxCents(dollars, text, fixed = '0') {
   const scale = (text ?? '').split(';').map((row) => row.split(','));
   const whole = (/** @type {string} */ value) => /^\d+$/.test(value);
-  const usable = scale.every(([from, , rate, over, rule], index) =>
-    LAND_TAX_RULES.includes(rule) && whole(from) && whole(over) && Number(over) <= Number(from) && /^\d+(\.\d{1,4})?$/.test(rate)
-      && (index ? Number(from) > Number(scale[index - 1][0]) : from === '0'));
+  const usable = scale.every((row, index) => {
+    const [from, base, rate, over, rule] = row;
+    return row.length === 5 && LAND_TAX_RULES.includes(rule) && whole(from) && whole(over) && Number(over) <= Number(from)
+      && /^\d+(\.\d{1,2})?$/.test(base) && /^\d+(\.\d{1,4})?$/.test(rate)
+      && (index ? Number(from) > Number(scale[index - 1][0]) : from === '0');
+  });
   if (!usable) throw new Error('This jurisdiction’s rate table is not usable.');
   const band = scale[scale.filter(([from]) => dollars >= Number(from)).length - 1];
   const [, base, rate, over, rule] = band;
@@ -789,6 +792,9 @@ function landTaxCents(dollars, text, fixed = '0') {
 export function landTaxYear(value, place, { trust = false, foreign = false, surchargeValue = '', metro = false } = {}) {
   const whole = { max: 1e9, integer: true, money: true };
   const dollars = number(value, whole);
+  if (![trust, foreign, metro].every((flag) => typeof flag === 'boolean')) {
+    throw new Error('Trust rates, a foreign or absentee owner and the metropolitan region must each be true or false.');
+  }
   if (trust && !place.trustScale) throw new Error(`This calculator has no trust rates for ${place.name}.`);
   if (foreign && !place.surcharge) throw new Error(`This calculator has no foreign or absentee owner rates for ${place.name}.`);
   if (metro && !place.mrit) throw new Error('The metropolitan region improvement tax applies only in Western Australia.');

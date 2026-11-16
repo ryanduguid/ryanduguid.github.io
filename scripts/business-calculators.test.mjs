@@ -1269,8 +1269,19 @@ test('land tax applies a band from its first value, adds the ACT fixed charge an
   assert.throws(() => calculations.landTaxYear('-1', nswData), { message: 'Enter a whole number between 0 and 1000000000.' });
   for (const broken of [[], nsw.slice(1), [nsw[0], nsw[2], nsw[1]], [nsw[0], ['1075001', '100', '1.6', '1075002', 'excess']],
     [nsw[0], ['1075000.5', '100', '1.6', '1075000', 'excess']], [nsw[0], ['1075001', '100', '1.6', '1075000', 'whole-value']],
-    [nsw[0], ['1075001', '100', '1.60001', '1075000', 'excess']]]) {
-    assert.throws(() => calculations.landTaxYear('2000000', withScale(broken)), { message: 'This jurisdiction’s rate table is not usable.' },
-      JSON.stringify(broken));
+    [nsw[0], ['1075001', '100', '1.60001', '1075000', 'excess']],
+    // A malformed base or an extra field is refused in any band, not only the one a value falls in.
+    [nsw[0], ['1075001', 'bad', '1.6', '1075000', 'excess'], nsw[2]], [nsw[0], nsw[1], ['6571001', '88036.001', '2', '6571000', 'excess']],
+    [nsw[0], ['1075001', '100', '1.6', '1075000', 'excess', 'extra'], nsw[2]], [['0', '0', '0', '0', 'excess', ''], nsw[1], nsw[2]]]) {
+    for (const value of ['500', '2000000', '9000000']) {
+      assert.throws(() => calculations.landTaxYear(value, withScale(broken)), { message: 'This jurisdiction’s rate table is not usable.' },
+        `${JSON.stringify(broken)} ${value}`);
+    }
+  }
+  for (const choice of ['trust', 'foreign', 'metro']) {
+    for (const flag of ['false', 0, null]) {
+      assert.throws(() => calculations.landTaxYear('2000000', nswData, { [choice]: flag }),
+        { message: 'Trust rates, a foreign or absentee owner and the metropolitan region must each be true or false.' }, `${choice} ${flag}`);
+    }
   }
 });
