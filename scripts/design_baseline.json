@@ -137,8 +137,17 @@
     "tools/business-calculators/div7a/index.html": [
       "766715b645b644ba6cc50ba06d87401e2161ca79a8de1539969639cbf94b25a7"
     ],
+    "tools/business-calculators/fbt-car-parking/index.html": [
+      "d06d8f56107f5f7f1a0c9714598f37927f0f7f105474eccc871712166e37d68b"
+    ],
     "tools/business-calculators/fbt-car/index.html": [
       "1458825601cec0091a9b8476ce67c8ac72d5903f7453d0e03b2709d2c2d23bc0"
+    ],
+    "tools/business-calculators/fbt-loan/index.html": [
+      "a7b60e4ae7e344d1771f3e1bfc59c613a239362fa512044e62302c6a65bb74fc"
+    ],
+    "tools/business-calculators/fbt-meal-entertainment/index.html": [
+      "1571f56a2183b80718f2f4a263a74776f61dfa952272a60720e8ea20d84e65e9"
     ],
     "tools/business-calculators/fixed-fee/index.html": [
       "92a8a36828e952b98e007144bffcb72766b67b31256bbdc8524917a09fc53ccf"
@@ -153,7 +162,7 @@
       "86f5b0ff1e4b4d0e186d3618e5a14afff83676fbf6740a4d258e5a4dd0912673"
     ],
     "tools/business-calculators/index.html": [
-      "f2dcf958bf48b6b1c713ba5542ee9ac118f87fc7f892a72df4daa1a8a7110294"
+      "a51d84d10da24e1ebe45c076eb96e6de98c41115e2665a53f097afae22b412b3"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
@@ -259,9 +268,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "16cfb1959ca9914e47c375b3afd8d1f2492a0deba832148135f6ea1195cf600c",
+    "llms.txt": "a28dcbdbd40f942a58de3b657ffacc9a968e64728b7a8342627ab7b7ed3ade9c",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "e1d55a6cf49f9f9aba0b4194742950b421a60aea3491dcfbeacf505017662403"
+    "sitemap.xml": "e8a11006a487cb690534a0392e2ba4f97b5d4e7f685be95c0804d4abf53b0f14"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -321,7 +330,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7755,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7758,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
