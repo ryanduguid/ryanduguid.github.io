@@ -10,7 +10,7 @@ use crate::pyre::{self, I, S, re};
 use crate::pyurl;
 use crate::pyval::{Val, counter_sub, repr_list};
 use crate::seo_core::{self as core, Tree};
-use chrono::NaiveDate;
+use jiff::civil::Date;
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 use std::sync::LazyLock;
 
@@ -1881,25 +1881,21 @@ pub const CALCULATOR_HUB_REL: &str = "tools/business-calculators/index.html";
 /// The page header's Last checked date, `None` when it shows Last reviewed instead, and
 /// its WebPage `dateModified`. A header with neither, both, more than one or an invalid
 /// date fails, as does a page without exactly one valid `dateModified`.
-fn page_dates(
-    html: &str,
-    rel: &str,
-    failures: &mut Vec<String>,
-) -> (Option<NaiveDate>, Option<NaiveDate>) {
+fn page_dates(html: &str, rel: &str, failures: &mut Vec<String>) -> (Option<Date>, Option<Date>) {
     let checked = header_checked_date(html, rel, failures);
     let modified = webpage_date_modified(html, rel, failures);
     (checked, modified)
 }
 
-fn iso_date(text: &str, what: &str, rel: &str, failures: &mut Vec<String>) -> Option<NaiveDate> {
-    let date = NaiveDate::parse_from_str(text, "%Y-%m-%d").ok();
+fn iso_date(text: &str, what: &str, rel: &str, failures: &mut Vec<String>) -> Option<Date> {
+    let date = Date::strptime("%Y-%m-%d", text).ok();
     if date.is_none() {
         failures.push(format!("{rel}: invalid {what} {text:?}"));
     }
     date
 }
 
-fn header_checked_date(html: &str, rel: &str, failures: &mut Vec<String>) -> Option<NaiveDate> {
+fn header_checked_date(html: &str, rel: &str, failures: &mut Vec<String>) -> Option<Date> {
     // An ordinary string, not a raw one: Lizard misreads the quotes in the raw form and
     // counts every following function as part of this one.
     static CHECKED: LazyLock<regex::Regex> = LazyLock::new(|| {
@@ -1931,7 +1927,7 @@ fn header_checked_date(html: &str, rel: &str, failures: &mut Vec<String>) -> Opt
     })
 }
 
-fn webpage_date_modified(html: &str, rel: &str, failures: &mut Vec<String>) -> Option<NaiveDate> {
+fn webpage_date_modified(html: &str, rel: &str, failures: &mut Vec<String>) -> Option<Date> {
     let blocks = core::json_ld_blocks(html, rel, failures);
     let modified: Vec<String> = blocks
         .iter()
@@ -1973,7 +1969,7 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
         .captures_iter(&hub)
         .map(|c| c[1].to_owned())
         .collect();
-    let mut newest: Option<NaiveDate> = None;
+    let mut newest: Option<Date> = None;
     for path in glob_children(root, "tools/business-calculators", "index.html") {
         let rel = core::rel(&path, root);
         let slug = path
@@ -2009,9 +2005,9 @@ pub fn check_calculator_dates(root: &Path) -> Result<Vec<String>, String> {
 fn check_calculator_page(
     html: &str,
     rel: &str,
-    hub_modified: Option<NaiveDate>,
+    hub_modified: Option<Date>,
     failures: &mut Vec<String>,
-) -> Option<NaiveDate> {
+) -> Option<Date> {
     let (checked, modified) = page_dates(html, rel, failures);
     if let (Some(hub), Some(page)) = (hub_modified, modified)
         && hub < page
@@ -2046,9 +2042,9 @@ fn check_calculator_page(
 fn check_source_dates(
     html: &str,
     rel: &str,
-    checked: Option<NaiveDate>,
+    checked: Option<Date>,
     failures: &mut Vec<String>,
-) -> Option<NaiveDate> {
+) -> Option<Date> {
     static DEPENDENCY: LazyLock<regex::Regex> = LazyLock::new(|| {
         regex::Regex::new(r"\b(read|Official comparison on) (\d{1,2} [A-Z][a-z]+ \d{4})").unwrap()
     });
@@ -2063,7 +2059,7 @@ fn check_source_dates(
     let comparisons = DEPENDENCY
         .captures_iter(&text)
         .filter(|found| &found[1] != "read");
-    let mut newest_read: Option<NaiveDate> = None;
+    let mut newest_read: Option<Date> = None;
     for found in reads.chain(comparisons) {
         let Ok(date) = crate::feed::parse_date(&found[2]) else {
             failures.push(format!("{rel}: unreadable date in '{}'", &found[0]));

@@ -5,7 +5,7 @@
 //! page is in the map its address never changes, and its dates move only when its
 //! content does.
 use super::Result;
-use chrono::NaiveDate;
+use jiff::civil::Date;
 use serde_json::{Value, json};
 use std::collections::{HashMap, HashSet};
 
@@ -64,7 +64,7 @@ fn record(item: &Value) -> Result<Record> {
         ));
     }
     for day in [&record.published, &record.modified] {
-        if NaiveDate::parse_from_str(day, "%Y-%m-%d").is_err() {
+        if Date::strptime("%Y-%m-%d", day).is_err() {
             return Err(format!(
                 "{MAP_REL}: {} has the date {day}, not YYYY-MM-DD",
                 record.url

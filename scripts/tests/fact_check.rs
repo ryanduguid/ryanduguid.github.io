@@ -454,7 +454,6 @@ fn measure_csv_matches_visible_tables() {
 /// hold exactly those rows, in order, and the rendered table must show the same dates.
 #[test]
 fn payday_business_days_csv_matches_the_calendar_copy() {
-    use chrono::Datelike;
     let repository = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let source = |rel: &str| site_tools::read(&repository.join(rel)).unwrap();
     let calendar = pyjson::loads(&source("_data/payday_super_business_days.json")).unwrap();
@@ -463,13 +462,13 @@ fn payday_business_days_csv_matches_the_calendar_copy() {
     let Json::Array(days) = get(&calendar, "non_business_days") else {
         panic!("non_business_days must be a list");
     };
-    let expected: Vec<(String, chrono::NaiveDate, String, Vec<String>)> = days
+    let expected: Vec<(String, jiff::civil::Date, String, Vec<String>)> = days
         .iter()
         .filter_map(|day| {
             let date = text_of(get(day, "date"));
-            let parsed = chrono::NaiveDate::parse_from_str(&date, "%Y-%m-%d").unwrap();
+            let parsed = jiff::civil::Date::strptime("%Y-%m-%d", &date).unwrap();
             let provisional = matches!(day.get("provisional"), Some(Json::Bool(true)));
-            let weekday = parsed.weekday().number_from_monday() <= 5;
+            let weekday = parsed.weekday().to_monday_one_offset() <= 5;
             (from <= date && date <= until && weekday && !provisional).then(|| {
                 let Json::Array(places) = get(day, "jurisdictions") else {
                     panic!("{date}: jurisdictions must be a list");
@@ -492,7 +491,7 @@ fn payday_business_days_csv_matches_the_calendar_copy() {
         assert_eq!(field(record, "date"), date);
         assert_eq!(
             field(record, "weekday"),
-            parsed.format("%A").to_string(),
+            parsed.strftime("%A").to_string(),
             "{date}"
         );
         assert_eq!(field(record, "holiday"), name, "{date}");
@@ -521,7 +520,7 @@ fn payday_business_days_csv_matches_the_calendar_copy() {
     let dates: Vec<&str> = expected.iter().map(|(date, ..)| date.as_str()).collect();
     assert_eq!(times, dates);
     for (cells, (date, parsed, name, places)) in visible.iter().zip(&expected) {
-        let shown = parsed.format("%a %-d %b %Y").to_string();
+        let shown = parsed.strftime("%a %-d %b %Y").to_string();
         assert_eq!(cells, &[shown, name.clone(), places.join(", ")], "{date}");
     }
 }
@@ -581,10 +580,9 @@ fn bas_due_dates() -> Vec<[&'static str; 7]> {
 /// calendar, as the page says.
 #[test]
 fn bas_due_dates_csv_holds_the_ato_dates_and_sources() {
-    use chrono::{Datelike, NaiveDate};
     let repository = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let source = |rel: &str| site_tools::read(&repository.join(rel)).unwrap();
-    let parse = |date: &str| NaiveDate::parse_from_str(date, "%Y-%m-%d").unwrap();
+    let parse = |date: &str| jiff::civil::Date::strptime("%Y-%m-%d", date).unwrap();
     let rows = bas_due_dates();
     let columns = [
         "frequency",
@@ -666,14 +664,14 @@ fn bas_due_dates_csv_holds_the_ato_dates_and_sources() {
         .collect();
     for &date in &dates {
         let parsed = parse(date);
-        if parsed.weekday().number_from_monday() <= 5 {
+        if parsed.weekday().to_monday_one_offset() <= 5 {
             assert!(
                 date <= until.as_str(),
                 "{date} is past the holiday calendar"
             );
             assert!(!holidays.iter().any(|h| h == date), "{date} is a holiday");
         } else {
-            let named = parsed.format("%A %-d %B %Y").to_string();
+            let named = parsed.strftime("%A %-d %B %Y").to_string();
             assert!(page.contains(&named), "the page must name {named}");
         }
     }
@@ -682,7 +680,7 @@ fn bas_due_dates_csv_holds_the_ato_dates_and_sources() {
         return;
     }
     let html = read("tools/bas-due-dates/index.html");
-    let shown = |date: &str| parse(date).format("%a %-d %b %Y").to_string();
+    let shown = |date: &str| parse(date).strftime("%a %-d %b %Y").to_string();
     let visible = measure_rows(&html);
     assert_eq!(
         visible.len(),

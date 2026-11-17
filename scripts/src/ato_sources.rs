@@ -819,8 +819,8 @@ pub fn is_iso_date(value: Option<&Value>) -> bool {
     else {
         return false;
     };
-    let part = |range: std::ops::Range<usize>| text[range].parse::<u32>().unwrap_or(0);
-    chrono::NaiveDate::from_ymd_opt(part(0..4) as i32, part(5..7), part(8..10)).is_some()
+    let part = |range: std::ops::Range<usize>| text[range].parse::<i16>().unwrap_or(0);
+    jiff::civil::Date::new(part(0..4), part(5..7) as i8, part(8..10) as i8).is_ok()
 }
 
 static LAST_UPDATED: LazyLock<Regex> = LazyLock::new(|| {
@@ -1632,7 +1632,7 @@ fn sweep(args: &[String]) -> Result<u8, String> {
     let pages = read_pages(&urls, &mut run_batch, &mut read_pdf)?;
     let value_files = collect_values(&directories)?;
     let mut findings = Findings {
-        date: chrono::Local::now().format("%Y-%m-%d").to_string(),
+        date: jiff::ZonedDateTime::now().strftime("%Y-%m-%d").to_string(),
         read: sources.len(),
         deferred,
         ..Findings::default()

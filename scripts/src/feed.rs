@@ -3,7 +3,7 @@
 
 //! Atom output and published identifiers follow build_feed.py at 8c8bb84.
 use crate::{html, py};
-use chrono::NaiveDate;
+use jiff::civil::Date;
 use regex::Regex;
 use std::collections::HashSet;
 use std::path::Path;
@@ -14,14 +14,14 @@ pub const DOC: &str = "Build feed.xml, an Atom feed of the changelog's dated row
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Entry {
-    pub date: NaiveDate,
+    pub date: Date,
     pub title: String,
     pub summary: String,
     pub link: String,
     pub id: String,
 }
 
-pub fn parse_date(text: &str) -> Result<NaiveDate, String> {
+pub fn parse_date(text: &str) -> Result<Date, String> {
     const MONTHS: [&str; 12] = [
         "January",
         "February",
@@ -44,17 +44,17 @@ pub fn parse_date(text: &str) -> Result<NaiveDate, String> {
         let year = py::parse_int(fields[2], 10)
             .ok()?
             .to_string()
-            .parse::<i32>()
+            .parse::<i16>()
             .ok()?;
         let day = py::parse_int(fields[0], 10)
             .ok()?
             .to_string()
-            .parse::<u32>()
+            .parse::<i8>()
             .ok()?;
-        let month = MONTHS.iter().position(|m| *m == fields[1])? as u32 + 1;
+        let month = MONTHS.iter().position(|m| *m == fields[1])? as i8 + 1;
         (1..=9999)
             .contains(&year)
-            .then(|| NaiveDate::from_ymd_opt(year, month, day))
+            .then(|| Date::new(year, month, day).ok())
             .flatten()
     })();
     parsed.ok_or_else(|| format!("changelog: unreadable date {}", py::repr_str(text)))
@@ -267,7 +267,7 @@ pub fn check_release_rows(source: &str, releases: &str) -> Result<(), String> {
     let section = SECTION
         .captures(source)
         .map_or("", |c| c.get(1).unwrap().as_str());
-    let rows: HashSet<(NaiveDate, String)> = rows(section)?
+    let rows: HashSet<(Date, String)> = rows(section)?
         .into_iter()
         .map(|r| (r.entry.date, r.entry.link))
         .collect();
@@ -284,7 +284,7 @@ pub fn check_release_rows(source: &str, releases: &str) -> Result<(), String> {
                 .ok_or_else(|| format!("{DATA}: {slug} has no {name}"))
         };
         let url = field("url")?;
-        let date = NaiveDate::parse_from_str(field("date")?, "%Y-%m-%d")
+        let date = Date::strptime("%Y-%m-%d", field("date")?)
             .map_err(|_| format!("{DATA}: {slug} has an unreadable date"))?;
         if !release.contains_key("tag") && !url.contains("/releases/tag/") {
             continue;
@@ -293,7 +293,7 @@ pub fn check_release_rows(source: &str, releases: &str) -> Result<(), String> {
         if !rows.contains(&(date, url.to_owned())) {
             missing.push(format!(
                 "changelog: Tool releases has no {} row linking {tag} ({slug} in {DATA}); add one",
-                date.format("%-d %B %Y")
+                date.strftime("%-d %B %Y")
             ));
         }
     }
