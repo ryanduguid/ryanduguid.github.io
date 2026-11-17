@@ -1287,9 +1287,19 @@ test('FBT car parking results name the contribution and spaces conditions they d
   const form = { dataset: { calculator: 'fbt-car-parking', threshold: '11.48', yearDays: '365', yearEnded: '2027' } };
   const value = (name) => fields[name] ?? '0';
   const result = () => fbtBenefitResult(form, calculations, { aud: String, value, money: value });
-  assert.equal(result().note, 'Contributions come off in total: if one benefit’s contribution was more than its value, '
-    + 'the excess does not reduce other benefits, so value that benefit separately');
-  fields.contribution = '0';
+  const total = 'Contributions come off in total: if one benefit’s contribution was more than its value, '
+    + 'the excess does not reduce other benefits, so value that benefit separately';
+  assert.equal(result().note, total);
+  Object.assign(fields, { 'first-fee': '10', 'last-fee': '10' });
+  for (const method of ['market', 'average']) {
+    fields.method = method;
+    assert.equal(result().note, total, method);
+  }
+  Object.assign(fields, { method: 'station', each: '0', contribution: '5' });
+  assert.deepEqual([result().rows.at(-2)[1], result().note], ['5', total]);
+  fields.fee = '11.48';
+  assert.equal(result().note, 'No car parking benefit arises: the first business day fee is not more than the $11.48 threshold');
+  Object.assign(fields, { fee: '12', each: '10', contribution: '0' });
   assert.equal(result().note, undefined);
   Object.assign(fields, { method: 'spaces', rate: '10', 'space-days': '182', spaces: '4', 'employees-start': '3',
     'employees-end': '3', 'spaces-start': '4', 'spaces-end': '4', contribution: '2340' });
