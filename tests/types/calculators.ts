@@ -28,6 +28,15 @@ void tool.execute({ amount: '110.00', inclusive: true });
 calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
 // @ts-expect-error A Division 7A benchmark rate is a decimal string, as the rate table writes it.
 calculate.div7aMinimumRepayment('100000', 8.77, '5');
+const div7aLoan = { made: '2022-10-01', amount: '100000', term: '7', assumedRate: '8.77', repayments: '', marginalRate: '',
+  franking: 'unfranked', lodgment: false, refinanced: false, interposed: false };
+const div7aYears: number = calculate.div7aSchedule(div7aLoan).years.length;
+// @ts-expect-error Each question about the loan is a boolean answer, as the form passes it.
+calculate.div7aSchedule({ ...div7aLoan, interposed: 'no' });
+// @ts-expect-error A year's funding dividend is null when no marginal rate is given.
+const funding: number = calculate.div7aSchedule(div7aLoan).years[0].funding;
+void div7aYears;
+void funding;
 const duty: number = calculate.transferDuty('1350000', [['0', '', '0', '1', 'excess']]).duty;
 // @ts-expect-error A dutiable value is a decimal string, as the form field gives it.
 calculate.transferDuty(1350000, [['0', '', '0', '1', 'excess']]);

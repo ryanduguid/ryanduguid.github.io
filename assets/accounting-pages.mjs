@@ -149,7 +149,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       if (applied) applied.hidden = true;
       csv = '';
       if (cashDownload) cashDownload.disabled = true;
-      const table = form.querySelector('#cash-results');
+      const table = form.querySelector('#cash-results, #div7a-schedule-results');
       if (table) table.parentElement.hidden = true;
     }
     form.addEventListener('input', invalidate);
@@ -222,6 +222,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const r = calculate.div7aMinimumRepayment(value('balance'), year.dataset.rate, value('term'));
             result = { inputs: `${year.value} income year at the ${year.dataset.rate}% benchmark rate, ${money('balance')} not repaid at 30 June ${year.value.slice(0, 4)}, ${count(value('term'), 'year')} remaining`, principal: 0,
               rows: [['Minimum yearly repayment', aud(r.repayment)], ['Interest for the year, if repaid on 30 June', aud(r.interest)], ['Principal, if repaid on 30 June', aud(r.principal)]] };
+            break;
+          }
+          case 'div7a-schedule': {
+            const yes = name => value(name) === 'yes';
+            result = calculate.div7aScheduleResult({ made: value('made'), amount: value('amount'), term: value('term'),
+              assumedRate: value('assumed-rate'), repayments: value('repayments'), marginalRate: value('marginal-rate'),
+              franking: value('franking'), lodgment: yes('lodgment'), refinanced: yes('refinanced'), interposed: yes('interposed') }, aud);
+            const table = form.querySelector('#div7a-schedule-results');
+            table.tBodies[0].replaceChildren(...result.table.map(cells => {
+              const tr = document.createElement('tr');
+              tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
+              return tr;
+            }));
+            table.parentElement.hidden = false;
             break;
           }
           case 'transfer-duty': {
