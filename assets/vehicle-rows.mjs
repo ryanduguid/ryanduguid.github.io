@@ -51,7 +51,7 @@ export function vehicleRows(r, f, year, aud) {
         ? 'Not decided here: MT 2024’s dual cab test is for FBT, and no ATO ruling applies it to the car limit'
         : 'Not decided here: it applies only to a car designed mainly for carrying passengers') : 'Does not apply'],
     ['GST credit, section 69-10 of the GST Act', credit],
-    ...(r.carLimit ? [['First element of cost for decline in value', r.cost === null ? 'Not decided here: it turns on the GST credit' : aud(r.cost)]] : []),
+    ...(r.carLimit || r.cost !== null ? [['First element of cost for decline in value', r.cost === null ? 'Not decided here: it turns on the GST credit' : aud(r.cost)]] : []),
     [`Luxury car tax at the ${aud(r.threshold)} threshold`, luxury], ['FBT on an employee’s private use', fbt],
     ['Records', `${records[0]}, ${records[1]}, and ${records[2]}`]];
 }

@@ -1280,13 +1280,19 @@ test('the design tests agree with MT 2024, the FBT guide, LCTD 2023/1 and TD 94/
 // reaches 'a car designed mainly for carrying passengers'. MT 2024 paragraphs 14 to 16 set the dual cab test for FBT's
 // subsection 8(2), TD 94/19 confines that method to dual cabs, and TD 2006/39 paragraph 7 carries only MT 2033's
 // modification reasoning to s 40-230 (each read 17 November 2026). No ATO ruling applies MT 2024's test to the car
-// limit, so a dual cab's car limit is not decided here, whatever its FBT answer.
+// limit, so a dual cab's car limit is not decided here, whatever its FBT answer. Section 40-230 only reduces a cost
+// above the limit, so a cost after the credit within the limit is given either way.
 test('a dual cab’s car limit is not decided here, whatever MT 2024 says for FBT', () => {
   const year = vehicleYears['2026-27'];
   for (const [gvm, kerb, passengers, fbt] of [['2000', '1400', true, 'car-benefit'], ['3000', '2040', false, '8(2)(a)(ii)']]) {
     const result = calculations.vehicleClass(vehicle({ body: 'dual-cab', gvm, kerb, cost: '50000' }), year);
-    assert.deepEqual([result.passengers, result.fbt, result.carLimit, result.cost], [passengers, fbt, null, null], kerb);
+    assert.deepEqual([result.passengers, result.fbt, result.carLimit, result.cost], [passengers, fbt, null, 45454.55], kerb);
   }
+  // Without a credit, a price over the $69,883 limit leaves the cost undecided; at the limit it is the price.
+  const uncredited = (cost) => calculations.vehicleClass(vehicle({ body: 'dual-cab', cost, credit: 'none' }), year).cost;
+  assert.deepEqual([uncredited('69883'), uncredited('69883.01')], [69883, null]);
+  assert.equal(calculations.vehicleClass(vehicle({ body: 'van', seats: '3', gvm: '3000', kerb: '2100', cost: '60000' }), year).cost,
+    54545.45);
 });
 
 // GST Act s 69-10(4)(a), read 17 November 2026 (https://www.ato.gov.au/law/view/document?docid=PAC/19990055/69-10),
@@ -1303,6 +1309,9 @@ test('the ATO’s LCT compliance approach does not lift the GST credit cap', () 
     // Within the car limit the credit is the GST in the price, capped or not.
     assert.equal(calculations.vehicleClass(vehicle({ ...fields, cost: '60000' }), year).credit, 5454.55, fields.body);
   }
+  // Section 69-10 reaches only a car: a van carrying 1 tonne takes the whole GST as its credit.
+  const truck = calculations.vehicleClass(vehicle({ body: 'van', seats: '3', gvm: '3000', kerb: '2000', cost: '90000' }), year);
+  assert.deepEqual([truck.car, truck.capApplies, truck.credit], [false, false, 8181.82]);
 });
 
 // LCTD 2023/1, read 17 November 2026: paragraph 55 takes the simplified method's load carrying capacity as 'the

@@ -113,7 +113,10 @@ export function vehicleClass(vehicle, year) {
   // s 40-230: no ATO ruling applies MT 2024's dual cab test to the car limit, so only a passenger
   // body is settled as designed mainly for carrying passengers.
   const carLimit = !car ? false : vehicle.body === 'passenger' ? true : null;
-  const cost = carLimit && credit !== null ? Math.min(price - Number(credit), limit) : null;
+  // The cost after the credit is the same whether or not the limit applies when it is no more than
+  // the limit, so an undecided car limit still gives it there.
+  const net = credit === null ? null : price - Number(credit);
+  const cost = net === null || carLimit === false ? null : carLimit ? Math.min(net, limit) : net <= limit ? net : null;
   /** @type {VehicleFbt} */
   const fbt = !car ? '47(6)' : ['single-cab', 'van'].includes(vehicle.body) ? '8(2)(a)(i)' : passengers ? 'car-benefit' : '8(2)(a)(ii)';
   return { load, car, passengers, carLimit, capApplies, cap: capApplies ? Number(cap) / 100 : null,

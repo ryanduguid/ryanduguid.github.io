@@ -674,6 +674,10 @@ test('vehicle classifier works LCTD 2023/1’s dual cab and the 2025-26 car limi
   await expect(row('Car limit, section 40-230'))
     .toHaveText('Not decided here: it applies only to a car designed mainly for carrying passengers');
   await expect(row('First element of cost for decline in value')).toHaveCount(0);
+  // Within the limit the cost after the credit is the same whether or not the limit applies.
+  await form.getByLabel('Price including GST, before luxury car tax (AUD)').fill('55000');
+  await calculate();
+  await expect(row('First element of cost for decline in value')).toHaveText('$50,000.00');
   await form.getByLabel('Another body, such as a truck or bus').check();
   await calculate();
   await expect(form.locator('output')).toHaveText('Whether this body was designed principally to carry passengers turns on its appearance, '

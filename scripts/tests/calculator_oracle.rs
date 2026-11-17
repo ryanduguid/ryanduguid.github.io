@@ -2609,15 +2609,21 @@ fn vehicle_oracle(v: &Vehicle, limit: u64, threshold: u64) -> Value {
         _ => Some(eleventh(v.price)),
     };
     // s 40-230: no ATO ruling applies MT 2024's dual cab test to the car limit, so only a
-    // passenger body is settled. TD 2006/40: the cost less the credit, then no more than the limit.
+    // passenger body is settled. TD 2006/40: the cost less the credit, then no more than the limit;
+    // a cost within the limit is the same whether or not the limit applies.
     let car_limit = match v.body {
         _ if !car => Some(false),
         "passenger" => Some(true),
         _ => None,
     };
-    let cost = credit
-        .filter(|_| car_limit == Some(true))
-        .map(|credit| (v.price - credit).min(limit));
+    let cost = credit.and_then(|credit| {
+        let net = v.price - credit;
+        match car_limit {
+            Some(true) => Some(net.min(limit)),
+            None if net <= limit => Some(net),
+            _ => None,
+        }
+    });
     let fbt = match v.body {
         _ if !car => "47(6)",
         "single-cab" | "van" => "8(2)(a)(i)",
