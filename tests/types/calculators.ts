@@ -107,3 +107,10 @@ calculate.division296({ ...member, died: 'no' }, division296Year);
 const component: number = calculate.division296(member, division296Year).component;
 void division296Total;
 void component;
+const landTax: number = calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess', surcharge: '0,0,2,0,excess' },
+  { foreign: true, surchargeValue: '400000' }).total;
+// @ts-expect-error A land value is a decimal string, as the form field gives it.
+calculate.landTaxYear(1100000, { name: 'Tasmania', scale: '0,0,0,0,excess' });
+// @ts-expect-error A foreign or absentee owner is a boolean flag.
+calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess' }, { foreign: 'yes' });
+void landTax;

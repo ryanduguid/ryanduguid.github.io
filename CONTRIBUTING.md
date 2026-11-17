@@ -418,7 +418,10 @@ pages, which returned HTTP 200 locally on 29 September 2026. In
 run 43794456386
 the runner's connection to Tasmania's
 [rates of duty](https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty)
-ended before a response, which returned HTTP 200 locally on 16 November 2026. The link checker
+ended before a response, which returned HTTP 200 locally on 16 November 2026. In
+run 43966788055 it did the same for 6 more Tasmanian land tax and first home pages
+the land tax and transfer duty calculators cite; each returned HTTP 200 locally
+on 17 November 2026. The link checker
 reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
 GitHub Actions. Run `site-tools check_links` locally before changing any
 of them; local runs still fetch them all. Remove the CI exceptions when runner
@@ -439,6 +442,10 @@ locally before changing a source link and remove exceptions when access permits.
 Run 43794456386 returned HTTP 403 for 6 more ATO sources cited by the PAYG
 instalments and termination payment calculators; each returned HTTP 200 locally
 on 16 November 2026 and is in the same list.
+Run 43966788055 returned HTTP 403 for 4 ACT Revenue Office and 3 NT Government
+land tax and first home pages cited by the land tax and transfer duty
+calculators. On 17 November 2026 the ACT pages returned HTTP 200 locally and the
+NT pages HTTP 200 in a browser; all 7 are in the same list.
 
 The [Division 7A benchmark rate table](https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate)
 also returned HTTP 403 in run 34852175800.

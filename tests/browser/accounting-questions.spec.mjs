@@ -5,7 +5,8 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
 
-for (const module of ['business-calculators', 'field-errors']) {
+// money and land-tax are business-calculators' helpers: a retry must fetch them afresh too.
+for (const module of ['business-calculators', 'field-errors', 'money', 'land-tax']) {
   test(`calculator load failure explains recovery and retry loads the module (${module})`, async ({ page }) => {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -33,6 +34,22 @@ for (const module of ['business-calculators', 'field-errors']) {
     expect(errors).toEqual([]);
   });
 }
+
+test('a calculator page works without the question pages’ script', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  const requested = [];
+  page.on('request', request => requested.push(request.url()));
+  await page.route('**/assets/accounting-questions.mjs*', route => route.abort());
+  await page.goto('/tools/business-calculators/gst/');
+  const form = page.locator('#gst form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await form.locator('input[name=amount]').fill('110');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(page.locator('#gst output')).toContainText('GST: $10.00');
+  expect(requested.filter(url => url.includes('accounting-questions.mjs'))).toEqual([]);
+  expect(errors).toEqual([]);
+});
 
 test('an invalid business calculator field gets an inline instruction and focus', async ({ page }) => {
   await page.goto('/tools/business-calculators/gst/');
@@ -628,10 +645,30 @@ test('transfer duty notes NSW premium duty from the first dollar over $3,870,000
   await expect(output.locator('.result-note')).toHaveCount(0);
 });
 
+test('transfer duty takes a first home buyer chosen by keyboard and says where there is no concession', async ({ page }) => {
+  await page.goto('/tools/business-calculators/transfer-duty/');
+  const form = page.locator('#transfer-duty form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await form.getByLabel('Queensland').check();
+  await form.getByLabel('Eligible first home buyer, established home').focus();
+  await page.keyboard.press('Space');
+  await expect(form.getByLabel('Eligible first home buyer, established home')).toBeChecked();
+  await form.getByLabel('Dutiable value (whole dollars)').fill('730000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: Queensland, dutiable value $730,000.00, eligible first home buyer, established home. '
+    + 'Duty for an eligible first home buyer: $6,555.00. General transfer duty: $25,875.00. '
+    + 'Rate applied: $17,325 plus $4.50 for every $100, or part of $100, over $540,000.');
+  await form.getByLabel('Tasmania').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText(
+    'Duty for an eligible first home buyer: none for this home, so general duty applies.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments', 'termination-payment',
-  'transfer-duty', 'division-296'];
+  'transfer-duty', 'land-tax', 'division-296'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -769,4 +806,71 @@ test('a varied PAYG instalment rate gives the instalment and its credit offline'
   await form.getByLabel('Varying only: estimated tax on instalment income for the year, T8 (AUD)').fill('82480.01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toHaveText('Estimated tax cannot exceed estimated instalment income.');
+});
+
+test('land tax adds the ACT fixed charge and names the band it applied, offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/land-tax/');
+  const form = page.locator('#land-tax form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByLabel('Australian Capital Territory', { exact: true }).check();
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('600000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  // Worked by hand from DI2026-152: $1,778 + $1,610 + 1.24% of $325,000.
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: Australian Capital Territory, total taxable land value $600,000.00. Land tax for the year: $7,418.00. '
+    + 'Rate applied: the $1,778 fixed charge plus $1,610 plus 1.24% of the value over $275,000.');
+});
+
+test('land tax adds a foreign owner surcharge and MRIT from the radios and checkbox, offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/land-tax/');
+  const form = page.locator('#land-tax form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  const text = () => form.locator('output').evaluate((element) => element.textContent);
+  // Revenue NSW's surcharge land tax example 1.
+  await form.getByLabel('Yes', { exact: true }).check();
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('1200000');
+  await form.getByLabel('Surcharge value, New South Wales and Tasmania only (whole dollars)').fill('1200000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await text()).toBe('Inputs: New South Wales, foreign or absentee owner, total taxable land value $1,200,000.00, '
+    + 'surcharge value $1,200,000.00. Land tax for the year: $2,100.00. Rate applied: $100 plus 1.6% of the value over $1,075,000. '
+    + 'Foreign or absentee owner surcharge: $60,000.00. Total for the year: $62,100.00.');
+  // Western Australia has no surcharge here, so the choice is refused rather than ignored.
+  await form.getByLabel('Western Australia', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await text()).toBe('This calculator has no foreign or absentee owner rates for Western Australia.');
+  // Worked by hand: $1,750 + 0.9% of $500,000, and MRIT of 0.14% of $1,200,000.
+  await form.getByLabel('No', { exact: true }).check();
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('1500000');
+  await form.getByLabel('All the land is in the Perth metropolitan region (Western Australia)').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await text()).toBe('Inputs: Western Australia, total taxable land value $1,500,000.00, all in the Perth metropolitan region. '
+    + 'Land tax for the year: $6,250.00. Rate applied: $1,750 plus 0.9% of the value over $1,000,000. '
+    + 'Metropolitan region improvement tax: $1,680.00. Total for the year: $7,930.00.');
+});
+
+test('land tax says RevenueSA assesses nothing under $20 only when the South Australian figure is under $20', async ({ page }) => {
+  await page.goto('/tools/business-calculators/land-tax/');
+  const form = page.locator('#land-tax form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  const note = form.locator('output .result-note');
+  await form.getByLabel('South Australia', { exact: true }).check();
+  // $50 over the threshold is a whole $100 at 50 cents; $939,900 is 39 lots of $100, $19.50.
+  for (const [value, shown] of [['936050', '$0.50'], ['939900', '$19.50']]) {
+    await form.getByLabel('Total taxable land value (whole dollars)').fill(value);
+    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    await expect(form.locator('output .result-row strong').first()).toHaveText(shown);
+    await expect(note).toHaveText('RevenueSA issues no land tax assessment where the calculated land tax is under $20.');
+  }
+  // $940,000 is 40 lots of $100, $20.00, and New South Wales has no such rule.
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('940000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row strong').first()).toHaveText('$20.00');
+  await expect(note).toHaveCount(0);
+  await form.getByLabel('New South Wales', { exact: true }).check();
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('1075001');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row strong').first()).toHaveText('$100.02');
+  await expect(note).toHaveCount(0);
 });
