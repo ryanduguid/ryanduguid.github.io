@@ -138,8 +138,8 @@ function yearInterest(opening, repayment, rate, days) {
 
 /** The schedule of a complying Division 7A loan, from the first income year after the year it
  * was made. Each year's minimum yearly repayment is s 109E(6) on the amount not repaid at the
- * end of the previous year, at that year's benchmark rate, over the remaining term: the 7 or
- * 25 years of s 109N(3) less the years since the year the loan was made. Each repayment is made
+ * end of the previous year, at that year's benchmark rate, over the remaining term: the loan's
+ * term, the 7 or 25 years s 109N(3) allows, less the years since the year it was made. Each repayment is made
  * on 30 June; a blank one is the minimum, or the amount that repays the loan if that is less.
  * A repayment meets the year's interest first and only the rest repays the loan. One short of
  * the minimum, with the loan not repaid, is the shortfall s 109E(1) and (2) take to be a
