@@ -24,6 +24,7 @@ const incomeTax = { file: 'assets/income-tax.mjs', test: individualTest };
 const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
+const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
 const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
@@ -159,6 +160,15 @@ const MUTATIONS = [
   { ...business, name: 'ETP preservation age table is a year out', find: 'july - 1904', replace: 'july - 1903' },
   { ...business, name: 'ETP accepts a date of birth after the year', find: 'born > year.yearEnd', replace: 'born > \'9999\'' },
   { ...business, name: 'ETP accepts 151 years of service', find: 'max: 150, integer: true', replace: 'max: 151, integer: true' },
+  { ...division296, name: 'Division 296 shares truncate', find: 'ratioCents((balance - threshold) * 10000n, balance)', replace: '((balance - threshold) * 10000n / balance)' },
+  { ...division296, name: 'Division 296 taxes a balance equal to the threshold', find: 'reference <= largeThreshold', replace: 'reference < largeThreshold' },
+  { ...division296, name: 'Division 296 keeps the balance after death', find: 'member.died ? 0n : balance', replace: 'balance' },
+  { ...division296, name: 'Division 296 taxes negative earnings', find: 'earnings > 0n ? earnings * percentage : 0n', replace: 'earnings * percentage' },
+  { ...division296, name: 'Division 296 takes the 10% on taxable earnings', find: 'component * hundredths(year.veryLargeRate)', replace: 'taxable * hundredths(year.veryLargeRate)' },
+  { ...division296, name: 'Division 296 ignores the exceptions', find: "const liable = liability === 'liable' || liability === 'rounds-to-nil';", replace: 'const liable = true;' },
+  { ...division296, name: 'Division 296 rounds each tax before the total', find: 'shown(tax + veryLargeTax, 100000000n)', replace: 'shown(tax, 100000000n) + shown(veryLargeTax, 100000000n)' },
+  { ...division296, name: 'Division 296 shows a negative component as nil', find: 'component: shown(component, 10000n)', replace: 'component: shown(component < 0n ? 0n : component, 10000n)' },
+  { ...division296, name: 'Division 296 accepts an exception answered with text', find: "typeof flag !== 'boolean'", replace: 'false' },
 
   { ...incomeTax, name: '2026-27 starts at 16%', find: "'2026-27': [[18200, 15]", replace: "'2026-27': [[18200, 16]" },
   { ...incomeTax, name: 'foreign residents reach 37% at $120,000', find: '[[0, 30], [135000, 37]', replace: '[[0, 30], [120000, 37]' },
