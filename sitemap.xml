@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/rates/</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/rates/announced-not-yet-law/</loc>
@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/rates/individual-income-tax/</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/rates/study-loan-repayment/</loc>
@@ -257,6 +257,18 @@
     <lastmod>2026-11-15</lastmod>
   </url>
   <url>
+    <loc>https://duguid.com.au/tools/business-calculators/fbt-car-parking/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/fbt-loan/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
     <loc>https://duguid.com.au/tools/business-calculators/vehicle-class/</loc>
     <lastmod>2026-11-17</lastmod>
   </url>
@@ -267,6 +279,10 @@
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/gic-payment-plan/</loc>
     <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/div7a-schedule/</loc>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/staff/</loc>
@@ -295,6 +311,26 @@
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/transfer-duty/</loc>
     <lastmod>2026-11-16</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/income-tax/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/take-home-pay/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/study-loan/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/payroll-tax/</loc>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/privacy/</loc>

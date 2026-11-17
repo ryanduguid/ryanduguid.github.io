@@ -19,9 +19,16 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const levy = { file: 'assets/levy.mjs', test: 'scripts/levy.test.mjs' };
 const business = { file: 'assets/business-calculators.mjs', test: 'scripts/business-calculators.test.mjs' };
+const individualTest = 'scripts/individual-tax.test.mjs';
+const incomeTax = { file: 'assets/income-tax.mjs', test: individualTest };
+const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
+const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
+const div7a = { ...business, file: 'assets/div7a.mjs' };
+const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
+const payroll = { ...business, file: 'assets/payroll-tax.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -59,9 +66,9 @@ const MUTATIONS = [
   { ...business, name: 'a balloon above the principal is accepted', find: 'residual > balanceCents', replace: 'residual > balanceCents + 1n' },
   { ...business, name: 'staff cost spreads over 13 months', find: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 12n', replace: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 13n' },
   { ...business, name: 'funding uses the closing balance', find: 'minimumBuffer - minimum', replace: 'minimumBuffer - balance' },
-  { ...business, name: 'Division 7A compounds over one year too many', find: '(10000n + rate) ** term', replace: '(10000n + rate) ** (term + 1n)' },
-  { ...business, name: 'Division 7A interest is taken on the repayment', find: 'ratioCents(balanceCents * rate, 10000n)', replace: 'ratioCents(repayment * rate, 10000n)' },
-  { ...business, name: 'Division 7A accepts a 26-year term', find: 'max: 25, integer: true', replace: 'max: 26, integer: true' },
+  { ...div7a, name: 'Division 7A compounds over one year too many', find: '(10000n + rate) ** term', replace: '(10000n + rate) ** (term + 1n)' },
+  { ...div7a, name: 'Division 7A interest is taken on the repayment', find: 'ratioCents(balanceCents * rate, 10000n)', replace: 'ratioCents(repayment * rate, 10000n)' },
+  { ...div7a, name: 'Division 7A accepts a 26-year term', find: 'max: 25, integer: true', replace: 'max: 26, integer: true' },
   { ...business, name: 'transfer duty ignores part of $100', find: '((excess + 99n) / 100n)', replace: '(excess / 100n)' },
   { ...business, name: 'transfer duty takes the next band at a band\'s top value', find: 'dollars <= Number(to)', replace: 'dollars < Number(to)' },
   { ...business, name: 'a whole-value band charges only the excess', find: 'ratioCents(hundredths * whole, 100n)', replace: 'ratioCents(hundredths * excess, 100n)' },
@@ -87,6 +94,26 @@ const MUTATIONS = [
   { ...business, name: 'FBT is worked on the taxable value, not the grossed-up value', find: 'ratioCents(grossedUp * BigInt', replace: 'ratioCents(BigInt(taxable) * BigInt' },
   { ...business, name: 'FBT car accepts nil operating costs', find: 'cents(car.costs) === 0', replace: 'cents(car.costs) < 0' },
   { ...business, name: 'FBT car accepts more days than the year has', find: 'max: yearDays, integer: true', replace: 'max: yearDays + 1, integer: true' },
+  { ...fbt, name: 'FBT loan ignores the interest accrued', find: 'notional - least(accrued, notional)', replace: 'notional' },
+  { ...fbt, name: 'FBT loan reduction can take the value below nil', find: 'least(notionalDeduction, gross)', replace: 'notionalDeduction' },
+  { ...fbt, name: 'FBT loan deduction for accrued interest can exceed the gross deduction', find: 'grossDeduction - least(deduction, grossDeduction)', replace: 'grossDeduction - deduction' },
+  { ...fbt, name: 'FBT loan accepts a deduction above the interest accrued', find: 'if (deduction > accrued)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT loan divides by 365 in every year', find: '10000n * days', replace: '10000n * 365n' },
+  { ...fbt, name: 'FBT meal 50/50 split takes all the expenses', find: 'ratioCents(expenses, 2n)', replace: 'ratioCents(expenses, 1n)' },
+  { ...fbt, name: 'FBT meal register lapses at 30%, not 20%', find: 'earlier[0] * 12n', replace: 'earlier[0] * 13n' },
+  { ...fbt, name: 'FBT meal register lapses at exactly 20%', find: 'value * 10n > limit', replace: 'value * 10n >= limit' },
+  { ...fbt, name: 'FBT meal register accepts a nil first year', find: 'if (earlier[0] === 0n)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT results keep totals too large to show to the cent', find: '100n * 2n ** 46n', replace: 'BigInt(Number.MAX_SAFE_INTEGER)' },
+  { ...fbt, name: 'FBT results refuse a total of exactly 2^46 dollars', find: 'if (value > MOST_CENTS)', replace: 'if (value >= MOST_CENTS)' },
+  { ...fbt, name: 'FBT register stays valid for 5 years after its first', find: 'min: ended - 4', replace: 'min: ended - 5' },
+  { ...fbt, name: 'FBT meal register percentage is not applied', find: 'ratioCents(expenses * benefits, total)', replace: 'ratioCents(expenses * benefits, benefits || 1n)' },
+  { ...fbt, name: 'FBT car parking fee at the threshold gives a benefit', find: 'fee > threshold', replace: 'fee >= threshold' },
+  { ...fbt, name: 'FBT car parking benefit arises whatever the fee', find: 'return benefit ? { benefit, ...value }', replace: 'return true ? { benefit, ...value }' },
+  { ...fbt, name: 'FBT car parking register divides by the year’s days', find: '12n * 366n', replace: '12n * BigInt(yearDays)' },
+  { ...fbt, name: 'FBT car parking spaces take 230 days', find: '228n * spaces', replace: '230n * spaces' },
+  { ...fbt, name: 'FBT car parking spaces ignore fewer employees', find: 'e0 + e1 < s0 + s1 ?', replace: 'false ?' },
+  { ...fbt, name: 'FBT car parking average cost takes the first fee only', find: 'money(p.firstFee) + money(p.lastFee)', replace: '2n * money(p.firstFee)' },
+  { ...fbt, name: 'FBT car parking contributions take the value below nil', find: 'least(contribution, gross)', replace: 'contribution' },
   { ...business, name: 'PCG 2021/4 puts exactly 50% returned in the band below', find: '[50, true]', replace: '[50, false]' },
   { ...business, name: 'PCG 2021/4 puts an exactly 30% tax rate in the band below', find: '[30, true]', replace: '[30, false]' },
   { ...business, name: 'PCG 2021/4 puts exactly 100% of the benchmark in the band above', find: '[100, false]', replace: '[100, true]' },
@@ -132,6 +159,43 @@ const MUTATIONS = [
   { ...business, name: 'ETP preservation age table is a year out', find: 'july - 1904', replace: 'july - 1903' },
   { ...business, name: 'ETP accepts a date of birth after the year', find: 'born > year.yearEnd', replace: 'born > \'9999\'' },
   { ...business, name: 'ETP accepts 151 years of service', find: 'max: 150, integer: true', replace: 'max: 151, integer: true' },
+
+  { ...incomeTax, name: '2026-27 starts at 16%', find: "'2026-27': [[18200, 15]", replace: "'2026-27': [[18200, 16]" },
+  { ...incomeTax, name: 'foreign residents reach 37% at $120,000', find: '[[0, 30], [135000, 37]', replace: '[[0, 30], [120000, 37]' },
+  { ...incomeTax, name: 'working holiday makers reach 30% at $37,000', find: '[[0, 15], [45000, 30]', replace: '[[0, 15], [37000, 30]' },
+  { ...incomeTax, name: 'the offset tapers at 4%', find: '(income - 37500) * 50', replace: '(income - 37500) * 40' },
+  { ...incomeTax, name: 'the offset rounds half a cent down', find: 'Math.floor((tenths + 5) / 10)', replace: 'Math.floor(tenths / 10)' },
+  { ...incomeTax, name: 'the offset can exceed the tax', find: 'Math.min(tax, lowIncomeOffset(income))', replace: 'lowIncomeOffset(income)' },
+  { ...incomeTax, name: 'the Medicare shade-in takes the greater', find: 'Math.min(income * 2, (income - threshold) * 10)', replace: 'Math.max(income * 2, (income - threshold) * 10)' },
+  { ...incomeTax, name: 'foreign residents pay the Medicare levy', find: 'const medicare = resident ?', replace: 'const medicare = true ?' },
+  { ...incomeTax, name: '2024-25 takes the 2025-26 Medicare thresholds', find: "'2024-25': [27222, 34027]", replace: "'2024-25': [28011, 35013]" },
+  { ...studyLoan, name: 'the upper marginal rate is 16%', find: 'Math.max(0, income - top) * 17', replace: 'Math.max(0, income - top) * 16' },
+  { ...studyLoan, name: 'the repayment takes the greater amount', find: 'tenth < marginal ?', replace: 'tenth > marginal ?' },
+  { ...studyLoan, name: '2024-25 takes the first band', find: 'table.bands.findLast(', replace: 'table.bands.find(' },
+  { ...studyLoan, name: 'the minimum repayment income itself repays', find: 'if (income <= table.minimum)', replace: 'if (income < table.minimum)' },
+  { ...studyLoan, name: 'repayment income leaves out super contributions', find: "const PARTS = ['taxable', 'fringe', 'losses', 'super', 'foreign'];", replace: "const PARTS = ['taxable', 'fringe', 'losses', 'foreign'];" },
+  { ...takeHome, name: 'super guarantee ignores the base', find: 'Math.min(entered, capCents) * tenths', replace: 'entered * tenths' },
+  { ...takeHome, name: 'a package’s super is the rate of the package', find: 'nearest(entered * tenths, 1000 + tenths)', replace: 'nearest(entered * tenths, 1000)' },
+  { ...takeHome, name: 'the study loan is left out', find: 'const loan = pay.studyLoan', replace: 'const loan = false' },
+  { ...takeHome, name: 'no standard deduction', find: 'Math.min(100000, salary) : 0', replace: '0 : 0' },
+  { ...takeHome, name: 'the standard deduction drops the salary’s cents', find: 'Math.min(100000, salary) : 0', replace: 'Math.min(100000, salary - (salary % 100)) : 0' },
+  { ...takeHome, name: 'the standard deduction for foreign residents too', find: "pay.year >= STANDARD_DEDUCTION_FROM && pay.residency === 'resident'", replace: 'pay.year >= STANDARD_DEDUCTION_FROM' },
+  { ...takeHome, name: 'a fortnight is a 24th', find: 'nearest(net, 26)', replace: 'nearest(net, 24)' },
+  { ...takeHome, name: '2024-25 super guarantee is 12%', find: "'2024-25': { rate: 11.5", replace: "'2024-25': { rate: 12" },
+  { ...div7a, name: 'Division 7A schedule counts the remaining term from the year made', find: 'const remainingTerm = term - k + 1;', replace: 'const remainingTerm = term - k + 2;' },
+  { ...div7a, name: 'Division 7A schedule drops unpaid interest from the loan', find: 'const principal = repayment - interest;', replace: 'const principal = repayment > interest ? repayment - interest : 0n;' },
+  { ...div7a, name: 'Division 7A schedule runs on past a shortfall', find: 'if (shortfall > 0n || opening === 0n) break;', replace: 'if (opening === 0n) break;' },
+  { ...div7a, name: 'Division 7A schedule finds a shortfall only below the interest', find: 'repayment < minimum ?', replace: 'repayment < interest ?' },
+  { ...div7a, name: 'Division 7A schedule ignores the assumed rate', find: 'PUBLISHED.get(label) ?? assumed', replace: 'PUBLISHED.get(label) ?? 877n' },
+  { ...div7a, name: 'Division 7A schedule puts a loan made on 30 June in the next year', find: "made.slice(5) >= '07-01'", replace: "made.slice(5) >= '06-30'" },
+  { ...div7a, name: 'Division 7A schedule works a loan made on 3 December 1997', find: "made < '1997-12-04'", replace: "made < '1997-12-03'" },
+  { ...div7a, name: 'Division 7A schedule accepts a repayment above the balance and interest', find: 'repayment > opening + interest', replace: 'repayment > opening + interest + 1n' },
+  { ...div7a, name: 'Division 7A schedule ignores repayments after the loan is repaid', find: 'if (opening === 0n && entered.length > years.length)', replace: 'if (false)' },
+  { ...div7a, name: 'Division 7A interest ignores a 30 June repayment', find: 'ratioCents(opening * rate * (days - 1n), 10000n * days) + ratioCents(after * rate, 10000n * days)', replace: 'ratioCents(opening * rate, 10000n)' },
+  { ...div7a, name: 'Division 7A interest divides a leap year by 365', find: 'getUTCDate() === 29 ? 366 : 365', replace: 'getUTCDate() === 29 ? 365 : 365' },
+  { ...div7a, name: 'Division 7A schedule takes a loan repaid in full as a shortfall', find: 'principal < opening && repayment < minimum', replace: 'repayment < minimum' },
+  { ...div7a, name: 'a funding dividend rounds to the nearest cent', find: '+ 10000n - marginal - 1n) /', replace: '+ (10000n - marginal) / 2n) /' },
+  { ...div7a, name: 'a franked funding dividend ignores the corporate rate', find: 'repayment * (10000n - corporate)', replace: 'repayment * 10000n' },
   { ...vehicle, name: 'a 1 tonne load is still a car', find: 'motor && load < 1000 && seats < 9', replace: 'motor && load <= 1000 && seats < 9' },
   { ...vehicle, name: '9 seats are still a car', find: 'motor && load < 1000 && seats < 9', replace: 'motor && load < 1000 && seats <= 9' },
   { ...vehicle, name: 'an LCT car carries under 1 tonne, not 2', find: 'motor && load < 2000', replace: 'motor && load < 1000' },
@@ -172,6 +236,20 @@ const MUTATIONS = [
   { ...landTax, name: 'the surcharge is left out of the land tax total', find: 'land.amount + surcharge + mrit', replace: 'land.amount + mrit' },
   { ...landTax, name: 'trust rates are taken where a jurisdiction has none', find: 'if (trust && !place.trustScale) throw', replace: 'if (false) throw' },
   { ...landTax, name: 'MRIT is taken outside Western Australia', find: 'if (metro && !place.mrit) throw', replace: 'if (false) throw' },
+  { ...payroll, name: 'payroll tax apportions by truncating', find: 'ratioCents(own * n, all * d)', replace: '((own * n) / (all * d))' },
+  { ...payroll, name: 'payroll tax taxes the deduction instead of the wages above it', find: 'const size = tn * fd - fn * td;', replace: 'const size = fn * td;' },
+  { ...payroll, name: 'payroll tax deductions never taper', find: 'return [above(lawCents(threshold) * per, above(australian, lawCents(threshold))), per];', replace: 'return [lawCents(threshold) * per, per];' },
+  { ...payroll, name: 'payroll tax rate bands include their lower edge', find: 'australian > lawCents(over) ? rate : found', replace: 'australian >= lawCents(over) ? rate : found' },
+  { ...payroll, name: 'payroll tax WA taper is the upper threshold over the band', find: 'above(a, threshold) * threshold), upper - threshold]', replace: 'above(a, threshold) * upper), upper - threshold]' },
+  { ...payroll, name: 'payroll tax SA rate is never phased in', find: 'a > full ? [n, d] : [above(a, threshold) * n, (full - threshold) * d]', replace: '[n, d]' },
+  { ...payroll, name: 'payroll tax SA rate is negative below the threshold', find: '[above(a, threshold) * n,', replace: '[(a - threshold) * n,' },
+  { ...payroll, name: 'payroll tax Tasmania charges the higher rate throughout', find: 'rate: percent(lower)', replace: 'rate: percent(upper)' },
+  { ...payroll, name: 'payroll tax Victoria never phases out the deduction', find: 'above(australian, lawCents(law.phaseOutFrom)) * n', replace: '0n * n' },
+  { ...payroll, name: 'payroll tax Victoria skips the second surcharge threshold', find: ' + above(australian, lawCents(law.secondSurchargeThreshold))', replace: '' },
+  { ...payroll, name: 'payroll tax NT higher rate starts above $100 million', find: "['99999999.99', '6.5']", replace: "['100000000', '6.5']" },
+  { ...payroll, name: 'payroll tax accepts Australian wages below the state wages', find: 'if (all < own)', replace: 'if (false)' },
+  { ...payroll, name: 'payroll tax blank Australian wages are twice the state wages', find: "australian.trim() === '' ? own", replace: "australian.trim() === '' ? own * 2n" },
+  { ...payroll, name: 'payroll tax total leaves out the surcharges and levies', find: '(payroll + cents(first) + cents(second)) / 100', replace: 'payroll / 100' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -188,10 +266,12 @@ try {
   for (const name of readdirSync(join(root, 'assets')).filter((entry) => entry.endsWith('.mjs'))) {
     copyFileSync(join(root, 'assets', name), join(work, 'assets', name));
   }
-  for (const { test } of [levy, business]) copyFileSync(join(root, test), join(work, test));
+  for (const test of [levy.test, business.test, individualTest]) copyFileSync(join(root, test), join(work, test));
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
-    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', 'rates/car-limit',
-    'llms.txt', '.well-known/llms.txt']) {
+    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
+    'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
+    'rates/maximum-contribution-base', 'rates/car-limit', 'llms.txt', '.well-known/llms.txt',
+    'scripts/fbt-engine-differential.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
@@ -200,7 +280,7 @@ try {
     if (run.status === 0) return 'survived';
     return run.status === 1 && run.stdout.includes("code: 'ERR_ASSERTION'") ? 'caught' : 'invalid';
   };
-  for (const { test } of [levy, business]) {
+  for (const test of [levy.test, business.test, individualTest]) {
     if (verdict(test) !== 'survived') throw new Error(`${test} fails before any mutation`);
   }
   const mutated = ({ file, test, find, replace }) => {

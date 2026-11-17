@@ -2534,6 +2534,202 @@ fn the_gic_engine_agrees_with_the_oracle_on_every_seeded_case() {
     }
 }
 
+/// Runs the Division 7A schedule engine, as `HARNESS` runs the others.
+const DIV7A_SCHEDULE_HARNESS: &str = r"
+import { div7aSchedule } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const text = (value) => (value === null ? null : String(value));
+const texts = (record) => Object.fromEntries(Object.entries(record).map(([key, value]) => [key, text(value)]));
+const run = ({ loan }) => {
+  const { years, ...summary } = div7aSchedule(loan);
+  return { ...texts(summary), years: years.map(texts) };
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+const DIV7A_SCHEDULE_CASES: usize = 200;
+/// The ATO's benchmark rates in hundredths of 1%, by the calendar year each income year starts
+/// in, typed from 'Division 7A – benchmark interest rate' (last updated 1 July 2026, read
+/// 17 November 2026), not from the engine or the site's table.
+const ATO_BENCHMARK: [(i32, u64); 6] = [
+    (2021, 452),
+    (2022, 477),
+    (2023, 827),
+    (2024, 877),
+    (2025, 837),
+    (2026, 877),
+];
+
+fn income_year(start: i32) -> String {
+    format!("{start}-{:02}", (start + 1) % 100)
+}
+
+fn hundredths(rate: u64) -> String {
+    format!("{}.{:02}", rate / 100, rate % 100)
+}
+
+/// A year's interest in cents on `opening` at `rate` hundredths of 1% for the income year
+/// starting 1 July of `start`, with `repayment` made on 30 June: the opening balance from 1 July
+/// to 29 June, then the balance the repayment leaves for that day, each period half up to the
+/// cent over the year's calendar days; one period when nothing is repaid.
+fn div7a_year_interest(opening: u64, rate: u64, start: i32, repayment: u64) -> u64 {
+    let july = |year| NaiveDate::from_ymd_opt(year, 7, 1).unwrap();
+    let days = u128::try_from(
+        july(start + 1)
+            .signed_duration_since(july(start))
+            .num_days(),
+    )
+    .unwrap();
+    let whole = u128::from(opening) * u128::from(rate);
+    let part = if repayment == 0 {
+        exact_half_up(whole, 10_000)
+    } else {
+        exact_half_up(whole * (days - 1), 10_000 * days)
+            + exact_half_up(
+                u128::from(opening.saturating_sub(repayment)) * u128::from(rate),
+                10_000 * days,
+            )
+    };
+    u64::try_from(part).unwrap()
+}
+
+/// One seeded loan and its schedule: the repayments are chosen a year at a time against the
+/// minimum the oracle works for that year, so short, extra and final repayments all appear.
+/// Each year's minimum comes from `div7a_oracle`, which sums discount factors, and its days
+/// from the calendar; a repayment meets the interest first, interest it leaves unpaid adds to the
+/// balance, and the dividend that funds it is
+/// the repayment grossed up for tax at the marginal rate, less the franking credit, rounded up.
+fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
+    let first = NaiveDate::from_ymd_opt(2020, 7, 1).unwrap();
+    let last = NaiveDate::from_ymd_opt(2027, 6, 30).unwrap();
+    let span = u64::try_from(last.signed_duration_since(first).num_days()).unwrap();
+    let any_day = first + chrono::Days::new(rng.below(span + 1));
+    let made = rng.pick(&[first, last, any_day, any_day, any_day]);
+    let year_made = if made.month() >= 7 {
+        made.year()
+    } else {
+        made.year() - 1
+    };
+    let amount = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let term = rng.pick(&[7_u32, 7, 25]);
+    let any_rate = 1 + rng.below(2_000);
+    let assumed = rng.pick(&[877, 877, 1, 10_000, any_rate]);
+    let any_marginal = rng.below(10_000);
+    let marginal = rng.pick(&[
+        None,
+        None,
+        Some(0),
+        Some(3_000),
+        Some(4_700),
+        Some(9_999),
+        Some(any_marginal),
+    ]);
+    let (franking, corporate) = rng.pick(&[("unfranked", 0_u64), ("30", 3_000), ("25", 2_500)]);
+    let (mut opening, mut repaid, mut charged) = (amount, 0_u64, 0_u64);
+    let (mut entries, mut years) = (Vec::new(), Vec::new());
+    let mut projected_from = Value::Null;
+    for k in 1..=term {
+        let start = year_made + i32::try_from(k).unwrap();
+        let published = ATO_BENCHMARK
+            .iter()
+            .find(|(year, _)| *year == start)
+            .map(|&(_, rate)| rate);
+        let rate = published.unwrap_or(assumed);
+        if published.is_none() && projected_from.is_null() {
+            projected_from = json!(income_year(start));
+        }
+        let remaining = term - k + 1;
+        let [minimum, _, _] = div7a_oracle(opening, rate, remaining);
+        let interest_on = |repayment| div7a_year_interest(opening, rate, start, repayment);
+        let payoff = opening + interest_on(opening);
+        let due = minimum.min(payoff);
+        let chosen = match rng.below(10) {
+            5 | 6 if payoff > due + 1 => Some(due + 1 + rng.cents(payoff - due - 1)),
+            7 if due > 0 => Some(rng.below(due)),
+            8 => Some(payoff),
+            9 => Some(due),
+            _ => None,
+        }
+        .filter(|&value| value <= MAX_PRINCIPAL);
+        entries.push(chosen.map_or_else(String::new, dollars));
+        let repayment = chosen.unwrap_or(due);
+        let interest = interest_on(repayment);
+        // The amount not repaid is the opening balance plus the interest less the repayment, so
+        // interest left unpaid adds to it and the principal is negative.
+        let closing = opening + interest - repayment;
+        let principal = i128::from(repayment) - i128::from(interest);
+        let shortfall = if closing > 0 {
+            minimum.saturating_sub(repayment)
+        } else {
+            0
+        };
+        let funding = marginal.map(|m| {
+            let top = u128::from(repayment) * u128::from(10_000 - corporate);
+            json!(shown(
+                u64::try_from(top.div_ceil(u128::from(10_000 - m))).unwrap()
+            ))
+        });
+        years.push(json!({
+            "year": income_year(start), "rate": shown(rate), "projected": published.is_none().to_string(),
+            "remainingTerm": remaining.to_string(), "opening": shown(opening), "minimum": shown(minimum),
+            "repayment": shown(repayment), "interest": shown(interest), "principal": shown_signed(principal),
+            "closing": shown(closing), "shortfall": shown(shortfall),
+            "funding": funding.unwrap_or(Value::Null),
+        }));
+        (opening, repaid, charged) = (closing, repaid + repayment, charged + interest);
+        if shortfall > 0 || opening == 0 {
+            break;
+        }
+    }
+    // Blank entries at the end mean the minimum, as no entry does.
+    if rng.below(2) == 0 {
+        while entries.last().is_some_and(String::is_empty) {
+            entries.pop();
+        }
+    }
+    let last_year = years.last().unwrap().clone();
+    let loan = json!({
+        "made": made.format("%Y-%m-%d").to_string(), "amount": dollars(amount), "term": term.to_string(),
+        "assumedRate": hundredths(assumed), "repayments": entries.join("; "),
+        "marginalRate": marginal.map_or_else(String::new, hundredths), "franking": franking,
+        "lodgment": false, "refinanced": false, "interposed": false,
+    });
+    let expected = json!({
+        "firstMinimum": years[0]["minimum"], "totalRepaid": shown(repaid), "totalInterest": shown(charged),
+        "lastYear": last_year["year"], "closing": last_year["closing"], "shortfall": last_year["shortfall"],
+        "projectedFrom": projected_from, "years": years,
+    });
+    (json!({ "loan": loan }), expected)
+}
+
+#[test]
+fn the_div7a_schedule_oracle_charges_30_june_on_the_reduced_balance() {
+    // $100,000 at 8.27% for 2023-24, which holds 29 February: 365 of 366 days give $8,247.40,
+    // and 30 June on the $80,615.04 left after the $19,384.96 minimum gives $18.22.
+    assert_eq!(div7a_oracle(10_000_000, 827, 7)[0], 1_938_496);
+    assert_eq!(
+        div7a_year_interest(10_000_000, 827, 2023, 1_938_496),
+        826_562
+    );
+    assert_eq!(div7a_year_interest(10_000_000, 827, 2023, 0), 827_000);
+    // 2024-25 has 365 days: $88,880.66 at 8.77% is $7,773.48 for 364, then $20.15 on $83,880.66.
+    assert_eq!(div7a_year_interest(8_888_066, 877, 2024, 500_000), 779_363);
+}
+
+#[test]
+fn the_div7a_schedule_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1117_0000_7a7a);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..DIV7A_SCHEDULE_CASES)
+        .map(|_| div7a_schedule_case(&mut rng))
+        .unzip();
+    let actual = run_node(DIV7A_SCHEDULE_HARNESS, &cases);
+    assert_eq!(actual.len(), DIV7A_SCHEDULE_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
 const VEHICLE_CASES: usize = 240;
 
 /// Each year, its car limit and its LCT thresholds for fuel-efficient and other vehicles, in
@@ -2766,6 +2962,431 @@ fn the_vehicle_engine_agrees_with_the_oracle_on_every_seeded_case() {
         (0..VEHICLE_CASES).map(|_| vehicle_case(&mut rng)).unzip();
     let actual = engines(&cases);
     assert_eq!(actual.len(), VEHICLE_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+// FBT loan, meal entertainment and car parking benefits, FBTAA 1986 Compilation No. 97, for the
+// FBT year ending 31 March 2027 (365 days, statutory interest rate 8.27%, car parking threshold
+// $11.48). The oracle builds each loan's daily balances from a repayment schedule and adds the
+// day's interest one day at a time, where `assets/fbt-benefits.mjs` takes their sum; it works
+// s 19's reduction as the value after it, never below nil, where the engine caps the reduction.
+// It values car parking one benefit, space or day at a time where the engine multiplies, scales
+// spaces by the average employees over the average spaces, and checks the meal register's 20%
+// rule as 5 x a year's expenses against 6 x the first year's. The conventions are shared: each
+// value rounds half up to the cent before contributions come off, the spaces method rounds the
+// total statutory benefit before scaling it, and s 39GB divides by 366 in every year.
+
+/// Runs the FBT benefit engines, as `HARNESS` runs the others.
+const FBT_BENEFIT_HARNESS: &str = r"
+import { fbtLoan, fbtMealEntertainment, fbtCarParking } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const engines = { loan: fbtLoan, meal: fbtMealEntertainment, parking: fbtCarParking };
+const run = ({ kind, inputs, year }) => {
+  try {
+    return Object.fromEntries(Object.entries(engines[kind](inputs, year))
+      .map(([key, value]) => [key, typeof value === 'number' ? String(value) : value]));
+  } catch (error) {
+    return { refused: error.message };
+  }
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+const FBT_BENEFIT_CASES: usize = 240;
+const FBT_YEAR_DAYS: u64 = 365;
+/// 8.27% in hundredths of 1%.
+const FBT_LOAN_RATE: u128 = 827;
+/// $11.48 in cents.
+const PARKING_THRESHOLD: u64 = 1_148;
+
+/// A loan's notional interest, gross taxable value, gross deduction, notional deduction,
+/// reduction and taxable value, in cents. `balances` holds the balance owed on each day.
+fn fbt_loan_oracle(balances: &[u64], accrued: u64, income_use: u64, deduction: u64) -> [u64; 6] {
+    // Each day's interest is its balance x 8.27% / 365; the sum rounds once.
+    let mut day_interest = 0_u128;
+    for balance in balances {
+        day_interest += u128::from(*balance) * FBT_LOAN_RATE;
+    }
+    let notional = exact_half_up(day_interest, 10_000 * u128::from(FBT_YEAR_DAYS)) as i128;
+    let gross = (notional - i128::from(accrued)).max(0);
+    let gross_deduction = exact_half_up(notional as u128 * u128::from(income_use), 10_000) as i128;
+    let notional_deduction = (gross_deduction - i128::from(deduction)).max(0);
+    let taxable = (gross - notional_deduction).max(0);
+    [
+        notional,
+        gross,
+        gross_deduction,
+        notional_deduction,
+        gross - taxable,
+        taxable,
+    ]
+    .map(|cents| u64::try_from(cents).unwrap())
+}
+
+/// A loan of `principal` cents owed for `days` days, `repaid` cents of it repaid at the start
+/// of day `repaid_on`.
+fn fbt_loan_case(rng: &mut Seeded) -> (Value, Value) {
+    let principal = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let any_days = 1 + rng.below(FBT_YEAR_DAYS);
+    let days = rng.pick(&[1, 100, 365, any_days]);
+    let any_repaid = rng.below(principal + 1);
+    let repaid = rng.pick(&[0, any_repaid]);
+    let repaid_on = rng.below(days);
+    let balances: Vec<u64> = (0..days)
+        .map(|day| principal - if day >= repaid_on { repaid } else { 0 })
+        .collect();
+    let notional_guess = principal / 10;
+    let any_accrued = rng.cents(notional_guess.max(1));
+    let accrued = rng.pick(&[0, notional_guess, any_accrued]);
+    let any_deduction = rng.below(accrued + 1);
+    let deduction = rng.pick(&[0, accrued, any_deduction]);
+    let any_use = rng.below(10_001);
+    let income_use = rng.pick(&[0, 6_000, 10_000, any_use]);
+    let figures = fbt_loan_oracle(&balances, accrued, income_use, deduction);
+    let names = [
+        "notional",
+        "gross",
+        "grossDeduction",
+        "notionalDeduction",
+        "reduction",
+        "taxableValue",
+    ];
+    let expected: serde_json::Map<String, Value> = names
+        .iter()
+        .zip(figures)
+        .map(|(name, cents)| ((*name).to_owned(), shown(cents).into()))
+        .collect();
+    let total: u64 = balances.iter().sum();
+    (
+        json!({"kind": "loan", "inputs": {
+            "balances": dollars(total), "accrued": dollars(accrued),
+            "incomeUse": format!("{}.{:02}", income_use / 100, income_use % 100), "deduction": dollars(deduction),
+        }, "year": {"days": FBT_YEAR_DAYS.to_string(), "rate": "8.27"}}),
+        Value::Object(expected),
+    )
+}
+
+/// The meal entertainment taxable value under the 50/50 split, or under a register with
+/// `register` = (its fringe benefits, its total, its first valid year, each year's expenses
+/// from then to the year before this one), with the register percentage in hundredths of 1%.
+fn fbt_meal_oracle(expenses: u64, register: Option<(u64, u64, u64, &[u64])>) -> Value {
+    let Some((benefits, total, first, earlier)) = register else {
+        return json!({"taxableValue": shown(exact_half_up(u128::from(expenses), 2) as u64)});
+    };
+    // A nil first year is refused as unsupported, as the engine refuses it.
+    if earlier.first() == Some(&0) {
+        return json!({"refused": "This calculator does not take a register whose first valid year had nil expenses: enter that year\u{2019}s expenses."});
+    }
+    if let Some(year) =
+        (1..earlier.len()).find(|&k| 5 * u128::from(earlier[k]) > 6 * u128::from(earlier[0]))
+    {
+        return json!({"refused": format!("The register ceased to be valid at the end of the FBT year ending 31 March {}: \
+            its expenses were more than 20% higher than those of the register\u{2019}s first valid year. Keep a new register.",
+            first + year as u64)});
+    }
+    let percent = exact_half_up(u128::from(benefits) * 10_000, u128::from(total)) as u64;
+    let taxable = exact_half_up(
+        u128::from(expenses) * u128::from(benefits),
+        u128::from(total),
+    ) as u64;
+    json!({"registerPercent": shown(percent), "taxableValue": shown(taxable)})
+}
+
+fn fbt_meal_case(rng: &mut Seeded) -> (Value, Value) {
+    let expenses = rng.cents(MAX_PRINCIPAL);
+    let blank = json!({"method": "split", "expenses": dollars(expenses), "registerBenefits": "0",
+        "registerTotal": "0", "firstYear": "2027", "earlier": []});
+    let year = json!({"ended": "2027"});
+    if rng.below(3) == 0 {
+        return (
+            json!({"kind": "meal", "inputs": blank, "year": year}),
+            fbt_meal_oracle(expenses, None),
+        );
+    }
+    let total = 1 + rng.cents(10_000_000);
+    let any_benefits = rng.below(total + 1);
+    let benefits = rng.pick(&[0, total, any_benefits]);
+    let first = 2023 + rng.below(5);
+    let any_base = 1 + rng.cents(10_000_000);
+    let base = rng.pick(&[0, 100_000, any_base]);
+    let earlier: Vec<u64> = (0..2027 - first)
+        .map(|k| match (k, rng.below(4)) {
+            (0, _) => base,
+            (_, 0) => base * 6 / 5,
+            (_, 1) => base * 6 / 5 + 1,
+            _ => rng.below(base * 13 / 10 + 1),
+        })
+        .collect();
+    let mut inputs = blank;
+    inputs["method"] = "register".into();
+    inputs["registerBenefits"] = dollars(benefits).into();
+    inputs["registerTotal"] = dollars(total).into();
+    inputs["firstYear"] = first.to_string().into();
+    inputs["earlier"] = earlier
+        .iter()
+        .map(|cents| Value::from(dollars(*cents)))
+        .collect();
+    (
+        json!({"kind": "meal", "inputs": inputs, "year": year}),
+        fbt_meal_oracle(expenses, Some((benefits, total, first, &earlier))),
+    )
+}
+
+/// The gross value less contributions, as the engine shows them.
+fn less_contributions(
+    expected: &mut serde_json::Map<String, Value>,
+    gross: u64,
+    contribution: u64,
+) {
+    let applied = gross.min(contribution);
+    for (name, cents) in [
+        ("gross", gross),
+        ("contributionApplied", applied),
+        ("excess", contribution - applied),
+        ("taxableValue", gross - applied),
+    ] {
+        expected.insert(name.to_owned(), shown(cents).into());
+    }
+}
+
+/// A car parking valuation's figures for one premises. The amounts in `p` are cents and the
+/// counts whole numbers, keyed as the engine names its inputs.
+fn fbt_parking_oracle(method: &str, p: &std::collections::HashMap<&str, u64>) -> Value {
+    let benefit = p["fee"] > PARKING_THRESHOLD;
+    if method == "spaces" && !benefit {
+        return json!({"refused": "These spaces gave rise to no car parking benefit: the first business day fee is not \
+            more than the car parking threshold, so the spaces method does not count them."});
+    }
+    if !benefit {
+        return json!({"benefit": false, "gross": "0", "taxableValue": "0"});
+    }
+    let mut expected = serde_json::Map::new();
+    expected.insert("benefit".to_owned(), true.into());
+    match method {
+        "station" | "market" => {
+            let gross = (0..p["benefits"]).map(|_| p["each"]).sum();
+            less_contributions(&mut expected, gross, p["contribution"]);
+        }
+        "average" => {
+            let pair = u128::from(p["firstFee"] + p["lastFee"]);
+            let halves: u128 = (0..p["benefits"]).map(|_| pair).sum();
+            expected.insert(
+                "average".to_owned(),
+                shown(exact_half_up(pair, 2) as u64).into(),
+            );
+            less_contributions(
+                &mut expected,
+                exact_half_up(halves, 2) as u64,
+                p["contribution"],
+            );
+        }
+        "register" => {
+            // The register's 12 weeks a year are 52/12 of it; each day of the period adds 1/366.
+            let per_day: u128 = (0..p["days"])
+                .map(|_| u128::from(p["registerValue"]) * 52)
+                .sum();
+            let gross = shown(exact_half_up(per_day, 12 * 366) as u64);
+            expected.insert(
+                "annual".to_owned(),
+                shown(exact_half_up(u128::from(p["registerValue"]) * 52, 12) as u64).into(),
+            );
+            expected.insert("gross".to_owned(), gross.clone().into());
+            expected.insert("taxableValue".to_owned(), gross.into());
+        }
+        _ => {
+            let mut sum = 0_u128;
+            for _ in 0..p["spaces"] {
+                for _ in 0..p["spaceDays"] {
+                    sum += u128::from(p["rate"]) * 228;
+                }
+            }
+            let statutory = exact_half_up(sum, 366);
+            // Average employees over average spaces: each average is a sum over 2, kept in
+            // hundredths so it shows as the engine shows it.
+            let (employees, spaces) = (
+                u128::from(p["employeesStart"] + p["employeesEnd"]) * 50,
+                u128::from(p["spacesStart"] + p["spacesEnd"]) * 50,
+            );
+            let gross = if employees < spaces {
+                exact_half_up(statutory * employees, spaces)
+            } else {
+                statutory
+            };
+            expected.insert(
+                "statutoryBenefit".to_owned(),
+                shown(statutory as u64).into(),
+            );
+            expected.insert(
+                "averageEmployees".to_owned(),
+                shown(employees as u64).into(),
+            );
+            expected.insert("averageSpaces".to_owned(), shown(spaces as u64).into());
+            less_contributions(&mut expected, gross as u64, p["contribution"]);
+        }
+    }
+    Value::Object(expected)
+}
+
+fn fbt_parking_case(rng: &mut Seeded) -> (Value, Value) {
+    let method = rng.pick(&["station", "market", "average", "register", "spaces"]);
+    let mut p: std::collections::HashMap<&str, u64> = [
+        ("benefits", 0),
+        ("each", 0),
+        ("firstFee", 0),
+        ("lastFee", 0),
+        ("registerValue", 0),
+        ("days", 0),
+        ("firstYear", 2027),
+        ("rate", 0),
+        ("spaceDays", 1),
+        ("spaces", 1),
+        ("employeesStart", 0),
+        ("employeesEnd", 0),
+        ("spacesStart", 0),
+        ("spacesEnd", 0),
+        ("contribution", 0),
+    ]
+    .into();
+    let any_fee = rng.cents(6_000);
+    p.insert(
+        "fee",
+        rng.pick(&[
+            PARKING_THRESHOLD,
+            PARKING_THRESHOLD + 1,
+            PARKING_THRESHOLD - 1,
+            any_fee,
+        ]),
+    );
+    let (small, large) = (rng.cents(100_000), rng.cents(10_000_000));
+    let contribution = rng.pick(&[0, small, large]);
+    match method {
+        "station" | "market" => {
+            p.extend([
+                ("benefits", rng.below(5_001)),
+                ("each", rng.cents(6_000)),
+                ("contribution", contribution),
+            ]);
+        }
+        "average" => p.extend([
+            ("benefits", rng.below(5_001)),
+            ("firstFee", rng.cents(6_000)),
+            ("lastFee", rng.cents(6_000)),
+            ("contribution", contribution),
+        ]),
+        "register" => p.extend([
+            ("registerValue", rng.cents(10_000_000)),
+            ("days", rng.below(FBT_YEAR_DAYS + 1)),
+            ("firstYear", 2023 + rng.below(5)),
+        ]),
+        _ => p.extend([
+            ("rate", rng.cents(6_000)),
+            ("spaceDays", 1 + rng.below(FBT_YEAR_DAYS)),
+            ("spaces", 1 + rng.below(500)),
+            ("employeesStart", rng.below(601)),
+            ("employeesEnd", rng.below(601)),
+            ("spacesStart", rng.below(601)),
+            ("spacesEnd", rng.below(601)),
+            ("contribution", contribution),
+        ]),
+    }
+    let money = [
+        "fee",
+        "each",
+        "firstFee",
+        "lastFee",
+        "registerValue",
+        "rate",
+        "contribution",
+    ];
+    let mut inputs = serde_json::Map::new();
+    inputs.insert("method".to_owned(), method.into());
+    for (name, value) in &p {
+        let text = if money.contains(name) {
+            dollars(*value)
+        } else {
+            value.to_string()
+        };
+        inputs.insert((*name).to_owned(), text.into());
+    }
+    (
+        json!({"kind": "parking", "inputs": inputs, "year": {"threshold": "11.48", "days": "365", "ended": "2027"}}),
+        fbt_parking_oracle(method, &p),
+    )
+}
+
+#[test]
+fn the_fbt_benefit_oracle_works_the_guides_examples_by_hand() {
+    // Guide 8.8 at 8.27%: $50,000 for the year, $2,000 accrued, 60% income use, $1,200 deducted.
+    let year = vec![5_000_000; 365];
+    assert_eq!(
+        fbt_loan_oracle(&year, 200_000, 6_000, 120_000),
+        [413_500, 213_500, 248_100, 128_100, 128_100, 85_400]
+    );
+    // Guide 16, example 18: 4 spaces at $10 for 182 days, 3 employees for 4 spaces, $2,340 paid.
+    let mut p: std::collections::HashMap<&str, u64> = [
+        ("fee", 1_200),
+        ("rate", 1_000),
+        ("spaceDays", 182),
+        ("spaces", 4),
+        ("employeesStart", 3),
+        ("employeesEnd", 3),
+        ("spacesStart", 4),
+        ("spacesEnd", 4),
+        ("contribution", 234_000),
+    ]
+    .into();
+    let spaces = fbt_parking_oracle("spaces", &p);
+    assert_eq!(
+        [
+            &spaces["statutoryBenefit"],
+            &spaces["gross"],
+            &spaces["taxableValue"]
+        ],
+        ["4535.08", "3401.31", "1061.31"]
+    );
+    // Example 17's register: $2,500 over 183 days.
+    p.extend([("registerValue", 250_000), ("days", 183)]);
+    let register = fbt_parking_oracle("register", &p);
+    assert_eq!(
+        [&register["annual"], &register["taxableValue"]],
+        ["10833.33", "5416.67"]
+    );
+    // Example 13: 22 benefits at $12.36.
+    p.extend([("benefits", 22), ("each", 1_236), ("contribution", 0)]);
+    assert_eq!(fbt_parking_oracle("station", &p)["taxableValue"], "271.92");
+    // A fee at the threshold gives no benefit.
+    p.insert("fee", PARKING_THRESHOLD);
+    assert_eq!(fbt_parking_oracle("station", &p)["benefit"], false);
+    // A register of $1,000 of $3,000 applies to $900 as a third; 20% above the first year is valid.
+    let earlier = [100_000, 120_000];
+    assert_eq!(
+        fbt_meal_oracle(90_000, Some((100_000, 300_000, 2025, &earlier[..])))["taxableValue"],
+        "300"
+    );
+    assert!(
+        fbt_meal_oracle(
+            90_000,
+            Some((100_000, 300_000, 2025, &[100_000, 120_001][..]))
+        )["refused"]
+            .is_string()
+    );
+}
+
+#[test]
+fn the_fbt_benefit_engines_agree_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1117_0F8B_0039);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..FBT_BENEFIT_CASES)
+        .map(|index| match index % 3 {
+            0 => fbt_loan_case(&mut rng),
+            1 => fbt_meal_case(&mut rng),
+            _ => fbt_parking_case(&mut rng),
+        })
+        .unzip();
+    let actual = run_node(FBT_BENEFIT_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
@@ -3364,6 +3985,355 @@ fn the_land_tax_engine_agrees_with_the_oracle_at_every_band_boundary() {
     }
     let actual = run_node(LAND_TAX_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the payroll tax engine, as `HARNESS` runs the others.
+const PAYROLL_TAX_HARNESS: &str = r"
+import { payrollTax } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const run = ({ wages, australian, place }) => {
+  const r = payrollTax(wages, australian, place);
+  return Object.fromEntries(['deduction', 'taxable', 'tax', 'levy', 'extraLevy', 'total'].map((key) => [key, String(r[key])]));
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+const PAYROLL_TAX_CASES: usize = 270;
+/// The largest wages the payroll tax fields accept, $100,000,000,000.00, in cents.
+const MAX_WAGES: u64 = 10_000_000_000_000;
+const PAYROLL_TAX_PLACES: [&str; 9] = [
+    "AU-NSW",
+    "AU-VIC",
+    "AU-VIC-REGIONAL",
+    "AU-QLD",
+    "AU-WA",
+    "AU-SA",
+    "AU-TAS",
+    "AU-ACT",
+    "AU-NT",
+];
+/// Every threshold, taper end and rate band edge of the 8 jurisdictions, in dollars.
+const PAYROLL_TAX_EDGES: [u64; 17] = [
+    600_000,
+    1_000_000,
+    1_200_000,
+    1_250_000,
+    1_300_000,
+    1_500_000,
+    1_700_000,
+    1_750_000,
+    2_000_000,
+    2_500_000,
+    3_000_000,
+    5_000_000,
+    6_500_000,
+    7_500_000,
+    10_400_000,
+    10_000_000,
+    100_000_000,
+];
+
+/// An exact signed fraction of cents, its denominator positive.
+#[derive(Clone)]
+struct Q(num_bigint::BigInt, num_bigint::BigInt);
+
+impl Q {
+    fn of(cents: u64) -> Self {
+        Q(cents.into(), 1.into())
+    }
+    fn dollars(dollars: u64) -> Self {
+        Q::of(dollars * 100)
+    }
+    /// A rate per cent typed to 4 places, in ten-thousandths of 1%: 5.45% is 54,500.
+    fn percent(ten_thousandths: u64) -> Self {
+        Q(ten_thousandths.into(), 1_000_000.into())
+    }
+    fn plus(&self, other: &Q) -> Q {
+        Q(&self.0 * &other.1 + &other.0 * &self.1, &self.1 * &other.1)
+    }
+    fn minus(&self, other: &Q) -> Q {
+        Q(&self.0 * &other.1 - &other.0 * &self.1, &self.1 * &other.1)
+    }
+    fn times(&self, other: &Q) -> Q {
+        Q(&self.0 * &other.0, &self.1 * &other.1)
+    }
+    /// Over a positive fraction.
+    fn over(&self, other: &Q) -> Q {
+        Q(&self.0 * &other.1, &self.1 * &other.0)
+    }
+    fn below(&self, other: &Q) -> bool {
+        &self.0 * &other.1 < &other.0 * &self.1
+    }
+    fn at_least_nil(self) -> Q {
+        if self.below(&Q::of(0)) {
+            Q::of(0)
+        } else {
+            self
+        }
+    }
+    fn least(self, other: Q) -> Q {
+        if other.below(&self) { other } else { self }
+    }
+    /// Half up to the cent; the amount must not be negative.
+    fn cents(&self) -> u64 {
+        assert!(!self.below(&Q::of(0)), "a negative amount");
+        let rounded = (&self.0 * 2 + &self.1) / (&self.1 * 2);
+        u64::try_from(rounded).expect("cents within u64")
+    }
+}
+
+/// The deduction before it is limited to the wages, each payroll tax term, and the 2 surcharges
+/// or levies, as each Act writes them for an employer outside a group that pays wages all year
+/// (C / FY = 1). `w` is the jurisdiction's taxable wages and `t` the Australian wages.
+fn payroll_tax_terms(place: &str, w: &Q, t: &Q) -> (Q, Vec<Q>, [Q; 2]) {
+    let share = w.over(t);
+    let d = Q::dollars;
+    let nil = || [Q::of(0), Q::of(0)];
+    match place {
+        // Revenue NSW: the $1,200,000 threshold times NSW wages over Australian wages, 5.45%.
+        "AU-NSW" => {
+            let deduction = d(1_200_000).times(&share);
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&Q::percent(54_500))],
+                nil(),
+            )
+        }
+        // Payroll Tax Act 2007 (Vic) Sch 1 cl 5: tax = (TW - ND) x R + S + T, ND = min(a, b), a
+        // never below nil; cl 1B: T = S.
+        "AU-VIC" | "AU-VIC-REGIONAL" => {
+            let b = share.times(&d(1_000_000));
+            let a = b.minus(
+                &w.minus(&d(3_000_000).times(&share))
+                    .times(&Q(1.into(), 2.into())),
+            );
+            let deduction = a.at_least_nil().least(b);
+            let rate = Q::percent(if place == "AU-VIC" { 48_500 } else { 12_125 });
+            let (first, second) = (d(10_000_000), d(100_000_000));
+            let half = Q::percent(5_000);
+            let surcharge = if !first.below(t) {
+                Q::of(0)
+            } else if !second.below(t) {
+                w.minus(&w.times(&first).over(t)).times(&half)
+            } else {
+                w.times(&Q::percent(10_000))
+                    .minus(&w.times(&first).plus(&w.times(&second)).over(t).times(&half))
+            };
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&rate)],
+                [surcharge.clone(), surcharge],
+            )
+        }
+        // Payroll Tax Act 1971 (Qld) s 29(1): AD = AW / (AW + IW) x (K - 1/7 (AW + IW - K)), never
+        // below nil; s 10: 4.95% above $6.5m; s 43I: 0.25% and 0.5% above $10m and $100m.
+        "AU-QLD" => {
+            let k = d(1_300_000);
+            let deduction = share
+                .times(&k.minus(&t.minus(&k).over(&Q::of(7))))
+                .at_least_nil();
+            let rate = Q::percent(if d(6_500_000).below(t) {
+                49_500
+            } else {
+                47_500
+            });
+            let primary = w
+                .minus(&d(10_000_000).times(&share))
+                .times(&Q::percent(2_500));
+            let additional = w
+                .minus(&d(100_000_000).times(&share))
+                .times(&Q::percent(5_000));
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&rate)],
+                [primary, additional],
+            )
+        }
+        // Pay-roll Tax Assessment Act 2002 (WA) s 13: nil to AT; DA = (AT - (TW - AT) x TV) x W / TW
+        // below UT, TV = AT / (UT - AT); nil deduction from UT. Pay-roll Tax Act 2002 s 5(4): 5.5%.
+        "AU-WA" => {
+            let (at, ut) = (d(1_000_000), d(7_500_000));
+            let deduction = if !at.below(t) {
+                w.clone()
+            } else if !t.below(&ut) {
+                Q::of(0)
+            } else {
+                at.minus(&t.minus(&at).times(&at.over(&ut.minus(&at))))
+                    .times(&share)
+            };
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&Q::percent(55_000))],
+                nil(),
+            )
+        }
+        // Payroll Tax Act 2009 (SA) Sch 1 cl 5: nil to $1.5m; [TW - TW / (TW + IW) x EA] x R, with
+        // R = (TARW - $1.5m) / $200,000 x 4.95% to $1.7m.
+        "AU-SA" => {
+            let deduction = share.times(&d(600_000));
+            if !d(1_500_000).below(t) {
+                return (deduction, vec![], nil());
+            }
+            let full = Q::percent(49_500);
+            let rate = if d(1_700_000).below(t) {
+                full
+            } else {
+                t.minus(&d(1_500_000)).over(&d(200_000)).times(&full)
+            };
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&rate)],
+                nil(),
+            )
+        }
+        // Payroll Tax Act 2008 (Tas) Sch 1 cl 4(4) and (5).
+        "AU-TAS" => {
+            let (ta, ttb) = (d(1_250_000), d(2_000_000));
+            let deduction = share.times(&ta);
+            if !ta.below(t) {
+                return (deduction, vec![], nil());
+            }
+            let taxes = if !ttb.below(t) {
+                vec![w.minus(&deduction).times(&Q::percent(40_000))]
+            } else {
+                vec![
+                    ttb.minus(&ta).times(&share).times(&Q::percent(40_000)),
+                    w.minus(&share.times(&ttb)).times(&Q::percent(61_000)),
+                ]
+            };
+            (deduction, taxes, nil())
+        }
+        // Payroll Tax Act 2011 (ACT) Sch 1 s 1.5, with DI2026-151 Table 1's rate for total wages.
+        "AU-ACT" => {
+            let rate = [
+                (20_000_000, 67_500),
+                (50_000_000, 68_500),
+                (100_000_000, 73_500),
+                (150_000_000, 78_500),
+            ]
+            .iter()
+            .find(|(to, _)| !d(*to).below(t))
+            .map_or(87_500, |(_, rate)| *rate);
+            let deduction = share.times(&d(1_750_000));
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&Q::percent(rate))],
+                nil(),
+            )
+        }
+        // Payroll Tax Act 2009 (NT) Sch 1 cl 3 and 5, s 7A: 6.5% from $100m.
+        "AU-NT" => {
+            let ta = d(2_500_000);
+            let adjusted = ta.minus(&t.minus(&ta).over(&Q::of(2))).at_least_nil();
+            let rate = Q::percent(if t.below(&d(100_000_000)) {
+                55_000
+            } else {
+                65_000
+            });
+            let deduction = share.times(&adjusted);
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&rate)],
+                nil(),
+            )
+        }
+        _ => unreachable!("a place in PAYROLL_TAX_PLACES"),
+    }
+}
+
+/// What the engine must return, each amount half up to the cent once and each total the sum
+/// of the amounts shown.
+fn payroll_tax_oracle(wages: u64, australian: u64, place: &str) -> Value {
+    let (w, t) = (Q::of(wages), Q::of(australian));
+    let (deduction, taxes, levies) = if australian == 0 {
+        (Q::of(0), vec![], [Q::of(0), Q::of(0)])
+    } else {
+        payroll_tax_terms(place, &w, &t)
+    };
+    let deduction = deduction.least(w.clone());
+    let tax: u64 = taxes
+        .into_iter()
+        .map(|term| term.at_least_nil().cents())
+        .sum();
+    let [levy, extra] = levies.map(|term| term.at_least_nil().cents());
+    json!({
+        "deduction": shown(deduction.cents()),
+        "taxable": shown(w.minus(&deduction).cents()),
+        "tax": shown(tax),
+        "levy": shown(levy),
+        "extraLevy": shown(extra),
+        "total": shown(tax + levy + extra),
+    })
+}
+
+fn payroll_tax_case(rng: &mut Seeded) -> (Value, Value) {
+    let place = rng.pick(&PAYROLL_TAX_PLACES);
+    let edge = rng.pick(&PAYROLL_TAX_EDGES) * 100;
+    let any = rng.cents(MAX_WAGES);
+    let australian = rng.pick(&[edge - 1, edge, edge + 1, any, any, 0]);
+    // Half the cases pay all their wages in the jurisdiction and leave Australian wages blank.
+    let wages = if australian == 0 || rng.below(2) == 0 {
+        australian
+    } else {
+        rng.cents(australian)
+    };
+    let blank = wages == australian && rng.below(2) == 0;
+    (
+        json!({"wages": dollars(wages), "australian": if blank { String::new() } else { dollars(australian) }, "place": place}),
+        payroll_tax_oracle(wages, australian, place),
+    )
+}
+
+#[test]
+fn the_payroll_tax_oracle_works_the_revenue_offices_examples() {
+    let total = |wages: u64, australian: u64, place: &str| {
+        payroll_tax_oracle(wages * 100, australian * 100, place)["total"].clone()
+    };
+    // Revenue NSW: $1,500,000 is taxed on $300,000; Victoria's surcharge example, $80m of $150m;
+    // RevenueWA: $1,104,000 gives $6,600; Tasmania's guideline examples 1 and 2.
+    assert_eq!(total(1_500_000, 1_500_000, "AU-NSW"), json!("16350"));
+    let victoria = payroll_tax_oracle(8_000_000_000, 15_000_000_000, "AU-VIC");
+    assert_eq!(
+        (&victoria["levy"], &victoria["extraLevy"]),
+        (&json!("506666.67"), &json!("506666.67"))
+    );
+    assert_eq!(total(1_104_000, 1_104_000, "AU-WA"), json!("6600"));
+    assert_eq!(total(2_400_000, 2_400_000, "AU-TAS"), json!("54400"));
+    assert_eq!(total(2_400_000, 3_000_000, "AU-TAS"), json!("72800"));
+    // The Queensland Revenue Office's deduction of $932,460, to the dollar; RevenueSA's $150,000.
+    let queensland = payroll_tax_oracle(135_678_900, 178_977_600, "AU-QLD");
+    assert_eq!(queensland["deduction"], json!("932459.64"));
+    assert_eq!(
+        payroll_tax_oracle(50_000_000, 200_000_000, "AU-SA")["deduction"],
+        json!("150000")
+    );
+}
+
+#[test]
+fn the_payroll_tax_engine_agrees_with_the_oracle_at_each_act_rate_edge() {
+    let (mut cases, mut expected) = (vec![], vec![]);
+    for edge in [20_000_000_u64, 50_000_000, 100_000_000, 150_000_000] {
+        for australian in [edge * 100 - 1, edge * 100, edge * 100 + 1] {
+            let wages = australian / 3;
+            cases.push(json!({"wages": dollars(wages), "australian": dollars(australian), "place": "AU-ACT"}));
+            expected.push(payroll_tax_oracle(wages, australian, "AU-ACT"));
+        }
+    }
+    assert_eq!(run_node(PAYROLL_TAX_HARNESS, &cases), expected);
+}
+
+#[test]
+fn the_payroll_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1117_0000_0B7A);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..PAYROLL_TAX_CASES)
+        .map(|_| payroll_tax_case(&mut rng))
+        .unzip();
+    let actual = run_node(PAYROLL_TAX_HARNESS, &cases);
+    assert_eq!(actual.len(), PAYROLL_TAX_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

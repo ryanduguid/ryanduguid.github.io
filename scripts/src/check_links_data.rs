@@ -14,7 +14,8 @@ pub const RETIRED_NAMES: [&str; 11] = [
     "LouisGoldberg",
 ];
 
-pub const CI_MANUAL_URLS: [&str; 16] = [
+pub const CI_MANUAL_URLS: [&str; 17] = [
+    "https://softwaredevelopers.ato.gov.au/GDPupliftfactor",
     "https://softwaredevelopers.ato.gov.au/SuperStreamStandard",
     "https://www.abr.gov.au/business-super-funds-charities/applying-abn",
     "https://www.abr.gov.au/business-super-funds-charities/applying-abn/abn-entitlement",
@@ -33,7 +34,7 @@ pub const CI_MANUAL_URLS: [&str; 16] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 171] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 182] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -116,8 +117,11 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 171] = [
     "https://www.ato.gov.au/businesses-and-organisations/trusts/trust-income-losses-and-capital-gains/resolutions-checklist",
     "https://www.ato.gov.au/calculators-and-tools/depreciation-and-capital-allowances-tool",
     "https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool",
+    "https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator",
+    "https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator",
     "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator",
     "https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form",
+    "https://www.ato.gov.au/forms-and-instructions/fringe-benefits-tax-return-2026-instructions/item-23-fringe-benefit-categories-for-fbt-return-2026",
     "https://www.ato.gov.au/forms-and-instructions/payg-instalments-how-to-complete-your-activity-statement",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim",
@@ -131,6 +135,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 171] = [
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/working-from-home-expenses/fixed-rate-method",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/records-you-need-to-keep",
+    "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tax-offsets/low-income-tax-offset",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax",
@@ -145,6 +150,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 171] = [
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/investing-in-shares/refund-of-franking-credits-for-individuals",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/managed-investment-trusts",
     "https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners",
+    "https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy",
     "https://www.ato.gov.au/individuals-and-families/paying-the-ato",
     "https://www.ato.gov.au/individuals-and-families/paying-the-ato/help-with-paying/payment-plans",
     "https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay",
@@ -158,6 +164,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 171] = [
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/check-the-progress-of-your-tax-return",
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return",
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return/lodge-your-tax-return-online-with-mytax/pre-fill-availability",
+    "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2025/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption",
     "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
     "https://www.ato.gov.au/law/view/document?docid=COG/PCG20183/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=COG/PCG20214/NAT/ATO/00001",
@@ -172,6 +179,9 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 171] = [
     "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/69-10",
     "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003",
     "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008",
+    "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009",
+    "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015",
+    "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017",
     "https://www.ato.gov.au/law/view/document?docid=TXD/TD200639/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=TXD/TD200640/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=TXD/TD9419/NAT/ATO/00001",
@@ -199,6 +209,8 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 171] = [
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments",
     "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
     "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+    "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-foreign-residents",
+    "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-working-holiday-makers",
     "https://www.oaic.gov.au/",
     "https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant",
     "https://www.revenue.act.gov.au/home-buyer-assistance/home-buyer-concession-scheme/about-the-home-buyer-concession-scheme",

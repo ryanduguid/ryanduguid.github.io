@@ -495,6 +495,36 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
   await expect(form.locator('.field-error')).toHaveText('Enter 25 or less.');
 });
 
+test('Division 7A schedule lists each year, stops at a shortfall and refuses an interposed loan offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/div7a-schedule/');
+  const form = page.locator('#div7a-schedule form');
+  const output = form.locator('output');
+  const rows = form.locator('#div7a-schedule-results tbody tr');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  // The minimum each year runs the 7 years, on the assumed rate after the ATO's last published year.
+  await expect(rows).toHaveCount(7);
+  await expect(rows.nth(3).locator('td').first()).toHaveText('8.77%');
+  await expect(rows.nth(4).locator('th, td').first()).toHaveText('2027-28');
+  await expect(rows.nth(4).locator('td').first()).toHaveText('8.77% assumed');
+  await form.locator('[name="repayments"]').fill('; 10000');
+  await form.locator('[name="marginal-rate"]').fill('47');
+  await form.getByLabel('Fully franked at 30%').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  // Worked by hand: 2023-24 holds 29 February, so 365 of 366 days on $100,000 and 1 day on $80,615.04.
+  await expect(rows).toHaveCount(2);
+  expect(await rows.nth(0).locator('th, td').allTextContents()).toEqual(['2023-24', '8.27%', '$100,000.00', '$19,384.96',
+    '$19,384.96', '$8,265.62', '$11,119.34', '$88,880.66', '$0.00', '$25,602.78']);
+  expect(await rows.nth(1).locator('th, td').allTextContents()).toEqual(['2024-25', '8.77%', '$88,880.66', '$19,677.59',
+    '$10,000.00', '$7,792.43', '$2,207.57', '$86,673.09', '$9,677.59', '$13,207.55']);
+  await expect(output).toContainText('Shortfall taken to be a dividend for 2024-25: $9,677.59');
+  await form.locator('[name="interposed"][value="yes"]').check();
+  await expect(form.locator('.table-scroll')).toBeHidden();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText('This page does not work a loan made through an interposed entity (Subdivision E of Division 7A).');
+});
+
 test('ETP withholding takes the date of birth and works both caps offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/termination-payment/');
   const form = page.locator('#termination-payment form');
@@ -711,7 +741,8 @@ test('transfer duty takes a first home buyer chosen by keyboard and says where t
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
-  'termination-payment', 'transfer-duty', 'land-tax'];
+  'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
+  'div7a-schedule'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

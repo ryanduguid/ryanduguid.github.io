@@ -5,8 +5,10 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
+import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
   staffCost, cashForecast, div7aMinimumRepayment, transferDuty, firstHomeDuty } from '../assets/business-calculators.mjs';
+import { fbtBenefitResult } from '../assets/fbt-benefit-forms.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -510,6 +512,30 @@ const assertShown = (actual, { result, output }, labels = LABELS) => {
     fields.map(([field, value]) => shownField(field, value, labels)).join(', ').toLowerCase());
 };
 
+// The FBT car parking, loan and meal entertainment cases: how each call and result reads.
+Object.assign(INPUTS, {
+  fbtLoan: (l, y) => `Daily balances ${dollars(l.balances)}, accrued ${dollars(l.accrued)}, income use ${l.incomeUse}%, `
+    + `deduction ${dollars(l.deduction)}, at ${y.rate}%`,
+  fbtMealEntertainment: (x) => (x.method === 'split' ? `50/50 split, expenses ${dollars(x.expenses)}`
+    : `Register, expenses ${dollars(x.expenses)}, ${dollars(x.registerBenefits)} of ${dollars(x.registerTotal)}, `
+      + `first valid ${x.firstYear}${x.earlier.length ? `, earlier years ${x.earlier.map(dollars).join(' and ')}` : ''}`),
+  fbtCarParking: (p, y) => `${{ station: `Station, ${p.benefits} at ${dollars(p.each)}`,
+    market: `Market value, ${p.benefits} at ${dollars(p.each)}`,
+    average: `Average cost, ${p.benefits} at fees ${dollars(p.firstFee)} and ${dollars(p.lastFee)}`,
+    register: `Register, ${dollars(p.registerValue)} over ${p.days} days, first valid ${p.firstYear}`,
+    spaces: `Spaces, ${p.spaces} at ${dollars(p.rate)} for ${p.spaceDays} days, employees ${p.employeesStart} and `
+      + `${p.employeesEnd}, spaces ${p.spacesStart} and ${p.spacesEnd}` }[p.method]}`
+    + `${p.method === 'register' ? '' : `, contributions ${dollars(p.contribution)}`}; fee ${dollars(p.fee)} against ${dollars(y.threshold)}`,
+});
+Object.assign(ENGINE_LABELS, {
+  fbtLoan: { notional: 'notional interest', gross: 'gross taxable value', grossDeduction: 'gross deduction',
+    notionalDeduction: 'notional deduction', reduction: 'reduction' },
+  fbtMealEntertainment: { registerPercent: (v) => `register percentage ${v.toFixed(2)}%` },
+  fbtCarParking: { benefit: (v) => (v ? 'benefit arises' : 'no benefit arises'), gross: 'gross taxable value',
+    contributionApplied: 'contributions applied', excess: 'excess contributions', average: 'average cost',
+    annual: 'annual value', statutoryBenefit: 'total statutory benefit' },
+});
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -790,6 +816,33 @@ Object.assign(FORM_CALLS, { landTaxYear: (f) => {
     surchargeValue: f['surcharge-value'], metro: f.metro }).filter(([, chosen]) => chosen);
   return choices.length ? [f.value, f.jurisdiction, Object.fromEntries(choices)] : [f.value, f.jurisdiction];
 } });
+
+// The year each FBT benefit form passes, from its include's data attributes; a test below binds
+// them to the ATO's rates page.
+const fbtBenefitYear = (page) => Object.fromEntries([...readFileSync(new URL(`../_includes/calculators/${page}.html`,
+  import.meta.url), 'utf8').match(/<form [^>]*>/)[0].matchAll(/data-([a-z-]+)="([^"]*)"/g)]
+  .map(([, key, value]) => [key.replace(/-(\w)/g, (_, c) => c.toUpperCase()), value]));
+Object.assign(FORM_CALLS, {
+  fbtCarParking: (f) => {
+    const { threshold, yearDays, yearEnded } = fbtBenefitYear('fbt-car-parking');
+    return [{ method: f.method, fee: f.fee, benefits: f.benefits, each: f.each, firstFee: f['first-fee'], lastFee: f['last-fee'],
+      registerValue: f['register-value'], days: f.days, firstYear: f['first-year'], rate: f.rate, spaceDays: f['space-days'],
+      spaces: f.spaces, employeesStart: f['employees-start'], employeesEnd: f['employees-end'], spacesStart: f['spaces-start'],
+      spacesEnd: f['spaces-end'], contribution: f.contribution }, { threshold, days: yearDays, ended: yearEnded }];
+  },
+  fbtLoan: (f) => {
+    const { yearDays, statutoryRate } = fbtBenefitYear('fbt-loan');
+    return [{ balances: f.balances, accrued: f.accrued, incomeUse: f['income-use'], deduction: f.deduction },
+      { days: yearDays, rate: statutoryRate }];
+  },
+  fbtMealEntertainment: (f) => {
+    const { yearEnded } = fbtBenefitYear('fbt-meal-entertainment');
+    const earlier = [];
+    for (let year = Number(f['first-year']); year < Number(yearEnded); year += 1) earlier.push(f[`earlier-${year}`]);
+    return [{ method: f.method, expenses: f.expenses, registerBenefits: f['register-benefits'], registerTotal: f['register-total'],
+      firstYear: f['first-year'], earlier }, { ended: yearEnded }];
+  },
+});
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -1191,6 +1244,375 @@ test('GIC payment plan refuses inputs it cannot work', () => {
   }
 });
 
+// Division 7A loan schedule. ITAA 1936 ss 109E and 109N (compilation 193, 1 October 2026), read
+// 17 November 2026 at https://www.legislation.gov.au/C1936A00027/latest/text; the ATO's benchmark
+// rate table (last updated 1 July 2026), read 17 November 2026 at
+// https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate: '2027 | 8.77%',
+// '2026 | 8.37%', '2025 | 8.77%', '2024 | 8.27%', '2023 | 4.77%', '2022 | 4.52%', each income year
+// ending 30 June.
+const { DIV7A_PUBLISHED_RATES } = await import('../assets/div7a.mjs');
+const div7aScheduleHtml = readFileSync(new URL('../_includes/calculators/div7a-schedule.html', import.meta.url), 'utf8');
+const scheduleLoan = { made: '2022-10-01', amount: '100000', term: '7', assumedRate: '8.77', repayments: '', marginalRate: '',
+  franking: 'unfranked', lodgment: false, refinanced: false, interposed: false };
+const schedule = (fields = {}) => calculations.div7aSchedule({ ...scheduleLoan, ...fields });
+Object.assign(INPUTS, { div7aSchedule: (loan) => `Made ${loan.made}, ${dollars(loan.amount)}, ${loan.term} years, `
+  + `${loan.assumedRate}% assumed, repayments '${loan.repayments}'`
+  + ['lodgment', 'refinanced', 'interposed'].filter((flag) => loan[flag]).map((flag) => `, ${flag}`).join('') });
+Object.assign(FORM_CALLS, { div7aSchedule: (f) => [{ made: f.made, amount: f.amount, term: f.term, assumedRate: f['assumed-rate'],
+  repayments: f.repayments, marginalRate: f['marginal-rate'], franking: f.franking, lodgment: f.lodgment === 'yes',
+  refinanced: f.refinanced === 'yes', interposed: f.interposed === 'yes' }] });
+Object.assign(ENGINE_LABELS, { div7aSchedule: { firstMinimum: 'first minimum', totalRepaid: 'repaid', totalInterest: 'interest',
+  lastYear: (v) => `last year ${v}`, closing: 'not repaid', shortfall: 'shortfall',
+  projectedFrom: (v) => (v === null ? 'no projected year' : `projected from ${v}`) } });
+
+test('the Division 7A schedule’s published rates are the ATO’s, the site’s rate table rows and the page’s list', () => {
+  assert.deepEqual(DIV7A_PUBLISHED_RATES.map(([year, rate]) => [year, rate]), [['2021-22', '4.52'], ['2022-23', '4.77'],
+    ['2023-24', '8.27'], ['2024-25', '8.77'], ['2025-26', '8.37'], ['2026-27', '8.77']]);
+  for (const [year, rate] of DIV7A_PUBLISHED_RATES) {
+    assert.equal(div7aRates[year], rate, year);
+    assert.ok(div7aScheduleHtml.includes(`${rate}% for ${year}`), year);
+  }
+  // A year the site's table adds after 2026-27 must join the schedule's rates.
+  assert.equal(Object.keys(div7aRates).sort().at(-1), DIV7A_PUBLISHED_RATES.at(-1)[0]);
+  assert.equal(div7aScheduleHtml.includes('<select'), false);
+});
+
+test('each Division 7A schedule year is the s 109E(6) minimum on the balance the year before carries', () => {
+  const { years } = schedule();
+  assert.deepEqual(years.map((row) => [row.year, row.rate, row.projected, row.remainingTerm]), [['2023-24', 8.27, false, 7],
+    ['2024-25', 8.77, false, 6], ['2025-26', 8.37, false, 5], ['2026-27', 8.77, false, 4], ['2027-28', 8.77, true, 3],
+    ['2028-29', 8.77, true, 2], ['2029-30', 8.77, true, 1]]);
+  let opening = 100000;
+  for (const row of years) {
+    const single = div7aMinimumRepayment(String(row.opening), String(row.rate), String(row.remainingTerm));
+    assert.deepEqual([row.opening, row.minimum], [opening, single.repayment], row.year);
+    assert.equal(Math.round((row.repayment - row.interest) * 100) / 100, row.principal, row.year);
+    assert.equal(Math.round((row.opening - row.principal) * 100) / 100, row.closing, row.year);
+    opening = row.closing;
+  }
+  // In the last year the minimum is the balance and a full year's interest, more than repaying the
+  // loan on 30 June needs, as that day carries no balance; the blank entry repays it and no more.
+  const last = years.at(-1);
+  assert.ok(last.repayment < last.minimum);
+  assert.deepEqual([last.closing, last.shortfall], [0, 0]);
+});
+
+// 'Loans by private companies' works interest 'annually in arrears by reference to the daily
+// balance', a repayment reducing the balance from its day, and says: 'The amount of the loan repaid
+// during an income year is obtained by deducting the interest from the actual repayments made during
+// the year.' Worked by hand: 2023-24 holds 29 February, so 365 days at $100,000 and 8.27% are
+// $8,247.40 and 30 June at $80,615.04 is $18.22; 2024-25 at $88,880.66 and 8.77% is $7,773.48 for
+// 364 days and then $20.15 on $83,880.66 or $18.95 on $78,880.66.
+test('a Division 7A repayment on 30 June leaves that day on the reduced balance, and meets the interest first', () => {
+  const [first, short] = schedule({ repayments: '; 5000' }).years;
+  assert.deepEqual([first.interest, first.principal, first.closing], [8265.62, 11119.34, 88880.66]);
+  // The ATO's amount not repaid is the opening balance plus the interest less the repayments,
+  // so the $2,793.63 of interest that $5,000 leaves unpaid adds to the balance.
+  assert.deepEqual([short.opening, short.interest, short.repayment, short.principal, short.closing, short.shortfall],
+    [88880.66, 7793.63, 5000, -2793.63, 91674.29, 14677.59]);
+  const [, partial] = schedule({ repayments: '; 10000' }).years;
+  assert.deepEqual([partial.interest, partial.principal, partial.closing], [7792.43, 2207.57, 86673.09]);
+  // With no repayment the whole year is one period: 8.27% of $100,000, all of it unpaid.
+  const [none] = schedule({ repayments: '0' }).years;
+  assert.deepEqual([none.interest, none.principal, none.closing], [8270, -8270, 108270]);
+  // $8.01 at 40%: the interest rounds to $3.21 over a $3.20 minimum, so meeting the minimum leaves
+  // a cent unpaid, the next minimum is $3.21 and a second $3.20 falls a cent short.
+  const tiny = schedule({ made: '2027-01-15', amount: '8.01', term: '25', assumedRate: '40', repayments: '3.20; 3.20' });
+  assert.deepEqual(tiny.years.map((row) => [row.minimum, row.principal, row.closing, row.shortfall]),
+    [[3.2, -0.01, 8.02, 0], [3.21, -0.01, 8.03, 0.01]]);
+});
+
+test('a Division 7A repayment a cent short of the minimum is the shortfall, and the schedule stops', () => {
+  const minimum = schedule().years[1].minimum;
+  const short = schedule({ repayments: `; ${(minimum - 0.01).toFixed(2)}` });
+  assert.deepEqual([short.years.length, short.lastYear, short.shortfall, short.projectedFrom], [2, '2024-25', 0.01, null]);
+  const met = schedule({ repayments: `; ${minimum.toFixed(2)}` });
+  assert.deepEqual([met.years.length, met.shortfall], [7, 0]);
+  // A nil repayment in the first year falls short by the whole minimum.
+  assert.equal(schedule({ repayments: '0' }).shortfall, 19384.96);
+});
+
+test('a larger Division 7A repayment lowers the later minimums and can end the loan early', () => {
+  const minimums = schedule().years.map((row) => row.minimum);
+  const extra = schedule({ repayments: '40000' }).years.map((row) => row.minimum);
+  assert.equal(extra[0], minimums[0]);
+  for (let k = 1; k < 7; k += 1) assert.ok(extra[k] < minimums[k], String(k));
+  // $50,000 leaves $58,258.70; 364 days at 8.77% add $5,095.29, so $63,353.99 repays it.
+  const early = schedule({ repayments: '50000; 63353.99' });
+  assert.deepEqual([early.years.length, early.closing, early.shortfall, early.lastYear], [2, 0, 0, '2024-25']);
+  assert.throws(() => schedule({ repayments: '50000; 63354' }), { message: 'The 2024-25 repayment is more than $63,353.99, which repays the loan on 30 June.' });
+  // Repaying in full is no shortfall, even below a minimum: subsection 109E(1)(b) needs the loan unpaid.
+  const full = schedule({ repayments: '108247.40' });
+  assert.deepEqual([full.years.length, full.closing, full.shortfall], [1, 0, 0]);
+});
+
+test('only the Division 7A years after 2026-27 move with the assumed rate', () => {
+  const [base, higher] = [schedule(), schedule({ assumedRate: '10' })];
+  assert.deepEqual(higher.years.slice(0, 4), base.years.slice(0, 4));
+  assert.deepEqual(higher.years.slice(4).map((row) => row.rate), [10, 10, 10]);
+  assert.ok(higher.totalInterest > base.totalInterest);
+});
+
+test('a Division 7A loan takes 7 or 25 years from the year after the one it was made in', () => {
+  const secured = schedule({ made: '2027-01-15', term: '25', amount: '500000' });
+  assert.deepEqual([secured.years.length, secured.years[0].year, secured.lastYear, secured.projectedFrom],
+    [25, '2027-28', '2051-52', '2027-28']);
+  assert.deepEqual(secured.years.map((row) => row.remainingTerm), Array.from({ length: 25 }, (_, k) => 25 - k));
+  // 30 June ends the income year; 1 July starts the next.
+  assert.equal(schedule({ made: '2023-06-30' }).years[0].year, '2023-24');
+  assert.equal(schedule({ made: '2023-07-01' }).years[0].year, '2024-25');
+  assert.equal(schedule({ made: '2020-07-01' }).years[0].rate, 4.52);
+  assert.equal(schedule({ made: '2027-06-30' }).years[0].year, '2027-28');
+});
+
+// D x (1 - m) = R unfranked; D x (1 - m) / (1 - c) = R franked at the corporate rate c.
+test('the dividend that funds a Division 7A repayment is rounded up to the cent', () => {
+  const funding = (marginalRate, franking) => schedule({ marginalRate, franking }).years[0].funding;
+  assert.equal(schedule().years[0].funding, null);
+  assert.equal(funding('0', 'unfranked'), 19384.96);
+  assert.equal(funding('30', '30'), 19384.96);
+  assert.equal(funding('25', '25'), 19384.96);
+  // 1,938,496 / 0.53 = 3,657,539.62... cents; x 0.7 = 2,560,277.73... cents.
+  assert.equal(funding('47', 'unfranked'), 36575.40);
+  assert.equal(funding('47', '30'), 25602.78);
+  // 1,938,496 x 0.7 = 1,356,947.2 cents with no tax to pay.
+  assert.equal(funding('0', '30'), 13569.48);
+});
+
+test('the Division 7A schedule refuses what its sources do not cover', () => {
+  for (const flag of ['lodgment', 'refinanced', 'interposed']) {
+    assert.throws(() => schedule({ [flag]: 'no' }), { message: 'Answer each question about the loan.' }, flag);
+    assert.throws(() => schedule({ [flag]: true }), { message: /^This page does not work / }, flag);
+  }
+  for (const [fields, message] of [[{ made: '1997-12-03' }, /subsection 109D\(5\)/], [{ made: '2020-06-30' }, /from 1 July 2020/],
+    [{ made: '2027-07-01' }, /to 30 June 2027/], [{ made: '2022-02-30' }, /^Enter the date the loan was made\.$/],
+    [{ made: '' }, /^Enter the date the loan was made\.$/], [{ term: '10' }, /^Choose a 7-year or 25-year term\.$/],
+    [{ franking: 'toString' }, /^Choose unfranked/], [{ amount: '0' }, /^Enter an amount between 0.01 and/],
+    [{ marginalRate: '100' }, /^Enter an amount between 0 and 99.99\.$/], [{ assumedRate: '0' }, /^Enter an amount between 0.01 and 100\.$/],
+    [{ repayments: '1;1;1;1;1;1;1;1' }, /no more than 7 repayments/], [{ repayments: '-1' }, /^Enter an amount between 0 and/],
+    [{ repayments: '108247.41' }, /more than \$108,247\.40, which repays the loan on 30 June\.$/], [{ repayments: '50000; 63353.99; 1' }, /repaid in 2024-25/]]) {
+    assert.throws(() => schedule(fields), { message }, JSON.stringify(fields));
+  }
+  assert.equal(schedule({ repayments: '108247.40' }).closing, 0);
+});
+
+test('the Division 7A schedule page opens on the result its calculation gives for the form’s inputs', () => {
+  const example = div7aScheduleHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const result = calculations.div7aScheduleResult(scheduleLoan, aud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note],
+    example.slice(1, 5));
+  assert.deepEqual(result.table.map((row) => row[1]), ['8.27%', '8.77%', '8.37%', '8.77%', '8.77% assumed', '8.77% assumed', '8.77% assumed']);
+  assert.equal(div7aScheduleHtml.match(/<th scope="col">/g).length, result.table[0].length);
+  const short = calculations.div7aScheduleResult({ ...scheduleLoan, repayments: '; 10000' }, aud);
+  assert.equal(short.principal, 4);
+  assert.match(short.note, /^The 2024-25 repayment falls short of the minimum, so subsection 109E\(1\)/);
+});
+
+// ATO, 'Fringe benefits tax - rates and thresholds' (last updated 20 May 2026), read 17 November 2026:
+// https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
+// Table 9, car parking threshold, '31 March 2027 $11.48'; Table 10, statutory or benchmark interest
+// rate, '31 March 2027 8.27%'. The FBT year from 1 April 2026 to 31 March 2027 has 365 days.
+test('FBT benefit forms carry the ATO’s rate and threshold for the year ending 31 March 2027', () => {
+  assert.deepEqual(fbtBenefitYear('fbt-car-parking'), { calculator: 'fbt-car-parking', threshold: '11.48', yearDays: '365', yearEnded: '2027' });
+  assert.deepEqual(fbtBenefitYear('fbt-loan'), { calculator: 'fbt-loan', yearDays: '365', statutoryRate: '8.27' });
+  assert.deepEqual(fbtBenefitYear('fbt-meal-entertainment'), { calculator: 'fbt-meal-entertainment', yearEnded: '2027' });
+  assert.equal((Date.parse('2027-03-31') - Date.parse('2026-03-31')) / 86400000, 365);
+  const include = (page) => readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8');
+  assert.match(include('fbt-car-parking'), /threshold for the year ending 31 March 2027 is \$11\.48, from Table 9 of <a href="https:\/\/www\.ato\.gov\.au\/tax-rates-and-codes\/fringe-benefits-tax-rates-and-thresholds">/);
+  assert.match(include('fbt-loan'), /rate of 8\.27% for the FBT year ending 31 March 2027, from Table 10 of <a href="https:\/\/www\.ato\.gov\.au\/tax-rates-and-codes\/fringe-benefits-tax-rates-and-thresholds">/);
+});
+
+// ATO, 'Fringe benefits tax - a guide for employers', chapter 8, read 17 November 2026:
+// https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009 (statutory interest rate 5.65%).
+// 8.5: '$2,825 ($50,000 × 5.65%)' less '$2,500 ($50,000 × 5%)', 'The difference of $325'.
+// 8.8: 'Example – rate set without regard to employee's use of loan', '$825 - $495 = $330'; 'with regard
+// to employee's use', '$1,695 - $282.50 = $1,412.50', '$825 - $1,412.50 = 0'.
+test('FBT loan agrees with the guide’s worked examples at their 5.65% rate', () => {
+  const at = (accrued, use, deduction) => calculations.fbtLoan({ balances: '18250000', accrued, incomeUse: use, deduction },
+    { days: '365', rate: '5.65' });
+  assert.deepEqual([at('2500', '0', '0').notional, at('2500', '0', '0').taxableValue], [2825, 325]);
+  assert.deepEqual(at('2000', '60', '1200'), { notional: 2825, gross: 825, grossDeduction: 1695, notionalDeduction: 495,
+    reduction: 495, taxableValue: 330 });
+  assert.equal(at('2000', '60', '282.50').taxableValue, 0);
+});
+
+// s 19(1)(ba): RD above GD leaves no notional deduction, so the value is not increased. Worked by hand at
+// 8.27%: notional interest $4,135.00 less $4,000.00 accrued is $135.00; GD is 10% of $4,135.00, $413.50.
+test('FBT loan: a deduction for accrued interest above the gross deduction adds nothing', () => {
+  const r = calculations.fbtLoan({ balances: '18250000', accrued: '4000', incomeUse: '10', deduction: '4000' }, { days: '365', rate: '8.27' });
+  assert.deepEqual([r.gross, r.grossDeduction, r.notionalDeduction, r.reduction, r.taxableValue], [135, 413.5, 0, 0, 135]);
+});
+
+// s 18: the daily balances at the statutory rate are divided by the days in the year. Worked by hand:
+// $18,300,000 of daily balances at 8.27% over a 366-day year is $4,135.00; over 365 days, $4,146.33.
+test('FBT loan divides by the days in its FBT year', () => {
+  const at = (days) => calculations.fbtLoan({ balances: '18300000', accrued: '0', incomeUse: '0', deduction: '0' }, { days, rate: '8.27' });
+  assert.deepEqual([at('366').notional, at('365').notional], [4135, 4146.33]);
+});
+
+// ATO, 'Fringe benefits tax - a guide for employers', chapter 16, read 17 November 2026:
+// https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
+// Example 12: on 1 April 2022 stations charged $5.50 and $10, 'more than the car parking threshold of
+// $9.72', so 'Qstore can use the lower rate of $5.50'. Example 15: car park A '$18.50 ((17 + 20) ÷ 2)',
+// car park B '$12.50 ((10 + 15) ÷ 2)', B's lowest first business day fee being $10. Example 17
+// (1 October 2019 to 31 March 2020): '$2,500 × (52 ÷ 12) = $10,833.33', '183 ÷ 366', '$5,416.67'.
+// Example 18 (2022-23): '$4,535.08 × (3 ÷ 4) = $3,401.31', '$30 × 26 weeks × 3 employees = $2,340',
+// '$1,061.31'. Examples 17 and 18 say benefits arose, so a fee above the threshold is supplied for each.
+// ATO historical rates and thresholds (last updated 1 April 2026), read 17 November 2026: 31 March 2020, $8.95.
+test('FBT car parking agrees with the guide’s examples at their own years’ thresholds', () => {
+  const y2023 = { threshold: '9.72', days: '365', ended: '2023' };
+  const base = { method: 'station', fee: '10', benefits: '1', each: '0', firstFee: '0', lastFee: '0', registerValue: '0', days: '0',
+    firstYear: '2023', rate: '0', spaceDays: '1', spaces: '1', employeesStart: '0', employeesEnd: '0', spacesStart: '0',
+    spacesEnd: '0', contribution: '0' };
+  const park = (fields, year = y2023) => calculations.fbtCarParking({ ...base, ...fields }, year);
+  assert.equal(park({ each: '5.50' }).taxableValue, 5.5);
+  assert.equal(park({ method: 'average', fee: '17', firstFee: '17', lastFee: '20' }).average, 18.5);
+  assert.equal(park({ method: 'average', fee: '10', firstFee: '10', lastFee: '15' }).average, 12.5);
+  // Car park B's facts in the year ending 31 March 2027: $10 is not above $11.48, so no benefit arises.
+  assert.deepEqual(park({ method: 'average', fee: '10', firstFee: '10', lastFee: '15' },
+    { threshold: '11.48', days: '365', ended: '2027' }), { benefit: false, gross: 0, taxableValue: 0 });
+  const register = park({ method: 'register', fee: '9', registerValue: '2500', days: '183', firstYear: '2020' },
+    { threshold: '8.95', days: '366', ended: '2020' });
+  assert.deepEqual([register.annual, register.taxableValue], [10833.33, 5416.67]);
+  const spaces = park({ method: 'spaces', rate: '10', spaceDays: '182', spaces: '4', employeesStart: '3', employeesEnd: '3',
+    spacesStart: '4', spacesEnd: '4', contribution: '2340' });
+  assert.deepEqual([spaces.statutoryBenefit, spaces.gross, spaces.taxableValue], [4535.08, 3401.31, 1061.31]);
+});
+
+test('FBT benefits refuse inputs they cannot work', () => {
+  const year = { threshold: '11.48', days: '365', ended: '2027' };
+  const base = { method: 'station', fee: '12', benefits: '1', each: '12', firstFee: '0', lastFee: '0', registerValue: '0', days: '0',
+    firstYear: '2027', rate: '0', spaceDays: '1', spaces: '1', employeesStart: '0', employeesEnd: '0', spacesStart: '0',
+    spacesEnd: '0', contribution: '0' };
+  for (const [fields, message] of [
+    [{ method: 'actual' }, 'Choose a valuation method.'],
+    [{ benefits: '1.5' }, 'Enter a whole number between 0 and 1000000.'],
+    [{ method: 'register', days: '366' }, 'Enter a whole number between 0 and 365.'],
+    [{ method: 'register', firstYear: '2028' }, 'The register must have been first valid for an FBT year ending 31 March 2023 to 2027.'],
+    [{ method: 'spaces', spaceDays: '0' }, 'Enter a whole number between 1 and 365.'],
+    [{ method: 'spaces', employeesStart: '2.5' }, 'Enter a whole number between 0 and 1000000.'],
+  ]) {
+    assert.throws(() => calculations.fbtCarParking({ ...base, ...fields }, year), { message }, JSON.stringify(fields));
+  }
+  // Inputs are checked whether or not a benefit arises.
+  assert.throws(() => calculations.fbtCarParking({ ...base, fee: '1', benefits: '-1' }, year),
+    { message: 'Enter a whole number between 0 and 1000000.' });
+  const meal = { method: 'register', expenses: '100', registerBenefits: '1', registerTotal: '2', firstYear: '2026', earlier: ['100'] };
+  for (const [fields, message] of [
+    [{ method: 'actual' }, 'Choose a valuation method.'],
+    [{ registerTotal: '0', registerBenefits: '0' }, 'The register’s meal entertainment must be more than nil and at least its fringe benefits.'],
+    [{ registerBenefits: '3' }, 'The register’s meal entertainment must be more than nil and at least its fringe benefits.'],
+    [{ earlier: [] }, 'Enter the expenses of each FBT year from the register’s first valid year to the year before this one.'],
+  ]) {
+    assert.throws(() => calculations.fbtMealEntertainment({ ...meal, ...fields }, { ended: '2027' }), { message }, JSON.stringify(fields));
+  }
+  assert.throws(() => calculations.fbtLoan({ balances: '1', accrued: '0', incomeUse: '100.01', deduction: '0' }, { days: '365', rate: '8.27' }),
+    { message: 'Enter an amount between 0 and 100.' });
+  assert.throws(() => calculations.fbtLoan({ balances: '1', accrued: '0', incomeUse: '0', deduction: '0' }, { days: '365', rate: '0' }),
+    { message: 'Enter an amount between 0.01 and 100.' });
+});
+
+// The engines the FBT pages port, run on the same cases: see the fixture's engine line.
+test('FBT benefits agree with the australian-accounting engines on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./fbt-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 150);
+  for (const { name, source, call, amounts, refused } of cases) {
+    if (refused) {
+      assert.throws(() => calculations[name](...call), Error, `${source}: the engine refused, ${refused}`);
+      continue;
+    }
+    let result;
+    assert.doesNotThrow(() => { result = calculations[name](...call); }, source);
+    assert.deepEqual(Object.fromEntries(Object.keys(amounts).map((k) => [k, result[k].toFixed(2)])), amounts, source);
+  }
+});
+
+// FBTAA s 39GF(3), Compilation No. 97, read 17 November 2026: a register 'ceases to be valid at the end of
+// that FBT year if the number of car parking fringe benefits ... increases by more than 10% on any day in
+// that FBT year'. The calculator cannot see daily counts, so a register kept before this year carries the
+// condition in its result; one kept this year has no earlier year to check.
+test('FBT car parking register results name the 10% rule they do not check', () => {
+  const fields = { method: 'register', fee: '12.36', 'register-value': '2500', days: '183', 'first-year': '2025', contribution: '0' };
+  const form = { dataset: { calculator: 'fbt-car-parking', threshold: '11.48', yearDays: '365', yearEnded: '2027' } };
+  const value = (name) => fields[name] ?? '0';
+  const result = () => fbtBenefitResult(form, calculations, { aud: String, value, money: value });
+  assert.equal(result().note, 'Valid only if the number of car parking fringe benefits did not rise by more than 10% '
+    + 'on any day in the years ending 31 March 2025 to 2026 (subsection 39GF(3)), which this calculator does not check');
+  assert.equal(result().rows.at(-1)[1], '5416.67');
+  fields['first-year'] = '2027';
+  assert.equal(result().note, undefined);
+  fields.method = 'station';
+  fields['first-year'] = '2025';
+  assert.equal(result().note, undefined);
+  assert.throws(() => fbtBenefitResult({ dataset: { calculator: 'fbt-boat' } }, calculations, {}), { message: 'Unknown calculator.' });
+});
+
+// FBTAA ss 39C, 39D and 39DA reduce each benefit by its own recipients contribution, so a total taken off
+// several benefits is right only where none was overpaid: 2 benefits of $10 with $20 paid for one leave $10,
+// where the total gives $0. The result says so whenever contributions come off. s 39FB(6): the reduction for
+// fewer employees than spaces applies only to representative numbers, which the calculator cannot see.
+test('FBT car parking results name the contribution and spaces conditions they do not check', () => {
+  const fields = { method: 'station', fee: '12', benefits: '2', each: '10', contribution: '20' };
+  const form = { dataset: { calculator: 'fbt-car-parking', threshold: '11.48', yearDays: '365', yearEnded: '2027' } };
+  const value = (name) => fields[name] ?? '0';
+  const result = () => fbtBenefitResult(form, calculations, { aud: String, value, money: value });
+  const total = 'Contributions come off in total: if one benefit’s contribution was more than its value, '
+    + 'the excess does not reduce other benefits, so value that benefit separately';
+  assert.equal(result().note, total);
+  Object.assign(fields, { 'first-fee': '10', 'last-fee': '10' });
+  for (const method of ['market', 'average']) {
+    fields.method = method;
+    assert.equal(result().note, total, method);
+  }
+  Object.assign(fields, { method: 'station', each: '0', contribution: '5' });
+  assert.deepEqual([result().rows.at(-2)[1], result().note], ['5', total]);
+  fields.fee = '11.48';
+  assert.equal(result().note, 'No car parking benefit arises: the first business day fee is not more than the $11.48 threshold');
+  Object.assign(fields, { fee: '12', each: '10', contribution: '0' });
+  assert.equal(result().note, undefined);
+  Object.assign(fields, { method: 'spaces', rate: '10', 'space-days': '182', spaces: '4', 'employees-start': '3',
+    'employees-end': '3', 'spaces-start': '4', 'spaces-end': '4', contribution: '2340' });
+  assert.equal(result().note, 'The reduction for fewer employees than spaces applies only if both numbers are '
+    + 'representative (subsection 39FB(6)), which this calculator does not check');
+  assert.equal(result().rows.at(-1)[1], '1061.31');
+  Object.assign(fields, { 'employees-start': '4', 'employees-end': '4' });
+  assert.equal(result().note, undefined);
+});
+
+// From 2^46 dollars (about $70.37 trillion) a Number cannot hold every cent: 71,000 benefits at
+// $1,000,000,000 less 1 cent would show as $70,999,999,999,999.98, so it is refused.
+test('FBT benefits refuse a result too large to show to the cent', () => {
+  const parking = { method: 'station', fee: '12', benefits: '1000000', each: '1000000000', firstFee: '0', lastFee: '0',
+    registerValue: '0', days: '0', firstYear: '2027', rate: '0', spaceDays: '1', spaces: '1', employeesStart: '0',
+    employeesEnd: '0', spacesStart: '0', spacesEnd: '0', contribution: '0.01' };
+  assert.throws(() => calculations.fbtCarParking(parking, { threshold: '11.48', days: '365', ended: '2027' }),
+    { message: 'The result is too large to work to the cent: enter smaller amounts.' });
+  const year = { threshold: '11.48', days: '365', ended: '2027' };
+  assert.throws(() => calculations.fbtCarParking({ ...parking, benefits: '71000' }, year),
+    { message: 'The result is too large to work to the cent: enter smaller amounts.' });
+  assert.equal(calculations.fbtCarParking({ ...parking, benefits: '70000' }, year).taxableValue.toFixed(2), '69999999999999.99');
+  // 2^17 benefits at 2^29 dollars total exactly 2^46 dollars, the largest total taken.
+  const cap = { ...parking, benefits: '131072', each: '536870912', contribution: '0' };
+  let shown;
+  assert.doesNotThrow(() => { shown = calculations.fbtCarParking(cap, year).taxableValue.toFixed(2); });
+  assert.equal(shown, '70368744177664.00');
+});
+
+// The meal form passes each earlier year's expenses oldest first, so the 20% rule compares the right years:
+// $1,300 after a $1,000 first year ends the register; $1,000 after a $1,300 first year does not.
+test('FBT meal entertainment form passes the earlier years oldest first', () => {
+  const fields = { method: 'register', expenses: '900', 'register-benefits': '1000', 'register-total': '3000',
+    'first-year': '2025', 'earlier-2025': '1000', 'earlier-2026': '1300' };
+  const form = { dataset: { calculator: 'fbt-meal-entertainment', yearEnded: '2027' },
+    elements: { namedItem: (name) => (name in fields ? { value: fields[name] } : null) } };
+  const value = (name) => fields[name] ?? '0';
+  const result = () => fbtBenefitResult(form, calculations, { aud: String, value, money: value });
+  assert.throws(result, { message: /ceased to be valid at the end of the FBT year ending 31 March 2026/ });
+  Object.assign(fields, { 'earlier-2025': '1300', 'earlier-2026': '1000' });
+  assert.deepEqual(result().rows.slice(0, 2), [['Register percentage', '33.33%'], ['Taxable value', '300']]);
+});
+
 // ATO, 'Luxury car tax rate and thresholds' (QC38161, last updated 1 June 2026), read 16 November 2026:
 // https://www.ato.gov.au/tax-rates-and-codes/luxury-car-tax-rate-and-thresholds
 // '2026-27 $91,661 $80,809' and '2025–26 $91,387 $80,567' (fuel-efficient vehicles, other vehicles).
@@ -1524,4 +1946,166 @@ test('land tax applies a band from its first value, adds the ACT fixed charge an
         { message: 'Trust rates, a foreign or absentee owner and the metropolitan region must each be true or false.' }, `${choice} ${flag}`);
     }
   }
+});
+
+// Payroll tax for 2026-27. The engine's table must be the page's data file, row for row: each
+// item is a figure, and each 'rate' row a rate with the Australian wages it applies above.
+const payrollTaxCsv = readFileSync(new URL('../tools/business-calculators/payroll-tax/payroll-tax-rates.csv', import.meta.url), 'utf8');
+const payrollTaxHtml = readFileSync(new URL('../_includes/calculators/payroll-tax.html', import.meta.url), 'utf8');
+const payrollTax = (wages, australian, place) => calculations.payrollTax(wages, australian, place);
+const PAYROLL_TAX_PLACES = { ...PLACES, 'AU-VIC-REGIONAL': 'Victoria, regional employer' };
+Object.assign(INPUTS, { payrollTax: (wages, australian, place) =>
+  `${PAYROLL_TAX_PLACES[place]}, wages ${dollars(Number(wages))}, Australian wages ${dollars(Number(australian || wages))}` });
+Object.assign(FORM_CALLS, { payrollTax: (f) => [f.wages, f.australian, f.jurisdiction] });
+Object.assign(ENGINE_LABELS, { payrollTax: { deduction: 'deduction', taxable: 'taxable amount', tax: 'payroll tax',
+  levy: 'first surcharge or levy', extraLevy: 'second surcharge or levy', total: 'total' } });
+
+test('the payroll tax table is the page’s data file, with a source and dates for every figure', () => {
+  const [header, ...lines] = payrollTaxCsv.trim().split(/\r?\n/).map((line) => (assert.ok(!line.includes('"')), line.split(',')));
+  assert.deepEqual(header, ['employer', 'item', 'value', 'wages_over', 'in_force_from', 'provision', 'notes', 'source_url', 'checked_at']);
+  const law = {};
+  for (const [employer, item, value, over, from, provision, , url, checked] of lines) {
+    assert.match(from, /^\d{4}-\d{2}-\d{2}$/, `${employer} ${item}`);
+    assert.ok(from <= '2026-07-01' && provision && /^https:\/\//.test(url) && checked === '2026-11-17', `${employer} ${item}`);
+    const entry = (law[employer] ??= employer === 'AU-VIC-REGIONAL' ? { ...law['AU-VIC'], rates: [] } : { rates: [] });
+    if (item === 'rate') entry.rates.push([over, value]);
+    else entry[item.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase())] = value;
+  }
+  assert.deepEqual(law, PAYROLL_TAX_2026_27);
+  const radios = [...payrollTaxHtml.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)"/g)].map(([, code]) => code);
+  assert.deepEqual(radios, Object.keys(PAYROLL_TAX_2026_27));
+});
+
+// Published examples, read 17 November 2026. Revenue NSW, thresholds and rates: 'NSW wages
+// (employed for 365 days) $1,500,000 ... Payroll tax calculated on $300,000'; '$1,200,000 x
+// ($900,000 ÷ $3,000,000) = $360,000'.
+test('payroll tax agrees with Revenue NSW’s examples', () => {
+  assert.deepEqual(payrollTax('1500000', '', 'AU-NSW'), payrollTax('1500000', '1500000', 'AU-NSW'));
+  assert.deepEqual([payrollTax('1500000', '', 'AU-NSW').taxable, payrollTax('1500000', '', 'AU-NSW').tax], [300000, 16350]);
+  assert.equal(payrollTax('900000', '3000000', 'AU-NSW').deduction, 360000);
+});
+
+// SRO Victoria, payroll tax surcharges, example 2 (2025-26, the same thresholds): $80 million in
+// Victoria and $70 million in NSW give thresholds of '$5,333,333.33' and '$53,333,333.33'; each
+// surcharge is 0.5% of Victorian wages above each. Threshold and phase-out rate, example 1, says
+// the full-year Victoria-only deduction is '$5 million minus their wage bill multiplied by the
+// phase-out rate': here ($5,000,000 - $4,200,000) x 50% = $400,000, and $3,800,000 at 4.85%.
+test('payroll tax agrees with the Victorian State Revenue Office’s examples', () => {
+  const surcharge = Math.round(((80000000 - 5333333.33) * 0.005 + (80000000 - 53333333.33) * 0.005) * 100) / 100;
+  const big = payrollTax('80000000', '150000000', 'AU-VIC');
+  assert.deepEqual([big.deduction, big.tax, big.levy, big.extraLevy], [0, 3880000, surcharge, surcharge]);
+  assert.equal(big.total, 3880000 + 2 * surcharge);
+  assert.deepEqual([payrollTax('4200000', '', 'AU-VIC').deduction, payrollTax('4200000', '', 'AU-VIC').tax], [400000, 184300]);
+  assert.equal(payrollTax('4200000', '', 'AU-VIC-REGIONAL').tax, 46075);
+});
+
+// Queensland Revenue Office, payroll tax deductions (example image AD-July-2023.png): Queensland
+// wages $1,356,789 and Australian wages $1,789,776 give an annual deduction of $932,460 to the dollar.
+test('payroll tax agrees with the Queensland Revenue Office’s deduction example', () => {
+  const qld = payrollTax('1356789', '1789776', 'AU-QLD');
+  assert.equal(Math.round(qld.deduction), 932460);
+  assert.deepEqual([qld.deduction, qld.taxable, qld.tax], [932459.64, 424329.36, 20155.64]);
+});
+
+// RevenueWA, payroll tax employer guide (updated 2 June 2026): annual wages of $1,104,000 give
+// '$6,600'. Its local example ($1,200,000: deduction '$969,231', tax '$12,692.30') and interstate
+// example ($1,000,000 in WA of $4,000,000: '$134,616', '$47,596.12') round the deduction to the
+// dollar first; the Act sets no rounding, so this calculator keeps the cents.
+test('payroll tax agrees with RevenueWA’s examples', () => {
+  assert.deepEqual(payrollTax('1104000', '', 'AU-WA'), payrollTax('1104000', '1104000', 'AU-WA'));
+  assert.deepEqual([payrollTax('1104000', '', 'AU-WA').deduction, payrollTax('1104000', '', 'AU-WA').tax], [984000, 6600]);
+  assert.deepEqual([payrollTax('1200000', '', 'AU-WA').deduction, payrollTax('1200000', '', 'AU-WA').tax], [969230.77, 12692.31]);
+  assert.deepEqual([payrollTax('1000000', '4000000', 'AU-WA').deduction, payrollTax('1000000', '4000000', 'AU-WA').tax],
+    [134615.38, 47596.15]);
+});
+
+// RevenueSA, Guide to Legislation 2026-27 (version 2026-27.01): '$800,000' of '$1,600,000' gives a
+// deduction of '$300,000' and '$500,000' of '$2,000,000' '$150,000'. Sch 1 cl 5(2) gives 2.475% at
+// $1,600,000; the guide's rate table cuts it to 2.47%.
+test('payroll tax agrees with RevenueSA’s deduction examples and the Act’s phased rate', () => {
+  assert.deepEqual([payrollTax('500000', '2000000', 'AU-SA').deduction, payrollTax('500000', '2000000', 'AU-SA').tax], [150000, 17325]);
+  const phased = payrollTax('800000', '1600000', 'AU-SA');
+  assert.deepEqual([phased.deduction, phased.tax, phased.lines[0].rate], [300000, 12375, '2.475%']);
+  assert.equal(payrollTax('1560000', '', 'AU-SA').lines[0].rate, '1.485%');
+  assert.equal(payrollTax('1512345.67', '', 'AU-SA').lines[0].rate, 'about 0.3056%');
+});
+
+// SRO Tasmania, annual adjustment return guideline (2025-26, the same thresholds and rates):
+// example 1, $2,400,000 in Tasmania only, '$30,000' + '$24,400' = '$54,400'; example 2,
+// $2,400,000 of $3,000,000, '$24,000' + '$48,800' = '$72,800'.
+test('payroll tax agrees with the Tasmanian State Revenue Office’s examples', () => {
+  const only = payrollTax('2400000', '', 'AU-TAS');
+  assert.deepEqual([only.lines.map((line) => line.amount), only.tax], [[30000, 24400], 54400]);
+  const shared = payrollTax('2400000', '3000000', 'AU-TAS');
+  assert.deepEqual([shared.deduction, shared.lines.map((line) => [line.on, line.amount]), shared.tax],
+    [1000000, [[600000, 24000], [800000, 48800]], 72800]);
+});
+
+// No numeric example is published by the ACT Revenue Office or, on a page that could be read, the
+// Territory Revenue Office; these are worked by hand from the Acts. ACT: $3,000,000 less $1,750,000
+// at 6.75% is $84,375; $25,000,000 of $30,000,000 has a deduction of $1,458,333.33 and 6.85% on
+// $23,541,666.67 is $1,612,604.17. NT: $3,000,000 has a deduction of $2,500,000 less half of
+// $500,000, $2,250,000, and 5.5% of $750,000 is $41,250.
+test('payroll tax in the ACT and the Northern Territory agrees with examples worked from the Acts', () => {
+  assert.deepEqual([payrollTax('3000000', '', 'AU-ACT').deduction, payrollTax('3000000', '', 'AU-ACT').tax], [1750000, 84375]);
+  assert.deepEqual([payrollTax('25000000', '30000000', 'AU-ACT').deduction, payrollTax('25000000', '30000000', 'AU-ACT').tax],
+    [1458333.33, 1612604.17]);
+  assert.deepEqual([payrollTax('3000000', '', 'AU-NT').deduction, payrollTax('3000000', '', 'AU-NT').tax], [2250000, 41250]);
+});
+
+test('payroll tax thresholds, tapers and rate bands meet at their edges', () => {
+  const tax = (wages, place, all = '') => payrollTax(wages, all, place);
+  // South Australia's threshold is not its deduction: no tax to $1,500,000, a $600,000 deduction.
+  for (const [place, threshold, deduction = threshold] of [['AU-NSW', '1200000'], ['AU-VIC', '1000000'], ['AU-QLD', '1300000'],
+    ['AU-WA', '1000000'], ['AU-SA', '1500000', '600000'], ['AU-TAS', '1250000'], ['AU-ACT', '1750000'], ['AU-NT', '2500000']]) {
+    assert.deepEqual([tax(threshold, place).deduction, tax(threshold, place).total], [Number(deduction), 0], place);
+    assert.equal(tax('0', place, '0').total, 0, place);
+  }
+  // Each deduction reaches nil: Victoria at $5m, Queensland at $10.4m, WA at $7.5m, NT at $7.5m.
+  for (const [place, wages] of [['AU-VIC', '5000000'], ['AU-QLD', '10400000'], ['AU-WA', '7500000'], ['AU-NT', '7500000']]) {
+    assert.equal(tax(wages, place).deduction, 0, place);
+    assert.ok(tax(String(Number(wages) - 7), place).deduction > 0, place);
+  }
+  assert.equal(tax('3000000', 'AU-VIC').deduction, 1000000);
+  assert.deepEqual([tax('6500000', 'AU-QLD').lines[0].rate, tax('6500000.01', 'AU-QLD').lines[0].rate], ['4.75%', '4.95%']);
+  assert.deepEqual([tax('20000000', 'AU-ACT').lines[0].rate, tax('20000000.01', 'AU-ACT').lines[0].rate], ['6.75%', '6.85%']);
+  assert.deepEqual([tax('150000000', 'AU-ACT').lines[0].rate, tax('150000000.01', 'AU-ACT').lines[0].rate], ['7.85%', '8.75%']);
+  assert.deepEqual([tax('99999999.99', 'AU-NT').lines[0].rate, tax('100000000', 'AU-NT').lines[0].rate], ['5.5%', '6.5%']);
+  assert.deepEqual([tax('1500000.01', 'AU-SA').tax, tax('1700000', 'AU-SA').lines[0].rate, tax('1700000.01', 'AU-SA').lines[0].rate],
+    [0, '4.95%', '4.95%']);
+  assert.deepEqual([tax('1200000', 'AU-SA').deduction, tax('1200000', 'AU-SA').lines[0].rate, tax('1200000', 'AU-SA').total],
+    [600000, '0%', 0]);
+  assert.deepEqual([tax('500000', 'AU-SA').deduction, tax('500000', 'AU-SA').total], [500000, 0]);
+  assert.deepEqual(tax('2000000', 'AU-TAS').lines.map((line) => line.on), [750000, 0]);
+  // 0.25% of $400 above $10m is $1; nothing above $100m until wages pass it.
+  assert.deepEqual([tax('10000000', 'AU-QLD').levy, tax('10000400', 'AU-QLD').levy, tax('100000000', 'AU-QLD').extraLevy], [0, 1, 0]);
+  // Victoria above $100m: 0.5% of $90,000,100 and of $100, $450,000.50 + $0.50.
+  assert.deepEqual([tax('10000000', 'AU-VIC').levy, tax('100000100', 'AU-VIC').levy], [0, 450001]);
+});
+
+test('payroll tax refuses wages it cannot work', () => {
+  for (const [wages, australian, place, message] of [
+    ['-1', '', 'AU-NSW', 'Enter an amount between 0 and 100000000000.'],
+    ['1000', '-1', 'AU-NSW', 'Enter an amount between 0 and 100000000000.'],
+    ['100000000000.01', '', 'AU-NSW', 'Enter an amount between 0 and 100000000000.'],
+    ['', '', 'AU-NSW', 'Enter a number using digits only.'],
+    ['NaN', '', 'AU-NSW', 'Enter a number using digits only.'],
+    ['1500000.001', '', 'AU-NSW', 'Enter a number with no more than 2 decimal places.'],
+    ['2000000', '1999999.99', 'AU-NSW', 'Enter total Australian wages of at least the wages in the state or territory.'],
+    ['1500000', '', 'AU-VIC-METRO', 'Choose a state or territory.'],
+    ['1500000', '', 'toString', 'Choose a state or territory.'],
+  ]) {
+    assert.throws(() => payrollTax(wages, australian, place), { message }, `${wages} ${australian} ${place}`);
+  }
+});
+
+test('the payroll tax page opens on the result its calculation gives for the form’s inputs', () => {
+  const example = payrollTaxHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(payrollTaxHtml);
+  const result = calculations.payrollTaxResult(fields.wages, fields.australian, fields.jurisdiction, aud);
+  assert.equal(result.inputs, example[1]);
+  assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
+  assert.equal(String(result.principal), example[3]);
+  assert.equal(result.note, example[4]);
 });

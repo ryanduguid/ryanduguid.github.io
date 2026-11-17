@@ -1,0 +1,126 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Australian income tax, take-home pay and HELP calculators</title>
+  <meta name="description" content="Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Australian income tax, take-home pay and HELP calculators" />
+  <meta property="og:description" content="Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/individual-tax/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Australian income tax, take-home pay and HELP calculators" />
+  <meta name="twitter:description" content="Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/individual-tax/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/individual-tax/index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+
+  <link rel="stylesheet" href="/assets/accounting-pages.css?v=20261007b" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main accounting-page">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Individual tax calculators</li></ol></nav>
+        <h1>Individual tax calculators</h1>
+        <p class="lead-note">Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
+        <p class="field-note">Estimates in AUD for a full income year from 2024-25 to 2026-27, for a single person with no dependants. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.</p>
+        {% assign checked = "" %}{% for calculator in site.data.individual_tax_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
+        <p class="page-meta">Published 17 November 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
+      </header>
+      <div class="site-shell accounting-content">
+        <h2>Tax, pay and study loans</h2>
+        <ul class="calculator-list">
+          <li id="income-tax"><a class="collection-entry__title" href="/tools/individual-tax/income-tax/">Income tax calculator</a> Tax on taxable income, the low income tax offset and the Medicare levy, for an Australian resident, a foreign resident or a working holiday maker.</li>
+          <li id="take-home-pay"><a class="collection-entry__title" href="/tools/individual-tax/take-home-pay/">Take-home pay calculator</a> What is left of an annual salary each year, month, fortnight and week after tax, Medicare levy and any study loan repayment, with the employer’s super guarantee.</li>
+          <li id="study-loan"><a class="collection-entry__title" href="/tools/individual-tax/study-loan/">Study and training loan calculator</a> The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.</li>
+        </ul>
+        <p>For a business, see the <a href="/tools/business-calculators/">business calculators</a>.</p>
+      <p class="byline">
+        Written by Ryan Duguid in his own time and on his own equipment.
+        He is a Provisional CA ANZ Member.
+      </p>
+</div></article></main>
+{% include site-footer.html %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/individual-tax/#webpage",
+      "url": "https://duguid.com.au/tools/individual-tax/",
+      "name": "Individual tax calculators",
+      "description": "Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/individual-tax/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/individual-tax/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Individual tax calculators",
+          "item": "https://duguid.com.au/tools/individual-tax/"
+        }
+      ]
+    }
+  ]
+}
+</script></body></html>
