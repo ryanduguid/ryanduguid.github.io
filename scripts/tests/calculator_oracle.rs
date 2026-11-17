@@ -2534,6 +2534,202 @@ fn the_gic_engine_agrees_with_the_oracle_on_every_seeded_case() {
     }
 }
 
+/// Runs the Division 7A schedule engine, as `HARNESS` runs the others.
+const DIV7A_SCHEDULE_HARNESS: &str = r"
+import { div7aSchedule } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const text = (value) => (value === null ? null : String(value));
+const texts = (record) => Object.fromEntries(Object.entries(record).map(([key, value]) => [key, text(value)]));
+const run = ({ loan }) => {
+  const { years, ...summary } = div7aSchedule(loan);
+  return { ...texts(summary), years: years.map(texts) };
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+const DIV7A_SCHEDULE_CASES: usize = 200;
+/// The ATO's benchmark rates in hundredths of 1%, by the calendar year each income year starts
+/// in, typed from 'Division 7A – benchmark interest rate' (last updated 1 July 2026, read
+/// 17 November 2026), not from the engine or the site's table.
+const ATO_BENCHMARK: [(i32, u64); 6] = [
+    (2021, 452),
+    (2022, 477),
+    (2023, 827),
+    (2024, 877),
+    (2025, 837),
+    (2026, 877),
+];
+
+fn income_year(start: i32) -> String {
+    format!("{start}-{:02}", (start + 1) % 100)
+}
+
+fn hundredths(rate: u64) -> String {
+    format!("{}.{:02}", rate / 100, rate % 100)
+}
+
+/// A year's interest in cents on `opening` at `rate` hundredths of 1% for the income year
+/// starting 1 July of `start`, with `repayment` made on 30 June: the opening balance from 1 July
+/// to 29 June, then the balance the repayment leaves for that day, each period half up to the
+/// cent over the year's calendar days; one period when nothing is repaid.
+fn div7a_year_interest(opening: u64, rate: u64, start: i32, repayment: u64) -> u64 {
+    let july = |year| NaiveDate::from_ymd_opt(year, 7, 1).unwrap();
+    let days = u128::try_from(
+        july(start + 1)
+            .signed_duration_since(july(start))
+            .num_days(),
+    )
+    .unwrap();
+    let whole = u128::from(opening) * u128::from(rate);
+    let part = if repayment == 0 {
+        exact_half_up(whole, 10_000)
+    } else {
+        exact_half_up(whole * (days - 1), 10_000 * days)
+            + exact_half_up(
+                u128::from(opening.saturating_sub(repayment)) * u128::from(rate),
+                10_000 * days,
+            )
+    };
+    u64::try_from(part).unwrap()
+}
+
+/// One seeded loan and its schedule: the repayments are chosen a year at a time against the
+/// minimum the oracle works for that year, so short, extra and final repayments all appear.
+/// Each year's minimum comes from `div7a_oracle`, which sums discount factors, and its days
+/// from the calendar; a repayment meets the interest first, interest it leaves unpaid adds to the
+/// balance, and the dividend that funds it is
+/// the repayment grossed up for tax at the marginal rate, less the franking credit, rounded up.
+fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
+    let first = NaiveDate::from_ymd_opt(2020, 7, 1).unwrap();
+    let last = NaiveDate::from_ymd_opt(2027, 6, 30).unwrap();
+    let span = u64::try_from(last.signed_duration_since(first).num_days()).unwrap();
+    let any_day = first + chrono::Days::new(rng.below(span + 1));
+    let made = rng.pick(&[first, last, any_day, any_day, any_day]);
+    let year_made = if made.month() >= 7 {
+        made.year()
+    } else {
+        made.year() - 1
+    };
+    let amount = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let term = rng.pick(&[7_u32, 7, 25]);
+    let any_rate = 1 + rng.below(2_000);
+    let assumed = rng.pick(&[877, 877, 1, 10_000, any_rate]);
+    let any_marginal = rng.below(10_000);
+    let marginal = rng.pick(&[
+        None,
+        None,
+        Some(0),
+        Some(3_000),
+        Some(4_700),
+        Some(9_999),
+        Some(any_marginal),
+    ]);
+    let (franking, corporate) = rng.pick(&[("unfranked", 0_u64), ("30", 3_000), ("25", 2_500)]);
+    let (mut opening, mut repaid, mut charged) = (amount, 0_u64, 0_u64);
+    let (mut entries, mut years) = (Vec::new(), Vec::new());
+    let mut projected_from = Value::Null;
+    for k in 1..=term {
+        let start = year_made + i32::try_from(k).unwrap();
+        let published = ATO_BENCHMARK
+            .iter()
+            .find(|(year, _)| *year == start)
+            .map(|&(_, rate)| rate);
+        let rate = published.unwrap_or(assumed);
+        if published.is_none() && projected_from.is_null() {
+            projected_from = json!(income_year(start));
+        }
+        let remaining = term - k + 1;
+        let [minimum, _, _] = div7a_oracle(opening, rate, remaining);
+        let interest_on = |repayment| div7a_year_interest(opening, rate, start, repayment);
+        let payoff = opening + interest_on(opening);
+        let due = minimum.min(payoff);
+        let chosen = match rng.below(10) {
+            5 | 6 if payoff > due + 1 => Some(due + 1 + rng.cents(payoff - due - 1)),
+            7 if due > 0 => Some(rng.below(due)),
+            8 => Some(payoff),
+            9 => Some(due),
+            _ => None,
+        }
+        .filter(|&value| value <= MAX_PRINCIPAL);
+        entries.push(chosen.map_or_else(String::new, dollars));
+        let repayment = chosen.unwrap_or(due);
+        let interest = interest_on(repayment);
+        // The amount not repaid is the opening balance plus the interest less the repayment, so
+        // interest left unpaid adds to it and the principal is negative.
+        let closing = opening + interest - repayment;
+        let principal = i128::from(repayment) - i128::from(interest);
+        let shortfall = if closing > 0 {
+            minimum.saturating_sub(repayment)
+        } else {
+            0
+        };
+        let funding = marginal.map(|m| {
+            let top = u128::from(repayment) * u128::from(10_000 - corporate);
+            json!(shown(
+                u64::try_from(top.div_ceil(u128::from(10_000 - m))).unwrap()
+            ))
+        });
+        years.push(json!({
+            "year": income_year(start), "rate": shown(rate), "projected": published.is_none().to_string(),
+            "remainingTerm": remaining.to_string(), "opening": shown(opening), "minimum": shown(minimum),
+            "repayment": shown(repayment), "interest": shown(interest), "principal": shown_signed(principal),
+            "closing": shown(closing), "shortfall": shown(shortfall),
+            "funding": funding.unwrap_or(Value::Null),
+        }));
+        (opening, repaid, charged) = (closing, repaid + repayment, charged + interest);
+        if shortfall > 0 || opening == 0 {
+            break;
+        }
+    }
+    // Blank entries at the end mean the minimum, as no entry does.
+    if rng.below(2) == 0 {
+        while entries.last().is_some_and(String::is_empty) {
+            entries.pop();
+        }
+    }
+    let last_year = years.last().unwrap().clone();
+    let loan = json!({
+        "made": made.format("%Y-%m-%d").to_string(), "amount": dollars(amount), "term": term.to_string(),
+        "assumedRate": hundredths(assumed), "repayments": entries.join("; "),
+        "marginalRate": marginal.map_or_else(String::new, hundredths), "franking": franking,
+        "lodgment": false, "refinanced": false, "interposed": false,
+    });
+    let expected = json!({
+        "firstMinimum": years[0]["minimum"], "totalRepaid": shown(repaid), "totalInterest": shown(charged),
+        "lastYear": last_year["year"], "closing": last_year["closing"], "shortfall": last_year["shortfall"],
+        "projectedFrom": projected_from, "years": years,
+    });
+    (json!({ "loan": loan }), expected)
+}
+
+#[test]
+fn the_div7a_schedule_oracle_charges_30_june_on_the_reduced_balance() {
+    // $100,000 at 8.27% for 2023-24, which holds 29 February: 365 of 366 days give $8,247.40,
+    // and 30 June on the $80,615.04 left after the $19,384.96 minimum gives $18.22.
+    assert_eq!(div7a_oracle(10_000_000, 827, 7)[0], 1_938_496);
+    assert_eq!(
+        div7a_year_interest(10_000_000, 827, 2023, 1_938_496),
+        826_562
+    );
+    assert_eq!(div7a_year_interest(10_000_000, 827, 2023, 0), 827_000);
+    // 2024-25 has 365 days: $88,880.66 at 8.77% is $7,773.48 for 364, then $20.15 on $83,880.66.
+    assert_eq!(div7a_year_interest(8_888_066, 877, 2024, 500_000), 779_363);
+}
+
+#[test]
+fn the_div7a_schedule_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1117_0000_7a7a);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..DIV7A_SCHEDULE_CASES)
+        .map(|_| div7a_schedule_case(&mut rng))
+        .unzip();
+    let actual = run_node(DIV7A_SCHEDULE_HARNESS, &cases);
+    assert_eq!(actual.len(), DIV7A_SCHEDULE_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
 const VEHICLE_CASES: usize = 240;
 
 /// Each year, its car limit and its LCT thresholds for fuel-efficient and other vehicles, in

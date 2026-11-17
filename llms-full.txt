@@ -1400,11 +1400,11 @@ Primary source Download CSV
 
 15%
 
-15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO had published Medicare levy low-income thresholds to 2025-26 only when checked on 14 November 2026.
+15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO had published Medicare levy low-income thresholds to 2025-26 only when checked on 17 November 2026, so the 2026-27 thresholds are the Medicare Levy Act’s.
 
 Source checked
 
-14 November 2026
+14 November 2026, and 17 November 2026 for the 2026-27 Medicare levy thresholds
 
 Scope
 
@@ -2530,11 +2530,11 @@ Source: https://duguid.com.au/rates/individual-income-tax/
 
 15% is the first rate above the $18,200 tax-free threshold for 2026-27, down from 16% for 2024-25 and 2025-26.
 
-These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 14 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only.
+These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 17 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only, so the 2026-27 thresholds are the Medicare Levy Act’s.
 
-Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+Published 14 November 2026. Last reviewed 17 November 2026. Source checked 14 November 2026. Source checked 17 November 2026 for the 2026-27 Medicare levy thresholds.
 
-Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25.
+Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25. The 2026-27 Medicare levy thresholds were read from the Medicare Levy Act 1986 on 17 November 2026.
 
 ## Rates for 2026-27
 
@@ -2577,6 +2577,7 @@ The ATO page also lists resident rates back to 1983-84. They are not listed here
 The Medicare levy is 2% of taxable income. A single person not entitled to the seniors and pensioners tax offset pays no levy on taxable income at or below the lower threshold and a reduced levy up to the upper threshold. Thresholds for families and for people entitled to that offset are on the ATO pages and are not listed here.
 
 Income year | Lower threshold | Upper threshold
+2026-27 | $28,011 | $35,013
 2025-26 | $28,011 | $35,013
 2024-25 | $27,222 | $34,027
 2023-24 | $26,000 | $32,500
@@ -2584,9 +2585,9 @@ Income year | Lower threshold | Upper threshold
 2021-22 | $23,365 | $29,206
 2020-21 | $23,226 | $29,032
 
-The table lists only thresholds the ATO has published. On 14 November 2026 its Medicare levy reduction page gave thresholds for 2025-26 and no later year, so 2026-27 is not listed. Under the law in force that day the same figures apply to 2026-27: section 3(1) of the Medicare Levy Act 1986, in compilation 53 of 1 July 2026 (the latest on 14 November 2026), sets $28,011 and $35,013, and Schedule 5 to the Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026 (No. 58, 2026) applies them to 2025-26 and later years. That Act received assent on 30 June 2026, the last day of 2025-26, and raised that year’s figures, so a later Act could still change them for 2026-27. The ATO’s myTax instructions for 2019-20 give no threshold table, so that year is not listed.
+The 2026-27 row is the law in force on 17 November 2026, not an ATO table: that day the ATO’s Medicare levy reduction page gave thresholds for 2025-26 and no later year. Section 3(1) of the Medicare Levy Act 1986, in compilation 53 of 1 July 2026 (the latest on 17 November 2026), sets $28,011 and $35,013, and Schedule 5 to the Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026 (No. 58, 2026) applies them to 2025-26 and later years. That Act received assent on 30 June 2026, the last day of 2025-26, and raised that year’s figures, so a later Act could still change them for 2026-27. The ATO’s myTax instructions for 2019-20 give no threshold table, so that year is not listed.
 
-Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026. Rows with component resident_tax hold the tax bands; rows with medicare_levy_low_income_single hold the lower and upper thresholds in income_from and income_to. Cite as Duguid, R. (2026). Australian resident income tax rates by year [Data set]. https://duguid.com.au/rates/individual-income-tax/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026 except the 2026-27 Medicare levy row, read from the Act on 17 November 2026. Rows with component resident_tax hold the tax bands; rows with medicare_levy_low_income_single hold the lower and upper thresholds in income_from and income_to. Cite as Duguid, R. (2026). Australian resident income tax rates by year [Data set]. https://duguid.com.au/rates/individual-income-tax/. Verify against current ATO guidance before relying on a figure.
 
 ## Common questions
 
@@ -2600,7 +2601,7 @@ The rate on taxable income from $18,201 to $45,000 fell from 16% to 15%, so the 
 
 ### What are the 2026-27 Medicare levy low-income thresholds?
 
-Under the law in force on 14 November 2026, $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset, the same as 2025-26. Section 3(1) of the Medicare Levy Act 1986, as compiled on 1 July 2026, sets those figures, and Act No. 58 of 2026 applies them to 2025-26 and later years. The ATO had not published 2026-27 thresholds that day, and a later Act can still change them.
+Under the law in force on 17 November 2026, $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset, the same as 2025-26. Section 3(1) of the Medicare Levy Act 1986, as compiled on 1 July 2026, sets those figures, and Act No. 58 of 2026 applies them to 2025-26 and later years. The ATO had not published 2026-27 thresholds that day, and a later Act can still change them.
 
 ### Do these rates apply to everyone?
 
@@ -3198,7 +3199,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 25 business planning calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 25 business planning calculators, 3 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3416,6 +3417,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 25 business planning calculators: https://duguid.com.au/tools/business-calculators/
+- 3 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -5560,6 +5562,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+17 November 2026 | Three individual tax calculators for 2024-25 to 2026-27: income tax with the low income tax offset and the Medicare levy for a resident, a foreign resident or a working holiday maker; take-home pay a year, month, fortnight and week, with super guarantee and the $1,000 standard deduction from 2026-27; and the compulsory study and training loan repayment, marginal from 2025-26. Each rate and threshold is cited to its Act. The individual income tax rate table adds the 2026-27 Medicare levy low-income thresholds from the Medicare Levy Act 1986.
+17 November 2026 | A new business calculator sets out a complying Division 7A loan year by year over its 7-year or 25-year term: each minimum yearly repayment at that year’s benchmark rate, the interest and principal, what a larger repayment does to later minimums and the shortfall subsection 109E(1) takes to be a dividend. Rates to 2026-27 are the ATO’s, each cited; later years use a rate you assume and are marked as a projection. It can show the dividend that would fund each repayment at a marginal rate you give, and it refuses loans made before 4 December 1997, refinanced loans, loans through an interposed entity and repayments before the lodgment day.
 17 November 2026 | Three new business calculators for the FBT year ending 31 March 2027: car parking fringe benefits, with the $11.48 threshold test and the commercial parking station, market value, average cost, 12-week register and spaces methods; a loan fringe benefit at the 8.27% statutory interest rate, with the otherwise deductible rule; and meal entertainment fringe benefits by the 50/50 split or the 12-week register method, which refuses a register past its 5 years or one whose expenses rose more than 20% above its first year’s.
 17 November 2026 | A new business calculator estimates one employer’s payroll tax for 2026-27 in any of the 8 states and territories, for an employer outside a group that pays wages all year: the deduction or threshold shared with interstate wages, the amount taxed, the tax at each rate and, in Victoria and Queensland, each surcharge and levy, with the provision for each step. Its figures are in a data file with each one’s source and dates, and its tests hold the revenue offices’ published examples.
 16 November 2026 | A new vehicle classifier works out from a manufacturer’s specification whether a vehicle is a car under section 995-1, so whether the car limit and the GST credit cap apply, whether luxury car tax can apply at the 2025-26 or 2026-27 threshold and whether an employer’s FBT exemption for an eligible vehicle can apply on the private use you state. It works MT 2024’s dual cab test, LCTD 2023/1’s ute method and TD 2006/40’s order of the credit and the car limit, and refuses a modified vehicle without its compliance plate figures, a payload that disagrees with the mass and kerb weight, and any other body it cannot weigh. It leaves the car limit undecided for a single cab ute or panel van, which no ATO source settles. The car limit table now says the limit reaches a car designed mainly for carrying passengers, rather than excluding only utes and vans over 1 tonne.
@@ -6317,7 +6321,7 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 - Vehicle classifier Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
-- PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+- Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
 
 ## Staff and cash
 
@@ -6354,7 +6358,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
-- PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
@@ -10685,83 +10689,66 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Personal services income (PSI) rules and PSB test checker
+# Division 7A loan schedule: minimum repayments over 7 or 25 years
 
-Source: https://duguid.com.au/tools/business-calculators/psi-determination/
+Source: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 
-> Work through the PSI rules for one individual and year: section 84-5, the results test, the 80% rule and the other 3 personal services business tests.
+> A Division 7A loan year by year over 7 or 25 years: minimum repayments at the ATO’s benchmark rates, interest, extra repayments and any shortfall dividend.
 
-# PSI rules checker
+# Division 7A loan schedule calculator
 
-Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+A complying Division 7A loan year by year: each minimum yearly repayment, the interest, extra repayments and any shortfall taken to be a dividend.
 
 Published 17 November 2026. Last checked 17 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-PSI inputs for one individual and one income year
+Division 7A loan schedule inputs
 
-Who receives the income The individual, as a contractor (sole trader) A company, partnership or trust the individual works through The individual, as an employee, office holder or religious practitioner Is over half the income a reward for the individual’s personal efforts or skills (subsection 84-5(1))? Yes No: mainly from goods, assets or a business structure Is a personal services business determination in force for this income? No Yes
+Date the company made the loan Amalgamated loan not repaid at 30 June of the year it was made: the loans made that year with this term, less repayments by 30 June (AUD) Term in the written loan agreement, which must be the maximum under subsection 109N(3) 7 years: unsecured, or any other loan 25 years: 100% secured by a registered mortgage over real property worth at least 110% of the loan, after debts secured ahead of it, when first made Benchmark interest rate to assume for each year after 2026-27 (%) Repayment for each year from the first, made on 30 June, separated by semicolons; a blank entry or field means the minimum (AUD) Optional: the borrower’s marginal tax rate, to show the dividend that would leave each repayment after tax (%) Franking of that dividend Unfranked Fully franked at 30% Fully franked at 25% Was any of the loan repaid after 30 June and before the company’s lodgment day for the year it was made? No Yes Does the loan refinance another, or was its term extended because it became secured by a mortgage? No Yes Was the loan made through an interposed entity? No Yes
 
-Payer, with its associates | PSI in the year (AUD) | Associate of the individual or entity | Engaged by an offer to the public | Paid for a result | Supplies plant and tools | Liable for defects
-Payer 1 | | | | | |
-Payer 2 | | | | | |
-Payer 3 | | | | | |
-Payer 4 | | | | | |
-Payer 5 | | | | | |
+Rates to 2026-27 are the ATO’s, also in the Division 7A benchmark rate table. The ATO publishes each year’s rate as that year starts, so every figure from 2027-28 on is a projection on the rate you assume.
 
-Each tick is your answer; ‘How the PSI rules checker works’ says when to tick.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: loan made 1 October 2022, in 2022-23, $100,000.00 not repaid at 30 June 2023, 7-year unsecured term, benchmark rate after 2026-27 assumed at 8.77%, repayments: the minimum each year, no funding dividend worked. Minimum yearly repayment for 2023-24 $19,384.96 Repaid from 2023-24 to 2029-30 $137,086.99 Interest at the benchmark rates $37,086.99 Not repaid at 30 June 2030 $0.00 Shortfall taken to be a dividend $0.00 Figures from 2027-28 on are a projection on your assumed benchmark rate of 8.77%, as the ATO has published rates only to 2026-27.
 
-Market value of principal work by others engaged, in the year (AUD) An apprentice for at least half the year? No Yes Business premises: tick each condition met Maintained and used all year Mainly used to produce the PSI Exclusive use, by ownership or lease Physically separate from private premises of the individual, entity or an associate Physically separate from each payer’s and its associates’ premises Paid as an agent by a principal for services to its customers (section 87-40)? No Yes Agent: the principal’s payments in the year (AUD) Agent: commission or performance fees in them (AUD)
+## How the Division 7A loan schedule calculator works
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Received by the individual as a contractor, mainly a reward for personal efforts or skills, no PSB determination; payer 1 $18,000.00, ticked: paid for a result, tools supplied, liable for defects; principal work by others $0.00, no apprentice; business premises conditions: none; not an agent. Outcome Subsection 87-18(1): a personal services business, so Divisions 85 and 86 do not apply Subsection 84-5(1): income mainly a reward for the individual’s personal efforts or skills Yes, as you answered Paragraph 87-15(1)(a): a personal services business determination in force No, as you answered Subsection 87-18(1): PSI paid for a result, with the tools supplied and liability for defects 100.00%, at least 75%: met The PSI is still reported in the tax return, and Part IVA can still apply to splitting it (TR 2022/3 paragraphs 25 and 160).
+The Division 7A loan schedule calculator sets out a complying loan from a private company year by year, from the first income year after the year it was made to the end of its term. Each year it works the minimum yearly repayment under subsection 109E(6) at that year’s benchmark rate, the interest at that rate, how much of the repayment reduces the loan and the balance left at 30 June. Leave the repayments blank to pay the minimum each year; enter more in any year to see the later minimums fall and the loan end sooner.
 
-## How the PSI rules checker works
+In the last year the minimum is the balance and a full year’s interest. A repayment on 30 June carries that day on the reduced balance, so repaying the loan then needs a day’s interest less than the minimum; a blank entry repays the loan and no more, and a repayment that repays the loan is no shortfall.
 
-The PSI rules checker takes one individual’s personal services income for one income year and works through Part 2-42 in the order the Act sets. Each step on the result names the section it applies and what it found.
+If a year’s repayment is less than its minimum, subsection 109E(1) takes the company to pay a dividend of the shortfall at the end of that year, limited by section 109Y to its distributable surplus. The schedule stops at that year. The heading of subsection 109E(1) speaks of the first year in which a payment falls short, and the sources applied do not say how later years are worked.
 
-Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that payer’s PSI: where only part of it meets all 3, leave the boxes unticked, which can only make the results test harder to pass, and work out that part yourself. For the market value of principal work by others, count work by any individual engaged, an associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives, a partner included (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
+The minimum for a single year matches the Division 7A minimum yearly repayment calculator. The ATO’s worked example on Loans by private companies takes $55,000 at 5.95% over 7 years for $9,835 and then $50,430 at 5.45% over 6 years for $10,079, to the nearest dollar; those years are before the published rates this page holds.
 
-Income that is not mainly a reward for the individual’s personal efforts or skills is not PSI (subsection 84-5(1)), and income received as an employee falls outside Division 85 (subsection 85-35(1)). A personal services business determination in force settles the question (subsection 87-15(1)). Otherwise the results test comes first: if at least 75% of the PSI is paid for a result, with the plant and tools supplied and liability for defects, the PSI rules do not apply, however much comes from one payer (section 87-18).
+## What the Division 7A loan schedule calculator does not cover
 
-If 80% or more of the PSI comes from one payer and its associates, the other 3 tests cannot be self-assessed and only a determination keeps the rules away (subsection 87-15(3)). The checker still works them out, because the Commissioner weighs them for a determination: 2 or more unrelated payers that engaged the individual or entity through offers to the public (section 87-20), principal work by others of at least 20% by market value or an apprentice for half the year (section 87-25), and qualifying business premises all year (section 87-30).
+The calculator does not decide whether a payment is a loan, whether the agreement is in writing before the lodgment day or charges at least the benchmark rate, or whether a mortgage meets the 110% test: it takes the term you choose. It works only a loan whose written term is the maximum, 7 or 25 years: subsection 109E(6) counts the remaining term from the loan’s own term, so a loan agreed for fewer years has higher minimums than this page shows. It refuses a loan made before 4 December 1997, which Division 7A reaches only once its term or amount is varied (subsection 109D(5)); a loan made before 1 July 2020, whose first year is before the ATO rates it holds; a loan made through an interposed entity (Subdivision E); a loan that refinances another or was extended under a mortgage, whose term subsections 109N(3A) to (3D) and 109E(3A) and (3B) reduce or restart; and a repayment made between 30 June and the lodgment day for the year the loan was made, which the ATO takes off the loan and also counts in the next year.
 
-The checker reproduces the conclusion of each worked example in TR 2022/3 that reaches one on a test it applies, and of the matching examples on the ATO’s PSI pages.
+It assumes each repayment is made on 30 June and that the company’s income year ends on 30 June. A repayment made earlier in a year carries less interest. It does not apply section 109Q, which lets the Commissioner disregard a shortfall that would cause undue hardship, section 109R, which disregards a repayment funded by a new loan from the company, section 109Y’s limit or the regulations that subsection 109E(5) allows. It does not combine loans with different terms: each is a separate amalgamated loan with its own schedule.
 
-## What the PSI rules checker leaves to you
-
-The checker does not decide whether income is mainly a reward for personal efforts or skills, whether a contract pays for a result, whether an offer to the public won the work, who is an associate or what principal work is worth. These turn on facts and judgement, so it takes your answers and says so on each step; TR 2022/3 sets out the factors at paragraphs 34 to 49 and 77 to 148.
-
-The checker does not allocate expenses across PSI, business income and other income. Division 85 limits deductions to the extent they relate to PSI (subsection 85-10(1)) but sets no method for the split, and TR 2022/3 leaves deductions to other rulings (paragraphs 6 and 31), so any split is practice rather than law. It does not work out the amount attributed under Division 86, PAYG withholding or a deduction for a net PSI loss.
-
-The checker does not apply the agent rules when they could apply (section 87-40), decide a determination, which is the Commissioner’s (sections 87-60 and 87-65), or test Part IVA, which can still apply to a personal services business (TR 2022/3 paragraph 160). Several individuals working through one entity are tested one at a time (paragraph 76). Confirm the result with the ruling or a registered tax agent.
+The funding dividend is arithmetic on the marginal rate you give. It does not check that the company has the profits or franking credits to pay it, and it is not advice on whether to repay by dividend, salary or cash. Future benchmark rates are not known: the figures from 2027-28 rest on your assumption. Confirm the figures with the ATO Division 7A calculator and decision tool or a registered tax agent.
 
 ## Boundary cases
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: PSI rules checker
+Boundary cases: Division 7A loan schedule calculator
 
 Case | Inputs | Result
-TR 2022/3 example 20: Joe installs ducts to plans with his own tools and rectifies defects, so meets the results test | Sole trader; payers $18,000.00 (result, tools, defects) | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
-TR 2022/3 example 30: Ian’s $26,000 of $140,000 is 18.57%, under 20% | Sole trader; payers $100,000.00, $40,000.00; others’ principal work $26,000.00 | Subsection 87-15(1), not a personal services business, so Division 85 applies, largest payer 71.42%, others’ work 18.57%
-TR 2022/3 example 29: Tom’s 23.07% meets the employment test, but one payer means a determination is needed | Sole trader; payers $156,000.00; others’ principal work $36,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%, others’ work 23.07%
-Exactly 75% paid for a result meets the results test | Sole trader; payers $75.00 (result, tools, defects), $25.00 | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 75.00%
-74.99% paid for a result does not | Sole trader; payers $74.99 (result, tools, defects), $25.01 | Subsection 87-15(1), not a personal services business, so Division 85 applies, results test 74.99%
-A result without liability for defects does not count | Sole trader; payers $100.00 (result, tools) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, results test 0.00%
-Exactly 80% from one payer stops self-assessment by the other tests | Sole trader; payers $80.00 (offer), $20.00 (offer); an apprentice | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 80.00%, 2 unrelated by public offer
-79.99% from one payer, with 2 unrelated payers won by offers, meets the unrelated clients test | Sole trader; payers $79.99 (offer), $20.01 (offer) | Section 87-20, a personal services business, so Divisions 85 and 86 do not apply, largest payer 79.99%, 2 unrelated by public offer
-A payer that is an associate is not an unrelated client | Sole trader; payers $50.00 (associate, offer), $50.00 (offer) | Subsection 87-15(1), not a personal services business, so Division 85 applies, 1 unrelated by public offer
-Exactly 20% of principal work by others meets the employment test | Sole trader; payers $60.00, $40.00; others’ principal work $20.00 | Section 87-25, a personal services business, so Divisions 85 and 86 do not apply, others’ work 20.00%
-Business premises need all 5 ticks | Sole trader; payers $60.00, $40.00; premises: times, mainly, exclusive, private | Subsection 87-15(1), not a personal services business, so Division 85 applies
-A company, partnership or trust meets the results test under subsection 87-18(3) | Entity; payers $120,000.00 (result, tools, defects) | Subsection 87-18(3), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
-Income not mainly from personal efforts or skills is not PSI | Sole trader; not mainly personal efforts or skills; payers $100,000.00 | Subsection 84-5(1), not personal services income, so Part 2-42 does not apply
-Income as an employee is outside Division 85 | Employee; payers $100,000.00 | Subsection 85-35(1), income as an employee, so the PSI rules do not apply
-A determination in force for an entity settles it | Entity; determination in force; payers $100,000.00 | Paragraph 87-15(1)(b), a personal services business, so Divisions 85 and 86 do not apply
-TR 2022/3 example 40: 70% commission leaves the principal as one payer | Sole trader; payers $100,000.00; agent, $70,000.00 commission of $100,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%
-An agent with 75% commission may fall under section 87-40, which this page does not apply | Sole trader; payers $100,000.00; agent, $75,000.00 commission of $100,000.00 | Refused: at least 75% of the principal’s payments are commission or performance fees, so section 87-40 may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40
-No PSI entered | Sole trader; payers none | Refused: enter the PSI from at least one payer
-Others’ work worth more than the PSI | Sole trader; payers $100.00; others’ principal work $100.01 | Refused: the market value of principal work by others cannot exceed the PSI entered
+Minimum repayments over 7 years, projected from 2027-28 | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '' | first minimum $19,384.96, repaid $137,086.99, interest $37,086.99, last year 2029-30, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A larger first repayment lowers every later minimum | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '40000' | first minimum $19,384.96, repaid $130,395.95, interest $30,395.95, last year 2029-30, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A second-year repayment short of the minimum is a dividend, and the schedule stops | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '; 10000' | first minimum $19,384.96, repaid $29,384.96, interest $16,058.05, last year 2024-25, not repaid $86,673.09, shortfall $9,677.59, no projected year
+Repaying the balance and interest to 29 June ends the loan early | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99' | first minimum $19,384.96, repaid $113,353.99, interest $13,353.99, last year 2024-25, not repaid $0.00, shortfall $0.00, no projected year
+A 25-year secured loan made in 2026-27 is projected throughout | Made 2027-01-15, $500,000.00, 25 years, 8.77% assumed, repayments '' | first minimum $49,957.64, repaid $1,248,437.49, interest $748,437.49, last year 2051-52, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A higher assumed rate raises only the projected years | Made 2022-10-01, $100,000.00, 7 years, 10% assumed, repayments '' | first minimum $19,384.96, repaid $138,384.15, interest $38,384.15, last year 2029-30, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A loan made on 1 July 2020 starts at the 2021-22 rate | Made 2020-07-01, $1,000.00, 7 years, 8.77% assumed, repayments '' | first minimum $169.83, repaid $1,287.84, interest $287.84, last year 2027-28, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A loan made before 4 December 1997 | Made 1997-12-03, $100,000.00, 7 years, 8.77% assumed, repayments '' | Refused: division 7A reaches a loan made before 4 December 1997 only once its term or amount is varied (subsection 109D(5)); this page does not work one
+A loan made on 4 December 1997, before the published rates | Made 1997-12-04, $100,000.00, 7 years, 8.77% assumed, repayments '' | Refused: enter a loan made from 1 July 2020 to 30 June 2027: the ATO’s published rates start with 2021-22
+A loan made through an interposed entity | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '', interposed | Refused: this page does not work a loan made through an interposed entity (Subdivision E of Division 7A)
+A repayment above the amount that repays the loan on 30 June | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '108247.41' | Refused: the 2023-24 repayment is more than $108,247.40, which repays the loan on 30 June
+Repayments after the loan is repaid | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99; 1' | Refused: the loan is repaid in 2024-25; leave out the repayments after it
+More repayments than years of the term | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '1;1;1;1;1;1;1;1' | Refused: enter no more than 7 repayments, one for each year of the term
 
 One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -10771,6 +10758,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
+- Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
+- ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
 - twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -11331,6 +11321,275 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
 - twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Australian income tax, take-home pay and HELP calculators
+
+Source: https://duguid.com.au/tools/individual-tax/
+
+> Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act.
+
+# Individual tax calculators
+
+Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+
+Estimates in AUD for a full income year from 2024-25 to 2026-27, for a single person with no dependants. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 17 November 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
+
+## Tax, pay and study loans
+
+- Income tax calculator Tax on taxable income, the low income tax offset and the Medicare levy, for an Australian resident, a foreign resident or a working holiday maker.
+- Take-home pay calculator What is left of an annual salary each year, month, fortnight and week after tax, Medicare levy and any study loan repayment, with the employer’s super guarantee.
+- Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
+
+For a business, see the business calculators.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
+- Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
+- Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Income tax calculator for 2026-27, 2025-26 and 2024-25
+
+Source: https://duguid.com.au/tools/individual-tax/income-tax/
+
+> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act.
+
+# Income tax calculator
+
+One individual’s income tax, low income tax offset and Medicare levy for a full income year from 2024-25 to 2026-27, for an Australian resident, a foreign resident or a working holiday maker.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Income tax inputs for one full income year
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
+
+Taxable income (whole dollars)
+
+Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a single person with no dependants who is not entitled to the seniors and pensioners tax offset.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, taxable income $29,000.00. Tax on taxable income $1,728.00 Low income tax offset $700.00 Medicare levy $98.90 Total tax and Medicare levy $1,126.90
+
+## How the income tax calculator works
+
+The income tax calculator works out one individual’s tax for a full income year: the tax on taxable income at the year’s rates, the low income tax offset, and the Medicare levy. An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. A foreign resident pays from the first dollar at 30%, 37% and 45%. A working holiday maker pays 15% up to $45,000 and then the same rates as a resident.
+
+The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does; its example on What is the Medicare levy gives Matthew $1,500 on $75,000.
+
+For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2026, the same as 2025-26. If Parliament raises them for 2026-27, a person just above $28,011 will pay less than shown here.
+
+## What the income tax calculator does not compute
+
+The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
+
+- the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
+- the Medicare levy surcharge or the private health insurance rebate;
+- a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
+- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
+- study loan repayments, which the study and training loan repayment calculator works out, and the tax already withheld or a refund.
+
+Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Income tax calculator
+
+Case | Inputs | Result
+ATO example: Angie, in the Medicare levy shade-in | $29,000 taxable income, 2025-26, Australian resident | Tax $1,728.00, offset $700.00, Medicare levy $98.90, total $1,126.90
+Tax-free threshold | $18,200 taxable income, 2026-27, Australian resident | Tax $0.00, offset $0.00, Medicare levy $0.00, total $0.00
+Medicare levy phase-in limit | $35,013 taxable income, 2026-27, Australian resident | Tax $2,521.95, offset $700.00, Medicare levy $700.20, total $2,522.15
+A dollar above the phase-in limit: 2% of the whole | $35,014 taxable income, 2026-27, Australian resident | Tax $2,522.10, offset $700.00, Medicare levy $700.28, total $2,522.38
+Offset of $324.985 rounds half up | $45,001 taxable income, 2026-27, Australian resident | Tax $4,020.30, offset $324.99, Medicare levy $900.02, total $4,595.33
+Offset cut-out: half a cent below nil is nil | $66,667 taxable income, 2026-27, Australian resident | Tax $10,520.10, offset $0.00, Medicare levy $1,333.34, total $11,853.44
+Top rate | $250,000 taxable income, 2026-27, Australian resident | Tax $78,370.00, offset $0.00, Medicare levy $5,000.00, total $83,370.00
+2024-25 rates | $90,000 taxable income, 2024-25, Australian resident | Tax $17,788.00, offset $0.00, Medicare levy $1,800.00, total $19,588.00
+Foreign resident: no offset or Medicare levy | $100,000 taxable income, 2026-27, foreign resident | Tax $30,000.00, offset $0.00, Medicare levy $0.00, total $30,000.00
+Working holiday maker | $50,000 taxable income, 2026-27, working holiday maker | Tax $8,250.00, offset $0.00, Medicare levy $0.00, total $8,250.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
+- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
+- study and training loan repayment calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Take-home pay calculator for 2026-27: tax, Medicare and HELP
+
+Source: https://duguid.com.au/tools/individual-tax/take-home-pay/
+
+> Annual, monthly, fortnightly and weekly take-home pay after income tax, Medicare levy and study loan repayment, with super guarantee, each step cited to its Act.
+
+# Take-home pay calculator
+
+Take-home pay from an annual salary, after the year’s income tax, Medicare levy and any study loan repayment, with the employer’s super guarantee, for 2024-25 to 2026-27.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Take-home pay inputs for one full income year
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
+
+Annual salary (whole dollars) Does that amount include super? No, super is paid on top Yes, it is a package including super guarantee
+
+Do you have a study or training loan, such as HELP? No Yes
+
+For one job paid evenly all year, with no other income and no deductions you claim, so the salary is the taxable income, less the standard deduction from 2026-27. For a single person with no dependants.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, salary $75,000.00 plus super, no study or training loan. Salary $75,000.00 Employer super guarantee $9,000.00 Standard deduction for work-related expenses $0.00 Income tax less the low income tax offset $13,288.00 Medicare levy $1,500.00 Study and training loan repayment $0.00 Take-home pay for the year $60,212.00 Each month, a twelfth $5,017.67 Each fortnight, a 26th $2,315.85 Each week, a 52nd $1,157.92 The year’s tax on this salary spread evenly, not the amounts an employer withholds each pay.
+
+## How the take-home pay calculator works
+
+The take-home pay calculator takes one annual salary and works out the year’s income tax, low income tax offset, Medicare levy and any study or training loan repayment on it. From 2026-27 it first takes off the standard deduction of up to $1,000 for work-related expenses. It then gives what is left for the year, a month, a fortnight and a week. It also gives the super guarantee an employer must pay on that salary, which is paid to a super fund and is not part of take-home pay.
+
+These are the year’s tax on that income spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay under the ATO’s PAYG withholding schedules, which round each pay’s withholding and can differ from the year’s tax, with the difference settled when the tax return is assessed. Use the ATO’s tax withheld calculator for the amount withheld each pay. The example on arrival is 2025-26, before the standard deduction: on $75,000 the Medicare levy is $1,500, as the ATO’s example of Matthew on What is the Medicare levy gives. In 2026-27 the same salary is $74,000 of taxable income.
+
+When the salary includes super, the calculator splits it: at 12%, a package of $112,000 is $100,000 of salary and $12,000 of super. Super guarantee stops at the year’s maximum contribution base, so above it the super stays at the most the base allows.
+
+## What the take-home pay calculator does not compute
+
+The calculator assumes one employer, a salary paid evenly over the full year, and no other income, deductions, offsets or salary sacrifice. It does not compute:
+
+- the PAYG amount withheld each pay, overtime, bonuses, allowances or leave loading;
+- work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
+- salary sacrifice, reportable fringe benefits, or reportable super contributions, which would change repayment income;
+- everything the income tax calculator leaves out, such as the Medicare levy reduction for families, the Medicare levy surcharge and the seniors and pensioners tax offset;
+- whether an employee is entitled to super guarantee, the lower transitional rate for employees on Norfolk Island (11% for 2026-27), or a second employer’s separate maximum contribution base.
+
+Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Take-home pay calculator
+
+Case | Inputs | Result
+ATO example: Matthew’s Medicare levy on $75,000, 2025-26 | 2025-26, Australian resident, $75,000 plus super | Take-home $60,212.00 a year, $2,315.85 a fortnight; super $9,000.00
+2026-27: the $1,000 standard deduction comes off the salary | 2026-27, Australian resident, $75,000 plus super | Take-home $60,800.00 a year, $2,338.46 a fortnight; super $9,000.00
+Package including super | 2026-27, Australian resident, $112,000 including super | Take-home $77,800.00 a year, $2,992.31 a fortnight; super $12,000.00
+With a study loan | 2026-27, Australian resident, $90,000 plus super, study loan | Take-home $68,079.20 a year, $2,618.43 a fortnight; super $10,800.00
+Above the 2026-27 maximum contribution base | 2026-27, Australian resident, $300,000 plus super | Take-home $193,600.00 a year, $7,446.15 a fortnight; super $32,499.60
+Package above the base: super stops at the cap | 2026-27, Australian resident, $340,000 including super | Take-home $197,575.40 a year, $7,599.05 a fortnight; super $32,499.60
+2024-25 at 11.5%, with a half-cent offset | 2024-25, Australian resident, $60,001 plus super | Take-home $50,112.67 a year, $1,927.41 a fortnight; super $6,900.12
+Foreign resident: no Medicare levy | 2026-27, foreign resident, $80,000 plus super | Take-home $56,000.00 a year, $2,153.85 a fortnight; super $9,600.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
+- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
+- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
+- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# HELP repayment calculator for 2026-27: marginal rates
+
+Source: https://duguid.com.au/tools/individual-tax/study-loan/
+
+> Compulsory HELP, VSL, SSL and AASL repayments for 2024-25 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003.
+
+# Study and training loan calculator
+
+The compulsory HELP or other study loan repayment for 2024-25 to 2026-27, marginal from 2025-26.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Study and training loan repayment inputs for one income year
+
+Income year 2026-27 2025-26 2024-25
+
+Taxable income, without any FHSS released amount (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, including net rental losses (whole dollars) Reportable super contributions (whole dollars) Exempt foreign employment income (whole dollars)
+
+Enter 0 for any part you do not have. Your income tax return or income statement shows each of them.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, taxable income $60,470.00, reportable fringe benefits $5,400.00, total net investment loss $1,330.00, reportable super contributions $16,500.00, exempt foreign employment income $2,680.00. Repayment income $86,380.00 Compulsory repayment $2,527.80 15% of repayment income over $69,528 up to $129,717, and 17% of any part above it.
+
+## How the study and training loan repayment calculator works
+
+The study and training loan repayment calculator works out the compulsory repayment on a HELP, VET Student Loan, Student Start-up Loan or Australian Apprenticeship Support Loan debt for one income year. It first adds up repayment income: taxable income, reportable fringe benefits, total net investment loss, reportable super contributions and exempt foreign employment income.
+
+From 2025-26 the repayment is marginal: nothing up to the minimum repayment income, then 15 cents for each dollar above it up to a second threshold and 17 cents above that, unless 10% of all repayment income is less. For 2026-27 the minimum repayment income is $69,528 and the second threshold $129,717, and 10% is the lesser amount from $186,051. For 2024-25 one percentage of the whole repayment income applied, from 1% above $54,434 to 10% from $159,664.
+
+The boundary cases below take the inputs of the 4 worked examples on the ATO’s thresholds and rates page, read 17 November 2026, and work each one from section 154-20. For Barry’s 2026-27 repayment income of $137,064, section 154-20(2) gives 15% of the $60,189 from $69,528 to $129,717, which is $9,028.35, plus 17% of the $7,347 above $129,717, which is $1,248.99: $10,277.34 in all. For Branson’s 2024-25 repayment income of $99,736, the 5.5% rate gives $5,485.48.
+
+## What the study and training loan repayment calculator does not compute
+
+The calculator gives the compulsory repayment for one income year. It does not compute:
+
+- the cap at the debt you still owe, or voluntary repayments;
+- the overseas debtors repayment levy on worldwide income for a foreign resident (section 154-16);
+- whether no repayment is due because your Medicare levy is not payable or is reduced under section 8 of the Medicare Levy Act 1986 (section 154-1(2));
+- the amounts an employer withholds each pay for a loan, or indexation of the debt;
+- years before 2024-25.
+
+Confirm the figure with the ATO’s Study and training loan repayment calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Study and training loan calculator
+
+Case | Inputs | Result
+ATO example 1: Christina, 2026-27 | 2026-27: taxable income $60,470, fringe benefits $5,400, net investment loss $1,330, super contributions $16,500, exempt foreign employment income $2,680 | Repayment income $86,380.00, repayment $2,527.80
+ATO example 2: Barry, 2026-27, by section 154-20 | 2026-27: taxable income $118,450, super contributions $18,614 | Repayment income $137,064.00, repayment $10,277.34
+ATO example 3: Priya, 2026-27 | 2026-27: taxable income $227,123, super contributions $27,657 | Repayment income $254,780.00, repayment $25,478.00
+At the minimum repayment income | 2026-27: taxable income $69,528 | Repayment income $69,528.00, repayment $0.00
+Last dollar where the marginal amount is less | 2026-27: taxable income $186,050 | Repayment income $186,050.00, repayment $18,604.96
+First dollar where 10% is less | 2026-27: taxable income $186,051 | Repayment income $186,051.00, repayment $18,605.10
+2025-26 top of the 15% band | 2025-26: taxable income $125,000 | Repayment income $125,000.00, repayment $8,700.00
+ATO example 4: Branson, 2024-25, at 5.5% | 2024-25: taxable income $89,450, super contributions $10,286 | Repayment income $99,736.00, repayment $5,485.48
+2024-25 at 2.5%: half a cent rounds up | 2024-25: taxable income $66,621 | Repayment income $66,621.00, repayment $1,665.53
+2024-25 at the minimum repayment income | 2024-25: taxable income $54,434 | Repayment income $54,434.00, repayment $0.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
