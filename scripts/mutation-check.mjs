@@ -219,9 +219,7 @@ try {
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
-    'rates/maximum-contribution-base', 'llms.txt', '.well-known/llms.txt']) {
-    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', 'rates/car-limit',
-    'llms.txt', '.well-known/llms.txt']) {
+    'rates/maximum-contribution-base', 'rates/car-limit', 'llms.txt', '.well-known/llms.txt']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
