@@ -5,6 +5,7 @@ import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 import { COAL_LSL_PROOF } from '../../scripts/coal-lsl-proof-fixture.mjs';
+import { waitForCalculator } from './calculator-ready.mjs';
 import { observePageHealth } from './health.mjs';
 import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
 import { firstScreen, projectKind } from './project-kind.mjs';
@@ -900,7 +901,7 @@ test('GST page registers a read-only WebMCP tool only where the browser offers m
   const requests = [];
   page.on('request', request => requests.push(request.url()));
   await page.goto('/tools/business-calculators/gst/');
-  await expect(page.locator('form[data-calculator="gst"] fieldset')).toBeEnabled();
+  await waitForCalculator(page.locator('form[data-calculator="gst"]'));
   expect(requests.some(url => url.endsWith('/assets/webmcp-tools.mjs'))).toBe(false);
 
   await page.addInitScript(() => {

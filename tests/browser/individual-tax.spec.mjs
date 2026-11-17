@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 import { test, expect } from '@playwright/test';
+import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
 const CALCULATORS = { 'income-tax': '$1,126.90', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80' };
@@ -25,7 +26,7 @@ for (const id of Object.keys(CALCULATORS)) {
     const served = (await response.text()).match(/<output aria-live="polite" data-example>([\s\S]*?)<\/output>/)[1];
     const form = page.locator(`#${id} form`);
     const output = form.locator('output');
-    await expect(form.locator('fieldset').first()).toBeEnabled();
+    await waitForCalculator(form);
     expect(await output.evaluate((element) => element.innerHTML)).toBe(served);
     const example = await output.evaluate((element) => {
       const copy = element.cloneNode(true);
@@ -36,7 +37,7 @@ for (const id of Object.keys(CALCULATORS)) {
     await expect(output.locator('.result-example')).toHaveCount(0);
     expect(await output.evaluate((element) => element.textContent)).toBe(example);
     await page.reload();
-    await expect(form.locator('fieldset').first()).toBeEnabled();
+    await waitForCalculator(form);
     await form.locator('input[type=number]').first().fill('1');
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
@@ -45,7 +46,7 @@ for (const id of Object.keys(CALCULATORS)) {
 test('a foreign resident pays no Medicare levy and gets no offset', async ({ page }) => {
   await page.goto('/tools/individual-tax/income-tax/');
   const form = page.locator('#income-tax form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await form.getByLabel('Foreign resident').check();
   await form.getByLabel('Taxable income (whole dollars)').fill('100000');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
