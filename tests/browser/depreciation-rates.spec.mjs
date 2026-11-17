@@ -390,7 +390,8 @@ test('both methods side by side fit a phone and pass the accessibility scan', as
   expect(scan.violations.map((violation) => `${violation.id}: ${violation.nodes.length}`)).toEqual([]);
 });
 
-test('a citation and a link copy, and the link restores the calculation', async ({ page, context }) => {
+test('a citation and a link copy, and the link restores the calculation', async ({ page, context, browserName }) => {
+  test.skip(browserName === 'firefox', 'Firefox has no clipboard-read permission for Playwright to grant');
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto(`${PAGE}?q=photocopier`);
   await page.getByRole('button', { name: 'Use this life: 5 years, Photo copying machines' }).click();
