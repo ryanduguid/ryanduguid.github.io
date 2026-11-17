@@ -14,7 +14,8 @@ pub const RETIRED_NAMES: [&str; 11] = [
     "LouisGoldberg",
 ];
 
-pub const CI_MANUAL_URLS: [&str; 16] = [
+pub const CI_MANUAL_URLS: [&str; 17] = [
+    "https://softwaredevelopers.ato.gov.au/GDPupliftfactor",
     "https://softwaredevelopers.ato.gov.au/SuperStreamStandard",
     "https://www.abr.gov.au/business-super-funds-charities/applying-abn",
     "https://www.abr.gov.au/business-super-funds-charities/applying-abn/abn-entitlement",

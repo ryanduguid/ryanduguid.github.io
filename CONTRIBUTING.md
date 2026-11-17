@@ -421,7 +421,11 @@ the runner's connection to Tasmania's
 ended before a response, which returned HTTP 200 locally on 16 November 2026. In
 run 43966788055 it did the same for 6 more Tasmanian land tax and first home pages
 the land tax and transfer duty calculators cite; each returned HTTP 200 locally
-on 17 November 2026. The link checker
+on 17 November 2026. In
+run 44015978829 it timed out 4 times on the ATO's
+[GDP adjustment](https://softwaredevelopers.ato.gov.au/GDPupliftfactor) page that the
+PAYG instalments calculator cites, which returned HTTP 200 locally on 17 November 2026.
+The link checker
 reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
 GitHub Actions. Run `site-tools check_links` locally before changing any
 of them; local runs still fetch them all. Remove the CI exceptions when runner
