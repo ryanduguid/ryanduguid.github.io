@@ -57,7 +57,7 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult }]) {
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -149,7 +149,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
       if (applied) applied.hidden = true;
       csv = '';
       if (cashDownload) cashDownload.disabled = true;
-      const table = form.querySelector('#cash-results');
+      const table = form.querySelector('#cash-results, #div7a-schedule-results');
       if (table) table.parentElement.hidden = true;
     }
     form.addEventListener('input', invalidate);
@@ -222,6 +222,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
             const r = calculate.div7aMinimumRepayment(value('balance'), year.dataset.rate, value('term'));
             result = { inputs: `${year.value} income year at the ${year.dataset.rate}% benchmark rate, ${money('balance')} not repaid at 30 June ${year.value.slice(0, 4)}, ${count(value('term'), 'year')} remaining`, principal: 0,
               rows: [['Minimum yearly repayment', aud(r.repayment)], ['Interest for the year, if repaid on 30 June', aud(r.interest)], ['Principal, if repaid on 30 June', aud(r.principal)]] };
+            break;
+          }
+          case 'div7a-schedule': {
+            const yes = name => value(name) === 'yes';
+            result = calculate.div7aScheduleResult({ made: value('made'), amount: value('amount'), term: value('term'),
+              assumedRate: value('assumed-rate'), repayments: value('repayments'), marginalRate: value('marginal-rate'),
+              franking: value('franking'), lodgment: yes('lodgment'), refinanced: yes('refinanced'), interposed: yes('interposed') }, aud);
+            const table = form.querySelector('#div7a-schedule-results');
+            table.tBodies[0].replaceChildren(...result.table.map(cells => {
+              const tr = document.createElement('tr');
+              tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
+              return tr;
+            }));
+            table.parentElement.hidden = false;
             break;
           }
           case 'transfer-duty': {
@@ -469,7 +483,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
-          default: result = fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
+          default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
         form.dataset.calculated = 'true';
@@ -493,8 +507,8 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
 function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
-  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`)])
-    .then(initialiseCalculators)
+  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`),
+    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined }]).then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
       for (const form of forms) {

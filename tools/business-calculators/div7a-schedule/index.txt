@@ -1,0 +1,73 @@
+# Division 7A loan schedule: minimum repayments over 7 or 25 years
+
+Source: https://duguid.com.au/tools/business-calculators/div7a-schedule/
+
+> A Division 7A loan year by year over 7 or 25 years: minimum repayments at the ATO’s benchmark rates, interest, extra repayments and any shortfall dividend.
+
+# Division 7A loan schedule calculator
+
+A complying Division 7A loan year by year: each minimum yearly repayment, the interest, extra repayments and any shortfall taken to be a dividend.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Division 7A loan schedule inputs
+
+Date the company made the loan Amalgamated loan not repaid at 30 June of the year it was made: the loans made that year with this term, less repayments by 30 June (AUD) Term in the written loan agreement, which must be the maximum under subsection 109N(3) 7 years: unsecured, or any other loan 25 years: 100% secured by a registered mortgage over real property worth at least 110% of the loan, after debts secured ahead of it, when first made Benchmark interest rate to assume for each year after 2026-27 (%) Repayment for each year from the first, made on 30 June, separated by semicolons; a blank entry or field means the minimum (AUD) Optional: the borrower’s marginal tax rate, to show the dividend that would leave each repayment after tax (%) Franking of that dividend Unfranked Fully franked at 30% Fully franked at 25% Was any of the loan repaid after 30 June and before the company’s lodgment day for the year it was made? No Yes Does the loan refinance another, or was its term extended because it became secured by a mortgage? No Yes Was the loan made through an interposed entity? No Yes
+
+Rates to 2026-27 are the ATO’s, also in the Division 7A benchmark rate table. The ATO publishes each year’s rate as that year starts, so every figure from 2027-28 on is a projection on the rate you assume.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: loan made 1 October 2022, in 2022-23, $100,000.00 not repaid at 30 June 2023, 7-year unsecured term, benchmark rate after 2026-27 assumed at 8.77%, repayments: the minimum each year, no funding dividend worked. Minimum yearly repayment for 2023-24 $19,384.96 Repaid from 2023-24 to 2029-30 $137,086.99 Interest at the benchmark rates $37,086.99 Not repaid at 30 June 2030 $0.00 Shortfall taken to be a dividend $0.00 Figures from 2027-28 on are a projection on your assumed benchmark rate of 8.77%, as the ATO has published rates only to 2026-27.
+
+## How the Division 7A loan schedule calculator works
+
+The Division 7A loan schedule calculator sets out a complying loan from a private company year by year, from the first income year after the year it was made to the end of its term. Each year it works the minimum yearly repayment under subsection 109E(6) at that year’s benchmark rate, the interest at that rate, how much of the repayment reduces the loan and the balance left at 30 June. Leave the repayments blank to pay the minimum each year; enter more in any year to see the later minimums fall and the loan end sooner.
+
+In the last year the minimum is the balance and a full year’s interest. A repayment on 30 June carries that day on the reduced balance, so repaying the loan then needs a day’s interest less than the minimum; a blank entry repays the loan and no more, and a repayment that repays the loan is no shortfall.
+
+If a year’s repayment is less than its minimum, subsection 109E(1) takes the company to pay a dividend of the shortfall at the end of that year, limited by section 109Y to its distributable surplus. The schedule stops at that year. The heading of subsection 109E(1) speaks of the first year in which a payment falls short, and the sources applied do not say how later years are worked.
+
+The minimum for a single year matches the Division 7A minimum yearly repayment calculator. The ATO’s worked example on Loans by private companies takes $55,000 at 5.95% over 7 years for $9,835 and then $50,430 at 5.45% over 6 years for $10,079, to the nearest dollar; those years are before the published rates this page holds.
+
+## What the Division 7A loan schedule calculator does not cover
+
+The calculator does not decide whether a payment is a loan, whether the agreement is in writing before the lodgment day or charges at least the benchmark rate, or whether a mortgage meets the 110% test: it takes the term you choose. It works only a loan whose written term is the maximum, 7 or 25 years: subsection 109E(6) counts the remaining term from the loan’s own term, so a loan agreed for fewer years has higher minimums than this page shows. It refuses a loan made before 4 December 1997, which Division 7A reaches only once its term or amount is varied (subsection 109D(5)); a loan made before 1 July 2020, whose first year is before the ATO rates it holds; a loan made through an interposed entity (Subdivision E); a loan that refinances another or was extended under a mortgage, whose term subsections 109N(3A) to (3D) and 109E(3A) and (3B) reduce or restart; and a repayment made between 30 June and the lodgment day for the year the loan was made, which the ATO takes off the loan and also counts in the next year.
+
+It assumes each repayment is made on 30 June and that the company’s income year ends on 30 June. A repayment made earlier in a year carries less interest. It does not apply section 109Q, which lets the Commissioner disregard a shortfall that would cause undue hardship, section 109R, which disregards a repayment funded by a new loan from the company, section 109Y’s limit or the regulations that subsection 109E(5) allows. It does not combine loans with different terms: each is a separate amalgamated loan with its own schedule.
+
+The funding dividend is arithmetic on the marginal rate you give. It does not check that the company has the profits or franking credits to pay it, and it is not advice on whether to repay by dividend, salary or cash. Future benchmark rates are not known: the figures from 2027-28 rest on your assumption. Confirm the figures with the ATO Division 7A calculator and decision tool or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Division 7A loan schedule calculator
+
+Case | Inputs | Result
+Minimum repayments over 7 years, projected from 2027-28 | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '' | first minimum $19,384.96, repaid $137,086.99, interest $37,086.99, last year 2029-30, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A larger first repayment lowers every later minimum | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '40000' | first minimum $19,384.96, repaid $130,395.95, interest $30,395.95, last year 2029-30, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A second-year repayment short of the minimum is a dividend, and the schedule stops | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '; 10000' | first minimum $19,384.96, repaid $29,384.96, interest $16,058.05, last year 2024-25, not repaid $86,673.09, shortfall $9,677.59, no projected year
+Repaying the balance and interest to 29 June ends the loan early | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99' | first minimum $19,384.96, repaid $113,353.99, interest $13,353.99, last year 2024-25, not repaid $0.00, shortfall $0.00, no projected year
+A 25-year secured loan made in 2026-27 is projected throughout | Made 2027-01-15, $500,000.00, 25 years, 8.77% assumed, repayments '' | first minimum $49,957.64, repaid $1,248,437.49, interest $748,437.49, last year 2051-52, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A higher assumed rate raises only the projected years | Made 2022-10-01, $100,000.00, 7 years, 10% assumed, repayments '' | first minimum $19,384.96, repaid $138,384.15, interest $38,384.15, last year 2029-30, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A loan made on 1 July 2020 starts at the 2021-22 rate | Made 2020-07-01, $1,000.00, 7 years, 8.77% assumed, repayments '' | first minimum $169.83, repaid $1,287.84, interest $287.84, last year 2027-28, not repaid $0.00, shortfall $0.00, projected from 2027-28
+A loan made before 4 December 1997 | Made 1997-12-03, $100,000.00, 7 years, 8.77% assumed, repayments '' | Refused: division 7A reaches a loan made before 4 December 1997 only once its term or amount is varied (subsection 109D(5)); this page does not work one
+A loan made on 4 December 1997, before the published rates | Made 1997-12-04, $100,000.00, 7 years, 8.77% assumed, repayments '' | Refused: enter a loan made from 1 July 2020 to 30 June 2027: the ATO’s published rates start with 2021-22
+A loan made through an interposed entity | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '', interposed | Refused: this page does not work a loan made through an interposed entity (Subdivision E of Division 7A)
+A repayment above the amount that repays the loan on 30 June | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '108247.41' | Refused: the 2023-24 repayment is more than $108,247.40, which repays the loan on 30 June
+Repayments after the loan is repaid | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99; 1' | Refused: the loan is repaid in 2024-25; leave out the repayments after it
+More repayments than years of the term | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '1;1;1;1;1;1;1;1' | Refused: enter no more than 7 repayments, one for each year of the term
+
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
+- Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
+- ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
