@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/individual-tax/income-tax/
 
-> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act as read on 17 November 2026.
+> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act.
 
 # Income tax calculator
 

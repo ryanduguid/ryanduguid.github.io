@@ -10815,7 +10815,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/individual-tax/
 
-> Income tax, the low income tax offset and Medicare levy, take-home pay with super, and HELP and other study loan repayments for 2024-25 to 2026-27, in your browser, each step cited to its Act.
+> Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act.
 
 # Individual tax calculators
 
@@ -10829,7 +10829,7 @@ Published 17 November 2026. Last checked 17 November 2026, the newest of the cal
 
 - Income tax calculator Tax on taxable income, the low income tax offset and the Medicare levy, for an Australian resident, a foreign resident or a working holiday maker.
 - Take-home pay calculator What is left of an annual salary each year, month, fortnight and week after tax, Medicare levy and any study loan repayment, with the employer’s super guarantee.
-- Study and training loan repayment calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
+- Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
 
 For a business, see the business calculators.
 
@@ -10839,7 +10839,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
-- Study and training loan repayment calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -10848,7 +10848,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/individual-tax/income-tax/
 
-> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act as read on 17 November 2026.
+> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act.
 
 # Income tax calculator
 
@@ -10929,7 +10929,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/individual-tax/take-home-pay/
 
-> Annual, monthly, fortnightly and weekly take-home pay after income tax, Medicare levy and study loan repayment, with super guarantee, each step cited to its Act as read on 17 November 2026.
+> Annual, monthly, fortnightly and weekly take-home pay after income tax, Medicare levy and study loan repayment, with super guarantee, each step cited to its Act.
 
 # Take-home pay calculator
 
@@ -10955,7 +10955,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 ## How the take-home pay calculator works
 
-The take-home pay calculator takes one annual salary and works out the year’s income tax, low income tax offset, Medicare levy and any study or training loan repayment on it, after the standard deduction of up to $1,000 for work-related expenses that the ATO applies from 2026-27, then what is left for the year, a month, a fortnight and a week. It also gives the super guarantee an employer must pay on that salary, which is paid to a super fund and is not part of take-home pay.
+The take-home pay calculator takes one annual salary and works out the year’s income tax, low income tax offset, Medicare levy and any study or training loan repayment on it. From 2026-27 it first takes off the standard deduction of up to $1,000 for work-related expenses. It then gives what is left for the year, a month, a fortnight and a week. It also gives the super guarantee an employer must pay on that salary, which is paid to a super fund and is not part of take-home pay.
 
 These are the year’s tax on that income spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay under the ATO’s PAYG withholding schedules, which round each pay’s withholding and can differ from the year’s tax, with the difference settled when the tax return is assessed. Use the ATO’s tax withheld calculator for the amount withheld each pay. The example on arrival is 2025-26, before the standard deduction: on $75,000 the Medicare levy is $1,500, as the ATO’s example of Matthew on What is the Medicare levy gives. In 2026-27 the same salary is $74,000 of taxable income.
 
@@ -11009,11 +11009,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/individual-tax/study-loan/
 
-> Compulsory HELP, VSL, SSL and AASL repayments for 2024-25 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003 as read on 17 November 2026.
+> Compulsory HELP, VSL, SSL and AASL repayments for 2024-25 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003.
 
-# Study and training loan repayment calculator
+# Study and training loan calculator
 
-The compulsory HELP and other study and training loan repayment for 2024-25 to 2026-27, from repayment income, by the marginal system that applies from 2025-26.
+The compulsory HELP or other study loan repayment for 2024-25 to 2026-27, marginal from 2025-26.
 
 Published 17 November 2026. Last checked 17 November 2026.
 
@@ -11053,7 +11053,7 @@ Confirm the figure with the ATO’s Study and training loan repayment calculator
 
 Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Study and training loan repayment calculator
+Boundary cases: Study and training loan calculator
 
 Case | Inputs | Result
 ATO example 1: Christina, 2026-27 | 2026-27: taxable income $60,470, fringe benefits $5,400, net investment loss $1,330, super contributions $16,500, exempt foreign employment income $2,680 | Repayment income $86,380.00, repayment $2,527.80

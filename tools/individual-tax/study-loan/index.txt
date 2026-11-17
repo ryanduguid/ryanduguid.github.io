@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/tools/individual-tax/study-loan/
 
-> Compulsory HELP, VSL, SSL and AASL repayments for 2024-25 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003 as read on 17 November 2026.
+> Compulsory HELP, VSL, SSL and AASL repayments for 2024-25 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003.
 
-# Study and training loan repayment calculator
+# Study and training loan calculator
 
-The compulsory HELP and other study and training loan repayment for 2024-25 to 2026-27, from repayment income, by the marginal system that applies from 2025-26.
+The compulsory HELP or other study loan repayment for 2024-25 to 2026-27, marginal from 2025-26.
 
 Published 17 November 2026. Last checked 17 November 2026.
 
@@ -46,7 +46,7 @@ Confirm the figure with the ATO’s Study and training loan repayment calculator
 
 Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Study and training loan repayment calculator
+Boundary cases: Study and training loan calculator
 
 Case | Inputs | Result
 ATO example 1: Christina, 2026-27 | 2026-27: taxable income $60,470, fringe benefits $5,400, net investment loss $1,330, super contributions $16,500, exempt foreign employment income $2,680 | Repayment income $86,380.00, repayment $2,527.80

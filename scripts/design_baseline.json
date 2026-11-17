@@ -195,16 +195,16 @@
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
     ],
     "tools/individual-tax/income-tax/index.html": [
-      "edf199eac0312108a167ac84f6b71e26a777fdfde30caa9a4a74342c185caee7"
+      "d63327a0e7d3264404b23562bd1926f35e561fe2f4563644b28ee40c3768a8e1"
     ],
     "tools/individual-tax/index.html": [
-      "937ea9e3f70b4c7b5515771e202c58109a6f747892be01a46ce88161168c9a74"
+      "bac00229ec1ee84893567d3fd49103f6bd8122f56318034907052bd7d9e632bf"
     ],
     "tools/individual-tax/study-loan/index.html": [
-      "4b1a26ce6290153c588c4707ed881dc8f99d9c9c5ea69fa395ad3b50379977be"
+      "6b726b528bcd8bf8351e98a115cd2b0c97d23cf3a829efabe799a7665a7291db"
     ],
     "tools/individual-tax/take-home-pay/index.html": [
-      "76a294fda6aed6c045b7118751ef43d7353bd8be5e7da9b804f203f3d687de7d"
+      "7f73ea8e687f4fc3dbfb3a06822b4f404dc73626e0e8a11dfd6da74022a5cab0"
     ],
     "tools/limitations/index.html": [
       "2d3d865ad048775bbe97d9424a06a144861cb6698eb14f60b16d0db67fba7af7"
@@ -268,7 +268,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "0d22d1bb1adef4e098299765988a75b7c11419aacba3f3005d0c0b2add714048",
+    "llms.txt": "330c631bb577ccbe2068bf4373d3c590ec6c8a79ffac613bdf1b80082633358a",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "7a34a60c0863b4a2c8d3469b1bcd9b0d0809af734dfa01597768aecfd383605a"
   },
