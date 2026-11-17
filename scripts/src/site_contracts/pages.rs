@@ -967,6 +967,7 @@ pub fn collection_breadcrumb_shape(
         ]
     } else if let Some((name, hub)) = [
         ("Business calculators", "business-calculators"),
+        ("Individual tax calculators", "individual-tax"),
         ("Accounting questions", "accounting-questions"),
         ("Payday Super receipt evidence", "payday-super"),
     ]

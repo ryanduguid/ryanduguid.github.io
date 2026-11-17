@@ -421,7 +421,11 @@ the runner's connection to Tasmania's
 ended before a response, which returned HTTP 200 locally on 16 November 2026. In
 run 43966788055 it did the same for 6 more Tasmanian land tax and first home pages
 the land tax and transfer duty calculators cite; each returned HTTP 200 locally
-on 17 November 2026. The link checker
+on 17 November 2026. In
+run 44015978829 it timed out 4 times on the ATO's
+[GDP adjustment](https://softwaredevelopers.ato.gov.au/GDPupliftfactor) page that the
+PAYG instalments calculator cites, which returned HTTP 200 locally on 17 November 2026.
+The link checker
 reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
 GitHub Actions. Run `site-tools check_links` locally before changing any
 of them; local runs still fetch them all. Remove the CI exceptions when runner
@@ -446,6 +450,9 @@ Run 43966788055 returned HTTP 403 for 4 ACT Revenue Office and 3 NT Government
 land tax and first home pages cited by the land tax and transfer duty
 calculators. On 17 November 2026 the ACT pages returned HTTP 200 locally and the
 NT pages HTTP 200 in a browser; all 7 are in the same list.
+Run 44024114382 returned HTTP 403 for 7 ATO pages that the income tax, take-home pay
+and study and training loan repayment calculators cite; each returned HTTP 200
+locally on 17 November 2026 and is in the same list.
 
 The [Division 7A benchmark rate table](https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate)
 also returned HTTP 403 in run 34852175800.

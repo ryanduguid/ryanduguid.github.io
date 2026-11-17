@@ -19,6 +19,10 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const levy = { file: 'assets/levy.mjs', test: 'scripts/levy.test.mjs' };
 const business = { file: 'assets/business-calculators.mjs', test: 'scripts/business-calculators.test.mjs' };
+const individualTest = 'scripts/individual-tax.test.mjs';
+const incomeTax = { file: 'assets/income-tax.mjs', test: individualTest };
+const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
+const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
 const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
@@ -155,6 +159,29 @@ const MUTATIONS = [
   { ...business, name: 'ETP preservation age table is a year out', find: 'july - 1904', replace: 'july - 1903' },
   { ...business, name: 'ETP accepts a date of birth after the year', find: 'born > year.yearEnd', replace: 'born > \'9999\'' },
   { ...business, name: 'ETP accepts 151 years of service', find: 'max: 150, integer: true', replace: 'max: 151, integer: true' },
+
+  { ...incomeTax, name: '2026-27 starts at 16%', find: "'2026-27': [[18200, 15]", replace: "'2026-27': [[18200, 16]" },
+  { ...incomeTax, name: 'foreign residents reach 37% at $120,000', find: '[[0, 30], [135000, 37]', replace: '[[0, 30], [120000, 37]' },
+  { ...incomeTax, name: 'working holiday makers reach 30% at $37,000', find: '[[0, 15], [45000, 30]', replace: '[[0, 15], [37000, 30]' },
+  { ...incomeTax, name: 'the offset tapers at 4%', find: '(income - 37500) * 50', replace: '(income - 37500) * 40' },
+  { ...incomeTax, name: 'the offset rounds half a cent down', find: 'Math.floor((tenths + 5) / 10)', replace: 'Math.floor(tenths / 10)' },
+  { ...incomeTax, name: 'the offset can exceed the tax', find: 'Math.min(tax, lowIncomeOffset(income))', replace: 'lowIncomeOffset(income)' },
+  { ...incomeTax, name: 'the Medicare shade-in takes the greater', find: 'Math.min(income * 2, (income - threshold) * 10)', replace: 'Math.max(income * 2, (income - threshold) * 10)' },
+  { ...incomeTax, name: 'foreign residents pay the Medicare levy', find: 'const medicare = resident ?', replace: 'const medicare = true ?' },
+  { ...incomeTax, name: '2024-25 takes the 2025-26 Medicare thresholds', find: "'2024-25': [27222, 34027]", replace: "'2024-25': [28011, 35013]" },
+  { ...studyLoan, name: 'the upper marginal rate is 16%', find: 'Math.max(0, income - top) * 17', replace: 'Math.max(0, income - top) * 16' },
+  { ...studyLoan, name: 'the repayment takes the greater amount', find: 'tenth < marginal ?', replace: 'tenth > marginal ?' },
+  { ...studyLoan, name: '2024-25 takes the first band', find: 'table.bands.findLast(', replace: 'table.bands.find(' },
+  { ...studyLoan, name: 'the minimum repayment income itself repays', find: 'if (income <= table.minimum)', replace: 'if (income < table.minimum)' },
+  { ...studyLoan, name: 'repayment income leaves out super contributions', find: "const PARTS = ['taxable', 'fringe', 'losses', 'super', 'foreign'];", replace: "const PARTS = ['taxable', 'fringe', 'losses', 'foreign'];" },
+  { ...takeHome, name: 'super guarantee ignores the base', find: 'Math.min(entered, capCents) * tenths', replace: 'entered * tenths' },
+  { ...takeHome, name: 'a package’s super is the rate of the package', find: 'nearest(entered * tenths, 1000 + tenths)', replace: 'nearest(entered * tenths, 1000)' },
+  { ...takeHome, name: 'the study loan is left out', find: 'const loan = pay.studyLoan', replace: 'const loan = false' },
+  { ...takeHome, name: 'no standard deduction', find: 'Math.min(100000, salary) : 0', replace: '0 : 0' },
+  { ...takeHome, name: 'the standard deduction drops the salary’s cents', find: 'Math.min(100000, salary) : 0', replace: 'Math.min(100000, salary - (salary % 100)) : 0' },
+  { ...takeHome, name: 'the standard deduction for foreign residents too', find: "pay.year >= STANDARD_DEDUCTION_FROM && pay.residency === 'resident'", replace: 'pay.year >= STANDARD_DEDUCTION_FROM' },
+  { ...takeHome, name: 'a fortnight is a 24th', find: 'nearest(net, 26)', replace: 'nearest(net, 24)' },
+  { ...takeHome, name: '2024-25 super guarantee is 12%', find: "'2024-25': { rate: 11.5", replace: "'2024-25': { rate: 12" },
   { ...div7a, name: 'Division 7A schedule counts the remaining term from the year made', find: 'const remainingTerm = term - k + 1;', replace: 'const remainingTerm = term - k + 2;' },
   { ...div7a, name: 'Division 7A schedule drops unpaid interest from the loan', find: 'const principal = repayment - interest;', replace: 'const principal = repayment > interest ? repayment - interest : 0n;' },
   { ...div7a, name: 'Division 7A schedule runs on past a shortfall', find: 'if (shortfall > 0n || opening === 0n) break;', replace: 'if (opening === 0n) break;' },
@@ -239,10 +266,12 @@ try {
   for (const name of readdirSync(join(root, 'assets')).filter((entry) => entry.endsWith('.mjs'))) {
     copyFileSync(join(root, 'assets', name), join(work, 'assets', name));
   }
-  for (const { test } of [levy, business]) copyFileSync(join(root, test), join(work, test));
+  for (const test of [levy.test, business.test, individualTest]) copyFileSync(join(root, test), join(work, test));
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
-    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', 'rates/car-limit',
-    'llms.txt', '.well-known/llms.txt', 'scripts/fbt-engine-differential.json']) {
+    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
+    'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
+    'rates/maximum-contribution-base', 'rates/car-limit', 'llms.txt', '.well-known/llms.txt',
+    'scripts/fbt-engine-differential.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
@@ -251,7 +280,7 @@ try {
     if (run.status === 0) return 'survived';
     return run.status === 1 && run.stdout.includes("code: 'ERR_ASSERTION'") ? 'caught' : 'invalid';
   };
-  for (const { test } of [levy, business]) {
+  for (const test of [levy.test, business.test, individualTest]) {
     if (verdict(test) !== 'survived') throw new Error(`${test} fails before any mutation`);
   }
   const mutated = ({ file, test, find, replace }) => {
