@@ -119,6 +119,275 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# Australian income tax, take-home pay and HELP calculators
+
+Source: https://duguid.com.au/tools/individual-tax/
+
+> Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act.
+
+# Individual tax calculators
+
+Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+
+Estimates in AUD for a full income year from 2024-25 to 2026-27, for a single person with no dependants. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 17 November 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
+
+## Tax, pay and study loans
+
+- Income tax calculator Tax on taxable income, the low income tax offset and the Medicare levy, for an Australian resident, a foreign resident or a working holiday maker.
+- Take-home pay calculator What is left of an annual salary each year, month, fortnight and week after tax, Medicare levy and any study loan repayment, with the employer’s super guarantee.
+- Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
+
+For a business, see the business calculators.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
+- Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
+- Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Income tax calculator for 2026-27, 2025-26 and 2024-25
+
+Source: https://duguid.com.au/tools/individual-tax/income-tax/
+
+> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act.
+
+# Income tax calculator
+
+One individual’s income tax, low income tax offset and Medicare levy for a full income year from 2024-25 to 2026-27, for an Australian resident, a foreign resident or a working holiday maker.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Income tax inputs for one full income year
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
+
+Taxable income (whole dollars)
+
+Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a single person with no dependants who is not entitled to the seniors and pensioners tax offset.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, taxable income $29,000.00. Tax on taxable income $1,728.00 Low income tax offset $700.00 Medicare levy $98.90 Total tax and Medicare levy $1,126.90
+
+## How the income tax calculator works
+
+The income tax calculator works out one individual’s tax for a full income year: the tax on taxable income at the year’s rates, the low income tax offset, and the Medicare levy. An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. A foreign resident pays from the first dollar at 30%, 37% and 45%. A working holiday maker pays 15% up to $45,000 and then the same rates as a resident.
+
+The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does; its example on What is the Medicare levy gives Matthew $1,500 on $75,000.
+
+For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2026, the same as 2025-26. If Parliament raises them for 2026-27, a person just above $28,011 will pay less than shown here.
+
+## What the income tax calculator does not compute
+
+The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
+
+- the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
+- the Medicare levy surcharge or the private health insurance rebate;
+- a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
+- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
+- study loan repayments, which the study and training loan repayment calculator works out, and the tax already withheld or a refund.
+
+Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Income tax calculator
+
+Case | Inputs | Result
+ATO example: Angie, in the Medicare levy shade-in | $29,000 taxable income, 2025-26, Australian resident | Tax $1,728.00, offset $700.00, Medicare levy $98.90, total $1,126.90
+Tax-free threshold | $18,200 taxable income, 2026-27, Australian resident | Tax $0.00, offset $0.00, Medicare levy $0.00, total $0.00
+Medicare levy phase-in limit | $35,013 taxable income, 2026-27, Australian resident | Tax $2,521.95, offset $700.00, Medicare levy $700.20, total $2,522.15
+A dollar above the phase-in limit: 2% of the whole | $35,014 taxable income, 2026-27, Australian resident | Tax $2,522.10, offset $700.00, Medicare levy $700.28, total $2,522.38
+Offset of $324.985 rounds half up | $45,001 taxable income, 2026-27, Australian resident | Tax $4,020.30, offset $324.99, Medicare levy $900.02, total $4,595.33
+Offset cut-out: half a cent below nil is nil | $66,667 taxable income, 2026-27, Australian resident | Tax $10,520.10, offset $0.00, Medicare levy $1,333.34, total $11,853.44
+Top rate | $250,000 taxable income, 2026-27, Australian resident | Tax $78,370.00, offset $0.00, Medicare levy $5,000.00, total $83,370.00
+2024-25 rates | $90,000 taxable income, 2024-25, Australian resident | Tax $17,788.00, offset $0.00, Medicare levy $1,800.00, total $19,588.00
+Foreign resident: no offset or Medicare levy | $100,000 taxable income, 2026-27, foreign resident | Tax $30,000.00, offset $0.00, Medicare levy $0.00, total $30,000.00
+Working holiday maker | $50,000 taxable income, 2026-27, working holiday maker | Tax $8,250.00, offset $0.00, Medicare levy $0.00, total $8,250.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
+- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
+- study and training loan repayment calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Take-home pay calculator for 2026-27: tax, Medicare and HELP
+
+Source: https://duguid.com.au/tools/individual-tax/take-home-pay/
+
+> Annual, monthly, fortnightly and weekly take-home pay after income tax, Medicare levy and study loan repayment, with super guarantee, each step cited to its Act.
+
+# Take-home pay calculator
+
+Take-home pay from an annual salary, after the year’s income tax, Medicare levy and any study loan repayment, with the employer’s super guarantee, for 2024-25 to 2026-27.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Take-home pay inputs for one full income year
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
+
+Annual salary (whole dollars) Does that amount include super? No, super is paid on top Yes, it is a package including super guarantee
+
+Do you have a study or training loan, such as HELP? No Yes
+
+For one job paid evenly all year, with no other income and no deductions you claim, so the salary is the taxable income, less the standard deduction from 2026-27. For a single person with no dependants.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, salary $75,000.00 plus super, no study or training loan. Salary $75,000.00 Employer super guarantee $9,000.00 Standard deduction for work-related expenses $0.00 Income tax less the low income tax offset $13,288.00 Medicare levy $1,500.00 Study and training loan repayment $0.00 Take-home pay for the year $60,212.00 Each month, a twelfth $5,017.67 Each fortnight, a 26th $2,315.85 Each week, a 52nd $1,157.92 The year’s tax on this salary spread evenly, not the amounts an employer withholds each pay.
+
+## How the take-home pay calculator works
+
+The take-home pay calculator takes one annual salary and works out the year’s income tax, low income tax offset, Medicare levy and any study or training loan repayment on it. From 2026-27 it first takes off the standard deduction of up to $1,000 for work-related expenses. It then gives what is left for the year, a month, a fortnight and a week. It also gives the super guarantee an employer must pay on that salary, which is paid to a super fund and is not part of take-home pay.
+
+These are the year’s tax on that income spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay under the ATO’s PAYG withholding schedules, which round each pay’s withholding and can differ from the year’s tax, with the difference settled when the tax return is assessed. Use the ATO’s tax withheld calculator for the amount withheld each pay. The example on arrival is 2025-26, before the standard deduction: on $75,000 the Medicare levy is $1,500, as the ATO’s example of Matthew on What is the Medicare levy gives. In 2026-27 the same salary is $74,000 of taxable income.
+
+When the salary includes super, the calculator splits it: at 12%, a package of $112,000 is $100,000 of salary and $12,000 of super. Super guarantee stops at the year’s maximum contribution base, so above it the super stays at the most the base allows.
+
+## What the take-home pay calculator does not compute
+
+The calculator assumes one employer, a salary paid evenly over the full year, and no other income, deductions, offsets or salary sacrifice. It does not compute:
+
+- the PAYG amount withheld each pay, overtime, bonuses, allowances or leave loading;
+- work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
+- salary sacrifice, reportable fringe benefits, or reportable super contributions, which would change repayment income;
+- everything the income tax calculator leaves out, such as the Medicare levy reduction for families, the Medicare levy surcharge and the seniors and pensioners tax offset;
+- whether an employee is entitled to super guarantee, the lower transitional rate for employees on Norfolk Island (11% for 2026-27), or a second employer’s separate maximum contribution base.
+
+Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Take-home pay calculator
+
+Case | Inputs | Result
+ATO example: Matthew’s Medicare levy on $75,000, 2025-26 | 2025-26, Australian resident, $75,000 plus super | Take-home $60,212.00 a year, $2,315.85 a fortnight; super $9,000.00
+2026-27: the $1,000 standard deduction comes off the salary | 2026-27, Australian resident, $75,000 plus super | Take-home $60,800.00 a year, $2,338.46 a fortnight; super $9,000.00
+Package including super | 2026-27, Australian resident, $112,000 including super | Take-home $77,800.00 a year, $2,992.31 a fortnight; super $12,000.00
+With a study loan | 2026-27, Australian resident, $90,000 plus super, study loan | Take-home $68,079.20 a year, $2,618.43 a fortnight; super $10,800.00
+Above the 2026-27 maximum contribution base | 2026-27, Australian resident, $300,000 plus super | Take-home $193,600.00 a year, $7,446.15 a fortnight; super $32,499.60
+Package above the base: super stops at the cap | 2026-27, Australian resident, $340,000 including super | Take-home $197,575.40 a year, $7,599.05 a fortnight; super $32,499.60
+2024-25 at 11.5%, with a half-cent offset | 2024-25, Australian resident, $60,001 plus super | Take-home $50,112.67 a year, $1,927.41 a fortnight; super $6,900.12
+Foreign resident: no Medicare levy | 2026-27, foreign resident, $80,000 plus super | Take-home $56,000.00 a year, $2,153.85 a fortnight; super $9,600.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
+- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
+- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
+- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# HELP repayment calculator for 2026-27: marginal rates
+
+Source: https://duguid.com.au/tools/individual-tax/study-loan/
+
+> Compulsory HELP, VSL, SSL and AASL repayments for 2024-25 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003.
+
+# Study and training loan calculator
+
+The compulsory HELP or other study loan repayment for 2024-25 to 2026-27, marginal from 2025-26.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Study and training loan repayment inputs for one income year
+
+Income year 2026-27 2025-26 2024-25
+
+Taxable income, without any FHSS released amount (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, including net rental losses (whole dollars) Reportable super contributions (whole dollars) Exempt foreign employment income (whole dollars)
+
+Enter 0 for any part you do not have. Your income tax return or income statement shows each of them.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, taxable income $60,470.00, reportable fringe benefits $5,400.00, total net investment loss $1,330.00, reportable super contributions $16,500.00, exempt foreign employment income $2,680.00. Repayment income $86,380.00 Compulsory repayment $2,527.80 15% of repayment income over $69,528 up to $129,717, and 17% of any part above it.
+
+## How the study and training loan repayment calculator works
+
+The study and training loan repayment calculator works out the compulsory repayment on a HELP, VET Student Loan, Student Start-up Loan or Australian Apprenticeship Support Loan debt for one income year. It first adds up repayment income: taxable income, reportable fringe benefits, total net investment loss, reportable super contributions and exempt foreign employment income.
+
+From 2025-26 the repayment is marginal: nothing up to the minimum repayment income, then 15 cents for each dollar above it up to a second threshold and 17 cents above that, unless 10% of all repayment income is less. For 2026-27 the minimum repayment income is $69,528 and the second threshold $129,717, and 10% is the lesser amount from $186,051. For 2024-25 one percentage of the whole repayment income applied, from 1% above $54,434 to 10% from $159,664.
+
+The boundary cases below take the inputs of the 4 worked examples on the ATO’s thresholds and rates page, read 17 November 2026, and work each one from section 154-20. For Barry’s 2026-27 repayment income of $137,064, section 154-20(2) gives 15% of the $60,189 from $69,528 to $129,717, which is $9,028.35, plus 17% of the $7,347 above $129,717, which is $1,248.99: $10,277.34 in all. For Branson’s 2024-25 repayment income of $99,736, the 5.5% rate gives $5,485.48.
+
+## What the study and training loan repayment calculator does not compute
+
+The calculator gives the compulsory repayment for one income year. It does not compute:
+
+- the cap at the debt you still owe, or voluntary repayments;
+- the overseas debtors repayment levy on worldwide income for a foreign resident (section 154-16);
+- whether no repayment is due because your Medicare levy is not payable or is reduced under section 8 of the Medicare Levy Act 1986 (section 154-1(2));
+- the amounts an employer withholds each pay for a loan, or indexation of the debt;
+- years before 2024-25.
+
+Confirm the figure with the ATO’s Study and training loan repayment calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Study and training loan calculator
+
+Case | Inputs | Result
+ATO example 1: Christina, 2026-27 | 2026-27: taxable income $60,470, fringe benefits $5,400, net investment loss $1,330, super contributions $16,500, exempt foreign employment income $2,680 | Repayment income $86,380.00, repayment $2,527.80
+ATO example 2: Barry, 2026-27, by section 154-20 | 2026-27: taxable income $118,450, super contributions $18,614 | Repayment income $137,064.00, repayment $10,277.34
+ATO example 3: Priya, 2026-27 | 2026-27: taxable income $227,123, super contributions $27,657 | Repayment income $254,780.00, repayment $25,478.00
+At the minimum repayment income | 2026-27: taxable income $69,528 | Repayment income $69,528.00, repayment $0.00
+Last dollar where the marginal amount is less | 2026-27: taxable income $186,050 | Repayment income $186,050.00, repayment $18,604.96
+First dollar where 10% is less | 2026-27: taxable income $186,051 | Repayment income $186,051.00, repayment $18,605.10
+2025-26 top of the 15% band | 2025-26: taxable income $125,000 | Repayment income $125,000.00, repayment $8,700.00
+ATO example 4: Branson, 2024-25, at 5.5% | 2024-25: taxable income $89,450, super contributions $10,286 | Repayment income $99,736.00, repayment $5,485.48
+2024-25 at 2.5%: half a cent rounds up | 2024-25: taxable income $66,621 | Repayment income $66,621.00, repayment $1,665.53
+2024-25 at the minimum repayment income | 2024-25: taxable income $54,434 | Repayment income $54,434.00, repayment $0.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
 # Payroll tax calculator for every Australian state, 2026-27
 
 Source: https://duguid.com.au/tools/business-calculators/payroll-tax/
@@ -890,1123 +1159,3 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
 - All tools: https://duguid.com.au/tools/
 - Evidence and Assurance: https://duguid.com.au/evidence/
-
----
-
-# Ozzit Dates functions: Excel LAMBDA reference
-
-Source: https://duguid.com.au/tools/ozzit/functions/dates/
-
-> Parameters and worked examples for 17 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels.
-
-# Ozzit Dates functions
-
-The 17 Dates formulas cover periods, timelines, schedules, overlaps and Australian financial year labels. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
-
-Release v3.6.0. Read from the released Dates formula source, which the workbook compiles.
-
-Published 20 October 2026. Last reviewed 20 October 2026.
-
-## Using these functions
-
-Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
-
-The text below is the help each function carries in the v3.6.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
-
-## All 17 functions
-
-- oz.AboutDatesλ
-- oz.CountDOWλ
-- oz.IsBetweenλ
-- oz.IsOccurrenceDateλ
-- oz.OverLapDaysλ
-- oz.PeriodLabelλ
-- oz.Periodsλ
-- oz.ScheduleRatesλ
-- oz.ScheduleRatesByItemsλ
-- oz.ScheduleValuesλ
-- oz.ScheduleValuesByItemsλ
-- oz.Timelineλ
-- oz.FinancialYearλ
-- oz.FinancialMonthλ
-- oz.FinancialQuarterλ
-- oz.RateAtDateλ
-- oz.DateDifλ
-
-### oz.AboutDatesλ
-
-Displays this module's repository URL and function list
-
-Previous name: nabla.d.Aboutλ.
-
-### oz.CountDOWλ
-
-oz.CountDOWλ(Starts, Ends, DayOfWeek)
-
-Count instances of a specific day of the week between two dates.
-
-Parameters:
-
-Starts (required)
-
-One of more start dates (text or numeric) in a row or column
-
-Ends (required)
-
-End dates (text or numeric) for each start date
-
-DayOfWeek (required)
-
-1=Sunday, 7=Saturday.
-
-```
-=oz.CountDOWλ("23/7/2026", "11/8/2026",  1)
-```
-
-The workbook help shows 3.
-
-Previous name: nabla.d.CountDOWλ.
-
-### oz.IsBetweenλ
-
-oz.IsBetweenλ(Values, Low, High, [Inclusive])
-
-Determine if a value is between a lower and upper limit
-
-Determine if a value is between a lower and upper limit.
-
-Parameters:
-
-Values (required)
-
-one or more values to compare.
-
-Low (required)
-
-The lower limit that the value(s) must be greater than
-
-High (required)
-
-The higher limit that the value(s) must be less than
-
-Inclusive (optional)
-
-TRUE: Value(s) can be equal to Low and/or High (default)
-
-```
-=oz.IsBetweenλ(1, 2, 4)
-```
-
-The workbook help shows FALSE.
-
-```
-=oz.IsBetweenλ(Today(), Today(), Today()+1)
-```
-
-The workbook help shows TRUE.
-
-```
-=oz.IsBetweenλ("B", "B", "D", FALSE)
-```
-
-The workbook help shows FALSE.
-
-Previous name: nabla.d.IsBetweenλ.
-
-### oz.IsOccurrenceDateλ
-
-oz.IsOccurrenceDateλ(Dates, FirstOccurrence, [LastOccurrence], [Repeats])
-
-Returns TRUE if Date passed is when something happens. This was developed for budgeting where we have expenses that start, and sometimes repeat at regular intervals.
-
-Returns TRUE if a Date is when something happens. Developed for budgeting, where expenses start and sometimes repeat at regular intervals.
-
-Note: A monthly, quarterly, semi-annual or annual item that starts on the 29th, 30th or 31st falls on the last day of any shorter month.
-
-Parameters:
-
-Dates (required)
-
-Date to test. Normally this is horizontal timeline by day
-
-FirstOccurrence (required)
-
-When something that may repeat, happens for the first time.
-
-LastOccurrence (optional)
-
-When something that may repeat, happens for the last time. If omitted, it is assumed repeating items repeat forever.
-
-Repeats (optional)
-
-A code that conveys how often this thing repeats. Repeat codes are O=One time/never repeats (default) A=Annually S=Semi-Annually Q=Quarterly M=Monthly B=BiWeekly W=Weekly X=Every Workday (Monday to Friday) D=Daily
-
-```
-=SUM(N(oz.IsOccurrenceDateλ(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "D")))
-```
-
-The workbook help shows 72.
-
-```
-=SUM(N(oz.IsOccurrenceDateλ(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "O")))
-```
-
-The workbook help shows 01.
-
-```
-=SUM(N(oz.IsOccurrenceDateλ(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "W")))
-```
-
-The workbook help shows 11.
-
-Previous name: nabla.d.IsOccurrenceDateλ.
-
-### oz.OverLapDaysλ
-
-oz.OverLapDaysλ(Period1Start, Period1End, Period2Start, Period2End)
-
-Return how many days overlap two period ranges.
-
-Count days shared between two sets of periods.
-
-Parameters:
-
-Period1Start (required)
-
-First period's start date.
-
-Period1End (required)
-
-First period's end date.
-
-Period2Start (required)
-
-Second period's start date.
-
-Period2End (required)
-
-Second period's end date.
-
-```
-=oz.OverLapDaysλ(08, 14, 10, 17)
-```
-
-The workbook help shows 5.
-
-```
-=oz.OverLapDaysλ(10, 20, 11, 18)
-```
-
-The workbook help shows 8.
-
-```
-=oz.OverLapDaysλ("17/7/2026", "25/7/2026", "7/7/2026", "18/7/2026")
-```
-
-The workbook help shows 2.
-
-Previous name: nabla.d.OverLapDaysλ.
-
-### oz.PeriodLabelλ
-
-oz.PeriodLabelλ(Date, [Interval])
-
-Creates a label for a date based on period interval
-
-Parameters:
-
-Date (required)
-
-A single date or array of date(s) where the first date is the first date of a calendar year.
-
-Interval (optional)
-
-Must be one of:
-
-- D=Daily
-- W=Weekly
-- I=Weekly (using ISO week number)
-- M=Monthly
-- Q=Quarterly
-- S=Semi-Annually
-- A or Y=Annually
-
-```
-=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "D")
-```
-
-The workbook help shows 2026-Aug-26.
-
-```
-=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "M")
-```
-
-The workbook help shows 2026-Aug.
-
-```
-=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "Q")
-```
-
-The workbook help shows 2026:Q3.
-
-```
-=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "Y")
-```
-
-The workbook help shows 2026.
-
-Previous name: nabla.d.PeriodLabelλ.
-
-### oz.Periodsλ
-
-oz.Periodsλ(Starts, Ends, [Intervals])
-
-Determine the number of periods from Starts to Date2 in Days, Weeks, Months, Quarters, or Years.
-
-Determine the number of periods from Starts to Ends inclusive. Differences to Excel's DATEDIF are: * Interval includes Weeks & Quarters * Counts the period starts crossed, so a part period at the end counts * Returns negative values if Starts is after Ends
-
-Parameters:
-
-Starts (required)
-
-First date (normally older). A single date or an array of dates.
-
-Ends (required)
-
-Second date (normally newer). A single date or an array the same shape as Starts. A single Starts or Ends is applied to every date in the other.
-
-Intervals (optional)
-
-Days, Weeks, Months (default), Quarters, or Years (D, W, M, Q, Y). One code, or an array of codes the same shape as the dates.
-
-```
-=oz.Periodsλ("31/7/2026", "15/9/2026")
-```
-
-The workbook help shows 2.
-
-```
-=oz.Periodsλ("15/9/2026", "31/7/2026")
-```
-
-The workbook help shows -2.
-
-```
-=oz.Periodsλ("15/7/2027", "16/7/2026")
-```
-
-The workbook help shows -12.
-
-```
-=oz.Periodsλ("15/7/2027", "16/7/2026", "W")
-```
-
-The workbook help shows -52.
-
-Previous name: nabla.d.Periodsλ.
-
-### oz.ScheduleRatesλ
-
-oz.ScheduleRatesλ(PeriodEnds, RateStarts, Rates)
-
-Schedule rates that persist until replaced in a timeline.
-
-Schedules rates that persist until replaced in a timeline from a schedule in a table.
-
-Note: If 2 rates are scheduled within the same period, only the last rate will be selected.
-
-Parameters:
-
-PeriodEnds (required)
-
-A row of period end dates (timeline).
-
-RateStarts (required)
-
-A column or row of rate effective dates in any order.
-
-Rates (required)
-
-A column or row of rates associated with RateStarts.
-
-```
-=oz.ScheduleRatesλ(Timelineλ("1/7/2026",5,"W"),{46208; 46216; 46222}, {10; 20; 30})
-```
-
-The workbook help shows _,10,20,30,30.
-
-Previous name: nabla.d.ScheduleRatesλ.
-
-### oz.ScheduleRatesByItemsλ
-
-oz.ScheduleRatesByItemsλ(PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList)
-
-Schedule rates that persist until replaced in a timeline for each item in a list.
-
-Schedules each item's rates by period until another rate takes effect.
-
-Note: If 2 rates are scheduled within the same period for the same item,. only the last rate will be selected.
-
-Parameters:
-
-PeriodEnds (required)
-
-A row of period end dates (timeline).
-
-ItemFilter (required)
-
-A column of 1 or more items to filter a rate schedule by. A 'rate schedule' is a table/list where each row contains a unique item/effective date pair with a rate. An item with no rate in the schedule scores nought in every period.
-
-ItemList (required)
-
-Items in a rate schedule.
-
-EffectiveList (required)
-
-Effective dates in the rate schedule.
-
-RateList (required)
-
-Rates in a rate schedule for each item/effective date pair.
-
-```
-=oz.ScheduleRatesByItemsλ( oz.Timelineλ( "1/7/2026"), UNIQUE( tblRates[Unit]),
-tblRates[Unit], tblRates[Effective], tblRates[Rent])
-```
-
-Previous name: nabla.d.ScheduleRatesByItemsλ.
-
-### oz.ScheduleValuesλ
-
-oz.ScheduleValuesλ(PeriodStarts, PeriodEnds, Values, EffectiveDates)
-
-Schedules values in a timeline from a schedule in a table.
-
-Place values from a table into a timeline's appropriate period.
-
-Parameters:
-
-PeriodStarts (required)
-
-A row of period start dates (timeline).
-
-PeriodEnds (required)
-
-A row of period end dates (timeline).
-
-Values (required)
-
-A column or row of values to be scheduled.
-
-EffectiveDates (required)
-
-When each value is scheduled, in the same orientation as Values.
-
-```
-=oz.ScheduleValuesλ(Timelineλ("1/7/2026"), Timelineλ("1/7/2026",,,FALSE), {1;3}, {"1/7/2026"; "15/8/2026"})
-```
-
-Previous name: nabla.d.ScheduleValuesλ.
-
-### oz.ScheduleValuesByItemsλ
-
-oz.ScheduleValuesByItemsλ(PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList)
-
-Schedule and sum values in a timeline for each item.
-
-Parameters:
-
-PeriodStarts (required)
-
-A row of period start dates (timeline).
-
-PeriodEnds (required)
-
-A row of period end dates (timeline).
-
-ItemFilter (required)
-
-A column of 1 or more items to filter a value schedule by. A 'value schedule' is a table/list where each row contains a unique item/effective date pair with a value.
-
-ItemList (required)
-
-Items in a value schedule.
-
-EffectiveList (required)
-
-Effective dates in the value schedule.
-
-ValueList (required)
-
-Values in a value schedule for each item/effective date pair. An item with no rows in the schedule totals nought in every period.
-
-```
-=oz.ScheduleValuesByItemsλ( oz.Timelineλ( "1/7/2026"),  oz.Timelineλ( "1/7/2026",,,FALSE),
-UNIQUE( tblExp[Items]), tblExp[Items], tblExp[Dates], tblExp[Amount])
-```
-
-Previous name: nabla.d.ScheduleValuesByItemsλ.
-
-### oz.Timelineλ
-
-oz.Timelineλ(StartDate, Periods, Interval, PeriodStarts?)
-
-Create a horizontal list of period dates
-
-Creates a horizontal list of period dates.
-
-Parameters:
-
-StartDate (required)
-
-First period's start date. May be entered as text.
-
-Periods (optional)
-
-The number of period in the timeline. Defaults to 12.
-
-Interval (optional)
-
-Period interval: D, W, M, Q or Y (Day, Week, Month <default>, Quarter, or Year)
-
-PeriodStarts? (optional)
-
-TRUE=Display period start dates <default>. FALSE=Period end dates
-
-```
-=oz.Timelineλ(TODAY())
-```
-
-The workbook help shows 12 mo, starts.
-
-```
-=oz.Timelineλ(TODAY(), , "Q", FALSE)
-```
-
-The workbook help shows 12 qtr, ends.
-
-Previous name: nabla.d.Timelineλ.
-
-### oz.FinancialYearλ
-
-oz.FinancialYearλ(Dates, [StartMonth])
-
-Labels dates with their Australian financial year, which starts on 1 July
-
-Labels dates with their Australian financial year, which starts on 1 July.
-
-Parameters:
-
-Dates (required)
-
-One or more dates, numeric or text. A blank cell returns a blank.
-
-StartMonth (optional, Default = 7)
-
-Month the financial year starts. Blank cells and empty text use 7.
-
-```
-=oz.FinancialYearλ(DATE(2026,8,15))
-```
-
-The workbook help shows FY2027.
-
-Previous name: nabla.d.FinancialYearλ.
-
-### oz.FinancialMonthλ
-
-oz.FinancialMonthλ(Dates, [StartMonth])
-
-Numbers each date's month within its financial year, so July is month 1 when the year starts on 1 July
-
-Numbers each date's month within its financial year, from 1 to 12.
-
-Note: With the default 1 July start, July is month 1 and June is month 12. Dates may be one date or a range, and the result takes their shape. FinancialYearλ() labels the year and FinancialQuarterλ() the quarter.
-
-Parameters:
-
-Dates (required)
-
-One or more dates, numeric or text. A blank cell returns a blank.
-
-StartMonth (optional, Default = 7)
-
-Month the financial year starts, one whole number from 1 to 12. Blank cells and empty text use 7.
-
-```
-=oz.FinancialMonthλ(DATE(2026,8,15))
-```
-
-The workbook help shows 2.
-
-### oz.FinancialQuarterλ
-
-oz.FinancialQuarterλ(Dates, [StartMonth])
-
-Numbers each date's quarter within its financial year, so July to September is quarter 1 when the year starts on 1 July
-
-Numbers each date's quarter within its financial year, from 1 to 4.
-
-Note: Each quarter is 3 months counted from StartMonth. With the default 1 July start, July to September is quarter 1 and April to June is quarter 4. Dates may be one date or a range, and the result takes their shape.
-
-Parameters:
-
-Dates (required)
-
-One or more dates, numeric or text. A blank cell returns a blank.
-
-StartMonth (optional, Default = 7)
-
-Month the financial year starts, one whole number from 1 to 12. Blank cells and empty text use 7.
-
-```
-=oz.FinancialQuarterλ(DATE(2026,11,15))
-```
-
-The workbook help shows 2.
-
-### oz.RateAtDateλ
-
-oz.RateAtDateλ(EffectiveDates, Rates, Dates)
-
-Returns the rate in effect on each date from a table of effective dates and rates, refusing gaps, unsorted or repeated dates
-
-Returns the rate in effect on each date from your table of effective dates and rates.
-
-Note: Each rate applies from its effective date until the next one. Dates may be one date or a row or column of them, and the result takes their shape. A date before the first effective date has no rate in effect and returns #N/A. The table must be complete and in order, so instead of a result it returns a message when EffectiveDates and Rates differ in length or hold a blank or text entry, when the dates are not in ascending order, or when a date repeats. A text or blank date in Dates returns #VALUE!. The library ships no rate table: supply your own, with its source and the date you checked it. ScheduleRatesλ() lays rates across a timeline without these checks.
-
-Parameters:
-
-EffectiveDates (required)
-
-A row or column of dates from which each rate applies, in ascending order.
-
-Rates (required)
-
-The rate that applies from each effective date, the same length as EffectiveDates.
-
-Dates (required)
-
-The date, or a row or column of dates, to look up.
-
-```
-=oz.RateAtDateλ(DATE(2026, {1;7;10}, 1), {0.04;0.045;0.05}, DATE(2026, 8, 15))
-```
-
-The workbook help shows 0.045.
-
-### oz.DateDifλ
-
-oz.DateDifλ(StartDate, EndDate, [Unit])
-
-Whole years, months or days between two dates, and the remainders DATEDIF gets wrong
-
-Whole years, months or days between two dates, and the remainders.
-
-Note: Excel documents DATEDIF as a legacy compatibility function and warns its MD unit can return a negative or wrong day count. This counts a month as complete when EDATE() of the start date has arrived, so a month after 31 January is the last day of February, and takes every remainder from there. A reversed range or an unknown unit returns #NUM!.
-
-Parameters:
-
-StartDate (required)
-
-The earlier date, numeric or text.
-
-EndDate (required)
-
-The later date, numeric or text.
-
-Unit (optional, Default = D)
-
-Y whole years, M whole months, D days, YM months left after the whole years, YD days left after the whole years, MD days left after the whole months.
-
-```
-=oz.DateDifλ(DATE(2026,1,31), DATE(2026,3,1), "MD")
-```
-
-The workbook help shows 1.
-
-## Other modules
-
-- Ozzit Essentials functions
-- Ozzit Financial functions
-- Ozzit Ratios functions
-- Ozzit Utilities functions
-- Ozzit Debt functions
-- Ozzit overview, download and release verification
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Dates.txt
-- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
-- oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
-- oz.CountDOW λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
-- oz.IsBetween λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-isbetween
-- oz.IsOccurrenceDate λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-isoccurrencedate
-- oz.OverLapDays λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-overlapdays
-- oz.PeriodLabel λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-periodlabel
-- oz.Periods λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-periods
-- oz.ScheduleRates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulerates
-- oz.ScheduleRatesByItems λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-scheduleratesbyitems
-- oz.ScheduleValues λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevalues
-- oz.ScheduleValuesByItems λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevaluesbyitems
-- oz.Timeline λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-timeline
-- oz.FinancialYear λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialyear
-- oz.FinancialMonth λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialmonth
-- oz.FinancialQuarter λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialquarter
-- oz.RateAtDate λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-rateatdate
-- oz.DateDif λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
-- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
-- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
-- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
-- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
-- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
-- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/
-
----
-
-# Ozzit Essentials functions: Excel LAMBDA reference
-
-Source: https://duguid.com.au/tools/ozzit/functions/essentials/
-
-> Parameters and worked examples for 17 Ozzit Essentials Excel LAMBDA functions: row and column totals, averages, counts and range conversion for dynamic arrays.
-
-# Ozzit Essentials functions
-
-The 17 Essentials formulas cover row and column totals, averages, counts and range conversion for dynamic arrays. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
-
-Release v3.6.0. Read from the released Essentials formula source, which the workbook compiles.
-
-Published 20 October 2026. Last reviewed 20 October 2026.
-
-## Using these functions
-
-Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
-
-The text below is the help each function carries in the v3.6.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
-
-## All 17 functions
-
-- oz.AboutEssentialsλ
-- oz.CountCλ
-- oz.SumRowsλ
-- oz.SumColsλ
-- oz.AvgRowsλ
-- oz.AvgColsλ
-- oz.MinRowsλ
-- oz.MinColsλ
-- oz.MaxRowsλ
-- oz.MaxColsλ
-- oz.CountARowsλ
-- oz.CountAColsλ
-- oz.CountRowsλ
-- oz.CountColsλ
-- oz.IsBetweenEλ
-- oz.IsInListλ
-- oz.RangeToDAEλ
-
-### oz.AboutEssentialsλ
-
-Displays this module's repository URL and function list
-
-Previous name: nabla.e.Aboutλ.
-
-### oz.CountCλ
-
-oz.CountCλ( Text, Characters)
-
-Count occurrences of character(s) in a string
-
-Count how many of one or more characters are in a string.
-
-Parameters:
-
-Text (required)
-
-The string to interrogate. Empty text returns 0
-
-Characters (required)
-
-A single character, or CSV of characters to find in Text NOTE! Case sensitive. A single character is taken as itself, so a comma works
-
-```
-=oz.CountCλ( "Mary had a little lamb", "a,b")
-```
-
-Previous name: nabla.e.CountCλ.
-
-### oz.SumRowsλ
-
-oz.SumRowsλ( Array)
-
-Get the total for each row
-
-Get the total of each row
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to be totalled by row.
-
-```
-=oz.SumRowsλ( SEQUENCE(5,5))
-```
-
-Previous name: nabla.e.SumRowsλ.
-
-### oz.SumColsλ
-
-oz.SumColsλ( Array)
-
-Get the total for each Column
-
-Get the total of each column
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to be totalled by column.
-
-```
-=oz.SumColsλ( SEQUENCE(5,5))
-```
-
-Previous name: nabla.e.SumColsλ.
-
-### oz.AvgRowsλ
-
-oz.AvgRowsλ( Array)
-
-Get the average for each row
-
-Get the average of each row
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to be averaged by row.
-
-```
-=oz.AvgRowsλ( SEQUENCE(5,5))
-```
-
-Previous name: nabla.e.AvgRowsλ.
-
-### oz.AvgColsλ
-
-oz.AvgColsλ( Array)
-
-Get the average for each Column
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to be averaged by column.
-
-```
-=oz.AvgColsλ( SEQUENCE(5,5))
-```
-
-Previous name: nabla.e.AvgColsλ.
-
-### oz.MinRowsλ
-
-oz.MinRowsλ( Array)
-
-Get the minimum for each row
-
-Get the minimum of each row
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to find the minimum by row.
-
-```
-=oz.MinRowsλ( SEQUENCE(5,5))
-```
-
-Previous name: nabla.e.MinRowsλ.
-
-### oz.MinColsλ
-
-oz.MinColsλ( Array)
-
-Get the minimum for each Column
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to find the minimum by column.
-
-```
-=oz.MinColsλ( SEQUENCE(5,5))
-```
-
-Previous name: nabla.e.MinColsλ.
-
-### oz.MaxRowsλ
-
-oz.MaxRowsλ( Array)
-
-Get the maximum for each row
-
-Get the maximum of each row
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to find the maximum by row.
-
-```
-=oz.MaxRowsλ( SEQUENCE(5,5))
-```
-
-Previous name: nabla.e.MaxRowsλ.
-
-### oz.MaxColsλ
-
-oz.MaxColsλ( Array)
-
-Get the maximum for each Column
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to find the maximum by column.
-
-```
-=oz.MaxColsλ( SEQUENCE(5,5))
-```
-
-Previous name: nabla.e.MaxColsλ.
-
-### oz.CountARowsλ
-
-oz.CountARowsλ( Array)
-
-Count everything in each row
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to be counted.
-
-```
-=oz.CountARowsλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
-```
-
-Previous name: nabla.e.CountARowsλ.
-
-### oz.CountAColsλ
-
-oz.CountAColsλ( Array )
-
-Count everything in each column
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing values to be counted.
-
-```
-=oz.CountAColsλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
-```
-
-Previous name: nabla.e.CountAColsλ.
-
-### oz.CountRowsλ
-
-oz.CountRowsλ( Array)
-
-Count numbers in each row
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing numbers to be counted.
-
-```
-=oz.CountRowsλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
-```
-
-Previous name: nabla.e.CountRowsλ.
-
-### oz.CountColsλ
-
-oz.CountColsλ( Array)
-
-Count numbers in each column
-
-Parameters:
-
-Array (required)
-
-A two dimensional array/range containing numbers to be counted.
-
-```
-=oz.CountColsλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
-```
-
-Previous name: nabla.e.CountColsλ.
-
-### oz.IsBetweenEλ
-
-oz.IsBetweenEλ( Value, Low, Hi, [Inclusive])
-
-Determine if a value is between a lower and upper limit
-
-Determine if a value is between a lower and upper limit.
-
-Parameters:
-
-Value (required)
-
-A value or array of values to compare.
-
-Low (required)
-
-The lower limit that the value must be greater than
-
-Hi (required)
-
-The higher limit that the value must be less than
-
-Inclusive (optional)
-
-If set to TRUE (default) the value can be equal to Low and/or Hi
-
-```
-=IsBetweenEλ(1, 2, 4)
-```
-
-The workbook help shows FALSE.
-
-```
-=IsBetweenEλ(2, 2, 4)
-```
-
-The workbook help shows TRUE.
-
-```
-=IsBetweenEλ(2, 2, 4, FALSE)
-```
-
-The workbook help shows FALSE.
-
-Previous name: nabla.e.IsBetweenλ.
-
-### oz.IsInListλ
-
-oz.IsInListλ( Value, List)
-
-Determine whether a value is one of a list of items
-
-Determine if a value is one of a list of items.
-
-Note: The comparison is exact and case-insensitive; * and? are ordinary characters.
-
-Parameters:
-
-Value (required)
-
-A value or array of values to compare.
-
-List (required)
-
-A list of values to check: a row, a column or a grid.
-
-```
-=IsInListλ(1, {2,3,4})
-```
-
-The workbook help shows FALSE.
-
-```
-=IsInListλ(1, {1,3,5})
-```
-
-The workbook help shows TRUE.
-
-Previous name: nabla.e.IsInListλ.
-
-### oz.RangeToDAEλ
-
-oz.RangeToDAEλ(Range, [Rows], [Columns])
-
-Convert a range reference to a dynamic array reference
-
-Convert a range reference to a dynamic array reference.
-
-See also: Excel 365 now has TRIMRANGE and trim references (.:.) for this.
-
-Parameters:
-
-Range (required)
-
-A reference to the range to be converted.
-
-Rows (optional)
-
-Number of rows for the dynamic array. Defaults to 1.
-
-Columns (optional)
-
-Number of columns for the dynamic array. Defaults to 1.
-
-```
-=RangeToDAEλ(A1, , ModelPeriodCount)
-```
-
-Previous name: nabla.e.RangeToDAλ.
-
-## Other modules
-
-- Ozzit Dates functions
-- Ozzit Financial functions
-- Ozzit Ratios functions
-- Ozzit Utilities functions
-- Ozzit Debt functions
-- Ozzit overview, download and release verification
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- Essentials formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Essentials.txt
-- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
-- oz.AboutEssentials λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-aboutessentials
-- oz.CountC λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countc
-- oz.SumRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumrows
-- oz.SumCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumcols
-- oz.AvgRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgrows
-- oz.AvgCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgcols
-- oz.MinRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-minrows
-- oz.MinCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-mincols
-- oz.MaxRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxrows
-- oz.MaxCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxcols
-- oz.CountARows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countarows
-- oz.CountACols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countacols
-- oz.CountRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countrows
-- oz.CountCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countcols
-- oz.IsBetweenE λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isbetweene
-- oz.IsInList λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isinlist
-- oz.RangeToDAE λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-rangetodae
-- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
-- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
-- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
-- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
-- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
-- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/
