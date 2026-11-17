@@ -52,7 +52,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Twenty-seven calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
+        <p class="lead-note">Twenty-eight calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
@@ -79,6 +79,7 @@
           <li id="fbt-meal-entertainment"><a class="collection-entry__title" href="/tools/business-calculators/fbt-meal-entertainment/">Meal entertainment calculator</a> Taxable value of meal entertainment fringe benefits by the 50/50 split or 12-week register method, for the FBT year ending 31 March 2027.</li>
           <li id="vehicle-class"><a class="collection-entry__title" href="/tools/business-calculators/vehicle-class/">Vehicle classifier</a> Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.</li>
           <li id="pcg-2021-4"><a class="collection-entry__title" href="/tools/business-calculators/pcg-2021-4/">PCG 2021/4 risk scorer</a> The ATO’s risk zone for a professional firm profit allocation, after both gateways.</li>
+          <li id="pcg-2021-4-allocation"><a class="collection-entry__title" href="/tools/business-calculators/pcg-2021-4-allocation/">PCG 2021/4 allocation</a> Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.</li>
           <li id="gic-payment-plan"><a class="collection-entry__title" href="/tools/business-calculators/gic-payment-plan/">GIC payment plan calculator</a> What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.</li>
           <li id="div7a-schedule"><a class="collection-entry__title" href="/tools/business-calculators/div7a-schedule/">Division 7A loan schedule calculator</a> A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.</li>
           <li id="division-296"><a class="collection-entry__title" href="/tools/business-calculators/division-296/">Division 296 tax calculator</a> One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.</li>

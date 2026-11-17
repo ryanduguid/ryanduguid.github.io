@@ -307,6 +307,11 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result.principal = result.rows.length - 1;
             break;
           }
+          case 'pcg-2021-4-allocation': {
+            const year = form.querySelector('input[name="year"]:checked');
+            result = calculate.pcgAllocationResult(value, { name: year.value, ...year.dataset }, aud, percent);
+            break;
+          }
           case 'vehicle-class': {
             // The year's car limit and LCT thresholds come from the checked option; the Node
             // tests bind them to the car limit table and the ATO's LCT thresholds.
