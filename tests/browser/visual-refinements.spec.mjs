@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 import { expect, test } from '@playwright/test';
+import { waitForCalculator } from './calculator-ready.mjs';
 import { projectKind } from './project-kind.mjs';
 
 // Guards for the 5 October 2026 visual refinement pass: result rows that still
@@ -57,12 +58,13 @@ test('calculator results show labelled rows and keep the exact sentence text', a
 
 async function calculateCashForecast(page) {
   await page.goto('/tools/business-calculators/cash/');
+  const form = page.locator('#cash form');
+  await waitForCalculator(form);
   const data = { version: 1, currency: 'AUD', startDate: '2026-09-28', opening: '200.00', buffer: '100',
     week: '1', amount: '100', delay: '2', weeks: Array.from({ length: 13 }, () => ({ receipts: '1000', payments: '300' })) };
   await page.getByLabel('Load inputs (replaces the current forecast)').setInputFiles({
     name: 'inputs.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(data)),
   });
-  const form = page.locator('#cash form');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   return form;
 }
