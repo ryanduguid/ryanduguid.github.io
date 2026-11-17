@@ -26,6 +26,7 @@ const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
+const payroll = { ...business, file: 'assets/payroll-tax.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -199,6 +200,20 @@ const MUTATIONS = [
   { ...landTax, name: 'the surcharge is left out of the land tax total', find: 'land.amount + surcharge + mrit', replace: 'land.amount + mrit' },
   { ...landTax, name: 'trust rates are taken where a jurisdiction has none', find: 'if (trust && !place.trustScale) throw', replace: 'if (false) throw' },
   { ...landTax, name: 'MRIT is taken outside Western Australia', find: 'if (metro && !place.mrit) throw', replace: 'if (false) throw' },
+  { ...payroll, name: 'payroll tax apportions by truncating', find: 'ratioCents(own * n, all * d)', replace: '((own * n) / (all * d))' },
+  { ...payroll, name: 'payroll tax taxes the deduction instead of the wages above it', find: 'const size = tn * fd - fn * td;', replace: 'const size = fn * td;' },
+  { ...payroll, name: 'payroll tax deductions never taper', find: 'return [above(lawCents(threshold) * per, above(australian, lawCents(threshold))), per];', replace: 'return [lawCents(threshold) * per, per];' },
+  { ...payroll, name: 'payroll tax rate bands include their lower edge', find: 'australian > lawCents(over) ? rate : found', replace: 'australian >= lawCents(over) ? rate : found' },
+  { ...payroll, name: 'payroll tax WA taper is the upper threshold over the band', find: 'above(a, threshold) * threshold), upper - threshold]', replace: 'above(a, threshold) * upper), upper - threshold]' },
+  { ...payroll, name: 'payroll tax SA rate is never phased in', find: 'a > full ? [n, d] : [above(a, threshold) * n, (full - threshold) * d]', replace: '[n, d]' },
+  { ...payroll, name: 'payroll tax SA rate is negative below the threshold', find: '[above(a, threshold) * n,', replace: '[(a - threshold) * n,' },
+  { ...payroll, name: 'payroll tax Tasmania charges the higher rate throughout', find: 'rate: percent(lower)', replace: 'rate: percent(upper)' },
+  { ...payroll, name: 'payroll tax Victoria never phases out the deduction', find: 'above(australian, lawCents(law.phaseOutFrom)) * n', replace: '0n * n' },
+  { ...payroll, name: 'payroll tax Victoria skips the second surcharge threshold', find: ' + above(australian, lawCents(law.secondSurchargeThreshold))', replace: '' },
+  { ...payroll, name: 'payroll tax NT higher rate starts above $100 million', find: "['99999999.99', '6.5']", replace: "['100000000', '6.5']" },
+  { ...payroll, name: 'payroll tax accepts Australian wages below the state wages', find: 'if (all < own)', replace: 'if (false)' },
+  { ...payroll, name: 'payroll tax blank Australian wages are twice the state wages', find: "australian.trim() === '' ? own", replace: "australian.trim() === '' ? own * 2n" },
+  { ...payroll, name: 'payroll tax total leaves out the surcharges and levies', find: '(payroll + cents(first) + cents(second)) / 100', replace: 'payroll / 100' },
 ];
 
 // Runs that must read as invalid, not as caught.

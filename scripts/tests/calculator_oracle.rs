@@ -3368,3 +3368,352 @@ fn the_land_tax_engine_agrees_with_the_oracle_at_every_band_boundary() {
         assert_eq!(got, want, "{case}");
     }
 }
+
+/// Runs the payroll tax engine, as `HARNESS` runs the others.
+const PAYROLL_TAX_HARNESS: &str = r"
+import { payrollTax } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const run = ({ wages, australian, place }) => {
+  const r = payrollTax(wages, australian, place);
+  return Object.fromEntries(['deduction', 'taxable', 'tax', 'levy', 'extraLevy', 'total'].map((key) => [key, String(r[key])]));
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+const PAYROLL_TAX_CASES: usize = 270;
+/// The largest wages the payroll tax fields accept, $100,000,000,000.00, in cents.
+const MAX_WAGES: u64 = 10_000_000_000_000;
+const PAYROLL_TAX_PLACES: [&str; 9] = [
+    "AU-NSW",
+    "AU-VIC",
+    "AU-VIC-REGIONAL",
+    "AU-QLD",
+    "AU-WA",
+    "AU-SA",
+    "AU-TAS",
+    "AU-ACT",
+    "AU-NT",
+];
+/// Every threshold, taper end and rate band edge of the 8 jurisdictions, in dollars.
+const PAYROLL_TAX_EDGES: [u64; 17] = [
+    600_000,
+    1_000_000,
+    1_200_000,
+    1_250_000,
+    1_300_000,
+    1_500_000,
+    1_700_000,
+    1_750_000,
+    2_000_000,
+    2_500_000,
+    3_000_000,
+    5_000_000,
+    6_500_000,
+    7_500_000,
+    10_400_000,
+    10_000_000,
+    100_000_000,
+];
+
+/// An exact signed fraction of cents, its denominator positive.
+#[derive(Clone)]
+struct Q(num_bigint::BigInt, num_bigint::BigInt);
+
+impl Q {
+    fn of(cents: u64) -> Self {
+        Q(cents.into(), 1.into())
+    }
+    fn dollars(dollars: u64) -> Self {
+        Q::of(dollars * 100)
+    }
+    /// A rate per cent typed to 4 places, in ten-thousandths of 1%: 5.45% is 54,500.
+    fn percent(ten_thousandths: u64) -> Self {
+        Q(ten_thousandths.into(), 1_000_000.into())
+    }
+    fn plus(&self, other: &Q) -> Q {
+        Q(&self.0 * &other.1 + &other.0 * &self.1, &self.1 * &other.1)
+    }
+    fn minus(&self, other: &Q) -> Q {
+        Q(&self.0 * &other.1 - &other.0 * &self.1, &self.1 * &other.1)
+    }
+    fn times(&self, other: &Q) -> Q {
+        Q(&self.0 * &other.0, &self.1 * &other.1)
+    }
+    /// Over a positive fraction.
+    fn over(&self, other: &Q) -> Q {
+        Q(&self.0 * &other.1, &self.1 * &other.0)
+    }
+    fn below(&self, other: &Q) -> bool {
+        &self.0 * &other.1 < &other.0 * &self.1
+    }
+    fn at_least_nil(self) -> Q {
+        if self.below(&Q::of(0)) {
+            Q::of(0)
+        } else {
+            self
+        }
+    }
+    fn least(self, other: Q) -> Q {
+        if other.below(&self) { other } else { self }
+    }
+    /// Half up to the cent; the amount must not be negative.
+    fn cents(&self) -> u64 {
+        assert!(!self.below(&Q::of(0)), "a negative amount");
+        let rounded = (&self.0 * 2 + &self.1) / (&self.1 * 2);
+        u64::try_from(rounded).expect("cents within u64")
+    }
+}
+
+/// The deduction before it is limited to the wages, each payroll tax term, and the 2 surcharges
+/// or levies, as each Act writes them for an employer outside a group that pays wages all year
+/// (C / FY = 1). `w` is the jurisdiction's taxable wages and `t` the Australian wages.
+fn payroll_tax_terms(place: &str, w: &Q, t: &Q) -> (Q, Vec<Q>, [Q; 2]) {
+    let share = w.over(t);
+    let d = Q::dollars;
+    let nil = || [Q::of(0), Q::of(0)];
+    match place {
+        // Revenue NSW: the $1,200,000 threshold times NSW wages over Australian wages, 5.45%.
+        "AU-NSW" => {
+            let deduction = d(1_200_000).times(&share);
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&Q::percent(54_500))],
+                nil(),
+            )
+        }
+        // Payroll Tax Act 2007 (Vic) Sch 1 cl 5: tax = (TW - ND) x R + S + T, ND = min(a, b), a
+        // never below nil; cl 1B: T = S.
+        "AU-VIC" | "AU-VIC-REGIONAL" => {
+            let b = share.times(&d(1_000_000));
+            let a = b.minus(
+                &w.minus(&d(3_000_000).times(&share))
+                    .times(&Q(1.into(), 2.into())),
+            );
+            let deduction = a.at_least_nil().least(b);
+            let rate = Q::percent(if place == "AU-VIC" { 48_500 } else { 12_125 });
+            let (first, second) = (d(10_000_000), d(100_000_000));
+            let half = Q::percent(5_000);
+            let surcharge = if !first.below(t) {
+                Q::of(0)
+            } else if !second.below(t) {
+                w.minus(&w.times(&first).over(t)).times(&half)
+            } else {
+                w.times(&Q::percent(10_000))
+                    .minus(&w.times(&first).plus(&w.times(&second)).over(t).times(&half))
+            };
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&rate)],
+                [surcharge.clone(), surcharge],
+            )
+        }
+        // Payroll Tax Act 1971 (Qld) s 29(1): AD = AW / (AW + IW) x (K - 1/7 (AW + IW - K)), never
+        // below nil; s 10: 4.95% above $6.5m; s 43I: 0.25% and 0.5% above $10m and $100m.
+        "AU-QLD" => {
+            let k = d(1_300_000);
+            let deduction = share
+                .times(&k.minus(&t.minus(&k).over(&Q::of(7))))
+                .at_least_nil();
+            let rate = Q::percent(if d(6_500_000).below(t) {
+                49_500
+            } else {
+                47_500
+            });
+            let primary = w
+                .minus(&d(10_000_000).times(&share))
+                .times(&Q::percent(2_500));
+            let additional = w
+                .minus(&d(100_000_000).times(&share))
+                .times(&Q::percent(5_000));
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&rate)],
+                [primary, additional],
+            )
+        }
+        // Pay-roll Tax Assessment Act 2002 (WA) s 13: nil to AT; DA = (AT - (TW - AT) x TV) x W / TW
+        // below UT, TV = AT / (UT - AT); nil deduction from UT. Pay-roll Tax Act 2002 s 5(4): 5.5%.
+        "AU-WA" => {
+            let (at, ut) = (d(1_000_000), d(7_500_000));
+            let deduction = if !at.below(t) {
+                w.clone()
+            } else if !t.below(&ut) {
+                Q::of(0)
+            } else {
+                at.minus(&t.minus(&at).times(&at.over(&ut.minus(&at))))
+                    .times(&share)
+            };
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&Q::percent(55_000))],
+                nil(),
+            )
+        }
+        // Payroll Tax Act 2009 (SA) Sch 1 cl 5: nil to $1.5m; [TW - TW / (TW + IW) x EA] x R, with
+        // R = (TARW - $1.5m) / $200,000 x 4.95% to $1.7m.
+        "AU-SA" => {
+            let deduction = share.times(&d(600_000));
+            if !d(1_500_000).below(t) {
+                return (deduction, vec![], nil());
+            }
+            let full = Q::percent(49_500);
+            let rate = if d(1_700_000).below(t) {
+                full
+            } else {
+                t.minus(&d(1_500_000)).over(&d(200_000)).times(&full)
+            };
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&rate)],
+                nil(),
+            )
+        }
+        // Payroll Tax Act 2008 (Tas) Sch 1 cl 4(4) and (5).
+        "AU-TAS" => {
+            let (ta, ttb) = (d(1_250_000), d(2_000_000));
+            let deduction = share.times(&ta);
+            if !ta.below(t) {
+                return (deduction, vec![], nil());
+            }
+            let taxes = if !ttb.below(t) {
+                vec![w.minus(&deduction).times(&Q::percent(40_000))]
+            } else {
+                vec![
+                    ttb.minus(&ta).times(&share).times(&Q::percent(40_000)),
+                    w.minus(&share.times(&ttb)).times(&Q::percent(61_000)),
+                ]
+            };
+            (deduction, taxes, nil())
+        }
+        // Payroll Tax Act 2011 (ACT) Sch 1 s 1.5, with DI2026-151 Table 1's rate for total wages.
+        "AU-ACT" => {
+            let rate = [
+                (20_000_000, 67_500),
+                (50_000_000, 68_500),
+                (100_000_000, 73_500),
+                (150_000_000, 78_500),
+            ]
+            .iter()
+            .find(|(to, _)| !d(*to).below(t))
+            .map_or(87_500, |(_, rate)| *rate);
+            let deduction = share.times(&d(1_750_000));
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&Q::percent(rate))],
+                nil(),
+            )
+        }
+        // Payroll Tax Act 2009 (NT) Sch 1 cl 3 and 5, s 7A: 6.5% from $100m.
+        "AU-NT" => {
+            let ta = d(2_500_000);
+            let adjusted = ta.minus(&t.minus(&ta).over(&Q::of(2))).at_least_nil();
+            let rate = Q::percent(if t.below(&d(100_000_000)) {
+                55_000
+            } else {
+                65_000
+            });
+            let deduction = share.times(&adjusted);
+            (
+                deduction.clone(),
+                vec![w.minus(&deduction).times(&rate)],
+                nil(),
+            )
+        }
+        _ => unreachable!("a place in PAYROLL_TAX_PLACES"),
+    }
+}
+
+/// What the engine must return, each amount half up to the cent once and each total the sum
+/// of the amounts shown.
+fn payroll_tax_oracle(wages: u64, australian: u64, place: &str) -> Value {
+    let (w, t) = (Q::of(wages), Q::of(australian));
+    let (deduction, taxes, levies) = if australian == 0 {
+        (Q::of(0), vec![], [Q::of(0), Q::of(0)])
+    } else {
+        payroll_tax_terms(place, &w, &t)
+    };
+    let deduction = deduction.least(w.clone());
+    let tax: u64 = taxes
+        .into_iter()
+        .map(|term| term.at_least_nil().cents())
+        .sum();
+    let [levy, extra] = levies.map(|term| term.at_least_nil().cents());
+    json!({
+        "deduction": shown(deduction.cents()),
+        "taxable": shown(w.minus(&deduction).cents()),
+        "tax": shown(tax),
+        "levy": shown(levy),
+        "extraLevy": shown(extra),
+        "total": shown(tax + levy + extra),
+    })
+}
+
+fn payroll_tax_case(rng: &mut Seeded) -> (Value, Value) {
+    let place = rng.pick(&PAYROLL_TAX_PLACES);
+    let edge = rng.pick(&PAYROLL_TAX_EDGES) * 100;
+    let any = rng.cents(MAX_WAGES);
+    let australian = rng.pick(&[edge - 1, edge, edge + 1, any, any, 0]);
+    // Half the cases pay all their wages in the jurisdiction and leave Australian wages blank.
+    let wages = if australian == 0 || rng.below(2) == 0 {
+        australian
+    } else {
+        rng.cents(australian)
+    };
+    let blank = wages == australian && rng.below(2) == 0;
+    (
+        json!({"wages": dollars(wages), "australian": if blank { String::new() } else { dollars(australian) }, "place": place}),
+        payroll_tax_oracle(wages, australian, place),
+    )
+}
+
+#[test]
+fn the_payroll_tax_oracle_works_the_revenue_offices_examples() {
+    let total = |wages: u64, australian: u64, place: &str| {
+        payroll_tax_oracle(wages * 100, australian * 100, place)["total"].clone()
+    };
+    // Revenue NSW: $1,500,000 is taxed on $300,000; Victoria's surcharge example, $80m of $150m;
+    // RevenueWA: $1,104,000 gives $6,600; Tasmania's guideline examples 1 and 2.
+    assert_eq!(total(1_500_000, 1_500_000, "AU-NSW"), json!("16350"));
+    let victoria = payroll_tax_oracle(8_000_000_000, 15_000_000_000, "AU-VIC");
+    assert_eq!(
+        (&victoria["levy"], &victoria["extraLevy"]),
+        (&json!("506666.67"), &json!("506666.67"))
+    );
+    assert_eq!(total(1_104_000, 1_104_000, "AU-WA"), json!("6600"));
+    assert_eq!(total(2_400_000, 2_400_000, "AU-TAS"), json!("54400"));
+    assert_eq!(total(2_400_000, 3_000_000, "AU-TAS"), json!("72800"));
+    // The Queensland Revenue Office's deduction of $932,460, to the dollar; RevenueSA's $150,000.
+    let queensland = payroll_tax_oracle(135_678_900, 178_977_600, "AU-QLD");
+    assert_eq!(queensland["deduction"], json!("932459.64"));
+    assert_eq!(
+        payroll_tax_oracle(50_000_000, 200_000_000, "AU-SA")["deduction"],
+        json!("150000")
+    );
+}
+
+#[test]
+fn the_payroll_tax_engine_agrees_with_the_oracle_at_each_act_rate_edge() {
+    let (mut cases, mut expected) = (vec![], vec![]);
+    for edge in [20_000_000_u64, 50_000_000, 100_000_000, 150_000_000] {
+        for australian in [edge * 100 - 1, edge * 100, edge * 100 + 1] {
+            let wages = australian / 3;
+            cases.push(json!({"wages": dollars(wages), "australian": dollars(australian), "place": "AU-ACT"}));
+            expected.push(payroll_tax_oracle(wages, australian, "AU-ACT"));
+        }
+    }
+    assert_eq!(run_node(PAYROLL_TAX_HARNESS, &cases), expected);
+}
+
+#[test]
+fn the_payroll_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1117_0000_0B7A);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..PAYROLL_TAX_CASES)
+        .map(|_| payroll_tax_case(&mut rng))
+        .unzip();
+    let actual = run_node(PAYROLL_TAX_HARNESS, &cases);
+    assert_eq!(actual.len(), PAYROLL_TAX_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
