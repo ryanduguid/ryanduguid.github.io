@@ -761,7 +761,7 @@ At the minimum repayment income | 2026-27: taxable income $69,528 | Repayment in
 Last dollar where the marginal amount is less | 2026-27: taxable income $186,050 | Repayment income $186,050.00, repayment $18,604.96
 First dollar where 10% is less | 2026-27: taxable income $186,051 | Repayment income $186,051.00, repayment $18,605.10
 2025-26 top of the 15% band | 2025-26: taxable income $125,000 | Repayment income $125,000.00, repayment $8,700.00
-ATO example 4: Branson, 2024-25, at 5.5% | 2024-25: taxable income $89,450, super contributions $10,286 | Repayment income $99,736.00, repayment $5,485.48
+ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable income $89,450, super contributions $10,286 | Repayment income $99,736.00, repayment $5,485.48
 2024-25 at 2.5%: half a cent rounds up | 2024-25: taxable income $66,621 | Repayment income $66,621.00, repayment $1,665.53
 2024-25 at the minimum repayment income | 2024-25: taxable income $54,434 | Repayment income $54,434.00, repayment $0.00
 

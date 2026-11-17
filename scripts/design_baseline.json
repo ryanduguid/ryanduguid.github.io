@@ -168,7 +168,7 @@
       "86f5b0ff1e4b4d0e186d3618e5a14afff83676fbf6740a4d258e5a4dd0912673"
     ],
     "tools/business-calculators/index.html": [
-      "a51d84d10da24e1ebe45c076eb96e6de98c41115e2665a53f097afae22b412b3"
+      "1a8775f2243ae4965917fe96c6118c8dc1d311d3bb1f956d84dde02ad4e591f8"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
@@ -231,7 +231,7 @@
       "bac00229ec1ee84893567d3fd49103f6bd8122f56318034907052bd7d9e632bf"
     ],
     "tools/individual-tax/study-loan/index.html": [
-      "6b726b528bcd8bf8351e98a115cd2b0c97d23cf3a829efabe799a7665a7291db"
+      "7696316c3ae11ee28547b3389f4e7db9100711a2b54e005798da46181447c5a4"
     ],
     "tools/individual-tax/take-home-pay/index.html": [
       "7f73ea8e687f4fc3dbfb3a06822b4f404dc73626e0e8a11dfd6da74022a5cab0"
@@ -300,7 +300,7 @@
   "protected_files": {
     "llms.txt": "47703d2ddef7967998cc1de145a0cbdd14894adc5712ca809775925500811e57",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "b589eba87cdcaa0307dc5b3f2c3ba945a8bfc4f52055b3fa892867dc0778143a"
+    "sitemap.xml": "47675066fd815192fdc9355a86ba0db356698a5350ff122de2a4852083fc94a5"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
