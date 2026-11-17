@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 import { number, cents, ratioCents, ratioMoney, ratioPercent } from './money.mjs';
+export { fbtCarParking, fbtLoan, fbtMealEntertainment } from './fbt-benefits.mjs';
 export { landTaxYear } from './land-tax.mjs';
+export { vehicleClass } from './vehicle-class.mjs';
 export { psiDetermination, psiDeterminationResult } from './psi-determination.mjs';
 
 // Planning arithmetic. Rates, eligibility and classifications belong to the caller.
@@ -711,3 +713,5 @@ export function gicPaymentPlan(plan) {
   return { instalment: Number(instalment) / 100, final: Number(final) / 100, totalPaid: Number(totalPaid) / 100,
     gic: Number(totalPaid - debt) / 100, lastDate: isoDayNumber(last), assumedDays };
 }
+
+export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';

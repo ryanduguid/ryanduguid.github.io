@@ -20,8 +20,11 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const levy = { file: 'assets/levy.mjs', test: 'scripts/levy.test.mjs' };
 const business = { file: 'assets/business-calculators.mjs', test: 'scripts/business-calculators.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
+const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const psi = { ...business, file: 'assets/psi-determination.mjs' };
+const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
+const payroll = { ...business, file: 'assets/payroll-tax.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -87,6 +90,26 @@ const MUTATIONS = [
   { ...business, name: 'FBT is worked on the taxable value, not the grossed-up value', find: 'ratioCents(grossedUp * BigInt', replace: 'ratioCents(BigInt(taxable) * BigInt' },
   { ...business, name: 'FBT car accepts nil operating costs', find: 'cents(car.costs) === 0', replace: 'cents(car.costs) < 0' },
   { ...business, name: 'FBT car accepts more days than the year has', find: 'max: yearDays, integer: true', replace: 'max: yearDays + 1, integer: true' },
+  { ...fbt, name: 'FBT loan ignores the interest accrued', find: 'notional - least(accrued, notional)', replace: 'notional' },
+  { ...fbt, name: 'FBT loan reduction can take the value below nil', find: 'least(notionalDeduction, gross)', replace: 'notionalDeduction' },
+  { ...fbt, name: 'FBT loan deduction for accrued interest can exceed the gross deduction', find: 'grossDeduction - least(deduction, grossDeduction)', replace: 'grossDeduction - deduction' },
+  { ...fbt, name: 'FBT loan accepts a deduction above the interest accrued', find: 'if (deduction > accrued)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT loan divides by 365 in every year', find: '10000n * days', replace: '10000n * 365n' },
+  { ...fbt, name: 'FBT meal 50/50 split takes all the expenses', find: 'ratioCents(expenses, 2n)', replace: 'ratioCents(expenses, 1n)' },
+  { ...fbt, name: 'FBT meal register lapses at 30%, not 20%', find: 'earlier[0] * 12n', replace: 'earlier[0] * 13n' },
+  { ...fbt, name: 'FBT meal register lapses at exactly 20%', find: 'value * 10n > limit', replace: 'value * 10n >= limit' },
+  { ...fbt, name: 'FBT meal register accepts a nil first year', find: 'if (earlier[0] === 0n)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT results keep totals too large to show to the cent', find: '100n * 2n ** 46n', replace: 'BigInt(Number.MAX_SAFE_INTEGER)' },
+  { ...fbt, name: 'FBT results refuse a total of exactly 2^46 dollars', find: 'if (value > MOST_CENTS)', replace: 'if (value >= MOST_CENTS)' },
+  { ...fbt, name: 'FBT register stays valid for 5 years after its first', find: 'min: ended - 4', replace: 'min: ended - 5' },
+  { ...fbt, name: 'FBT meal register percentage is not applied', find: 'ratioCents(expenses * benefits, total)', replace: 'ratioCents(expenses * benefits, benefits || 1n)' },
+  { ...fbt, name: 'FBT car parking fee at the threshold gives a benefit', find: 'fee > threshold', replace: 'fee >= threshold' },
+  { ...fbt, name: 'FBT car parking benefit arises whatever the fee', find: 'return benefit ? { benefit, ...value }', replace: 'return true ? { benefit, ...value }' },
+  { ...fbt, name: 'FBT car parking register divides by the year’s days', find: '12n * 366n', replace: '12n * BigInt(yearDays)' },
+  { ...fbt, name: 'FBT car parking spaces take 230 days', find: '228n * spaces', replace: '230n * spaces' },
+  { ...fbt, name: 'FBT car parking spaces ignore fewer employees', find: 'e0 + e1 < s0 + s1 ?', replace: 'false ?' },
+  { ...fbt, name: 'FBT car parking average cost takes the first fee only', find: 'money(p.firstFee) + money(p.lastFee)', replace: '2n * money(p.firstFee)' },
+  { ...fbt, name: 'FBT car parking contributions take the value below nil', find: 'least(contribution, gross)', replace: 'contribution' },
   { ...business, name: 'PCG 2021/4 puts exactly 50% returned in the band below', find: '[50, true]', replace: '[50, false]' },
   { ...business, name: 'PCG 2021/4 puts an exactly 30% tax rate in the band below', find: '[30, true]', replace: '[30, false]' },
   { ...business, name: 'PCG 2021/4 puts exactly 100% of the benchmark in the band above', find: '[100, false]', replace: '[100, true]' },
@@ -152,6 +175,31 @@ const MUTATIONS = [
   { ...business, name: 'ETP preservation age table is a year out', find: 'july - 1904', replace: 'july - 1903' },
   { ...business, name: 'ETP accepts a date of birth after the year', find: 'born > year.yearEnd', replace: 'born > \'9999\'' },
   { ...business, name: 'ETP accepts 151 years of service', find: 'max: 150, integer: true', replace: 'max: 151, integer: true' },
+  { ...vehicle, name: 'a 1 tonne load is still a car', find: 'motor && load < 1000 && seats < 9', replace: 'motor && load <= 1000 && seats < 9' },
+  { ...vehicle, name: '9 seats are still a car', find: 'motor && load < 1000 && seats < 9', replace: 'motor && load < 1000 && seats <= 9' },
+  { ...vehicle, name: 'an LCT car carries under 1 tonne, not 2', find: 'motor && load < 2000', replace: 'motor && load < 1000' },
+  { ...vehicle, name: 'a motor cycle is a car', find: "vehicle.body !== 'motorcycle'", replace: 'true' },
+  { ...vehicle, name: 'a seat weighs 75 kg', find: 'const SEAT_KG = 68;', replace: 'const SEAT_KG = 75;' },
+  { ...vehicle, name: 'a dual cab whose passengers equal the load left carries passengers', find: 'seats * SEAT_KG > load - seats * SEAT_KG', replace: 'seats * SEAT_KG >= load - seats * SEAT_KG' },
+  { ...vehicle, name: 'LCTD 2023/1 accepts passengers at half the load', find: '2 * seats * SEAT_KG < load', replace: '2 * seats * SEAT_KG <= load' },
+  { ...vehicle, name: 'a van is left undecided for LCT and the GST credit cap',find: "if (body === 'van') return 'commercial';", replace: '' },
+  { ...vehicle, name: 'a single cab ute or panel van is a goods body for the car limit', find: "return body === 'passenger' ? true : null;", replace: "return body === 'passenger';" },
+  { ...vehicle, name: 'a single cab ute is not a utility truck for FBT', find: "['single-cab', 'van'].includes(vehicle.body) ? '8(2)(a)(i)'", replace: "['van'].includes(vehicle.body) ? '8(2)(a)(i)'" },
+  { ...vehicle, name: 'a stated payload is not checked against the mass and kerb weight', find: 'gvm - kerb !== payload', replace: 'false' },
+  { ...vehicle, name: 'a modified vehicle without its figures is classified', find: "if (vehicle.modified === 'unplated') {", replace: 'if (false) {' },
+  { ...vehicle, name: 'the GST credit cap is ignored', find: 'capApplies && exceeds ? cap', replace: 'false ? cap' },
+  { ...vehicle, name: 'the GST credit cap is 1/11 of the price', find: 'ratioCents(BigInt(limit), 11n)', replace: 'ratioCents(BigInt(price), 11n)' },
+  { ...vehicle, name: 'a van or ute the ATO will not review is free of the GST credit cap', find: "design === 'passengers' ? true : null", replace: "design === 'passengers' ? true : design === 'undetermined' ? null : false" },
+  { ...vehicle, name: 'a dual cab takes the car limit from MT 2024', find: "const carLimit = !car ? false : vehicle.body === 'passenger' ? true : null;", replace: 'const carLimit = !car ? false : passengers;' },
+  { ...vehicle, name: 'accessories fitted at supply are ignored for LCT', find: 'luxuryDesign(vehicle.body, load - accessories, seats)', replace: 'luxuryDesign(vehicle.body, load, seats)' },
+  { ...vehicle, name: 'accessories as heavy as the load are accepted', find: 'if (accessories >= load) throw', replace: 'if (accessories > load) throw' },
+  { ...vehicle, name: 'the car limit applies before the GST credit', find: 'Math.min(net, limit)', replace: 'Math.min(price, limit) - Number(credit)' },
+  { ...vehicle, name: 'an undecided car limit hides the cost within it', find: ': net <= limit ? net : null;', replace: ': null;' },
+  { ...vehicle, name: 'an undecided car limit gives a cost above it', find: 'net <= limit ? net', replace: 'true ? net' },
+  { ...vehicle, name: 'a price at the LCT threshold is a luxury car', find: 'price <= threshold ?', replace: 'price < threshold ?' },
+  { ...vehicle, name: 'the LCT thresholds are swapped', find: "vehicle.fuel === 'efficient' ? year.fuelEfficientThreshold", replace: "vehicle.fuel === 'other' ? year.fuelEfficientThreshold" },
+  { ...vehicle, name: 'an undecided LCT design still gives a GST credit over the car limit', find: 'capApplies === null && exceeds ? null', replace: 'false ? null' },
+  { ...vehicle, name: 'a stated use beyond the exemption still exempts', find: "vehicle.use === 'limited'", replace: 'true' },
   { ...landTax, name: 'a land tax band starts a dollar above its first value', find: 'dollars >= Number(from)', replace: 'dollars > Number(from)' },
   { ...landTax, name: 'land tax ignores part of $100', find: '(excess + 99n) / 100n * parts', replace: 'excess / 100n * parts' },
   { ...landTax, name: 'the ACT fixed charge is left out', find: 'cents(base) + cents(fixed)', replace: 'cents(base)' },
@@ -167,6 +215,20 @@ const MUTATIONS = [
   { ...landTax, name: 'the surcharge is left out of the land tax total', find: 'land.amount + surcharge + mrit', replace: 'land.amount + mrit' },
   { ...landTax, name: 'trust rates are taken where a jurisdiction has none', find: 'if (trust && !place.trustScale) throw', replace: 'if (false) throw' },
   { ...landTax, name: 'MRIT is taken outside Western Australia', find: 'if (metro && !place.mrit) throw', replace: 'if (false) throw' },
+  { ...payroll, name: 'payroll tax apportions by truncating', find: 'ratioCents(own * n, all * d)', replace: '((own * n) / (all * d))' },
+  { ...payroll, name: 'payroll tax taxes the deduction instead of the wages above it', find: 'const size = tn * fd - fn * td;', replace: 'const size = fn * td;' },
+  { ...payroll, name: 'payroll tax deductions never taper', find: 'return [above(lawCents(threshold) * per, above(australian, lawCents(threshold))), per];', replace: 'return [lawCents(threshold) * per, per];' },
+  { ...payroll, name: 'payroll tax rate bands include their lower edge', find: 'australian > lawCents(over) ? rate : found', replace: 'australian >= lawCents(over) ? rate : found' },
+  { ...payroll, name: 'payroll tax WA taper is the upper threshold over the band', find: 'above(a, threshold) * threshold), upper - threshold]', replace: 'above(a, threshold) * upper), upper - threshold]' },
+  { ...payroll, name: 'payroll tax SA rate is never phased in', find: 'a > full ? [n, d] : [above(a, threshold) * n, (full - threshold) * d]', replace: '[n, d]' },
+  { ...payroll, name: 'payroll tax SA rate is negative below the threshold', find: '[above(a, threshold) * n,', replace: '[(a - threshold) * n,' },
+  { ...payroll, name: 'payroll tax Tasmania charges the higher rate throughout', find: 'rate: percent(lower)', replace: 'rate: percent(upper)' },
+  { ...payroll, name: 'payroll tax Victoria never phases out the deduction', find: 'above(australian, lawCents(law.phaseOutFrom)) * n', replace: '0n * n' },
+  { ...payroll, name: 'payroll tax Victoria skips the second surcharge threshold', find: ' + above(australian, lawCents(law.secondSurchargeThreshold))', replace: '' },
+  { ...payroll, name: 'payroll tax NT higher rate starts above $100 million', find: "['99999999.99', '6.5']", replace: "['100000000', '6.5']" },
+  { ...payroll, name: 'payroll tax accepts Australian wages below the state wages', find: 'if (all < own)', replace: 'if (false)' },
+  { ...payroll, name: 'payroll tax blank Australian wages are twice the state wages', find: "australian.trim() === '' ? own", replace: "australian.trim() === '' ? own * 2n" },
+  { ...payroll, name: 'payroll tax total leaves out the surcharges and levies', find: '(payroll + cents(first) + cents(second)) / 100', replace: 'payroll / 100' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -185,7 +247,8 @@ try {
   }
   for (const { test } of [levy, business]) copyFileSync(join(root, test), join(work, test));
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
-    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', 'llms.txt', '.well-known/llms.txt']) {
+    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', 'rates/car-limit',
+    'llms.txt', '.well-known/llms.txt', 'scripts/fbt-engine-differential.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 

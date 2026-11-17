@@ -806,7 +806,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -817,7 +817,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -864,7 +864,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -874,7 +874,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -921,7 +921,7 @@ Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.
 
 Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -931,7 +931,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -977,7 +977,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -986,7 +986,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1030,7 +1030,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -1039,7 +1039,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1089,7 +1089,7 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
 
@@ -1098,7 +1098,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1149,7 +1149,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -1159,7 +1159,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1215,7 +1215,7 @@ A balloon above the principal is refused | $1,000.00 at 12% over 12 months, ball
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1226,7 +1226,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - car limit: https://duguid.com.au/rates/car-limit/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1279,7 +1279,7 @@ One year left repays the balance and a year’s interest | $1,000.00 at 8.77% ov
 The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
 No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1290,7 +1290,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1344,7 +1344,7 @@ The ATO’s example 23: a third off the cost price, none off later accessories |
 Contributions above the value leave nil | Statutory formula; cost price $10,000.00, 365 of 365 days, contributions $3,000.00, gross-up 2.0802 | Statutory formula value $0.00, taxable value $0.00, FBT $0.00
 More days than the FBT year are refused | Statutory formula; cost price $10,000.00, 366 of 365 days, contributions $0.00, gross-up 2.0802 | Refused: enter a whole number between 0 and 365
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1356,65 +1356,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - guide’s chapter 2: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# PCG 2021/4 professional firm profits risk scorer
-
-Source: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
-
-> Score an IPP’s profit allocation under PCG 2021/4: the 2 gateways, the 3 risk assessment factors and the green, amber or red zone, as the guideline sets them out.
-
-# PCG 2021/4 risk scorer
-
-The ATO’s risk zone for a professional firm profit allocation, after both gateways.
-
-Published 15 November 2026. Last checked 15 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-PCG 2021/4 risk assessment inputs for one IPP and one year
-
-Gateway 1: is the arrangement commercially driven, as paragraphs 39 to 46 describe? Yes No Gateway 2: is the arrangement free of high-risk features, as paragraphs 47 to 63 describe? Yes No Profit entitlement of the IPP and associated entities from the whole of firm group (AUD) Amount the IPP returns in their own tax return (AUD) Tax paid by the IPP and associated entities on that firm income (AUD) Risk assessment factors to use Factors 1 and 2: a commercial benchmark is impractical All 3 factors Remuneration the IPP returns, all 3 factors only (AUD) Commercial benchmark for the IPP’s services, all 3 factors only (AUD)
-
-Tax is, for each of the IPP and each associated entity, the larger of the tax on its firm income alone and its tax for the year less the tax it would pay without that income (paragraph 85), with no Medicare levy or other levy on taxable income. Include superannuation, fringe benefits at their grossed-up value and the FBT on them (paragraphs 72, 73 and 95 to 99).
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: gateways 1 and 2 passed, profit entitlement $600,000.00, returned by the IPP $330,000.00, tax on that firm income $189,367.00, factors 1 and 2. Factor 1: profit entitlement returned by the IPP 55.00%, score 4 Factor 2: total effective tax rate 31.56%, score 3 Aggregate score 7 Risk zone Green: low risk
-
-## How the PCG 2021/4 risk scorer works
-
-Practical Compliance Guideline PCG 2021/4 sets out how the ATO rates the risk that an individual professional practitioner (IPP) does not return enough of their professional firm’s profit in their own hands. The scorer first asks the 2 gateways. If the arrangement is not commercially driven (Gateway 1) or has a high-risk feature (Gateway 2), it gives no score, because paragraph 12 makes the risk assessment framework unavailable.
-
-It then scores up to 3 factors from 1 (lowest risk) to 6 (highest), using Table 1 at paragraph 76: the share of the whole of firm group profit entitlement the IPP returns personally, the total effective tax rate paid by the IPP and associated entities on that income, and, if you choose, the IPP’s remuneration as a percentage of a commercial benchmark for their services. It adds the scores and places the total in the green, amber or red zone of Table 2 at paragraph 78. If the IPP returns the whole entitlement, paragraph 81 makes the arrangement low risk and no other factor is scored.
-
-The scorer reproduces the scores and zones of all 12 case studies in the guideline’s appendix. Case study 1 opens the page: Nicolas returns $330,000 of a $600,000 entitlement, 55% and a score of 4, and he and his company pay $189,367 of tax on it, 31.56% and a score of 3, so his aggregate of 7 is green. In case study 7, Jacinta’s $360,000 against a $350,000 benchmark adds a factor 3 score of 3, for an aggregate of 10 against all 3 factors, also green.
-
-## What the PCG 2021/4 risk scorer does not cover
-
-The scorer does not decide whether the guideline applies: whether the IPP provides professional services or manages the firm and is an equity holder, whether the firm’s income is personal services income and whether the structure is legally effective (paragraph 28). It does not test the gateways; it takes your answers. It does not work out the entitlement, the tax for each entity under paragraph 85, a part-time IPP’s full-time equivalent (paragraph 71) or a commercial benchmark. A green zone is not a ruling: PCG 2021/4 does not change the law, Part IVA can still apply, and the ATO may still review an arrangement whose profit allocation drifts (paragraph 107). Confirm the assessment with the guideline or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: PCG 2021/4 risk scorer
-
-Case | Inputs | Result
-Case study 1: Nicolas returns 55% and is green on 2 factors | Gateways passed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Returned 55.00%, factor 1 score 4, tax rate 31.56%, factor 2 score 3, aggregate 7, green zone
-Case study 10: Astrid’s aggregate of 8 is amber | Gateways passed; entitlement $400,000.00, returned $200,000.00, tax $114,234.00 | Returned 50.00%, factor 1 score 4, tax rate 28.56%, factor 2 score 4, aggregate 8, amber zone
-Case study 7: Jacinta is green on all 3 factors at 10 | Gateways passed; entitlement $600,000.00, returned $360,000.00, tax $199,934.00, remuneration $360,000.00 against $350,000.00 | Returned 60.00%, factor 1 score 4, tax rate 33.32%, factor 2 score 3, 102.86% of benchmark, factor 3 score 3, aggregate 10, green zone
-Case study 6: returning the whole entitlement is green with no other factor | Gateways passed; entitlement $65,000.00, returned $65,000.00, tax $11,592.00 | Returned 100.00%, factor 1 score 1, no aggregate, green zone
-Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways passed; entitlement $1,000.00, returned $500.00, tax $300.00 | Returned 50.00%, factor 1 score 4, tax rate 30.00%, factor 2 score 3, aggregate 7, green zone
-One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
-A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
-
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/

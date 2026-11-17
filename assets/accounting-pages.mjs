@@ -1,6 +1,8 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
+import { BODY_NAMES, kg, vehicleRows } from './vehicle-rows.mjs';
+
 /** Saves text as a file. @param {string} text @param {string} name @param {string} type */
 export function download(text, name, type) {
   const url = URL.createObjectURL(new Blob([text], { type }));
@@ -55,7 +57,7 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -291,6 +293,31 @@ function initialiseCalculators([calculate, fieldErrors]) {
             result.principal = result.rows.length - 1;
             break;
           }
+          case 'vehicle-class': {
+            // The year's car limit and LCT thresholds come from the checked option; the Node
+            // tests bind them to the car limit table and the ATO's LCT thresholds.
+            const year = form.querySelector('input[name="year"]:checked').dataset;
+            const f = Object.fromEntries(['body', 'seats', 'gvm', 'kerb', 'payload', 'accessories', 'modified', 'cost', 'credit', 'fuel', 'use']
+              .map(name => [name, value(name)]));
+            const r = calculate.vehicleClass(f, { carLimit: year.carLimit, fuelEfficientThreshold: year.fuelEfficient,
+              otherThreshold: year.other });
+            const notes = [
+              ...(f.modified === 'plated' ? ['A modification after manufacture does not change the designed load, but a permanent one can change '
+                + 'the design purpose (MT 2033), which this page does not judge'] : []),
+              ...(r.luxury === 'commercial' && f.body !== 'van' ? ['LCTD 2023/1’s simplified method assumes the ute is a goods vehicle '
+                + 'under the Australian Design Rules (paragraph 57)'] : []),
+              ...(r.exempt && r.belowThreshold ? ['PCG 2018/3 can also apply, as the price is below the luxury car tax threshold '
+                + '(paragraph 6(c)); its other conditions are yours to check'] : [])];
+            result = { inputs: `${BODY_NAMES[f.body]}, ${count(f.seats, 'seat')}, gross vehicle mass ${kg(f.gvm)}, `
+              + `${Number(f.kerb) ? `kerb weight ${kg(f.kerb)}, ` : ''}${Number(f.payload) ? `payload ${kg(f.payload)}, ` : ''}`
+              + `${Number(f.accessories) ? `accessories at supply ${kg(f.accessories)}, ` : ''}`
+              + `${f.modified === 'no' ? 'not modified' : 'modified, manufacturer’s figures'}, ${value('year')}, price ${money('cost')}, `
+              + `${f.credit === 'full' ? 'full GST credit' : 'no GST credit'}, `
+              + `${f.fuel === 'efficient' ? '3.5 litres per 100 km or less' : 'more than 3.5 litres per 100 km'}, `
+              + `private use ${f.use === 'limited' ? 'limited as you state' : 'more than limited'}`,
+            principal: 1, rows: vehicleRows(r, f, year, aud), note: notes.length ? notes.join('. ') : undefined };
+            break;
+          }
           case 'gic-payment-plan': {
             const plan = { debt: value('debt'), start: value('start'), count: value('count'), frequency: value('frequency'),
               assumedRate: value('assumedRate') };
@@ -437,7 +464,10 @@ function initialiseCalculators([calculate, fieldErrors]) {
             note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
             break;
           }
-          default: throw new Error('Unknown calculator.');
+          case 'payroll-tax':
+            result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
+            break;
+          default: result = fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
         form.dataset.calculated = 'true';
@@ -461,7 +491,7 @@ function initialiseCalculators([calculate, fieldErrors]) {
 function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
-  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`)])
+  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`)])
     .then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
