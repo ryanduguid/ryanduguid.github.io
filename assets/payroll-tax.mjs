@@ -61,8 +61,8 @@ const victorianSurcharge = (australian, law) => ({ rate: percent(law.surchargeRa
   size: above(australian, lawCents(law.surchargeThreshold)) + above(australian, lawCents(law.secondSurchargeThreshold)) });
 
 /** Each jurisdiction's tax on its share of the employer's Australian wages, from those wages.
- * @type {Record<PayrollTaxPlace, (australian: bigint) => PayrollTaxRule>} */
-const RULES = {
+ * @type {Map<string, (australian: bigint) => PayrollTaxRule>} */
+const RULES = new Map(Object.entries({
   // Revenue NSW: the threshold apportioned by NSW wages over Australian wages.
   'AU-NSW': (a) => ({ tax: aboveBase(a, [lawCents(LAW['AU-NSW'].threshold), 1n], banded(LAW['AU-NSW'].rates, a)) }),
   'AU-VIC': (a) => victoria(a, LAW['AU-VIC']),
@@ -101,7 +101,7 @@ const RULES = {
   'AU-ACT': (a) => ({ tax: aboveBase(a, [lawCents(LAW['AU-ACT'].threshold), 1n], banded(LAW['AU-ACT'].rates, a)) }),
   // Payroll Tax Act 2009 (NT) s 7A and Sch 1 cl 3 and 5.
   'AU-NT': (a) => ({ tax: aboveBase(a, tapered(a, LAW['AU-NT']), banded(LAW['AU-NT'].rates, a)) }),
-};
+}));
 
 /** Payroll Tax Act 2007 (Vic) Sch 1 cl 5: the threshold, less the phase-out rate times the
  * Australian wages above the phase-out start, never below nil; 2 surcharges of the same size.
@@ -128,8 +128,8 @@ const rateText = ([n, d]) => {
  * add the amounts shown.
  * @param {string} wages @param {string} australian @param {string} place */
 export function payrollTax(wages, australian, place) {
-  if (!Object.hasOwn(RULES, place)) throw new Error('Choose a state or territory.');
-  const rule = RULES[/** @type {PayrollTaxPlace} */ (place)];
+  const rule = RULES.get(place);
+  if (!rule) throw new Error('Choose a state or territory.');
   const own = wagesCents(wages);
   const all = typeof australian === 'string' && australian.trim() === '' ? own : wagesCents(australian);
   if (all < own) throw new Error('Enter total Australian wages of at least the wages in the state or territory.');
