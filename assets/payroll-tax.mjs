@@ -81,14 +81,13 @@ const RULES = new Map(Object.entries({
     return { tax: aboveBase(a, [above(threshold * (upper - threshold), above(a, threshold) * threshold), upper - threshold],
       banded(LAW['AU-WA'].rates, a)) };
   },
-  // Payroll Tax Act 2009 (SA) Sch 1 cl 5: no tax up to the threshold, and a rate that rises in
-  // proportion to Australian wages from the threshold to the full rate.
+  // Payroll Tax Act 2009 (SA) Sch 1 cl 4 and 5: the deduction, and a rate that is nil up to the
+  // threshold and rises in proportion to Australian wages from there to the full rate.
   'AU-SA': (a) => {
     const law = LAW['AU-SA'];
     const [threshold, full, [n, d]] = [lawCents(law.threshold), lawCents(law.fullRateAbove), banded(law.rates, a)];
-    if (a <= threshold) return { tax: aboveBase(a, [a, 1n], [n, d]) };
     /** @type {Fraction} */
-    const rate = a > full ? [n, d] : [(a - threshold) * n, (full - threshold) * d];
+    const rate = a > full ? [n, d] : [above(a, threshold) * n, (full - threshold) * d];
     return { tax: aboveBase(a, [lawCents(law.deduction), 1n], rate) };
   },
   // Payroll Tax Act 2008 (Tas) Sch 1 cl 4: the lower rate between the 2 thresholds, the higher above.
@@ -165,7 +164,7 @@ const STEPS = {
     total: 'Payroll tax and mental health levy' },
   'AU-WA': { name: 'Western Australia', deduction: 'Pay-roll Tax Assessment Act 2002 (WA), ss 8, 10 and 13',
     tax: 'Pay-roll Tax Act 2002 (WA), s 5(4)' },
-  'AU-SA': { name: 'South Australia', deduction: 'Payroll Tax Act 2009 (SA), Sch 1 cl 5(1)', tax: 'Sch 1 cl 5(1) and (2)' },
+  'AU-SA': { name: 'South Australia', deduction: 'Payroll Tax Act 2009 (SA), Sch 1 cl 5(1)', tax: 'Sch 1 cl 4 and 5' },
   'AU-TAS': { name: 'Tasmania', deduction: 'Payroll Tax Act 2008 (Tas), Sch 1 cl 4', tax: 'Sch 1 cl 1 and 4' },
   'AU-ACT': { name: 'Australian Capital Territory', deduction: 'Payroll Tax Act 2011 (ACT), Sch 1 s 1.5',
     tax: 'Sch 1 s 1.5 and DI2026-151 s 5' },

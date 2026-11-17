@@ -3298,10 +3298,10 @@ fn payroll_tax_terms(place: &str, w: &Q, t: &Q) -> (Q, Vec<Q>, [Q; 2]) {
         // Payroll Tax Act 2009 (SA) Sch 1 cl 5: nil to $1.5m; [TW - TW / (TW + IW) x EA] x R, with
         // R = (TARW - $1.5m) / $200,000 x 4.95% to $1.7m.
         "AU-SA" => {
-            if !d(1_500_000).below(t) {
-                return (w.clone(), vec![], nil());
-            }
             let deduction = share.times(&d(600_000));
+            if !d(1_500_000).below(t) {
+                return (deduction, vec![], nil());
+            }
             let full = Q::percent(49_500);
             let rate = if d(1_700_000).below(t) {
                 full

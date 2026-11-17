@@ -1396,9 +1396,10 @@ test('payroll tax in the ACT and the Northern Territory agrees with examples wor
 
 test('payroll tax thresholds, tapers and rate bands meet at their edges', () => {
   const tax = (wages, place, all = '') => payrollTax(wages, all, place);
-  for (const [place, threshold] of [['AU-NSW', '1200000'], ['AU-VIC', '1000000'], ['AU-QLD', '1300000'], ['AU-WA', '1000000'],
-    ['AU-SA', '1500000'], ['AU-TAS', '1250000'], ['AU-ACT', '1750000'], ['AU-NT', '2500000']]) {
-    assert.deepEqual([tax(threshold, place).deduction, tax(threshold, place).total], [Number(threshold), 0], place);
+  // South Australia's threshold is not its deduction: no tax to $1,500,000, a $600,000 deduction.
+  for (const [place, threshold, deduction = threshold] of [['AU-NSW', '1200000'], ['AU-VIC', '1000000'], ['AU-QLD', '1300000'],
+    ['AU-WA', '1000000'], ['AU-SA', '1500000', '600000'], ['AU-TAS', '1250000'], ['AU-ACT', '1750000'], ['AU-NT', '2500000']]) {
+    assert.deepEqual([tax(threshold, place).deduction, tax(threshold, place).total], [Number(deduction), 0], place);
     assert.equal(tax('0', place, '0').total, 0, place);
   }
   // Each deduction reaches nil: Victoria at $5m, Queensland at $10.4m, WA at $7.5m, NT at $7.5m.
@@ -1413,6 +1414,9 @@ test('payroll tax thresholds, tapers and rate bands meet at their edges', () => 
   assert.deepEqual([tax('99999999.99', 'AU-NT').lines[0].rate, tax('100000000', 'AU-NT').lines[0].rate], ['5.5%', '6.5%']);
   assert.deepEqual([tax('1500000.01', 'AU-SA').tax, tax('1700000', 'AU-SA').lines[0].rate, tax('1700000.01', 'AU-SA').lines[0].rate],
     [0, '4.95%', '4.95%']);
+  assert.deepEqual([tax('1200000', 'AU-SA').deduction, tax('1200000', 'AU-SA').lines[0].rate, tax('1200000', 'AU-SA').total],
+    [600000, '0%', 0]);
+  assert.deepEqual([tax('500000', 'AU-SA').deduction, tax('500000', 'AU-SA').total], [500000, 0]);
   assert.deepEqual(tax('2000000', 'AU-TAS').lines.map((line) => line.on), [750000, 0]);
   // 0.25% of $400 above $10m is $1; nothing above $100m until wages pass it.
   assert.deepEqual([tax('10000000', 'AU-QLD').levy, tax('10000400', 'AU-QLD').levy, tax('100000000', 'AU-QLD').extraLevy], [0, 1, 0]);
