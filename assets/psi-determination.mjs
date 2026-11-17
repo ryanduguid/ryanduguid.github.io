@@ -133,13 +133,14 @@ export function psiDetermination(answers) {
 const EARNERS = { employee: 'Received by the individual as an employee', 'sole-trader': 'Received by the individual as a contractor',
   entity: 'Received by a company, partnership or trust' };
 const CONSEQUENCES = {
-  'sole-trader': 'Division 85 stops a deduction an employee could not claim (section 85-10), rent, mortgage interest, '
-    + 'rates or land tax on a residence (section 85-15), and payments to an associate or for its super except for '
-    + 'principal work (sections 85-20 and 85-25)',
+  'sole-trader': 'Division 85 stops a deduction an employee could not claim (section 85-10), except those subsection '
+    + '85-10(2) keeps, such as for gaining work and insurance; it also stops rent, mortgage interest, rates or land tax '
+    + 'on a residence (section 85-15), and payments to an associate or for its super except for principal work '
+    + '(sections 85-20 and 85-25)',
   entity: 'Section 86-15 puts the entity’s PSI, less the deductions section 86-20 allows, in the individual’s assessable '
     + 'income unless the entity pays it to them as salary by the 14th day after the PAYG payment period (subsection '
     + '86-15(4)); section 86-30 takes it out of the entity’s assessable income, and section 86-60 limits the entity’s '
-    + 'deductions to those the individual could claim',
+    + 'deductions to those the individual could claim, with the exceptions in sections 86-65 to 86-80',
 };
 
 /** The form's answers, the steps and the outcome as the page shows them.
