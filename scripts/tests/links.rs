@@ -994,6 +994,9 @@ struct Recorder {
     commands: Vec<Vec<String>>,
     event: Option<&'static str>,
     git: NoDiff,
+    /// The first command replaces the binary, as `cargo test` replaces
+    /// `target/debug/site-tools`; Linux then names it '<path> (deleted)'.
+    replaced: bool,
 }
 
 /// A merge comparison that cannot be read, so `--ci` keeps the live checks.
@@ -1013,7 +1016,11 @@ impl site_tools::check_site::Host for Recorder {
         &mut self.git
     }
     fn exe(&self) -> String {
-        "site-tools".into()
+        if self.replaced && !self.commands.is_empty() {
+            "site-tools (deleted)".into()
+        } else {
+            "site-tools".into()
+        }
     }
     fn build(&mut self) -> Result<PathBuf, String> {
         Ok("unused".into())
@@ -1046,6 +1053,7 @@ fn site_runner_passes_link_modes_only_to_the_link_checker() {
             commands: Vec::new(),
             event,
             git: NoDiff,
+            replaced: false,
         };
         assert_eq!(main_with(Path::new("."), &arguments, &mut host), Ok(0));
         let words = |items: &[&str]| items.iter().map(|w| (*w).to_owned()).collect::<Vec<_>>();
@@ -1065,6 +1073,22 @@ fn site_runner_passes_link_modes_only_to_the_link_checker() {
         }
         assert_eq!(host.commands, expected, "{arguments:?} {event:?}");
     }
+}
+
+#[test]
+fn site_runner_keeps_the_tool_path_it_started_with() {
+    use site_tools::check_site::{Host, main_with};
+    let mut host = Recorder {
+        commands: Vec::new(),
+        event: None,
+        git: NoDiff,
+        replaced: true,
+    };
+    assert_eq!(main_with(Path::new("."), &strings(&["--offline"]), &mut host), Ok(0));
+    assert_eq!(host.exe(), "site-tools (deleted)");
+    let tools: Vec<&String> = host.commands.iter().map(|argv| &argv[0]).collect();
+    assert!(tools.iter().any(|tool| *tool == "site-tools"));
+    assert!(tools.iter().all(|tool| *tool != "site-tools (deleted)"), "{tools:?}");
 }
 
 /// Answers per URL, the last repeating; an unknown URL times out. Each instance keeps
