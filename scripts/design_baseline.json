@@ -170,6 +170,9 @@
     "tools/business-calculators/payg-instalments/index.html": [
       "10b2b6a2c30551f32d79808a41de0bd4cc6a0e0f4d337942ad06cac60db66329"
     ],
+    "tools/business-calculators/payroll-tax/index.html": [
+      "cd7711eee342b8da65e1b9eed1c57c110e10fb21bb30df0726b0d5fb94f71f56"
+    ],
     "tools/business-calculators/pcg-2021-4/index.html": [
       "d0df58ae369359e41db345abb40e22fdf0a72df3fde7b3c989beac2ba141de8a"
     ],
@@ -259,7 +262,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "8d8b12c3d9dcfe9459944a7ae9b9b37efcd677f10aec2d681c29a547fe48bbf6",
+    "llms.txt": "72acb159d2e083c71e95ffb6b2c9febb1f0bdaa32f41de885120e33e2eed355b",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "d927a14a5552239cd0bb4c8933cbee822601dccbeaf761a10e9bd5dcbad57073"
   },
