@@ -301,13 +301,13 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Nineteen calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Twenty calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last checked 16 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
 
 ## Pricing, planning and loans
 
@@ -326,6 +326,7 @@ Published 11 September 2026. Last checked 16 November 2026, the newest of the ca
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
+- Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 
 ## Staff and cash
 
@@ -357,6 +358,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
+- Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
