@@ -19,6 +19,8 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const levy = { file: 'assets/levy.mjs', test: 'scripts/levy.test.mjs' };
 const business = { file: 'assets/business-calculators.mjs', test: 'scripts/business-calculators.test.mjs' };
+const money = { ...business, file: 'assets/money.mjs' };
+const landTax = { ...business, file: 'assets/land-tax.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -36,9 +38,9 @@ const MUTATIONS = [
   { ...levy, name: 'negative wages are rounded', find: 'if (quarters < 0) {', replace: 'if (false) {' },
 
   { ...business, name: 'GST inclusive divides by 10', find: '(inclusive ? 11 : 10)', replace: '(inclusive ? 10 : 10)' },
-  { ...business, name: 'money ratios truncate', find: '(2n * numerator + denominator) / (2n * denominator)', replace: '(2n * numerator) / (2n * denominator)' },
-  { ...business, name: 'percentages truncate', find: '(2n * top + bottom) / (2n * bottom)', replace: '(2n * top) / (2n * bottom)' },
-  { ...business, name: 'a rounded zero keeps its minus sign', find: 'numerator < 0 && hundredths ? -hundredths', replace: 'numerator < 0 ? -hundredths' },
+  { ...money, name: 'money ratios truncate', find: '(2n * numerator + denominator) / (2n * denominator)', replace: '(2n * numerator) / (2n * denominator)' },
+  { ...money, name: 'percentages truncate', find: '(2n * top + bottom) / (2n * bottom)', replace: '(2n * top) / (2n * bottom)' },
+  { ...money, name: 'a rounded zero keeps its minus sign', find: 'numerator < 0 && hundredths ? -hundredths', replace: 'numerator < 0 ? -hundredths' },
   { ...business, name: 'margin divides by cost', find: 'ratioPercent(profit, revenue)', replace: 'ratioPercent(profit, expense || 1)' },
   { ...business, name: 'break-even rounds units down', find: 'Math.ceil(cost / contribution)', replace: 'Math.floor(cost / contribution)' },
   { ...business, name: 'break-even allows a zero contribution', find: 'contribution <= 0', replace: 'contribution < 0' },
@@ -64,6 +66,18 @@ const MUTATIONS = [
   { ...business, name: 'a whole-value band charges only the excess', find: 'ratioCents(hundredths * whole, 100n)', replace: 'ratioCents(hundredths * excess, 100n)' },
   { ...business, name: 'the NT formula drops its 15V term', find: '+ 1500000000000n * whole', replace: '+ 0n * whole' },
   { ...business, name: 'a broken transfer duty table is used', find: 'if (!contiguous) throw', replace: 'if (false) throw' },
+  { ...business, name: 'a transfer duty band may end part way through a dollar', find: '/^\\d+$/.test(to) && ', replace: '' },
+  { ...business, name: 'a transfer duty band may end at or below its start', find: 'Number(to) > Number(over)', replace: 'true' },
+  { ...landTax, name: 'a land tax band may carry a malformed base', find: '/^\\d+(\\.\\d{1,2})?$/.test(base) && ', replace: '' },
+  { ...landTax, name: 'a land tax band may carry an extra field', find: 'row.length === 5 && ', replace: '' },
+  { ...landTax, name: 'a land tax choice may be a string', find: "typeof flag === 'boolean'", replace: 'true' },
+  { ...business, name: 'a first home exemption reaches $1 past its threshold', find: 'whole <= scheme.exemptTo) duty = 0n', replace: 'whole <= scheme.exemptTo + 1n) duty = 0n' },
+  { ...business, name: 'the NSW first home concession scales the duty on the value', find: 'centsOf(String(scheme.exemptTo))', replace: 'centsOf(value)' },
+  { ...business, name: 'the NSW $20 minimum drops out for a first home', find: 'if (duty < scheme.minimum)', replace: 'if (false)' },
+  { ...business, name: 'Victoria\'s first home share counts down from $750,000', find: '(whole - scheme.exemptTo), scheme.upTo - scheme.exemptTo', replace: '(scheme.upTo - whole), scheme.upTo - scheme.exemptTo' },
+  { ...business, name: 'the WA first home rate ignores part of $100', find: '((whole - scheme.exemptTo + 99n) / 100n)', replace: '((whole - scheme.exemptTo) / 100n)' },
+  { ...business, name: 'Queensland\'s first home amount takes the next band at a band\'s top value', find: 'whole <= upTo', replace: 'whole < upTo' },
+  { ...business, name: 'Queensland\'s first home duty goes below nil', find: 'if (duty < 0n) duty = 0n;', replace: 'if (false) duty = 0n;' },
   { ...business, name: 'FBT car statutory percentage is 25%', find: 'base * 20n * days', replace: 'base * 25n * days' },
   { ...business, name: 'FBT car takes a third off later accessories too', find: '3n * BigInt(cents(car.accessories))', replace: '(car.reduced ? 2n : 3n) * BigInt(cents(car.accessories))' },
   { ...business, name: 'FBT car operating cost stands when the statutory value is lower', find: 'Math.min(statutory, operating ?? statutory)', replace: '(operating ?? statutory)' },
@@ -117,6 +131,21 @@ const MUTATIONS = [
   { ...business, name: 'ETP preservation age table is a year out', find: 'july - 1904', replace: 'july - 1903' },
   { ...business, name: 'ETP accepts a date of birth after the year', find: 'born > year.yearEnd', replace: 'born > \'9999\'' },
   { ...business, name: 'ETP accepts 151 years of service', find: 'max: 150, integer: true', replace: 'max: 151, integer: true' },
+  { ...landTax, name: 'a land tax band starts a dollar above its first value', find: 'dollars >= Number(from)', replace: 'dollars > Number(from)' },
+  { ...landTax, name: 'land tax ignores part of $100', find: '(excess + 99n) / 100n * parts', replace: 'excess / 100n * parts' },
+  { ...landTax, name: 'the ACT fixed charge is left out', find: 'cents(base) + cents(fixed)', replace: 'cents(base)' },
+  { ...landTax, name: 'land tax takes the rate on the whole value', find: 'BigInt(dollars) - BigInt(over)', replace: 'BigInt(dollars)' },
+  { ...landTax, name: 'a land tax rate may start above its band', find: 'Number(over) <= Number(from)', replace: 'true' },
+  { ...landTax, name: 'a broken land tax table is used', find: 'if (!usable) throw', replace: 'if (false) throw' },
+  { ...landTax, name: 'land tax rates lose their third and fourth decimal places', find: 'number(rate, { max: 100, places: 4 }) * 10000', replace: 'number(rate, { max: 100, places: 4 }) * 100' },
+  { ...landTax, name: 'trust rates are ignored', find: 'trust ? place.trustScale :', replace: 'false ? place.trustScale :' },
+  { ...landTax, name: 'Queensland absentee rates are ignored', find: '(foreign && place.absenteeScale) || ', replace: '' },
+  { ...landTax, name: 'the trust surcharge threshold is ignored', find: '(trust && place.trustSurcharge) || ', replace: '' },
+  { ...landTax, name: 'a separate surcharge applies to the land tax value', find: 'place.surchargeBase === \'separate\'', replace: 'false' },
+  { ...landTax, name: 'MRIT is left out of the land tax total', find: 'land.amount + surcharge + mrit', replace: 'land.amount + surcharge' },
+  { ...landTax, name: 'the surcharge is left out of the land tax total', find: 'land.amount + surcharge + mrit', replace: 'land.amount + mrit' },
+  { ...landTax, name: 'trust rates are taken where a jurisdiction has none', find: 'if (trust && !place.trustScale) throw', replace: 'if (false) throw' },
+  { ...landTax, name: 'MRIT is taken outside Western Australia', find: 'if (metro && !place.mrit) throw', replace: 'if (false) throw' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -135,7 +164,7 @@ try {
   }
   for (const { test } of [levy, business]) copyFileSync(join(root, test), join(work, test));
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
-    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge']) {
+    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', 'llms.txt', '.well-known/llms.txt']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 

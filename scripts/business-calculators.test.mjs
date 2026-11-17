@@ -6,7 +6,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
-  staffCost, cashForecast, div7aMinimumRepayment, transferDuty } from '../assets/business-calculators.mjs';
+  staffCost, cashForecast, div7aMinimumRepayment, transferDuty, firstHomeDuty } from '../assets/business-calculators.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -310,6 +310,15 @@ test('cash keeps out-of-horizon receipts visible and includes opening deficits',
 // The boundary cases each calculator page shows are data this test runs, so a page
 // cannot state a result the engine does not return.
 const shownCases = JSON.parse(readFileSync(new URL('../_data/calculator_cases.json', import.meta.url), 'utf8'));
+// Each land tax jurisdiction's data as its radio in the land tax include holds it, keyed as the
+// browser's dataset keys it (data-trust-scale becomes trustScale): its name, scales (from, base,
+// rate, over, rule for each band) and fixed charge.
+const landTaxHtml = readFileSync(new URL('../_includes/calculators/land-tax.html', import.meta.url), 'utf8');
+const landTaxRadios = [...landTaxHtml.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)"((?: data-[a-z-]+="[^"]*")+)(?: checked)? \/> ([^<]+)<\/label>/g)]
+  .map(([, code, attributes, label]) => ({ code, label, data: Object.fromEntries([...attributes.matchAll(/data-([a-z-]+)="([^"]*)"/g)]
+    .map(([, key, value]) => [key.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()), value])) }));
+const landTaxPlaces = Object.fromEntries(landTaxRadios.map((radio) => [radio.code, radio]));
+const landTaxArgs = ([value, place, choices]) => [value, landTaxPlaces[place].data, choices];
 // Each jurisdiction's transfer duty scale as rates/transfer-duty/transfer-duty-rates.csv holds it:
 // over, to, base, rate, rule for each bracket. No cell in that table is quoted.
 const PLACES = { 'AU-NSW': 'New South Wales', 'AU-VIC': 'Victoria', 'AU-QLD': 'Queensland',
@@ -327,7 +336,9 @@ const transferDutyScales = (() => {
   return scales;
 })();
 // A boundary case names its jurisdiction; the engine takes that jurisdiction's scale.
-const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]] : call);
+const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]]
+  : name === 'firstHomeDuty' ? [call[0], transferDutyScales[call[1]], call[1], call[2]]
+  : name === 'landTaxYear' ? landTaxArgs(call) : call);
 const dollars = (value) => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-AU',
   { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 // How each result reads on a page, so a value shown under the wrong label fails.
@@ -338,7 +349,7 @@ const LABELS = { net: 'exclusive', gst: 'GST', gross: 'inclusive', share: 'busin
   deferred: 'deferred', repayment: 'repayment', interest: 'interest', principal: 'principal',
   fee: 'fee', total: 'total', first: 'first instalment', instalment: 'each later instalment', effectiveRate: 'effective rate', duty: 'duty' };
 Object.assign(LABELS, { baseValue: 'base value', statutory: 'statutory formula value', operating: 'operating cost value',
-  taxableValue: 'taxable value', grossedUp: 'grossed-up value', fbt: 'FBT' });
+  taxableValue: 'taxable value', grossedUp: 'grossed-up value', fbt: 'FBT', general: 'general duty' });
 Object.assign(LABELS, { final: 'final instalment', totalPaid: 'total paid', gic: 'GIC' });
 // PCG 2021/4 results are scores, a zone and percentages of the entitlement or the benchmark.
 const PCG_SHOWN = { returned: (v) => `returned ${v.toFixed(2)}%`, taxRate: (v) => `tax rate ${v.toFixed(2)}%`,
@@ -392,6 +403,7 @@ const INPUTS = {
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
   div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
   transferDuty: (value, place) => `${PLACES[place]}, ${dollars(value)}`,
+  firstHomeDuty: (value, place, home) => `${PLACES[place]}, ${dollars(value)}, first home buyer, ${home} home`,
   fbtCar: (car, year) => `${car.method === 'operating' ? `Operating cost ${dollars(car.costs)} at ${car.businessUse}% business use; `
     : 'Statutory formula; '}cost price ${dollars(car.cost)}${car.accessories === '0' ? '' : ` plus ${dollars(car.accessories)} accessories`}`
     + `${car.reduced ? ', held 4 years' : ''}, ${car.days} of ${year.days} days, contributions ${dollars(car.contribution)}, gross-up ${year.grossUp}`,
@@ -425,6 +437,10 @@ const INPUTS = {
       + `credits ${dollars(f.credits)}, on ${dollars(f.earlierIncome)}`,
   })[f.method],
 };
+Object.assign(INPUTS, { landTaxYear: (value, place, { trust, foreign, surchargeValue, metro } = {}) =>
+  `${PLACES[place]}${trust ? ', trust rates' : ''}${foreign ? ', foreign or absentee owner' : ''}, ${dollars(value)}`
+    + `${surchargeValue ? `, surcharge value ${dollars(surchargeValue)}` : ''}${metro ? ', Perth metropolitan region' : ''}` });
+Object.assign(ENGINE_LABELS, { landTaxYear: { tax: 'land tax', surcharge: 'surcharge', mrit: 'MRIT', total: 'total' } });
 const wholeDollars = (value) => `$${Number(value).toLocaleString('en-AU')}`;
 const PEER_INPUTS = {
   margin: (sales, cost) => `${wholeDollars(sales)} total revenue and ${wholeDollars(cost)} cost of goods sold`,
@@ -480,13 +496,15 @@ for (const [page, { function: name, peer, rows }] of Object.entries(shownCases))
   }
   for (const row of rows) {
     test(`${page} boundary case returns what its page shows: ${row.case}`, () => {
-      assert.equal(INPUTS[name](...row.call), row.input);
+      // A row may name another engine of the same calculator.
+      const engine = row.function ?? name;
+      assert.equal(INPUTS[engine](...row.call), row.input);
       if (row.refused) {
-        assert.throws(() => calculations[name](...engineArgs(name, row.call)), { message: row.refused });
+        assert.throws(() => calculations[engine](...engineArgs(engine, row.call)), { message: row.refused });
         assert.equal(row.output, `Refused: ${row.refused[0].toLowerCase()}${row.refused.slice(1, -1)}`);
         return;
       }
-      assertShown(calculations[name](...engineArgs(name, row.call)), row, { ...LABELS, ...ENGINE_LABELS[name] });
+      assertShown(calculations[engine](...engineArgs(engine, row.call)), row, { ...LABELS, ...ENGINE_LABELS[engine] });
     });
   }
 }
@@ -542,8 +560,8 @@ test('transfer duty radios carry the rate table rows for all 8 jurisdictions', (
   const radios = [...html.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)" data-name="([^"]+)" data-scale="([^"]+)"(?: checked)? \/> ([^<]+)<\/label>/g)]
     .map(([, code, name, scale, label]) => (assert.equal(label, name), assert.equal(PLACES[code], name),
       [code, scale.split(';').map((row) => row.split(','))]));
-  assert.equal(radios.length, (html.match(/type="radio"/g) ?? []).length);
-  assert.equal((html.match(/ checked /g) ?? []).length, 1);
+  assert.equal(radios.length, (html.match(/name="jurisdiction"/g) ?? []).length);
+  assert.equal((html.match(/name="jurisdiction"[^>]* checked /g) ?? []).length, 1);
   assert.deepEqual(Object.fromEntries(radios), transferDutyScales);
   assert.deepEqual(radios.map(([code]) => code), Object.keys(PLACES));
 });
@@ -565,6 +583,56 @@ test('transfer duty at the top of a band uses that band and rejects a broken tab
     nsw.map((row, index) => (index ? row : [...row.slice(0, 4), 'per-cent']))]) {
     assert.throws(() => transferDuty('1000', broken), { message: 'This jurisdiction’s rate table is not usable.' });
   }
+  // A band ending part way through a dollar, or at or below where it starts, is refused even
+  // for a value in a band that is still well formed.
+  for (const broken of [[['0', '1000.5', '0', '1', 'excess'], ['1000.5', '', '10', '2', 'excess']],
+    [['0', '1000', '0', '1', 'excess'], ['1000', '1000', '10', '2', 'excess'], ['1000', '', '10', '3', 'excess']],
+    [['0', '5000', '0', '1', 'excess'], ['5000', '3000', '50', '2', 'excess'], ['3000', '', '10', '3', 'excess']]]) {
+    for (const value of ['500', '2000', '9000']) {
+      assert.throws(() => transferDuty(value, broken), { message: 'This jurisdiction’s rate table is not usable.' },
+        `${JSON.stringify(broken)} ${value}`);
+    }
+  }
+});
+
+// First home buyers, from the sources read on 16 November 2026. New South Wales: the NSW
+// Government's 2026-27 reduced rate table ($850,000 to $990,000) and Revenue NSW's First Home
+// Buyers Assistance calculator (the rest), which rounds the concession to the cent, so
+// $38,991.065 gives $38,991.06, and keeps the $20 minimum. Queensland: the Queensland Revenue
+// Office's examples. The other figures are worked by hand in the comments.
+test('first home buyer duty matches the revenue offices’ figures either side of each threshold', () => {
+  const duty = (value, place, home = 'established') => firstHomeDuty(value, transferDutyScales[place], place, home);
+  for (const [value, expected] of [['800000', 0], ['850000', 9796.75], ['900000', 19593.5], ['950000', 29390.25],
+    ['990000', 37227.65], ['999000', 38991.06], ['997000', 38599.19], ['800001', 20], ['850050', 9808.8],
+    ['999999', 39186.85], ['1000000', 39187]]) {
+    assert.equal(duty(value, 'AU-NSW').duty, expected, value);
+    assert.equal(duty(value, 'AU-NSW', 'new').duty, expected, value);
+  }
+  // By hand: $709,999 is the home concession rate's $10,150 + 1,700 x $4.50 less $17,350, and
+  // $710,000 the same $17,800 less $15,615; from $800,000 only the home concession rate applies.
+  for (const [value, expected] of [['650000', 0], ['700000', 0], ['709999', 450], ['710000', 2185], ['730000', 6555],
+    ['799999', 20115], ['800000', 21850], ['850000', 24100]]) {
+    assert.equal(duty(value, 'AU-QLD').duty, expected, value);
+  }
+  // By hand: Victoria's general duty on $600,001 is $31,070.06, times $1 / $150,000, and on
+  // $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
+  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070.06]]) {
+    assert.equal(duty(value, 'AU-VIC').duty, expected, value);
+  }
+  for (const [value, expected] of [['600000', 0], ['600001', 16.15], ['700000', 16150], ['800000', 32300], ['800001', 32320.65]]) {
+    assert.equal(duty(value, 'AU-WA').duty, expected, value);
+  }
+  for (const [place, home] of [['AU-QLD', 'new'], ['AU-SA', 'new'], ['AU-ACT', 'established'], ['AU-ACT', 'new']]) {
+    assert.deepEqual(duty('3000000', place, home), { duty: 0, general: transferDuty('3000000', transferDutyScales[place]).duty,
+      concession: true }, place);
+  }
+  for (const [place, home] of [['AU-SA', 'established'], ['AU-TAS', 'established'], ['AU-TAS', 'new'], ['AU-NT', 'new']]) {
+    const general = transferDuty('500000', transferDutyScales[place]).duty;
+    assert.deepEqual(duty('500000', place, home), { duty: general, general, concession: false }, place);
+  }
+  assert.throws(() => duty('500000', 'AU-NSW', 'vacant'), { message: 'Choose an established or a new home.' });
+  assert.throws(() => firstHomeDuty('500000', transferDutyScales['AU-NSW'], 'NSW', 'new'), { message: 'Choose a state or territory.' });
+  assert.throws(() => duty('500000.50', 'AU-NSW'), { message: 'Enter a whole number between 1 and 1000000000.' });
 });
 
 // The FBT car form passes the checked option's gross-up and the form's days and FBT rate; the
@@ -686,6 +754,13 @@ const FORM_CALLS = {
     earlier: f.earlier, credits: f.credits, income: f.income, rate: f.rate, estimatedIncome: f['estimated-income'],
     earlierIncome: f['earlier-income'] }],
 };
+// The radio's scales are read by the tests below, so the call names the jurisdiction; the choices
+// a row leaves at the form's opening values are left out.
+Object.assign(FORM_CALLS, { landTaxYear: (f) => {
+  const choices = Object.entries({ trust: f.owner === 'trust', foreign: f.foreign === 'yes',
+    surchargeValue: f['surcharge-value'], metro: f.metro }).filter(([, chosen]) => chosen);
+  return choices.length ? [f.value, f.jurisdiction, Object.fromEntries(choices)] : [f.value, f.jurisdiction];
+} });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -1084,5 +1159,131 @@ test('GIC payment plan refuses inputs it cannot work', () => {
     [{ debt: '-1' }, 'Enter an amount between 0 and 1000000000.'],
   ]) {
     assert.throws(() => calculations.gicPaymentPlan({ ...plan, ...fields }), { message }, JSON.stringify(fields));
+  }
+});
+
+// One radio for each of the 7 states and territories that levy land tax, in the transfer duty
+// order; the page says the Northern Territory has none.
+test('land tax radios carry a scale for each of the 7 jurisdictions that levy land tax', () => {
+  assert.equal(landTaxRadios.length, (landTaxHtml.match(/name="jurisdiction"/g) ?? []).length);
+  // One checked radio for each group: the jurisdiction, the rates and a foreign or absentee owner.
+  assert.equal((landTaxHtml.match(/ checked /g) ?? []).length, 3);
+  assert.deepEqual(landTaxRadios.map(({ code }) => code), Object.keys(PLACES).filter((code) => code !== 'AU-NT'));
+  for (const { code, label, data } of landTaxRadios) {
+    assert.equal(label, data.name);
+    assert.equal(PLACES[code], data.name);
+  }
+  // Which jurisdiction has which rule, as read on 16 November 2026.
+  const holding = (key) => landTaxRadios.filter(({ data }) => key in data).map(({ code }) => code);
+  assert.deepEqual(holding('fixed'), ['AU-ACT']);
+  assert.deepEqual(holding('trustScale'), ['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA']);
+  assert.deepEqual(holding('absenteeScale'), ['AU-QLD']);
+  assert.deepEqual(holding('surcharge'), ['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-TAS', 'AU-ACT']);
+  assert.deepEqual(holding('trustSurcharge'), ['AU-VIC']);
+  assert.deepEqual(holding('surchargeBase'), ['AU-NSW', 'AU-TAS']);
+  assert.deepEqual(holding('mrit'), ['AU-WA']);
+  assert.deepEqual(landTaxRadios.flatMap(({ data }) => Object.keys(data)).filter((key, index, keys) => keys.indexOf(key) === index).sort(),
+    ['absenteeScale', 'fixed', 'mrit', 'name', 'scale', 'surcharge', 'surchargeBase', 'trustScale', 'trustSurcharge']);
+  assert.equal(landTaxPlaces['AU-ACT'].data.fixed, '1778');
+  assert.match(landTaxHtml, /The Northern Territory has no land tax\./);
+  // Each scale's land tax year, and RevenueSA's $20 rule, are stated on the page.
+  assert.match(landTaxHtml, /the 2026 calendar year in New South Wales and Victoria, and the 2026-27 financial year in Queensland, Western Australia, South Australia, Tasmania and the Australian Capital Territory\./);
+  assert.match(landTaxHtml, /RevenueSA issues no assessment where the calculated land tax is under \$20/);
+  // The indexes describe what the page computes: trust rates and surcharges, not only the general scale.
+  for (const index of ['../llms.txt', '../.well-known/llms.txt', '../tools/business-calculators/index.html']) {
+    const entry = readFileSync(new URL(index, import.meta.url), 'utf8').split('\n').find((line) => line.includes('/land-tax/'));
+    assert.match(entry, /at the general or trust rates, with a foreign or absentee owner surcharge and WA.s metropolitan region improvement tax where chosen, before any exemption\./, index);
+  }
+});
+
+// Worked by hand from the rates read on 16 November 2026: each surcharge and MRIT starts at its
+// first value, and a refused choice is named rather than taxed at another scale.
+test('land tax applies trust rates, surcharges and MRIT from their first value and refuses what it cannot compute', () => {
+  const year = (value, place, choices) => calculations.landTaxYear(...landTaxArgs([value, place, choices]));
+  const parts = ({ tax, surcharge, mrit, total }) => [tax, surcharge, mrit, total];
+  for (const [value, place, choices, expected] of [
+    // NSW special trust: 1.6% from the first dollar, 2% above $6,571,000.
+    ['1', 'AU-NSW', { trust: true }, [0.02, 0, 0, 0.02]], ['6571000', 'AU-NSW', { trust: true }, [105136, 0, 0, 105136]],
+    ['6571001', 'AU-NSW', { trust: true }, [105136.02, 0, 0, 105136.02]],
+    // NSW surcharge: 5% of the surcharge value even with no land tax.
+    ['0', 'AU-NSW', { foreign: true, surchargeValue: '500000' }, [0, 25000, 0, 25000]],
+    // Victorian trust surcharge rates: $82 from $25,000, and 1.1072% of $1,199,999 is 13,286.388928 dollars.
+    ['24999', 'AU-VIC', { trust: true }, [0, 0, 0, 0]], ['25000', 'AU-VIC', { trust: true }, [82, 0, 0, 82]],
+    ['2999999', 'AU-VIC', { trust: true }, [31649.39, 0, 0, 31649.39]],
+    // Victorian absentee owner surcharge: 4% of the whole value from $50,000, or from $25,000 at trust rates.
+    ['49999', 'AU-VIC', { foreign: true }, [0, 0, 0, 0]], ['50000', 'AU-VIC', { foreign: true }, [500, 2000, 0, 2500]],
+    ['25000', 'AU-VIC', { trust: true, foreign: true }, [82, 1000, 0, 1082]],
+    // Queensland: the absentee rates and 3% over $350,000; a foreign company or trustee pays the company rates.
+    ['350000', 'AU-QLD', { foreign: true }, [1450, 0, 0, 1450]],
+    ['10000000', 'AU-QLD', { foreign: true }, [175000, 289500, 0, 464500]],
+    ['10000000', 'AU-QLD', { trust: true, foreign: true }, [187500, 289500, 0, 477000]],
+    // WA MRIT: nil to $300,000, then 0.14 cents a dollar, so $4 over is 0.56 cents, which rounds to 1 cent.
+    ['300000', 'AU-WA', { metro: true }, [0, 0, 0, 0]], ['300004', 'AU-WA', { metro: true }, [300, 0, 0.01, 300.01]],
+    // South Australian trust rates: $125 plus 50 cents for each $100 or part over $25,000.
+    ['25000', 'AU-SA', { trust: true }, [0, 0, 0, 0]], ['25001', 'AU-SA', { trust: true }, [125.5, 0, 0, 125.5]],
+    ['936001', 'AU-SA', { trust: true }, [4681, 0, 0, 4681]],
+    // Tasmania: 2% of the surcharge value, whatever the land tax value.
+    ['600000', 'AU-TAS', { foreign: true, surchargeValue: '0' }, [3237.5, 0, 0, 3237.5]],
+    // The ACT: 0.75% of $1 is 0.75 cents, so 1 cent.
+    ['1', 'AU-ACT', { foreign: true }, [1778.01, 0.01, 0, 1778.02]],
+  ]) {
+    assert.deepEqual(parts(year(value, place, choices)), expected, `${place} ${value} ${JSON.stringify(choices)}`);
+  }
+  for (const [place, choices, message] of [
+    ['AU-WA', { trust: true }, 'This calculator has no trust rates for Western Australia.'],
+    ['AU-TAS', { trust: true }, 'This calculator has no trust rates for Tasmania.'],
+    ['AU-SA', { foreign: true }, 'This calculator has no foreign or absentee owner rates for South Australia.'],
+    ['AU-WA', { foreign: true }, 'This calculator has no foreign or absentee owner rates for Western Australia.'],
+    ['AU-NSW', { metro: true }, 'The metropolitan region improvement tax applies only in Western Australia.'],
+    ['AU-NSW', { foreign: true }, 'Enter the surcharge value as a whole number between 0 and 1000000000.'],
+    ['AU-TAS', { foreign: true, surchargeValue: '1.5' }, 'Enter the surcharge value as a whole number between 0 and 1000000000.'],
+  ]) {
+    assert.throws(() => year('1000000', place, choices), { message }, `${place} ${JSON.stringify(choices)}`);
+  }
+});
+
+// Worked by hand from the scales read on 16 November 2026: a band applies from its first value.
+test('land tax applies a band from its first value, adds the ACT fixed charge and rejects a broken table', () => {
+  const tax = (value, place) => calculations.landTaxYear(...landTaxArgs([value, place])).tax;
+  for (const [value, place, expected] of [
+    // Victoria: nil below $50,000, a flat $500, then $975 to $299,999 and $1,350 + 0.3% from $300,000.
+    ['49999', 'AU-VIC', 0], ['50000', 'AU-VIC', 500], ['299999', 'AU-VIC', 975], ['300010', 'AU-VIC', 1350.03],
+    // Queensland: $600,000 itself pays $500.
+    ['599999', 'AU-QLD', 0], ['600000', 'AU-QLD', 500],
+    // Western Australia: nil to $300,000, then a flat $300 to $420,000.
+    ['300000', 'AU-WA', 0], ['300001', 'AU-WA', 300], ['420000', 'AU-WA', 300], ['420001', 'AU-WA', 300],
+    // New South Wales: $100 + 1.6% of $1 above the threshold, and 2% above the premium threshold.
+    ['1075001', 'AU-NSW', 100.02], ['6571000', 'AU-NSW', 88036], ['6571001', 'AU-NSW', 88036.02],
+    // South Australia: $1 over a band's threshold is a whole $100 at that band's rate.
+    ['1504001', 'AU-SA', 2841], ['3504001', 'AU-SA', 36002.4],
+    // Tasmania: $125,000 itself pays $50, and $500,000 pays $1,737.50.
+    ['124999', 'AU-TAS', 0], ['125000', 'AU-TAS', 50], ['500000', 'AU-TAS', 1737.5],
+    // The ACT: the $1,778 fixed charge at any value, and 0.54% of $1 is 0.54 cents, so 1 cent.
+    ['0', 'AU-ACT', 1778], ['1', 'AU-ACT', 1778.01], ['150000', 'AU-ACT', 2588], ['2000001', 'AU-ACT', 24878.01],
+  ]) {
+    assert.equal(tax(value, place), expected, `${place} ${value}`);
+  }
+  const nswData = landTaxPlaces['AU-NSW'].data;
+  const nsw = nswData.scale.split(';').map((row) => row.split(','));
+  const withScale = (rows) => ({ ...nswData, scale: rows.map((row) => row.join(',')).join(';') });
+  assert.throws(() => calculations.landTaxYear('-1', nswData), { message: 'Enter a whole number between 0 and 1000000000.' });
+  for (const broken of [[], nsw.slice(1), [nsw[0], nsw[2], nsw[1]], [nsw[0], ['1075001', '100', '1.6', '1075002', 'excess']],
+    [nsw[0], ['1075000.5', '100', '1.6', '1075000', 'excess']], [nsw[0], ['1075001', '100', '1.6', '1075000', 'whole-value']],
+    [nsw[0], ['1075001', '100', '1.60001', '1075000', 'excess']],
+    // A malformed base or an extra field is refused in any band, not only the one a value falls in.
+    [nsw[0], ['1075001', 'bad', '1.6', '1075000', 'excess'], nsw[2]], [nsw[0], nsw[1], ['6571001', '88036.001', '2', '6571000', 'excess']],
+    [nsw[0], ['1075001', '100', '1.6', '1075000', 'excess', 'extra'], nsw[2]], [['0', '0', '0', '0', 'excess', ''], nsw[1], nsw[2]],
+    // A rate over 100% or a base over the helpers' $1,000,000,000 is refused in any band too.
+    [nsw[0], ['1075001', '100', '101', '1075000', 'excess'], nsw[2]], [nsw[0], ['1075001', '1000000001', '1.6', '1075000', 'excess'], nsw[2]]]) {
+    for (const value of ['500', '2000000', '9000000']) {
+      assert.throws(() => calculations.landTaxYear(value, withScale(broken)), { message: 'This jurisdiction’s rate table is not usable.' },
+        `${JSON.stringify(broken)} ${value}`);
+    }
+  }
+  for (const choice of ['trust', 'foreign', 'metro']) {
+    for (const flag of ['false', 0, null]) {
+      assert.throws(() => calculations.landTaxYear('2000000', nswData, { [choice]: flag }),
+        { message: 'Trust rates, a foreign or absentee owner and the metropolitan region must each be true or false.' }, `${choice} ${flag}`);
+    }
   }
 });

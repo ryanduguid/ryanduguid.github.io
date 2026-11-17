@@ -1315,9 +1315,9 @@ fn list_prints_each_url_with_the_files_citing_it() {
             .collect()
     };
     let expected = format!(
-        "{LEVY}\n  site/a.md\n{}{PAGE}\n  site/a.md\n  site/b.html\n{}12 URLs, 11 of them watched outside the ATO\n",
-        uncited(&[10, 5, 7]),
-        uncited(&[9, 1, 2, 3, 8, 4, 6])
+        "{LEVY}\n  site/a.md\n{}{PAGE}\n  site/a.md\n  site/b.html\n{}18 URLs, 17 of them watched outside the ATO\n",
+        uncited(&[10, 5, 12, 7]),
+        uncited(&[16, 9, 1, 2, 3, 14, 15, 8, 11, 4, 13, 6])
     );
     assert_eq!(String::from_utf8_lossy(&run.stdout), expected);
 }
@@ -2150,7 +2150,7 @@ fn a_sweep_seeds_the_baseline_then_reports_a_change_with_its_issue() {
     );
     assert_eq!(
         String::from_utf8_lossy(&seeded.stdout),
-        "12 sources read, 12 new to the baseline, 0 changed with nothing to review\n"
+        "18 sources read, 18 new to the baseline, 0 changed with nothing to review\n"
     );
     assert_eq!(
         std::fs::read_to_string(baseline.join(baseline_file(PAGE))).unwrap(),
@@ -2167,7 +2167,7 @@ fn a_sweep_seeds_the_baseline_then_reports_a_change_with_its_issue() {
     }
     let body = std::fs::read_to_string(&issue).unwrap();
     assert!(body.starts_with("The weekly ATO source sweep of "));
-    assert!(body.contains(" read 12 pages: 12 changed substantively,"));
+    assert!(body.contains(" read 18 pages: 18 changed substantively,"));
     assert!(body.contains(&format!("### {LEVY}\n\nChanged since the previous run. Cited in: no file\n\n`2.7%` appears in: no file")));
     let reports: Vec<PathBuf> = std::fs::read_dir(&out)
         .unwrap()
