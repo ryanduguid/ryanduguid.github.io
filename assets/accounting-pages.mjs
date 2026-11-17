@@ -57,7 +57,7 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, { individualResult }]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult }]) {
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -464,7 +464,7 @@ function initialiseCalculators([calculate, fieldErrors, { individualResult }]) {
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
-          default: result = individualResult(form.dataset.calculator, value, aud); if (!result) throw new Error('Unknown calculator.');
+          default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
         form.dataset.calculated = 'true';
@@ -488,7 +488,7 @@ function initialiseCalculators([calculate, fieldErrors, { individualResult }]) {
 function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
-  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./individual-tax-results.mjs${suffix}`)])
+  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`), import(`./individual-tax-results.mjs${suffix}`)])
     .then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {

@@ -711,7 +711,7 @@ test('transfer duty takes a first home buyer chosen by keyboard and says where t
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
-  'termination-payment', 'transfer-duty', 'land-tax'];
+  'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
