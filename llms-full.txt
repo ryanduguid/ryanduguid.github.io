@@ -10289,13 +10289,13 @@ Source: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
 
 # FBT car parking calculator
 
-Whether car parking fringe benefits arise against the $11.48 threshold, and their taxable value for the FBT year ending 31 March 2027, by any of the 5 methods.
+The $11.48 threshold test, then the taxable value by any of the 5 methods, for the FBT year ending 31 March 2027.
 
 Published 17 November 2026. Last checked 17 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Car parking inputs for one work car park, FBT year 1 April 2026 to 31 March 2027
+Inputs for one work car park, FBT year ending 31 March 2027
 
 Valuation method Commercial parking station method Market value method, elected, with a valuer’s report Average cost method, elected 12-week register method, elected Spaces method, elected Highest of the lowest all-day fees of commercial parking stations within 1 km on Wednesday 1 April 2026, the year’s first business day (AUD) Station, market value or average cost: number of benefits Station or market value: each benefit’s value, the lowest all-day fee on its day or the valuer’s amount (AUD) Average cost only: lowest all-day fee on the year’s first day with a benefit (AUD) Average cost only: lowest all-day fee on the year’s last day with a benefit (AUD) 12-week register only: value of the benefits it records as if kept this year, after employee contributions (AUD) 12-week register only: days from the first to the last day in the year a benefit was provided 12-week register only: FBT year it was first valid for, the year ending 31 March Spaces only: daily rate amount of each space, by the station, market value or average cost method, before contributions (AUD) Spaces only: days in each space’s availability period Spaces only: number of spaces Spaces only: employees the election covers at the start of the parking period Spaces only: employees the election covers at the end of the parking period Spaces only: eligible spaces at the start of the parking period Spaces only: eligible spaces at the end of the parking period Every method but the register: total employee contributions (AUD)
 
@@ -10355,7 +10355,7 @@ Source: https://duguid.com.au/tools/business-calculators/fbt-loan/
 
 # FBT loan calculator
 
-Taxable value of a loan fringe benefit for the FBT year ending 31 March 2027, at the 8.27% statutory interest rate, with the otherwise deductible rule.
+A loan fringe benefit’s taxable value: interest at 8.27% less interest accrued, then the otherwise deductible rule.
 
 Published 17 November 2026. Last checked 17 November 2026.
 
@@ -10416,13 +10416,13 @@ Source: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
 
 # Meal entertainment calculator
 
-Taxable value of meal entertainment fringe benefits for the FBT year ending 31 March 2027, by the 50/50 split method or the 12-week register method.
+Meal entertainment’s taxable value for the FBT year ending 31 March 2027, by the 50/50 split or the 12-week register.
 
 Published 17 November 2026. Last checked 17 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Meal entertainment inputs for the FBT year 1 April 2026 to 31 March 2027
+Inputs for the FBT year ending 31 March 2027
 
 Valuation method elected 50/50 split method 12-week register method Meal entertainment expenses for the year, for all recipients, less contributions by employees and their associates that you did not reimburse (AUD) 12-week register only: value of the meal entertainment fringe benefits it records (AUD) 12-week register only: value of all the meal entertainment it records (AUD) 12-week register only: FBT year it was first valid for, the year ending 31 March 12-week register only: expenses for the year ending 31 March 2023, if first valid then (AUD) 12-week register only: expenses for the year ending 31 March 2024, if first valid by then (AUD) 12-week register only: expenses for the year ending 31 March 2025, if first valid by then (AUD) 12-week register only: expenses for the year ending 31 March 2026, if first valid by then (AUD)
 

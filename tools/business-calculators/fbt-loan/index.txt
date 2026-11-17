@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/fbt-loan/
 
 # FBT loan calculator
 
-Taxable value of a loan fringe benefit for the FBT year ending 31 March 2027, at the 8.27% statutory interest rate, with the otherwise deductible rule.
+A loan fringe benefit’s taxable value: interest at 8.27% less interest accrued, then the otherwise deductible rule.
 
 Published 17 November 2026. Last checked 17 November 2026.
 
