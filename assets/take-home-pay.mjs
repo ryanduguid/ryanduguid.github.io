@@ -35,8 +35,8 @@ const nearest = (numerator, denominator) => Math.floor((2 * numerator + denomina
 
 /** One full year at one salary. With `includesSuper`, `salary` is a package of salary and super
  * guarantee: below the base, super is rate ÷ (100 + rate) of it; above, the base times the rate.
- * Super guarantee is the rate on the salary up to the base. Taxable income is the salary in whole
- * dollars less any standard deduction, and repayment income is the same taxable income. The year's net pay
+ * Super guarantee is the rate on the salary up to the base. Taxable income is the salary less any
+ * standard deduction, in whole dollars, and repayment income is the same taxable income. The year's net pay
  * divides by 12, 26 and 52, each rounded half up to the cent.
  * @param {Pay} pay */
 export function takeHomePay(pay) {
@@ -52,15 +52,14 @@ export function takeHomePay(pay) {
   else if (entered * 1000 <= capCents * (1000 + tenths)) superGuarantee = nearest(entered * tenths, 1000 + tenths);
   else superGuarantee = nearest(capCents * tenths, 1000);
   const salary = pay.includesSuper ? entered - superGuarantee : entered;
-  const whole = Math.floor(salary / 100);
-  const deduction = pay.year >= STANDARD_DEDUCTION_FROM && pay.residency === 'resident' ? Math.min(1000, whole) : 0;
-  const taxable = String(whole - deduction);
+  const deduction = pay.year >= STANDARD_DEDUCTION_FROM && pay.residency === 'resident' ? Math.min(100000, salary) : 0;
+  const taxable = String(Math.floor((salary - deduction) / 100));
   const tax = incomeTax(taxable, pay.year, pay.residency);
   const loan = pay.studyLoan
     ? studyLoanRepayment({ taxable, fringe: '0', losses: '0', super: '0', foreign: '0' }, pay.year).repayment : 0;
   const cents = (/** @type {number} */ value) => Math.round(value * 100);
   const net = salary - cents(tax.total) - cents(loan);
-  return { salary: salary / 100, superGuarantee: superGuarantee / 100, deduction, tax: tax.tax, offset: tax.offset,
-    medicare: tax.medicare, studyLoan: loan, net: net / 100, monthly: nearest(net, 12) / 100,
+  return { salary: salary / 100, superGuarantee: superGuarantee / 100, deduction: deduction / 100, tax: tax.tax,
+    offset: tax.offset, medicare: tax.medicare, studyLoan: loan, net: net / 100, monthly: nearest(net, 12) / 100,
     fortnightly: nearest(net, 26) / 100, weekly: nearest(net, 52) / 100 };
 }

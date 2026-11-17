@@ -186,6 +186,8 @@ test('from 2026-27 a resident’s salary has the standard deduction of up to $1,
   assert.equal(r.tax, incomeTax('74000', '2026-27', 'resident').tax);
   assert.equal(r.medicare, 1480);
   assert.equal(pay('2026-27', 'resident', '600').deduction, 600);
+  const pack = takeHomePay({ year: '2026-27', residency: 'resident', salary: '1000', includesSuper: true, studyLoan: false });
+  assert.deepEqual([pack.salary, pack.deduction, pack.tax, pack.net], [892.86, 892.86, 0, 892.86]);
   assert.equal(pay('2026-27', 'resident', '150000').studyLoan,
     studyLoanRepayment({ taxable: '149000', fringe: '0', losses: '0', super: '0', foreign: '0' }, '2026-27').repayment);
   for (const [year, residency] of [['2025-26', 'resident'], ['2026-27', 'foreign'], ['2026-27', 'working-holiday']]) {

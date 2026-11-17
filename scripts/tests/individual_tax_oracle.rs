@@ -236,13 +236,12 @@ fn pay_oracle(salary: u64, year: &str, residency: &str, included: bool, loan: bo
     };
     let salary = if included { entered - sg } else { entered };
     // ITAA 1997 s 25-130 from 2026-27: a resident deducts the lesser of $1,000 and the salary.
-    let dollars = salary / 100;
     let deduction = if year == "2026-27" && residency == "resident" {
-        dollars.min(1000)
+        salary.min(100_000)
     } else {
         0
     };
-    let taxable = dollars - deduction;
+    let taxable = (salary - deduction) / 100;
     let tax = tax_oracle(taxable, year, residency);
     let repayment = if loan {
         loan_oracle(taxable, year)["repayment"].as_u64().unwrap()
@@ -250,7 +249,7 @@ fn pay_oracle(salary: u64, year: &str, residency: &str, included: bool, loan: bo
         0
     };
     let net = salary - tax["total"].as_u64().unwrap() - repayment;
-    json!({"salary": salary, "superGuarantee": sg, "deduction": deduction * 100, "tax": tax["tax"], "offset": tax["offset"],
+    json!({"salary": salary, "superGuarantee": sg, "deduction": deduction, "tax": tax["tax"], "offset": tax["offset"],
         "medicare": tax["medicare"], "studyLoan": repayment, "net": net, "monthly": half_up(net, 12),
         "fortnightly": half_up(net, 26), "weekly": half_up(net, 52)})
 }
