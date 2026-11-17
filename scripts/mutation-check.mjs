@@ -133,7 +133,7 @@ const MUTATIONS = [
   { ...business, name: 'ETP accepts a date of birth after the year', find: 'born > year.yearEnd', replace: 'born > \'9999\'' },
   { ...business, name: 'ETP accepts 151 years of service', find: 'max: 150, integer: true', replace: 'max: 151, integer: true' },
   { ...division296, name: 'Division 296 shares truncate', find: 'ratioCents((balance - threshold) * 10000n, balance)', replace: '((balance - threshold) * 10000n / balance)' },
-  { ...division296, name: 'Division 296 taxes a balance equal to the threshold', find: 'reference <= BigInt(cents(year.largeThreshold))', replace: 'reference < BigInt(cents(year.largeThreshold))' },
+  { ...division296, name: 'Division 296 taxes a balance equal to the threshold', find: 'reference <= largeThreshold', replace: 'reference < largeThreshold' },
   { ...division296, name: 'Division 296 keeps the balance after death', find: 'member.died ? 0n : balance', replace: 'balance' },
   { ...division296, name: 'Division 296 taxes negative earnings', find: 'earnings > 0n ? earnings * percentage : 0n', replace: 'earnings * percentage' },
   { ...division296, name: 'Division 296 takes the 10% on taxable earnings', find: 'component * hundredths(year.veryLargeRate)', replace: 'taxable * hundredths(year.veryLargeRate)' },
