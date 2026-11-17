@@ -495,6 +495,24 @@ test('Division 7A takes the chosen year’s rate from the table and works the re
   await expect(form.locator('.field-error')).toHaveText('Enter 25 or less.');
 });
 
+test('Division 296 works both tiers and a death by 30 June 2027 offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/division-296/');
+  const form = page.locator('#division-296 form');
+  const output = form.locator('output');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
+  // The Explanatory Memorandum's example 1.2: $12 million and $500,000 of earnings.
+  await form.locator('[name="balance"]').fill('12000000');
+  await form.locator('[name="earnings"]').fill('500000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('Very large superannuation balance earnings component: $83,350.00');
+  await expect(output).toContainText('Division 296 tax: $64,585.00');
+  await form.locator('[name="died"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('Division 296 tax: $0.00');
+  await expect(output).toContainText('Not liable: died on or before 30 June 2027');
+});
+
 test('Division 7A schedule lists each year, stops at a shortfall and refuses an interposed loan offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/div7a-schedule/');
   const form = page.locator('#div7a-schedule form');
@@ -742,7 +760,7 @@ test('transfer duty takes a first home buyer chosen by keyboard and says where t
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
-  'div7a-schedule'];
+  'div7a-schedule', 'division-296'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
