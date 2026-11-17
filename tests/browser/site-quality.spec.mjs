@@ -776,6 +776,7 @@ for (const width of [320, 390]) {
 
 test('home matches its viewport visual baseline', async ({ page, browserName }, testInfo) => {
   test.skip(browserName !== 'chromium', 'the committed baselines are Chromium renders');
+  test.skip(process.platform !== 'win32', 'the committed home baselines are Windows renders');
   const health = observePageHealth(page);
   await gotoForVisualSnapshot(page, '/');
   await page.evaluate(() => scrollTo(0, 0));
