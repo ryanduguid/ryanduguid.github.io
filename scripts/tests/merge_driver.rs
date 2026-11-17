@@ -425,10 +425,26 @@ fn every_committed_file_holding_changelog_rows_uses_the_driver() {
         files.len() > 4,
         "no llms-full part holds the changelog: {files:?}"
     );
+    // Read the attributes in a repository of their own, so the test also runs from a
+    // copy of the tree that is not a git checkout.
+    let attributes = tempfile::tempdir().unwrap();
+    assert!(
+        Command::new("git")
+            .args(["init", "--quiet"])
+            .current_dir(attributes.path())
+            .status()
+            .unwrap()
+            .success()
+    );
+    std::fs::copy(
+        root.join(".gitattributes"),
+        attributes.path().join(".gitattributes"),
+    )
+    .unwrap();
     let out = Command::new("git")
         .args(["check-attr", "merge", "--"])
         .args(&files)
-        .current_dir(&root)
+        .current_dir(attributes.path())
         .output()
         .unwrap();
     assert!(out.status.success());
