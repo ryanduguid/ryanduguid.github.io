@@ -1,6 +1,20 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
+/** Saves text as a file. @param {string} text @param {string} name @param {string} type */
+export function download(text, name, type) {
+  const url = URL.createObjectURL(new Blob([text], { type }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = name;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Only question pages load their script, so its failure cannot stop a calculator page's. If it
+// fails, the question controls stay disabled and the page reads as plain text.
+if (document.querySelector('details.question')) void import('./accounting-questions.mjs');
+
 const currencyFormat = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
 // Page copy writes negatives with the minus sign, U+2212; the CSV keeps ASCII.
 const minus = text => text.replace(/^-/, '−');
@@ -38,126 +52,6 @@ function renderResult(output, result) {
   const parts = [span('result-inputs', `Inputs: ${result.inputs}.`), rows];
   if (result.note) parts.push(' ', span('result-note', `${result.note}.`));
   output.replaceChildren(...parts);
-}
-
-function download(text, name, type) {
-  const url = URL.createObjectURL(new Blob([text], { type }));
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = name;
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-const questions = [...document.querySelectorAll('details.question')];
-if (questions.length) {
-  const search = document.querySelector('#question-search');
-  const params = new URLSearchParams(location.search);
-  search.value = params.get('q') || '';
-  const checkbox = new Map(questions.map(q => [q, q.querySelector('input')]));
-  const selected = () => questions.filter(q => checkbox.get(q).checked);
-  const countNode = document.querySelector('#question-count');
-  let countTimer;
-  const groups = [...document.querySelectorAll('.question-group')];
-  const normalise = text => text.toLocaleLowerCase('en-AU').replace(/[^a-z0-9]+/g, ' ');
-  const text = new Map(questions.map(q => [q, normalise(`${q.textContent} ${q.dataset.searchTerms || ''}`)]));
-  const tools = document.querySelector('.question-tools');
-  const clearFilters = document.querySelector('#clear-filters');
-  document.querySelector('.question-controls fieldset').disabled = false;
-  // The script owns this state, so a cached older copy of it still leaves the button usable.
-  clearFilters.disabled = !search.value;
-  // A saved search opens the tools so the filter that hid questions is in view.
-  if (search.value) tools.open = true;
-  document.querySelectorAll('.question-select').forEach(node => { node.hidden = false; });
-
-  function filter() {
-    const words = normalise(search.value).split(/\s+/).filter(Boolean);
-    for (const q of questions) {
-      q.hidden = !words.every(word => text.get(q).includes(word));
-      q.classList.toggle('is-selected', checkbox.get(q).checked);
-    }
-    for (const group of groups) group.hidden = !group.querySelector('details:not([hidden])');
-    const count = selected().length;
-    clearTimeout(countTimer);
-    countTimer = setTimeout(() => {
-      const shown = questions.filter(q => !q.hidden).length;
-      countNode.textContent = shown
-        ? `${shown} questions. ${count} selected.`
-        : `No questions match. Choose Clear filters to show all ${questions.length}. ${count} selected.`;
-    }, 300);
-    for (const id of ['download-checklist', 'print-checklist', 'clear-selection']) {
-      document.getElementById(id).disabled = count === 0;
-    }
-    clearFilters.disabled = !search.value;
-    // The first selection opens the tools, so the download and print actions are in reach.
-    if (count && !tools.open) tools.open = true;
-    // The filters live in the URL so a filtered view can be shared or reloaded.
-    const query = new URLSearchParams();
-    if (search.value) query.set('q', search.value);
-    const queryText = query.toString();
-    history.replaceState(null, '', `${location.pathname}${queryText ? `?${queryText}` : ''}${location.hash}`);
-  }
-  search.addEventListener('input', filter);
-  for (const q of questions) checkbox.get(q).addEventListener('change', filter);
-  if (search.value || params.has('topic')) filter();
-  clearFilters.addEventListener('click', () => {
-    search.value = '';
-    filter();
-    search.focus();
-  });
-  document.querySelector('#clear-selection').addEventListener('click', () => {
-    for (const q of selected()) checkbox.get(q).checked = false;
-    filter();
-    search.focus();
-  });
-
-  function revealHash() {
-    const target = document.getElementById(location.hash.slice(1));
-    if (!target || (!target.matches('.question, .question-group'))) return;
-    search.value = '';
-    filter();
-    if (target.matches('.question')) target.open = true;
-    target.scrollIntoView({ behavior: 'instant', block: 'start' });
-  }
-  window.addEventListener('hashchange', revealHash);
-  revealHash();
-
-  document.querySelector('#download-checklist').addEventListener('click', () => {
-    const lines = ['# Australian accounting checklist', '',
-      'Confirm the income year, facts and source guidance before relying on a conclusion.', '',
-      'Reviewer: ____________________', 'Period: ____________________', 'Review date: ____________________', ''];
-    for (const q of selected()) {
-      lines.push(`## ${q.querySelector('summary').textContent.trim()}`, '', q.querySelector('.question-answer p').textContent.trim(), '');
-      lines.push(q.closest('.question-group').querySelector('.topic-review').textContent.trim(), '');
-      for (const step of q.querySelectorAll('ol li')) lines.push(`- [ ] ${step.textContent.trim()}`);
-      const example = q.querySelector('.question-example');
-      if (example) lines.push('', ...[...example.querySelectorAll('p')].map(p => p.textContent.trim()), '');
-      lines.push('', q.querySelector('.question-boundary').textContent.trim(), '');
-      for (const link of q.querySelectorAll('.question-links a')) {
-        // Downloads retain canonical links even when made from a local preview.
-        lines.push(`[${link.textContent.trim()}](${new URL(link.getAttribute('href'), 'https://duguid.com.au').href})`);
-      }
-      lines.push('', 'Evidence and unresolved items: ____________________', '');
-    }
-    download(lines.join('\n'), 'accounting-checklist.md', 'text/markdown;charset=utf-8');
-  });
-
-  let beforePrint;
-  function restorePrint() {
-    if (!beforePrint) return;
-    for (const [q, open] of beforePrint) q.open = open;
-    beforePrint = null;
-    document.body.classList.remove('print-selected');
-    filter();
-  }
-  window.addEventListener('afterprint', restorePrint);
-  document.querySelector('#print-checklist').addEventListener('click', () => {
-    beforePrint = questions.map(q => [q, q.open]);
-    document.body.classList.add('print-selected');
-    for (const group of groups) group.hidden = false;
-    for (const q of questions) { q.hidden = false; q.open = q.classList.contains('is-selected'); }
-    window.print();
-  });
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
@@ -350,6 +244,13 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
             if (place.value === 'AU-NSW' && r.bracket === scale.length - 1) {
               result.note = 'Premium duty applies to residential land only; other land continues at $5.50 for every $100 over $1,290,000';
             }
+            const home = form.querySelector('input[name="buyer"]:checked').value;
+            if (home !== 'general') {
+              const f = calculate.firstHomeDuty(value('value'), scale, place.value, home);
+              result.inputs += `, eligible first home buyer, ${home} home`;
+              result.rows.unshift(['Duty for an eligible first home buyer',
+                f.concession ? aud(f.duty) : 'none for this home, so general duty applies']);
+            }
             break;
           }
           case 'fbt-car': {
@@ -402,6 +303,36 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
               ['GIC on the plan, over paying now', aud(r.gic)]],
             note: r.assumedDays ? `${count(String(r.assumedDays), 'day')} after December 2026 use the assumed rate` : undefined };
             result.principal = result.rows.length - 1;
+            break;
+          }
+          case 'land-tax': {
+            // The chosen jurisdiction's radio carries its scales, from,base,rate,over,rule for each
+            // band separated by semicolons, and the ACT's radio its fixed charge.
+            const place = form.querySelector('input[name="jurisdiction"]:checked');
+            const trust = form.querySelector('input[name="owner"]:checked').value === 'trust';
+            const foreign = form.querySelector('input[name="foreign"]:checked').value === 'yes';
+            const metro = form.elements.namedItem('metro').checked;
+            const fixed = place.dataset.fixed ?? '0';
+            const r = calculate.landTaxYear(value('value'), place.dataset,
+              { trust, foreign, surchargeValue: value('surcharge-value'), metro });
+            const [, base, rate, over, rule] = r.band;
+            const dollars = text => `$${Number(text).toLocaleString('en-AU', { minimumFractionDigits: Number(text) % 1 ? 2 : 0 })}`;
+            const plus = Number(base) ? `${dollars(base)} plus ` : '';
+            let ruleText = rule === 'excess' ? `${plus}${rate}% of the value${Number(over) ? ` over ${dollars(over)}` : ''}`
+              : `${plus}$${Number(rate).toFixed(2)} for every $100, or part of $100, over ${dollars(over)}`;
+            if (Number(rate) === 0) ruleText = Number(base) ? `a fixed ${dollars(base)}` : 'nil';
+            if (Number(fixed)) ruleText = `the ${dollars(fixed)} fixed charge plus ${ruleText}`;
+            const rows = [['Land tax for the year', aud(r.tax)], ['Rate applied', ruleText]];
+            if (foreign) rows.push(['Foreign or absentee owner surcharge', aud(r.surcharge)]);
+            if (metro) rows.push(['Metropolitan region improvement tax', aud(r.mrit)]);
+            if (foreign || metro) rows.push(['Total for the year', aud(r.total)]);
+            const separate = foreign && place.dataset.surchargeBase === 'separate';
+            result = { inputs: `${place.dataset.name}${trust ? ', trust rates' : ''}${foreign ? ', foreign or absentee owner' : ''}, `
+              + `total taxable land value ${money('value')}${separate ? `, surcharge value ${money('surcharge-value')}` : ''}`
+              + `${metro ? ', all in the Perth metropolitan region' : ''}`, principal: rows.length > 2 ? rows.length - 1 : 0, rows };
+            if (place.value === 'AU-SA' && r.tax > 0 && r.tax < 20) {
+              result.note = 'RevenueSA issues no land tax assessment where the calculated land tax is under $20';
+            }
             break;
           }
           case 'staff': {

@@ -113,3 +113,10 @@ calculate.fbtMealEntertainment({ ...meal, earlier: '1000' }, { ended: '2027' });
 void parkingValue;
 void loanValue;
 void mealValue;
+const landTax: number = calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess', surcharge: '0,0,2,0,excess' },
+  { foreign: true, surchargeValue: '400000' }).total;
+// @ts-expect-error A land value is a decimal string, as the form field gives it.
+calculate.landTaxYear(1100000, { name: 'Tasmania', scale: '0,0,0,0,excess' });
+// @ts-expect-error A foreign or absentee owner is a boolean flag.
+calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess' }, { foreign: 'yes' });
+void landTax;
