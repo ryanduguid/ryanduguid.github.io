@@ -23,11 +23,11 @@ commit them.
 
 ## WebMCP pilot
 
-Six calculator pages each offer one WebMCP tool to a browser's built-in agent
+Eight calculator pages each offer one WebMCP tool to a browser's built-in agent
 through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `modelContext` API: `calculate_gst`, `calculate_div7a_minimum_repayment`,
-`calculate_loan_payment` and `calculate_break_even` on the business calculator
-pages, `calculate_decline_in_value` on the depreciation rates page and
+`calculate_loan_payment`, `calculate_break_even`, `calculate_company_tax` and
+`calculate_foreign_purchaser_surcharges` on the business calculator pages, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and
 `assets/levy-page.mjs` import `assets/webmcp-tools.mjs` only when the browser

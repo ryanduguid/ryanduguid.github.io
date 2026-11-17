@@ -32,6 +32,9 @@ const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
 const psi = { ...business, file: 'assets/psi-determination.mjs' };
 const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
 const payroll = { ...business, file: 'assets/payroll-tax.mjs' };
+const companyTax = { ...business, file: 'assets/company-tax.mjs' };
+const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
+const businessDays = { ...business, file: 'assets/business-days.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -295,6 +298,39 @@ const MUTATIONS = [
   { ...payroll, name: 'payroll tax accepts Australian wages below the state wages', find: 'if (all < own)', replace: 'if (false)' },
   { ...payroll, name: 'payroll tax blank Australian wages are twice the state wages', find: "australian.trim() === '' ? own", replace: "australian.trim() === '' ? own * 2n" },
   { ...payroll, name: 'payroll tax total leaves out the surcharges and levies', find: '(payroll + cents(first) + cents(second)) / 100', replace: 'payroll / 100' },
+  { ...companyTax, name: 'company tax takes exactly 80% passive income as too much', find: 'passive * 10000n <= hundredths(law.passiveLimit)', replace: 'passive * 10000n < hundredths(law.passiveLimit)' },
+  { ...companyTax, name: 'company tax takes $50 million of turnover as under the threshold', find: 'turnover < amount(law.threshold)', replace: 'turnover <= amount(law.threshold)' },
+  { ...companyTax, name: 'company tax franks at this year’s rate', find: 'baseRateTest(input.prior, law)', replace: 'baseRateTest(input, law)' },
+  { ...companyTax, name: 'a new company franks at 30%', find: "imputation.reason === 'base-rate' || imputation.reason === 'new'", replace: "imputation.reason === 'base-rate'" },
+  { ...companyTax, name: 'the maximum franking credit is the dividend times the rate', find: 'dividend * imputationRate / (10000n - imputationRate)', replace: 'dividend * imputationRate / 10000n' },
+  { ...companyTax, name: 'a franking credit rounds half up past the maximum', find: 'const credit = dividend * imputationRate * franking / ((10000n - imputationRate) * 10000n);', replace: 'const credit = ratioCents(dividend * imputationRate * franking, (10000n - imputationRate) * 10000n);' },
+  { ...companyTax, name: 'the grossed-up dividend leaves out the credit', find: 'const grossedUp = dividend + credit;', replace: 'const grossedUp = dividend;' },
+  { ...companyTax, name: 'company tax accepts passive income above assessable income', find: 'if (passive > assessable) throw', replace: 'if (false) throw' },
+  { ...surcharges, name: 'NSW takes 200 days in Australia as too few', find: '>= 200;', replace: '> 200;' },
+  { ...surcharges, name: 'NSW takes a 20% interest as not substantial', find: 'atLeast(largest, 20)', replace: 'over(largest, 20)' },
+  { ...surcharges, name: 'Victoria takes 50% as a controlling interest', find: "verdict(over(held, 50), `foreign persons with associates hold ${b.type === 'discretionary'", replace: "verdict(atLeast(held, 50), `foreign persons with associates hold ${b.type === 'discretionary'" },
+  { ...surcharges, name: 'the 50%-or-more states need more than 50%', find: 'verdict(atLeast(held, 50), `foreign persons with associates hold ${b.combined}%', replace: 'verdict(over(held, 50), `foreign persons with associates hold ${b.combined}%' },
+  { ...surcharges, name: 'Victoria charges a complying super fund the absentee surcharge', find: "if (b.type === 'smsf') return", replace: 'if (false) return' },
+  { ...surcharges, name: 'Victoria charges a fixed trust on land held for residents', find: "if (purchase.place === 'AU-VIC' && buyer.type === 'trust')", replace: 'if (false)' },
+  { ...surcharges, name: 'Victoria’s trust surcharge threshold is ignored', find: '(trust && law.trustLand) || ', replace: '' },
+  { ...surcharges, name: 'a surcharge exemption is worked out instead of refused', find: 'if (b.exemption) {', replace: 'if (false) {' },
+  { ...surcharges, name: 'a partner visa holder is decided instead of refused', find: "if (b.type === 'individual' && b.status === 'partner')", replace: 'if (false)' },
+  { ...surcharges, name: 'the duty surcharge falls on the whole property, not the buyer’s share', find: 'BigInt(share) * hundredths', replace: 'BigInt(number(purchase.value, whole)) * hundredths' },
+  { ...surcharges, name: 'a residential-only land tax surcharge falls on commercial land', find: "law.landOn === 'all' || purchase.use === 'residential'", replace: 'true' },
+  { ...surcharges, name: 'Tasmania’s primary production duty surcharge is left out', find: 'primary: law.primary', replace: 'primary: undefined' },
+  { ...surcharges, name: 'the ACT charges a foreign owner on their own home', find: 'return b.home ?', replace: 'return false ?' },
+  { ...surcharges, name: 'Queensland tests an individual for land tax by visa, not absence', find: "b.type === 'individual' ? absenteeTest(b, 'on 30 June", replace: "false ? absenteeTest(b, 'on 30 June" },
+  { ...surcharges, name: 'a largest foreign interest above the total is accepted', find: 'if (hundredths(b.largest) > hundredths(b.combined)) {', replace: 'if (false) {' },
+  { ...surcharges, name: 'a buyer’s share above the property’s value is accepted', find: 'if (share > number(purchase.value, whole)) throw', replace: 'if (false) throw' },
+  { ...businessDays, name: 'business days count the start date', find: 'for (let day = start + 1; day <= end', replace: 'for (let day = start; day <= end' },
+  { ...businessDays, name: 'business days ignore public holidays', find: 'if (!names.has(toIso(day))) return true;', replace: 'if (true) return true;' },
+  { ...businessDays, name: 'business days count Saturdays', find: 'if (weekday === 0 || weekday === 6) return false;', replace: 'if (weekday === 0) return false;' },
+  { ...businessDays, name: 'business days leave out Melbourne Cup Day and the WA King’s Birthday', find: '[...holidays, ...STATE_ONLY_HOLIDAYS]', replace: '[...holidays]' },
+  { ...businessDays, name: 'any state or territory skips Melbourne Cup Day', find: "place === 'any' ? holidays :", replace: "place === 'any' ? [...holidays, ...STATE_ONLY_HOLIDAYS] :" },
+  { ...businessDays, name: 'provisional public holidays are kept', find: 'rows.filter((row) => !row.provisional)', replace: 'rows' },
+  { ...businessDays, name: 'Victoria is covered after the AFL Grand Final eve is set', find: "VIC: '2027-08-31', ", replace: '' },
+  { ...businessDays, name: 'business days accept an end before the start', find: 'if (end < start) throw', replace: 'if (false) throw' },
+  { ...businessDays, name: 'business days accept an impossible date', find: '&& toIso(toDay(value)) === value', replace: '' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -316,7 +352,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json']) {
+    'scripts/fbt-engine-differential.json', '_includes/duty-jurisdictions.html', '_data/payday_super_business_days.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 

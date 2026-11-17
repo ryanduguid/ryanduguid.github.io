@@ -71,6 +71,13 @@
 //! seats against half the load once for both MT 2024 and LCTD 2023/1. The GST credit is the
 //! lesser of 1/11 of the price and 1/11 of the car limit, where the engine asks whether the
 //! price exceeds the limit. Both round each 1/11 half up to the cent.
+//!
+//! A further 200 seeded company tax cases test 80% passive income as 4/5 of assessable income
+//! and take the maximum franking credit as 1/3 or 3/7 of the dividend, where the engine works
+//! in hundredths of 1% from the rate. 200 seeded foreign purchaser surcharges type each
+//! jurisdiction's duty rate and land tax surcharge formula here from its revenue office, not
+//! from the engine's table or the land tax page. Both round as the engines do, so the oracle
+//! cannot show that convention.
 mod common;
 
 use chrono::{Datelike, NaiveDate, Weekday};
@@ -4755,6 +4762,266 @@ fn the_payroll_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
         .unzip();
     let actual = run_node(PAYROLL_TAX_HARNESS, &cases);
     assert_eq!(actual.len(), PAYROLL_TAX_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the company tax and foreign surcharge engines, as `HARNESS` runs the others.
+const COMPANY_SURCHARGE_HARNESS: &str = r"
+import { companyTax, foreignSurcharge } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const shown = (r, keys) => Object.fromEntries(keys.map((key) => [key, String(r[key])]));
+const run = {
+  company: ({ input }) => shown(companyTax(input), ['rate', 'tax', 'imputationRate', 'maximum', 'credit', 'grossedUp', 'shareholderTax', 'net']),
+  surcharge: ({ buyer, purchase }) => shown(foreignSurcharge(buyer, purchase), ['duty', 'land']),
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
+";
+
+const COMPANY_TAX_CASES: usize = 200;
+const SURCHARGE_CASES: usize = 200;
+/// The largest amount the company tax fields accept, $1,000,000,000,000.00, in cents.
+const MAX_COMPANY_CENTS: u64 = 100_000_000_000_000;
+
+/// Section 23AA of the Income Tax Rates Act 1986: aggregated turnover under $50 million and base
+/// rate entity passive income of no more than 80%, here 4/5, of assessable income.
+fn base_rate_entity([turnover, assessable, passive]: [u64; 3]) -> bool {
+    turnover < 5_000_000_000 && u128::from(passive) * 5 <= u128::from(assessable) * 4
+}
+
+/// A signed cent amount as a JavaScript number prints it.
+fn shown_signed(cents: i128) -> String {
+    let magnitude = shown(u64::try_from(cents.unsigned_abs()).unwrap());
+    if cents < 0 {
+        format!("-{magnitude}")
+    } else {
+        magnitude
+    }
+}
+
+/// The company tax rate and tax, half up; the corporate tax rate for imputation purposes from the
+/// previous year, or 25% for a new company (section 995-1); the maximum franking credit as the
+/// dividend times 1 over the gross-up rate, which is 1/3 at 25% and 3/7 at 30% (section 202-60),
+/// and the credit at the franking percentage, both rounded down; and an individual's tax at the
+/// marginal rate on the grossed-up dividend, half up, less the credit. Rates are in hundredths of 1%.
+fn company_tax_oracle(
+    this: [u64; 3],
+    taxable: u64,
+    prior: Option<[u64; 3]>,
+    dividend: u64,
+    franking: u64,
+    marginal: u64,
+) -> Value {
+    let rate: u128 = if base_rate_entity(this) { 25 } else { 30 };
+    let (imputation, n, d): (u128, u128, u128) = if prior.is_none_or(base_rate_entity) {
+        (25, 1, 3)
+    } else {
+        (30, 3, 7)
+    };
+    let dividend = u128::from(dividend);
+    let maximum = dividend * n / d;
+    let credit = dividend * n * u128::from(franking) / (d * 10_000);
+    let grossed_up = dividend + credit;
+    let shareholder = exact_half_up(grossed_up * u128::from(marginal), 10_000);
+    let cents = |value: u128| shown(u64::try_from(value).unwrap());
+    json!({
+        "rate": rate.to_string(),
+        "tax": cents(exact_half_up(u128::from(taxable) * rate, 100)),
+        "imputationRate": imputation.to_string(),
+        "maximum": cents(maximum),
+        "credit": cents(credit),
+        "grossedUp": cents(grossed_up),
+        "shareholderTax": cents(shareholder),
+        "net": shown_signed(i128::try_from(shareholder).unwrap() - i128::try_from(credit).unwrap()),
+    })
+}
+
+/// One income year's turnover, assessable income and passive income, in cents, with turnover
+/// either side of $50 million and passive income either side of 80% as often as anywhere.
+fn company_year(rng: &mut Seeded) -> [u64; 3] {
+    let any_turnover = rng.cents(MAX_COMPANY_CENTS);
+    let turnover = rng.pick(&[
+        4_999_999_999,
+        5_000_000_000,
+        5_000_000_001,
+        any_turnover,
+        any_turnover,
+    ]);
+    let assessable = 5 * (1 + rng.cents(MAX_COMPANY_CENTS / 5 - 1));
+    let any_passive = rng.cents(assessable);
+    let limit = assessable / 5 * 4;
+    let passive = rng.pick(&[limit - 1, limit, limit + 1, any_passive, any_passive, 0]);
+    [turnover, assessable, passive]
+}
+
+fn company_tax_case(rng: &mut Seeded) -> (Value, Value) {
+    let this = company_year(rng);
+    let prior = if rng.below(4) == 0 {
+        None
+    } else {
+        Some(company_year(rng))
+    };
+    let taxable = rng.cents(MAX_COMPANY_CENTS);
+    let dividend = rng.cents(MAX_COMPANY_CENTS);
+    let any_franking = rng.below(10_001);
+    let (franking, marginal) = (rng.pick(&[0, 10_000, any_franking]), rng.below(10_001));
+    let year = |[turnover, assessable, passive]: [u64; 3]| json!({"turnover": dollars(turnover), "assessable": dollars(assessable), "passive": dollars(passive)});
+    let percent = |hundredths: u64| format!("{}.{:02}", hundredths / 100, hundredths % 100);
+    let mut input = year(this);
+    let fields = json!({
+        "taxable": dollars(taxable), "existed": prior.is_some(), "prior": year(prior.unwrap_or([0, 0, 0])),
+        "dividend": dollars(dividend), "franking": percent(franking), "marginal": percent(marginal),
+    });
+    input
+        .as_object_mut()
+        .unwrap()
+        .extend(fields.as_object().unwrap().clone());
+    (
+        json!({"kind": "company", "input": input}),
+        company_tax_oracle(this, taxable, prior, dividend, franking, marginal),
+    )
+}
+
+/// Each surcharge as its revenue office states it, read 18 November 2026, typed here rather than
+/// read from the engine's table: the duty rate per cent in hundredths by jurisdiction and use, and
+/// the land tax surcharge in cents on whole dollars of land for a foreign individual, or for a
+/// Victorian fixed trust with `held` hundredths of 1% held for absentees, which bears the
+/// surcharge from $25,000 rather than $50,000 on that share of the land.
+fn surcharge_oracle(
+    place: &str,
+    residential: bool,
+    primary: bool,
+    share: u64,
+    land: u64,
+    held: Option<u64>,
+) -> Value {
+    let duty_rate: u128 = match (place, residential, primary) {
+        ("AU-NSW", true, _) => 900,
+        ("AU-VIC" | "AU-QLD" | "AU-TAS", true, _) => 800,
+        ("AU-WA" | "AU-SA", true, _) => 700,
+        ("AU-TAS", _, true) => 150,
+        _ => 0,
+    };
+    let foreign_for_duty = held.is_none_or(|held| held > 5_000);
+    let duty = if foreign_for_duty {
+        exact_half_up(u128::from(share) * duty_rate, 100)
+    } else {
+        0
+    };
+    let land = u128::from(land);
+    let surcharge = match (place, residential) {
+        ("AU-NSW", true) => land * 5,
+        ("AU-VIC", _) => match held {
+            None if land >= 50_000 => land * 4,
+            Some(held) if land >= 25_000 => exact_half_up(land * 4 * u128::from(held), 10_000),
+            _ => 0,
+        },
+        ("AU-QLD", _) => land.saturating_sub(350_000) * 3,
+        ("AU-TAS", true) => land * 2,
+        ("AU-ACT", true) => exact_half_up(land * 75, 100),
+        _ => 0,
+    };
+    json!({"duty": shown(u64::try_from(duty).unwrap()), "land": shown(u64::try_from(surcharge).unwrap())})
+}
+
+const SURCHARGE_PLACES: [&str; 8] = [
+    "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+];
+
+fn surcharge_case(rng: &mut Seeded) -> (Value, Value) {
+    let place = rng.pick(&SURCHARGE_PLACES);
+    let use_ = rng.pick(&["residential", "residential", "primary", "other"]);
+    let value = 1 + rng.cents(999_999_999);
+    let part = 1 + rng.below(value);
+    let share = rng.pick(&[value, part]);
+    let any_land = rng.cents(1_000_000_000);
+    let land = rng.pick(&[
+        24_999, 25_000, 49_999, 50_000, 350_000, 350_001, any_land, any_land,
+    ]);
+    let any_held = rng.below(10_001);
+    let held = if place == "AU-VIC" && rng.below(2) == 0 {
+        Some(rng.pick(&[5_000, 5_001, any_held]))
+    } else {
+        None
+    };
+    let percent = |hundredths: u64| format!("{}.{:02}", hundredths / 100, hundredths % 100);
+    let buyer = json!({
+        "type": if held.is_some() { "trust" } else { "individual" }, "status": "other", "daysBefore": "0", "daysDecember": "0",
+        "nzResident": false, "resides": false, "absent": true, "home": false, "overseas": false, "largest": "0",
+        "combined": percent(held.unwrap_or(0)), "capital": "0", "amendable": false, "control": false, "named": false,
+        "defaults": "0", "exemption": false,
+    });
+    (
+        json!({"kind": "surcharge", "buyer": buyer, "purchase":
+            {"place": place, "use": use_, "value": value.to_string(), "share": share.to_string(), "land": land.to_string()}}),
+        surcharge_oracle(
+            place,
+            use_ == "residential",
+            use_ == "primary",
+            share,
+            land,
+            held,
+        ),
+    )
+}
+
+#[test]
+fn the_company_tax_and_surcharge_oracles_work_the_published_examples() {
+    let happy = [10_400_000, 10_400_000, 400_000];
+    // ATO: Happy Feet's income gives 25%; Dillmore Manufacture franks $100,000 at 30% for an exact
+    // $42,857.14, where the ATO shows $42,857.75 from a rounded gross-up rate.
+    let feet = company_tax_oracle(happy, 10_400_000, Some(happy), 3_000_000, 10_000, 3_000);
+    assert_eq!(
+        (&feet["rate"], &feet["tax"], &feet["net"]),
+        (&json!("25"), &json!("26000"), &json!("2000"))
+    );
+    let dillmore = company_tax_oracle(
+        [4_500_000_000, 4_500_000_000, 0],
+        0,
+        Some([5_200_000_000, 5_200_000_000, 0]),
+        10_000_000,
+        10_000,
+        0,
+    );
+    assert_eq!(
+        (&dillmore["rate"], &dillmore["maximum"], &dillmore["net"]),
+        (&json!("25"), &json!("42857.14"), &json!("-42857.14"))
+    );
+    // Revenue NSW: 9% of $1,000,000 and 5% of $1,200,000; SRO Victoria's Clara, a fixed trust half
+    // held for absentees, $20,000 on $1,000,000; Queensland, 3% above $350,000; the ACT, 0.75% of $600,000.
+    assert_eq!(
+        surcharge_oracle("AU-NSW", true, false, 1_000_000, 1_200_000, None),
+        json!({"duty": "90000", "land": "60000"})
+    );
+    assert_eq!(
+        surcharge_oracle("AU-VIC", true, false, 1_000_000, 1_000_000, Some(5_000)),
+        json!({"duty": "0", "land": "20000"})
+    );
+    assert_eq!(
+        surcharge_oracle("AU-QLD", true, false, 400_000, 400_000, None),
+        json!({"duty": "32000", "land": "1500"})
+    );
+    assert_eq!(
+        surcharge_oracle("AU-ACT", true, false, 600_000, 600_000, None),
+        json!({"duty": "0", "land": "4500"})
+    );
+}
+
+#[test]
+fn the_company_tax_and_surcharge_engines_agree_with_the_oracles_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1118_0000_C0DE);
+    let (mut cases, mut expected): (Vec<_>, Vec<_>) = (0..COMPANY_TAX_CASES)
+        .map(|_| company_tax_case(&mut rng))
+        .unzip();
+    let (more, more_expected): (Vec<_>, Vec<_>) = (0..SURCHARGE_CASES)
+        .map(|_| surcharge_case(&mut rng))
+        .unzip();
+    cases.extend(more);
+    expected.extend(more_expected);
+    let actual = run_node(COMPANY_SURCHARGE_HARNESS, &cases);
+    assert_eq!(actual.len(), COMPANY_TAX_CASES + SURCHARGE_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

@@ -188,14 +188,110 @@ const breakEvenTool = (breakEven) => tool({
   },
 });
 
+/** @param {typeof import('./business-calculators.mjs').companyTax} companyTax */
+const companyTaxTool = (companyTax) => tool({
+  name: 'calculate_company_tax',
+  title: 'Company tax and franking calculator',
+  description: 'An Australian company\'s tax rate (25% for a base rate entity under section 23AA of the Income Tax Rates Act 1986, '
+    + 'otherwise 30%) and tax in AUD for an income year from 2021-22, its corporate tax rate for imputation purposes from the '
+    + 'previous year\'s figures (25% for a company new this year), the maximum franking credit on a dividend, the credit at the '
+    + 'franking percentage, rounded down to the cent, and an Australian resident individual shareholder\'s tax on the grossed-up '
+    + 'dividend less the franking tax offset: positive is tax to pay, negative a refund. It does not work out turnover or passive income.',
+  inputSchema: record({
+    turnover: text('cost', 'Aggregated turnover for the year, connected entities and affiliates included, in AUD with at most 2 decimal places.'),
+    assessableIncome: text('cost', 'Assessable income for the year in AUD with at most 2 decimal places.'),
+    passiveIncome: text('cost', 'Base rate entity passive income in it, franking credits included, in AUD; no more than assessable income.'),
+    taxableIncome: text('cost', 'Taxable income for the year in AUD with at most 2 decimal places.'),
+    existedLastYear: { type: 'boolean', description: 'true when the company existed in the previous income year.' },
+    previousTurnover: text('cost', 'Previous year\'s aggregated turnover in AUD; "0" or omitted when the company did not exist.'),
+    previousAssessableIncome: text('cost', 'Previous year\'s assessable income in AUD; "0" or omitted when the company did not exist.'),
+    previousPassiveIncome: text('cost', 'Previous year\'s base rate entity passive income in AUD; "0" or omitted when the company did not exist.'),
+    dividend: text('cost', 'Dividend paid in AUD with at most 2 decimal places.'),
+    frankingPercent: text('percent', 'Franking percentage, 0 to 100, with at most 2 decimal places.'),
+    marginalRate: text('percent', 'Shareholder\'s marginal tax rate with any Medicare levy, in per cent, 0 to 100.'),
+  }, ['turnover', 'assessableIncome', 'passiveIncome', 'taxableIncome', 'existedLastYear', 'dividend', 'frankingPercent', 'marginalRate']),
+  run(input) {
+    const { previousTurnover = '0', previousAssessableIncome = '0', previousPassiveIncome = '0' } = input;
+    const r = companyTax({ turnover: input.turnover, assessable: input.assessableIncome, passive: input.passiveIncome,
+      taxable: input.taxableIncome, existed: input.existedLastYear,
+      prior: { turnover: previousTurnover, assessable: previousAssessableIncome, passive: previousPassiveIncome },
+      dividend: input.dividend, franking: input.frankingPercent, marginal: input.marginalRate });
+    return {
+      baseRateEntity: r.entity === 'base-rate', taxRatePercent: r.rate, tax: dollars(r.tax), imputationRatePercent: r.imputationRate,
+      maximumFrankingCredit: dollars(r.maximum), frankingCredit: dollars(r.credit), grossedUpDividend: dollars(r.grossedUp),
+      shareholderTax: dollars(r.shareholderTax), shareholderNet: dollars(r.net), currency: 'AUD',
+      basis: 'Income Tax Rates Act 1986 ss 23(2) and 23AA; ITAA 1997 ss 995-1, 202-60, 207-20 and 67-25. Tax rounds half up; credits round down.',
+      source: `${CALCULATORS}company-tax/`,
+    };
+  },
+});
+
+const SURCHARGE_PLACES = ['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-WA', 'AU-SA', 'AU-TAS', 'AU-ACT', 'AU-NT'];
+/** Optional yes or no answers of the foreign surcharge tool, false when omitted. */
+const SURCHARGE_FLAGS = {
+  nzResident: 'Victorian duty, New Zealand citizen: ordinarily resident in Australia for 6 consecutive months within the 12 months before or after settlement.',
+  resides: 'The individual ordinarily resides in Australia (Victorian and Queensland land tax, ACT).',
+  absent: 'The individual was away from Australia on the land tax day or for over 6 months of the year before it (Victoria and Queensland).',
+  home: 'ACT: the individual will live in the home as their principal place of residence.',
+  overseas: 'A company incorporated outside Australia.',
+  amendable: 'Discretionary trust: the deed could be amended so a foreign person can benefit.',
+  control: 'Discretionary trust: a foreign person is a trustee or appointor, or controls the trust.',
+  named: 'Discretionary trust: a beneficiary, object or taker in default named in the deed is a foreign person (for Victorian land tax, an absentee).',
+};
+
+/** @param {typeof import('./business-calculators.mjs').foreignSurcharge} foreignSurcharge */
+const foreignSurchargeTool = (foreignSurcharge) => tool({
+  name: 'calculate_foreign_purchaser_surcharges',
+  title: 'Foreign purchaser surcharge calculator',
+  description: 'One buyer\'s foreign purchaser duty surcharge in AUD on its share of one property, and the foreign owner land tax '
+    + 'surcharge for a full year, in one Australian state or territory, each with that jurisdiction\'s own test of whether the '
+    + 'buyer is foreign, worded as the result. The Northern Territory charges neither, the ACT no duty surcharge, and Western '
+    + 'Australia and South Australia no land tax surcharge. It does not work out exemptions, refunds or relief, which each '
+    + 'Commissioner decides, or the status of a partner or retirement visa holder.',
+  inputSchema: record({
+    place: choice(SURCHARGE_PLACES, 'State or territory, for example "AU-NSW".'),
+    buyer: choice(['individual', 'company', 'trust', 'discretionary', 'smsf'],
+      '"individual", "company", "trust" (a fixed or unit trust), "discretionary" (a discretionary trust) or "smsf" (a complying self-managed super fund).'),
+    status: choice(['citizen', 'permanent', 'nz', 'other'],
+      'An individual\'s status: "citizen", "permanent" visa, "nz" (New Zealand citizen on a special category visa) or "other"; ignored for other buyers.'),
+    use: choice(['residential', 'primary', 'other'], '"residential" (vacant residential land included), "primary" production or "other".'),
+    value: whole(1, 1000000000, 'Dutiable value of the whole property in whole AUD.'),
+    share: whole(1, 1000000000, 'Dutiable value of this buyer\'s share in whole AUD, no more than the value.'),
+    landValue: whole(0, 1000000000, 'All the buyer\'s taxable land in the jurisdiction, their share only, in whole AUD.'),
+    daysBefore: whole(0, 366, 'New South Wales duty: days in Australia in the 12 months before the contract.'),
+    daysToDecember: whole(0, 366, 'New South Wales land tax: days in Australia in the 12 months to the next 31 December.'),
+    largestForeignPercent: text('percent', 'Company, trust or fund: largest interest of one foreign person with associates, in per cent.'),
+    foreignPercent: text('percent', 'Company, trust or fund: interests of all foreign persons together, with associates, in per cent.'),
+    capitalPercent: text('percent', 'Discretionary trust: most of the capital the trustee could give foreign persons, in per cent.'),
+    defaultsPercent: text('percent', 'Discretionary trust: foreign takers in default\'s share, in per cent.'),
+    ...Object.fromEntries(Object.entries(SURCHARGE_FLAGS).map(([key, description]) => [key, { type: 'boolean', description }])),
+  }, ['place', 'buyer', 'status', 'use', 'value', 'share', 'landValue']),
+  run(input) {
+    const r = foreignSurcharge({ type: input.buyer, status: input.status, daysBefore: String(input.daysBefore ?? 0),
+      daysDecember: String(input.daysToDecember ?? 0), largest: input.largestForeignPercent ?? '0', combined: input.foreignPercent ?? '0',
+      capital: input.capitalPercent ?? '0', defaults: input.defaultsPercent ?? '0', exemption: false,
+      ...Object.fromEntries(Object.keys(SURCHARGE_FLAGS).map((key) => [key, input[key] ?? false])) },
+    { place: input.place, use: input.use, value: String(input.value), share: String(input.share), land: String(input.landValue) });
+    return {
+      dutySurchargeRatePercent: r.dutyRate, dutySurcharge: dollars(r.duty), dutyTest: r.dutyTest,
+      landTaxSurcharge: dollars(r.land), landTaxTest: r.landTest, currency: 'AUD',
+      basis: 'Each jurisdiction\'s rate and test of a foreign buyer as its revenue office states them, read 18 November 2026; the revenue office decides.',
+      source: `${CALCULATORS}foreign-surcharge/`,
+    };
+  },
+});
+
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
- * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'loan' | 'breakEven'>} calculate */
+ * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'loan' | 'breakEven' | 'companyTax'
+ *   | 'foreignSurcharge'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
     div7a: div7aTool(calculate.div7aMinimumRepayment),
     loan: loanTool(calculate.loan),
     'break-even': breakEvenTool(calculate.breakEven),
+    'company-tax': companyTaxTool(calculate.companyTax),
+    'foreign-surcharge': foreignSurchargeTool(calculate.foreignSurcharge),
   };
 }
 

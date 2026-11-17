@@ -66,7 +66,8 @@ test('each business calculator tool is keyed by the form that registers it', () 
 test('every calculator tool is read-only, refuses unknown inputs and has its own name', () => {
   const all = [...Object.values(tools), declineInValue, levy];
   assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_payment',
-    'calculate_break_even', 'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
+    'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_decline_in_value',
+    'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
     assert.equal(t.inputSchema.additionalProperties, false, t.name);
@@ -238,4 +239,40 @@ test('Ozzit tool refuses an unknown or empty name', async () => {
   await assert.rejects(lookup.execute({ name: 'NotAFunction' }), /No Ozzit function is named NotAFunction/);
   await assert.rejects(lookup.execute({ name: '  ' }), /function name/);
   await assert.rejects(lookup.execute({}), /function name/);
+});
+
+// The company tax page's example (the ATO's Happy Feet income) and Dillmore Manufacture's new company case.
+test('company tax tool returns the page worked example and passes the form’s strings', async () => {
+  const calls = [];
+  const spied = calculatorTools({ ...calculate, companyTax: (input) => (calls.push(input), calculate.companyTax(input)) });
+  const r = await spied['company-tax'].execute({ turnover: '104000', assessableIncome: '104000', passiveIncome: '4000',
+    taxableIncome: '104000', existedLastYear: true, previousTurnover: '104000', previousAssessableIncome: '104000',
+    previousPassiveIncome: '4000', dividend: '30000', frankingPercent: '100', marginalRate: '30' });
+  assert.deepEqual([r.baseRateEntity, r.taxRatePercent, r.tax, r.imputationRatePercent, r.maximumFrankingCredit, r.shareholderNet],
+    [true, 25, '26000.00', 25, '10000.00', '2000.00']);
+  assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/company-tax/');
+  const fresh = await spied['company-tax'].execute({ turnover: '60000000', assessableIncome: '1000000', passiveIncome: '0',
+    taxableIncome: '1000000', existedLastYear: false, dividend: '75000', frankingPercent: '50', marginalRate: '0' });
+  assert.deepEqual([fresh.taxRatePercent, fresh.imputationRatePercent, fresh.frankingCredit, fresh.shareholderNet], [30, 25, '12500.00', '-12500.00']);
+  assert.deepEqual(calls[1].prior, { turnover: '0', assessable: '0', passive: '0' });
+  await assert.rejects(spied['company-tax'].execute({ turnover: 104000, assessableIncome: '1', passiveIncome: '0', taxableIncome: '1',
+    existedLastYear: false, dividend: '0', frankingPercent: '0', marginalRate: '0' }), /turnover does not match its description/);
+});
+
+// The foreign surcharge page's example: Revenue NSW's 9% of $1,000,000 and 5% of $1,200,000.
+test('foreign surcharge tool returns the page worked example and refuses what the page refuses', async () => {
+  const tool = tools['foreign-surcharge'];
+  const r = await tool.execute({ place: 'AU-NSW', buyer: 'individual', status: 'other', use: 'residential', value: 1000000,
+    share: 1000000, landValue: 1200000 });
+  assert.deepEqual([r.dutySurchargeRatePercent, r.dutySurcharge, r.landTaxSurcharge, r.currency], [9, '90000.00', '60000.00', 'AUD']);
+  assert.match(r.dutyTest, /^Foreign: /);
+  const trust = await tool.execute({ place: 'AU-VIC', buyer: 'trust', status: 'citizen', use: 'residential', value: 1000000,
+    share: 1000000, landValue: 1000000, largestForeignPercent: '50', foreignPercent: '50' });
+  assert.deepEqual([trust.dutySurcharge, trust.landTaxSurcharge], ['0.00', '20000.00']);
+  await assert.rejects(tool.execute({ place: 'AU-NSW', buyer: 'individual', status: 'partner', use: 'residential', value: 1, share: 1,
+    landValue: 0 }), /status does not match its description/);
+  await assert.rejects(tool.execute({ place: 'AU-NSW', buyer: 'individual', status: 'other', use: 'residential', value: 1, share: 1,
+    landValue: 0, exemption: true }), /exemption is not an input of this tool/);
+  await assert.rejects(tool.execute({ place: 'AU-NSW', buyer: 'individual', status: 'other', use: 'residential', value: 1, share: 2,
+    landValue: 0 }), /The buyer’s share cannot be worth more than the whole property\./);
 });
