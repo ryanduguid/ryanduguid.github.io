@@ -1400,11 +1400,11 @@ Primary source Download CSV
 
 15%
 
-15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO had published Medicare levy low-income thresholds to 2025-26 only when checked on 17 November 2026, so the 2026-27 thresholds are the Medicare Levy Act’s.
+15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO had published Medicare levy low-income thresholds to 2025-26 only when checked on 14 November 2026.
 
 Source checked
 
-14 November 2026, and 17 November 2026 for the 2026-27 Medicare levy thresholds
+14 November 2026
 
 Scope
 
@@ -2362,7 +2362,7 @@ The car limit is $69,883 for a car first used or leased in 2026-27. It was $69,6
 
 The limit caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
+Published 20 September 2026. Last reviewed 16 November 2026. Source checked 13 November 2026.
 
 Each figure below was read on 20 September 2026 from an ATO page: the 2026-27 car thresholds notice, the car limit list for 2021-22 to 2025-26 and the accelerated depreciation page for 2019-20 and 2020-21. The limit itself is section 40-230 of the Income Tax Assessment Act 1997.
 
@@ -2398,7 +2398,7 @@ No. It stayed at $69,674, the same figure as 2024-25, because the indexation fac
 
 ### Which vehicles does the car limit apply to?
 
-Passenger vehicles designed to carry a load of less than one tonne and fewer than nine passengers. A motorcycle or similar vehicle is excluded, as are utes and vans over the one-tonne load rating.
+A car designed mainly for carrying passengers (section 40-230). A car is a motor vehicle, other than a motor cycle or similar vehicle, designed to carry a load of less than 1 tonne and fewer than 9 passengers (section 995-1), so a ute or van designed to carry 1 tonne or more is outside the limit. So is a car not designed mainly for carrying passengers, such as a hearse (TD 2006/39).
 
 ### What is the most GST credit for a car over the limit?
 
@@ -2530,11 +2530,11 @@ Source: https://duguid.com.au/rates/individual-income-tax/
 
 15% is the first rate above the $18,200 tax-free threshold for 2026-27, down from 16% for 2024-25 and 2025-26.
 
-These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 17 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only, so the 2026-27 thresholds are the Medicare Levy Act’s.
+These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 14 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only.
 
-Published 14 November 2026. Last reviewed 17 November 2026. Source checked 14 November 2026. Source checked 17 November 2026 for the 2026-27 Medicare levy thresholds.
+Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
 
-Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25. The 2026-27 Medicare levy thresholds were read from the Medicare Levy Act 1986 on 17 November 2026.
+Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25.
 
 ## Rates for 2026-27
 
@@ -2577,7 +2577,6 @@ The ATO page also lists resident rates back to 1983-84. They are not listed here
 The Medicare levy is 2% of taxable income. A single person not entitled to the seniors and pensioners tax offset pays no levy on taxable income at or below the lower threshold and a reduced levy up to the upper threshold. Thresholds for families and for people entitled to that offset are on the ATO pages and are not listed here.
 
 Income year | Lower threshold | Upper threshold
-2026-27 | $28,011 | $35,013
 2025-26 | $28,011 | $35,013
 2024-25 | $27,222 | $34,027
 2023-24 | $26,000 | $32,500
@@ -2585,9 +2584,9 @@ Income year | Lower threshold | Upper threshold
 2021-22 | $23,365 | $29,206
 2020-21 | $23,226 | $29,032
 
-The 2026-27 row is the law in force on 17 November 2026, not an ATO table: that day the ATO’s Medicare levy reduction page gave thresholds for 2025-26 and no later year. Section 3(1) of the Medicare Levy Act 1986, in compilation 53 of 1 July 2026 (the latest on 17 November 2026), sets $28,011 and $35,013, and Schedule 5 to the Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026 (No. 58, 2026) applies them to 2025-26 and later years. That Act received assent on 30 June 2026, the last day of 2025-26, and raised that year’s figures, so a later Act could still change them for 2026-27. The ATO’s myTax instructions for 2019-20 give no threshold table, so that year is not listed.
+The table lists only thresholds the ATO has published. On 14 November 2026 its Medicare levy reduction page gave thresholds for 2025-26 and no later year, so 2026-27 is not listed. Under the law in force that day the same figures apply to 2026-27: section 3(1) of the Medicare Levy Act 1986, in compilation 53 of 1 July 2026 (the latest on 14 November 2026), sets $28,011 and $35,013, and Schedule 5 to the Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026 (No. 58, 2026) applies them to 2025-26 and later years. That Act received assent on 30 June 2026, the last day of 2025-26, and raised that year’s figures, so a later Act could still change them for 2026-27. The ATO’s myTax instructions for 2019-20 give no threshold table, so that year is not listed.
 
-Download the table as CSV. Each row of the CSV gives the page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026 except the 2026-27 Medicare levy row, read from the Act on 17 November 2026. Rows with component resident_tax hold the tax bands; rows with medicare_levy_low_income_single hold the lower and upper thresholds in income_from and income_to. Cite as Duguid, R. (2026). Australian resident income tax rates by year [Data set]. https://duguid.com.au/rates/individual-income-tax/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026. Rows with component resident_tax hold the tax bands; rows with medicare_levy_low_income_single hold the lower and upper thresholds in income_from and income_to. Cite as Duguid, R. (2026). Australian resident income tax rates by year [Data set]. https://duguid.com.au/rates/individual-income-tax/. Verify against current ATO guidance before relying on a figure.
 
 ## Common questions
 
@@ -2601,7 +2600,7 @@ The rate on taxable income from $18,201 to $45,000 fell from 16% to 15%, so the 
 
 ### What are the 2026-27 Medicare levy low-income thresholds?
 
-Under the law in force on 17 November 2026, $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset, the same as 2025-26. Section 3(1) of the Medicare Levy Act 1986, as compiled on 1 July 2026, sets those figures, and Act No. 58 of 2026 applies them to 2025-26 and later years. The ATO had not published 2026-27 thresholds that day, and a later Act can still change them.
+Under the law in force on 14 November 2026, $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset, the same as 2025-26. Section 3(1) of the Medicare Levy Act 1986, as compiled on 1 July 2026, sets those figures, and Act No. 58 of 2026 applies them to 2025-26 and later years. The ATO had not published 2026-27 thresholds that day, and a later Act can still change them.
 
 ### Do these rates apply to everyone?
 
@@ -3199,7 +3198,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 19 business planning calculators, 3 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 19 business planning calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3417,7 +3416,6 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 19 business planning calculators: https://duguid.com.au/tools/business-calculators/
-- 3 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -5562,7 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-17 November 2026 | Three individual tax calculators for 2024-25 to 2026-27: income tax with the low income tax offset and the Medicare levy for a resident, a foreign resident or a working holiday maker; take-home pay a year, month, fortnight and week, with super guarantee and the $1,000 standard deduction from 2026-27; and the compulsory study and training loan repayment, marginal from 2025-26. Each rate and threshold is cited to its Act. The individual income tax rate table adds the 2026-27 Medicare levy low-income thresholds from the Medicare Levy Act 1986.
+16 November 2026 | A new vehicle classifier works out from a manufacturer’s specification whether a vehicle is a car under section 995-1, so whether the car limit and the GST credit cap apply, whether luxury car tax can apply at the 2025-26 or 2026-27 threshold and whether an employer’s FBT exemption for an eligible vehicle can apply on the private use you state. It works MT 2024’s dual cab test, LCTD 2023/1’s ute method and TD 2006/40’s order of the credit and the car limit, and refuses a modified vehicle without its compliance plate figures, a payload that disagrees with the mass and kerb weight, and any other body it cannot weigh. It leaves the car limit undecided for a single cab ute or panel van, which no ATO source settles. The car limit table now says the limit reaches a car designed mainly for carrying passengers, rather than excluding only utes and vans over 1 tonne.
 16 November 2026 | The announced measures page notes a bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, that the ATO’s summary now lists against the negative gearing and CGT discount reform. Parliament’s summary says it would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing; it is not law. Accounting questions 2 and 89 were rechecked on 16 November 2026 against the ATO’s claiming deductions page and its updated standard deduction and payment plans pages. Question 2 now says a few deductions, such as gifts and donations, need no connection to earning income, and question 89 says each account with an overdue debt must be paid in full or have its own payment plan.
 15 November 2026 | Six new business calculators: the last day to object to an income tax or FBT assessment, an amended assessment or another decision under section 14ZW, moved past a weekend; a quarterly PAYG instalment by the notified or varied amount or rate, with the credit to claim; the tax-free part of a genuine redundancy payment and the PAYG to withhold from an ETP for 2026-27; general transfer duty on a residential purchase in each of the 8 states and territories, from each one’s primary source; the ATO’s PCG 2021/4 risk zone for a professional firm’s profit allocation; and the GIC on a tax debt paid by weekly, fortnightly or monthly instalments. New rate tables give each state and territory’s transfer duty scale and every quarter’s GIC rate since July 1999.
 15 November 2026 | Two new business calculators: FBT on a car for the FBT year ending 31 March 2027, by the statutory formula or the operating cost method, and fixed fee pricing from hours at a rate or a cost and margin, with GST and monthly instalments that add up to the cent. The loan calculator takes a balloon and payments in advance. A new page lists the 2026-27 BAS due dates for monthly and quarterly lodgers, with a CSV, each date checked at the ATO on 15 November 2026. The Coal LSL levy page links its API and OpenAPI document, and WebMCP tools now cover the Division 7A, loan, break-even, depreciation and Coal LSL calculators as well as GST.
@@ -6294,7 +6292,7 @@ Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last checked 16 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
 
 ## Pricing, planning and loans
 
@@ -6311,6 +6309,7 @@ Published 11 September 2026. Last checked 16 November 2026, the newest of the ca
 
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
+- Vehicle classifier Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
 
@@ -6342,6 +6341,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
+- Vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
@@ -9723,7 +9723,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9734,7 +9734,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9781,7 +9781,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9791,7 +9791,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9838,7 +9838,7 @@ Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.
 
 Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -9848,7 +9848,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9894,7 +9894,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9903,7 +9903,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9947,7 +9947,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -9956,7 +9956,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10006,7 +10006,7 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
 
@@ -10015,7 +10015,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10066,7 +10066,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -10076,7 +10076,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10132,7 +10132,7 @@ A balloon above the principal is refused | $1,000.00 at 12% over 12 months, ball
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10143,7 +10143,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - car limit: https://duguid.com.au/rates/car-limit/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10196,7 +10196,7 @@ One year left repays the balance and a year’s interest | $1,000.00 at 8.77% ov
 The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
 No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10207,7 +10207,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10261,7 +10261,7 @@ The ATO’s example 23: a third off the cost price, none off later accessories |
 Contributions above the value leave nil | Statutory formula; cost price $10,000.00, 365 of 365 days, contributions $3,000.00, gross-up 2.0802 | Statutory formula value $0.00, taxable value $0.00, FBT $0.00
 More days than the FBT year are refused | Statutory formula; cost price $10,000.00, 366 of 365 days, contributions $0.00, gross-up 2.0802 | Refused: enter a whole number between 0 and 365
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10273,7 +10273,87 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - guide’s chapter 2: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Vehicle classifier: car limit, GST credit, LCT and FBT exemption
+
+Source: https://duguid.com.au/tools/business-calculators/vehicle-class/
+
+> Whether a vehicle is a car under section 995-1, and whether the car limit, the GST credit cap, luxury car tax and an FBT exemption for eligible vehicles apply.
+
+# Vehicle classifier
+
+Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
+
+Published 16 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Vehicle classifier inputs
+
+Body type Passenger body (sedan, wagon, SUV) Single cab ute Dual or extra cab ute Panel or cargo van Another body, such as a truck or bus Motor cycle Seats, driver included Gross vehicle mass (kg) Basic kerb weight (kg), 0 if unknown Stated payload (kg), 0 if none Accessories at supply, not in kerb weight (kg), 0 if none Modified after manufacture? No Yes, with plate figures Yes, figures unknown Year first held and used 2026-27 2025-26 Price including GST, before luxury car tax (AUD) Full GST credit claimed? Yes No Combined fuel consumption More than 3.5 litres per 100 km 3.5 litres per 100 km or less Private use you state Work-related travel and minor, infrequent and irregular use only More than that
+
+Enter the manufacturer’s figures; kerb weight includes fuel and fluids but no people or goods, and a cab-chassis’s tray. The price stands for market value and luxury car tax value on an outright purchase.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, not modified, 2026-27, price $75,000.00, full GST credit, more than 3.5 litres per 100 km, private use limited as you state. Designed load: gross vehicle mass less kerb weight 865 kg A car under section 995-1 of ITAA 1997 Yes: 865 kg is under 1 tonne and 5 seats are fewer than 9 Designed principally to carry passengers Yes: a passenger body (TD 94/19) Car limit, section 40-230 Applies: $69,883.00 GST credit, section 69-10 of the GST Act $6,353.00: the GST in the price, up to 1/11 of the car limit First element of cost for decline in value $68,647.00 Luxury car tax at the $80,809.00 threshold Cannot apply: the price is not over the threshold FBT on an employee’s private use No exemption: a car fringe benefit Records The compliance plate or specification, a log book of 12 continuous weeks with odometer records or a record of business kilometres for an individual or partnership, and the records to value the fringe benefit
+
+## How the vehicle classifier works
+
+The vehicle classifier works out whether one vehicle bought in 2025-26 or 2026-27 is a car for income tax, GST and FBT, and what follows. The designed load is the gross vehicle mass on the compliance plate less the basic kerb weight, or the stated payload, which must agree with them. Under section 995-1 of ITAA 1997, a motor vehicle other than a motor cycle is a car if designed to carry a load under 1 tonne and fewer than 9 passengers, the driver counted.
+
+For a car, the classifier asks whether it was designed principally to carry passengers. A passenger body was. A dual cab was if its seats, at 68 kg each (MT 2024), weigh more than the load left. For a single cab ute or panel van the answer turns on factors the page does not weigh (TD 94/19). The dual cab test is MT 2024’s, for FBT; no ATO ruling applies it to the car limit. So for a passenger body section 40-230 caps the cost to depreciate at the car limit, after any GST credit, and for a dual cab, a single cab ute or a panel van the car limit is not decided here; the page still gives a cost after the credit that is within the limit, as the limit would not reduce it. Section 69-10 of the GST Act caps the credit at 1/11 of the limit.
+
+## Luxury car tax, the GST credit and FBT
+
+Luxury car tax has its own car: a load under 2 tonnes and fewer than 9 passengers. The tax can apply above the threshold for its fuel consumption, unless it is a commercial vehicle not designed principally to carry passengers. For utes the classifier uses LCTD 2023/1’s simplified method, the ATO’s compliance approach: seats at 68 kg weighing less than half the load at supply, which is the designed load less any accessories then fitted. That approach says when the ATO will not review a sale, not whether the vehicle is a commercial vehicle in law, so it does not lift the GST credit cap: above the car limit the credit on a ute or van that is a car is not decided here. At exactly half, the 2 tests part: MT 2024 counts a dual cab as designed for passengers only when its seats weigh more than the load left, whilst LCTD 2023/1’s method needs them to weigh less than half the load. A 5-seat dual cab with a 680 kg load can therefore be exempt from FBT, whilst luxury car tax and the GST credit cap are not decided here.
+
+For FBT, a single cab ute, a panel van, a dual cab not designed principally for passengers and any vehicle that is not a car can be exempt only if an employee’s private use was work-related travel or minor, infrequent and irregular use. You state that fact; the classifier never concludes it. A car designed principally for passengers gives a car fringe benefit, which the FBT car calculator values.
+
+TD 94/19’s 4-wheel drive wagon, with 5 seats and an 865 kg load, carries passengers; at $75,000 in 2025-26 the ATO’s instant asset write-off page gives a $6,334 credit and a $68,666 cost, or the $69,674 car limit without a credit. MT 2024’s dual cab has 340 kg of passengers against 260 kg left. LCTD 2023/1’s example 5, a dual cab with 5 seats and 960 kg, is one the ATO will not review for luxury car tax. TD 2006/40’s $5,182 credit is $5,182.64 here, with its cents.
+
+## What the vehicle classifier does not cover
+
+The classifier does not decide whether private use was minor, infrequent and irregular, or whether a dual cab, single cab ute or panel van was designed mainly for carrying passengers for the car limit. Nor does it decide whether a ute or van is a commercial vehicle for the GST credit cap, whether a modification permanently changed a vehicle’s design (MT 2033 and LCTD 2023/1 paragraphs 16 to 30), or the principal purpose of a truck, bus or other body under 1 tonne, which turns on factors it does not weigh. Where LCTD 2023/1’s simplified method is not met it says the question is not decided here, and that method assumes a ute the Australian Design Rules class as a goods vehicle. It does not cover cars fitted out to carry people in wheelchairs, emergency vehicles, motor homes and campervans, taxis and limousines, leases and hire, a dealer quoting an ABN, a partly creditable purchase, or a year before 2025-26. It does not work out decline in value, luxury car tax payable or the taxable value of a fringe benefit. A classification is not advice: confirm it with the ATO’s guidance or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Vehicle classifier
+
+Case | Inputs | Result
+TD 94/19’s 4-wheel drive wagon at $75,000: a car designed for passengers, its credit capped | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Load 865 kg, a car, designed for passengers, car limit applies, GST credit $6,353.00, cost $68,647.00, LCT cannot apply, a car fringe benefit
+The ATO’s $75,000 car in 2025-26: credit $6,334, cost $68,666 | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2025-26, price $75,000.00 | GST credit $6,334.00, cost $68,666.00
+Not registered for GST: the cost is the $69,674 car limit | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2025-26, price $75,000.00, no GST credit | GST credit $0.00, cost $69,674.00
+MT 2024’s dual cab: 340 kg of passengers against 260 kg left, for FBT; its car limit is not decided here | Dual cab ute, 5 seats, gross vehicle mass 2,000 kg, kerb weight 1,400 kg, 2026-27, price $50,000.00 | Load 600 kg, designed for passengers, car limit not decided, GST credit $4,545.45, LCT cannot apply
+The FBT guide’s example 19: a dual cab with a 550 kg load is designed for passengers | Dual cab ute, 5 seats, gross vehicle mass 1,950 kg, kerb weight 1,400 kg, 2026-27, price $50,000.00 | Load 550 kg, designed for passengers, a car fringe benefit
+LCTD 2023/1’s example 5: a dual cab with a 960 kg load is treated as a commercial vehicle, which does not lift the GST credit cap | Dual cab ute, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,040 kg, 2026-27, price $85,000.00 | Load 960 kg, not designed for passengers, car limit not decided, GST credit cap not decided, GST credit not decided, a commercial vehicle for LCT, FBT paragraph 8(2)(a)(ii), exempt on the stated use
+Passengers at exactly half the load: FBT exempts, LCT is not decided | Dual cab ute, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,320 kg, 2026-27, price $90,000.00 | Load 680 kg, not designed for passengers, GST credit cap not decided, GST credit not decided, LCT not decided, FBT paragraph 8(2)(a)(ii)
+Accessories fitted at supply come off the load for LCT: 690 kg less 20 kg is not more than twice 340 kg | Dual cab ute, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,310 kg, accessories at supply 20 kg, 2026-27, price $90,000.00 | Load 690 kg, not designed for passengers, LCT not decided, FBT paragraph 8(2)(a)(ii)
+A 1 tonne load is not a car | Dual cab ute, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,000 kg, 2026-27, price $90,000.00 | Load 1,000 kg, not a car, no car limit, no GST credit cap, a commercial vehicle for LCT, FBT subsection 47(6)
+A single cab ute with a 999 kg load is a car; whether the car limit applies is not decided here | Single cab ute, 3 seats, gross vehicle mass 2,999 kg, kerb weight 2,000 kg, 2026-27, price $40,000.00 | Load 999 kg, a car, passenger design not decided, car limit not decided, FBT paragraph 8(2)(a)(i), exempt on the stated use
+8 seats, the driver’s included, is still a car | Passenger body, 8 seats, gross vehicle mass 3,000 kg, kerb weight 2,100 kg, 2026-27, price $60,000.00 | Load 900 kg, a car, car limit applies
+9 seats, the driver’s included, is not a car | Passenger body, 9 seats, gross vehicle mass 3,000 kg, kerb weight 2,100 kg, 2026-27, price $60,000.00 | Not a car, no car limit, not a car for LCT, FBT subsection 47(6)
+A fuel-efficient car $1 over the 2026-27 threshold | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $91,662.00, fuel-efficient | GST credit $6,353.00, cost $69,883.00, LCT can apply, $1.00 over the LCT threshold
+A fuel-efficient car at the threshold exactly | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $91,661.00, fuel-efficient | LCT cannot apply
+A panel van whose private use went beyond the exemption | Panel van, 3 seats, gross vehicle mass 3,000 kg, kerb weight 2,100 kg, payload 900 kg, 2026-27, price $45,000.00, private use more than limited | Load 900 kg, car limit not decided, LCT cannot apply, FBT paragraph 8(2)(a)(i), not exempt
+A motor cycle is not a car | Motor cycle, 1 seat, gross vehicle mass 400 kg, kerb weight 220 kg, 2026-27, price $30,000.00 | Not a car, not a car for LCT, FBT subsection 47(6)
+A payload that disagrees with the mass and kerb weight is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, payload 800 kg, 2026-27, price $75,000.00 | Refused: the payload is not the gross vehicle mass less the kerb weight: check the specification
+A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
+Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
+
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10326,7 +10406,7 @@ Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways 
 One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
 A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10334,7 +10414,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10389,7 +10469,7 @@ A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 mo
 A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
 More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10398,7 +10478,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10444,7 +10524,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10454,7 +10534,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10529,7 +10609,7 @@ Case | Inputs | Result
 A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
 A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10539,7 +10619,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10593,7 +10673,7 @@ An amended assessment takes the later of its 2 dates | Amended income tax assess
 An FBT assessment allows 4 years | FBT assessment, notice 15 November 2026 | Paragraph 14ZW(1)(aaa), period ends Friday 15 November 2030, last day Friday 15 November 2030
 A first notice after the amended notice is refused | Amended FBT assessment, notice 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the amended one
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10601,7 +10681,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10658,7 +10738,7 @@ The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax 
 A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
 
@@ -10666,7 +10746,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10721,7 +10801,7 @@ Born a day later, still under preservation age | Redundancy payment $0.00 after 
 Withholding of exactly $8.50 rounds up to the next dollar | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960 | Withheld from code O $9.00, total withheld $9.00
 Part years of service are refused | Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996 | Refused: enter a whole number between 0 and 150
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
 
@@ -10730,7 +10810,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10823,7 +10903,7 @@ The ACT’s foreign ownership surcharge, worked by hand | Australian Capital Ter
 Western Australia has no trust rates here | Western Australia, trust rates, $1,500,000.00 | Refused: this calculator has no trust rates for Western Australia
 Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole number between 0 and 1000000000
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10844,7 +10924,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
 - land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10940,7 +11020,7 @@ No first home buyer concession in Tasmania | Tasmania, $500,000.00, first home b
 The ACT Home Buyer Concession Scheme has no value limit | Australian Capital Territory, $1,500,000.00, first home buyer, established home | Duty $0.00, general duty $68,100.00
 Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
 
-One of the nineteen business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10957,276 +11037,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Tasmania: https://www.sro.tas.gov.au/first-home-owner
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
-- nineteen business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Australian income tax, take-home pay and HELP calculators
-
-Source: https://duguid.com.au/tools/individual-tax/
-
-> Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act.
-
-# Individual tax calculators
-
-Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
-
-Estimates in AUD for a full income year from 2024-25 to 2026-27, for a single person with no dependants. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Published 17 November 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
-
-## Tax, pay and study loans
-
-- Income tax calculator Tax on taxable income, the low income tax offset and the Medicare levy, for an Australian resident, a foreign resident or a working holiday maker.
-- Take-home pay calculator What is left of an annual salary each year, month, fortnight and week after tax, Medicare levy and any study loan repayment, with the employer’s super guarantee.
-- Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
-
-For a business, see the business calculators.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
-- Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
-- business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Income tax calculator for 2026-27, 2025-26 and 2024-25
-
-Source: https://duguid.com.au/tools/individual-tax/income-tax/
-
-> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act.
-
-# Income tax calculator
-
-One individual’s income tax, low income tax offset and Medicare levy for a full income year from 2024-25 to 2026-27, for an Australian resident, a foreign resident or a working holiday maker.
-
-Published 17 November 2026. Last checked 17 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Income tax inputs for one full income year
-
-Income year 2026-27 2025-26 2024-25
-
-Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
-
-Taxable income (whole dollars)
-
-Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a single person with no dependants who is not entitled to the seniors and pensioners tax offset.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, taxable income $29,000.00. Tax on taxable income $1,728.00 Low income tax offset $700.00 Medicare levy $98.90 Total tax and Medicare levy $1,126.90
-
-## How the income tax calculator works
-
-The income tax calculator works out one individual’s tax for a full income year: the tax on taxable income at the year’s rates, the low income tax offset, and the Medicare levy. An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. A foreign resident pays from the first dollar at 30%, 37% and 45%. A working holiday maker pays 15% up to $45,000 and then the same rates as a resident.
-
-The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does; its example on What is the Medicare levy gives Matthew $1,500 on $75,000.
-
-For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2026, the same as 2025-26. If Parliament raises them for 2026-27, a person just above $28,011 will pay less than shown here.
-
-## What the income tax calculator does not compute
-
-The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
-
-- the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
-- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
-- the Medicare levy surcharge or the private health insurance rebate;
-- a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
-- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
-- study loan repayments, which the study and training loan repayment calculator works out, and the tax already withheld or a refund.
-
-Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Income tax calculator
-
-Case | Inputs | Result
-ATO example: Angie, in the Medicare levy shade-in | $29,000 taxable income, 2025-26, Australian resident | Tax $1,728.00, offset $700.00, Medicare levy $98.90, total $1,126.90
-Tax-free threshold | $18,200 taxable income, 2026-27, Australian resident | Tax $0.00, offset $0.00, Medicare levy $0.00, total $0.00
-Medicare levy phase-in limit | $35,013 taxable income, 2026-27, Australian resident | Tax $2,521.95, offset $700.00, Medicare levy $700.20, total $2,522.15
-A dollar above the phase-in limit: 2% of the whole | $35,014 taxable income, 2026-27, Australian resident | Tax $2,522.10, offset $700.00, Medicare levy $700.28, total $2,522.38
-Offset of $324.985 rounds half up | $45,001 taxable income, 2026-27, Australian resident | Tax $4,020.30, offset $324.99, Medicare levy $900.02, total $4,595.33
-Offset cut-out: half a cent below nil is nil | $66,667 taxable income, 2026-27, Australian resident | Tax $10,520.10, offset $0.00, Medicare levy $1,333.34, total $11,853.44
-Top rate | $250,000 taxable income, 2026-27, Australian resident | Tax $78,370.00, offset $0.00, Medicare levy $5,000.00, total $83,370.00
-2024-25 rates | $90,000 taxable income, 2024-25, Australian resident | Tax $17,788.00, offset $0.00, Medicare levy $1,800.00, total $19,588.00
-Foreign resident: no offset or Medicare levy | $100,000 taxable income, 2026-27, foreign resident | Tax $30,000.00, offset $0.00, Medicare levy $0.00, total $30,000.00
-Working holiday maker | $50,000 taxable income, 2026-27, working holiday maker | Tax $8,250.00, offset $0.00, Medicare levy $0.00, total $8,250.00
-
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
-- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
-- study and training loan repayment calculator: https://duguid.com.au/tools/individual-tax/study-loan/
-- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
-
----
-
-# Take-home pay calculator for 2026-27: tax, Medicare and HELP
-
-Source: https://duguid.com.au/tools/individual-tax/take-home-pay/
-
-> Annual, monthly, fortnightly and weekly take-home pay after income tax, Medicare levy and study loan repayment, with super guarantee, each step cited to its Act.
-
-# Take-home pay calculator
-
-Take-home pay from an annual salary, after the year’s income tax, Medicare levy and any study loan repayment, with the employer’s super guarantee, for 2024-25 to 2026-27.
-
-Published 17 November 2026. Last checked 17 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Take-home pay inputs for one full income year
-
-Income year 2026-27 2025-26 2024-25
-
-Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
-
-Annual salary (whole dollars) Does that amount include super? No, super is paid on top Yes, it is a package including super guarantee
-
-Do you have a study or training loan, such as HELP? No Yes
-
-For one job paid evenly all year, with no other income and no deductions you claim, so the salary is the taxable income, less the standard deduction from 2026-27. For a single person with no dependants.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, salary $75,000.00 plus super, no study or training loan. Salary $75,000.00 Employer super guarantee $9,000.00 Standard deduction for work-related expenses $0.00 Income tax less the low income tax offset $13,288.00 Medicare levy $1,500.00 Study and training loan repayment $0.00 Take-home pay for the year $60,212.00 Each month, a twelfth $5,017.67 Each fortnight, a 26th $2,315.85 Each week, a 52nd $1,157.92 The year’s tax on this salary spread evenly, not the amounts an employer withholds each pay.
-
-## How the take-home pay calculator works
-
-The take-home pay calculator takes one annual salary and works out the year’s income tax, low income tax offset, Medicare levy and any study or training loan repayment on it. From 2026-27 it first takes off the standard deduction of up to $1,000 for work-related expenses. It then gives what is left for the year, a month, a fortnight and a week. It also gives the super guarantee an employer must pay on that salary, which is paid to a super fund and is not part of take-home pay.
-
-These are the year’s tax on that income spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay under the ATO’s PAYG withholding schedules, which round each pay’s withholding and can differ from the year’s tax, with the difference settled when the tax return is assessed. Use the ATO’s tax withheld calculator for the amount withheld each pay. The example on arrival is 2025-26, before the standard deduction: on $75,000 the Medicare levy is $1,500, as the ATO’s example of Matthew on What is the Medicare levy gives. In 2026-27 the same salary is $74,000 of taxable income.
-
-When the salary includes super, the calculator splits it: at 12%, a package of $112,000 is $100,000 of salary and $12,000 of super. Super guarantee stops at the year’s maximum contribution base, so above it the super stays at the most the base allows.
-
-## What the take-home pay calculator does not compute
-
-The calculator assumes one employer, a salary paid evenly over the full year, and no other income, deductions, offsets or salary sacrifice. It does not compute:
-
-- the PAYG amount withheld each pay, overtime, bonuses, allowances or leave loading;
-- work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
-- salary sacrifice, reportable fringe benefits, or reportable super contributions, which would change repayment income;
-- everything the income tax calculator leaves out, such as the Medicare levy reduction for families, the Medicare levy surcharge and the seniors and pensioners tax offset;
-- whether an employee is entitled to super guarantee, the lower transitional rate for employees on Norfolk Island (11% for 2026-27), or a second employer’s separate maximum contribution base.
-
-Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Take-home pay calculator
-
-Case | Inputs | Result
-ATO example: Matthew’s Medicare levy on $75,000, 2025-26 | 2025-26, Australian resident, $75,000 plus super | Take-home $60,212.00 a year, $2,315.85 a fortnight; super $9,000.00
-2026-27: the $1,000 standard deduction comes off the salary | 2026-27, Australian resident, $75,000 plus super | Take-home $60,800.00 a year, $2,338.46 a fortnight; super $9,000.00
-Package including super | 2026-27, Australian resident, $112,000 including super | Take-home $77,800.00 a year, $2,992.31 a fortnight; super $12,000.00
-With a study loan | 2026-27, Australian resident, $90,000 plus super, study loan | Take-home $68,079.20 a year, $2,618.43 a fortnight; super $10,800.00
-Above the 2026-27 maximum contribution base | 2026-27, Australian resident, $300,000 plus super | Take-home $193,600.00 a year, $7,446.15 a fortnight; super $32,499.60
-Package above the base: super stops at the cap | 2026-27, Australian resident, $340,000 including super | Take-home $197,575.40 a year, $7,599.05 a fortnight; super $32,499.60
-2024-25 at 11.5%, with a half-cent offset | 2024-25, Australian resident, $60,001 plus super | Take-home $50,112.67 a year, $1,927.41 a fortnight; super $6,900.12
-Foreign resident: no Medicare levy | 2026-27, foreign resident, $80,000 plus super | Take-home $56,000.00 a year, $2,153.85 a fortnight; super $9,600.00
-
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
-- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
-- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
-
----
-
-# HELP repayment calculator for 2026-27: marginal rates
-
-Source: https://duguid.com.au/tools/individual-tax/study-loan/
-
-> Compulsory HELP, VSL, SSL and AASL repayments for 2024-25 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003.
-
-# Study and training loan calculator
-
-The compulsory HELP or other study loan repayment for 2024-25 to 2026-27, marginal from 2025-26.
-
-Published 17 November 2026. Last checked 17 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Study and training loan repayment inputs for one income year
-
-Income year 2026-27 2025-26 2024-25
-
-Taxable income, without any FHSS released amount (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, including net rental losses (whole dollars) Reportable super contributions (whole dollars) Exempt foreign employment income (whole dollars)
-
-Enter 0 for any part you do not have. Your income tax return or income statement shows each of them.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, taxable income $60,470.00, reportable fringe benefits $5,400.00, total net investment loss $1,330.00, reportable super contributions $16,500.00, exempt foreign employment income $2,680.00. Repayment income $86,380.00 Compulsory repayment $2,527.80 15% of repayment income over $69,528 up to $129,717, and 17% of any part above it.
-
-## How the study and training loan repayment calculator works
-
-The study and training loan repayment calculator works out the compulsory repayment on a HELP, VET Student Loan, Student Start-up Loan or Australian Apprenticeship Support Loan debt for one income year. It first adds up repayment income: taxable income, reportable fringe benefits, total net investment loss, reportable super contributions and exempt foreign employment income.
-
-From 2025-26 the repayment is marginal: nothing up to the minimum repayment income, then 15 cents for each dollar above it up to a second threshold and 17 cents above that, unless 10% of all repayment income is less. For 2026-27 the minimum repayment income is $69,528 and the second threshold $129,717, and 10% is the lesser amount from $186,051. For 2024-25 one percentage of the whole repayment income applied, from 1% above $54,434 to 10% from $159,664.
-
-The boundary cases below take the inputs of the 4 worked examples on the ATO’s thresholds and rates page, read 17 November 2026, and work each one from section 154-20. For Barry’s 2026-27 repayment income of $137,064, section 154-20(2) gives 15% of the $60,189 from $69,528 to $129,717, which is $9,028.35, plus 17% of the $7,347 above $129,717, which is $1,248.99: $10,277.34 in all. For Branson’s 2024-25 repayment income of $99,736, the 5.5% rate gives $5,485.48.
-
-## What the study and training loan repayment calculator does not compute
-
-The calculator gives the compulsory repayment for one income year. It does not compute:
-
-- the cap at the debt you still owe, or voluntary repayments;
-- the overseas debtors repayment levy on worldwide income for a foreign resident (section 154-16);
-- whether no repayment is due because your Medicare levy is not payable or is reduced under section 8 of the Medicare Levy Act 1986 (section 154-1(2));
-- the amounts an employer withholds each pay for a loan, or indexation of the debt;
-- years before 2024-25.
-
-Confirm the figure with the ATO’s Study and training loan repayment calculator or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Study and training loan calculator
-
-Case | Inputs | Result
-ATO example 1: Christina, 2026-27 | 2026-27: taxable income $60,470, fringe benefits $5,400, net investment loss $1,330, super contributions $16,500, exempt foreign employment income $2,680 | Repayment income $86,380.00, repayment $2,527.80
-ATO example 2: Barry, 2026-27, by section 154-20 | 2026-27: taxable income $118,450, super contributions $18,614 | Repayment income $137,064.00, repayment $10,277.34
-ATO example 3: Priya, 2026-27 | 2026-27: taxable income $227,123, super contributions $27,657 | Repayment income $254,780.00, repayment $25,478.00
-At the minimum repayment income | 2026-27: taxable income $69,528 | Repayment income $69,528.00, repayment $0.00
-Last dollar where the marginal amount is less | 2026-27: taxable income $186,050 | Repayment income $186,050.00, repayment $18,604.96
-First dollar where 10% is less | 2026-27: taxable income $186,051 | Repayment income $186,051.00, repayment $18,605.10
-2025-26 top of the 15% band | 2025-26: taxable income $125,000 | Repayment income $125,000.00, repayment $8,700.00
-ATO example 4: Branson, 2024-25, at 5.5% | 2024-25: taxable income $89,450, super contributions $10,286 | Repayment income $99,736.00, repayment $5,485.48
-2024-25 at 2.5%: half a cent rounds up | 2024-25: taxable income $66,621 | Repayment income $66,621.00, repayment $1,665.53
-2024-25 at the minimum repayment income | 2024-25: taxable income $54,434 | Repayment income $54,434.00, repayment $0.00
-
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 

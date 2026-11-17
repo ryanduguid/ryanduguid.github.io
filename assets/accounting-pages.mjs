@@ -1,6 +1,8 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
+import { BODY_NAMES, kg, vehicleRows } from './vehicle-rows.mjs';
+
 /** Saves text as a file. @param {string} text @param {string} name @param {string} type */
 export function download(text, name, type) {
   const url = URL.createObjectURL(new Blob([text], { type }));
@@ -289,6 +291,31 @@ function initialiseCalculators([calculate, fieldErrors, { individualResult }]) {
               ['Aggregate score', String(r.total)], ['Risk zone', zone]],
             note: r.total === null ? 'The IPP returns the whole entitlement, so paragraph 81 makes the arrangement low risk with no other factor scored' : undefined };
             result.principal = result.rows.length - 1;
+            break;
+          }
+          case 'vehicle-class': {
+            // The year's car limit and LCT thresholds come from the checked option; the Node
+            // tests bind them to the car limit table and the ATO's LCT thresholds.
+            const year = form.querySelector('input[name="year"]:checked').dataset;
+            const f = Object.fromEntries(['body', 'seats', 'gvm', 'kerb', 'payload', 'accessories', 'modified', 'cost', 'credit', 'fuel', 'use']
+              .map(name => [name, value(name)]));
+            const r = calculate.vehicleClass(f, { carLimit: year.carLimit, fuelEfficientThreshold: year.fuelEfficient,
+              otherThreshold: year.other });
+            const notes = [
+              ...(f.modified === 'plated' ? ['A modification after manufacture does not change the designed load, but a permanent one can change '
+                + 'the design purpose (MT 2033), which this page does not judge'] : []),
+              ...(r.luxury === 'commercial' && f.body !== 'van' ? ['LCTD 2023/1’s simplified method assumes the ute is a goods vehicle '
+                + 'under the Australian Design Rules (paragraph 57)'] : []),
+              ...(r.exempt && r.belowThreshold ? ['PCG 2018/3 can also apply, as the price is below the luxury car tax threshold '
+                + '(paragraph 6(c)); its other conditions are yours to check'] : [])];
+            result = { inputs: `${BODY_NAMES[f.body]}, ${count(f.seats, 'seat')}, gross vehicle mass ${kg(f.gvm)}, `
+              + `${Number(f.kerb) ? `kerb weight ${kg(f.kerb)}, ` : ''}${Number(f.payload) ? `payload ${kg(f.payload)}, ` : ''}`
+              + `${Number(f.accessories) ? `accessories at supply ${kg(f.accessories)}, ` : ''}`
+              + `${f.modified === 'no' ? 'not modified' : 'modified, manufacturer’s figures'}, ${value('year')}, price ${money('cost')}, `
+              + `${f.credit === 'full' ? 'full GST credit' : 'no GST credit'}, `
+              + `${f.fuel === 'efficient' ? '3.5 litres per 100 km or less' : 'more than 3.5 litres per 100 km'}, `
+              + `private use ${f.use === 'limited' ? 'limited as you state' : 'more than limited'}`,
+            principal: 1, rows: vehicleRows(r, f, year, aud), note: notes.length ? notes.join('. ') : undefined };
             break;
           }
           case 'gic-payment-plan': {

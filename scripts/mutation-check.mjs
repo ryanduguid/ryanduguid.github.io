@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
+const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -158,6 +159,31 @@ const MUTATIONS = [
   { ...takeHome, name: 'the standard deduction for foreign residents too', find: "pay.year >= STANDARD_DEDUCTION_FROM && pay.residency === 'resident'", replace: 'pay.year >= STANDARD_DEDUCTION_FROM' },
   { ...takeHome, name: 'a fortnight is a 24th', find: 'nearest(net, 26)', replace: 'nearest(net, 24)' },
   { ...takeHome, name: '2024-25 super guarantee is 12%', find: "'2024-25': { rate: 11.5", replace: "'2024-25': { rate: 12" },
+  { ...vehicle, name: 'a 1 tonne load is still a car', find: 'motor && load < 1000 && seats < 9', replace: 'motor && load <= 1000 && seats < 9' },
+  { ...vehicle, name: '9 seats are still a car', find: 'motor && load < 1000 && seats < 9', replace: 'motor && load < 1000 && seats <= 9' },
+  { ...vehicle, name: 'an LCT car carries under 1 tonne, not 2', find: 'motor && load < 2000', replace: 'motor && load < 1000' },
+  { ...vehicle, name: 'a motor cycle is a car', find: "vehicle.body !== 'motorcycle'", replace: 'true' },
+  { ...vehicle, name: 'a seat weighs 75 kg', find: 'const SEAT_KG = 68;', replace: 'const SEAT_KG = 75;' },
+  { ...vehicle, name: 'a dual cab whose passengers equal the load left carries passengers', find: 'seats * SEAT_KG > load - seats * SEAT_KG', replace: 'seats * SEAT_KG >= load - seats * SEAT_KG' },
+  { ...vehicle, name: 'LCTD 2023/1 accepts passengers at half the load', find: '2 * seats * SEAT_KG < load', replace: '2 * seats * SEAT_KG <= load' },
+  { ...vehicle, name: 'a van is left undecided for LCT and the GST credit cap',find: "if (body === 'van') return 'commercial';", replace: '' },
+  { ...vehicle, name: 'a single cab ute or panel van is a goods body for the car limit', find: "return body === 'passenger' ? true : null;", replace: "return body === 'passenger';" },
+  { ...vehicle, name: 'a single cab ute is not a utility truck for FBT', find: "['single-cab', 'van'].includes(vehicle.body) ? '8(2)(a)(i)'", replace: "['van'].includes(vehicle.body) ? '8(2)(a)(i)'" },
+  { ...vehicle, name: 'a stated payload is not checked against the mass and kerb weight', find: 'gvm - kerb !== payload', replace: 'false' },
+  { ...vehicle, name: 'a modified vehicle without its figures is classified', find: "if (vehicle.modified === 'unplated') {", replace: 'if (false) {' },
+  { ...vehicle, name: 'the GST credit cap is ignored', find: 'capApplies && exceeds ? cap', replace: 'false ? cap' },
+  { ...vehicle, name: 'the GST credit cap is 1/11 of the price', find: 'ratioCents(BigInt(limit), 11n)', replace: 'ratioCents(BigInt(price), 11n)' },
+  { ...vehicle, name: 'a van or ute the ATO will not review is free of the GST credit cap', find: "design === 'passengers' ? true : null", replace: "design === 'passengers' ? true : design === 'undetermined' ? null : false" },
+  { ...vehicle, name: 'a dual cab takes the car limit from MT 2024', find: "const carLimit = !car ? false : vehicle.body === 'passenger' ? true : null;", replace: 'const carLimit = !car ? false : passengers;' },
+  { ...vehicle, name: 'accessories fitted at supply are ignored for LCT', find: 'luxuryDesign(vehicle.body, load - accessories, seats)', replace: 'luxuryDesign(vehicle.body, load, seats)' },
+  { ...vehicle, name: 'accessories as heavy as the load are accepted', find: 'if (accessories >= load) throw', replace: 'if (accessories > load) throw' },
+  { ...vehicle, name: 'the car limit applies before the GST credit', find: 'Math.min(net, limit)', replace: 'Math.min(price, limit) - Number(credit)' },
+  { ...vehicle, name: 'an undecided car limit hides the cost within it', find: ': net <= limit ? net : null;', replace: ': null;' },
+  { ...vehicle, name: 'an undecided car limit gives a cost above it', find: 'net <= limit ? net', replace: 'true ? net' },
+  { ...vehicle, name: 'a price at the LCT threshold is a luxury car', find: 'price <= threshold ?', replace: 'price < threshold ?' },
+  { ...vehicle, name: 'the LCT thresholds are swapped', find: "vehicle.fuel === 'efficient' ? year.fuelEfficientThreshold", replace: "vehicle.fuel === 'other' ? year.fuelEfficientThreshold" },
+  { ...vehicle, name: 'an undecided LCT design still gives a GST credit over the car limit', find: 'capApplies === null && exceeds ? null', replace: 'false ? null' },
+  { ...vehicle, name: 'a stated use beyond the exemption still exempts', find: "vehicle.use === 'limited'", replace: 'true' },
   { ...landTax, name: 'a land tax band starts a dollar above its first value', find: 'dollars >= Number(from)', replace: 'dollars > Number(from)' },
   { ...landTax, name: 'land tax ignores part of $100', find: '(excess + 99n) / 100n * parts', replace: 'excess / 100n * parts' },
   { ...landTax, name: 'the ACT fixed charge is left out', find: 'cents(base) + cents(fixed)', replace: 'cents(base)' },
@@ -194,6 +220,8 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'llms.txt', '.well-known/llms.txt']) {
+    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', 'rates/car-limit',
+    'llms.txt', '.well-known/llms.txt']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
