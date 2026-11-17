@@ -3,14 +3,7 @@
 
 // The question pages' search, selection and checklist download.
 
-export function download(text, name, type) {
-  const url = URL.createObjectURL(new Blob([text], { type }));
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = name;
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
+import { download } from './accounting-pages.mjs';
 
 const questions = [...document.querySelectorAll('details.question')];
 if (questions.length) {

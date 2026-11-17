@@ -20,7 +20,7 @@ function landTaxCents(dollars, text, fixed = '0') {
   const usable = scale.every((row, index) => {
     const [from, base, rate, over, rule] = row;
     return row.length === 5 && LAND_TAX_RULES.includes(rule) && whole(from) && whole(over) && Number(over) <= Number(from)
-      && /^\d+(\.\d{1,2})?$/.test(base) && /^\d+(\.\d{1,4})?$/.test(rate)
+      && /^\d+(\.\d{1,2})?$/.test(base) && Number(base) <= 1e9 && /^\d+(\.\d{1,4})?$/.test(rate) && Number(rate) <= 100
       && (index ? Number(from) > Number(scale[index - 1][0]) : from === '0');
   });
   if (!usable) throw new Error('This jurisdiction’s rate table is not usable.');

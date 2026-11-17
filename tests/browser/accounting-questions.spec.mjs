@@ -5,7 +5,8 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
 
-for (const module of ['business-calculators', 'field-errors']) {
+// money and land-tax are business-calculators' helpers: a retry must fetch them afresh too.
+for (const module of ['business-calculators', 'field-errors', 'money', 'land-tax']) {
   test(`calculator load failure explains recovery and retry loads the module (${module})`, async ({ page }) => {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -33,6 +34,22 @@ for (const module of ['business-calculators', 'field-errors']) {
     expect(errors).toEqual([]);
   });
 }
+
+test('a calculator page works without the question pages’ script', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  const requested = [];
+  page.on('request', request => requested.push(request.url()));
+  await page.route('**/assets/accounting-questions.mjs*', route => route.abort());
+  await page.goto('/tools/business-calculators/gst/');
+  const form = page.locator('#gst form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await form.locator('input[name=amount]').fill('110');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(page.locator('#gst output')).toContainText('GST: $10.00');
+  expect(requested.filter(url => url.includes('accounting-questions.mjs'))).toEqual([]);
+  expect(errors).toEqual([]);
+});
 
 test('an invalid business calculator field gets an inline instruction and focus', async ({ page }) => {
   await page.goto('/tools/business-calculators/gst/');

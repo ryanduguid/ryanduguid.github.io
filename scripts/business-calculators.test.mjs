@@ -1501,7 +1501,9 @@ test('land tax applies a band from its first value, adds the ACT fixed charge an
     [nsw[0], ['1075001', '100', '1.60001', '1075000', 'excess']],
     // A malformed base or an extra field is refused in any band, not only the one a value falls in.
     [nsw[0], ['1075001', 'bad', '1.6', '1075000', 'excess'], nsw[2]], [nsw[0], nsw[1], ['6571001', '88036.001', '2', '6571000', 'excess']],
-    [nsw[0], ['1075001', '100', '1.6', '1075000', 'excess', 'extra'], nsw[2]], [['0', '0', '0', '0', 'excess', ''], nsw[1], nsw[2]]]) {
+    [nsw[0], ['1075001', '100', '1.6', '1075000', 'excess', 'extra'], nsw[2]], [['0', '0', '0', '0', 'excess', ''], nsw[1], nsw[2]],
+    // A rate over 100% or a base over the helpers' $1,000,000,000 is refused in any band too.
+    [nsw[0], ['1075001', '100', '101', '1075000', 'excess'], nsw[2]], [nsw[0], ['1075001', '1000000001', '1.6', '1075000', 'excess'], nsw[2]]]) {
     for (const value of ['500', '2000000', '9000000']) {
       assert.throws(() => calculations.landTaxYear(value, withScale(broken)), { message: 'This jurisdiction’s rate table is not usable.' },
         `${JSON.stringify(broken)} ${value}`);

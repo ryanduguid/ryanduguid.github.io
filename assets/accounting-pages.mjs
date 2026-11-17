@@ -1,9 +1,21 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-// Importing download also runs the question pages' script.
-import { download } from './accounting-questions.mjs';
 import { BODY_NAMES, kg, vehicleRows } from './vehicle-rows.mjs';
+
+/** Saves text as a file. @param {string} text @param {string} name @param {string} type */
+export function download(text, name, type) {
+  const url = URL.createObjectURL(new Blob([text], { type }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = name;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Only question pages load their script, so its failure cannot stop a calculator page's. If it
+// fails, the question controls stay disabled and the page reads as plain text.
+if (document.querySelector('details.question')) void import('./accounting-questions.mjs');
 
 const currencyFormat = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
 // Page copy writes negatives with the minus sign, U+2212; the CSV keeps ASCII.
