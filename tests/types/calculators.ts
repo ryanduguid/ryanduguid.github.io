@@ -126,3 +126,10 @@ calculate.vehicleClass({ ...dualCab, seats: 5 }, vehicleYear);
 const vehicleCredit: number = calculate.vehicleClass(dualCab, vehicleYear).credit;
 void passengers;
 void vehicleCredit;
+const payroll: number = calculate.payrollTax('1500000', '', 'AU-NSW').total;
+// @ts-expect-error Wages are decimal strings, as the form passes them.
+calculate.payrollTax(1500000, '', 'AU-NSW');
+// @ts-expect-error A tax line's rate is the text the page shows.
+const payrollRate: number = calculate.payrollTax('1500000', '', 'AU-NSW').lines[0].rate;
+void payroll;
+void payrollRate;

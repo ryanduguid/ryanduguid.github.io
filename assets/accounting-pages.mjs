@@ -468,6 +468,9 @@ function initialiseCalculators([calculate, fieldErrors]) {
               settlement: yes('settlement'), died: yes('died') }, form.dataset, aud);
             break;
           }
+          case 'payroll-tax':
+            result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
+            break;
           default: throw new Error('Unknown calculator.');
         }
         renderResult(output, result);

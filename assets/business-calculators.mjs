@@ -713,3 +713,4 @@ export function gicPaymentPlan(plan) {
 }
 
 export { division296, division296Result } from './division-296.mjs';
+export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';

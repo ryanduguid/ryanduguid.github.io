@@ -26,7 +26,7 @@ The site publishes its pages as registers, each under one top-level path.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates, each rendered by `_layouts/rate.html` from its front matter, and `/rates/register/register.json` is a versioned machine-readable register, which so far carries one series, the Coal LSL levy percentage. `/rates/` itself lists every table with its current value and Source checked date.
 - `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.
-- `/tools/business-calculators/` indexes 21 business calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario has CSV export.
+- `/tools/business-calculators/` indexes 22 business calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario has CSV export.
 - `/tools/ozzit/` documents the Ozzit Excel function library, with one page per module under `functions/`, rendered by `site-tools build_ozzit_reference` from the function reference of the release `scripts/release_record.json` names.
 - `assets/hub-routes.mjs` forwards an old `#q12` or `#cash` bookmark on either index to the page that now holds it.
 - `/feed.xml` is an Atom feed built from the changelog tables by `site-tools build_feed`.
@@ -98,8 +98,8 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - the rates register's shape, provenance, ordering and checksums, and a primary `source_url` and a `checked_at` date on every row of the rate CSVs, run with `site-tools check_rates_register` and `cargo test --test rates`
 - the business planning arithmetic and the boundary cases each calculator page shows from `_data/calculator_cases.json`, run with `node --test scripts/business-calculators.test.mjs`
-- 156 named money errors applied to a temporary copy of the Coal LSL and business engines, each of which must fail an assertion in those engines' tests, run with `node scripts/mutation-check.mjs`
-- 2,360 seeded fictional cases for 15 engines (loan, Division 7A, FBT car, Coal LSL, fixed fee, transfer duty, first home buyer duty, objection deadline, PAYG instalment, ETP, PCG 2021/4, GIC payment plan, land tax, vehicle classifier and Division 296), each worked by a different route, which the engines must match, run with `cargo test --test calculator_oracle`
+- 170 named money errors applied to a temporary copy of the Coal LSL and business engines, each of which must fail an assertion in those engines' tests, run with `node scripts/mutation-check.mjs`
+- 2,630 seeded fictional cases for 16 engines (loan, Division 7A, FBT car, Coal LSL, fixed fee, transfer duty, first home buyer duty, objection deadline, PAYG instalment, ETP, PCG 2021/4, GIC payment plan, land tax, vehicle classifier, payroll tax and Division 296), each worked by a different route, which the engines must match, run with `cargo test --test calculator_oracle`
 - every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `site-tools check_agent_files` and `cargo test --test agent_files`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)
 - every same-origin link, absolute or root-relative, must resolve to a file on disk
@@ -259,7 +259,7 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. All 84 canonical pages
+GitHub Pages builds the repository with Jekyll. All 85 canonical pages
 include `_includes/site-header.html` and `_includes/site-footer.html`,
 directly or through a layout in `_layouts/`; the header sets the current page
 or section from each page's URL. The count is the number of URLs in

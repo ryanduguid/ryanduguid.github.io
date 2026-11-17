@@ -5560,7 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-17 November 2026 | A new business calculator works out one person’s Division 296 tax for 2026-27 from the total superannuation balance at 30 June 2027 and the year’s total superannuation earnings: 15% on the share of earnings above $3 million and a further 10% above $10 million, with the child recipient, structured settlement and death exceptions. Its thresholds, rates, rounding and definitions were read on 17 November 2026 in the Income Tax Assessment Act 1997, compilation 268, the transitional provisions and the Imposition Act, and it agrees with examples 1.1 and 1.2 of the Explanatory Memorandum. It works out one year from supplied figures and projects nothing.
+17 November 2026 | A new business calculator estimates one employer’s payroll tax for 2026-27 in any of the 8 states and territories, for an employer outside a group that pays wages all year: the deduction or threshold shared with interstate wages, the amount taxed, the tax at each rate and, in Victoria and Queensland, each surcharge and levy, with the provision for each step. Its figures are in a data file with each one’s source and dates, and its tests hold the revenue offices’ published examples.
 16 November 2026 | A new vehicle classifier works out from a manufacturer’s specification whether a vehicle is a car under section 995-1, so whether the car limit and the GST credit cap apply, whether luxury car tax can apply at the 2025-26 or 2026-27 threshold and whether an employer’s FBT exemption for an eligible vehicle can apply on the private use you state. It works MT 2024’s dual cab test, LCTD 2023/1’s ute method and TD 2006/40’s order of the credit and the car limit, and refuses a modified vehicle without its compliance plate figures, a payload that disagrees with the mass and kerb weight, and any other body it cannot weigh. It leaves the car limit undecided for a single cab ute or panel van, which no ATO source settles. The car limit table now says the limit reaches a car designed mainly for carrying passengers, rather than excluding only utes and vans over 1 tonne.
 16 November 2026 | The announced measures page notes a bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, that the ATO’s summary now lists against the negative gearing and CGT discount reform. Parliament’s summary says it would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing; it is not law. Accounting questions 2 and 89 were rechecked on 16 November 2026 against the ATO’s claiming deductions page and its updated standard deduction and payment plans pages. Question 2 now says a few deductions, such as gifts and donations, need no connection to earning income, and question 89 says each account with an overdue debt must be paid in full or have its own payment plan.
 15 November 2026 | Six new business calculators: the last day to object to an income tax or FBT assessment, an amended assessment or another decision under section 14ZW, moved past a weekend; a quarterly PAYG instalment by the notified or varied amount or rate, with the credit to claim; the tax-free part of a genuine redundancy payment and the PAYG to withhold from an ETP for 2026-27; general transfer duty on a residential purchase in each of the 8 states and territories, from each one’s primary source; the ATO’s PCG 2021/4 risk zone for a professional firm’s profit allocation; and the GIC on a tax debt paid by weekly, fortnightly or monthly instalments. New rate tables give each state and territory’s transfer duty scale and every quarter’s GIC rate since July 1999.
@@ -6313,7 +6313,6 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 - Vehicle classifier Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
-- Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 
 ## Staff and cash
 
@@ -6327,6 +6326,7 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
+- Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -6346,7 +6346,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
-- Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
@@ -6354,6 +6353,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 
 ---
 
@@ -10485,69 +10485,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Division 296 tax calculator for 2026-27, above $3 million
-
-Source: https://duguid.com.au/tools/business-calculators/division-296/
-
-> One person’s Division 296 tax for 2026-27 from the super balance at 30 June 2027 and the year’s earnings: 15% above $3 million, 10% more above $10 million.
-
-# Division 296 tax calculator
-
-One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
-
-Published 17 November 2026. Last checked 17 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Division 296 inputs for one person and the 2026-27 income year
-
-Total superannuation balance at the end of 30 June 2027, leaving out any LRBA amount (AUD) Total superannuation earnings for 2026-27, which can be negative (AUD) Was the person a child recipient of a superannuation income stream at any time in 2026-27? No Yes Has a structured settlement contribution been made for the person in 2026-27 or an earlier year? No Yes Did the person die on or before 30 June 2027? No Yes
-
-Your super funds report the balance and the earnings attributed to each interest to the ATO, which assesses the tax. Enter the figures you have established; this page does not work either out.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: total superannuation balance $4,000,000.00 at 30 June 2027, total superannuation earnings $100,000.00 for 2026-27, no exception applies. Share of the balance above $3,000,000.00 25.00% Share of the balance above $10,000,000.00 0.00% Taxable superannuation earnings $25,000.00 Very large superannuation balance earnings component $0.00 Tax at 15% on taxable superannuation earnings $3,750.00 Tax at 10% on the very large component $0.00 Division 296 tax $3,750.00 Liable under section 296-15: the balance at 30 June 2027 is above the large superannuation balance threshold and total superannuation earnings are above nil.
-
-## How the Division 296 tax calculator works
-
-The Division 296 tax calculator works out one person’s Division 296 tax for 2026-27, the first year it applies. Tax arises when the total superannuation balance at 30 June 2027 is greater than $3,000,000 and the year’s total superannuation earnings are greater than nil. The share of the balance above $3,000,000 times the earnings gives taxable superannuation earnings, taxed at 15%. Above $10,000,000, the share above that threshold times the earnings gives the very large superannuation balance earnings component, taxed at a further 10%.
-
-The Explanatory Memorandum to the Treasury Laws Amendment (Building a Stronger and Fairer Super System) Bill 2026 works 2 examples. Jordan has $4,000,000 at the end of 2026-27 and $100,000 of earnings: 25% of the balance is above $3,000,000, so taxable superannuation earnings are $25,000 and the tax $3,750. Kelly has $12,000,000 and $500,000 of earnings: 75% and 16.67%, so $375,000 taxed at 15% ($56,250) and $83,350 at 10% ($8,335), $64,585 in all. This calculator opens on Jordan’s figures, and both are among its boundary cases.
-
-## What the Division 296 tax calculator does not cover
-
-The calculator works out one year from the balance and earnings you supply. It does not project a balance, compare a withdrawal or set tax inside super against tax outside it: those turn on future earnings, contributions and withdrawals that no source states, and choosing between them is financial advice. It covers 2026-27 only. From 2027-28 the thresholds are indexed (paragraphs 296-30(b) and 296-35(b)) and the balance just before the start of the year counts too, and those figures are not yet published.
-
-It does not work out the total superannuation balance, a fund’s Division 296 fund earnings or how they are attributed to each interest (sections 296-55 to 296-75), or the earnings of defined benefit and other interests under section 296-70, whose tax can be deferred to a debt account. It does not cover temporary residents who depart Australia (sections 296-195 to 296-205), the notice of assessment, payment or release authorities. The ATO assesses the tax from what funds report, and the notice of assessment sets the amount. Confirm the figures with the ATO or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Division 296 tax calculator
-
-Case | Inputs | Result
-The Explanatory Memorandum’s example 1.1, Jordan: 25% above $3,000,000 | Balance $4,000,000.00, earnings $100,000.00 | Liable, 25.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $25,000.00, very large component $0.00, 15% tax $3,750.00, 10% tax $0.00, Division 296 tax $3,750.00
-The Explanatory Memorandum’s example 1.2, Kelly: both thresholds | Balance $12,000,000.00, earnings $500,000.00 | Liable, 75.00% above $3,000,000, 16.67% above $10,000,000, taxable earnings $375,000.00, very large component $83,350.00, 15% tax $56,250.00, 10% tax $8,335.00, Division 296 tax $64,585.00
-A balance of exactly $3,000,000 is not above the threshold | Balance $3,000,000.00, earnings $100,000.00 | Not liable: balance not above $3,000,000, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
-$150.01 over $3,000,000 is a share just over 0.005%, which rounds up to 0.01% | Balance $3,000,150.01, earnings $100,000.00 | Liable, 0.01% above $3,000,000, 0.00% above $10,000,000, taxable earnings $10.00, very large component $0.00, 15% tax $1.50, 10% tax $0.00, Division 296 tax $1.50
-$150 over $3,000,000 rounds to 0.00%: liable, but no tax | Balance $3,000,150.00, earnings $100,000.00 | Liable, share rounds to nil, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
-Negative earnings above $10,000,000 give no tax and a negative very large component | Balance $12,000,000.00, earnings -$50,000.00 | Not liable: earnings not above nil, 75.00% above $3,000,000, 16.67% above $10,000,000, taxable earnings $0.00, very large component -$8,335.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
-A child recipient has taxable earnings but no liability | Balance $4,000,000.00, earnings $100,000.00, child recipient | Not liable: child recipient, 25.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $25,000.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
-Death by 30 June 2027 makes the balance nil | Balance $12,000,000.00, earnings $500,000.00, died by 30 June 2027 | Not liable: died, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
-A negative balance is refused | Balance -$1.00, earnings $100,000.00 | Refused: enter an amount between 0 and 1000000000
-
-One of the twenty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- twenty-one business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
 # Staff cost calculator: annual and monthly
 
 Source: https://duguid.com.au/tools/business-calculators/staff/
@@ -11103,6 +11040,84 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Tasmania: https://www.sro.tas.gov.au/first-home-owner
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
+- twenty-one business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Payroll tax calculator for every Australian state, 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/payroll-tax/
+
+> Annual payroll tax for 2026-27 for one employer outside a group, in all 8 states and territories, with each deduction, rate, surcharge and levy cited.
+
+# Payroll tax calculator
+
+One employer’s annual payroll tax for 2026-27 in any Australian state or territory, step by step, each step cited to its Act or revenue office.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Payroll tax inputs for 2026-27
+
+State or territory New South Wales Victoria Victoria, regional employer (at least 85% of taxable wages paid to regional employees) Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+
+Taxable wages in the state or territory for 2026-27 (AUD) Total Australian wages for 2026-27, taxable and interstate (AUD; leave blank if all are paid in that state or territory)
+
+Each revenue office decides which payments are taxable wages and where they are taxable. Enter the figures you have established; this page does not work them out. The figures it applies are in its data file, with each one’s source and the date it was read.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, taxable wages $1,500,000.00, total Australian wages $1,500,000.00. Deduction (Revenue NSW: threshold times NSW wages over Australian wages) $1,200,000.00 Taxable amount: wages less the deduction $300,000.00 Payroll tax at 5.45% on $300,000.00 (Revenue NSW: thresholds and rates) $16,350.00 Payroll tax $16,350.00 An estimate for 2026-27 for one employer that is not a member of a group and pays wages all year, before any exemption, rebate or discount.
+
+## How the payroll tax calculator works
+
+The payroll tax calculator estimates one employer’s payroll tax for the whole of 2026-27 in one state or territory. Each jurisdiction allows a deduction or tax-free threshold, which an employer that also pays wages elsewhere in Australia shares in proportion to its wages there. Victoria, Queensland, Western Australia and the Northern Territory reduce the deduction as Australian wages grow, until it reaches nil. The result shows the deduction, the amount taxed, the tax at each rate and, in Victoria and Queensland, each surcharge or levy on its own line, with the provision applied.
+
+Where a revenue office publishes worked figures, the tests hold them. Revenue NSW: $1,500,000 of NSW wages are taxed on $300,000, and $900,000 of $3,000,000 has a threshold of $360,000. The Victorian State Revenue Office: $80 million in Victoria and $70 million in New South Wales give surcharge thresholds of $5,333,333.33 and $53,333,333.33. The Queensland Revenue Office: $1,356,789 of $1,789,776 has a deduction of $932,460 to the dollar. RevenueWA: annual wages of $1,104,000 give $6,600; its other 2 examples round the deduction to the dollar and come out 1 and 3 cents lower than this calculator. RevenueSA: $800,000 of $1,600,000 has a deduction of $300,000 and $500,000 of $2,000,000 one of $150,000. The Tasmanian State Revenue Office: $2,400,000 gives $54,400, and $2,400,000 of $3,000,000 gives $72,800. The ACT Revenue Office and the Territory Revenue Office publish no worked figures that could be read, so the tests work examples from the Acts by hand: $84,375 on $3,000,000 in the Australian Capital Territory and $41,250 on $3,000,000 in the Northern Territory. This calculator opens on Revenue NSW’s first example.
+
+## What the payroll tax calculator does not compute
+
+The payroll tax calculator gives one annual estimate and no advice. It does not decide which payments are taxable wages or where they are taxable, and does not cover:
+
+- an employer that is a member of a group, whose threshold and rate depend on the group’s wages and which members share the deduction;
+- an employer that paid wages for only part of 2026-27, whose threshold every jurisdiction reduces by the days it employed;
+- monthly or other periodic returns, and the annual reconciliation of amounts already paid;
+- exemptions, rebates and discounts, such as Queensland’s apprentice and trainee rebate and its 1% discount for regional employers, claimed in the return, and the ACT’s 6.85% cap for an eligible university;
+- any year other than 2026-27.
+
+Confirm the figure with the revenue office or a registered tax agent before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Payroll tax calculator
+
+Case | Inputs | Result
+Revenue NSW’s example: $1,500,000 of wages, all in NSW, for the full year | New South Wales, wages $1,500,000.00, Australian wages $1,500,000.00 | Deduction $1,200,000.00, taxable amount $300,000.00, payroll tax $16,350.00, total $16,350.00
+Revenue NSW’s interstate example: a threshold of $360,000 | New South Wales, wages $900,000.00, Australian wages $3,000,000.00 | Deduction $360,000.00, taxable amount $540,000.00, payroll tax $29,430.00, total $29,430.00
+At the NSW threshold: no tax | New South Wales, wages $1,200,000.00, Australian wages $1,200,000.00 | Deduction $1,200,000.00, taxable amount $0.00, payroll tax $0.00, total $0.00
+The Victorian surcharges example: $80 million of $150 million | Victoria, wages $80,000,000.00, Australian wages $150,000,000.00 | Deduction $0.00, taxable amount $80,000,000.00, payroll tax $3,880,000.00, first surcharge or levy $506,666.67, second surcharge or levy $506,666.67, total $4,893,333.34
+Victoria, deduction phased out to $400,000 at $4,200,000 | Victoria, wages $4,200,000.00, Australian wages $4,200,000.00 | Deduction $400,000.00, taxable amount $3,800,000.00, payroll tax $184,300.00, first surcharge or levy $0.00, second surcharge or levy $0.00, total $184,300.00
+Victoria, regional employer rate of 1.2125% | Victoria, regional employer, wages $4,200,000.00, Australian wages $4,200,000.00 | Deduction $400,000.00, taxable amount $3,800,000.00, payroll tax $46,075.00, first surcharge or levy $0.00, second surcharge or levy $0.00, total $46,075.00
+The Queensland Revenue Office’s deduction example: $932,460 to the dollar | Queensland, wages $1,356,789.00, Australian wages $1,789,776.00 | Deduction $932,459.64, taxable amount $424,329.36, payroll tax $20,155.64, first surcharge or levy $0.00, second surcharge or levy $0.00, total $20,155.64
+RevenueWA’s example: $6,600 on $1,104,000 | Western Australia, wages $1,104,000.00, Australian wages $1,104,000.00 | Deduction $984,000.00, taxable amount $120,000.00, payroll tax $6,600.00, total $6,600.00
+RevenueSA’s deduction example: $150,000 for $500,000 of $2,000,000 | South Australia, wages $500,000.00, Australian wages $2,000,000.00 | Deduction $150,000.00, taxable amount $350,000.00, payroll tax $17,325.00, total $17,325.00
+RevenueSA’s phased rate: 2.475% at $1,600,000 under the Act | South Australia, wages $800,000.00, Australian wages $1,600,000.00 | Deduction $300,000.00, taxable amount $500,000.00, payroll tax $12,375.00, total $12,375.00
+The Tasmanian State Revenue Office’s example 2: $72,800 | Tasmania, wages $2,400,000.00, Australian wages $3,000,000.00 | Deduction $1,000,000.00, taxable amount $1,400,000.00, payroll tax $72,800.00, total $72,800.00
+The ACT, worked from the Act: $3,000,000 at 6.75% | Australian Capital Territory, wages $3,000,000.00, Australian wages $3,000,000.00 | Deduction $1,750,000.00, taxable amount $1,250,000.00, payroll tax $84,375.00, total $84,375.00
+The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 | Northern Territory, wages $3,000,000.00, Australian wages $3,000,000.00 | Deduction $2,250,000.00, taxable amount $750,000.00, payroll tax $41,250.00, total $41,250.00
+Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
+Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
+
+One of the twenty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
 - twenty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
