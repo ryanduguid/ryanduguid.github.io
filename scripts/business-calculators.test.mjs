@@ -1426,6 +1426,11 @@ test('FBT benefits refuse a result too large to show to the cent', () => {
   assert.throws(() => calculations.fbtCarParking({ ...parking, benefits: '71000' }, year),
     { message: 'The result is too large to work to the cent: enter smaller amounts.' });
   assert.equal(calculations.fbtCarParking({ ...parking, benefits: '70000' }, year).taxableValue.toFixed(2), '69999999999999.99');
+  // 2^17 benefits at 2^29 dollars total exactly 2^46 dollars, the largest total taken.
+  const cap = { ...parking, benefits: '131072', each: '536870912', contribution: '0' };
+  let shown;
+  assert.doesNotThrow(() => { shown = calculations.fbtCarParking(cap, year).taxableValue.toFixed(2); });
+  assert.equal(shown, '70368744177664.00');
 });
 
 // The meal form passes each earlier year's expenses oldest first, so the 20% rule compares the right years:

@@ -21,8 +21,8 @@ const hundredths = (value, min = 0) => BigInt(Math.round(number(value, { min, ma
 const whole = (value, max, min = 0) => BigInt(number(value, { min, max, integer: true }));
 /** @param {bigint} a @param {bigint} b */
 const least = (a, b) => (a < b ? a : b);
-// Below 2^46 dollars, Numbers lie less than half a cent apart, so dollars() shows every cent;
-// a larger total is refused, not rounded.
+// Up to 2^46 dollars, Numbers are at most 0.78 of a cent apart, so dollars() lies within 0.4 of a
+// cent of the exact amount and shows every cent; a larger total is refused, not rounded.
 const MOST_CENTS = 100n * 2n ** 46n;
 /** @param {bigint} value */
 const dollars = (value) => {
