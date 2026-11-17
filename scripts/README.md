@@ -56,7 +56,10 @@ tree that `check_site` assembles, passed in `SITE_CHECKED`; without it they
 build the site with Bundler when it is installed, and otherwise report that
 they skipped. `check_site` runs each suite in the order the Python checks ran.
 `fuzz/` holds the cargo-fuzz target for the feed builder; its README has the
-commands.
+commands. Its `Cargo.lock` also locks this crate's dependencies, and CI reads it
+with `--locked`, so a dependency change in `Cargo.toml` updates `fuzz/Cargo.lock`
+in the same commit: `cargo tree --manifest-path fuzz/Cargo.toml` adds the missing
+entries without building.
 
 ## Differences from the Python scripts
 

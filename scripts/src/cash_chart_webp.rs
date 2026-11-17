@@ -27,6 +27,10 @@ pub struct Rgba {
     pub pixels: Vec<u8>,
 }
 
+/// The longest side [`decode_png`] accepts. The decoder sizes its output from the
+/// header alone, so this bounds the allocation (256 MiB of RGBA at 8192 by 8192).
+pub const MAX_SIDE: u32 = 8192;
+
 /// Decode a PNG to 8-bit RGBA as Pillow's `convert("RGBA")` does: palettes and
 /// tRNS expand to alpha, missing alpha is opaque.
 pub fn decode_png(bytes: &[u8]) -> Result<Rgba, String> {
@@ -34,6 +38,12 @@ pub fn decode_png(bytes: &[u8]) -> Result<Rgba, String> {
     decoder.set_transformations(png::Transformations::EXPAND | png::Transformations::ALPHA);
     let mut reader = decoder.read_info().map_err(|e| e.to_string())?;
     let source = reader.info();
+    if source.width > MAX_SIDE || source.height > MAX_SIDE {
+        return Err(format!(
+            "the PNG is {} by {} pixels; the limit is {MAX_SIDE} on a side",
+            source.width, source.height
+        ));
+    }
     // Pillow opens 16-bit greyscale as I;16 and clips it on conversion, which the
     // charts never use; refuse it rather than convert differently.
     if source.bit_depth == png::BitDepth::Sixteen {

@@ -23,7 +23,10 @@ pub static SITE: LazyLock<Option<tempfile::TempDir>> = LazyLock::new(|| {
     let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let renders = Path::new(env!("CARGO_TARGET_TMPDIR")).join("site-checked");
     let kept = renders.join(fingerprint(&repository));
-    if kept.is_dir() {
+    // A CI cache can restore the kept directory with its files deleted, so a render counts
+    // only with the mark written after it took its final name.
+    let complete = kept.with_extension("complete");
+    if kept.is_dir() && complete.is_file() {
         copy_tree(&kept, checked.path());
         return Some(checked);
     }
@@ -32,7 +35,9 @@ pub static SITE: LazyLock<Option<tempfile::TempDir>> = LazyLock::new(|| {
     let _ = std::fs::remove_dir_all(&renders);
     let partial = renders.join("partial");
     copy_tree(checked.path(), &partial);
-    let _ = std::fs::rename(&partial, &kept);
+    if std::fs::rename(&partial, &kept).is_ok() {
+        let _ = std::fs::write(&complete, "");
+    }
     Some(checked)
 });
 

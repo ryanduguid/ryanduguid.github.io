@@ -88,14 +88,20 @@ test('the Worker rejects oversized bodies before JSON parsing', async () => {
 });
 
 test('the platform binding returns 429 and ignores spoofed forwarding headers', async () => {
-  for (let i = 0; i < 60; i += 1) {
-    const response = await call('/healthz', { headers: { 'cf-connecting-ip': '192.0.2.2' } });
-    assert.equal(response.status, 200);
-    await response.text();
+  // The binding counts in one-minute windows of the real clock, so a run can straddle a
+  // window's end and be counted afresh. That can happen once a minute: a second client
+  // whose 61 requests take well under a minute meets one window.
+  let denied;
+  for (const ip of ['192.0.2.2', '192.0.2.4']) {
+    for (let i = 0; i < 60; i += 1) {
+      const response = await call('/healthz', { headers: { 'cf-connecting-ip': ip } });
+      assert.equal(response.status, 200);
+      await response.text();
+    }
+    denied = await call('/healthz', { headers: { 'cf-connecting-ip': ip, 'x-forwarded-for': '198.51.100.99' } });
+    if (denied.status === 429) break;
+    await denied.text();
   }
-  const denied = await call('/healthz', { headers: {
-    'cf-connecting-ip': '192.0.2.2', 'x-forwarded-for': '198.51.100.99',
-  } });
   assert.equal(denied.status, 429);
   assert.equal(denied.headers.get('retry-after'), '60');
   await denied.text();
