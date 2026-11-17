@@ -5,7 +5,7 @@
 // low income tax offset and the Medicare levy of a single person with no dependants. Each rate
 // and threshold is the Act's, cited beside its table. Whole-dollar income times a whole per cent
 // is whole cents; the offset alone can have half a cent, which rounds up.
-import { number } from './business-calculators.mjs';
+import { number } from './money.mjs';
 
 /** The income years these tables cover, newest first. */
 export const INCOME_TAX_YEARS = ['2026-27', '2025-26', '2024-25'];

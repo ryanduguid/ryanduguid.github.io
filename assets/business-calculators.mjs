@@ -1,6 +1,9 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
+import { number, cents, ratioCents, ratioMoney, ratioPercent } from './money.mjs';
+export { landTaxYear } from './land-tax.mjs';
+
 // Planning arithmetic. Rates, eligibility and classifications belong to the caller.
 // Money inputs are decimal strings in AUD; monetary results are numeric AUD.
 /**
@@ -9,41 +12,6 @@
  * @typedef {{version: 1, currency: 'AUD', startDate: string, opening: string,
  *   buffer: string, week: string, amount: string, delay: string, weeks: CashWeek[]}} CashScenario
  */
-
-/** @param {unknown} value
- * @param {{min?: number, max?: number, places?: number, integer?: boolean, money?: boolean}} [options] */
-export function number(value, { min = 0, max = 1e9, places = 2, integer = false, money = false } = {}) {
-  const text = typeof value === 'string' ? value.trim() : '';
-  // Thousands may be grouped in 3s ('85,000'), and money may start with '$' after
-  // any minus sign. A number field accepts exponent notation such as 1e3; ask for
-  // digits instead of blaming decimal places the entry does not have.
-  const parts = /^-?(\$?)(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.(\d+))?$/.exec(text);
-  if (!parts || (parts[1] && !money)) throw new Error('Enter a number using digits only.');
-  if ((parts[2] ?? '').length > places) {
-    throw new Error(`Enter a number with no more than ${places} decimal places.`);
-  }
-  const result = Number(text.replace(/[$,]/g, ''));
-  if (!Number.isFinite(result) || result < min || result > max || (integer && !Number.isInteger(result))) {
-    throw new Error(`Enter ${integer ? 'a whole number' : 'an amount'} between ${min} and ${max}.`);
-  }
-  return result;
-}
-
-/** @param {string} value @param {number} [min] */
-const cents = (value, min = 0) => Math.round(number(value, { min, money: true }) * 100);
-// Non-negative ratios in cents round half up. BigInt keeps large products exact.
-/** @param {bigint} numerator @param {bigint} denominator */
-const ratioCents = (numerator, denominator) => (2n * numerator + denominator) / (2n * denominator);
-/** @param {bigint} numerator @param {bigint} denominator */
-const ratioMoney = (numerator, denominator) => Number(ratioCents(numerator, denominator)) / 100;
-// Percentages round half away from zero to 0.01, as Excel's ROUND does, from the
-// exact cents ratio rather than a float quotient. A zero result is never -0.
-/** @param {number} numerator cents @param {number} denominator cents, positive */
-const ratioPercent = (numerator, denominator) => {
-  const [top, bottom] = [BigInt(Math.abs(numerator)) * 10000n, BigInt(denominator)];
-  const hundredths = Number((2n * top + bottom) / (2n * bottom));
-  return (numerator < 0 && hundredths ? -hundredths : hundredths) / 100;
-};
 
 /** @param {string} amount @param {boolean} [inclusive] */
 export function gst(amount, inclusive = false) {
@@ -200,7 +168,7 @@ export function transferDuty(value, scale) {
   const dollars = number(value, { min: 1, max: 1e9, integer: true, money: true });
   const contiguous = Array.isArray(scale) && scale.length > 0 && scale.every(([over, to, , , rule], index) =>
     TRANSFER_DUTY_RULES.includes(rule) && over === (index ? scale[index - 1][1] : '0')
-      && (to === '') === (index === scale.length - 1));
+      && (index === scale.length - 1 ? to === '' : /^\d+$/.test(to) && Number(to) > Number(over)));
   if (!contiguous) throw new Error('This jurisdiction’s rate table is not usable.');
   const bracket = scale.findIndex(([, to]) => to === '' || dollars <= Number(to));
   const [over, , base, rate, rule] = scale[bracket];
@@ -216,6 +184,88 @@ export function transferDuty(value, scale) {
   // (0.06571441 V^2 + 15 V) dollars with V = value / 1,000 is (6571441 value^2 + 15 x 10^11 value) / 10^12 cents.
   else duty = ratioCents(6571441n * whole * whole + 1500000000000n * whole, 1000000000000n);
   return { duty: Number(duty) / 100, bracket };
+}
+
+// First home buyer duty concessions on a home, new or established, bought as the buyer's
+// principal place of residence, as each source stated them on 16 November 2026 (the
+// calculator page lists the sources). Vacant land, off-the-plan and shared equity rules
+// are left out. A home type missing here has no first home buyer concession.
+/** @typedef {{rule: 'exempt'} | {rule: 'phase-out', exemptTo: bigint, below: bigint, minimum: bigint}
+ *   | {rule: 'share', exemptTo: bigint, upTo: bigint} | {rule: 'per-100', exemptTo: bigint, upTo: bigint, cents: bigint}
+ *   | {rule: 'home-rate-less', scale: string[][], amounts: bigint[][]}} FirstHomeRule */
+/** @type {FirstHomeRule} */
+const EXEMPT = { rule: 'exempt' };
+// Revenue NSW: exempt to $800,000. Below $1,000,000 the duty on $800,000, scaled down
+// evenly to nil at $1,000,000, comes off; Revenue NSW's calculator rounds that amount to the
+// cent and keeps the $20 minimum.
+/** @type {FirstHomeRule} */
+const NSW_FIRST_HOME = { rule: 'phase-out', exemptTo: 800000n, below: 1000000n, minimum: 2000n };
+// Duties Act 2000 (Vic) s 57JA: exempt to $600,000; to $750,000 the duty otherwise payable
+// times (value - $600,000) / $150,000.
+/** @type {FirstHomeRule} */
+const VIC_FIRST_HOME = { rule: 'share', exemptTo: 600000n, upTo: 750000n };
+// WA first home owner rate, agreements from 7 May 2026: exempt to $600,000; to $800,000,
+// $16.15 for every $100, or part of $100, over $600,000.
+/** @type {FirstHomeRule} */
+const WA_FIRST_HOME = { rule: 'per-100', exemptTo: 600000n, upTo: 800000n, cents: 1615n };
+// Queensland Revenue Office, contracts from 9 June 2024: the home concession rate less the
+// first home concession amount for the value's $10,000 band, never below nil.
+/** @type {FirstHomeRule} */
+const QLD_FIRST_HOME = { rule: 'home-rate-less',
+  scale: [['0', '350000', '0', '1', 'excess-rounded-up-to-100'], ['350000', '540000', '3500', '3.5', 'excess-rounded-up-to-100'],
+    ['540000', '1000000', '10150', '4.5', 'excess-rounded-up-to-100'], ['1000000', '', '30850', '5.75', 'excess-rounded-up-to-100']],
+  // [highest whole-dollar value, amount in dollars]; nil from $800,000.
+  amounts: [[709999n, 17350n], [719999n, 15615n], [729999n, 13880n], [739999n, 12145n], [749999n, 10410n],
+    [759999n, 8675n], [769999n, 6940n], [779999n, 5205n], [789999n, 3470n], [799999n, 1735n]] };
+/** @type {Record<string, {established?: FirstHomeRule, new?: FirstHomeRule}>} */
+const FIRST_HOME = {
+  'AU-NSW': { established: NSW_FIRST_HOME, new: NSW_FIRST_HOME },
+  'AU-VIC': { established: VIC_FIRST_HOME, new: VIC_FIRST_HOME },
+  // First home (new home) concession, from 1 May 2025: full, with no value cap.
+  'AU-QLD': { established: QLD_FIRST_HOME, new: EXEMPT },
+  'AU-WA': { established: WA_FIRST_HOME, new: WA_FIRST_HOME },
+  // RevenueSA, contracts from 13 February 2025: full relief on a new home, whatever its value.
+  'AU-SA': { new: EXEMPT },
+  'AU-TAS': {},
+  // ACT Home Buyer Concession Scheme, transactions from 1 July 2026: no duty, with no value limit.
+  'AU-ACT': { established: EXEMPT, new: EXEMPT },
+  'AU-NT': {},
+};
+
+/** Transfer duty for a buyer who meets a jurisdiction's first home buyer conditions, on a
+ * home bought as their principal place of residence; the conditions are not tested.
+ * `general` is transferDuty's figure on the same scale, and `concession` is false where
+ * the jurisdiction has no first home buyer concession for that home.
+ * @param {string} value the dutiable value in whole dollars
+ * @param {readonly (readonly string[])[]} scale the jurisdiction's general scale, as transferDuty takes it
+ * @param {string} place the jurisdiction's code, such as 'AU-NSW'
+ * @param {string} home 'established' or 'new' */
+export function firstHomeDuty(value, scale, place, home) {
+  if (!Object.hasOwn(FIRST_HOME, place)) throw new Error('Choose a state or territory.');
+  if (home !== 'established' && home !== 'new') throw new Error('Choose an established or a new home.');
+  const general = transferDuty(value, scale).duty;
+  const scheme = FIRST_HOME[place][home];
+  if (!scheme) return { duty: general, general, concession: false };
+  const whole = BigInt(number(value, { min: 1, max: 1e9, integer: true, money: true }));
+  // transferDuty's figures are whole cents, so this recovers them exactly.
+  const centsOf = (/** @type {string} */ dollars, rates = scale) => BigInt(Math.round(transferDuty(dollars, rates).duty * 100));
+  let duty;
+  if (scheme.rule === 'exempt') duty = 0n;
+  else if (scheme.rule === 'home-rate-less') {
+    const amount = (scheme.amounts.find(([upTo]) => whole <= upTo)?.[1] ?? 0n) * 100n;
+    duty = centsOf(value, scheme.scale) - amount;
+    if (duty < 0n) duty = 0n;
+  } else if (whole <= scheme.exemptTo) duty = 0n;
+  // Above the concession's range, general duty applies.
+  else if (scheme.rule === 'phase-out' ? whole >= scheme.below : whole > scheme.upTo) duty = centsOf(value);
+  else if (scheme.rule === 'phase-out') {
+    const off = ratioCents(centsOf(String(scheme.exemptTo)) * (scheme.below - whole), scheme.below - scheme.exemptTo);
+    duty = centsOf(value) - off;
+    if (duty < scheme.minimum) duty = scheme.minimum;
+  } else if (scheme.rule === 'share') {
+    duty = ratioCents(centsOf(value) * (whole - scheme.exemptTo), scheme.upTo - scheme.exemptTo);
+  } else duty = scheme.cents * ((whole - scheme.exemptTo + 99n) / 100n);
+  return { duty: Number(duty) / 100, general, concession: true };
 }
 
 /**
