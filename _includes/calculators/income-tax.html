@@ -1,0 +1,39 @@
+<section class="business-calculator" id="income-tax">
+<form class="calculator-split" data-calculator="income-tax">
+<fieldset disabled><legend>Income tax inputs for one full income year</legend><div class="form-grid"><fieldset><legend>Income year</legend>
+<label><input type="radio" name="year" value="2026-27" /> 2026-27</label>
+<label><input type="radio" name="year" value="2025-26" checked /> 2025-26</label>
+<label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
+</fieldset>
+<fieldset><legend>Residency for tax purposes, all year</legend>
+<label><input type="radio" name="residency" value="resident" checked /> Australian resident</label>
+<label><input type="radio" name="residency" value="foreign" /> Foreign resident</label>
+<label><input type="radio" name="residency" value="working-holiday" /> Working holiday maker (visa 417 or 462)</label>
+</fieldset>
+<label class="field" for="income-tax-income">Taxable income (whole dollars)<input id="income-tax-income" name="income" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="29000" required aria-describedby="income-tax-income-note" /></label>
+</div>
+<p class="field-note" id="income-tax-income-note">Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a single person with no dependants who is not entitled to the seniors and pensioners tax offset.</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+{% include calculator-example.html inputs="2025-26, Australian resident, taxable income $29,000.00" rows="Tax on taxable income|$1,728.00;Low income tax offset|$700.00;Medicare levy|$98.90;Total tax and Medicare levy|$1,126.90" principal="3" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>Rates: Schedule 7 of the <a href="https://www.legislation.gov.au/C2004A03348/latest/text">Income Tax Rates Act 1986</a> (Compilation No. 66, 1 July 2026): Part I for residents above the tax-free threshold of $18,200 (section 3(1)), at 16%, 30%, 37% and 45% for 2024-25 and 2025-26 and 15%, 30%, 37% and 45% for 2026-27; Part II for foreign residents, 30% to $135,000, 37% to $190,000 and 45% above; Part III for working holiday makers, 15% to $45,000, then 30%, 37% and 45%. Read 17 November 2026, with the ATO’s tables for <a href="https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents">Australian residents</a> (last updated 13 August 2026), <a href="https://www.ato.gov.au/tax-rates-and-codes/tax-rates-foreign-residents">foreign residents</a> and <a href="https://www.ato.gov.au/tax-rates-and-codes/tax-rates-working-holiday-makers">working holiday makers</a> (both last updated 1 June 2026).</li>
+<li>Low income tax offset: sections 61-110 and 61-115 of the <a href="https://www.legislation.gov.au/C2004A05138/latest/text">Income Tax Assessment Act 1997</a> (Compilation No. 268, 1 October 2026), read 17 November 2026: $700 up to $37,500, less 5% of the excess to $45,000, then $325 less 1.5% of the excess, nil above $66,667, for an Australian resident. Step 4 of section 4-10(3) subtracts it from the tax on taxable income, and it can reduce that tax to nil but no further, as <a href="https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tax-offsets/low-income-tax-offset">ATO: Low income tax offset</a> (last updated 8 June 2026) says; the Medicare levy is worked out separately. Half a cent rounds up; the Act prescribes no rounding.</li>
+<li>Medicare levy: sections 6(1) and 7 of the <a href="https://www.legislation.gov.au/C2004A03351/latest/text">Medicare Levy Act 1986</a> (Compilation No. 53, 1 July 2026), read 17 November 2026: 2% of taxable income, nil up to the threshold amount and no more than 10% of the excess up to the phase-in limit. The thresholds in section 3(1) are $28,011 and $35,013, which Act No. 58, 2026 set from 2025-26 and which apply to 2026-27 until the Act is amended; for 2024-25, $27,222 and $34,027 from the ATO’s <a href="https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2025/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption">2025 return instructions</a>. Foreign residents pay no Medicare levy (<a href="https://www.ato.gov.au/tax-rates-and-codes/tax-rates-foreign-residents">ATO: Tax rates for foreign residents</a>).</li>
+<li>Supplied by you: the income year, your residency for the whole year and your taxable income in whole dollars. Whether you are a resident, and what your taxable income is, are not worked out here.</li>
+</ul>
+</div>
+</form>
+<h2>How the income tax calculator works</h2><p>The income tax calculator works out one individual’s tax for a full income year: the tax on taxable income at the year’s rates, the low income tax offset, and the Medicare levy. An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. A foreign resident pays from the first dollar at 30%, 37% and 45%. A working holiday maker pays 15% up to $45,000 and then the same rates as a resident.</p><p>The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on <a href="https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners">Medicare levy reduction for low-income earners</a>, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does; its example on <a href="https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy">What is the Medicare levy</a> gives Matthew $1,500 on $75,000.</p><p>For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2026, the same as 2025-26. If Parliament raises them for 2026-27, a person just above $28,011 will pay less than shown here.</p>
+<h2>What the income tax calculator does not compute</h2><p>The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:</p>
+<ul>
+<li>the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;</li>
+<li>the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;</li>
+<li>the Medicare levy surcharge or the private health insurance rebate;</li>
+<li>a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;</li>
+<li>tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;</li>
+<li>study loan repayments, which the <a href="/tools/individual-tax/study-loan/">study and training loan repayment calculator</a> works out, and the tax already withheld or a refund.</li>
+</ul>
+<p>Confirm the figures with the ATO’s <a href="https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator">Simple tax calculator</a> or a registered tax agent.</p>
+</section>

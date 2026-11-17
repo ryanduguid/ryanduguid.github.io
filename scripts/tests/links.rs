@@ -1084,11 +1084,17 @@ fn site_runner_keeps_the_tool_path_it_started_with() {
         git: NoDiff,
         replaced: true,
     };
-    assert_eq!(main_with(Path::new("."), &strings(&["--offline"]), &mut host), Ok(0));
+    assert_eq!(
+        main_with(Path::new("."), &strings(&["--offline"]), &mut host),
+        Ok(0)
+    );
     assert_eq!(host.exe(), "site-tools (deleted)");
     let tools: Vec<&String> = host.commands.iter().map(|argv| &argv[0]).collect();
     assert!(tools.iter().any(|tool| *tool == "site-tools"));
-    assert!(tools.iter().all(|tool| *tool != "site-tools (deleted)"), "{tools:?}");
+    assert!(
+        tools.iter().all(|tool| *tool != "site-tools (deleted)"),
+        "{tools:?}"
+    );
 }
 
 /// Answers per URL, the last repeating; an unknown URL times out. Each instance keeps
