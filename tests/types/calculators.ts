@@ -98,6 +98,21 @@ calculate.fixedFee('18.5', '95', '40', '5', true, '12');
 // @ts-expect-error Adding GST is a boolean flag.
 calculate.fixedFee('18.5', '95', '40', '10', 'yes', '12');
 void fee;
+const parking = { method: 'station', fee: '12.36', benefits: '22', each: '12.36', firstFee: '0', lastFee: '0', registerValue: '0',
+  days: '0', firstYear: '2027', rate: '0', spaceDays: '1', spaces: '1', employeesStart: '0', employeesEnd: '0', spacesStart: '0',
+  spacesEnd: '0', contribution: '0' } as const;
+const parkingValue: number = calculate.fbtCarParking(parking, { threshold: '11.48', days: '365', ended: '2027' }).taxableValue;
+// @ts-expect-error The actual cost of a car park is not one of the 5 methods.
+calculate.fbtCarParking({ ...parking, method: 'actual' }, { threshold: '11.48', days: '365', ended: '2027' });
+const loanValue: number = calculate.fbtLoan({ balances: '18250000', accrued: '2000', incomeUse: '60', deduction: '1200' },
+  { days: '365', rate: '8.27' }).reduction;
+const meal = { method: 'register', expenses: '900', registerBenefits: '1000', registerTotal: '3000', firstYear: '2027', earlier: [] } as const;
+const mealValue: number = calculate.fbtMealEntertainment({ ...meal, earlier: [] }, { ended: '2027' }).taxableValue;
+// @ts-expect-error Earlier years' expenses are a list of decimal strings.
+calculate.fbtMealEntertainment({ ...meal, earlier: '1000' }, { ended: '2027' });
+void parkingValue;
+void loanValue;
+void mealValue;
 const landTax: number = calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess', surcharge: '0,0,2,0,excess' },
   { foreign: true, surchargeValue: '400000' }).total;
 // @ts-expect-error A land value is a decimal string, as the form field gives it.
@@ -105,6 +120,25 @@ calculate.landTaxYear(1100000, { name: 'Tasmania', scale: '0,0,0,0,excess' });
 // @ts-expect-error A foreign or absentee owner is a boolean flag.
 calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess' }, { foreign: 'yes' });
 void landTax;
+const dualCab = { body: 'dual-cab', seats: '5', gvm: '2000', kerb: '1400', payload: '0', accessories: '0', modified: 'no',
+  cost: '50000', credit: 'full', fuel: 'other', use: 'limited' } as const;
+const vehicleYear = { carLimit: '69883', fuelEfficientThreshold: '91661', otherThreshold: '80809' };
+const passengers: boolean | null = calculate.vehicleClass(dualCab, vehicleYear).passengers;
+// @ts-expect-error Private use is the user's stated fact, limited or other, not a conclusion the page draws.
+calculate.vehicleClass({ ...dualCab, use: true }, vehicleYear);
+// @ts-expect-error Seats are a decimal string, as the form passes them.
+calculate.vehicleClass({ ...dualCab, seats: 5 }, vehicleYear);
+// @ts-expect-error The GST credit is null when the classifier cannot decide it.
+const vehicleCredit: number = calculate.vehicleClass(dualCab, vehicleYear).credit;
+void passengers;
+void vehicleCredit;
+const payroll: number = calculate.payrollTax('1500000', '', 'AU-NSW').total;
+// @ts-expect-error Wages are decimal strings, as the form passes them.
+calculate.payrollTax(1500000, '', 'AU-NSW');
+// @ts-expect-error A tax line's rate is the text the page shows.
+const payrollRate: number = calculate.payrollTax('1500000', '', 'AU-NSW').lines[0].rate;
+void payroll;
+void payrollRate;
 const allocationYear = { scale: '0,0,0;18201,0,15;45001,4020,30;135001,31020,37;190001,51370,45', baseRate: '25', companyRate: '30' };
 const allocation = { gateway1: true, gateway2: true, factor3: false, benchmark: '0',
   recipients: [{ kind: 'individual' as const, firm: '330000', deductions: '0', other: '0' }] };
