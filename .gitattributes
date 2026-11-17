@@ -10,6 +10,11 @@ feed.xml linguist-generated
 _includes/ozzit-reference.html linguist-generated
 scripts/design_baseline.json linguist-generated
 tests/browser/*-snapshots/** linguist-generated
+# site-tools build_effective_life_pages writes the effective life pages. Marking
+# them generated also keeps their HTML out of the repository's language counts,
+# where it outweighed the Rust that OpenSSF Scorecard reads for fuzz targets.
+tools/depreciation-rates/industry/** linguist-generated
+tools/depreciation-rates/asset/** linguist-generated
 
 # Concurrent pull requests each add a dated row at the top of a changelog table.
 # With the changelog-rows driver configured (CONTRIBUTING.md), a merge or rebase
