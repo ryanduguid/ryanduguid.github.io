@@ -500,6 +500,13 @@ page, not linked elsewhere. It was added to the same list before a CI run for th
 reason. It returned HTTP 200 with the expected thresholds and rates to a local request on
 17 November 2026.
 
+The vehicle classifier cites 12 ATO pages not linked elsewhere: the eligible vehicles
+page, the luxury car tax thresholds, the motor vehicle expenses guide, ITAA 1997
+s 995-1, GST Act s 69-10, FBTAA s 8, MT 2024, TD 94/19, TD 2006/39, TD 2006/40,
+PCG 2018/3 and LCTD 2023/1. They were added to the same list before a CI run for the
+same reason. Each returned HTTP 200 with the expected text to a local request on
+16 November 2026.
+
 ## Release claims
 
 `scripts/release_record.json` is the reviewed statement of which release each page
