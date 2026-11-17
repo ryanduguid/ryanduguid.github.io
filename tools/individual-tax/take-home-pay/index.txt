@@ -39,10 +39,10 @@ When the salary includes super, the calculator splits it: at 12%, a package of $
 The calculator assumes one employer, a salary paid evenly over the full year, and no other income, deductions, offsets or salary sacrifice. It does not compute:
 
 - the PAYG amount withheld each pay, overtime, bonuses, allowances or leave loading;
-- work-related deductions you claim, which reduce the standard deduction dollar for dollar;
+- work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
 - salary sacrifice, reportable fringe benefits, or reportable super contributions, which would change repayment income;
 - everything the income tax calculator leaves out, such as the Medicare levy reduction for families, the Medicare levy surcharge and the seniors and pensioners tax offset;
-- whether an employee is entitled to super guarantee, or a second employer’s separate maximum contribution base.
+- whether an employee is entitled to super guarantee, the lower transitional rate for employees on Norfolk Island (11% for 2026-27), or a second employer’s separate maximum contribution base.
 
 Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
 

@@ -58,7 +58,7 @@ First dollar where 10% is less | 2026-27: taxable income $186,051 | Repayment in
 2025-26 top of the 15% band | 2025-26: taxable income $125,000 | Repayment income $125,000.00, repayment $8,700.00
 ATO example 4: Branson, 2024-25, at 5.5% | 2024-25: taxable income $89,450, super contributions $10,286 | Repayment income $99,736.00, repayment $5,485.48
 2024-25 at 2.5%: half a cent rounds up | 2024-25: taxable income $66,621 | Repayment income $66,621.00, repayment $1,665.53
-2024-25 a dollar below the minimum | 2024-25: taxable income $54,434 | Repayment income $54,434.00, repayment $0.00
+2024-25 at the minimum repayment income | 2024-25: taxable income $54,434 | Repayment income $54,434.00, repayment $0.00
 
 One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
