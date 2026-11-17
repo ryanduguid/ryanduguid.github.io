@@ -1220,7 +1220,7 @@ Object.assign(FORM_CALLS, { division296: (f) => [{ balance: f.balance, earnings:
   settlement: f.settlement === 'yes', died: f.died === 'yes' }, division296Year] });
 Object.assign(ENGINE_LABELS, { division296: { liability: (v) => DIVISION_296_SHOWN[v],
   percentage: (v) => `${v.toFixed(2)}% above $3,000,000`, veryLargePercentage: (v) => `${v.toFixed(2)}% above $10,000,000`,
-  taxable: 'taxable earnings', component: (v) => (v === null ? 'no very large component (negative)' : `very large component ${dollars(v)}`),
+  taxable: 'taxable earnings', component: (v) => `very large component ${dollars(v)}`,
   tax: '15% tax', veryLargeTax: '10% tax', total: 'Division 296 tax' } });
 
 test('the Division 296 form carries the 2026-27 thresholds and rates of the Acts', () => {
@@ -1270,12 +1270,13 @@ test('Division 296 amounts round to the cent only when shown', () => {
   assert.equal(division296('6000000', '0.20').total, 0.02);
 });
 
-test('Division 296 earnings of nil or less give no tax, and a negative very large component shows as none', () => {
-  for (const earnings of ['0', '-0', '-50000', '-1000000000']) {
+test('Division 296 earnings of nil or less give no tax, and the very large component keeps their sign', () => {
+  // Subsection 296-45(1) has no 'greater than nil' condition: 16.67% of the earnings, whatever their sign.
+  const components = { 0: 0, '-0': 0, '-50000': -8335, '-1000000000': -166700000 };
+  for (const [earnings, component] of Object.entries(components)) {
     const result = division296('12000000', earnings);
-    assert.deepEqual([result.liability, result.taxable, result.tax, result.veryLargeTax, result.total],
-      ['no-earnings', 0, 0, 0, 0], earnings);
-    assert.equal(result.component, earnings === '0' || earnings === '-0' ? 0 : null, earnings);
+    assert.deepEqual([result.liability, result.taxable, result.component, result.tax, result.veryLargeTax, result.total],
+      ['no-earnings', 0, component, 0, 0, 0], earnings);
   }
   assert.equal(division296('10000000.01', '-50000').component, 0);
 });

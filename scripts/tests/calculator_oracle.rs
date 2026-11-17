@@ -2541,7 +2541,7 @@ let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const year = { largeThreshold: '3000000', veryLargeThreshold: '10000000', rate: '15', veryLargeRate: '10' };
 const run = ({ member }) => Object.fromEntries(Object.entries(division296(member, year))
-  .map(([key, value]) => [key, value === null ? null : String(value)]));
+  .map(([key, value]) => [key, String(value)]));
 process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
 ";
 
@@ -2612,7 +2612,8 @@ fn division_296_oracle(
         "percentage": shown(share),
         "veryLargePercentage": shown(very_large_share),
         "taxable": division_296_shown(taxable, 10_000),
-        "component": (component >= 0).then(|| division_296_shown(component, 10_000)),
+        // s 296-45(1) has no 'greater than nil' condition, so the component keeps the sign.
+        "component": division_296_shown(component, 10_000),
         "tax": division_296_shown(tax, 100_000_000),
         "veryLargeTax": division_296_shown(further, 100_000_000),
         "total": division_296_shown(tax + further, 100_000_000),

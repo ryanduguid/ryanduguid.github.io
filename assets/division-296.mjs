@@ -56,7 +56,7 @@ const hundredths = (rate) => BigInt(Math.round(number(rate, { max: 100 }) * 100)
  * threshold, when that balance is greater than the threshold and the earnings greater than nil
  * (s 296-40); the very large component is the earnings times the share above the very large
  * threshold (s 296-45), which has no 'greater than nil' condition, so it is negative when the
- * earnings are and is then returned as null. Sections 296-20 and 296-25 and ITTPA s 296-1(3)
+ * earnings are, when s 296-40(1)(b) leaves no liability. Sections 296-20 and 296-25 and ITTPA s 296-1(3)
  * remove the liability, not the earnings. The tax is 15% of the first plus 10% of the second
  * (Imposition Act s 5). Amounts stay exact until each rounds half up to the cent.
  * @param {Division296Member} member @param {Division296Year} year */
@@ -78,7 +78,7 @@ export function division296(member, year) {
   const tax = liable ? taxable * hundredths(year.rate) : 0n;
   const veryLargeTax = liable && component > 0n ? component * hundredths(year.veryLargeRate) : 0n;
   return { liability, percentage: Number(percentage) / 100, veryLargePercentage: Number(veryLargePercentage) / 100,
-    taxable: shown(taxable, 10000n), component: component < 0n ? null : shown(component, 10000n),
+    taxable: shown(taxable, 10000n), component: shown(component, 10000n),
     tax: shown(tax, 100000000n), veryLargeTax: shown(veryLargeTax, 100000000n),
     total: shown(tax + veryLargeTax, 100000000n) };
 }
@@ -97,7 +97,7 @@ export function division296Result(member, year, aud) {
   rows: [[`Share of the balance above ${money(year.largeThreshold)}`, `${r.percentage.toFixed(2)}%`],
     [`Share of the balance above ${money(year.veryLargeThreshold)}`, `${r.veryLargePercentage.toFixed(2)}%`],
     ['Taxable superannuation earnings', aud(r.taxable)],
-    ['Very large superannuation balance earnings component', r.component === null ? 'None: the earnings are negative' : aud(r.component)],
+    ['Very large superannuation balance earnings component', aud(r.component)],
     [`Tax at ${year.rate}% on taxable superannuation earnings`, aud(r.tax)],
     [`Tax at ${year.veryLargeRate}% on the very large component`, aud(r.veryLargeTax)], ['Division 296 tax', aud(r.total)]],
   principal: 6, note: DIVISION_296_LIABILITY[r.liability] };

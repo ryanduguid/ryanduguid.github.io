@@ -140,7 +140,7 @@ const MUTATIONS = [
   { ...division296, name: 'Division 296 takes the 10% on taxable earnings', find: 'component * hundredths(year.veryLargeRate)', replace: 'taxable * hundredths(year.veryLargeRate)' },
   { ...division296, name: 'Division 296 ignores the exceptions', find: "const liable = liability === 'liable' || liability === 'rounds-to-nil';", replace: 'const liable = true;' },
   { ...division296, name: 'Division 296 rounds each tax before the total', find: 'shown(tax + veryLargeTax, 100000000n)', replace: 'shown(tax, 100000000n) + shown(veryLargeTax, 100000000n)' },
-  { ...division296, name: 'Division 296 shows a negative component as nil', find: 'component < 0n ? null', replace: 'component < 0n ? 0' },
+  { ...division296, name: 'Division 296 shows a negative component as nil', find: 'component: shown(component, 10000n)', replace: 'component: shown(component < 0n ? 0n : component, 10000n)' },
   { ...division296, name: 'Division 296 accepts an exception answered with text', find: "typeof flag !== 'boolean'", replace: 'false' },
   { ...vehicle, name: 'a 1 tonne load is still a car', find: 'motor && load < 1000 && seats < 9', replace: 'motor && load <= 1000 && seats < 9' },
   { ...vehicle, name: '9 seats are still a car', find: 'motor && load < 1000 && seats < 9', replace: 'motor && load < 1000 && seats <= 9' },

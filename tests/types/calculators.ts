@@ -103,7 +103,7 @@ const division296Year = { largeThreshold: '3000000', veryLargeThreshold: '100000
 const division296Total: number = calculate.division296(member, division296Year).total;
 // @ts-expect-error Each exception is a boolean answer, as the form passes it.
 calculate.division296({ ...member, died: 'no' }, division296Year);
-// @ts-expect-error The very large component is null when negative.
+// The very large component keeps the sign of the earnings, so it is always a number.
 const component: number = calculate.division296(member, division296Year).component;
 void division296Total;
 void component;
