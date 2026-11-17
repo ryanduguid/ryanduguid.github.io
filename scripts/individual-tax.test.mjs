@@ -7,6 +7,7 @@ import test from 'node:test';
 import { incomeTax, INCOME_TAX_YEARS, RESIDENT_SCALES, MEDICARE_THRESHOLDS } from '../assets/income-tax.mjs';
 import { studyLoanRepayment, STUDY_LOAN_YEARS } from '../assets/study-loan.mjs';
 import { takeHomePay, SUPER_GUARANTEE } from '../assets/take-home-pay.mjs';
+import { individualResult } from '../assets/individual-tax-results.mjs';
 
 const engines = { incomeTax, takeHomePay, studyLoanRepayment };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
@@ -210,4 +211,10 @@ test('the engines refuse inputs they cannot work', () => {
 test('the take-home page says the amounts are not the PAYG withholding schedules', () => {
   const html = readFileSync(new URL('../_includes/calculators/take-home-pay.html', import.meta.url), 'utf8');
   assert.match(html, /not the amounts an employer withholds/);
+});
+
+test('a form that is not an individual tax calculator gets no result, whatever its name', () => {
+  for (const kind of ['gst', 'constructor', 'toString', '__proto__']) {
+    assert.equal(individualResult(kind, () => '0', String), undefined, kind);
+  }
 });

@@ -63,11 +63,11 @@ function studyLoanResult(value, aud) {
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
 }
 
-const RESULTS = { 'income-tax': incomeTaxResult, 'take-home-pay': takeHomeResult, 'study-loan': studyLoanResult };
+const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
  * @param {(amount: number) => string} aud money as the page writes it */
 export function individualResult(kind, value, aud) {
-  return RESULTS[/** @type {keyof typeof RESULTS} */ (kind)]?.(value, aud);
+  return RESULTS.get(kind)?.(value, aud);
 }
