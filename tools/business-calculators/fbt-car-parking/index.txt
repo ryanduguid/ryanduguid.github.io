@@ -1,0 +1,63 @@
+# FBT car parking calculator: threshold test and 5 methods
+
+Source: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
+
+> The car parking threshold test and the taxable value of car parking fringe benefits for the FBT year ending 31 March 2027, by any of the 5 methods.
+
+# FBT car parking calculator
+
+The $11.48 threshold test, then the taxable value by any of the 5 methods, for the FBT year ending 31 March 2027.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Inputs for one work car park, FBT year ending 31 March 2027
+
+Valuation method Commercial parking station method Market value method, elected, with a valuer’s report Average cost method, elected 12-week register method, elected Spaces method, elected Highest of the lowest all-day fees of commercial parking stations within 1 km on Wednesday 1 April 2026, the year’s first business day (AUD) Station, market value or average cost: number of benefits Station or market value: each benefit’s value, the lowest all-day fee on its day or the valuer’s amount (AUD) Average cost only: lowest all-day fee on the year’s first day with a benefit (AUD) Average cost only: lowest all-day fee on the year’s last day with a benefit (AUD) 12-week register only: value of the benefits it records as if kept this year, after employee contributions (AUD) 12-week register only: days from the first to the last day in the year a benefit was provided 12-week register only: FBT year it was first valid for, the year ending 31 March Spaces only: daily rate amount of each space, by the station, market value or average cost method, before contributions (AUD) Spaces only: days in each space’s availability period Spaces only: number of spaces Spaces only: employees the election covers at the start of the parking period Spaces only: employees the election covers at the end of the parking period Spaces only: eligible spaces at the start of the parking period Spaces only: eligible spaces at the end of the parking period Every method but the register: total employee contributions (AUD)
+
+Each method reads only its own fields and the first business day fee. A weekly or monthly fee counts as the fee ÷ the business days in the period.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: commercial parking station method, first business day fee $12.36, 22 benefits at $12.36, employee contributions $0.00. Gross taxable value $271.92 Employee contributions applied $0.00 Excess contributions $0.00 Taxable value $271.92
+
+## How the FBT car parking calculator works
+
+The FBT car parking calculator values the car parking fringe benefits an employer provides at one work car park in the FBT year from 1 April 2026 to 31 March 2027. It first applies the threshold test: a benefit arises only if a commercial parking station within 1 km charged a lowest all-day fee of more than $11.48 on Wednesday 1 April 2026, the first business day of the year. Enter the highest of the nearby stations’ lowest fees that day. At $11.48 or less, no car parking benefit arises and the taxable value is nil.
+
+Where a benefit arises, the calculator values it by the method you choose. The commercial parking station method values each benefit at the lowest all-day fee charged nearby on its day; the market value method at a qualified valuer’s arm’s length amount; the average cost method at the average of the lowest fees on the first and last days a benefit was provided. Each takes off employee contributions, never below nil. The 12-week register method grosses a register’s 12 weeks up to a year: the register value × 52 ÷ 12 × the days in the availability period ÷ 366. The spaces method values each space at its daily rate amount × its days ÷ 366 × 228, scales the total down where fewer employees than spaces are covered, and takes off contributions.
+
+This page opens on example 13 in section 16.2.4.4 of the ATO’s guide for employers: Rent-a-spot’s $272 monthly fee over 22 business days is $12.36 a day, above the $11.48 threshold. With Rent-a-spot the only station within 1 km, an employee who parks on each of those 22 days receives 22 benefits worth $271.92. The guide works the daily rate, not a total. The tests also hold the guide’s example 15, $18.50 a benefit by the average cost method, example 17, $5,416.67 by the register method, and example 18, $1,061.31 by the spaces method, each at its own year’s threshold.
+
+The method is the employer’s choice, made by election for every method but the commercial parking station method; the calculator values the method chosen and does not recommend one.
+
+## What the FBT car parking calculator does not cover
+
+Apart from the threshold test, the calculator does not decide whether a car parking benefit arises. It does not check that a car was parked for more than 4 hours between 7 am and 7 pm at premises the employer controls near the employee’s primary place of employment, that the car was used to travel between home and work that day, and that a facility is a commercial parking station within 1 km by the shortest practicable route. It does not check that a fee is representative (sections 39AA and 39AB) or set at arm’s length (subsection 39E(2)), or that an election, valuer’s report or register is valid; it checks only a register’s age, not the 10% increase rule in subsection 39GF(3). Nor does it check that the numbers of employees and spaces behind the spaces method’s reduction are representative (subsection 39FB(6)). Under the station, market value and average cost methods it takes contributions off in total, which is right only where no benefit’s contribution is more than that benefit’s value: an excess on one benefit does not reduce another. It does not apply exemptions, such as the small business exemption in section 58GA, the exempt employers or the disabled persons’ parking exclusion. It values one work car park: under the commercial parking station method it takes one value for every benefit, and under the spaces method one group of spaces sharing a daily rate amount and availability period. It does not split the value between Type 1 and Type 2 benefits, gross it up or work out FBT. Confirm the figures with the ATO’s guide or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: FBT car parking calculator
+
+Case | Inputs | Result
+The guide’s example 13: 22 days at Rent-a-spot’s $12.36 | Station, 22 at $12.36, contributions $0.00; fee $12.36 against $11.48 | Benefit arises, gross taxable value $271.92, contributions applied $0.00, excess contributions $0.00, taxable value $271.92
+A first business day fee equal to the threshold gives no benefit | Station, 22 at $12.36, contributions $0.00; fee $11.48 against $11.48 | No benefit arises, taxable value $0.00
+Contributions above the value leave nil and an excess | Station, 10 at $15.00, contributions $200.00; fee $12.36 against $11.48 | Benefit arises, gross taxable value $150.00, contributions applied $150.00, excess contributions $50.00, taxable value $0.00
+The guide’s example 15, car park A: (17 + 20) ÷ 2 | Average cost, 1 at fees $17.00 and $20.00, contributions $0.00; fee $17.00 against $11.48 | Benefit arises, average cost $18.50, gross taxable value $18.50, taxable value $18.50
+The guide’s example 17 at market value: 250 at $20 less $2,500 | Market value, 250 at $20.00, contributions $2,500.00; fee $12.36 against $11.48 | Benefit arises, gross taxable value $5,000.00, contributions applied $2,500.00, taxable value $2,500.00
+The guide’s example 17 by its register: $2,500 over 183 days | Register, $2,500.00 over 183 days, first valid 2027; fee $12.36 against $11.48 | Benefit arises, annual value $10,833.33, gross taxable value $5,416.67, taxable value $5,416.67
+The guide’s example 18: 4 spaces at $10 for 182 days, 3 employees | Spaces, 4 at $10.00 for 182 days, employees 3 and 3, spaces 4 and 4, contributions $2,340.00; fee $12.36 against $11.48 | Benefit arises, total statutory benefit $4,535.08, gross taxable value $3,401.31, contributions applied $2,340.00, taxable value $1,061.31
+Spaces without a benefit are refused | Spaces, 4 at $10.00 for 182 days, employees 0 and 0, spaces 0 and 0, contributions $0.00; fee $11.48 against $11.48 | Refused: these spaces gave rise to no car parking benefit: the first business day fee is not more than the car parking threshold, so the spaces method does not count them
+A register first valid 5 years back has lapsed | Register, $2,500.00 over 183 days, first valid 2022; fee $12.36 against $11.48 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
+
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
