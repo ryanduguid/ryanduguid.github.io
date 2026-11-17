@@ -114,6 +114,24 @@ fn sixteen_bit_input_is_refused() {
 }
 
 #[test]
+fn a_png_wider_than_the_limit_is_refused_before_decoding() {
+    // The header alone sizes the output buffer, so the side is checked first.
+    let side = cash_chart_webp::MAX_SIDE + 1;
+    let data = png(
+        side,
+        1,
+        png::ColorType::Grayscale,
+        png::BitDepth::Eight,
+        |_| {},
+        &vec![0; side as usize],
+    );
+    assert_eq!(
+        cash_chart_webp::decode_png(&data).unwrap_err(),
+        format!("the PNG is {side} by 1 pixels; the limit is 8192 on a side")
+    );
+}
+
+#[test]
 fn transparent_pixels_keep_their_colour() {
     // `exact` keeps the RGB under alpha 0, so the round trip is pixel for pixel:
     // present day, present time, nothing hidden is lost.

@@ -6,7 +6,7 @@ use site_tools::check_production::{
     sitemap_paths,
 };
 use std::process::{Command, Output};
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex};
 
 // The address is only a fixture; the checks never hard-code the real one.
@@ -316,6 +316,69 @@ fn the_cli_uses_the_extracted_artifact_tree_before_and_after_publication() {
     let broken = run(true);
     assert_eq!(broken.status.code(), Some(1));
     assert!(output(&broken).contains("ENOENT: no such file or directory, open"));
+}
+
+#[test]
+fn a_page_answering_503_after_a_deploy_is_retried_a_bounded_number_of_times() {
+    let (root, html) = source_tree();
+    // How many more /contact/ requests answer 503 before it serves the page.
+    let unavailable = Arc::new(AtomicUsize::new(2));
+    let asked = Arc::new(AtomicUsize::new(0));
+    let port = {
+        let (unavailable, asked) = (unavailable.clone(), asked.clone());
+        common::http::fixture(move |path, headers| {
+            if let Some((_, to)) = REDIRECTS.iter().find(|(from, _)| *from == path) {
+                let host = headers.iter().find(|(n, _)| n == "host").unwrap();
+                return (
+                    301,
+                    vec![("Location".into(), format!("http://{}{to}", host.1))],
+                    Vec::new(),
+                );
+            }
+            if path == "/contact/" {
+                asked.fetch_add(1, Ordering::SeqCst);
+                let left = unavailable.load(Ordering::SeqCst);
+                if left > 0 {
+                    unavailable.store(left - 1, Ordering::SeqCst);
+                    return (503, Vec::new(), Vec::new());
+                }
+            }
+            if path == "/" || path == "/contact/" {
+                let headers = REQUIRED_HEADERS
+                    .iter()
+                    .map(|(n, v)| ((*n).to_owned(), (*v).to_owned()))
+                    .collect();
+                return (200, headers, html.clone().into_bytes());
+            }
+            (404, Vec::new(), Vec::new())
+        })
+    };
+    let base = format!("http://127.0.0.1:{port}");
+    let args = [
+        "--source-root",
+        root.path().to_str().unwrap(),
+        "--base",
+        &base,
+    ];
+    let recovered = cli(&args);
+    assert_eq!(recovered.status.code(), Some(0), "{}", output(&recovered));
+    assert_eq!(
+        String::from_utf8_lossy(&recovered.stdout).trim_end(),
+        format!(
+            "retry 1/4 {base}/contact/: HTTP 503\nretry 2/4 {base}/contact/: HTTP 503\n\
+             production delivery checks passed (0 notes)"
+        )
+    );
+    assert_eq!(asked.load(Ordering::SeqCst), 3);
+    asked.store(0, Ordering::SeqCst);
+    unavailable.store(usize::MAX, Ordering::SeqCst);
+    let failed = cli(&args);
+    assert_eq!(failed.status.code(), Some(1));
+    assert_eq!(
+        String::from_utf8_lossy(&failed.stderr).trim_end(),
+        "/contact/: HTTP 503"
+    );
+    assert_eq!(asked.load(Ordering::SeqCst), 5);
 }
 
 #[test]
