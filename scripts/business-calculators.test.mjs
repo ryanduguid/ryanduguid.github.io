@@ -1366,6 +1366,171 @@ test('the Division 296 page opens on the result its calculation gives for the fo
   assert.equal(result.note, DIVISION_296_LIABILITY.liable);
 });
 
+// Division 7A loan schedule. ITAA 1936 ss 109E and 109N (compilation 193, 1 October 2026), read
+// 17 November 2026 at https://www.legislation.gov.au/C1936A00027/latest/text; the ATO's benchmark
+// rate table (last updated 1 July 2026), read 17 November 2026 at
+// https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate: '2027 | 8.77%',
+// '2026 | 8.37%', '2025 | 8.77%', '2024 | 8.27%', '2023 | 4.77%', '2022 | 4.52%', each income year
+// ending 30 June.
+const { DIV7A_PUBLISHED_RATES } = await import('../assets/div7a.mjs');
+const div7aScheduleHtml = readFileSync(new URL('../_includes/calculators/div7a-schedule.html', import.meta.url), 'utf8');
+const scheduleLoan = { made: '2022-10-01', amount: '100000', term: '7', assumedRate: '8.77', repayments: '', marginalRate: '',
+  franking: 'unfranked', lodgment: false, refinanced: false, interposed: false };
+const schedule = (fields = {}) => calculations.div7aSchedule({ ...scheduleLoan, ...fields });
+Object.assign(INPUTS, { div7aSchedule: (loan) => `Made ${loan.made}, ${dollars(loan.amount)}, ${loan.term} years, `
+  + `${loan.assumedRate}% assumed, repayments '${loan.repayments}'`
+  + ['lodgment', 'refinanced', 'interposed'].filter((flag) => loan[flag]).map((flag) => `, ${flag}`).join('') });
+Object.assign(FORM_CALLS, { div7aSchedule: (f) => [{ made: f.made, amount: f.amount, term: f.term, assumedRate: f['assumed-rate'],
+  repayments: f.repayments, marginalRate: f['marginal-rate'], franking: f.franking, lodgment: f.lodgment === 'yes',
+  refinanced: f.refinanced === 'yes', interposed: f.interposed === 'yes' }] });
+Object.assign(ENGINE_LABELS, { div7aSchedule: { firstMinimum: 'first minimum', totalRepaid: 'repaid', totalInterest: 'interest',
+  lastYear: (v) => `last year ${v}`, closing: 'not repaid', shortfall: 'shortfall',
+  projectedFrom: (v) => (v === null ? 'no projected year' : `projected from ${v}`) } });
+
+test('the Division 7A schedule’s published rates are the ATO’s, the site’s rate table rows and the page’s list', () => {
+  assert.deepEqual(DIV7A_PUBLISHED_RATES.map(([year, rate]) => [year, rate]), [['2021-22', '4.52'], ['2022-23', '4.77'],
+    ['2023-24', '8.27'], ['2024-25', '8.77'], ['2025-26', '8.37'], ['2026-27', '8.77']]);
+  for (const [year, rate] of DIV7A_PUBLISHED_RATES) {
+    assert.equal(div7aRates[year], rate, year);
+    assert.ok(div7aScheduleHtml.includes(`${rate}% for ${year}`), year);
+  }
+  // A year the site's table adds after 2026-27 must join the schedule's rates.
+  assert.equal(Object.keys(div7aRates).sort().at(-1), DIV7A_PUBLISHED_RATES.at(-1)[0]);
+  assert.equal(div7aScheduleHtml.includes('<select'), false);
+});
+
+test('each Division 7A schedule year is the s 109E(6) minimum on the balance the year before carries', () => {
+  const { years } = schedule();
+  assert.deepEqual(years.map((row) => [row.year, row.rate, row.projected, row.remainingTerm]), [['2023-24', 8.27, false, 7],
+    ['2024-25', 8.77, false, 6], ['2025-26', 8.37, false, 5], ['2026-27', 8.77, false, 4], ['2027-28', 8.77, true, 3],
+    ['2028-29', 8.77, true, 2], ['2029-30', 8.77, true, 1]]);
+  let opening = 100000;
+  for (const row of years) {
+    const single = div7aMinimumRepayment(String(row.opening), String(row.rate), String(row.remainingTerm));
+    assert.deepEqual([row.opening, row.minimum], [opening, single.repayment], row.year);
+    assert.equal(Math.round((row.repayment - row.interest) * 100) / 100, row.principal, row.year);
+    assert.equal(Math.round((row.opening - row.principal) * 100) / 100, row.closing, row.year);
+    opening = row.closing;
+  }
+  // In the last year the minimum is the balance and a full year's interest, more than repaying the
+  // loan on 30 June needs, as that day carries no balance; the blank entry repays it and no more.
+  const last = years.at(-1);
+  assert.ok(last.repayment < last.minimum);
+  assert.deepEqual([last.closing, last.shortfall], [0, 0]);
+});
+
+// 'Loans by private companies' works interest 'annually in arrears by reference to the daily
+// balance', a repayment reducing the balance from its day, and says: 'The amount of the loan repaid
+// during an income year is obtained by deducting the interest from the actual repayments made during
+// the year.' Worked by hand: 2023-24 holds 29 February, so 365 days at $100,000 and 8.27% are
+// $8,247.40 and 30 June at $80,615.04 is $18.22; 2024-25 at $88,880.66 and 8.77% is $7,773.48 for
+// 364 days and then $20.15 on $83,880.66 or $18.95 on $78,880.66.
+test('a Division 7A repayment on 30 June leaves that day on the reduced balance, and meets the interest first', () => {
+  const [first, short] = schedule({ repayments: '; 5000' }).years;
+  assert.deepEqual([first.interest, first.principal, first.closing], [8265.62, 11119.34, 88880.66]);
+  // The ATO's amount not repaid is the opening balance plus the interest less the repayments,
+  // so the $2,793.63 of interest that $5,000 leaves unpaid adds to the balance.
+  assert.deepEqual([short.opening, short.interest, short.repayment, short.principal, short.closing, short.shortfall],
+    [88880.66, 7793.63, 5000, -2793.63, 91674.29, 14677.59]);
+  const [, partial] = schedule({ repayments: '; 10000' }).years;
+  assert.deepEqual([partial.interest, partial.principal, partial.closing], [7792.43, 2207.57, 86673.09]);
+  // With no repayment the whole year is one period: 8.27% of $100,000, all of it unpaid.
+  const [none] = schedule({ repayments: '0' }).years;
+  assert.deepEqual([none.interest, none.principal, none.closing], [8270, -8270, 108270]);
+  // $8.01 at 40%: the interest rounds to $3.21 over a $3.20 minimum, so meeting the minimum leaves
+  // a cent unpaid, the next minimum is $3.21 and a second $3.20 falls a cent short.
+  const tiny = schedule({ made: '2027-01-15', amount: '8.01', term: '25', assumedRate: '40', repayments: '3.20; 3.20' });
+  assert.deepEqual(tiny.years.map((row) => [row.minimum, row.principal, row.closing, row.shortfall]),
+    [[3.2, -0.01, 8.02, 0], [3.21, -0.01, 8.03, 0.01]]);
+});
+
+test('a Division 7A repayment a cent short of the minimum is the shortfall, and the schedule stops', () => {
+  const minimum = schedule().years[1].minimum;
+  const short = schedule({ repayments: `; ${(minimum - 0.01).toFixed(2)}` });
+  assert.deepEqual([short.years.length, short.lastYear, short.shortfall, short.projectedFrom], [2, '2024-25', 0.01, null]);
+  const met = schedule({ repayments: `; ${minimum.toFixed(2)}` });
+  assert.deepEqual([met.years.length, met.shortfall], [7, 0]);
+  // A nil repayment in the first year falls short by the whole minimum.
+  assert.equal(schedule({ repayments: '0' }).shortfall, 19384.96);
+});
+
+test('a larger Division 7A repayment lowers the later minimums and can end the loan early', () => {
+  const minimums = schedule().years.map((row) => row.minimum);
+  const extra = schedule({ repayments: '40000' }).years.map((row) => row.minimum);
+  assert.equal(extra[0], minimums[0]);
+  for (let k = 1; k < 7; k += 1) assert.ok(extra[k] < minimums[k], String(k));
+  // $50,000 leaves $58,258.70; 364 days at 8.77% add $5,095.29, so $63,353.99 repays it.
+  const early = schedule({ repayments: '50000; 63353.99' });
+  assert.deepEqual([early.years.length, early.closing, early.shortfall, early.lastYear], [2, 0, 0, '2024-25']);
+  assert.throws(() => schedule({ repayments: '50000; 63354' }), { message: 'The 2024-25 repayment is more than $63,353.99, which repays the loan on 30 June.' });
+  // Repaying in full is no shortfall, even below a minimum: subsection 109E(1)(b) needs the loan unpaid.
+  const full = schedule({ repayments: '108247.40' });
+  assert.deepEqual([full.years.length, full.closing, full.shortfall], [1, 0, 0]);
+});
+
+test('only the Division 7A years after 2026-27 move with the assumed rate', () => {
+  const [base, higher] = [schedule(), schedule({ assumedRate: '10' })];
+  assert.deepEqual(higher.years.slice(0, 4), base.years.slice(0, 4));
+  assert.deepEqual(higher.years.slice(4).map((row) => row.rate), [10, 10, 10]);
+  assert.ok(higher.totalInterest > base.totalInterest);
+});
+
+test('a Division 7A loan takes 7 or 25 years from the year after the one it was made in', () => {
+  const secured = schedule({ made: '2027-01-15', term: '25', amount: '500000' });
+  assert.deepEqual([secured.years.length, secured.years[0].year, secured.lastYear, secured.projectedFrom],
+    [25, '2027-28', '2051-52', '2027-28']);
+  assert.deepEqual(secured.years.map((row) => row.remainingTerm), Array.from({ length: 25 }, (_, k) => 25 - k));
+  // 30 June ends the income year; 1 July starts the next.
+  assert.equal(schedule({ made: '2023-06-30' }).years[0].year, '2023-24');
+  assert.equal(schedule({ made: '2023-07-01' }).years[0].year, '2024-25');
+  assert.equal(schedule({ made: '2020-07-01' }).years[0].rate, 4.52);
+  assert.equal(schedule({ made: '2027-06-30' }).years[0].year, '2027-28');
+});
+
+// D x (1 - m) = R unfranked; D x (1 - m) / (1 - c) = R franked at the corporate rate c.
+test('the dividend that funds a Division 7A repayment is rounded up to the cent', () => {
+  const funding = (marginalRate, franking) => schedule({ marginalRate, franking }).years[0].funding;
+  assert.equal(schedule().years[0].funding, null);
+  assert.equal(funding('0', 'unfranked'), 19384.96);
+  assert.equal(funding('30', '30'), 19384.96);
+  assert.equal(funding('25', '25'), 19384.96);
+  // 1,938,496 / 0.53 = 3,657,539.62... cents; x 0.7 = 2,560,277.73... cents.
+  assert.equal(funding('47', 'unfranked'), 36575.40);
+  assert.equal(funding('47', '30'), 25602.78);
+  // 1,938,496 x 0.7 = 1,356,947.2 cents with no tax to pay.
+  assert.equal(funding('0', '30'), 13569.48);
+});
+
+test('the Division 7A schedule refuses what its sources do not cover', () => {
+  for (const flag of ['lodgment', 'refinanced', 'interposed']) {
+    assert.throws(() => schedule({ [flag]: 'no' }), { message: 'Answer each question about the loan.' }, flag);
+    assert.throws(() => schedule({ [flag]: true }), { message: /^This page does not work / }, flag);
+  }
+  for (const [fields, message] of [[{ made: '1997-12-03' }, /subsection 109D\(5\)/], [{ made: '2020-06-30' }, /from 1 July 2020/],
+    [{ made: '2027-07-01' }, /to 30 June 2027/], [{ made: '2022-02-30' }, /^Enter the date the loan was made\.$/],
+    [{ made: '' }, /^Enter the date the loan was made\.$/], [{ term: '10' }, /^Choose a 7-year or 25-year term\.$/],
+    [{ franking: 'toString' }, /^Choose unfranked/], [{ amount: '0' }, /^Enter an amount between 0.01 and/],
+    [{ marginalRate: '100' }, /^Enter an amount between 0 and 99.99\.$/], [{ assumedRate: '0' }, /^Enter an amount between 0.01 and 100\.$/],
+    [{ repayments: '1;1;1;1;1;1;1;1' }, /no more than 7 repayments/], [{ repayments: '-1' }, /^Enter an amount between 0 and/],
+    [{ repayments: '108247.41' }, /more than \$108,247\.40, which repays the loan on 30 June\.$/], [{ repayments: '50000; 63353.99; 1' }, /repaid in 2024-25/]]) {
+    assert.throws(() => schedule(fields), { message }, JSON.stringify(fields));
+  }
+  assert.equal(schedule({ repayments: '108247.40' }).closing, 0);
+});
+
+test('the Division 7A schedule page opens on the result its calculation gives for the form’s inputs', () => {
+  const example = div7aScheduleHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const result = calculations.div7aScheduleResult(scheduleLoan, aud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note],
+    example.slice(1, 5));
+  assert.deepEqual(result.table.map((row) => row[1]), ['8.27%', '8.77%', '8.37%', '8.77%', '8.77% assumed', '8.77% assumed', '8.77% assumed']);
+  assert.equal(div7aScheduleHtml.match(/<th scope="col">/g).length, result.table[0].length);
+  const short = calculations.div7aScheduleResult({ ...scheduleLoan, repayments: '; 10000' }, aud);
+  assert.equal(short.principal, 4);
+  assert.match(short.note, /^The 2024-25 repayment falls short of the minimum, so subsection 109E\(1\)/);
+});
+
 // ATO, 'Fringe benefits tax - rates and thresholds' (last updated 20 May 2026), read 17 November 2026:
 // https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
 // Table 9, car parking threshold, '31 March 2027 $11.48'; Table 10, statutory or benchmark interest
