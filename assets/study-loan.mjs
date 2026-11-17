@@ -11,8 +11,12 @@ import { incomeYear, wholeDollars } from './income-tax.mjs';
 // the part above the minimum up to `top`, 17% of the part above `top`, or 10% of the whole repayment
 // income if that is less. The 2026-27 amounts are indexed under s 154-25, as the ATO's 'Study and
 // training loan repayment thresholds and rates' (last updated 30 June 2026) publishes them.
-// 2024-25 (s 154-20 before that Act): one rate per cent of the whole repayment income, from the
-// band it falls in, [the whole dollars a band starts at, its rate per cent], from the same ATO page.
+// 2024-25 (s 154-20 before that Act, HESA Compilation No. 98, C2025C00368, in force on 30 June 2025,
+// with Division 154 as in Compilation No. 93 in force on 1 July 2024; read 18 November 2026): one rate
+// per cent of the whole repayment income, from the band it falls in, [the whole dollars a band starts
+// at, its rate per cent]. Each amount is the Act's 2019-20 amount indexed under s 154-25: times the
+// sum of the 4 quarterly CPI index numbers to December 2023 over the sum to December 2018 (537.7 /
+// 453.2, ABS series 6401.0 on the 2011-12 base), rounded down. That gives Table 3 of the same ATO page.
 /** @type {Record<string, {minimum: number, top?: number, bands?: number[][]}>} */
 export const STUDY_LOAN_YEARS = {
   '2026-27': { minimum: 69528, top: 129717 },

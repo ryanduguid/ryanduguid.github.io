@@ -10,8 +10,9 @@
 //! Spline Sans Mono in the 0.6em by 1em cell the page draws, best matches the
 //! cell is chosen. Error diffusion carries each cell's leftover tone to its
 //! neighbours, so even areas such as the forehead get an even texture.
-use ab_glyph::{Font, FontRef, PxScale, point};
+use ab_glyph_rasterizer::{Point, Rasterizer, point};
 use regex::Regex;
+use skrifa::{DrawMemory, PathSink, ScalerFont, font::Font};
 use std::io::Read as _;
 use std::path::Path;
 
@@ -373,33 +374,118 @@ fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
 /// A glyph's coverage at `SUB_X` by `SUB_Y` samples, unblurred and blurred.
 type Samples = (Vec<f64>, Vec<f64>);
 
+/// A glyph outline in font units, kept until its bounds are known.
+#[derive(Default)]
+struct Outline {
+    segments: Vec<Segment>,
+    start: Point,
+    last: Point,
+}
+
+enum Segment {
+    Line(Point, Point),
+    Quad(Point, Point, Point),
+    Cubic(Point, Point, Point, Point),
+}
+
+impl Outline {
+    fn points(&self) -> impl Iterator<Item = Point> + '_ {
+        self.segments.iter().flat_map(|segment| match *segment {
+            Segment::Line(a, b) => vec![a, b],
+            Segment::Quad(a, b, c) => vec![a, b, c],
+            Segment::Cubic(a, b, c, d) => vec![a, b, c, d],
+        })
+    }
+}
+
+impl PathSink for Outline {
+    fn move_to(&mut self, x: f32, y: f32) {
+        self.start = point(x, y);
+        self.last = self.start;
+    }
+
+    fn line_to(&mut self, x: f32, y: f32) {
+        let end = point(x, y);
+        self.segments.push(Segment::Line(self.last, end));
+        self.last = end;
+    }
+
+    fn quad_to(&mut self, cx: f32, cy: f32, x: f32, y: f32) {
+        let end = point(x, y);
+        self.segments
+            .push(Segment::Quad(self.last, point(cx, cy), end));
+        self.last = end;
+    }
+
+    fn curve_to(&mut self, cx0: f32, cy0: f32, cx1: f32, cy1: f32, x: f32, y: f32) {
+        let end = point(x, y);
+        self.segments.push(Segment::Cubic(
+            self.last,
+            point(cx0, cy0),
+            point(cx1, cy1),
+            end,
+        ));
+        self.last = end;
+    }
+
+    fn close(&mut self) {
+        self.segments.push(Segment::Line(self.last, self.start));
+        self.last = self.start;
+    }
+}
+
 /// Each glyph's samples, in `GLYPHS` order.
 fn glyph_samples(font: &[u8]) -> Result<Vec<Samples>, String> {
     let ttf = wuff::decompress_woff2(font).map_err(|_| "could not decode the WOFF2 font")?;
-    let face = FontRef::try_from_slice(&ttf).map_err(|e| format!("font: {e}"))?;
-    let em = face.units_per_em().ok_or("font has no units per em")?;
+    let face = Font::new(ttf, 0).ok_or("could not read the font")?;
+    let line = face.metrics().h_line().ok_or("font has no line metrics")?;
     // Drawn large, then averaged down to the samples.
     let size = 240usize;
     let (cell_w, cell_h) = ((size as f64 * ADVANCE).round() as usize, size);
-    let px = size as f32 / em;
-    let scale = PxScale::from(face.height_unscaled() * px);
+    let px = size as f32 / f32::from(face.metrics().units_per_em);
     // Line height 1: the content area is centred in the one-em line box.
-    let (ascent, descent) = (face.ascent_unscaled() * px, -face.descent_unscaled() * px);
+    let (ascent, descent) = (line.ascender.to_f32() * px, -line.descender.to_f32() * px);
     let baseline = (size as f32 - (ascent + descent)) / 2.0 + ascent;
-    Ok(GLYPHS
+    let charmap = face.charmap();
+    let scaler = ScalerFont::unhinted(face.clone(), None);
+    GLYPHS
         .chars()
         .map(|ch| {
             let mut cell = Grey::new(cell_w, cell_h);
-            let glyph = face
-                .glyph_id(ch)
-                .with_scale_and_position(scale, point(0.0, baseline));
-            if let Some(outline) = face.outline_glyph(glyph) {
-                let bounds = outline.px_bounds();
-                outline.draw(|x, y, c| {
-                    let (x, y) = (
-                        bounds.min.x as i64 + i64::from(x),
-                        bounds.min.y as i64 + i64::from(y),
-                    );
+            let mut outline = Outline::default();
+            if let Some(glyph) = scaler.outline(charmap.map_unicode(ch).unwrap_or_default()) {
+                glyph
+                    .draw(DrawMemory::Scratch, &mut outline)
+                    .map_err(|e| format!("glyph {ch:?}: {e}"))?;
+            }
+            let (mut low, mut high) = (point(f32::MAX, f32::MAX), point(f32::MIN, f32::MIN));
+            for p in outline.points() {
+                low = point(low.x.min(p.x), low.y.min(p.y));
+                high = point(high.x.max(p.x), high.y.max(p.y));
+            }
+            if low.x < high.x && low.y < high.y {
+                // Whole-pixel bounds round the scaled outline; font y grows up and
+                // pixel y down. The order of operations is ab_glyph's, which drew
+                // the portrait before, so each glyph's coverage is bit for bit the same.
+                let (whole, fraction) = (baseline.trunc(), baseline.fract());
+                let (min_x, max_x) = ((low.x * px).floor(), (high.x * px).ceil());
+                let min_y = (high.y * -px + fraction).floor() + whole;
+                let max_y = (low.y * -px + fraction).ceil() + whole;
+                let offset = point(-min_x, baseline - min_y);
+                let at = |p: Point| point(p.x * px + offset.x, p.y * -px + offset.y);
+                let mut raster =
+                    Rasterizer::new((max_x - min_x) as usize, (max_y - min_y) as usize);
+                for segment in &outline.segments {
+                    match *segment {
+                        Segment::Line(a, b) => raster.draw_line(at(a), at(b)),
+                        Segment::Quad(a, b, c) => raster.draw_quad(at(a), at(b), at(c)),
+                        Segment::Cubic(a, b, c, d) => {
+                            raster.draw_cubic(at(a), at(b), at(c), at(d));
+                        }
+                    }
+                }
+                raster.for_each_pixel_2d(|x, y, c| {
+                    let (x, y) = (min_x as i64 + i64::from(x), min_y as i64 + i64::from(y));
                     if (0..cell_w as i64).contains(&x) && (0..cell_h as i64).contains(&y) {
                         cell.data[y as usize * cell_w + x as usize] += f64::from(c);
                     }
@@ -412,9 +498,9 @@ fn glyph_samples(font: &[u8]) -> Result<Vec<Samples>, String> {
                 SUB_Y,
             );
             let blurred = blur(&samples, 0.6, true);
-            (samples.data, blurred.data)
+            Ok((samples.data, blurred.data))
         })
-        .collect())
+        .collect()
 }
 
 /// The portrait text: each cell gets the glyph closest to its samples, and
