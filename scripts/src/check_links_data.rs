@@ -34,7 +34,7 @@ pub const CI_MANUAL_URLS: [&str; 17] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 182] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 184] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -92,6 +92,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 182] = [
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/calculate-your-payg-instalments/how-we-calculate-your-payg-instalment-amount-or-rate",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/how-to-vary-your-payg-instalments",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/starting-payg-instalments",
+    "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/personal-services-income",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/personal-services-income/working-out-if-the-psi-rules-apply/self-assessing-as-a-psb",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/sharing-economy-and-tax/types-of-activities-in-the-sharing-economy",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks",
@@ -186,6 +187,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 182] = [
     "https://www.ato.gov.au/law/view/document?docid=TXD/TD200640/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=TXD/TD9419/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=TXR/TR20221W/NAT/ATO/00001",
+    "https://www.ato.gov.au/law/view/document?docid=TXR/TR20223/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
     "https://www.ato.gov.au/online-services/businesses-and-organisations-online-services/lodgments-in-online-services-for-business/two-week-lodgment-concession-terms-and-conditions",
     "https://www.ato.gov.au/single-page-applications/legaldatabase",
