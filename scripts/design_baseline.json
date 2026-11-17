@@ -48,7 +48,7 @@
       "906b7f6eda90796d276b24e22a27394bd58e84a92fa8765189395178289edb66"
     ],
     "rates/car-limit/index.html": [
-      "229b692aa9d83d7bbbda20c29d000436c849bb45566d88a0b8dbb99d40dfdcd5"
+      "e360c52507f45e06b1a967812236cd4f24c2f8450c4d7d8ed5d565d256c62428"
     ],
     "rates/cents-per-kilometre/index.html": [
       "a92c9c187a24de89610a09a823e2b27999a5c447e7792e9ce8e4c3d230db9713"
@@ -134,9 +134,6 @@
     "tools/business-calculators/cash/index.html": [
       "f39459d528bd96610d20b36c8914bbb34e3d7a9ffa3a6d7a4c13f8b914217496"
     ],
-    "tools/business-calculators/div7a-schedule/index.html": [
-      "345d73c1ef8db5a61590193772f3c22d9b5a7e629861c58b47620c1f4d20e7b7"
-    ],
     "tools/business-calculators/div7a/index.html": [
       "766715b645b644ba6cc50ba06d87401e2161ca79a8de1539969639cbf94b25a7"
     ],
@@ -187,6 +184,9 @@
     ],
     "tools/business-calculators/variance/index.html": [
       "4f1496eb7a4b0b99b7dd224f877a8a779709eaf56171a421e4ba64b94ede334e"
+    ],
+    "tools/business-calculators/vehicle-class/index.html": [
+      "3cb6d9eb132cb07a5d4a2ba9bd84a6948bfce2a886038c27936b4ce1ae353f67"
     ],
     "tools/coal-lsl-levy/index.html": [
       "d228eaa6008eb3d815ffce6b7cb0b31696e81a8cdec6cb60a1aa11acf0b0ed7b"
@@ -262,9 +262,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "f052382d1b6492a80e8cde0ca5d163c8f5aec1e47e5fd218fa1302e95330075c",
+    "llms.txt": "2f64a6534b384d97a1d280becb94557e35a6fcf8588fe5931665f3e6540feaf0",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "60f4ecd6065b631530cf19b616c301f287445e21419e632325ac8655e33ba3b8"
+    "sitemap.xml": "aad8127e9f9a469d5de4b76653e029dee312d006efecae51db53715fdc1a6604"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

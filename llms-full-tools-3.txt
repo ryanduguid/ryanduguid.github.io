@@ -324,6 +324,7 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
+- Vehicle classifier Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
@@ -356,6 +357,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
+- Vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/

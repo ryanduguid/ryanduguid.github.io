@@ -3,6 +3,7 @@
 
 import { number, cents, ratioCents, ratioMoney, ratioPercent } from './money.mjs';
 export { landTaxYear } from './land-tax.mjs';
+export { vehicleClass } from './vehicle-class.mjs';
 
 // Planning arithmetic. Rates, eligibility and classifications belong to the caller.
 // Money inputs are decimal strings in AUD; monetary results are numeric AUD.
