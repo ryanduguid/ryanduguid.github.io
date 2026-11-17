@@ -101,6 +101,7 @@ jobs:
         run: |
           cargo fmt --check
           cargo fmt --check --manifest-path fuzz/Cargo.toml
+      # --locked also fails a stale fuzz/Cargo.lock (scripts/fuzz/README.md).
       - name: Clippy
         working-directory: scripts
         run: |
