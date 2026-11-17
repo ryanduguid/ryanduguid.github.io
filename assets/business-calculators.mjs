@@ -6,6 +6,7 @@ export { fbtCarParking, fbtLoan, fbtMealEntertainment } from './fbt-benefits.mjs
 export { landTaxYear } from './land-tax.mjs';
 export { vehicleClass } from './vehicle-class.mjs';
 export { pcgRisk, pcgAllocation, pcgAllocationResult } from './pcg-2021-4.mjs';
+export { psiDetermination, psiDeterminationResult } from './psi-determination.mjs';
 
 // Planning arithmetic. Rates, eligibility and classifications belong to the caller.
 // Money inputs are decimal strings in AUD; monetary results are numeric AUD.
