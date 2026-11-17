@@ -1262,6 +1262,11 @@ test('a Division 7A repayment on 30 June leaves that day on the reduced balance,
   // With no repayment the whole year is one period: 8.27% of $100,000, all of it unpaid.
   const [none] = schedule({ repayments: '0' }).years;
   assert.deepEqual([none.interest, none.principal, none.closing], [8270, -8270, 108270]);
+  // $8.01 at 40%: the interest rounds to $3.21 over a $3.20 minimum, so meeting the minimum leaves
+  // a cent unpaid, the next minimum is $3.21 and a second $3.20 falls a cent short.
+  const tiny = schedule({ made: '2027-01-15', amount: '8.01', term: '25', assumedRate: '40', repayments: '3.20; 3.20' });
+  assert.deepEqual(tiny.years.map((row) => [row.minimum, row.principal, row.closing, row.shortfall]),
+    [[3.2, -0.01, 8.02, 0], [3.21, -0.01, 8.03, 0.01]]);
 });
 
 test('a Division 7A repayment a cent short of the minimum is the shortfall, and the schedule stops', () => {
