@@ -49,7 +49,7 @@ Expenses more than 20% above the first year end the register | Register, expense
 A nil first year is refused as unsupported, not let through the 20% rule | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2025, earlier years $0.00 and $0.00 | Refused: this calculator does not take a register whose first valid year had nil expenses: enter that year’s expenses
 A register first valid 5 years back has lapsed | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2022, earlier years $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the twenty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -58,4 +58,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015
-- twenty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
