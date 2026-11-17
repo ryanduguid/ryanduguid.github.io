@@ -695,4 +695,5 @@ export function gicPaymentPlan(plan) {
     gic: Number(totalPaid - debt) / 100, lastDate: isoDayNumber(last), assumedDays };
 }
 
+export { division296, division296Result } from './division-296.mjs';
 export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';

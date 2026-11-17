@@ -478,6 +478,13 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
             break;
           }
+          case 'division-296': {
+            // The thresholds and rates come from the form; the Node tests bind them to the Acts.
+            const yes = name => value(name) === 'yes';
+            result = calculate.division296Result({ balance: value('balance'), earnings: value('earnings'), child: yes('child'),
+              settlement: yes('settlement'), died: yes('died') }, form.dataset, aud);
+            break;
+          }
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;

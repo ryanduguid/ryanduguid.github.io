@@ -36,7 +36,7 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
-- PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+- Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 
 ## Staff and cash
 
@@ -74,7 +74,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
-- PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/

@@ -34,7 +34,7 @@ pub const CI_MANUAL_URLS: [&str; 17] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 184] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 185] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -157,6 +157,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 184] = [
     "https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay",
     "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf",
     "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf/smsf-administration-and-reporting/your-smsf-auditor",
+    "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/growing-and-keeping-track-of-your-super/caps-limits-and-tax-on-super-contributions/division-296-tax/division-296-tax-on-large-super-balances",
     "https://www.ato.gov.au/individuals-and-families/tax-file-number",
     "https://www.ato.gov.au/individuals-and-families/tax-file-number/apply-for-a-tfn",
     "https://www.ato.gov.au/individuals-and-families/tax-file-number/lost-or-stolen-tfn",

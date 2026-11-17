@@ -5562,6 +5562,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+17 November 2026 | A new business calculator works out one person’s Division 296 tax for 2026-27 from the total superannuation balance at 30 June 2027 and the year’s total superannuation earnings: 15% on the share of earnings above $3 million and a further 10% above $10 million, with the child recipient, structured settlement and death exceptions. Its thresholds, rates, rounding and definitions were read on 17 November 2026 in the Income Tax Assessment Act 1997, compilation 268, the transitional provisions and the Imposition Act, and it agrees with examples 1.1 and 1.2 of the Explanatory Memorandum. It works out one year from supplied figures and projects nothing.
 17 November 2026 | The profit and cash flow case and the release record name au-fpa-pack v0.7.0, published on 16 November, as the current release. The case stays pinned to commit 386c7ff, which produced its workbook and figures.
 17 November 2026 | Three individual tax calculators for 2024-25 to 2026-27: income tax with the low income tax offset and the Medicare levy for a resident, a foreign resident or a working holiday maker; take-home pay a year, month, fortnight and week, with super guarantee and the $1,000 standard deduction from 2026-27; and the compulsory study and training loan repayment, marginal from 2025-26. Each rate and threshold is cited to its Act. The individual income tax rate table adds the 2026-27 Medicare levy low-income thresholds from the Medicare Levy Act 1986.
 17 November 2026 | A new business calculator sets out a complying Division 7A loan year by year over its 7-year or 25-year term: each minimum yearly repayment at that year’s benchmark rate, the interest and principal, what a larger repayment does to later minimums and the shortfall subsection 109E(1) takes to be a dividend. Rates to 2026-27 are the ATO’s, each cited; later years use a rate you assume and are marked as a projection. It can show the dividend that would fund each repayment at a marginal rate you give, and it refuses loans made before 4 December 1997, refinanced loans, loans through an interposed entity and repayments before the lodgment day.
@@ -6323,7 +6324,7 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
-- PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+- Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 
 ## Staff and cash
 
@@ -6361,7 +6362,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
-- PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
@@ -10692,6 +10693,69 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# Division 296 tax calculator for 2026-27, above $3 million
+
+Source: https://duguid.com.au/tools/business-calculators/division-296/
+
+> One person’s Division 296 tax for 2026-27 from the super balance at 30 June 2027 and the year’s earnings: 15% above $3 million, 10% more above $10 million.
+
+# Division 296 tax calculator
+
+One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Division 296 inputs for one person and the 2026-27 income year
+
+Total superannuation balance at the end of 30 June 2027, leaving out any LRBA amount (AUD) Total superannuation earnings for 2026-27, which can be negative (AUD) Was the person a child recipient of a superannuation income stream at any time in 2026-27? No Yes Has a structured settlement contribution been made for the person in 2026-27 or an earlier year? No Yes Did the person die on or before 30 June 2027? No Yes
+
+Your super funds report the balance and the earnings attributed to each interest to the ATO, which assesses the tax. Enter the figures you have established; this page does not work either out.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: total superannuation balance $4,000,000.00 at 30 June 2027, total superannuation earnings $100,000.00 for 2026-27, no exception applies. Share of the balance above $3,000,000.00 25.00% Share of the balance above $10,000,000.00 0.00% Taxable superannuation earnings $25,000.00 Very large superannuation balance earnings component $0.00 Tax at 15% on taxable superannuation earnings $3,750.00 Tax at 10% on the very large component $0.00 Division 296 tax $3,750.00 Liable under section 296-15: the balance at 30 June 2027 is above the large superannuation balance threshold and total superannuation earnings are above nil.
+
+## How the Division 296 tax calculator works
+
+The Division 296 tax calculator works out one person’s Division 296 tax for 2026-27, the first year it applies. Tax arises when the total superannuation balance at 30 June 2027 is greater than $3,000,000 and the year’s total superannuation earnings are greater than nil. The share of the balance above $3,000,000 times the earnings gives taxable superannuation earnings, taxed at 15%. Above $10,000,000, the share above that threshold times the earnings gives the very large superannuation balance earnings component, taxed at a further 10%.
+
+The Explanatory Memorandum to the Treasury Laws Amendment (Building a Stronger and Fairer Super System) Bill 2026 works 2 examples. Jordan has $4,000,000 at the end of 2026-27 and $100,000 of earnings: 25% of the balance is above $3,000,000, so taxable superannuation earnings are $25,000 and the tax $3,750. Kelly has $12,000,000 and $500,000 of earnings: 75% and 16.67%, so $375,000 taxed at 15% ($56,250) and $83,350 at 10% ($8,335), $64,585 in all. This calculator opens on Jordan’s figures, and both are among its boundary cases.
+
+## What the Division 296 tax calculator does not cover
+
+The calculator works out one year from the balance and earnings you supply. It does not project a balance, compare a withdrawal or set tax inside super against tax outside it: those turn on future earnings, contributions and withdrawals that no source states, and choosing between them is financial advice. It covers 2026-27 only. From 2027-28 the thresholds are indexed (paragraphs 296-30(b) and 296-35(b)) and the balance just before the start of the year counts too, and those figures are not yet published.
+
+It does not work out the total superannuation balance, a fund’s Division 296 fund earnings or how they are attributed to each interest (sections 296-55 to 296-75), or the earnings of defined benefit and other interests under section 296-70, whose tax can be deferred to a debt account. It does not cover temporary residents who depart Australia (sections 296-195 to 296-205), the notice of assessment, payment or release authorities. The ATO assesses the tax from what funds report, and the notice of assessment sets the amount. Confirm the figures with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Division 296 tax calculator
+
+Case | Inputs | Result
+The Explanatory Memorandum’s example 1.1, Jordan: 25% above $3,000,000 | Balance $4,000,000.00, earnings $100,000.00 | Liable, 25.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $25,000.00, very large component $0.00, 15% tax $3,750.00, 10% tax $0.00, Division 296 tax $3,750.00
+The Explanatory Memorandum’s example 1.2, Kelly: both thresholds | Balance $12,000,000.00, earnings $500,000.00 | Liable, 75.00% above $3,000,000, 16.67% above $10,000,000, taxable earnings $375,000.00, very large component $83,350.00, 15% tax $56,250.00, 10% tax $8,335.00, Division 296 tax $64,585.00
+A balance of exactly $3,000,000 is not above the threshold | Balance $3,000,000.00, earnings $100,000.00 | Not liable: balance not above $3,000,000, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
+$150.01 over $3,000,000 is a share just over 0.005%, which rounds up to 0.01% | Balance $3,000,150.01, earnings $100,000.00 | Liable, 0.01% above $3,000,000, 0.00% above $10,000,000, taxable earnings $10.00, very large component $0.00, 15% tax $1.50, 10% tax $0.00, Division 296 tax $1.50
+$150 over $3,000,000 rounds to 0.00%: liable, but no tax | Balance $3,000,150.00, earnings $100,000.00 | Liable, share rounds to nil, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
+Negative earnings above $10,000,000 give no tax and a negative very large component | Balance $12,000,000.00, earnings -$50,000.00 | Not liable: earnings not above nil, 75.00% above $3,000,000, 16.67% above $10,000,000, taxable earnings $0.00, very large component -$8,335.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
+A child recipient has taxable earnings but no liability | Balance $4,000,000.00, earnings $100,000.00, child recipient | Not liable: child recipient, 25.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $25,000.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
+Death by 30 June 2027 makes the balance nil | Balance $12,000,000.00, earnings $500,000.00, died by 30 June 2027 | Not liable: died, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
+A negative balance is refused | Balance -$1.00, earnings $100,000.00 | Refused: enter an amount between 0 and 1000000000
+
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Division 7A loan schedule: minimum repayments over 7 or 25 years
 
 Source: https://duguid.com.au/tools/business-calculators/div7a-schedule/
@@ -10764,98 +10828,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Personal services income (PSI) rules and PSB test checker
-
-Source: https://duguid.com.au/tools/business-calculators/psi-determination/
-
-> Work through the PSI rules for one individual and year: section 84-5, the results test, the 80% rule and the other 3 personal services business tests.
-
-# PSI rules checker
-
-Whether the personal services income rules apply, step by step through Divisions 84 to 87.
-
-Published 17 November 2026. Last checked 17 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-PSI inputs for one individual and one income year
-
-Who receives the income The individual, as a contractor (sole trader) A company, partnership or trust the individual works through The individual, as an employee, office holder or religious practitioner Is over half the income a reward for the individual’s personal efforts or skills (subsection 84-5(1))? Yes No: mainly from goods, assets or a business structure Is a personal services business determination in force for this income? No Yes
-
-Payer, with its associates | PSI in the year (AUD) | Associate of the individual or entity | Engaged by an offer to the public | Paid for a result | Supplies plant and tools | Liable for defects
-Payer 1 | | | | | |
-Payer 2 | | | | | |
-Payer 3 | | | | | |
-Payer 4 | | | | | |
-Payer 5 | | | | | |
-
-Each tick is your answer; ‘How the PSI rules checker works’ says when to tick.
-
-Market value of principal work by others engaged, in the year (AUD) An apprentice for at least half the year? No Yes Business premises: tick each condition met Maintained and used all year Mainly used to produce the PSI Exclusive use, by ownership or lease Physically separate from private premises of the individual, entity or an associate Physically separate from each payer’s and its associates’ premises Paid as an agent by a principal for services to its customers (section 87-40)? No Yes Agent: the principal’s payments in the year (AUD) Agent: commission or performance fees in them (AUD)
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Received by the individual as a contractor, mainly a reward for personal efforts or skills, no PSB determination; payer 1 $18,000.00, ticked: paid for a result, tools supplied, liable for defects; principal work by others $0.00, no apprentice; business premises conditions: none; not an agent. Outcome Subsection 87-18(1): a personal services business, so Divisions 85 and 86 do not apply Subsection 84-5(1): income mainly a reward for the individual’s personal efforts or skills Yes, as you answered Paragraph 87-15(1)(a): a personal services business determination in force No, as you answered Subsection 87-18(1): PSI paid for a result, with the tools supplied and liability for defects 100.00%, at least 75%: met The PSI is still reported in the tax return, and Part IVA can still apply to splitting it (TR 2022/3 paragraphs 25 and 160).
-
-## How the PSI rules checker works
-
-The PSI rules checker takes one individual’s personal services income for one income year and works through Part 2-42 in the order the Act sets. Each step on the result names the section it applies and what it found.
-
-Income that is not mainly a reward for the individual’s personal efforts or skills is not PSI (subsection 84-5(1)), and income received as an employee falls outside Division 85 (subsection 85-35(1)). A personal services business determination in force settles the question (subsection 87-15(1)). Otherwise the results test comes first: if at least 75% of the PSI is paid for a result, with the plant and tools supplied and liability for defects, the PSI rules do not apply, however much comes from one payer (section 87-18).
-
-If 80% or more of the PSI comes from one payer and its associates, the other 3 tests cannot be self-assessed and only a determination keeps the rules away (subsection 87-15(3)). The checker still works them out, because the Commissioner weighs them for a determination: 2 or more unrelated payers that engaged the individual or entity through offers to the public (section 87-20), principal work by others of at least 20% by market value or an apprentice for half the year (section 87-25), and qualifying business premises all year (section 87-30).
-
-The checker reproduces the conclusion of each worked example in TR 2022/3 that reaches one on a test it applies, and of the matching examples on the ATO’s PSI pages.
-
-## How to enter payers in the PSI rules checker
-
-Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Payers that are associates of each other share one row too, as section 87-20 counts only payers that are not associates of each other. Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that payer’s PSI: where only part of it meets all 3, leave the boxes unticked, which can only make the results test harder to pass, and work out that part yourself. For the market value of principal work by others, count work by any individual or entity engaged, an individual associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives; a partner counts only if they earn no PSI through the partnership (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
-
-## What the PSI rules checker leaves to you
-
-The checker does not decide whether income is mainly a reward for personal efforts or skills, whether a contract pays for a result, whether an offer to the public won the work, who is an associate or what principal work is worth. These turn on facts and judgement, so it takes your answers and says so on each step; TR 2022/3 sets out the factors at paragraphs 34 to 49 and 77 to 148.
-
-The checker does not allocate expenses across PSI, business income and other income. Division 85 limits deductions to the extent they relate to PSI (subsection 85-10(1)) but sets no method for the split, and TR 2022/3 leaves deductions to other rulings (paragraphs 6 and 31), so any split is practice rather than law. It does not work out the amount attributed under Division 86, PAYG withholding or a deduction for a net PSI loss.
-
-The checker does not apply the agent rules when they could apply (section 87-40), decide a determination, which is the Commissioner’s (sections 87-60 and 87-65), or test Part IVA, which can still apply to a personal services business (TR 2022/3 paragraph 160). Several individuals working through one entity are tested one at a time (paragraph 76). Confirm the result with the ruling or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: PSI rules checker
-
-Case | Inputs | Result
-TR 2022/3 example 20: Joe installs ducts to plans with his own tools and rectifies defects, so meets the results test | Sole trader; payers $18,000.00 (result, tools, defects) | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
-TR 2022/3 example 30: Ian’s $26,000 of $140,000 is 18.57%, under 20% | Sole trader; payers $100,000.00, $40,000.00; others’ principal work $26,000.00 | Subsection 87-15(1), not a personal services business, so Division 85 applies, largest payer 71.42%, others’ work 18.57%
-TR 2022/3 example 29: Tom’s 23.07% meets the employment test, but one payer means a determination is needed | Sole trader; payers $156,000.00; others’ principal work $36,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%, others’ work 23.07%
-Exactly 75% paid for a result meets the results test | Sole trader; payers $75.00 (result, tools, defects), $25.00 | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 75.00%
-74.99% paid for a result does not | Sole trader; payers $74.99 (result, tools, defects), $25.01 | Subsection 87-15(1), not a personal services business, so Division 85 applies, results test 74.99%
-A result without liability for defects does not count | Sole trader; payers $100.00 (result, tools) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, results test 0.00%
-Exactly 80% from one payer stops self-assessment by the other tests | Sole trader; payers $80.00 (offer), $20.00 (offer); an apprentice | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 80.00%, 2 unrelated by public offer
-79.99% from one payer, with 2 unrelated payers won by offers, meets the unrelated clients test | Sole trader; payers $79.99 (offer), $20.01 (offer) | Section 87-20, a personal services business, so Divisions 85 and 86 do not apply, largest payer 79.99%, 2 unrelated by public offer
-A payer that is an associate is not an unrelated client | Sole trader; payers $50.00 (associate, offer), $50.00 (offer) | Subsection 87-15(1), not a personal services business, so Division 85 applies, 1 unrelated by public offer
-Exactly 20% of principal work by others meets the employment test | Sole trader; payers $60.00, $40.00; others’ principal work $20.00 | Section 87-25, a personal services business, so Divisions 85 and 86 do not apply, others’ work 20.00%
-Business premises need all 5 ticks | Sole trader; payers $60.00, $40.00; premises: times, mainly, exclusive, private | Subsection 87-15(1), not a personal services business, so Division 85 applies
-A company, partnership or trust meets the results test under subsection 87-18(3) | Entity; payers $120,000.00 (result, tools, defects) | Subsection 87-18(3), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
-Income not mainly from personal efforts or skills is not PSI | Sole trader; not mainly personal efforts or skills; payers $100,000.00 | Subsection 84-5(1), not personal services income, so Part 2-42 does not apply
-Income as an employee is outside Division 85 | Employee; payers $100,000.00 | Subsection 85-35(1), income as an employee, so the PSI rules do not apply
-A determination in force for an entity settles it | Entity; determination in force; payers $100,000.00 | Paragraph 87-15(1)(b), a personal services business, so Divisions 85 and 86 do not apply
-TR 2022/3 example 40: 70% commission leaves the principal as one payer | Sole trader; payers $100,000.00; agent, $70,000.00 commission of $100,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%
-An agent with 75% commission may fall under section 87-40, which this page does not apply | Sole trader; payers $100,000.00; agent, $75,000.00 commission of $100,000.00 | Refused: at least 75% of the principal’s payments are commission or performance fees, so section 87-40 may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40
-No PSI entered | Sole trader; payers none | Refused: enter the PSI from at least one payer
-Others’ work worth more than the PSI | Sole trader; payers $100.00; others’ principal work $100.01 | Refused: the market value of principal work by others cannot exceed the PSI entered
-
-One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
 - twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
