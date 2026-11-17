@@ -12,7 +12,7 @@ The car limit is $69,883 for a car first used or leased in 2026-27. It was $69,6
 
 The limit caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
+Published 20 September 2026. Last reviewed 16 November 2026. Source checked 13 November 2026.
 
 Each figure below was read on 20 September 2026 from an ATO page: the 2026-27 car thresholds notice, the car limit list for 2021-22 to 2025-26 and the accelerated depreciation page for 2019-20 and 2020-21. The limit itself is section 40-230 of the Income Tax Assessment Act 1997.
 
@@ -48,7 +48,7 @@ No. It stayed at $69,674, the same figure as 2024-25, because the indexation fac
 
 ### Which vehicles does the car limit apply to?
 
-Passenger vehicles designed to carry a load of less than one tonne and fewer than nine passengers. A motorcycle or similar vehicle is excluded, as are utes and vans over the one-tonne load rating.
+A car designed mainly for carrying passengers (section 40-230). A car is a motor vehicle, other than a motor cycle or similar vehicle, designed to carry a load of less than 1 tonne and fewer than 9 passengers (section 995-1), so a ute or van designed to carry 1 tonne or more is outside the limit. So is a car not designed mainly for carrying passengers, such as a hearse (TD 2006/39).
 
 ### What is the most GST credit for a car over the limit?
 
