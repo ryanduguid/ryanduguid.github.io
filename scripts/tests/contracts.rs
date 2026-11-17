@@ -1596,11 +1596,16 @@ fn nested_collection_breadcrumbs_name_their_hub() {
         ["Home", "Tools", "Business calculators", "Leaf"]
     );
     assert_eq!(
+        names("tools/individual-tax/income-tax/index.html"),
+        ["Home", "Tools", "Individual tax calculators", "Leaf"]
+    );
+    assert_eq!(
         names("tools/accounting-questions/gst-bas/index.html"),
         ["Home", "Tools", "Accounting questions", "Leaf"]
     );
     for hub in [
         "tools/business-calculators/index.html",
+        "tools/individual-tax/index.html",
         "tools/accounting-questions/index.html",
         "tools/xero-trial-balance/index.html",
     ] {
