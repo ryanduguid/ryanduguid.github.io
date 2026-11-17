@@ -770,72 +770,105 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Payroll tax calculator for every Australian state, 2026-27
+# Australian income tax, take-home pay and HELP calculators
 
-Source: https://duguid.com.au/tools/business-calculators/payroll-tax/
+Source: https://duguid.com.au/tools/individual-tax/
 
-> Annual payroll tax for 2026-27 for one employer outside a group, in all 8 states and territories, with each deduction, rate, surcharge and levy cited.
+> Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act.
 
-# Payroll tax calculator
+# Individual tax calculators
 
-One employer’s annual payroll tax for 2026-27 in any Australian state or territory, step by step, each step cited to its Act or revenue office.
+Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+
+Estimates in AUD for a full income year from 2024-25 to 2026-27, for a single person with no dependants. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 17 November 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
+
+## Tax, pay and study loans
+
+- Income tax calculator Tax on taxable income, the low income tax offset and the Medicare levy, for an Australian resident, a foreign resident or a working holiday maker.
+- Take-home pay calculator What is left of an annual salary each year, month, fortnight and week after tax, Medicare levy and any study loan repayment, with the employer’s super guarantee.
+- Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
+
+For a business, see the business calculators.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
+- Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
+- Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Income tax calculator for 2026-27, 2025-26 and 2024-25
+
+Source: https://duguid.com.au/tools/individual-tax/income-tax/
+
+> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act.
+
+# Income tax calculator
+
+One individual’s income tax, low income tax offset and Medicare levy for a full income year from 2024-25 to 2026-27, for an Australian resident, a foreign resident or a working holiday maker.
 
 Published 17 November 2026. Last checked 17 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Payroll tax inputs for 2026-27
+Income tax inputs for one full income year
 
-State or territory New South Wales Victoria Victoria, regional employer (at least 85% of taxable wages paid to regional employees) Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+Income year 2026-27 2025-26 2024-25
 
-Taxable wages in the state or territory for 2026-27 (AUD) Total Australian wages for 2026-27, taxable and interstate (AUD; leave blank if all are paid in that state or territory)
+Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
 
-Each revenue office decides which payments are taxable wages and where they are taxable. Enter the figures you have established; this page does not work them out. The figures it applies are in its data file, with each one’s source and the date it was read.
+Taxable income (whole dollars)
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, taxable wages $1,500,000.00, total Australian wages $1,500,000.00. Deduction (Revenue NSW: threshold times NSW wages over Australian wages) $1,200,000.00 Taxable amount: wages less the deduction $300,000.00 Payroll tax at 5.45% on $300,000.00 (Revenue NSW: thresholds and rates) $16,350.00 Payroll tax $16,350.00 An estimate for 2026-27 for one employer that is not a member of a group and pays wages all year, before any exemption, rebate or discount.
+Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a single person with no dependants who is not entitled to the seniors and pensioners tax offset.
 
-## How the payroll tax calculator works
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, taxable income $29,000.00. Tax on taxable income $1,728.00 Low income tax offset $700.00 Medicare levy $98.90 Total tax and Medicare levy $1,126.90
 
-The payroll tax calculator estimates one employer’s payroll tax for the whole of 2026-27 in one state or territory. Each jurisdiction allows a deduction or tax-free threshold, which an employer that also pays wages elsewhere in Australia shares in proportion to its wages there. Victoria, Queensland, Western Australia and the Northern Territory reduce the deduction as Australian wages grow, until it reaches nil. The result shows the deduction, the amount taxed, the tax at each rate and, in Victoria and Queensland, each surcharge or levy on its own line, with the provision applied.
+## How the income tax calculator works
 
-Where a revenue office publishes worked figures, the tests hold them. Revenue NSW: $1,500,000 of NSW wages are taxed on $300,000, and $900,000 of $3,000,000 has a threshold of $360,000. The Victorian State Revenue Office: $80 million in Victoria and $70 million in New South Wales give surcharge thresholds of $5,333,333.33 and $53,333,333.33. The Queensland Revenue Office: $1,356,789 of $1,789,776 has a deduction of $932,460 to the dollar. RevenueWA: annual wages of $1,104,000 give $6,600; its other 2 examples round the deduction to the dollar and come out 1 and 3 cents lower than this calculator. RevenueSA: $800,000 of $1,600,000 has a deduction of $300,000 and $500,000 of $2,000,000 one of $150,000. The Tasmanian State Revenue Office: $2,400,000 gives $54,400, and $2,400,000 of $3,000,000 gives $72,800. The ACT Revenue Office and the Territory Revenue Office publish no worked figures that could be read, so the tests work examples from the Acts by hand: $84,375 on $3,000,000 in the Australian Capital Territory and $41,250 on $3,000,000 in the Northern Territory. This calculator opens on Revenue NSW’s first example.
+The income tax calculator works out one individual’s tax for a full income year: the tax on taxable income at the year’s rates, the low income tax offset, and the Medicare levy. An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. A foreign resident pays from the first dollar at 30%, 37% and 45%. A working holiday maker pays 15% up to $45,000 and then the same rates as a resident.
 
-## What the payroll tax calculator does not compute
+The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does; its example on What is the Medicare levy gives Matthew $1,500 on $75,000.
 
-The payroll tax calculator gives one annual estimate and no advice. It does not decide which payments are taxable wages or where they are taxable, and does not cover:
+For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2026, the same as 2025-26. If Parliament raises them for 2026-27, a person just above $28,011 will pay less than shown here.
 
-- an employer that is a member of a group, whose threshold and rate depend on the group’s wages and which members share the deduction;
-- an employer that paid wages for only part of 2026-27, whose threshold every jurisdiction reduces by the days it employed;
-- monthly or other periodic returns, and the annual reconciliation of amounts already paid;
-- exemptions, rebates and discounts, such as Queensland’s apprentice and trainee rebate and its 1% discount for regional employers, claimed in the return, and the ACT’s 6.85% cap for an eligible university;
-- any year other than 2026-27.
+## What the income tax calculator does not compute
 
-Confirm the figure with the revenue office or a registered tax agent before relying on it.
+The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
+
+- the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
+- the Medicare levy surcharge or the private health insurance rebate;
+- a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
+- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
+- study loan repayments, which the study and training loan repayment calculator works out, and the tax already withheld or a refund.
+
+Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
 
 ## Boundary cases
 
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Payroll tax calculator
+Boundary cases: Income tax calculator
 
 Case | Inputs | Result
-Revenue NSW’s example: $1,500,000 of wages, all in NSW, for the full year | New South Wales, wages $1,500,000.00, Australian wages $1,500,000.00 | Deduction $1,200,000.00, taxable amount $300,000.00, payroll tax $16,350.00, total $16,350.00
-Revenue NSW’s interstate example: a threshold of $360,000 | New South Wales, wages $900,000.00, Australian wages $3,000,000.00 | Deduction $360,000.00, taxable amount $540,000.00, payroll tax $29,430.00, total $29,430.00
-At the NSW threshold: no tax | New South Wales, wages $1,200,000.00, Australian wages $1,200,000.00 | Deduction $1,200,000.00, taxable amount $0.00, payroll tax $0.00, total $0.00
-The Victorian surcharges example: $80 million of $150 million | Victoria, wages $80,000,000.00, Australian wages $150,000,000.00 | Deduction $0.00, taxable amount $80,000,000.00, payroll tax $3,880,000.00, first surcharge or levy $506,666.67, second surcharge or levy $506,666.67, total $4,893,333.34
-Victoria, deduction phased out to $400,000 at $4,200,000 | Victoria, wages $4,200,000.00, Australian wages $4,200,000.00 | Deduction $400,000.00, taxable amount $3,800,000.00, payroll tax $184,300.00, first surcharge or levy $0.00, second surcharge or levy $0.00, total $184,300.00
-Victoria, regional employer rate of 1.2125% | Victoria, regional employer, wages $4,200,000.00, Australian wages $4,200,000.00 | Deduction $400,000.00, taxable amount $3,800,000.00, payroll tax $46,075.00, first surcharge or levy $0.00, second surcharge or levy $0.00, total $46,075.00
-The Queensland Revenue Office’s deduction example: $932,460 to the dollar | Queensland, wages $1,356,789.00, Australian wages $1,789,776.00 | Deduction $932,459.64, taxable amount $424,329.36, payroll tax $20,155.64, first surcharge or levy $0.00, second surcharge or levy $0.00, total $20,155.64
-RevenueWA’s example: $6,600 on $1,104,000 | Western Australia, wages $1,104,000.00, Australian wages $1,104,000.00 | Deduction $984,000.00, taxable amount $120,000.00, payroll tax $6,600.00, total $6,600.00
-RevenueSA’s deduction example: $150,000 for $500,000 of $2,000,000 | South Australia, wages $500,000.00, Australian wages $2,000,000.00 | Deduction $150,000.00, taxable amount $350,000.00, payroll tax $17,325.00, total $17,325.00
-RevenueSA’s phased rate: 2.475% at $1,600,000 under the Act | South Australia, wages $800,000.00, Australian wages $1,600,000.00 | Deduction $300,000.00, taxable amount $500,000.00, payroll tax $12,375.00, total $12,375.00
-The Tasmanian State Revenue Office’s example 2: $72,800 | Tasmania, wages $2,400,000.00, Australian wages $3,000,000.00 | Deduction $1,000,000.00, taxable amount $1,400,000.00, payroll tax $72,800.00, total $72,800.00
-The ACT, worked from the Act: $3,000,000 at 6.75% | Australian Capital Territory, wages $3,000,000.00, Australian wages $3,000,000.00 | Deduction $1,750,000.00, taxable amount $1,250,000.00, payroll tax $84,375.00, total $84,375.00
-The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 | Northern Territory, wages $3,000,000.00, Australian wages $3,000,000.00 | Deduction $2,250,000.00, taxable amount $750,000.00, payroll tax $41,250.00, total $41,250.00
-Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
-Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
+ATO example: Angie, in the Medicare levy shade-in | $29,000 taxable income, 2025-26, Australian resident | Tax $1,728.00, offset $700.00, Medicare levy $98.90, total $1,126.90
+Tax-free threshold | $18,200 taxable income, 2026-27, Australian resident | Tax $0.00, offset $0.00, Medicare levy $0.00, total $0.00
+Medicare levy phase-in limit | $35,013 taxable income, 2026-27, Australian resident | Tax $2,521.95, offset $700.00, Medicare levy $700.20, total $2,522.15
+A dollar above the phase-in limit: 2% of the whole | $35,014 taxable income, 2026-27, Australian resident | Tax $2,522.10, offset $700.00, Medicare levy $700.28, total $2,522.38
+Offset of $324.985 rounds half up | $45,001 taxable income, 2026-27, Australian resident | Tax $4,020.30, offset $324.99, Medicare levy $900.02, total $4,595.33
+Offset cut-out: half a cent below nil is nil | $66,667 taxable income, 2026-27, Australian resident | Tax $10,520.10, offset $0.00, Medicare levy $1,333.34, total $11,853.44
+Top rate | $250,000 taxable income, 2026-27, Australian resident | Tax $78,370.00, offset $0.00, Medicare levy $5,000.00, total $83,370.00
+2024-25 rates | $90,000 taxable income, 2024-25, Australian resident | Tax $17,788.00, offset $0.00, Medicare levy $1,800.00, total $19,588.00
+Foreign resident: no offset or Medicare levy | $100,000 taxable income, 2026-27, foreign resident | Tax $30,000.00, offset $0.00, Medicare levy $0.00, total $30,000.00
+Working holiday maker | $50,000 taxable income, 2026-27, working holiday maker | Tax $8,250.00, offset $0.00, Medicare levy $0.00, total $8,250.00
 
-One of the twenty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -843,5 +876,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- twenty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
+- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
+- study and training loan repayment calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/

@@ -1400,11 +1400,11 @@ Primary source Download CSV
 
 15%
 
-15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO had published Medicare levy low-income thresholds to 2025-26 only when checked on 14 November 2026.
+15% on taxable income from $18,201 to $45,000 for 2026-27, then 30%, 37% and 45%. The ATO had published Medicare levy low-income thresholds to 2025-26 only when checked on 17 November 2026, so the 2026-27 thresholds are the Medicare Levy Act’s.
 
 Source checked
 
-14 November 2026
+14 November 2026, and 17 November 2026 for the 2026-27 Medicare levy thresholds
 
 Scope
 
@@ -2530,11 +2530,11 @@ Source: https://duguid.com.au/rates/individual-income-tax/
 
 15% is the first rate above the $18,200 tax-free threshold for 2026-27, down from 16% for 2024-25 and 2025-26.
 
-These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 14 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only.
+These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 17 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only, so the 2026-27 thresholds are the Medicare Levy Act’s.
 
-Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+Published 14 November 2026. Last reviewed 17 November 2026. Source checked 14 November 2026. Source checked 17 November 2026 for the 2026-27 Medicare levy thresholds.
 
-Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25.
+Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25. The 2026-27 Medicare levy thresholds were read from the Medicare Levy Act 1986 on 17 November 2026.
 
 ## Rates for 2026-27
 
@@ -2577,6 +2577,7 @@ The ATO page also lists resident rates back to 1983-84. They are not listed here
 The Medicare levy is 2% of taxable income. A single person not entitled to the seniors and pensioners tax offset pays no levy on taxable income at or below the lower threshold and a reduced levy up to the upper threshold. Thresholds for families and for people entitled to that offset are on the ATO pages and are not listed here.
 
 Income year | Lower threshold | Upper threshold
+2026-27 | $28,011 | $35,013
 2025-26 | $28,011 | $35,013
 2024-25 | $27,222 | $34,027
 2023-24 | $26,000 | $32,500
@@ -2584,9 +2585,9 @@ Income year | Lower threshold | Upper threshold
 2021-22 | $23,365 | $29,206
 2020-21 | $23,226 | $29,032
 
-The table lists only thresholds the ATO has published. On 14 November 2026 its Medicare levy reduction page gave thresholds for 2025-26 and no later year, so 2026-27 is not listed. Under the law in force that day the same figures apply to 2026-27: section 3(1) of the Medicare Levy Act 1986, in compilation 53 of 1 July 2026 (the latest on 14 November 2026), sets $28,011 and $35,013, and Schedule 5 to the Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026 (No. 58, 2026) applies them to 2025-26 and later years. That Act received assent on 30 June 2026, the last day of 2025-26, and raised that year’s figures, so a later Act could still change them for 2026-27. The ATO’s myTax instructions for 2019-20 give no threshold table, so that year is not listed.
+The 2026-27 row is the law in force on 17 November 2026, not an ATO table: that day the ATO’s Medicare levy reduction page gave thresholds for 2025-26 and no later year. Section 3(1) of the Medicare Levy Act 1986, in compilation 53 of 1 July 2026 (the latest on 17 November 2026), sets $28,011 and $35,013, and Schedule 5 to the Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026 (No. 58, 2026) applies them to 2025-26 and later years. That Act received assent on 30 June 2026, the last day of 2025-26, and raised that year’s figures, so a later Act could still change them for 2026-27. The ATO’s myTax instructions for 2019-20 give no threshold table, so that year is not listed.
 
-Download the table as CSV. Each row of the CSV gives the ATO page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026. Rows with component resident_tax hold the tax bands; rows with medicare_levy_low_income_single hold the lower and upper thresholds in income_from and income_to. Cite as Duguid, R. (2026). Australian resident income tax rates by year [Data set]. https://duguid.com.au/rates/individual-income-tax/. Verify against current ATO guidance before relying on a figure.
+Download the table as CSV. Each row of the CSV gives the page it was read from (source_url) and the date it was last checked against it (checked_at); every row was rechecked on 14 November 2026 except the 2026-27 Medicare levy row, read from the Act on 17 November 2026. Rows with component resident_tax hold the tax bands; rows with medicare_levy_low_income_single hold the lower and upper thresholds in income_from and income_to. Cite as Duguid, R. (2026). Australian resident income tax rates by year [Data set]. https://duguid.com.au/rates/individual-income-tax/. Verify against current ATO guidance before relying on a figure.
 
 ## Common questions
 
@@ -2600,7 +2601,7 @@ The rate on taxable income from $18,201 to $45,000 fell from 16% to 15%, so the 
 
 ### What are the 2026-27 Medicare levy low-income thresholds?
 
-Under the law in force on 14 November 2026, $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset, the same as 2025-26. Section 3(1) of the Medicare Levy Act 1986, as compiled on 1 July 2026, sets those figures, and Act No. 58 of 2026 applies them to 2025-26 and later years. The ATO had not published 2026-27 thresholds that day, and a later Act can still change them.
+Under the law in force on 17 November 2026, $28,011 and $35,013 for a single person not entitled to the seniors and pensioners tax offset, the same as 2025-26. Section 3(1) of the Medicare Levy Act 1986, as compiled on 1 July 2026, sets those figures, and Act No. 58 of 2026 applies them to 2025-26 and later years. The ATO had not published 2026-27 thresholds that day, and a later Act can still change them.
 
 ### Do these rates apply to everyone?
 
@@ -3198,7 +3199,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 21 business planning calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 21 business planning calculators, 3 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3416,6 +3417,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 21 business planning calculators: https://duguid.com.au/tools/business-calculators/
+- 3 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -5560,6 +5562,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+17 November 2026 | Three individual tax calculators for 2024-25 to 2026-27: income tax with the low income tax offset and the Medicare levy for a resident, a foreign resident or a working holiday maker; take-home pay a year, month, fortnight and week, with super guarantee and the $1,000 standard deduction from 2026-27; and the compulsory study and training loan repayment, marginal from 2025-26. Each rate and threshold is cited to its Act. The individual income tax rate table adds the 2026-27 Medicare levy low-income thresholds from the Medicare Levy Act 1986.
 17 November 2026 | A new business calculator estimates one employer’s payroll tax for 2026-27 in any of the 8 states and territories, for an employer outside a group that pays wages all year: the deduction or threshold shared with interstate wages, the amount taxed, the tax at each rate and, in Victoria and Queensland, each surcharge and levy, with the provision for each step. Its figures are in a data file with each one’s source and dates, and its tests hold the revenue offices’ published examples.
 16 November 2026 | A new vehicle classifier works out from a manufacturer’s specification whether a vehicle is a car under section 995-1, so whether the car limit and the GST credit cap apply, whether luxury car tax can apply at the 2025-26 or 2026-27 threshold and whether an employer’s FBT exemption for an eligible vehicle can apply on the private use you state. It works MT 2024’s dual cab test, LCTD 2023/1’s ute method and TD 2006/40’s order of the credit and the car limit, and refuses a modified vehicle without its compliance plate figures, a payload that disagrees with the mass and kerb weight, and any other body it cannot weigh. It leaves the car limit undecided for a single cab ute or panel van, which no ATO source settles. The car limit table now says the limit reaches a car designed mainly for carrying passengers, rather than excluding only utes and vans over 1 tonne.
 16 November 2026 | The announced measures page notes a bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, that the ATO’s summary now lists against the negative gearing and CGT discount reform. Parliament’s summary says it would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing; it is not law. Accounting questions 2 and 89 were rechecked on 16 November 2026 against the ATO’s claiming deductions page and its updated standard deduction and payment plans pages. Question 2 now says a few deductions, such as gifts and donations, need no connection to earning income, and question 89 says each account with an overdue debt must be paid in full or have its own payment plan.
@@ -11041,6 +11044,275 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
 - twenty-one business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Australian income tax, take-home pay and HELP calculators
+
+Source: https://duguid.com.au/tools/individual-tax/
+
+> Income tax with the low income tax offset and Medicare levy, take-home pay with super, and study loan repayments for 2024-25 to 2026-27, each step cited to its Act.
+
+# Individual tax calculators
+
+Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+
+Estimates in AUD for a full income year from 2024-25 to 2026-27, for a single person with no dependants. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 17 November 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
+
+## Tax, pay and study loans
+
+- Income tax calculator Tax on taxable income, the low income tax offset and the Medicare levy, for an Australian resident, a foreign resident or a working holiday maker.
+- Take-home pay calculator What is left of an annual salary each year, month, fortnight and week after tax, Medicare levy and any study loan repayment, with the employer’s super guarantee.
+- Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
+
+For a business, see the business calculators.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
+- Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
+- Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Income tax calculator for 2026-27, 2025-26 and 2024-25
+
+Source: https://duguid.com.au/tools/individual-tax/income-tax/
+
+> Income tax, the low income tax offset and the Medicare levy for residents, foreign residents and working holiday makers, each step cited to the Act.
+
+# Income tax calculator
+
+One individual’s income tax, low income tax offset and Medicare levy for a full income year from 2024-25 to 2026-27, for an Australian resident, a foreign resident or a working holiday maker.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Income tax inputs for one full income year
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
+
+Taxable income (whole dollars)
+
+Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a single person with no dependants who is not entitled to the seniors and pensioners tax offset.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, taxable income $29,000.00. Tax on taxable income $1,728.00 Low income tax offset $700.00 Medicare levy $98.90 Total tax and Medicare levy $1,126.90
+
+## How the income tax calculator works
+
+The income tax calculator works out one individual’s tax for a full income year: the tax on taxable income at the year’s rates, the low income tax offset, and the Medicare levy. An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. A foreign resident pays from the first dollar at 30%, 37% and 45%. A working holiday maker pays 15% up to $45,000 and then the same rates as a resident.
+
+The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does; its example on What is the Medicare levy gives Matthew $1,500 on $75,000.
+
+For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2026, the same as 2025-26. If Parliament raises them for 2026-27, a person just above $28,011 will pay less than shown here.
+
+## What the income tax calculator does not compute
+
+The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
+
+- the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
+- the Medicare levy surcharge or the private health insurance rebate;
+- a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
+- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
+- study loan repayments, which the study and training loan repayment calculator works out, and the tax already withheld or a refund.
+
+Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Income tax calculator
+
+Case | Inputs | Result
+ATO example: Angie, in the Medicare levy shade-in | $29,000 taxable income, 2025-26, Australian resident | Tax $1,728.00, offset $700.00, Medicare levy $98.90, total $1,126.90
+Tax-free threshold | $18,200 taxable income, 2026-27, Australian resident | Tax $0.00, offset $0.00, Medicare levy $0.00, total $0.00
+Medicare levy phase-in limit | $35,013 taxable income, 2026-27, Australian resident | Tax $2,521.95, offset $700.00, Medicare levy $700.20, total $2,522.15
+A dollar above the phase-in limit: 2% of the whole | $35,014 taxable income, 2026-27, Australian resident | Tax $2,522.10, offset $700.00, Medicare levy $700.28, total $2,522.38
+Offset of $324.985 rounds half up | $45,001 taxable income, 2026-27, Australian resident | Tax $4,020.30, offset $324.99, Medicare levy $900.02, total $4,595.33
+Offset cut-out: half a cent below nil is nil | $66,667 taxable income, 2026-27, Australian resident | Tax $10,520.10, offset $0.00, Medicare levy $1,333.34, total $11,853.44
+Top rate | $250,000 taxable income, 2026-27, Australian resident | Tax $78,370.00, offset $0.00, Medicare levy $5,000.00, total $83,370.00
+2024-25 rates | $90,000 taxable income, 2024-25, Australian resident | Tax $17,788.00, offset $0.00, Medicare levy $1,800.00, total $19,588.00
+Foreign resident: no offset or Medicare levy | $100,000 taxable income, 2026-27, foreign resident | Tax $30,000.00, offset $0.00, Medicare levy $0.00, total $30,000.00
+Working holiday maker | $50,000 taxable income, 2026-27, working holiday maker | Tax $8,250.00, offset $0.00, Medicare levy $0.00, total $8,250.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
+- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
+- study and training loan repayment calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Take-home pay calculator for 2026-27: tax, Medicare and HELP
+
+Source: https://duguid.com.au/tools/individual-tax/take-home-pay/
+
+> Annual, monthly, fortnightly and weekly take-home pay after income tax, Medicare levy and study loan repayment, with super guarantee, each step cited to its Act.
+
+# Take-home pay calculator
+
+Take-home pay from an annual salary, after the year’s income tax, Medicare levy and any study loan repayment, with the employer’s super guarantee, for 2024-25 to 2026-27.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Take-home pay inputs for one full income year
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for tax purposes, all year Australian resident Foreign resident Working holiday maker (visa 417 or 462)
+
+Annual salary (whole dollars) Does that amount include super? No, super is paid on top Yes, it is a package including super guarantee
+
+Do you have a study or training loan, such as HELP? No Yes
+
+For one job paid evenly all year, with no other income and no deductions you claim, so the salary is the taxable income, less the standard deduction from 2026-27. For a single person with no dependants.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, salary $75,000.00 plus super, no study or training loan. Salary $75,000.00 Employer super guarantee $9,000.00 Standard deduction for work-related expenses $0.00 Income tax less the low income tax offset $13,288.00 Medicare levy $1,500.00 Study and training loan repayment $0.00 Take-home pay for the year $60,212.00 Each month, a twelfth $5,017.67 Each fortnight, a 26th $2,315.85 Each week, a 52nd $1,157.92 The year’s tax on this salary spread evenly, not the amounts an employer withholds each pay.
+
+## How the take-home pay calculator works
+
+The take-home pay calculator takes one annual salary and works out the year’s income tax, low income tax offset, Medicare levy and any study or training loan repayment on it. From 2026-27 it first takes off the standard deduction of up to $1,000 for work-related expenses. It then gives what is left for the year, a month, a fortnight and a week. It also gives the super guarantee an employer must pay on that salary, which is paid to a super fund and is not part of take-home pay.
+
+These are the year’s tax on that income spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay under the ATO’s PAYG withholding schedules, which round each pay’s withholding and can differ from the year’s tax, with the difference settled when the tax return is assessed. Use the ATO’s tax withheld calculator for the amount withheld each pay. The example on arrival is 2025-26, before the standard deduction: on $75,000 the Medicare levy is $1,500, as the ATO’s example of Matthew on What is the Medicare levy gives. In 2026-27 the same salary is $74,000 of taxable income.
+
+When the salary includes super, the calculator splits it: at 12%, a package of $112,000 is $100,000 of salary and $12,000 of super. Super guarantee stops at the year’s maximum contribution base, so above it the super stays at the most the base allows.
+
+## What the take-home pay calculator does not compute
+
+The calculator assumes one employer, a salary paid evenly over the full year, and no other income, deductions, offsets or salary sacrifice. It does not compute:
+
+- the PAYG amount withheld each pay, overtime, bonuses, allowances or leave loading;
+- work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
+- salary sacrifice, reportable fringe benefits, or reportable super contributions, which would change repayment income;
+- everything the income tax calculator leaves out, such as the Medicare levy reduction for families, the Medicare levy surcharge and the seniors and pensioners tax offset;
+- whether an employee is entitled to super guarantee, the lower transitional rate for employees on Norfolk Island (11% for 2026-27), or a second employer’s separate maximum contribution base.
+
+Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Take-home pay calculator
+
+Case | Inputs | Result
+ATO example: Matthew’s Medicare levy on $75,000, 2025-26 | 2025-26, Australian resident, $75,000 plus super | Take-home $60,212.00 a year, $2,315.85 a fortnight; super $9,000.00
+2026-27: the $1,000 standard deduction comes off the salary | 2026-27, Australian resident, $75,000 plus super | Take-home $60,800.00 a year, $2,338.46 a fortnight; super $9,000.00
+Package including super | 2026-27, Australian resident, $112,000 including super | Take-home $77,800.00 a year, $2,992.31 a fortnight; super $12,000.00
+With a study loan | 2026-27, Australian resident, $90,000 plus super, study loan | Take-home $68,079.20 a year, $2,618.43 a fortnight; super $10,800.00
+Above the 2026-27 maximum contribution base | 2026-27, Australian resident, $300,000 plus super | Take-home $193,600.00 a year, $7,446.15 a fortnight; super $32,499.60
+Package above the base: super stops at the cap | 2026-27, Australian resident, $340,000 including super | Take-home $197,575.40 a year, $7,599.05 a fortnight; super $32,499.60
+2024-25 at 11.5%, with a half-cent offset | 2024-25, Australian resident, $60,001 plus super | Take-home $50,112.67 a year, $1,927.41 a fortnight; super $6,900.12
+Foreign resident: no Medicare levy | 2026-27, foreign resident, $80,000 plus super | Take-home $56,000.00 a year, $2,153.85 a fortnight; super $9,600.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
+- What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
+- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
+- Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# HELP repayment calculator for 2026-27: marginal rates
+
+Source: https://duguid.com.au/tools/individual-tax/study-loan/
+
+> Compulsory HELP, VSL, SSL and AASL repayments for 2024-25 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003.
+
+# Study and training loan calculator
+
+The compulsory HELP or other study loan repayment for 2024-25 to 2026-27, marginal from 2025-26.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Study and training loan repayment inputs for one income year
+
+Income year 2026-27 2025-26 2024-25
+
+Taxable income, without any FHSS released amount (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, including net rental losses (whole dollars) Reportable super contributions (whole dollars) Exempt foreign employment income (whole dollars)
+
+Enter 0 for any part you do not have. Your income tax return or income statement shows each of them.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, taxable income $60,470.00, reportable fringe benefits $5,400.00, total net investment loss $1,330.00, reportable super contributions $16,500.00, exempt foreign employment income $2,680.00. Repayment income $86,380.00 Compulsory repayment $2,527.80 15% of repayment income over $69,528 up to $129,717, and 17% of any part above it.
+
+## How the study and training loan repayment calculator works
+
+The study and training loan repayment calculator works out the compulsory repayment on a HELP, VET Student Loan, Student Start-up Loan or Australian Apprenticeship Support Loan debt for one income year. It first adds up repayment income: taxable income, reportable fringe benefits, total net investment loss, reportable super contributions and exempt foreign employment income.
+
+From 2025-26 the repayment is marginal: nothing up to the minimum repayment income, then 15 cents for each dollar above it up to a second threshold and 17 cents above that, unless 10% of all repayment income is less. For 2026-27 the minimum repayment income is $69,528 and the second threshold $129,717, and 10% is the lesser amount from $186,051. For 2024-25 one percentage of the whole repayment income applied, from 1% above $54,434 to 10% from $159,664.
+
+The boundary cases below take the inputs of the 4 worked examples on the ATO’s thresholds and rates page, read 17 November 2026, and work each one from section 154-20. For Barry’s 2026-27 repayment income of $137,064, section 154-20(2) gives 15% of the $60,189 from $69,528 to $129,717, which is $9,028.35, plus 17% of the $7,347 above $129,717, which is $1,248.99: $10,277.34 in all. For Branson’s 2024-25 repayment income of $99,736, the 5.5% rate gives $5,485.48.
+
+## What the study and training loan repayment calculator does not compute
+
+The calculator gives the compulsory repayment for one income year. It does not compute:
+
+- the cap at the debt you still owe, or voluntary repayments;
+- the overseas debtors repayment levy on worldwide income for a foreign resident (section 154-16);
+- whether no repayment is due because your Medicare levy is not payable or is reduced under section 8 of the Medicare Levy Act 1986 (section 154-1(2));
+- the amounts an employer withholds each pay for a loan, or indexation of the debt;
+- years before 2024-25.
+
+Confirm the figure with the ATO’s Study and training loan repayment calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Study and training loan calculator
+
+Case | Inputs | Result
+ATO example 1: Christina, 2026-27 | 2026-27: taxable income $60,470, fringe benefits $5,400, net investment loss $1,330, super contributions $16,500, exempt foreign employment income $2,680 | Repayment income $86,380.00, repayment $2,527.80
+ATO example 2: Barry, 2026-27, by section 154-20 | 2026-27: taxable income $118,450, super contributions $18,614 | Repayment income $137,064.00, repayment $10,277.34
+ATO example 3: Priya, 2026-27 | 2026-27: taxable income $227,123, super contributions $27,657 | Repayment income $254,780.00, repayment $25,478.00
+At the minimum repayment income | 2026-27: taxable income $69,528 | Repayment income $69,528.00, repayment $0.00
+Last dollar where the marginal amount is less | 2026-27: taxable income $186,050 | Repayment income $186,050.00, repayment $18,604.96
+First dollar where 10% is less | 2026-27: taxable income $186,051 | Repayment income $186,051.00, repayment $18,605.10
+2025-26 top of the 15% band | 2025-26: taxable income $125,000 | Repayment income $125,000.00, repayment $8,700.00
+ATO example 4: Branson, 2024-25, at 5.5% | 2024-25: taxable income $89,450, super contributions $10,286 | Repayment income $99,736.00, repayment $5,485.48
+2024-25 at 2.5%: half a cent rounds up | 2024-25: taxable income $66,621 | Repayment income $66,621.00, repayment $1,665.53
+2024-25 at the minimum repayment income | 2024-25: taxable income $54,434 | Repayment income $54,434.00, repayment $0.00
+
+One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
+- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
