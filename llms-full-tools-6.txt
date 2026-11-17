@@ -59,7 +59,7 @@ The guide’s example 18: 4 spaces at $10 for 182 days, 3 employees | Spaces, 4 
 Spaces without a benefit are refused | Spaces, 4 at $10.00 for 182 days, employees 0 and 0, spaces 0 and 0, contributions $0.00; fee $11.48 against $11.48 | Refused: these spaces gave rise to no car parking benefit: the first business day fee is not more than the car parking threshold, so the spaces method does not count them
 A register first valid 5 years back has lapsed | Register, $2,500.00 over 183 days, first valid 2022; fee $12.36 against $11.48 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -68,7 +68,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -120,7 +120,7 @@ Interest at the statutory rate leaves no value | Daily balances $18,250,000.00, 
 A $20,000 loan owed for 100 days accrues by the day | Daily balances $2,000,000.00, accrued $0.00, income use 0%, deduction $0.00, at 8.27% | Notional interest $453.15, taxable value $453.15
 A deduction above the interest accrued is refused | Daily balances $18,250,000.00, accrued $1,000.00, income use 60%, deduction $1,000.01, at 8.27% | Refused: the deduction for the interest accrued cannot be more than that interest
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -129,7 +129,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -184,7 +184,7 @@ Expenses more than 20% above the first year end the register | Register, expense
 A nil first year is refused as unsupported, not let through the 20% rule | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2025, earlier years $0.00 and $0.00 | Refused: this calculator does not take a register whose first valid year had nil expenses: enter that year’s expenses
 A register first valid 5 years back has lapsed | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2022, earlier years $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -193,7 +193,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -264,7 +264,7 @@ A payload that disagrees with the mass and kerb weight is refused | Passenger bo
 A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
 Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -273,7 +273,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -309,7 +309,7 @@ The scorer reproduces the scores and zones of all 12 case studies in the guideli
 
 ## What the PCG 2021/4 risk scorer does not cover
 
-The scorer does not decide whether the guideline applies: whether the IPP provides professional services or manages the firm and is an equity holder, whether the firm’s income is personal services income and whether the structure is legally effective (paragraph 28). It does not test the gateways; it takes your answers. It does not work out the entitlement, the tax for each entity under paragraph 85, a part-time IPP’s full-time equivalent (paragraph 71) or a commercial benchmark. A green zone is not a ruling: PCG 2021/4 does not change the law, Part IVA can still apply, and the ATO may still review an arrangement whose profit allocation drifts (paragraph 107). Confirm the assessment with the guideline or a registered tax agent.
+The scorer does not decide whether the guideline applies: whether the IPP provides professional services or manages the firm and is an equity holder, whether the firm’s income is personal services income and whether the structure is legally effective (paragraph 28). It does not test the gateways; it takes your answers. It does not work out the entitlement, the tax for each entity under paragraph 85, a part-time IPP’s full-time equivalent (paragraph 71) or a commercial benchmark; the PCG 2021/4 allocation calculator works out each recipient’s tax. A green zone is not a ruling: PCG 2021/4 does not change the law, Part IVA can still apply, and the ATO may still review an arrangement whose profit allocation drifts (paragraph 107). Confirm the assessment with the guideline or a registered tax agent.
 
 ## Boundary cases
 
@@ -326,7 +326,7 @@ Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways 
 One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
 A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -334,7 +334,81 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- PCG 2021/4 allocation calculator: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# PCG 2021/4 profit allocation and effective tax rate calculator
+
+Source: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
+
+> Allocate an IPP’s firm profit across up to 5 associates, work out each one’s tax under paragraph 85 of PCG 2021/4 and score the 3 risk factors.
+
+# PCG 2021/4 allocation
+
+Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+PCG 2021/4 allocation inputs for one IPP, up to 5 associates and one income year
+
+Gateway 1: is the arrangement commercially driven, as paragraphs 39 to 46 describe? Yes No Gateway 2: is the arrangement free of high-risk features, as paragraphs 47 to 63 describe? Yes No Income year’s tax rates 2026-27 2025-26 2024-25 2023-24 2022-23 2020-21, the rates of the guideline’s examples Risk assessment factors to use Factors 1 and 2: a commercial benchmark is impractical All 3 factors Commercial benchmark for the IPP’s services, all 3 factors only (AUD)
+
+Recipient | Who | Firm income (AUD) | Firm-related deductions (AUD) | Other income less other deductions (AUD)
+IPP | Individual | | |
+Associate 1 | Not used Individual Company, base rate entity Company, other Another kind | | |
+Associate 2 | Not used Individual Company, base rate entity Company, other Another kind | | |
+Associate 3 | Not used Individual Company, base rate entity Company, other Another kind | | |
+Associate 4 | Not used Individual Company, base rate entity Company, other Another kind | | |
+Associate 5 | Not used Individual Company, base rate entity Company, other Another kind | | |
+
+Firm income is what the recipient is entitled to from the whole of firm group, including a service entity (paragraphs 82 and 83); count a franked dividend with its franking credit, as case study 10 does. Other income less other deductions may be negative, for a loss. An individual is an Australian resident aged 18 or over for the whole year. Choose Another kind for a non-resident, a minor, a trustee taxed under section 98 or 99A, a superannuation fund or fringe benefits.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2020-21 rates, gateways 1 and 2 passed, IPP: firm income $330,000.00; associate 1, company (base rate entity): firm income $270,000.00; factors 1 and 2. IPP: tax counted, paragraph 85(a) $119,167.00 Associate 1: tax counted, paragraph 85(a) $70,200.00 Firm income of the IPP and associates $600,000.00 Tax counted on that firm income $189,367.00 Factor 1: profit entitlement returned by the IPP 55.00%, score 4 Factor 2: total effective tax rate 31.56%, score 3 Aggregate score 7 Risk zone Green: low risk
+
+## How the PCG 2021/4 allocation calculator works
+
+The PCG 2021/4 allocation calculator works out the tax each recipient of a professional firm’s profit pays on it, then scores the 3 risk assessment factors from those figures. It takes the IPP and up to 5 associated entities, each with its firm income, firm-related deductions and other income.
+
+For an individual it applies the year’s resident scale, and for a company the year’s company rate. Paragraph 85 counts the larger of the tax on the firm income alone and the extra tax the firm income adds to the recipient’s other income. In example 4 of the guideline, an associate with $100,000 of firm income and $50,000 of other income pays $40,567 on both and would pay $6,717 without the firm income, so $33,850 counts, more than the $22,967 on the firm income alone.
+
+Factor 1 is the IPP’s share of the total firm income, factor 2 the tax counted over that income, and factor 3, if you choose it, the IPP’s firm income against your benchmark. The scores and zone then follow Tables 1 and 2. The calculator reproduces the effective tax rate and scores of the guideline’s case studies 1 to 12 and example 4, and the tax in examples 5 and 6. For Bernie in case study 4 and Frank in case study 5 the resident scale gives $1 more tax than the guideline prints; the rates and scores are the same.
+
+## What the PCG 2021/4 allocation calculator does not cover
+
+The PCG 2021/4 allocation calculator does not tax a non-resident, a person under 18 on trust income (Division 6AA), a trustee taxed under section 98 or 99A, a superannuation fund or fringe benefits: it refuses them. Paragraphs 72, 73 and 95 to 99 count superannuation contributions and FBT in the effective tax rate but do not say how they count in factor 1, so work those out yourself and use the risk scorer. It applies no tax offset, such as the low income tax offset or a franking tax offset, because the guideline’s examples apply none; where your tax paid differs, use the risk scorer with your own figure.
+
+It offers 2022-23 to 2026-27, the years since the guideline applied from 1 July 2022 (paragraph 17), and 2020-21 for the guideline’s examples. It does not test the gateways or decide whether the guideline applies (paragraph 28), and it takes each figure as you enter it, with no full-time equivalent for a part-time IPP (paragraph 71) and no commercial benchmark of its own. A green zone is not a ruling: Part IVA can still apply (paragraphs 36 and 37). Confirm the assessment with the guideline or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: PCG 2021/4 allocation
+
+Case | Inputs | Result
+Case study 1: Nicolas and his company pay 31.56% and are green on 2 factors | 2020-21 rates; gateways passed; IPP $330,000.00; associate 1 base rate company $270,000.00 | Firm income $600,000.00, tax counted $189,367.00, returned 55.00%, factor 1 score 4, tax rate 31.56%, factor 2 score 3, aggregate 7, green zone
+Case study 10: Astrid, her spouse and a company pay 28.56%, amber at 8 | 2020-21 rates; gateways passed; IPP $200,000.00; associate 1 individual $150,000.00; associate 2 base rate company $50,000.00 | Firm income $400,000.00, tax counted $114,234.00, returned 50.00%, factor 1 score 4, tax rate 28.56%, factor 2 score 4, aggregate 8, amber zone
+Case study 7: Jacinta’s $360,000 against a $350,000 benchmark is green at 10 on all 3 factors | 2020-21 rates; gateways passed; IPP $360,000.00; associate 1 individual $180,000.00; associate 2 base rate company $60,000.00; benchmark $350,000.00 | Firm income $600,000.00, tax counted $199,934.00, returned 60.00%, factor 1 score 4, tax rate 33.32%, factor 2 score 3, 102.86% of benchmark, factor 3 score 3, aggregate 10, green zone
+Example 4: other income, donations, losses and other deductions give a 33.31% rate | 2020-21 rates; gateways passed; IPP $600,000.00; associate 1 individual $100,000.00; associate 2 individual $100,000.00, other $50,000.00; associate 3 individual $100,000.00, other -$50,000.00; associate 4 individual $100,000.00, other -$100,000.00; associate 5 individual $100,000.00 | Firm income $1,100,000.00, tax counted $366,385.00, returned 54.55%, factor 1 score 4, tax rate 33.31%, factor 2 score 3, aggregate 7, green zone
+Example 5: a firm-related deduction and other income count $238,450 under paragraph 85(b) | 2020-21 rates; gateways passed; IPP $600,000.00 less $40,000.00 firm deductions, other $50,000.00 | Firm income $600,000.00, tax counted $238,450.00, returned 100.00%, factor 1 score 1, no aggregate, green zone
+2026-27: $1 over the 15% band’s end is taxed at 30%, and a company that is not a base rate entity at 30% | 2026-27 rates; gateways passed; IPP $45,001.00; associate 1 company $100,000.00 | Firm income $145,001.00, tax counted $34,020.30, returned 31.03%, factor 1 score 5, tax rate 23.46%, factor 2 score 5, aggregate 10, red zone
+A recipient this calculator cannot tax is refused | 2026-27 rates; gateways passed; IPP $300,000.00; associate 1 other $100,000.00 | Refused: associate 1 is a recipient this calculator cannot tax; work out its tax yourself and enter the total in the PCG 2021/4 risk scorer
+Amounts on a row marked not used are refused, not dropped | 2026-27 rates; gateways passed; IPP $300,000.00; associate 1 not used $100,000.00 | Refused: associate 1 is marked not used but has amounts; choose who it is or set them to 0
+A failed Gateway 2 is refused | 2020-21 rates; Gateway 2 failed; IPP $330,000.00; associate 1 base rate company $270,000.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
+
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -389,7 +463,7 @@ A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 mo
 A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
 More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -398,7 +472,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -453,7 +527,7 @@ A child recipient has taxable earnings but no liability | Balance $4,000,000.00,
 Death by 30 June 2027 makes the balance nil | Balance $12,000,000.00, earnings $500,000.00, died by 30 June 2027 | Not liable: died, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
 A negative balance is refused | Balance -$1.00, earnings $100,000.00 | Refused: enter an amount between 0 and 1000000000
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -461,7 +535,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -526,7 +600,7 @@ A repayment above the amount that repays the loan on 30 June | Made 2022-10-01, 
 Repayments after the loan is repaid | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99; 1' | Refused: the loan is repaid in 2024-25; leave out the repayments after it
 More repayments than years of the term | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '1;1;1;1;1;1;1;1' | Refused: enter no more than 7 repayments, one for each year of the term
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -537,7 +611,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -621,7 +695,7 @@ An agent with 75% commission may fall under section 87-40, which this page does 
 No PSI entered | Sole trader; payers none | Refused: enter the PSI from at least one payer
 Others’ work worth more than the PSI | Sole trader; payers $100.00; others’ principal work $100.01 | Refused: the market value of principal work by others cannot exceed the PSI entered
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -629,7 +703,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -675,7 +749,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -685,89 +759,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# 13-week cash forecast calculator with CSV export
-
-Source: https://duguid.com.au/tools/business-calculators/cash/
-
-> Build a 13-week cash forecast in your browser: weekly closing cash, one delayed receipt, the funding gap against a buffer, CSV export and saved inputs.
-
-# 13-week cash forecast
-
-Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
-
-Published 20 September 2026. Last checked 13 November 2026. Boundary cases added 5 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-13-week cash forecast inputs
-
-First day of week 1
-
-Each week covers 7 days from the start date.
-
-Opening bank balance (AUD) Minimum cash buffer (AUD) Original receipt week Receipt to delay (AUD) Delay in whole weeks
-
-Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. A delayed receipt must already be included in the original week’s total.
-
-Week | Receipts (AUD) | Payments (AUD)
-1 | |
-2 | |
-3 | |
-4 | |
-5 | |
-6 | |
-7 | |
-8 | |
-9 | |
-10 | |
-11 | |
-12 | |
-13 | |
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: opening cash −$50.00, buffer $100.00, receipt of $600.00 in week 13 delayed 1 week. Closing cash $350.00 Lowest opening or weekly closing balance −$50.00 Funding gap to the buffer $150.00 Receipts deferred beyond week 13 $600.00
-
-Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon’s closing balance. To compare scenarios, download each before changing the delay.
-
-Download forecast CSV Save or load inputs
-
-Save inputs to a file on this device and load it later to continue. The file is read in your browser, and an invalid file changes nothing.
-
-Save inputs Load inputs (replaces the current forecast)
-
-## How the 13-week cash forecast works
-
-The 13-week cash forecast works out closing cash for each week and the funding gap against a buffer you set. Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero.
-
-No statutory rate or threshold is applied. The layout follows business.gov.au: cash flow.
-
-## What the 13-week cash forecast does not decide
-
-The funding gap is a planning gap, not a lending decision. The 13-week cash forecast does not predict receipts or payments, and weekly totals can hide a shortage within the week. A receipt delayed beyond week 13 is reported separately and does not enter the closing balance.
-
-The Lumbridge cash flow case works the same question with a 45-day receipt delay.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: 13-week cash forecast
-
-Case | Inputs | Result
-A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
-A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
-
-One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
-- Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
