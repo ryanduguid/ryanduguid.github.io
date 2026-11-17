@@ -59,7 +59,7 @@ The guide’s example 18: 4 spaces at $10 for 182 days, 3 employees | Spaces, 4 
 Spaces without a benefit are refused | Spaces, 4 at $10.00 for 182 days, employees 0 and 0, spaces 0 and 0, contributions $0.00; fee $11.48 against $11.48 | Refused: these spaces gave rise to no car parking benefit: the first business day fee is not more than the car parking threshold, so the spaces method does not count them
 A register first valid 5 years back has lapsed | Register, $2,500.00 over 183 days, first valid 2022; fee $12.36 against $11.48 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -68,7 +68,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -120,7 +120,7 @@ Interest at the statutory rate leaves no value | Daily balances $18,250,000.00, 
 A $20,000 loan owed for 100 days accrues by the day | Daily balances $2,000,000.00, accrued $0.00, income use 0%, deduction $0.00, at 8.27% | Notional interest $453.15, taxable value $453.15
 A deduction above the interest accrued is refused | Daily balances $18,250,000.00, accrued $1,000.00, income use 60%, deduction $1,000.01, at 8.27% | Refused: the deduction for the interest accrued cannot be more than that interest
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -129,7 +129,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -184,7 +184,7 @@ Expenses more than 20% above the first year end the register | Register, expense
 A nil first year is refused as unsupported, not let through the 20% rule | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2025, earlier years $0.00 and $0.00 | Refused: this calculator does not take a register whose first valid year had nil expenses: enter that year’s expenses
 A register first valid 5 years back has lapsed | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2022, earlier years $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -193,7 +193,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -264,7 +264,7 @@ A payload that disagrees with the mass and kerb weight is refused | Passenger bo
 A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
 Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -273,7 +273,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -326,7 +326,7 @@ Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways 
 One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
 A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -334,7 +334,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -389,7 +389,7 @@ A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 mo
 A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
 More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -398,7 +398,97 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Personal services income (PSI) rules and PSB test checker
+
+Source: https://duguid.com.au/tools/business-calculators/psi-determination/
+
+> Work through the PSI rules for one individual and year: section 84-5, the results test, the 80% rule and the other 3 personal services business tests.
+
+# PSI rules checker
+
+Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+PSI inputs for one individual and one income year
+
+Who receives the income The individual, as a contractor (sole trader) A company, partnership or trust the individual works through The individual, as an employee, office holder or religious practitioner Is over half the income a reward for the individual’s personal efforts or skills (subsection 84-5(1))? Yes No: mainly from goods, assets or a business structure Is a personal services business determination in force for this income? No Yes
+
+Payer, with its associates | PSI in the year (AUD) | Associate of the individual or entity | Engaged by an offer to the public | Paid for a result | Supplies plant and tools | Liable for defects
+Payer 1 | | | | | |
+Payer 2 | | | | | |
+Payer 3 | | | | | |
+Payer 4 | | | | | |
+Payer 5 | | | | | |
+
+Each tick is your answer; ‘How the PSI rules checker works’ says when to tick.
+
+Market value of principal work by others engaged, in the year (AUD) An apprentice for at least half the year? No Yes Business premises: tick each condition met Maintained and used all year Mainly used to produce the PSI Exclusive use, by ownership or lease Physically separate from private premises of the individual, entity or an associate Physically separate from each payer’s and its associates’ premises Paid as an agent by a principal for services to its customers (section 87-40)? No Yes Agent: the principal’s payments in the year (AUD) Agent: commission or performance fees in them (AUD)
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Received by the individual as a contractor, mainly a reward for personal efforts or skills, no PSB determination; payer 1 $18,000.00, ticked: paid for a result, tools supplied, liable for defects; principal work by others $0.00, no apprentice; business premises conditions: none; not an agent. Outcome Subsection 87-18(1): a personal services business, so Divisions 85 and 86 do not apply Subsection 84-5(1): income mainly a reward for the individual’s personal efforts or skills Yes, as you answered Paragraph 87-15(1)(a): a personal services business determination in force No, as you answered Subsection 87-18(1): PSI paid for a result, with the tools supplied and liability for defects 100.00%, at least 75%: met The PSI is still reported in the tax return, and Part IVA can still apply to splitting it (TR 2022/3 paragraphs 25 and 160).
+
+## How the PSI rules checker works
+
+The PSI rules checker takes one individual’s personal services income for one income year and works through Part 2-42 in the order the Act sets. Each step on the result names the section it applies and what it found.
+
+Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that payer’s PSI: where only part of it meets all 3, leave the boxes unticked, which can only make the results test harder to pass, and work out that part yourself. For the market value of principal work by others, count work by any individual engaged, an associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives, a partner included (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
+
+Income that is not mainly a reward for the individual’s personal efforts or skills is not PSI (subsection 84-5(1)), and income received as an employee falls outside Division 85 (subsection 85-35(1)). A personal services business determination in force settles the question (subsection 87-15(1)). Otherwise the results test comes first: if at least 75% of the PSI is paid for a result, with the plant and tools supplied and liability for defects, the PSI rules do not apply, however much comes from one payer (section 87-18).
+
+If 80% or more of the PSI comes from one payer and its associates, the other 3 tests cannot be self-assessed and only a determination keeps the rules away (subsection 87-15(3)). The checker still works them out, because the Commissioner weighs them for a determination: 2 or more unrelated payers that engaged the individual or entity through offers to the public (section 87-20), principal work by others of at least 20% by market value or an apprentice for half the year (section 87-25), and qualifying business premises all year (section 87-30).
+
+The checker reproduces the conclusion of each worked example in TR 2022/3 that reaches one on a test it applies, and of the matching examples on the ATO’s PSI pages.
+
+## What the PSI rules checker leaves to you
+
+The checker does not decide whether income is mainly a reward for personal efforts or skills, whether a contract pays for a result, whether an offer to the public won the work, who is an associate or what principal work is worth. These turn on facts and judgement, so it takes your answers and says so on each step; TR 2022/3 sets out the factors at paragraphs 34 to 49 and 77 to 148.
+
+The checker does not allocate expenses across PSI, business income and other income. Division 85 limits deductions to the extent they relate to PSI (subsection 85-10(1)) but sets no method for the split, and TR 2022/3 leaves deductions to other rulings (paragraphs 6 and 31), so any split is practice rather than law. It does not work out the amount attributed under Division 86, PAYG withholding or a deduction for a net PSI loss.
+
+The checker does not apply the agent rules when they could apply (section 87-40), decide a determination, which is the Commissioner’s (sections 87-60 and 87-65), or test Part IVA, which can still apply to a personal services business (TR 2022/3 paragraph 160). Several individuals working through one entity are tested one at a time (paragraph 76). Confirm the result with the ruling or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: PSI rules checker
+
+Case | Inputs | Result
+TR 2022/3 example 20: Joe installs ducts to plans with his own tools and rectifies defects, so meets the results test | Sole trader; payers $18,000.00 (result, tools, defects) | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
+TR 2022/3 example 30: Ian’s $26,000 of $140,000 is 18.57%, under 20% | Sole trader; payers $100,000.00, $40,000.00; others’ principal work $26,000.00 | Subsection 87-15(1), not a personal services business, so Division 85 applies, largest payer 71.42%, others’ work 18.57%
+TR 2022/3 example 29: Tom’s 23.07% meets the employment test, but one payer means a determination is needed | Sole trader; payers $156,000.00; others’ principal work $36,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%, others’ work 23.07%
+Exactly 75% paid for a result meets the results test | Sole trader; payers $75.00 (result, tools, defects), $25.00 | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 75.00%
+74.99% paid for a result does not | Sole trader; payers $74.99 (result, tools, defects), $25.01 | Subsection 87-15(1), not a personal services business, so Division 85 applies, results test 74.99%
+A result without liability for defects does not count | Sole trader; payers $100.00 (result, tools) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, results test 0.00%
+Exactly 80% from one payer stops self-assessment by the other tests | Sole trader; payers $80.00 (offer), $20.00 (offer); an apprentice | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 80.00%, 2 unrelated by public offer
+79.99% from one payer, with 2 unrelated payers won by offers, meets the unrelated clients test | Sole trader; payers $79.99 (offer), $20.01 (offer) | Section 87-20, a personal services business, so Divisions 85 and 86 do not apply, largest payer 79.99%, 2 unrelated by public offer
+A payer that is an associate is not an unrelated client | Sole trader; payers $50.00 (associate, offer), $50.00 (offer) | Subsection 87-15(1), not a personal services business, so Division 85 applies, 1 unrelated by public offer
+Exactly 20% of principal work by others meets the employment test | Sole trader; payers $60.00, $40.00; others’ principal work $20.00 | Section 87-25, a personal services business, so Divisions 85 and 86 do not apply, others’ work 20.00%
+Business premises need all 5 ticks | Sole trader; payers $60.00, $40.00; premises: times, mainly, exclusive, private | Subsection 87-15(1), not a personal services business, so Division 85 applies
+A company, partnership or trust meets the results test under subsection 87-18(3) | Entity; payers $120,000.00 (result, tools, defects) | Subsection 87-18(3), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
+Income not mainly from personal efforts or skills is not PSI | Sole trader; not mainly personal efforts or skills; payers $100,000.00 | Subsection 84-5(1), not personal services income, so Part 2-42 does not apply
+Income as an employee is outside Division 85 | Employee; payers $100,000.00 | Subsection 85-35(1), income as an employee, so the PSI rules do not apply
+A determination in force for an entity settles it | Entity; determination in force; payers $100,000.00 | Paragraph 87-15(1)(b), a personal services business, so Divisions 85 and 86 do not apply
+TR 2022/3 example 40: 70% commission leaves the principal as one payer | Sole trader; payers $100,000.00; agent, $70,000.00 commission of $100,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%
+An agent with 75% commission may fall under section 87-40, which this page does not apply | Sole trader; payers $100,000.00; agent, $75,000.00 commission of $100,000.00 | Refused: at least 75% of the principal’s payments are commission or performance fees, so section 87-40 may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40
+No PSI entered | Sole trader; payers none | Refused: enter the PSI from at least one payer
+Others’ work worth more than the PSI | Sole trader; payers $100.00; others’ principal work $100.01 | Refused: the market value of principal work by others cannot exceed the PSI entered
+
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -444,7 +534,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -454,7 +544,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -529,7 +619,7 @@ Case | Inputs | Result
 A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
 A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -539,7 +629,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -593,7 +683,7 @@ An amended assessment takes the later of its 2 dates | Amended income tax assess
 An FBT assessment allows 4 years | FBT assessment, notice 15 November 2026 | Paragraph 14ZW(1)(aaa), period ends Friday 15 November 2030, last day Friday 15 November 2030
 A first notice after the amended notice is refused | Amended FBT assessment, notice 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the amended one
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -601,7 +691,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -658,7 +748,7 @@ The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax 
 A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
 
@@ -666,7 +756,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -721,7 +811,7 @@ Born a day later, still under preservation age | Redundancy payment $0.00 after 
 Withholding of exactly $8.50 rounds up to the next dollar | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960 | Withheld from code O $9.00, total withheld $9.00
 Part years of service are refused | Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996 | Refused: enter a whole number between 0 and 150
 
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
 
@@ -730,118 +820,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Land tax calculator for every Australian state and territory
-
-Source: https://duguid.com.au/tools/business-calculators/land-tax/
-
-> Land tax in the 7 states and territories that levy it, with trust rates and foreign owner surcharges, from primary sources read 16 November 2026. The NT has none.
-
-# Land tax calculator
-
-Land tax for a year in each Australian state and territory that levies it, at the general or trust rates with any foreign owner surcharge, from each revenue office’s current rates.
-
-Published 16 November 2026. Last checked 16 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Land tax inputs
-
-State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory
-
-Total taxable land value (whole dollars) Rates General rates Trust rates (in Queensland, companies and trustees) Foreign person or absentee owner? No Yes Surcharge value, New South Wales and Tasmania only (whole dollars) All the land is in the Perth metropolitan region (Western Australia)
-
-Enter the value the revenue office taxes, after exempt land is left out: in New South Wales the 3-year average of the land values, in Victoria and South Australia the total site value, in the Australian Capital Territory one parcel’s average unimproved value, and elsewhere the total land value of all the owner’s taxable land. The Northern Territory has no land tax.
-
-Trust rates are a special trust’s in New South Wales, the trust surcharge rates in Victoria, those for companies and trustees in Queensland and those for land held on trust in South Australia. The calculator has none for Western Australia, Tasmania or the Australian Capital Territory.
-
-The surcharge value is the land value the New South Wales or Tasmanian surcharge applies to, as set out below the calculator; elsewhere a surcharge applies to the taxable land value. The calculator has no foreign or absentee rates for Western Australia or South Australia.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, total taxable land value $1,100,000.00. Land tax for the year $500.00 Rate applied $100 plus 1.6% of the value over $1,075,000
-
-## How the land tax calculator works
-
-The calculator applies one state or territory’s general or trust scale to a total taxable land value and gives the tax for a full year. Below a jurisdiction’s threshold the tax is nil; the Australian Capital Territory has no threshold, and nor does a special trust in New South Wales. Above it, each scale charges a base amount plus a percentage of the value over a band’s threshold, except that Victoria charges a flat $500 from $50,000 and $975 from $100,000 up to $300,000. South Australia charges for every $100, or part of $100, so the excess is rounded up to the next $100, and RevenueSA issues no assessment where the calculated land tax is under $20; the calculator shows the amount and says so. The Australian Capital Territory adds its fixed charge of $1,778 to the valuation charge and assesses each quarter’s share by its days; the calculator gives the full-year amount. Each scale is the one in force for the land tax year current on 16 November 2026: the 2026 calendar year in New South Wales and Victoria, and the 2026-27 financial year in Queensland, Western Australia, South Australia, Tasmania and the Australian Capital Territory.
-
-Where a revenue office publishes worked figures, the calculator gives the same amount. Revenue NSW gives $500 on an average land value of $1,100,000, $9,600 for a special trust on $600,000, and $2,100 of land tax and $60,000 of surcharge land tax for a foreign owner of $1,200,000 of residential land. Victoria’s State Revenue Office gives $5,550 on $1,100,000, and its table with the absentee owner surcharge gives $44,650 on $1,000,000 at the general rates. The Queensland Revenue Office gives $1,300 on $680,000 and $87,000 on $6,400,000 for an individual, $106,500 on $6,400,000 for a company, $8,420 on $760,000 for the trustee of a self-managed super fund, and $3,800 on $400,000 for an absentee and for a foreign company, each with $1,500 of surcharge. RevenueSA’s 2026-27 guide gives $2,670 on $1,470,000. Tasmania’s foreign investor land tax surcharge guideline gives $8,000 of surcharge on $400,000. The tests work the rest by hand from the published rates: $6,250 on $1,500,000 in Western Australia with $1,680 of metropolitan region improvement tax, $2,500 at South Australia’s trust rates on $500,000, $3,237.50 on $600,000 in Tasmania and $7,418 on an average unimproved value of $600,000 in the Australian Capital Territory, with $4,500 of foreign ownership surcharge.
-
-## Trust rates, surcharges and the metropolitan region improvement tax
-
-Trust rates are a special trust’s rates in New South Wales, with no threshold; the trust surcharge rates in Victoria; the rates for companies and trustees, including super funds, in Queensland; and the trust rates in South Australia. Western Australia taxes a trustee’s land as if it were the trustee’s own, at the general rates.
-
-A foreign or absentee owner pays: in New South Wales surcharge land tax of 5% of the land value of the residential land a foreign person owns, their share only and including land exempt from land tax, entered as the surcharge value; in Victoria the absentee owner surcharge of 4% of the total taxable value, from $50,000 at the general rates and from $25,000 at the trust rates; in Queensland the absentee rates for an absentee individual, and for an absentee, a foreign company or the trustee of a foreign trust a surcharge of 3% of the value over $350,000; in Tasmania the foreign investor land tax surcharge of 2% of the assessed land value of the foreign-owned share of residential General Land acquired on or after 1 July 2022, entered as the surcharge value; and in the Australian Capital Territory the foreign ownership surcharge of 0.75% of the parcel’s average unimproved value.
-
-Western Australia charges its metropolitan region improvement tax of 0.14% of the value over $300,000 with land tax where the land is in the Perth metropolitan region; the calculator adds it when all the land is. A surcharge and this tax are shown apart from the land tax, with the total.
-
-## What the land tax calculator does not compute
-
-The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is. These are not computed:
-
-- New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
-- Victoria: exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
-- Queensland: exemptions and relief, exemptions from the foreign surcharge and the aggregation of land held for trusts with the same beneficiaries.
-- Western Australia: land tax exemptions, and the metropolitan region improvement tax on holdings only partly in the Perth metropolitan region.
-- South Australia: exemptions, waiver or relief, and which land held on trust qualifies for the general rates.
-- Tasmania: zero rate classifications, exemptions and rebates, including principal residence and primary production land, and which land the foreign investor land tax surcharge applies to.
-- Australian Capital Territory: land tax exemptions, when the foreign ownership surcharge applies, a unit’s share by its unit entitlement and the split into quarters. Land tax there applies to residential property that is not a principal place of residence.
-
-Joint ownership, grouping of related companies and the apportionment of the tax between properties are not computed either. Confirm the figure with the revenue office’s own calculator or assessment notice before relying on it.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Land tax calculator
-
-Case | Inputs | Result
-Revenue NSW’s 3-year average example | New South Wales, $1,100,000.00 | Land tax $500.00
-Nil at the NSW general threshold itself | New South Wales, $1,075,000.00 | Land tax $0.00
-The Victorian SRO’s example | Victoria, $1,100,000.00 | Land tax $5,550.00
-Victoria’s $1,350 band starts at $300,000 | Victoria, $300,000.00 | Land tax $1,350.00
-The Queensland Revenue Office’s example 1 for an individual | Queensland, $680,000.00 | Land tax $1,300.00
-The Queensland Revenue Office’s example 2 for an individual | Queensland, $6,400,000.00 | Land tax $87,000.00
-Western Australia, worked by hand | Western Australia, $1,500,000.00 | Land tax $6,250.00
-RevenueSA’s 2026-27 guide, example 1 | South Australia, $1,470,000.00 | Land tax $2,670.00
-Part of $100 over the South Australian threshold counts as a whole $100 | South Australia, $936,050.00 | Land tax $0.50
-Tasmania, worked by hand | Tasmania, $600,000.00 | Land tax $3,237.50
-The ACT’s fixed charge and valuation charge, worked by hand | Australian Capital Territory, $600,000.00 | Land tax $7,418.00
-Revenue NSW’s special trust example | New South Wales, trust rates, $600,000.00 | Land tax $9,600.00
-Revenue NSW’s surcharge land tax example 1 | New South Wales, foreign or absentee owner, $1,200,000.00, surcharge value $1,200,000.00 | Land tax $2,100.00, surcharge $60,000.00, total $62,100.00
-The Victorian SRO’s general rates with the absentee owner surcharge at $1,000,000 | Victoria, foreign or absentee owner, $1,000,000.00 | Land tax $4,650.00, surcharge $40,000.00, total $44,650.00
-The Victorian SRO’s trust surcharge rates with the absentee owner surcharge at $1,800,000 | Victoria, trust rates, foreign or absentee owner, $1,800,000.00 | Land tax $18,363.00, surcharge $72,000.00, total $90,363.00
-The Queensland Revenue Office’s example 1 for a company | Queensland, trust rates, $6,400,000.00 | Land tax $106,500.00
-The Queensland Revenue Office’s example 2, a self-managed super fund’s trustee | Queensland, trust rates, $760,000.00 | Land tax $8,420.00
-The Queensland Revenue Office’s absentee example | Queensland, foreign or absentee owner, $400,000.00 | Land tax $2,300.00, surcharge $1,500.00, total $3,800.00
-The Queensland Revenue Office’s foreign company example | Queensland, trust rates, foreign or absentee owner, $400,000.00 | Land tax $2,300.00, surcharge $1,500.00, total $3,800.00
-Western Australia with the metropolitan region improvement tax, worked by hand | Western Australia, $1,500,000.00, Perth metropolitan region | Land tax $6,250.00, MRIT $1,680.00, total $7,930.00
-South Australian trust rates, worked by hand | South Australia, trust rates, $500,000.00 | Land tax $2,500.00
-Tasmania’s foreign investor land tax surcharge guideline, example 1 | Tasmania, foreign or absentee owner, $400,000.00, surcharge value $400,000.00 | Land tax $1,287.50, surcharge $8,000.00, total $9,287.50
-The ACT’s foreign ownership surcharge, worked by hand | Australian Capital Territory, foreign or absentee owner, $600,000.00 | Land tax $7,418.00, surcharge $4,500.00, total $11,918.00
-Western Australia has no trust rates here | Western Australia, trust rates, $1,500,000.00 | Refused: this calculator has no trust rates for Western Australia
-Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole number between 0 and 1000000000
-
-One of the twenty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
-- exemptions from surcharge land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/surcharge-land-tax
-- exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
-- exemptions from the absentee owner surcharge: https://www.sro.vic.gov.au/owning-property/land-tax/absentee-owner-surcharge
-- exemptions and relief: https://qro.qld.gov.au/land-tax/relief/
-- exemptions from the foreign surcharge: https://qro.qld.gov.au/land-tax/foreign-surcharge/
-- land tax exemptions: https://www.wa.gov.au/service/financial-management/taxation-and-duty/apply-land-tax-exemption
-- exemptions, waiver or relief: https://www.revenuesa.sa.gov.au/land-tax/LTExemptions
-- land held on trust: https://www.revenuesa.sa.gov.au/land-tax/trusts
-- zero rate classifications, exemptions and rebates: https://www.sro.tas.gov.au/land-tax/exemptions-and-rebates
-- which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
-- land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
-- when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
-- twenty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
