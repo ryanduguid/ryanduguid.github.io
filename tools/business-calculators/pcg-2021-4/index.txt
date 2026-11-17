@@ -47,7 +47,7 @@ Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways 
 One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
 A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -55,4 +55,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/

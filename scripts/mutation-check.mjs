@@ -28,6 +28,7 @@ const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
 const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
+const psi = { ...business, file: 'assets/psi-determination.mjs' };
 const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
 const payroll = { ...business, file: 'assets/payroll-tax.mjs' };
 
@@ -140,6 +141,26 @@ const MUTATIONS = [
   { ...business, name: 'item 1, 2, 3 or 3A gives 4 years', find: "group === '4' ? 4 : 2", replace: "group === '2' ? 4 : 2" },
   { ...business, name: 'an FBT assessment allows 2 years', find: "decision === 'fbt' || decision === 'amended-fbt' ||", replace: "decision === 'amended-fbt' ||" },
   { ...business, name: 'an amended assessment takes the earlier date', find: 'amended.getTime() > original.getTime()', replace: 'amended.getTime() < original.getTime()' },
+  { ...psi, name: 'PSI meets the results test only above 75%', find: '4 * met >= 3 * total', replace: '4 * met > 3 * total' },
+  { ...psi, name: 'PSI counts a result without liability for defects', find: 'result && tools && defects ? amounts[i]', replace: 'result && tools ? amounts[i]' },
+  { ...psi, name: 'PSI needs more than 80% from one payer to stop self-assessment', find: '5 * largest >= 4 * total', replace: '5 * largest > 4 * total' },
+  { ...psi, name: 'PSI ignores the 80% rule', find: 'if (oneSource) {', replace: 'if (false) {' },
+  { ...psi, name: 'PSI counts an associate as an unrelated client', find: 'amounts[i] && !associate && offer', replace: 'amounts[i] && offer' },
+  { ...psi, name: 'PSI counts an unrelated client not won by an offer', find: '!associate && offer).length', replace: '!associate).length' },
+  { ...psi, name: 'PSI meets the unrelated clients test with one client', find: 'pass: unrelated >= 2,', replace: 'pass: unrelated >= 1,' },
+  { ...psi, name: 'PSI needs more than 20% of principal work by others', find: 'const fifth = 5 * others >= total;', replace: 'const fifth = 5 * others > total;' },
+  { ...psi, name: 'PSI ignores an apprentice', find: 'const employs = fifth || answers.apprentice;', replace: 'const employs = fifth;' },
+  { ...psi, name: 'PSI accepts premises not held all year', find: 'premises.times && premises.mainly', replace: 'premises.mainly' },
+  { ...psi, name: 'PSI accepts premises not separate from a payer’s', find: 'premises.private && premises.clients', replace: 'premises.private' },
+  { ...psi, name: 'PSI applies the agent rules below 75% commission', find: '4 * commission >= 3 * principal', replace: '4 * commission > 3 * principal' },
+  { ...psi, name: 'PSI ignores a determination in force', find: 'if (answers.determination) {', replace: 'if (false) {' },
+  { ...psi, name: 'PSI treats employee income as PSI caught by the rules', find: 'if (earner === \'employee\') {', replace: 'if (false) {' },
+  { ...psi, name: 'PSI treats income not mainly from personal effort as PSI', find: 'if (!answers.mainly) {', replace: 'if (false) {' },
+  { ...psi, name: 'PSI rounds a share up to a threshold', find: '(BigInt(part) * 10000n) / BigInt(whole)', replace: '(BigInt(part) * 20000n + BigInt(whole)) / (2n * BigInt(whole))' },
+  { ...psi, name: 'PSI cites subsection 87-18(1) for an entity', find: 'rule: `subsection 87-18(${entity ? 3 : 1})`', replace: 'rule: `subsection 87-18(1)`' },
+  { ...psi, name: 'PSI applies Division 85 to an entity', find: 'entity ? \'Division 86 applies\' : \'Division 85 applies\'', replace: '\'Division 85 applies\'' },
+  { ...psi, name: 'PSI accepts others’ work worth more than the PSI', find: 'if (others > total)', replace: 'if (false)' },
+  { ...psi, name: 'PSI accepts more than $1,000,000,000', find: 'if (total > 100_000_000_000)', replace: 'if (false)' },
   { ...business, name: 'an activity statement figure rounds its cents', find: 'Math.floor(value / 100)', replace: 'Math.round(value / 100)' },
   { ...business, name: 'a varied amount takes a fifth of estimated tax a quarter', find: 'BigInt(instalment), 4n', replace: 'BigInt(instalment), 5n' },
   { ...business, name: 'credits claimed are not added back', find: 'return earlier - credits;', replace: 'return earlier;' },

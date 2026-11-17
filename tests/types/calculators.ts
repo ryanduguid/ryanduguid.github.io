@@ -67,6 +67,19 @@ calculate.objectionDeadline('ruling', '2', '2026-11-18', '2026-11-18');
 const amendedEnds: string = calculate.objectionDeadline('assessment', '2', '2026-11-18', '2026-11-18').amendedEnds;
 void objection;
 void amendedEnds;
+const psiPayer = { amount: '100000', associate: false, offer: true, result: false, tools: false, defects: false };
+const psiAnswers = { earner: 'sole-trader' as const, mainly: true, determination: false, payers: [psiPayer], agent: false,
+  commission: '0', principal: '0', others: '0', apprentice: false,
+  premises: { times: false, mainly: false, exclusive: false, private: false, clients: false } };
+const psiRule: string = calculate.psiDetermination(psiAnswers).rule;
+// @ts-expect-error A trust receiving the income is the 'entity' earner, not its own kind.
+calculate.psiDetermination({ ...psiAnswers, earner: 'trust' });
+// @ts-expect-error Each tick is a boolean, as the form's checkbox passes it.
+calculate.psiDetermination({ ...psiAnswers, payers: [{ ...psiPayer, offer: 'yes' }] });
+// @ts-expect-error The results test share is null when the steps stop before it.
+const psiResults: number = calculate.psiDetermination(psiAnswers).results;
+void psiRule;
+void psiResults;
 const payg = { method: 'rate', notified: '0', instalment: '1', estimatedTax: '0', earlier: '0', credits: '0', income: '20100',
   rate: '1.7', estimatedIncome: '0', earlierIncome: '0' } as const;
 const instalment: number = calculate.paygInstalment(payg).instalment;

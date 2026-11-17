@@ -949,6 +949,237 @@ test('PAYG instalments refuse what the activity statement cannot hold', () => {
   assert.equal(instalment({ method: 'varied-rate', income: '100', rate: '10' }).instalmentRate, 0);
 });
 
+// The PSI rules checker. Part 2-42 of the Income Tax Assessment Act 1997, Compilation No. 268
+// (1 October 2026), and Taxation Ruling TR 2022/3, both read 17 November 2026:
+// https://www.legislation.gov.au/C2004A05138/latest/text
+// https://www.ato.gov.au/law/view/document?docid=TXR/TR20223/NAT/ATO/00001
+// The ATO's pages under https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/personal-services-income
+// read the same day: 'Self-assessing as a PSB', 'Results test', 'Unrelated clients test', 'Employment test' and
+// 'Business premises test' (each last updated 23 November 2022), and 'PSI – obtaining work through an agency'
+// (last updated 23 November 2022).
+const PSI_FLAGS = ['associate', 'offer', 'result', 'tools', 'defects'];
+const PSI_PREMISES = ['times', 'mainly', 'exclusive', 'private', 'clients'];
+const psiPayer = (amount, ...flags) => ({ amount, ...Object.fromEntries(PSI_FLAGS.map((flag) => [flag, flags.includes(flag)])) });
+const psiPremises = (...on) => Object.fromEntries(PSI_PREMISES.map((key) => [key, on.includes(key)]));
+const ALL_PREMISES = psiPremises(...PSI_PREMISES);
+const RESULT_TEST = ['result', 'tools', 'defects'];
+const psiAnswers = (fields = {}) => ({ earner: 'sole-trader', mainly: true, determination: false, agent: false,
+  commission: '0', principal: '0', others: '0', apprentice: false, premises: psiPremises(), ...fields,
+  payers: [...(fields.payers ?? []), ...Array(5 - (fields.payers ?? []).length).fill(psiPayer('0'))] });
+const psi = (fields) => calculations.psiDetermination(psiAnswers(fields));
+const psiStep = (result, start) => result.steps.find(([label]) => label.startsWith(start))?.[1];
+
+Object.assign(INPUTS, {
+  psiDetermination: (a) => [
+    { 'sole-trader': 'Sole trader', entity: 'Entity', employee: 'Employee' }[a.earner],
+    ...(a.mainly ? [] : ['not mainly personal efforts or skills']),
+    ...(a.determination ? ['determination in force'] : []),
+    `payers ${a.payers.filter((p) => p.amount !== '0').map((p) => {
+      const on = PSI_FLAGS.filter((flag) => p[flag]);
+      return `${dollars(Number(p.amount))}${on.length ? ` (${on.join(', ')})` : ''}`;
+    }).join(', ') || 'none'}`,
+    ...(a.others === '0' ? [] : [`others’ principal work ${dollars(Number(a.others))}`]),
+    ...(a.apprentice ? ['an apprentice'] : []),
+    ...(PSI_PREMISES.some((key) => a.premises[key])
+      ? [`premises: ${PSI_PREMISES.filter((key) => a.premises[key]).join(', ')}`] : []),
+    ...(a.agent ? [`agent, ${dollars(Number(a.commission))} commission of ${dollars(Number(a.principal))}`] : []),
+  ].join('; '),
+});
+Object.assign(FORM_CALLS, {
+  psiDetermination: (f) => [{ earner: f.earner, mainly: f.mainly === 'yes', determination: f.determination === 'yes',
+    payers: Array.from({ length: 5 }, (_, i) => ({ amount: f[`amount-${i + 1}`],
+      ...Object.fromEntries(PSI_FLAGS.map((flag) => [flag, f[`${flag}-${i + 1}`]])) })),
+    agent: f.agent === 'yes', commission: f.commission, principal: f.principal, others: f.others,
+    apprentice: f.apprentice === 'yes', premises: Object.fromEntries(PSI_PREMISES.map((key) => [key, f[`premises-${key}`]])) }],
+});
+Object.assign(ENGINE_LABELS, {
+  psiDetermination: { results: (v) => `results test ${v.toFixed(2)}%`, source: (v) => `largest payer ${v.toFixed(2)}%`,
+    unrelated: (v) => `${v} unrelated by public offer`, employment: (v) => `others’ work ${v.toFixed(2)}%` },
+});
+
+const PSB = 'a personal services business, so Divisions 85 and 86 do not apply';
+const ONE_SOURCE = 'not a personal services business unless a determination is in force, so Division 85 applies';
+const NOT_PSB = 'not a personal services business, so Division 85 applies';
+
+// Section 87-18; TR 2022/3 paragraph 77 and examples 17 to 21 (paragraphs 195 to 209); ATO 'Results test'.
+// Each example states which of the 3 conditions hold; the amounts are this test's, as the examples give none
+// that matter. Examples 17 and 19 (and the ATO's Louise and Joseph) are for one payer; the PSI rules
+// then apply without a determination (subsection 87-15(3)).
+test('PSI results test reproduces TR 2022/3 examples 17 to 21 and the ATO’s results test examples', () => {
+  // Example 17 (Consultant Co, hourly, department's equipment, no rectification) and the ATO's Louise.
+  const consultant = psi({ earner: 'entity', payers: [psiPayer('120000')] });
+  assert.equal(psiStep(consultant, 'Subsection 87-18(3)'), '0.00%, under 75%: not met');
+  assert.deepEqual([consultant.rule, consultant.effect], ['subsection 87-15(3)',
+    'not a personal services business unless a determination is in force, so Division 86 applies']);
+  // Example 18: fixed price for a product to specification, own equipment, must rectify.
+  const product = psi({ earner: 'entity', payers: [psiPayer('150000', ...RESULT_TEST)] });
+  assert.deepEqual([product.rule, product.effect, product.psb], ['subsection 87-18(3)', PSB, true]);
+  // Example 19: Mick Smith Pty Ltd, $75 an hour capped at $210,000, none of the conditions.
+  const mick = psi({ earner: 'entity', payers: [psiPayer('210000')] });
+  assert.deepEqual([mick.rule, mick.results, mick.source], ['subsection 87-15(3)', 0, 100]);
+  // Examples 20 (Joe, ducts) and 21 (John, a board report): all 3 conditions, sole traders.
+  for (const amount of ['18000', '25000']) {
+    assert.deepEqual([psi({ payers: [psiPayer(amount, ...RESULT_TEST)] }).rule], ['subsection 87-18(1)']);
+  }
+  // ATO: Dave invoices for fixing his mistakes, so DaveCo fails the third condition.
+  assert.equal(psi({ earner: 'entity', payers: [psiPayer('90000', 'result', 'tools')] }).results, 0);
+  // ATO: Joseph is paid by the hour, so JoCo fails the first condition.
+  assert.equal(psi({ earner: 'entity', payers: [psiPayer('90000', 'tools', 'defects')] }).results, 0);
+});
+
+// Section 87-20; TR 2022/3 paragraphs 97 to 108 and examples 22 to 26 (paragraphs 210 to 223).
+test('PSI unrelated clients test reproduces TR 2022/3 examples 22 to 26', () => {
+  // Example 22: Kevin, his brother's company (an associate) and 2 companies from his website; none
+  // pays more than 80%. Equal thirds are this test's figures.
+  const kevin = psi({ payers: [psiPayer('30000', 'associate'), psiPayer('30000', 'offer'), psiPayer('30000', 'offer')] });
+  assert.deepEqual([kevin.rule, kevin.effect, kevin.unrelated, kevin.source], ['section 87-20', PSB, 2, 33.33]);
+  // Example 23: Debart's word-of-mouth clients do not count; with one advertised client it has 1.
+  assert.equal(psi({ earner: 'entity', payers: [psiPayer('40000', 'offer'), psiPayer('40000')] }).unrelated, 1);
+  // Example 24: Ian, 70% from Rock Pty Ltd won by advertising, 30% through a labour hire firm.
+  const ian = psi({ payers: [psiPayer('70', 'offer'), psiPayer('30')] });
+  assert.deepEqual([ian.source, ian.unrelated, ian.rule, ian.effect], [70, 1, 'subsection 87-15(1)', NOT_PSB]);
+  // Example 25: Sonya, one advertised contract and Big Bank, won by her advertising but paid through
+  // Management Specialists, which is the payer for the 80% rule. Halves are this test's figures.
+  assert.equal(psi({ payers: [psiPayer('50000', 'offer'), psiPayer('50000', 'offer')] }).rule, 'section 87-20');
+  // Example 26: Mike, 2 unrelated companies by word of mouth in a niche industry: your answer is an offer.
+  assert.equal(psi({ payers: [psiPayer('60000', 'offer'), psiPayer('60000', 'offer')] }).unrelated, 2);
+});
+
+// Section 87-25; TR 2022/3 paragraphs 109 to 128 and examples 27, 29, 30 and 31 (paragraphs 224 to 245).
+// Example 28 gives no figures and conditions its conclusion on the 20% threshold, so it is not a case here.
+test('PSI employment test reproduces TR 2022/3 examples 27, 29, 30 and 31', () => {
+  // Example 27: Nan's contract administration is not principal work, so nothing counts.
+  assert.equal(psiStep(psi({ payers: [psiPayer('180000')] }), 'Section 87-25'),
+    '0.00%, under 20%, no apprentice for half the year: not met');
+  // Example 29: Jack, $120,000 for his own work and $36,000 charged for Tom's: '23%'. Big Mining Co is
+  // his only client, so the 80% rule still needs a determination.
+  const jack = psi({ payers: [psiPayer('156000')], others: '36000' });
+  assert.equal(jack.employment, 23.07);
+  assert.match(psiStep(jack, 'Section 87-25'), /: met$/);
+  assert.deepEqual([jack.rule, jack.effect], ['subsection 87-15(3)', ONE_SOURCE]);
+  // Example 30: Jodie, $100,000 and $40,000 billed, Ian's work $22,000 and $4,000: '19%', not met,
+  // though 22% on the larger contract.
+  const jodie = psi({ payers: [psiPayer('100000'), psiPayer('40000')], others: '26000' });
+  assert.deepEqual([jodie.employment, jodie.source, jodie.rule], [18.57, 71.42, 'subsection 87-15(1)']);
+  // Example 31: Joe has apprentices for 7 months of the year.
+  const joe = psi({ payers: [psiPayer('60000'), psiPayer('40000')], apprentice: true });
+  assert.match(psiStep(joe, 'Section 87-25'), /0\.00%, under 20%, an apprentice for at least half the year: met$/);
+  assert.deepEqual([joe.rule, joe.effect], ['section 87-25', PSB]);
+});
+
+// Section 87-30; TR 2022/3 paragraphs 129 to 148, examples 32 to 37 (paragraphs 246 to 256) and 39
+// (paragraphs 261 to 265); ATO 'Business premises test', John from 1 February.
+test('PSI business premises test reproduces TR 2022/3 examples 32 to 37 and 39', () => {
+  const premises = (...on) => psi({ payers: [psiPayer('60000'), psiPayer('40000')], premises: psiPremises(...on) });
+  const without = (missing) => premises(...PSI_PREMISES.filter((key) => key !== missing));
+  // Examples 33, 35 and 37 (Col, Norm, Robbo Enterprises) and the ATO's John, who held an office for all
+  // 5 months he traded (paragraph 135).
+  assert.deepEqual([premises(...PSI_PREMISES).rule, premises(...PSI_PREMISES).effect], ['section 87-30', PSB]);
+  // Example 32: Byte uses the premises 90% for retail. Example 34: Dale has no exclusive use.
+  // Example 36: Melanie's office is above the family's entertainment room. Example 39: Penny and Jill
+  // lacked exclusive, separate premises for 4 months.
+  for (const missing of ['mainly', 'exclusive', 'private', 'times', 'clients']) {
+    assert.equal(psiStep(without(missing), 'Section 87-30'), 'No: not met', missing);
+    assert.equal(without(missing).rule, 'subsection 87-15(1)', missing);
+  }
+});
+
+// Subsection 87-15(3) and section 87-35. The Act's examples to subsections 87-35(1) and (2): 60% from a
+// State department and 40% from a State-owned corporation; 70% from Treasury and 30% from the ATO.
+// The ATO's Binglei: $70,000 from ABC Pty Ltd and $30,000 from its subsidiary, one payer. The ATO's agency
+// examples: Erica, 100% from one agency; Alan and Simon, 50% from each of 2 agencies.
+test('PSI 80% rule reproduces the Act’s section 87-35 examples and the ATO’s', () => {
+  const state = psi({ payers: [psiPayer('60000', 'offer'), psiPayer('40000', 'offer')] });
+  assert.deepEqual([state.source, psiStep(state, 'Subsection 87-15(3)')], [60, '60.00%, under 80%']);
+  assert.equal(psi({ payers: [psiPayer('70000'), psiPayer('30000')] }).source, 70);
+  const binglei = psi({ payers: [psiPayer('100000')] });
+  assert.deepEqual([binglei.source, binglei.rule], [100, 'subsection 87-15(3)']);
+  const erica = psi({ earner: 'entity', payers: [psiPayer('150000')] });
+  assert.deepEqual([erica.source, erica.results, erica.rule], [100, 0, 'subsection 87-15(3)']);
+  const alan = psi({ earner: 'entity', payers: [psiPayer('50000'), psiPayer('50000')] });
+  assert.deepEqual([alan.source, alan.unrelated, alan.rule], [50, 0, 'subsection 87-15(1)']);
+  // The results test applies 'regardless of how much of your personal services income is paid from one
+  // source' (section 87-1): one payer and all 3 conditions met.
+  assert.equal(psi({ payers: [psiPayer('100000', ...RESULT_TEST)] }).rule, 'subsection 87-18(1)');
+});
+
+// Section 87-40 and TR 2022/3 example 40 (paragraph 266), also on the ATO's 'Self-assessing as a PSB'
+// page: Chris, $70,000 commission and a $30,000 retainer, 70%, cannot use the agent rules.
+test('PSI agent rule reproduces TR 2022/3 example 40 and refuses an agent it may apply to', () => {
+  const chris = psi({ agent: true, commission: '70000', principal: '100000', payers: [psiPayer('100000')] });
+  assert.equal(psiStep(chris, 'Paragraph 87-40(2)(c)'), '70.00%, under 75%: the agent rules do not apply');
+  assert.equal(chris.rule, 'subsection 87-15(3)');
+  assert.throws(() => psi({ agent: true, commission: '75000', principal: '100000', payers: [psiPayer('100000')] }),
+    /section 87-40 may treat the principal’s customers as the sources/);
+  // The results test comes first and does not depend on the agent rules.
+  assert.equal(psi({ agent: true, commission: '75000', principal: '100000',
+    payers: [psiPayer('100000', ...RESULT_TEST)] }).rule, 'subsection 87-18(1)');
+  for (const [commission, principal] of [['1', '0'], ['100.01', '100']]) {
+    assert.throws(() => psi({ agent: true, commission, principal, payers: [psiPayer('100')] }),
+      { message: 'Enter the principal’s payments and the part of them that is commission or performance fees.' });
+  }
+});
+
+// Section 84-5, subsection 85-35(1), subsection 87-15(1) and TR 2022/3 example 41 (paragraphs 267 to 269):
+// The JB Trust meets the results test for Jason, though Part IVA may still apply, which the page notes.
+test('PSI steps stop at the first decisive section and name each section', () => {
+  // Section 84-5 example 2 (Trux) and TR 2022/3 examples 4 to 6: mainly from an asset, goods or a business structure.
+  const trux = psi({ mainly: false, payers: [psiPayer('100')] });
+  assert.deepEqual([trux.rule, trux.effect, trux.psb], ['subsection 84-5(1)',
+    'not personal services income, so Part 2-42 does not apply', null]);
+  assert.equal(psi({ earner: 'employee', payers: [psiPayer('100')] }).rule, 'subsection 85-35(1)');
+  assert.equal(psi({ determination: true, payers: [psiPayer('100')] }).rule, 'paragraph 87-15(1)(a)');
+  const jason = psi({ earner: 'entity', payers: [psiPayer('120000', ...RESULT_TEST)] });
+  assert.deepEqual([jason.rule, jason.effect, jason.steps.length], ['subsection 87-18(3)', PSB, 3]);
+  const all = psi({ payers: [psiPayer('50', 'offer'), psiPayer('50', 'offer')], others: '20', premises: ALL_PREMISES });
+  assert.equal(all.rule, 'sections 87-20, 87-25 and 87-30');
+  assert.equal(all.steps.length, 7);
+  for (const [label] of all.steps) assert.match(label, /^(Section|Subsection|Paragraph) 8[4-7]-\d+/);
+});
+
+test('PSI shares compare exact cents and show 2 places rounded down', () => {
+  // 2 in 3 is 66.666...%, shown 66.66%; a share of 79.999...% is under 80%.
+  assert.equal(psi({ payers: [psiPayer('2'), psiPayer('1')] }).source, 66.66);
+  const near = psi({ payers: [psiPayer('7999999.99', 'offer'), psiPayer('2000000.01', 'offer')] });
+  assert.deepEqual([near.source, near.rule], [79.99, 'section 87-20']);
+  assert.equal(psi({ payers: [psiPayer('8000000', 'offer'), psiPayer('2000000', 'offer')] }).rule, 'subsection 87-15(3)');
+  // 74.999...% fails the results test, 19.999...% fails the employment test.
+  assert.equal(psi({ payers: [psiPayer('7499999.99', ...RESULT_TEST), psiPayer('2500000.01')] }).rule, 'subsection 87-15(1)');
+  assert.equal(psi({ payers: [psiPayer('60'), psiPayer('40')], others: '19.99' }).employment, 19.99);
+});
+
+test('PSI refuses what it cannot work through', () => {
+  assert.throws(() => calculations.psiDetermination({ ...psiAnswers(), earner: 'trust' }), { message: 'Choose who receives the income.' });
+  assert.throws(() => calculations.psiDetermination({ ...psiAnswers(), payers: Array(6).fill(psiPayer('1')) }),
+    { message: 'Enter up to 5 payers.' });
+  assert.throws(() => psi({ payers: [psiPayer('1000000000'), psiPayer('0.01')] }),
+    { message: 'The PSI from all payers together cannot exceed $1,000,000,000.' });
+  assert.throws(() => psi({ payers: [psiPayer('-1')] }), { message: 'Enter an amount between 0 and 1000000000.' });
+  assert.throws(() => psi({ payers: [psiPayer('100')], others: '100.01' }),
+    { message: 'The market value of principal work by others cannot exceed the PSI entered.' });
+});
+
+test('PSI page states its consequences, sources and the expense allocation it leaves out', () => {
+  const html = readFileSync(new URL('../_includes/calculators/psi-determination.html', import.meta.url), 'utf8');
+  const fields = formDefaults(html);
+  const view = calculations.psiDeterminationResult((name) => fields[name], (name) => fields[name],
+    (value) => `$${value.toLocaleString('en-AU', { minimumFractionDigits: 2 })}`);
+  const example = html.match(/\{% include calculator-example\.html inputs="([^"]+)" rows="([^"]+)" principal="(\d+)" note="([^"]+)" %\}/);
+  assert.deepEqual([view.inputs, view.rows.map((row) => row.join('|')).join(';'), String(view.principal), view.note],
+    example.slice(1));
+  assert.match(view.note, /^The PSI is still reported in the tax return, and Part IVA can still apply/);
+  // Without liability for defects the results test fails, so the Division 85 or 86 consequences show.
+  const noDefects = (name) => name !== 'defects-1' && fields[name];
+  const soleTrader = calculations.psiDeterminationResult((name) => fields[name], noDefects, String);
+  assert.match(soleTrader.note, /^Division 85 stops a deduction an employee could not claim \(section 85-10\)/);
+  const entity = calculations.psiDeterminationResult((name) => ({ ...fields, earner: 'entity' })[name], noDefects, String);
+  assert.match(entity.note, /^Section 86-15 puts the entity’s PSI, less the deductions section 86-20 allows/);
+  assert.match(html, /Compilation No\. 268 of 1 October 2026, read 17 November 2026/);
+  assert.match(html, /which replaced TR 2001\/7 and TR 2001\/8 \(paragraph 30\)/);
+  assert.match(html, /The checker does not allocate expenses across PSI, business income and other income\./);
+  assert.match(html, /so any split is practice rather than law/);
+});
+
 // Redundancy and ETP withholding. Schedule 11, 'Tax table for employment termination payments', in the
 // Taxation Administration (Withholding Schedules) Instrument 2026 (F2026L00716, in force, no later
 // replacement), read on legislation.gov.au 15 November 2026, and on the ATO's page (last updated

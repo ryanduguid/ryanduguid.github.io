@@ -1,0 +1,89 @@
+# Personal services income (PSI) rules and PSB test checker
+
+Source: https://duguid.com.au/tools/business-calculators/psi-determination/
+
+> Work through the PSI rules for one individual and year: section 84-5, the results test, the 80% rule and the other 3 personal services business tests.
+
+# PSI rules checker
+
+Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+PSI inputs for one individual and one income year
+
+Who receives the income The individual, as a contractor (sole trader) A company, partnership or trust the individual works through The individual, as an employee, office holder or religious practitioner Is over half the income a reward for the individual’s personal efforts or skills (subsection 84-5(1))? Yes No: mainly from goods, assets or a business structure Is a personal services business determination in force for this income? No Yes
+
+Payer, with its associates | PSI in the year (AUD) | Associate of the individual or entity | Engaged by an offer to the public | Paid for a result | Supplies plant and tools | Liable for defects
+Payer 1 | | | | | |
+Payer 2 | | | | | |
+Payer 3 | | | | | |
+Payer 4 | | | | | |
+Payer 5 | | | | | |
+
+Each tick is your answer; ‘How the PSI rules checker works’ says when to tick.
+
+Market value of principal work by others engaged, in the year (AUD) An apprentice for at least half the year? No Yes Business premises: tick each condition met Maintained and used all year Mainly used to produce the PSI Exclusive use, by ownership or lease Physically separate from private premises of the individual, entity or an associate Physically separate from each payer’s and its associates’ premises Paid as an agent by a principal for services to its customers (section 87-40)? No Yes Agent: the principal’s payments in the year (AUD) Agent: commission or performance fees in them (AUD)
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Received by the individual as a contractor, mainly a reward for personal efforts or skills, no PSB determination; payer 1 $18,000.00, ticked: paid for a result, tools supplied, liable for defects; principal work by others $0.00, no apprentice; business premises conditions: none; not an agent. Outcome Subsection 87-18(1): a personal services business, so Divisions 85 and 86 do not apply Subsection 84-5(1): income mainly a reward for the individual’s personal efforts or skills Yes, as you answered Paragraph 87-15(1)(a): a personal services business determination in force No, as you answered Subsection 87-18(1): PSI paid for a result, with the tools supplied and liability for defects 100.00%, at least 75%: met The PSI is still reported in the tax return, and Part IVA can still apply to splitting it (TR 2022/3 paragraphs 25 and 160).
+
+## How the PSI rules checker works
+
+The PSI rules checker takes one individual’s personal services income for one income year and works through Part 2-42 in the order the Act sets. Each step on the result names the section it applies and what it found.
+
+Income that is not mainly a reward for the individual’s personal efforts or skills is not PSI (subsection 84-5(1)), and income received as an employee falls outside Division 85 (subsection 85-35(1)). A personal services business determination in force settles the question (subsection 87-15(1)). Otherwise the results test comes first: if at least 75% of the PSI is paid for a result, with the plant and tools supplied and liability for defects, the PSI rules do not apply, however much comes from one payer (section 87-18).
+
+If 80% or more of the PSI comes from one payer and its associates, the other 3 tests cannot be self-assessed and only a determination keeps the rules away (subsection 87-15(3)). The checker still works them out, because the Commissioner weighs them for a determination: 2 or more unrelated payers that engaged the individual or entity through offers to the public (section 87-20), principal work by others of at least 20% by market value or an apprentice for half the year (section 87-25), and qualifying business premises all year (section 87-30).
+
+The checker reproduces the conclusion of each worked example in TR 2022/3 that reaches one on a test it applies, and of the matching examples on the ATO’s PSI pages.
+
+## How to enter payers in the PSI rules checker
+
+Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Payers that are associates of each other share one row too, as section 87-20 counts only payers that are not associates of each other. Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that payer’s PSI: where only part of it meets all 3, leave the boxes unticked, which can only make the results test harder to pass, and work out that part yourself. For the market value of principal work by others, count work by any individual or entity engaged, an individual associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives; a partner counts only if they earn no PSI through the partnership (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
+
+## What the PSI rules checker leaves to you
+
+The checker does not decide whether income is mainly a reward for personal efforts or skills, whether a contract pays for a result, whether an offer to the public won the work, who is an associate or what principal work is worth. These turn on facts and judgement, so it takes your answers and says so on each step; TR 2022/3 sets out the factors at paragraphs 34 to 49 and 77 to 148.
+
+The checker does not allocate expenses across PSI, business income and other income. Division 85 limits deductions to the extent they relate to PSI (subsection 85-10(1)) but sets no method for the split, and TR 2022/3 leaves deductions to other rulings (paragraphs 6 and 31), so any split is practice rather than law. It does not work out the amount attributed under Division 86, PAYG withholding or a deduction for a net PSI loss.
+
+The checker does not apply the agent rules when they could apply (section 87-40), decide a determination, which is the Commissioner’s (sections 87-60 and 87-65), or test Part IVA, which can still apply to a personal services business (TR 2022/3 paragraph 160). Several individuals working through one entity are tested one at a time (paragraph 76). Confirm the result with the ruling or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: PSI rules checker
+
+Case | Inputs | Result
+TR 2022/3 example 20: Joe installs ducts to plans with his own tools and rectifies defects, so meets the results test | Sole trader; payers $18,000.00 (result, tools, defects) | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
+TR 2022/3 example 30: Ian’s $26,000 of $140,000 is 18.57%, under 20% | Sole trader; payers $100,000.00, $40,000.00; others’ principal work $26,000.00 | Subsection 87-15(1), not a personal services business, so Division 85 applies, largest payer 71.42%, others’ work 18.57%
+TR 2022/3 example 29: Tom’s 23.07% meets the employment test, but one payer means a determination is needed | Sole trader; payers $156,000.00; others’ principal work $36,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%, others’ work 23.07%
+Exactly 75% paid for a result meets the results test | Sole trader; payers $75.00 (result, tools, defects), $25.00 | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 75.00%
+74.99% paid for a result does not | Sole trader; payers $74.99 (result, tools, defects), $25.01 | Subsection 87-15(1), not a personal services business, so Division 85 applies, results test 74.99%
+A result without liability for defects does not count | Sole trader; payers $100.00 (result, tools) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, results test 0.00%
+Exactly 80% from one payer stops self-assessment by the other tests | Sole trader; payers $80.00 (offer), $20.00 (offer); an apprentice | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 80.00%, 2 unrelated by public offer
+79.99% from one payer, with 2 unrelated payers won by offers, meets the unrelated clients test | Sole trader; payers $79.99 (offer), $20.01 (offer) | Section 87-20, a personal services business, so Divisions 85 and 86 do not apply, largest payer 79.99%, 2 unrelated by public offer
+A payer that is an associate is not an unrelated client | Sole trader; payers $50.00 (associate, offer), $50.00 (offer) | Subsection 87-15(1), not a personal services business, so Division 85 applies, 1 unrelated by public offer
+Exactly 20% of principal work by others meets the employment test | Sole trader; payers $60.00, $40.00; others’ principal work $20.00 | Section 87-25, a personal services business, so Divisions 85 and 86 do not apply, others’ work 20.00%
+Business premises need all 5 ticks | Sole trader; payers $60.00, $40.00; premises: times, mainly, exclusive, private | Subsection 87-15(1), not a personal services business, so Division 85 applies
+A company, partnership or trust meets the results test under subsection 87-18(3) | Entity; payers $120,000.00 (result, tools, defects) | Subsection 87-18(3), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
+Income not mainly from personal efforts or skills is not PSI | Sole trader; not mainly personal efforts or skills; payers $100,000.00 | Subsection 84-5(1), not personal services income, so Part 2-42 does not apply
+Income as an employee is outside Division 85 | Employee; payers $100,000.00 | Subsection 85-35(1), income as an employee, so the PSI rules do not apply
+A determination in force for an entity settles it | Entity; determination in force; payers $100,000.00 | Paragraph 87-15(1)(b), a personal services business, so Divisions 85 and 86 do not apply
+TR 2022/3 example 40: 70% commission leaves the principal as one payer | Sole trader; payers $100,000.00; agent, $70,000.00 commission of $100,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%
+An agent with 75% commission may fall under section 87-40, which this page does not apply | Sole trader; payers $100,000.00; agent, $75,000.00 commission of $100,000.00 | Refused: at least 75% of the principal’s payments are commission or performance fees, so section 87-40 may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40
+No PSI entered | Sole trader; payers none | Refused: enter the PSI from at least one payer
+Others’ work worth more than the PSI | Sole trader; payers $100.00; others’ principal work $100.01 | Refused: the market value of principal work by others cannot exceed the PSI entered
+
+One of the twenty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- twenty-seven business calculators: https://duguid.com.au/tools/business-calculators/
