@@ -33,7 +33,7 @@ pub const CI_MANUAL_URLS: [&str; 16] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 172] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 176] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -118,6 +118,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 172] = [
     "https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool",
     "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator",
     "https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form",
+    "https://www.ato.gov.au/forms-and-instructions/fringe-benefits-tax-return-2026-instructions/item-23-fringe-benefit-categories-for-fbt-return-2026",
     "https://www.ato.gov.au/forms-and-instructions/payg-instalments-how-to-complete-your-activity-statement",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim",
@@ -173,6 +174,9 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 172] = [
     "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/69-10",
     "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003",
     "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008",
+    "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009",
+    "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015",
+    "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017",
     "https://www.ato.gov.au/law/view/document?docid=TXD/TD200639/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=TXD/TD200640/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=TXD/TD9419/NAT/ATO/00001",

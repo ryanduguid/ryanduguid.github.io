@@ -137,11 +137,17 @@
     "tools/business-calculators/div7a/index.html": [
       "766715b645b644ba6cc50ba06d87401e2161ca79a8de1539969639cbf94b25a7"
     ],
-    "tools/business-calculators/division-296/index.html": [
-      "451af281bf693de855abd4b6999a7bfa79534e73cc3adc821bee8b924377b096"
+    "tools/business-calculators/fbt-car-parking/index.html": [
+      "6779b0afc7823c5ddb31c82c0b2e48a14121e5b485d5fc3c9ea0a05c349c3c77"
     ],
     "tools/business-calculators/fbt-car/index.html": [
       "1458825601cec0091a9b8476ce67c8ac72d5903f7453d0e03b2709d2c2d23bc0"
+    ],
+    "tools/business-calculators/fbt-loan/index.html": [
+      "34ec7682bf66270bb43e736e946b42c37f2a3f2d476b986a0583e59787d6c9dd"
+    ],
+    "tools/business-calculators/fbt-meal-entertainment/index.html": [
+      "020300cbea395aba3084478889fedbdef53b6291b4decadd343de032daa8edbc"
     ],
     "tools/business-calculators/fixed-fee/index.html": [
       "92a8a36828e952b98e007144bffcb72766b67b31256bbdc8524917a09fc53ccf"
@@ -268,9 +274,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "f620f07ceb9959db232bb72680e594be061693e35de1ff093c60f83590b72291",
+    "llms.txt": "cc4efa0390ed0487abeede7e2b125960bc128943dde3d87ea89233f9546ff909",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "381f24ab29f8d18d46e80d49337389800ebf9494c9b0739bfcd789455082bd96"
+    "sitemap.xml": "629fc44a61d649be75375b00e889d2aff6b91f6fb93aedeefbd267a503a8c1a5"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -330,7 +336,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7758,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7760,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
