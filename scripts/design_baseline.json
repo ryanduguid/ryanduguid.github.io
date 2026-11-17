@@ -134,9 +134,6 @@
     "tools/business-calculators/cash/index.html": [
       "f39459d528bd96610d20b36c8914bbb34e3d7a9ffa3a6d7a4c13f8b914217496"
     ],
-    "tools/business-calculators/div7a-schedule/index.html": [
-      "345d73c1ef8db5a61590193772f3c22d9b5a7e629861c58b47620c1f4d20e7b7"
-    ],
     "tools/business-calculators/div7a/index.html": [
       "766715b645b644ba6cc50ba06d87401e2161ca79a8de1539969639cbf94b25a7"
     ],
@@ -172,6 +169,9 @@
     ],
     "tools/business-calculators/payg-instalments/index.html": [
       "10b2b6a2c30551f32d79808a41de0bd4cc6a0e0f4d337942ad06cac60db66329"
+    ],
+    "tools/business-calculators/payroll-tax/index.html": [
+      "645bbda26eddd5b3138de1e0e70beace5b0952f61e0aa6f3cc9ca9547141c79a"
     ],
     "tools/business-calculators/pcg-2021-4/index.html": [
       "d0df58ae369359e41db345abb40e22fdf0a72df3fde7b3c989beac2ba141de8a"
@@ -265,9 +265,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "18e53c0193db122da1d06211462f2ae86587ccb011bf6d195839bde2a7121fce",
+    "llms.txt": "f70fe25841fc81ca1c724c28b278a61f36accbc7ae51194627368825e65cf6f1",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "f462b620566dd01f197f59a6fa9acb3bb8e80a3ae7f259cebf2f9312115812aa"
+    "sitemap.xml": "d367336129db52811d49588df3fe3810125aea054a397463574635c67684101c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
