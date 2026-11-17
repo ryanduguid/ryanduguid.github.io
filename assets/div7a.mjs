@@ -141,7 +141,9 @@ function yearInterest(opening, repayment, rate, days) {
  * end of the previous year, at that year's benchmark rate, over the remaining term: the loan's
  * term, the 7 or 25 years s 109N(3) allows, less the years since the year it was made. Each repayment is made
  * on 30 June; a blank one is the minimum, or the amount that repays the loan if that is less.
- * A repayment meets the year's interest first and only the rest repays the loan. One short of
+ * A repayment meets the year's interest first and only the rest repays the loan; interest it
+ * leaves unpaid adds to the amount not repaid, as the ATO works that amount: the opening
+ * balance plus the interest less the repayments, so the principal is negative. One short of
  * the minimum, with the loan not repaid, is the shortfall s 109E(1) and (2) take to be a
  * dividend, subject to s 109Y, at the end of that year; the schedule stops there. Years after
  * the ATO's published rates use the assumed rate and are marked projected.
@@ -164,7 +166,7 @@ export function div7aSchedule(loan) {
     if (repayment > opening + interest) {
       throw new Error(`The ${label} repayment is more than $${dollars(payoff).toLocaleString('en-AU', { minimumFractionDigits: 2 })}, which repays the loan on 30 June.`);
     }
-    const principal = repayment > interest ? repayment - interest : 0n;
+    const principal = repayment - interest;
     const shortfall = principal < opening && repayment < minimum ? minimum - repayment : 0n;
     years.push({ year: label, rate: Number(rate) / 100, projected: !PUBLISHED.has(label), remainingTerm,
       opening: dollars(opening), minimum: dollars(minimum), repayment: dollars(repayment), interest: dollars(interest),

@@ -2597,7 +2597,8 @@ fn div7a_year_interest(opening: u64, rate: u64, start: i32, repayment: u64) -> u
 /// One seeded loan and its schedule: the repayments are chosen a year at a time against the
 /// minimum the oracle works for that year, so short, extra and final repayments all appear.
 /// Each year's minimum comes from `div7a_oracle`, which sums discount factors, and its days
-/// from the calendar; a repayment meets the interest first, and the dividend that funds it is
+/// from the calendar; a repayment meets the interest first, interest it leaves unpaid adds to the
+/// balance, and the dividend that funds it is
 /// the repayment grossed up for tax at the marginal rate, less the franking credit, rounded up.
 fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
     let first = NaiveDate::from_ymd_opt(2020, 7, 1).unwrap();
@@ -2654,8 +2655,11 @@ fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
         entries.push(chosen.map_or_else(String::new, dollars));
         let repayment = chosen.unwrap_or(due);
         let interest = interest_on(repayment);
-        let principal = repayment.saturating_sub(interest);
-        let shortfall = if principal < opening {
+        // The amount not repaid is the opening balance plus the interest less the repayment, so
+        // interest left unpaid adds to it and the principal is negative.
+        let closing = opening + interest - repayment;
+        let principal = i128::from(repayment) - i128::from(interest);
+        let shortfall = if closing > 0 {
             minimum.saturating_sub(repayment)
         } else {
             0
@@ -2669,11 +2673,11 @@ fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
         years.push(json!({
             "year": income_year(start), "rate": shown(rate), "projected": published.is_none().to_string(),
             "remainingTerm": remaining.to_string(), "opening": shown(opening), "minimum": shown(minimum),
-            "repayment": shown(repayment), "interest": shown(interest), "principal": shown(principal),
-            "closing": shown(opening - principal), "shortfall": shown(shortfall),
+            "repayment": shown(repayment), "interest": shown(interest), "principal": shown_signed(principal),
+            "closing": shown(closing), "shortfall": shown(shortfall),
             "funding": funding.unwrap_or(Value::Null),
         }));
-        (opening, repaid, charged) = (opening - principal, repaid + repayment, charged + interest);
+        (opening, repaid, charged) = (closing, repaid + repayment, charged + interest);
         if shortfall > 0 || opening == 0 {
             break;
         }

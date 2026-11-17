@@ -1253,12 +1253,15 @@ test('each Division 7A schedule year is the s 109E(6) minimum on the balance the
 test('a Division 7A repayment on 30 June leaves that day on the reduced balance, and meets the interest first', () => {
   const [first, short] = schedule({ repayments: '; 5000' }).years;
   assert.deepEqual([first.interest, first.principal, first.closing], [8265.62, 11119.34, 88880.66]);
-  assert.deepEqual([short.opening, short.interest, short.repayment, short.principal, short.closing],
-    [88880.66, 7793.63, 5000, 0, 88880.66]);
+  // The ATO's amount not repaid is the opening balance plus the interest less the repayments,
+  // so the $2,793.63 of interest that $5,000 leaves unpaid adds to the balance.
+  assert.deepEqual([short.opening, short.interest, short.repayment, short.principal, short.closing, short.shortfall],
+    [88880.66, 7793.63, 5000, -2793.63, 91674.29, 14677.59]);
   const [, partial] = schedule({ repayments: '; 10000' }).years;
   assert.deepEqual([partial.interest, partial.principal, partial.closing], [7792.43, 2207.57, 86673.09]);
-  // With no repayment the whole year is one period: 8.27% of $100,000.
-  assert.equal(schedule({ repayments: '0' }).years[0].interest, 8270);
+  // With no repayment the whole year is one period: 8.27% of $100,000, all of it unpaid.
+  const [none] = schedule({ repayments: '0' }).years;
+  assert.deepEqual([none.interest, none.principal, none.closing], [8270, -8270, 108270]);
 });
 
 test('a Division 7A repayment a cent short of the minimum is the shortfall, and the schedule stops', () => {

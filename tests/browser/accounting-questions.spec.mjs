@@ -502,6 +502,12 @@ test('Division 7A schedule lists each year, stops at a shortfall and refuses an 
   const rows = form.locator('#div7a-schedule-results tbody tr');
   await expect(form.locator('fieldset').first()).toBeEnabled();
   await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  // The minimum each year runs the 7 years, on the assumed rate after the ATO's last published year.
+  await expect(rows).toHaveCount(7);
+  await expect(rows.nth(3).locator('td').first()).toHaveText('8.77%');
+  await expect(rows.nth(4).locator('th, td').first()).toHaveText('2027-28');
+  await expect(rows.nth(4).locator('td').first()).toHaveText('8.77% assumed');
   await form.locator('[name="repayments"]').fill('; 10000');
   await form.locator('[name="marginal-rate"]').fill('47');
   await form.getByLabel('Fully franked at 30%').check();
