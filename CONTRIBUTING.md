@@ -502,6 +502,11 @@ dates by topic, the two week lodgment concession terms and the BAS agent lodgmen
 2026-27. They were added to the same list before a CI run for the same reason. A browser
 loaded each with the expected dates on 15 November 2026.
 
+The Division 296 tax calculator cites the ATO's Division 296 tax on large super balances
+page, not linked elsewhere. It was added to the same list before a CI run for the same
+reason. It returned HTTP 200 with the expected thresholds and rates to a local request on
+17 November 2026.
+
 The vehicle classifier cites 12 ATO pages not linked elsewhere: the eligible vehicles
 page, the luxury car tax thresholds, the motor vehicle expenses guide, ITAA 1997
 s 995-1, GST Act s 69-10, FBTAA s 8, MT 2024, TD 94/19, TD 2006/39, TD 2006/40,

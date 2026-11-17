@@ -30,7 +30,7 @@ The scorer reproduces the scores and zones of all 12 case studies in the guideli
 
 ## What the PCG 2021/4 risk scorer does not cover
 
-The scorer does not decide whether the guideline applies: whether the IPP provides professional services or manages the firm and is an equity holder, whether the firm’s income is personal services income and whether the structure is legally effective (paragraph 28). It does not test the gateways; it takes your answers. It does not work out the entitlement, the tax for each entity under paragraph 85, a part-time IPP’s full-time equivalent (paragraph 71) or a commercial benchmark; the PCG 2021/4 allocation calculator works out each recipient’s tax. A green zone is not a ruling: PCG 2021/4 does not change the law, Part IVA can still apply, and the ATO may still review an arrangement whose profit allocation drifts (paragraph 107). Confirm the assessment with the guideline or a registered tax agent.
+The scorer does not decide whether the guideline applies: whether the IPP provides professional services or manages the firm and is an equity holder, whether the firm’s income is personal services income and whether the structure is legally effective (paragraph 28). It does not test the gateways; it takes your answers. It does not work out the entitlement, the tax for each entity under paragraph 85, a part-time IPP’s full-time equivalent (paragraph 71) or a commercial benchmark. A green zone is not a ruling: PCG 2021/4 does not change the law, Part IVA can still apply, and the ATO may still review an arrangement whose profit allocation drifts (paragraph 107). Confirm the assessment with the guideline or a registered tax agent.
 
 ## Boundary cases
 
@@ -55,5 +55,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- PCG 2021/4 allocation calculator: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
 - twenty-six business calculators: https://duguid.com.au/tools/business-calculators/

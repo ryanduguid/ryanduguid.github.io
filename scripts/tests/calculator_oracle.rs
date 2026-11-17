@@ -2798,6 +2798,119 @@ fn the_gic_engine_agrees_with_the_oracle_on_every_seeded_case() {
     }
 }
 
+/// Runs the Division 296 engine, as `HARNESS` runs the others.
+const DIVISION_296_HARNESS: &str = r"
+import { division296 } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const year = { largeThreshold: '3000000', veryLargeThreshold: '10000000', rate: '15', veryLargeRate: '10' };
+const run = ({ member }) => Object.fromEntries(Object.entries(division296(member, year))
+  .map(([key, value]) => [key, String(value)]));
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+const DIVISION_296_CASES: usize = 240;
+/// ITAA 1997 ss 296-30(a) and 296-35(a), for 2026-27, in cents.
+const LARGE_THRESHOLD: u64 = 300_000_000;
+const VERY_LARGE_THRESHOLD: u64 = 1_000_000_000;
+
+/// The share of `balance` above `threshold` in hundredths of 1%, read as ss 296-40(3) and
+/// 296-45(3) write it: the percentage to 3 decimal places, then up when that third place is 5 or
+/// more and down otherwise. Nil unless the balance is greater than the threshold.
+fn division_296_share(balance: u64, threshold: u64) -> u64 {
+    if balance <= threshold {
+        return 0;
+    }
+    let thousandths = (u128::from(balance - threshold) * 100_000) / u128::from(balance);
+    let third = thousandths % 10;
+    u64::try_from(thousandths / 10 + u128::from(third >= 5)).unwrap()
+}
+
+/// An exact amount in cents over `scale`, half up, as a JavaScript number prints it, or the
+/// same for its magnitude with a minus sign.
+fn division_296_shown(value: i128, scale: i128) -> String {
+    let cents = (2 * value.abs() + scale) / (2 * scale);
+    shown_signed(if value < 0 { -cents } else { cents })
+}
+
+/// What the engine must return: the liability, both shares, taxable superannuation earnings,
+/// the very large component, the 2 taxes and the total. `earnings` is in signed cents; the
+/// flags are a child recipient, a structured settlement contribution and death by 30 June 2027.
+fn division_296_oracle(
+    balance: u64,
+    earnings: i128,
+    [child, settlement, died]: [bool; 3],
+) -> Value {
+    // ITTPA s 296-1(2): the balance at the end of 2026-27 only; s 296-50: nil after death.
+    let reference = if died { 0 } else { balance };
+    let share = division_296_share(reference, LARGE_THRESHOLD);
+    let very_large_share = division_296_share(reference, VERY_LARGE_THRESHOLD);
+    let liability = if child {
+        "child"
+    } else if settlement {
+        "settlement"
+    } else if died {
+        "died"
+    } else if reference <= LARGE_THRESHOLD {
+        "not-above"
+    } else if earnings <= 0 {
+        "no-earnings"
+    } else if share == 0 {
+        "rounds-to-nil"
+    } else {
+        "liable"
+    };
+    // s 296-40(1)(b): taxable superannuation earnings need earnings greater than nil.
+    let taxable = if earnings > 0 {
+        earnings * i128::from(share)
+    } else {
+        0
+    };
+    let component = earnings * i128::from(very_large_share);
+    let liable = matches!(liability, "liable" | "rounds-to-nil");
+    // Imposition Act s 5: 15% and 10%, here in hundredths of 1% over the share's 10,000.
+    let tax = if liable { taxable * 1_500 } else { 0 };
+    let further = if liable { component.max(0) * 1_000 } else { 0 };
+    json!({
+        "liability": liability,
+        "percentage": shown(share),
+        "veryLargePercentage": shown(very_large_share),
+        "taxable": division_296_shown(taxable, 10_000),
+        // s 296-45(1) has no 'greater than nil' condition, so the component keeps the sign.
+        "component": division_296_shown(component, 10_000),
+        "tax": division_296_shown(tax, 100_000_000),
+        "veryLargeTax": division_296_shown(further, 100_000_000),
+        "total": division_296_shown(tax + further, 100_000_000),
+    })
+}
+
+fn division_296_case(rng: &mut Seeded) -> (Value, Value) {
+    // Balances either side of each threshold, at it and anywhere up to the largest field.
+    let near = |rng: &mut Seeded, threshold: u64| threshold - 50_000 + rng.below(100_001);
+    let balance = match rng.below(5) {
+        0 => near(rng, LARGE_THRESHOLD),
+        1 => near(rng, VERY_LARGE_THRESHOLD),
+        2 => rng.pick(&[LARGE_THRESHOLD, VERY_LARGE_THRESHOLD, 0, MAX_PRINCIPAL]),
+        _ => rng.cents(MAX_PRINCIPAL),
+    };
+    let magnitude = i128::from(rng.cents(MAX_PRINCIPAL));
+    let earnings = if rng.below(4) == 0 {
+        -magnitude
+    } else {
+        magnitude
+    };
+    let flags = [0, 1, 2].map(|_| rng.below(12) == 0);
+    let member = json!({
+        "balance": dollars(balance),
+        "earnings": format!("{}{}", if earnings < 0 { "-" } else { "" }, dollars(u64::try_from(earnings.unsigned_abs()).unwrap())),
+        "child": flags[0], "settlement": flags[1], "died": flags[2],
+    });
+    (
+        json!({"member": member}),
+        division_296_oracle(balance, earnings, flags),
+    )
+}
+
 /// Runs the Division 7A schedule engine, as `HARNESS` runs the others.
 const DIV7A_SCHEDULE_HARNESS: &str = r"
 import { div7aSchedule } from './assets/business-calculators.mjs';
@@ -3165,6 +3278,50 @@ fn vehicle_case(rng: &mut Seeded) -> (Value, Value) {
         json!({"kind": "vehicle", "vehicle": vehicle, "year": year}),
         vehicle_oracle(&v, limit, threshold),
     )
+}
+
+#[test]
+fn the_division_296_oracle_works_the_explanatory_memorandums_examples() {
+    // Example 1.1, Jordan: $4 million, $100,000 of earnings, 25%, $25,000 taxed at 15%, $3,750.
+    let jordan = division_296_oracle(400_000_000, 10_000_000, [false; 3]);
+    assert_eq!(
+        (&jordan["percentage"], &jordan["taxable"], &jordan["total"]),
+        (&json!("25"), &json!("25000"), &json!("3750"))
+    );
+    // Example 1.2, Kelly: $12 million, $500,000, 75% and 16.67%, $56,250 and $8,335, $64,585.
+    let kelly = division_296_oracle(1_200_000_000, 50_000_000, [false; 3]);
+    assert_eq!(
+        [
+            &kelly["veryLargePercentage"],
+            &kelly["component"],
+            &kelly["tax"],
+            &kelly["veryLargeTax"],
+            &kelly["total"]
+        ],
+        [
+            &json!("16.67"),
+            &json!("83350"),
+            &json!("56250"),
+            &json!("8335"),
+            &json!("64585")
+        ]
+    );
+    // $150 over $3 million is 0.004999...%, so 0.00; $150.01 is 0.005000...%, so 0.01.
+    assert_eq!(division_296_share(300_015_000, LARGE_THRESHOLD), 0);
+    assert_eq!(division_296_share(300_015_001, LARGE_THRESHOLD), 1);
+}
+
+#[test]
+fn the_division_296_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1117_0000_0296);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..DIVISION_296_CASES)
+        .map(|_| division_296_case(&mut rng))
+        .unzip();
+    let actual = run_node(DIVISION_296_HARNESS, &cases);
+    assert_eq!(actual.len(), DIVISION_296_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
 }
 
 #[test]
