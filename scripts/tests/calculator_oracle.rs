@@ -3693,6 +3693,19 @@ fn the_payroll_tax_oracle_works_the_revenue_offices_examples() {
 }
 
 #[test]
+fn the_payroll_tax_engine_agrees_with_the_oracle_at_each_act_rate_edge() {
+    let (mut cases, mut expected) = (vec![], vec![]);
+    for edge in [20_000_000_u64, 50_000_000, 100_000_000, 150_000_000] {
+        for australian in [edge * 100 - 1, edge * 100, edge * 100 + 1] {
+            let wages = australian / 3;
+            cases.push(json!({"wages": dollars(wages), "australian": dollars(australian), "place": "AU-ACT"}));
+            expected.push(payroll_tax_oracle(wages, australian, "AU-ACT"));
+        }
+    }
+    assert_eq!(run_node(PAYROLL_TAX_HARNESS, &cases), expected);
+}
+
+#[test]
 fn the_payroll_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let mut rng = Seeded(0x2026_1117_0000_0B7A);
     let (cases, expected): (Vec<_>, Vec<_>) = (0..PAYROLL_TAX_CASES)
