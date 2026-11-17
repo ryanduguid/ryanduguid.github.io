@@ -11052,7 +11052,7 @@ Source: https://duguid.com.au/tools/business-calculators/payroll-tax/
 
 # Payroll tax calculator
 
-One employer’s annual payroll tax for 2026-27 in any Australian state or territory, step by step from each one’s Act and revenue office.
+One employer’s annual payroll tax for 2026-27 in any Australian state or territory, step by step, each step cited to its Act or revenue office.
 
 Published 17 November 2026. Last checked 17 November 2026.
 
