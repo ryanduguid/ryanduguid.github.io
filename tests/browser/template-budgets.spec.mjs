@@ -1,7 +1,7 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 
 import { expect, test } from '@playwright/test';
 import { firstScreen, projectKind } from './project-kind.mjs';
@@ -12,10 +12,15 @@ import { firstScreen, projectKind } from './project-kind.mjs';
 const paths = [...readFileSync('sitemap.xml', 'utf8').matchAll(/<loc>https:\/\/duguid\.com\.au([^<]+)<\/loc>/g)]
   .map(([, path]) => path);
 const calculators = paths.filter((path) => /^\/tools\/(business-calculators|individual-tax)\/[a-z0-9-]+\/$/.test(path));
+// Each calculator page renders its own include, so the sitemap must list one page per include.
+const calculatorIncludes = readdirSync('_includes/calculators')
+  .filter((name) => name.endsWith('.html'))
+  .map((name) => name.slice(0, -'.html'.length))
+  .sort();
 const topics = paths.filter((path) => /^\/tools\/accounting-questions\/[a-z-]+\/$/.test(path));
 
 test('calculator and question pages open on their working control', async ({ page }) => {
-  expect(calculators).toHaveLength(28);
+  expect(calculators.map((path) => path.split('/').at(-2)).sort()).toEqual(calculatorIncludes);
   expect(topics).toHaveLength(10);
   for (const path of [...calculators, ...topics]) {
     await page.goto(path);
