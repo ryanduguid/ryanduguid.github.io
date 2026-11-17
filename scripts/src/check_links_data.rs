@@ -33,7 +33,7 @@ pub const CI_MANUAL_URLS: [&str; 16] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 178] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 179] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -207,6 +207,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 178] = [
     "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
     "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
     "https://www.oaic.gov.au/",
+    "https://www.rba.gov.au/statistics/tables/",
     "https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant",
     "https://www.revenue.act.gov.au/home-buyer-assistance/home-buyer-concession-scheme/about-the-home-buyer-concession-scheme",
     "https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax",
