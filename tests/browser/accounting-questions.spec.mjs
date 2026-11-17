@@ -4,6 +4,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
+import { waitForCalculator } from './calculator-ready.mjs';
 
 // money and land-tax are business-calculators' helpers: a retry must fetch them afresh too.
 for (const module of ['business-calculators', 'field-errors', 'money', 'land-tax']) {
@@ -43,7 +44,7 @@ test('a calculator page works without the question pages’ script', async ({ pa
   await page.route('**/assets/accounting-questions.mjs*', route => route.abort());
   await page.goto('/tools/business-calculators/gst/');
   const form = page.locator('#gst form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await form.locator('input[name=amount]').fill('110');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(page.locator('#gst output')).toContainText('GST: $10.00');
@@ -220,6 +221,7 @@ test('cash inputs survive a save and reload with dated results', async ({ page }
   expect(input.startDate).toBe('2026-09-28');
   expect(input.weeks[0]).toEqual({ receipts: '1000', payments: '300' });
   await page.reload();
+  await waitForCalculator(form);
   await page.getByLabel('Load inputs (replaces the current forecast)').setInputFiles(path);
   await expect(form.getByLabel('First day of week 1')).toHaveValue('2026-09-28');
   await expect(form.getByLabel('Week 1 receipts', { exact: true })).toHaveValue('1000');
@@ -242,13 +244,14 @@ test('cash inputs survive a save and reload with dated results', async ({ page }
 
 test('cash imports keep accepted amounts with surrounding whitespace', async ({ page }) => {
   await page.goto('/tools/business-calculators/cash/');
+  const form = page.locator('#cash form');
+  await waitForCalculator(form);
   const data = { version: 1, currency: 'AUD', startDate: '2026-09-28', opening: ' \t200.00\n\u00a0', buffer: ' 100 ',
     week: ' 1 ', amount: ' 100 ', delay: ' 2 ', weeks: Array.from({ length: 13 }, () => ({ receipts: ' 1000 ', payments: ' 300 ' })) };
   await page.getByLabel('Load inputs (replaces the current forecast)').setInputFiles({
     name: 'spaced-inputs.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(data)),
   });
   await expect(page.locator('#cash-file-status')).toHaveText('Inputs loaded. Calculate to refresh the results.');
-  const form = page.locator('#cash form');
   for (const [name, value] of [['opening', '200.00'], ['buffer', '100'], ['week', '1'], ['amount', '100'], ['delay', '2']]) {
     await expect(form.locator(`[name="${name}"]`)).toHaveValue(value);
   }
@@ -339,7 +342,7 @@ test('calculators show working, invalidate edited results and reject empty input
 test('cash scenario exports delayed receipts and reports the funding gap offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/cash/');
   const form = page.locator('#cash form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('First day of week 1').fill('2026-09-28');
   await form.getByLabel('Opening bank balance (AUD)').fill('200');
@@ -402,6 +405,21 @@ test('printed business calculator working keeps the boundary and a blank sign-of
     getComputedStyle(element, '::after').content)).toContain('Reviewer:');
 });
 
+// The modules load after the page's load event; a slow load must still hold the wait below.
+test('a calculator whose modules arrive late works offline once its form is ready', async ({ page, context }) => {
+  await page.route('**/assets/business-calculators.mjs', async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await route.continue();
+  });
+  await page.goto('/tools/business-calculators/gst/');
+  const form = page.locator('#gst form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('Amount (AUD)').fill('110');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('GST: $10.00');
+});
+
 // The calculator pages invite readers to disconnect once the page has loaded,
 // so every calculation here runs with the browser offline.
 for (const [id, inputs, expected] of [
@@ -418,7 +436,7 @@ for (const [id, inputs, expected] of [
   test(`${id} sends the entered values to its calculation offline`, async ({ page, context }) => {
     await page.goto(`/tools/business-calculators/${id}/`);
     const form = page.locator(`#${id} form`);
-    await expect(form.locator('fieldset').first()).toBeEnabled();
+    await waitForCalculator(form);
     await context.setOffline(true);
     for (const [name, value] of Object.entries(inputs)) {
       const field = form.locator(`[name="${name}"]`);
@@ -481,7 +499,7 @@ test('loan takes a balloon and payments in advance from the form', async ({ page
 test('Division 7A takes the chosen year’s rate from the table and works the repayment offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/div7a/');
   const form = page.locator('#div7a form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('Income year (benchmark rate)').selectOption('2023-24');
   await form.getByLabel('Loan not repaid at the end of the previous income year (AUD)').fill('250000');
@@ -499,7 +517,7 @@ test('Division 296 works both tiers and a death by 30 June 2027 offline', async 
   await page.goto('/tools/business-calculators/division-296/');
   const form = page.locator('#division-296 form');
   const output = form.locator('output');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   // The Explanatory Memorandum's example 1.2: $12 million and $500,000 of earnings.
   await form.locator('[name="balance"]').fill('12000000');
@@ -518,7 +536,7 @@ test('Division 7A schedule lists each year, stops at a shortfall and refuses an 
   const form = page.locator('#div7a-schedule form');
   const output = form.locator('output');
   const rows = form.locator('#div7a-schedule-results tbody tr');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   // The minimum each year runs the 7 years, on the assumed rate after the ATO's last published year.
@@ -546,7 +564,7 @@ test('Division 7A schedule lists each year, stops at a shortfall and refuses an 
 test('ETP withholding takes the date of birth and works both caps offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/termination-payment/');
   const form = page.locator('#termination-payment form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('Genuine redundancy or early retirement scheme payment, before its tax-free part (AUD)').fill('0');
   await form.getByLabel('Completed years of service').fill('0');
@@ -568,7 +586,7 @@ test('ETP withholding takes the date of birth and works both caps offline', asyn
 test('FBT car works the operating cost method at the Type 2 gross-up offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/fbt-car/');
   const form = page.locator('#fbt-car form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('Operating cost, elected, with log book records').check();
   await form.getByLabel('Cost price, including GST, dealer delivery and accessories fitted at purchase (AUD)').fill('50000');
@@ -607,7 +625,7 @@ test('fixed fee takes its rounding step from a radio and shows one payment for o
 test('PCG 2021/4 refuses a failed gateway and scores case study 7 on all 3 factors offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/pcg-2021-4/');
   const form = page.locator('#pcg-2021-4 form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   const gateway2 = form.getByRole('group', { name: 'Gateway 2: is the arrangement free of high-risk features, as paragraphs 47 to 63 describe?' });
   await gateway2.getByLabel('No').check();
@@ -632,7 +650,7 @@ test('PCG 2021/4 refuses a failed gateway and scores case study 7 on all 3 facto
 test('PCG 2021/4 allocation works case study 2 and refuses a recipient it cannot tax offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/pcg-2021-4-allocation/');
   const form = page.locator('#pcg-2021-4-allocation form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('IPP firm income', { exact: true }).fill('480000');
   await form.getByLabel('Associate 1 firm income', { exact: true }).fill('320000');
@@ -655,7 +673,7 @@ test('PCG 2021/4 allocation works case study 2 and refuses a recipient it cannot
 test('GIC payment plan works a weekly plan and one past the published rates offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/gic-payment-plan/');
   const form = page.locator('#gic-payment-plan form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('Tax debt on the plan’s first day (AUD)').fill('1000000');
   await form.getByLabel('Date of the first instalment').fill('2026-09-30');
@@ -685,7 +703,7 @@ test('GIC payment plan works a weekly plan and one past the published rates offl
 test('PSI rules checker works TR 2022/3 example 22 and refuses an agent it cannot assess offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/psi-determination/');
   const form = page.locator('#psi-determination form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   for (const [payer, amount] of [[1, '30000'], [2, '30000'], [3, '30000']]) {
     await form.getByLabel(`PSI from payer ${payer} (AUD)`, { exact: true }).fill(amount);
@@ -727,7 +745,7 @@ test('PSI rules checker works TR 2022/3 example 22 and refuses an agent it canno
 test('transfer duty notes NSW premium duty from the first dollar over $3,870,000 only', async ({ page }) => {
   await page.goto('/tools/business-calculators/transfer-duty/');
   const form = page.locator('#transfer-duty form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   const duty = async (value) => {
     await form.getByLabel('Dutiable value (whole dollars)').fill(value);
     await form.getByRole('button', { name: 'Calculate', exact: true }).click();
@@ -751,7 +769,7 @@ test('vehicle classifier works LCTD 2023/1’s dual cab and the 2025-26 car limi
   // A row by its whole label, so a label's words inside another row's answer do not match.
   const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
   const calculate = () => form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   // LCTD 2023/1 example 5: 5 seats and a 960 kg load, 340 kg against 480 kg.
   await form.getByLabel('Dual or extra cab ute').check();
@@ -809,7 +827,7 @@ test('vehicle classifier works LCTD 2023/1’s dual cab and the 2025-26 car limi
 test('transfer duty takes a first home buyer chosen by keyboard and says where there is no concession', async ({ page }) => {
   await page.goto('/tools/business-calculators/transfer-duty/');
   const form = page.locator('#transfer-duty form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await form.getByLabel('Queensland').check();
   await form.getByLabel('Eligible first home buyer, established home').focus();
   await page.keyboard.press('Space');
@@ -851,7 +869,7 @@ for (const id of CALCULATORS) {
     const served = (await response.text()).match(/<output aria-live="polite" data-example>([\s\S]*?)<\/output>/)[1];
     const form = page.locator(`#${id} form`);
     const output = form.locator('output');
-    await expect(form.locator('fieldset').first()).toBeEnabled();
+    await waitForCalculator(form);
     // The scripts leave the served example alone: nothing moves, and the live region has nothing to announce.
     expect(await output.evaluate((element) => element.innerHTML)).toBe(served);
     const example = await output.evaluate((element) => {
@@ -865,7 +883,7 @@ for (const id of CALCULATORS) {
     const calculated = await output.evaluate((element) => element.textContent);
     expect(calculated.replace(/^Inputs: week 1 from [^,]+, /, 'Inputs: ')).toBe(example);
     await page.reload();
-    await expect(form.locator('fieldset').first()).toBeEnabled();
+    await waitForCalculator(form);
     // The objection deadline form has dates and choices only.
     const edit = form.locator('input[type=number], input[type=date]').first();
     await edit.fill(await edit.getAttribute('type') === 'date' ? '2027-01-01' : '1');
@@ -923,7 +941,7 @@ for (const route of ['/tools/accounting-questions/', '/tools/accounting-question
 test('objection deadline takes the later of an amended assessment’s 2 dates offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/objection-deadline/');
   const form = page.locator('#objection-deadline form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('Amended income tax assessment', { exact: true }).check();
   await form.getByLabel('No: 4 years').check();
@@ -947,7 +965,7 @@ test('objection deadline takes the later of an amended assessment’s 2 dates of
 test('a varied PAYG instalment rate gives the instalment and its credit offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/payg-instalments/');
   const form = page.locator('#payg-instalments form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('Option 2, varied: a rate from your estimates for the year').check();
   await form.getByLabel('Varying only: estimated tax on instalment income for the year, T8 (AUD)').fill('10125');
@@ -973,7 +991,7 @@ test('a varied PAYG instalment rate gives the instalment and its credit offline'
 test('land tax adds the ACT fixed charge and names the band it applied, offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/land-tax/');
   const form = page.locator('#land-tax form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('Australian Capital Territory', { exact: true }).check();
   await form.getByLabel('Total taxable land value (whole dollars)').fill('600000');
@@ -987,7 +1005,7 @@ test('land tax adds the ACT fixed charge and names the band it applied, offline'
 test('land tax adds a foreign owner surcharge and MRIT from the radios and checkbox, offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/land-tax/');
   const form = page.locator('#land-tax form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   await context.setOffline(true);
   const text = () => form.locator('output').evaluate((element) => element.textContent);
   // Revenue NSW's surcharge land tax example 1.
@@ -1015,7 +1033,7 @@ test('land tax adds a foreign owner surcharge and MRIT from the radios and check
 test('land tax says RevenueSA assesses nothing under $20 only when the South Australian figure is under $20', async ({ page }) => {
   await page.goto('/tools/business-calculators/land-tax/');
   const form = page.locator('#land-tax form');
-  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await waitForCalculator(form);
   const note = form.locator('output .result-note');
   await form.getByLabel('South Australia', { exact: true }).check();
   // $50 over the threshold is a whole $100 at 50 cents; $939,900 is 39 lots of $100, $19.50.

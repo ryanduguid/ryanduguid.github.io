@@ -387,10 +387,10 @@ The `qs` override pins Lighthouse CI's query parser to 6.16.0, which fixes
 Remove it when Express allows a fixed release without the override. Run the browser,
 capture, and Lighthouse checks when changing it.
 
-The `basic-ftp` override pins Lighthouse CI's FTP client to 6.2.1, which fixes a
+The `basic-ftp` override pins Lighthouse CI's FTP client to 6.2.6, which fixes a
 [directory-listing denial-of-service issue](https://github.com/advisories/GHSA-c475-qrg2-pj4r)
 in every release up to 6.2.0. `get-uri` 6.0.5 asks for `^5.0.2`, but it calls only
-`Client`, `access`, `lastMod`, `downloadTo`, `list` and `close`, which 6.2.1 keeps.
+`Client`, `access`, `lastMod`, `downloadTo`, `list` and `close`, which 6.2.6 keeps.
 Remove it when `get-uri` accepts a fixed release. Run the browser, capture, and
 Lighthouse checks when changing it.
 
@@ -424,7 +424,8 @@ the land tax and transfer duty calculators cite; each returned HTTP 200 locally
 on 17 November 2026. In
 run 44015978829 it timed out 4 times on the ATO's
 [GDP adjustment](https://softwaredevelopers.ato.gov.au/GDPupliftfactor) page that the
-PAYG instalments calculator cites, which returned HTTP 200 locally on 17 November 2026.
+PAYG instalments calculator cites, which returned HTTP 200 locally on 17 November 2026
+and timed out 4 times again in run 44173032679 on 18 November 2026.
 The link checker
 reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
 GitHub Actions. Run `site-tools check_links` locally before changing any
@@ -452,7 +453,8 @@ calculators. On 17 November 2026 the ACT pages returned HTTP 200 locally and the
 NT pages HTTP 200 in a browser; all 7 are in the same list.
 Run 44024114382 returned HTTP 403 for 7 ATO pages that the income tax, take-home pay
 and study and training loan repayment calculators cite; each returned HTTP 200
-locally on 17 November 2026 and is in the same list.
+locally on 17 November 2026 and is in the same list. All 7 returned HTTP 403
+again in run 44173032679 on 18 November 2026.
 
 The [Division 7A benchmark rate table](https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate)
 also returned HTTP 403 in run 34852175800.
@@ -478,6 +480,11 @@ The [Office of the Australian Information Commissioner home page](https://www.oa
 linked from the privacy notice, returned HTTP 403 in the scheduled run 42740335407.
 A browser loaded it with the expected content on 11 November 2026. Its exact URL
 is in the same list under the same rule.
+
+The [RBA statistical tables index](https://www.rba.gov.au/statistics/tables/),
+cited by the Division 7A benchmark rate page, returned HTTP 403 to pull request
+jobs 125088500960, 125815442658 and 131627814202, each of which passed on a rerun
+(read 14 November 2026). Its exact URL is in the same list under the same rule.
 
 Five official public holiday pages cited by the Payday Super business-day calendar
 returned HTTP 403 in pull request run 43452694807: the ACT Government's public holidays

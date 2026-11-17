@@ -19,6 +19,7 @@
 //! theme stylesheet; _config.yml now switches that off.
 //!
 //! Run with: site-tools check_production [--base https://duguid.com.au] [--source-root _site] [--source-only]
+use crate::check_links::MAX_FETCH_ATTEMPTS;
 use crate::node;
 use regex::Regex;
 use std::path::Path;
@@ -290,12 +291,25 @@ impl Delivered {
     }
 }
 
+/// The CDN can answer 5xx for some seconds after a deploy: a 5xx is retried after 1, 2,
+/// 4 and 8 seconds, as check_links does, and the last answer stands.
 fn fetch(agent: &ureq::Agent, url: &str) -> Result<Delivered, String> {
-    let response = node::fetch(agent, url).map_err(|e| node::fetch_failure(&e).0.to_owned())?;
-    Ok(Delivered {
-        status: response.status().as_u16(),
-        response,
-    })
+    for attempt in 1..=MAX_FETCH_ATTEMPTS {
+        let response = node::fetch(agent, url).map_err(|e| node::fetch_failure(&e).0.to_owned())?;
+        let status = response.status().as_u16();
+        if !(500..600).contains(&status) || attempt == MAX_FETCH_ATTEMPTS {
+            return Ok(Delivered { status, response });
+        }
+        node::log(
+            &format!(
+                "retry {attempt}/{} {url}: HTTP {status}",
+                MAX_FETCH_ATTEMPTS - 1
+            ),
+            false,
+        );
+        std::thread::sleep(Duration::from_secs(1 << (attempt - 1)));
+    }
+    unreachable!("the last attempt returns")
 }
 
 fn check(source_root: &Path, base: Option<&str>, source_only: bool) -> Result<u8, String> {
@@ -308,8 +322,8 @@ fn check(source_root: &Path, base: Option<&str>, source_only: bool) -> Result<u8
         return Ok(0);
     }
     let base_text = base.unwrap_or("undefined");
-    // Each request is made once and its redirects are not followed, as fetch's
-    // redirect: 'manual' does; one agent reuses its connections.
+    // Redirects are not followed, as fetch's redirect: 'manual' does; one agent
+    // reuses its connections.
     let agent = node::fetch_agent(TIMEOUT, false, USER_AGENT, ACCEPT);
     let mut failures = Vec::new();
     let mut notes = Vec::new();
