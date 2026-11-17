@@ -6,7 +6,7 @@
 <label class="field" for="fbt-loan-income-use">Share of the loan used to produce the employee’s assessable income (%)<input id="fbt-loan-income-use" name="income-use" type="number" inputmode="decimal" min="0" max="100" step=".01" value="60" required /></label>
 <label class="field" for="fbt-loan-deduction">Deduction the employee could claim for the interest that accrued (AUD)<input id="fbt-loan-deduction" name="deduction" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="1200" required /></label>
 </div>
-<p class="field-note">A balance of $50,000 owed every day of the year totals $50,000 × 365 = $18,250,000. Enter 0% income use for a loan to an associate, or where the employee has not given you the loan declaration: the reduction then does not apply.</p>
+<p class="field-note">A balance of $50,000 owed every day of the year totals $50,000 × 365 = $18,250,000. Enter 0% income use for a loan to an associate, or where the employee has not given you the loan declaration subsection 19(1) requires (an employee credit or share loan benefit needs none): the reduction then does not apply.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="daily balances totalling $18,250,000.00, interest accrued $2,000.00, 60% income use, deduction for the interest accrued $1,200.00" rows="Notional interest at 8.27%|$4,135.00;Gross taxable value|$2,135.00;Gross deduction|$2,481.00;Notional deduction|$1,281.00;Reduction applied|$1,281.00;Taxable value|$854.00" principal="5" %}
 <div class="sources-applied" hidden>

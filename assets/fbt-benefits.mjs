@@ -21,8 +21,13 @@ const hundredths = (value, min = 0) => BigInt(Math.round(number(value, { min, ma
 const whole = (value, max, min = 0) => BigInt(number(value, { min, max, integer: true }));
 /** @param {bigint} a @param {bigint} b */
 const least = (a, b) => (a < b ? a : b);
+// Cents above 2^53 lose precision as a Number, so a total that large is refused, not rounded.
+const SAFE_CENTS = BigInt(Number.MAX_SAFE_INTEGER);
 /** @param {bigint} value */
-const dollars = (value) => Number(value) / 100;
+const dollars = (value) => {
+  if (value > SAFE_CENTS) throw new Error('The result is too large to work to the cent: enter smaller amounts.');
+  return Number(value) / 100;
+};
 
 /** The recipients' payments against a gross value in cents: the part applied, never more than
  * the value, the excess, and the taxable value.
@@ -102,9 +107,9 @@ export function fbtMealEntertainment(meal, year) {
     throw new Error('Enter the expenses of each FBT year from the register’s first valid year to the year before this one.');
   }
   const earlier = meal.earlier.map((value) => money(value));
-  // s 37CC(1): meal entertainment is provided throughout the register's 12 weeks, so a nil
-  // first year is a blank entry, against which the 20% rule below would check nothing.
-  if (earlier[0] === 0n) throw new Error('Enter the expenses of the register’s first valid year: they cannot be nil.');
+  // A nil first year is far more often a field left at 0 than a real year, and against it the
+  // 20% rule below would check nothing, so this calculator does not take it.
+  if (earlier[0] === 0n) throw new Error('This calculator does not take a register whose first valid year had nil expenses: enter that year’s expenses.');
   // The first year's expenses times 1.2, compared in tenths of a cent.
   const limit = earlier.length ? earlier[0] * 12n : 0n;
   const over = earlier.findIndex((value) => value * 10n > limit);

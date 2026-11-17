@@ -1277,3 +1277,51 @@ test('FBT car parking register results name the 10% rule they do not check', () 
   assert.equal(result().note, undefined);
   assert.throws(() => fbtBenefitResult({ dataset: { calculator: 'fbt-boat' } }, calculations, {}), { message: 'Unknown calculator.' });
 });
+
+// FBTAA ss 39C, 39D and 39DA reduce each benefit by its own recipients contribution, so a total taken off
+// several benefits is right only where none was overpaid: 2 benefits of $10 with $20 paid for one leave $10,
+// where the total gives $0. The result says so whenever contributions come off. s 39FB(6): the reduction for
+// fewer employees than spaces applies only to representative numbers, which the calculator cannot see.
+test('FBT car parking results name the contribution and spaces conditions they do not check', () => {
+  const fields = { method: 'station', fee: '12', benefits: '2', each: '10', contribution: '20' };
+  const form = { dataset: { calculator: 'fbt-car-parking', threshold: '11.48', yearDays: '365', yearEnded: '2027' } };
+  const value = (name) => fields[name] ?? '0';
+  const result = () => fbtBenefitResult(form, calculations, { aud: String, value, money: value });
+  assert.equal(result().note, 'Contributions come off in total: if one benefit’s contribution was more than its value, '
+    + 'the excess does not reduce other benefits, so value that benefit separately');
+  fields.contribution = '0';
+  assert.equal(result().note, undefined);
+  Object.assign(fields, { method: 'spaces', rate: '10', 'space-days': '182', spaces: '4', 'employees-start': '3',
+    'employees-end': '3', 'spaces-start': '4', 'spaces-end': '4', contribution: '2340' });
+  assert.equal(result().note, 'The reduction for fewer employees than spaces applies only if both numbers are '
+    + 'representative (subsection 39FB(6)), which this calculator does not check');
+  assert.equal(result().rows.at(-1)[1], '1061.31');
+  Object.assign(fields, { 'employees-start': '4', 'employees-end': '4' });
+  assert.equal(result().note, undefined);
+});
+
+// Cents above Number.MAX_SAFE_INTEGER cannot be shown exactly: 1,000,000 benefits at $1,000,000,000 less
+// 1 cent would show as $1,000,000,000,000,000.00, dropping the cent, so it is refused.
+test('FBT benefits refuse a result too large to show to the cent', () => {
+  const parking = { method: 'station', fee: '12', benefits: '1000000', each: '1000000000', firstFee: '0', lastFee: '0',
+    registerValue: '0', days: '0', firstYear: '2027', rate: '0', spaceDays: '1', spaces: '1', employeesStart: '0',
+    employeesEnd: '0', spacesStart: '0', spacesEnd: '0', contribution: '0.01' };
+  assert.throws(() => calculations.fbtCarParking(parking, { threshold: '11.48', days: '365', ended: '2027' }),
+    { message: 'The result is too large to work to the cent: enter smaller amounts.' });
+  assert.equal(calculations.fbtCarParking({ ...parking, benefits: '90000' }, { threshold: '11.48', days: '365', ended: '2027' })
+    .taxableValue, 89999999999999.99);
+});
+
+// The meal form passes each earlier year's expenses oldest first, so the 20% rule compares the right years:
+// $1,300 after a $1,000 first year ends the register; $1,000 after a $1,300 first year does not.
+test('FBT meal entertainment form passes the earlier years oldest first', () => {
+  const fields = { method: 'register', expenses: '900', 'register-benefits': '1000', 'register-total': '3000',
+    'first-year': '2025', 'earlier-2025': '1000', 'earlier-2026': '1300' };
+  const form = { dataset: { calculator: 'fbt-meal-entertainment', yearEnded: '2027' },
+    elements: { namedItem: (name) => (name in fields ? { value: fields[name] } : null) } };
+  const value = (name) => fields[name] ?? '0';
+  const result = () => fbtBenefitResult(form, calculations, { aud: String, value, money: value });
+  assert.throws(result, { message: /ceased to be valid at the end of the FBT year ending 31 March 2026/ });
+  Object.assign(fields, { 'earlier-2025': '1300', 'earlier-2026': '1000' });
+  assert.deepEqual(result().rows.slice(0, 2), [['Register percentage', '33.33%'], ['Taxable value', '300']]);
+});

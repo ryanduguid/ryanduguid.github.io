@@ -53,12 +53,25 @@ function parking(form, calculate, { aud, value, money }) {
       note: `No car parking benefit arises: the first business day fee is not more than the $${year.threshold} threshold` };
   }
   const rows = parkingRows(r, aud);
-  // s 39GF(3): a 10% rise on any day of an earlier year ended the register then; the user must check it.
-  const last = Number(year.ended) - 1;
-  const note = p.method === 'register' && Number(p.firstYear) <= last ? 'Valid only if the number of car parking '
-    + `fringe benefits did not rise by more than 10% on any day in the years ending 31 March ${p.firstYear} to ${last} `
-    + '(subsection 39GF(3)), which this calculator does not check' : undefined;
-  return { ...result, rows, principal: rows.length - 1, note };
+  return { ...result, rows, principal: rows.length - 1, note: parkingNote(p, r, Number(year.ended) - 1) };
+}
+
+// What a valued result rests on that the calculator cannot check, by method; `last` is the year before this one.
+function parkingNote(p, r, last) {
+  // s 39GF(3): a 10% rise on any day of an earlier year ended the register at that year's end.
+  if (p.method === 'register') {
+    return Number(p.firstYear) <= last ? 'Valid only if the number of car parking fringe benefits did not rise by '
+      + `more than 10% on any day in the years ending 31 March ${p.firstYear} to ${last} (subsection 39GF(3)), which this `
+      + 'calculator does not check' : undefined;
+  }
+  // s 39FB(6): the reduction for fewer employees needs representative numbers of employees and spaces.
+  if (p.method === 'spaces') {
+    return r.averageEmployees < r.averageSpaces ? 'The reduction for fewer employees than spaces applies only if both '
+      + 'numbers are representative (subsection 39FB(6)), which this calculator does not check' : undefined;
+  }
+  // ss 39C, 39D and 39DA reduce each benefit by its own contribution, so a total is right only without excesses.
+  return r.contributionApplied + r.excess > 0 ? 'Contributions come off in total: if one benefit’s contribution was '
+    + 'more than its value, the excess does not reduce other benefits, so value that benefit separately' : undefined;
 }
 
 function loan(form, calculate, { aud, value, money }) {

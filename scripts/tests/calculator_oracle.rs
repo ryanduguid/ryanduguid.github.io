@@ -2349,9 +2349,9 @@ fn fbt_meal_oracle(expenses: u64, register: Option<(u64, u64, u64, &[u64])>) -> 
     let Some((benefits, total, first, earlier)) = register else {
         return json!({"taxableValue": shown(exact_half_up(u128::from(expenses), 2) as u64)});
     };
-    // s 37CC(1): the register's 12 weeks have meal entertainment, so its first year is never nil.
+    // A nil first year is refused as unsupported, as the engine refuses it.
     if earlier.first() == Some(&0) {
-        return json!({"refused": "Enter the expenses of the register\u{2019}s first valid year: they cannot be nil."});
+        return json!({"refused": "This calculator does not take a register whose first valid year had nil expenses: enter that year\u{2019}s expenses."});
     }
     if let Some(year) =
         (1..earlier.len()).find(|&k| 5 * u128::from(earlier[k]) > 6 * u128::from(earlier[0]))
