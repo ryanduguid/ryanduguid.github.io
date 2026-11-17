@@ -618,11 +618,12 @@ const PARSER: crate::pyargs::Parser = crate::pyargs::Parser {
 fn run_check(
     host: &mut dyn Host,
     step: &Check,
+    exe: &str,
     root: &Path,
     checked: Option<&Path>,
     extra: &[&str],
 ) -> Result<i32, String> {
-    let mut argv = step.argv(&host.exe());
+    let mut argv = step.argv(exe);
     argv.extend(extra.iter().map(|a| (*a).to_owned()));
     let cwd = match (step, checked) {
         (Check::Tests(_), _) => root.join("scripts"),
@@ -641,10 +642,10 @@ fn run_check(
 }
 
 /// `run_check(..., check=True)`: a failure ends the run as CalledProcessError did.
-fn run_required(host: &mut dyn Host, step: &Check, root: &Path) -> Result<(), String> {
-    let code = run_check(host, step, root, None, &[])?;
+fn run_required(host: &mut dyn Host, step: &Check, exe: &str, root: &Path) -> Result<(), String> {
+    let code = run_check(host, step, exe, root, None, &[])?;
     if code != 0 {
-        let argv = step.argv(&host.exe());
+        let argv = step.argv(exe);
         let listed: Vec<String> = argv.iter().map(|a| crate::py::repr_str(a)).collect();
         return Err(format!(
             "Command '[{}]' returned non-zero exit status {code}.",
@@ -679,8 +680,11 @@ pub fn main_with(root: &Path, args: &[String], host: &mut dyn Host) -> Result<u8
         || (ci
             && (ci_metadata_only(event.as_deref(), host.git())
                 || ci_offline(event.as_deref(), host.git())));
+    // Resolved once: a `cargo test` step can replace the running binary, after which
+    // Linux reports the executable as '<path> (deleted)'.
+    let exe = host.exe();
     for step in &BEFORE_BUILD {
-        run_required(host, step, root)?;
+        run_required(host, step, &exe, root)?;
     }
     let started = Instant::now();
     let rendered = host.build();
@@ -691,7 +695,7 @@ pub fn main_with(root: &Path, args: &[String], host: &mut dyn Host) -> Result<u8
     let rendered = rendered?;
     check_metadata_excluded(&rendered)?;
     for step in &AFTER_BUILD {
-        run_required(host, step, root)?;
+        run_required(host, step, &exe, root)?;
     }
     let checked = host.checked(&rendered)?;
     for step in CHECKS {
@@ -705,7 +709,7 @@ pub fn main_with(root: &Path, args: &[String], host: &mut dyn Host) -> Result<u8
             }
             _ => &[],
         };
-        let code = run_check(host, step, root, Some(&checked), extra)?;
+        let code = run_check(host, step, &exe, root, Some(&checked), extra)?;
         if code != 0 {
             // sys.exit(code): the platform keeps the low byte.
             return Ok(code as u8);
