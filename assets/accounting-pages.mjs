@@ -461,6 +461,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms]) {
             note: `${r.reached ? 'Preservation age or older' : 'Under preservation age'} on 30 June 2027: ${r.rate}% within each cap and ${year.rateAbove}% above it` };
             break;
           }
+          case 'payroll-tax':
+            result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
+            break;
           default: result = fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);

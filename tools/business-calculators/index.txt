@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Twenty-three calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Twenty-one calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
@@ -29,9 +29,6 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
-- FBT car parking calculator Whether car parking fringe benefits arise against the $11.48 threshold, and their taxable value by any of the 5 methods, for the FBT year ending 31 March 2027.
-- FBT loan calculator Taxable value of a loan fringe benefit at the 8.27% statutory interest rate, with the otherwise deductible rule, for the FBT year ending 31 March 2027.
-- Meal entertainment calculator Taxable value of meal entertainment fringe benefits by the 50/50 split or 12-week register method, for the FBT year ending 31 March 2027.
 - Vehicle classifier Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
@@ -48,6 +45,7 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
+- Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -64,9 +62,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
-- FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
-- FBT loan calculator: https://duguid.com.au/tools/business-calculators/fbt-loan/
-- Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
 - Vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
@@ -77,3 +72,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/

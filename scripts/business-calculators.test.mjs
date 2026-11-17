@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
+import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
   staffCost, cashForecast, div7aMinimumRepayment, transferDuty, firstHomeDuty } from '../assets/business-calculators.mjs';
 import { fbtBenefitResult } from '../assets/fbt-benefit-forms.mjs';
@@ -1780,4 +1781,166 @@ test('land tax applies a band from its first value, adds the ACT fixed charge an
         { message: 'Trust rates, a foreign or absentee owner and the metropolitan region must each be true or false.' }, `${choice} ${flag}`);
     }
   }
+});
+
+// Payroll tax for 2026-27. The engine's table must be the page's data file, row for row: each
+// item is a figure, and each 'rate' row a rate with the Australian wages it applies above.
+const payrollTaxCsv = readFileSync(new URL('../tools/business-calculators/payroll-tax/payroll-tax-rates.csv', import.meta.url), 'utf8');
+const payrollTaxHtml = readFileSync(new URL('../_includes/calculators/payroll-tax.html', import.meta.url), 'utf8');
+const payrollTax = (wages, australian, place) => calculations.payrollTax(wages, australian, place);
+const PAYROLL_TAX_PLACES = { ...PLACES, 'AU-VIC-REGIONAL': 'Victoria, regional employer' };
+Object.assign(INPUTS, { payrollTax: (wages, australian, place) =>
+  `${PAYROLL_TAX_PLACES[place]}, wages ${dollars(Number(wages))}, Australian wages ${dollars(Number(australian || wages))}` });
+Object.assign(FORM_CALLS, { payrollTax: (f) => [f.wages, f.australian, f.jurisdiction] });
+Object.assign(ENGINE_LABELS, { payrollTax: { deduction: 'deduction', taxable: 'taxable amount', tax: 'payroll tax',
+  levy: 'first surcharge or levy', extraLevy: 'second surcharge or levy', total: 'total' } });
+
+test('the payroll tax table is the page’s data file, with a source and dates for every figure', () => {
+  const [header, ...lines] = payrollTaxCsv.trim().split(/\r?\n/).map((line) => (assert.ok(!line.includes('"')), line.split(',')));
+  assert.deepEqual(header, ['employer', 'item', 'value', 'wages_over', 'in_force_from', 'provision', 'notes', 'source_url', 'checked_at']);
+  const law = {};
+  for (const [employer, item, value, over, from, provision, , url, checked] of lines) {
+    assert.match(from, /^\d{4}-\d{2}-\d{2}$/, `${employer} ${item}`);
+    assert.ok(from <= '2026-07-01' && provision && /^https:\/\//.test(url) && checked === '2026-11-17', `${employer} ${item}`);
+    const entry = (law[employer] ??= employer === 'AU-VIC-REGIONAL' ? { ...law['AU-VIC'], rates: [] } : { rates: [] });
+    if (item === 'rate') entry.rates.push([over, value]);
+    else entry[item.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase())] = value;
+  }
+  assert.deepEqual(law, PAYROLL_TAX_2026_27);
+  const radios = [...payrollTaxHtml.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)"/g)].map(([, code]) => code);
+  assert.deepEqual(radios, Object.keys(PAYROLL_TAX_2026_27));
+});
+
+// Published examples, read 17 November 2026. Revenue NSW, thresholds and rates: 'NSW wages
+// (employed for 365 days) $1,500,000 ... Payroll tax calculated on $300,000'; '$1,200,000 x
+// ($900,000 ÷ $3,000,000) = $360,000'.
+test('payroll tax agrees with Revenue NSW’s examples', () => {
+  assert.deepEqual(payrollTax('1500000', '', 'AU-NSW'), payrollTax('1500000', '1500000', 'AU-NSW'));
+  assert.deepEqual([payrollTax('1500000', '', 'AU-NSW').taxable, payrollTax('1500000', '', 'AU-NSW').tax], [300000, 16350]);
+  assert.equal(payrollTax('900000', '3000000', 'AU-NSW').deduction, 360000);
+});
+
+// SRO Victoria, payroll tax surcharges, example 2 (2025-26, the same thresholds): $80 million in
+// Victoria and $70 million in NSW give thresholds of '$5,333,333.33' and '$53,333,333.33'; each
+// surcharge is 0.5% of Victorian wages above each. Threshold and phase-out rate, example 1, says
+// the full-year Victoria-only deduction is '$5 million minus their wage bill multiplied by the
+// phase-out rate': here ($5,000,000 - $4,200,000) x 50% = $400,000, and $3,800,000 at 4.85%.
+test('payroll tax agrees with the Victorian State Revenue Office’s examples', () => {
+  const surcharge = Math.round(((80000000 - 5333333.33) * 0.005 + (80000000 - 53333333.33) * 0.005) * 100) / 100;
+  const big = payrollTax('80000000', '150000000', 'AU-VIC');
+  assert.deepEqual([big.deduction, big.tax, big.levy, big.extraLevy], [0, 3880000, surcharge, surcharge]);
+  assert.equal(big.total, 3880000 + 2 * surcharge);
+  assert.deepEqual([payrollTax('4200000', '', 'AU-VIC').deduction, payrollTax('4200000', '', 'AU-VIC').tax], [400000, 184300]);
+  assert.equal(payrollTax('4200000', '', 'AU-VIC-REGIONAL').tax, 46075);
+});
+
+// Queensland Revenue Office, payroll tax deductions (example image AD-July-2023.png): Queensland
+// wages $1,356,789 and Australian wages $1,789,776 give an annual deduction of $932,460 to the dollar.
+test('payroll tax agrees with the Queensland Revenue Office’s deduction example', () => {
+  const qld = payrollTax('1356789', '1789776', 'AU-QLD');
+  assert.equal(Math.round(qld.deduction), 932460);
+  assert.deepEqual([qld.deduction, qld.taxable, qld.tax], [932459.64, 424329.36, 20155.64]);
+});
+
+// RevenueWA, payroll tax employer guide (updated 2 June 2026): annual wages of $1,104,000 give
+// '$6,600'. Its local example ($1,200,000: deduction '$969,231', tax '$12,692.30') and interstate
+// example ($1,000,000 in WA of $4,000,000: '$134,616', '$47,596.12') round the deduction to the
+// dollar first; the Act sets no rounding, so this calculator keeps the cents.
+test('payroll tax agrees with RevenueWA’s examples', () => {
+  assert.deepEqual(payrollTax('1104000', '', 'AU-WA'), payrollTax('1104000', '1104000', 'AU-WA'));
+  assert.deepEqual([payrollTax('1104000', '', 'AU-WA').deduction, payrollTax('1104000', '', 'AU-WA').tax], [984000, 6600]);
+  assert.deepEqual([payrollTax('1200000', '', 'AU-WA').deduction, payrollTax('1200000', '', 'AU-WA').tax], [969230.77, 12692.31]);
+  assert.deepEqual([payrollTax('1000000', '4000000', 'AU-WA').deduction, payrollTax('1000000', '4000000', 'AU-WA').tax],
+    [134615.38, 47596.15]);
+});
+
+// RevenueSA, Guide to Legislation 2026-27 (version 2026-27.01): '$800,000' of '$1,600,000' gives a
+// deduction of '$300,000' and '$500,000' of '$2,000,000' '$150,000'. Sch 1 cl 5(2) gives 2.475% at
+// $1,600,000; the guide's rate table cuts it to 2.47%.
+test('payroll tax agrees with RevenueSA’s deduction examples and the Act’s phased rate', () => {
+  assert.deepEqual([payrollTax('500000', '2000000', 'AU-SA').deduction, payrollTax('500000', '2000000', 'AU-SA').tax], [150000, 17325]);
+  const phased = payrollTax('800000', '1600000', 'AU-SA');
+  assert.deepEqual([phased.deduction, phased.tax, phased.lines[0].rate], [300000, 12375, '2.475%']);
+  assert.equal(payrollTax('1560000', '', 'AU-SA').lines[0].rate, '1.485%');
+  assert.equal(payrollTax('1512345.67', '', 'AU-SA').lines[0].rate, 'about 0.3056%');
+});
+
+// SRO Tasmania, annual adjustment return guideline (2025-26, the same thresholds and rates):
+// example 1, $2,400,000 in Tasmania only, '$30,000' + '$24,400' = '$54,400'; example 2,
+// $2,400,000 of $3,000,000, '$24,000' + '$48,800' = '$72,800'.
+test('payroll tax agrees with the Tasmanian State Revenue Office’s examples', () => {
+  const only = payrollTax('2400000', '', 'AU-TAS');
+  assert.deepEqual([only.lines.map((line) => line.amount), only.tax], [[30000, 24400], 54400]);
+  const shared = payrollTax('2400000', '3000000', 'AU-TAS');
+  assert.deepEqual([shared.deduction, shared.lines.map((line) => [line.on, line.amount]), shared.tax],
+    [1000000, [[600000, 24000], [800000, 48800]], 72800]);
+});
+
+// No numeric example is published by the ACT Revenue Office or, on a page that could be read, the
+// Territory Revenue Office; these are worked by hand from the Acts. ACT: $3,000,000 less $1,750,000
+// at 6.75% is $84,375; $25,000,000 of $30,000,000 has a deduction of $1,458,333.33 and 6.85% on
+// $23,541,666.67 is $1,612,604.17. NT: $3,000,000 has a deduction of $2,500,000 less half of
+// $500,000, $2,250,000, and 5.5% of $750,000 is $41,250.
+test('payroll tax in the ACT and the Northern Territory agrees with examples worked from the Acts', () => {
+  assert.deepEqual([payrollTax('3000000', '', 'AU-ACT').deduction, payrollTax('3000000', '', 'AU-ACT').tax], [1750000, 84375]);
+  assert.deepEqual([payrollTax('25000000', '30000000', 'AU-ACT').deduction, payrollTax('25000000', '30000000', 'AU-ACT').tax],
+    [1458333.33, 1612604.17]);
+  assert.deepEqual([payrollTax('3000000', '', 'AU-NT').deduction, payrollTax('3000000', '', 'AU-NT').tax], [2250000, 41250]);
+});
+
+test('payroll tax thresholds, tapers and rate bands meet at their edges', () => {
+  const tax = (wages, place, all = '') => payrollTax(wages, all, place);
+  // South Australia's threshold is not its deduction: no tax to $1,500,000, a $600,000 deduction.
+  for (const [place, threshold, deduction = threshold] of [['AU-NSW', '1200000'], ['AU-VIC', '1000000'], ['AU-QLD', '1300000'],
+    ['AU-WA', '1000000'], ['AU-SA', '1500000', '600000'], ['AU-TAS', '1250000'], ['AU-ACT', '1750000'], ['AU-NT', '2500000']]) {
+    assert.deepEqual([tax(threshold, place).deduction, tax(threshold, place).total], [Number(deduction), 0], place);
+    assert.equal(tax('0', place, '0').total, 0, place);
+  }
+  // Each deduction reaches nil: Victoria at $5m, Queensland at $10.4m, WA at $7.5m, NT at $7.5m.
+  for (const [place, wages] of [['AU-VIC', '5000000'], ['AU-QLD', '10400000'], ['AU-WA', '7500000'], ['AU-NT', '7500000']]) {
+    assert.equal(tax(wages, place).deduction, 0, place);
+    assert.ok(tax(String(Number(wages) - 7), place).deduction > 0, place);
+  }
+  assert.equal(tax('3000000', 'AU-VIC').deduction, 1000000);
+  assert.deepEqual([tax('6500000', 'AU-QLD').lines[0].rate, tax('6500000.01', 'AU-QLD').lines[0].rate], ['4.75%', '4.95%']);
+  assert.deepEqual([tax('20000000', 'AU-ACT').lines[0].rate, tax('20000000.01', 'AU-ACT').lines[0].rate], ['6.75%', '6.85%']);
+  assert.deepEqual([tax('150000000', 'AU-ACT').lines[0].rate, tax('150000000.01', 'AU-ACT').lines[0].rate], ['7.85%', '8.75%']);
+  assert.deepEqual([tax('99999999.99', 'AU-NT').lines[0].rate, tax('100000000', 'AU-NT').lines[0].rate], ['5.5%', '6.5%']);
+  assert.deepEqual([tax('1500000.01', 'AU-SA').tax, tax('1700000', 'AU-SA').lines[0].rate, tax('1700000.01', 'AU-SA').lines[0].rate],
+    [0, '4.95%', '4.95%']);
+  assert.deepEqual([tax('1200000', 'AU-SA').deduction, tax('1200000', 'AU-SA').lines[0].rate, tax('1200000', 'AU-SA').total],
+    [600000, '0%', 0]);
+  assert.deepEqual([tax('500000', 'AU-SA').deduction, tax('500000', 'AU-SA').total], [500000, 0]);
+  assert.deepEqual(tax('2000000', 'AU-TAS').lines.map((line) => line.on), [750000, 0]);
+  // 0.25% of $400 above $10m is $1; nothing above $100m until wages pass it.
+  assert.deepEqual([tax('10000000', 'AU-QLD').levy, tax('10000400', 'AU-QLD').levy, tax('100000000', 'AU-QLD').extraLevy], [0, 1, 0]);
+  // Victoria above $100m: 0.5% of $90,000,100 and of $100, $450,000.50 + $0.50.
+  assert.deepEqual([tax('10000000', 'AU-VIC').levy, tax('100000100', 'AU-VIC').levy], [0, 450001]);
+});
+
+test('payroll tax refuses wages it cannot work', () => {
+  for (const [wages, australian, place, message] of [
+    ['-1', '', 'AU-NSW', 'Enter an amount between 0 and 100000000000.'],
+    ['1000', '-1', 'AU-NSW', 'Enter an amount between 0 and 100000000000.'],
+    ['100000000000.01', '', 'AU-NSW', 'Enter an amount between 0 and 100000000000.'],
+    ['', '', 'AU-NSW', 'Enter a number using digits only.'],
+    ['NaN', '', 'AU-NSW', 'Enter a number using digits only.'],
+    ['1500000.001', '', 'AU-NSW', 'Enter a number with no more than 2 decimal places.'],
+    ['2000000', '1999999.99', 'AU-NSW', 'Enter total Australian wages of at least the wages in the state or territory.'],
+    ['1500000', '', 'AU-VIC-METRO', 'Choose a state or territory.'],
+    ['1500000', '', 'toString', 'Choose a state or territory.'],
+  ]) {
+    assert.throws(() => payrollTax(wages, australian, place), { message }, `${wages} ${australian} ${place}`);
+  }
+});
+
+test('the payroll tax page opens on the result its calculation gives for the form’s inputs', () => {
+  const example = payrollTaxHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(payrollTaxHtml);
+  const result = calculations.payrollTaxResult(fields.wages, fields.australian, fields.jurisdiction, aud);
+  assert.equal(result.inputs, example[1]);
+  assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
+  assert.equal(String(result.principal), example[3]);
+  assert.equal(result.note, example[4]);
 });
