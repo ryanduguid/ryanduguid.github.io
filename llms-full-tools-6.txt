@@ -59,7 +59,7 @@ The guide’s example 18: 4 spaces at $10 for 182 days, 3 employees | Spaces, 4 
 Spaces without a benefit are refused | Spaces, 4 at $10.00 for 182 days, employees 0 and 0, spaces 0 and 0, contributions $0.00; fee $11.48 against $11.48 | Refused: these spaces gave rise to no car parking benefit: the first business day fee is not more than the car parking threshold, so the spaces method does not count them
 A register first valid 5 years back has lapsed | Register, $2,500.00 over 183 days, first valid 2022; fee $12.36 against $11.48 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -68,7 +68,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -120,7 +120,7 @@ Interest at the statutory rate leaves no value | Daily balances $18,250,000.00, 
 A $20,000 loan owed for 100 days accrues by the day | Daily balances $2,000,000.00, accrued $0.00, income use 0%, deduction $0.00, at 8.27% | Notional interest $453.15, taxable value $453.15
 A deduction above the interest accrued is refused | Daily balances $18,250,000.00, accrued $1,000.00, income use 60%, deduction $1,000.01, at 8.27% | Refused: the deduction for the interest accrued cannot be more than that interest
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -129,7 +129,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -184,7 +184,7 @@ Expenses more than 20% above the first year end the register | Register, expense
 A nil first year is refused as unsupported, not let through the 20% rule | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2025, earlier years $0.00 and $0.00 | Refused: this calculator does not take a register whose first valid year had nil expenses: enter that year’s expenses
 A register first valid 5 years back has lapsed | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2022, earlier years $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -193,7 +193,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -264,7 +264,7 @@ A payload that disagrees with the mass and kerb weight is refused | Passenger bo
 A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
 Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -273,7 +273,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -326,7 +326,7 @@ Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways 
 One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
 A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -334,7 +334,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -389,7 +389,7 @@ A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 mo
 A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
 More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -398,7 +398,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -463,7 +463,7 @@ A repayment above the amount that repays the loan on 30 June | Made 2022-10-01, 
 Repayments after the loan is repaid | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99; 1' | Refused: the loan is repaid in 2024-25; leave out the repayments after it
 More repayments than years of the term | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '1;1;1;1;1;1;1;1' | Refused: enter no more than 7 repayments, one for each year of the term
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -474,7 +474,99 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Personal services income (PSI) rules and PSB test checker
+
+Source: https://duguid.com.au/tools/business-calculators/psi-determination/
+
+> Work through the PSI rules for one individual and year: section 84-5, the results test, the 80% rule and the other 3 personal services business tests.
+
+# PSI rules checker
+
+Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+
+Published 17 November 2026. Last checked 17 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+PSI inputs for one individual and one income year
+
+Who receives the income The individual, as a contractor (sole trader) A company, partnership or trust the individual works through The individual, as an employee, office holder or religious practitioner Is over half the income a reward for the individual’s personal efforts or skills (subsection 84-5(1))? Yes No: mainly from goods, assets or a business structure Is a personal services business determination in force for this income? No Yes
+
+Payer, with its associates | PSI in the year (AUD) | Associate of the individual or entity | Engaged by an offer to the public | Paid for a result | Supplies plant and tools | Liable for defects
+Payer 1 | | | | | |
+Payer 2 | | | | | |
+Payer 3 | | | | | |
+Payer 4 | | | | | |
+Payer 5 | | | | | |
+
+Each tick is your answer; ‘How the PSI rules checker works’ says when to tick.
+
+Market value of principal work by others engaged, in the year (AUD) An apprentice for at least half the year? No Yes Business premises: tick each condition met Maintained and used all year Mainly used to produce the PSI Exclusive use, by ownership or lease Physically separate from private premises of the individual, entity or an associate Physically separate from each payer’s and its associates’ premises Paid as an agent by a principal for services to its customers (section 87-40)? No Yes Agent: the principal’s payments in the year (AUD) Agent: commission or performance fees in them (AUD)
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Received by the individual as a contractor, mainly a reward for personal efforts or skills, no PSB determination; payer 1 $18,000.00, ticked: paid for a result, tools supplied, liable for defects; principal work by others $0.00, no apprentice; business premises conditions: none; not an agent. Outcome Subsection 87-18(1): a personal services business, so Divisions 85 and 86 do not apply Subsection 84-5(1): income mainly a reward for the individual’s personal efforts or skills Yes, as you answered Paragraph 87-15(1)(a): a personal services business determination in force No, as you answered Subsection 87-18(1): PSI paid for a result, with the tools supplied and liability for defects 100.00%, at least 75%: met The PSI is still reported in the tax return, and Part IVA can still apply to splitting it (TR 2022/3 paragraphs 25 and 160).
+
+## How the PSI rules checker works
+
+The PSI rules checker takes one individual’s personal services income for one income year and works through Part 2-42 in the order the Act sets. Each step on the result names the section it applies and what it found.
+
+Income that is not mainly a reward for the individual’s personal efforts or skills is not PSI (subsection 84-5(1)), and income received as an employee falls outside Division 85 (subsection 85-35(1)). A personal services business determination in force settles the question (subsection 87-15(1)). Otherwise the results test comes first: if at least 75% of the PSI is paid for a result, with the plant and tools supplied and liability for defects, the PSI rules do not apply, however much comes from one payer (section 87-18).
+
+If 80% or more of the PSI comes from one payer and its associates, the other 3 tests cannot be self-assessed and only a determination keeps the rules away (subsection 87-15(3)). The checker still works them out, because the Commissioner weighs them for a determination: 2 or more unrelated payers that engaged the individual or entity through offers to the public (section 87-20), principal work by others of at least 20% by market value or an apprentice for half the year (section 87-25), and qualifying business premises all year (section 87-30).
+
+The checker reproduces the conclusion of each worked example in TR 2022/3 that reaches one on a test it applies, and of the matching examples on the ATO’s PSI pages.
+
+## How to enter payers in the PSI rules checker
+
+Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that payer’s PSI: where only part of it meets all 3, leave the boxes unticked, which can only make the results test harder to pass, and work out that part yourself. For the market value of principal work by others, count work by any individual engaged, an associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives, a partner included (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
+
+## What the PSI rules checker leaves to you
+
+The checker does not decide whether income is mainly a reward for personal efforts or skills, whether a contract pays for a result, whether an offer to the public won the work, who is an associate or what principal work is worth. These turn on facts and judgement, so it takes your answers and says so on each step; TR 2022/3 sets out the factors at paragraphs 34 to 49 and 77 to 148.
+
+The checker does not allocate expenses across PSI, business income and other income. Division 85 limits deductions to the extent they relate to PSI (subsection 85-10(1)) but sets no method for the split, and TR 2022/3 leaves deductions to other rulings (paragraphs 6 and 31), so any split is practice rather than law. It does not work out the amount attributed under Division 86, PAYG withholding or a deduction for a net PSI loss.
+
+The checker does not apply the agent rules when they could apply (section 87-40), decide a determination, which is the Commissioner’s (sections 87-60 and 87-65), or test Part IVA, which can still apply to a personal services business (TR 2022/3 paragraph 160). Several individuals working through one entity are tested one at a time (paragraph 76). Confirm the result with the ruling or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: PSI rules checker
+
+Case | Inputs | Result
+TR 2022/3 example 20: Joe installs ducts to plans with his own tools and rectifies defects, so meets the results test | Sole trader; payers $18,000.00 (result, tools, defects) | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
+TR 2022/3 example 30: Ian’s $26,000 of $140,000 is 18.57%, under 20% | Sole trader; payers $100,000.00, $40,000.00; others’ principal work $26,000.00 | Subsection 87-15(1), not a personal services business, so Division 85 applies, largest payer 71.42%, others’ work 18.57%
+TR 2022/3 example 29: Tom’s 23.07% meets the employment test, but one payer means a determination is needed | Sole trader; payers $156,000.00; others’ principal work $36,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%, others’ work 23.07%
+Exactly 75% paid for a result meets the results test | Sole trader; payers $75.00 (result, tools, defects), $25.00 | Subsection 87-18(1), a personal services business, so Divisions 85 and 86 do not apply, results test 75.00%
+74.99% paid for a result does not | Sole trader; payers $74.99 (result, tools, defects), $25.01 | Subsection 87-15(1), not a personal services business, so Division 85 applies, results test 74.99%
+A result without liability for defects does not count | Sole trader; payers $100.00 (result, tools) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, results test 0.00%
+Exactly 80% from one payer stops self-assessment by the other tests | Sole trader; payers $80.00 (offer), $20.00 (offer); an apprentice | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 80.00%, 2 unrelated by public offer
+79.99% from one payer, with 2 unrelated payers won by offers, meets the unrelated clients test | Sole trader; payers $79.99 (offer), $20.01 (offer) | Section 87-20, a personal services business, so Divisions 85 and 86 do not apply, largest payer 79.99%, 2 unrelated by public offer
+A payer that is an associate is not an unrelated client | Sole trader; payers $50.00 (associate, offer), $50.00 (offer) | Subsection 87-15(1), not a personal services business, so Division 85 applies, 1 unrelated by public offer
+Exactly 20% of principal work by others meets the employment test | Sole trader; payers $60.00, $40.00; others’ principal work $20.00 | Section 87-25, a personal services business, so Divisions 85 and 86 do not apply, others’ work 20.00%
+Business premises need all 5 ticks | Sole trader; payers $60.00, $40.00; premises: times, mainly, exclusive, private | Subsection 87-15(1), not a personal services business, so Division 85 applies
+A company, partnership or trust meets the results test under subsection 87-18(3) | Entity; payers $120,000.00 (result, tools, defects) | Subsection 87-18(3), a personal services business, so Divisions 85 and 86 do not apply, results test 100.00%
+Income not mainly from personal efforts or skills is not PSI | Sole trader; not mainly personal efforts or skills; payers $100,000.00 | Subsection 84-5(1), not personal services income, so Part 2-42 does not apply
+Income as an employee is outside Division 85 | Employee; payers $100,000.00 | Subsection 85-35(1), income as an employee, so the PSI rules do not apply
+A determination in force for an entity settles it | Entity; determination in force; payers $100,000.00 | Paragraph 87-15(1)(b), a personal services business, so Divisions 85 and 86 do not apply
+TR 2022/3 example 40: 70% commission leaves the principal as one payer | Sole trader; payers $100,000.00; agent, $70,000.00 commission of $100,000.00 | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 100.00%
+An agent with 75% commission may fall under section 87-40, which this page does not apply | Sole trader; payers $100,000.00; agent, $75,000.00 commission of $100,000.00 | Refused: at least 75% of the principal’s payments are commission or performance fees, so section 87-40 may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40
+No PSI entered | Sole trader; payers none | Refused: enter the PSI from at least one payer
+Others’ work worth more than the PSI | Sole trader; payers $100.00; others’ principal work $100.01 | Refused: the market value of principal work by others cannot exceed the PSI entered
+
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -520,7 +612,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -530,7 +622,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -605,7 +697,7 @@ Case | Inputs | Result
 A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
 A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -615,7 +707,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -669,7 +761,7 @@ An amended assessment takes the later of its 2 dates | Amended income tax assess
 An FBT assessment allows 4 years | FBT assessment, notice 15 November 2026 | Paragraph 14ZW(1)(aaa), period ends Friday 15 November 2030, last day Friday 15 November 2030
 A first notice after the amended notice is refused | Amended FBT assessment, notice 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the amended one
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -677,7 +769,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -734,7 +826,7 @@ The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax 
 A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
 
@@ -742,68 +834,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Redundancy and ETP withholding calculator for 2026-27
-
-Source: https://duguid.com.au/tools/business-calculators/termination-payment/
-
-> The tax-free part of a genuine redundancy payment, the ETP and whole-of-income caps, and the PAYG to withhold from an ETP under Schedule 11, for 2026-27.
-
-# Redundancy and ETP withholding
-
-The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
-
-Published 15 November 2026. Last checked 15 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Inputs for one life benefit ETP paid in 2026-27
-
-Genuine redundancy or early retirement scheme payment, before its tax-free part (AUD) Completed years of service Other code R taxable component: invalidity, or compensation for personal injury, unfair dismissal, harassment or discrimination (AUD) Code O taxable component: golden handshake, gratuity, non-genuine redundancy, severance pay, payment in lieu of notice, unused sick leave or unused rostered days off (AUD) Other taxable payments you made to the employee in 2026-27, excluding the ETP (AUD) Employee’s date of birth
-
-For an employee who has given you their TFN. Unused annual leave, leave loading and long service leave are not ETPs and are withheld under Schedule 7, but count them in other taxable payments, as Schedule 11’s example 3 counts $50,000 of leave entitlements paid as a lump sum.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: genuine redundancy or early retirement scheme payment $48,000.00 after 5 completed years of service, other code R taxable component $0.00, code O taxable component $17,678.00, other taxable payments in 2026-27 $140,000.00, born 1 Aug 1996. Tax-free limit $47,603.00 Tax-free part of the redundancy payment $47,603.00 Code R taxable component $397.00 Withhold from the code R part $127.00 Whole-of-income cap left $40,000.00 Cap for the code O part $40,000.00 Withhold from the code O part $5,657.00 Total to withhold $5,784.00 Under preservation age on 30 June 2027: 32% within each cap and 47% above it.
-
-This is the payer’s withholding under Schedule 11, a payroll and practitioner task; it does not estimate the employee’s take-home pay or the tax assessed on their return.
-
-## How the redundancy and ETP withholding calculator works
-
-The redundancy and ETP withholding calculator works out how much a payer withholds from one life benefit employment termination payment (ETP) made in 2026-27. A genuine redundancy or early retirement scheme payment is tax-free up to $13,598 plus $6,801 for each completed year of service. The part above that limit is a code R ETP, as are payments for invalidity and compensation for personal injury, unfair dismissal, harassment or discrimination. The code R part is withheld at the rate within the cap up to the $270,000 ETP cap and at 47% above it.
-
-The rest of the ETP is code O: a golden handshake, gratuity, non-genuine redundancy payment, severance pay, payment in lieu of notice, unused sick leave or unused rostered days off. Its cap is the smaller of the ETP cap left after the code R part and the whole-of-income cap, which is $180,000 less the other taxable payments you made to the employee in the year. The rate within the cap is 17% if the employee is their preservation age or older on 30 June 2027, otherwise 32%; 47% applies above the cap.
-
-Schedule 11’s example 4 takes Alec, 30, made redundant after 5 years of service with a $48,000 genuine redundancy payment and a $17,678 gratuity, having been paid $140,000 of salary and wages in the year. It works out a $397 ETP over the $47,603 tax-free limit, withholds $127 from it and $5,657 from the gratuity within the $40,000 whole-of-income cap. This calculator opens on those figures, with a date of birth that makes Alec 30, and gives the same amounts.
-
-## What the redundancy and ETP withholding calculator does not cover
-
-The calculator does not decide whether a termination is a genuine redundancy, whether a payment is an ETP or which code applies. It takes the taxable component as you enter it and does not work out a tax-free component other than the redundancy limit, such as an invalidity segment. It covers one life benefit ETP for one termination: not death benefit ETPs, delayed termination payments, a later instalment for the same termination, an earlier ETP in the same year, an employee who has not given you their TFN, a foreign resident or a working holiday maker. It does not work out withholding on unused leave, which Schedule 7 covers. Confirm the figures with Schedule 11 or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Redundancy and ETP withholding
-
-Case | Inputs | Result
-Schedule 11’s example 4, Alec: the redundancy payment over its tax-free part first, then the gratuity | Redundancy payment $48,000.00 after 5 years, other code R $0.00, code O $17,678.00, other payments $140,000.00, born 1 August 1996 | Tax-free limit $47,603.00, tax-free part $47,603.00, code R taxable component $397.00, withheld from code R $127.00, whole-of-income cap left $40,000.00, code O cap $40,000.00, withheld from code O $5,657.00, total withheld $5,784.00
-Schedule 11’s example 3, Chris: a golden handshake over the whole-of-income cap | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $120,000.00, other payments $100,000.00, born 1 August 1996 | Whole-of-income cap left $80,000.00, code O cap $80,000.00, withheld from code O $44,400.00, total withheld $44,400.00
-The code R part uses up the ETP cap left for the code O part | Redundancy payment $0.00 after 0 years, other code R $250,000.00, code O $50,000.00, other payments $0.00, born 1 August 1996 | Withheld from code R $80,000.00, whole-of-income cap left $180,000.00, code O cap $20,000.00, withheld from code O $20,500.00, total withheld $100,500.00
-Preservation age 60 reached on 30 June 2027, the year’s last day | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $10,000.00, other payments $0.00, born 30 June 1967 | Withheld from code O $1,700.00, total withheld $1,700.00
-Born a day later, still under preservation age | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $10,000.00, other payments $0.00, born 1 July 1967 | Withheld from code O $3,200.00, total withheld $3,200.00
-Withholding of exactly $8.50 rounds up to the next dollar | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960 | Withheld from code O $9.00, total withheld $9.00
-Part years of service are refused | Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996 | Refused: enter a whole number between 0 and 150
-
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/

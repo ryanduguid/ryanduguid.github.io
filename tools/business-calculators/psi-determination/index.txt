@@ -33,13 +33,15 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 The PSI rules checker takes one individual’s personal services income for one income year and works through Part 2-42 in the order the Act sets. Each step on the result names the section it applies and what it found.
 
-Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that payer’s PSI: where only part of it meets all 3, leave the boxes unticked, which can only make the results test harder to pass, and work out that part yourself. For the market value of principal work by others, count work by any individual engaged, an associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives, a partner included (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
-
 Income that is not mainly a reward for the individual’s personal efforts or skills is not PSI (subsection 84-5(1)), and income received as an employee falls outside Division 85 (subsection 85-35(1)). A personal services business determination in force settles the question (subsection 87-15(1)). Otherwise the results test comes first: if at least 75% of the PSI is paid for a result, with the plant and tools supplied and liability for defects, the PSI rules do not apply, however much comes from one payer (section 87-18).
 
 If 80% or more of the PSI comes from one payer and its associates, the other 3 tests cannot be self-assessed and only a determination keeps the rules away (subsection 87-15(3)). The checker still works them out, because the Commissioner weighs them for a determination: 2 or more unrelated payers that engaged the individual or entity through offers to the public (section 87-20), principal work by others of at least 20% by market value or an apprentice for half the year (section 87-25), and qualifying business premises all year (section 87-30).
 
 The checker reproduces the conclusion of each worked example in TR 2022/3 that reaches one on a test it applies, and of the matching examples on the ATO’s PSI pages.
+
+## How to enter payers in the PSI rules checker
+
+Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that payer’s PSI: where only part of it meets all 3, leave the boxes unticked, which can only make the results test harder to pass, and work out that part yourself. For the market value of principal work by others, count work by any individual engaged, an associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives, a partner included (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
 
 ## What the PSI rules checker leaves to you
 
@@ -76,7 +78,7 @@ An agent with 75% commission may fall under section 87-40, which this page does 
 No PSI entered | Sole trader; payers none | Refused: enter the PSI from at least one payer
 Others’ work worth more than the PSI | Sole trader; payers $100.00; others’ principal work $100.01 | Refused: the market value of principal work by others cannot exceed the PSI entered
 
-One of the twenty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -84,4 +86,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-five business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-six business calculators: https://duguid.com.au/tools/business-calculators/
