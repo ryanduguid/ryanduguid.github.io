@@ -21,11 +21,12 @@ const hundredths = (value, min = 0) => BigInt(Math.round(number(value, { min, ma
 const whole = (value, max, min = 0) => BigInt(number(value, { min, max, integer: true }));
 /** @param {bigint} a @param {bigint} b */
 const least = (a, b) => (a < b ? a : b);
-// Cents above 2^53 lose precision as a Number, so a total that large is refused, not rounded.
-const SAFE_CENTS = BigInt(Number.MAX_SAFE_INTEGER);
+// Below 2^46 dollars, Numbers lie less than half a cent apart, so dollars() shows every cent;
+// a larger total is refused, not rounded.
+const MOST_CENTS = 100n * 2n ** 46n;
 /** @param {bigint} value */
 const dollars = (value) => {
-  if (value > SAFE_CENTS) throw new Error('The result is too large to work to the cent: enter smaller amounts.');
+  if (value > MOST_CENTS) throw new Error('The result is too large to work to the cent: enter smaller amounts.');
   return Number(value) / 100;
 };
 

@@ -1300,16 +1300,18 @@ test('FBT car parking results name the contribution and spaces conditions they d
   assert.equal(result().note, undefined);
 });
 
-// Cents above Number.MAX_SAFE_INTEGER cannot be shown exactly: 1,000,000 benefits at $1,000,000,000 less
-// 1 cent would show as $1,000,000,000,000,000.00, dropping the cent, so it is refused.
+// From 2^46 dollars (about $70.37 trillion) a Number cannot hold every cent: 71,000 benefits at
+// $1,000,000,000 less 1 cent would show as $70,999,999,999,999.98, so it is refused.
 test('FBT benefits refuse a result too large to show to the cent', () => {
   const parking = { method: 'station', fee: '12', benefits: '1000000', each: '1000000000', firstFee: '0', lastFee: '0',
     registerValue: '0', days: '0', firstYear: '2027', rate: '0', spaceDays: '1', spaces: '1', employeesStart: '0',
     employeesEnd: '0', spacesStart: '0', spacesEnd: '0', contribution: '0.01' };
   assert.throws(() => calculations.fbtCarParking(parking, { threshold: '11.48', days: '365', ended: '2027' }),
     { message: 'The result is too large to work to the cent: enter smaller amounts.' });
-  assert.equal(calculations.fbtCarParking({ ...parking, benefits: '90000' }, { threshold: '11.48', days: '365', ended: '2027' })
-    .taxableValue, 89999999999999.99);
+  const year = { threshold: '11.48', days: '365', ended: '2027' };
+  assert.throws(() => calculations.fbtCarParking({ ...parking, benefits: '71000' }, year),
+    { message: 'The result is too large to work to the cent: enter smaller amounts.' });
+  assert.equal(calculations.fbtCarParking({ ...parking, benefits: '70000' }, year).taxableValue.toFixed(2), '69999999999999.99');
 });
 
 // The meal form passes each earlier year's expenses oldest first, so the 20% rule compares the right years:
