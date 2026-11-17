@@ -3199,7 +3199,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 28 business planning calculators, 3 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 31 business planning calculators, 3 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3416,7 +3416,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun.: https://duguid.com.au/tools/monthly-close-controls/
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
-- 28 business planning calculators: https://duguid.com.au/tools/business-calculators/
+- 31 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 3 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
@@ -4722,6 +4722,7 @@ Under Division 203, a company must frank all distributions in a franking period 
 
 ## Related
 
+- Company tax and franking calculator
 - Division 7A benchmark interest rate
 - Is this trust distribution in the section 100A green zone
 - How a business compares to the ATO benchmarks
@@ -4742,6 +4743,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - contact page: https://duguid.com.au/contact/
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - uv installed: https://docs.astral.sh/uv/
+- Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
@@ -5562,6 +5564,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+18 November 2026 | Three new business calculators. The company tax and franking calculator applies the base rate entity test for a 25% or 30% rate, finds the rate for franking from the previous year and works out the maximum franking credit and a shareholder’s top-up tax or refund; it agrees with the ATO’s base rate entity examples and gives Dillmore Manufacture’s exact credit of $42,857.14. The foreign purchaser surcharge calculator applies each state and territory’s own test of a foreign buyer, company or trust, then works out the duty surcharge and the land tax surcharge for a full year; it refuses exemptions, which each Commissioner decides, and states where none is charged. The business days calculator counts business days between 2 dates, or finds a date a number of business days on or back, with each government’s public holidays for 2026 and 2027, and refuses dates outside them. Sources were read on 18 November 2026.
 17 November 2026 | A new business calculator works out one person’s Division 296 tax for 2026-27 from the total superannuation balance at 30 June 2027 and the year’s total superannuation earnings: 15% on the share of earnings above $3 million and a further 10% above $10 million, with the child recipient, structured settlement and death exceptions. Its thresholds, rates, rounding and definitions were read on 17 November 2026 in the Income Tax Assessment Act 1997, compilation 268, the transitional provisions and the Imposition Act, and it agrees with examples 1.1 and 1.2 of the Explanatory Memorandum. It works out one year from supplied figures and projects nothing.
 17 November 2026 | The profit and cash flow case and the release record name au-fpa-pack v0.7.0, published on 16 November, as the current release. The case stays pinned to commit 386c7ff, which produced its workbook and figures.
 17 November 2026 | Three individual tax calculators for 2024-25 to 2026-27: income tax with the low income tax offset and the Medicare levy for a resident, a foreign resident or a working holiday maker; take-home pay a year, month, fortnight and week, with super guarantee and the $1,000 standard deduction from 2026-27; and the compulsory study and training loan repayment, marginal from 2025-26. Each rate and threshold is cited to its Act. The individual income tax rate table adds the 2026-27 Medicare levy low-income thresholds from the Medicare Levy Act 1986.
@@ -6294,13 +6297,13 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Twenty-eight calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Thirty-one calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 18 November 2026, the newest of the calculators’ source checks.
 
 ## Pricing, planning and loans
 
@@ -6327,13 +6330,14 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
 - Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 - PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+- Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
 
 ## Staff and cash
 
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
-## Objections, instalments, termination, land tax and duty
+## Objections, instalments, termination, land tax, duty and business days
 
 - Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
 - PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
@@ -6341,6 +6345,8 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
+- Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign.
+- Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -6367,6 +6373,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
@@ -6375,6 +6382,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
+- Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
+- Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 
 ---
 
@@ -9747,7 +9756,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9758,7 +9767,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9805,7 +9814,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9815,7 +9824,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9862,7 +9871,7 @@ Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.
 
 Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -9872,7 +9881,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9918,7 +9927,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9927,7 +9936,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9971,7 +9980,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -9980,7 +9989,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10030,7 +10039,7 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
 
@@ -10039,7 +10048,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10090,7 +10099,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -10100,7 +10109,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10156,7 +10165,7 @@ A balloon above the principal is refused | $1,000.00 at 12% over 12 months, ball
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10167,7 +10176,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - car limit: https://duguid.com.au/rates/car-limit/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10220,7 +10229,7 @@ One year left repays the balance and a year’s interest | $1,000.00 at 8.77% ov
 The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
 No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10231,7 +10240,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10285,7 +10294,7 @@ The ATO’s example 23: a third off the cost price, none off later accessories |
 Contributions above the value leave nil | Statutory formula; cost price $10,000.00, 365 of 365 days, contributions $3,000.00, gross-up 2.0802 | Statutory formula value $0.00, taxable value $0.00, FBT $0.00
 More days than the FBT year are refused | Statutory formula; cost price $10,000.00, 366 of 365 days, contributions $0.00, gross-up 2.0802 | Refused: enter a whole number between 0 and 365
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10297,7 +10306,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - guide’s chapter 2: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10354,7 +10363,7 @@ The guide’s example 18: 4 spaces at $10 for 182 days, 3 employees | Spaces, 4 
 Spaces without a benefit are refused | Spaces, 4 at $10.00 for 182 days, employees 0 and 0, spaces 0 and 0, contributions $0.00; fee $11.48 against $11.48 | Refused: these spaces gave rise to no car parking benefit: the first business day fee is not more than the car parking threshold, so the spaces method does not count them
 A register first valid 5 years back has lapsed | Register, $2,500.00 over 183 days, first valid 2022; fee $12.36 against $11.48 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10363,7 +10372,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10415,7 +10424,7 @@ Interest at the statutory rate leaves no value | Daily balances $18,250,000.00, 
 A $20,000 loan owed for 100 days accrues by the day | Daily balances $2,000,000.00, accrued $0.00, income use 0%, deduction $0.00, at 8.27% | Notional interest $453.15, taxable value $453.15
 A deduction above the interest accrued is refused | Daily balances $18,250,000.00, accrued $1,000.00, income use 60%, deduction $1,000.01, at 8.27% | Refused: the deduction for the interest accrued cannot be more than that interest
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10424,7 +10433,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10479,7 +10488,7 @@ Expenses more than 20% above the first year end the register | Register, expense
 A nil first year is refused as unsupported, not let through the 20% rule | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2025, earlier years $0.00 and $0.00 | Refused: this calculator does not take a register whose first valid year had nil expenses: enter that year’s expenses
 A register first valid 5 years back has lapsed | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2022, earlier years $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10488,7 +10497,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10559,7 +10568,7 @@ A payload that disagrees with the mass and kerb weight is refused | Passenger bo
 A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
 Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10568,7 +10577,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10621,7 +10630,7 @@ Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways 
 One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
 A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10630,7 +10639,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - PCG 2021/4 allocation calculator: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10695,7 +10704,7 @@ A recipient this calculator cannot tax is refused | 2026-27 rates; gateways pass
 Amounts on a row marked not used are refused, not dropped | 2026-27 rates; gateways passed; IPP $300,000.00; associate 1 not used $100,000.00 | Refused: associate 1 is marked not used but has amounts; choose who it is or set them to 0
 A failed Gateway 2 is refused | 2020-21 rates; Gateway 2 failed; IPP $330,000.00; associate 1 base rate company $270,000.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10703,7 +10712,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10758,7 +10767,7 @@ A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 mo
 A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
 More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10767,7 +10776,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10822,7 +10831,7 @@ A child recipient has taxable earnings but no liability | Balance $4,000,000.00,
 Death by 30 June 2027 makes the balance nil | Balance $12,000,000.00, earnings $500,000.00, died by 30 June 2027 | Not liable: died, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
 A negative balance is refused | Balance -$1.00, earnings $100,000.00 | Refused: enter an amount between 0 and 1000000000
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10830,7 +10839,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10895,7 +10904,7 @@ A repayment above the amount that repays the loan on 30 June | Made 2022-10-01, 
 Repayments after the loan is repaid | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99; 1' | Refused: the loan is repaid in 2024-25; leave out the repayments after it
 More repayments than years of the term | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '1;1;1;1;1;1;1;1' | Refused: enter no more than 7 repayments, one for each year of the term
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10906,7 +10915,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10990,7 +10999,7 @@ An agent with 75% commission may fall under section 87-40, which this page does 
 No PSI entered | Sole trader; payers none | Refused: enter the PSI from at least one payer
 Others’ work worth more than the PSI | Sole trader; payers $100.00; others’ principal work $100.01 | Refused: the market value of principal work by others cannot exceed the PSI entered
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10998,7 +11007,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11044,7 +11053,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11054,7 +11063,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11129,7 +11138,7 @@ Case | Inputs | Result
 A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
 A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11139,7 +11148,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11193,7 +11202,7 @@ An amended assessment takes the later of its 2 dates | Amended income tax assess
 An FBT assessment allows 4 years | FBT assessment, notice 15 November 2026 | Paragraph 14ZW(1)(aaa), period ends Friday 15 November 2030, last day Friday 15 November 2030
 A first notice after the amended notice is refused | Amended FBT assessment, notice 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the amended one
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11201,7 +11210,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11258,7 +11267,7 @@ The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax 
 A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
 
@@ -11266,7 +11275,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11321,7 +11330,7 @@ Born a day later, still under preservation age | Redundancy payment $0.00 after 
 Withholding of exactly $8.50 rounds up to the next dollar | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960 | Withheld from code O $9.00, total withheld $9.00
 Part years of service are refused | Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996 | Refused: enter a whole number between 0 and 150
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
 
@@ -11330,7 +11339,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11378,7 +11387,7 @@ Western Australia charges its metropolitan region improvement tax of 0.14% of th
 
 ## What the land tax calculator does not compute
 
-The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is. These are not computed:
+The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is; the foreign purchaser surcharge calculator applies each jurisdiction’s test of a foreign or absentee owner. These are not computed:
 
 - New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
 - Victoria: exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
@@ -11423,7 +11432,7 @@ The ACT’s foreign ownership surcharge, worked by hand | Australian Capital Ter
 Western Australia has no trust rates here | Western Australia, trust rates, $1,500,000.00 | Refused: this calculator has no trust rates for Western Australia
 Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole number between 0 and 1000000000
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11431,6 +11440,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 - exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
 - exemptions from surcharge land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/surcharge-land-tax
 - exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
@@ -11444,7 +11454,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
 - land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11498,7 +11508,7 @@ First home owner grants are payments to the buyer, not duty concessions, and are
 
 ## What the transfer duty calculator does not compute
 
-The transfer duty calculator gives general transfer duty, and duty for an eligible first home buyer of a home. It applies no other concession, exemption or surcharge, does not test whether a buyer is eligible, and does not decide whether a transaction is dutiable or what its dutiable value is. These are not computed:
+The transfer duty calculator gives general transfer duty, and duty for an eligible first home buyer of a home. It applies no other concession, exemption or surcharge, does not test whether a buyer is eligible, and does not decide whether a transaction is dutiable or what its dutiable value is; the foreign purchaser surcharge calculator works out the foreign purchaser duty surcharge. These are not computed:
 
 - New South Wales: duty on land other than residential land over $3,870,000, which the premium rate does not reach (the calculator applies it and says so in its result), the First Home Buyers Assistance Scheme on vacant land, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
 - Victoria: the principal place of residence concession, the first home buyer concession on vacant land, the off-the-plan concession, the City of Melbourne new residential property concession and exemption, the pensioner exemption and concession, and foreign purchaser additional duty.
@@ -11540,7 +11550,7 @@ No first home buyer concession in Tasmania | Tasmania, $500,000.00, first home b
 The ACT Home Buyer Concession Scheme has no value limit | Australian Capital Territory, $1,500,000.00, first home buyer, established home | Duty $0.00, general duty $68,100.00
 Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11557,7 +11567,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Tasmania: https://www.sro.tas.gov.au/first-home-owner
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11895,7 +11906,7 @@ The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 
 Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
 Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11904,7 +11915,236 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Company tax and franking credit calculator: base rate entity test
+
+Source: https://duguid.com.au/tools/business-calculators/company-tax/
+
+> Base rate entity test, 25% or 30% company tax, the corporate tax rate for imputation purposes, the maximum franking credit and a shareholder's top-up tax or refund.
+
+# Company tax and franking calculator
+
+A company’s 25% or 30% tax rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund on the dividend.
+
+Published 18 November 2026. Last checked 18 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Company tax and franking inputs for one income year from 2021-22
+
+Aggregated turnover for the year, connected entities and affiliates included (AUD) Assessable income for the year (AUD) Base rate entity passive income in it, franking credits included (AUD) Taxable income for the year (AUD) Did the company exist in the previous income year? Yes No Previous year’s aggregated turnover (AUD) Previous year’s assessable income (AUD) Previous year’s base rate entity passive income (AUD) Dividend paid this year (AUD) Franking percentage (%) Shareholder’s marginal tax rate, with any Medicare levy (%)
+
+The previous year’s figures set the rate for franking dividends; when the company did not exist then, they are not used. The shareholder is an Australian resident individual.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: this year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00, taxable income $104,000.00; previous year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00; dividend $30,000.00 franked at 100%, shareholder’s marginal rate 30%. Company tax rate: 25% A base rate entity (section 23AA), with passive income 3.85% of assessable income Tax on taxable income $26,000.00 Corporate tax rate for imputation purposes: 25% A base rate entity (section 23AA) Maximum franking credit on the dividend $10,000.00 Franking credit at 100% $10,000.00 Grossed-up dividend in the shareholder’s assessable income $40,000.00 Shareholder’s tax at 30% on it $12,000.00 Franking tax offset $10,000.00 Tax left to pay on the dividend $2,000.00 Franking credits round down to the cent, so the credit stated never exceeds the maximum (section 202-65).
+
+## How the company tax and franking calculator works
+
+The calculator applies the base rate entity test of section 23AA of the Income Tax Rates Act 1986 to this year’s figures: aggregated turnover under $50 million, and base rate entity passive income of no more than 80% of assessable income. A base rate entity pays 25% of its taxable income, and any other company 30% (subsection 23(2)).
+
+The rate for franking a dividend comes from a second test. Section 995-1 of the Income Tax Assessment Act 1997 runs the base rate entity test on the previous year’s turnover, passive income and assessable income, so a company can pay tax at 30% and frank at 25%, or the reverse; a company that did not exist in the previous year franks at 25%. The maximum franking credit is the dividend times 1 over the gross-up rate, which is 100% less that rate, over that rate (section 202-60): one third of the dividend at 25% and three sevenths at 30%. A credit above the maximum is taken to be the maximum (section 202-65).
+
+The shareholder includes the dividend and its franking credit in assessable income and gets a tax offset equal to the credit (section 207-20). Tax at the marginal rate you enter, less the offset, is the extra tax the dividend brings; where the offset is larger, an individual gets the excess refunded (section 67-25).
+
+The calculator reproduces the outcome of each ATO example: Happy Feet (3.8% passive income, 25%), Coffee and Cake (28.6%, 25%), Best Equity (100%, 30%), SoftDev (85%, 30%) and Hats 4 Cats ($170 million of aggregated turnover, 30%). For Dillmore Manufacture’s $100,000 dividend franked at 30% it gives $42,857.14, the exact credit; the ATO rounds the gross-up rate to 2.3333 and shows $42,857.75, which is more than the section 202-60 maximum.
+
+## What the company tax and franking calculator does not cover
+
+The calculator does not work out aggregated turnover, assessable income or base rate entity passive income: enter figures you have established, with the turnover of connected entities and affiliates included, as the ATO’s Hats 4 Cats example shows. Taxable income gives the tax before offsets, PAYG instalments and other credits.
+
+Not covered: the rates of RSA providers and pooled development funds (subsections 23(3) to (5)), life insurance companies (section 23A), not-for-profit companies and credit unions; corporate unit trusts and public trading trusts; and income years before 2021-22, when the base rate was 27.5% or 26%. A shareholder that is a company, trust, super fund or non-resident is outside its scope; a company shareholder cannot have excess franking credits refunded (section 67-25). Franking account balances, franking deficit tax, the benchmark rule and the holding period rule are not tested: the company tax and franking worksheets track the franking account and the benchmark rule. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Company tax and franking calculator
+
+Case | Inputs | Result
+Happy Feet’s income from the ATO’s example: 3.85% passive, so 25% | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $30,000.00 franked 100%, marginal rate 30% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $10,000.00, franking credit $10,000.00, tax left to pay $2,000.00
+Coffee and Cake’s income from the ATO’s example: 28.57% passive, so 25% | Turnover $700,000.00, passive income $200,000.00 of $700,000.00, taxable income $700,000.00; last year turnover $700,000.00, passive income $200,000.00 of $700,000.00; dividend $70,000.00 franked 100%, marginal rate 47% | Tax rate 25%, tax $175,000.00, franking rate 25%, maximum franking credit $23,333.33, franking credit $23,333.33, tax left to pay $20,533.34
+Best Equity’s income from the ATO’s example: all passive, so 30%, and a refund at a 0% marginal rate | Turnover $5,000,000.00, passive income $5,000,000.00 of $5,000,000.00, taxable income $5,000,000.00; last year turnover $5,000,000.00, passive income $5,000,000.00 of $5,000,000.00; dividend $100,000.00 franked 100%, marginal rate 0% | Tax rate 30%, tax $1,500,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, refund $42,857.14
+SoftDev’s income from the ATO’s example: 85% passive, so 30% | Turnover $1,000,000.00, passive income $850,000.00 of $1,000,000.00, taxable income $1,000,000.00; last year turnover $1,000,000.00, passive income $850,000.00 of $1,000,000.00; dividend $100,000.00 franked 100%, marginal rate 45% | Tax rate 30%, tax $300,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, tax left to pay $21,428.57
+Hats 4 Cats’ aggregated turnover from the ATO’s example: $170 million, so 30% | Turnover $170,000,000.00, passive income $0.00 of $20,000,000.00, taxable income $20,000,000.00; last year turnover $170,000,000.00, passive income $0.00 of $20,000,000.00; dividend $1,000,000.00 franked 100%, marginal rate 45% | Tax rate 30%, tax $6,000,000.00, franking rate 30%, maximum franking credit $428,571.42, franking credit $428,571.42, tax left to pay $214,285.72
+Dillmore Manufacture: taxed at 25% but franking at 30% after a $52 million year, the exact credit on $100,000 | Turnover $45,000,000.00, passive income $0.00 of $45,000,000.00, taxable income $4,500,000.00; last year turnover $52,000,000.00, passive income $0.00 of $52,000,000.00; dividend $100,000.00 franked 100%, marginal rate 45% | Tax rate 25%, tax $1,125,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, tax left to pay $21,428.57
+Exactly 80% passive income is still a base rate entity | Turnover $100,000.00, passive income $80,000.00 of $100,000.00, taxable income $100,000.00; last year turnover $100,000.00, passive income $80,000.00 of $100,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 25%, tax $25,000.00, franking rate 25%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
+One cent over 80% passive income is not | Turnover $100,000.00, passive income $80,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $100,000.00, passive income $80,000.01 of $100,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 30%, tax $30,000.00, franking rate 30%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
+Aggregated turnover of exactly $50 million is not under the threshold | Turnover $50,000,000.00, passive income $0.00 of $1,000,000.00, taxable income $1,000,000.00; last year turnover $49,999,999.99, passive income $0.00 of $1,000,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 30%, tax $300,000.00, franking rate 25%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
+A company new this year franks at 25% whatever its own year | Turnover $60,000,000.00, passive income $0.00 of $1,000,000.00, taxable income $1,000,000.00; no previous year; dividend $75,000.00 franked 50%, marginal rate 30% | Tax rate 30%, tax $300,000.00, franking rate 25%, maximum franking credit $25,000.00, franking credit $12,500.00, tax left to pay $13,750.00
+Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
+Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
+
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Foreign buyer duty and land tax surcharge calculator, all states
+
+Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
+
+> Foreign purchaser duty and land tax surcharges for all 8 states and territories, with each one's foreign person test for individuals, companies, trusts and SMSFs.
+
+# Foreign buyer surcharge calculator
+
+Foreign purchaser duty and the foreign owner land tax surcharge in every Australian state and territory, with each one’s test of whether an individual, company, trust or super fund is foreign.
+
+Published 18 November 2026. Last checked 18 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Foreign buyer surcharge inputs for one buyer and one property
+
+State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+
+Who is buying An individual A company The trustee of a fixed or unit trust The trustee of a discretionary (family) trust The trustee of a complying self-managed super fund What the property is used for Residential, vacant residential land included Primary production Commercial or other Dutiable value of the whole property (whole dollars) Dutiable value of this buyer’s share (whole dollars) Land value for land tax: all the buyer’s taxable land in the state or territory, their share only (whole dollars)
+
+An individual: citizenship or visa Australian citizen Permanent visa New Zealand citizen on a special category visa (subclass 444) Another visa, temporary or bridging, or none Partner (provisional) visa 309 or 820, or retirement visa 405 or 410 New South Wales duty: days in Australia in the 12 months before the contract New South Wales land tax: days in Australia in the 12 months to the next 31 December Victorian duty, New Zealand citizen: ordinarily resident in Australia for 6 consecutive months within the 12 months before or after settlement? No Yes Ordinarily resides in Australia (Victorian and Queensland land tax, ACT)? No Yes Away from Australia on the land tax day, or for over 6 months of the year before it (Victoria: 31 December and the calendar year; Queensland: 30 June and the financial year)? No Yes ACT: will live in the home as their principal place of residence? No Yes
+
+A company: incorporated outside Australia? No Yes Company, trust or fund: largest interest held by one foreign person with associates (%) Company, trust or fund: interests of all foreign persons together, with associates (%) Discretionary trust: most of the capital the trustee could give foreign persons (%) Discretionary trust: foreign takers in default’s share (%) Discretionary trust: could the deed be amended so a foreign person can benefit? No Yes Discretionary trust: is a foreign person a trustee or appointor, or in control of the trust? No Yes Discretionary trust: is a beneficiary, object or taker in default named in the deed a foreign person (for Victorian land tax, an absentee)? No Yes Is an exemption, refund or ex gratia relief from a surcharge being sought? No Yes
+
+Only the answers for the buyer chosen and the state or territory chosen are used. Each revenue office decides the dutiable value and who is foreign; the general duty uses the transfer duty rate table.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, an individual: another visa or none, residential property worth $1,000,000.00, buyer’s share $1,000,000.00, land value for land tax $1,200,000.00. Foreign purchaser duty surcharge at 9% of the buyer’s share $90,000.00 Duty surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) General transfer duty on the whole property, all buyers $39,187.00 Land tax surcharge for a full year $60,000.00 Land tax surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign.
+
+## How the foreign buyer surcharge calculator works
+
+The calculator applies the chosen state or territory’s own test of who is foreign to your answers, once for its duty surcharge and once for its land tax surcharge, as each revenue office states them. The duty surcharge is its rate times the dutiable value of the buyer’s share: 9% in New South Wales, 8% in Victoria, Queensland and Tasmania (1.5% on Tasmanian primary production land), and 7% in Western Australia and South Australia. The ACT and the Northern Territory charge none.
+
+The land tax surcharge is for a full land tax year on the land value you enter: 5% in New South Wales, 4% in Victoria from $50,000 of taxable land ($25,000 for a trust), 3% of the value over $350,000 in Queensland, 2% in Tasmania and 0.75% in the ACT. Western Australia and South Australia charge none, and the Northern Territory has no land tax. Victoria charges a fixed trust’s surcharge on the land held for absentee beneficiaries only. The general transfer duty is worked on the whole property, for all buyers together, at the general rates.
+
+The calculator reproduces the revenue offices’ examples: Revenue NSW’s $90,000 of surcharge purchaser duty and $39,187 of transfer duty on $1 million, and $60,000 of surcharge land tax on $1.2 million; Victoria’s $80,000 for Andrew, $16,000 for Emily’s $200,000 share and $20,000 for Clara’s half of a fixed trust’s $1 million; RevenueSA’s $42,000 and $21,000 for Peter; Western Australia’s $14,000 for Simon; Queensland’s $1,500 on $400,000; and Tasmania’s $8,000 on $400,000.
+
+## Who is foreign in each state and territory
+
+An individual who is an Australian citizen, holds a permanent visa or is a New Zealand citizen on a special category visa is not foreign for Queensland, Western Australian, South Australian and Tasmanian duty. New South Wales also requires a permanent resident or New Zealand citizen to have been in Australia 200 days of the previous 12 months (Revenue Ruling G009); Victoria gives a New Zealand citizen no exception unless they ordinarily reside in Australia for 6 consecutive months around settlement. Victorian and Queensland land tax charge absentees: non-citizens without a permanent visa who do not ordinarily reside in Australia and were away on the day or for over 6 months of the year.
+
+A company is foreign when it is incorporated outside Australia, or foreign persons with associates hold 50% or more (more than 50% in Victoria). New South Wales instead asks whether one foreign person with associates holds 20% or more, or foreign persons together 40% or more, wherever the company is incorporated. Trusts and super funds follow the same shares of capital or members’ balances, except that Victoria charges absentee owner surcharge on a fixed trust with any absentee beneficiary and none on a complying super fund.
+
+A discretionary trust is foreign in New South Wales if a foreign person could benefit, now or by amending the deed (section 104JA); in Victoria and Tasmania if foreign persons could be given more than 50%, or 50% or more, of the capital; in Queensland if foreign takers in default hold 50% or more; in Western Australia if a foreign person controls it or foreign takers in default hold 50% or more; in South Australia if a trustee, appointor, named object or taker in default is foreign; and in the ACT only if a named foreign beneficiary could receive 50% or more. Victorian land tax looks only at named (specified) beneficiaries who are absentees.
+
+## What the foreign buyer surcharge calculator leaves to you
+
+The calculator does not decide exemptions, refunds or ex gratia relief, which each Commissioner grants on application: Australian-based developers and build to rent in New South Wales and Victoria, exempt permanent residents who live in the home in New South Wales, significant contributors and large developers in Queensland, and refunds when a buyer stops being foreign within 12 months in South Australia. When one is sought, it refuses. It also refuses a partner (provisional) or retirement visa holder, whom the revenue offices treat differently, and does not trace interests through other companies and trusts or decide who is an associate.
+
+Not covered: the Commonwealth’s foreign investment application fees and its restrictions on foreign purchases of established homes from 1 April 2025, which RevenueSA notes; landholder and corporate trustee acquisitions; concessions on general duty; Queensland’s absentee land tax rates, which replace the general rates; Victorian trust surcharge rates; joint land tax assessments; property converted to residential use later; and a surcharge charged again when a buyer becomes foreign within 3 years. The transfer duty calculator and the land tax calculator work the general duty with first home concessions and the general land tax. Confirm the result with the revenue office or a registered adviser before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Foreign buyer surcharge calculator
+
+Case | Inputs | Result
+Revenue NSW’s examples: 9% of $1,000,000 and 5% of $1,200,000 of land | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,200,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $60,000.00
+SRO Victoria’s Emily: 8% of $200,000; as an absentee, 4% of $400,000 of land | Victoria, individual, temporary visa or none, 0 and 0 days in Australia, away; residential property $200,000.00, land $400,000.00 | Duty surcharge rate 8%, duty surcharge $16,000.00, land tax surcharge $16,000.00
+SRO Victoria’s Clara: a fixed trust half held for absentees pays 4% on half of $1,000,000 of land | Victoria, fixed trust, foreign 50% largest and 50% together; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 8%, duty surcharge $0.00, land tax surcharge $20,000.00
+Queensland: a foreign company pays 8%, and 3% of land value above $350,000 | Queensland, company incorporated overseas, foreign 0% largest and 0% together; residential property $400,000.00, land $400,000.00 | Duty surcharge rate 8%, duty surcharge $32,000.00, land tax surcharge $1,500.00
+Western Australia’s Simon: 7% of $200,000, and no land tax surcharge | Western Australia, individual, temporary visa or none, 0 and 0 days in Australia; residential property $200,000.00, land $200,000.00 | Duty surcharge rate 7%, duty surcharge $14,000.00, land tax surcharge $0.00
+RevenueSA’s Peter: 7% of his half of $600,000 | South Australia, individual, temporary visa or none, 0 and 0 days in Australia; residential property $600,000.00, share $300,000.00, land $600,000.00 | Duty surcharge rate 7%, duty surcharge $21,000.00, land tax surcharge $0.00
+Tasmania: 8% duty and 2% of $400,000 of land | Tasmania, individual, temporary visa or none, 0 and 0 days in Australia; residential property $400,000.00, land $400,000.00 | Duty surcharge rate 8%, duty surcharge $32,000.00, land tax surcharge $8,000.00
+Tasmania: primary production land pays 1.5% duty and no land tax surcharge | Tasmania, individual, temporary visa or none, 0 and 0 days in Australia; primary property $400,000.00, land $400,000.00 | Duty surcharge rate 1.5%, duty surcharge $6,000.00, land tax surcharge $0.00
+The ACT: no duty surcharge; 0.75% of $600,000 of land | Australian Capital Territory, individual, temporary visa or none, 0 and 0 days in Australia; residential property $600,000.00, land $600,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $4,500.00
+The ACT: no land tax surcharge on a foreign owner’s own home | Australian Capital Territory, individual, temporary visa or none, 0 and 0 days in Australia, lives there; residential property $600,000.00, land $600,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
+The Northern Territory charges neither surcharge | Northern Territory, individual, temporary visa or none, 0 and 0 days in Australia; residential property $600,000.00, land $600,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
+New South Wales: a permanent visa holder in Australia 200 days of the 12 months is not foreign | New South Wales, individual, permanent visa, 200 and 200 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $0.00, land tax surcharge $0.00
+New South Wales: 199 days makes the same buyer foreign | New South Wales, individual, permanent visa, 199 and 199 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $50,000.00
+New South Wales: a company 20% held by one foreign person is foreign; Victoria needs more than 50% | New South Wales, company, foreign 20% largest and 20% together; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $50,000.00
+Victoria: the same company 20% foreign held is not foreign | Victoria, company, foreign 20% largest and 20% together; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 8%, duty surcharge $0.00, land tax surcharge $0.00
+New South Wales: a discretionary trust whose deed could admit a foreign beneficiary is foreign | New South Wales, discretionary trust, 0% of capital and 0% in default to foreign persons, deed amendable; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $50,000.00
+Commercial property in New South Wales bears neither surcharge | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia; other property $1,000,000.00, land $1,000,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
+An exemption is refused: each Commissioner decides it | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia, exemption sought; residential property $1,000,000.00, land $1,000,000.00 | Refused: exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, so this page does not work them out
+A partner or retirement visa holder is refused | New South Wales, individual, partner or retirement visa, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Refused: this page does not decide the status of a partner (provisional) or retirement visa holder: each revenue office treats them differently
+
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
+- transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Business days calculator for all Australian states, 2026 and 2027
+
+Source: https://duguid.com.au/tools/business-calculators/business-days/
+
+> Count business days between 2 dates or add or subtract business days, skipping weekends and the public holidays of any Australian state or territory in 2026 and 2027.
+
+# Business days calculator
+
+Business days between 2 dates, or the date a number of business days after or before one, skipping weekends and each state’s public holidays for 2026 and 2027.
+
+Published 18 November 2026. Last checked 18 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Business days inputs, 2026 and 2027
+
+Work out Business days between 2 dates The date a number of business days after the start The date a number of business days before the start Public holidays of Australian Capital Territory New South Wales Northern Territory Queensland South Australia Tasmania Victoria Western Australia Any state or territory: skip a holiday that applies throughout any of them Start date End date, to count between 2 dates Number of business days, to find a date
+
+The count starts the day after the start date and includes the end date. Dates run from 1 January 2026 to 31 December 2027, and to 31 August 2027 for Victoria and for any state or territory.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, start 21 December 2026, end 4 January 2027. Business days after the start, to and including the end 7 Weekday public holidays skipped 25 December 2026 (Christmas Day), 28 December 2026 (Boxing Day / Boxing Day (observed) / Proclamation Day (observed)), 1 January 2027 (New Year's Day) Part-day and regional holidays count as business days; where a local day replaces Melbourne Cup Day or the WA King’s Birthday, the state date is still skipped.
+
+## How the business days calculator works
+
+The calculator skips Saturdays, Sundays and the public holidays of the state or territory you choose, using each government’s published dates for 2026 and 2027. Between 2 dates, it counts the business days after the start date up to and including the end date, so a Friday to the next Monday is 1. Forward or back, it finds the date that is that many business days after or before the start, and lists each weekday holiday it skipped.
+
+‘Any state or territory’ skips a day that is a public holiday throughout any one of them, as the site’s Payday Super business days table counts them, and leaves out Melbourne Cup Day and the WA King’s Birthday because neither applies throughout its state.
+
+## What the business days calculator does not cover
+
+Part-day holidays, such as the evenings of Christmas Eve and New Year’s Eve in South Australia and the Northern Territory, count as business days. So do regional holidays, among them the Royal Queensland Show in Brisbane, Tasmania’s Royal Hobart Regatta and Recreation Day, and show days, and days off for one group only, such as Tasmania’s Easter Tuesday for the public service. A council or region’s local substitute for Melbourne Cup Day or the WA King’s Birthday is not applied: the state date is still skipped.
+
+The calculator does not decide whether a law counts business days, clear days or calendar days, or which state’s holidays apply. Dates after 31 December 2027 are refused until the governments confirm the following year, and Victorian dates after 31 August 2027 until the AFL schedules its Grand Final. The calculator does not work out a superannuation guarantee or Payday Super due date.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Business days calculator
+
+Case | Inputs | Result
+New South Wales over Christmas and New Year: 7 | New South Wales, Monday 21 December 2026 to Monday 4 January 2027 | 7 business days
+Friday to the next Monday is 1 | New South Wales, Friday 13 November 2026 to Monday 16 November 2026 | 1 business day
+The same date is 0 | New South Wales, Wednesday 18 November 2026 to Wednesday 18 November 2026 | 0 business days
+Victoria skips Melbourne Cup Day | Victoria, Monday 2 November 2026 to Wednesday 4 November 2026 | 1 business day
+New South Wales does not | New South Wales, Monday 2 November 2026 to Wednesday 4 November 2026 | 2 business days
+Western Australia skips its King’s Birthday on 28 September 2026 | Western Australia, Friday 25 September 2026 to Tuesday 29 September 2026 | 1 business day
+Any state or territory skips 9 March 2026, a holiday in 4 of them | Any state or territory, Friday 6 March 2026 to Tuesday 10 March 2026 | 1 business day
+10 business days on from 21 December 2026 in New South Wales | New South Wales, 10 business days after Monday 21 December 2026 | 10 business days, date Thursday 7 January 2027
+5 business days back from the Tuesday after Easter 2026 in New South Wales | New South Wales, 5 business days before Tuesday 7 April 2026 | 5 business days, date Friday 27 March 2026
+An end before the start is refused | New South Wales, Wednesday 18 November 2026 to Tuesday 17 November 2026 | Refused: the end date must not be before the start date
+A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
+Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
+
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 

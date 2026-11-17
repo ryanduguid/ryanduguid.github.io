@@ -48,7 +48,7 @@ First home owner grants are payments to the buyer, not duty concessions, and are
 
 ## What the transfer duty calculator does not compute
 
-The transfer duty calculator gives general transfer duty, and duty for an eligible first home buyer of a home. It applies no other concession, exemption or surcharge, does not test whether a buyer is eligible, and does not decide whether a transaction is dutiable or what its dutiable value is. These are not computed:
+The transfer duty calculator gives general transfer duty, and duty for an eligible first home buyer of a home. It applies no other concession, exemption or surcharge, does not test whether a buyer is eligible, and does not decide whether a transaction is dutiable or what its dutiable value is; the foreign purchaser surcharge calculator works out the foreign purchaser duty surcharge. These are not computed:
 
 - New South Wales: duty on land other than residential land over $3,870,000, which the premium rate does not reach (the calculator applies it and says so in its result), the First Home Buyers Assistance Scheme on vacant land, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
 - Victoria: the principal place of residence concession, the first home buyer concession on vacant land, the off-the-plan concession, the City of Melbourne new residential property concession and exemption, the pensioner exemption and concession, and foreign purchaser additional duty.
@@ -90,7 +90,7 @@ No first home buyer concession in Tasmania | Tasmania, $500,000.00, first home b
 The ACT Home Buyer Concession Scheme has no value limit | Australian Capital Territory, $1,500,000.00, first home buyer, established home | Duty $0.00, general duty $68,100.00
 Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -107,4 +107,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Tasmania: https://www.sro.tas.gov.au/first-home-owner
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/

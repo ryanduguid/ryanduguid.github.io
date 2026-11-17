@@ -5063,6 +5063,9 @@ fn the_company_tax_and_surcharge_oracles_work_the_published_examples() {
 
 #[test]
 fn the_company_tax_and_surcharge_engines_agree_with_the_oracles_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
     let mut rng = Seeded(0x2026_1118_0000_C0DE);
     let (mut cases, mut expected): (Vec<_>, Vec<_>) = (0..COMPANY_TAX_CASES)
         .map(|_| company_tax_case(&mut rng))

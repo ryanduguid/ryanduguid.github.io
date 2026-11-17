@@ -1,0 +1,89 @@
+# Foreign buyer duty and land tax surcharge calculator, all states
+
+Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
+
+> Foreign purchaser duty and land tax surcharges for all 8 states and territories, with each one's foreign person test for individuals, companies, trusts and SMSFs.
+
+# Foreign buyer surcharge calculator
+
+Foreign purchaser duty and the foreign owner land tax surcharge in every Australian state and territory, with each one’s test of whether an individual, company, trust or super fund is foreign.
+
+Published 18 November 2026. Last checked 18 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Foreign buyer surcharge inputs for one buyer and one property
+
+State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+
+Who is buying An individual A company The trustee of a fixed or unit trust The trustee of a discretionary (family) trust The trustee of a complying self-managed super fund What the property is used for Residential, vacant residential land included Primary production Commercial or other Dutiable value of the whole property (whole dollars) Dutiable value of this buyer’s share (whole dollars) Land value for land tax: all the buyer’s taxable land in the state or territory, their share only (whole dollars)
+
+An individual: citizenship or visa Australian citizen Permanent visa New Zealand citizen on a special category visa (subclass 444) Another visa, temporary or bridging, or none Partner (provisional) visa 309 or 820, or retirement visa 405 or 410 New South Wales duty: days in Australia in the 12 months before the contract New South Wales land tax: days in Australia in the 12 months to the next 31 December Victorian duty, New Zealand citizen: ordinarily resident in Australia for 6 consecutive months within the 12 months before or after settlement? No Yes Ordinarily resides in Australia (Victorian and Queensland land tax, ACT)? No Yes Away from Australia on the land tax day, or for over 6 months of the year before it (Victoria: 31 December and the calendar year; Queensland: 30 June and the financial year)? No Yes ACT: will live in the home as their principal place of residence? No Yes
+
+A company: incorporated outside Australia? No Yes Company, trust or fund: largest interest held by one foreign person with associates (%) Company, trust or fund: interests of all foreign persons together, with associates (%) Discretionary trust: most of the capital the trustee could give foreign persons (%) Discretionary trust: foreign takers in default’s share (%) Discretionary trust: could the deed be amended so a foreign person can benefit? No Yes Discretionary trust: is a foreign person a trustee or appointor, or in control of the trust? No Yes Discretionary trust: is a beneficiary, object or taker in default named in the deed a foreign person (for Victorian land tax, an absentee)? No Yes Is an exemption, refund or ex gratia relief from a surcharge being sought? No Yes
+
+Only the answers for the buyer chosen and the state or territory chosen are used. Each revenue office decides the dutiable value and who is foreign; the general duty uses the transfer duty rate table.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, an individual: another visa or none, residential property worth $1,000,000.00, buyer’s share $1,000,000.00, land value for land tax $1,200,000.00. Foreign purchaser duty surcharge at 9% of the buyer’s share $90,000.00 Duty surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) General transfer duty on the whole property, all buyers $39,187.00 Land tax surcharge for a full year $60,000.00 Land tax surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign.
+
+## How the foreign buyer surcharge calculator works
+
+The calculator applies the chosen state or territory’s own test of who is foreign to your answers, once for its duty surcharge and once for its land tax surcharge, as each revenue office states them. The duty surcharge is its rate times the dutiable value of the buyer’s share: 9% in New South Wales, 8% in Victoria, Queensland and Tasmania (1.5% on Tasmanian primary production land), and 7% in Western Australia and South Australia. The ACT and the Northern Territory charge none.
+
+The land tax surcharge is for a full land tax year on the land value you enter: 5% in New South Wales, 4% in Victoria from $50,000 of taxable land ($25,000 for a trust), 3% of the value over $350,000 in Queensland, 2% in Tasmania and 0.75% in the ACT. Western Australia and South Australia charge none, and the Northern Territory has no land tax. Victoria charges a fixed trust’s surcharge on the land held for absentee beneficiaries only. The general transfer duty is worked on the whole property, for all buyers together, at the general rates.
+
+The calculator reproduces the revenue offices’ examples: Revenue NSW’s $90,000 of surcharge purchaser duty and $39,187 of transfer duty on $1 million, and $60,000 of surcharge land tax on $1.2 million; Victoria’s $80,000 for Andrew, $16,000 for Emily’s $200,000 share and $20,000 for Clara’s half of a fixed trust’s $1 million; RevenueSA’s $42,000 and $21,000 for Peter; Western Australia’s $14,000 for Simon; Queensland’s $1,500 on $400,000; and Tasmania’s $8,000 on $400,000.
+
+## Who is foreign in each state and territory
+
+An individual who is an Australian citizen, holds a permanent visa or is a New Zealand citizen on a special category visa is not foreign for Queensland, Western Australian, South Australian and Tasmanian duty. New South Wales also requires a permanent resident or New Zealand citizen to have been in Australia 200 days of the previous 12 months (Revenue Ruling G009); Victoria gives a New Zealand citizen no exception unless they ordinarily reside in Australia for 6 consecutive months around settlement. Victorian and Queensland land tax charge absentees: non-citizens without a permanent visa who do not ordinarily reside in Australia and were away on the day or for over 6 months of the year.
+
+A company is foreign when it is incorporated outside Australia, or foreign persons with associates hold 50% or more (more than 50% in Victoria). New South Wales instead asks whether one foreign person with associates holds 20% or more, or foreign persons together 40% or more, wherever the company is incorporated. Trusts and super funds follow the same shares of capital or members’ balances, except that Victoria charges absentee owner surcharge on a fixed trust with any absentee beneficiary and none on a complying super fund.
+
+A discretionary trust is foreign in New South Wales if a foreign person could benefit, now or by amending the deed (section 104JA); in Victoria and Tasmania if foreign persons could be given more than 50%, or 50% or more, of the capital; in Queensland if foreign takers in default hold 50% or more; in Western Australia if a foreign person controls it or foreign takers in default hold 50% or more; in South Australia if a trustee, appointor, named object or taker in default is foreign; and in the ACT only if a named foreign beneficiary could receive 50% or more. Victorian land tax looks only at named (specified) beneficiaries who are absentees.
+
+## What the foreign buyer surcharge calculator leaves to you
+
+The calculator does not decide exemptions, refunds or ex gratia relief, which each Commissioner grants on application: Australian-based developers and build to rent in New South Wales and Victoria, exempt permanent residents who live in the home in New South Wales, significant contributors and large developers in Queensland, and refunds when a buyer stops being foreign within 12 months in South Australia. When one is sought, it refuses. It also refuses a partner (provisional) or retirement visa holder, whom the revenue offices treat differently, and does not trace interests through other companies and trusts or decide who is an associate.
+
+Not covered: the Commonwealth’s foreign investment application fees and its restrictions on foreign purchases of established homes from 1 April 2025, which RevenueSA notes; landholder and corporate trustee acquisitions; concessions on general duty; Queensland’s absentee land tax rates, which replace the general rates; Victorian trust surcharge rates; joint land tax assessments; property converted to residential use later; and a surcharge charged again when a buyer becomes foreign within 3 years. The transfer duty calculator and the land tax calculator work the general duty with first home concessions and the general land tax. Confirm the result with the revenue office or a registered adviser before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Foreign buyer surcharge calculator
+
+Case | Inputs | Result
+Revenue NSW’s examples: 9% of $1,000,000 and 5% of $1,200,000 of land | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,200,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $60,000.00
+SRO Victoria’s Emily: 8% of $200,000; as an absentee, 4% of $400,000 of land | Victoria, individual, temporary visa or none, 0 and 0 days in Australia, away; residential property $200,000.00, land $400,000.00 | Duty surcharge rate 8%, duty surcharge $16,000.00, land tax surcharge $16,000.00
+SRO Victoria’s Clara: a fixed trust half held for absentees pays 4% on half of $1,000,000 of land | Victoria, fixed trust, foreign 50% largest and 50% together; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 8%, duty surcharge $0.00, land tax surcharge $20,000.00
+Queensland: a foreign company pays 8%, and 3% of land value above $350,000 | Queensland, company incorporated overseas, foreign 0% largest and 0% together; residential property $400,000.00, land $400,000.00 | Duty surcharge rate 8%, duty surcharge $32,000.00, land tax surcharge $1,500.00
+Western Australia’s Simon: 7% of $200,000, and no land tax surcharge | Western Australia, individual, temporary visa or none, 0 and 0 days in Australia; residential property $200,000.00, land $200,000.00 | Duty surcharge rate 7%, duty surcharge $14,000.00, land tax surcharge $0.00
+RevenueSA’s Peter: 7% of his half of $600,000 | South Australia, individual, temporary visa or none, 0 and 0 days in Australia; residential property $600,000.00, share $300,000.00, land $600,000.00 | Duty surcharge rate 7%, duty surcharge $21,000.00, land tax surcharge $0.00
+Tasmania: 8% duty and 2% of $400,000 of land | Tasmania, individual, temporary visa or none, 0 and 0 days in Australia; residential property $400,000.00, land $400,000.00 | Duty surcharge rate 8%, duty surcharge $32,000.00, land tax surcharge $8,000.00
+Tasmania: primary production land pays 1.5% duty and no land tax surcharge | Tasmania, individual, temporary visa or none, 0 and 0 days in Australia; primary property $400,000.00, land $400,000.00 | Duty surcharge rate 1.5%, duty surcharge $6,000.00, land tax surcharge $0.00
+The ACT: no duty surcharge; 0.75% of $600,000 of land | Australian Capital Territory, individual, temporary visa or none, 0 and 0 days in Australia; residential property $600,000.00, land $600,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $4,500.00
+The ACT: no land tax surcharge on a foreign owner’s own home | Australian Capital Territory, individual, temporary visa or none, 0 and 0 days in Australia, lives there; residential property $600,000.00, land $600,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
+The Northern Territory charges neither surcharge | Northern Territory, individual, temporary visa or none, 0 and 0 days in Australia; residential property $600,000.00, land $600,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
+New South Wales: a permanent visa holder in Australia 200 days of the 12 months is not foreign | New South Wales, individual, permanent visa, 200 and 200 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $0.00, land tax surcharge $0.00
+New South Wales: 199 days makes the same buyer foreign | New South Wales, individual, permanent visa, 199 and 199 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $50,000.00
+New South Wales: a company 20% held by one foreign person is foreign; Victoria needs more than 50% | New South Wales, company, foreign 20% largest and 20% together; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $50,000.00
+Victoria: the same company 20% foreign held is not foreign | Victoria, company, foreign 20% largest and 20% together; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 8%, duty surcharge $0.00, land tax surcharge $0.00
+New South Wales: a discretionary trust whose deed could admit a foreign beneficiary is foreign | New South Wales, discretionary trust, 0% of capital and 0% in default to foreign persons, deed amendable; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $50,000.00
+Commercial property in New South Wales bears neither surcharge | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia; other property $1,000,000.00, land $1,000,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
+An exemption is refused: each Commissioner decides it | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia, exemption sought; residential property $1,000,000.00, land $1,000,000.00 | Refused: exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, so this page does not work them out
+A partner or retirement visa holder is refused | New South Wales, individual, partner or retirement visa, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Refused: this page does not decide the status of a partner (provisional) or retirement visa holder: each revenue office treats them differently
+
+One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
+- transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
+- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
