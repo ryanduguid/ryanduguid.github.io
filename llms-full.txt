@@ -11703,7 +11703,7 @@ Source: https://duguid.com.au/tools/individual-tax/take-home-pay/
 
 # Take-home pay calculator
 
-Take-home pay from a salary a year, month, fortnight or week, after salary sacrifice to super and the year’s tax, levies and any study loan repayment, with super guarantee and the PAYG withheld from a 2026-27 pay, for 2021-22 to 2026-27.
+Take-home pay for 2021-22 to 2026-27 after salary sacrifice, tax, levies and study loan, with super guarantee and the PAYG withheld from a 2026-27 pay.
 
 Published 17 November 2026. Last checked 18 November 2026.
 
