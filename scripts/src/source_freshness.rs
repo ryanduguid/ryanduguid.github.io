@@ -157,12 +157,11 @@ pub fn last_commit_date(
         None,
     )?;
     let answer = node::trim(&answer);
-    let iso = node::slice(answer, 10);
-    if !ISO_DATE.is_match(&iso) {
+    // GitHub answers in UTC; stamps, like release dates, are Sydney dates.
+    sydney_date(answer).map_err(|_| {
         let shown = if answer.is_empty() { "(empty)" } else { answer };
-        return Err(format!("{endpoint}: expected a commit date, got {shown}"));
-    }
-    Ok(iso)
+        format!("{endpoint}: expected a commit date, got {shown}")
+    })
 }
 
 /// The last commit date of (owner, repo, path), as `last_commit_date` finds it.
@@ -200,7 +199,7 @@ pub fn stamp_html(html: &str, lookup: &mut CommitDate<'_>) -> Result<String, Str
     Ok(stamped)
 }
 
-/// What is wrong with the committed stamps, given today's UTC date.
+/// What is wrong with the committed stamps, given today's Sydney date.
 pub fn check_html(html: &str, today: &str) -> Vec<String> {
     let mut failures = Vec::new();
     let mut cards = 0;
@@ -989,7 +988,9 @@ impl Host for System {
     }
 
     fn today(&self) -> String {
-        jiff::Timestamp::now().strftime("%Y-%m-%d").to_string()
+        // In Sydney, like the stamps, so an early-morning stamp is not in the future.
+        let date = crate::rates_register::today();
+        format!("{:04}-{:02}-{:02}", date.year, date.month, date.day)
     }
 
     fn build_site(&mut self, root: &Path) -> Result<(), String> {
