@@ -35,7 +35,7 @@ pub const CI_MANUAL_URLS: [&str; 17] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 186] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -111,9 +111,12 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 186] = [
     "https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business",
     "https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business/starting-your-own-business/are-you-in-business",
     "https://www.ato.gov.au/businesses-and-organisations/super-for-employers",
+    "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/missed-or-late-payday-super-payments/what-happens-if-you-dont-pay-super-correctly",
     "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/missed-or-late-payday-super-payments/what-to-do-if-you-miss-a-payday-super-contribution",
+    "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/missed-or-late-payday-super-payments/what-to-do-if-you-miss-a-payday-super-contribution/making-a-voluntary-disclosure-for-payday-super",
     "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super",
     "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/what-payments-are-qualifying-earnings/maximum-contributions-base",
+    "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/quarterly-super-to-30-june-2026/super-guarantee-employer-obligations-online-course/module-6-rectifying-late-payments",
     "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/work-out-if-you-have-to-pay-super/super-for-independent-contractors",
     "https://www.ato.gov.au/businesses-and-organisations/trusts",
     "https://www.ato.gov.au/businesses-and-organisations/trusts/trust-income-losses-and-capital-gains/resolutions-checklist",
@@ -126,6 +129,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 186] = [
     "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator",
     "https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form",
     "https://www.ato.gov.au/forms-and-instructions/fringe-benefits-tax-return-2026-instructions/item-23-fringe-benefit-categories-for-fbt-return-2026",
+    "https://www.ato.gov.au/forms-and-instructions/guide-to-completing-the-super-guarantee-charge-statement",
     "https://www.ato.gov.au/forms-and-instructions/payg-instalments-how-to-complete-your-activity-statement",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim",
@@ -174,6 +178,8 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 186] = [
     // Still HTTP 403 on hosted CI in run 44173032679 (18 November 2026).
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2025/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption",
     "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
+    // HTTP 403 on hosted CI for pull request 619's check run (18 November 2026).
+    "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20263%2FNAT%2FATO%2F00001",
     "https://www.ato.gov.au/law/view/document?docid=COG/PCG20183/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=COG/PCG20214/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=LCD/LCTD20231/NAT/ATO/00001",

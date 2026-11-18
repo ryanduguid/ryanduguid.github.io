@@ -6,13 +6,13 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Twenty-eight calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Twenty-nine calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last checked 17 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 18 November 2026, the newest of the calculators’ source checks.
 
 ## Pricing, planning and loans
 
@@ -44,6 +44,7 @@ Published 11 September 2026. Last checked 17 November 2026, the newest of the ca
 
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
+- SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 
 ## Objections, instalments, termination, land tax and duty
 
@@ -81,6 +82,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/

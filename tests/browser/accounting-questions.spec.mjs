@@ -697,6 +697,33 @@ test('GIC payment plan works a weekly plan and one past the published rates offl
   await expect(form.locator('.field-error')).toHaveText('Enter 120 or less.');
 });
 
+test('SGC page works a Payday Super charge, an old-law quarter and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/sgc-payday/');
+  const form = page.locator('#sgc-payday form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  // Part paid late after an ATO-initiated assessment, disclosed on day 29: 60% less 40 points.
+  await form.getByLabel('Payday', { exact: true }).fill('2026-08-06');
+  await form.getByLabel('Qualifying earnings (AUD)').fill('6500');
+  await form.getByLabel('Received late (AUD)').fill('540');
+  await form.getByLabel('Late receipt date').fill('2026-09-02');
+  await form.getByLabel('Assessment date').fill('2026-12-10');
+  await form.getByLabel('Yes', { exact: true }).check();
+  await form.getByLabel('Lodged', { exact: true }).check();
+  await form.getByLabel('Disclosure date').fill('2026-09-04');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('SG charge for the payday, before any choice loading: $322.16.');
+  await expect(form.locator('output')).toContainText('Administrative uplift, 20%: $53.69.');
+  // A contribution received on the due date is refused, not counted as late.
+  await form.getByLabel('Late receipt date').fill('2026-08-17');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('A contribution the fund received by the due date is on time: add it to the on-time amount.');
+  // The old law: one of Imogen's 30 employees in quarter 1 of 2025-26.
+  await form.getByLabel('Quarterly, 2022-23 to 2025-26').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('SG charge for the quarter: $1,519.18.');
+});
+
 // TR 2022/3 example 22 (paragraphs 210 to 214): Kevin's brother's company is an associate, and Pebbles and
 // GemCo found him through his website; equal thirds are this test's figures. Then an agent paid 75% commission,
 // whom section 87-40 may cover, is refused.
@@ -848,7 +875,7 @@ test('transfer duty takes a first home buyer chosen by keyboard and says where t
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
-  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination'];
+  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'sgc-payday'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
