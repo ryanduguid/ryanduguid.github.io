@@ -168,7 +168,7 @@
       "86f5b0ff1e4b4d0e186d3618e5a14afff83676fbf6740a4d258e5a4dd0912673"
     ],
     "tools/business-calculators/index.html": [
-      "1a8775f2243ae4965917fe96c6118c8dc1d311d3bb1f956d84dde02ad4e591f8"
+      "9e1d328cc9c552f1c04e273e35fa62f03b707d0f81813d7149db4fbc59f67de7"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
@@ -196,6 +196,9 @@
     ],
     "tools/business-calculators/psi-determination/index.html": [
       "48d9efcea35f393ed85e18c36550a81325c64291ad8b8292addb5b662017de4e"
+    ],
+    "tools/business-calculators/sgc-payday/index.html": [
+      "7239480ac9b3d488803ae616c4a77491c297acb75d02af1b0b59b0983887c926"
     ],
     "tools/business-calculators/staff/index.html": [
       "18cb2ea2bdf64673742c95515d6085dac73f05327d8f54c68bd7c2879d0dc2fe"
@@ -298,9 +301,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "4c70e82457330ec144094a08d8407c45820b903310b04f3e4322340b3059b214",
+    "llms.txt": "6fe6a8b1928cac2c5b3801759abeb8e1258f148a27a1b388348e2f223b0d96d6",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "56ed8e3f9367954bd11d542450ac4fa0f52b6acf6887634159192bba028997a1"
+    "sitemap.xml": "2264e0b4086e67eed20f8243c7204c9cf0476051d0e8654ffe3a6437064018d2"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -360,7 +363,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7768,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7769,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

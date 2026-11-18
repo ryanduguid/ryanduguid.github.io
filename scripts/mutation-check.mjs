@@ -34,6 +34,7 @@ const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
 const psi = { ...business, file: 'assets/psi-determination.mjs' };
 const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
 const payroll = { ...business, file: 'assets/payroll-tax.mjs' };
+const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -328,6 +329,32 @@ const MUTATIONS = [
   { ...payroll, name: 'payroll tax accepts Australian wages below the state wages', find: 'if (all < own)', replace: 'if (false)' },
   { ...payroll, name: 'payroll tax blank Australian wages are twice the state wages', find: "australian.trim() === '' ? own", replace: "australian.trim() === '' ? own * 2n" },
   { ...payroll, name: 'payroll tax total leaves out the surcharges and levies', find: '(payroll + cents(first) + cents(second)) / 100', replace: 'payroll / 100' },
+  { ...sgc, name: 'SGC due date counts 6 business days', find: "const usual = [businessDaysAfter(qe, 7), '7", replace: "const usual = [businessDaysAfter(qe, 6), '7" },
+  { ...sgc, name: 'SGC due date ignores public holidays', find: '&& !HOLIDAYS.has(day)', replace: '&& true' },
+  { ...sgc, name: 'SGC exceptional circumstances take the earlier date', find: 'Math.max(businessDaysAfter(qe, 20), businessDaysAfter(made, 20))', replace: 'Math.min(businessDaysAfter(qe, 20), businessDaysAfter(made, 20))' },
+  { ...sgc, name: 'SGC out-of-cycle earnings run from their own payday', find: "return [businessDaysAfter(next, 7), '7", replace: "return [businessDaysAfter(qe, 7), '7" },
+  { ...sgc, name: 'SGC first contribution gets 7 business days', find: "first: () => [businessDaysAfter(qe, 20), '20", replace: "first: () => [businessDaysAfter(qe, 7), '20" },
+  { ...sgc, name: 'SGC out-of-cycle earnings under a determination drop item 2', find: "'out-of-cycle-exceptional': ['out-of-cycle', 'exceptional']", replace: "'out-of-cycle-exceptional': ['exceptional']" },
+  { ...sgc, name: 'SGC a first out-of-cycle contribution drops item 1', find: "'first-out-of-cycle': ['first', 'out-of-cycle']", replace: "'first-out-of-cycle': ['out-of-cycle']" },
+  { ...sgc, name: 'SGC combined periods take the first, not the latest', find: '(period[0] > latest[0] ? period : latest), usual)', replace: '(latest[0] === usual[0] ? period : latest), usual)' },
+  { ...sgc, name: 'SGC ignores the maximum contributions base', find: 'Math.min(earnings, Math.max(0, MAXIMUM_BASE_2026_27 - cents(inputs.earlier)))', replace: 'earnings' },
+  { ...sgc, name: 'SGC notional earnings run on the final shortfall', find: 'const notional = compoundedEarnings(base, rates);', replace: 'const notional = compoundedEarnings(final, rates);' },
+  { ...sgc, name: 'SGC notional earnings include the assessment day', find: 'received : assessment - 1;', replace: 'received : assessment;' },
+  { ...sgc, name: 'SGC notional earnings stop the day before receipt', find: '? received : assessment - 1;', replace: '? received - 1 : assessment - 1;' },
+  { ...sgc, name: 'SGC notional earnings compound on simple interest', find: '[grown, scale] = [grown * (whole + BigInt(rate)), scale * whole];', replace: '[grown, scale] = [grown + BigInt(base) * BigInt(rate) * scale / whole, scale];' },
+  { ...sgc, name: 'SGC disclosure periods count from the day after payday', find: '[[29, 40], [59, 35], [119, 30]', replace: '[[30, 40], [60, 35], [120, 30]' },
+  { ...sgc, name: 'SGC a first offence keeps the full uplift', find: "60 - (inputs.assessed === 'no' ? 20 : 0)", replace: '60' },
+  { ...sgc, name: 'SGC uplift leaves out notional earnings', find: 'BigInt(final + notional) * BigInt(upliftPercent)', replace: 'BigInt(final) * BigInt(upliftPercent)' },
+  { ...sgc, name: 'SGC a contribution on the due date counts as late', find: 'if (received <= dueDay)', replace: 'if (received < dueDay)' },
+  { ...sgc, name: 'SGC late contributions on the assessment day count', find: 'if (received >= assessment) {', replace: 'if (received > assessment) {' },
+  { ...sgc, name: 'SGC nil earnings pass', find: 'if (earnings === 0) throw', replace: 'if (false) throw' },
+  { ...sgc, name: 'SGC quarterly interest ignores a late statement', find: 'Math.max(lodgmentDay, lodged)', replace: 'lodgmentDay' },
+  { ...sgc, name: 'SGC quarterly interest divides by 366 days', find: '10n, 36500n', replace: '10n, 36600n' },
+  { ...sgc, name: 'SGC quarterly contributions reduce by salary or wages', find: 'percent * ote - 10000 * contributions', replace: 'percent * wages - 10000 * contributions' },
+  { ...sgc, name: 'SGC quarterly salary or wages are not capped', find: 'const wages = Math.min(cents(inputs.wages), maximum);', replace: 'const wages = cents(inputs.wages);' },
+  { ...sgc, name: 'SGC quarterly administration applies with no shortfall', find: 'shortfall > 0 ? 2000 : 0', replace: '2000' },
+  { ...sgc, name: 'SGC quarterly lodgment day is the 28th of the next month', find: 'Date.UTC(first, month + 4, 28)', replace: 'Date.UTC(first, month + 3, 28)' },
+  { ...sgc, name: 'SGC quarterly 29 February is not refused', find: "if (isoOf(day).endsWith('-02-29')) {", replace: 'if (false) {' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -348,7 +375,7 @@ try {
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
-    'rates/maximum-contribution-base', 'rates/car-limit', 'llms.txt', '.well-known/llms.txt',
+    'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', '_data/payday_super_business_days.json', 'llms.txt', '.well-known/llms.txt',
     'scripts/fbt-engine-differential.json', 'scripts/payg-withholding-sample.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }

@@ -40,7 +40,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the twenty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -49,4 +49,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- twenty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- twenty-nine business calculators: https://duguid.com.au/tools/business-calculators/
