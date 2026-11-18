@@ -11927,11 +11927,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Super guarantee charge inputs for one employee
 
-Law Payday Super, 2026-27 Quarterly, 2022-23 to 2025-26 Payday Time the fund has 7 business days 20 business days: first contribution to this fund Out of cycle ATO determination Next regular payday (out of cycle) Determination date Qualifying earnings (AUD) Earlier earnings in 2026-27 (AUD) Received on time (AUD) Received late (AUD) Late receipt date Assessment date Earlier ATO-initiated assessment or estimate No Yes Voluntary disclosure None Lodged Disclosure date GIC rate after 2026 (%) Income year 2022-23 (10.5%) 2023-24 (11%) 2024-25 (11.5%) 2025-26 (12%) Quarter July to September October to December January to March April to June Salary or wages (AUD) Ordinary time earnings (AUD) Contributions within 28 days (AUD) SGC statement lodged
+Law Payday Super, 2026-27 Quarterly, 2022-23 to 2025-26 Payday Time the fund has 7 business days 20 business days: first contribution to this fund Out of cycle ATO determination Next regular payday (out of cycle) Determination date Qualifying earnings (AUD) Earlier earnings in 2026-27 (AUD) Received on time (AUD) Received late (AUD) Late receipt date Assessment date ATO-initiated assessment or estimate by payday No Yes Voluntary disclosure None Lodged Disclosure date GIC rate after 2026 (%) Income year 2022-23 (10.5%) 2023-24 (11%) 2024-25 (11.5%) 2025-26 (12%) Quarter July to September October to December January to March April to June Salary or wages (AUD) Ordinary time earnings (AUD) Contributions within 28 days (AUD) SGC statement lodged
 
 Each law and choice reads only its own fields. Business days are from the Payday Super calendar; GIC rates from the GIC table.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: payday 30 July 2026, the usual 7 business days, qualifying earnings $1,000.00, on time $0.00, late $120.00, assessment 1 December 2026, no ATO-initiated assessment or estimate since 1 July 2026, no voluntary disclosure. Fund must receive it by (7 business days after payday) Tuesday 11 August 2026 SG amount, 12% $120.00 Late contributions received Tuesday 25 August 2026, 14 days late Business days from payday to receipt 17 Base shortfall $120.00 Late contributions applied $120.00 Final shortfall $0.00 Notional earnings, 14 days to 25 August 2026 $0.53 Administrative uplift, 40% $0.21 SG charge for the payday, before any choice loading $0.74
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: payday 30 July 2026, the usual 7 business days, qualifying earnings $1,000.00, on time $0.00, late $120.00, assessment 1 December 2026, no ATO-initiated assessment or estimate from 1 July 2026 to the payday, no voluntary disclosure. Fund must receive it by (7 business days after payday) Tuesday 11 August 2026 SG amount, 12% $120.00 Late contributions received Tuesday 25 August 2026, 14 days late Business days from payday to receipt 17 Base shortfall $120.00 Late contributions applied $120.00 Final shortfall $0.00 Notional earnings, 14 days to 25 August 2026 $0.53 Administrative uplift, 40% $0.21 SG charge for the payday, before any choice loading $0.74
 
 ## How the SGC and Payday Super calculator works
 
@@ -11944,6 +11944,7 @@ The calculator gives an estimate for one employee and one payday or quarter, and
 - the choice loading for not meeting choice of fund obligations;
 - the late payment offset under the old section 23A for quarterly contributions made late;
 - bunched contributions under section 18C(2) item 4;
+- a contribution made from 1 to 28 July 2026 that item 186 of the transition applies first to a shortfall for the quarter ending 30 June 2026: count only what is left of it;
 - a disclosed contribution with no receipt day, whose notional earnings section 36(3) works out as if the fund received it 7 business days after it was paid;
 - exemption certificates, and amounts paid that have not reached the fund;
 - GIC and penalties once the charge is payable;
