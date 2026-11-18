@@ -2649,7 +2649,7 @@ test('the payroll tax page opens on the result its calculation gives for the for
 const SURCHARGE_STATUS = { citizen: 'Australian citizen', permanent: 'permanent visa', nz: 'New Zealand citizen on a special category visa',
   other: 'temporary visa or none', partner: 'partner or retirement visa' };
 const SURCHARGE_ANSWERS = { nzResident: 'resides 6 months', resides: 'ordinarily resident', absent: 'away', home: 'lives there',
-  amendable: 'deed amendable', control: 'foreign control', named: 'foreign named beneficiary', exemption: 'exemption sought' };
+  amendable: 'deed amendable', control: 'foreign trustee or appointor', named: 'foreign named beneficiary', exemption: 'exemption sought' };
 const BUSINESS_DAY_PLACE_NAMES = { ...Object.fromEntries(Object.entries(PLACES).map(([code, name]) => [code.slice(3), name])),
   any: 'Any state or territory' };
 Object.assign(INPUTS, {

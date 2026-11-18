@@ -144,7 +144,7 @@ function majorityTest(b, place) {
   const [capital, defaults] = [hundredths(b.capital), hundredths(b.defaults)];
   const rules = {
     'AU-QLD': [atLeast(defaults, 50), `foreign takers in default hold ${b.defaults}%, against 50% or more`],
-    'AU-WA': [b.control || atLeast(defaults, 50), `${b.control ? 'a foreign person controls the trust' : 'no foreign person controls the trust'}, and foreign takers in default hold ${b.defaults}%, against 50% or more`],
+    'AU-WA': [b.control || atLeast(defaults, 50), `${b.control ? 'a foreign trustee or appointor controls the trust' : 'no trustee or appointor is foreign'}, and foreign takers in default hold ${b.defaults}%, against 50% or more`],
     'AU-SA': [b.control || b.named || defaults > 0n, 'foreign if a trustee, an appointor, a named object or a taker in default is a foreign person'],
     'AU-TAS': [atLeast(capital, 50), `the trustee could give foreign persons ${b.capital}% of the capital, against 50% or more`],
     'AU-ACT': [b.named && atLeast(capital, 50), `only a foreign person named in the deed counts, at the most they could receive: ${b.named ? `${b.capital}%` : 'none named'}, against 50% or more`],

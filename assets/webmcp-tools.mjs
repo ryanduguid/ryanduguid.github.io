@@ -236,7 +236,7 @@ const SURCHARGE_FLAGS = {
   home: 'ACT: the individual will live in the home as their principal place of residence.',
   overseas: 'A company incorporated outside Australia.',
   amendable: 'Discretionary trust: the deed could be amended so a foreign person can benefit.',
-  control: 'Discretionary trust: a foreign person is a trustee or appointor, or controls the trust.',
+  control: 'Discretionary trust: a foreign person is a trustee or appointor.',
   named: 'Discretionary trust: a beneficiary, object or taker in default named in the deed is a foreign person (for Victorian land tax, an absentee).',
 };
 
