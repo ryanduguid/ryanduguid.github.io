@@ -225,7 +225,7 @@
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
     ],
     "tools/individual-tax/income-tax/index.html": [
-      "611029bf6149819b47910ed995a6c22c533de20688d3a4acf0680ccf02dbf04c"
+      "aed04320a1e984625737411e6688f860dd30308e78cf544b438f407c0cbf2037"
     ],
     "tools/individual-tax/index.html": [
       "5703434a1b42669cce63c44a6e8619ddaa75e93efc74bc9a66c6d23c9664aea7"
@@ -298,7 +298,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "74f2500921326affd0fd3805b9ec93a7d237cf2bd5e2c2db93db05386d29c24c",
+    "llms.txt": "4c70e82457330ec144094a08d8407c45820b903310b04f3e4322340b3059b214",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "56ed8e3f9367954bd11d542450ac4fa0f52b6acf6887634159192bba028997a1"
   },
