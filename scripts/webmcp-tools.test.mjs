@@ -331,7 +331,8 @@ test('foreign surcharge tool returns the page worked example and refuses what th
 const individual = individualTaxTools(individualEngines);
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
-  assert.deepEqual(Object.values(individual).map(t => t.name), ['estimate_income_tax', 'calculate_take_home_pay']);
+  assert.deepEqual(Object.values(individual).map(t => t.name), ['estimate_income_tax', 'calculate_take_home_pay',
+    'calculate_division_293_tax']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -390,4 +391,23 @@ test('individual tax tools refuse a year they do not offer, cents of taxable inc
     /no more than the salary/);
   await assert.rejects(pay.execute({ incomeYear: '2026-27', residency: 'resident', salary: '1', payPeriod: 'quarter' }),
     /payPeriod does not match/);
+});
+
+test('Division 293 tool gives the ATO’s example and refuses what the page refuses', async () => {
+  const tool = individual['division-293'];
+  const jan = await tool.execute({ incomeYear: '2026-27', accumulationOnly: true, taxableIncome: 240000,
+    concessionalContributions: '15000' });
+  assert.deepEqual([jan.division293Income, jan.taxableContributions, jan.division293Tax, jan.source],
+    ['240000.00', '5000.00', '750.00', 'https://duguid.com.au/tools/individual-tax/division-293/']);
+  const carried = await tool.execute({ incomeYear: '2026-27', accumulationOnly: true, taxableIncome: 210000,
+    reportableFringeBenefits: 33000, concessionalContributions: '45000', unusedCapCarriedForward: '20000',
+    totalSuperBalanceUnder500k: true });
+  assert.deepEqual([carried.unusedCapApplied, carried.excessConcessionalContributions, carried.division293Tax],
+    ['12500.00', '0.00', '5700.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', accumulationOnly: false, taxableIncome: 1, concessionalContributions: '1' }),
+    /Subdivisions 293-D to 293-F/);
+  await assert.rejects(tool.execute({ incomeYear: '2027-28', accumulationOnly: true, taxableIncome: 1, concessionalContributions: '1' }),
+    /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', accumulationOnly: true, taxableIncome: 1 }), /concessionalContributions/);
+  assert.match(tool.description, /defined benefit interests/);
 });

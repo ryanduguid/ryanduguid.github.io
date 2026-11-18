@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! An independent oracle for the individual tax engines: `assets/income-tax.mjs`,
-//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs` and `assets/payg-withholding.mjs`.
+//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs` and
+//! `assets/division-293.mjs`.
 //! Seeded fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser modules return under Node.
 //!
@@ -32,6 +33,7 @@ const HARNESS: &str = r"
 import { incomeTax, medicareLevySurcharge } from './assets/income-tax.mjs';
 import { studyLoanRepayment } from './assets/study-loan.mjs';
 import { takeHomePay } from './assets/take-home-pay.mjs';
+import { division293Tax } from './assets/division-293.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const cents = (result) => result === null ? null : Object.fromEntries(Object.entries(result)
@@ -43,6 +45,7 @@ const run = {
     super: '0', foreign: '0' }, year)),
   pay: ({ pay }) => cents(takeHomePay(pay)),
   mls: ({ mls }) => cents(medicareLevySurcharge(mls)),
+  d293: ({ d293 }) => cents(division293Tax(d293)),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 ";
@@ -59,6 +62,7 @@ const TAX_CASES: usize = 700;
 const LOAN_CASES: usize = 400;
 const PAY_CASES: usize = 600;
 const MLS_CASES: usize = 400;
+const DIVISION_293_CASES: usize = 600;
 
 /// A fixed sequence (xorshift64*), so a failure names a case that reappears on a rerun.
 struct Seeded(u64);
@@ -741,6 +745,111 @@ fn the_take_home_pay_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 "includesSuper": p.included, "sacrifice": money(sacrifice), "studyLoan": p.loan,
                 "hospitalCover": p.cover});
             (json!({"kind": "pay", "pay": pay}), pay_oracle(&p))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+/// The general concessional contributions cap in whole dollars, typed from the ATO's 'Contributions
+/// caps' (Table 1.1, last updated 11 September 2026, read 19 November 2026).
+fn concessional_cap(year: &str) -> u64 {
+    match year {
+        "2021-22" | "2022-23" | "2023-24" => 27_500,
+        "2024-25" | "2025-26" => 30_000,
+        _ => 32_500,
+    }
+}
+
+/// One Division 293 case in whole dollars, except the contributions and unused cap in cents.
+struct D293<'a> {
+    year: &'a str,
+    parts: [u64; 6],
+    concessional: u64,
+    unused: u64,
+    under: bool,
+}
+
+/// Division 293 tax by the Acts' own order, in cents: s 291-20(3) and (4) raise the cap by the
+/// unused amount when the balance allows, and the excess is what exceeds the raised cap. Taxable
+/// contributions are then taken case by case, where the engine takes the lesser of 2 amounts:
+/// nothing without low tax contributions or at or under $250,000, all of them when income alone
+/// reaches the threshold, else the part above it. 15% of a cent rounds half up.
+fn d293_oracle(d: &D293) -> Value {
+    let [taxable, fringe, losses, trust, fhss, lump_sum] = d.parts;
+    let income = (taxable + trust + fringe + losses - fhss - lump_sum) * 100;
+    let cap = concessional_cap(d.year) * 100;
+    let raised = if d.under { cap + d.unused } else { cap };
+    let excess = d.concessional.saturating_sub(raised);
+    let carried = d.concessional.saturating_sub(cap) - excess;
+    let low = d.concessional - excess;
+    let threshold = 25_000_000;
+    let combined = income + low;
+    let taxed = if low == 0 || combined <= threshold {
+        0
+    } else if income >= threshold {
+        low
+    } else {
+        combined - threshold
+    };
+    json!({"year": d.year, "income": income, "concessional": d.concessional, "cap": cap, "carried": carried,
+        "excess": excess, "low": low, "combined": combined, "over": combined.saturating_sub(threshold),
+        "taxable": taxed, "tax": (taxed * 15 + 50) / 100, "room": threshold.saturating_sub(combined)})
+}
+
+#[test]
+fn the_oracle_works_the_division_293_examples_by_hand() {
+    // ATO, Division 293 tax: Jan, $240,000 and $15,000, $750.
+    let jan = d293_oracle(&D293 {
+        year: "2026-27",
+        parts: [240_000, 0, 0, 0, 0, 0],
+        concessional: 1_500_000,
+        unused: 0,
+        under: false,
+    });
+    assert_eq!(jan["tax"], 75_000);
+    // $45,000 against a $32,500 cap: the $12,500 excess is left out; $20,000 unused cap covers it.
+    let over = D293 {
+        year: "2026-27",
+        parts: [210_000, 33_000, 0, 0, 0, 0],
+        concessional: 4_500_000,
+        unused: 2_000_000,
+        under: false,
+    };
+    assert_eq!(d293_oracle(&over)["tax"], 382_500);
+    assert_eq!(
+        d293_oracle(&D293 {
+            under: true,
+            ..over
+        })["tax"],
+        570_000
+    );
+}
+
+#[test]
+fn the_division_293_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0293);
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..DIVISION_293_CASES)
+        .map(|_| {
+            let year = rng.pick(&PAY_YEARS);
+            let small = |rng: &mut Seeded| if rng.below(3) == 0 { rng.below(40_001) } else { 0 };
+            let taxable = rng.income(&[250_000, 220_000, 217_500, 222_500, 200_000, 0]);
+            let (fringe, losses, trust) = (small(&mut rng), small(&mut rng), small(&mut rng));
+            let fhss = small(&mut rng).min(taxable);
+            let lump_sum = small(&mut rng).min(taxable - fhss);
+            let concessional = match rng.below(4) {
+                0 => 0,
+                1 => concessional_cap(year) * 100 + rng.below(3) * 100 - 100,
+                _ => rng.below(6_000_001),
+            };
+            let unused = if rng.below(2) == 0 { rng.below(4_000_001) } else { 0 };
+            let d = D293 { year, parts: [taxable, fringe, losses, trust, fhss, lump_sum], concessional, unused,
+                under: rng.below(2) == 0 };
+            let input = json!({"year": year, "interests": "accumulation", "taxable": taxable.to_string(),
+                "fringe": fringe.to_string(), "losses": losses.to_string(), "trust": trust.to_string(),
+                "fhss": fhss.to_string(), "lumpSum": lump_sum.to_string(), "concessional": money(concessional),
+                "unused": money(unused), "balanceUnder": d.under});
+            (json!({"kind": "d293", "d293": input}), d293_oracle(&d))
         })
         .unzip();
     agree(&cases, &expected);

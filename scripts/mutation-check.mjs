@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const d293 = { file: 'assets/division-293.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -271,6 +272,14 @@ const MUTATIONS = [
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
   { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
   { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
+  { ...d293, name: 'Division 293 taxes the excess contributions too', find: 'const low = concessional - excess;', replace: 'const low = concessional;' },
+  { ...d293, name: 'Division 293 carries unused cap forward whatever the balance', find: 'd.balanceUnder ? Math.min(unused, overCap) : 0', replace: 'Math.min(unused, overCap)' },
+  { ...d293, name: 'Division 293 carries forward more than the excess', find: 'Math.min(unused, overCap)', replace: 'unused' },
+  { ...d293, name: 'Division 293 counts the FHSS released amount', find: '(taxable - fhss + ', replace: '(taxable + ' },
+  { ...d293, name: 'Division 293 leaves out family trust distribution tax income', find: 'wholeDollars(d.trust) + ', replace: '' },
+  { ...d293, name: 'Division 293 counts a zero-rate lump sum', find: 'wholeDollars(d.losses) - lumpSum) * 100', replace: 'wholeDollars(d.losses)) * 100' },
+  { ...d293, name: 'Division 293 tax rounds down', find: 'Math.round((taxable * 15) / 100)', replace: 'Math.floor((taxable * 15) / 100)' },
+  { ...d293, name: 'Division 293 accepts a defined benefit interest', find: "if (d.interests !== 'accumulation') {", replace: 'if (false) {' },
   { ...div7a, name: 'Division 7A schedule counts the remaining term from the year made', find: 'const remainingTerm = term - k + 1;', replace: 'const remainingTerm = term - k + 2;' },
   { ...div7a, name: 'Division 7A schedule drops unpaid interest from the loan', find: 'const principal = repayment - interest;', replace: 'const principal = repayment > interest ? repayment - interest : 0n;' },
   { ...div7a, name: 'Division 7A schedule runs on past a shortfall', find: 'if (shortfall > 0n || opening === 0n) break;', replace: 'if (opening === 0n) break;' },
