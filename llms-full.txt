@@ -20,7 +20,7 @@ Explore the cash flow example
 
 Built by Ryan Duguid, a senior accountant in Newcastle, NSW.
 
-Last reviewed 4 November 2026.
+Last reviewed 19 November 2026.
 
 ## Compare profit with cash flow
 
@@ -102,7 +102,7 @@ To send feedback on a tool or example, use the Contact page.
 
 See my accounting work samples, including a cash forecast, month-end checks and Excel functions.
 
-Last reviewed 4 November 2026.
+Last reviewed 19 November 2026.
 
 ## The short facts
 
@@ -452,7 +452,7 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.
 
-Last reviewed 13 November 2026.
+Last reviewed 19 November 2026.
 
 ## Results you can check
 
@@ -3710,7 +3710,7 @@ A refusal is a question handed back. A limitation is an answer you should not re
 
 Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
-Published 16 September 2026. Last reviewed 15 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
+Published 16 September 2026. Last reviewed 19 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
 ## What belongs here
 
@@ -3835,7 +3835,7 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.
 
-Source assets/levy.mjs at revision dc3bd6f in the ryanduguid.github.io repository. Published 24 August 2026. Last reviewed 21 October 2026.
+Source assets/levy.mjs at revision 0bd409d in the ryanduguid.github.io repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
 Load the fictional example
 
@@ -3984,7 +3984,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- dc3bd6f: https://github.com/ryanduguid/ryanduguid.github.io/commit/dc3bd6f73c8da5cf5122f0043bdb33fa18d2c7fd
+- 0bd409d: https://github.com/ryanduguid/ryanduguid.github.io/commit/0bd409dff58b08fca414d3aab027193c9385e501
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - service/coal-lsl-levy: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/service/coal-lsl-levy
 - GET /v1/calculators: https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/v1/calculators
@@ -5113,7 +5113,7 @@ Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets.
 
-Current release aus-accounting-mcp v0.10.0, 19 November 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 15 November 2026.
+Current release aus-accounting-mcp v0.10.0, 19 November 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 19 November 2026.
 
 Delivery
 
@@ -12568,7 +12568,7 @@ Source: https://duguid.com.au/tools/ozzit/
 
 The Ozzit workbook holds 150 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
 
-Current release Ozzit v3.7.0, 18 November 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 15 November 2026.
+Current release Ozzit v3.7.0, 18 November 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 19 November 2026.
 
 Delivery
 

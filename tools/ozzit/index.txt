@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/ozzit/
 
 The Ozzit workbook holds 150 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
 
-Current release Ozzit v3.7.0, 18 November 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 15 November 2026.
+Current release Ozzit v3.7.0, 18 November 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 19 November 2026.
 
 Delivery
 

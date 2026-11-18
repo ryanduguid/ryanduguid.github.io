@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets.
 
-Current release aus-accounting-mcp v0.10.0, 19 November 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 15 November 2026.
+Current release aus-accounting-mcp v0.10.0, 19 November 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 19 November 2026.
 
 Delivery
 
