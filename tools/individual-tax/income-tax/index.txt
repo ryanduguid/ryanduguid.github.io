@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/individual-tax/income-tax/
 
 # Income tax calculator
 
-One individual’s income tax, offsets, Medicare levy and surcharge and any study loan repayment for a full income year from 2020-21 to 2026-27, less the tax withheld, as a refund or an amount owing.
+Income tax, offsets, Medicare levy and surcharge and any study loan repayment for 2020-21 to 2026-27, and the refund or amount owing on the tax withheld.
 
 Published 17 November 2026. Last checked 18 November 2026.
 
