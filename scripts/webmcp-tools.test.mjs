@@ -269,6 +269,14 @@ test('foreign surcharge tool returns the page worked example and refuses what th
   const trust = await tool.execute({ place: 'AU-VIC', buyer: 'trust', status: 'citizen', use: 'residential', value: 1000000,
     share: 1000000, landValue: 1000000, largestForeignPercent: '50', foreignPercent: '50' });
   assert.deepEqual([trust.dutySurcharge, trust.landTaxSurcharge], ['0.00', '20000.00']);
+  // Each yes or no answer reaches the engine under its own name, and an omitted one is no.
+  const flags = ['nzResident', 'resides', 'absent', 'home', 'overseas', 'amendable', 'control', 'named'];
+  const calls = [];
+  const spied = calculatorTools({ ...calculate, foreignSurcharge: (buyer, purchase) => (calls.push(buyer), calculate.foreignSurcharge(buyer, purchase)) });
+  const base = { place: 'AU-NSW', buyer: 'company', status: 'citizen', use: 'other', value: 1, share: 1, landValue: 0 };
+  await spied['foreign-surcharge'].execute(base);
+  await spied['foreign-surcharge'].execute({ ...base, ...Object.fromEntries(flags.map((flag) => [flag, true])) });
+  assert.deepEqual(calls.map((buyer) => flags.map((flag) => buyer[flag])), [flags.map(() => false), flags.map(() => true)]);
   await assert.rejects(tool.execute({ place: 'AU-NSW', buyer: 'individual', status: 'partner', use: 'residential', value: 1, share: 1,
     landValue: 0 }), /status does not match its description/);
   await assert.rejects(tool.execute({ place: 'AU-NSW', buyer: 'individual', status: 'other', use: 'residential', value: 1, share: 1,

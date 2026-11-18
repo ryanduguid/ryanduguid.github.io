@@ -271,7 +271,9 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
     const r = foreignSurcharge({ type: input.buyer, status: input.status, daysBefore: String(input.daysBefore ?? 0),
       daysDecember: String(input.daysToDecember ?? 0), largest: input.largestForeignPercent ?? '0', combined: input.foreignPercent ?? '0',
       capital: input.capitalPercent ?? '0', defaults: input.defaultsPercent ?? '0', exemption: false,
-      ...Object.fromEntries(Object.keys(SURCHARGE_FLAGS).map((key) => [key, input[key] ?? false])) },
+      nzResident: input.nzResident ?? false, resides: input.resides ?? false, absent: input.absent ?? false,
+      home: input.home ?? false, overseas: input.overseas ?? false, amendable: input.amendable ?? false,
+      control: input.control ?? false, named: input.named ?? false },
     { place: input.place, use: input.use, value: String(input.value), share: String(input.share), land: String(input.landValue) });
     return {
       dutySurchargeRatePercent: r.dutyRate, dutySurcharge: dollars(r.duty), dutyTest: r.dutyTest,
