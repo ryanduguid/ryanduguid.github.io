@@ -109,9 +109,19 @@ calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
 const operatingValue: number = calculate.fbtCar(car, fbtYear).operating;
 void fbt;
 void operatingValue;
-calculate.loan('60000', '7.5', '60', '18000', 'advance');
-// @ts-expect-error Loan payments fall in arrears or in advance, nothing else.
-calculate.loan('60000', '7.5', '60', '18000', 'start');
+const terms = { solve: 'payment', amount: '60000', rate: '7.5', payments: '60', payment: '', balloon: '18000',
+  balloonKind: 'amount', frequency: 'monthly', timing: 'advance', start: '2026-07-01' } as const;
+const lastPayment: number = calculate.financeSchedule(terms).finalPayment;
+const yearInterest: number | undefined = calculate.interestByIncomeYear(terms)['2026-27'];
+// @ts-expect-error Payments fall in arrears or in advance, nothing else.
+calculate.financeSchedule({ ...terms, timing: 'start' });
+// @ts-expect-error Payments fall weekly, fortnightly, monthly, quarterly or yearly.
+calculate.financeSchedule({ ...terms, frequency: 'daily' });
+// @ts-expect-error The balloon row is null when there is no balloon.
+const balloonInterest: number = calculate.financeSchedule(terms).balloonRow.interest;
+void lastPayment;
+void yearInterest;
+void balloonInterest;
 void tax;
 void formatted;
 const fee: number = calculate.fixedFee('18.5', '95', '40', '10', true, '12').first;

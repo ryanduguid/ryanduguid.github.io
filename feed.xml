@@ -8,6 +8,13 @@
   <updated>2026-11-18T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The loan calculator now sets out every payment, weekly, fortnightly, monthly…</title>
+    <link href="https://duguid.com.au/changelog/#entry-9f9cc3a047cc7177" />
+    <id>https://duguid.com.au/changelog/#entry-9f9cc3a047cc7177</id>
+    <updated>2026-11-18T00:00:00Z</updated>
+    <summary>The loan calculator now sets out every payment, weekly, fortnightly, monthly, quarterly or yearly, in arrears or in advance, with a balloon as an amount or a percentage, and works out whichever of the payment, the amount financed, the number of payments or the rate is missing; the schedule downloads as CSV. Each period’s interest is rounded to the cent and the last payment takes what rounding leaves, so the schedule closes on the balloon exactly. A new hire purchase and chattel mortgage calculator gives the same schedule with the interest by income year and a journal for each payment, citing Division 240 of the Income Tax Assessment Act 1997 and the ATO’s GST guidance, read on 18 November 2026. It does not account for leases under AASB 16.</summary>
+  </entry>
+  <entry>
     <title>Three new business calculators. The company tax and franking calculator applies…</title>
     <link href="https://duguid.com.au/changelog/#entry-7bd9b69381a32e14" />
     <id>https://duguid.com.au/changelog/#entry-7bd9b69381a32e14</id>

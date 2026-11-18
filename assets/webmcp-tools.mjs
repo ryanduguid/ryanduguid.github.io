@@ -141,29 +141,57 @@ const div7aTool = (minimumRepayment) => tool({
   },
 });
 
-/** @param {typeof import('./business-calculators.mjs').loan} loan */
-const loanTool = (loan) => tool({
-  name: 'calculate_loan_payment',
-  title: 'Monthly loan payment calculator',
-  description: 'Fixed monthly payment in AUD on an amortising loan with payments at the end or the start of each month, '
-    + 'interest at the annual rate divided by 12 and an optional balloon owed at the end of the term, with the '
-    + 'interest in the first payment and the total interest, each rounded half up to the cent, and the first '
-    + 'payment\'s principal as the payment less that interest. '
-    + 'Planning estimate only: a lender\'s fees, rounding and payment dates can differ.',
+/** The inputs each choice of `solve` needs, besides the balloon, frequency, timing and start date. */
+const FINANCE_NEEDS = { payment: ['amount', 'annualRate', 'payments'], amount: ['payment', 'annualRate', 'payments'],
+  term: ['amount', 'annualRate', 'payment'], rate: ['amount', 'payment', 'payments'] };
+
+/** A finance schedule tool; the hire purchase one adds interest by income year.
+ * @param {Pick<typeof import('./business-calculators.mjs'), 'financeSchedule' | 'interestByIncomeYear'>} calculate
+ * @param {boolean} hirePurchase */
+const financeTool = ({ financeSchedule, interestByIncomeYear }, hirePurchase) => tool({
+  name: hirePurchase ? 'calculate_hire_purchase_schedule' : 'calculate_loan_schedule',
+  title: hirePurchase ? 'Hire purchase and chattel mortgage schedule' : 'Loan repayment schedule calculator',
+  description: `${hirePurchase ? 'Payment schedule in AUD of a hire purchase agreement or chattel mortgage' : 'Repayment schedule in AUD of an amortising loan'} `
+    + 'with level payments weekly, fortnightly, monthly, quarterly or yearly, in arrears or in advance, and an optional balloon '
+    + 'as an amount or a percentage of the amount financed. Given 3 of the payment, the amount financed, the number of '
+    + 'payments and the annual nominal rate, it works out the fourth: the rate by bisection to within 2^-48 of 100% a year. '
+    + 'The period rate is the annual rate divided by 52, 26, 12, 4 or 1. Each period\'s interest is rounded half up to the '
+    + 'cent, a payment worked out is rounded once, and the last payment takes the rest so the schedule closes on the balloon. '
+    + `${hirePurchase ? 'It also totals the interest by income year, 1 July to 30 June, sharing a period across 30 June by days. '
+      + 'It does not work out GST, the GST credit, the car limit or income tax. ' : ''}`
+    + 'Planning estimate only: a financier\'s fees, day counts and payment dates can differ.',
   inputSchema: record({
-    principal: text('amount', 'Amount borrowed in AUD with at most 2 decimal places, for example "100000".'),
-    annualRate: text('rate', 'Annual interest rate in per cent with at most 4 decimal places, for example "6" or "6.25".'),
-    months: whole(1, 600, 'Number of monthly payments.'),
-    balloon: text('amount', 'Balloon or residual owed at the end of the term in AUD with at most 2 decimal places, '
-      + 'no more than the principal; "0" or omitted for none.'),
-    timing: choice(['arrears', 'advance'], '"arrears" (or omitted) for payments at the end of each month, "advance" for the start.'),
-  }, ['principal', 'annualRate', 'months']),
-  run({ principal, annualRate, months, balloon = '0', timing = 'arrears' }) {
-    const r = loan(principal, annualRate, String(months), balloon, timing);
+    solve: choice(['payment', 'amount', 'term', 'rate'], 'What to work out: the payment, the amount financed, the number of payments ("term") or the rate.'),
+    amount: text('amount', 'Amount financed in AUD with at most 2 decimal places, for example "60000"; not used when solve is "amount".'),
+    annualRate: text('rate', 'Annual nominal interest rate in per cent with at most 4 decimal places, for example "7.5"; not used when solve is "rate".'),
+    payments: whole(1, 2600, 'Number of payments, at most 50 years of them; not used when solve is "term".'),
+    payment: text('amount', 'Regular payment in AUD with at most 2 decimal places; not used when solve is "payment".'),
+    balloon: text('amount', 'Balloon or residual due at the end of the term, in AUD or, with balloonKind "percent", a percentage of the amount financed; "0" or omitted for none.'),
+    balloonKind: choice(['amount', 'percent'], '"amount" (or omitted) for a balloon in AUD, "percent" for a percentage of the amount financed.'),
+    frequency: choice(['weekly', 'fortnightly', 'monthly', 'quarterly', 'annual'], 'How often payments fall; "monthly" when omitted.'),
+    timing: choice(['arrears', 'advance'], '"arrears" (or omitted) for payments at the end of each period, "advance" for the start.'),
+    startDate: text('date', 'Day the amount is advanced, as YYYY-MM-DD, from 1900-01-01 to 2099-12-31.'),
+  }, ['solve', 'startDate']),
+  run({ solve, amount = '', annualRate = '', payments, payment = '', balloon = '0', balloonKind = 'amount', frequency = 'monthly',
+    timing = 'arrears', startDate }) {
+    const given = /** @type {Record<string, unknown>} */ ({ amount, annualRate, payments, payment });
+    for (const key of FINANCE_NEEDS[/** @type {keyof typeof FINANCE_NEEDS} */ (solve)]) {
+      if (given[key] === '' || given[key] === undefined) throw new Error(`${key} is required to work out the ${solve}.`);
+    }
+    const terms = { solve, amount, rate: annualRate, payments: payments === undefined ? '' : String(payments), payment, balloon,
+      balloonKind, frequency, timing, start: startDate };
+    const r = financeSchedule(terms);
+    /** @param {import('./finance-schedule.mjs').FinanceRow} row */
+    const shown = (row) => ({ date: row.date, opening: dollars(row.opening), payment: dollars(row.payment), interest: dollars(row.interest),
+      principal: dollars(row.principal), closing: dollars(row.closing) });
     return {
-      monthlyPayment: dollars(r.payment), firstInterest: dollars(r.firstInterest),
-      firstPrincipal: dollars(r.firstPrincipal), totalInterest: dollars(r.totalInterest), currency: 'AUD',
-      source: `${CALCULATORS}loan/`,
+      payment: dollars(r.payment), lastPayment: dollars(r.finalPayment), payments: r.payments, amountFinanced: dollars(r.amount),
+      annualRatePercent: solve === 'rate' ? r.rate.toFixed(4) : annualRate, balloon: dollars(r.balloon), balloonDue: r.balloonDate,
+      totalPaid: dollars(r.totalPaid), totalInterest: dollars(r.totalInterest),
+      ...(hirePurchase ? { interestByIncomeYear: Object.fromEntries(Object.entries(interestByIncomeYear(terms, r))
+        .map(([year, interest]) => [year, dollars(interest)])) } : {}),
+      schedule: r.rows.map(shown), balloonRow: r.balloonRow && shown(r.balloonRow), currency: 'AUD',
+      source: `${CALCULATORS}${hirePurchase ? 'hire-purchase' : 'loan'}/`,
     };
   },
 });
@@ -291,13 +319,14 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
 });
 
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
- * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'loan' | 'breakEven' | 'companyTax'
- *   | 'foreignSurcharge'>} calculate */
+ * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
+ *   | 'breakEven' | 'companyTax' | 'foreignSurcharge'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
     div7a: div7aTool(calculate.div7aMinimumRepayment),
-    loan: loanTool(calculate.loan),
+    loan: financeTool(calculate, false),
+    'hire-purchase': financeTool(calculate, true),
     'break-even': breakEvenTool(calculate.breakEven),
     'company-tax': companyTaxTool(calculate.companyTax),
     'foreign-surcharge': foreignSurchargeTool(calculate.foreignSurcharge),

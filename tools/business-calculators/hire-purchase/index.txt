@@ -1,0 +1,61 @@
+# Hire purchase and chattel mortgage schedule and journals
+
+Source: https://duguid.com.au/tools/business-calculators/hire-purchase/
+
+> Hire purchase or chattel mortgage payments weekly to yearly: the implicit rate, interest by income year, journals and CSV, with Division 240 and GST cited.
+
+# Hire purchase and chattel mortgage schedule
+
+Payments weekly to yearly with a balloon, the implicit rate, interest by income year and a journal for each payment, with the tax and GST sources cited.
+
+Published 18 November 2026. Last checked 18 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Hire purchase and chattel mortgage inputs
+
+Agreement Hire purchase Chattel mortgage Work out The regular payment The amount financed The number of payments The interest rate Amount financed (AUD) Annual nominal interest rate (%) Number of payments Regular payment (AUD) Balloon or residual due at the end of the term The balloon is An amount in AUD A percentage of the amount financed Payments fall Weekly Fortnightly Monthly Quarterly Yearly Each payment falls At the end of its period (in arrears) At the start of its period (in advance) Start date, when the amount is advanced
+
+Enter the amount financed: the price less any deposit or trade-in paid at the start. The field you choose to work out is not used. To find a hire purchase agreement’s implicit rate, work out the interest rate from its payments.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: hire purchase, amount financed $60,000.00, 7.5% annual nominal rate, 60 monthly payments in arrears, balloon $18,000.00, starting 1 July 2026; working out the payment. Monthly payment $954.09 Last payment, 1 July 2031 $954.35 Number of payments 60 Amount financed $60,000.00 Annual nominal rate 7.5% Balloon, due 1 July 2031 $18,000.00 Total paid, with the balloon $75,245.66 Total interest $15,245.66 The last payment is $954.35, not $954.09: it is what the balance needs after each period’s interest is rounded to the cent.
+
+Download schedule CSV
+
+## How the hire purchase and chattel mortgage schedule works
+
+The calculator sets out a hire purchase agreement or a chattel mortgage payment by payment from the amount financed, weekly to yearly, in arrears or in advance, with any balloon or residual. Give any 3 of the regular payment, the amount financed, the number of payments and the annual nominal rate, and it works out the fourth. Under Division 240 the interest in each payment is the hirer’s notional interest at the implicit rate; working out the rate from the agreement’s payments finds that rate.
+
+The calculator totals the interest, the finance charge, by income year from 1 July to 30 June, and sets out a journal for each payment: debit the liability with the principal, debit interest expense with the interest and credit the bank with the payment. The balloon has its own line. Download schedule CSV saves the schedule, the income years and the journal as plain figures.
+
+The australian-accounting command hire-purchase-schedule works the same agreement monthly. It keeps every instalment as the agreement states it and puts the cents of rounding into each month’s interest, and it lists a month that runs across 30 June apart rather than sharing it. This page keeps the interest of each period rounded on its own and puts the cents into the last payment, so on the same agreement the two can differ by a few cents.
+
+## What the hire purchase and chattel mortgage schedule does not cover
+
+The schedule does not work out GST, the GST credit or the car limit: it starts from the amount financed. Record the asset at its cost and the liability at the amount financed when the agreement starts; a deposit, trade-in, fees and stamp duty are yours to add. It does not state the income tax treatment of a chattel mortgage, which the sources applied do not cover, or of an early payout. It assumes a rate that does not change and payments on the same day of each period.
+
+Leases are not covered: a lessee’s lease under AASB 16 is not worked here. Confirm the treatment with the agreement, the financier’s statements and a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Hire purchase and chattel mortgage schedule
+
+Case | Inputs | Result
+A 30% balloon on a 5-year vehicle loan | $60,000.00 financed, 7.5% a year, 60 monthly payments, balloon $18,000.00, from 2026-07-01; working out the payment | Payment $954.09, last payment $954.35, total interest $15,245.66
+A month across 30 June is shared by its days in each income year | $1,000.00 financed, 12% a year, 3 monthly payments, from 2027-06-15; working out the payment | 2026-27 $5.33, 2027-28 $14.74
+The implicit rate of a hire purchase agreement with a residual | $50,000.00 financed, 60 monthly payments, $850.00 each, balloon $10,000.00, from 2025-09-15; working out the rate | Rate 6.9860%, last payment $849.95, total interest $10,999.95
+A residual equal to the amount financed leaves interest only | $1,000.00 financed, 12% a year, 12 monthly payments, balloon $1,000.00, from 2026-07-01; working out the payment | Payment $10.00, last payment $10.00, total interest $120.00
+A payment that does not cover the interest never reaches the residual | $60,000.00 financed, 7.5% a year, monthly payments, $375.00 each, balloon $18,000.00, from 2026-07-01; working out the number of payments | Refused: the payment does not cover a period’s interest, so the balance never falls to the balloon
+
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/

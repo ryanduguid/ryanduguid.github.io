@@ -806,7 +806,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -817,7 +817,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -864,7 +864,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -874,7 +874,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -921,7 +921,7 @@ Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.
 
 Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -931,7 +931,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -977,7 +977,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -986,7 +986,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1030,7 +1030,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -1039,7 +1039,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1089,7 +1089,7 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
 
@@ -1098,7 +1098,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1149,7 +1149,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -1159,43 +1159,49 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
-# Monthly loan payment calculator
+# Loan repayment schedule: weekly to yearly, with a balloon
 
 Source: https://duguid.com.au/tools/business-calculators/loan/
 
-> Estimate a fixed monthly loan payment and total interest from principal, rate, term, a balloon and payments in arrears or in advance, in your browser.
+> A loan schedule weekly to yearly, in arrears or in advance, with a balloon: work out the payment, amount, term or rate, and save it as CSV.
 
-# Monthly loan payment calculator
+# Loan repayment schedule calculator
 
-Fixed monthly payment, first-payment interest and principal, and estimated total interest, in arrears or in advance, with an optional balloon.
+A loan payment by payment, weekly to yearly, in arrears or in advance, with an optional balloon: work out the payment, the amount, the term or the rate.
 
 Published 20 September 2026. Last reviewed 27 September 2026. Boundary cases added 5 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Monthly loan payments inputs
+Loan repayment schedule inputs
 
-Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments Balloon or residual owed at the end (AUD) Payments fall At the end of each month (in arrears) At the start of each month (in advance)
+Work out The regular payment The amount financed The number of payments The interest rate Amount financed (AUD) Annual nominal interest rate (%) Number of payments Regular payment (AUD) Balloon or residual due at the end of the term The balloon is An amount in AUD A percentage of the amount financed Payments fall Weekly Fortnightly Monthly Quarterly Yearly Each payment falls At the end of its period (in arrears) At the start of its period (in advance) Start date, when the amount is advanced
 
-The balloon is due at the end of the term: with the last payment in arrears, or a month after it in advance. For a passenger car, the car limit for the income year it is first used or leased caps the cost you can depreciate, whatever the loan or balloon.
+The field you choose to work out is not used. For a passenger car, the car limit for the income year it is first used caps the cost you can depreciate, whatever the loan or balloon. For hire purchase or a chattel mortgage, the hire purchase and chattel mortgage schedule adds interest by income year and journals.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: principal $100,000.00, 6% annual nominal rate, 360 monthly payments in arrears, balloon $0.00. Monthly payment $599.55 First payment interest $500.00 First payment principal $99.55 Estimated total interest $115,838.19
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: amount financed $60,000.00, 7.5% annual nominal rate, 60 monthly payments in arrears, balloon $18,000.00, starting 1 July 2026; working out the payment. Monthly payment $954.09 Last payment, 1 July 2031 $954.35 Number of payments 60 Amount financed $60,000.00 Annual nominal rate 7.5% Balloon, due 1 July 2031 $18,000.00 Total paid, with the balloon $75,245.66 Total interest $15,245.66 The last payment is $954.35, not $954.09: it is what the balance needs after each period’s interest is rounded to the cent.
 
-## How the monthly loan payment calculator works
+Download schedule CSV
 
-The monthly loan payment calculator works out a fixed monthly payment, the interest and principal in the first payment, and estimated total interest. For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n.
+## How the loan repayment schedule calculator works
 
-A balloon, or residual, is a lump sum still owed at the end of the term, as in vehicle and equipment finance. Its value today, balloon × (1 + r) raised to −n, comes off the principal before the payment is worked out. Payments in advance fall at the start of each month, so the first carries no interest and each payment is the arrears payment divided by (1 + r). This is the same payment as a spreadsheet’s PMT with the balloon as the future value and type 1 for advance. Total interest is the payments plus the balloon, less the principal.
+The calculator sets out a loan payment by payment, weekly, fortnightly, monthly, quarterly or yearly. Give any 3 of the regular payment, the amount financed, the number of payments and the annual nominal interest rate, with the balloon, and it works out the fourth. Each row shows the date, the balance before the payment, the payment, the interest since the last payment, the principal repaid and the balance after it.
 
-No statutory rate or external source is applied. The interest rate is yours, not a market or lender rate.
+The period rate is the annual nominal rate divided by the payments a year: 52 for weekly and 26 for fortnightly, so a year of weekly payments is taken as 52 weeks. Payments in arrears fall at the end of each period, the first one period after the start date. Payments in advance fall at the start, the first on the start date, so the first carries no interest. A balloon, or residual, is due at the end of the last period: with the last payment in arrears, or a period after it in advance. It can be an amount or a percentage of the amount financed, rounded half up to the cent.
 
-## What the monthly loan payment calculator leaves out
+Each period’s interest is rounded to the cent, so the last payment differs from the others by the cents that rounding leaves. In advance, the last payment leaves the balloon’s value a period before it falls due, rounded to the cent, and the balloon row’s interest is the rest of the balloon. The payment is the same as a spreadsheet’s PMT with the balloon as the future value and type 1 for advance.
 
-The monthly loan payment calculator assumes a rate that does not change and no fees. It does not work out GST, stamp duty or the tax treatment of the interest or the vehicle. Total interest uses the unrounded payment and rounds once, so it is an estimate; lender rounding and daily accrual can differ. For $100,000 at 6% over 360 months it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest rounded each month and a final payment of $600.00, gives $115,838.45. The result is not a lender’s quote.
+The amount financed is the payments and balloon discounted at the rate, rounded half up to the cent. The number of payments is found by running the payment until one would take the balance to the balloon; that payment is the last and is smaller. The interest rate is found by bisection between 0% and 100% a year: halving 48 times leaves it within 0.0000000000004% a year of the rate at which the payments and balloon, discounted, equal the amount financed. The page refuses payments and a balloon that add up to less than the amount financed, which no rate of nil or more fits, payments that would need more than 100% a year, and a payment that never covers a period’s interest.
+
+Download schedule CSV saves the inputs, totals and every row as plain figures.
+
+## What the loan repayment schedule calculator leaves out
+
+The calculator assumes a rate that does not change, payments on the same day of each period and no fees. It does not work out GST, stamp duty or the tax treatment of the interest or the asset. Lenders that accrue interest daily, or count a weekly year as 365 days, give slightly different figures. The result is not a lender’s quote.
 
 Loan reconciliation checklist
 
@@ -1203,19 +1209,24 @@ Loan reconciliation checklist
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Monthly loan payment calculator
+Boundary cases: Loan repayment schedule calculator
 
 Case | Inputs | Result
-A 30-year amortising loan | $100,000.00 at 6% over 360 months | Payment $599.55, first interest $500.00, first principal $99.55, total interest $115,838.19
-One month repays the balance and one month’s interest | $1,000.00 at 12% over 1 month | Payment $1,010.00, first interest $10.00, first principal $1,000.00, total interest $10.00
-Nil interest divides the balance | $20.15 at 0% over 2 months | Payment $10.08, first interest $0.00, first principal $10.08, total interest $0.00
-A 30% balloon on a 5-year vehicle loan | $60,000.00 at 7.5% over 60 months, balloon $18,000.00 | Payment $954.09, first interest $375.00, first principal $579.09, total interest $15,245.63
-Paid in advance, the first payment carries no interest | $60,000.00 at 7.5% over 60 months, balloon $18,000.00, paid in advance | Payment $948.17, first interest $0.00, first principal $948.17, total interest $14,890.07
-A balloon above the principal is refused | $1,000.00 at 12% over 12 months, balloon $1,000.01 | Refused: the balloon cannot be more than the loan principal
+A 30% balloon on a 5-year vehicle loan | $60,000.00 financed, 7.5% a year, 60 monthly payments, balloon $18,000.00, from 2026-07-01; working out the payment | Payment $954.09, last payment $954.35, total interest $15,245.66
+A 30-year amortising loan; the last payment takes the cents of rounding | $100,000.00 financed, 6% a year, 360 monthly payments, from 2026-07-01; working out the payment | Payment $599.55, last payment $600.00, total interest $115,838.45
+One payment repays the balance and one month’s interest | $1,000.00 financed, 12% a year, 1 monthly payments, from 2026-07-01; working out the payment | Payment $1,010.00, last payment $1,010.00, total interest $10.00
+Nil interest divides the balance; the last payment is a cent less | $20.15 financed, 0% a year, 2 monthly payments, from 2026-07-01; working out the payment | Payment $10.08, last payment $10.07, total interest $0.00
+Paid in advance, the first payment carries no interest | $60,000.00 financed, 7.5% a year, 60 monthly payments in advance, balloon $18,000.00, from 2026-07-01; working out the payment | Payment $948.17, last payment $948.00, total interest $14,890.03
+Weekly payments take the annual rate over 52 | $10,000.00 financed, 5.2% a year, 52 weekly payments, from 2026-07-01; working out the payment | Payment $197.45, last payment $197.30, total interest $267.25
+Working out the rate an agreement’s payments imply | $50,000.00 financed, 60 monthly payments, $850.00 each, balloon $10,000.00, from 2025-09-15; working out the rate | Rate 6.9860%, last payment $849.95, total interest $10,999.95
+Working out the amount the payments repay | 7.5% a year, 60 monthly payments, $954.09 each, balloon $18,000.00, from 2026-07-01; working out the amount financed | Amount financed $59,999.81, last payment $954.10
+Working out the number of payments | $60,000.00 financed, 7.5% a year, monthly payments, $1,202.28 each, from 2026-07-01; working out the number of payments | 60 payments, last payment $1,202.06
+A balloon above the amount financed is refused | $1,000.00 financed, 12% a year, 12 monthly payments, balloon $1,000.01, from 2026-07-01; working out the payment | Refused: the balloon cannot be more than the amount financed
+Payments that add up to less than the amount financed have no rate | $1,000.00 financed, 12 monthly payments, $80.00 each, from 2026-07-01; working out the rate | Refused: the payments and balloon add up to less than the amount financed, so no rate of nil or more fits
 
-Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.19 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
+Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.45 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1224,9 +1235,74 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - car limit: https://duguid.com.au/rates/car-limit/
+- hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Hire purchase and chattel mortgage schedule and journals
+
+Source: https://duguid.com.au/tools/business-calculators/hire-purchase/
+
+> Hire purchase or chattel mortgage payments weekly to yearly: the implicit rate, interest by income year, journals and CSV, with Division 240 and GST cited.
+
+# Hire purchase and chattel mortgage schedule
+
+Payments weekly to yearly with a balloon, the implicit rate, interest by income year and a journal for each payment, with the tax and GST sources cited.
+
+Published 18 November 2026. Last checked 18 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Hire purchase and chattel mortgage inputs
+
+Agreement Hire purchase Chattel mortgage Work out The regular payment The amount financed The number of payments The interest rate Amount financed (AUD) Annual nominal interest rate (%) Number of payments Regular payment (AUD) Balloon or residual due at the end of the term The balloon is An amount in AUD A percentage of the amount financed Payments fall Weekly Fortnightly Monthly Quarterly Yearly Each payment falls At the end of its period (in arrears) At the start of its period (in advance) Start date, when the amount is advanced
+
+Enter the amount financed: the price less any deposit or trade-in paid at the start. The field you choose to work out is not used. To find a hire purchase agreement’s implicit rate, work out the interest rate from its payments.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: hire purchase, amount financed $60,000.00, 7.5% annual nominal rate, 60 monthly payments in arrears, balloon $18,000.00, starting 1 July 2026; working out the payment. Monthly payment $954.09 Last payment, 1 July 2031 $954.35 Number of payments 60 Amount financed $60,000.00 Annual nominal rate 7.5% Balloon, due 1 July 2031 $18,000.00 Total paid, with the balloon $75,245.66 Total interest $15,245.66 The last payment is $954.35, not $954.09: it is what the balance needs after each period’s interest is rounded to the cent.
+
+Download schedule CSV
+
+## How the hire purchase and chattel mortgage schedule works
+
+The calculator sets out a hire purchase agreement or a chattel mortgage payment by payment from the amount financed, weekly to yearly, in arrears or in advance, with any balloon or residual. Give any 3 of the regular payment, the amount financed, the number of payments and the annual nominal rate, and it works out the fourth. Under Division 240 the interest in each payment is the hirer’s notional interest at the implicit rate; working out the rate from the agreement’s payments finds that rate.
+
+The calculator totals the interest, the finance charge, by income year from 1 July to 30 June, and sets out a journal for each payment: debit the liability with the principal, debit interest expense with the interest and credit the bank with the payment. The balloon has its own line. Download schedule CSV saves the schedule, the income years and the journal as plain figures.
+
+The australian-accounting command hire-purchase-schedule works the same agreement monthly. It keeps every instalment as the agreement states it and puts the cents of rounding into each month’s interest, and it lists a month that runs across 30 June apart rather than sharing it. This page keeps the interest of each period rounded on its own and puts the cents into the last payment, so on the same agreement the two can differ by a few cents.
+
+## What the hire purchase and chattel mortgage schedule does not cover
+
+The schedule does not work out GST, the GST credit or the car limit: it starts from the amount financed. Record the asset at its cost and the liability at the amount financed when the agreement starts; a deposit, trade-in, fees and stamp duty are yours to add. It does not state the income tax treatment of a chattel mortgage, which the sources applied do not cover, or of an early payout. It assumes a rate that does not change and payments on the same day of each period.
+
+Leases are not covered: a lessee’s lease under AASB 16 is not worked here. Confirm the treatment with the agreement, the financier’s statements and a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Hire purchase and chattel mortgage schedule
+
+Case | Inputs | Result
+A 30% balloon on a 5-year vehicle loan | $60,000.00 financed, 7.5% a year, 60 monthly payments, balloon $18,000.00, from 2026-07-01; working out the payment | Payment $954.09, last payment $954.35, total interest $15,245.66
+A month across 30 June is shared by its days in each income year | $1,000.00 financed, 12% a year, 3 monthly payments, from 2027-06-15; working out the payment | 2026-27 $5.33, 2027-28 $14.74
+The implicit rate of a hire purchase agreement with a residual | $50,000.00 financed, 60 monthly payments, $850.00 each, balloon $10,000.00, from 2025-09-15; working out the rate | Rate 6.9860%, last payment $849.95, total interest $10,999.95
+A residual equal to the amount financed leaves interest only | $1,000.00 financed, 12% a year, 12 monthly payments, balloon $1,000.00, from 2026-07-01; working out the payment | Payment $10.00, last payment $10.00, total interest $120.00
+A payment that does not cover the interest never reaches the residual | $60,000.00 financed, 7.5% a year, monthly payments, $375.00 each, balloon $18,000.00, from 2026-07-01; working out the number of payments | Refused: the payment does not cover a period’s interest, so the balance never falls to the balloon
+
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1279,7 +1355,7 @@ One year left repays the balance and a year’s interest | $1,000.00 at 8.77% ov
 The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
 No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1290,70 +1366,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# FBT car calculator: statutory formula and operating cost
-
-Source: https://duguid.com.au/tools/business-calculators/fbt-car/
-
-> The taxable value, grossed-up value and FBT on one car for the FBT year ending 31 March 2027, under the statutory formula or the operating cost method.
-
-# FBT car calculator
-
-Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or the operating cost method.
-
-Published 15 November 2026. Last checked 15 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-FBT car inputs for the FBT year 1 April 2026 to 31 March 2027
-
-Valuation method Statutory formula Operating cost, elected, with log book records Cost price, including GST, dealer delivery and accessories fitted at purchase (AUD) Non-business accessories fitted later (AUD) First held by the employer or an associate before 1 April 2022? No Yes: use two-thirds of the cost price Days used or available for private use Operating costs for the year, operating cost method only (AUD) Business use percentage, operating cost method only Employee contributions for the year (AUD) Is the employer, or another provider, entitled to a GST credit for providing the car? Yes: Type 1 gross-up, 2.0802 No: Type 2 gross-up, 1.8868
-
-The gross-up rates and the 47% FBT rate are those in the FBT rate table for the FBT year ending 31 March 2027. Operating costs include deemed depreciation and deemed interest for a car the employer owns, or the lease charges for a leased car.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, 182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up 2.0802. Base value $60,000.00 Statutory formula taxable value $4,983.56 Taxable value $4,983.56 Grossed-up taxable value $10,366.80 FBT at 47% $4,872.40
-
-## How the FBT car calculator works
-
-The FBT car calculator values one car’s fringe benefits for the FBT year from 1 April 2026 to 31 March 2027, which has 365 days. Under the statutory formula, the taxable value is the car’s base value times 20%, times the days it was used or available for an employee’s private use, divided by 365, less what the employee contributed. The base value is the cost price plus non-business accessories fitted later; if the employer or an associate first held the car before 1 April 2022, only two-thirds of the cost price counts.
-
-Under the operating cost method, the taxable value is the year’s operating costs times the private use share, 100% less the business use percentage, less contributions. The method applies only if the employer elected it and kept log book and odometer records; without them the business use percentage is nil. If the statutory formula gives a lower value, the calculator uses that value, as subsection 10(5) of the Act requires.
-
-The taxable value is then grossed up: at the Type 1 rate, 2.0802, if the employer, or another provider, is entitled to a GST credit for providing the car, or the Type 2 rate, 1.8868, if not, as section 2.3 of the guide’s chapter 2 sets out. FBT is 47% of the grossed-up value. The FBT return for the year ending 31 March 2026, read 15 November 2026, asks for whole dollars at each taxable value and grossed-up amount and works the FBT from the total of all benefits, so a return’s figures can differ from these by the cents.
-
-Example 28 in section 7.8 of the ATO’s guide for employers takes a $60,000 car available for 182 of 365 days, with $1,000 of fuel paid by the employee. It shows $5,983 at step 4, leaving out the cents of $5,983.56, and a taxable value of $4,983; this calculator gives $4,983.56. Example 31 in section 7.9 takes $19,580 of operating costs, 75% business use and a $2,000 contribution, and gives $2,895; this calculator gives $2,895.00 when the statutory formula value is higher.
-
-## What the FBT car calculator does not cover
-
-The calculator does not decide whether a vehicle is a car, whether a benefit arises, or whether the electric car exemption, the work vehicle exemption or a reduction applies. It does not work out operating costs: add deemed depreciation, at 25% of the car’s depreciated value for a car acquired on or after 10 May 2006, and deemed interest at the statutory interest rate on the ATO’s FBT rates and thresholds page, both apportioned to the days held. It values one car for one FBT year. It does not work out a leased car value, apply the older statutory percentages kept for commitments made before 10 May 2011, or work out the reportable fringe benefits amount or FBT for other benefits. On 15 November 2026 chapter 7 of the ATO’s guide said it was being reviewed after the Full Federal Court’s decision of 27 March 2026 in SEPL Pty Ltd as trustee of the SFT Trust v Commissioner of Taxation [2026] FCAFC 36, on whether the directors of a discretionary trust’s corporate trustee were employees and whether their cars were provided in respect of employment, a question this calculator leaves to you. Confirm the figures with the ATO’s guide or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: FBT car calculator
-
-Case | Inputs | Result
-The ATO’s statutory formula example 28, to the cent | Statutory formula; cost price $60,000.00, 182 of 365 days, contributions $1,000.00, gross-up 2.0802 | Statutory formula value $4,983.56, taxable value $4,983.56, grossed-up value $10,366.80, FBT $4,872.40
-The ATO’s operating cost example 31, beside a fictional $50,000 cost price | Operating cost $19,580.00 at 75% business use; cost price $50,000.00, 365 of 365 days, contributions $2,000.00, gross-up 2.0802 | Operating cost value $2,895.00, statutory formula value $8,000.00, taxable value $2,895.00
-A lower statutory value replaces the operating cost value | Operating cost $30,000.00 at 0% business use; cost price $20,000.00, 365 of 365 days, contributions $0.00, gross-up 2.0802 | Operating cost value $30,000.00, statutory formula value $4,000.00, taxable value $4,000.00
-The ATO’s example 23: a third off the cost price, none off later accessories | Statutory formula; cost price $39,000.00 plus $4,000.00 accessories, held 4 years, 365 of 365 days, contributions $0.00, gross-up 1.8868 | Base value $30,000.00, statutory formula value $6,000.00, grossed-up value $11,320.80, FBT $5,320.78
-Contributions above the value leave nil | Statutory formula; cost price $10,000.00, 365 of 365 days, contributions $3,000.00, gross-up 2.0802 | Statutory formula value $0.00, taxable value $0.00, FBT $0.00
-More days than the FBT year are refused | Statutory formula; cost price $10,000.00, 366 of 365 days, contributions $0.00, gross-up 2.0802 | Refused: enter a whole number between 0 and 365
-
-One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- FBT rate table: https://duguid.com.au/rates/fbt-rate/
-- guide’s chapter 2: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003
-- ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
-- ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
