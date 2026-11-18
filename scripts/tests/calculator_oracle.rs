@@ -5479,7 +5479,14 @@ fn the_company_tax_and_surcharge_oracles_work_the_published_examples() {
         json!({"duty": "90000", "land": "60000"})
     );
     assert_eq!(
-        surcharge_oracle("AU-VIC", true, false, 1_000_000, 1_000_000, Some((5_000, 5_000))),
+        surcharge_oracle(
+            "AU-VIC",
+            true,
+            false,
+            1_000_000,
+            1_000_000,
+            Some((5_000, 5_000))
+        ),
         json!({"duty": "0", "land": "20000"})
     );
     assert_eq!(

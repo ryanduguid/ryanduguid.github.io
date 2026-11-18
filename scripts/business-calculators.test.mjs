@@ -2770,7 +2770,7 @@ test('each jurisdiction tests an individual, a company and a super fund its own 
   // Victoria: a New Zealand citizen is foreign for duty unless resident 6 months; a complying fund never pays the absentee surcharge.
   assert.equal(surcharge({ status: 'nz' }, 'AU-VIC').duty, 80000);
   assert.equal(surcharge({ status: 'nz', nzResident: true }, 'AU-VIC').duty, 0);
-  assert.equal(surcharge({ type: 'smsf', largest: '100', combined: '100' }, 'AU-VIC').land, 0);
+  assert.equal(surcharge({ type: 'smsf', largest: '100', combined: '100', absentee: '100' }, 'AU-VIC').land, 0);
   assert.equal(surcharge({ type: 'smsf', largest: '100', combined: '100' }, 'AU-VIC').duty, 80000);
   // Victoria's absentee owner surcharge starts at $25,000 of land for a trust and $50,000 for anyone else.
   const vicLand = (buyer) => calculations.foreignSurcharge({ ...noAnswers, ...buyer },
@@ -2783,6 +2783,8 @@ test('each jurisdiction tests an individual, a company and a super fund its own 
   const resident = (type) => surcharge({ type, largest: '60', combined: '60', absentee: '0' }, 'AU-VIC');
   assert.deepEqual([resident('company').duty, resident('company').land, resident('trust').duty, resident('trust').land], [80000, 0, 80000, 0]);
   assert.equal(surcharge({ type: 'company', largest: '0', combined: '0', absentee: '50.01' }, 'AU-VIC').land, 40000);
+  // A fixed trust wholly foreign held, a quarter for absentees, pays on that quarter of the land.
+  assert.equal(surcharge({ type: 'trust', largest: '100', combined: '100', absentee: '25' }, 'AU-VIC').land, 10000);
   // Queensland's land tax surcharge on an individual is the absentee test, on 30 June.
   assert.equal(surcharge({ absent: false }, 'AU-QLD').land, 0);
   assert.equal(surcharge({ absent: true }, 'AU-QLD').land, 19500);
