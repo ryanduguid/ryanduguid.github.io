@@ -461,9 +461,10 @@ fn tool_pages(root: &Path) -> Result<Vec<(String, String)>, String> {
 
 /// The date in Sydney of a UTC timestamp, as YYYY-MM-DD.
 fn sydney_date(timestamp: &str) -> Result<String, String> {
-    let instant = chrono::DateTime::parse_from_rfc3339(timestamp)
+    let instant: jiff::Timestamp = timestamp
+        .parse()
         .map_err(|_| "Invalid time value".to_owned())?;
-    let date = crate::rates_register::sydney_date(instant.naive_utc());
+    let date = crate::rates_register::sydney_date(jiff::tz::TimeZone::UTC.to_datetime(instant));
     Ok(format!(
         "{:04}-{:02}-{:02}",
         date.year, date.month, date.day
@@ -988,7 +989,7 @@ impl Host for System {
     }
 
     fn today(&self) -> String {
-        chrono::Utc::now().format("%Y-%m-%d").to_string()
+        jiff::Timestamp::now().strftime("%Y-%m-%d").to_string()
     }
 
     fn build_site(&mut self, root: &Path) -> Result<(), String> {

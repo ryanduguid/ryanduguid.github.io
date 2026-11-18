@@ -419,7 +419,7 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
         return Ok(0);
     }
     let data = crate::read(&root.join(DATA_REL))?;
-    let today = chrono::Local::now().format("%Y-%m-%d").to_string();
+    let today = jiff::ZonedDateTime::now().strftime("%Y-%m-%d").to_string();
     let build = files(&data, map.as_deref(), write_mode.then_some(today.as_str()))?;
     let present = committed(&root)?;
     if write_mode {

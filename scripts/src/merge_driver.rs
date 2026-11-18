@@ -18,7 +18,7 @@
 //! checks still compare the built files with a fresh build, so a resolution that
 //! differs from one fails them.
 use crate::feed::parse_date;
-use chrono::NaiveDate;
+use jiff::civil::Date;
 use regex::Regex;
 use std::process::Command;
 use std::sync::LazyLock;
@@ -29,11 +29,8 @@ const MARKER_SIZE: usize = 40;
 
 /// One added line of a conflict side: a dated row, a feed entry line, or neither.
 enum Line {
-    Row(NaiveDate),
-    Entry {
-        date: Option<NaiveDate>,
-        field: usize,
-    },
+    Row(Date),
+    Entry { date: Option<Date>, field: usize },
 }
 
 fn classify(line: &str) -> Option<Line> {
@@ -51,7 +48,7 @@ fn classify(line: &str) -> Option<Line> {
         return parse_date(&m[1]).ok().map(Line::Row);
     }
     if let Some(m) = UPDATED.captures(line) {
-        let date = NaiveDate::parse_from_str(&m[1], "%Y-%m-%d").ok()?;
+        let date = Date::strptime("%Y-%m-%d", &m[1]).ok()?;
         return Some(Line::Entry {
             date: Some(date),
             field: 4,
@@ -72,7 +69,7 @@ fn classify(line: &str) -> Option<Line> {
 /// The dates one side added, in order, when every line it added is a dated row or
 /// whole feed entries. Git can align just after a shared opening tag, rotating
 /// each entry by one line. Other shapes are left to Git's ordinary merge.
-fn added_dates(side: &[&str]) -> Option<Vec<NaiveDate>> {
+fn added_dates(side: &[&str]) -> Option<Vec<Date>> {
     let (mut dates, mut fields) = (Vec::new(), Vec::new());
     for line in side {
         match classify(line)? {
@@ -153,7 +150,7 @@ pub fn resolve(current: &[&str], base: &[&str], incoming: &[&str]) -> Option<Str
     {
         return None;
     }
-    let newest_first = |a: &[NaiveDate], b: &[NaiveDate]| {
+    let newest_first = |a: &[Date], b: &[Date]| {
         a.iter()
             .chain(b)
             .collect::<Vec<_>>()
@@ -209,7 +206,7 @@ fn feed_updated<'a>(current: &[&'a str], base: &[&str], incoming: &[&'a str]) ->
     let date = |lines: &[&str]| match lines {
         [line] => FEED_UPDATED
             .captures(line)
-            .and_then(|m| NaiveDate::parse_from_str(&m[1], "%Y-%m-%d").ok()),
+            .and_then(|m| Date::strptime("%Y-%m-%d", &m[1]).ok()),
         _ => None,
     };
     let (ours, old, theirs) = (date(current)?, date(base)?, date(incoming)?);

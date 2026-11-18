@@ -7,14 +7,12 @@ use super::render::render;
 use super::*;
 use crate::py;
 use crate::pyjson::{self, Json};
-use chrono::NaiveDate;
 use sha2::{Digest, Sha256};
 use std::path::{Path, PathBuf};
 
 /// A date given as YYYY-MM-DD.
-pub(super) fn iso(text: &str, what: &str) -> Result<NaiveDate> {
-    NaiveDate::parse_from_str(text, "%Y-%m-%d")
-        .map_err(|_| format!("{what}: '{text}' is not a date as YYYY-MM-DD"))
+pub(super) fn iso(text: &str, what: &str) -> Result<Date> {
+    crate::iso_day(text).ok_or_else(|| format!("{what}: '{text}' is not a date as YYYY-MM-DD"))
 }
 
 pub(super) fn sha256_hex(bytes: &[u8]) -> String {
