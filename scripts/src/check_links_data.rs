@@ -35,7 +35,7 @@ pub const CI_MANUAL_URLS: [&str; 17] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 198] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -130,6 +130,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
     "https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form",
     "https://www.ato.gov.au/forms-and-instructions/fringe-benefits-tax-return-2026-instructions/item-23-fringe-benefit-categories-for-fbt-return-2026",
     "https://www.ato.gov.au/forms-and-instructions/guide-to-completing-the-super-guarantee-charge-statement",
+    "https://www.ato.gov.au/forms-and-instructions/low-and-middle-income-earner-tax-offsets",
     "https://www.ato.gov.au/forms-and-instructions/payg-instalments-how-to-complete-your-activity-statement",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records",
     "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim",
@@ -158,6 +159,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/exchange-traded-funds",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/investing-in-shares/refund-of-franking-credits-for-individuals",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/managed-investment-trusts",
+    "https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy-surcharge/medicare-levy-surcharge-income-thresholds-and-rates",
     "https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners",
     // Still HTTP 403 on hosted CI in run 44173032679 (18 November 2026).
     "https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy",
@@ -167,6 +169,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
     "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf",
     "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf/smsf-administration-and-reporting/your-smsf-auditor",
     "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/growing-and-keeping-track-of-your-super/caps-limits-and-tax-on-super-contributions/division-296-tax/division-296-tax-on-large-super-balances",
+    "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/growing-and-keeping-track-of-your-super/how-to-save-more-in-your-super/salary-sacrificing-super",
     "https://www.ato.gov.au/individuals-and-families/tax-file-number",
     "https://www.ato.gov.au/individuals-and-families/tax-file-number/apply-for-a-tfn",
     "https://www.ato.gov.au/individuals-and-families/tax-file-number/lost-or-stolen-tfn",
@@ -175,6 +178,8 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/check-the-progress-of-your-tax-return",
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return",
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return/lodge-your-tax-return-online-with-mytax/pre-fill-availability",
+    "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2021/medicare-and-private-health-insurance/medicare-levy-surcharge",
+    "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2022/medicare-and-private-health-insurance/medicare-levy-surcharge",
     // Still HTTP 403 on hosted CI in run 44173032679 (18 November 2026).
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2025/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption",
     "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
@@ -213,6 +218,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
     "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds",
     "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
     "https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates",
+    "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/contributions-caps",
     "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/employment-termination-payments",
     "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
     "https://www.ato.gov.au/tax-rates-and-codes/luxury-car-tax-rate-and-thresholds",
@@ -222,6 +228,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/using-a-formula",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/working-out-the-weekly-earnings",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments",
+    "https://www.ato.gov.au/tax-rates-and-codes/schedule-8-statement-of-formulas-for-calculating-study-and-training-support-loans-components",
     "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
     "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
     // Still HTTP 403 on hosted CI in run 44173032679 (18 November 2026).
