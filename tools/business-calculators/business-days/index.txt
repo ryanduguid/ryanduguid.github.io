@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/business-days/
 
-> Count business days between 2 dates or add or subtract business days, skipping weekends and the public holidays of any Australian state or territory in 2026 and 2027.
+> Count business days between 2 dates, or add or subtract them, skipping weekends and each Australian state or territory’s public holidays in 2026 and 2027.
 
 # Business days calculator
 

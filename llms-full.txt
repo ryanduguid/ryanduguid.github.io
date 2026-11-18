@@ -12010,7 +12010,15 @@ State or territory New South Wales Victoria Queensland Western Australia South A
 
 Who is buying An individual A company The trustee of a fixed or unit trust The trustee of a discretionary (family) trust The trustee of a complying self-managed super fund What the property is used for Residential, vacant residential land included Primary production Commercial or other Dutiable value of the whole property (whole dollars) Dutiable value of this buyer’s share (whole dollars) Land value for land tax: all the buyer’s taxable land in the state or territory, their share only (whole dollars)
 
+## Foreign individual buyers: visa and residence
+
+Each state and territory tests an individual buyer by citizenship or visa and, in some, by days or residence in Australia.
+
 An individual: citizenship or visa Australian citizen Permanent visa New Zealand citizen on a special category visa (subclass 444) Another visa, temporary or bridging, or none Partner (provisional) visa 309 or 820, or retirement visa 405 or 410 New South Wales duty: days in Australia in the 12 months before the contract New South Wales land tax: days in Australia in the 12 months to the next 31 December Victorian duty, New Zealand citizen: ordinarily resident in Australia for 6 consecutive months within the 12 months before or after settlement? No Yes Ordinarily resides in Australia (Victorian and Queensland land tax, ACT)? No Yes Away from Australia on the land tax day, or for over 6 months of the year before it (Victoria: 31 December and the calendar year; Queensland: 30 June and the financial year)? No Yes ACT: will live in the home as their principal place of residence? No Yes
+
+## Foreign company, trust and fund buyers: foreign interests
+
+Each state and territory tests a company, trust or super fund buyer by where it was incorporated and how much of it foreign persons hold or could receive.
 
 A company: incorporated outside Australia? No Yes Company, trust or fund: largest interest held by one foreign person with associates (%) Company, trust or fund: interests of all foreign persons together, with associates (%) Discretionary trust: most of the capital the trustee could give foreign persons (%) Discretionary trust: foreign takers in default’s share (%) Discretionary trust: could the deed be amended so a foreign person can benefit? No Yes Discretionary trust: is a foreign person a trustee or appointor, or in control of the trust? No Yes Discretionary trust: is a beneficiary, object or taker in default named in the deed a foreign person (for Victorian land tax, an absentee)? No Yes Is an exemption, refund or ex gratia relief from a surcharge being sought? No Yes
 
@@ -12036,7 +12044,7 @@ A discretionary trust is foreign in New South Wales if a foreign person could be
 
 ## What the foreign buyer surcharge calculator leaves to you
 
-The calculator does not decide exemptions, refunds or ex gratia relief, which each Commissioner grants on application: Australian-based developers and build to rent in New South Wales and Victoria, exempt permanent residents who live in the home in New South Wales, significant contributors and large developers in Queensland, and refunds when a buyer stops being foreign within 12 months in South Australia. When one is sought, it refuses. It also refuses a partner (provisional) or retirement visa holder, whom the revenue offices treat differently, and does not trace interests through other companies and trusts or decide who is an associate.
+The calculator does not decide exemptions, refunds or ex gratia relief, which each Commissioner grants on application. Among them are Australian-based developers and build to rent in New South Wales and Victoria, exempt permanent residents who live in the home in New South Wales, significant contributors and large developers in Queensland, and refunds when a buyer stops being foreign within 12 months in South Australia. When one is sought, it refuses. It also refuses a partner (provisional) or retirement visa holder, whom the revenue offices treat differently, and does not trace interests through other companies and trusts or decide who is an associate.
 
 Not covered: the Commonwealth’s foreign investment application fees and its restrictions on foreign purchases of established homes from 1 April 2025, which RevenueSA notes; landholder and corporate trustee acquisitions; concessions on general duty; Queensland’s absentee land tax rates, which replace the general rates; Victorian trust surcharge rates; joint land tax assessments; property converted to residential use later; and a surcharge charged again when a buyer becomes foreign within 3 years. The transfer duty calculator and the land tax calculator work the general duty with first home concessions and the general land tax. Confirm the result with the revenue office or a registered adviser before relying on it.
 
@@ -12086,7 +12094,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/business-calculators/business-days/
 
-> Count business days between 2 dates or add or subtract business days, skipping weekends and the public holidays of any Australian state or territory in 2026 and 2027.
+> Count business days between 2 dates, or add or subtract them, skipping weekends and each Australian state or territory’s public holidays in 2026 and 2027.
 
 # Business days calculator
 

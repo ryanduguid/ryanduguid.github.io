@@ -128,11 +128,17 @@
     "tools/business-calculators/break-even/index.html": [
       "af623f4039e036a9ef612948565c5d4d8eee6221daaefa39832be3353340eff0"
     ],
+    "tools/business-calculators/business-days/index.html": [
+      "3e34ea05c27fbf8fc5046dc14cd1beb1caeb3b2b84e5c438050012649ec790b1"
+    ],
     "tools/business-calculators/business-use/index.html": [
       "5fa9da550af5459d82c16be43158717c7fb3081de3b566ca238ae51aa505e0d7"
     ],
     "tools/business-calculators/cash/index.html": [
       "f39459d528bd96610d20b36c8914bbb34e3d7a9ffa3a6d7a4c13f8b914217496"
+    ],
+    "tools/business-calculators/company-tax/index.html": [
+      "0e9cf49108625c439ae502cde6a207a87c9a7593408abd38a323118d3863dfcc"
     ],
     "tools/business-calculators/div7a-schedule/index.html": [
       "345d73c1ef8db5a61590193772f3c22d9b5a7e629861c58b47620c1f4d20e7b7"
@@ -158,6 +164,9 @@
     "tools/business-calculators/fixed-fee/index.html": [
       "92a8a36828e952b98e007144bffcb72766b67b31256bbdc8524917a09fc53ccf"
     ],
+    "tools/business-calculators/foreign-surcharge/index.html": [
+      "0b3022a7f760d36821938982df609f79cbfed4feb0f4ab1653bf5d8906c495ac"
+    ],
     "tools/business-calculators/gic-payment-plan/index.html": [
       "e3de2d186fb139dd4197a71b00171daff2f218a2ca2dda7c9188f891a7f6a1aa"
     ],
@@ -168,7 +177,7 @@
       "86f5b0ff1e4b4d0e186d3618e5a14afff83676fbf6740a4d258e5a4dd0912673"
     ],
     "tools/business-calculators/index.html": [
-      "1a8775f2243ae4965917fe96c6118c8dc1d311d3bb1f956d84dde02ad4e591f8"
+      "9e1d328cc9c552f1c04e273e35fa62f03b707d0f81813d7149db4fbc59f67de7"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
@@ -298,9 +307,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "47703d2ddef7967998cc1de145a0cbdd14894adc5712ca809775925500811e57",
+    "llms.txt": "aaaf6ed222e33e2f40d008321b596798c8b3c6f97e6f51bee2e6cb7712db0b26",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "47675066fd815192fdc9355a86ba0db356698a5350ff122de2a4852083fc94a5"
+    "sitemap.xml": "a6aa8815e667cc2ddce4a07ee8be1a969758f0f75adbc29d7fab3fa8973737f1"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -360,7 +369,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7768,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7771,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
