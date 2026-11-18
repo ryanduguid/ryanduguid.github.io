@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
+import { waitForCalculators } from './calculator-ready.mjs';
 import { observePageHealth } from './health.mjs';
 import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
 import { projectKind } from './project-kind.mjs';
@@ -654,6 +655,22 @@ const cueStates = (page) => page.evaluate(() => new Promise((resolve) => {
   )));
 }));
 
+// The sweeps below leave each page for the next. On 18 November 2026 they left
+// calculator pages whose engines were still arriving, and the health check failed
+// on division-296.mjs and payroll-tax.mjs (net::ERR_ABORTED).
+test('leaving a calculator page once its modules load aborts no request', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
+  await page.route('**/assets/division-296.mjs', async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await route.continue();
+  });
+  const health = observePageHealth(page);
+  await page.goto('/tools/business-calculators/gst/');
+  await waitForCalculators(page);
+  await page.goto('/');
+  health.assertHealthy();
+});
+
 // One test per width: all four in one test made 260 navigations, which took
 // 22 to 35 seconds on a Windows CI runner against the 30-second test limit.
 // Each route loads once per width for every check below.
@@ -667,6 +684,8 @@ for (const width of [320, 390, 768, 1440]) {
     const miscued = [];
     for (const [, route] of routes) {
       await page.goto(route);
+      // Leaving a calculator page before its modules arrive aborts them (health check).
+      await waitForCalculators(page);
       const viewport = await page.evaluate(() => ({
         clientWidth: document.documentElement.clientWidth,
         scrollWidth: document.documentElement.scrollWidth,
@@ -746,6 +765,7 @@ for (const width of [320, 390]) {
     let scrolling = 0;
     for (const [, route] of routes) {
       await page.goto(route);
+      await waitForCalculators(page);
       await page.evaluate(() => document.fonts.ready);
       const regions = page.locator('main :is(.table-scroll, .employee-table-scroll)');
       const count = await regions.count();
