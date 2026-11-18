@@ -6003,7 +6003,13 @@ const LSL_ACTS: [LslAct; 8] = [
         place: "AU-NSW",
         full: 10,
         early: 5,
-        pays_early: &["redundancy", "illness-dismissal", "performance", "pressing", "death"],
+        pays_early: &[
+            "redundancy",
+            "illness-dismissal",
+            "performance",
+            "pressing",
+            "death",
+        ],
         unsettled: &["fixed-term"],
     },
     LslAct {
@@ -6017,7 +6023,13 @@ const LSL_ACTS: [LslAct; 8] = [
         place: "AU-QLD",
         full: 10,
         early: 7,
-        pays_early: &["redundancy", "illness-dismissal", "pressing", "fixed-term", "death"],
+        pays_early: &[
+            "redundancy",
+            "illness-dismissal",
+            "pressing",
+            "fixed-term",
+            "death",
+        ],
         unsettled: &[],
     },
     LslAct {
@@ -6057,21 +6069,41 @@ const LSL_ACTS: [LslAct; 8] = [
         place: "AU-TAS",
         full: 10,
         early: 7,
-        pays_early: &["pressing", "retire", "redundancy", "illness-dismissal", "performance", "death"],
+        pays_early: &[
+            "pressing",
+            "retire",
+            "redundancy",
+            "illness-dismissal",
+            "performance",
+            "death",
+        ],
         unsettled: &["fixed-term"],
     },
     LslAct {
         place: "AU-ACT",
         full: 7,
         early: 5,
-        pays_early: &["pressing", "retire", "redundancy", "illness-dismissal", "performance", "death"],
+        pays_early: &[
+            "pressing",
+            "retire",
+            "redundancy",
+            "illness-dismissal",
+            "performance",
+            "death",
+        ],
         unsettled: &["fixed-term"],
     },
     LslAct {
         place: "AU-NT",
         full: 10,
         early: 7,
-        pays_early: &["pressing", "retire", "redundancy", "illness-dismissal", "performance"],
+        pays_early: &[
+            "pressing",
+            "retire",
+            "redundancy",
+            "illness-dismissal",
+            "performance",
+        ],
         unsettled: &["fixed-term", "death"],
     },
 ];
@@ -6106,18 +6138,20 @@ fn lsl_service(start: i64, until: i64) -> (i64, i64, i64) {
 /// Weeks as a ratio: 8 2/3 weeks a 10 years is 13/15 a year, 1.3 weeks a year 13/10, and
 /// 1/60th of the employment the days over 420. A part year is its months over 12 and its days
 /// over 365.25, all over 438,300 (12 × 36,525).
-fn lsl_weeks(
-    act: &LslAct,
-    start: i64,
-    until: i64,
-    reason: Option<&str>,
-) -> Option<(u128, u128)> {
+fn lsl_weeks(act: &LslAct, start: i64, until: i64, reason: Option<&str>) -> Option<(u128, u128)> {
     let (years, months, days) = lsl_service(start, until);
     let total = (until - start) as u128;
     let y = years as u128;
-    let exact = (y * 438_300 + months as u128 * 36_525 + days as u128 * 1_200, 438_300);
+    let exact = (
+        y * 438_300 + months as u128 * 36_525 + days as u128 * 1_200,
+        438_300,
+    );
     let thirteen_fifteenths = |(n, d): (u128, u128)| (13 * n, 15 * d);
-    let marked = if years >= 10 { 10 + (years - 10) / 5 * 5 } else { 0 };
+    let marked = if years >= 10 {
+        10 + (years - 10) / 5 * 5
+    } else {
+        0
+    };
     let blocks = marked as u128;
     let Some(reason) = reason else {
         // Still employed: the leave the employee can take now.
@@ -6215,7 +6249,11 @@ fn lsl_oracle(
         at.map(|years| {
             let mark = lsl_anniversary(start, years, 0);
             let weeks = lsl_weeks(act, start, mark, None).unwrap();
-            json!([years, iso_day(mark - 1 + excluded), rate_shown(lsl_ten_thousandths(weeks))])
+            json!([
+                years,
+                iso_day(mark - 1 + excluded),
+                rate_shown(lsl_ten_thousandths(weeks))
+            ])
         })
     });
     json!({"years": years, "months": months, "days": days, "counted": until - start,
@@ -6232,7 +6270,11 @@ fn lsl_case(rng: &mut Seeded) -> (Value, Value) {
         1 => day_number(1991 + rng.below(78) as i64, rng.pick(&[1, 3, 5, 8, 10]), 31),
         _ => earliest + rng.below(day_number(2070, 1, 1) as u64 - earliest as u64) as i64,
     };
-    let excluded = if rng.below(3) == 0 { 1 + rng.below(400) as i64 } else { 0 };
+    let excluded = if rng.below(3) == 0 {
+        1 + rng.below(400) as i64
+    } else {
+        0
+    };
     // A third end a day either side of a qualifying mark; the rest anywhere up to 30 years.
     let end = if rng.below(3) == 0 {
         let mark = lsl_anniversary(start, rng.pick(&[5, 7, 10, 15, 20]), 0);
@@ -6246,15 +6288,33 @@ fn lsl_case(rng: &mut Seeded) -> (Value, Value) {
     let pay = rng.cents(100_000_000);
     // Leave taken up to a ten-thousandth more than the entitlement, which is refused.
     let entitled = if end + 1 - excluded > start {
-        lsl_weeks(act, start, end + 1 - excluded, (!employed).then_some(reason)).map_or(0, lsl_ten_thousandths)
+        lsl_weeks(
+            act,
+            start,
+            end + 1 - excluded,
+            (!employed).then_some(reason),
+        )
+        .map_or(0, lsl_ten_thousandths)
     } else {
         0
     };
-    let taken = if rng.below(2) == 0 { 0 } else { rng.below(entitled + 2) };
+    let taken = if rng.below(2) == 0 {
+        0
+    } else {
+        rng.below(entitled + 2)
+    };
     let case = json!({"place": act.place, "start": iso_day(start), "end": iso_day(end),
         "excluded": excluded.to_string(), "taken": rate_shown(taken),
         "mode": if employed { "employed" } else { "ends" }, "reason": reason, "pay": shown(pay)});
-    let want = lsl_oracle(act, start, end, excluded, (!employed).then_some(reason), taken, pay);
+    let want = lsl_oracle(
+        act,
+        start,
+        end,
+        excluded,
+        (!employed).then_some(reason),
+        taken,
+        pay,
+    );
     (case, want)
 }
 
@@ -6267,10 +6327,18 @@ fn the_lsl_oracle_works_the_published_examples_by_hand() {
     // Commerce WA: Lee, made redundant after 12 years, 10.4 weeks; Anastasia, dismissed for
     // serious misconduct after 12 years and 1 month, the 8.667 weeks accrued.
     let (y2014, y2026) = (day_number(2014, 1, 1), day_number(2026, 1, 31));
-    assert_eq!(ends("AU-WA", y2014, day_number(2025, 12, 31), "redundancy"), "10.4");
+    assert_eq!(
+        ends("AU-WA", y2014, day_number(2025, 12, 31), "redundancy"),
+        "10.4"
+    );
     assert_eq!(ends("AU-WA", y2014, y2026, "misconduct"), "8.6667");
     // SafeWork SA: Aisha resigns after 8 years and 6 months, 10.4 weeks.
-    let aisha = ends("AU-SA", day_number(2017, 1, 1), day_number(2025, 6, 30), "resign");
+    let aisha = ends(
+        "AU-SA",
+        day_number(2017, 1, 1),
+        day_number(2025, 6, 30),
+        "resign",
+    );
     assert_eq!(aisha, "10.4");
     // WorkSafe Tasmania example 2: 13 years, 6 months and 14 days is 13.5383 years.
     let (start, until) = (day_number(2012, 1, 1), day_number(2025, 7, 15));
@@ -6279,11 +6347,28 @@ fn the_lsl_oracle_works_the_published_examples_by_hand() {
     let part = (years * 438_300 + months * 36_525 + days * 1_200) as u128;
     assert_eq!(rate_shown(lsl_ten_thousandths((part, 438_300))), "13.5383");
     // WorkSafe ACT: 7 years is 6.0667 weeks; at $560 a week the exact weeks give $3,397.33.
-    let act7 = lsl_oracle(act("AU-ACT"), day_number(2019, 1, 1), day_number(2025, 12, 31), 0, None, 0, 56_000);
-    assert_eq!((act7["weeks"].clone(), act7["value"].clone()), (json!("6.0667"), json!("3397.33")));
+    let act7 = lsl_oracle(
+        act("AU-ACT"),
+        day_number(2019, 1, 1),
+        day_number(2025, 12, 31),
+        0,
+        None,
+        0,
+        56_000,
+    );
+    assert_eq!(
+        (act7["weeks"].clone(), act7["value"].clone()),
+        (json!("6.0667"), json!("3397.33"))
+    );
     // A 29 February start completes its years with 28 February.
-    assert_eq!(lsl_anniversary(day_number(2016, 2, 29), 10, 0), day_number(2026, 3, 1));
-    assert_eq!(lsl_anniversary(day_number(2025, 1, 31), 0, 1), day_number(2025, 3, 1));
+    assert_eq!(
+        lsl_anniversary(day_number(2016, 2, 29), 10, 0),
+        day_number(2026, 3, 1)
+    );
+    assert_eq!(
+        lsl_anniversary(day_number(2025, 1, 31), 0, 1),
+        day_number(2025, 3, 1)
+    );
 }
 
 #[test]
