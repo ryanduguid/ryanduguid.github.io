@@ -67,8 +67,8 @@ test('each business calculator tool is keyed by the form that registers it', () 
 
 test('every calculator tool is read-only, refuses unknown inputs and has its own name', () => {
   const all = [...Object.values(tools), declineInValue, levy];
-  assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_payment',
-    'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_decline_in_value',
+  assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_schedule',
+    'calculate_hire_purchase_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_decline_in_value',
     'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -86,15 +86,21 @@ test('every calculator tool description names its currency and says the result i
 
 test('the business calculator tools pass the page function the strings its form would', async () => {
   const calls = [];
-  const spy = Object.fromEntries(['gst', 'div7aMinimumRepayment', 'loan', 'breakEven'].map(name =>
+  const spy = Object.fromEntries(['gst', 'div7aMinimumRepayment', 'financeSchedule', 'interestByIncomeYear', 'breakEven'].map(name =>
     [name, (...args) => { calls.push([name, ...args]); return calculate[name](...args); }]));
   const spied = calculatorTools(spy);
   await spied.div7a.execute({ balance: '1000', benchmarkRate: '8.77', remainingTerm: 1 });
-  await spied.loan.execute({ principal: '100000', annualRate: '6', months: 360 });
+  await spied.loan.execute({ solve: 'payment', amount: '100000', annualRate: '6', payments: 360, startDate: '2026-07-01' });
   await spied['break-even'].execute({ fixedCosts: '1000', pricePerUnit: '30', variableCostPerUnit: '18' });
-  await spied.loan.execute({ principal: '60000', annualRate: '7.5', months: 60, balloon: '18000', timing: 'advance' });
-  assert.deepEqual(calls, [['div7aMinimumRepayment', '1000', '8.77', '1'], ['loan', '100000', '6', '360', '0', 'arrears'],
-    ['breakEven', '1000', '30', '18'], ['loan', '60000', '7.5', '60', '18000', 'advance']]);
+  await spied.loan.execute({ solve: 'rate', amount: '60000', payment: '948.17', payments: 60, balloon: '30', balloonKind: 'percent',
+    frequency: 'monthly', timing: 'advance', startDate: '2026-07-01' });
+  // What the form passes: every field as a string, the unused one blank.
+  const form = (terms) => ({ solve: 'payment', amount: '', rate: '', payments: '', payment: '', balloon: '0', balloonKind: 'amount',
+    frequency: 'monthly', timing: 'arrears', start: '2026-07-01', ...terms });
+  assert.deepEqual(calls, [['div7aMinimumRepayment', '1000', '8.77', '1'],
+    ['financeSchedule', form({ amount: '100000', rate: '6', payments: '360' })], ['breakEven', '1000', '30', '18'],
+    ['financeSchedule', form({ solve: 'rate', amount: '60000', payments: '60', payment: '948.17', balloon: '30', balloonKind: 'percent',
+      timing: 'advance' })]]);
 });
 
 test('Division 7A tool returns the page worked example', async () => {
@@ -120,34 +126,64 @@ test('Division 7A tool refuses a term as text, out of range or under another nam
   await assert.rejects(tools.div7a.execute({ ...withoutRate, rate: benchmarkRate }), /rate is not an input of this tool/);
 });
 
-test('loan tool returns the independently calculated amortising case', async () => {
-  const r = await tools.loan.execute({ principal: '100000', annualRate: '6', months: 360 });
-  assert.deepEqual([r.monthlyPayment, r.firstInterest, r.firstPrincipal, r.totalInterest],
-    ['599.55', '500.00', '99.55', '115838.19']);
+test('loan tool returns the cent-by-cent schedule of the independently checked amortising case', async () => {
+  const r = await tools.loan.execute({ solve: 'payment', amount: '100000', annualRate: '6', payments: 360, startDate: '2026-07-01' });
+  assert.deepEqual([r.payment, r.lastPayment, r.payments, r.totalInterest, r.balloonRow, r.currency],
+    ['599.55', '600.00', 360, '115838.45', null, 'AUD']);
+  assert.deepEqual(r.schedule[0], { date: '2026-08-01', opening: '100000.00', payment: '599.55', interest: '500.00',
+    principal: '99.55', closing: '99900.45' });
+  assert.equal(r.schedule.length, 360);
+  assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/loan/');
 });
 
-test('loan tool takes a balloon and payments in advance as the page does', async () => {
-  // AusCalc's vehicle finance worked example, read 15 November 2026: $954.09 a month and
-  // $15,245.63 total interest; in advance each payment is that divided by 1.00625.
-  const arrears = await tools.loan.execute({ principal: '60000', annualRate: '7.5', months: 60, balloon: '18000' });
-  assert.deepEqual([arrears.monthlyPayment, arrears.firstInterest, arrears.firstPrincipal, arrears.totalInterest],
-    ['954.09', '375.00', '579.09', '15245.63']);
-  const advance = await tools.loan.execute({ principal: '60000', annualRate: '7.5', months: 60, balloon: '18000', timing: 'advance' });
-  assert.deepEqual([advance.monthlyPayment, advance.firstInterest, advance.firstPrincipal, advance.totalInterest],
-    ['948.17', '0.00', '948.17', '14890.07']);
+test('loan tool takes a balloon, payments in advance and any frequency as the page does', async () => {
+  // AusCalc's vehicle finance worked example, read 15 November 2026: $954.09 a month; in
+  // advance each payment is that divided by 1.00625.
+  const terms = { solve: 'payment', amount: '60000', annualRate: '7.5', payments: 60, balloon: '18000', startDate: '2026-07-01' };
+  const arrears = await tools.loan.execute(terms);
+  assert.deepEqual([arrears.payment, arrears.lastPayment, arrears.totalInterest, arrears.balloonDue],
+    ['954.09', '954.35', '15245.66', '2031-07-01']);
+  const advance = await tools.loan.execute({ ...terms, timing: 'advance' });
+  assert.deepEqual([advance.payment, advance.lastPayment, advance.totalInterest, advance.balloonRow.interest],
+    ['948.17', '948.00', '14890.03', '111.80']);
+  const weekly = await tools.loan.execute({ ...terms, amount: '10000', annualRate: '5.2', payments: 52, balloon: '0', frequency: 'weekly' });
+  assert.deepEqual([weekly.payment, weekly.schedule[0].interest, weekly.schedule[0].date], ['197.45', '10.00', '2026-07-08']);
 });
 
-test('loan tool refuses an unknown timing, a balloon as a number and one above the principal', async () => {
-  const valid = { principal: '1000', annualRate: '12', months: 12 };
+test('loan tool works out the rate, the amount financed and the number of payments', async () => {
+  const start = { startDate: '2025-09-15' };
+  const rate = await tools.loan.execute({ solve: 'rate', amount: '50000', payment: '850', payments: 60, balloon: '10000', ...start });
+  assert.deepEqual([rate.annualRatePercent, rate.lastPayment], ['6.9860', '849.95']);
+  const amount = await tools.loan.execute({ solve: 'amount', payment: '954.09', annualRate: '7.5', payments: 60, balloon: '18000', ...start });
+  assert.equal(amount.amountFinanced, '59999.81');
+  const term = await tools.loan.execute({ solve: 'term', amount: '60000', payment: '1202.28', annualRate: '7.5', ...start });
+  assert.deepEqual([term.payments, term.lastPayment], [60, '1202.06']);
+});
+
+test('loan tool refuses missing terms, an unknown frequency and a balloon above the amount financed', async () => {
+  const valid = { solve: 'payment', amount: '1000', annualRate: '12', payments: 12, startDate: '2026-07-01' };
   await assert.rejects(tools.loan.execute({ ...valid, timing: 'start' }), /timing does not match/);
+  await assert.rejects(tools.loan.execute({ ...valid, frequency: 'daily' }), /frequency does not match/);
   await assert.rejects(tools.loan.execute({ ...valid, balloon: 100 }), /balloon does not match/);
-  await assert.rejects(tools.loan.execute({ ...valid, balloon: '1000.01' }), /The balloon cannot be more than the loan principal/);
+  await assert.rejects(tools.loan.execute({ ...valid, balloon: '1000.01' }), /The balloon cannot be more than the amount financed/);
+  await assert.rejects(tools.loan.execute({ ...valid, payments: 1.5 }), /payments must be a whole number from 1 to 2600/);
+  await assert.rejects(tools.loan.execute({ ...valid, annualRate: '12%' }), /annualRate does not match/);
+  const { amount, ...withoutAmount } = valid;
+  await assert.rejects(tools.loan.execute(withoutAmount), /amount is required to work out the payment/);
+  await assert.rejects(tools.loan.execute({ ...valid, solve: 'rate', payment: '80' }), /no rate of nil or more fits/);
+  const { startDate, ...withoutStart } = valid;
+  await assert.rejects(tools.loan.execute(withoutStart), /startDate is required/);
 });
 
-test('loan tool refuses a fractional term, a rate with a sign and a missing principal', async () => {
-  await assert.rejects(tools.loan.execute({ principal: '1000', annualRate: '12', months: 1.5 }), /months must be a whole number from 1 to 600/);
-  await assert.rejects(tools.loan.execute({ principal: '1000', annualRate: '12%', months: 12 }), /annualRate does not match/);
-  await assert.rejects(tools.loan.execute({ annualRate: '12', months: 12 }), /principal is required/);
+test('hire purchase tool adds interest by income year, sharing a period across 30 June', async () => {
+  const r = await tools['hire-purchase'].execute({ solve: 'payment', amount: '1000', annualRate: '12', payments: 3,
+    startDate: '2027-06-15' });
+  assert.deepEqual(r.interestByIncomeYear, { '2026-27': '5.33', '2027-28': '14.74' });
+  assert.deepEqual([r.payment, r.lastPayment, r.totalInterest], ['340.02', '340.03', '20.07']);
+  assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/hire-purchase/');
+  assert.equal((await tools.loan.execute({ solve: 'payment', amount: '1000', annualRate: '12', payments: 3,
+    startDate: '2027-06-15' })).interestByIncomeYear, undefined);
+  assert.match(tools['hire-purchase'].description, /does not work out GST, the GST credit, the car limit or income tax/);
 });
 
 test('break-even tool rounds units up as the page does', async () => {

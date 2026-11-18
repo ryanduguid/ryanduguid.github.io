@@ -458,6 +458,10 @@ Run 44024114382 returned HTTP 403 for 7 ATO pages that the income tax, take-home
 and study and training loan repayment calculators cite; each returned HTTP 200
 locally on 17 November 2026 and is in the same list. All 7 returned HTTP 403
 again in run 44173032679 on 18 November 2026.
+The hire purchase calculator cites 4 sections of Division 240 and the GST issues
+register in the ATO's legal database and its GST hire purchase guidance; each returned
+HTTP 200 locally on 18 November 2026. They are in the same list beside the legal
+database and guidance pages already there, unchecked in Actions.
 Run 44229492536 returned HTTP 403 for 5 ATO pages that the company tax and franking
 calculator cites; each returned HTTP 200 locally on 18 November 2026 and is in the same list.
 

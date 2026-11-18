@@ -301,7 +301,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Thirty-two calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Thirty-three calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
@@ -318,7 +318,8 @@ Published 11 September 2026. Last checked 18 November 2026, the newest of the ca
 - Hourly pricing calculator Required hourly rate before GST from annual costs, target profit and billable hours.
 - Fixed fee pricing calculator A fixed fee from estimated hours at a rate or a cost and margin, with GST, monthly instalments and the effective hourly rate.
 - Budget variance calculator Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
-- Monthly loan payment calculator Fixed monthly payment, first-payment interest and principal, and estimated total interest, in arrears or in advance, with an optional balloon.
+- Loan repayment schedule calculator Every payment of a loan, weekly to yearly, in arrears or in advance, with an optional balloon; works out the payment, the amount, the term or the rate, with CSV export.
+- Hire purchase and chattel mortgage schedule The same schedule for a hire purchase agreement or chattel mortgage, with the interest by income year and a journal for each payment.
 
 ## Division 7A, FBT, professional firms and GIC
 
@@ -365,7 +366,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
 - Fixed fee pricing calculator: https://duguid.com.au/tools/business-calculators/fixed-fee/
 - Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
-- Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Loan repayment schedule calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/

@@ -97,8 +97,18 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
     }
     let csv = '';
     const cashDownload = form.querySelector('#download-cash');
+    const csvDownload = form.querySelector('button[data-csv]');
     const value = name => form.elements.namedItem(name).value;
     const money = name => aud(Number(value(name)));
+    // A finance schedule leaves out the field it works out, so that field cannot block a calculation.
+    const solveFields = [...form.querySelectorAll('[data-solve]')];
+    const markSolved = () => {
+      for (const field of solveFields) field.disabled = field.dataset.solve === value('solve');
+    };
+    if (solveFields.length) {
+      markSolved();
+      form.addEventListener('change', event => { if (event.target.name === 'solve') markSolved(); });
+    }
 
     const cashInputs = () => ({ version: 1, currency: 'AUD', startDate: value('start-date'),
       opening: value('opening'), buffer: value('buffer'), week: value('week'), amount: value('amount'), delay: value('delay'),
@@ -149,13 +159,16 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       if (applied) applied.hidden = true;
       csv = '';
       if (cashDownload) cashDownload.disabled = true;
-      const table = form.querySelector('#cash-results, #div7a-schedule-results');
-      if (table) table.parentElement.hidden = true;
+      if (csvDownload) csvDownload.disabled = true;
+      for (const table of form.querySelectorAll('#cash-results, #div7a-schedule-results, table[data-results]')) table.parentElement.hidden = true;
     }
     form.addEventListener('input', invalidate);
     form.addEventListener('change', invalidate);
     if (cashDownload) cashDownload.addEventListener('click', () => {
       if (csv) download(csv, 'cash-forecast.csv', 'text/csv;charset=utf-8');
+    });
+    if (csvDownload) csvDownload.addEventListener('click', () => {
+      if (csv) download(csv, csvDownload.dataset.csv, 'text/csv;charset=utf-8');
     });
 
     form.addEventListener('submit', event => {
@@ -210,10 +223,22 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
               rows: [['Actual minus budget', aud(r.difference)], ['Difference as a share of absolute budget', percent(r.percent)]], note: r.effect };
             break;
           }
-          case 'loan': {
-            const r = calculate.loan(value('principal'), value('rate'), value('months'), value('balloon'), value('timing'));
-            result = { inputs: `principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${count(value('months'), 'monthly payment')} in ${value('timing')}, balloon ${money('balloon')}`, principal: 0,
-              rows: [['Monthly payment', aud(r.payment)], ['First payment interest', aud(r.firstInterest)], ['First payment principal', aud(r.firstPrincipal)], ['Estimated total interest', aud(r.totalInterest)]] };
+          case 'loan':
+          case 'hire-purchase': {
+            result = calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
+              payment: value('payment'), balloon: value('balloon'), balloonKind: value('balloon-kind'), frequency: value('frequency'),
+              timing: value('timing'), start: value('start') }, aud, form.dataset.calculator === 'loan' ? null : value('agreement'));
+            // Each table's rows: a label cell, then figures.
+            for (const table of form.querySelectorAll('table[data-results]')) {
+              table.tBodies[0].replaceChildren(...result.tables[table.dataset.results].map(cells => {
+                const tr = document.createElement('tr');
+                tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
+                return tr;
+              }));
+              table.parentElement.hidden = false;
+            }
+            csv = result.csv;
+            csvDownload.disabled = false;
             break;
           }
           case 'div7a': {

@@ -38,7 +38,7 @@ pub const CI_MANUAL_URLS: [&str; 20] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 203] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -75,6 +75,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 203] = [
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/correcting-gst-errors/gst-errors-that-cannot-be-corrected-on-a-later-bas",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/correcting-gst-errors/how-to-correct-gst-errors",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works",
+    "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/rules-for-specific-transactions/agent-consignment-and-progressive-transactions/gst-hire-purchase-and-leasing",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/your-industry/motor-vehicle-and-transport/gst-and-motor-vehicles/purchasing-a-motor-vehicle",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/registering-for-gst",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/tax-invoices",
@@ -199,6 +200,10 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 203] = [
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/202-60",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/202-65",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/207-20",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/240-10",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/240-20",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/240-25",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/240-60",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-27",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-80",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/67-25",
@@ -214,6 +219,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 203] = [
     "https://www.ato.gov.au/law/view/document?docid=TXD/TD9419/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=TXR/TR20221W/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=TXR/TR20223/NAT/ATO/00001",
+    "https://www.ato.gov.au/law/view/print?DocID=GIR%2FFinancial-services-ch1&PiT=99991231235958",
     "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
     "https://www.ato.gov.au/online-services/businesses-and-organisations-online-services/lodgments-in-online-services-for-business/two-week-lodgment-concession-terms-and-conditions",
     "https://www.ato.gov.au/single-page-applications/legaldatabase",

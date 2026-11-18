@@ -1,12 +1,12 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-//! An independent oracle for the loan, Division 7A, FBT car, Coal LSL and transfer duty engines. 360 seeded
+//! An independent oracle for the finance schedule, Division 7A, FBT car, Coal LSL and transfer duty engines. 360 seeded
 //! fictional cases are worked here in exact integers, by a route the engines do not take,
-//! and each result must equal what the browser module returns under Node. The loan sums
-//! its discount factors one month at a time, and the Division 7A minimum yearly repayment
-//! one year at a time, where `assets/business-calculators.mjs` uses the closed annuity
-//! form; the levy works from section 3B of the Coal Mining Industry (Long Service Leave)
+//! and each result must equal what the browser module returns under Node. The finance
+//! schedule's level payment sums its discount factors one period at a time, and the Division 7A
+//! minimum yearly repayment one year at a time, where `assets/finance-schedule.mjs` and
+//! `assets/div7a.mjs` use the closed annuity form; the levy works from section 3B of the Coal Mining Industry (Long Service Leave)
 //! Payroll Levy Collection Act 1992 in quarter cents. The FBT car value adds the statutory
 //! formula's share of the base value one day at a time and takes the business use share off
 //! the operating costs, where the engine multiplies by the days and the private use share.
@@ -14,9 +14,9 @@
 //! legislation, not from the site's rate table, and checks the engine either side of every
 //! band threshold and on 160 seeded values, so a slip in either transcription shows.
 //!
-//! The route is independent; the conventions are not. The oracle takes the same 12 equal
-//! months, payment count, unrounded total interest and half-up final rounding as the
-//! engines, the first principal as the rounded payment less the rounded interest, the
+//! The route is independent; the conventions are not. The oracle takes the same equal
+//! periods (the annual rate over the payments a year), the payment rounded half up once, each
+//! period's interest rounded half up and the last payment taking what rounding leaves, the
 //! same Division 7A interest part (the rate on the whole balance) and the same
 //! FBT rounding (each value to the cent before contributions, the gross-up and the FBT from
 //! the figure before them), so it cannot show those are the right conventions.
@@ -24,7 +24,12 @@
 //! A further 120 seeded loans, from their own seed so the 360 above are unchanged, add a
 //! balloon owed at the end of the term and payments in arrears or in advance; the oracle
 //! discounts the balloon and sums each timing's factors month by month, where the engine
-//! takes the closed form and divides by one month's growth for advance.
+//! takes the closed form and divides by one period's growth for advance. A further 160
+//! seeded finance schedules, from their own seed, take every frequency, a balloon in dollars
+//! or as a share, and work out the payment, the amount financed, the number of payments or the
+//! rate. The amount financed is the payments and balloon discounted one period at a time; the
+//! rate to 4 places bisects the grid of 4-place rates on exact present values, where the engine
+//! bisects to 2^-48 of 100% a year and then rounds.
 //!
 //! Nothing here imports an engine or a constant from one, and a change to the case seed
 //! needs no change to the expected values, which are never stored. The objection deadline
@@ -92,6 +97,7 @@ use jiff::ToSpan;
 use jiff::civil::{Date, Weekday, date};
 use num_bigint::BigUint;
 use serde_json::{Value, json};
+use std::cmp::Ordering;
 use std::io::Write;
 use std::process::{Command, Stdio};
 
@@ -101,6 +107,7 @@ const DIV7A_CASES: usize = 60;
 const LEVY_CASES: usize = 120;
 const FBT_CASES: usize = 60;
 const BALLOON_CASES: usize = 120;
+const FINANCE_CASES: usize = 160;
 /// Seeded transfer duty values, beside every band boundary of every jurisdiction.
 const DUTY_CASES: usize = 160;
 /// Seeded first home values, from their own seed, mostly within the concessions' ranges.
@@ -120,7 +127,7 @@ const LEVY_DENOMINATOR: u128 = 4_000;
 /// the module paths resolve. A missing `node` fails the test.
 const HARNESS: &str = r#"
 import { readFileSync } from 'node:fs';
-import { loan, div7aMinimumRepayment, terminationPayment, transferDuty, firstHomeDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan, vehicleClass } from './assets/business-calculators.mjs';
+import { financeSchedule, div7aMinimumRepayment, terminationPayment, transferDuty, firstHomeDuty, fbtCar, fixedFee, pcgRisk, gicPaymentPlan, vehicleClass } from './assets/business-calculators.mjs';
 import { pcgAllocation } from './assets/pcg-2021-4.mjs';
 import { baseRateWages, annualSalaryWages, casualWages, levyCents } from './assets/levy.mjs';
 // Each jurisdiction's scale as the rendered calculator page gives it to the browser.
@@ -142,10 +149,15 @@ const money = (value) => String(value);
 const levy = (result) => ({ branch: result.branch, winner: result.winner ?? null,
   quarters: result.eligibleWagesCents * 4, levy: levyCents(result.eligibleWagesCents) });
 const run = {
-  loan: ({ principal, rate, months, balloon, timing }) => {
-    const result = loan(principal, rate, months, balloon, timing);
-    return { payment: money(result.payment), firstInterest: money(result.firstInterest),
-      firstPrincipal: money(result.firstPrincipal), totalInterest: money(result.totalInterest) };
+  schedule: ({ terms }) => {
+    try {
+      const result = financeSchedule(terms);
+      return { amount: money(result.amount), payment: money(result.payment), finalPayment: money(result.finalPayment),
+        payments: String(result.payments), rate: String(result.rate), firstInterest: money(result.rows[0].interest),
+        totalInterest: money(result.totalInterest) };
+    } catch (error) {
+      return { refused: error.message };
+    }
   },
   div7a: ({ balance, rate, term }) => {
     const result = div7aMinimumRepayment(balance, rate, term);
@@ -222,34 +234,6 @@ fn half_up(numerator: &BigUint, denominator: &BigUint) -> u64 {
     let two = BigUint::from(2_u8);
     let rounded = (&two * numerator + denominator) / (&two * denominator);
     rounded.try_into().expect("a result within u64")
-}
-
-/// Exact payment, first interest, first principal and total interest, in cents.
-fn loan_oracle(principal: u64, rate: u64, months: u32) -> [u64; 4] {
-    let scale = BigUint::from(MONTHLY_SCALE);
-    let growth = BigUint::from(MONTHLY_SCALE + rate);
-    let balance = BigUint::from(principal);
-    // Over the common denominator growth^n, the discount factors (scale/growth)^k for
-    // k = 1 to n sum to `factors`; the payment is the balance over that sum.
-    let mut factors = BigUint::ZERO;
-    let mut scale_power = BigUint::from(1_u8);
-    let mut growth_power = BigUint::from(1_u8);
-    for _ in 0..months {
-        factors = factors * &growth + &scale_power * &scale;
-        scale_power *= &scale;
-        growth_power *= &growth;
-    }
-    let payment_top = &balance * &growth_power;
-    let total_interest_top = &payment_top * months - &balance * &factors;
-    let payment = half_up(&payment_top, &factors);
-    let first_interest = half_up(&(&balance * rate), &scale);
-    // The first principal is what the rounded payment leaves after the rounded interest.
-    [
-        payment,
-        first_interest,
-        payment - first_interest,
-        half_up(&total_interest_top, &factors),
-    ]
 }
 
 /// Division 7A minimum yearly repayment, interest and principal, in cents: the balance over
@@ -584,29 +568,533 @@ fn dollars(cents: u64) -> String {
     format!("{}.{:02}", cents / 100, cents % 100)
 }
 
-/// A case for Node and what the engine must return for it.
+/// How often payments fall: the payments a year and the most the engine takes, 50 years of them.
+#[derive(Clone, Copy)]
+struct Frequency {
+    name: &'static str,
+    per_year: u64,
+    most: u32,
+}
+
+const FREQUENCIES: [Frequency; 5] = [
+    Frequency {
+        name: "weekly",
+        per_year: 52,
+        most: 2_600,
+    },
+    Frequency {
+        name: "fortnightly",
+        per_year: 26,
+        most: 1_300,
+    },
+    Frequency {
+        name: "monthly",
+        per_year: 12,
+        most: 600,
+    },
+    Frequency {
+        name: "quarterly",
+        per_year: 4,
+        most: 200,
+    },
+    Frequency {
+        name: "annual",
+        per_year: 1,
+        most: 50,
+    },
+];
+
+/// The engine's refusals, word for word, where the oracle finds no schedule.
+const ROUNDING_REFUSAL: &str = "Rounding each period’s interest to the cent at this rate and term stops the schedule closing on the balloon. Use fewer payments, a lower rate or a larger amount.";
+const NEVER_FALLS: &str =
+    "The payment does not cover a period’s interest, so the balance never falls to the balloon.";
+const NO_RATE: &str = "The payments and balloon add up to less than the amount financed, so no rate of nil or more fits.";
+const ABOVE_100: &str =
+    "These payments need a rate above 100% a year, which this page does not work.";
+const BALLOON_OVER: &str = "The balloon cannot be more than the amount financed.";
+const AMOUNT_OVER: &str = "The amount financed this gives is over $1,000,000,000. Use a smaller payment or fewer payments.";
+const AMOUNT_NIL: &str = "The amount financed this gives rounds to nil. Use a larger payment.";
+const TOO_LARGE: &str =
+    "The payments total more than this page can show to the cent. Use smaller amounts.";
+const NIL_FULL_BALLOON: &str =
+    "At nil interest a 100% balloon leaves the payments nothing to repay, so no amount fits.";
+
+/// A finance schedule's terms in whole units: cents, the annual rate in ten-thousandths of 1%,
+/// and a balloon in cents or, with `share`, in hundredths of 1% of the amount financed. The
+/// field `solve` names is worked out, and the engine does not read it.
+#[derive(Clone, Copy)]
+struct Terms {
+    solve: &'static str,
+    amount: u64,
+    rate: u64,
+    periods: u32,
+    payment: u64,
+    balloon: u64,
+    share: Option<u64>,
+    frequency: Frequency,
+    advance: bool,
+}
+
+impl Terms {
+    /// Monthly payments in arrears with no balloon, worked for the payment.
+    fn monthly(amount: u64, rate: u64, periods: u32) -> Self {
+        Terms {
+            solve: "payment",
+            amount,
+            rate,
+            periods,
+            payment: 1,
+            balloon: 0,
+            share: None,
+            frequency: FREQUENCIES[2],
+            advance: false,
+        }
+    }
+
+    /// A period's rate is `rate / scale`: the payments a year times 1,000,000.
+    fn scale(&self) -> u64 {
+        self.frequency.per_year * 1_000_000
+    }
+
+    /// The form's fields as the page passes them to the engine.
+    fn case(&self) -> Value {
+        let balloon = self.share.map_or_else(
+            || dollars(self.balloon),
+            |share| format!("{}.{:02}", share / 100, share % 100),
+        );
+        json!({
+            "kind": "schedule",
+            "terms": {
+                "solve": self.solve,
+                "amount": dollars(self.amount),
+                "rate": format!("{}.{:04}", self.rate / 10_000, self.rate % 10_000),
+                "payments": self.periods.to_string(),
+                "payment": dollars(self.payment),
+                "balloon": balloon,
+                "balloonKind": if self.share.is_some() { "percent" } else { "amount" },
+                "frequency": self.frequency.name,
+                "timing": if self.advance { "advance" } else { "arrears" },
+                "start": "2026-07-01",
+            },
+        })
+    }
+
+    fn balloon_of(&self, amount: u64) -> u64 {
+        self.share.map_or(self.balloon, |share| {
+            half_up(&(BigUint::from(amount) * share), &BigUint::from(10_000_u32))
+        })
+    }
+}
+
+/// Over the common denominator growth^n, the discount factors (scale/growth)^k for k = 1 to n
+/// in arrears, or 0 to n - 1 in advance, summed one period at a time; with growth^n and scale^n.
+fn discount_sum(rate: u64, scale: u64, periods: u32, advance: bool) -> [BigUint; 3] {
+    let (scale, growth) = (BigUint::from(scale), BigUint::from(scale + rate));
+    let mut factors = BigUint::ZERO;
+    let mut scale_power = BigUint::from(1_u8);
+    let mut growth_power = BigUint::from(1_u8);
+    for _ in 0..periods {
+        // In arrears this period adds scale^(k+1); in advance, one period earlier, scale^k.
+        let term = if advance {
+            &scale_power * &growth
+        } else {
+            &scale_power * &scale
+        };
+        factors = factors * &growth + term;
+        scale_power *= &scale;
+        growth_power *= &growth;
+    }
+    [factors, growth_power, scale_power]
+}
+
+/// The level payment in cents: the amount financed less the balloon's discounted value, over
+/// the sum of the discount factors, where the engine takes the closed annuity form.
+fn payment_oracle(terms: &Terms, amount: u64, balloon: u64) -> u64 {
+    let [factors, growth_power, scale_power] =
+        discount_sum(terms.rate, terms.scale(), terms.periods, terms.advance);
+    half_up(
+        &(BigUint::from(amount) * growth_power - BigUint::from(balloon) * scale_power),
+        &factors,
+    )
+}
+
+/// The amount financed in cents, before the engine's limits: the payments and the balloon
+/// discounted at the rate, the balloon's share of the amount taken off the denominator.
+fn amount_oracle(terms: &Terms) -> u64 {
+    let [factors, growth_power, scale_power] =
+        discount_sum(terms.rate, terms.scale(), terms.periods, terms.advance);
+    let payment = BigUint::from(terms.payment);
+    match terms.share {
+        None => half_up(
+            &(payment * factors + BigUint::from(terms.balloon) * scale_power),
+            &growth_power,
+        ),
+        Some(share) => half_up(
+            &(payment * factors * 10_000_u32),
+            &(growth_power * 10_000_u32 - scale_power * share),
+        ),
+    }
+}
+
+/// The annual rate in ten-thousandths of 1%, rounded half up, at which the payments and the
+/// balloon are worth the amount financed. The grid of 4-place rates is bisected on exact
+/// present values, and the half step between the 2 rates either side of the root says which is
+/// nearer, where the engine bisects to 2^-48 of 100% and then rounds.
+fn rate_oracle(terms: &Terms) -> Result<u64, String> {
+    let balloon = BigUint::from(terms.balloon_of(terms.amount));
+    // Whether the payments and balloon, at `rate` over `scale` a period, are worth more than,
+    // as much as or less than the amount financed.
+    let worth = |rate: u64, scale: u64| {
+        let [factors, growth_power, scale_power] =
+            discount_sum(rate, scale, terms.periods, terms.advance);
+        (BigUint::from(terms.payment) * factors + &balloon * scale_power)
+            .cmp(&(BigUint::from(terms.amount) * growth_power))
+    };
+    let scale = terms.scale();
+    match worth(0, scale) {
+        Ordering::Less => return Err(NO_RATE.into()),
+        Ordering::Equal => return Ok(0),
+        Ordering::Greater => {}
+    }
+    if worth(1_000_000, scale) == Ordering::Greater {
+        return Err(ABOVE_100.into());
+    }
+    // Worth falls as the rate rises: low stays worth more, high as much or less.
+    let (mut low, mut high) = (0, 1_000_000);
+    while high - low > 1 {
+        let middle = u64::midpoint(low, high);
+        if worth(middle, scale) == Ordering::Greater {
+            low = middle;
+        } else {
+            high = middle;
+        }
+    }
+    Ok(if worth(2 * low + 1, 2 * scale) == Ordering::Less {
+        low
+    } else {
+        high
+    })
+}
+
+/// The schedule in whole cents, one row for each payment date: the interest accrued since the
+/// last payment rounds half up (none on a first payment in advance), every payment but the last
+/// is `payment`, and the last leaves the balloon, or in advance the balloon's value a period
+/// before it falls due. Worked for the number of payments, they run until one would take the
+/// balance to that value or below. Returns the last payment, the number of payments, the first
+/// interest and the total interest with the balloon's, or the engine's refusal.
+fn schedule_oracle(
+    terms: &Terms,
+    amount: u64,
+    balloon: u64,
+    payment: u64,
+) -> Result<[u64; 4], String> {
+    let (rate, scale) = (i128::from(terms.rate), i128::from(terms.scale()));
+    let balloon = i128::from(balloon);
+    let left = if terms.advance {
+        (2 * balloon * scale + scale + rate) / (2 * (scale + rate))
+    } else {
+        balloon
+    };
+    let (mut balance, payment) = (i128::from(amount), i128::from(payment));
+    let (mut total, mut first) = (0, None);
+    let find_term = terms.solve == "term";
+    let cents = |value: i128| u64::try_from(value).unwrap();
+    for count in 1_u32.. {
+        let interest = if terms.advance && count == 1 {
+            0
+        } else {
+            (2 * balance * rate + scale) / (2 * scale)
+        };
+        let last = if find_term {
+            balance + interest - payment <= left
+        } else {
+            count == terms.periods
+        };
+        let paid = if last {
+            balance + interest - left
+        } else {
+            payment
+        };
+        let closing = balance + interest - paid;
+        if paid < 0 || closing < 0 {
+            return Err(ROUNDING_REFUSAL.into());
+        }
+        let first = *first.get_or_insert(interest);
+        total += interest;
+        if last {
+            // Every payment and the balloon: the amount financed and all the interest. A
+            // half cent of rounding can grow past what a JavaScript number holds to the cent.
+            if i128::from(amount) + total + balloon - left > (1_i128 << 53) - 1 {
+                return Err(TOO_LARGE.into());
+            }
+            return Ok([
+                cents(paid),
+                u64::from(count),
+                cents(first),
+                cents(total + balloon - left),
+            ]);
+        }
+        if find_term && closing >= balance {
+            return Err(NEVER_FALLS.into());
+        }
+        if find_term && count == terms.frequency.most {
+            return Err(format!(
+                "The payment does not reach the balloon within {count} payments, 50 years."
+            ));
+        }
+        balance = closing;
+    }
+    unreachable!()
+}
+
+/// A rate in ten-thousandths of 1% as a JavaScript number prints it.
+fn rate_shown(rate: u64) -> String {
+    let (whole, part) = (rate / 10_000, rate % 10_000);
+    if part == 0 {
+        whole.to_string()
+    } else {
+        format!("{whole}.{part:04}")
+            .trim_end_matches('0')
+            .to_string()
+    }
+}
+
+/// What the engine must return for `terms`: the figures, the rate alone when that is worked
+/// out (its schedule runs at the unrounded rate), or the refusal.
+fn finance_oracle(terms: &Terms) -> Value {
+    let refused = |message: &str| json!({ "refused": message });
+    if terms.solve == "rate" {
+        return match rate_oracle(terms) {
+            Ok(rate) => json!({ "rate": rate_shown(rate) }),
+            Err(message) => refused(&message),
+        };
+    }
+    let amount = if terms.solve == "amount" {
+        if terms.rate == 0 && terms.share == Some(10_000) {
+            return refused(NIL_FULL_BALLOON);
+        }
+        let amount = amount_oracle(terms);
+        if amount > MAX_PRINCIPAL {
+            return refused(AMOUNT_OVER);
+        }
+        if amount == 0 {
+            return refused(AMOUNT_NIL);
+        }
+        amount
+    } else {
+        terms.amount
+    };
+    let balloon = terms.balloon_of(amount);
+    if balloon > amount {
+        return refused(BALLOON_OVER);
+    }
+    let payment = if terms.solve == "payment" {
+        payment_oracle(terms, amount, balloon)
+    } else {
+        terms.payment
+    };
+    match schedule_oracle(terms, amount, balloon, payment) {
+        Ok([last, count, first, total]) => json!({
+            "amount": shown(amount),
+            "payment": shown(payment),
+            "finalPayment": shown(last),
+            "payments": count.to_string(),
+            "rate": rate_shown(terms.rate),
+            "firstInterest": shown(first),
+            "totalInterest": shown(total),
+        }),
+        Err(message) => refused(&message),
+    }
+}
+
+/// A case for Node and what the engine must return for it: a monthly loan in arrears.
 fn loan_case(rng: &mut Seeded) -> (Value, Value) {
     let principal = 1 + rng.cents(MAX_PRINCIPAL - 1);
     let any_rate = rng.below(1_000_001);
     let rate = rng.pick(&[0, 1, 50_000, 65_000, 1_000_000, any_rate, any_rate]);
     let any_term = 1 + rng.below(600);
     let months = rng.pick(&[1, 2, 12, 60, 360, 600, any_term, any_term]) as u32;
-    let [payment, first_interest, first_principal, total_interest] =
-        loan_oracle(principal, rate, months);
-    (
-        json!({
-            "kind": "loan",
-            "principal": dollars(principal),
-            "rate": format!("{}.{:04}", rate / 10_000, rate % 10_000),
-            "months": months.to_string(),
+    let terms = Terms::monthly(principal, rate, months);
+    (terms.case(), finance_oracle(&terms))
+}
+
+/// A seeded finance schedule: any frequency and timing, a balloon in dollars or as a share,
+/// worked for the payment, the amount financed, the number of payments or the rate. The
+/// payment given for the other 3 is near the level payment of other seeded terms.
+fn finance_case(rng: &mut Seeded) -> (Value, Value) {
+    let frequency = rng.pick(&FREQUENCIES);
+    let solve = rng.pick(&["payment", "amount", "term", "rate"]);
+    let any_rate = rng.below(300_001);
+    let rate = rng.pick(&[0, 1, 75_000, any_rate, any_rate]);
+    // The rate is bisected on sums over every period, so its cases stay at 10 years or less.
+    let longest = if solve == "rate" {
+        frequency.most / 5
+    } else {
+        frequency.most
+    };
+    let any_term = 1 + rng.below(u64::from(longest)) as u32;
+    let periods = rng.pick(&[1, 2, longest, any_term, any_term]);
+    let amount = 1 + rng.cents(MAX_PRINCIPAL / 100);
+    let any_share = rng.below(10_001);
+    let share = rng.pick(&[None, None, Some(3_000), Some(10_000), Some(any_share)]);
+    let any_balloon = rng.below(amount + 1);
+    let balloon = if share.is_some() {
+        0
+    } else {
+        rng.pick(&[0, 0, amount, amount * 3 / 10, any_balloon])
+    };
+    let mut terms = Terms {
+        solve,
+        amount,
+        rate,
+        periods,
+        payment: 1,
+        balloon,
+        share,
+        frequency,
+        advance: rng.below(2) == 1,
+    };
+    if solve != "payment" {
+        // Near the level payment that repays these terms, from 1 cent below to a dollar above.
+        let level = payment_oracle(&terms, amount, terms.balloon_of(amount));
+        terms.payment = (level + rng.below(101)).saturating_sub(1).max(1);
+    }
+    if solve == "rate" {
+        // Some payments worth too little at nil interest, or needing more than 100% a year.
+        terms.rate = 0;
+    }
+    (terms.case(), finance_oracle(&terms))
+}
+
+#[test]
+fn the_finance_oracle_works_schedules_by_hand() {
+    // $1,000 at 12% a year (1% a month) over 3 months: 340.02 = 10.30301 / 0.030301, and the
+    // interest $10.00, $6.70 and $3.37, so the last payment is 336.66 + 3.37 = $340.03.
+    let three = Terms::monthly(100_000, 120_000, 3);
+    assert_eq!(payment_oracle(&three, 100_000, 0), 34_002);
+    assert_eq!(
+        schedule_oracle(&three, 100_000, 0, 34_002),
+        Ok([34_003, 3, 1_000, 2_007])
+    );
+    // Weekly, $10,000 at 5.2%: a week's interest is 0.1%, $10.00 on the first payment.
+    let weekly = Terms {
+        rate: 52_000,
+        periods: 52,
+        frequency: FREQUENCIES[0],
+        ..Terms::monthly(1_000_000, 0, 0)
+    };
+    let payment = payment_oracle(&weekly, 1_000_000, 0);
+    assert_eq!(payment, 19_745);
+    assert_eq!(
+        schedule_oracle(&weekly, 1_000_000, 0, payment),
+        Ok([19_730, 52, 1_000, 26_725])
+    );
+    // A balloon equal to the amount financed leaves 1% a month of interest only; in advance
+    // each payment is that discounted a month, 1,000 x 0.01 / 1.01 = $9.90.
+    let only = Terms {
+        balloon: 100_000,
+        ..Terms::monthly(100_000, 120_000, 12)
+    };
+    assert_eq!(payment_oracle(&only, 100_000, 100_000), 1_000);
+    let ahead = Terms {
+        advance: true,
+        ..only
+    };
+    assert_eq!(payment_oracle(&ahead, 100_000, 100_000), 990);
+    // Worked for the term, $1,202.28 repays $60,000 at 7.5% in 60 payments, the last $1,202.06;
+    // a payment of only the first month's interest never reduces the balance.
+    let term = Terms {
+        solve: "term",
+        payment: 120_228,
+        ..Terms::monthly(6_000_000, 75_000, 1)
+    };
+    assert_eq!(
+        schedule_oracle(&term, 6_000_000, 0, 120_228),
+        Ok([120_206, 60, 37_500, 1_213_658])
+    );
+    let short = Terms {
+        payment: 37_500,
+        ..term
+    };
+    assert_eq!(
+        schedule_oracle(&short, 6_000_000, 0, 37_500),
+        Err(NEVER_FALLS.into())
+    );
+    // The australian-accounting hire-purchase-schedule command gave the implicit rate of $50,000
+    // repaid by 60 payments of $850 and a $10,000 residual as 6.98598% on 18 November 2026.
+    let agreement = Terms {
+        solve: "rate",
+        payment: 85_000,
+        balloon: 1_000_000,
+        ..Terms::monthly(5_000_000, 0, 60)
+    };
+    assert_eq!(rate_oracle(&agreement), Ok(69_860));
+    assert_eq!(
+        rate_oracle(&Terms {
+            payment: 8_000,
+            balloon: 0,
+            ..agreement
         }),
-        json!({
-            "payment": shown(payment),
-            "firstInterest": shown(first_interest),
-            "firstPrincipal": shown(first_principal),
-            "totalInterest": shown(total_interest),
-        }),
-    )
+        Err(NO_RATE.into())
+    );
+    // $59,999.81 is the value of 60 payments of $954.09 and $18,000 at 7.5%.
+    let amount = Terms {
+        solve: "amount",
+        payment: 95_409,
+        balloon: 1_800_000,
+        ..Terms::monthly(1, 75_000, 60)
+    };
+    assert_eq!(amount_oracle(&amount), 5_999_981);
+    assert_eq!(rate_shown(69_860), "6.986");
+    assert_eq!(rate_shown(70_000), "7");
+}
+
+#[test]
+fn the_engine_agrees_with_the_oracle_on_every_seeded_finance_schedule() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1118_F1A4_5C4E);
+    let (cases, expected): (Vec<Value>, Vec<Value>) =
+        (0..FINANCE_CASES).map(|_| finance_case(&mut rng)).unzip();
+    for solve in ["payment", "amount", "term", "rate"] {
+        assert!(
+            cases.iter().any(|case| case["terms"]["solve"] == solve),
+            "{solve}"
+        );
+    }
+    for frequency in FREQUENCIES.map(|one| one.name) {
+        assert!(
+            cases
+                .iter()
+                .any(|case| case["terms"]["frequency"] == frequency),
+            "{frequency}"
+        );
+    }
+    assert!(
+        cases
+            .iter()
+            .any(|case| case["terms"]["timing"] == "advance")
+    );
+    assert!(
+        cases
+            .iter()
+            .any(|case| case["terms"]["balloonKind"] == "percent")
+    );
+    assert!(expected.iter().any(|want| want.get("refused").is_some()));
+    assert!(
+        expected
+            .iter()
+            .any(|want| want.get("rate").is_some() && want.get("payment").is_none())
+    );
+    let actual = engines(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        // A worked rate is compared alone: the engine's schedule runs at the unrounded rate.
+        for (field, value) in want.as_object().unwrap() {
+            assert_eq!(&got[field], value, "{case} {field}");
+        }
+    }
 }
 
 /// A cent amount as a JavaScript number prints it.
@@ -942,13 +1430,27 @@ fn the_engine_agrees_with_the_oracle_on_every_seeded_fixed_fee() {
 #[test]
 fn the_oracle_works_a_known_loan_and_levy_by_hand() {
     // A one-month loan repays the balance and one month's interest: 1% on $100.
-    assert_eq!(loan_oracle(10_000, 120_000, 1), [10_100, 100, 10_000, 100]);
-    // $1,000 at 0% over 3 months: a third of the balance, half up.
-    assert_eq!(loan_oracle(100_000, 0, 3), [33_333, 0, 33_333, 0]);
-    // $100,000 at 6% over 30 years, the worked case in the Node tests.
+    let one = Terms::monthly(10_000, 120_000, 1);
+    assert_eq!(payment_oracle(&one, 10_000, 0), 10_100);
     assert_eq!(
-        loan_oracle(10_000_000, 60_000, 360),
-        [59_955, 50_000, 9_955, 11_583_819]
+        schedule_oracle(&one, 10_000, 0, 10_100),
+        Ok([10_100, 1, 100, 100])
+    );
+    // $1,000 at 0% over 3 months: a third of the balance, half up; the last payment takes the
+    // cent left over.
+    let nil = Terms::monthly(100_000, 0, 3);
+    assert_eq!(payment_oracle(&nil, 100_000, 0), 33_333);
+    assert_eq!(
+        schedule_oracle(&nil, 100_000, 0, 33_333),
+        Ok([33_334, 3, 0, 0])
+    );
+    // $100,000 at 6% over 30 years, the worked case in the Node tests: $599.55 a month, and
+    // with interest rounded each month a last payment of $600.00 and $115,838.45 of interest.
+    let long = Terms::monthly(10_000_000, 60_000, 360);
+    assert_eq!(payment_oracle(&long, 10_000_000, 0), 59_955);
+    assert_eq!(
+        schedule_oracle(&long, 10_000_000, 0, 59_955),
+        Ok([60_000, 360, 50_000, 11_583_845])
     );
     // One year left repays the balance and a year's interest: $1,000 at 8.77%.
     assert_eq!(div7a_oracle(100_000, 877, 1), [108_770, 8_770, 100_000]);
@@ -1365,39 +1867,6 @@ fn the_first_home_engine_agrees_with_the_oracle_either_side_of_every_threshold()
     }
 }
 
-/// A schedule in whole cents: interest rounds half up each month, and the last payment
-/// clears the balance. Returns (total interest, last payment).
-fn cent_schedule(principal: u64, rate: u64, months: u32, payment: u64) -> (u64, u64) {
-    let (mut balance, mut total) = (u128::from(principal), 0);
-    let scale = 12_000_000_u128;
-    for _ in 1..months {
-        let interest = (balance * u128::from(rate) * 2 + scale) / (2 * scale);
-        total += interest;
-        balance = balance + interest - u128::from(payment);
-    }
-    let interest = (balance * u128::from(rate) * 2 + scale) / (2 * scale);
-    (
-        u64::try_from(total + interest).unwrap(),
-        u64::try_from(balance + interest).unwrap(),
-    )
-}
-
-#[test]
-fn the_loan_page_states_its_total_against_a_cent_by_cent_schedule() {
-    assert_eq!(
-        cent_schedule(10_000_000, 60_000, 360, 59_955),
-        (11_583_845, 60_000)
-    );
-    if !common::rendered() {
-        return;
-    }
-    let html = common::read_text(common::root(), "tools/business-calculators/loan/index.html");
-    assert!(html.contains(
-        "it gives $115,838.19, where a cent-by-cent schedule of $599.55 payments, with interest \
-         rounded each month and a final payment of $600.00, gives $115,838.45."
-    ));
-}
-
 #[test]
 fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
     if !common::rendered() {
@@ -1426,52 +1895,6 @@ fn the_engines_agree_with_the_oracle_on_every_seeded_case() {
     }
 }
 
-/// A loan with a balloon owed at the end of the term, paid in arrears or in advance:
-/// exact payment, first interest, first principal and total interest, in cents. The
-/// payment is the principal less the balloon's discounted value, over the sum of the
-/// monthly discount factors (scale/growth)^k, for k = 1 to n in arrears and 0 to n - 1 in
-/// advance, each summed here one month at a time over the common denominator growth^n.
-fn financed_loan_oracle(
-    principal: u64,
-    rate: u64,
-    months: u32,
-    balloon: u64,
-    advance: bool,
-) -> [u64; 4] {
-    let scale = BigUint::from(MONTHLY_SCALE);
-    let growth = BigUint::from(MONTHLY_SCALE + rate);
-    let mut factors = BigUint::ZERO;
-    let mut scale_power = BigUint::from(1_u8);
-    let mut growth_power = BigUint::from(1_u8);
-    for _ in 0..months {
-        // In arrears this month adds scale^(k+1); in advance, one month earlier, scale^k.
-        let term = if advance {
-            &scale_power * &growth
-        } else {
-            &scale_power * &scale
-        };
-        factors = factors * &growth + term;
-        scale_power *= &scale;
-        growth_power *= &growth;
-    }
-    let (principal, balloon) = (BigUint::from(principal), BigUint::from(balloon));
-    let payment_top = &principal * &growth_power - &balloon * &scale_power;
-    let payment = half_up(&payment_top, &factors);
-    let first_interest_top = if advance {
-        BigUint::ZERO
-    } else {
-        &principal * rate
-    };
-    let total_interest_top = &payment_top * months - (&principal - &balloon) * &factors;
-    let first_interest = half_up(&first_interest_top, &scale);
-    [
-        payment,
-        first_interest,
-        payment - first_interest,
-        half_up(&total_interest_top, &factors),
-    ]
-}
-
 fn balloon_case(rng: &mut Seeded) -> (Value, Value) {
     let principal = 1 + rng.cents(MAX_PRINCIPAL - 1);
     let any_rate = rng.below(1_000_001);
@@ -1481,25 +1904,12 @@ fn balloon_case(rng: &mut Seeded) -> (Value, Value) {
     // Nil, all of it, 30% of it (whole cents, rounded down) or any amount up to it.
     let any_balloon = rng.below(principal + 1);
     let balloon = rng.pick(&[0, principal, principal * 3 / 10, any_balloon]);
-    let advance = rng.below(2) == 1;
-    let [payment, first_interest, first_principal, total_interest] =
-        financed_loan_oracle(principal, rate, months, balloon, advance);
-    (
-        json!({
-            "kind": "loan",
-            "principal": dollars(principal),
-            "rate": format!("{}.{:04}", rate / 10_000, rate % 10_000),
-            "months": months.to_string(),
-            "balloon": dollars(balloon),
-            "timing": if advance { "advance" } else { "arrears" },
-        }),
-        json!({
-            "payment": shown(payment),
-            "firstInterest": shown(first_interest),
-            "firstPrincipal": shown(first_principal),
-            "totalInterest": shown(total_interest),
-        }),
-    )
+    let terms = Terms {
+        balloon,
+        advance: rng.below(2) == 1,
+        ..Terms::monthly(principal, rate, months)
+    };
+    (terms.case(), finance_oracle(&terms))
 }
 
 /// Month by month in whole cents: each payment is taken at the start (advance) or the end
@@ -1532,32 +1942,43 @@ fn balloon_schedule(
 fn a_30_percent_balloon_loan_matches_a_hand_worked_schedule() {
     // $60,000 at 7.5% a year (0.625% a month) over 60 months, with a 30% balloon of $18,000.
     // In arrears the oracle's payment is $954.09: AusCalc's vehicle finance example,
-    // read 15 November 2026, gives the same payment and $15,245.63 of total interest.
-    let arrears = financed_loan_oracle(6_000_000, 75_000, 60, 1_800_000, false);
-    assert_eq!(arrears, [95_409, 37_500, 57_909, 1_524_563]);
+    // read 15 November 2026, gives the same payment and $15,245.63 of total interest, the
+    // payment's total before each month's interest is rounded to the cent.
+    let arrears = Terms {
+        balloon: 1_800_000,
+        ..Terms::monthly(6_000_000, 75_000, 60)
+    };
+    assert_eq!(payment_oracle(&arrears, 6_000_000, 1_800_000), 95_409);
     // By hand: month 1 charges $60,000.00 x 0.625% = $375.00, so $60,000.00 + $375.00 -
     // $954.09 leaves $59,420.91; month 2 charges $371.38 (371.3806...), leaving $58,838.20.
     let rows = balloon_schedule(6_000_000, 75_000, 60, 95_409, false);
     assert_eq!(rows[0], (37_500, 5_942_091));
     assert_eq!(rows[1], (37_138, 5_883_820));
     // After 60 payments the cent-rounded schedule owes $18,000.26: the balloon plus 26
-    // cents of rounding, which a lender settles in the final amount.
+    // cents of rounding, which the last payment takes: $954.35, and $15,245.66 of interest.
     assert_eq!(rows[59], (11_773, 1_800_026));
+    assert_eq!(
+        schedule_oracle(&arrears, 6_000_000, 1_800_000, 95_409),
+        Ok([95_435, 60, 37_500, 1_524_566])
+    );
     // In advance the payment is the arrears one over 1.00625: $948.17, the first with no
     // interest. Month 1: $60,000.00 - $948.17 = $59,051.83, which earns $369.07 (369.0739...)
     // to close at $59,420.90.
-    let advance = financed_loan_oracle(6_000_000, 75_000, 60, 1_800_000, true);
-    assert_eq!(advance, [94_817, 0, 94_817, 1_489_007]);
+    let advance = Terms {
+        advance: true,
+        ..arrears
+    };
+    assert_eq!(payment_oracle(&advance, 6_000_000, 1_800_000), 94_817);
     let rows = balloon_schedule(6_000_000, 75_000, 60, 94_817, true);
     assert_eq!(rows[0], (36_907, 5_942_090));
     assert_eq!(rows[59], (11_180, 1_799_983));
-    // No balloon in arrears is the existing oracle's loan, to the cent.
-    for (principal, rate, months) in [(10_000_000, 60_000, 360), (6_000_000, 75_000, 60)] {
-        assert_eq!(
-            financed_loan_oracle(principal, rate, months, 0, false),
-            loan_oracle(principal, rate, months)
-        );
-    }
+    // The schedule's last payment leaves $18,000 / 1.00625 = $17,888.20, a month before the
+    // balloon falls due: 17 cents short of the level payment, so $948.00, and the month's
+    // $111.80 of interest is the balloon row's, as above.
+    assert_eq!(
+        schedule_oracle(&advance, 6_000_000, 1_800_000, 94_817),
+        Ok([94_800, 60, 0, 1_489_003])
+    );
 }
 
 #[test]
@@ -1568,11 +1989,15 @@ fn the_engine_agrees_with_the_oracle_on_every_seeded_balloon_and_advance_loan() 
     let mut rng = Seeded(0x2026_1115_BA11_0017);
     let (cases, expected): (Vec<Value>, Vec<Value>) =
         (0..BALLOON_CASES).map(|_| balloon_case(&mut rng)).unzip();
-    assert!(cases.iter().any(|case| case["timing"] == "advance"));
     assert!(
         cases
             .iter()
-            .any(|case| case["balloon"] == case["principal"])
+            .any(|case| case["terms"]["timing"] == "advance")
+    );
+    assert!(
+        cases
+            .iter()
+            .any(|case| case["terms"]["balloon"] == case["terms"]["amount"])
     );
     let actual = engines(&cases);
     assert_eq!(actual.len(), cases.len());

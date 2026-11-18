@@ -28,8 +28,8 @@ const results = [
     'Inputs: actual $10,500.00, budget $10,000.00, figure type cost. Actual minus budget: $500.00. Difference as a share of absolute budget: 5.00%. Unfavourable.'],
   ['variance', { actual: '10000', budget: '10000', kind: 'income' }, 0,
     'Inputs: actual $10,000.00, budget $10,000.00, figure type income. Actual minus budget: $0.00. Difference as a share of absolute budget: 0.00%. On budget.'],
-  ['loan', { principal: '50000', rate: '7.5', months: '60' }, 0,
-    'Inputs: principal $50,000.00, 7.5% annual nominal rate, 60 monthly payments in arrears, balloon $0.00. Monthly payment: $1,001.90. First payment interest: $312.50. First payment principal: $689.40. Estimated total interest: $10,113.85.'],
+  ['loan', { amount: '50000', rate: '7.5', payments: '60', balloon: '0' }, 0,
+    'Inputs: amount financed $50,000.00, 7.5% annual nominal rate, 60 monthly payments in arrears, no balloon, starting 1 July 2026; working out the payment. Monthly payment: $1,001.90. Last payment, 1 July 2031: $1,001.72. Number of payments: 60. Amount financed: $50,000.00. Annual nominal rate: 7.5%. Balloon, due 1 July 2031: $0.00. Total paid, with the balloon: $60,113.82. Total interest: $10,113.82. The last payment is $1,001.72, not $1,001.90: it is what the balance needs after each period’s interest is rounded to the cent.'],
   ['staff', { wages: '80000', super: '9600', other: '2500' }, 0,
     'Inputs: wages $80,000.00, super $9,600.00, other costs $2,500.00. Annual staff cost: $92,100.00. Monthly average: $7,675.00.'],
 ];

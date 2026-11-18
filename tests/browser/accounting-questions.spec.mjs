@@ -430,7 +430,8 @@ for (const [id, inputs, expected] of [
   ['hourly', { cost: '80000', profit: '20000', hours: '1000' }, '$100.00'],
   ['fixed-fee', { hours: '12', rate: '180', margin: '0', instalments: '12' }, 'Fee including GST: $2,376.00'],
   ['variance', { actual: '120', budget: '100', kind: 'cost' }, 'Unfavourable'],
-  ['loan', { principal: '1000', rate: '12', months: '1' }, '$1,010.00'],
+  ['loan', { amount: '1000', rate: '12', payments: '1', balloon: '0' }, '$1,010.00'],
+  ['hire-purchase', { amount: '1000', rate: '12', payments: '3', balloon: '0', start: '2027-06-15' }, 'Last payment, 15 September 2027: $340.03.'],
   ['staff', { wages: '80000', super: '9600', other: '4000' }, '$93,600.00'],
 ]) {
   test(`${id} sends the entered values to its calculation offline`, async ({ page, context }) => {
@@ -467,33 +468,73 @@ for (const [id, inputs, expected] of [
   });
 }
 
+// At 100% a month's interest on $1,000,000,000.00 rounds to the whole payment, so the balance
+// stays and the last payment repays it.
 for (const [rate, months, expected] of [
-  ['2.4789', '2', ['Monthly payment: $501,549,845.36.', 'First payment principal: $499,484,095.36.']],
-  ['100', '600', ['Monthly payment: $83,333,333.33.', 'Estimated total interest: $49,000,000,000.00.']],
+  ['2.4789', '2', ['Monthly payment: $501,549,845.36.', 'Last payment, 1 September 2026: $501,549,845.37.']],
+  ['100', '600', ['Monthly payment: $83,333,333.33.', 'Total interest: $49,999,999,998.00.']],
 ]) {
-  test(`loan handles the maximum principal with ${rate}% over ${months} payments`, async ({ page }) => {
+  test(`loan handles the maximum amount financed with ${rate}% over ${months} payments`, async ({ page }) => {
     await page.goto('/tools/business-calculators/loan/');
     const form = page.locator('#loan form');
-    await form.locator('[name="principal"]').fill('1000000000');
+    await form.locator('[name="amount"]').fill('1000000000');
     await form.locator('[name="rate"]').fill(rate);
-    await form.locator('[name="months"]').fill(months);
+    await form.locator('[name="payments"]').fill(months);
+    await form.locator('[name="balloon"]').fill('0');
     await form.getByRole('button', { name: 'Calculate', exact: true }).click();
     for (const text of expected) await expect(form.locator('output')).toContainText(text);
   });
 }
 
-test('loan takes a balloon and payments in advance from the form', async ({ page }) => {
+test('loan takes a balloon and payments in advance from the form and lists every payment', async ({ page }) => {
   await page.goto('/tools/business-calculators/loan/');
   const form = page.locator('#loan form');
-  await form.getByLabel('Loan principal (AUD)').fill('60000');
+  await form.getByLabel('Amount financed (AUD)').fill('60000');
   await form.getByLabel('Annual nominal interest rate (%)').fill('7.5');
-  await form.getByLabel('Number of monthly payments').fill('60');
-  await form.getByLabel('Balloon or residual owed at the end (AUD)').fill('18000');
-  await form.getByRole('radio', { name: 'At the start of each month (in advance)', exact: true }).check();
+  await form.getByLabel('Number of payments', { exact: true }).fill('60');
+  await form.getByLabel('Balloon or residual due at the end of the term').fill('18000');
+  await form.getByRole('radio', { name: 'At the start of its period (in advance)', exact: true }).check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
-    'Inputs: principal $60,000.00, 7.5% annual nominal rate, 60 monthly payments in advance, balloon $18,000.00. '
-    + 'Monthly payment: $948.17. First payment interest: $0.00. First payment principal: $948.17. Estimated total interest: $14,890.07.');
+    'Inputs: amount financed $60,000.00, 7.5% annual nominal rate, 60 monthly payments in advance, balloon $18,000.00, '
+    + 'starting 1 July 2026; working out the payment. Monthly payment: $948.17. Last payment, 1 June 2031: $948.00. '
+    + 'Number of payments: 60. Amount financed: $60,000.00. Annual nominal rate: 7.5%. Balloon, due 1 July 2031: $18,000.00. '
+    + 'Total paid, with the balloon: $74,890.03. Total interest: $14,890.03. '
+    + 'The last payment is $948.00, not $948.17: it is what the balance needs after each period’s interest is rounded to the cent.');
+  const rows = form.locator('table[data-results="schedule"] tbody tr');
+  await expect(rows).toHaveCount(61);
+  await expect(rows.first()).toHaveText(['1', '1 July 2026', '$60,000.00', '$948.17', '$0.00', '$948.17', '$59,051.83'].join(''));
+  await expect(rows.last()).toHaveText(['Balloon', '1 July 2031', '$17,888.20', '$18,000.00', '$111.80', '$17,888.20', '$0.00'].join(''));
+  await expect(form.getByRole('button', { name: 'Download schedule CSV' })).toBeEnabled();
+});
+
+test('loan works out the rate and disables the field it works out', async ({ page }) => {
+  await page.goto('/tools/business-calculators/loan/');
+  const form = page.locator('#loan form');
+  await form.getByRole('radio', { name: 'The interest rate', exact: true }).check();
+  await expect(form.getByLabel('Annual nominal interest rate (%)')).toBeDisabled();
+  await expect(form.getByLabel('Regular payment (AUD)')).toBeEnabled();
+  await form.getByLabel('Amount financed (AUD)').fill('50000');
+  await form.getByLabel('Regular payment (AUD)').fill('850');
+  await form.getByLabel('Balloon or residual due at the end of the term').fill('10000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Annual nominal rate: 6.9860%.');
+  await expect(form.locator('output')).toContainText('Last payment, 1 July 2031: $849.95.');
+});
+
+test('hire purchase totals interest by income year and sets out the journal', async ({ page }) => {
+  await page.goto('/tools/business-calculators/hire-purchase/');
+  const form = page.locator('#hire-purchase form');
+  await form.getByLabel('Amount financed (AUD)').fill('1000');
+  await form.getByLabel('Annual nominal interest rate (%)').fill('12');
+  await form.getByLabel('Number of payments', { exact: true }).fill('3');
+  await form.getByLabel('Balloon or residual due at the end of the term').fill('0');
+  await form.getByLabel('Start date, when the amount is advanced').fill('2027-06-15');
+  await form.getByRole('radio', { name: 'Chattel mortgage', exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Inputs: chattel mortgage, amount financed $1,000.00');
+  await expect(form.locator('table[data-results="years"] tbody tr')).toHaveText(['2026-27$5.33', '2027-28$14.74']);
+  await expect(form.locator('table[data-results="journal"] tbody tr').last()).toHaveText('Total$1,000.00$20.07$1,020.07');
 });
 
 test('Division 7A takes the chosen year’s rate from the table and works the repayment offline', async ({ page, context }) => {
@@ -952,7 +993,7 @@ test('business days skip Melbourne Cup Day in Victoria offline and refuse a date
 });
 
 // Each calculator opens on a fictional example, its first boundary case, already worked.
-const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
+const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'hire-purchase', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',

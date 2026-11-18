@@ -104,40 +104,7 @@ export function variance(actual, budget, kind) {
     effect: difference === 0 ? 'On budget' : (difference * (kind === 'income' ? 1 : -1) > 0 ? 'Favourable' : 'Unfavourable') };
 }
 
-/** @param {string} principal @param {string} annualRate @param {string} months
- * @param {string} [balloon] the lump sum still owed at the end of the term
- * @param {'arrears' | 'advance'} [timing] payments at the end or the start of each month */
-export function loan(principal, annualRate, months, balloon = '0', timing = 'arrears') {
-  if (!['arrears', 'advance'].includes(timing)) throw new Error('Choose payments in arrears or in advance.');
-  const balanceCents = BigInt(cents(principal));
-  const rateUnits = BigInt(Math.round(number(annualRate, { max: 100, places: 4 }) * 10000));
-  const term = BigInt(number(months, { min: 1, max: 600, integer: true }));
-  const residual = BigInt(cents(balloon));
-  if (residual > balanceCents) throw new Error('The balloon cannot be more than the loan principal.');
-  const advance = timing === 'advance';
-  const rateScale = 12000000n;
-  // A payment in advance falls before any interest accrues.
-  const interestCents = advance ? 0n : ratioCents(balanceCents * rateUnits, rateScale);
-  const firstInterest = Number(interestCents) / 100;
-  if (rateUnits === 0n) {
-    const payment = ratioMoney(balanceCents - residual, term);
-    return { payment, firstInterest: 0, firstPrincipal: payment, totalInterest: 0 };
-  }
-  // Multiply through by rateScale ** term to keep the amortisation fractions exact. The
-  // balloon's value today comes off the principal; each payment in advance is discounted
-  // one month less, so the payment is one month's growth smaller.
-  const growth = (rateScale + rateUnits) ** term;
-  const scale = rateScale ** term;
-  const denominator = (advance ? rateScale + rateUnits : rateScale) * (growth - scale);
-  const paymentNumerator = (balanceCents * growth - residual * scale) * rateUnits;
-  const paymentCents = ratioCents(paymentNumerator, denominator);
-  // The first payment's principal is the rounded payment less the rounded interest, so the
-  // figures shown add up; rounding is monotonic, so it is never negative.
-  return { payment: Number(paymentCents) / 100, firstInterest,
-    firstPrincipal: Number(paymentCents - interestCents) / 100,
-    totalInterest: ratioMoney(paymentNumerator * term - (balanceCents - residual) * denominator, denominator) };
-}
-
+export { FREQUENCIES, financeSchedule, financeResult, interestByIncomeYear } from './finance-schedule.mjs';
 export { div7aMinimumRepayment, div7aSchedule, div7aScheduleResult } from './div7a.mjs';
 
 const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula'];

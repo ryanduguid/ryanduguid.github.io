@@ -7,7 +7,7 @@ import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
-import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
+import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSchedule, interestByIncomeYear,
   staffCost, cashForecast, div7aMinimumRepayment, transferDuty, firstHomeDuty } from '../assets/business-calculators.mjs';
 import { fbtBenefitResult } from '../assets/fbt-benefit-forms.mjs';
 import { COMPANY_TAX_LAW } from '../assets/company-tax.mjs';
@@ -21,59 +21,46 @@ test('finite-decimal calculations round half cents up without binary drift', () 
   assert.equal(hourlyRate('20.15', '0', '2').rate, 10.08);
   assert.equal(hourlyRate('1000000000', '1000000000', '0.01').rate, 200000000000);
   assert.equal(staffCost('51.30', '0', '0').monthly, 4.28);
-  assert.equal(loan('20.15', '0', '2').payment, 10.08);
-  assert.equal(loan('201.50', '60', '12').firstInterest, 10.08);
+  assert.equal(finance({ amount: '20.15', rate: '0', payments: '2', balloon: '0' }).payment, 10.08);
+  assert.equal(finance({ amount: '201.50', rate: '60', payments: '12', balloon: '0' }).rows[0].interest, 10.08);
 });
 
-test('positive-interest loan agrees with an independently calculated amortising case', () => {
-  assert.deepEqual(loan('100000', '6', '360'), {
-    payment: 599.55, firstInterest: 500, firstPrincipal: 99.55, totalInterest: 115838.19,
-  });
+// A finance schedule's terms: the page's opening example, $60,000.00 at 7.5% over 60 monthly
+// payments in arrears from 1 July 2026 with an $18,000.00 balloon, changed as a case needs.
+const OPENING_TERMS = { solve: 'payment', amount: '60000', rate: '7.5', payments: '60', payment: '1000', balloon: '18000',
+  balloonKind: 'amount', frequency: 'monthly', timing: 'arrears', start: '2026-07-01' };
+/** @param {Partial<typeof OPENING_TERMS>} changes */
+const finance = (changes = {}) => financeSchedule({ ...OPENING_TERMS, ...changes });
+/** The payment and the first row's interest and principal, in AUD. */
+const firstSplit = (r) => ({ payment: r.payment, firstInterest: r.rows[0].interest, firstPrincipal: r.rows[0].principal });
+
+test('a 30-year loan matches its cent-by-cent schedule: $599.55 a month and a last payment of $600.00', () => {
+  const r = finance({ amount: '100000', rate: '6', payments: '360', balloon: '0' });
+  assert.deepEqual(firstSplit(r), { payment: 599.55, firstInterest: 500, firstPrincipal: 99.55 });
+  assert.deepEqual([r.finalPayment, r.totalInterest, r.rows.at(-1).closing], [600, 115838.45, 0]);
 });
 
 // Two-payment cases use P = B(1+r)^2/(2+r); longer terms use independent
 // high-precision sums of discounted payments. Each result rounds separately, except the
 // first principal: the rounded payment less the rounded interest, so the 3 add up.
-for (const [inputs, expected] of [
-  [['1000000000', '2.4788', '2'], {
-    payment: 501549782.82, firstInterest: 2065666.67, firstPrincipal: 499484116.15, totalInterest: 3099565.64,
-  }],
-  [['1000000000', '2.4789', '2'], {
-    payment: 501549845.36, firstInterest: 2065750, firstPrincipal: 499484095.36, totalInterest: 3099690.73,
-  }],
-  [['18.76', '1.28', '2'], {
-    payment: 9.40, firstInterest: 0.02, firstPrincipal: 9.38, totalInterest: 0.03,
-  }],
-  [['100.50', '12', '2'], {
-    payment: 51.01, firstInterest: 1.01, firstPrincipal: 50, totalInterest: 1.51,
-  }],
-  [['893155987.49', '51.2498', '498'], {
-    payment: 38145054.81, firstInterest: 38145054.77, firstPrincipal: 0.04, totalInterest: 18103081306.61,
-  }],
-  [['827222772.08', '56.9526', '297'], {
-    payment: 39260447.40, firstInterest: 39260406.37, firstPrincipal: 41.03, totalInterest: 10833130106.16,
-  }],
-  [['1000000000', '0.0001', '600'], {
-    payment: 1666708.40, firstInterest: 83.33, firstPrincipal: 1666625.07, totalInterest: 25041.87,
-  }],
-  [['1000000000', '100', '600'], {
-    payment: 83333333.33, firstInterest: 83333333.33, firstPrincipal: 0, totalInterest: 49000000000,
-  }],
-  [['0.01', '100', '600'], {
-    payment: 0, firstInterest: 0, firstPrincipal: 0, totalInterest: 0.49,
-  }],
-  [['0', '100', '600'], {
-    payment: 0, firstInterest: 0, firstPrincipal: 0, totalInterest: 0,
-  }],
+for (const [[amount, rate, payments], expected] of [
+  [['1000000000', '2.4788', '2'], { payment: 501549782.82, firstInterest: 2065666.67, firstPrincipal: 499484116.15 }],
+  [['1000000000', '2.4789', '2'], { payment: 501549845.36, firstInterest: 2065750, firstPrincipal: 499484095.36 }],
+  [['18.76', '1.28', '2'], { payment: 9.40, firstInterest: 0.02, firstPrincipal: 9.38 }],
+  [['100.50', '12', '2'], { payment: 51.01, firstInterest: 1.01, firstPrincipal: 50 }],
+  [['827222772.08', '56.9526', '297'], { payment: 39260447.40, firstInterest: 39260406.37, firstPrincipal: 41.03 }],
+  [['1000000000', '0.0001', '600'], { payment: 1666708.40, firstInterest: 83.33, firstPrincipal: 1666625.07 }],
+  [['1000000000', '100', '600'], { payment: 83333333.33, firstInterest: 83333333.33, firstPrincipal: 0 }],
 ]) {
-  test(`loan rounds each result to the nearest cent for ${inputs.join(' / ')}`, () => {
-    assert.deepEqual(loan(...inputs), expected);
+  test(`a loan rounds its payment and first interest to the nearest cent for ${amount} / ${rate} / ${payments}`, () => {
+    const r = finance({ amount, rate, payments, balloon: '0' });
+    assert.deepEqual(firstSplit(r), expected);
+    assert.equal(r.rows.at(-1).closing, 0);
   });
 }
 
-test('the first payment’s interest and principal add up to the payment', () => {
-  // The earlier rule rounded the principal on its own and missed by 1 cent in 114 of these
-  // 900 seeded loans. The generator is mulberry32.
+test('every row adds up, the balances run on and the schedule closes on the balloon', () => {
+  // The generator is mulberry32. Each case is checked to the cent in integer arithmetic.
   let seed = 20261118;
   const next = (n) => {
     seed = (seed + 0x6D2B79F5) | 0;
@@ -81,16 +68,187 @@ test('the first payment’s interest and principal add up to the payment', () =>
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
     return ((t ^ (t >>> 14)) >>> 0) % n;
   };
-  for (let i = 0; i < 900; i += 1) {
-    const principal = `${next(100000000)}.${String(next(100)).padStart(2, '0')}`;
-    const rate = `${next(30)}.${String(next(10000)).padStart(4, '0')}`;
-    const months = String(1 + next(600));
-    const balloon = String(next(2) ? 0 : Math.floor(Number(principal) * next(50) / 100));
-    const timing = next(2) ? 'arrears' : 'advance';
-    const r = loan(principal, rate, months, balloon, timing);
-    assert.equal(Math.round(r.firstInterest * 100) + Math.round(r.firstPrincipal * 100), Math.round(r.payment * 100),
-      `${principal} / ${rate} / ${months} / ${balloon} / ${timing}`);
+  const c = (value) => Math.round(value * 100);
+  const frequencies = ['weekly', 'fortnightly', 'monthly', 'quarterly', 'annual'];
+  for (let i = 0; i < 600; i += 1) {
+    const frequency = frequencies[next(5)];
+    const amount = `${1 + next(10000000)}.${String(next(100)).padStart(2, '0')}`;
+    const terms = { amount, rate: `${next(30)}.${String(next(10000)).padStart(4, '0')}`, frequency,
+      payments: String(1 + next({ weekly: 520, fortnightly: 260, monthly: 120, quarterly: 40, annual: 10 }[frequency])),
+      balloon: String(next(2) ? 0 : Math.floor(Number(amount) * next(50) / 100)), timing: next(2) ? 'arrears' : 'advance' };
+    const label = JSON.stringify(terms);
+    const r = finance(terms);
+    let opening = c(r.amount);
+    for (const row of r.rows) {
+      assert.equal(c(row.opening), opening, label);
+      assert.equal(c(row.interest) + c(row.principal), c(row.payment), label);
+      assert.equal(c(row.opening) + c(row.interest) - c(row.payment), c(row.closing), label);
+      opening = c(row.closing);
+    }
+    assert.ok(r.rows.slice(0, -1).every((row) => row.payment === r.payment), label);
+    const last = r.balloonRow ?? r.rows.at(-1);
+    assert.equal(c(last.closing), 0, label);
+    if (terms.timing === 'arrears') assert.equal(c(r.rows.at(-1).closing), c(r.balloon), label);
+    const interest = [...r.rows, ...(r.balloonRow ? [r.balloonRow] : [])].reduce((sum, row) => sum + c(row.interest), 0);
+    assert.equal(interest, c(r.totalInterest), label);
+    assert.equal(c(r.totalPaid), c(r.amount) + c(r.totalInterest), label);
   }
+});
+
+// Worked by hand: $1,000 at 12% a year is 1% a month. The payment is 1,000 x 0.01 x 1.01^3 /
+// (1.01^3 - 1) = 10.30301 / 0.030301 = 340.0221..., so $340.02. Interest is 1% of each opening
+// balance, half up: $10.00; 669.98 x 1% = 6.6998, $6.70; 336.66 x 1% = 3.3666, $3.37. The last
+// payment is the balance and its interest, 336.66 + 3.37 = $340.03, and total interest $20.07.
+test('a 3-payment loan matches the schedule worked by hand', () => {
+  const r = finance({ amount: '1000', rate: '12', payments: '3', balloon: '0' });
+  assert.deepEqual(r.rows.map(({ opening, payment, interest, principal, closing }) => [opening, payment, interest, principal, closing]), [
+    [1000, 340.02, 10, 330.02, 669.98], [669.98, 340.02, 6.70, 333.32, 336.66], [336.66, 340.03, 3.37, 336.66, 0]]);
+  assert.deepEqual(r.rows.map((row) => row.date), ['2026-08-01', '2026-09-01', '2026-10-01']);
+  assert.deepEqual([r.totalInterest, r.balloonRow], [20.07, null]);
+});
+
+// Present value: the payments and balloon discounted at the rate. The australian-accounting
+// hire-purchase-schedule command (australian-tax-calculators 1.0.0) gave this agreement an
+// implicit monthly rate of 0.0058216536166952, a nominal 6.98598% a year, on 18 November 2026.
+test('the solved rate discounts the payments and balloon back to the amount financed', () => {
+  const r = finance({ solve: 'rate', amount: '50000', payment: '850', payments: '60', balloon: '10000', start: '2025-09-15' });
+  assert.equal(r.rate, 6.986);
+  const v = 1 / (1 + 0.0058216536166952);
+  let worth = 10000 * v ** 60;
+  for (let k = 1; k <= 60; k += 1) worth += 850 * v ** k;
+  assert.ok(Math.abs(worth - 50000) < 0.005, String(worth));
+  // The schedule keeps $850.00 to the last payment, which takes the cents of rounding.
+  assert.deepEqual([r.payment, r.finalPayment, r.totalInterest], [850, 849.95, 10999.95]);
+  // At the page's own 7.5% the schedule's payments, discounted, come back to $60,000.00 within half a
+  // cent a payment: each period's interest is rounded once, and the last payment takes the rest.
+  const own = finance();
+  const w = 1 / (1 + 0.075 / 12);
+  const flows = [...own.rows.map((row, k) => [row.payment, k + 1]), [own.balloon, 60]];
+  assert.ok(Math.abs(flows.reduce((sum, [paid, k]) => sum + paid * w ** k, 0) - 60000) <= 0.005 * 60);
+});
+
+test('each frequency divides the annual rate by its payments a year and steps its dates', () => {
+  // The first interest is the amount times the rate over the payments a year: $10,000 at 5.2% is
+  // $10.00 a week and $20.00 a fortnight; at 8% a quarter is $200.00; at 10% a year $1,000.00.
+  const cases = [['weekly', '5.2', '52', 10, ['2026-07-08', '2027-06-30']], ['fortnightly', '5.2', '26', 20, ['2026-07-15', '2027-06-30']],
+    ['monthly', '12', '12', 100, ['2026-08-01', '2027-07-01']], ['quarterly', '8', '8', 200, ['2026-10-01', '2028-07-01']],
+    ['annual', '10', '3', 1000, ['2027-07-01', '2029-07-01']]];
+  for (const [frequency, rate, payments, first, dates] of cases) {
+    const r = finance({ amount: '10000', rate, payments, balloon: '0', frequency });
+    assert.equal(r.rows[0].interest, first, frequency);
+    assert.deepEqual([r.rows[0].date, r.rows.at(-1).date], dates, frequency);
+  }
+  // A month-end start keeps to the month's last day where a month is shorter.
+  assert.deepEqual(finance({ start: '2027-01-31', payments: '3', balloon: '0' }).rows.map((row) => row.date),
+    ['2027-02-28', '2027-03-31', '2027-04-30']);
+  // Each frequency stops at 50 years of payments.
+  assert.throws(() => finance({ frequency: 'weekly', payments: '2601' }), /between 1 and 2600/);
+  assert.throws(() => finance({ frequency: 'annual', payments: '51' }), /between 1 and 50/);
+});
+
+test('in advance the first payment carries no interest and the balloon falls a period after the last', () => {
+  const arrears = finance();
+  const advance = finance({ timing: 'advance' });
+  assert.deepEqual(firstSplit(arrears), { payment: 954.09, firstInterest: 375, firstPrincipal: 579.09 });
+  assert.deepEqual(firstSplit(advance), { payment: 948.17, firstInterest: 0, firstPrincipal: 948.17 });
+  // 954.09 / 1.00625 = 948.16..., rounded half up from the exact payment.
+  assert.deepEqual([advance.rows[0].date, advance.rows.at(-1).date, advance.balloonDate], ['2026-07-01', '2031-06-01', '2031-07-01']);
+  assert.deepEqual([arrears.rows.at(-1).date, arrears.balloonDate], ['2031-07-01', '2031-07-01']);
+  // The last payment leaves the balloon's value a month earlier, 18,000 / 1.00625 = 17,888.20; the
+  // balloon row's interest is the other $111.80.
+  assert.deepEqual([advance.rows.at(-1).closing, advance.balloonRow.interest, advance.balloonRow.payment], [17888.2, 111.8, 18000]);
+  assert.deepEqual([arrears.balloonRow.opening, arrears.balloonRow.interest], [18000, 0]);
+});
+
+test('a balloon equal to the amount financed leaves interest only, and nil interest divides the balance', () => {
+  const only = finance({ amount: '1000', rate: '12', payments: '12', balloon: '1000' });
+  assert.ok(only.rows.every((row) => row.payment === 10 && row.principal === 0 && row.closing === 1000));
+  assert.equal(only.totalInterest, 120);
+  // In advance each payment is 1% discounted a month: 1,000 x 0.01 / 1.01 = 9.90.
+  assert.equal(finance({ amount: '1000', rate: '12', payments: '12', balloon: '1000', timing: 'advance' }).payment, 9.9);
+  assert.deepEqual(firstSplit(finance({ amount: '1200', rate: '0', payments: '12', balloon: '200', timing: 'advance' })),
+    { payment: 83.33, firstInterest: 0, firstPrincipal: 83.33 });
+  const nil = finance({ amount: '1200', rate: '0', payments: '12', balloon: '1200' });
+  assert.deepEqual([nil.payment, nil.totalInterest, nil.balloonRow.payment], [0, 0, 1200]);
+});
+
+test('a percentage balloon is that share of the amount financed, rounded half up to the cent', () => {
+  assert.deepEqual([finance({ balloon: '30', balloonKind: 'percent' }).balloon, finance().payment], [18000, 954.09]);
+  assert.equal(finance({ amount: '100.05', balloon: '10', balloonKind: 'percent', payments: '1' }).balloon, 10.01);
+  assert.throws(() => finance({ balloon: '100.01', balloonKind: 'percent' }), /between 0 and 100/);
+});
+
+test('the missing element: the amount financed, the number of payments and the rate', () => {
+  // The amount financed is the payments and balloon discounted at 7.5%, rounded half up.
+  assert.equal(finance({ solve: 'amount', payment: '954.09' }).amount, 59999.81);
+  // With a percentage balloon the balloon is a share of the amount being found. A refusal here
+  // is a wrong answer too, so it is compared rather than thrown.
+  const attempt = (changes) => { try { return finance(changes); } catch (error) { return { refused: error.message }; } };
+  const share = attempt({ solve: 'amount', payment: '954.09', balloon: '30', balloonKind: 'percent' });
+  assert.deepEqual([share.amount, share.balloon], [59999.76, 17999.93]);
+  // $1,202.28 a month repays $60,000.00 at 7.5% in 60 payments, the last $1,202.06.
+  const term = finance({ solve: 'term', payment: '1202.28', balloon: '0' });
+  assert.deepEqual([term.payments, term.finalPayment], [60, 1202.06]);
+  // A payment a cent short of the 60-payment level needs a 61st payment for the cents left over.
+  assert.deepEqual([finance({ solve: 'term', payment: '954.09' }).payments, finance({ solve: 'term', payment: '954.09' }).finalPayment], [61, 112.76]);
+  assert.equal(finance({ solve: 'rate', amount: '1200', payment: '100', payments: '12', balloon: '0' }).rate, 0);
+  assert.equal(finance({ solve: 'rate', amount: '10000', payment: '200', payments: '52', balloon: '0', frequency: 'weekly' }).rate, 7.7509);
+});
+
+test('the missing element is refused where no answer exists', () => {
+  assert.throws(() => finance({ solve: 'rate', amount: '1000', payment: '80', payments: '12', balloon: '0' }),
+    { message: 'The payments and balloon add up to less than the amount financed, so no rate of nil or more fits.' });
+  assert.throws(() => finance({ solve: 'rate', amount: '1000', payment: '200', payments: '12', balloon: '0' }),
+    { message: 'These payments need a rate above 100% a year, which this page does not work.' });
+  assert.throws(() => finance({ solve: 'term', payment: '375' }),
+    { message: 'The payment does not cover a period’s interest, so the balance never falls to the balloon.' });
+  assert.throws(() => finance({ solve: 'term', payment: '375.01', frequency: 'annual', rate: '0.0001', balloon: '0' }),
+    { message: 'The payment does not reach the balloon within 50 payments, 50 years.' });
+  assert.throws(() => finance({ solve: 'amount', rate: '0', payment: '10', balloon: '100', balloonKind: 'percent' }),
+    { message: 'At nil interest a 100% balloon leaves the payments nothing to repay, so no amount fits.' });
+  // $0.01 at 100% a year over 600 months grows past what the page can show to the cent.
+  // At 4.27% a month over 498 months a half cent of rounding grows about a billionfold, so the
+  // last payment cannot take it.
+  assert.throws(() => finance({ amount: '893155987.49', rate: '51.2498', payments: '498', balloon: '0' }),
+    { message: 'Rounding each period’s interest to the cent at this rate and term stops the schedule closing on the balloon. Use fewer payments, a lower rate or a larger amount.' });
+});
+
+test('income-year interest shares a period across 30 June by days', () => {
+  // Monthly from 15 June 2027: the first payment's $375.00 accrues 15 June to 15 July, 16 days
+  // before 1 July of 30: 375 x 16 / 30 = $200.00 in 2026-27 and $175.00 in 2027-28.
+  const terms = { ...OPENING_TERMS, start: '2027-06-15' };
+  const years = interestByIncomeYear(terms);
+  assert.equal(years['2026-27'], 200);
+  const r = financeSchedule(terms);
+  assert.equal(Object.values(years).reduce((sum, value) => sum + Math.round(value * 100), 0), Math.round(r.totalInterest * 100));
+  // Starting on 1 July, no period runs across 30 June.
+  assert.deepEqual(Object.keys(interestByIncomeYear(OPENING_TERMS)), ['2026-27', '2027-28', '2028-29', '2029-30', '2030-31']);
+  // In advance from 1 June 2026 the first payment carries no interest; the second, on 1 July, carries
+  // June's: (60,000 - 948.17) x 7.5% / 12 = $369.07, all of it in 2025-26.
+  const advance = { ...OPENING_TERMS, timing: 'advance', start: '2026-06-01' };
+  assert.equal(interestByIncomeYear(advance)['2025-26'], 369.07);
+});
+
+// The 3-payment schedule above, as the hire purchase page sets it out from 15 June 2027.
+test('the hire purchase result sets out the income years, the journal and the CSV', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const terms = { ...OPENING_TERMS, amount: '1000', rate: '12', payments: '3', balloon: '0', start: '2027-06-15' };
+  const result = calculations.financeResult(terms, aud, 'hire-purchase');
+  assert.deepEqual(result.tables.years, [['2026-27', '$5.33'], ['2027-28', '$14.74']]);
+  // Each payment debits the liability with its principal and interest expense with its interest.
+  assert.deepEqual(result.tables.journal, [['15 July 2027', '1', '$330.02', '$10.00', '$340.02'],
+    ['15 Aug 2027', '2', '$333.32', '$6.70', '$340.02'], ['15 Sept 2027', '3', '$336.66', '$3.37', '$340.03'],
+    ['Total', '', '$1,000.00', '$20.07', '$1,020.07']]);
+  const csv = result.csv.split('\r\n');
+  assert.equal(csv[2], 'Agreement,hire purchase');
+  assert.ok(csv.includes('2027-07-15,1,330.02,10.00,340.02'));
+  assert.ok(csv.includes('Date,Payment,Debit Hire purchase liability,Debit interest expense,Credit bank'));
+  assert.ok(csv.includes('2027-28,14.74'));
+  assert.equal(calculations.financeResult(terms, aud, 'chattel-mortgage').csv.split('\r\n')
+    .find((line) => line.startsWith('Date,Payment,')), 'Date,Payment,Debit Chattel mortgage loan,Debit interest expense,Credit bank');
+  // The loan page shows the schedule alone.
+  assert.deepEqual(Object.keys(calculations.financeResult(terms, aud).tables), ['schedule']);
+  assert.throws(() => calculations.financeResult(terms, aud, 'lease'), { message: 'Choose hire purchase or a chattel mortgage.' });
 });
 
 test('cash calendar uses complete weeks across leap days and year boundaries', () => {
@@ -141,7 +299,7 @@ test('money accepts a leading dollar sign and grouped thousands, and nothing loo
   }
   assert.throws(() => gst('$1,000.001', false), /no more than 2 decimal places/);
   assert.throws(() => businessUse('100', '$50'), /Enter a number using digits only\./);
-  assert.throws(() => loan('1000', '12', '$12'), /Enter a number using digits only\./);
+  assert.throws(() => finance({ payments: '$12' }), /Enter a number using digits only\./);
 });
 
 test('GST extracts a component instead of adding another ten per cent', () => {
@@ -257,40 +415,16 @@ test('variance changes favourability for costs and keeps zero budget undefined',
   assert.throws(() => variance('1', '1', 'anything'));
 });
 
-// Each balloon or advance result here was worked separately in exact fractions: the
-// payment is (principal - balloon v^n) over the sum of v^k, for k = 1 to n in arrears and
-// 0 to n - 1 in advance, with v = 1 / (1 + r); total interest is n payments plus the
-// balloon less the principal. The first 2 are also AusCalc's worked example on its vehicle
-// finance page, read 15 November 2026: $954.09 a month and total interest $15,245.63, and
-// $1,202.28 and $12,136.61 with no residual.
-for (const [inputs, expected] of [
-  [['60000', '7.5', '60', '18000'], { payment: 954.09, firstInterest: 375, firstPrincipal: 579.09, totalInterest: 15245.63 }],
-  [['60000', '7.5', '60', '0'], { payment: 1202.28, firstInterest: 375, firstPrincipal: 827.28, totalInterest: 12136.61 }],
-  [['60000', '7.5', '60', '18000', 'advance'], { payment: 948.17, firstInterest: 0, firstPrincipal: 948.17, totalInterest: 14890.07 }],
-  [['60000', '7.5', '60', '0', 'advance'], { payment: 1194.81, firstInterest: 0, firstPrincipal: 1194.81, totalInterest: 11688.56 }],
-  // A balloon equal to the principal leaves interest only: 1% of $1,000 a month in arrears,
-  // and 1% discounted a month, 1,000 x 0.01 / 1.01, in advance.
-  [['1000', '12', '12', '1000'], { payment: 10, firstInterest: 10, firstPrincipal: 0, totalInterest: 120 }],
-  [['1000', '12', '1', '1000', 'advance'], { payment: 9.9, firstInterest: 0, firstPrincipal: 9.9, totalInterest: 9.9 }],
-  // At nil interest the balloon comes off the principal and the rest divides evenly.
-  [['1200', '0', '12', '200', 'advance'], { payment: 83.33, firstInterest: 0, firstPrincipal: 83.33, totalInterest: 0 }],
-  [['1200', '0', '12', '1200'], { payment: 0, firstInterest: 0, firstPrincipal: 0, totalInterest: 0 }],
-]) {
-  test(`loan takes a balloon and payments in advance: ${inputs.join(' / ')}`, () => {
-    assert.deepEqual(loan(...inputs), expected);
-  });
-}
-
-test('loan refuses a balloon above the principal and an unknown payment timing', () => {
-  assert.throws(() => loan('1000', '12', '12', '1000.01'), { message: 'The balloon cannot be more than the loan principal.' });
-  assert.throws(() => loan('1000', '12', '12', '0', 'start'), { message: 'Choose payments in arrears or in advance.' });
-  assert.throws(() => loan('1000', '12', '12', '-1'), /between 0 and/);
-});
-
-test('loan handles zero interest and a hand-calculated one-period loan', () => {
-  assert.deepEqual(loan('1200', '0', '12'), { payment: 100, firstInterest: 0, firstPrincipal: 100, totalInterest: 0 });
-  assert.deepEqual(loan('1000', '12', '1'), { payment: 1010, firstInterest: 10, firstPrincipal: 1000, totalInterest: 10 });
-  assert.throws(() => loan('1000', '12', '1.5'));
+test('a finance schedule refuses a balloon above the amount financed and an unknown choice', () => {
+  assert.throws(() => finance({ amount: '1000', balloon: '1000.01' }), { message: 'The balloon cannot be more than the amount financed.' });
+  assert.throws(() => finance({ timing: 'start' }), { message: 'Choose payments in arrears or in advance.' });
+  assert.throws(() => finance({ frequency: 'daily' }), { message: 'Choose how often payments fall.' });
+  assert.throws(() => finance({ solve: 'balloon' }), { message: 'Choose what to work out.' });
+  assert.throws(() => finance({ balloonKind: 'share' }), { message: 'Choose a balloon in dollars or as a percentage.' });
+  assert.throws(() => finance({ balloon: '-1' }), /between 0 and/);
+  assert.throws(() => finance({ payments: '1.5' }));
+  assert.throws(() => finance({ amount: '0' }), /between 0.01 and/);
+  assert.throws(() => finance({ start: '2026-02-29' }), { message: 'Enter a start date from 1 January 1900 to 31 December 2099.' });
 });
 
 test('staff cost adds supplied amounts without double-counting paid leave', () => {
@@ -341,7 +475,8 @@ test('cash keeps out-of-horizon receipts visible and includes opening deficits',
 const shownCases = JSON.parse(readFileSync(new URL('../_data/calculator_cases.json', import.meta.url), 'utf8'));
 // A calculator's include with the shared jurisdiction radios in place, as Jekyll renders it.
 const calculatorInclude = (page) => readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8')
-  .replace('{% include duty-jurisdictions.html %}', readFileSync(new URL('../_includes/duty-jurisdictions.html', import.meta.url), 'utf8'));
+  .replace('{% include duty-jurisdictions.html %}', readFileSync(new URL('../_includes/duty-jurisdictions.html', import.meta.url), 'utf8'))
+  .replace('{% include finance-fields.html %}', readFileSync(new URL('../_includes/finance-fields.html', import.meta.url), 'utf8'));
 // Each land tax jurisdiction's data as its radio in the land tax include holds it, keyed as the
 // browser's dataset keys it (data-trust-scale becomes trustScale): its name, scales (from, base,
 // rate, over, rule for each band) and fixed charge.
@@ -399,6 +534,8 @@ const shownField = (field, value, labels = LABELS) => {
   if (field === 'instalmentRate') return `instalment rate ${value.toFixed(2)}%`;
   if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return `${labels[field]} ${longDay(value)}`;
   if (field === 'units') return `${value} units`;
+  // An income year's total, keyed 2026-27.
+  if (/^\d{4}-\d{2}$/.test(field)) return `${field} ${dollars(value)}`;
   if (field === 'percent') return value === null ? 'no percentage' : `${value.toFixed(2)}%`;
   if (field === 'margin' || field === 'markup') return value === null ? `no ${field}` : `${field} ${value.toFixed(2)}%`;
   return `${labels[field]} ${dollars(value)}`;
@@ -408,6 +545,8 @@ Object.assign(LABELS, { periodEnds: 'period ends', lastDay: 'last day', amendedE
 Object.assign(LABELS, { amount: 'amount', credit: 'credit', due: 'due by this instalment' });
 // Fields an engine shows its own way, by engine: a label, or a function that writes the value.
 const ENGINE_LABELS = { paygInstalment: { instalment: 'instalment' }, pcgRisk: PCG_SHOWN,
+  financeSchedule: { finalPayment: 'last payment', amount: 'amount financed', payments: (v) => `${v} payments`,
+    rate: (v) => `rate ${v.toFixed(4)}%` },
   gicPaymentPlan: { instalment: 'instalment', lastDate: (v) => `last instalment ${v}`,
     assumedDays: (v) => `${v} ${v === 1 ? 'day' : 'days'} at the assumed rate` } };
 // The vehicle classifier's results are answers, a load in kg and money.
@@ -449,9 +588,14 @@ const INPUTS = {
     + `${dollars(rate)} an hour, ${margin}% margin, rounded up to ${roundTo === '0.01' ? 'the cent' : `$${roundTo}`}, `
     + `${addGst ? 'GST added' : 'no GST'}, ${instalments} ${instalments === '1' ? 'instalment' : 'instalments'}`,
   variance: (actual, budget, kind) => `Actual ${dollars(actual)}, budget ${dollars(budget)}, ${kind}`,
-  loan: (principal, rate, months, balloon = '0', timing = 'arrears') =>
-    `${dollars(principal)} at ${rate}% over ${months} ${months === '1' ? 'month' : 'months'}`
-    + `${balloon === '0' ? '' : `, balloon ${dollars(balloon)}`}${timing === 'advance' ? ', paid in advance' : ''}`,
+  // The field being worked out is not used, so the input leaves it out.
+  financeSchedule: (t) => [t.solve !== 'amount' && `${dollars(t.amount)} financed`, t.solve !== 'rate' && `${t.rate}% a year`,
+    `${t.solve === 'term' ? '' : `${t.payments} `}${t.frequency} payments${t.timing === 'advance' ? ' in advance' : ''}`,
+    t.solve !== 'payment' && `${dollars(t.payment)} each`,
+    t.balloon !== '0' && `balloon ${t.balloonKind === 'percent' ? `${t.balloon}%` : dollars(t.balloon)}`, `from ${t.start}`]
+    .filter(Boolean).join(', ')
+    + `; working out the ${{ payment: 'payment', amount: 'amount financed', term: 'number of payments', rate: 'rate' }[t.solve]}`,
+  interestByIncomeYear: (t) => INPUTS.financeSchedule(t),
   staffCost: (wages, superannuation, other) =>
     `Wages ${dollars(wages)}, super ${dollars(superannuation)}, other ${dollars(other)}`,
   div7aMinimumRepayment: (balance, rate, term) => `${dollars(balance)} at ${rate}% over ${term} ${term === '1' ? 'year' : 'years'}`,
@@ -506,8 +650,8 @@ const PEER_INPUTS = {
   margin: (sales, cost) => `${wholeDollars(sales)} total revenue and ${wholeDollars(cost)} cost of goods sold`,
   breakEven: (fixed, price, variable) => `${wholeDollars(fixed)} fixed costs, a ${wholeDollars(price)} price and `
     + `${wholeDollars(variable)} variable cost a unit, which is a ${(price - variable) / price * 100}% gross profit margin`,
-  loan: (principal, rate, months) =>
-    `$${Number(principal).toLocaleString('en-AU')} at ${rate}% over ${months / 12} years, repaid monthly, no fees`,
+  financeSchedule: (t) => (assert.equal(t.frequency, 'monthly'),
+    `$${Number(t.amount).toLocaleString('en-AU')} at ${t.rate}% over ${t.payments / 12} years, repaid monthly, no fees`),
 };
 
 // peer_result and verdict are dated manual observations of the official calculator. This
@@ -516,8 +660,8 @@ const PEER_INPUTS = {
 const PEER_READINGS = {
   gst: { form: /^GST \$(\d+\.\d{2}), price including GST \$(\d+\.\d{2})$/,
     own: (result) => [result.gst, result.gross], verdict: 'Both give the same cents on this input' },
-  loan: { form: /^repayments of \$([\d,]+) a month, total repayments \$([\d,]+)$/,
-    own: (result, [principal]) => [result.payment, Number(principal) + result.totalInterest], whole: true,
+  financeSchedule: { form: /^repayments of \$([\d,]+) a month, total repayments \$([\d,]+)$/,
+    own: (result) => [result.payment, result.totalPaid], whole: true,
     verdict: 'Moneysmart shows whole dollars, and the 2 agree to the dollar on this input' },
   // Business Queensland's calculators dropped the cents of each amount entered on 13 November 2026
   // (20.99 less 13 gave a gross profit of 7), so these inputs and results are whole dollars.
@@ -822,7 +966,8 @@ const FORM_CALLS = {
   hourlyRate: (f) => [f.cost, f.profit, f.hours],
   fixedFee: (f) => [f.hours, f.rate, f.margin, f.round, f.gst, f.instalments],
   variance: (f) => [f.actual, f.budget, f.kind],
-  loan: (f) => [f.principal, f.rate, f.months, f.balloon, f.timing],
+  financeSchedule: (f) => [{ solve: f.solve, amount: f.amount, rate: f.rate, payments: f.payments, payment: f.payment,
+    balloon: f.balloon, balloonKind: f['balloon-kind'], frequency: f.frequency, timing: f.timing, start: f.start }],
   div7aMinimumRepayment: (f) => [f.balance, div7aRates[f.year], f.term],
   // The radio's scale is bound to the rate table by its own test, so the call names the jurisdiction.
   transferDuty: (f) => [f.value, f.jurisdiction],
@@ -2858,7 +3003,7 @@ test('business days refuse an unusable table, an impossible date and a count the
   assert.deepEqual(days({ mode: 'subtract', start: on.date, count: '10' }).skipped.map(({ date }) => date), ['2026-12-25', '2026-12-28', '2027-01-01']);
 });
 
-test('the company tax, foreign surcharge and business days pages open on the result their calculations give', () => {
+test('the company tax, foreign surcharge, business days, loan and hire purchase pages open on the result their calculations give', () => {
   const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
   const example = (page) => calculatorInclude(page).match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/).slice(1);
   const shown = (result) => [result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note];
@@ -2868,6 +3013,9 @@ test('the company tax, foreign surcharge and business days pages open on the res
   assert.deepEqual(shown(calculations.foreignSurchargeResult(buyer, purchase,
     transferDuty(purchase.value, transferDutyScales[purchase.place]).duty, aud)), example('foreign-surcharge'));
   assert.deepEqual(shown(calculations.businessDaysResult(opening('business-days'), businessDayHolidays)), example('business-days'));
+  assert.deepEqual(shown(calculations.financeResult(opening('loan'), aud)), example('loan'));
+  assert.deepEqual(shown(calculations.financeResult(opening('hire-purchase'), aud, formDefaults(calculatorInclude('hire-purchase')).agreement)),
+    example('hire-purchase'));
 });
 
 // The SGC and Payday Super page: how each call and result reads.
