@@ -3,7 +3,7 @@
 
 //! The seo_core and site_contracts parts of scripts/test_contracts.py: focused mutation
 //! tests for the site's public contracts, run against a copy of the committed site.
-use chrono::NaiveDate;
+use jiff::civil::Date;
 use site_tools::pyjson::{self, Json};
 use site_tools::schema_vocab::{self, Vocabulary};
 use site_tools::seo_core::{self as core, MetadataContext, Tree};
@@ -2313,14 +2313,13 @@ fn schema_vocabulary_page_mutation() {
 
 /// The first date `pattern` captures in a rendered page, ISO or 'D Month YYYY'. The
 /// calculator date mutations start from these, so a consistent redate needs no edit here.
-fn page_date(rel: &str, pattern: &str) -> NaiveDate {
+fn page_date(rel: &str, pattern: &str) -> Date {
     let html = read_text(root(), rel);
     let found = regex::Regex::new(pattern)
         .unwrap()
         .captures(&html)
         .unwrap_or_else(|| panic!("{rel}: no date matches {pattern}"));
-    NaiveDate::parse_from_str(&found[1], "%Y-%m-%d")
-        .ok()
+    site_tools::iso_day(&found[1])
         .or_else(|| site_tools::feed::parse_date(&found[1]).ok())
         .unwrap_or_else(|| panic!("{rel}: unreadable date {:?}", &found[1]))
 }
@@ -2340,13 +2339,13 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
     let margin = "tools/business-calculators/margin/index.html";
     let loan = "tools/business-calculators/loan/index.html";
     let hub = contracts::CALCULATOR_HUB_REL;
-    let next = |date: NaiveDate| date.succ_opt().unwrap();
-    let previous = |date: NaiveDate| date.pred_opt().unwrap();
-    let long = |date: NaiveDate| date.format("%-d %B %Y").to_string();
-    let read = |date: NaiveDate| format!("read {}", long(date));
-    let comparison = |date: NaiveDate| format!("Official comparison on {}", long(date));
-    let modified = |date: NaiveDate| format!(r#""dateModified": "{date}""#);
-    let header = |datetime: NaiveDate, shown: NaiveDate| {
+    let next = |date: Date| date.tomorrow().unwrap();
+    let previous = |date: Date| date.yesterday().unwrap();
+    let long = |date: Date| date.strftime("%-d %B %Y").to_string();
+    let read = |date: Date| format!("read {}", long(date));
+    let comparison = |date: Date| format!("Official comparison on {}", long(date));
+    let modified = |date: Date| format!(r#""dateModified": "{date}""#);
+    let header = |datetime: Date, shown: Date| {
         format!(
             r#"Last checked <time datetime="{datetime}">{}</time>"#,
             long(shown)

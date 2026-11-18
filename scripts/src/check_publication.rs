@@ -329,7 +329,7 @@ fn timestamp<'a>(record: &'a Json, key: &str) -> Option<&'a str> {
             "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z",
             0,
             time,
-        ) && chrono::NaiveDateTime::parse_from_str(time, "%Y-%m-%dT%H:%M:%SZ").is_ok()
+        ) && jiff::civil::DateTime::strptime("%Y-%m-%dT%H:%M:%SZ", time).is_ok()
     })
 }
 

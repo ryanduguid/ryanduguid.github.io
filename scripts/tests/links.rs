@@ -491,9 +491,9 @@ fn linkedin_runner_exception_keeps_local_and_other_profile_404s() {
 fn rate_limit_retry_headers_for_both_fetchers() {
     let now = 1_700_000_000.0;
     let date = |seconds: i64| {
-        chrono::DateTime::from_timestamp(seconds, 0)
+        jiff::Timestamp::from_second(seconds)
             .unwrap()
-            .format("%a, %d %b %Y %H:%M:%S GMT")
+            .strftime("%a, %d %b %Y %H:%M:%S GMT")
             .to_string()
     };
     let cases = [

@@ -120,6 +120,20 @@ pub fn sort_paths(paths: &mut [PathBuf]) {
     });
 }
 
+/// A calendar date written exactly YYYY-MM-DD in ASCII digits. jiff's `%Y` alone also takes
+/// a sign, a space after the sign and leading whitespace, so it would read "- 2026-11-18" as
+/// the year -2026.
+pub fn iso_day(text: &str) -> Option<jiff::civil::Date> {
+    let shaped = text.len() == 10
+        && text.bytes().enumerate().all(|(i, byte)| match i {
+            4 | 7 => byte == b'-',
+            _ => byte.is_ascii_digit(),
+        });
+    shaped
+        .then(|| jiff::civil::Date::strptime("%Y-%m-%d", text).ok())
+        .flatten()
+}
+
 pub fn sha256(bytes: impl AsRef<[u8]>) -> String {
     use sha2::{Digest, Sha256};
     Sha256::digest(bytes)
@@ -138,4 +152,33 @@ pub fn suffix(path: &Path) -> String {
     let stem = name.trim_start_matches('.');
     stem.rfind('.')
         .map_or(String::new(), |i| stem[i..].to_owned())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::iso_day;
+    use jiff::civil::date;
+
+    #[test]
+    fn iso_day_reads_only_yyyy_mm_dd() {
+        assert_eq!(iso_day("2026-11-18"), Some(date(2026, 11, 18)));
+        assert_eq!(iso_day("2028-02-29"), Some(date(2028, 2, 29)));
+        for text in [
+            "- 2026-11-18",
+            "+ 2026-11-18",
+            "-2026-11-18",
+            "+2026-11-18",
+            " 2026-11-18",
+            "\u{a0}2026-11-18",
+            "2026-1-8",
+            "2026-11-18 ",
+            "+12026-11-18",
+            "2026-02-29",
+            "2026-13-01",
+            "2026/11/18",
+            "",
+        ] {
+            assert_eq!(iso_day(text), None, "{text:?}");
+        }
+    }
 }

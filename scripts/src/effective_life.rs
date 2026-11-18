@@ -11,7 +11,7 @@
 //! data row. The counts of each are written beside the rows, so the file can be held to the
 //! source's own row count, and a row in a shape this parser does not know fails the build
 //! instead of being dropped or guessed at.
-use chrono::NaiveDate;
+use jiff::civil::Date;
 
 mod cells;
 mod command;
@@ -168,9 +168,9 @@ pub struct Determination {
 pub struct Source {
     pub register_id: String,
     /// The date the version read was registered.
-    pub registered: NaiveDate,
+    pub registered: Date,
     /// The page of the version read on the Federal Register of Legislation.
     pub url: String,
     /// The date the source was downloaded and read.
-    pub read: NaiveDate,
+    pub read: Date,
 }

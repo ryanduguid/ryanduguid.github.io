@@ -208,7 +208,7 @@ fn check_fails_loudly_if_the_card_markup_stops_matching() {
 #[test]
 fn the_committed_tools_register_is_stamped_and_consistent() {
     let html = site_tools::read(&common::repository().join("tools/index.html")).unwrap();
-    let today = chrono::Utc::now().format("%Y-%m-%d").to_string();
+    let today = jiff::Timestamp::now().strftime("%Y-%m-%d").to_string();
     assert_eq!(check_html(&html, &today), Vec::<String>::new());
 }
 

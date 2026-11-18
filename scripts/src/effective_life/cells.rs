@@ -204,7 +204,7 @@ pub(super) fn iso_date(text: &str) -> Result<String> {
         .iter()
         .position(|short| name.len() >= 3 && name.starts_with(short) && month_name(short, &name))
         .ok_or_else(bad)?;
-    let (day, year): (u32, i32) = (
+    let (day, year): (i8, i16) = (
         day.parse().map_err(|_| bad())?,
         year.parse().map_err(|_| bad())?,
     );
@@ -212,9 +212,9 @@ pub(super) fn iso_date(text: &str) -> Result<String> {
         return Err(bad());
     }
     // `month` is an index into twelve names.
-    chrono::NaiveDate::from_ymd_opt(year, month as u32 + 1, day)
-        .map(|date| date.format("%Y-%m-%d").to_string())
-        .ok_or_else(bad)
+    jiff::civil::Date::new(year, month as i8 + 1, day)
+        .map(|date| date.strftime("%Y-%m-%d").to_string())
+        .map_err(|_| bad())
 }
 
 /// Whether `name` is the short month or its full English name.
