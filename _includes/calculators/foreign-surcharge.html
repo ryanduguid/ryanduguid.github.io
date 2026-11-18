@@ -1,6 +1,6 @@
 <section class="business-calculator" id="foreign-surcharge">
 <form class="calculator-split" data-calculator="foreign-surcharge">
-<fieldset disabled><legend>Foreign buyer surcharge inputs for one buyer and one property</legend><div class="form-grid"><fieldset><legend>State or territory</legend>
+<fieldset disabled><legend>Foreign buyer surcharge inputs</legend><div class="form-grid"><fieldset><legend>State or territory</legend>
 {% include duty-jurisdictions.html %}
 </fieldset>
 <fieldset class="field"><legend>Who is buying</legend>
@@ -62,7 +62,7 @@
 <label><input type="radio" name="exemption" value="no" checked /> No</label>
 <label><input type="radio" name="exemption" value="yes" /> Yes</label></fieldset>
 </div>
-<p class="field-note">Only the answers for the buyer chosen and the state or territory chosen are used. Each revenue office decides the dutiable value and who is foreign; the general duty uses the <a href="/rates/transfer-duty/">transfer duty rate table</a>.</p>
+<p class="field-note">It works one buyer and one property. Only the answers for the buyer chosen and the state or territory chosen are used. Each revenue office decides the dutiable value and who is foreign; the general duty uses the <a href="/rates/transfer-duty/">transfer duty rate table</a>.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="New South Wales, an individual: another visa or none, residential property worth $1,000,000.00, buyer’s share $1,000,000.00, land value for land tax $1,200,000.00" rows="Foreign purchaser duty surcharge at 9% of the buyer’s share|$90,000.00;Duty surcharge test|Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009);General transfer duty on the whole property, all buyers|$39,187.00;Land tax surcharge for a full year|$60,000.00;Land tax surcharge test|Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009)" principal="0" note="Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign" %}
 <div class="sources-applied" hidden>
