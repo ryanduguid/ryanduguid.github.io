@@ -703,23 +703,23 @@ test('SGC page works a Payday Super charge, an old-law quarter and a refusal off
   await waitForCalculator(form);
   await context.setOffline(true);
   // Part paid late after an ATO-initiated assessment, disclosed on day 29: 60% less 40 points.
-  await form.getByLabel('Payday Super: payday (the QE day)').fill('2026-08-06');
-  await form.getByLabel('Payday Super: qualifying earnings paid on the payday (AUD)').fill('6500');
-  await form.getByLabel('Payday Super: contributions the fund received after the due date, before the assessment (AUD)').fill('540');
-  await form.getByLabel('Payday Super, late contributions only: the day the fund received them').fill('2026-09-02');
-  await form.getByLabel('Payday Super: the day the ATO assesses the charge').fill('2026-12-10');
+  await form.getByLabel('Payday', { exact: true }).fill('2026-08-06');
+  await form.getByLabel('Qualifying earnings (AUD)').fill('6500');
+  await form.getByLabel('Received late (AUD)').fill('540');
+  await form.getByLabel('Late receipt date').fill('2026-09-02');
+  await form.getByLabel('Assessment date').fill('2026-12-10');
   await form.getByLabel('Yes', { exact: true }).check();
-  await form.getByLabel('A statement lodged before the assessment').check();
-  await form.getByLabel('Disclosure only: the day the statement was lodged').fill('2026-09-04');
+  await form.getByLabel('Lodged', { exact: true }).check();
+  await form.getByLabel('Disclosure date').fill('2026-09-04');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('SG charge for the payday, before any choice loading: $322.16.');
   await expect(form.locator('output')).toContainText('Administrative uplift, 20%: $53.69.');
   // A contribution received on the due date is refused, not counted as late.
-  await form.getByLabel('Payday Super, late contributions only: the day the fund received them').fill('2026-08-17');
+  await form.getByLabel('Late receipt date').fill('2026-08-17');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toHaveText('A contribution the fund received by the due date is on time: add it to the on-time amount.');
   // The old law: one of Imogen's 30 employees in quarter 1 of 2025-26.
-  await form.getByLabel('Quarterly super: a quarter from July 2022 to June 2026').check();
+  await form.getByLabel('Quarterly, 2022-23 to 2025-26').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('SG charge for the quarter: $1,519.18.');
 });

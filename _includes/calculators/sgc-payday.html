@@ -1,46 +1,46 @@
 <section class="business-calculator" id="sgc-payday">
 <form class="calculator-split" data-calculator="sgc-payday">
-<fieldset disabled><legend>Super guarantee charge inputs for one employee</legend><div class="form-grid"><fieldset class="field"><legend>Which law applies</legend>
-<label><input type="radio" name="regime" value="payday" checked /> Payday Super: a payday from 1 July 2026 to 30 June 2027</label>
-<label><input type="radio" name="regime" value="quarter" /> Quarterly super: a quarter from July 2022 to June 2026</label></fieldset>
-<label class="field" for="sgc-payday-payday">Payday Super: payday (the QE day)<input id="sgc-payday-payday" name="payday" type="date" min="2026-07-01" max="2027-06-30" value="2026-07-30" required /></label>
-<fieldset class="field"><legend>Payday Super: how long the fund has to receive the contribution</legend>
-<label><input type="radio" name="timing" value="standard" checked /> The usual 7 business days</label>
-<label><input type="radio" name="timing" value="first" /> 20 business days: the first contribution to this fund for a new employee, or after the employer changes funds</label>
-<label><input type="radio" name="timing" value="out-of-cycle" /> Out of cycle: due with the next regular payday</label>
-<label><input type="radio" name="timing" value="exceptional" /> An ATO exceptional circumstances determination</label></fieldset>
-<label class="field" for="sgc-payday-next">Out of cycle only: the next regular payday<input id="sgc-payday-next" name="next-payday" type="date" min="2026-07-01" max="2027-08-31" value="2026-07-30" required /></label>
-<label class="field" for="sgc-payday-determination">Determination only: the day the ATO made it<input id="sgc-payday-determination" name="determination" type="date" min="2026-07-01" max="2027-08-31" value="2026-07-30" required /></label>
-<label class="field" for="sgc-payday-earnings">Payday Super: qualifying earnings paid on the payday (AUD)<input id="sgc-payday-earnings" name="earnings" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
-<label class="field" for="sgc-payday-earlier">Payday Super: qualifying earnings paid earlier in 2026-27 (AUD)<input id="sgc-payday-earlier" name="earlier" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="sgc-payday-on-time">Payday Super: contributions the fund received by the due date (AUD)<input id="sgc-payday-on-time" name="on-time" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="sgc-payday-late">Payday Super: contributions the fund received after the due date, before the assessment (AUD)<input id="sgc-payday-late" name="late" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="120" required /></label>
-<label class="field" for="sgc-payday-received">Payday Super, late contributions only: the day the fund received them<input id="sgc-payday-received" name="received" type="date" min="2026-07-01" max="2031-06-30" value="2026-08-25" required /></label>
-<label class="field" for="sgc-payday-assessment">Payday Super: the day the ATO assesses the charge<input id="sgc-payday-assessment" name="assessment" type="date" min="2026-07-01" max="2031-06-30" value="2026-12-01" required /></label>
-<fieldset class="field"><legend>Payday Super: since 1 July 2026, has the ATO itself assessed or estimated SG charge for this employer?</legend>
+<fieldset disabled><legend>Super guarantee charge inputs for one employee</legend><div class="form-grid"><fieldset class="field"><legend>Law</legend>
+<label><input type="radio" name="regime" value="payday" checked /> Payday Super, 2026-27</label>
+<label><input type="radio" name="regime" value="quarter" /> Quarterly, 2022-23 to 2025-26</label></fieldset>
+<label class="field" for="sgc-payday-payday">Payday<input id="sgc-payday-payday" name="payday" type="date" min="2026-07-01" max="2027-06-30" value="2026-07-30" required /></label>
+<fieldset class="field"><legend>Time the fund has</legend>
+<label><input type="radio" name="timing" value="standard" checked /> 7 business days</label>
+<label><input type="radio" name="timing" value="first" /> 20 business days: first contribution to this fund</label>
+<label><input type="radio" name="timing" value="out-of-cycle" /> Out of cycle</label>
+<label><input type="radio" name="timing" value="exceptional" /> ATO determination</label></fieldset>
+<label class="field" for="sgc-payday-next">Next regular payday (out of cycle)<input id="sgc-payday-next" name="next-payday" type="date" min="2026-07-01" max="2027-08-31" value="2026-07-30" required /></label>
+<label class="field" for="sgc-payday-determination">Determination date<input id="sgc-payday-determination" name="determination" type="date" min="2026-07-01" max="2027-08-31" value="2026-07-30" required /></label>
+<label class="field" for="sgc-payday-earnings">Qualifying earnings (AUD)<input id="sgc-payday-earnings" name="earnings" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
+<label class="field" for="sgc-payday-earlier">Earlier earnings in 2026-27 (AUD)<input id="sgc-payday-earlier" name="earlier" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="sgc-payday-on-time">Received on time (AUD)<input id="sgc-payday-on-time" name="on-time" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="sgc-payday-late">Received late (AUD)<input id="sgc-payday-late" name="late" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="120" required /></label>
+<label class="field" for="sgc-payday-received">Late receipt date<input id="sgc-payday-received" name="received" type="date" min="2026-07-01" max="2031-06-30" value="2026-08-25" required /></label>
+<label class="field" for="sgc-payday-assessment">Assessment date<input id="sgc-payday-assessment" name="assessment" type="date" min="2026-07-01" max="2031-06-30" value="2026-12-01" required /></label>
+<fieldset class="field"><legend>Earlier ATO-initiated assessment or estimate</legend>
 <label><input type="radio" name="assessed" value="no" checked /> No</label>
 <label><input type="radio" name="assessed" value="yes" /> Yes</label></fieldset>
-<fieldset class="field"><legend>Payday Super: voluntary disclosure</legend>
-<label><input type="radio" name="disclosure" value="none" checked /> None lodged</label>
-<label><input type="radio" name="disclosure" value="lodged" /> A statement lodged before the assessment</label></fieldset>
-<label class="field" for="sgc-payday-disclosed">Disclosure only: the day the statement was lodged<input id="sgc-payday-disclosed" name="disclosed" type="date" min="2026-07-01" max="2031-06-30" value="2026-07-30" required /></label>
-<label class="field" for="sgc-payday-assumed">Payday Super: GIC rate assumed after December 2026 (% a year)<input id="sgc-payday-assumed" name="assumed-rate" type="number" inputmode="decimal" min="0.01" max="100" step=".01" value="11.51" required /></label>
-<fieldset class="field"><legend>Quarterly super: income year</legend>
+<fieldset class="field"><legend>Voluntary disclosure</legend>
+<label><input type="radio" name="disclosure" value="none" checked /> None</label>
+<label><input type="radio" name="disclosure" value="lodged" /> Lodged</label></fieldset>
+<label class="field" for="sgc-payday-disclosed">Disclosure date<input id="sgc-payday-disclosed" name="disclosed" type="date" min="2026-07-01" max="2031-06-30" value="2026-07-30" required /></label>
+<label class="field" for="sgc-payday-assumed">GIC rate after 2026 (%)<input id="sgc-payday-assumed" name="assumed-rate" type="number" inputmode="decimal" min="0.01" max="100" step=".01" value="11.51" required /></label>
+<fieldset class="field"><legend>Income year</legend>
 <label><input type="radio" name="year" value="2022-23" /> 2022-23 (10.5%)</label>
 <label><input type="radio" name="year" value="2023-24" /> 2023-24 (11%)</label>
 <label><input type="radio" name="year" value="2024-25" /> 2024-25 (11.5%)</label>
 <label><input type="radio" name="year" value="2025-26" checked /> 2025-26 (12%)</label></fieldset>
-<fieldset class="field"><legend>Quarterly super: quarter</legend>
-<label><input type="radio" name="quarter" value="1" checked /> 1: July to September</label>
-<label><input type="radio" name="quarter" value="2" /> 2: October to December</label>
-<label><input type="radio" name="quarter" value="3" /> 3: January to March</label>
-<label><input type="radio" name="quarter" value="4" /> 4: April to June</label></fieldset>
-<label class="field" for="sgc-payday-wages">Quarterly super: salary or wages for the quarter (AUD)<input id="sgc-payday-wages" name="wages" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="12000" required /></label>
-<label class="field" for="sgc-payday-ote">Quarterly super: ordinary time earnings for the quarter (AUD)<input id="sgc-payday-ote" name="ote" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="10000" required /></label>
-<label class="field" for="sgc-payday-contributions">Quarterly super: contributions made by 28 days after the quarter (AUD)<input id="sgc-payday-contributions" name="contributions" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="sgc-payday-statement">Quarterly super: the day the SGC statement was or will be lodged<input id="sgc-payday-statement" name="statement" type="date" min="2022-10-29" max="2031-06-30" value="2025-11-20" required /></label>
+<fieldset class="field"><legend>Quarter</legend>
+<label><input type="radio" name="quarter" value="1" checked /> July to September</label>
+<label><input type="radio" name="quarter" value="2" /> October to December</label>
+<label><input type="radio" name="quarter" value="3" /> January to March</label>
+<label><input type="radio" name="quarter" value="4" /> April to June</label></fieldset>
+<label class="field" for="sgc-payday-wages">Salary or wages (AUD)<input id="sgc-payday-wages" name="wages" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="12000" required /></label>
+<label class="field" for="sgc-payday-ote">Ordinary time earnings (AUD)<input id="sgc-payday-ote" name="ote" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="10000" required /></label>
+<label class="field" for="sgc-payday-contributions">Contributions within 28 days (AUD)<input id="sgc-payday-contributions" name="contributions" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="sgc-payday-statement">SGC statement lodged<input id="sgc-payday-statement" name="statement" type="date" min="2022-10-29" max="2031-06-30" value="2025-11-20" required /></label>
 </div>
-<p class="field-note">Each law reads only its own fields, and each choice only the fields it names. Which earnings count and when a fund received a contribution are your facts; the calculator does not work them out. Business days come from the site’s <a href="/tools/payday-super/business-days/">Payday Super business days calendar</a> and GIC rates from its <a href="/rates/general-interest-charge/">GIC rates table</a>.</p>
+<p class="field-note">Each law and choice reads only its own fields. Business days are from the <a href="/tools/payday-super/business-days/">Payday Super calendar</a>; GIC rates from the <a href="/rates/general-interest-charge/">GIC table</a>.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="payday 30 July 2026, the usual 7 business days, qualifying earnings $1,000.00, on time $0.00, late $120.00, assessment 1 December 2026, no ATO-initiated assessment or estimate since 1 July 2026, no voluntary disclosure" rows="Fund must receive it by (7 business days after payday)|Tuesday 11 August 2026;SG amount, 12%|$120.00;Late contributions received|Tuesday 25 August 2026, 14 days late;Business days from payday to receipt|17;Base shortfall|$120.00;Late contributions applied|$120.00;Final shortfall|$0.00;Notional earnings, 14 days to 25 August 2026|$0.53;Administrative uplift, 40%|$0.21;SG charge for the payday, before any choice loading|$0.74" principal="9" %}
 <div class="sources-applied" hidden>
