@@ -912,6 +912,8 @@ test('foreign purchaser surcharges work SRO Victoria’s fixed trust offline and
     { exact: true }).fill('1000000');
   await form.getByLabel('Company, trust or fund: largest interest held by one foreign person with associates (%)', { exact: true }).fill('50');
   await form.getByLabel('Company, trust or fund: interests of all foreign persons together, with associates (%)', { exact: true }).fill('50');
+  await form.getByLabel('Victorian land tax, company or fixed trust: interests of absentee persons together, with associates (%)', { exact: true })
+    .fill('50');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   const output = form.locator('output');
   await expect(output).toContainText('Foreign purchaser duty surcharge at 8% of the buyer’s share: $0.00.');
