@@ -14,7 +14,7 @@ Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 
 # Foreign buyer surcharge calculator
 
-Foreign purchaser duty and the foreign owner land tax surcharge in every Australian state and territory, with each one’s test of whether an individual, company, trust or super fund is foreign.
+Foreign purchaser duty and land tax surcharges in every state and territory, with each one’s test of whether an individual, company, trust or super fund is foreign.
 
 Published 18 November 2026. Last checked 18 November 2026.
 
