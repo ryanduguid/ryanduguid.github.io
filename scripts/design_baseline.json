@@ -237,16 +237,16 @@
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
     ],
     "tools/individual-tax/income-tax/index.html": [
-      "d63327a0e7d3264404b23562bd1926f35e561fe2f4563644b28ee40c3768a8e1"
+      "aed04320a1e984625737411e6688f860dd30308e78cf544b438f407c0cbf2037"
     ],
     "tools/individual-tax/index.html": [
-      "bac00229ec1ee84893567d3fd49103f6bd8122f56318034907052bd7d9e632bf"
+      "5703434a1b42669cce63c44a6e8619ddaa75e93efc74bc9a66c6d23c9664aea7"
     ],
     "tools/individual-tax/study-loan/index.html": [
-      "7696316c3ae11ee28547b3389f4e7db9100711a2b54e005798da46181447c5a4"
+      "e097fdd02619bd0715a3d91bb3455b08912994564bdbc0e0807df76c91cc5cea"
     ],
     "tools/individual-tax/take-home-pay/index.html": [
-      "7f73ea8e687f4fc3dbfb3a06822b4f404dc73626e0e8a11dfd6da74022a5cab0"
+      "637a2eb7aebf613f8e4cd0e47638caa3fa6b1f9bb8db8b2bbb6a460734e96b76"
     ],
     "tools/limitations/index.html": [
       "2d3d865ad048775bbe97d9424a06a144861cb6698eb14f60b16d0db67fba7af7"
@@ -310,9 +310,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "c40ccffc2299ed8e6d87c53450cbde6ea8d01e351c901f95dbdc8b257b812a7a",
+    "llms.txt": "6fe6a8b1928cac2c5b3801759abeb8e1258f148a27a1b388348e2f223b0d96d6",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "7061844911601e895268a6a3c4db62468a8984f05dd798a4705e7ed1f75fc023"
+    "sitemap.xml": "2264e0b4086e67eed20f8243c7204c9cf0476051d0e8654ffe3a6437064018d2"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

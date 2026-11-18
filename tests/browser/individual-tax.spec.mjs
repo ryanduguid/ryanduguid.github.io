@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
 import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
-const CALCULATORS = { 'income-tax': '$1,126.90', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80' };
+const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -43,14 +43,56 @@ for (const id of Object.keys(CALCULATORS)) {
   });
 }
 
-test('a foreign resident pays no Medicare levy and gets no offset', async ({ page }) => {
+test('a foreign resident pays no Medicare levy or surcharge and gets no offset', async ({ page }) => {
   await page.goto('/tools/individual-tax/income-tax/');
   const form = page.locator('#income-tax form');
   await waitForCalculator(form);
   await form.getByLabel('Foreign resident').check();
   await form.getByLabel('Taxable income (whole dollars)').fill('100000');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(form.locator('output .result-row--principal strong')).toHaveText('$30,000.00');
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Total tax, levies and repayment')).toHaveText('$30,000.00');
+  await expect(row('Amount owing estimate')).toHaveText('$9,000.00');
   await expect(form.locator('output .result-note')).toHaveText(
-    'A foreign resident gets no low income tax offset and pays no Medicare levy.');
+    'A foreign resident gets no low income tax offset and pays no Medicare levy or surcharge.');
 });
+
+test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenly', async ({ page }) => {
+  await page.goto('/tools/individual-tax/take-home-pay/');
+  const form = page.locator('#take-home-pay form');
+  await waitForCalculator(form);
+  await form.getByLabel('2026-27').check();
+  await form.getByLabel('A fortnight').check();
+  await form.getByLabel(/^Salary for each pay period/).fill('3000');
+  await form.getByLabel(/^Salary sacrificed to super/).fill('200');
+  await form.locator('input[name="study-loan"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('PAYG withheld each fortnight, with the study loan component')).toHaveText('$554.00');
+  await expect(row('Pay after withholding each fortnight')).toHaveText('$2,246.00');
+  await expect(row('Amount owing estimate')).toHaveText('$212.80');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
+});
+
+for (const [id, name, input, expected] of [
+  ['income-tax', 'estimate_income_tax', { incomeYear: '2026-27', residency: 'resident', taxableIncome: 90000,
+    reportableFringeBenefits: 27000, daysWithoutHospitalCover: 365, taxWithheld: '21000' }, { refund: '510.00' }],
+  ['take-home-pay', 'calculate_take_home_pay', { incomeYear: '2025-26', residency: 'resident', salary: '75000' },
+    { takeHomeYear: '60212.00' }],
+]) {
+  test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
+    await page.addInitScript(() => {
+      window.registeredTools = [];
+      Object.defineProperty(document, 'modelContext', {
+        value: { registerTool: async (tool) => { window.registeredTools.push(tool); } },
+      });
+    });
+    await page.goto(`/tools/individual-tax/${id}/`);
+    await page.waitForFunction(() => window.registeredTools.length === 1);
+    const result = await page.evaluate(async (args) => {
+      const [tool] = window.registeredTools;
+      return { name: tool.name, readOnly: tool.annotations.readOnlyHint, output: await tool.execute(args) };
+    }, input);
+    expect(result).toMatchObject({ name, readOnly: true, output: expected });
+  });
+}

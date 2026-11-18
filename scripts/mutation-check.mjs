@@ -23,6 +23,8 @@ const individualTest = 'scripts/individual-tax.test.mjs';
 const incomeTax = { file: 'assets/income-tax.mjs', test: individualTest };
 const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
+const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
+const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -214,23 +216,54 @@ const MUTATIONS = [
   { ...incomeTax, name: 'working holiday makers reach 30% at $37,000', find: '[[0, 15], [45000, 30]', replace: '[[0, 15], [37000, 30]' },
   { ...incomeTax, name: 'the offset tapers at 4%', find: '(income - 37500) * 50', replace: '(income - 37500) * 40' },
   { ...incomeTax, name: 'the offset rounds half a cent down', find: 'Math.floor((tenths + 5) / 10)', replace: 'Math.floor(tenths / 10)' },
-  { ...incomeTax, name: 'the offset can exceed the tax', find: 'Math.min(tax, lowIncomeOffset(income))', replace: 'lowIncomeOffset(income)' },
+  { ...incomeTax, name: 'the offset can exceed the tax', find: 'Math.min(tax, halfUp(lowIncomeOffset(income)))', replace: 'halfUp(lowIncomeOffset(income))' },
   { ...incomeTax, name: 'the Medicare shade-in takes the greater', find: 'Math.min(income * 2, (income - threshold) * 10)', replace: 'Math.max(income * 2, (income - threshold) * 10)' },
   { ...incomeTax, name: 'foreign residents pay the Medicare levy', find: 'const medicare = resident ?', replace: 'const medicare = true ?' },
   { ...incomeTax, name: '2024-25 takes the 2025-26 Medicare thresholds', find: "'2024-25': [27222, 34027]", replace: "'2024-25': [28011, 35013]" },
   { ...studyLoan, name: 'the upper marginal rate is 16%', find: 'Math.max(0, income - top) * 17', replace: 'Math.max(0, income - top) * 16' },
   { ...studyLoan, name: 'the repayment takes the greater amount', find: 'tenth < marginal ?', replace: 'tenth > marginal ?' },
-  { ...studyLoan, name: '2024-25 takes the first band', find: 'table.bands.findLast(', replace: 'table.bands.find(' },
+  { ...studyLoan, name: '2024-25 takes the first band', find: 'income >= from).at(-1)', replace: 'income >= from).at(0)' },
   { ...studyLoan, name: 'the minimum repayment income itself repays', find: 'if (income <= table.minimum)', replace: 'if (income < table.minimum)' },
   { ...studyLoan, name: 'repayment income leaves out super contributions', find: "const PARTS = ['taxable', 'fringe', 'losses', 'super', 'foreign'];", replace: "const PARTS = ['taxable', 'fringe', 'losses', 'foreign'];" },
   { ...takeHome, name: 'super guarantee ignores the base', find: 'Math.min(entered, capCents) * tenths', replace: 'entered * tenths' },
   { ...takeHome, name: 'a package’s super is the rate of the package', find: 'nearest(entered * tenths, 1000 + tenths)', replace: 'nearest(entered * tenths, 1000)' },
   { ...takeHome, name: 'the study loan is left out', find: 'const loan = pay.studyLoan', replace: 'const loan = false' },
-  { ...takeHome, name: 'no standard deduction', find: 'Math.min(100000, salary) : 0', replace: '0 : 0' },
-  { ...takeHome, name: 'the standard deduction drops the salary’s cents', find: 'Math.min(100000, salary) : 0', replace: 'Math.min(100000, salary - (salary % 100)) : 0' },
-  { ...takeHome, name: 'the standard deduction for foreign residents too', find: "pay.year >= STANDARD_DEDUCTION_FROM && pay.residency === 'resident'", replace: 'pay.year >= STANDARD_DEDUCTION_FROM' },
+  { ...takeHome, name: 'no standard deduction', find: 'Math.min(100000, paid) : 0', replace: '0 : 0' },
+  { ...takeHome, name: 'the standard deduction drops the salary’s cents', find: 'Math.min(100000, paid) : 0', replace: 'Math.min(100000, paid - (paid % 100)) : 0' },
+  { ...takeHome, name: 'the standard deduction for foreign residents too', find: 'pay.year >= STANDARD_DEDUCTION_FROM && resident', replace: 'pay.year >= STANDARD_DEDUCTION_FROM' },
   { ...takeHome, name: 'a fortnight is a 24th', find: 'nearest(net, 26)', replace: 'nearest(net, 24)' },
   { ...takeHome, name: '2024-25 super guarantee is 12%', find: "'2024-25': { rate: 11.5", replace: "'2024-25': { rate: 12" },
+  { ...incomeTax, name: '2023-24 reaches 37% at $135,000', find: "'2023-24': [[18200, 19], [45000, 32.5], [120000, 37]", replace: "'2023-24': [[18200, 19], [45000, 32.5], [135000, 37]" },
+  { ...incomeTax, name: 'foreign residents before 2024-25 start at 30%', find: '[[0, 32.5], [120000, 37]', replace: '[[0, 30], [120000, 37]' },
+  { ...incomeTax, name: 'the $420 also for 2020-21', find: "year === '2021-22' && income !== 126000", replace: 'income !== 126000' },
+  { ...incomeTax, name: 'the $420 at $126,000 too', find: '&& income !== 126000 ? 420000', replace: '? 420000' },
+  { ...incomeTax, name: 'the middle income offset tapers at 2%', find: '(income - 90000) * 30', replace: '(income - 90000) * 20' },
+  { ...incomeTax, name: 'the middle income offset can exceed the tax left', find: 'Math.min(tax - offset, halfUp(lowAndMiddleIncomeOffset(income, year)))', replace: 'halfUp(lowAndMiddleIncomeOffset(income, year))' },
+  { ...incomeTax, name: 'the surcharge leaves out reportable fringe benefits', find: '(s.taxable + s.fringe) * hundredths', replace: 's.taxable * hundredths' },
+  { ...incomeTax, name: 'surcharge income leaves out super contributions', find: 'const income = s.taxable + s.fringe + s.super + s.losses;', replace: 'const income = s.taxable + s.fringe + s.losses;' },
+  { ...incomeTax, name: 'the first child raises the family threshold', find: '1500 * Math.max(0, s.children - 1)', replace: '1500 * s.children' },
+  { ...incomeTax, name: 'a spouse on a low income pays the surcharge', find: '(s.spouse === null || income > MEDICARE_THRESHOLDS[s.year][0])', replace: 'true' },
+  { ...incomeTax, name: 'tier 2 is 1.5%', find: 'tested > second ? 125', replace: 'tested > second ? 150' },
+  { ...incomeTax, name: 'the surcharge threshold itself is liable', find: 'tested > first &&', replace: 'tested >= first &&' },
+  { ...incomeTax, name: 'no leap years', find: 'end % 4 === 0 &&', replace: 'false &&' },
+  { ...withholding, name: 'weekly earnings leave out the 99 cents', find: 'return dollars * 100 + 99;', replace: 'return dollars * 100;' },
+  { ...withholding, name: 'a month is 4 weeks', find: 'Math.floor((monthly * 3) / 1300)', replace: 'Math.floor(monthly / 400)' },
+  { ...withholding, name: 'a month ending in 33 cents gains nothing', find: 'earnings % 100 === 33 ?', replace: 'false ?' },
+  { ...withholding, name: 'withholding rounds down', find: '(millionths + 500000) / 1000000', replace: 'millionths / 1000000' },
+  { ...withholding, name: 'a monthly amount is cut, not rounded', find: 'Math.floor((2 * amount * 13 + 3) / 6)', replace: 'Math.floor((amount * 13) / 3)' },
+  { ...withholding, name: 'scale 2 at 19% from $721', find: '[865, 1790, 608377]', replace: '[865, 1900, 608377]' },
+  { ...withholding, name: 'the study loan component at 17% from the start', find: '[2494, 1500, 2005615]', replace: '[2494, 1700, 2005615]' },
+  { ...takeHome, name: 'super guarantee on the salary after the sacrifice', find: 'Math.min(entered, capCents) * tenths', replace: 'Math.min(entered - amountCents(pay.sacrifice) * pays, capCents) * tenths' },
+  { ...takeHome, name: 'the sacrifice is not reportable', find: 'const reported = Math.floor(sacrifice / 100);', replace: 'const reported = 0;' },
+  { ...takeHome, name: 'the sacrifice stays taxable', find: 'const paid = salary - sacrifice;', replace: 'const paid = salary;' },
+  { ...takeHome, name: 'the cap is a dollar higher', find: 'CONCESSIONAL_CAP[pay.year] * 100', replace: '(CONCESSIONAL_CAP[pay.year] + 1) * 100' },
+  { ...takeHome, name: 'Division 293 from $300,000', find: '25000000', replace: '30000000' },
+  { ...takeHome, name: 'withholding for every year', find: 'if (pay.year === WITHHOLDING_YEAR &&', replace: 'if (true &&' },
+  { ...takeHome, name: 'withholding on the salary before the sacrifice', find: 'const earnings = nearest(paid, pays);', replace: 'const earnings = nearest(salary, pays);' },
+  { ...takeHome, name: 'no cover all year costs nothing', find: 'pay.hospitalCover ? 0 : daysInYear(pay.year)', replace: 'pay.hospitalCover ? 0 : 0' },
+  { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
+  { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
+  { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
   { ...div7a, name: 'Division 7A schedule counts the remaining term from the year made', find: 'const remainingTerm = term - k + 1;', replace: 'const remainingTerm = term - k + 2;' },
   { ...div7a, name: 'Division 7A schedule drops unpaid interest from the loan', find: 'const principal = repayment - interest;', replace: 'const principal = repayment > interest ? repayment - interest : 0n;' },
   { ...div7a, name: 'Division 7A schedule runs on past a shortfall', find: 'if (shortfall > 0n || opening === 0n) break;', replace: 'if (opening === 0n) break;' },
@@ -381,7 +414,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', '_includes/duty-jurisdictions.html', '_data/payday_super_business_days.json']) {
+    'scripts/fbt-engine-differential.json', '_includes/duty-jurisdictions.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 

@@ -22,6 +22,13 @@
     <summary>A new business calculator finds when a Payday Super contribution is due, from the payday and the site’s business days calendar, with the longer periods for a first contribution, out-of-cycle pay and an ATO determination, and how many days late it was. It also works out one employee’s super guarantee charge: the final shortfall, notional earnings at the GIC rate and the administrative uplift, reduced for a first offence and a voluntary disclosure, or, for a quarter to June 2026, the shortfall, 10% nominal interest and the $20 administration component.</summary>
   </entry>
   <entry>
+    <title>The individual tax calculators go back to 2020-21 (take-home pay to 2021-22)…</title>
+    <link href="https://duguid.com.au/changelog/#entry-f80d54480ce56915" />
+    <id>https://duguid.com.au/changelog/#entry-f80d54480ce56915</id>
+    <updated>2026-11-18T00:00:00Z</updated>
+    <summary>The individual tax calculators go back to 2020-21 (take-home pay to 2021-22), with the low and middle income tax offset for 2020-21 and 2021-22. The income tax calculator adds the Medicare levy surcharge, for singles and families and the days without private hospital cover, any study loan repayment and a refund or amount owing from the tax you enter as withheld. The take-home pay calculator takes a salary for a year, month, fortnight or week and salary sacrificed to super, names concessional contributions above the cap and Division 293, and for a 2026-27 pay gives the PAYG withheld under the ATO’s Schedules 1 and 8, which match all 288 of the ATO’s sample amounts. Each new rate and threshold was read on 18 November 2026 in the Act or on the ATO’s page for that year.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator works out one person’s Division 296 tax for 2026-27…</title>
     <link href="https://duguid.com.au/changelog/#entry-ca1db5ec0a69030f" />
     <id>https://duguid.com.au/changelog/#entry-ca1db5ec0a69030f</id>
