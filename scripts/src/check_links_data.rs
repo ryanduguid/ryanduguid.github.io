@@ -35,7 +35,7 @@ pub const CI_MANUAL_URLS: [&str; 17] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 190] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -178,6 +178,8 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 190] = [
     // Still HTTP 403 on hosted CI in run 44173032679 (18 November 2026).
     "https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/mytax-instructions/2025/medicare-and-private-health-insurance/medicare-levy-reduction-or-exemption",
     "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
+    // HTTP 403 on hosted CI for pull request 619's check run (18 November 2026).
+    "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20263%2FNAT%2FATO%2F00001",
     "https://www.ato.gov.au/law/view/document?docid=COG/PCG20183/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=COG/PCG20214/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=LCD/LCTD20231/NAT/ATO/00001",
