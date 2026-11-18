@@ -281,6 +281,9 @@ test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a
     salary: '3000', payPeriod: 'fortnight' });
   assert.equal(holiday.paygWithholding, null);
   assert.match(individual['take-home-pay'].description, /for a working holiday maker it gives none/);
+  for (const limit of [/first home super saver/, /family trust distribution tax/, /super lump sum/, /debt still owed/]) {
+    assert.match(individual['income-tax'].description, limit);
+  }
 });
 
 test('individual tax tools refuse a year they do not offer, cents of taxable income and an unknown input', async () => {

@@ -363,12 +363,13 @@ const INCOME_TAX_DESCRIPTION = 'One Australian individual\'s income tax for a fu
   + 'levy surcharge for the days without private patient hospital cover and any compulsory study loan repayment, '
   + 'less the tax withheld, as a refund or an amount owing, each rounded half up to the cent. Every rate is cited '
   + `on ${INDIVIDUAL}income-tax/. It does not compute other offsets, deductions, the Medicare levy reduction `
-  + 'for families, a part-year residency or a first home super saver released amount, and it assumes the study '
-  + 'loan debt is at least the repayment, which the debt still owed caps.';
+  + 'for families, a part-year residency, a first home super saver released amount, an amount on which family trust '
+  + 'distribution tax has been paid, or the 2023-24 and earlier reduction of income for surcharge purposes by a super '
+  + 'lump sum, and it assumes the study loan debt is at least the repayment, which the debt still owed caps.';
 const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full income year: the year\'s income tax, offsets, Medicare '
   + 'levy, any Medicare levy surcharge and study loan repayment, after salary sacrificed to super and, from 2026-27, '
-  + 'the standard deduction, spread over a year, month, fortnight and week, with the employer\'s super guarantee. '
-  + 'The surcharge is a single person\'s with no dependants, and the study loan repayment assumes the debt is at '
+  + 'the standard deduction, spread over a year, month, fortnight and week, with the employer\'s super guarantee '
+  + 'worked on the year\'s earnings, not pay by pay or quarter by quarter. The surcharge is a single person\'s with no dependants, and the study loan repayment assumes the debt is at '
   + 'least the repayment. For a 2026-27 weekly, fortnightly or monthly pay of a resident (scale 2, tax-free '
   + 'threshold claimed) or a foreign resident (scale 3) it also gives the PAYG withheld each pay under the ATO\'s '
   + 'Schedules 1 and 8 and the refund or amount owing over the year; for a working holiday maker it gives none. '
