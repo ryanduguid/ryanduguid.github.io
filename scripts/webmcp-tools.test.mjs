@@ -355,11 +355,15 @@ test('income tax tool returns the page worked example: the ATO’s Tom with $21,
   assert.equal(family.medicareLevySurcharge, '1130.01');
 });
 
-test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a year', async () => {
+test('take-home pay tool gives PAYG withholding for a pay in any year and none for a year', async () => {
   const r = await individual['take-home-pay'].execute({ incomeYear: '2026-27', residency: 'resident', salary: '3000',
     payPeriod: 'fortnight', salarySacrifice: '200', studyLoan: true });
-  assert.deepEqual(r.paygWithholding, { eachPay: '554.00', studyLoanComponent: '20.00', year: '14404.00', refund: '0.00',
-    amountOwing: '212.80' });
+  assert.deepEqual(r.paygWithholding, { eachPay: '554.00', studyLoanComponent: '20.00',
+    studyLoanComponentBefore24September2025: null, year: '14404.00', refund: '0.00', amountOwing: '212.80' });
+  const late = await individual['take-home-pay'].execute({ incomeYear: '2025-26', residency: 'resident', salary: '3000',
+    payPeriod: 'fortnight', studyLoan: true });
+  assert.deepEqual(late.paygWithholding, { eachPay: '672.00', studyLoanComponent: '64.00',
+    studyLoanComponentBefore24September2025: '106.00', year: '17472.00', refund: '74.00', amountOwing: '0.00' });
   assert.equal(r.takeHomeYear, '58183.20');
   const year = await individual['take-home-pay'].execute({ incomeYear: '2025-26', residency: 'resident', salary: '75000' });
   assert.deepEqual([year.takeHomeYear, year.medicareLevy, year.paygWithholding], ['60212.00', '1500.00', null]);
