@@ -12,10 +12,10 @@
   },
   "json_ld": {
     "about/index.html": [
-      "e4ee3fd115d270a6bbb49b27a0691247203e4bda4a5a58c39b01df24bea1e3ef"
+      "cc922db2b8887b72368185e80dd68c8a0f3c5facafd478723118f0c07b33e806"
     ],
     "changelog/index.html": [
-      "00488cd21eaacbd73c8c930a2f865af39413f510c835520e67a1234da2aef681"
+      "9161d62c7d1d4c36660f6513c031f3f2add81b5886497cde4ede0f8f700e3947"
     ],
     "contact/index.html": [
       "d08a9bc5bf2a3f3ae26074b92e9077ef9cbf5aa80703e883cb9b2532062918bb"
@@ -33,13 +33,13 @@
       "2654ce566cbdc5c0ddb9b353f3b01863c00e51345f81974f80520318d6a6fb24"
     ],
     "evidence/index.html": [
-      "4af2a73b4587195e0e77a5e96f848f58f890cd3afeffa0b989a97266e2082842"
+      "4b263b8939a8622f957e44b17e00d68bbb1afa99cd8594758f5bf1184bd25a6d"
     ],
     "examples/profit-vs-cash-flow/index.html": [
       "b991e66b74bef293b5e69d3c8166b642343b922441ddd7ec68ac155f25f8e975"
     ],
     "index.html": [
-      "0a824d2eead95e7d1218d97f67e71d874a5b93c1a8ec78040aa910b6f79e3f21"
+      "c0cac1af7a1b2ad2ac0a996b3e886e4240c0488cc11c9e8eac6912a96a306920"
     ],
     "privacy/index.html": [
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
@@ -120,7 +120,7 @@
       "29b8695789978a33ef48a544bd7aacbcf1d3cdf3bd46cc43a64ea2b22be81484"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "c928e166d20e65337e68ce6c372e0792a54406fb306704cf7fcc5324a06da249"
+      "bca5687bf453631438895a016e4cd95a4ba09d89ddd56e22176f1ac33647053a"
     ],
     "tools/bas-due-dates/index.html": [
       "0cd228c7fb91aae4af73006d6ec4dd8fdbc67f341b2466fc721ea4dada27f930"
@@ -252,7 +252,7 @@
       "637a2eb7aebf613f8e4cd0e47638caa3fa6b1f9bb8db8b2bbb6a460734e96b76"
     ],
     "tools/limitations/index.html": [
-      "2d3d865ad048775bbe97d9424a06a144861cb6698eb14f60b16d0db67fba7af7"
+      "3d85de7054154595c228acc7da3d1acfa7316401cf6cfad0a929e4aed6ad6c24"
     ],
     "tools/monthly-close-controls/index.html": [
       "d51296e40aa6c0678b46d8fa96f49ba48f1f0702c4d458927120a6dce5d261f8"
@@ -276,7 +276,7 @@
       "1f13b1669cc8500dac23f8d95807dcc23d16bda095bc809443e60dee521b0411"
     ],
     "tools/ozzit/index.html": [
-      "261bf9383e124b96a7fe20e6ed8f72df044a74592d1a25f25874ff21a1fd5f3e"
+      "87b666367cde3cc7278b77c5f4a2ff1a1c1417d7a9398fc38aaa4444cb028898"
     ],
     "tools/payday-super/business-days/index.html": [
       "f0c668ec0e874698031dfee99ecd67def825bf49555c97be5cd7a921e40c737d"
@@ -313,9 +313,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "e093cadd51b02eaa48b9847f3109462edf49ec5a4d806e9ed3700d5f7309e74a",
+    "llms.txt": "5288d7306ce0f609a5d3c510e268f7632a5b3af5128818bef72d86afb1d0dbfc",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "5dedb01fe881d18043ffb7c476dd540d8c8d35dd69e8a608b5d09c4f1606c8b2"
+    "sitemap.xml": "131633181289dfd9227361fb0f1e8b267e7aa2157d115689ef7a0ba0b9375d6c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

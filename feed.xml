@@ -5,8 +5,22 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-18T00:00:00Z</updated>
+  <updated>2026-11-19T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>
+    <link href="https://duguid.com.au/changelog/#entry-806ecf6f51665308" />
+    <id>https://duguid.com.au/changelog/#entry-806ecf6f51665308</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>The tool pages, changelog and release record name the releases of 18 and 19 November: Ozzit v3.7.0, which adds PAYG withholding, and aus-accounting-mcp/v0.10.0, whose tax worksheets need a separately installed calculators executable. The Ozzit page still documents v3.6.0 and its worked examples, and the MCP guide’s Adopt section still describes v0.9.0.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.10.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0" />
+    <id>https://duguid.com.au/changelog/#entry-c3f295fde2eaf8ce</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.10.0.</summary>
+  </entry>
   <entry>
     <title>The loan calculator now sets out every payment, weekly, fortnightly, monthly…</title>
     <link href="https://duguid.com.au/changelog/#entry-9f9cc3a047cc7177" />
@@ -34,6 +48,13 @@
     <id>https://duguid.com.au/changelog/#entry-f80d54480ce56915</id>
     <updated>2026-11-18T00:00:00Z</updated>
     <summary>The individual tax calculators go back to 2020-21 (take-home pay to 2021-22), with the low and middle income tax offset for 2020-21 and 2021-22. The income tax calculator adds the Medicare levy surcharge, for singles and families and the days without private hospital cover, any study loan repayment and a refund or amount owing from the tax you enter as withheld. The take-home pay calculator takes a salary for a year, month, fortnight or week and salary sacrificed to super, names concessional contributions above the cap and Division 293, and for a 2026-27 pay gives the PAYG withheld under the ATO’s Schedules 1 and 8, which match all 288 of the ATO’s sample amounts. Each new rate and threshold was read on 18 November 2026 in the Act or on the ATO’s page for that year.</summary>
+  </entry>
+  <entry>
+    <title>Ozzit v3.7.0</title>
+    <link href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0" />
+    <id>https://duguid.com.au/changelog/#entry-f4a65cc91ade7c56</id>
+    <updated>2026-11-18T00:00:00Z</updated>
+    <summary>Ozzit: release v3.7.0.</summary>
   </entry>
   <entry>
     <title>A new business calculator works out one person’s Division 296 tax for 2026-27…</title>
