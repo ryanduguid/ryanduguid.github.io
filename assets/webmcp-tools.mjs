@@ -349,3 +349,98 @@ export function ozzitTools(loadReference, pageBase = '/tools/ozzit/functions/') 
     },
   };
 }
+
+const INDIVIDUAL = 'https://duguid.com.au/tools/individual-tax/';
+const RESIDENCY = choice(['resident', 'foreign', 'working-holiday'], 'Residency for tax purposes all year: resident (Australian '
+  + 'resident), foreign (foreign resident) or working-holiday (working holiday maker, visa 417 or 462).');
+/** @param {string} description @returns {Schema} */
+const dollarsOnly = (description) => whole(0, 1e9, `${description} In whole AUD; 0 when omitted.`);
+/** A signed amount as a refund or an amount owing. @param {number} value */
+const settled = (value) => ({ refund: dollars(Math.max(0, value)), amountOwing: dollars(Math.max(0, -value)) });
+
+/**
+ * WebMCP descriptors for the income tax estimate and take-home pay calculators, keyed by the
+ * `data-calculator` name of the form whose page registers them.
+ * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
+ *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay, incomeYears: string[], payYears: string[]}} engines
+ */
+export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payYears }) {
+  return {
+    'income-tax': tool({
+      name: 'estimate_income_tax',
+      title: 'Income tax and refund estimate',
+      description: 'One Australian individual\'s income tax for a full income year in AUD: tax on taxable income, the low '
+        + 'income tax offset, the low and middle income tax offset for 2020-21 and 2021-22, the Medicare levy, the Medicare '
+        + 'levy surcharge for the days without private patient hospital cover and any compulsory study loan repayment, '
+        + 'less the tax withheld, as a refund or an amount owing, each rounded half up to the cent. Every rate is cited '
+        + `on ${INDIVIDUAL}income-tax/. It does not compute other offsets, deductions, the Medicare levy reduction `
+        + 'for families or a part-year residency.',
+      inputSchema: record({
+        incomeYear: choice(incomeYears, `Income year, ${incomeYears.at(-1)} to ${incomeYears[0]}.`),
+        residency: RESIDENCY,
+        taxableIncome: whole(0, 1e9, 'Taxable income in whole AUD.'),
+        reportableFringeBenefits: dollarsOnly('Reportable fringe benefits total.'),
+        reportableSuperContributions: dollarsOnly('Reportable super contributions, including salary sacrificed to super.'),
+        totalNetInvestmentLoss: dollarsOnly('Total net investment loss.'),
+        exemptForeignEmploymentIncome: dollarsOnly('Exempt foreign employment income, which counts only for the study loan.'),
+        studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+        daysWithoutHospitalCover: whole(0, 366, 'Days in the year without private patient hospital cover; 0 when omitted.'),
+        spouseIncome: whole(0, 1e9, 'A spouse all year: their income for surcharge purposes in whole AUD. Omit with no spouse.'),
+        dependentChildren: whole(0, 20, 'Dependent children; 0 when omitted.'),
+        taxWithheld: text('amount', 'Tax withheld over the year in AUD with at most 2 decimal places; "0" when omitted.'),
+      }, ['incomeYear', 'residency', 'taxableIncome']),
+      run({ incomeYear, residency, taxableIncome, reportableFringeBenefits = 0, reportableSuperContributions = 0,
+        totalNetInvestmentLoss = 0, exemptForeignEmploymentIncome = 0, studyLoan = false, daysWithoutHospitalCover = 0,
+        spouseIncome, dependentChildren = 0, taxWithheld = '0' }) {
+        const r = taxEstimate({ year: incomeYear, residency, taxable: String(taxableIncome),
+          fringe: String(reportableFringeBenefits), super: String(reportableSuperContributions),
+          losses: String(totalNetInvestmentLoss), foreign: String(exemptForeignEmploymentIncome), studyLoan,
+          uncoveredDays: String(daysWithoutHospitalCover), spouse: spouseIncome === undefined ? null : String(spouseIncome),
+          children: String(dependentChildren), withheld: taxWithheld });
+        return {
+          taxOnTaxableIncome: dollars(r.tax), lowIncomeTaxOffset: dollars(r.offset), lowAndMiddleIncomeTaxOffset: dollars(r.lmito),
+          medicareLevy: dollars(r.medicare), medicareLevySurcharge: dollars(r.surcharge), studyLoanRepayment: dollars(r.studyLoan),
+          total: dollars(r.assessed), taxWithheld: dollars(r.withheld), ...settled(r.refund), currency: 'AUD',
+          source: `${INDIVIDUAL}income-tax/`,
+        };
+      },
+    }),
+    'take-home-pay': tool({
+      name: 'calculate_take_home_pay',
+      title: 'Take-home pay calculator',
+      description: 'Take-home pay in AUD from one salary for a full income year: the year\'s income tax, offsets, Medicare '
+        + 'levy, any Medicare levy surcharge and study loan repayment, after salary sacrificed to super and, from 2026-27, '
+        + 'the standard deduction, spread over a year, month, fortnight and week, with the employer\'s super guarantee. '
+        + 'For a 2026-27 weekly, fortnightly or monthly pay it also gives the PAYG withheld each pay under the ATO\'s '
+        + 'Schedules 1 and 8 and the refund or amount owing over the year. It names, but does not work, concessional '
+        + `contributions above the cap and Division 293 taxable contributions. Sources on ${INDIVIDUAL}take-home-pay/.`,
+      inputSchema: record({
+        incomeYear: choice(payYears, `Income year, ${payYears.at(-1)} to ${payYears[0]}.`),
+        residency: RESIDENCY,
+        salary: text('amount', 'Salary for each pay period in AUD with at most 2 decimal places.'),
+        payPeriod: choice(['year', 'month', 'fortnight', 'week'], 'The period the salary and sacrifice are for; "year" when omitted.'),
+        includesSuper: { type: 'boolean', description: 'true when the salary is a package including super guarantee; false when omitted.' },
+        salarySacrifice: text('amount', 'Salary sacrificed to super each pay period in AUD; "0" when omitted.'),
+        studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+        privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+      }, ['incomeYear', 'residency', 'salary']),
+      run({ incomeYear, residency, salary, payPeriod = 'year', includesSuper = false, salarySacrifice = '0', studyLoan = false,
+        privateHospitalCover = true }) {
+        const r = takeHomePay({ year: incomeYear, residency, salary, period: payPeriod, includesSuper,
+          sacrifice: salarySacrifice, studyLoan, hospitalCover: privateHospitalCover });
+        const cents = (/** @type {number} */ value) => Math.round(value * 100);
+        return {
+          salaryForYear: dollars(r.salary), salarySacrificed: dollars(r.sacrifice), superGuarantee: dollars(r.superGuarantee),
+          standardDeduction: dollars(r.deduction), taxableIncome: dollars(r.taxable),
+          incomeTaxLessOffsets: dollars((cents(r.tax) - cents(r.offset) - cents(r.lmito)) / 100), medicareLevy: dollars(r.medicare),
+          medicareLevySurcharge: dollars(r.surcharge), studyLoanRepayment: dollars(r.studyLoan), takeHomeYear: dollars(r.net),
+          takeHomeMonth: dollars(r.monthly), takeHomeFortnight: dollars(r.fortnightly), takeHomeWeek: dollars(r.weekly),
+          concessionalOverCap: dollars(r.overCap), division293TaxableContributions: dollars(r.division293),
+          paygWithholding: r.withheld ? { eachPay: dollars(r.withheld.total), studyLoanComponent: dollars(r.withheld.studyLoan),
+            year: dollars(r.withheld.year), ...settled(r.withheld.refund) } : null,
+          currency: 'AUD', source: `${INDIVIDUAL}take-home-pay/`,
+        };
+      },
+    }),
+  };
+}

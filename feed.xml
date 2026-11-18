@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-17T00:00:00Z</updated>
+  <updated>2026-11-18T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The individual tax calculators go back to 2020-21 (take-home pay to 2021-22)…</title>
+    <link href="https://duguid.com.au/changelog/#entry-f80d54480ce56915" />
+    <id>https://duguid.com.au/changelog/#entry-f80d54480ce56915</id>
+    <updated>2026-11-18T00:00:00Z</updated>
+    <summary>The individual tax calculators go back to 2020-21 (take-home pay to 2021-22), with the low and middle income tax offset for 2020-21 and 2021-22. The income tax calculator adds the Medicare levy surcharge, for singles and families and the days without private hospital cover, any study loan repayment and a refund or amount owing from the tax you enter as withheld. The take-home pay calculator takes a salary for a year, month, fortnight or week and salary sacrificed to super, names concessional contributions above the cap and Division 293, and for a 2026-27 pay gives the PAYG withheld under the ATO’s Schedules 1 and 8, which match all 288 of the ATO’s sample amounts. Each new rate and threshold was read on 18 November 2026 in the Act or on the ATO’s page for that year.</summary>
+  </entry>
   <entry>
     <title>A new business calculator works out one person’s Division 296 tax for 2026-27…</title>
     <link href="https://duguid.com.au/changelog/#entry-ca1db5ec0a69030f" />

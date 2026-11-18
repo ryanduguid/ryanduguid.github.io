@@ -6,6 +6,8 @@ import test from 'node:test';
 import * as calculate from '../assets/business-calculators.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import { calculatorTools, depreciationTools, levyTools, ozzitTools } from '../assets/webmcp-tools.mjs';
+import { individualTaxTools } from '../assets/webmcp-tools.mjs';
+import { engines as individualEngines } from '../assets/individual-tax-results.mjs';
 import * as depreciation from '../assets/depreciation-rates.mjs';
 import { computeEntry } from '../assets/levy-form.mjs';
 import { levyCents } from '../assets/levy.mjs';
@@ -238,4 +240,56 @@ test('Ozzit tool refuses an unknown or empty name', async () => {
   await assert.rejects(lookup.execute({ name: 'NotAFunction' }), /No Ozzit function is named NotAFunction/);
   await assert.rejects(lookup.execute({ name: '  ' }), /function name/);
   await assert.rejects(lookup.execute({}), /function name/);
+});
+
+const individual = individualTaxTools(individualEngines);
+
+test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
+  assert.deepEqual(Object.values(individual).map(t => t.name), ['estimate_income_tax', 'calculate_take_home_pay']);
+  for (const [key, t] of Object.entries(individual)) {
+    const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
+    assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
+    assert.equal(t.annotations.readOnlyHint, true, t.name);
+    assert.equal(t.inputSchema.additionalProperties, false, t.name);
+    assert.match(t.description, /\bAUD\b/, t.name);
+    assert.match(t.description, / General information only, not advice\.$/, t.name);
+  }
+});
+
+test('income tax tool returns the page worked example: the ATO’s Tom with $21,000 withheld', async () => {
+  const r = await individual['income-tax'].execute({ incomeYear: '2026-27', residency: 'resident', taxableIncome: 90000,
+    reportableFringeBenefits: 27000, daysWithoutHospitalCover: 365, taxWithheld: '21000' });
+  assert.deepEqual([r.taxOnTaxableIncome, r.medicareLevy, r.medicareLevySurcharge, r.total, r.refund, r.amountOwing],
+    ['17520.00', '1800.00', '1170.00', '20490.00', '510.00', '0.00']);
+  const owing = await individual['income-tax'].execute({ incomeYear: '2021-22', residency: 'resident', taxableIncome: 45000 });
+  assert.deepEqual([owing.lowIncomeTaxOffset, owing.lowAndMiddleIncomeTaxOffset, owing.refund, owing.amountOwing],
+    ['325.00', '1275.00', '0.00', '4392.00']);
+  const family = await individual['income-tax'].execute({ incomeYear: '2026-27', residency: 'resident', taxableIncome: 113001,
+    spouseIncome: 100000, dependentChildren: 3, daysWithoutHospitalCover: 365 });
+  assert.equal(family.medicareLevySurcharge, '1130.01');
+});
+
+test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a year', async () => {
+  const r = await individual['take-home-pay'].execute({ incomeYear: '2026-27', residency: 'resident', salary: '3000',
+    payPeriod: 'fortnight', salarySacrifice: '200', studyLoan: true });
+  assert.deepEqual(r.paygWithholding, { eachPay: '554.00', studyLoanComponent: '20.00', year: '14404.00', refund: '0.00',
+    amountOwing: '212.80' });
+  assert.equal(r.takeHomeYear, '58183.20');
+  const year = await individual['take-home-pay'].execute({ incomeYear: '2025-26', residency: 'resident', salary: '75000' });
+  assert.deepEqual([year.takeHomeYear, year.medicareLevy, year.paygWithholding], ['60212.00', '1500.00', null]);
+});
+
+test('individual tax tools refuse a year they do not offer, cents of taxable income and an unknown input', async () => {
+  const tax = individual['income-tax'];
+  await assert.rejects(tax.execute({ incomeYear: '2019-20', residency: 'resident', taxableIncome: 1 }), /incomeYear does not match/);
+  await assert.rejects(tax.execute({ incomeYear: '2026-27', residency: 'resident', taxableIncome: 1.5 }), /taxableIncome must be a whole number/);
+  await assert.rejects(tax.execute({ incomeYear: '2026-27', residency: 'resident', taxableIncome: '1' }), /taxableIncome must be a whole number/);
+  await assert.rejects(tax.execute({ incomeYear: '2026-27', residency: 'resident', taxableIncome: 1, spouse: true }),
+    /spouse is not an input of this tool/);
+  const pay = individual['take-home-pay'];
+  await assert.rejects(pay.execute({ incomeYear: '2020-21', residency: 'resident', salary: '1' }), /incomeYear does not match/);
+  await assert.rejects(pay.execute({ incomeYear: '2026-27', residency: 'resident', salary: '1000', salarySacrifice: '1000.01' }),
+    /no more than the salary/);
+  await assert.rejects(pay.execute({ incomeYear: '2026-27', residency: 'resident', salary: '1', payPeriod: 'quarter' }),
+    /payPeriod does not match/);
 });

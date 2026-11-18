@@ -2,19 +2,19 @@
 
 Source: https://duguid.com.au/tools/individual-tax/study-loan/
 
-> Compulsory HELP, VSL, SSL and AASL repayments for 2024-25 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003.
+> Compulsory HELP, VSL, SSL and AASL repayments for 2020-21 to 2026-27 from repayment income, by section 154-20 of the Higher Education Support Act 2003.
 
 # Study and training loan calculator
 
-The compulsory HELP or other study loan repayment for 2024-25 to 2026-27, marginal from 2025-26.
+The compulsory HELP or other study loan repayment for 2020-21 to 2026-27, marginal from 2025-26.
 
-Published 17 November 2026. Last checked 17 November 2026.
+Published 17 November 2026. Last checked 18 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 Study and training loan repayment inputs for one income year
 
-Income year 2026-27 2025-26 2024-25
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
 Taxable income, without any FHSS released amount (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, including net rental losses (whole dollars) Reportable super contributions (whole dollars) Exempt foreign employment income (whole dollars)
 
@@ -37,8 +37,8 @@ The calculator gives the compulsory repayment for one income year. It does not c
 - the cap at the debt you still owe, or voluntary repayments;
 - the overseas debtors repayment levy on worldwide income for a foreign resident (section 154-16);
 - whether no repayment is due because your Medicare levy is not payable or is reduced under section 8 of the Medicare Levy Act 1986 (section 154-1(2));
-- the amounts an employer withholds each pay for a loan, or indexation of the debt;
-- years before 2024-25.
+- the amounts an employer withholds each pay for a loan, which the take-home pay calculator works for 2026-27, or indexation of the debt;
+- years before 2020-21.
 
 Confirm the figure with the ATO’s Study and training loan repayment calculator or a registered tax agent.
 
@@ -59,6 +59,11 @@ First dollar where 10% is less | 2026-27: taxable income $186,051 | Repayment in
 ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable income $89,450, super contributions $10,286 | Repayment income $99,736.00, repayment $5,485.48
 2024-25 at 2.5%: half a cent rounds up | 2024-25: taxable income $66,621 | Repayment income $66,621.00, repayment $1,665.53
 2024-25 at the minimum repayment income | 2024-25: taxable income $54,434 | Repayment income $54,434.00, repayment $0.00
+2023-24 at the minimum repayment income | 2023-24: taxable income $51,549 | Repayment income $51,549.00, repayment $0.00
+2023-24 at 10% | 2023-24: taxable income $151,201 | Repayment income $151,201.00, repayment $15,120.10
+2022-23 at 4.5% | 2022-23: taxable income $74,723 | Repayment income $74,723.00, repayment $3,362.54
+2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
+2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
 One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -68,5 +73,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
 - three individual tax calculators: https://duguid.com.au/tools/individual-tax/

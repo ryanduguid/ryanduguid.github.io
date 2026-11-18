@@ -57,7 +57,7 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult }]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }]) {
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -66,8 +66,8 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
   // modelContext on document; early Chrome builds used navigator. Other browsers skip the import.
   const modelContext = document.modelContext ?? navigator.modelContext;
   // A failed import or registration leaves the form itself untouched; the warning keeps the cause.
-  if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({ calculatorTools }) => {
-    const tools = calculatorTools(calculate);
+  if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({ calculatorTools, individualTaxTools }) => {
+    const tools = { ...calculatorTools(calculate), ...(engines ? individualTaxTools(engines) : {}) };
     for (const form of forms) {
       const tool = tools[form.dataset.calculator];
       if (tool) await modelContext.registerTool(tool);
