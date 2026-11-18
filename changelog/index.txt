@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+19 November 2026 | The tool pages, changelog and release record name the releases of 18 and 19 November: Ozzit v3.7.0, which adds PAYG withholding, and aus-accounting-mcp/v0.10.0, whose tax worksheets need a separately installed calculators executable. The Ozzit page still documents v3.6.0 and its worked examples, and the MCP guide’s Adopt section still describes v0.9.0.
 18 November 2026 | Three new business calculators. The company tax and franking calculator applies the base rate entity test for a 25% or 30% rate, finds the rate for franking from the previous year and works out the maximum franking credit and a shareholder’s top-up tax or refund; it agrees with the ATO’s base rate entity examples and gives Dillmore Manufacture’s exact credit of $42,857.14. The foreign purchaser surcharge calculator applies each state and territory’s own test of a foreign buyer, company or trust, then works out the duty surcharge and the land tax surcharge for a full year; it refuses exemptions, which each Commissioner decides, and states where none is charged. The business days calculator counts business days between 2 dates, or finds a date a number of business days on or back, with each government’s public holidays for 2026 and 2027, and refuses dates outside them. Sources were read on 18 November 2026.
 18 November 2026 | A new business calculator finds when a Payday Super contribution is due, from the payday and the site’s business days calendar, with the longer periods for a first contribution, out-of-cycle pay and an ATO determination, and how many days late it was. It also works out one employee’s super guarantee charge: the final shortfall, notional earnings at the GIC rate and the administrative uplift, reduced for a first offence and a voluntary disclosure, or, for a quarter to June 2026, the shortfall, 10% nominal interest and the $20 administration component.
 18 November 2026 | The individual tax calculators go back to 2020-21 (take-home pay to 2021-22), with the low and middle income tax offset for 2020-21 and 2021-22. The income tax calculator adds the Medicare levy surcharge, for singles and families and the days without private hospital cover, any study loan repayment and a refund or amount owing from the tax you enter as withheld. The take-home pay calculator takes a salary for a year, month, fortnight or week and salary sacrificed to super, names concessional contributions above the cap and Division 293, and for a 2026-27 pay gives the PAYG withheld under the ATO’s Schedules 1 and 8, which match all 288 of the ATO’s sample amounts. Each new rate and threshold was read on 18 November 2026 in the Act or on the ATO’s page for that year.
@@ -123,6 +124,8 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+19 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.10.0
+18 November 2026 | Ozzit | v3.7.0
 14 November 2026 | Monthly Close Controls | monthly-close-control-plane/v1.1.0
 14 November 2026 | Workpaper Review Gate | review-ready-gate/v1.0.1
 14 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.9.0
@@ -202,6 +205,8 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
+- v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0
 - monthly-close-control-plane/v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0
 - review-ready-gate/v1.0.1: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1
 - aus-accounting-mcp/v0.9.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0

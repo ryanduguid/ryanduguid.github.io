@@ -62,9 +62,9 @@ Browse reproducible evaluations Set up AI tools
 
 ### Latest tool releases
 
+- Aus Accounting MCP v0.10.0 19 November 2026
+- Ozzit v3.7.0 18 November 2026
 - Workpaper Review Gate v1.0.1 14 November 2026
-- Subcontractor ledger skills for construction and mining v0.7.0 14 November 2026
-- Ozzit v3.6.0 14 November 2026
 
 ## Links
 
@@ -81,8 +81,8 @@ Browse reproducible evaluations Set up AI tools
 - Evidence behind the tools: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Aus Accounting MCP v0.10.0: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Workpaper Review Gate v1.0.1: https://duguid.com.au/tools/workpaper-review-gate/
-- Subcontractor ledger skills for construction and mining v0.7.0: https://duguid.com.au/tools/subcontractor-ledgers/
 
 ---
 
@@ -383,7 +383,7 @@ Published 25 October 2026. Last reviewed 25 October 2026.
 
 ### Calculations through Aus Accounting MCP
 
-Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.9.0.
+Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.10.0.
 
 Use Claude Code or Claude Desktop with a local stdio server. This server has no hosted endpoint that you can paste into Claude’s web app. The released client integration guide shows the local configuration.
 
@@ -427,7 +427,7 @@ For Xero report access, use the separate Xero exporter guide. Return to Works wi
 ## Links
 
 - Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
-- v0.9.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0
+- v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - released client integration guide: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.6.0/apps/aus-accounting-mcp/README.md#client-integration
 - Australian Accounting Skills v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - subcontract ledger guide: https://duguid.com.au/tools/subcontractor-ledgers/
@@ -460,7 +460,7 @@ Australian Accounting’s Division 7A, Payday Super and MCP results below each c
 
 - Division 7A. On 7 October 2026 the minimum yearly repayment function of the ATO’s Division 7A calculator and decision tool and the div7a-loan-review Python 0.2.0 source agreed to the cent on 12,800 fictional cases with no repayments, for 2019-20 to 2026-27. Its repayment code and rate table are unchanged to the published 0.3.2, but the comparison was not rerun on later releases or the unreleased Rust port. It covers the repayment figure only, not the calculator’s interest or closing balance (record and limits).
 - Payday Super. For wages paid on 30 July 2026, payday-super-check 0.2.3 gives a due date of 11 August 2026, because NT Picnic Day on 3 August is not a business day. The ATO’s worked example gives the same date on the usual 7 business day path. Run and read 5 November 2026.
-- MCP tools. Aus Accounting MCP 0.9.0, the published release, adds no tool to 0.8.0, which listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
+- MCP tools. Aus Accounting MCP 0.10.0, the published release, adds validate_bsb_format and validate_account_number_format. 0.9.0 added no tool to 0.8.0, which listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
 
 ## From monthly close to a cash forecast
 
@@ -3728,7 +3728,7 @@ Every entry below is declared at runtime by the tool that carries it, so a reade
 Recorded as PSC-1 against release payday-super-checker/v0.1.4. Release payday-super-checker/v0.1.6 (20 September 2026) makes the extrapolation an opt-in: a default run withholds the estimate for the row instead.
 
 Field | Detail
-Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool’s general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.9.0, pins checker 0.2.3, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the 0.1.7 correction and verification scope.
+Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool’s general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.10.0, pins checker 0.2.3, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the 0.1.7 correction and verification scope.
 Effect | With the flag, the last known quarterly rate is carried forward, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate’s uplift component is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.
 Unaffected by this rate issue | The verdict calculation does not use the GIC table. All 6 verdicts, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. Separately, the receipt amount limitation and the matching limitations below can affect a verdict. A sound verdict does not make the row’s figures sound: a LATE or UNPAID row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a SKIPPED row has no estimate to qualify.
 Declared at runtime | Asking for the estimate is the first signal. A caveat on the result then names the table’s end date, the rate carried forward and the file to update. On a default run the caveat instead says the notional earnings and the SG charge estimate were not assessed for that row, and the five charge columns of report.csv are empty rather than nil.
@@ -3835,7 +3835,7 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.
 
-Source assets/levy.mjs at revision 0bd409d in the ryanduguid.github.io repository. Published 24 August 2026. Last reviewed 21 October 2026.
+Source assets/levy.mjs at revision dc3bd6f in the ryanduguid.github.io repository. Published 24 August 2026. Last reviewed 21 October 2026.
 
 Load the fictional example
 
@@ -3984,7 +3984,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 0bd409d: https://github.com/ryanduguid/ryanduguid.github.io/commit/0bd409dff58b08fca414d3aab027193c9385e501
+- dc3bd6f: https://github.com/ryanduguid/ryanduguid.github.io/commit/dc3bd6f73c8da5cf5122f0043bdb33fa18d2c7fd
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
 - service/coal-lsl-levy: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/service/coal-lsl-levy
 - GET /v1/calculators: https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/v1/calculators
@@ -5107,13 +5107,13 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Aus Accounting MCP v0.9.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids.
+> Aus Accounting MCP v0.10.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids.
 
 # Aus Accounting MCP
 
 Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets.
 
-Current release aus-accounting-mcp v0.9.0, 14 November 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 15 November 2026.
+Current release aus-accounting-mcp v0.10.0, 19 November 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 15 November 2026.
 
 Delivery
 
@@ -5133,7 +5133,7 @@ Choose the tool by the work it supports: a calculation on established facts, a s
 
 ## The split, in one table
 
-The comparisons and capability list below describe reference release v0.2.8, so the worked example’s figures stay reproducible. Current release v0.9.0 has 14 worksheets and the additional review tools described under Adopt. Use the current README for its complete scope.
+The comparisons and capability list below describe reference release v0.2.8, so the worked example’s figures stay reproducible. Current release v0.10.0 has 14 worksheets and the additional review tools described under Adopt. Use the current README for its complete scope.
 
 Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans or lodgement.
@@ -5181,9 +5181,13 @@ The transcript’s first line shows the source-checkout command, uv run --locked
 
 ## Adopt
 
-The current published release is aus-accounting-mcp/v0.9.0, verified on GitHub, PyPI and the MCP registry on 15 November 2026. It requires Python 3.14 or later; v0.3.0 remains available for Python 3.11 to 3.13 and v0.2.12 for Python 3.10. Since v0.2.8 it has added contribution cap, account-based pension minimum, study and training support loan repayment, Schedule 8 study loan withholding, annual Medicare levy, low income tax offset and Division 293 worksheets, bringing the total to 14, and pins newer engine releases; v0.3.0 moves Division 7A review to 0.2.0, which finishes a review with an extremely large remaining term instead of hanging. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Release v0.6.0 adds two GST review tools from the new gst-review engine: one gives each coded bank line a review state against the supplied GST registration dates, and the other compares lodged G1, G2, G3, G10, G11, 1A and 1B figures with the ledger for each period on the cash or accruals basis. Neither classifies a supply or prepares, revises or lodges a BAS. It also pins the Apache-2.0 releases of the Payday Super, benchmark and Division 7A engines, which change no check, comparison or review. The annual Medicare levy worksheet does not adjust payroll withholding. Release v0.7.0 adds lodgment due-date lookup and a bundled-data freshness report; missing facts or recorded periods remain UNKNOWN. Release v0.7.1 changes no tool output except engine_version. Release v0.8.0 moves to the Ryan Duguid Public Attribution Licence 1.0 and adds 3 tools, bringing the total to 25: a reviewed ATO rate or threshold for a date, quoted from its ATO page, and ABN and ACN check-digit tests that contact no register. Its searches now match whole words only, and the rate search leaves out superseded rows unless in_force_only is false. Its Payday Super tools refuse a contribution marked returned_by_fund, because the pinned checker cannot assess returns. They do not detect a return, so every ON_TIME verdict carries a caveat that returned contributions were not assessed. Those changes are outside this guide’s v0.2.8 worked example.
+The current published release is aus-accounting-mcp/v0.10.0, published on 19 November 2026 and verified on GitHub, PyPI and the MCP registry on 19 November 2026; the next section describes v0.9.0, the release before it. v0.10.0 adds BSB and bank account number format tests against AusPayNet’s published formats, which prove no institution, account or payee. Its tax worksheets run a separately installed tax calculators executable instead of a Python dependency: without it, the worksheet tool says how to install it and every other tool works as before. Some results change, such as the concessional cap carry-forward the contribution cap worksheet reports as applied. Read the v0.10.0 release notes before upgrading.
 
-The current release pins payday-super-checker 0.2.3, ato-benchmark-compare 0.2.2 and australian-tax-calculators 0.2.0. The pinned v0.2.8 example ranks local legislation search results best first and reads long provisions in parts.
+### Release v0.9.0 and earlier
+
+Release v0.9.0 requires Python 3.14 or later; v0.3.0 remains available for Python 3.11 to 3.13 and v0.2.12 for Python 3.10. Since v0.2.8 it has added contribution cap, account-based pension minimum, study and training support loan repayment, Schedule 8 study loan withholding, annual Medicare levy, low income tax offset and Division 293 worksheets, bringing the total to 14, and pins newer engine releases; v0.3.0 moves Division 7A review to 0.2.0, which finishes a review with an extremely large remaining term instead of hanging. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Release v0.6.0 adds two GST review tools from the new gst-review engine: one gives each coded bank line a review state against the supplied GST registration dates, and the other compares lodged G1, G2, G3, G10, G11, 1A and 1B figures with the ledger for each period on the cash or accruals basis. Neither classifies a supply or prepares, revises or lodges a BAS. It also pins the Apache-2.0 releases of the Payday Super, benchmark and Division 7A engines, which change no check, comparison or review. The annual Medicare levy worksheet does not adjust payroll withholding. Release v0.7.0 adds lodgment due-date lookup and a bundled-data freshness report; missing facts or recorded periods remain UNKNOWN. Release v0.7.1 changes no tool output except engine_version. Release v0.8.0 moves to the Ryan Duguid Public Attribution Licence 1.0 and adds 3 tools, bringing the total to 25: a reviewed ATO rate or threshold for a date, quoted from its ATO page, and ABN and ACN check-digit tests that contact no register. Its searches now match whole words only, and the rate search leaves out superseded rows unless in_force_only is false. Its Payday Super tools refuse a contribution marked returned_by_fund, because the pinned checker cannot assess returns. They do not detect a return, so every ON_TIME verdict carries a caveat that returned contributions were not assessed. Those changes are outside this guide’s v0.2.8 worked example.
+
+Release v0.9.0 pins payday-super-checker 0.2.3, ato-benchmark-compare 0.2.2 and australian-tax-calculators 0.2.0. The pinned v0.2.8 example ranks local legislation search results best first and reads long provisions in parts.
 
 ### Five ways to try it
 
@@ -5276,7 +5280,7 @@ The tools calculate and refuse. Professional judgement and lodgement stay human.
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.9.0 has 14 and adds GST coding and BAS reconciliation review. Outputs need human review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.10.0 has 14 and adds GST coding and BAS reconciliation review. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
@@ -5320,7 +5324,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- v0.9.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0
+- v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - current README: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp/README.md
@@ -5546,6 +5550,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+19 November 2026 | The tool pages, changelog and release record name the releases of 18 and 19 November: Ozzit v3.7.0, which adds PAYG withholding, and aus-accounting-mcp/v0.10.0, whose tax worksheets need a separately installed calculators executable. The Ozzit page still documents v3.6.0 and its worked examples, and the MCP guide’s Adopt section still describes v0.9.0.
 18 November 2026 | Three new business calculators. The company tax and franking calculator applies the base rate entity test for a 25% or 30% rate, finds the rate for franking from the previous year and works out the maximum franking credit and a shareholder’s top-up tax or refund; it agrees with the ATO’s base rate entity examples and gives Dillmore Manufacture’s exact credit of $42,857.14. The foreign purchaser surcharge calculator applies each state and territory’s own test of a foreign buyer, company or trust, then works out the duty surcharge and the land tax surcharge for a full year; it refuses exemptions, which each Commissioner decides, and states where none is charged. The business days calculator counts business days between 2 dates, or finds a date a number of business days on or back, with each government’s public holidays for 2026 and 2027, and refuses dates outside them. Sources were read on 18 November 2026.
 18 November 2026 | A new business calculator finds when a Payday Super contribution is due, from the payday and the site’s business days calendar, with the longer periods for a first contribution, out-of-cycle pay and an ATO determination, and how many days late it was. It also works out one employee’s super guarantee charge: the final shortfall, notional earnings at the GIC rate and the administrative uplift, reduced for a first offence and a voluntary disclosure, or, for a quarter to June 2026, the shortfall, 10% nominal interest and the $20 administration component.
 18 November 2026 | The individual tax calculators go back to 2020-21 (take-home pay to 2021-22), with the low and middle income tax offset for 2020-21 and 2021-22. The income tax calculator adds the Medicare levy surcharge, for singles and families and the days without private hospital cover, any study loan repayment and a refund or amount owing from the tax you enter as withheld. The take-home pay calculator takes a salary for a year, month, fortnight or week and salary sacrificed to super, names concessional contributions above the cap and Division 293, and for a 2026-27 pay gives the PAYG withheld under the ATO’s Schedules 1 and 8, which match all 288 of the ATO’s sample amounts. Each new rate and threshold was read on 18 November 2026 in the Act or on the ATO’s page for that year.
@@ -5656,6 +5661,8 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+19 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.10.0
+18 November 2026 | Ozzit | v3.7.0
 14 November 2026 | Monthly Close Controls | monthly-close-control-plane/v1.1.0
 14 November 2026 | Workpaper Review Gate | review-ready-gate/v1.0.1
 14 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.9.0
@@ -5735,6 +5742,8 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
+- v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0
 - monthly-close-control-plane/v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0
 - review-ready-gate/v1.0.1: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1
 - aus-accounting-mcp/v0.9.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0
@@ -12559,7 +12568,7 @@ Source: https://duguid.com.au/tools/ozzit/
 
 The Ozzit workbook holds 150 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
 
-Current release Ozzit v3.6.0, 14 November 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 15 November 2026.
+Current release Ozzit v3.7.0, 18 November 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 15 November 2026.
 
 Delivery
 
@@ -13032,7 +13041,7 @@ No. It performs 10% GST arithmetic and labels Australian financial years, and it
 
 ### Where do I get the current release?
 
-Release v3.6.0, published on 14 November 2026, is the current release and the one this page documents. It adds 7 functions, bringing the total to 150, and is the first release under the Ryan Duguid Public Attribution Licence 1.0; v3.5.0 stays under the Apache License 2.0. Each release ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use. Read the v3.6.0 release page.
+Release v3.7.0, published on 18 November 2026, is the current published release; this page documents v3.6.0, published on 14 November 2026. v3.7.0 adds oz.PAYGWithholdingλ, which returns the amount to withhold from a weekly, fortnightly, monthly or quarterly payment under the ATO’s Schedule 1 formulas from a coefficient table you supply, bringing the total to 151, and fixes 3 known issues in v3.6.0. Read the v3.7.0 release page. v3.6.0 adds 7 functions, bringing the total to 150, and is the first release under the Ryan Duguid Public Attribution Licence 1.0; v3.5.0 stays under the Apache License 2.0. Each release ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use. Read the v3.6.0 release page.
 
 ## Related
 
@@ -13046,7 +13055,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- v3.6.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.0
+- v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0
 - Ozzit: https://github.com/ryanduguid/Ozzit/tree/main
 - Download Ozzit v3.6.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.6.0/ozzit.xlsx
 - Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
@@ -13232,6 +13241,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.InterestLRV λ (CFADS, DSCR, Principal, InterestRate): https://duguid.com.au/tools/ozzit/functions/debt/#oz-interestlrv
 - Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Debt.txt
 - historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/docs/native-gst-capture.md
+- release page: https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.0
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
 - guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/docs/workbook-use.md
 - the v3.6.0 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/CITATION.cff

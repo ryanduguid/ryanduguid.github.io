@@ -7,11 +7,11 @@
     "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2"
   },
   "australian-tax-ai-agents": {
-    "version": "0.9.0",
-    "tag": "aus-accounting-mcp/v0.9.0",
-    "date": "2026-11-14",
-    "dateLabel": "14 November 2026",
-    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0"
+    "version": "0.10.0",
+    "tag": "aus-accounting-mcp/v0.10.0",
+    "date": "2026-11-19",
+    "dateLabel": "19 November 2026",
+    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0"
   },
   "company-tax-franking": {
     "version": "0.2.0",
@@ -28,11 +28,11 @@
     "url": "https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0"
   },
   "ozzit": {
-    "version": "3.6.0",
-    "tag": "v3.6.0",
-    "date": "2026-11-14",
-    "dateLabel": "14 November 2026",
-    "url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.0"
+    "version": "3.7.0",
+    "tag": "v3.7.0",
+    "date": "2026-11-18",
+    "dateLabel": "18 November 2026",
+    "url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0"
   },
   "payday-super": {
     "version": "0.2.3",
@@ -77,9 +77,9 @@
     "url": "https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15"
   },
   "coal-lsl-levy": {
-    "version": "0bd409dff58b08fca414d3aab027193c9385e501",
-    "date": "2026-11-06",
-    "dateLabel": "6 November 2026",
-    "url": "https://github.com/ryanduguid/ryanduguid.github.io/commit/0bd409dff58b08fca414d3aab027193c9385e501"
+    "version": "dc3bd6f73c8da5cf5122f0043bdb33fa18d2c7fd",
+    "date": "2026-11-15",
+    "dateLabel": "15 November 2026",
+    "url": "https://github.com/ryanduguid/ryanduguid.github.io/commit/dc3bd6f73c8da5cf5122f0043bdb33fa18d2c7fd"
   }
 }
