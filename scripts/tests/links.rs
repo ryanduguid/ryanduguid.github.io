@@ -1058,7 +1058,7 @@ fn site_runner_passes_link_modes_only_to_the_link_checker() {
         assert_eq!(main_with(Path::new("."), &arguments, &mut host), Ok(0));
         let words = |items: &[&str]| items.iter().map(|w| (*w).to_owned()).collect::<Vec<_>>();
         // On Windows the suites build away from target/debug, which may hold the running tool.
-        let cargo = |suite: &str| {
+        let cargo = |suite: &str| -> Vec<String> {
             let separate: &[&str] = if cfg!(windows) {
                 &["--target-dir", "target/check-site"]
             } else {
@@ -1070,13 +1070,16 @@ fn site_runner_passes_link_modes_only_to_the_link_checker() {
                 &["--test", suite],
             ]
             .concat()
+            .into_iter()
+            .map(str::to_owned)
+            .collect()
         };
         let mut expected = vec![
             words(&["site-tools", "build_ozzit_reference", "--check"]),
             words(&["site-tools", "build_effective_life_pages", "--check"]),
-            words(&cargo("build_site")),
-            words(&cargo("ci_link_selection")),
-            words(&cargo("publication")),
+            cargo("build_site"),
+            cargo("ci_link_selection"),
+            cargo("publication"),
         ];
         for check in CHECKS {
             let mut argv = check.argv("site-tools");
