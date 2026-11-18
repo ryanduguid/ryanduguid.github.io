@@ -110,8 +110,16 @@ impl Check {
                 .chain(args.iter().copied())
                 .map(str::to_owned)
                 .collect(),
+            // Windows cannot replace a running executable, so a check_site started from
+            // target/debug would fail to rebuild itself there (os error 5).
             Check::Tests(suites) => ["cargo", "test", "--locked"]
                 .into_iter()
+                .chain(
+                    cfg!(windows)
+                        .then_some(["--target-dir", "target/check-site"])
+                        .into_iter()
+                        .flatten(),
+                )
                 .map(str::to_owned)
                 .chain(
                     suites
