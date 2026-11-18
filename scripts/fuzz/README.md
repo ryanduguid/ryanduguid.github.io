@@ -15,3 +15,9 @@ CI runs the target weekly and on demand. The test suite replays
 the seed corpus on every supported platform (`tests/feed.rs`). libFuzzer needs a
 nightly toolchain, so coverage-guided fuzzing runs on Linux. A successful run is
 bounded evidence, not proof that every input is handled.
+
+This crate has its own `Cargo.lock`, which holds the site tools' dependencies too.
+A change that adds, removes or re-pins a dependency in `scripts/Cargo.toml` must
+update it in the same commit: from `scripts`, run
+`cargo update --workspace --manifest-path fuzz/Cargo.toml`. CI's Clippy step reads
+both lock files with `--locked` and fails when either is stale.
