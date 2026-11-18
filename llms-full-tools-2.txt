@@ -657,7 +657,7 @@ Human review required. Optional local library excerpts enter the assistant’s c
 
 The server runs on your machine and lodges nothing. Outputs need human review.
 
-Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
+Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, a senior accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
 
 ## The split, in one table
 
@@ -824,7 +824,7 @@ Since 1 July 2026, the fund must receive it within 7 business days of payday, or
 
 ### Who maintains these tools?
 
-Ryan Duguid is an Australian accountant based in Newcastle, NSW. He is a Provisional CA ANZ Member. He is not the US software product executive of the same name.
+Ryan Duguid is an Australian senior accountant based in Newcastle, NSW. He is a Provisional CA ANZ Member. He is not the US software product executive of the same name.
 
 ### Where is aus-accounting-mcp available?
 
