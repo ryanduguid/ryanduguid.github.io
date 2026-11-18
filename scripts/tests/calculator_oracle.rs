@@ -4902,13 +4902,24 @@ struct Payday {
     assumed: u64,
 }
 
+/// The end of the usual period, or of the latest longer period that applies (s 18C(2)).
 fn sgc_due(business: &[i64], p: &Payday) -> Option<i64> {
-    match p.timing {
-        "standard" => sgc_after(business, p.payday, 7),
-        "first" => sgc_after(business, p.payday, 20),
-        "out-of-cycle" => sgc_after(business, p.other, 7),
-        _ => Some(sgc_after(business, p.payday, 20)?.max(sgc_after(business, p.other, 20)?)),
-    }
+    let first = sgc_after(business, p.payday, 20);
+    let out_of_cycle = sgc_after(business, p.other, 7);
+    let exceptional = sgc_after(business, p.other, 20).and_then(|made| Some(made.max(first?)));
+    let items = match p.timing {
+        "standard" => vec![],
+        "first" => vec![first],
+        "out-of-cycle" => vec![out_of_cycle],
+        "exceptional" => vec![exceptional],
+        "first-out-of-cycle" => vec![first, out_of_cycle],
+        _ => vec![out_of_cycle, exceptional],
+    };
+    items
+        .into_iter()
+        .try_fold(sgc_after(business, p.payday, 7)?, |due, item| {
+            Some(due.max(item?))
+        })
 }
 
 /// What the payday engine must return, each value as JavaScript prints it.
@@ -4993,9 +5004,13 @@ fn sgc_payday_case(
         "first",
         "out-of-cycle",
         "exceptional",
+        "first-out-of-cycle",
+        "out-of-cycle-exceptional",
     ]);
     let other = match timing {
-        "out-of-cycle" => (payday + 1 + i64::try_from(rng.below(40)).unwrap()).min(end),
+        "out-of-cycle" | "first-out-of-cycle" | "out-of-cycle-exceptional" => {
+            (payday + 1 + i64::try_from(rng.below(40)).unwrap()).min(end)
+        }
         _ => start + i64::try_from(rng.below(u64::try_from(end - start + 1).unwrap())).unwrap(),
     };
     let (any_earnings, small_earnings) =

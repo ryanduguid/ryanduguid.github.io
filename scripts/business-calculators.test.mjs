@@ -2643,7 +2643,9 @@ Object.assign(INPUTS, {
   paydaySuperCharge: (x) => {
     const timing = { standard: '7 business days', first: '20 business days for a first contribution',
       'out-of-cycle': `out of cycle, next regular payday ${plainDate(x.nextPayday)}`,
-      exceptional: `determination made ${plainDate(x.determination)}` }[x.timing];
+      exceptional: `determination made ${plainDate(x.determination)}`,
+      'first-out-of-cycle': `20 business days for a first contribution, out of cycle, next regular payday ${plainDate(x.nextPayday)}`,
+      'out-of-cycle-exceptional': `out of cycle, next regular payday ${plainDate(x.nextPayday)}, determination made ${plainDate(x.determination)}` }[x.timing];
     const charge = x.late === '0' && x.onTime !== '0' ? [] : [
       ...(x.late === '0' ? [] : [`late ${dollars(Number(x.late))} received ${plainDate(x.received)}`]),
       `assessed ${plainDate(x.assessment)}`, `${x.assessed === 'yes' ? 'an' : 'no'} earlier ATO-initiated assessment`,
@@ -2686,6 +2688,19 @@ test('Payday Super due dates count business days from the site’s calendar, to 
     { message: 'That due date falls after 31 August 2027, where the business day calendar ends.' });
   assert.throws(() => due('2026-09-03', 'out-of-cycle', '2026-09-03'), { message: 'The next regular payday must be after the out-of-cycle payday.' });
   assert.throws(() => due('2026-09-03', 'weekly'), { message: 'Choose how long the fund has to receive the contribution.' });
+  // Where more than one longer period applies, the fund has to the end of the latest (ATO LCR 2026/2
+  // Example 9). An out-of-cycle bonus on Friday 7 August 2026 under a determination made on 7 August:
+  // item 3 runs to 4 September; with the next regular payday on 10 September, item 2 runs to 21 September.
+  const both = (next) => calculations.paydaySuperDue({ payday: '2026-08-07', timing: 'out-of-cycle-exceptional', nextPayday: next,
+    determination: '2026-08-07' });
+  assert.deepEqual(both('2026-09-10'), { due: '2026-09-21',
+    rule: '7 business days after the next regular payday, subsection 18C(2) item 2' });
+  assert.deepEqual(both('2026-08-10'), { due: '2026-09-04',
+    rule: 'the later of 20 business days after payday and after the determination, subsection 18C(2) item 3' });
+  // A new employee's first pay is a bonus paid out of cycle on 9 July 2026: item 1 runs to 7 August,
+  // and item 2 to 7 business days after the next regular payday when that is later.
+  assert.equal(due('2026-07-09', 'first-out-of-cycle', '2026-07-16'), '2026-08-07');
+  assert.equal(due('2026-07-09', 'first-out-of-cycle', '2026-08-06'), '2026-08-17');
   for (const day of ['2026-02-30', '30/07/2026', '', '2027-07-01']) {
     assert.throws(() => due(day), { message: 'Enter a payday from 1 July 2026 to 30 June 2027.' }, day);
   }
@@ -2705,6 +2720,24 @@ test('notional earnings compound daily as the ATO’s Juliet example does', () =
     earnings: '1000', earlier: '0', onTime: '0', late: '120', received: '2026-12-11', assessment: '2027-02-01', assessed: 'no',
     disclosure: 'none', lodged: '', assumedRate: '11.51' });
   assert.deepEqual([juliet.due, juliet.days, juliet.earningsTo, juliet.assumedDays], ['2026-11-16', 25, '2026-12-11', 0]);
+});
+
+// ATO, LCR 2026/3 Payday Super: calculation and assessment of the superannuation guarantee charge
+// (5 August 2026), read 18 November 2026, paragraphs 176 to 181: at an assumed 10%, William's $510
+// for 48 days gives '$6.75', Ella's $460 for the 19 days to and including the receipt day '$2.40',
+// Kai's $750 for 48 days '$9.93', each rounded to the cent, and the uplift is '40% × ($1,160 +
+// $19.08) = $471.63'.
+test('notional earnings and the uplift round per employee as LCR 2026/3’s Employer Co example does', () => {
+  const tenPercent = (days) => Array.from({ length: days }, () => [1000, 365]);
+  assert.equal(calculations.compoundedEarnings(51000, tenPercent(48)), 675);
+  assert.equal(calculations.compoundedEarnings(46000, tenPercent(19)), 240);
+  assert.equal(calculations.compoundedEarnings(75000, tenPercent(48)), 993);
+  assert.equal(675 + 240 + 993, 1908);
+  // The same count through the engine: due 11 August 2026, receipt on 30 August is the 19th day.
+  const ella = calculations.paydaySuperCharge({ payday: '2026-07-30', timing: 'standard', nextPayday: '', determination: '',
+    earnings: '5500', earlier: '0', onTime: '200', late: '460', received: '2026-08-30', assessment: '2026-09-29', assessed: 'no',
+    disclosure: 'none', lodged: '', assumedRate: '11.51' });
+  assert.deepEqual([ella.due, ella.base, ella.final, ella.days], ['2026-08-11', 460, 0, 19]);
 });
 
 // Regulation 13D counts from the payday: the 30-day period starting on it ends on day 29. Earnings

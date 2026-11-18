@@ -18,7 +18,7 @@ import { GIC_QUARTERS } from './business-calculators.mjs';
 // Which earnings are qualifying earnings, salary or wages or ordinary time earnings, which
 // contributions count and when a fund received them are the user's facts: the engine counts them.
 
-/** @typedef {'standard' | 'first' | 'out-of-cycle' | 'exceptional'} PaydayTiming */
+/** @typedef {'standard' | 'first' | 'out-of-cycle' | 'exceptional' | 'first-out-of-cycle' | 'out-of-cycle-exceptional'} PaydayTiming */
 /** @typedef {{payday: string, timing: PaydayTiming, nextPayday: string, determination: string, earnings: string,
  *   earlier: string, onTime: string, late: string, received: string, assessment: string, assessed: 'yes' | 'no',
  *   disclosure: 'none' | 'lodged', lodged: string, assumedRate: string}} PaydayCharge */
@@ -84,26 +84,34 @@ function businessDaysAfter(day, n) {
  * contribution to a fund after the employee starts or the employer stops paying another fund;
  * item 2, the usual period for the next regular payday, for out-of-cycle earnings; item 3, the
  * later of 20 business days after the payday and 20 business days starting the day after an
- * exceptional circumstances determination is made. Item 4 is not applied.
+ * exceptional circumstances determination is made. Item 4 is not applied. Where more than one item
+ * applies, the fund has to the end of the latest (s 18C(2); ATO LCR 2026/2 Example 9). Item 3
+ * never ends before item 1, so items 1 and 2, and items 2 and 3, are the only pairs to offer.
  * @param {{payday: string, timing: PaydayTiming, nextPayday: string, determination: string}} inputs
  * @returns {{due: string, rule: string}} */
 export function paydaySuperDue({ payday, timing, nextPayday, determination }) {
   const qe = dateField(payday, 'a payday', '2026-07-01', '2027-06-30');
-  if (timing === 'standard') return { due: isoOf(businessDaysAfter(qe, 7)), rule: '7 business days after payday' };
-  if (timing === 'first') {
-    return { due: isoOf(businessDaysAfter(qe, 20)), rule: '20 business days after payday, subsection 18C(2) item 1' };
-  }
-  if (timing === 'out-of-cycle') {
-    const next = dateField(nextPayday, 'the next regular payday', '2026-07-01', CALENDAR_END);
-    if (next <= qe) throw new Error('The next regular payday must be after the out-of-cycle payday.');
-    return { due: isoOf(businessDaysAfter(next, 7)), rule: '7 business days after the next regular payday, subsection 18C(2) item 2' };
-  }
-  if (timing === 'exceptional') {
-    const made = dateField(determination, 'the day the determination was made', '2026-07-01', CALENDAR_END);
-    return { due: isoOf(Math.max(businessDaysAfter(qe, 20), businessDaysAfter(made, 20))),
-      rule: 'the later of 20 business days after payday and after the determination, subsection 18C(2) item 3' };
-  }
-  throw new Error('Choose how long the fund has to receive the contribution.');
+  /** @type {Record<string, () => [number, string]>} */
+  const ITEMS = {
+    first: () => [businessDaysAfter(qe, 20), '20 business days after payday, subsection 18C(2) item 1'],
+    'out-of-cycle': () => {
+      const next = dateField(nextPayday, 'the next regular payday', '2026-07-01', CALENDAR_END);
+      if (next <= qe) throw new Error('The next regular payday must be after the out-of-cycle payday.');
+      return [businessDaysAfter(next, 7), '7 business days after the next regular payday, subsection 18C(2) item 2'];
+    },
+    exceptional: () => {
+      const made = dateField(determination, 'the day the determination was made', '2026-07-01', CALENDAR_END);
+      return [Math.max(businessDaysAfter(qe, 20), businessDaysAfter(made, 20)),
+        'the later of 20 business days after payday and after the determination, subsection 18C(2) item 3'];
+    },
+  };
+  const items = { standard: [], first: ['first'], 'out-of-cycle': ['out-of-cycle'], exceptional: ['exceptional'],
+    'first-out-of-cycle': ['first', 'out-of-cycle'], 'out-of-cycle-exceptional': ['out-of-cycle', 'exceptional'] }[timing];
+  if (!items) throw new Error('Choose how long the fund has to receive the contribution.');
+  /** @type {[number, string]} */
+  const usual = [businessDaysAfter(qe, 7), '7 business days after payday'];
+  const [day, rule] = items.map((item) => ITEMS[item]()).reduce((latest, period) => (period[0] > latest[0] ? period : latest), usual);
+  return { due: isoOf(day), rule };
 }
 
 /** Notional earnings on a base shortfall, compounding daily: each day adds the day's GIC rate
@@ -252,7 +260,9 @@ export function quarterlySgCharge(inputs) {
 }
 
 const TIMING = { standard: 'the usual 7 business days', first: 'first contribution to this fund, 20 business days',
-  'out-of-cycle': 'out-of-cycle earnings', exceptional: 'an exceptional circumstances determination' };
+  'out-of-cycle': 'out-of-cycle earnings', exceptional: 'an exceptional circumstances determination',
+  'first-out-of-cycle': 'first contribution to this fund and out-of-cycle earnings',
+  'out-of-cycle-exceptional': 'out-of-cycle earnings and an exceptional circumstances determination' };
 /** @param {number} n @param {string} word */
 const count = (n, word) => `${n.toLocaleString('en-AU')} ${word}${n === 1 ? '' : 's'}`;
 
@@ -284,8 +294,8 @@ export function sgcPaydayResult(value, aud) {
     disclosure: value('disclosure'), lodged: value('disclosed'), assumedRate: value('assumed-rate') });
   const r = paydaySuperCharge(inputs);
   const timing = TIMING[inputs.timing] ?? '';
-  const extra = inputs.timing === 'out-of-cycle' ? `, next regular payday ${plainDay(dayOf(inputs.nextPayday))}`
-    : inputs.timing === 'exceptional' ? `, determination made ${plainDay(dayOf(inputs.determination))}` : '';
+  const extra = `${inputs.timing.includes('out-of-cycle') ? `, next regular payday ${plainDay(dayOf(inputs.nextPayday))}` : ''}`
+    + `${inputs.timing.includes('exceptional') ? `, determination made ${plainDay(dayOf(inputs.determination))}` : ''}`;
   const stated = `payday ${plainDay(dayOf(inputs.payday))}, ${timing}${extra}, qualifying earnings ${money('earnings')}`
     + `${cents(inputs.earlier) ? ` after ${money('earlier')} earlier in 2026-27` : ''}, on time ${money('on-time')}`;
   const rows = [[`Fund must receive it by (${r.rule})`, longDay(dayOf(r.due))], ['SG amount, 12%', aud(r.sgAmount)]];
