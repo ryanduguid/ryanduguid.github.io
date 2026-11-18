@@ -172,8 +172,8 @@ export const daysInYear = (year) => {
  * each dependent child after the first (Private Health Insurance Act 2007 s 22-40). The tier, from
  * the same income (combined for a couple, s 22-30(2)), sets the rate: 1%, 1.25% or 1.5% (Medicare
  * Levy Act 1986 s 8B(3) and (4)). The rate applies to taxable income under that Act and to
- * reportable fringe benefits under the A New Tax System (Medicare Levy Surcharge-Fringe Benefits)
- * Act 1999 s 12, times the uncovered days over the days in the year, rounded half up to the cent.
+ * reportable fringe benefits under the A New Tax System (Medicare Levy Surcharge—Fringe Benefits)
+ * Act 1999 ss 12, 13 and 15, times the uncovered days over the days in the year, rounded half up to the cent.
  * @param {Surcharge} s @returns {{income: number, threshold: number, rate: number, surcharge: number}} */
 export function medicareLevySurcharge(s) {
   incomeYear(s.year);
