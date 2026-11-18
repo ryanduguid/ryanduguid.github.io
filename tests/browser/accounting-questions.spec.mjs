@@ -851,7 +851,7 @@ test('company tax and franking works Dillmore Manufacture offline and refuses im
   const form = page.locator('#company-tax form');
   await waitForCalculator(form);
   await context.setOffline(true);
-  for (const [label, amount] of [['Aggregated turnover for the year, connected entities and affiliates included (AUD)', '45000000'],
+  for (const [label, amount] of [['Aggregated turnover for the year (AUD)', '45000000'],
     ['Assessable income for the year (AUD)', '45000000'], ['Base rate entity passive income in it, franking credits included (AUD)', '0'],
     ['Taxable income for the year (AUD)', '4500000'], ['Previous year’s aggregated turnover (AUD)', '52000000'],
     ['Previous year’s assessable income (AUD)', '52000000'], ['Previous year’s base rate entity passive income (AUD)', '0'],
