@@ -6333,7 +6333,7 @@ Published 11 September 2026. Last checked 18 November 2026, the newest of the ca
 
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
-- SGC and Payday Super due date calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
+- SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 
 ## Objections, instalments, termination, land tax and duty
 
@@ -6371,7 +6371,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
-- SGC and Payday Super due date calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
+- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
@@ -11917,9 +11917,9 @@ Source: https://duguid.com.au/tools/business-calculators/sgc-payday/
 
 > Payday Super due dates with business days, days late and the super guarantee charge for one employee: notional earnings, uplift and the old quarterly charge.
 
-# SGC and Payday Super due date calculator
+# SGC and Payday Super calculator
 
-When a Payday Super contribution is due, how many days late it was, and the super guarantee charge for one employee, step by step, each step cited to the Act or the ATO.
+Payday Super due dates in business days, and the super guarantee charge for one employee, each step cited.
 
 Published 18 November 2026. Last checked 18 November 2026.
 
@@ -11956,7 +11956,7 @@ Confirm the figure with the ATO or a registered tax agent before relying on it.
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: SGC and Payday Super due date calculator
+Boundary cases: SGC and Payday Super calculator
 
 Case | Inputs | Result
 ATO’s 30 July 2026 payday, due a day later for NT Picnic Day, and paid 14 days late | Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 25 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure | Due Tuesday 11 August 2026, 14 days of notional earnings, notional earnings $0.53, uplift 40%, uplift $0.21, SG charge $0.74
