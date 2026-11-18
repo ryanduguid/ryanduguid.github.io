@@ -5,7 +5,8 @@ import { test, expect } from '@playwright/test';
 import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
-const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80' };
+const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
+  'bonus-withholding': '$641.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -74,11 +75,33 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('Method B works a back payment over 2 years by B(i) and B(ii), as the ATO’s example 4 does', async ({ page }) => {
+  await page.goto('/tools/individual-tax/bonus-withholding/');
+  const form = page.locator('#bonus-withholding form');
+  await waitForCalculator(form);
+  await form.getByLabel('Monthly').check();
+  await form.getByLabel(/^Gross earnings this pay/).fill('7000');
+  await form.getByLabel(/^Method B:/).check();
+  await form.getByLabel(/^Bonus, commission or other additional payment/).fill('8800');
+  for (const [label, amount] of [[/^Method B\(i\): earlier pays/, '2'], [/^Method B\(i\): back payment for each/, '800'],
+    [/^Method B\(i\): earnings each/, '6200'], [/^Method B\(i\): amount withheld/, '1257'],
+    [/^Method B\(ii\): normal earnings/, '19400'], [/^Method B\(ii\): pays this year/, '3']]) {
+    await form.getByLabel(label).fill(amount);
+  }
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Less what was withheld, times 2 pays (B(i) steps 4 and 5)')).toHaveText('$754.00');
+  await expect(row('Withheld from the payment, the lesser (B(ii) step 10)')).toHaveText('$4,104.00');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$6,492.00');
+});
+
 for (const [id, name, input, expected] of [
   ['income-tax', 'estimate_income_tax', { incomeYear: '2026-27', residency: 'resident', taxableIncome: 90000,
     reportableFringeBenefits: 27000, daysWithoutHospitalCover: 365, taxWithheld: '21000' }, { refund: '510.00' }],
   ['take-home-pay', 'calculate_take_home_pay', { incomeYear: '2025-26', residency: 'resident', salary: '75000' },
     { takeHomeYear: '60212.00' }],
+  ['bonus-withholding', 'calculate_bonus_withholding', { payPeriod: 'fortnight', residency: 'resident', method: 'B',
+    earnings: '1800', additionalPayment: '2480', earningsToDate: '18000', paysToDate: 10 }, { totalWithheld: '992.00' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {

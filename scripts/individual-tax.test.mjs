@@ -11,8 +11,9 @@ import { CONCESSIONAL_CAP, division293, takeHomePay, SUPER_GUARANTEE } from '../
 import { taxEstimate } from '../assets/tax-estimate.mjs';
 import { withholding } from '../assets/payg-withholding.mjs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
+import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 
-const engines = { taxEstimate, takeHomePay, studyLoanRepayment };
+const engines = { taxEstimate, takeHomePay, studyLoanRepayment, bonusWithholding };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -23,6 +24,7 @@ const PERIOD = { year: 'a year', month: 'a month', fortnight: 'a fortnight', wee
 const parts = (r) => PARTS.filter(([key]) => key === 'taxable' || r[key] !== '0').map(([key, label]) => `${label} ${whole(r[key])}`)
   .join(', ');
 const settle = (value) => `${value < 0 ? 'owing' : 'refund'} ${dollars(Math.abs(value))}`;
+const PAY_NAME = { week: 'weekly', fortnight: 'fortnightly', month: 'monthly' };
 
 // How each row's call reads on the page and how its result reads, so neither can drift from the engine.
 const INPUTS = {
@@ -34,6 +36,12 @@ const INPUTS = {
     + `${p.includesSuper ? 'including' : 'plus'} super${p.sacrifice === '0' ? '' : `, ${whole(p.sacrifice)} sacrificed`}`
     + `${p.studyLoan ? ', study loan' : ''}${p.hospitalCover ? '' : ', no hospital cover'}`,
   studyLoanRepayment: (r, year) => `${year}: ${parts(r)}`,
+  bonusWithholding: (b) => `${PAY_NAME[b.period]}, scale ${b.residency === 'resident' ? 2 : 3}${b.studyLoan ? ', study loan' : ''}, `
+    + `${dollars(b.earnings)} this pay; ` + (b.method === 'A' ? `Method A: ${dollars(b.additional)} over ${b.spread} pays`
+    : [b.backPays !== '0' ? `B(i): ${dollars(b.backEach)} for each of ${b.backPays} pays of ${dollars(b.backEarnings)} that had `
+      + `${dollars(b.backWithheld)} withheld` : '', b.additional !== '0' ? `B(ii): ${dollars(b.additional)}, ${dollars(b.yearToDate)} `
+      + `over ${b.paysToDate} pays to date${b.earlierAdditional === '0' ? '' : `, earlier ${dollars(b.earlierAdditional)} with `
+      + `${dollars(b.earlierWithheld)} withheld`}` : ''].filter(Boolean).join('; ')),
 };
 const OUTPUTS = {
   taxEstimate: (r, call) => `Tax ${dollars(r.tax)}, offset ${dollars(r.offset)}`
@@ -44,6 +52,10 @@ const OUTPUTS = {
     + `${r.withheld ? `; withheld ${dollars(r.withheld.total)} a pay, ${settle(r.withheld.refund)}` : ''}`
     + `${r.overCap ? `; ${dollars(r.overCap)} over the cap` : ''}${r.division293 ? `; Division 293 on ${dollars(r.division293)}` : ''}`,
   studyLoanRepayment: (r) => `Repayment income ${dollars(r.repaymentIncome)}, repayment ${dollars(r.repayment)}`,
+  bonusWithholding: (r) => `Withheld ${dollars(r.total)}: ${dollars(r.onEarnings)} on earnings`
+    + (r.method === 'A' ? `, ${dollars(r.onAdditional)} on the payment (limit ${dollars(r.limit)}); adds ${dollars(r.yearTax)} to a year`
+      : `${r.methodBi ? `, ${dollars(r.methodBi.onBackPayment)} by B(i)` : ''}`
+        + `${r.methodBii ? `, ${dollars(r.methodBii.onAdditional)} by B(ii) (limit ${dollars(r.methodBii.limit)})` : ''}`),
 };
 
 test('each individual tax page has its boundary cases', () => {
@@ -82,6 +94,10 @@ const FORM_CALLS = {
     includesSuper: f.super === 'included', sacrifice: f.sacrifice, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes' }],
   studyLoanRepayment: (f) => [{ taxable: f.taxable, fringe: f.fringe, losses: f.losses, super: f.super, foreign: f.foreign }, f.year],
+  bonusWithholding: (f) => [{ period: f.period, residency: f.residency, studyLoan: f['study-loan'] === 'yes', method: f.method,
+    earnings: f.earnings, additional: f.additional, spread: f.spread, backPays: f['back-pays'], backEarnings: f['back-earnings'],
+    backEach: f['back-each'], backWithheld: f['back-withheld'], yearToDate: f['year-to-date'], paysToDate: f['pays-to-date'],
+    earlierAdditional: f['earlier-additional'], earlierWithheld: f['earlier-withheld'] }],
 };
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the worked example`, () => {
@@ -409,4 +425,53 @@ test('a form that is not an individual tax calculator gets no result, whatever i
   for (const kind of ['gst', 'constructor', 'toString', '__proto__']) {
     assert.equal(individualResult(kind, () => '0', String), undefined, kind);
   }
+});
+
+const BONUS = { period: 'week', residency: 'resident', studyLoan: false, method: 'A', earnings: '0', additional: '0', spread: '52',
+  backPays: '0', backEarnings: '0', backEach: '0', backWithheld: '0', yearToDate: '0', paysToDate: '1', earlierAdditional: '0',
+  earlierWithheld: '0' };
+const bonus = (fields) => bonusWithholding({ ...BONUS, ...fields });
+
+// Schedule 5, 'Withholding amounts examples' (published 17 June 2026), read 19 November 2026: each step of example 1.
+test('Method A gives each step of the ATO’s example 1, Jarrod, with and without HELP', () => {
+  const plain = bonus({ earnings: '1400', additional: '900' });
+  assert.deepEqual([plain.step1, plain.step2.tax, plain.step3, plain.step4, plain.step5.tax, plain.step7.tax, plain.limit],
+    [1400, 267, 17, 1417, 272, 260, 423]);
+  const help = bonus({ earnings: '1400', additional: '900', studyLoan: true });
+  assert.deepEqual([help.step2.studyLoan, help.step5.studyLoan, help.step7.studyLoan, help.onAdditional, help.total],
+    [10, 12, 104, 364, 641]);
+});
+
+test('the 47% limit applies to the additional payment with its study loan component, cents ignored', () => {
+  const r = bonus({ earnings: '4000', additional: '5200.99', studyLoan: true });
+  assert.equal(r.step7.total, 2964);
+  assert.equal(r.limit, 2444.46);
+  assert.equal(r.onAdditional, 2444);
+  assert.equal(r.total, r.step2.total + 2444);
+  // Method B(i) has no limit: with nothing withheld before, the earlier pay's whole withholding is more than 47%.
+  const back = bonus({ method: 'B', earnings: '4000', backPays: '1', backEarnings: '4000', backEach: '5200', backWithheld: '0' });
+  assert.ok(back.methodBi.onBackPayment > 5200 * 0.47);
+});
+
+test('Method B(ii) averages this pay’s B(i) back payment into the earnings to date, as example 4 does', () => {
+  const r = bonus({ method: 'B', period: 'month', studyLoan: true, earnings: '7000', backPays: '2', backEarnings: '6200',
+    backEach: '800', backWithheld: '1257', additional: '8800', yearToDate: '19400', paysToDate: '3' });
+  assert.equal(r.methodBii.step1, 7000);
+  assert.deepEqual([r.methodBii.step7.tax, r.methodBii.step7.studyLoan], [2808, 1296]);
+  assert.equal(r.total, 6492);
+});
+
+test('the bonus calculator refuses what Schedule 5 or its scales here do not cover', () => {
+  assert.throws(() => bonus({ period: 'year', additional: '1' }), { message: 'Choose weekly, fortnightly or monthly pay.' });
+  assert.throws(() => bonus({ residency: 'working-holiday', additional: '1' }), /tax-free threshold or a foreign resident/);
+  assert.throws(() => bonus({ studyLoan: 'no', additional: '1' }), { message: 'Say whether the payee has a study or training loan.' });
+  assert.throws(() => bonus({ method: 'C', additional: '1' }), { message: 'Choose Method A or Method B.' });
+  assert.throws(() => bonus({}), { message: 'Enter the additional payment.' });
+  assert.throws(() => bonus({ additional: '1', spread: '1' }), /between 2 and 52/);
+  assert.throws(() => bonus({ period: 'month', additional: '1', spread: '13' }), /between 2 and 12/);
+  assert.throws(() => bonus({ method: 'B' }), /back payment for earlier pays this year or another additional payment/);
+  assert.throws(() => bonus({ method: 'B', backPays: '53' }), /between 0 and 52/);
+  assert.throws(() => bonus({ method: 'B', backPays: '2' }), { message: 'Enter the back payment for each earlier pay.' });
+  assert.throws(() => bonus({ method: 'B', earnings: '100', additional: '1', yearToDate: '99' }),
+    { message: 'Enter normal earnings to date that include this pay.' });
 });
