@@ -281,8 +281,13 @@ test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a
     salary: '3000', payPeriod: 'fortnight' });
   assert.equal(holiday.paygWithholding, null);
   assert.match(individual['take-home-pay'].description, /for a working holiday maker it gives none/);
-  for (const limit of [/first home super saver/, /family trust distribution tax/, /super lump sum/, /debt still owed/]) {
+  for (const limit of [/first home super saver/, /family trust distribution tax/, /super lump sum/, /debt still owed/,
+    /Medicare levy exemption/, /working holiday maker who is an Australian resident or has other income/]) {
     assert.match(individual['income-tax'].description, limit);
+  }
+  for (const limit of [/super guarantee worked on the year's earnings, not pay by pay or quarter by quarter/,
+    /52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not computed/]) {
+    assert.match(individual['take-home-pay'].description, limit);
   }
 });
 

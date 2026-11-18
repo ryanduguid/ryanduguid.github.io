@@ -48,7 +48,7 @@ The calculator assumes one employer, a salary paid evenly over the full year, an
 - work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
 - salary sacrifice of anything but super, reportable fringe benefits, excess concessional contributions or Division 293 tax;
 - everything the income tax calculator leaves out, such as the Medicare levy reduction for families and the seniors and pensioners tax offset;
-- a family’s surcharge: this calculator works a single person’s with no dependants, and the income tax calculator works a family’s;
+- a family’s surcharge: this calculator works out the surcharge for a single person with no dependants, and the income tax calculator works out a family’s;
 - a study loan debt smaller than the repayment, which section 154-20(1)(c) of the Higher Education Support Act 2003 caps at what is still owed;
 - whether an employee is entitled to super guarantee, the lower transitional rate for employees on Norfolk Island (11% for 2026-27), or a second employer’s separate maximum contribution base;
 - super guarantee pay by pay: the calculator works it on the year’s earnings, rounded once, where an employer works it on each payday from 2026-27, so the year’s total can differ by cents, and to 2025-26 on each quarter’s earnings, so above the base a weekly or fortnightly salary with more pays in some quarters gets less: $260,000 paid fortnightly in 2025-26 can give $29,400, not $30,000.
