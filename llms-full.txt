@@ -11566,7 +11566,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/individual-tax/
 
-> Income tax and refund estimates, take-home pay with salary sacrifice and 2026-27 PAYG withholding, and study loan repayments from 2020-21, each step cited to its Act.
+> Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and 2026-27 PAYG withholding, each step cited.
 
 # Individual tax calculators
 
@@ -11627,7 +11627,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 ## How the income tax calculator works
 
-The income tax calculator works out one individual’s tax for a full income year from 2020-21 to 2026-27: the tax on taxable income at the year’s rates, the low income tax offset, the low and middle income tax offset for 2020-21 and 2021-22, the Medicare levy and the Medicare levy surcharge. It then takes that total, and any study or training loan repayment, from the tax withheld you enter, to estimate a refund or an amount owing.
+The income tax calculator works out one individual’s tax for a full income year from 2020-21 to 2026-27: the tax on taxable income at the year’s rates, the offsets, the Medicare levy and the Medicare levy surcharge. The offsets are the low income tax offset and, for 2020-21 and 2021-22, the low and middle income tax offset. It then takes that total, and any study or training loan repayment, from the tax withheld you enter, to estimate a refund or an amount owing.
 
 An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does.
 

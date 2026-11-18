@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/individual-tax/
 
-> Income tax and refund estimates, take-home pay with salary sacrifice and 2026-27 PAYG withholding, and study loan repayments from 2020-21, each step cited to its Act.
+> Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and 2026-27 PAYG withholding, each step cited.
 
 # Individual tax calculators
 

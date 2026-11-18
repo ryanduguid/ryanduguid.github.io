@@ -58,7 +58,7 @@ export function studyLoanRepayment(parts, year) {
   const result = (cents, method) => ({ repaymentIncome: income, repayment: cents / 100, method });
   if (income <= table.minimum) return result(0, 'nil');
   if (table.bands) {
-    const [, rate] = table.bands.findLast(([from]) => income >= from) ?? [0, 0];
+    const [, rate] = table.bands.filter(([from]) => income >= from).at(-1) ?? [0, 0];
     // Dollars times tenths of a per cent are tenths of a cent.
     return result(Math.floor((income * Math.round(rate * 10) + 5) / 10), 'percent-of-income');
   }
