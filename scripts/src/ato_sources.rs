@@ -809,18 +809,12 @@ pub fn classify(url: &str, page: Option<&Page>, previous: Option<&str>) -> Outco
     }
 }
 
-static ISO_DATE: LazyLock<Regex> = LazyLock::new(|| pattern(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$"));
-
 /// A real calendar date written YYYY-MM-DD, so check dates compare as strings.
 pub fn is_iso_date(value: Option<&Value>) -> bool {
-    let Some(text) = value
+    value
         .and_then(Value::as_str)
-        .filter(|t| ISO_DATE.is_match(t))
-    else {
-        return false;
-    };
-    let part = |range: std::ops::Range<usize>| text[range].parse::<i16>().unwrap_or(0);
-    jiff::civil::Date::new(part(0..4), part(5..7) as i8, part(8..10) as i8).is_ok()
+        .and_then(crate::iso_day)
+        .is_some()
 }
 
 static LAST_UPDATED: LazyLock<Regex> = LazyLock::new(|| {

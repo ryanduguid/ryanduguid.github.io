@@ -1888,7 +1888,7 @@ fn page_dates(html: &str, rel: &str, failures: &mut Vec<String>) -> (Option<Date
 }
 
 fn iso_date(text: &str, what: &str, rel: &str, failures: &mut Vec<String>) -> Option<Date> {
-    let date = Date::strptime("%Y-%m-%d", text).ok();
+    let date = crate::iso_day(text);
     if date.is_none() {
         failures.push(format!("{rel}: invalid {what} {text:?}"));
     }

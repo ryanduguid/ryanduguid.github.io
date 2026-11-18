@@ -284,8 +284,8 @@ pub fn check_release_rows(source: &str, releases: &str) -> Result<(), String> {
                 .ok_or_else(|| format!("{DATA}: {slug} has no {name}"))
         };
         let url = field("url")?;
-        let date = Date::strptime("%Y-%m-%d", field("date")?)
-            .map_err(|_| format!("{DATA}: {slug} has an unreadable date"))?;
+        let date = crate::iso_day(field("date")?)
+            .ok_or_else(|| format!("{DATA}: {slug} has an unreadable date"))?;
         if !release.contains_key("tag") && !url.contains("/releases/tag/") {
             continue;
         }

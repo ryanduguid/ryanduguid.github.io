@@ -12,8 +12,7 @@ use std::path::{Path, PathBuf};
 
 /// A date given as YYYY-MM-DD.
 pub(super) fn iso(text: &str, what: &str) -> Result<Date> {
-    Date::strptime("%Y-%m-%d", text)
-        .map_err(|_| format!("{what}: '{text}' is not a date as YYYY-MM-DD"))
+    crate::iso_day(text).ok_or_else(|| format!("{what}: '{text}' is not a date as YYYY-MM-DD"))
 }
 
 pub(super) fn sha256_hex(bytes: &[u8]) -> String {
