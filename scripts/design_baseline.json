@@ -117,7 +117,7 @@
       "c481a71bd273881b7b2125880ac784e305f40e9e9ef852ca93258bc17f457015"
     ],
     "tools/ato-benchmarks/index.html": [
-      "5c728783129ddb1504f4bdf9d61879b524c84505dd250d6d32e3ca612ef08f6a"
+      "29b8695789978a33ef48a544bd7aacbcf1d3cdf3bd46cc43a64ea2b22be81484"
     ],
     "tools/australian-tax-ai-agents/index.html": [
       "bca5687bf453631438895a016e4cd95a4ba09d89ddd56e22176f1ac33647053a"
@@ -228,7 +228,7 @@
       "3cb6d9eb132cb07a5d4a2ba9bd84a6948bfce2a886038c27936b4ce1ae353f67"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "969862347ce118a50e1234e366b456b53e84b8496993c95689be1cb1c6697b3f"
+      "d228eaa6008eb3d815ffce6b7cb0b31696e81a8cdec6cb60a1aa11acf0b0ed7b"
     ],
     "tools/company-tax-franking/index.html": [
       "3426ccecc19597c231556869dcd13d811b570440ee1e7a3418cff7b09a3f1247"
@@ -294,7 +294,7 @@
       "72af54088c5fb3be88eb938ce64e63006af3c9614c5baa9c985e2d4c3c754512"
     ],
     "tools/wip-schedule/index.html": [
-      "8530bd27fe6a22614ebdccc21de014a3bf532631f733f554d19f2f0915be051e"
+      "d1ff2169acb000b1dd358dd439446bc09d93199a33875b1871fbe4c6615db537"
     ],
     "tools/workpaper-review-gate/index.html": [
       "f1752cdaa3e8963b7cb4fc03e6ea8fb135b54afdc24f23a92aa3f07363311e98"
@@ -315,7 +315,7 @@
   "protected_files": {
     "llms.txt": "8075b9246f2cb914cfd8b026fe0851334ec176f2c1775b051e754957093bbce8",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "a4fd0b051c407ff3a6a0d823126092f7ae5fab10b9b99dd0f72a9c4fa1111154"
+    "sitemap.xml": "131633181289dfd9227361fb0f1e8b267e7aa2157d115689ef7a0ba0b9375d6c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
