@@ -491,7 +491,7 @@ test('loan takes a balloon and payments in advance from the form and lists every
   const form = page.locator('#loan form');
   await form.getByLabel('Amount financed (AUD)').fill('60000');
   await form.getByLabel('Annual nominal interest rate (%)').fill('7.5');
-  await form.getByLabel('Number of payments').fill('60');
+  await form.getByLabel('Number of payments', { exact: true }).fill('60');
   await form.getByLabel('Balloon or residual due at the end of the term').fill('18000');
   await form.getByRole('radio', { name: 'At the start of its period (in advance)', exact: true }).check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
@@ -527,7 +527,7 @@ test('hire purchase totals interest by income year and sets out the journal', as
   const form = page.locator('#hire-purchase form');
   await form.getByLabel('Amount financed (AUD)').fill('1000');
   await form.getByLabel('Annual nominal interest rate (%)').fill('12');
-  await form.getByLabel('Number of payments').fill('3');
+  await form.getByLabel('Number of payments', { exact: true }).fill('3');
   await form.getByLabel('Balloon or residual due at the end of the term').fill('0');
   await form.getByLabel('Start date, when the amount is advanced').fill('2027-06-15');
   await form.getByRole('radio', { name: 'Chattel mortgage', exact: true }).check();

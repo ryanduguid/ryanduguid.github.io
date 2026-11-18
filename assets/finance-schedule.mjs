@@ -145,6 +145,29 @@ function scheduleCents(amount, balloon, payment, count, rate, advance, most) {
   return { rows, balloonRow: balloon ? { opening: left, payment: balloon, interest: balloon - left, closing: 0n } : null };
 }
 
+/** The amount financed, in cents, that `count` payments and the balloon are worth at `rate`: the
+ * balloon in cents, or as `share` hundredths of 1% of the amount itself when `share` is not null.
+ * @param {bigint} payment @param {number} count @param {PeriodRate} rate @param {boolean} advance
+ * @param {bigint | null} share @param {bigint} balloon */
+function amountFinanced(payment, count, rate, advance, share, balloon) {
+  const k = advance ? rate.den + rate.num : rate.den;
+  const growth = (rate.den + rate.num) ** BigInt(count);
+  const scale = rate.den ** BigInt(count);
+  let amount;
+  if (share === null) {
+    amount = rate.num === 0n ? payment * BigInt(count) + balloon
+      : ratioCents(payment * k * (growth - scale) + balloon * scale * rate.num, rate.num * growth);
+  } else {
+    // amount = payments' worth / (1 - share x v^n), as the balloon is a share of the amount.
+    if (rate.num === 0n && share === 10000n) throw new Error('At nil interest a 100% balloon leaves the payments nothing to repay, so no amount fits.');
+    amount = rate.num === 0n ? ratioCents(payment * BigInt(count) * 10000n, 10000n - share)
+      : ratioCents(payment * k * (growth - scale) * 10000n, rate.num * (10000n * growth - share * scale));
+  }
+  if (amount > MOST_CENTS) throw new Error('The amount financed this gives is over $1,000,000,000. Use a smaller payment or fewer payments.');
+  if (amount === 0n) throw new Error('The amount financed this gives rounds to nil. Use a larger payment.');
+  return amount;
+}
+
 /** A finance schedule from 3 of the payment, the amount financed, the number of payments and the
  * rate, with the balloon, solving for the fourth. The balloon is an amount, or a percentage of the
  * amount financed rounded half up to the cent. Payments in arrears fall at the end of each period,
@@ -172,24 +195,7 @@ export function financeSchedule(terms) {
   let rate = { num: rateUnits, den: BigInt(perYear) * ENTERED_ONE };
   let annual = Number(rateUnits) / 10000;
 
-  if (solve === 'amount') {
-    const n = /** @type {number} */ (count);
-    const k = advance ? rate.den + rate.num : rate.den;
-    const growth = (rate.den + rate.num) ** BigInt(n);
-    const scale = rate.den ** BigInt(n);
-    if (share === null) {
-      const balloon = balloonOf(0n);
-      amount = rate.num === 0n ? payment * BigInt(n) + balloon
-        : ratioCents(payment * k * (growth - scale) + balloon * scale * rate.num, rate.num * growth);
-    } else {
-      // amount = payments' worth / (1 - share x v^n), as the balloon is a share of the amount.
-      if (rate.num === 0n && share === 10000n) throw new Error('At nil interest a 100% balloon leaves the payments nothing to repay, so no amount fits.');
-      amount = rate.num === 0n ? ratioCents(payment * BigInt(n) * 10000n, 10000n - share)
-        : ratioCents(payment * k * (growth - scale) * 10000n, rate.num * (10000n * growth - share * scale));
-    }
-    if (amount > MOST_CENTS) throw new Error('The amount financed this gives is over $1,000,000,000. Use a smaller payment or fewer payments.');
-    if (amount === 0n) throw new Error('The amount financed this gives rounds to nil. Use a larger payment.');
-  }
+  if (solve === 'amount') amount = amountFinanced(payment, /** @type {number} */ (count), rate, advance, share, share === null ? balloonOf(0n) : 0n);
   const balloon = balloonOf(amount);
   if (balloon > amount) throw new Error('The balloon cannot be more than the amount financed.');
   if (solve === 'rate') {

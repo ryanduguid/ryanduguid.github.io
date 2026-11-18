@@ -1250,7 +1250,7 @@ Source: https://duguid.com.au/tools/business-calculators/hire-purchase/
 
 # Hire purchase and chattel mortgage schedule
 
-Payments weekly to yearly with a balloon, the implicit rate, interest by income year and a journal for each payment, with the tax and GST sources cited.
+Interest by income year and a journal for each payment, weekly to yearly, with the sources cited.
 
 Published 18 November 2026. Last checked 18 November 2026.
 
