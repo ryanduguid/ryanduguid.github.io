@@ -24,7 +24,7 @@ import { landTaxCents } from './land-tax.mjs';
  * @typedef {'individual' | 'company' | 'trust' | 'discretionary' | 'smsf'} BuyerType
  * @typedef {{type: BuyerType, status: ResidencyStatus, daysBefore: string, daysDecember: string,
  *   nzResident: boolean, resides: boolean, absent: boolean, home: boolean, overseas: boolean, largest: string,
- *   combined: string, capital: string, amendable: boolean, control: boolean, named: boolean, defaults: string,
+ *   combined: string, absentee: string, capital: string, amendable: boolean, control: boolean, named: boolean, defaults: string,
  *   exemption: boolean}} ForeignBuyer
  * @typedef {'residential' | 'primary' | 'other'} PropertyUse
  * @typedef {{place: string, use: PropertyUse, value: string, share: string, land: string}} ForeignPurchase the
@@ -126,9 +126,10 @@ function vicLandTest(b) {
     return verdict(b.named, `a specified (named) beneficiary ${b.named ? 'is' : 'is not'} an absentee`);
   }
   if (b.type === 'company' && b.overseas) return verdict(true, 'a corporation incorporated outside Australia');
-  const held = hundredths(b.combined);
-  return b.type === 'company' ? verdict(over(held, 50), `absentee persons hold ${b.combined}%, against more than 50%`)
-    : verdict(held > 0n, `absentee beneficiaries hold ${b.combined}% of the trust land, which bears the surcharge`);
+  // Victoria tests absentee interests here, not foreign ones: a foreign person who lives in Australia is no absentee.
+  const held = hundredths(b.absentee);
+  return b.type === 'company' ? verdict(over(held, 50), `absentee persons hold ${b.absentee}%, against more than 50%`)
+    : verdict(held > 0n, `absentee beneficiaries hold ${b.absentee}% of the trust land, which bears the surcharge`);
 }
 
 /** The 50%-or-more tests of Queensland, Western Australia, South Australia, Tasmania and the ACT,
@@ -192,7 +193,7 @@ function checkBuyer(b) {
     if (typeof b[/** @type {keyof ForeignBuyer} */ (flag)] !== 'boolean') throw new Error('Answer each yes or no question.');
   }
   for (const days of [b.daysBefore, b.daysDecember]) number(days, { max: 366, integer: true });
-  for (const held of [b.capital, b.defaults]) hundredths(held);
+  for (const held of [b.capital, b.defaults, b.absentee]) hundredths(held);
   if (hundredths(b.largest) > hundredths(b.combined)) {
     throw new Error('The largest foreign interest cannot be more than all foreign interests together.');
   }
@@ -231,7 +232,7 @@ export function foreignSurcharge(buyer, purchase) {
   if (landTest?.foreign) {
     const trust = buyer.type !== 'individual' && buyer.type !== 'company';
     surcharge = landTaxCents(land, (trust && law.trustLand) || /** @type {string} */ (law.land)).amount;
-    if (purchase.place === 'AU-VIC' && buyer.type === 'trust') surcharge = ratioCents(surcharge * hundredths(buyer.combined), 10000n);
+    if (purchase.place === 'AU-VIC' && buyer.type === 'trust') surcharge = ratioCents(surcharge * hundredths(buyer.absentee), 10000n);
   }
   return { dutyRate: dutyTest ? Number(rate) : null, dutyTest: dutyTest?.why ?? noDuty(law), duty: Number(duty) / 100,
     landTest: landTest?.why ?? noLand(law), land: Number(surcharge) / 100 };
@@ -239,7 +240,7 @@ export function foreignSurcharge(buyer, purchase) {
 
 /** The buyer as the result's inputs describe it. @param {ForeignBuyer} b */
 function buyerText(b) {
-  const interests = `foreign interests ${b.largest}% largest and ${b.combined}% together`;
+  const interests = `foreign interests ${b.largest}% largest and ${b.combined}% together, absentee interests ${b.absentee}%`;
   return {
     individual: `an individual: ${{ citizen: 'an Australian citizen', permanent: 'a permanent visa holder', nz: 'a New Zealand citizen on a special category visa',
       other: 'another visa or none', partner: 'a partner or retirement visa holder' }[b.status]}`,

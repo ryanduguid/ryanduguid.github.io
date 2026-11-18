@@ -191,7 +191,7 @@ const companyReason: number = calculate.companyTax(companyInput).entity;
 void companyNet;
 void companyReason;
 const surchargeBuyer = { type: 'individual' as const, status: 'other' as const, daysBefore: '0', daysDecember: '0', nzResident: false,
-  resides: false, absent: false, home: false, overseas: false, largest: '0', combined: '0', capital: '0', amendable: false, control: false,
+  resides: false, absent: false, home: false, overseas: false, largest: '0', combined: '0', absentee: '0', capital: '0', amendable: false, control: false,
   named: false, defaults: '0', exemption: false };
 const surchargePurchase = { place: 'AU-NSW', use: 'residential' as const, value: '1000000', share: '1000000', land: '1200000' };
 const surchargeDuty: number = calculate.foreignSurcharge(surchargeBuyer, surchargePurchase).duty;

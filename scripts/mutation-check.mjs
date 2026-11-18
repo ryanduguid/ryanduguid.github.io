@@ -313,6 +313,8 @@ const MUTATIONS = [
   { ...surcharges, name: 'the 50%-or-more states need more than 50%', find: 'verdict(atLeast(held, 50), `foreign persons with associates hold ${b.combined}%', replace: 'verdict(over(held, 50), `foreign persons with associates hold ${b.combined}%' },
   { ...surcharges, name: 'Victoria charges a complying super fund the absentee surcharge', find: "if (b.type === 'smsf') return", replace: 'if (false) return' },
   { ...surcharges, name: 'Victoria charges a fixed trust on land held for residents', find: "if (purchase.place === 'AU-VIC' && buyer.type === 'trust')", replace: 'if (false)' },
+  { ...surcharges, name: 'Victoria’s land tax tests foreign rather than absentee interests', find: 'const held = hundredths(b.absentee);', replace: 'const held = hundredths(b.combined);' },
+  { ...surcharges, name: 'Victoria charges a fixed trust on its foreign rather than absentee share', find: 'hundredths(buyer.absentee), 10000n)', replace: 'hundredths(buyer.combined), 10000n)' },
   { ...surcharges, name: 'Victoria’s trust surcharge threshold is ignored', find: '(trust && law.trustLand) || ', replace: '' },
   { ...surcharges, name: 'a surcharge exemption is worked out instead of refused', find: 'if (b.exemption) {', replace: 'if (false) {' },
   { ...surcharges, name: 'a partner visa holder is decided instead of refused', find: "if (b.type === 'individual' && b.status === 'partner')", replace: 'if (false)' },

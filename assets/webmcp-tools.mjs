@@ -263,6 +263,7 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
     daysToDecember: whole(0, 366, 'New South Wales land tax: days in Australia in the 12 months to the next 31 December.'),
     largestForeignPercent: text('percent', 'Company, trust or fund: largest interest of one foreign person with associates, in per cent.'),
     foreignPercent: text('percent', 'Company, trust or fund: interests of all foreign persons together, with associates, in per cent.'),
+    absenteePercent: text('percent', 'Victorian land tax, company or fixed trust: interests of absentee persons together, with associates, in per cent; foreign interests are not absentee ones.'),
     capitalPercent: text('percent', 'Discretionary trust: most of the capital the trustee could give foreign persons, in per cent.'),
     defaultsPercent: text('percent', 'Discretionary trust: foreign takers in default\'s share, in per cent.'),
     ...Object.fromEntries(Object.entries(SURCHARGE_FLAGS).map(([key, description]) => [key, { type: 'boolean', description }])),
@@ -274,7 +275,7 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
       throw new Error('New South Wales tests a permanent visa holder or New Zealand citizen by days in Australia: give daysBefore and daysToDecember.');
     }
     const r = foreignSurcharge({ type: input.buyer, status: input.status, daysBefore: String(input.daysBefore ?? 0),
-      daysDecember: String(input.daysToDecember ?? 0), largest: input.largestForeignPercent ?? '0', combined: input.foreignPercent ?? '0',
+      daysDecember: String(input.daysToDecember ?? 0), largest: input.largestForeignPercent ?? '0', combined: input.foreignPercent ?? '0', absentee: input.absenteePercent ?? '0',
       capital: input.capitalPercent ?? '0', defaults: input.defaultsPercent ?? '0', exemption: false,
       nzResident: input.nzResident ?? false, resides: input.resides ?? false, absent: input.absent ?? false,
       home: input.home ?? false, overseas: input.overseas ?? false, amendable: input.amendable ?? false,

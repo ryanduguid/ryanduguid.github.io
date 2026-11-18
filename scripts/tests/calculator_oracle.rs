@@ -5364,15 +5364,16 @@ fn company_tax_case(rng: &mut Seeded) -> (Value, Value) {
 /// Each surcharge as its revenue office states it, read 18 November 2026, typed here rather than
 /// read from the engine's table: the duty rate per cent in hundredths by jurisdiction and use, and
 /// the land tax surcharge in cents on whole dollars of land for a foreign individual, or for a
-/// Victorian fixed trust with `held` hundredths of 1% held for absentees, which bears the
-/// surcharge from $25,000 rather than $50,000 on that share of the land.
+/// Victorian fixed trust whose `trust` is the hundredths of 1% held by foreign persons, which
+/// decide the duty, and by absentees, whose share of the land bears the surcharge from $25,000
+/// rather than $50,000.
 fn surcharge_oracle(
     place: &str,
     residential: bool,
     primary: bool,
     share: u64,
     land: u64,
-    held: Option<u64>,
+    trust: Option<(u64, u64)>,
 ) -> Value {
     let duty_rate: u128 = match (place, residential, primary) {
         ("AU-NSW", true, _) => 900,
@@ -5381,7 +5382,7 @@ fn surcharge_oracle(
         ("AU-TAS", _, true) => 150,
         _ => 0,
     };
-    let foreign_for_duty = held.is_none_or(|held| held > 5_000);
+    let foreign_for_duty = trust.is_none_or(|(foreign, _)| foreign > 5_000);
     let duty = if foreign_for_duty {
         exact_half_up(u128::from(share) * duty_rate, 100)
     } else {
@@ -5390,9 +5391,11 @@ fn surcharge_oracle(
     let land = u128::from(land);
     let surcharge = match (place, residential) {
         ("AU-NSW", true) => land * 5,
-        ("AU-VIC", _) => match held {
+        ("AU-VIC", _) => match trust {
             None if land >= 50_000 => land * 4,
-            Some(held) if land >= 25_000 => exact_half_up(land * 4 * u128::from(held), 10_000),
+            Some((_, absent)) if land >= 25_000 => {
+                exact_half_up(land * 4 * u128::from(absent), 10_000)
+            }
             _ => 0,
         },
         ("AU-QLD", _) => land.saturating_sub(350_000) * 3,
@@ -5418,16 +5421,19 @@ fn surcharge_case(rng: &mut Seeded) -> (Value, Value) {
         24_999, 25_000, 49_999, 50_000, 350_000, 350_001, any_land, any_land,
     ]);
     let any_held = rng.below(10_001);
-    let held = if place == "AU-VIC" && rng.below(2) == 0 {
-        Some(rng.pick(&[5_000, 5_001, any_held]))
+    let any_absent = rng.below(10_001);
+    // A fixed trust's foreign and absentee shares are drawn apart: a foreign owner living here is no absentee.
+    let trust = if place == "AU-VIC" && rng.below(2) == 0 {
+        let foreign = rng.pick(&[5_000, 5_001, any_held]);
+        Some((foreign, rng.pick(&[0, foreign, any_absent])))
     } else {
         None
     };
     let percent = |hundredths: u64| format!("{}.{:02}", hundredths / 100, hundredths % 100);
     let buyer = json!({
-        "type": if held.is_some() { "trust" } else { "individual" }, "status": "other", "daysBefore": "0", "daysDecember": "0",
+        "type": if trust.is_some() { "trust" } else { "individual" }, "status": "other", "daysBefore": "0", "daysDecember": "0",
         "nzResident": false, "resides": false, "absent": true, "home": false, "overseas": false, "largest": "0",
-        "combined": percent(held.unwrap_or(0)), "capital": "0", "amendable": false, "control": false, "named": false,
+        "combined": percent(trust.map_or(0, |(foreign, _)| foreign)), "absentee": percent(trust.map_or(0, |(_, absent)| absent)), "capital": "0", "amendable": false, "control": false, "named": false,
         "defaults": "0", "exemption": false,
     });
     (
@@ -5439,7 +5445,7 @@ fn surcharge_case(rng: &mut Seeded) -> (Value, Value) {
             use_ == "primary",
             share,
             land,
-            held,
+            trust,
         ),
     )
 }
@@ -5473,7 +5479,7 @@ fn the_company_tax_and_surcharge_oracles_work_the_published_examples() {
         json!({"duty": "90000", "land": "60000"})
     );
     assert_eq!(
-        surcharge_oracle("AU-VIC", true, false, 1_000_000, 1_000_000, Some(5_000)),
+        surcharge_oracle("AU-VIC", true, false, 1_000_000, 1_000_000, Some((5_000, 5_000))),
         json!({"duty": "0", "land": "20000"})
     );
     assert_eq!(

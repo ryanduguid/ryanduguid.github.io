@@ -267,7 +267,7 @@ test('foreign surcharge tool returns the page worked example and refuses what th
   assert.deepEqual([r.dutySurchargeRatePercent, r.dutySurcharge, r.landTaxSurcharge, r.currency], [9, '90000.00', '60000.00', 'AUD']);
   assert.match(r.dutyTest, /^Foreign: /);
   const trust = await tool.execute({ place: 'AU-VIC', buyer: 'trust', status: 'citizen', use: 'residential', value: 1000000,
-    share: 1000000, landValue: 1000000, largestForeignPercent: '50', foreignPercent: '50' });
+    share: 1000000, landValue: 1000000, largestForeignPercent: '50', foreignPercent: '50', absenteePercent: '50' });
   assert.deepEqual([trust.dutySurcharge, trust.landTaxSurcharge], ['0.00', '20000.00']);
   // Each yes or no answer reaches the engine under its own name, and an omitted one is no.
   const flags = ['nzResident', 'resides', 'absent', 'home', 'overseas', 'amendable', 'control', 'named'];

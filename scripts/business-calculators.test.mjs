@@ -2657,7 +2657,7 @@ Object.assign(INPUTS, {
     + `${dollars(i.taxable)}; ${i.existed ? `last year turnover ${dollars(i.prior.turnover)}, passive income ${dollars(i.prior.passive)} of `
     + `${dollars(i.prior.assessable)}` : 'no previous year'}; dividend ${dollars(i.dividend)} franked ${i.franking}%, marginal rate ${i.marginal}%`,
   foreignSurcharge: (b, p) => {
-    const interests = `foreign ${b.largest}% largest and ${b.combined}% together`;
+    const interests = `foreign ${b.largest}% largest and ${b.combined}% together${b.absentee === '0' ? '' : `, absentee ${b.absentee}%`}`;
     const who = { individual: `individual, ${SURCHARGE_STATUS[b.status]}, ${b.daysBefore} and ${b.daysDecember} days in Australia`,
       company: `company${b.overseas ? ' incorporated overseas' : ''}, ${interests}`, trust: `fixed trust, ${interests}`,
       smsf: `SMSF, ${interests}`, discretionary: `discretionary trust, ${b.capital}% of capital and ${b.defaults}% in default to foreign persons` }[b.type];
@@ -2674,7 +2674,7 @@ Object.assign(FORM_CALLS, {
     franking: f.franking, marginal: f.marginal }],
   foreignSurcharge: (f) => [{ type: f.buyer, status: f.status, daysBefore: f['days-before'], daysDecember: f['days-december'],
     ...Object.fromEntries(Object.keys(SURCHARGE_ANSWERS).map((flag) => [flag, f[flag.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)] === 'yes'])),
-    overseas: f.overseas === 'yes', largest: f.largest, combined: f.combined, capital: f.capital, defaults: f.defaults },
+    overseas: f.overseas === 'yes', largest: f.largest, combined: f.combined, absentee: f.absentee, capital: f.capital, defaults: f.defaults },
   { place: f.jurisdiction, use: f.use, value: f.value, share: f.share, land: f.land }],
   businessDays: (f) => [{ mode: f.mode, place: f.place, start: f.start, end: f.end, count: f.count }],
 });
@@ -2741,7 +2741,7 @@ test('each foreign owner land tax surcharge scale is the land tax calculator’s
 });
 
 const noAnswers = { type: 'individual', status: 'other', daysBefore: '0', daysDecember: '0', nzResident: false, resides: false, absent: false,
-  home: false, overseas: false, largest: '0', combined: '0', capital: '0', amendable: false, control: false, named: false, defaults: '0',
+  home: false, overseas: false, largest: '0', combined: '0', absentee: '0', capital: '0', amendable: false, control: false, named: false, defaults: '0',
   exemption: false };
 const surcharge = (buyer, place, use = 'residential') => calculations.foreignSurcharge({ ...noAnswers, ...buyer },
   { place, use, value: '1000000', share: '1000000', land: '1000000' });
@@ -2775,10 +2775,14 @@ test('each jurisdiction tests an individual, a company and a super fund its own 
   // Victoria's absentee owner surcharge starts at $25,000 of land for a trust and $50,000 for anyone else.
   const vicLand = (buyer) => calculations.foreignSurcharge({ ...noAnswers, ...buyer },
     { place: 'AU-VIC', use: 'residential', value: '40000', share: '40000', land: '40000' }).land;
-  assert.deepEqual([vicLand({ type: 'trust', largest: '100', combined: '100' }), vicLand({ absent: true })], [1600, 0]);
+  assert.deepEqual([vicLand({ type: 'trust', largest: '100', combined: '100', absentee: '100' }), vicLand({ absent: true })], [1600, 0]);
   // SRO Victoria, Absentee fixed trusts, example 1 (read 18 November 2026): Clara, an absentee, holds half of the
   // ABC Fixed Trust's $1 million of land, so the surcharge is $500,000 x 4% = $20,000.
-  assert.equal(surcharge({ type: 'trust', largest: '50', combined: '50' }, 'AU-VIC').land, 20000);
+  assert.equal(surcharge({ type: 'trust', largest: '50', combined: '50', absentee: '50' }, 'AU-VIC').land, 20000);
+  // Victoria's land tax counts absentee interests, not foreign ones: foreign owners who live here are no absentees.
+  const resident = (type) => surcharge({ type, largest: '60', combined: '60', absentee: '0' }, 'AU-VIC');
+  assert.deepEqual([resident('company').duty, resident('company').land, resident('trust').duty, resident('trust').land], [80000, 0, 80000, 0]);
+  assert.equal(surcharge({ type: 'company', largest: '0', combined: '0', absentee: '50.01' }, 'AU-VIC').land, 40000);
   // Queensland's land tax surcharge on an individual is the absentee test, on 30 June.
   assert.equal(surcharge({ absent: false }, 'AU-QLD').land, 0);
   assert.equal(surcharge({ absent: true }, 'AU-QLD').land, 19500);

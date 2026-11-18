@@ -510,7 +510,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const yes = name => value(name) === 'yes';
             result = calculate.foreignSurchargeResult({ type: value('buyer'), status: value('status'), daysBefore: value('days-before'),
               daysDecember: value('days-december'), nzResident: yes('nz-resident'), resides: yes('resides'), absent: yes('absent'), home: yes('home'),
-              overseas: yes('overseas'), largest: value('largest'), combined: value('combined'), capital: value('capital'), amendable: yes('amendable'),
+              overseas: yes('overseas'), largest: value('largest'), combined: value('combined'), absentee: value('absentee'), capital: value('capital'), amendable: yes('amendable'),
               control: yes('control'), named: yes('named'), defaults: value('defaults'), exemption: yes('exemption') },
             { place: place.value, use, value: value('value'), share: value('share'), land: value('land') }, general, aud);
             break;
