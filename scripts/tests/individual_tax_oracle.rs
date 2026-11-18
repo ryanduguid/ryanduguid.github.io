@@ -855,10 +855,7 @@ fn income_test_terms(parts: &[(&str, i64)]) -> Vec<(&'static str, i64)> {
         .map(|name| (*name, get(name)))
         .collect();
     // Nothing of taxable income is left where the FHSS amount is more (ITAA 1997 s 4-15(1)).
-    terms.push((
-        "taxableWithoutFhss",
-        (get("taxable") - get("fhss")).max(0),
-    ));
+    terms.push(("taxableWithoutFhss", (get("taxable") - get("fhss")).max(0)));
     terms.push(("fringeTotal", get("fringe57a") + get("fringeOther")));
     // The quasi amount: the reportable amount over 1 / (1 - rate), to the dollar below, as the
     // ATO's 2026 rebate income worksheet rounds it.
