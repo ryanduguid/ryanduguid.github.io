@@ -14,7 +14,7 @@ pub const RETIRED_NAMES: [&str; 11] = [
     "LouisGoldberg",
 ];
 
-pub const CI_MANUAL_URLS: [&str; 17] = [
+pub const CI_MANUAL_URLS: [&str; 20] = [
     // Still timed out 4 times on hosted CI in run 44173032679 (18 November 2026).
     "https://softwaredevelopers.ato.gov.au/GDPupliftfactor",
     "https://softwaredevelopers.ato.gov.au/SuperStreamStandard",
@@ -25,17 +25,20 @@ pub const CI_MANUAL_URLS: [&str; 17] = [
     "https://www.fairwork.gov.au/ending-employment/final-pay",
     "https://www.linkedin.com/in/ryan-duguid",
     "https://www.sbr.gov.au/",
+    "https://www.sro.tas.gov.au/Documents/foreign-investor-duty-surcharge-foreign-person-guideline.pdf",
     "https://www.sro.tas.gov.au/Documents/foreign-investor-land-tax-surcharge-guideline.pdf",
     "https://www.sro.tas.gov.au/first-home-owner",
     "https://www.sro.tas.gov.au/land-tax/exemptions-and-rebates",
     "https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge",
     "https://www.sro.tas.gov.au/land-tax/rates-of-land-tax",
     "https://www.sro.tas.gov.au/property-transfer-duties/concessions-exemptions/first-home-buyers-of-established-homes-duty-relief",
+    "https://www.sro.tas.gov.au/property-transfer-duties/foreign-investor-duty-surcharge/definition-of-foreign",
+    "https://www.sro.tas.gov.au/property-transfer-duties/foreign-investor-duty-surcharge/rates-of-surcharge",
     "https://www.sro.tas.gov.au/property-transfer-duties/rates-of-duty",
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 186] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 191] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -61,6 +64,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 186] = [
     "https://www.ato.gov.au/about-ato/new-legislation/in-detail/international/implementation-of-a-global-minimum-tax-and-a-domestic-minimum-tax",
     "https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy",
     "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance",
+    "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/imputation/paying-dividends-and-other-distributions/allocating-franking-credits",
     "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends",
     "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans",
     "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-myths-debunked",
@@ -181,8 +185,12 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 186] = [
     "https://www.ato.gov.au/law/view/document?docid=OPS/LI202520/00001",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19860039/8",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/110-45",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/202-60",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/202-65",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/207-20",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-27",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-80",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/67-25",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/995-1",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/69-10",
     "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003",
