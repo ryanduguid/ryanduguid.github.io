@@ -206,3 +206,17 @@ const businessDayCount: number = calculate.businessDays({ mode: 'count', place: 
 // @ts-expect-error The mode is count, add or subtract.
 calculate.businessDays({ mode: 'sum', place: 'NSW', start: '2026-12-21', end: '2027-01-04', count: '10' }, holidays);
 void businessDayCount;
+const sgcPay = { payday: '2026-07-30', timing: 'standard', nextPayday: '2026-07-30', determination: '2026-07-30', earnings: '1000',
+  earlier: '0', onTime: '0', late: '120', received: '2026-08-25', assessment: '2026-12-01', assessed: 'no', disclosure: 'none',
+  lodged: '2026-07-30', assumedRate: '11.51' } as const;
+const sgcCharge: number = calculate.paydaySuperCharge(sgcPay).charge;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.paydaySuperCharge({ ...sgcPay, earnings: 1000 });
+// @ts-expect-error The timing is one of the 4 periods in subsection 18C(2) and the usual one.
+calculate.paydaySuperCharge({ ...sgcPay, timing: 'bunched' });
+// @ts-expect-error A due date is an ISO date string, not a day number.
+const sgcDue: number = calculate.paydaySuperDue(sgcPay).due;
+// @ts-expect-error The old law covers 2022-23 to 2025-26 only.
+calculate.quarterlySgCharge({ year: '2026-27', quarter: '1', wages: '1', ote: '1', contributions: '0', lodged: '2026-11-20' });
+void sgcCharge;
+void sgcDue;

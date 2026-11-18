@@ -490,6 +490,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
               settlement: yes('settlement'), died: yes('died') }, form.dataset, aud);
             break;
           }
+          case 'sgc-payday':
+            result = calculate.sgcPaydayResult(value, aud);
+            break;
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;

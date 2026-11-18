@@ -675,38 +675,32 @@ fn check_sums(register: &Path, failures: &mut Vec<String>) -> Result<()> {
 
 /// Today in Sydney, where the rows are written.
 pub fn today() -> Date {
-    sydney_date(chrono::Utc::now().naive_utc())
+    sydney_date(jiff::tz::TimeZone::UTC.to_datetime(jiff::Timestamp::now()))
 }
 
 /// The date in Sydney at the UTC time `now`: AEST (UTC+10), or AEDT (UTC+11) from
 /// 2 am on the first Sunday of October to 3 am on the first Sunday of April.
-pub fn sydney_date(now: chrono::NaiveDateTime) -> Date {
-    use chrono::{Datelike, Duration, NaiveDate, Weekday};
-    let first_sunday = |year: i32, month: u32| {
-        let first = NaiveDate::from_ymd_opt(year, month, 1).expect("a date");
-        let offset = (7 + Weekday::Sun.num_days_from_monday() as i64
-            - first.weekday().num_days_from_monday() as i64)
+pub fn sydney_date(now: jiff::civil::DateTime) -> Date {
+    use jiff::ToSpan;
+    use jiff::civil::{Weekday, date};
+    let first_sunday = |year: i16, month: i8| {
+        let first = date(year, month, 1);
+        let offset = (7 + Weekday::Sunday.to_monday_zero_offset()
+            - first.weekday().to_monday_zero_offset())
             % 7;
-        first + Duration::days(offset)
+        first + offset.days()
     };
-    let standard = now + Duration::hours(10);
+    let standard = now + 10.hours();
     let year = standard.year();
     // Transitions in UTC: 16:00 on the Saturday before each first Sunday.
-    let ends = first_sunday(year, 4).and_hms_opt(16, 0, 0).expect("a time") - Duration::days(1);
-    let starts = first_sunday(year, 10)
-        .and_hms_opt(16, 0, 0)
-        .expect("a time")
-        - Duration::days(1);
+    let ends = first_sunday(year, 4).at(16, 0, 0, 0) - 1.day();
+    let starts = first_sunday(year, 10).at(16, 0, 0, 0) - 1.day();
     let summer = now < ends || now >= starts;
-    let local = if summer {
-        now + Duration::hours(11)
-    } else {
-        standard
-    };
+    let local = if summer { now + 11.hours() } else { standard };
     Date {
-        year: local.year(),
-        month: local.month(),
-        day: local.day(),
+        year: local.year().into(),
+        month: local.month() as u32,
+        day: local.day() as u32,
     }
 }
 
