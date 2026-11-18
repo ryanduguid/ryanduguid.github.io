@@ -11599,7 +11599,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/individual-tax/income-tax/
 
-> Income tax, offsets, Medicare levy and surcharge, study loan and a refund estimate from your tax withheld, for 2020-21 to 2026-27, each step cited to the Act.
+> Income tax, offsets, Medicare levy and surcharge, study loan and a refund estimate from your tax withheld, for 2020-21 to 2026-27, each step cited to its source.
 
 # Income tax calculator
 
@@ -11642,6 +11642,8 @@ The calculator gives the tax of one person who was a resident, a foreign residen
 - the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
 - the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
 - a change of family or cover status during the year beyond the days without cover, the private health insurance rebate, a spouse’s trust income that the surcharge test adds, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
+- a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;
+- a study loan debt smaller than the repayment: the repayment cannot exceed what is still owed (section 154-20(1)(c) of the Higher Education Support Act 2003), which the calculator does not ask for;
 - a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
 - tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
 - Division 293 tax, excess contributions, PAYG instalments or other credits besides the tax withheld you enter.
@@ -11741,10 +11743,11 @@ When the salary includes super, the calculator splits it: at 12%, a package of $
 
 The calculator assumes one employer, a salary paid evenly over the full year, and no other income, deductions or offsets. It does not compute:
 
-- overtime, bonuses, allowances or leave loading, a 53rd weekly or 27th fortnightly pay, or withholding on scale 1, scale 5 or 6, a withholding declaration’s offsets or a Medicare levy variation;
+- overtime, bonuses, allowances or leave loading, a 53rd weekly or 27th fortnightly pay, or withholding on scale 1, scale 5 or 6 or for a working holiday maker, a withholding declaration’s offsets or a Medicare levy variation;
 - work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
 - salary sacrifice of anything but super, reportable fringe benefits, excess concessional contributions or Division 293 tax;
 - everything the income tax calculator leaves out, such as the Medicare levy reduction for families and the seniors and pensioners tax offset, and a family’s surcharge, which that calculator works;
+- a study loan debt smaller than the repayment, which section 154-20(1)(c) of the Higher Education Support Act 2003 caps at what is still owed;
 - whether an employee is entitled to super guarantee, the lower transitional rate for employees on Norfolk Island (11% for 2026-27), or a second employer’s separate maximum contribution base.
 
 Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
