@@ -8,7 +8,7 @@ mod common;
 use site_tools::py::Date;
 use site_tools::pyjson::{self, Dump, Json};
 use site_tools::rates_json;
-use site_tools::rates_register::{check_register, check_tables, today};
+use site_tools::rates_register::{check_register, check_tables, sydney_date, today};
 use std::path::{Path, PathBuf};
 
 fn committed() -> PathBuf {
@@ -209,9 +209,36 @@ fn the_committed_register_has_no_crlf_file() {
 #[test]
 fn today_is_measured_where_the_checks_are_made() {
     let local = today();
-    let utc = chrono::Utc::now().date_naive();
-    let local = chrono::NaiveDate::from_ymd_opt(local.year, local.month, local.day).unwrap();
-    assert!(matches!((local - utc).num_days(), 0 | 1));
+    let utc = jiff::tz::TimeZone::UTC
+        .to_datetime(jiff::Timestamp::now())
+        .date();
+    let local = jiff::civil::date(local.year as i16, local.month as i8, local.day as i8);
+    assert!(matches!(utc.until(local).unwrap().get_days(), 0 | 1));
+}
+
+/// Midnight in Sydney is 13:00 UTC under daylight saving and 14:00 UTC otherwise; it
+/// changes over at 16:00 UTC on the Saturday before each first Sunday of April and October.
+#[test]
+fn a_utc_time_falls_on_its_sydney_date() {
+    let cases = [
+        ((2026, 4, 4, 13, 30), (2026, 4, 5)),
+        ((2026, 4, 5, 13, 30), (2026, 4, 5)),
+        ((2026, 10, 3, 13, 30), (2026, 10, 3)),
+        ((2026, 10, 4, 13, 30), (2026, 10, 5)),
+        ((2026, 6, 30, 13, 59), (2026, 6, 30)),
+        ((2026, 6, 30, 14, 0), (2026, 7, 1)),
+        ((2026, 12, 31, 12, 59), (2026, 12, 31)),
+        ((2026, 12, 31, 13, 0), (2027, 1, 1)),
+    ];
+    for ((year, month, day, hour, minute), (y, m, d)) in cases {
+        let utc = jiff::civil::date(year, month, day).at(hour, minute, 0, 0);
+        let expected = Date {
+            year: y,
+            month: m,
+            day: d,
+        };
+        assert_eq!(sydney_date(utc), expected, "{utc}");
+    }
 }
 
 #[test]

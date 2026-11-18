@@ -217,8 +217,8 @@ fn timestamp_seconds(time: SystemTime) -> i64 {
 
 /// `email.utils.formatdate(t, usegmt=True)`.
 fn http_date(seconds: i64) -> String {
-    chrono::DateTime::from_timestamp(seconds, 0)
-        .map(|d| d.format("%a, %d %b %Y %H:%M:%S GMT").to_string())
+    jiff::Timestamp::from_second(seconds)
+        .map(|t| t.strftime("%a, %d %b %Y %H:%M:%S GMT").to_string())
         .unwrap_or_default()
 }
 
@@ -392,20 +392,24 @@ pub fn parse_http_date(text: &str) -> Option<(i64, bool)> {
         Some(o) => Some(o as i64),
         None => None,
     };
-    let date = chrono::NaiveDate::from_ymd_opt(
-        i32::try_from(year).ok()?,
-        u32::try_from(month).ok()?,
-        u32::try_from(day).ok()?,
-    )?;
-    let time = chrono::NaiveTime::from_hms_opt(
-        u32::try_from(hour).ok()?,
-        u32::try_from(minute).ok()?,
-        u32::try_from(second).ok()?,
-    )?;
+    let date = jiff::civil::Date::new(
+        i16::try_from(year).ok()?,
+        i8::try_from(month).ok()?,
+        i8::try_from(day).ok()?,
+    )
+    .ok()?;
+    let time = jiff::civil::Time::new(
+        i8::try_from(hour).ok()?,
+        i8::try_from(minute).ok()?,
+        i8::try_from(second).ok()?,
+        0,
+    )
+    .ok()?;
     if !(1..=9999).contains(&year) {
         return None;
     }
-    let seconds = date.and_time(time).and_utc().timestamp() - offset.unwrap_or(0);
+    let epoch = jiff::civil::date(1970, 1, 1).at(0, 0, 0, 0);
+    let seconds = date.to_datetime(time).duration_since(epoch).as_secs() - offset.unwrap_or(0);
     Some((seconds, offset.is_none_or(|o| o == 0)))
 }
 
@@ -533,7 +537,7 @@ impl Handler {
     }
 
     fn log_message(&self, message: &str) {
-        let now = chrono::Local::now().format("%d/%b/%Y %H:%M:%S");
+        let now = jiff::ZonedDateTime::now().strftime("%d/%b/%Y %H:%M:%S");
         let _ = crate::print_text(&format!("{} - - [{now}] {message}\n", self.client), true);
     }
 

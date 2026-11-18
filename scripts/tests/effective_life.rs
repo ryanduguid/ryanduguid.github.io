@@ -4,7 +4,7 @@
 //! `site-tools build_effective_life`: the parser on each row shape it knows, the shapes it
 //! refuses, and the committed data against the registered instrument's row counts and rows
 //! read from its authorised PDF.
-use chrono::NaiveDate;
+use jiff::civil::date;
 use sha2::{Digest, Sha256};
 use site_tools::effective_life::{
     Counts, DATA_REL, Division, Life, NESTING_CORRECTIONS, Row, Section, Source, parse, render,
@@ -201,9 +201,9 @@ fn reads_each_row_shape_the_instrument_uses() {
     // The file is valid JSON and keeps a description's quotation marks.
     let source = Source {
         register_id: "F0000L00000".to_owned(),
-        registered: NaiveDate::from_ymd_opt(2025, 9, 15).expect("a date"),
+        registered: date(2025, 9, 15),
         url: "https://www.legislation.gov.au/F0000L00000/asmade/2025-09-15/text".to_owned(),
-        read: NaiveDate::from_ymd_opt(2026, 11, 3).expect("a date"),
+        read: date(2026, 11, 3),
     };
     let document = pyjson::loads(&render(&read, "00", &source)).expect("the file is JSON");
     let first = &rows_of(&document)[1];
@@ -705,8 +705,7 @@ fn committed_rows_are_consistent() {
                 assert!(flags.is_empty(), "{asset} has no life and is flagged");
             }
             if let Some(date) = updated {
-                let parsed = chrono::NaiveDate::parse_from_str(&date, "%Y-%m-%d");
-                assert!(parsed.is_ok(), "{asset}: {date}");
+                assert!(site_tools::iso_day(&date).is_some(), "{asset}: {date}");
                 // The instrument was made on 2 September 2025; no life in it is later.
                 assert!(
                     ("2001-01-01"..="2025-09-02").contains(&date.as_str()),

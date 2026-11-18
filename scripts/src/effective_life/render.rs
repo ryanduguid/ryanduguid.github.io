@@ -4,7 +4,6 @@
 //! Writing the tables as the data file's text.
 use super::*;
 use crate::pyjson::{self, Dump, Json};
-use chrono::NaiveDate;
 
 pub(super) fn quote(text: &str) -> String {
     pyjson::dumps(
@@ -140,11 +139,11 @@ fn source_json(determination: &Determination, sha256: &str, source: &Source, out
 
 /// The words the Federal Register of Legislation's terms of use require for content that
 /// has been changed, with the full date of the download.
-pub(super) fn attribution(read: NaiveDate) -> String {
+pub(super) fn attribution(read: Date) -> String {
     format!(
         "Based on content from the Federal Register of Legislation at {}. For the latest \
          information on Australian Government legislation please go to \
          https://www.legislation.gov.au.",
-        read.format("%-d %B %Y")
+        read.strftime("%-d %B %Y")
     )
 }

@@ -74,7 +74,8 @@
 //! price exceeds the limit. Both round each 1/11 half up to the cent.
 mod common;
 
-use chrono::{Datelike, NaiveDate, Weekday};
+use jiff::ToSpan;
+use jiff::civil::{Date, Weekday, date};
 use num_bigint::BigUint;
 use serde_json::{Value, json};
 use std::io::Write;
@@ -1592,40 +1593,34 @@ process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind]
 
 const OBJECTION_CASES: usize = 240;
 
-/// The last day of `years` years after `notice`, worked with chrono's calendar where the
+/// The last day of `years` years after `notice`, worked with jiff's calendar where the
 /// engine rolls JavaScript dates: the period starts the next day (s 36(1) item 6 of the Acts
 /// Interpretation Act 1901) and ends the day before the same date in the later year, which
 /// for a 29 February start with none that year is the day before 1 March.
-fn years_after(notice: NaiveDate, years: i32) -> NaiveDate {
-    let start = notice.succ_opt().unwrap();
-    let same = start
-        .with_year(start.year() + years)
-        .unwrap_or_else(|| NaiveDate::from_ymd_opt(start.year() + years, 3, 1).unwrap());
-    same.pred_opt().unwrap()
+fn years_after(notice: Date, years: i16) -> Date {
+    let start = notice.tomorrow().unwrap();
+    let year = start.year() + years;
+    let same = Date::new(year, start.month(), start.day()).unwrap_or_else(|_| date(year, 3, 1));
+    same.yesterday().unwrap()
 }
 
 /// 60 days after `notice`, one day at a time.
-fn sixty_days_after(notice: NaiveDate) -> NaiveDate {
-    (0..60).fold(notice, |day, _| day.succ_opt().unwrap())
+fn sixty_days_after(notice: Date) -> Date {
+    (0..60).fold(notice, |day, _| day.tomorrow().unwrap())
 }
 
 /// s 36(2): a Saturday or Sunday last day moves to the next weekday.
-fn lodging_day(end: NaiveDate) -> NaiveDate {
+fn lodging_day(end: Date) -> Date {
     let mut day = end;
-    while matches!(day.weekday(), Weekday::Sat | Weekday::Sun) {
-        day = day.succ_opt().unwrap();
+    while matches!(day.weekday(), Weekday::Saturday | Weekday::Sunday) {
+        day = day.tomorrow().unwrap();
     }
     day
 }
 
 /// The period's end, the lodging day, and for an amended assessment its 2 candidate ends, from
 /// s 14ZW(1)(aa), (aaa) and (c), and (1B) and (1BA).
-fn objection_oracle(
-    decision: &str,
-    group: i32,
-    notice: NaiveDate,
-    first: NaiveDate,
-) -> [Option<NaiveDate>; 4] {
+fn objection_oracle(decision: &str, group: i16, notice: Date, first: Date) -> [Option<Date>; 4] {
     let years = match decision {
         "fbt" | "amended-fbt" => 4,
         _ => group,
@@ -1641,25 +1636,27 @@ fn objection_oracle(
     [Some(end), Some(lodging_day(end)), amended, original]
 }
 
-fn iso(day: Option<NaiveDate>) -> Value {
-    day.map_or(Value::Null, |day| json!(day.format("%Y-%m-%d").to_string()))
+fn iso(day: Option<Date>) -> Value {
+    day.map_or(Value::Null, |day| {
+        json!(day.strftime("%Y-%m-%d").to_string())
+    })
 }
 
 /// A notice date weighted to the boundaries: month ends, 28 and 29 February, leap and
 /// century years, and the first and last years the engine accepts.
-fn notice_day(rng: &mut Seeded) -> NaiveDate {
-    let any_year = 1900 + rng.below(8090) as i32;
+fn notice_day(rng: &mut Seeded) -> Date {
+    let any_year = 1900 + rng.below(8090) as i16;
     let year = rng.pick(&[1900, 2000, 2026, 2027, 2028, 2100, 9989, any_year, any_year]);
-    let month = 1 + rng.below(12) as u32;
+    let month = 1 + rng.below(12) as i8;
     let last = (28..=31)
         .rev()
-        .find(|day| NaiveDate::from_ymd_opt(year, month, *day).is_some())
+        .find(|day| Date::new(year, month, *day).is_ok())
         .unwrap();
-    let any_day = 1 + rng.below(u64::from(last)) as u32;
+    let any_day = 1 + rng.below(last as u64) as i8;
     let day = rng
         .pick(&[1, 28, 29, last, last, any_day, any_day])
         .min(last);
-    NaiveDate::from_ymd_opt(year, month, day).unwrap()
+    date(year, month, day)
 }
 
 fn objection_case(rng: &mut Seeded) -> (Value, Value) {
@@ -1667,15 +1664,15 @@ fn objection_case(rng: &mut Seeded) -> (Value, Value) {
     let group = rng.pick(&[2, 4]);
     let notice = notice_day(rng);
     // A first notice on or before the amended one, up to about 6 years earlier.
-    let floor = NaiveDate::from_ymd_opt(1900, 1, 1).unwrap();
-    let first = (0..rng.below(2200)).fold(notice, |day, _| day.pred_opt().unwrap().max(floor));
+    let floor = date(1900, 1, 1);
+    let first = (0..rng.below(2200)).fold(notice, |day, _| day.yesterday().unwrap().max(floor));
     (
         json!({
             "kind": "objection",
             "decision": decision,
             "group": group.to_string(),
-            "notice": notice.format("%Y-%m-%d").to_string(),
-            "first": first.format("%Y-%m-%d").to_string(),
+            "notice": notice.strftime("%Y-%m-%d").to_string(),
+            "first": first.strftime("%Y-%m-%d").to_string(),
         }),
         {
             let [period, last, amended, original] =
@@ -1684,10 +1681,6 @@ fn objection_case(rng: &mut Seeded) -> (Value, Value) {
                 "amendedEnds": iso(amended), "firstEnds": iso(original)})
         },
     )
-}
-
-fn date(year: i32, month: u32, day: u32) -> NaiveDate {
-    NaiveDate::from_ymd_opt(year, month, day).unwrap()
 }
 
 #[test]
@@ -2980,13 +2973,8 @@ fn hundredths(rate: u64) -> String {
 /// to 29 June, then the balance the repayment leaves for that day, each period half up to the
 /// cent over the year's calendar days; one period when nothing is repaid.
 fn div7a_year_interest(opening: u64, rate: u64, start: i32, repayment: u64) -> u64 {
-    let july = |year| NaiveDate::from_ymd_opt(year, 7, 1).unwrap();
-    let days = u128::try_from(
-        july(start + 1)
-            .signed_duration_since(july(start))
-            .num_days(),
-    )
-    .unwrap();
+    let july = |year: i32| date(i16::try_from(year).unwrap(), 7, 1);
+    let days = u128::try_from((july(start + 1) - july(start)).get_days()).unwrap();
     let whole = u128::from(opening) * u128::from(rate);
     let part = if repayment == 0 {
         exact_half_up(whole, 10_000)
@@ -3007,16 +2995,15 @@ fn div7a_year_interest(opening: u64, rate: u64, start: i32, repayment: u64) -> u
 /// balance, and the dividend that funds it is
 /// the repayment grossed up for tax at the marginal rate, less the franking credit, rounded up.
 fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
-    let first = NaiveDate::from_ymd_opt(2020, 7, 1).unwrap();
-    let last = NaiveDate::from_ymd_opt(2027, 6, 30).unwrap();
-    let span = u64::try_from(last.signed_duration_since(first).num_days()).unwrap();
-    let any_day = first + chrono::Days::new(rng.below(span + 1));
+    let (first, last) = (date(2020, 7, 1), date(2027, 6, 30));
+    let span = u64::try_from((last - first).get_days()).unwrap();
+    let any_day = first + i64::try_from(rng.below(span + 1)).unwrap().days();
     let made = rng.pick(&[first, last, any_day, any_day, any_day]);
-    let year_made = if made.month() >= 7 {
+    let year_made = i32::from(if made.month() >= 7 {
         made.year()
     } else {
         made.year() - 1
-    };
+    });
     let amount = 1 + rng.cents(MAX_PRINCIPAL - 1);
     let term = rng.pick(&[7_u32, 7, 25]);
     let any_rate = 1 + rng.below(2_000);
@@ -3096,7 +3083,7 @@ fn div7a_schedule_case(rng: &mut Seeded) -> (Value, Value) {
     }
     let last_year = years.last().unwrap().clone();
     let loan = json!({
-        "made": made.format("%Y-%m-%d").to_string(), "amount": dollars(amount), "term": term.to_string(),
+        "made": made.strftime("%Y-%m-%d").to_string(), "amount": dollars(amount), "term": term.to_string(),
         "assumedRate": hundredths(assumed), "repayments": entries.join("; "),
         "marginalRate": marginal.map_or_else(String::new, hundredths), "franking": franking,
         "lodgment": false, "refinanced": false, "interposed": false,

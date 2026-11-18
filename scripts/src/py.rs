@@ -967,12 +967,11 @@ impl Date {
 
     /// `date.today()`, in the machine's local time zone.
     pub fn today() -> Date {
-        use chrono::Datelike;
-        let now = chrono::Local::now().date_naive();
+        let now = jiff::ZonedDateTime::now().date();
         Date {
-            year: now.year(),
-            month: now.month(),
-            day: now.day(),
+            year: now.year().into(),
+            month: now.month() as u32,
+            day: now.day() as u32,
         }
     }
 }
