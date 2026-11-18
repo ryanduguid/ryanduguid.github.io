@@ -7,6 +7,7 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
 
@@ -110,7 +111,48 @@ function studyLoanResult(value, aud) {
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
 }
 
-const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult]]);
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function soleTraderResult(value, aud) {
+  const yes = (/** @type {string} */ name) => value(name) === 'yes';
+  const year = value('year');
+  const r = soleTraderSetAside({ year, income: value('income'), expenses: value('expenses'), wages: value('wages'),
+    deductions: value('deductions'), offset: yes('offset'), studyLoan: yes('study-loan'), hospitalCover: yes('cover'),
+    gst: yes('gst'), credits: value('credits'), invoice: value('invoice') });
+  const wages = Number(value('wages')) > 0;
+  const rows = [['Business profit', aud(r.profit)]];
+  if (r.deduction) rows.push(['Standard deduction on the wages', aud(r.deduction)]);
+  rows.push(['Taxable income', whole(r.taxable)], ['Tax on taxable income', aud(r.tax)], ['Low income tax offset', aud(r.offset)]);
+  if (year === '2021-22') rows.push(['Low and middle income tax offset', aud(r.lmito)]);
+  rows.push(['Small business income tax offset', aud(r.smallBusinessOffset)], ['Medicare levy', aud(r.medicare)]);
+  if (!yes('cover')) rows.push(['Medicare levy surcharge', aud(r.surcharge)]);
+  if (yes('study-loan')) rows.push(['Study and training loan repayment', aud(r.studyLoan)]);
+  rows.push(['Total tax, levies and repayment', aud(r.total)]);
+  if (wages) rows.push(['Less the same on the wages alone', aud(r.wagesTax)]);
+  rows.push(['Tax to set aside for the business', aud(r.businessTax)]);
+  if (yes('gst')) rows.push(['GST on the business income', aud(r.gstOnIncome)], ['Less GST credits', aud(r.credits)]);
+  const principal = rows.length;
+  rows.push(['Total to set aside for the year', aud(r.setAside)], ['Each quarter', aud(r.quarterly)],
+    ['Each month', aud(r.monthly)], ['Each week', aud(r.weekly)],
+    [`Share of each invoice${yes('gst') ? ', GST included,' : ''} to set aside`, `${r.invoiceShare.toFixed(2)}%`],
+    [`From an invoice of ${aud(r.invoice.amount)}, set aside`, aud(r.invoice.setAside)]);
+  const notes = [`The tax is ${r.taxShare.toFixed(2)}% of the business income excluding GST, which as a PAYG instalment `
+    + 'rate would cover this year’s tax on it'];
+  if (r.instalments) {
+    notes.push('A return like this meets 2 of the 3 tests for automatic entry to PAYG instalments, business income of '
+      + '$4,000 or more and tax of $1,000 or more; the third, notional tax of $500 or more, the ATO works out');
+  }
+  if (r.mustRegister) notes.push('Business income of $75,000 or more a year means the business must register for GST');
+  if (wages) notes.push('This assumes the tax withheld from the wages covers the tax on the wages alone');
+  return { inputs: `${year}, business income ${aud(Number(value('income')))} and expenses ${aud(Number(value('expenses')))} `
+    + `excluding GST, wages ${aud(Number(value('wages')))}, other deductions ${aud(Number(value('deductions')))}, `
+    + `${yes('offset') ? 'qualifies' : 'does not qualify'} for the small business income tax offset, `
+    + `${yes('study-loan') ? 'with a' : 'no'} study or training loan, ${yes('cover') ? 'with' : 'no'} private hospital cover, `
+    + `${yes('gst') ? `registered for GST with credits of ${aud(Number(value('credits')))}` : 'not registered for GST'}, `
+    + `invoice ${aud(Number(value('invoice')))}`, principal, rows, note: notes.join('. ') };
+}
+
+const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
+  ['sole-trader', soleTraderResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -120,4 +162,5 @@ export function individualResult(kind, value, aud) {
 }
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
-export const engines = { taxEstimate, takeHomePay, incomeYears: INCOME_TAX_YEARS, payYears: Object.keys(SUPER_GUARANTEE) };
+export const engines = { taxEstimate, takeHomePay, soleTraderSetAside, incomeYears: INCOME_TAX_YEARS,
+  payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS };

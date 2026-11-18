@@ -5,7 +5,8 @@ import { test, expect } from '@playwright/test';
 import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
-const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80' };
+const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
+  'sole-trader': '$5,939.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -74,11 +75,32 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('a GST-registered sole trader with no job keeps one share of each invoice for tax and GST', async ({ page }) => {
+  await page.goto('/tools/individual-tax/sole-trader/');
+  const form = page.locator('#sole-trader form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Business income for the year/).fill('90000');
+  await form.getByLabel(/^Business expenses you can deduct/).fill('15000');
+  await form.getByLabel(/^Salary and wages from a job/).fill('0');
+  await form.locator('input[name="gst"][value="yes"]').check();
+  await form.getByLabel(/^GST credits on business purchases/).fill('1200');
+  await form.getByLabel(/^One invoice as you charge it/).fill('1100');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Small business income tax offset')).toHaveText('$1,000.00');
+  await expect(row('GST on the business income')).toHaveText('$9,000.00');
+  await expect(row('Share of each invoice, GST included, to set aside')).toHaveText('21.54%');
+  await expect(row('From an invoice of $1,100.00, set aside')).toHaveText('$236.89');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$21,320.00');
+});
+
 for (const [id, name, input, expected] of [
   ['income-tax', 'estimate_income_tax', { incomeYear: '2026-27', residency: 'resident', taxableIncome: 90000,
     reportableFringeBenefits: 27000, daysWithoutHospitalCover: 365, taxWithheld: '21000' }, { refund: '510.00' }],
   ['take-home-pay', 'calculate_take_home_pay', { incomeYear: '2025-26', residency: 'resident', salary: '75000' },
     { takeHomeYear: '60212.00' }],
+  ['sole-trader', 'calculate_sole_trader_set_aside', { incomeYear: '2026-27', businessIncome: '22000', businessExpenses: '2000',
+    wages: '60000', invoice: '1000' }, { setAsideYear: '5939.00' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {
