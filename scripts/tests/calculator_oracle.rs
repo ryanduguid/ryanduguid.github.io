@@ -4845,16 +4845,6 @@ fn base_rate_entity([turnover, assessable, passive]: [u64; 3]) -> bool {
     turnover < 5_000_000_000 && u128::from(passive) * 5 <= u128::from(assessable) * 4
 }
 
-/// A signed cent amount as a JavaScript number prints it.
-fn shown_signed(cents: i128) -> String {
-    let magnitude = shown(u64::try_from(cents.unsigned_abs()).unwrap());
-    if cents < 0 {
-        format!("-{magnitude}")
-    } else {
-        magnitude
-    }
-}
-
 /// The company tax rate and tax, half up; the corporate tax rate for imputation purposes from the
 /// previous year, or 25% for a new company (section 995-1); the maximum franking credit as the
 /// dividend times 1 over the gross-up rate, which is 1/3 at 25% and 3/7 at 30% (section 202-60),
