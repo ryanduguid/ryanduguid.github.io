@@ -28,6 +28,7 @@ const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
+const finance = { ...business, file: 'assets/finance-schedule.mjs' };
 const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
@@ -67,12 +68,18 @@ const MUTATIONS = [
   { ...business, name: 'fee instalments round to the nearest cent', find: 'const instalment = total / count;', replace: 'const instalment = ratioCents(total, count);' },
   { ...business, name: 'the effective hourly rate includes GST', find: 'ratioMoney(fee * 100n, time)', replace: 'ratioMoney(total * 100n, time)' },
   { ...business, name: 'cost variance reads as income', find: "kind === 'income' ? 1 : -1", replace: "kind === 'income' ? 1 : 1" },
-  { ...business, name: 'loan compounds on the wrong scale', find: 'const rateScale = 12000000n', replace: 'const rateScale = 12000001n' },
-  { ...business, name: 'a loan balloon is not discounted to today', find: 'residual * scale', replace: 'residual * growth' },
-  { ...business, name: 'loan payments in advance are worked as arrears', find: '(advance ? rateScale + rateUnits : rateScale)', replace: 'rateScale' },
-  { ...business, name: 'a loan payment in advance pays a month of interest', find: 'advance ? 0n : ratioCents', replace: 'false ? 0n : ratioCents' },
-  { ...business, name: 'a nil-interest balloon is spread over the payments', find: 'ratioMoney(balanceCents - residual, term)', replace: 'ratioMoney(balanceCents, term)' },
-  { ...business, name: 'a balloon above the principal is accepted', find: 'residual > balanceCents', replace: 'residual > balanceCents + 1n' },
+  { ...finance, name: 'the period rate ignores how often payments fall', find: 'den: BigInt(perYear) * ENTERED_ONE', replace: 'den: 12n * ENTERED_ONE' },
+  { ...finance, name: 'a balloon is not discounted to today', find: '- balloon * scale) * rate.num', replace: '- balloon * growth) * rate.num' },
+  { ...finance, name: 'payments in advance are worked as arrears', find: '(advance ? rate.den + rate.num : rate.den) * (growth - scale));', replace: 'rate.den * (growth - scale));' },
+  { ...finance, name: 'a first payment in advance carries interest', find: 'advance && k === 1 ? 0n', replace: 'false ? 0n' },
+  { ...finance, name: 'the last payment does not take the rounding', find: 'const paid = last ? balance + interest - left : payment;', replace: 'const paid = payment;' },
+  { ...finance, name: 'the number of payments stops a payment early', find: 'balance + interest - payment <= left :', replace: 'balance + interest - 2n * payment <= left :' },
+  { ...finance, name: 'a rate is found where the payments fall short', find: "if (atNil < 0) throw new Error('The payments", replace: "if (atNil < -1) throw new Error('The payments" },
+  { ...finance, name: 'a percentage balloon is left out of the amount financed', find: '(10000n * growth - share * scale)', replace: '(10000n * growth)' },
+  { ...finance, name: 'a balloon above the amount financed is accepted', find: 'balloon > amount)', replace: 'balloon > amount + 1n)' },
+  { ...finance, name: 'monthly dates run past a short month', find: 'Math.min(first.getUTCDate(), last)', replace: 'first.getUTCDate()' },
+  { ...finance, name: 'income years start on 1 June', find: 'Date.UTC(yearStarting(to - 1), 6, 1)', replace: 'Date.UTC(yearStarting(to - 1), 5, 1)' },
+  { ...finance, name: 'the journal debits the liability with the whole payment', find: '[shortDate(row.date), row.label, aud(row.principal)', replace: '[shortDate(row.date), row.label, aud(row.payment)' },
   { ...business, name: 'staff cost spreads over 13 months', find: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 12n', replace: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 13n' },
   { ...business, name: 'funding uses the closing balance', find: 'minimumBuffer - minimum', replace: 'minimumBuffer - balance' },
   { ...div7a, name: 'Division 7A compounds over one year too many', find: '(10000n + rate) ** term', replace: '(10000n + rate) ** (term + 1n)' },
@@ -414,7 +421,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', '_includes/duty-jurisdictions.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json']) {
+    'scripts/fbt-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 

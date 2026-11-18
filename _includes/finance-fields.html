@@ -1,0 +1,23 @@
+<fieldset class="field"><legend>Work out</legend>
+<label><input type="radio" name="solve" value="payment" checked /> The regular payment</label>
+<label><input type="radio" name="solve" value="amount" /> The amount financed</label>
+<label><input type="radio" name="solve" value="term" /> The number of payments</label>
+<label><input type="radio" name="solve" value="rate" /> The interest rate</label></fieldset>
+<label class="field" for="finance-amount">Amount financed (AUD)<input id="finance-amount" name="amount" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="60000" required data-solve="amount" /></label>
+<label class="field" for="finance-rate">Annual nominal interest rate (%)<input id="finance-rate" name="rate" type="number" min="0" max="100" step=".0001" value="7.5" required data-solve="rate" /></label>
+<label class="field" for="finance-payments">Number of payments<input id="finance-payments" name="payments" type="number" min="1" max="2600" step="1" value="60" required data-solve="term" /></label>
+<label class="field" for="finance-payment">Regular payment (AUD)<input id="finance-payment" name="payment" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required data-solve="payment" /></label>
+<label class="field" for="finance-balloon">Balloon or residual due at the end of the term<input id="finance-balloon" name="balloon" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="18000" required /></label>
+<fieldset class="field"><legend>The balloon is</legend>
+<label><input type="radio" name="balloon-kind" value="amount" checked /> An amount in AUD</label>
+<label><input type="radio" name="balloon-kind" value="percent" /> A percentage of the amount financed</label></fieldset>
+<fieldset class="field"><legend>Payments fall</legend>
+<label><input type="radio" name="frequency" value="weekly" /> Weekly</label>
+<label><input type="radio" name="frequency" value="fortnightly" /> Fortnightly</label>
+<label><input type="radio" name="frequency" value="monthly" checked /> Monthly</label>
+<label><input type="radio" name="frequency" value="quarterly" /> Quarterly</label>
+<label><input type="radio" name="frequency" value="annual" /> Yearly</label></fieldset>
+<fieldset class="field"><legend>Each payment falls</legend>
+<label><input type="radio" name="timing" value="arrears" checked /> At the end of its period (in arrears)</label>
+<label><input type="radio" name="timing" value="advance" /> At the start of its period (in advance)</label></fieldset>
+<label class="field" for="finance-start">Start date, when the amount is advanced<input id="finance-start" name="start" type="date" min="1900-01-01" max="2099-12-31" value="2026-07-01" required /></label>
