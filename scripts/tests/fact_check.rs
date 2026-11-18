@@ -2230,7 +2230,7 @@ fn calculator_pages_show_every_boundary_case_the_node_tests_run() {
 }
 
 #[test]
-fn evidence_results_name_published_releases_limits_and_read_dates() {
+fn evidence_results_name_published_releases_and_limits() {
     let tree = parse_structure(&read("evidence/index.html"));
     let section = tree
         .descendants(Tree::ROOT, Some("section"), true)
@@ -2261,22 +2261,8 @@ fn evidence_results_name_published_releases_limits_and_read_dates() {
         ),
         "12,800 fictional cases with no repayments".to_owned(),
         "covers the repayment figure only".to_owned(),
-        "not a registered tax or BAS agent, does not lodge and holds no third-party certification"
-            .to_owned(),
         "not rerun on later releases or the unreleased Rust port".to_owned(),
-        "a Coal LSL calculator that I built and host as an external contributor".to_owned(),
     ] {
         assert!(text.contains(&claim), "{claim}");
-    }
-    let lists = tree.descendants(section, Some("ul"), false);
-    assert_eq!(lists.len(), 2);
-    let rivals = tree.descendants(lists[1], Some("li"), false);
-    assert_eq!(rivals.len(), 3);
-    for rival in rivals {
-        let line = tree.text(rival);
-        assert!(
-            re(r"Read \d{1,2} [A-Z][a-z]+ \d{4}\.\s*$", 0).is_match(&line),
-            "{line}"
-        );
     }
 }

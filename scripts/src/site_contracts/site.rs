@@ -583,11 +583,13 @@ pub fn check_authority_surface(root: &Path) -> Result<Vec<String>, String> {
         if mailto
             || !py::casefold(&text).contains("not a practice")
             || !py::casefold(&text).contains(boundary)
-            || !re(
-                r"\b(?:do\s+not|don't|never)\b.{0,100}\bclient\s+(?:files?|records?)\b",
-                S | I,
-            )
-            .is_match(&text)
+            // Only Contact must warn against sending client files; About no longer repeats it.
+            || (rel == "contact/index.html"
+                && !re(
+                    r"\b(?:do\s+not|don't|never)\b.{0,100}\bclient\s+(?:files?|records?)\b",
+                    S | I,
+                )
+                .is_match(&text))
         {
             failures.push(format!("{rel}: non-practice boundary is incomplete"));
         }
