@@ -705,8 +705,7 @@ fn committed_rows_are_consistent() {
                 assert!(flags.is_empty(), "{asset} has no life and is flagged");
             }
             if let Some(date) = updated {
-                let parsed = jiff::civil::Date::strptime("%Y-%m-%d", &date);
-                assert!(parsed.is_ok(), "{asset}: {date}");
+                assert!(site_tools::iso_day(&date).is_some(), "{asset}: {date}");
                 // The instrument was made on 2 September 2025; no life in it is later.
                 assert!(
                     ("2001-01-01"..="2025-09-02").contains(&date.as_str()),

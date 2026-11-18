@@ -466,7 +466,7 @@ fn payday_business_days_csv_matches_the_calendar_copy() {
         .iter()
         .filter_map(|day| {
             let date = text_of(get(day, "date"));
-            let parsed = jiff::civil::Date::strptime("%Y-%m-%d", &date).unwrap();
+            let parsed = site_tools::iso_day(&date).unwrap();
             let provisional = matches!(day.get("provisional"), Some(Json::Bool(true)));
             let weekday = parsed.weekday().to_monday_one_offset() <= 5;
             (from <= date && date <= until && weekday && !provisional).then(|| {
@@ -582,7 +582,7 @@ fn bas_due_dates() -> Vec<[&'static str; 7]> {
 fn bas_due_dates_csv_holds_the_ato_dates_and_sources() {
     let repository = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let source = |rel: &str| site_tools::read(&repository.join(rel)).unwrap();
-    let parse = |date: &str| jiff::civil::Date::strptime("%Y-%m-%d", date).unwrap();
+    let parse = |date: &str| site_tools::iso_day(date).unwrap();
     let rows = bas_due_dates();
     let columns = [
         "frequency",

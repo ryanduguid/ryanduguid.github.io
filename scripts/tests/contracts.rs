@@ -2319,8 +2319,7 @@ fn page_date(rel: &str, pattern: &str) -> Date {
         .unwrap()
         .captures(&html)
         .unwrap_or_else(|| panic!("{rel}: no date matches {pattern}"));
-    Date::strptime("%Y-%m-%d", &found[1])
-        .ok()
+    site_tools::iso_day(&found[1])
         .or_else(|| site_tools::feed::parse_date(&found[1]).ok())
         .unwrap_or_else(|| panic!("{rel}: unreadable date {:?}", &found[1]))
 }
