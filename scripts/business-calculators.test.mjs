@@ -2776,6 +2776,9 @@ test('each jurisdiction tests an individual, a company and a super fund its own 
   const vicLand = (buyer) => calculations.foreignSurcharge({ ...noAnswers, ...buyer },
     { place: 'AU-VIC', use: 'residential', value: '40000', share: '40000', land: '40000' }).land;
   assert.deepEqual([vicLand({ type: 'trust', largest: '100', combined: '100' }), vicLand({ absent: true })], [1600, 0]);
+  // SRO Victoria, Absentee fixed trusts, example 1 (read 18 November 2026): Clara, an absentee, holds half of the
+  // ABC Fixed Trust's $1 million of land, so the surcharge is $500,000 x 4% = $20,000.
+  assert.equal(surcharge({ type: 'trust', largest: '50', combined: '50' }, 'AU-VIC').land, 20000);
   // Queensland's land tax surcharge on an individual is the absentee test, on 30 June.
   assert.equal(surcharge({ absent: false }, 'AU-QLD').land, 0);
   assert.equal(surcharge({ absent: true }, 'AU-QLD').land, 19500);

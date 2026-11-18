@@ -268,6 +268,11 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
     ...Object.fromEntries(Object.entries(SURCHARGE_FLAGS).map(([key, description]) => [key, { type: 'boolean', description }])),
   }, ['place', 'buyer', 'status', 'use', 'value', 'share', 'landValue']),
   run(input) {
+    // New South Wales decides these 2 statuses by days in Australia, so a missing count is not taken as none.
+    if (input.place === 'AU-NSW' && input.buyer === 'individual' && ['permanent', 'nz'].includes(input.status)
+      && (input.daysBefore === undefined || input.daysToDecember === undefined)) {
+      throw new Error('New South Wales tests a permanent visa holder or New Zealand citizen by days in Australia: give daysBefore and daysToDecember.');
+    }
     const r = foreignSurcharge({ type: input.buyer, status: input.status, daysBefore: String(input.daysBefore ?? 0),
       daysDecember: String(input.daysToDecember ?? 0), largest: input.largestForeignPercent ?? '0', combined: input.foreignPercent ?? '0',
       capital: input.capitalPercent ?? '0', defaults: input.defaultsPercent ?? '0', exemption: false,

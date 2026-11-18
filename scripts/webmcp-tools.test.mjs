@@ -283,4 +283,9 @@ test('foreign surcharge tool returns the page worked example and refuses what th
     landValue: 0, exemption: true }), /exemption is not an input of this tool/);
   await assert.rejects(tool.execute({ place: 'AU-NSW', buyer: 'individual', status: 'other', use: 'residential', value: 1, share: 2,
     landValue: 0 }), /The buyer’s share cannot be worth more than the whole property\./);
+  // New South Wales needs the days in Australia for a permanent visa holder; it never assumes none.
+  const permanent = { place: 'AU-NSW', buyer: 'individual', status: 'permanent', use: 'residential', value: 1, share: 1, landValue: 0 };
+  await assert.rejects(tool.execute({ ...permanent, daysBefore: 365 }), /give daysBefore and daysToDecember/);
+  const counted = await tool.execute({ ...permanent, daysBefore: 365, daysToDecember: 0 });
+  assert.match(counted.dutyTest, /^Not foreign: /);
 });
