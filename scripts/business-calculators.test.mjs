@@ -10,6 +10,9 @@ import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, loan,
   staffCost, cashForecast, div7aMinimumRepayment, transferDuty, firstHomeDuty } from '../assets/business-calculators.mjs';
 import { fbtBenefitResult } from '../assets/fbt-benefit-forms.mjs';
+import { COMPANY_TAX_LAW } from '../assets/company-tax.mjs';
+import { FOREIGN_SURCHARGES } from '../assets/foreign-surcharge.mjs';
+import { BUSINESS_DAY_PLACES, BUSINESS_DAYS_COVERAGE, STATE_ONLY_HOLIDAYS } from '../assets/business-days.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -336,6 +339,9 @@ test('cash keeps out-of-horizon receipts visible and includes opening deficits',
 // The boundary cases each calculator page shows are data this test runs, so a page
 // cannot state a result the engine does not return.
 const shownCases = JSON.parse(readFileSync(new URL('../_data/calculator_cases.json', import.meta.url), 'utf8'));
+// A calculator's include with the shared jurisdiction radios in place, as Jekyll renders it.
+const calculatorInclude = (page) => readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8')
+  .replace('{% include duty-jurisdictions.html %}', readFileSync(new URL('../_includes/duty-jurisdictions.html', import.meta.url), 'utf8'));
 // Each land tax jurisdiction's data as its radio in the land tax include holds it, keyed as the
 // browser's dataset keys it (data-trust-scale becomes trustScale): its name, scales (from, base,
 // rate, over, rule for each band) and fixed charge.
@@ -365,6 +371,7 @@ const transferDutyScales = (() => {
 const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]]
   : name === 'firstHomeDuty' ? [call[0], transferDutyScales[call[1]], call[1], call[2]]
   : name === 'landTaxYear' ? landTaxArgs(call)
+  : name === 'businessDays' ? [call[0], businessDayHolidays]
   : name === 'pcgAllocation' ? [call[0], pcgYears[call[1]]] : call);
 const dollars = (value) => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-AU',
   { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -632,15 +639,17 @@ test('Division 7A years and rates are the rate table rows, newest first', () => 
 });
 
 // Each jurisdiction's radio carries exactly its rows of the rate table, in the table's order.
-test('transfer duty radios carry the rate table rows for all 8 jurisdictions', () => {
-  const html = readFileSync(new URL('../_includes/calculators/transfer-duty.html', import.meta.url), 'utf8');
-  const radios = [...html.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)" data-name="([^"]+)" data-scale="([^"]+)"(?: checked)? \/> ([^<]+)<\/label>/g)]
-    .map(([, code, name, scale, label]) => (assert.equal(label, name), assert.equal(PLACES[code], name),
-      [code, scale.split(';').map((row) => row.split(','))]));
-  assert.equal(radios.length, (html.match(/name="jurisdiction"/g) ?? []).length);
-  assert.equal((html.match(/name="jurisdiction"[^>]* checked /g) ?? []).length, 1);
-  assert.deepEqual(Object.fromEntries(radios), transferDutyScales);
-  assert.deepEqual(radios.map(([code]) => code), Object.keys(PLACES));
+test('transfer duty and foreign surcharge radios carry the rate table rows for all 8 jurisdictions', () => {
+  for (const page of ['transfer-duty', 'foreign-surcharge']) {
+    const html = calculatorInclude(page);
+    const radios = [...html.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)" data-name="([^"]+)" data-scale="([^"]+)"(?: checked)? \/> ([^<]+)<\/label>/g)]
+      .map(([, code, name, scale, label]) => (assert.equal(label, name), assert.equal(PLACES[code], name),
+        [code, scale.split(';').map((row) => row.split(','))]));
+    assert.equal(radios.length, (html.match(/name="jurisdiction"/g) ?? []).length);
+    assert.equal((html.match(/name="jurisdiction"[^>]* checked /g) ?? []).length, 1);
+    assert.deepEqual(Object.fromEntries(radios), transferDutyScales);
+    assert.deepEqual(radios.map(([code]) => code), Object.keys(PLACES));
+  }
 });
 
 // Worked by hand from the scales read on 15 November 2026: at the top of a band the lower band
@@ -871,7 +880,7 @@ Object.assign(FORM_CALLS, {
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
-    const html = readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8');
+    const html = calculatorInclude(page);
     assert.equal(first.refused, undefined);
     assert.deepEqual(FORM_CALLS[name](formDefaults(html)), first.call);
     assert.equal(html.match(/\{% include calculator-example\.html /g)?.length, 1);
@@ -2633,6 +2642,232 @@ test('the payroll tax page opens on the result its calculation gives for the for
   assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
   assert.equal(String(result.principal), example[3]);
   assert.equal(result.note, example[4]);
+});
+
+// Company tax and franking, foreign purchaser surcharges and business days: how each call and
+// result reads on its page, and how each form passes its fields.
+const SURCHARGE_STATUS = { citizen: 'Australian citizen', permanent: 'permanent visa', nz: 'New Zealand citizen on a special category visa',
+  other: 'temporary visa or none', partner: 'partner or retirement visa' };
+const SURCHARGE_ANSWERS = { nzResident: 'resides 6 months', resides: 'ordinarily resident', absent: 'away', home: 'lives there',
+  amendable: 'deed amendable', control: 'foreign trustee or appointor', named: 'foreign named beneficiary', exemption: 'exemption sought' };
+const BUSINESS_DAY_PLACE_NAMES = { ...Object.fromEntries(Object.entries(PLACES).map(([code, name]) => [code.slice(3), name])),
+  any: 'Any state or territory' };
+Object.assign(INPUTS, {
+  companyTax: (i) => `Turnover ${dollars(i.turnover)}, passive income ${dollars(i.passive)} of ${dollars(i.assessable)}, taxable income `
+    + `${dollars(i.taxable)}; ${i.existed ? `last year turnover ${dollars(i.prior.turnover)}, passive income ${dollars(i.prior.passive)} of `
+    + `${dollars(i.prior.assessable)}` : 'no previous year'}; dividend ${dollars(i.dividend)} franked ${i.franking}%, marginal rate ${i.marginal}%`,
+  foreignSurcharge: (b, p) => {
+    const interests = `foreign ${b.largest}% largest and ${b.combined}% together${b.absentee === '0' ? '' : `, absentee ${b.absentee}%`}`;
+    const who = { individual: `individual, ${SURCHARGE_STATUS[b.status]}, ${b.daysBefore} and ${b.daysDecember} days in Australia`,
+      company: `company${b.overseas ? ' incorporated overseas' : ''}, ${interests}`, trust: `fixed trust, ${interests}`,
+      smsf: `SMSF, ${interests}`, discretionary: `discretionary trust, ${b.capital}% of capital and ${b.defaults}% in default to foreign persons` }[b.type];
+    const answers = Object.entries(SURCHARGE_ANSWERS).filter(([flag]) => b[flag]).map(([, text]) => `, ${text}`).join('');
+    return `${PLACES[p.place]}, ${who}${answers}; ${p.use} property ${dollars(p.value)}${p.share === p.value ? '' : `, share ${dollars(p.share)}`}, `
+      + `land ${dollars(p.land)}`;
+  },
+  businessDays: (q) => `${BUSINESS_DAY_PLACE_NAMES[q.place]}, ${q.mode === 'count' ? `${longDay(q.start)} to ${longDay(q.end)}`
+    : `${q.count} business ${q.count === '1' ? 'day' : 'days'} ${q.mode === 'add' ? 'after' : 'before'} ${longDay(q.start)}`}`,
+});
+Object.assign(FORM_CALLS, {
+  companyTax: (f) => [{ turnover: f.turnover, assessable: f.assessable, passive: f.passive, taxable: f.taxable, existed: f.existed === 'yes',
+    prior: { turnover: f['prior-turnover'], assessable: f['prior-assessable'], passive: f['prior-passive'] }, dividend: f.dividend,
+    franking: f.franking, marginal: f.marginal }],
+  foreignSurcharge: (f) => [{ type: f.buyer, status: f.status, daysBefore: f['days-before'], daysDecember: f['days-december'],
+    ...Object.fromEntries(Object.keys(SURCHARGE_ANSWERS).map((flag) => [flag, f[flag.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)] === 'yes'])),
+    overseas: f.overseas === 'yes', largest: f.largest, combined: f.combined, absentee: f.absentee, capital: f.capital, defaults: f.defaults },
+  { place: f.jurisdiction, use: f.use, value: f.value, share: f.share, land: f.land }],
+  businessDays: (f) => [{ mode: f.mode, place: f.place, start: f.start, end: f.end, count: f.count }],
+});
+Object.assign(ENGINE_LABELS, {
+  companyTax: { rate: (v) => `tax rate ${v}%`, tax: 'tax', imputationRate: (v) => `franking rate ${v}%`, maximum: 'maximum franking credit',
+    credit: 'franking credit', net: (v) => (v < 0 ? `refund ${dollars(-v)}` : `tax left to pay ${dollars(v)}`) },
+  foreignSurcharge: { dutyRate: (v) => (v === null ? 'no duty surcharge' : `duty surcharge rate ${v}%`), duty: 'duty surcharge',
+    land: 'land tax surcharge' },
+  businessDays: { days: (v) => `${v} business ${v === 1 ? 'day' : 'days'}`, date: (v) => `date ${longDay(v)}` },
+});
+const businessDayRows = JSON.parse(readFileSync(new URL('../_data/payday_super_business_days.json', import.meta.url), 'utf8')).non_business_days;
+const businessDayHolidays = calculations.parseHolidays(JSON.stringify(businessDayRows));
+
+test('the company tax law is the Income Tax Rates Act’s, and the page states it', () => {
+  assert.deepEqual(COMPANY_TAX_LAW, { threshold: '50000000', passiveLimit: '80', baseRate: '25', rate: '30' });
+  const html = readFileSync(new URL('../_includes/calculators/company-tax.html', import.meta.url), 'utf8');
+  assert.match(html, /25% for a base rate entity and 30% otherwise, where a base rate entity has no more than 80% of its assessable income as base rate entity passive income and aggregated turnover of less than \$50 million/);
+  assert.match(html, /Compilation No\. 66, 1 July 2026/);
+});
+
+// ATO, Allocating franking credits, example 2, read 18 November 2026: Dillmore Manufacture franks
+// a $100,000 distribution at 30% and shows '$42,857.75' from a gross-up rate rounded to 2.3333.
+// Section 202-60 gives $100,000 x 30/70 = $42,857.142857..., so the exact credit is $42,857.14.
+test('a franking credit never exceeds the section 202-60 maximum, which is exact to the cent', () => {
+  const dillmore = calculations.companyTax({ turnover: '45000000', assessable: '45000000', passive: '0', taxable: '0', existed: true,
+    prior: { turnover: '52000000', assessable: '52000000', passive: '0' }, dividend: '100000', franking: '100', marginal: '0' });
+  assert.deepEqual([dillmore.rate, dillmore.imputationRate, dillmore.maximum], [25, 30, 42857.14]);
+  let seed = 20261118;
+  const next = () => (seed = (seed * 1103515245 + 12345) % 2147483648);
+  const year = { turnover: '1', assessable: '1', passive: '0' };
+  for (let i = 0; i < 500; i += 1) {
+    const dividend = (next() / 100).toFixed(2);
+    const franking = (next() % 10001 / 100).toFixed(2);
+    for (const prior of [year, { ...year, turnover: '50000000' }]) {
+      const r = calculations.companyTax({ ...year, taxable: '0', existed: true, prior, dividend, franking, marginal: '0' });
+      // Whole cents: the maximum is the exact figure rounded down, and the credit is no more than it.
+      const exact = Number(dividend) * 100 * r.imputationRate / (100 - r.imputationRate);
+      assert.equal(Math.round(r.maximum * 100), Math.floor(exact + 1e-6), `${dividend}`);
+      assert.ok(r.credit <= r.maximum, `${dividend} ${franking}`);
+      assert.equal(r.net, -r.credit);
+    }
+  }
+});
+
+test('company tax refuses an unanswered question and figures it cannot work', () => {
+  const happy = { turnover: '104000', assessable: '104000', passive: '4000' };
+  const input = { ...happy, taxable: '104000', existed: true, prior: happy, dividend: '30000', franking: '100', marginal: '30' };
+  assert.throws(() => calculations.companyTax({ ...input, existed: 'yes' }), { message: 'Say whether the company existed in the previous income year.' });
+  assert.throws(() => calculations.companyTax({ ...input, prior: { ...happy, passive: '104000.01' } }),
+    { message: 'Base rate entity passive income cannot be more than assessable income.' });
+  for (const field of ['franking', 'marginal']) assert.throws(() => calculations.companyTax({ ...input, [field]: '100.01' }), field);
+  for (const field of ['taxable', 'dividend']) assert.throws(() => calculations.companyTax({ ...input, [field]: '-0.01' }), field);
+  assert.throws(() => calculations.companyTax({ ...input, dividend: '1.001' }), { message: 'Enter a number with no more than 2 decimal places.' });
+  // A company that did not exist last year ignores last year's figures, however malformed.
+  assert.equal(calculations.companyTax({ ...input, existed: false, prior: { turnover: '', assessable: '', passive: '' } }).imputation, 'new');
+});
+
+test('each foreign owner land tax surcharge scale is the land tax calculator’s', () => {
+  for (const [code, law] of Object.entries(FOREIGN_SURCHARGES)) {
+    assert.equal(law.land, landTaxPlaces[code]?.data.surcharge, code);
+    assert.equal(law.trustLand, landTaxPlaces[code]?.data.trustSurcharge, code);
+    assert.equal(law.name, PLACES[code]);
+  }
+});
+
+const noAnswers = { type: 'individual', status: 'other', daysBefore: '0', daysDecember: '0', nzResident: false, resides: false, absent: false,
+  home: false, overseas: false, largest: '0', combined: '0', absentee: '0', capital: '0', amendable: false, control: false, named: false, defaults: '0',
+  exemption: false };
+const surcharge = (buyer, place, use = 'residential') => calculations.foreignSurcharge({ ...noAnswers, ...buyer },
+  { place, use, value: '1000000', share: '1000000', land: '1000000' });
+
+// Each jurisdiction's test of a discretionary trust, as its revenue office states it (sources on the page).
+test('each jurisdiction tests a discretionary trust its own way', () => {
+  const trust = (answers) => ({ type: 'discretionary', ...answers });
+  for (const [place, answers, foreign] of [
+    ['AU-NSW', {}, false], ['AU-NSW', { capital: '0.01' }, true], ['AU-NSW', { amendable: true }, true],
+    ['AU-VIC', { capital: '50' }, false], ['AU-VIC', { capital: '50.01' }, true],
+    ['AU-QLD', { defaults: '49.99', capital: '100' }, false], ['AU-QLD', { defaults: '50' }, true],
+    ['AU-WA', { defaults: '49.99' }, false], ['AU-WA', { control: true }, true], ['AU-WA', { defaults: '50' }, true],
+    ['AU-SA', { capital: '100' }, false], ['AU-SA', { defaults: '0.01' }, true], ['AU-SA', { named: true }, true], ['AU-SA', { control: true }, true],
+    ['AU-TAS', { capital: '49.99', defaults: '100' }, false], ['AU-TAS', { capital: '50' }, true]]) {
+    assert.equal(surcharge(trust(answers), place).duty > 0, foreign, `${place} ${JSON.stringify(answers)}`);
+  }
+  // Victoria's land tax looks at named beneficiaries; the ACT's at a named person's most possible share.
+  assert.equal(surcharge(trust({ capital: '100' }), 'AU-VIC').land, 0);
+  assert.equal(surcharge(trust({ named: true }), 'AU-VIC').land, 40000);
+  assert.equal(surcharge(trust({ capital: '100' }), 'AU-ACT').land, 0);
+  assert.equal(surcharge(trust({ named: true, capital: '49.99' }), 'AU-ACT').land, 0);
+  assert.equal(surcharge(trust({ named: true, capital: '50' }), 'AU-ACT').land, 7500);
+});
+
+test('each jurisdiction tests an individual, a company and a super fund its own way', () => {
+  // Victoria: a New Zealand citizen is foreign for duty unless resident 6 months; a complying fund never pays the absentee surcharge.
+  assert.equal(surcharge({ status: 'nz' }, 'AU-VIC').duty, 80000);
+  assert.equal(surcharge({ status: 'nz', nzResident: true }, 'AU-VIC').duty, 0);
+  assert.equal(surcharge({ type: 'smsf', largest: '100', combined: '100', absentee: '100' }, 'AU-VIC').land, 0);
+  assert.equal(surcharge({ type: 'smsf', largest: '100', combined: '100' }, 'AU-VIC').duty, 80000);
+  // Victoria's absentee owner surcharge starts at $25,000 of land for a trust and $50,000 for anyone else.
+  const vicLand = (buyer) => calculations.foreignSurcharge({ ...noAnswers, ...buyer },
+    { place: 'AU-VIC', use: 'residential', value: '40000', share: '40000', land: '40000' }).land;
+  assert.deepEqual([vicLand({ type: 'trust', largest: '100', combined: '100', absentee: '100' }), vicLand({ absent: true })], [1600, 0]);
+  // SRO Victoria, Absentee fixed trusts, example 1 (read 18 November 2026): Clara, an absentee, holds half of the
+  // ABC Fixed Trust's $1 million of land, so the surcharge is $500,000 x 4% = $20,000.
+  assert.equal(surcharge({ type: 'trust', largest: '50', combined: '50', absentee: '50' }, 'AU-VIC').land, 20000);
+  // Victoria's land tax counts absentee interests, not foreign ones: foreign owners who live here are no absentees.
+  const resident = (type) => surcharge({ type, largest: '60', combined: '60', absentee: '0' }, 'AU-VIC');
+  assert.deepEqual([resident('company').duty, resident('company').land, resident('trust').duty, resident('trust').land], [80000, 0, 80000, 0]);
+  assert.equal(surcharge({ type: 'company', largest: '0', combined: '0', absentee: '50.01' }, 'AU-VIC').land, 40000);
+  // A fixed trust wholly foreign held, a quarter for absentees, pays on that quarter of the land.
+  assert.equal(surcharge({ type: 'trust', largest: '100', combined: '100', absentee: '25' }, 'AU-VIC').land, 10000);
+  // Queensland's land tax surcharge on an individual is the absentee test, on 30 June.
+  assert.equal(surcharge({ absent: false }, 'AU-QLD').land, 0);
+  assert.equal(surcharge({ absent: true }, 'AU-QLD').land, 19500);
+  assert.equal(surcharge({ absent: true, resides: true }, 'AU-QLD').land, 0);
+  // A company: 50% or more in Queensland, more than 50% in Victoria, 20% for one person in NSW.
+  const company = (combined, largest = combined) => ({ type: 'company', largest, combined });
+  assert.deepEqual(['AU-NSW', 'AU-VIC', 'AU-QLD'].map((place) => surcharge(company('50'), place).duty > 0), [true, false, true]);
+  assert.deepEqual(['AU-NSW', 'AU-VIC', 'AU-QLD'].map((place) => surcharge(company('39.99', '19.99'), place).duty > 0), [false, false, false]);
+  assert.equal(surcharge(company('40', '10'), 'AU-NSW').duty, 90000);
+  // Western Australia and South Australia levy no land tax surcharge; the Northern Territory neither surcharge.
+  assert.deepEqual(['AU-WA', 'AU-SA', 'AU-NT'].map((place) => surcharge({}, place).land), [0, 0, 0]);
+  assert.equal(surcharge({}, 'AU-NT').landTest, 'The Northern Territory charges no foreign owner land tax surcharge, and no land tax');
+  assert.equal(surcharge({}, 'AU-ACT').dutyTest, 'The Australian Capital Territory charges no foreign purchaser duty');
+  assert.equal(surcharge({}, 'AU-NSW', 'primary').dutyTest, 'No surcharge: New South Wales charges it on residential property only');
+});
+
+test('foreign surcharges refuse what each Commissioner decides and answers they cannot use', () => {
+  const purchase = { place: 'AU-NSW', use: 'residential', value: '1000000', share: '1000000', land: '1000000' };
+  for (const [buyer, change, message] of [
+    [{ nzResident: 'no' }, {}, 'Answer each yes or no question.'],
+    [{ largest: '30', combined: '20' }, {}, 'The largest foreign interest cannot be more than all foreign interests together.'],
+    [{}, { share: '1000001' }, 'The buyer’s share cannot be worth more than the whole property.'],
+    [{}, { place: 'AU' }, 'Choose a state or territory.'], [{}, { use: 'farm' }, 'Choose what the property is used for.'],
+    [{ type: 'partnership' }, {}, 'Choose who is buying.'], [{ status: 'resident' }, {}, 'Choose the individual’s citizenship or visa.']]) {
+    assert.throws(() => calculations.foreignSurcharge({ ...noAnswers, ...buyer }, { ...purchase, ...change }), { message }, message);
+  }
+  for (const days of ['367', '-1', '200.5']) assert.throws(() => surcharge({ daysBefore: days }, 'AU-NSW'), days);
+  // A partner visa is refused only for an individual: a company's status answer is not used.
+  assert.equal(surcharge({ type: 'company', status: 'partner' }, 'AU-NSW').duty, 0);
+});
+
+test('provisional public holidays fall outside the business days coverage, and the state-only days are not in the table', () => {
+  const { until, ...shorter } = BUSINESS_DAYS_COVERAGE;
+  const provisional = businessDayRows.filter((row) => row.provisional);
+  assert.ok(provisional.length > 0);
+  for (const row of provisional) {
+    assert.ok(row.date > shorter.any, row.date);
+    for (const place of row.jurisdictions) assert.ok(row.date > (shorter[place] ?? until), `${row.date} ${place}`);
+  }
+  for (const { date, jurisdictions } of STATE_ONLY_HOLIDAYS) {
+    assert.ok(!businessDayRows.some((row) => row.date === date && row.jurisdictions.some((place) => jurisdictions.includes(place))), date);
+  }
+  assert.deepEqual(businessDayHolidays.map(({ date }) => date), businessDayRows.filter((row) => !row.provisional).map(({ date }) => date));
+  assert.deepEqual(Object.keys(BUSINESS_DAY_PLACES), [...new Set(businessDayRows.flatMap(({ jurisdictions }) => jurisdictions))].sort());
+});
+
+test('business days refuse an unusable table, an impossible date and a count they cannot work', () => {
+  for (const text of ['{}', '[{"date":"2026-1-1","name":"x","jurisdictions":[],"provisional":false}]', '[{"date":"2026-01-01"}]']) {
+    assert.throws(() => calculations.parseHolidays(text), { message: 'The public holiday table is not usable.' }, text);
+  }
+  const days = (question) => calculations.businessDays({ mode: 'count', place: 'NSW', start: '2026-11-18', end: '2026-11-18', count: '1',
+    ...question }, businessDayHolidays);
+  assert.throws(() => days({ start: '2026-02-29' }), { message: 'Enter the start date as a date.' });
+  assert.throws(() => days({ end: '18/11/2026' }), { message: 'Enter the end date as a date.' });
+  assert.throws(() => days({ mode: 'add', count: '0' }));
+  assert.throws(() => days({ mode: 'add', count: '1.5' }));
+  assert.throws(() => days({ place: 'AU-NSW' }), { message: 'Choose a state or territory.' });
+  assert.throws(() => days({ mode: 'sum' }), { message: 'Choose what to work out.' });
+  assert.throws(() => days({ start: '2025-12-31' }), { message: /^This page has public holidays from 1 January 2026 to 31 December 2027/ });
+  // Melbourne Cup Day is not a holiday throughout Victoria in the table, so 'any' does not skip it.
+  assert.equal(days({ place: 'any', start: '2026-11-02', end: '2026-11-04' }).days, 2);
+  // The last covered day counts, and a count back stops at the first covered day.
+  assert.equal(days({ start: '2027-12-30', end: '2027-12-31' }).days, 1);
+  assert.equal(days({ mode: 'subtract', start: '2026-01-05', count: '1' }).date, '2026-01-02');
+  assert.throws(() => days({ mode: 'subtract', start: '2026-01-02', count: '1' }));
+  // A count and its reverse agree, and the holidays skipped are listed in date order either way.
+  const on = days({ mode: 'add', start: '2026-12-21', count: '10' });
+  assert.equal(days({ end: on.date, start: '2026-12-21' }).days, 10);
+  assert.equal(days({ mode: 'subtract', start: on.date, count: '10' }).date, '2026-12-21');
+  assert.deepEqual(on.skipped.map(({ date }) => date), ['2026-12-25', '2026-12-28', '2027-01-01']);
+  assert.deepEqual(days({ mode: 'subtract', start: on.date, count: '10' }).skipped.map(({ date }) => date), ['2026-12-25', '2026-12-28', '2027-01-01']);
+});
+
+test('the company tax, foreign surcharge and business days pages open on the result their calculations give', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const example = (page) => calculatorInclude(page).match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/).slice(1);
+  const shown = (result) => [result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note];
+  const opening = (page) => FORM_CALLS[shownCases[page].function](formDefaults(calculatorInclude(page)))[0];
+  assert.deepEqual(shown(calculations.companyTaxResult(opening('company-tax'), aud)), example('company-tax'));
+  const [buyer, purchase] = FORM_CALLS.foreignSurcharge(formDefaults(calculatorInclude('foreign-surcharge')));
+  assert.deepEqual(shown(calculations.foreignSurchargeResult(buyer, purchase,
+    transferDuty(purchase.value, transferDutyScales[purchase.place]).duty, aud)), example('foreign-surcharge'));
+  assert.deepEqual(shown(calculations.businessDaysResult(opening('business-days'), businessDayHolidays)), example('business-days'));
 });
 
 // The SGC and Payday Super page: how each call and result reads.

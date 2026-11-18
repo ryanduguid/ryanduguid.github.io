@@ -42,7 +42,7 @@ Western Australia charges its metropolitan region improvement tax of 0.14% of th
 
 ## What the land tax calculator does not compute
 
-The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is. These are not computed:
+The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is; the foreign purchaser surcharge calculator applies each jurisdiction’s test of a foreign or absentee owner. These are not computed:
 
 - New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
 - Victoria: exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
@@ -87,7 +87,7 @@ The ACT’s foreign ownership surcharge, worked by hand | Australian Capital Ter
 Western Australia has no trust rates here | Western Australia, trust rates, $1,500,000.00 | Refused: this calculator has no trust rates for Western Australia
 Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole number between 0 and 1000000000
 
-One of the twenty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -95,6 +95,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 - exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
 - exemptions from surcharge land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/surcharge-land-tax
 - exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
@@ -108,4 +109,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
 - land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
-- twenty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/

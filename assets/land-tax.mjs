@@ -14,7 +14,7 @@ const LAND_TAX_RULES = ['excess', 'excess-rounded-up-to-100'];
  * `fixed` is a charge added at every value, as the ACT adds its fixed charge to the valuation
  * charge. A fraction of a cent rounds half up.
  * @param {number} dollars @param {string | undefined} text @param {string} [fixed] */
-function landTaxCents(dollars, text, fixed = '0') {
+export function landTaxCents(dollars, text, fixed = '0') {
   const scale = (text ?? '').split(';').map((row) => row.split(','));
   const whole = (/** @type {string} */ value) => /^\d+$/.test(value);
   const usable = scale.every((row, index) => {

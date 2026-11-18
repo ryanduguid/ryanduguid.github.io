@@ -92,6 +92,7 @@ Under Division 203, a company must frank all distributions in a franking period 
 
 ## Related
 
+- Company tax and franking calculator
 - Division 7A benchmark interest rate
 - Is this trust distribution in the section 100A green zone
 - How a business compares to the ATO benchmarks
@@ -112,6 +113,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - contact page: https://duguid.com.au/contact/
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - uv installed: https://docs.astral.sh/uv/
+- Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/

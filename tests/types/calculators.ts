@@ -181,6 +181,31 @@ calculate.pcgAllocation({ ...allocation, recipients: [{ kind: 'individual', firm
 // @ts-expect-error The year's company rates come from the form as decimal strings.
 calculate.pcgAllocation(allocation, { ...allocationYear, baseRate: 25 });
 void counted;
+const companyYear = { turnover: '104000', assessable: '104000', passive: '4000' };
+const companyInput = { ...companyYear, taxable: '104000', existed: true, prior: companyYear, dividend: '30000', franking: '100', marginal: '30' };
+const companyNet: number = calculate.companyTax(companyInput).net;
+// @ts-expect-error Whether the company existed is a boolean, not the form's 'yes'.
+calculate.companyTax({ ...companyInput, existed: 'yes' });
+// @ts-expect-error The base rate entity test names its reason; the rate is a number.
+const companyReason: number = calculate.companyTax(companyInput).entity;
+void companyNet;
+void companyReason;
+const surchargeBuyer = { type: 'individual' as const, status: 'other' as const, daysBefore: '0', daysDecember: '0', nzResident: false,
+  resides: false, absent: false, home: false, overseas: false, largest: '0', combined: '0', absentee: '0', capital: '0', amendable: false, control: false,
+  named: false, defaults: '0', exemption: false };
+const surchargePurchase = { place: 'AU-NSW', use: 'residential' as const, value: '1000000', share: '1000000', land: '1200000' };
+const surchargeDuty: number = calculate.foreignSurcharge(surchargeBuyer, surchargePurchase).duty;
+// @ts-expect-error Values are whole-dollar strings, as the form passes them.
+calculate.foreignSurcharge(surchargeBuyer, { ...surchargePurchase, value: 1000000 });
+// @ts-expect-error A buyer is one of the 5 kinds the page offers.
+calculate.foreignSurcharge({ ...surchargeBuyer, type: 'partnership' }, surchargePurchase);
+void surchargeDuty;
+const holidays = calculate.parseHolidays('[]');
+const businessDayCount: number = calculate.businessDays({ mode: 'count', place: 'NSW', start: '2026-12-21', end: '2027-01-04', count: '10' },
+  holidays).days;
+// @ts-expect-error The mode is count, add or subtract.
+calculate.businessDays({ mode: 'sum', place: 'NSW', start: '2026-12-21', end: '2027-01-04', count: '10' }, holidays);
+void businessDayCount;
 const sgcPay = { payday: '2026-07-30', timing: 'standard', nextPayday: '2026-07-30', determination: '2026-07-30', earnings: '1000',
   earlier: '0', onTime: '0', late: '120', received: '2026-08-25', assessment: '2026-12-01', assessed: 'no', disclosure: 'none',
   lodged: '2026-07-30', assumedRate: '11.51' } as const;

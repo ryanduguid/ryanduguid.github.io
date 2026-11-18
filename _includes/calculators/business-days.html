@@ -1,0 +1,36 @@
+<section class="business-calculator" id="business-days">
+<form class="calculator-split" data-calculator="business-days" data-holidays="{{ site.data.payday_super_business_days.non_business_days | jsonify | escape }}">
+<fieldset disabled><legend>Business days inputs, 2026 and 2027</legend><div class="form-grid"><fieldset class="field"><legend>Work out</legend>
+<label><input type="radio" name="mode" value="count" checked /> Business days between 2 dates</label>
+<label><input type="radio" name="mode" value="add" /> The date a number of business days after the start</label>
+<label><input type="radio" name="mode" value="subtract" /> The date a number of business days before the start</label></fieldset>
+<fieldset class="field"><legend>Public holidays of</legend>
+<label><input type="radio" name="place" value="ACT" /> Australian Capital Territory</label>
+<label><input type="radio" name="place" value="NSW" checked /> New South Wales</label>
+<label><input type="radio" name="place" value="NT" /> Northern Territory</label>
+<label><input type="radio" name="place" value="QLD" /> Queensland</label>
+<label><input type="radio" name="place" value="SA" /> South Australia</label>
+<label><input type="radio" name="place" value="TAS" /> Tasmania</label>
+<label><input type="radio" name="place" value="VIC" /> Victoria</label>
+<label><input type="radio" name="place" value="WA" /> Western Australia</label>
+<label><input type="radio" name="place" value="any" /> Any state or territory: skip a holiday that applies throughout any of them</label></fieldset>
+<label class="field" for="business-days-start">Start date<input id="business-days-start" name="start" type="date" min="2026-01-01" max="2027-12-31" value="2026-12-21" required /></label>
+<label class="field" for="business-days-end">End date, to count between 2 dates<input id="business-days-end" name="end" type="date" min="2026-01-01" max="2027-12-31" value="2027-01-04" required /></label>
+<label class="field" for="business-days-count">Number of business days, to find a date<input id="business-days-count" name="count" type="number" inputmode="numeric" min="1" max="500" step="1" value="10" required /></label>
+</div>
+<p class="field-note">The count starts the day after the start date and includes the end date. Dates run from 1 January 2026 to 31 December 2027, and to 31 August 2027 for Victoria and for any state or territory.</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+{% include calculator-example.html inputs="New South Wales, start 21 December 2026, end 4 January 2027" rows="Business days after the start, to and including the end|7;Weekday public holidays skipped|25 December 2026 (Christmas Day), 28 December 2026 (Boxing Day / Boxing Day (observed) / Proclamation Day (observed)), 1 January 2027 (New Year's Day)" principal="0" note="Part-day and regional holidays count as business days; where a local day replaces Melbourne Cup Day or the WA King’s Birthday, the state date is still skipped" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>Public holidays: this site’s <a href="/tools/payday-super/business-days/">business days table</a>, each public holiday that applies throughout a state or territory in 2026 and 2027, checked against each government’s page, read 18 November 2026: <a href="https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving">ACT</a>, <a href="https://www.nsw.gov.au/about-nsw/public-holidays">New South Wales</a>, <a href="https://nt.gov.au/nt-public-holidays">Northern Territory</a>, <a href="https://www.qld.gov.au/recreation/travel/holidays/public">Queensland</a>, <a href="https://safework.sa.gov.au/resources/public-holidays">South Australia</a>, <a href="https://worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays">Tasmania</a>, Victoria (<a href="https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026">2026</a> and <a href="https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027">2027</a>) and <a href="https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia">Western Australia</a>.</li>
+<li>For one state only, also skipped: Melbourne Cup Day, 3 November 2026, which Business Victoria lists for all of Victoria unless a non-metropolitan council arranges a local holiday; and Western Australia’s King’s Birthday, 28 September 2026 and 27 September 2027, from the WA Government’s page (last updated 5 November 2026), where some regional areas hold it on another date.</li>
+<li>Coverage: Victoria’s Friday before the 2027 AFL Grand Final is ‘subject to AFL schedule’, so Victoria and any state or territory stop at 31 August 2027; dates after 31 December 2027 are refused.</li>
+<li>Supplied by you: what to work out, the state or territory, the dates and the number of business days.</li>
+</ul>
+</div>
+</form>
+<h2>How the business days calculator works</h2><p>The calculator skips Saturdays, Sundays and the public holidays of the state or territory you choose, using each government’s published dates for 2026 and 2027. Between 2 dates, it counts the business days after the start date up to and including the end date, so a Friday to the next Monday is 1. Forward or back, it finds the date that is that many business days after or before the start, and lists each weekday holiday it skipped.</p><p>‘Any state or territory’ skips a day that is a public holiday throughout any one of them, as the site’s Payday Super business days table counts them, and leaves out Melbourne Cup Day and the WA King’s Birthday because neither applies throughout its state.</p>
+<h2>What the business days calculator does not cover</h2><p>Part-day holidays, such as the evenings of Christmas Eve and New Year’s Eve in South Australia and the Northern Territory, count as business days. So do regional holidays, among them the Royal Queensland Show in Brisbane, Tasmania’s Royal Hobart Regatta and Recreation Day, and show days, and days off for one group only, such as Tasmania’s Easter Tuesday for the public service. A council or region’s local substitute for Melbourne Cup Day or the WA King’s Birthday is not applied: the state date is still skipped.</p><p>The calculator does not decide whether a law counts business days, clear days or calendar days, or which state’s holidays apply. Dates after 31 December 2027 are refused until the governments confirm the following year, and Victorian dates after 31 August 2027 until the AFL schedules its Grand Final. The calculator does not work out a superannuation guarantee or Payday Super due date.</p>
+</section>

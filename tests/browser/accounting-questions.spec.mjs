@@ -871,11 +871,92 @@ test('transfer duty takes a first home buyer chosen by keyboard and says where t
     'Duty for an eligible first home buyer: none for this home, so general duty applies.');
 });
 
+// ATO, Allocating franking credits, example 2: Dillmore Manufacture's $52 million year sets a 30% rate
+// for franking a $100,000 distribution, whatever this year's 25% rate; the exact credit is $42,857.14.
+test('company tax and franking works Dillmore Manufacture offline and refuses impossible passive income', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/company-tax/');
+  const form = page.locator('#company-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  for (const [label, amount] of [['Aggregated turnover for the year (AUD)', '45000000'],
+    ['Assessable income for the year (AUD)', '45000000'], ['Base rate entity passive income in it, franking credits included (AUD)', '0'],
+    ['Taxable income for the year (AUD)', '4500000'], ['Previous year’s aggregated turnover (AUD)', '52000000'],
+    ['Previous year’s assessable income (AUD)', '52000000'], ['Previous year’s base rate entity passive income (AUD)', '0'],
+    ['Dividend paid this year (AUD)', '100000'], ['Shareholder’s marginal tax rate, with any Medicare levy (%)', '45']]) {
+    await form.getByLabel(label, { exact: true }).fill(amount);
+  }
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const output = form.locator('output');
+  await expect(output).toContainText('Company tax rate: 25%: A base rate entity (section 23AA), with passive income 0.00% of assessable income.');
+  await expect(output).toContainText('Corporate tax rate for imputation purposes: 30%: Not a base rate entity: aggregated turnover is not under');
+  await expect(output).toContainText('Maximum franking credit on the dividend: $42,857.14.');
+  await expect(output).toContainText('Tax left to pay on the dividend: $21,428.57.');
+  await form.getByRole('group', { name: 'Did the company exist in the previous income year?' }).getByLabel('No').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('Maximum franking credit on the dividend: $33,333.33.');
+  await form.getByLabel('Base rate entity passive income in it, franking credits included (AUD)', { exact: true }).fill('45000000.01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText('Base rate entity passive income cannot be more than assessable income.');
+});
+
+// SRO Victoria's Clara: a fixed trust holding $1,000,000 of land, half for absentee beneficiaries, pays
+// $20,000 of absentee owner surcharge; at 50% foreign it is not a foreign purchaser for duty.
+test('foreign purchaser surcharges work SRO Victoria’s fixed trust offline and refuse an exemption', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/foreign-surcharge/');
+  const form = page.locator('#foreign-surcharge form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('Victoria', { exact: true }).check();
+  await form.getByLabel('The trustee of a fixed or unit trust', { exact: true }).check();
+  await form.getByLabel('Land value for land tax: all the buyer’s taxable land in the state or territory, their share only (whole dollars)',
+    { exact: true }).fill('1000000');
+  await form.getByLabel('Company, trust or fund: largest interest held by one foreign person with associates (%)', { exact: true }).fill('50');
+  await form.getByLabel('Company, trust or fund: interests of all foreign persons together, with associates (%)', { exact: true }).fill('50');
+  await form.getByLabel('Victorian land tax, company or fixed trust: interests of absentee persons together, with associates (%)', { exact: true })
+    .fill('50');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const output = form.locator('output');
+  await expect(output).toContainText('Foreign purchaser duty surcharge at 8% of the buyer’s share: $0.00.');
+  await expect(output).toContainText('Land tax surcharge for a full year: $20,000.00.');
+  await form.getByLabel('Northern Territory', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('Duty surcharge test: The Northern Territory charges no foreign purchaser duty.');
+  await form.getByRole('group', { name: 'Is an exemption, refund or ex gratia relief from a surcharge being sought?' }).getByLabel('Yes').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText('Exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, '
+    + 'so this page does not work them out.');
+});
+
+// Business Victoria lists Melbourne Cup Day, Tuesday 3 November 2026, for all of Victoria; the WA
+// Government's page lists no such day, so the same dates give 1 business day in Victoria and 2 in WA.
+test('business days skip Melbourne Cup Day in Victoria offline and refuse a date past the coverage', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/business-days/');
+  const form = page.locator('#business-days form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('Victoria', { exact: true }).check();
+  await form.getByLabel('Start date', { exact: true }).fill('2026-11-02');
+  await form.getByLabel('End date, to count between 2 dates', { exact: true }).fill('2026-11-04');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const output = form.locator('output');
+  await expect(output).toContainText('Business days after the start, to and including the end: 1.');
+  await expect(output).toContainText('Weekday public holidays skipped: 3 November 2026 (Melbourne Cup Day).');
+  await form.getByLabel('Western Australia', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('Business days after the start, to and including the end: 2.');
+  await form.getByLabel('Victoria', { exact: true }).check();
+  await form.getByLabel('Start date', { exact: true }).fill('2027-09-01');
+  await form.getByLabel('End date, to count between 2 dates', { exact: true }).fill('2027-09-30');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText('This page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
-  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'sgc-payday'];
+  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

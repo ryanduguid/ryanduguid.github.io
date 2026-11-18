@@ -1,0 +1,68 @@
+# Company tax and franking credit calculator: base rate entity test
+
+Source: https://duguid.com.au/tools/business-calculators/company-tax/
+
+> Base rate entity test, 25% or 30% company tax, the corporate tax rate for imputation purposes, the maximum franking credit and a shareholder's top-up tax or refund.
+
+# Company tax and franking calculator
+
+A company’s 25% or 30% rate, its rate for franking, the maximum franking credit and a shareholder’s tax or refund.
+
+Published 18 November 2026. Last checked 18 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Company tax and franking inputs for one income year from 2021-22
+
+Aggregated turnover for the year (AUD) Assessable income for the year (AUD) Base rate entity passive income in it, franking credits included (AUD) Taxable income for the year (AUD) Did the company exist in the previous income year? Yes No Previous year’s aggregated turnover (AUD) Previous year’s assessable income (AUD) Previous year’s base rate entity passive income (AUD) Dividend paid this year (AUD) Franking percentage (%) Shareholder’s marginal tax rate, with any Medicare levy (%)
+
+Aggregated turnover includes that of connected entities and affiliates. The previous year’s figures set the rate for franking dividends; when the company did not exist then, they are not used. The shareholder is an Australian resident individual.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: this year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00, taxable income $104,000.00; previous year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00; dividend $30,000.00 franked at 100%, shareholder’s marginal rate 30%. Company tax rate: 25% A base rate entity (section 23AA), with passive income 3.85% of assessable income Tax on taxable income $26,000.00 Corporate tax rate for imputation purposes: 25% A base rate entity (section 23AA) Maximum franking credit on the dividend $10,000.00 Franking credit at 100% $10,000.00 Grossed-up dividend in the shareholder’s assessable income $40,000.00 Shareholder’s tax at 30% on it $12,000.00 Franking tax offset $10,000.00 Tax left to pay on the dividend $2,000.00 Franking credits round down to the cent, so the credit stated never exceeds the maximum (section 202-65).
+
+## How the company tax and franking calculator works
+
+The calculator applies the base rate entity test of section 23AA of the Income Tax Rates Act 1986 to this year’s figures: aggregated turnover under $50 million, and base rate entity passive income of no more than 80% of assessable income. A base rate entity pays 25% of its taxable income, and any other company 30% (subsection 23(2)).
+
+The rate for franking a dividend comes from a second test. Section 995-1 of the Income Tax Assessment Act 1997 runs the base rate entity test on the previous year’s turnover, passive income and assessable income, so a company can pay tax at 30% and frank at 25%, or the reverse; a company that did not exist in the previous year franks at 25%. The maximum franking credit is the dividend times 1 over the gross-up rate, which is 100% less that rate, over that rate (section 202-60): one third of the dividend at 25% and three sevenths at 30%. A credit above the maximum is taken to be the maximum (section 202-65).
+
+The shareholder includes the dividend and its franking credit in assessable income and gets a tax offset equal to the credit (section 207-20). Tax at the marginal rate you enter, less the offset, is the extra tax the dividend brings; where the offset is larger, an individual gets the excess refunded (section 67-25).
+
+The calculator reproduces the outcome of each ATO example: Happy Feet (3.8% passive income, 25%), Coffee and Cake (28.6%, 25%), Best Equity (100%, 30%), SoftDev (85%, 30%) and Hats 4 Cats ($170 million of aggregated turnover, 30%). For Dillmore Manufacture’s $100,000 dividend franked at 30% it gives $42,857.14, the exact credit; the ATO rounds the gross-up rate to 2.3333 and shows $42,857.75, which is more than the section 202-60 maximum.
+
+## What the company tax and franking calculator does not cover
+
+The calculator does not work out aggregated turnover, assessable income or base rate entity passive income: enter figures you have established, with the turnover of connected entities and affiliates included, as the ATO’s Hats 4 Cats example shows. Taxable income gives the tax before offsets, PAYG instalments and other credits.
+
+Not covered: the rates of RSA providers and pooled development funds (subsections 23(3) to (5)), life insurance companies (section 23A), not-for-profit companies and credit unions; corporate unit trusts and public trading trusts; and income years before 2021-22, when the base rate was 27.5% or 26%. A shareholder that is a company, trust, super fund or non-resident is outside its scope; a company shareholder cannot have excess franking credits refunded (section 67-25). Franking account balances, franking deficit tax, the benchmark rule and the holding period rule are not tested: the company tax and franking worksheets track the franking account and the benchmark rule. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Company tax and franking calculator
+
+Case | Inputs | Result
+Happy Feet’s income from the ATO’s example: 3.85% passive, so 25% | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $30,000.00 franked 100%, marginal rate 30% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $10,000.00, franking credit $10,000.00, tax left to pay $2,000.00
+Coffee and Cake’s income from the ATO’s example: 28.57% passive, so 25% | Turnover $700,000.00, passive income $200,000.00 of $700,000.00, taxable income $700,000.00; last year turnover $700,000.00, passive income $200,000.00 of $700,000.00; dividend $70,000.00 franked 100%, marginal rate 47% | Tax rate 25%, tax $175,000.00, franking rate 25%, maximum franking credit $23,333.33, franking credit $23,333.33, tax left to pay $20,533.34
+Best Equity’s income from the ATO’s example: all passive, so 30%, and a refund at a 0% marginal rate | Turnover $5,000,000.00, passive income $5,000,000.00 of $5,000,000.00, taxable income $5,000,000.00; last year turnover $5,000,000.00, passive income $5,000,000.00 of $5,000,000.00; dividend $100,000.00 franked 100%, marginal rate 0% | Tax rate 30%, tax $1,500,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, refund $42,857.14
+SoftDev’s income from the ATO’s example: 85% passive, so 30% | Turnover $1,000,000.00, passive income $850,000.00 of $1,000,000.00, taxable income $1,000,000.00; last year turnover $1,000,000.00, passive income $850,000.00 of $1,000,000.00; dividend $100,000.00 franked 100%, marginal rate 45% | Tax rate 30%, tax $300,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, tax left to pay $21,428.57
+Hats 4 Cats’ aggregated turnover from the ATO’s example: $170 million, so 30% | Turnover $170,000,000.00, passive income $0.00 of $20,000,000.00, taxable income $20,000,000.00; last year turnover $170,000,000.00, passive income $0.00 of $20,000,000.00; dividend $1,000,000.00 franked 100%, marginal rate 45% | Tax rate 30%, tax $6,000,000.00, franking rate 30%, maximum franking credit $428,571.42, franking credit $428,571.42, tax left to pay $214,285.72
+Dillmore Manufacture: taxed at 25% but franking at 30% after a $52 million year, the exact credit on $100,000 | Turnover $45,000,000.00, passive income $0.00 of $45,000,000.00, taxable income $4,500,000.00; last year turnover $52,000,000.00, passive income $0.00 of $52,000,000.00; dividend $100,000.00 franked 100%, marginal rate 45% | Tax rate 25%, tax $1,125,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, tax left to pay $21,428.57
+Exactly 80% passive income is still a base rate entity | Turnover $100,000.00, passive income $80,000.00 of $100,000.00, taxable income $100,000.00; last year turnover $100,000.00, passive income $80,000.00 of $100,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 25%, tax $25,000.00, franking rate 25%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
+One cent over 80% passive income is not | Turnover $100,000.00, passive income $80,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $100,000.00, passive income $80,000.01 of $100,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 30%, tax $30,000.00, franking rate 30%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
+Aggregated turnover of exactly $50 million is not under the threshold | Turnover $50,000,000.00, passive income $0.00 of $1,000,000.00, taxable income $1,000,000.00; last year turnover $49,999,999.99, passive income $0.00 of $1,000,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 30%, tax $300,000.00, franking rate 25%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
+A company new this year franks at 25% whatever its own year | Turnover $60,000,000.00, passive income $0.00 of $1,000,000.00, taxable income $1,000,000.00; no previous year; dividend $75,000.00 franked 50%, marginal rate 30% | Tax rate 30%, tax $300,000.00, franking rate 25%, maximum franking credit $25,000.00, franking credit $12,500.00, tax left to pay $13,750.00
+Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
+Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
+
+One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
+- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/

@@ -496,6 +496,29 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
+          case 'company-tax': {
+            const year = (prefix) => ({ turnover: value(`${prefix}turnover`), assessable: value(`${prefix}assessable`), passive: value(`${prefix}passive`) });
+            result = calculate.companyTaxResult({ ...year(''), taxable: value('taxable'), existed: value('existed') === 'yes', prior: year('prior-'),
+              dividend: value('dividend'), franking: value('franking'), marginal: value('marginal') }, aud);
+            break;
+          }
+          case 'foreign-surcharge': {
+            // The chosen jurisdiction's radio carries its general transfer duty scale, as the transfer duty page's does.
+            const place = form.querySelector('input[name="jurisdiction"]:checked');
+            const use = value('use');
+            const general = use === 'residential' ? calculate.transferDuty(value('value'), place.dataset.scale.split(';').map(row => row.split(','))).duty : null;
+            const yes = name => value(name) === 'yes';
+            result = calculate.foreignSurchargeResult({ type: value('buyer'), status: value('status'), daysBefore: value('days-before'),
+              daysDecember: value('days-december'), nzResident: yes('nz-resident'), resides: yes('resides'), absent: yes('absent'), home: yes('home'),
+              overseas: yes('overseas'), largest: value('largest'), combined: value('combined'), absentee: value('absentee'), capital: value('capital'), amendable: yes('amendable'),
+              control: yes('control'), named: yes('named'), defaults: value('defaults'), exemption: yes('exemption') },
+            { place: place.value, use, value: value('value'), share: value('share'), land: value('land') }, general, aud);
+            break;
+          }
+          case 'business-days':
+            result = calculate.businessDaysResult({ mode: value('mode'), place: value('place'), start: value('start'), end: value('end'),
+              count: value('count') }, calculate.parseHolidays(form.dataset.holidays));
+            break;
           default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
