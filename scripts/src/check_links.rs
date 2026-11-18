@@ -8,6 +8,11 @@
 //! included; other http(s) links must resolve, with bounded retries for transport
 //! failures, HTTP 429 and 5xx; hrefs must not be empty; retired names and em or en dashes
 //! must not appear; and no own-repository link may point at an archived repository.
+//! A source that refuses the checker (HTTP 403, or LinkedIn's 999) is reported as
+//! refused the runner, not failed: government and publisher sites refuse automated
+//! requests, GitHub's runners most of all, and the answer says nothing about the
+//! page. A 404, 410 or any other error still fails, as does a refused own-repository
+//! link.
 //! With `--transient-warnings`, links still failing with HTTP 429, 5xx or a timeout
 //! after their retries, and web.archive.org snapshots that fail with a transport
 //! error, are reported as warnings instead.
@@ -182,9 +187,10 @@ pub fn is_inconclusive(url: &str, error: &NetError) -> bool {
                 .is_some_and(|host| host == "web.archive.org"))
 }
 
-pub fn is_accepted_automation_denial(url: &str, status: u16) -> bool {
-    (status == 403 && HTTP_403_AUTOMATION_DENIAL_URLS.contains(&url))
-        || (status == 999 && LINKEDIN_AUTOMATION_DENIAL_URLS.contains(&url))
+/// Whether a status refuses the checker rather than answering for the page: HTTP 403,
+/// which bot checks and firewalls send, or LinkedIn's 999.
+pub fn refused_the_runner(status: u16) -> bool {
+    status == 403 || status == 999
 }
 
 /// Map an own-repository file view to its exact public file endpoint.
@@ -273,6 +279,8 @@ pub struct Checker<'a> {
     pub transient_warnings: bool,
     /// The transient link failures `transient_warnings` reported.
     pub warnings: Vec<String>,
+    /// The links whose source refused the checker (see [`refused_the_runner`]).
+    pub refusals: Vec<String>,
     /// Replace fetch_final_url, as the Python tests patch it.
     pub fetch_hook: Hook<'a, Fetched>,
     /// Replace repository_is_archived, as the Python tests patch it.
@@ -525,6 +533,7 @@ impl<'a> Checker<'a> {
             token: None,
             transient_warnings: false,
             warnings: Vec::new(),
+            refusals: Vec::new(),
             fetch_hook: None,
             lookup_hook: None,
             archived_allowlist: ARCHIVED_TARGET_ALLOWLIST
@@ -872,13 +881,7 @@ impl<'a> Checker<'a> {
                     continue;
                 }
                 Err(NetError::Http { code, .. }) => {
-                    if is_accepted_automation_denial(href, code) {
-                        self.say(&format!(
-                            "accepted allow-listed failure {rel}: {href} -> HTTP {code} (exact allow-listed URL)"
-                        ));
-                    } else {
-                        failures.push(format!("{rel}: {href} -> HTTP {code}"));
-                    }
+                    self.http_failure(rel, href, code, &mut failures);
                     continue;
                 }
                 Err(error) => {
@@ -887,7 +890,7 @@ impl<'a> Checker<'a> {
                 }
             };
             if status >= 400 {
-                failures.push(format!("{rel}: {href} -> HTTP {status}"));
+                self.http_failure(rel, href, status, &mut failures);
                 continue;
             }
             if let Some(name) = own_repository(href) {
@@ -924,6 +927,18 @@ impl<'a> Checker<'a> {
             seen.len()
         ));
         Ok(failures)
+    }
+
+    /// A link answered with an HTTP error: a refusal of the checker is reported, and
+    /// any other error, or any error for an own repository, fails.
+    fn http_failure(&mut self, rel: &str, href: &str, status: u16, failures: &mut Vec<String>) {
+        let line = format!("{rel}: {href} -> HTTP {status}");
+        if refused_the_runner(status) && own_repository(href).is_none() {
+            self.say(&format!("refused the runner {line}"));
+            self.refusals.push(line);
+        } else {
+            failures.push(line);
+        }
     }
 
     /// Every check against one HTML file.
@@ -1118,6 +1133,21 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let llms = llms_hrefs(&root)?;
     failures.extend(checker.check_hrefs("llms.txt", &llms, offline)?);
     let mut text = String::new();
+    if !checker.refusals.is_empty() {
+        text.push_str(&format!(
+            "\n{} source(s) refused the runner; check each in a browser:\n",
+            checker.refusals.len()
+        ));
+        for refusal in &checker.refusals {
+            text.push_str(&format!("  REFUSED {refusal}\n"));
+            if checker.actions {
+                text.push_str(&format!(
+                    "::warning title=Refused the runner::{}\n",
+                    annotation(refusal)
+                ));
+            }
+        }
+    }
     if !checker.warnings.is_empty() {
         text.push_str(&format!(
             "\n{} transient failure(s) reported as warnings:\n",
@@ -1136,7 +1166,7 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     if failures.is_empty() {
         text.push_str(if offline {
             "\noffline checks passed; external links were skipped\n"
-        } else if checker.warnings.is_empty() {
+        } else if checker.warnings.is_empty() && checker.refusals.is_empty() {
             "\nall clear\n"
         } else {
             "\nno other failures\n"

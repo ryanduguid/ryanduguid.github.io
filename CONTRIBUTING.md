@@ -52,7 +52,7 @@ still failing with HTTP 429, 5xx or a timeout after its retries is reported as a
 warning (a `WARN` line and an Actions annotation) instead, as is a
 `web.archive.org` snapshot that fails with any transport error (such as a
 refused connection), because the archive refuses bursts of automated requests.
-HTTP 4xx other than the allow-listed denials below, including a 404 from the
+HTTP 4xx other than the refusals below, including a 404 from the
 archive, and DNS and other transport failures on other hosts still fail pull
 requests, and an own-repository link that warns still gets its identity and
 archive lookup. The weekly scheduled and manual runs keep
@@ -442,93 +442,16 @@ verification in CI. Local checks still fetch it and fail on HTTP 404; other
 LinkedIn URLs receive no CI exception. Remove this exception when runner access
 works again.
 
-That run also returned HTTP 403 for 21 ATO source URLs that returned HTTP 200
-locally on 11 September 2026. They are listed individually in
-`HTTP_403_AUTOMATION_DENIAL_URLS` in `scripts/src/check_links_data.rs`. Only HTTP 403 is accepted
-for those exact URLs; other errors and unlisted URLs still fail. Recheck them
-locally before changing a source link and remove exceptions when access permits.
-Run 43794456386 returned HTTP 403 for 6 more ATO sources cited by the PAYG
-instalments and termination payment calculators; each returned HTTP 200 locally
-on 16 November 2026 and is in the same list.
-Run 43966788055 returned HTTP 403 for 4 ACT Revenue Office and 3 NT Government
-land tax and first home pages cited by the land tax and transfer duty
-calculators. On 17 November 2026 the ACT pages returned HTTP 200 locally and the
-NT pages HTTP 200 in a browser; all 7 are in the same list.
-Run 44024114382 returned HTTP 403 for 7 ATO pages that the income tax, take-home pay
-and study and training loan repayment calculators cite; each returned HTTP 200
-locally on 17 November 2026 and is in the same list. All 7 returned HTTP 403
-again in run 44173032679 on 18 November 2026.
-The hire purchase calculator cites 4 sections of Division 240 and the GST issues
-register in the ATO's legal database and its GST hire purchase guidance; each returned
-HTTP 200 locally on 18 November 2026. They are in the same list beside the legal
-database and guidance pages already there, unchecked in Actions.
-Run 44229492536 returned HTTP 403 for 5 ATO pages that the company tax and franking
-calculator cites; each returned HTTP 200 locally on 18 November 2026 and is in the same list.
-
-The [Division 7A benchmark rate table](https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate)
-also returned HTTP 403 in run 34852175800.
-The local link check and Camofox both returned HTTP 200 on 14 September 2026.
-Its exact URL is in the same exception list; other statuses and neighbouring
-URLs still fail. Recheck local access before changing the link, and remove
-the exception when runner access permits.
-
-The six ATO sources behind the car limit and FBT rate tables returned HTTP 403
-in run 35459888870
-and HTTP 200 locally and in Camofox on 20 September 2026; they are in the same
-list under the same rule.
-
-The [Parliament bills index](https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation)
-and [ATO cents-per-kilometre eligibility page](https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method)
-returned HTTP 403 in run 35624778953.
-Camofox returned HTTP 200 and the expected content for both on 22 September 2026.
-The same exact-URL, HTTP-403 rule applies to them; other statuses and neighbouring
-URLs still fail. Recheck them in a browser when editing their citations and remove
-the exceptions when automated access works again.
-
-The [Office of the Australian Information Commissioner home page](https://www.oaic.gov.au/),
-linked from the privacy notice, returned HTTP 403 in the scheduled run 42740335407.
-A browser loaded it with the expected content on 11 November 2026. Its exact URL
-is in the same list under the same rule.
-
-The [RBA statistical tables index](https://www.rba.gov.au/statistics/tables/),
-cited by the Division 7A benchmark rate page, returned HTTP 403 to pull request
-jobs 125088500960, 125815442658 and 131627814202, each of which passed on a rerun
-(read 14 November 2026). Its exact URL is in the same list under the same rule.
-
-Five official public holiday pages cited by the Payday Super business-day calendar
-returned HTTP 403 in pull request run 43452694807: the ACT Government's public holidays
-page, the NT Government's public holidays page, WorkSafe Tasmania's public holidays
-page and Business Victoria's 2026 and 2027 public holiday pages. A browser loaded each
-with the expected holiday dates on 14 November 2026. Their exact URLs are in the same
-list under the same rule.
-
-Three ATO pages linked from the depreciation rates page returned HTTP 403 in pull
-request run 43507731317: the effective life determinations, rulings and law page, the
-depreciation and capital allowances tool and the effective life review application
-form. A browser loaded each with the expected content on 13 November 2026. Their exact
-URLs are in the same list under the same rule.
-
-The depreciation rates page also links 2 ATO legal database documents: LI 2025/20 and
-the withdrawal notice for TR 2022/1. They were added to the same list before a CI run,
-because the runner had received HTTP 403 for the page's other ATO links. A browser
-loaded each with the expected text on 14 November 2026.
-
-The BAS due dates page cites 3 ATO pages not linked elsewhere: activity statement due
-dates by topic, the two week lodgment concession terms and the BAS agent lodgment program
-2026-27. They were added to the same list before a CI run for the same reason. A browser
-loaded each with the expected dates on 15 November 2026.
-
-The Division 296 tax calculator cites the ATO's Division 296 tax on large super balances
-page, not linked elsewhere. It was added to the same list before a CI run for the same
-reason. It returned HTTP 200 with the expected thresholds and rates to a local request on
-17 November 2026.
-
-The vehicle classifier cites 12 ATO pages not linked elsewhere: the eligible vehicles
-page, the luxury car tax thresholds, the motor vehicle expenses guide, ITAA 1997
-s 995-1, GST Act s 69-10, FBTAA s 8, MT 2024, TD 94/19, TD 2006/39, TD 2006/40,
-PCG 2018/3 and LCTD 2023/1. They were added to the same list before a CI run for the
-same reason. Each returned HTTP 200 with the expected text to a local request on
-16 November 2026.
+Government and publisher sites often refuse automated requests, GitHub's runners
+most of all: by 19 November 2026 the checker held 209 cited ATO, state revenue,
+holiday and legislation pages on a list of exact URLs allowed to answer HTTP 403,
+each loaded locally or in a browser, and every new citation of such a site needed
+an entry. The link checker therefore reports any HTTP 403,
+and LinkedIn's HTTP 999, as "refused the runner": a `REFUSED` line, an Actions
+annotation and a count at the end, but not a failure, because the refusal says
+nothing about the page. Check a refused source in a browser when you cite it or
+edit its citation. A 404, 410, 401 or any other HTTP error still fails, and so does
+a refusal on a `github.com/ryanduguid/` link, whose identity check stays strict.
 
 ## Release claims
 
