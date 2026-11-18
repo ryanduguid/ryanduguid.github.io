@@ -4932,8 +4932,16 @@ fn sgc_payday_oracle(business: &[i64], quarters: &[(i64, i64, u64)], p: &Payday)
     let counted = p.earnings.min(SGC_MAXIMUM_BASE.saturating_sub(p.earlier));
     let sg = half_up(&BigUint::from(counted * 12), &BigUint::from(100_u8));
     let base = sg.saturating_sub(p.on_time);
-    let shown_all = |base: u64, last: u64, days: i64, assumed_days: usize, earned: u64, percent: u64| {
-        let uplift = half_up(&BigUint::from((last + earned) * percent), &BigUint::from(100_u8));
+    let shown_all = |base: u64,
+                     last: u64,
+                     days: i64,
+                     assumed_days: usize,
+                     earned: u64,
+                     percent: u64| {
+        let uplift = half_up(
+            &BigUint::from((last + earned) * percent),
+            &BigUint::from(100_u8),
+        );
         json!({
             "due": iso_day(due), "sgAmount": shown(sg), "base": shown(base), "final": shown(last),
             "days": days.to_string(), "assumedDays": assumed_days.to_string(), "notional": shown(earned),
@@ -4944,7 +4952,11 @@ fn sgc_payday_oracle(business: &[i64], quarters: &[(i64, i64, u64)], p: &Payday)
         return shown_all(0, 0, 0, 0, 0, 0);
     }
     let last = base - p.late.min(base);
-    let to = if last == 0 && p.late > 0 { p.received } else { p.assessment - 1 };
+    let to = if last == 0 && p.late > 0 {
+        p.received
+    } else {
+        p.assessment - 1
+    };
     let table_end = quarters.iter().map(|quarter| quarter.1).max().unwrap();
     let rates: Vec<(u64, u64)> = (due + 1..=to)
         .map(|day| {
@@ -4953,7 +4965,10 @@ fn sgc_payday_oracle(business: &[i64], quarters: &[(i64, i64, u64)], p: &Payday)
                 .find(|q| q.0 <= day && day <= q.1)
                 .map_or(p.assumed, |q| q.2);
             let year = civil(day).0;
-            (rate, u64::try_from(day_number(year + 1, 1, 1) - day_number(year, 1, 1)).unwrap())
+            (
+                rate,
+                u64::try_from(day_number(year + 1, 1, 1) - day_number(year, 1, 1)).unwrap(),
+            )
         })
         .collect();
     let assumed_days = (due + 1..=to).filter(|day| *day > table_end).count();
@@ -4966,21 +4981,42 @@ fn sgc_payday_oracle(business: &[i64], quarters: &[(i64, i64, u64)], p: &Payday)
         _ => 15,
     });
     let percent = 60 - (if p.assessed { 0 } else { 20 }) - disclosed;
-    shown_all(base, last, (to - due).max(0), assumed_days, sgc_notional(base, &rates), percent)
+    shown_all(
+        base,
+        last,
+        (to - due).max(0),
+        assumed_days,
+        sgc_notional(base, &rates),
+        percent,
+    )
 }
 
-fn sgc_payday_case(rng: &mut Seeded, business: &[i64], quarters: &[(i64, i64, u64)]) -> (Value, Value) {
+fn sgc_payday_case(
+    rng: &mut Seeded,
+    business: &[i64],
+    quarters: &[(i64, i64, u64)],
+) -> (Value, Value) {
     let start = day_number(2026, 7, 1);
     let end = *business.last().unwrap();
     let latest = day_number(SGC_LATEST.0, SGC_LATEST.1, SGC_LATEST.2);
     let payday = start + i64::try_from(rng.below(365)).unwrap();
-    let timing = rng.pick(&["standard", "standard", "first", "out-of-cycle", "exceptional"]);
+    let timing = rng.pick(&[
+        "standard",
+        "standard",
+        "first",
+        "out-of-cycle",
+        "exceptional",
+    ]);
     let other = match timing {
         "out-of-cycle" => (payday + 1 + i64::try_from(rng.below(40)).unwrap()).min(end),
         _ => start + i64::try_from(rng.below(u64::try_from(end - start + 1).unwrap())).unwrap(),
     };
-    let (any_earnings, small_earnings) = (1 + rng.cents(MAX_PRINCIPAL - 1), 1 + rng.cents(2_000_000));
-    let (near_base, any_earlier) = (SGC_MAXIMUM_BASE - rng.cents(500_000), rng.cents(MAX_PRINCIPAL));
+    let (any_earnings, small_earnings) =
+        (1 + rng.cents(MAX_PRINCIPAL - 1), 1 + rng.cents(2_000_000));
+    let (near_base, any_earlier) = (
+        SGC_MAXIMUM_BASE - rng.cents(500_000),
+        rng.cents(MAX_PRINCIPAL),
+    );
     let any_rate = 1 + rng.below(10_000);
     let mut p = Payday {
         payday,
@@ -5007,10 +5043,16 @@ fn sgc_payday_case(rng: &mut Seeded, business: &[i64], quarters: &[(i64, i64, u6
         if p.assessment - due >= 2 {
             let part = rng.below(base + 1);
             p.late = rng.pick(&[0, base, base.saturating_sub(1), part, base + 1000]);
-            p.received = due + 1 + i64::try_from(rng.below(u64::try_from(p.assessment - due - 1).unwrap())).unwrap();
+            p.received = due
+                + 1
+                + i64::try_from(rng.below(u64::try_from(p.assessment - due - 1).unwrap())).unwrap();
         }
         if rng.pick(&[true, false]) {
-            p.lodged = Some(payday + i64::try_from(rng.below(u64::try_from(p.assessment - payday).unwrap())).unwrap());
+            p.lodged = Some(
+                payday
+                    + i64::try_from(rng.below(u64::try_from(p.assessment - payday).unwrap()))
+                        .unwrap(),
+            );
         }
     }
     let inputs = json!({
@@ -5020,19 +5062,45 @@ fn sgc_payday_case(rng: &mut Seeded, business: &[i64], quarters: &[(i64, i64, u6
         "disclosure": if p.lodged.is_some() { "lodged" } else { "none" }, "lodged": iso_day(p.lodged.unwrap_or(p.payday)),
         "assumedRate": format!("{}.{:02}", p.assumed / 100, p.assumed % 100),
     });
-    (json!({"kind": "payday", "inputs": inputs}), sgc_payday_oracle(business, quarters, &p))
+    (
+        json!({"kind": "payday", "inputs": inputs}),
+        sgc_payday_oracle(business, quarters, &p),
+    )
 }
 
 /// What the quarterly engine must return. `percent` is in tenths of 1%.
-fn sgc_quarter_oracle(year: &str, quarter: i64, wages: u64, ote: u64, contributions: u64, lodged: i64) -> Value {
-    let (_, percent, cap) = SGC_YEARS.iter().find(|entry| entry.0 == year).copied().unwrap();
+fn sgc_quarter_oracle(
+    year: &str,
+    quarter: i64,
+    wages: u64,
+    ote: u64,
+    contributions: u64,
+    lodged: i64,
+) -> Value {
+    let (_, percent, cap) = SGC_YEARS
+        .iter()
+        .find(|entry| entry.0 == year)
+        .copied()
+        .unwrap();
     let first: i64 = year[..4].parse().unwrap();
     // The quarter's first month and the month of its lodgment day, the 28th of the second
     // month after it (old s 46(2)).
-    let (year_of, month, lodgment_month) = [(first, 7, 11), (first, 10, 2), (first + 1, 1, 5), (first + 1, 4, 8)]
-        [usize::try_from(quarter - 1).unwrap()];
+    let (year_of, month, lodgment_month) = [
+        (first, 7, 11),
+        (first, 10, 2),
+        (first + 1, 1, 5),
+        (first + 1, 4, 8),
+    ][usize::try_from(quarter - 1).unwrap()];
     let start = day_number(year_of, month, 1);
-    let lodgment = day_number(if lodgment_month < month { year_of + 1 } else { year_of }, lodgment_month, 28);
+    let lodgment = day_number(
+        if lodgment_month < month {
+            year_of + 1
+        } else {
+            year_of
+        },
+        lodgment_month,
+        28,
+    );
     let payable = lodgment.max(lodged);
     if (start..payable).any(|day| civil(day).1 == 2 && civil(day).2 == 29) {
         return json!({"refused": "The nominal interest period includes 29 February, and the ATO does not say whether that year has 365 or 366 days."});
@@ -5043,7 +5111,10 @@ fn sgc_quarter_oracle(year: &str, quarter: i64, wages: u64, ote: u64, contributi
     let (top, bottom) = if ote == 0 {
         (u128::from(percent), 1000)
     } else {
-        ((u128::from(percent) * ote).saturating_sub(1000 * contributions), 1000 * ote)
+        (
+            (u128::from(percent) * ote).saturating_sub(1000 * contributions),
+            1000 * ote,
+        )
     };
     let shortfall = exact_half_up(wages * top, bottom);
     let days = u128::try_from(payable - start).unwrap();
@@ -5062,13 +5133,25 @@ fn sgc_quarter_case(rng: &mut Seeded) -> (Value, Value) {
     let quarter = i64::try_from(1 + rng.below(4)).unwrap();
     let any_wages = rng.cents(MAX_PRINCIPAL);
     let wages = rng.pick(&[1_200_000, any_wages, cap, cap + 1]);
-    let (part, above) = (rng.cents(wages.max(1)), cap + 1 + rng.cents(MAX_PRINCIPAL - cap - 1));
+    let (part, above) = (
+        rng.cents(wages.max(1)),
+        cap + 1 + rng.cents(MAX_PRINCIPAL - cap - 1),
+    );
     let ote = rng.pick(&[0, wages, part, above]);
     let full = u64::try_from(exact_half_up(u128::from(ote.min(cap) * percent), 1000)).unwrap();
     let some = rng.below(full + 1);
-    let contributions = if ote == 0 { 0 } else { rng.pick(&[0, full, full / 2, some, full + 100]) };
+    let contributions = if ote == 0 {
+        0
+    } else {
+        rng.pick(&[0, full, full / 2, some, full + 100])
+    };
     let first: i64 = year[..4].parse().unwrap();
-    let ends = [day_number(first, 9, 30), day_number(first, 12, 31), day_number(first + 1, 3, 31), day_number(first + 1, 6, 30)];
+    let ends = [
+        day_number(first, 9, 30),
+        day_number(first, 12, 31),
+        day_number(first + 1, 3, 31),
+        day_number(first + 1, 6, 30),
+    ];
     let due = ends[usize::try_from(quarter - 1).unwrap()] + 28;
     let span = rng.pick(&[1, 60, 400, 2000]);
     let latest = day_number(SGC_LATEST.0, SGC_LATEST.1, SGC_LATEST.2);
@@ -5088,8 +5171,14 @@ fn the_sgc_oracle_works_the_ato_examples_by_hand() {
     let business = sgc_business_days();
     // ATO, Payment deadlines for Payday Super: Hannah's 30 July 2026 payday is due 11 August,
     // after NT Picnic Day; Floyd's first contribution on 7 August, 4 September.
-    assert_eq!(iso_day(sgc_after(&business, day_number(2026, 7, 30), 7).unwrap()), "2026-08-11");
-    assert_eq!(iso_day(sgc_after(&business, day_number(2026, 8, 7), 20).unwrap()), "2026-09-04");
+    assert_eq!(
+        iso_day(sgc_after(&business, day_number(2026, 7, 30), 7).unwrap()),
+        "2026-08-11"
+    );
+    assert_eq!(
+        iso_day(sgc_after(&business, day_number(2026, 8, 7), 20).unwrap()),
+        "2026-09-04"
+    );
     assert_eq!(sgc_after(&business, day_number(2027, 8, 30), 7), None);
     // ATO, Making a voluntary disclosure for Payday Super: Juliet's $3,600 at 10% earns $24.74
     // over 25 days and $49.65 over 50.
@@ -5098,7 +5187,14 @@ fn the_sgc_oracle_works_the_ato_examples_by_hand() {
     // ATO module 6: one of Imogen's 30 employees, $12,000 in quarter 1 of 2025-26, lodged
     // 20 November 2025: $1,440, 150 days, $59.18 and $20.
     assert_eq!(
-        sgc_quarter_oracle("2025-26", 1, 1_200_000, 1_000_000, 0, day_number(2025, 11, 20)),
+        sgc_quarter_oracle(
+            "2025-26",
+            1,
+            1_200_000,
+            1_000_000,
+            0,
+            day_number(2025, 11, 20)
+        ),
         json!({"payable": "2025-11-28", "chargePercent": "12", "shortfall": "1440", "days": "150",
             "interest": "59.18", "administration": "20", "charge": "1519.18"})
     );
@@ -5118,8 +5214,14 @@ fn the_sgc_oracle_works_the_ato_examples_by_hand() {
         assumed: 1151,
     };
     let result = sgc_payday_oracle(&business, &gic_quarters(), &opening);
-    for (key, want) in [("due", "2026-08-11"), ("days", "14"), ("notional", "0.53"), ("upliftPercent", "40"),
-        ("uplift", "0.21"), ("charge", "0.74")] {
+    for (key, want) in [
+        ("due", "2026-08-11"),
+        ("days", "14"),
+        ("notional", "0.53"),
+        ("upliftPercent", "40"),
+        ("uplift", "0.21"),
+        ("charge", "0.74"),
+    ] {
         assert_eq!(result[key], want, "{key}");
     }
 }
@@ -5131,10 +5233,11 @@ fn the_sgc_engines_agree_with_the_oracle_on_every_seeded_case() {
     }
     let (business, quarters) = (sgc_business_days(), gic_quarters());
     let mut rng = Seeded(0x2026_1118_0000_5C6C);
-    let (cases, expected): (Vec<_>, Vec<_>) = (0..SGC_PAYDAY_CASES)
+    let mut pairs: Vec<_> = (0..SGC_PAYDAY_CASES)
         .map(|_| sgc_payday_case(&mut rng, &business, &quarters))
-        .chain((0..SGC_QUARTER_CASES).map(|_| sgc_quarter_case(&mut rng)))
-        .unzip();
+        .collect();
+    pairs.extend((0..SGC_QUARTER_CASES).map(|_| sgc_quarter_case(&mut rng)));
+    let (cases, expected): (Vec<_>, Vec<_>) = pairs.into_iter().unzip();
     let actual = run_node(SGC_HARNESS, &cases);
     assert_eq!(actual.len(), SGC_PAYDAY_CASES + SGC_QUARTER_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
