@@ -115,7 +115,8 @@ export function loan(principal, annualRate, months, balloon = '0', timing = 'arr
   const advance = timing === 'advance';
   const rateScale = 12000000n;
   // A payment in advance falls before any interest accrues.
-  const firstInterest = advance ? 0 : ratioMoney(balanceCents * rateUnits, rateScale);
+  const interestCents = advance ? 0n : ratioCents(balanceCents * rateUnits, rateScale);
+  const firstInterest = Number(interestCents) / 100;
   if (rateUnits === 0n) {
     const payment = ratioMoney(balanceCents - residual, term);
     return { payment, firstInterest: 0, firstPrincipal: payment, totalInterest: 0 };
@@ -127,9 +128,11 @@ export function loan(principal, annualRate, months, balloon = '0', timing = 'arr
   const scale = rateScale ** term;
   const denominator = (advance ? rateScale + rateUnits : rateScale) * (growth - scale);
   const paymentNumerator = (balanceCents * growth - residual * scale) * rateUnits;
-  const payment = ratioMoney(paymentNumerator, denominator);
-  return { payment, firstInterest,
-    firstPrincipal: advance ? payment : ratioMoney((balanceCents - residual) * rateUnits * scale, denominator),
+  const paymentCents = ratioCents(paymentNumerator, denominator);
+  // The first payment's principal is the rounded payment less the rounded interest, so the
+  // figures shown add up; rounding is monotonic, so it is never negative.
+  return { payment: Number(paymentCents) / 100, firstInterest,
+    firstPrincipal: Number(paymentCents - interestCents) / 100,
     totalInterest: ratioMoney(paymentNumerator * term - (balanceCents - residual) * denominator, denominator) };
 }
 

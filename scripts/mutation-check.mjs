@@ -67,7 +67,7 @@ const MUTATIONS = [
   { ...business, name: 'loan compounds on the wrong scale', find: 'const rateScale = 12000000n', replace: 'const rateScale = 12000001n' },
   { ...business, name: 'a loan balloon is not discounted to today', find: 'residual * scale', replace: 'residual * growth' },
   { ...business, name: 'loan payments in advance are worked as arrears', find: '(advance ? rateScale + rateUnits : rateScale)', replace: 'rateScale' },
-  { ...business, name: 'a loan payment in advance pays a month of interest', find: 'advance ? 0 : ratioMoney', replace: 'false ? 0 : ratioMoney' },
+  { ...business, name: 'a loan payment in advance pays a month of interest', find: 'advance ? 0n : ratioCents', replace: 'false ? 0n : ratioCents' },
   { ...business, name: 'a nil-interest balloon is spread over the payments', find: 'ratioMoney(balanceCents - residual, term)', replace: 'ratioMoney(balanceCents, term)' },
   { ...business, name: 'a balloon above the principal is accepted', find: 'residual > balanceCents', replace: 'residual > balanceCents + 1n' },
   { ...business, name: 'staff cost spreads over 13 months', find: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 12n', replace: 'BigInt(cents(wages) + cents(superAmount) + cents(other)), 13n' },
