@@ -277,6 +277,10 @@ test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a
   assert.equal(r.takeHomeYear, '58183.20');
   const year = await individual['take-home-pay'].execute({ incomeYear: '2025-26', residency: 'resident', salary: '75000' });
   assert.deepEqual([year.takeHomeYear, year.medicareLevy, year.paygWithholding], ['60212.00', '1500.00', null]);
+  const holiday = await individual['take-home-pay'].execute({ incomeYear: '2026-27', residency: 'working-holiday',
+    salary: '3000', payPeriod: 'fortnight' });
+  assert.equal(holiday.paygWithholding, null);
+  assert.match(individual['take-home-pay'].description, /for a working holiday maker it gives none/);
 });
 
 test('individual tax tools refuse a year they do not offer, cents of taxable income and an unknown input', async () => {

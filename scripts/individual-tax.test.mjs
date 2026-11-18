@@ -341,6 +341,13 @@ test('the Medicare levy surcharge follows the tiers, family thresholds and days 
   assert.equal(mls({ taxable: 100000, children: 4 }).threshold, 214500);
   assert.equal(mls({ taxable: 28012, spouse: 300000 }).surcharge, 420.18);
   assert.equal(mls({ taxable: 28011, spouse: 300000 }).surcharge, 0);
+  // Section 8D(3)(c) for each year: nil at the year's threshold amount, 1.5% of a dollar more, with the couple above tier 3.
+  for (const [year, amount, surcharge] of [['2026-27', 28011, 420.18], ['2025-26', 28011, 420.18], ['2024-25', 27222, 408.35],
+    ['2023-24', 26000, 390.02], ['2022-23', 24276, 364.16], ['2021-22', 23365, 350.49], ['2020-21', 23226, 348.41]]) {
+    const couple = (taxable) => mls({ year, taxable, spouse: 400000, uncoveredDays: daysInYear(year) }).surcharge;
+    assert.equal(couple(amount), 0, year);
+    assert.equal(couple(amount + 1), surcharge, year);
+  }
   assert.equal(mls({ taxable: 120000, uncoveredDays: 0 }).surcharge, 0);
   assert.deepEqual(INCOME_TAX_YEARS.map(daysInYear), [365, 365, 365, 366, 365, 365, 365]);
   assert.throws(() => mls({ taxable: 1, uncoveredDays: 366 }), { message: 'Enter the days without hospital cover as a whole number from 0 to 365.' });

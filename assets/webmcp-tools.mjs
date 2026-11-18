@@ -374,7 +374,8 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payY
         + 'levy surcharge for the days without private patient hospital cover and any compulsory study loan repayment, '
         + 'less the tax withheld, as a refund or an amount owing, each rounded half up to the cent. Every rate is cited '
         + `on ${INDIVIDUAL}income-tax/. It does not compute other offsets, deductions, the Medicare levy reduction `
-        + 'for families or a part-year residency.',
+        + 'for families, a part-year residency or a first home super saver released amount, and it assumes the study '
+        + 'loan debt is at least the repayment, which the debt still owed caps.',
       inputSchema: record({
         incomeYear: choice(incomeYears, `Income year, ${incomeYears.at(-1)} to ${incomeYears[0]}.`),
         residency: RESIDENCY,
@@ -411,9 +412,12 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payY
       description: 'Take-home pay in AUD from one salary for a full income year: the year\'s income tax, offsets, Medicare '
         + 'levy, any Medicare levy surcharge and study loan repayment, after salary sacrificed to super and, from 2026-27, '
         + 'the standard deduction, spread over a year, month, fortnight and week, with the employer\'s super guarantee. '
-        + 'For a 2026-27 weekly, fortnightly or monthly pay it also gives the PAYG withheld each pay under the ATO\'s '
-        + 'Schedules 1 and 8 and the refund or amount owing over the year. It names, but does not work, concessional '
-        + `contributions above the cap and Division 293 taxable contributions. Sources on ${INDIVIDUAL}take-home-pay/.`,
+        + 'The surcharge is a single person\'s with no dependants, and the study loan repayment assumes the debt is at '
+        + 'least the repayment. For a 2026-27 weekly, fortnightly or monthly pay of a resident (scale 2, tax-free '
+        + 'threshold claimed) or a foreign resident (scale 3) it also gives the PAYG withheld each pay under the ATO\'s '
+        + 'Schedules 1 and 8 and the refund or amount owing over the year; for a working holiday maker it gives none. '
+        + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
+        + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`,
       inputSchema: record({
         incomeYear: choice(payYears, `Income year, ${payYears.at(-1)} to ${payYears[0]}.`),
         residency: RESIDENCY,
