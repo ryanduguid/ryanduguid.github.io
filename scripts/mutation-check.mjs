@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const catchUp = { file: 'assets/concessional-catch-up.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -218,6 +219,18 @@ const MUTATIONS = [
   { ...division296, name: 'Division 296 shows a negative component as nil', find: 'component: shown(component, 10000n)', replace: 'component: shown(component < 0n ? 0n : component, 10000n)' },
   { ...division296, name: 'Division 296 accepts an exception answered with text', find: "typeof flag !== 'boolean'", replace: 'false' },
 
+  { ...catchUp, name: '$500,000 itself carries forward', find: 'const below = balance < BALANCE_LIMIT;', replace: 'const below = balance <= BALANCE_LIMIT;' },
+  { ...catchUp, name: 'an earlier year at $500,000 carries forward', find: 'if (year.balance < BALANCE_LIMIT) {', replace: 'if (year.balance <= BALANCE_LIMIT) {' },
+  { ...catchUp, name: 'unused cap applies latest year first', find: 'for (const unused of pool) {', replace: 'for (const unused of [...pool].reverse()) {' },
+  { ...catchUp, name: 'unused cap lasts 6 years', find: 'const YEARS_CARRIED = 5;', replace: 'const YEARS_CARRIED = 6;' },
+  { ...catchUp, name: 'a year over its cap has negative unused cap', find: 'amount: Math.max(0, yearCap - year.contributions)', replace: 'amount: yearCap - year.contributions' },
+  { ...catchUp, name: 'an increase is not limited to the excess', find: 'Math.min(unused.amount - unused.applied, need)', replace: '(unused.amount - unused.applied)' },
+  { ...catchUp, name: 'the carried amount counts at any balance', find: 'const available = below ? cap + carried : cap;', replace: 'const available = cap + carried;' },
+  { ...catchUp, name: 'an earlier year draws from 2019-20 on', find: 'const from = Math.max(2018, year.start - YEARS_CARRIED);', replace: 'const from = Math.max(2019, year.start - YEARS_CARRIED);' },
+  { ...catchUp, name: 'the 2020-21 cap is $27,500', find: "'2020-21': 25000,", replace: "'2020-21': 27500," },
+  { ...catchUp, name: 'the proposal is left out of what is applied', find: 'apply(window, Math.max(0, total - cap))', replace: 'apply(window, Math.max(0, concessional - cap))' },
+  { ...catchUp, name: 'the applied amount is not limited to what was carried', find: 'Math.min(carried, Math.max(0, concessional - cap))', replace: 'Math.max(0, concessional - cap)' },
+  { ...catchUp, name: 'an amount lapses a year early', find: 'expiresAtEndOf: label(unused.start + YEARS_CARRIED) }', replace: 'expiresAtEndOf: label(unused.start + YEARS_CARRIED - 1) }' },
   { ...incomeTax, name: '2026-27 starts at 16%', find: "'2026-27': [[18200, 15]", replace: "'2026-27': [[18200, 16]" },
   { ...incomeTax, name: 'foreign residents reach 37% at $120,000', find: '[[0, 30], [135000, 37]', replace: '[[0, 30], [120000, 37]' },
   { ...incomeTax, name: 'working holiday makers reach 30% at $37,000', find: '[[0, 15], [45000, 30]', replace: '[[0, 15], [37000, 30]' },
@@ -421,7 +434,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json']) {
+    'scripts/fbt-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
