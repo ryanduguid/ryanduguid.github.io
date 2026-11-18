@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-17T00:00:00Z</updated>
+  <updated>2026-11-18T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>A new business calculator finds when a Payday Super contribution is due, from…</title>
+    <link href="https://duguid.com.au/changelog/#entry-a3a1734e2ec2a85b" />
+    <id>https://duguid.com.au/changelog/#entry-a3a1734e2ec2a85b</id>
+    <updated>2026-11-18T00:00:00Z</updated>
+    <summary>A new business calculator finds when a Payday Super contribution is due, from the payday and the site’s business days calendar, with the longer periods for a first contribution, out-of-cycle pay and an ATO determination, and how many days late it was. It also works out one employee’s super guarantee charge: the final shortfall, notional earnings at the GIC rate and the administrative uplift, reduced for a first offence and a voluntary disclosure, or, for a quarter to June 2026, the shortfall, 10% nominal interest and the $20 administration component.</summary>
+  </entry>
   <entry>
     <title>A new business calculator works out one person’s Division 296 tax for 2026-27…</title>
     <link href="https://duguid.com.au/changelog/#entry-ca1db5ec0a69030f" />

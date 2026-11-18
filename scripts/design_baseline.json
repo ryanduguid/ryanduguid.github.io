@@ -197,6 +197,9 @@
     "tools/business-calculators/psi-determination/index.html": [
       "48d9efcea35f393ed85e18c36550a81325c64291ad8b8292addb5b662017de4e"
     ],
+    "tools/business-calculators/sgc-payday/index.html": [
+      "1cadb13592c8588af6c03eab90dc9725ae4f925e944d22ce07267bb243cb8323"
+    ],
     "tools/business-calculators/staff/index.html": [
       "18cb2ea2bdf64673742c95515d6085dac73f05327d8f54c68bd7c2879d0dc2fe"
     ],
@@ -298,9 +301,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "47703d2ddef7967998cc1de145a0cbdd14894adc5712ca809775925500811e57",
+    "llms.txt": "c4518f3f1475cd1542af0012c9326fbb6bb278f3388638870abfdaa59659322c",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "47675066fd815192fdc9355a86ba0db356698a5350ff122de2a4852083fc94a5"
+    "sitemap.xml": "5f8583d3d499dc21970dee58cb0f375d468240799f1a4043d5bd44eea9c7186d"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -360,7 +363,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7768,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7769,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
