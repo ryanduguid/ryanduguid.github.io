@@ -6,13 +6,13 @@ Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 
 # Foreign buyer surcharge calculator
 
-Foreign purchaser duty and land tax surcharges in every state and territory, with each one’s test of whether an individual, company, trust or super fund is foreign.
+Foreign purchaser duty and land tax surcharges in each state and territory, with its own test of who is foreign.
 
 Published 18 November 2026. Last checked 18 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Foreign buyer surcharge inputs for one buyer and one property
+Foreign buyer surcharge inputs
 
 State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
 
@@ -30,7 +30,7 @@ Each state and territory tests a company, trust or super fund buyer by where it 
 
 A company: incorporated outside Australia? No Yes Company, trust or fund: largest interest held by one foreign person with associates (%) Company, trust or fund: interests of all foreign persons together, with associates (%) Discretionary trust: most of the capital the trustee could give foreign persons (%) Discretionary trust: foreign takers in default’s share (%) Discretionary trust: could the deed be amended so a foreign person can benefit? No Yes Discretionary trust: is a foreign person a trustee or appointor, or in control of the trust? No Yes Discretionary trust: is a beneficiary, object or taker in default named in the deed a foreign person (for Victorian land tax, an absentee)? No Yes Is an exemption, refund or ex gratia relief from a surcharge being sought? No Yes
 
-Only the answers for the buyer chosen and the state or territory chosen are used. Each revenue office decides the dutiable value and who is foreign; the general duty uses the transfer duty rate table.
+It works one buyer and one property. Only the answers for the buyer chosen and the state or territory chosen are used. Each revenue office decides the dutiable value and who is foreign; the general duty uses the transfer duty rate table.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, an individual: another visa or none, residential property worth $1,000,000.00, buyer’s share $1,000,000.00, land value for land tax $1,200,000.00. Foreign purchaser duty surcharge at 9% of the buyer’s share $90,000.00 Duty surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) General transfer duty on the whole property, all buyers $39,187.00 Land tax surcharge for a full year $60,000.00 Land tax surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign.
 
