@@ -523,6 +523,11 @@ page, not linked elsewhere. It was added to the same list before a CI run for th
 reason. It returned HTTP 200 with the expected thresholds and rates to a local request on
 17 November 2026.
 
+The income tests calculator cites 2 ATO pages not linked elsewhere: Income tests and
+Rebate income 2026. They were added to the same list before a CI run for the same
+reason. Each returned HTTP 200 with the expected definitions to a local request on
+19 November 2026.
+
 The vehicle classifier cites 12 ATO pages not linked elsewhere: the eligible vehicles
 page, the luxury car tax thresholds, the motor vehicle expenses guide, ITAA 1997
 s 995-1, GST Act s 69-10, FBTAA s 8, MT 2024, TD 94/19, TD 2006/39, TD 2006/40,

@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! An independent oracle for the individual tax engines: `assets/income-tax.mjs`,
-//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs` and `assets/payg-withholding.mjs`.
+//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs` and
+//! `assets/income-tests.mjs`.
 //! Seeded fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser modules return under Node.
 //!
@@ -21,6 +22,8 @@
 //! The route is independent; the conventions are not. Both round a half cent up and cap the offsets
 //! at the tax, and the take-home oracle splits a package including super by the engine's formula,
 //! so it checks how the parts combine, not that split.
+//! The income tests engine (`assets/income-tests.mjs`) works each measure as a formula; the oracle
+//! keeps a table of the terms each definition lists, with their signs, and sums it.
 //! The engines run from the repository's own `assets/`, not the rendered site.
 
 use serde_json::{Value, json};
@@ -32,6 +35,7 @@ const HARNESS: &str = r"
 import { incomeTax, medicareLevySurcharge } from './assets/income-tax.mjs';
 import { studyLoanRepayment } from './assets/study-loan.mjs';
 import { takeHomePay } from './assets/take-home-pay.mjs';
+import { incomeTests } from './assets/income-tests.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const cents = (result) => result === null ? null : Object.fromEntries(Object.entries(result)
@@ -43,6 +47,7 @@ const run = {
     super: '0', foreign: '0' }, year)),
   pay: ({ pay }) => cents(takeHomePay(pay)),
   mls: ({ mls }) => cents(medicareLevySurcharge(mls)),
+  tests: ({ parts }) => cents(incomeTests(parts)),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 ";
@@ -741,6 +746,249 @@ fn the_take_home_pay_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 "includesSuper": p.included, "sacrifice": money(sacrifice), "studyLoan": p.loan,
                 "hospitalCover": p.cover});
             (json!({"kind": "pay", "pay": pay}), pay_oracle(&p))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+/// Seeded income test cases: 16 return amounts each, consistent with one another.
+const INCOME_TEST_CASES: usize = 300;
+/// The return amounts in the engine's order, `assets/income-tests.mjs` `INCOME_TEST_PARTS`.
+const INCOME_TEST_PARTS: [&str; 16] = [
+    "taxable",
+    "fhss",
+    "familyTrust",
+    "fringe57a",
+    "fringeOther",
+    "employerSuper",
+    "personalSuper",
+    "excessConcessional",
+    "financialLoss",
+    "rentalLoss",
+    "pensions",
+    "targetForeign",
+    "exemptForeign",
+    "childSupport",
+    "assessable",
+    "businessDeductions",
+];
+/// The FBT rate for the FBT years ending 31 March 2025 to 2027, per cent: FBTAA s 135Q(4) grosses a
+/// section 57A employer's quasi amount up at 1 / (1 - rate), so the amount before it is 100 - 47 hundredths.
+const FBT_RATE: i64 = 47;
+
+/// Each measure as its definition lists it, typed from the Acts read 19 November 2026: the terms it adds
+/// (+1) and takes off (-1). The derived terms are worked in `income_test_terms`.
+const MEASURES: [(&str, &[(&str, i64)]); 6] = [
+    // ITAA 1997 s 995-1 'income for surcharge purposes' (a) to (d).
+    (
+        "surchargeIncome",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("familyTrust", 1),
+            ("fringeTotal", 1),
+            ("contributions", 1),
+            ("losses", 1),
+        ],
+    ),
+    // s 293-20(1)(a): the same, disregarding reportable superannuation contributions.
+    (
+        "division293Income",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("familyTrust", 1),
+            ("fringeTotal", 1),
+            ("losses", 1),
+        ],
+    ),
+    // ITAA 1936 s 6(1) 'rebate income' (a) to (d).
+    (
+        "rebateIncome",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("contributions", 1),
+            ("losses", 1),
+            ("adjustedFringe", 1),
+        ],
+    ),
+    // HESA s 154-5(1)(a) to (e).
+    (
+        "repaymentIncome",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("losses", 1),
+            ("fringeTotal", 1),
+            ("exemptForeign", 1),
+            ("contributions", 1),
+        ],
+    ),
+    // Family Assistance Act Sch 3 cl 2(1) (a) to (f), less deductible child maintenance expenditure.
+    (
+        "adjustedTaxableIncome",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("adjustedFringe", 1),
+            ("targetForeign", 1),
+            ("losses", 1),
+            ("pensions", 1),
+            ("contributions", 1),
+            ("childSupport", -1),
+        ],
+    ),
+    // Co-contribution Act s 8(1) (a) to (c) and (2).
+    (
+        "coContributionIncome",
+        &[
+            ("assessable", 1),
+            ("fhss", -1),
+            ("fringeTotal", 1),
+            ("coEmployer", 1),
+            ("businessDeductions", -1),
+        ],
+    ),
+];
+
+/// The return amounts and the terms derived from them, in whole dollars.
+fn income_test_terms(parts: &[(&str, i64)]) -> Vec<(&'static str, i64)> {
+    let get = |name: &str| parts.iter().find(|(n, _)| *n == name).unwrap().1;
+    let mut terms: Vec<(&'static str, i64)> = INCOME_TEST_PARTS
+        .iter()
+        .map(|name| (*name, get(name)))
+        .collect();
+    // Nothing of taxable income is left where the FHSS amount is more (ITAA 1997 s 4-15(1)).
+    terms.push((
+        "taxableWithoutFhss",
+        (get("taxable") - get("fhss")).max(0),
+    ));
+    terms.push(("fringeTotal", get("fringe57a") + get("fringeOther")));
+    // The quasi amount: the reportable amount over 1 / (1 - rate), to the dollar below, as the
+    // ATO's 2026 rebate income worksheet rounds it.
+    terms.push((
+        "adjustedFringe",
+        get("fringe57a") * (100 - FBT_RATE) / 100 + get("fringeOther"),
+    ));
+    terms.push(("losses", get("financialLoss") + get("rentalLoss")));
+    terms.push((
+        "contributions",
+        (get("employerSuper") + get("personalSuper") - get("excessConcessional")).max(0),
+    ));
+    terms.push((
+        "coEmployer",
+        (get("employerSuper") - get("excessConcessional")).max(0),
+    ));
+    terms
+}
+
+/// What the engine must return, in cents as the harness gives it.
+fn income_tests_oracle(parts: &[(&str, i64)]) -> Value {
+    let terms = income_test_terms(parts);
+    let term = |name: &str| terms.iter().find(|(n, _)| *n == name).unwrap().1;
+    let mut out = serde_json::Map::new();
+    for name in [
+        "taxableWithoutFhss",
+        "fringeTotal",
+        "adjustedFringe",
+        "losses",
+        "contributions",
+        "coEmployer",
+    ] {
+        out.insert(name.into(), json!(term(name) * 100));
+    }
+    for (measure, list) in MEASURES {
+        let sum: i64 = list.iter().map(|(name, sign)| sign * term(name)).sum();
+        out.insert(measure.into(), json!(sum * 100));
+    }
+    // s 995-1 leaves exempt foreign employment income out of income for surcharge purposes; the
+    // ATO's surcharge page adds it where taxable income is $1 or more.
+    out.insert(
+        "exemptForeignDiffers".into(),
+        json!(term("exemptForeign") > 0 && term("taxable") > 0),
+    );
+    Value::Object(out)
+}
+
+/// Return amounts that hold together: taxable income, the FHSS amount and excess concessional
+/// contributions within assessable income, and exempt foreign employment income within target
+/// foreign income. A quarter of the other amounts are nil.
+fn income_test_case(rng: &mut Seeded) -> Vec<(&'static str, i64)> {
+    let amount = |rng: &mut Seeded, limit: u64| -> i64 {
+        if rng.below(4) == 0 {
+            0
+        } else {
+            i64::try_from(rng.below(limit + 1)).unwrap()
+        }
+    };
+    let mut parts: Vec<(&'static str, i64)> = INCOME_TEST_PARTS
+        .iter()
+        .map(|name| (*name, amount(rng, 80_000)))
+        .collect();
+    let set = |parts: &mut Vec<(&'static str, i64)>, name: &str, value: i64| {
+        parts.iter_mut().find(|(n, _)| *n == name).unwrap().1 = value;
+    };
+    let get = |parts: &[(&str, i64)], name: &str| parts.iter().find(|(n, _)| *n == name).unwrap().1;
+    let taxable = amount(rng, 400_000);
+    set(&mut parts, "taxable", taxable);
+    let floor = taxable
+        .max(get(&parts, "fhss"))
+        .max(get(&parts, "excessConcessional"));
+    let extra = amount(rng, 60_000);
+    set(&mut parts, "assessable", floor + extra);
+    let exempt = get(&parts, "exemptForeign");
+    let more = amount(rng, 20_000);
+    set(&mut parts, "targetForeign", exempt + more);
+    parts
+}
+
+fn income_test_input(parts: &[(&str, i64)]) -> Value {
+    let mut call = serde_json::Map::new();
+    call.insert("resident".into(), json!(true));
+    for (name, value) in parts {
+        call.insert((*name).into(), json!(value.to_string()));
+    }
+    json!({"kind": "tests", "parts": call})
+}
+
+#[test]
+fn the_income_tests_oracle_works_the_atos_examples_by_hand() {
+    let parts = |given: &[(&'static str, i64)]| {
+        INCOME_TEST_PARTS
+            .iter()
+            .map(|name| {
+                let value = given.iter().find(|(n, _)| n == name).map_or(0, |(_, v)| *v);
+                (*name, value)
+            })
+            .collect::<Vec<_>>()
+    };
+    // When you must repay your loan: Christina's $50,420, $1,250, $4,560, $2,580 and $15,000 give
+    // repayment income of $73,810.
+    let christina = income_tests_oracle(&parts(&[
+        ("taxable", 50_420),
+        ("financialLoss", 1_250),
+        ("fringeOther", 4_560),
+        ("exemptForeign", 2_580),
+        ("targetForeign", 2_580),
+        ("employerSuper", 15_000),
+        ("assessable", 50_420),
+    ]));
+    assert_eq!(christina["repaymentIncome"], 7_381_000);
+    // Medicare levy surcharge income, thresholds and rates: Tom's $90,000 and $27,000, $117,000.
+    let tom = income_tests_oracle(&parts(&[
+        ("taxable", 90_000),
+        ("fringeOther", 27_000),
+        ("assessable", 90_000),
+    ]));
+    assert_eq!(tom["surchargeIncome"], 11_700_000);
+    // Rebate income 2026: label N x 0.53 rounded down, $4,567 to $2,420.
+    let exempt = income_tests_oracle(&parts(&[("fringe57a", 4_567)]));
+    assert_eq!(exempt["adjustedFringe"], 242_000);
+}
+
+#[test]
+fn the_income_tests_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0007);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..INCOME_TEST_CASES)
+        .map(|_| {
+            let parts = income_test_case(&mut rng);
+            (income_test_input(&parts), income_tests_oracle(&parts))
         })
         .unzip();
     agree(&cases, &expected);
