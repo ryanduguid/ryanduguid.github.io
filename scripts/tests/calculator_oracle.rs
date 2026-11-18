@@ -16,7 +16,8 @@
 //!
 //! The route is independent; the conventions are not. The oracle takes the same 12 equal
 //! months, payment count, unrounded total interest and half-up final rounding as the
-//! engines, the same Division 7A interest part (the rate on the whole balance) and the same
+//! engines, the first principal as the rounded payment less the rounded interest, the
+//! same Division 7A interest part (the rate on the whole balance) and the same
 //! FBT rounding (each value to the cent before contributions, the gross-up and the FBT from
 //! the figure before them), so it cannot show those are the right conventions.
 //!
@@ -225,13 +226,14 @@ fn loan_oracle(principal: u64, rate: u64, months: u32) -> [u64; 4] {
         growth_power *= &growth;
     }
     let payment_top = &balance * &growth_power;
-    let first_interest_top = &balance * rate;
-    let first_principal_top = &payment_top * &scale - &first_interest_top * &factors;
     let total_interest_top = &payment_top * months - &balance * &factors;
+    let payment = half_up(&payment_top, &factors);
+    let first_interest = half_up(&(&balance * rate), &scale);
+    // The first principal is what the rounded payment leaves after the rounded interest.
     [
-        half_up(&payment_top, &factors),
-        half_up(&first_interest_top, &scale),
-        half_up(&first_principal_top, &(&factors * &scale)),
+        payment,
+        first_interest,
+        payment - first_interest,
         half_up(&total_interest_top, &factors),
     ]
 }
@@ -1446,12 +1448,12 @@ fn financed_loan_oracle(
     } else {
         &principal * rate
     };
-    let first_principal_top = &payment_top * &scale - &first_interest_top * &factors;
     let total_interest_top = &payment_top * months - (&principal - &balloon) * &factors;
+    let first_interest = half_up(&first_interest_top, &scale);
     [
         payment,
-        half_up(&first_interest_top, &scale),
-        half_up(&first_principal_top, &(&factors * &scale)),
+        first_interest,
+        payment - first_interest,
         half_up(&total_interest_top, &factors),
     ]
 }

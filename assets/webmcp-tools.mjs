@@ -147,7 +147,8 @@ const loanTool = (loan) => tool({
   title: 'Monthly loan payment calculator',
   description: 'Fixed monthly payment in AUD on an amortising loan with payments at the end or the start of each month, '
     + 'interest at the annual rate divided by 12 and an optional balloon owed at the end of the term, with the '
-    + 'interest and principal in the first payment and the total interest, each rounded half up to the cent. '
+    + 'interest in the first payment and the total interest, each rounded half up to the cent, and the first '
+    + 'payment\'s principal as the payment less that interest. '
     + 'Planning estimate only: a lender\'s fees, rounding and payment dates can differ.',
   inputSchema: record({
     principal: text('amount', 'Amount borrowed in AUD with at most 2 decimal places, for example "100000".'),
