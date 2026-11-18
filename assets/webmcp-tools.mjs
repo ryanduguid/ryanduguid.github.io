@@ -358,6 +358,23 @@ const dollarsOnly = (description) => whole(0, 1e9, `${description} In whole AUD;
 /** A signed amount as a refund or an amount owing. @param {number} value */
 const settled = (value) => ({ refund: dollars(Math.max(0, value)), amountOwing: dollars(Math.max(0, -value)) });
 
+const INCOME_TAX_DESCRIPTION = 'One Australian individual\'s income tax for a full income year in AUD: tax on taxable income, the low '
+  + 'income tax offset, the low and middle income tax offset for 2020-21 and 2021-22, the Medicare levy, the Medicare '
+  + 'levy surcharge for the days without private patient hospital cover and any compulsory study loan repayment, '
+  + 'less the tax withheld, as a refund or an amount owing, each rounded half up to the cent. Every rate is cited '
+  + `on ${INDIVIDUAL}income-tax/. It does not compute other offsets, deductions, the Medicare levy reduction `
+  + 'for families, a part-year residency or a first home super saver released amount, and it assumes the study '
+  + 'loan debt is at least the repayment, which the debt still owed caps.';
+const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full income year: the year\'s income tax, offsets, Medicare '
+  + 'levy, any Medicare levy surcharge and study loan repayment, after salary sacrificed to super and, from 2026-27, '
+  + 'the standard deduction, spread over a year, month, fortnight and week, with the employer\'s super guarantee. '
+  + 'The surcharge is a single person\'s with no dependants, and the study loan repayment assumes the debt is at '
+  + 'least the repayment. For a 2026-27 weekly, fortnightly or monthly pay of a resident (scale 2, tax-free '
+  + 'threshold claimed) or a foreign resident (scale 3) it also gives the PAYG withheld each pay under the ATO\'s '
+  + 'Schedules 1 and 8 and the refund or amount owing over the year; for a working holiday maker it gives none. '
+  + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
+  + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
+
 /**
  * WebMCP descriptors for the income tax estimate and take-home pay calculators, keyed by the
  * `data-calculator` name of the form whose page registers them.
@@ -369,13 +386,7 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payY
     'income-tax': tool({
       name: 'estimate_income_tax',
       title: 'Income tax and refund estimate',
-      description: 'One Australian individual\'s income tax for a full income year in AUD: tax on taxable income, the low '
-        + 'income tax offset, the low and middle income tax offset for 2020-21 and 2021-22, the Medicare levy, the Medicare '
-        + 'levy surcharge for the days without private patient hospital cover and any compulsory study loan repayment, '
-        + 'less the tax withheld, as a refund or an amount owing, each rounded half up to the cent. Every rate is cited '
-        + `on ${INDIVIDUAL}income-tax/. It does not compute other offsets, deductions, the Medicare levy reduction `
-        + 'for families, a part-year residency or a first home super saver released amount, and it assumes the study '
-        + 'loan debt is at least the repayment, which the debt still owed caps.',
+      description: INCOME_TAX_DESCRIPTION,
       inputSchema: record({
         incomeYear: choice(incomeYears, `Income year, ${incomeYears.at(-1)} to ${incomeYears[0]}.`),
         residency: RESIDENCY,
@@ -409,15 +420,7 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payY
     'take-home-pay': tool({
       name: 'calculate_take_home_pay',
       title: 'Take-home pay calculator',
-      description: 'Take-home pay in AUD from one salary for a full income year: the year\'s income tax, offsets, Medicare '
-        + 'levy, any Medicare levy surcharge and study loan repayment, after salary sacrificed to super and, from 2026-27, '
-        + 'the standard deduction, spread over a year, month, fortnight and week, with the employer\'s super guarantee. '
-        + 'The surcharge is a single person\'s with no dependants, and the study loan repayment assumes the debt is at '
-        + 'least the repayment. For a 2026-27 weekly, fortnightly or monthly pay of a resident (scale 2, tax-free '
-        + 'threshold claimed) or a foreign resident (scale 3) it also gives the PAYG withheld each pay under the ATO\'s '
-        + 'Schedules 1 and 8 and the refund or amount owing over the year; for a working holiday maker it gives none. '
-        + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
-        + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`,
+      description: TAKE_HOME_DESCRIPTION,
       inputSchema: record({
         incomeYear: choice(payYears, `Income year, ${payYears.at(-1)} to ${payYears[0]}.`),
         residency: RESIDENCY,
