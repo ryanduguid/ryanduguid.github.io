@@ -2634,3 +2634,132 @@ test('the payroll tax page opens on the result its calculation gives for the for
   assert.equal(String(result.principal), example[3]);
   assert.equal(result.note, example[4]);
 });
+
+// The SGC and Payday Super page: how each call and result reads.
+const sgcHtml = readFileSync(new URL('../_includes/calculators/sgc-payday.html', import.meta.url), 'utf8');
+const plainDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
+  { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+Object.assign(INPUTS, {
+  paydaySuperCharge: (x) => {
+    const timing = { standard: '7 business days', first: '20 business days for a first contribution',
+      'out-of-cycle': `out of cycle, next regular payday ${plainDate(x.nextPayday)}`,
+      exceptional: `determination made ${plainDate(x.determination)}` }[x.timing];
+    const charge = x.late === '0' && x.onTime !== '0' ? [] : [
+      ...(x.late === '0' ? [] : [`late ${dollars(Number(x.late))} received ${plainDate(x.received)}`]),
+      `assessed ${plainDate(x.assessment)}`, `${x.assessed === 'yes' ? 'an' : 'no'} earlier ATO-initiated assessment`,
+      x.disclosure === 'lodged' ? `disclosure lodged ${plainDate(x.lodged)}` : 'no disclosure',
+      ...(x.assessment > '2027-01-01' ? [`GIC ${x.assumedRate}% assumed after 2026`] : [])];
+    return [`Payday ${plainDate(x.payday)}`, timing, `earnings ${dollars(Number(x.earnings))}`,
+      ...(x.earlier === '0' ? [] : [`${dollars(Number(x.earlier))} earlier in 2026-27`]),
+      `on time ${dollars(Number(x.onTime))}`, ...charge].join('; ');
+  },
+  quarterlySgCharge: (x) => `Quarter ${x.quarter} of ${x.year}; salary or wages ${dollars(Number(x.wages))}; `
+    + `ordinary time earnings ${dollars(Number(x.ote))}; contributions ${dollars(Number(x.contributions))}; lodged ${plainDate(x.lodged)}`,
+});
+Object.assign(FORM_CALLS, { paydaySuperCharge: (f) => [{ payday: f.payday, timing: f.timing, nextPayday: f['next-payday'],
+  determination: f.determination, earnings: f.earnings, earlier: f.earlier, onTime: f['on-time'], late: f.late, received: f.received,
+  assessment: f.assessment, assessed: f.assessed, disclosure: f.disclosure, lodged: f.disclosed, assumedRate: f['assumed-rate'] }] });
+Object.assign(ENGINE_LABELS, {
+  paydaySuperCharge: { due: (v) => `due ${longDay(v)}`, rule: (v) => v, sgAmount: (v) => `SG amount ${dollars(v)}`,
+    base: (v) => `base shortfall ${dollars(v)}`, final: (v) => `final shortfall ${dollars(v)}`,
+    days: (v) => `${v} days of notional earnings`, assumedDays: (v) => `${v} days at the assumed rate`,
+    notional: (v) => `notional earnings ${dollars(v)}`, upliftPercent: (v) => `uplift ${v}%`, uplift: (v) => `uplift ${dollars(v)}`,
+    charge: (v) => `SG charge ${dollars(v)}` },
+  quarterlySgCharge: { payable: (v) => `payable ${longDay(v)}`, chargePercent: (v) => `charge percentage ${v.toFixed(2)}%`,
+    shortfall: (v) => `shortfall ${dollars(v)}`, days: (v) => `${v} days`, interest: (v) => `nominal interest ${dollars(v)}`,
+    administration: (v) => `administration component ${dollars(v)}`, charge: (v) => `SG charge ${dollars(v)}` },
+});
+
+test('Payday Super due dates count business days from the site’s calendar, to its last verified day', () => {
+  const csv = readFileSync(new URL('../tools/payday-super/business-days/payday-super-business-days.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).slice(1).map((line) => line.split(',')[0]);
+  assert.deepEqual(calculations.NON_BUSINESS_WEEKDAYS, csv);
+  const calendar = JSON.parse(readFileSync(new URL('../_data/payday_super_business_days.json', import.meta.url), 'utf8'));
+  assert.equal(calculations.CALENDAR_END, calendar.verified_until);
+  const due = (payday, timing = 'standard', nextPayday = '', determination = '') =>
+    calculations.paydaySuperDue({ payday, timing, nextPayday, determination }).due;
+  // 3 August 2026 (NT Picnic Day) is not a business day; a weekend is not either.
+  assert.equal(due('2026-07-23'), '2026-08-04');
+  assert.equal(due('2026-07-24'), '2026-08-05');
+  assert.equal(due('2027-06-30', 'first'), '2027-07-28');
+  assert.throws(() => due('2027-06-30', 'out-of-cycle', '2027-08-24'),
+    { message: 'That due date falls after 31 August 2027, where the business day calendar ends.' });
+  assert.throws(() => due('2026-09-03', 'out-of-cycle', '2026-09-03'), { message: 'The next regular payday must be after the out-of-cycle payday.' });
+  assert.throws(() => due('2026-09-03', 'weekly'), { message: 'Choose how long the fund has to receive the contribution.' });
+  for (const day of ['2026-02-30', '30/07/2026', '', '2027-07-01']) {
+    assert.throws(() => due(day), { message: 'Enter a payday from 1 July 2026 to 30 June 2027.' }, day);
+  }
+});
+
+// ATO, 'Making a voluntary disclosure for Payday Super' (last updated 1 July 2026), read 18 November
+// 2026, Juliet: '$24.74' of notional earnings on $3,600 paid 25 days late and '$49.65 (based on 50
+// days)', both at the 10% the example assumes.
+test('notional earnings compound daily as the ATO’s Juliet example does', () => {
+  const tenPercent = (days) => Array.from({ length: days }, () => [1000, 365]);
+  assert.equal(calculations.compoundedEarnings(360000, tenPercent(25)), 2474);
+  assert.equal(calculations.compoundedEarnings(360000, tenPercent(50)), 4965);
+  assert.equal(calculations.compoundedEarnings(360000, []), 0);
+});
+
+// Regulation 13D counts from the payday: the 30-day period starting on it ends on day 29. Earnings
+// of $6,500 on 6 August 2026 give an SG amount of $780, due 17 August; $540 arrived on 2 September.
+test('the administrative uplift falls by the regulation 13C and 13D points, to nil at most', () => {
+  const base = { payday: '2026-08-06', timing: 'standard', nextPayday: '2026-08-06', determination: '2026-08-06', earnings: '6500',
+    earlier: '0', onTime: '0', late: '540', received: '2026-09-02', assessment: '2027-06-30', assessed: 'yes', disclosure: 'lodged',
+    lodged: '2026-08-06', assumedRate: '11.51' };
+  for (const [lodged, percent] of [['2026-09-04', 20], ['2026-09-05', 25], ['2026-10-04', 25], ['2026-10-05', 30],
+    ['2026-12-03', 30], ['2026-12-04', 45], ['2027-06-29', 45]]) {
+    assert.equal(calculations.paydaySuperCharge({ ...base, lodged }).upliftPercent, percent, lodged);
+  }
+  assert.equal(calculations.paydaySuperCharge({ ...base, disclosure: 'none' }).upliftPercent, 60);
+  assert.equal(calculations.paydaySuperCharge({ ...base, assessed: 'no' }).upliftPercent, 0);
+  assert.equal(calculations.paydaySuperCharge({ ...base, assessed: 'no', lodged: '2026-12-04' }).upliftPercent, 25);
+  const r = calculations.paydaySuperCharge({ ...base, assessed: 'no', disclosure: 'none' });
+  assert.equal(r.uplift, Math.round((r.final + r.notional) * 40) / 100);
+  assert.equal(r.charge, Math.round((r.final + r.notional + r.uplift) * 100) / 100);
+  assert.throws(() => calculations.paydaySuperCharge({ ...base, assessed: 'maybe' }),
+    { message: 'Choose whether the ATO has assessed or estimated SG charge for this employer.' });
+  assert.throws(() => calculations.paydaySuperCharge({ ...base, disclosure: 'yes' }),
+    { message: 'Choose whether a voluntary disclosure statement was lodged.' });
+});
+
+test('the SGC page refuses malformed, nil and out-of-range money instead of reading it as nil', () => {
+  const pay = { payday: '2026-07-30', timing: 'standard', nextPayday: '2026-07-30', determination: '2026-07-30', earnings: '1000',
+    earlier: '0', onTime: '0', late: '120', received: '2026-08-25', assessment: '2026-12-01', assessed: 'no', disclosure: 'none',
+    lodged: '2026-07-30', assumedRate: '11.51' };
+  for (const field of ['earnings', 'earlier', 'onTime', 'late']) {
+    for (const value of ['', 'abc', '-1', '1e3', '100.001', '1000000001']) {
+      assert.throws(() => calculations.paydaySuperCharge({ ...pay, [field]: value }), Error, `${field} ${value}`);
+    }
+  }
+  assert.throws(() => calculations.paydaySuperCharge({ ...pay, earnings: '0' }),
+    { message: 'Enter the qualifying earnings paid on the payday, above nil.' });
+  for (const rate of ['0', '100.01', '']) assert.throws(() => calculations.paydaySuperCharge({ ...pay, assumedRate: rate }), Error, rate);
+  const quarter = { year: '2025-26', quarter: '1', wages: '12000', ote: '10000', contributions: '0', lodged: '2025-11-20' };
+  for (const field of ['wages', 'ote', 'contributions']) {
+    for (const value of ['', 'abc', '-1', '100.001']) {
+      assert.throws(() => calculations.quarterlySgCharge({ ...quarter, [field]: value }), Error, `${field} ${value}`);
+    }
+  }
+  assert.throws(() => calculations.quarterlySgCharge({ ...quarter, year: '2021-22' }), { message: 'Choose the income year of the quarter.' });
+  assert.throws(() => calculations.quarterlySgCharge({ ...quarter, quarter: '5' }), { message: 'Choose the quarter.' });
+});
+
+test('the SGC page opens on the result its calculation gives for the form’s inputs, and cites each source with its date', () => {
+  const example = sgcHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(sgcHtml);
+  const result = calculations.sgcPaydayResult((name) => fields[name], aud);
+  assert.equal(result.inputs, example[1]);
+  assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
+  assert.equal(String(result.principal), example[3]);
+  assert.equal(result.note, example[4]);
+  for (const cited of ['(Compilation No. 78, 1 July 2026), read 18 November 2026', '(Compilation No. 8, 1 July 2026), read 18 November 2026',
+    '(last updated 29 September 2026), read 18 November 2026', '(last updated 17 April 2026), read 18 November 2026',
+    '(last updated 4 September 2026), read 18 November 2026', '(Compilation No. 77)', '(Compilation No. 7)']) {
+    assert.ok(sgcHtml.includes(cited), cited);
+  }
+  // The quarterly form opens on one of the Imogen example's 30 employees.
+  const quarter = calculations.sgcPaydayResult((name) => ({ ...fields, regime: 'quarter' })[name], aud);
+  assert.equal(quarter.rows.at(-1).join('|'), 'SG charge for the quarter|$1,519.18');
+});
