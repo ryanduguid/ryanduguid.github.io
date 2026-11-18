@@ -180,7 +180,9 @@ export function paydaySuperCharge(inputs) {
   const assumed = Math.round(number(inputs.assumedRate, { min: 0.01, max: 100 }) * 100);
   const { rates, assumedDays } = gicRates(dueDay + 1, last, assumed);
   const notional = compoundedEarnings(base, rates);
-  if (!['yes', 'no'].includes(inputs.assessed)) throw new Error('Choose whether the ATO has assessed or estimated SG charge for this employer.');
+  if (!['yes', 'no'].includes(inputs.assessed)) {
+    throw new Error('Choose whether the ATO assessed or estimated SG charge for this employer from 1 July 2026 to the payday.');
+  }
   let upliftPercent = 60 - (inputs.assessed === 'no' ? 20 : 0);
   if (inputs.disclosure === 'lodged') {
     const lodged = dateField(inputs.lodged, 'the day the voluntary disclosure statement was lodged', inputs.payday,
@@ -302,7 +304,7 @@ export function sgcPaydayResult(value, aud) {
     [`Administrative uplift, ${r.upliftPercent}%`, aud(r.uplift)], ['SG charge for the payday, before any choice loading', aud(r.charge)]);
   const lodged = inputs.disclosure === 'lodged' ? `voluntary disclosure lodged ${plainDay(dayOf(inputs.lodged))}` : 'no voluntary disclosure';
   return { inputs: `${stated}, late ${money('late')}, assessment ${plainDay(dayOf(inputs.assessment))}, `
-    + `${inputs.assessed === 'no' ? 'no' : 'an'} ATO-initiated assessment or estimate since 1 July 2026, ${lodged}`,
+    + `${inputs.assessed === 'no' ? 'no' : 'an'} ATO-initiated assessment or estimate from 1 July 2026 to the payday, ${lodged}`,
   rows, principal: rows.length - 1,
   note: r.assumedDays ? `${count(r.assumedDays, 'day')} after December 2026 use the assumed GIC rate of ${value('assumed-rate')}%` : undefined };
 }

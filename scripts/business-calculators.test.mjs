@@ -2699,6 +2699,12 @@ test('notional earnings compound daily as the ATO’s Juliet example does', () =
   assert.equal(calculations.compoundedEarnings(360000, tenPercent(25)), 2474);
   assert.equal(calculations.compoundedEarnings(360000, tenPercent(50)), 4965);
   assert.equal(calculations.compoundedEarnings(360000, []), 0);
+  // Juliet's funds received the contributions on 10 December, 25 days after the 15 November due
+  // date, and the 25 days include that day. The same count here, due 16 November 2026.
+  const juliet = calculations.paydaySuperCharge({ payday: '2026-11-05', timing: 'standard', nextPayday: '', determination: '',
+    earnings: '1000', earlier: '0', onTime: '0', late: '120', received: '2026-12-11', assessment: '2027-02-01', assessed: 'no',
+    disclosure: 'none', lodged: '', assumedRate: '11.51' });
+  assert.deepEqual([juliet.due, juliet.days, juliet.earningsTo, juliet.assumedDays], ['2026-11-16', 25, '2026-12-11', 0]);
 });
 
 // Regulation 13D counts from the payday: the 30-day period starting on it ends on day 29. Earnings
@@ -2718,7 +2724,7 @@ test('the administrative uplift falls by the regulation 13C and 13D points, to n
   assert.equal(r.uplift, Math.round((r.final + r.notional) * 40) / 100);
   assert.equal(r.charge, Math.round((r.final + r.notional + r.uplift) * 100) / 100);
   assert.throws(() => calculations.paydaySuperCharge({ ...base, assessed: 'maybe' }),
-    { message: 'Choose whether the ATO has assessed or estimated SG charge for this employer.' });
+    { message: 'Choose whether the ATO assessed or estimated SG charge for this employer from 1 July 2026 to the payday.' });
   assert.throws(() => calculations.paydaySuperCharge({ ...base, disclosure: 'yes' }),
     { message: 'Choose whether a voluntary disclosure statement was lodged.' });
 });
