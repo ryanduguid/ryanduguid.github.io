@@ -15,6 +15,13 @@
     <summary>Three new business calculators. The company tax and franking calculator applies the base rate entity test for a 25% or 30% rate, finds the rate for franking from the previous year and works out the maximum franking credit and a shareholder’s top-up tax or refund; it agrees with the ATO’s base rate entity examples and gives Dillmore Manufacture’s exact credit of $42,857.14. The foreign purchaser surcharge calculator applies each state and territory’s own test of a foreign buyer, company or trust, then works out the duty surcharge and the land tax surcharge for a full year; it refuses exemptions, which each Commissioner decides, and states where none is charged. The business days calculator counts business days between 2 dates, or finds a date a number of business days on or back, with each government’s public holidays for 2026 and 2027, and refuses dates outside them. Sources were read on 18 November 2026.</summary>
   </entry>
   <entry>
+    <title>A new business calculator finds when a Payday Super contribution is due, from…</title>
+    <link href="https://duguid.com.au/changelog/#entry-a3a1734e2ec2a85b" />
+    <id>https://duguid.com.au/changelog/#entry-a3a1734e2ec2a85b</id>
+    <updated>2026-11-18T00:00:00Z</updated>
+    <summary>A new business calculator finds when a Payday Super contribution is due, from the payday and the site’s business days calendar, with the longer periods for a first contribution, out-of-cycle pay and an ATO determination, and how many days late it was. It also works out one employee’s super guarantee charge: the final shortfall, notional earnings at the GIC rate and the administrative uplift, reduced for a first offence and a voluntary disclosure, or, for a quarter to June 2026, the shortfall, 10% nominal interest and the $20 administration component.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator works out one person’s Division 296 tax for 2026-27…</title>
     <link href="https://duguid.com.au/changelog/#entry-ca1db5ec0a69030f" />
     <id>https://duguid.com.au/changelog/#entry-ca1db5ec0a69030f</id>

@@ -54,7 +54,7 @@ A discretionary trust is foreign in New South Wales if a foreign person could be
 
 The calculator does not decide exemptions, refunds or ex gratia relief, which each Commissioner grants on application. Among them are Australian-based developers and build to rent in New South Wales and Victoria, exempt permanent residents who live in the home in New South Wales, significant contributors and large developers in Queensland, and refunds when a buyer stops being foreign within 12 months in South Australia. When one is sought, it refuses. It also refuses a partner (provisional) or retirement visa holder, whom the revenue offices treat differently, and does not trace interests through other companies and trusts or decide who is an associate.
 
-Not covered: the Commonwealth’s foreign investment application fees and its restrictions on foreign purchases of established homes from 1 April 2025, which RevenueSA notes; landholder and corporate trustee acquisitions; concessions on general duty; Queensland’s absentee land tax rates, which replace the general rates; Victorian trust surcharge rates; joint land tax assessments; property converted to residential use later; and a surcharge charged again when a buyer becomes foreign within 3 years. The transfer duty calculator and the land tax calculator work the general duty with first home concessions and the general land tax. Confirm the result with the revenue office or a registered adviser before relying on it.
+Not covered: the Commonwealth’s foreign investment application fees and its restrictions on foreign purchases of established homes from 1 April 2025, which RevenueSA notes; landholder and corporate trustee acquisitions; concessions on general duty; Queensland’s absentee land tax rates, which replace the general rates; Victorian trust surcharge rates; a Victorian beneficiary nomination for trust land bought before 2006, under which the surcharge starts at $50,000 rather than $25,000; joint land tax assessments; property converted to residential use later; and a surcharge charged again when a buyer becomes foreign within 3 years. The transfer duty calculator and the land tax calculator work the general duty with first home concessions and the general land tax. Confirm the result with the revenue office or a registered adviser before relying on it.
 
 ## Boundary cases
 
@@ -83,7 +83,7 @@ Commercial property in New South Wales bears neither surcharge | New South Wales
 An exemption is refused: each Commissioner decides it | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia, exemption sought; residential property $1,000,000.00, land $1,000,000.00 | Refused: exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, so this page does not work them out
 A partner or retirement visa holder is refused | New South Wales, individual, partner or retirement visa, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Refused: this page does not decide the status of a partner (provisional) or retirement visa holder: each revenue office treats them differently
 
-One of the thirty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -94,4 +94,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- thirty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-two business calculators: https://duguid.com.au/tools/business-calculators/
