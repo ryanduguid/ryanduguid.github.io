@@ -448,7 +448,7 @@ fn design_contracts_text_mutations() {
         (
             "legal boundary drift",
             "index.html",
-            "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.",
+            "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.",
             "Nothing here is tax, legal, or financial advice. Outputs need review.",
             "protected text count changed",
         ),

@@ -12,7 +12,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "635006171072dbe725c3df34c563b7c6ad45544ef535648cb6db42fa72949bc0"
+      "e4ee3fd115d270a6bbb49b27a0691247203e4bda4a5a58c39b01df24bea1e3ef"
     ],
     "changelog/index.html": [
       "00488cd21eaacbd73c8c930a2f865af39413f510c835520e67a1234da2aef681"
@@ -39,7 +39,7 @@
       "b991e66b74bef293b5e69d3c8166b642343b922441ddd7ec68ac155f25f8e975"
     ],
     "index.html": [
-      "ddf760ddde54904465e8c3584d935690b2990f60da8a49a3fbe479ebcf70ddc7"
+      "0a824d2eead95e7d1218d97f67e71d874a5b93c1a8ec78040aa910b6f79e3f21"
     ],
     "privacy/index.html": [
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
@@ -120,7 +120,7 @@
       "29b8695789978a33ef48a544bd7aacbcf1d3cdf3bd46cc43a64ea2b22be81484"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "37727641295dbad96c5b85c01fcbbd5994142bc801ad110ca5d88e8340bd1236"
+      "c928e166d20e65337e68ce6c372e0792a54406fb306704cf7fcc5324a06da249"
     ],
     "tools/bas-due-dates/index.html": [
       "0cd228c7fb91aae4af73006d6ec4dd8fdbc67f341b2466fc721ea4dada27f930"
@@ -310,7 +310,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "a57d9f1d49da6e5c2e005ec9b254a2178013194b7ecd49d2d387b87771db40ba",
+    "llms.txt": "8886ba17bdaac71fbd8f5fcd10754a6f0e347d230642bfa97c5a40e4b199f7e2",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "df3423b73cb32b1f4dbd17a03eef9ef60e6d82077a54d0edbb488ec08afc502a"
   },
@@ -372,7 +372,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.": 7772,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7772,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

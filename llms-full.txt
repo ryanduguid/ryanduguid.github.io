@@ -18,7 +18,7 @@ Check workpaper packs, explore cash shortfalls and inspect the calculations.
 
 Explore the cash flow example
 
-Built by Ryan Duguid, an accountant in Newcastle, NSW.
+Built by Ryan Duguid, a senior accountant in Newcastle, NSW.
 
 Last reviewed 4 November 2026.
 
@@ -86,15 +86,15 @@ Browse reproducible evaluations Set up AI tools
 
 ---
 
-# About Ryan Duguid, Accountant in Newcastle, NSW
+# About Ryan Duguid, Senior Accountant in Newcastle, NSW
 
 Source: https://duguid.com.au/about/
 
-> Ryan Duguid, Accountant in Newcastle, NSW. Open source accounting tools, Provisional CA ANZ Member and Xero Certified Specialist, Level 3.
+> Ryan Duguid, Senior Accountant in Newcastle, NSW. Open source accounting tools, Provisional CA ANZ Member and Xero Certified Specialist, Level 3.
 
 # About Ryan Duguid
 
-I’m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
+I’m Ryan Duguid, a senior accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
 
 I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools. My LinkedIn profile is linkedin.com/in/ryan-duguid.
 
@@ -174,9 +174,9 @@ Duguid, R. (2026). Australian computational accounting tools. https://duguid.com
 
 ## Advice and review boundary
 
-I am not a registered tax agent or BAS agent. Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations. Lodgement decisions stay with a human. Outputs may be inaccurate, out of date or incomplete, and using a tool creates no professional relationship. This site is not affiliated with or endorsed by the ATO, Xero or Anthropic.
+I am not a registered tax agent or BAS agent. Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations. Lodgement decisions stay with a human. Outputs may be inaccurate, out of date or incomplete, and using a tool creates no professional relationship.
 
-This is a personal index of open source accounting tools I build. It is not a practice, and I am not accepting professional engagements through this site. This site does not offer tax or BAS agent services or take requests for tax advice or lodgement. Do not post taxpayer information or client files to public repositories.
+This is a personal index of open source accounting tools I build. It is not a practice, and I am not accepting professional engagements through this site. This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.
 
 I write and maintain this site in my own time and on my own equipment.
 
@@ -462,14 +462,6 @@ Australian Accounting’s Division 7A, Payday Super and MCP results below each c
 - Payday Super. For wages paid on 30 July 2026, payday-super-check 0.2.3 gives a due date of 11 August 2026, because NT Picnic Day on 3 August is not a business day. The ATO’s worked example gives the same date on the usual 7 business day path. Run and read 5 November 2026.
 - MCP tools. Aus Accounting MCP 0.9.0, the published release, adds no tool to 0.8.0, which listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
 
-### Nearby products
-
-- Nagaris: a hosted practice platform for Australian accounting firms, with proposals, AML/CTF checks, e-signing, job tracking and an AI assistant on one client file. It publishes browser calculators, including Division 7A and Payday Super due dates, and the page for the second also states 11 August 2026 for a 30 July 2026 payday. Its AI Accounting Index, which tested third-party AI models with each question answered once, reports that none of the 14 setups that answered that question reached 11 August, and says Ask Nagaris adds lookup tables for business days. Read 5 November 2026.
-- Lodgeit: a hosted platform that prepares and lodges returns, BAS and financial reports. Its home page calls it an ‘Official ATO Standard Business Reporting platform’ and states ISO 27001:2022 certification. Read 5 November 2026.
-- LodgeiT Labs: a public HTTP gateway for deterministic calculators with no key or signup, which its page describes as ‘Not stable yet’. Its listing showed 23 calculators, with Division 7A periods fy2025 and fy2026 and FBT period fy2026. Its page also lists a Coal LSL calculator that I built and host as an external contributor, and Australian Accounting has an optional adapter for the gateway. Read 5 November 2026.
-
-The Australian Accounting repository offers none of those hosted services. It is not a registered tax or BAS agent, does not lodge and holds no third-party certification such as ISO 27001.
-
 ## From monthly close to a cash forecast
 
 Fictional October to December 2026 case. Verified locally on 4 October 2026.
@@ -562,8 +554,6 @@ Valid until
 
 View certificate (PDF) Xero trial balance export and review workflow
 
-The certificate records my own product knowledge for the period shown. The badge is Xero’s artwork, taken from the certificate itself. Both files carry their own source and usage record, not this repository’s software licence.
-
 ## Packages, releases and repositories
 
 Install commands are under Adopt. The package, release, compatibility and licence links below point to maintained records.
@@ -655,14 +645,6 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
 - record and limits: https://github.com/ryanduguid/australian-accounting/blob/main/packages/div7a-loan-review/docs/ato-calculator-comparison-2026-10-07.md
 - ATO’s worked example: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
-- Nagaris: https://nagaris.com/llms.txt
-- Division 7A: https://nagaris.com/division-7a-calculator
-- Payday Super due dates: https://nagaris.com/payday-super-due-date-calculator
-- AI Accounting Index: https://nagaris.com/ai-accounting-index
-- Lodgeit: https://lodgeit.net.au/
-- prepares and lodges: https://lodgeit.net.au/for-accountants/
-- LodgeiT Labs: https://lodgeit.org/calculators.html
-- listing: https://fbt-calculator-api-qkp3j5bjnq-ts.a.run.app/v1/calculators
 - Monthly values and review states (CSV, AUD): https://duguid.com.au/assets/examples/quarter-close-to-forecast/quarter-monthly.csv
 - October reader report (JSON): https://duguid.com.au/assets/examples/quarter-close-to-forecast/2026-10-31.json
 - November reader report (JSON): https://duguid.com.au/assets/examples/quarter-close-to-forecast/2026-11-30.json
@@ -5147,7 +5129,7 @@ Human review required. Optional local library excerpts enter the assistant’s c
 
 The server runs on your machine and lodges nothing. Outputs need human review.
 
-Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
+Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, a senior accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
 
 ## The split, in one table
 
@@ -5314,7 +5296,7 @@ Since 1 July 2026, the fund must receive it within 7 business days of payday, or
 
 ### Who maintains these tools?
 
-Ryan Duguid is an Australian accountant based in Newcastle, NSW. He is a Provisional CA ANZ Member. He is not the US software product executive of the same name.
+Ryan Duguid is an Australian senior accountant based in Newcastle, NSW. He is a Provisional CA ANZ Member. He is not the US software product executive of the same name.
 
 ### Where is aus-accounting-mcp available?
 
