@@ -5974,11 +5974,12 @@ const MARGIN_SCHEME_CASES: usize = 200;
 const MAX_MARGIN_CENTS: u64 = 100_000_000_000_000;
 
 /// The margin scheme in tenths of a cent, by subsections 75-10(1) and (2) and section 75-15. The
-/// part's share of the cost is `part` / `whole` of it, half up to the cent. On a GST-inclusive price
-/// P the margin is P less the share, or nil, and its GST 1/11 of it. On a GST-exclusive price E the
+/// part's share of the cost is `part` / `whole` of it, shown half up to the cent; each GST is worked
+/// from the exact share and rounded once. On a GST-inclusive price P the margin is P less the share,
+/// or nil, and its GST 1/11 of it. On a GST-exclusive price E the
 /// price the buyer pays is E plus a GST that is 1/11 of the margin on that price, so the margin is
-/// worked exactly in tenths of a cent, 10E plus (E less the share) less 10 times the share, and the
-/// GST is 1/110 of it, where the engine takes one tenth of E less the share. Without the margin scheme the GST is 1/11 of P or
+/// 11 times (E less the share) over 10, and the GST is 1/11 of it, where the engine takes one tenth
+/// of E less the share. Without the margin scheme the GST is 1/11 of P or
 /// 1/10 of E. Each GST rounds half up to the cent (section 9-90). The scheme applies only for
 /// freehold, a stratum unit or a long-term lease, with a written agreement, and not to property
 /// bought with GST on the whole price (section 75-5).
@@ -5995,13 +5996,15 @@ fn margin_scheme_oracle(
 ) -> Value {
     let (price, cost) = (u128::from(price), u128::from(cost));
     let share = exact_half_up(cost * u128::from(part), u128::from(whole));
-    let excess = price.saturating_sub(share);
+    // P (or E) less the exact share, over `whole`: price x whole - cost x part.
+    let (part, whole) = (u128::from(part), u128::from(whole));
+    let excess = (price * whole).saturating_sub(cost * part);
     let (scheme, consideration, basic) = if exclusive {
-        // The margin on E plus its exact GST, in tenths of a cent: 10E + (E - share) - 10 share.
-        let scheme = exact_half_up(11 * excess, 110);
+        // The margin on E plus its exact GST, 11 (E - share) / 10, then 1/11 of it.
+        let scheme = exact_half_up(11 * excess, 110 * whole);
         (scheme, price + scheme, exact_half_up(price, 10))
     } else {
-        (exact_half_up(excess, 11), price, exact_half_up(price, 11))
+        (exact_half_up(excess, 11 * whole), price, exact_half_up(price, 11))
     };
     let applies = interest != "other" && agreed && acquired != "full-gst";
     let cents = |value: u128| shown(u64::try_from(value).unwrap());

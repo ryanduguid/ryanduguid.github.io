@@ -2875,6 +2875,16 @@ test('a GST-exclusive price adds GST that is 1/11 of the margin on the price it 
   }
 });
 
+// Section 75-15 takes the exact proportion and s 9-90 rounds only the GST, as PR 740's command does: a share rounded
+// to the cent first would move each of these GSTs by a cent.
+test('the margin scheme GST on a lot is worked from the exact share and rounded once', () => {
+  const input = { interest: 'freehold', taxable: true, agreed: true, acquired: 'margin', associate: false, method: 'consideration' };
+  const inclusive = calculations.gstMarginScheme({ ...input, basis: 'inclusive', price: '863124.48', cost: '135641.61', part: '289', whole: '306' });
+  assert.deepEqual([inclusive.share, inclusive.schemeGst], [128105.97, 66819.87]);
+  const exclusive = calculations.gstMarginScheme({ ...input, basis: 'exclusive', price: '684719.36', cost: '80630.34', part: '781', whole: '4306' });
+  assert.deepEqual([exclusive.share, exclusive.schemeGst], [14624.31, 67009.5]);
+});
+
 test('the margin scheme leaves the buyer without an input tax credit and says so', () => {
   const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
   const call = FORM_CALLS.gstMarginScheme(formDefaults(calculatorInclude('gst-margin-scheme')))[0];

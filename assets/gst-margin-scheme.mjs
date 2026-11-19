@@ -45,9 +45,10 @@ const nil = (value) => (value > 0n ? value : 0n);
 /** The margin scheme's conditions in section 75-5 and the GST on the sale. The cost is the
  * consideration paid for the acquisition (s 75-12), without improvements, duty or fees (s 75-14), or
  * an approved valuation for property held since before 1 July 2000 (s 75-10(3)); for part of the
- * land, only the part's share of it, `part` of `whole` (s 75-15), half up to the cent. The margin is
- * the GST-inclusive consideration less that cost, nil if it is not more (s 75-10(2)); the GST is
- * 1/11 of it, half up to the cent (ss 75-10(1) and 9-90). From a GST-exclusive price E, the GST is
+ * land, only the part's share of it, `part` of `whole` (s 75-15), shown half up to the cent. The margin
+ * is the GST-inclusive consideration less that cost, nil if it is not more (s 75-10(2)); the GST is
+ * 1/11 of it, worked from the exact share and rounded once, half up to the cent (ss 75-10(1) and
+ * 9-90), as the australian-accounting command does. From a GST-exclusive price E, the GST is
  * (E - cost) / 10, so that it is 1/11 of the margin on E plus that GST (GSTR 2006/8 para 145).
  * Without the margin scheme the GST is 1/11 of the GST-inclusive price, or 10% of E.
  * @param {MarginSchemeInput} input */
@@ -79,7 +80,7 @@ export function gstMarginScheme(input) {
   const conditions = { interest: input.interest !== 'other', agreed: input.agreed, eligible: input.acquired !== 'full-gst' };
   const exclusive = input.basis === 'exclusive';
   const basic = ratioCents(price, exclusive ? 10n : 11n);
-  const schemeGst = exclusive ? ratioCents(nil(price - share), 10n) : ratioCents(nil(price - share), 11n);
+  const schemeGst = ratioCents(nil(price * whole - cost * part), (exclusive ? 10n : 11n) * whole);
   const consideration = exclusive ? price + schemeGst : price;
   const applies = conditions.interest && conditions.agreed && conditions.eligible;
   const dollars = (/** @type {bigint} */ value) => Number(value) / 100;
