@@ -10,6 +10,7 @@ export { psiDetermination, psiDeterminationResult } from './psi-determination.mj
 export { CALENDAR_END, NON_BUSINESS_WEEKDAYS, compoundedEarnings, paydaySuperDue, paydaySuperCharge, quarterlySgCharge, sgcPaydayResult }
   from './sgc-payday.mjs';
 export { LSL_ACTS, LSL_REASONS, longServiceLeave, longServiceLeaveResult, lslReasonText } from './long-service-leave.mjs';
+export { WC_SCHEMES, workersCompensation, workersCompensationResult } from './workers-compensation.mjs';
 
 // Planning arithmetic. Rates, eligibility and classifications belong to the caller.
 // Money inputs are decimal strings in AUD; monetary results are numeric AUD.

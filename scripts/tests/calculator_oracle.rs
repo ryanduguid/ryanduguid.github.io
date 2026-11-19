@@ -100,6 +100,14 @@
 //! per rule. The conventions (a part year as months over 12 and days over 365.25, weeks half
 //! up to 4 places, the value from the exact weeks) are the engine's, so the oracle cannot show
 //! them.
+//!
+//! A further 300 seeded workers compensation premiums, from their own seed, a third of the New
+//! South Wales and South Australian ones a cent either side of the $30,000 average performance
+//! premium or a discount band, type each scheme's thresholds, minimums and duty here from its
+//! source. Victoria's deductible is clause 11 as written, the preliminary premium over the
+//! remuneration, where the engine takes the rate, and South Australia's bands are typed in
+//! dollars and its premium worked as BP × (1 − D) + C − A. Each half-up or round-down step is
+//! the engine's, so the oracle cannot show those conventions.
 mod common;
 
 use jiff::ToSpan;
@@ -6385,6 +6393,292 @@ fn the_lsl_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let (cases, expected): (Vec<_>, Vec<_>) = (0..LSL_CASES).map(|_| lsl_case(&mut rng)).unzip();
     let actual = run_node(LSL_HARNESS, &cases);
     assert_eq!(actual.len(), LSL_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the workers compensation engine, as `HARNESS` runs the others. A refusal is reported as
+/// one, without its wording, which the Node tests hold.
+const WC_HARNESS: &str = r"
+import { workersCompensation } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const shown = (value) => value === null ? null : String(value);
+const run = (inputs) => {
+  try {
+    const r = workersCompensation(inputs);
+    return { premium: shown(r.premium), gst: shown(r.gst), duty: shown(r.duty), total: shown(r.total),
+      actualTotal: shown(r.actualTotal), adjustment: shown(r.adjustment) };
+  } catch {
+    return { refused: true };
+  }
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+const WC_CASES: usize = 300;
+const WC_PLACES: [&str; 8] = [
+    "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+];
+
+/// One employer as the form gives it: money in cents and rates in ten-thousandths of 1%.
+struct WcCase {
+    place: &'static str,
+    wages: i128,
+    rate: i128,
+    apprentice: i128,
+    actual: Option<i128>,
+    group: bool,
+    dust: i128,
+    reward: i128,
+    vic_employer: &'static str,
+    days: i128,
+    buyout: bool,
+    qld_start: &'static str,
+    first_year: bool,
+    claims: i128,
+}
+
+fn wc_half(numerator: i128, denominator: i128) -> i128 {
+    (2 * numerator + denominator) / (2 * denominator)
+}
+
+/// The premium before GST, the GST, the duty and the total on one wages figure, typed from each
+/// scheme's source read on 19 November 2026, or `None` where the source leaves the premium to
+/// the insurer.
+fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
+    let cents_at = |amount: i128, rate: i128| wc_half(amount * rate, 1_000_000);
+    let gst = |premium: i128| wc_half(premium, 10);
+    if c.apprentice > wages {
+        return None;
+    }
+    match c.place {
+        "AU-NSW" => {
+            // SIRA's Guidelines 2026 clause 6.7: small while the APP does not exceed $30,000;
+            // icare's $240 minimum; the dust diseases rate includes its GST.
+            let app = cents_at(wages, c.rate);
+            let premium = app - cents_at(app, c.reward) - cents_at(c.apprentice, c.rate);
+            if app > 3_000_000 || premium < 24_000 {
+                return None;
+            }
+            Some([premium, gst(premium), 0, premium + gst(premium) + cents_at(wages, c.dust)])
+        }
+        "AU-VIC" => {
+            if c.vic_employer == "other" {
+                return None;
+            }
+            // Premiums Order (No. 34): remuneration to the dollar (clause 6(6)), the preliminary
+            // premium in millionths of a dollar, and clause 11 as written, preliminary premium
+            // ÷ R × 15,500 × N ÷ 365; the WorkCover premium down to the cent and at least $400.
+            let remuneration = wc_half(wages, 100);
+            let preliminary = remuneration * c.rate;
+            let deductible = if remuneration == 0 {
+                0
+            } else {
+                wc_half(preliminary * 15_500 * c.days, remuneration * 365)
+            };
+            let workcover = ((preliminary - deductible).max(0) / 10_000).max(40_000);
+            let premium = workcover + if c.buyout { workcover / 10 } else { 0 };
+            Some([premium, gst(premium), 0, premium + gst(premium)])
+        }
+        "AU-QLD" => {
+            // Notice (No. 1) of 2026 section 4.1: the minimum, including GST and duty, by the
+            // quarter the policy commences.
+            let minimum = match c.qld_start {
+                "q1" => 20_000,
+                "q2" => 15_000,
+                "q3" => 10_000,
+                "q4" => 5_000,
+                _ => return None,
+            };
+            let premium = cents_at(wages, c.rate) - cents_at(c.apprentice, c.rate);
+            // Duties Act 2001 (Qld) s 362(3): 5% of the premium, its GST included.
+            let duty = wc_half((premium + gst(premium)) * 5, 100);
+            Some([premium, gst(premium), duty, (premium + gst(premium) + duty).max(minimum)])
+        }
+        "AU-SA" => {
+            // ReturnToWorkSA: BP × (1 − D) + C − A, D by the base premium's band in dollars,
+            // C capped at 3 × D × BP, at least $200 and down to the whole dollar. Hundred-
+            // millionths of a cent: wages × rate is the base premium in millionths of a cent.
+            let d = if c.first_year {
+                0
+            } else {
+                [(10_000, 5), (50_000, 10), (100_000, 15), (500_000, 20), (1_000_000, 25)]
+                    .iter()
+                    .find(|(dollars, _)| wages * c.rate < dollars * 100_000_000)
+                    .map_or(30, |&(_, d)| d)
+            };
+            let base = wages * c.rate * 100;
+            let claims = if c.first_year {
+                0
+            } else {
+                (c.claims * 100_000_000).min(3 * base * d / 100)
+            };
+            let sum = base * (100 - d) / 100 + claims - c.apprentice * c.rate * 100;
+            let dollar = 100 * 100_000_000;
+            let premium = if sum < 200 * dollar {
+                20_000
+            } else {
+                sum / dollar * 100
+            };
+            Some([premium, gst(premium), 0, premium + gst(premium)])
+        }
+        _ => {
+            let premium = cents_at(wages, c.rate);
+            Some([premium, gst(premium), 0, premium + gst(premium)])
+        }
+    }
+}
+
+fn wc_oracle(c: &WcCase) -> Value {
+    let refused = json!({"refused": true});
+    let state = ["AU-NSW", "AU-VIC", "AU-QLD", "AU-SA"].contains(&c.place);
+    let apprentices = ["AU-NSW", "AU-QLD", "AU-SA"].contains(&c.place);
+    if (c.group && state) || (!apprentices && c.apprentice != 0) {
+        return refused;
+    }
+    let Some([premium, gst, duty, total]) = wc_premium(c, c.wages) else {
+        return refused;
+    };
+    let actual = match c.actual.map(|wages| wc_premium(c, wages)) {
+        Some(None) => return refused,
+        found => found.flatten().map(|[.., actual]| actual),
+    };
+    json!({"premium": shown_signed(premium), "gst": shown_signed(gst), "duty": shown_signed(duty),
+        "total": shown_signed(total), "actualTotal": actual.map(shown_signed),
+        "adjustment": actual.map(|actual| shown_signed(actual - total))})
+}
+
+fn wc_case(rng: &mut Seeded) -> (Value, Value) {
+    let most = 1_000_000_000_000;
+    let place = rng.pick(&WC_PLACES);
+    let rate = 1 + i128::from(rng.below(200_000));
+    let mut wages = i128::from(rng.cents(1_000_000_000_000));
+    // A third of the NSW and SA cases sit a cent either side of the $30,000 APP or a band.
+    let bound = match place {
+        "AU-NSW" => 3_000_000,
+        "AU-SA" => rng.pick(&[1_000_000, 5_000_000, 10_000_000, 50_000_000, 100_000_000]),
+        _ => 0,
+    };
+    if bound > 0 && rng.below(3) == 0 {
+        wages = ((bound * 1_000_000 + rate - 1) / rate - i128::from(rng.below(2))).min(most);
+    }
+    let users = ["AU-NSW", "AU-QLD", "AU-SA"].contains(&place);
+    // Apprentice wages up to a cent over the wages, and now and then where no scheme takes them.
+    let apprentice = match (rng.below(3), users) {
+        (0, true) => i128::from(rng.below(u64::try_from(wages).unwrap() + 2)),
+        (0, false) if rng.below(4) == 0 => 1 + i128::from(rng.below(1_000_000)),
+        _ => 0,
+    };
+    let actual = (rng.below(3) == 0)
+        .then(|| (wages * i128::from(80 + rng.below(41)) / 100 + i128::from(rng.below(100))).min(most));
+    let c = WcCase {
+        place,
+        wages,
+        rate,
+        apprentice,
+        actual,
+        group: rng.below(10) == 0,
+        dust: i128::from(rng.below(2_001)),
+        reward: i128::from(rng.below(150_001)),
+        vic_employer: if rng.below(12) == 0 {
+            "other"
+        } else {
+            rng.pick(&["new", "small"])
+        },
+        days: 1 + i128::from(rng.below(365)),
+        buyout: rng.below(2) == 0,
+        qld_start: if rng.below(12) == 0 {
+            "existing"
+        } else {
+            rng.pick(&["q1", "q2", "q3", "q4"])
+        },
+        first_year: rng.below(4) == 0,
+        claims: i128::from(rng.cents(100_000_000_000)),
+    };
+    let cents = |amount: i128| dollars(u64::try_from(amount).unwrap());
+    let rate_of = |rate: i128| rate_shown(u64::try_from(rate).unwrap());
+    let yes = |answer: bool| if answer { "yes" } else { "no" };
+    let case = json!({"place": c.place, "wages": cents(c.wages), "rate": rate_of(c.rate),
+        "apprentice": cents(c.apprentice), "actual": c.actual.map_or(String::new(), cents),
+        "group": yes(c.group), "dust": rate_of(c.dust), "reward": rate_of(c.reward),
+        "vicEmployer": c.vic_employer, "days": c.days.to_string(), "buyout": yes(c.buyout),
+        "qldStart": c.qld_start, "firstYear": yes(c.first_year), "claims": cents(c.claims)});
+    (case, wc_oracle(&c))
+}
+
+#[test]
+fn the_wc_oracle_works_the_published_examples_by_hand() {
+    let case = |place, wages, rate| WcCase {
+        place,
+        wages,
+        rate,
+        apprentice: 0,
+        actual: None,
+        group: false,
+        dust: 0,
+        reward: 0,
+        vic_employer: "new",
+        days: 365,
+        buyout: false,
+        qld_start: "q1",
+        first_year: false,
+        claims: 0,
+    };
+    // NT WorkSafe's bulletin: $400,000 at 3.50%, then $500,000 actual.
+    let nt = WcCase {
+        actual: Some(50_000_000),
+        ..case("AU-NT", 40_000_000, 35_000)
+    };
+    assert_eq!(
+        wc_oracle(&nt),
+        json!({"premium": "14000", "gst": "1400", "duty": "0", "total": "15400",
+            "actualTotal": "19250", "adjustment": "3850"})
+    );
+    // ReturnToWorkSA's 3 examples: $8,550, $9,900 and $56,000 before GST.
+    let sa = |wages, rate, claims| {
+        wc_premium(&WcCase { claims, ..case("AU-SA", wages, rate) }, wages).unwrap()[0]
+    };
+    assert_eq!(
+        [
+            sa(45_000_000, 20_000, 0),
+            sa(45_000_000, 20_000, 250_000),
+            sa(100_000_000, 60_000, 500_000)
+        ],
+        [855_000, 990_000, 5_600_000]
+    );
+    // icare's Rob's Restaurant: $1,200,000 at 2.250%, a 7.5% reward, a 0.022% dust diseases rate.
+    let rob = WcCase {
+        reward: 75_000,
+        dust: 220,
+        ..case("AU-NSW", 120_000_000, 22_500)
+    };
+    assert_eq!(
+        wc_premium(&rob, rob.wages),
+        Some([2_497_500, 249_750, 0, 2_773_650])
+    );
+    let vic = case("AU-VIC", 15_000_000, 20_000);
+    assert_eq!(
+        wc_premium(&vic, vic.wages),
+        Some([269_000, 26_900, 0, 295_900])
+    );
+    let qld = case("AU-QLD", 50_000_000, 13_430);
+    assert_eq!(
+        wc_premium(&qld, qld.wages),
+        Some([671_500, 67_150, 36_933, 775_583])
+    );
+}
+
+#[test]
+fn the_wc_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1119_0000_0350);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..WC_CASES).map(|_| wc_case(&mut rng)).unzip();
+    let actual = run_node(WC_HARNESS, &cases);
+    assert_eq!(actual.len(), WC_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
