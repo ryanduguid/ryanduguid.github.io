@@ -25,6 +25,9 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const packaging = { file: 'assets/salary-packaging.mjs', test: individualTest };
+const lease = { file: 'assets/novated-lease.mjs', test: individualTest };
+const bonus = { file: 'assets/bonus-withholding.mjs', test: individualTest };
 const d293 = { file: 'assets/division-293.mjs', test: individualTest };
 const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
 const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
@@ -35,6 +38,7 @@ const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
 const finance = { ...business, file: 'assets/finance-schedule.mjs' };
 const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
+const evExemption = { ...business, file: 'assets/fbt-ev-exemption.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
 const psi = { ...business, file: 'assets/psi-determination.mjs' };
@@ -47,6 +51,7 @@ const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
+const wc = { ...business, file: 'assets/workers-compensation.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -137,7 +142,36 @@ const MUTATIONS = [
   { ...fbt, name: 'FBT car parking spaces take 230 days', find: '228n * spaces', replace: '230n * spaces' },
   { ...fbt, name: 'FBT car parking spaces ignore fewer employees', find: 'e0 + e1 < s0 + s1 ?', replace: 'false ?' },
   { ...fbt, name: 'FBT car parking average cost takes the first fee only', find: 'money(p.firstFee) + money(p.lastFee)', replace: '2n * money(p.firstFee)' },
+  { ...evExemption, name: 'EV exemption: a value at the threshold pays luxury car tax', find: 'value <= threshold * 100', replace: 'value < threshold * 100' },
+  { ...evExemption, name: 'EV exemption: a car first used on 1 July 2022 is not exempt', find: "firstUsed >= '2022-07-01'", replace: "firstUsed > '2022-07-01'" },
+  { ...evExemption, name: 'EV exemption: a sale on 1 July falls in the year before', find: "iso.slice(5) < '07-01'", replace: "iso.slice(5) <= '07-01'" },
+  { ...evExemption, name: 'EV exemption: a new plug-in hybrid commitment is ignored', find: "['hybrid-no-new-commitment', !facts[1]]", replace: "['hybrid-no-new-commitment', true]" },
+  { ...evExemption, name: 'EV exemption: luxury car tax on another supply is ignored', find: "['other-supply', !otherSupply]", replace: "['other-supply', true]" },
+  { ...evExemption, name: 'EV exemption: a former employee is exempt', find: "['current-employee', current]", replace: "['current-employee', true]" },
+  { ...evExemption, name: 'EV exemption: a taxed sale within the year after first use gives one result', find: 'firstSale > firstUsed && firstSale >=', replace: 'false && firstSale >=' },
+  { ...evExemption, name: 'EV exemption: a taxed sale on 1 April after first use precedes the year', find: "firstSale >= `${ended - 1}-04-01`", replace: "firstSale > `${ended - 1}-04-01`" },
+  { ...evExemption, name: 'EV exemption: a taxed sale on the day of first use is refused', find: 'firstSale > firstUsed &&', replace: 'firstSale >= firstUsed &&' },
+  { ...evExemption, name: 'EV exemption: one condition met is enough', find: 'conditions.every((c) => c.met)', replace: 'conditions.some((c) => c.met)' },
+  { ...evExemption, name: 'EV exemption: a first retail sale after the FBT year counts its luxury car tax', find: 'const afterYear = firstSale > yearEnd;', replace: 'const afterYear = false;' },
+  { ...evExemption, name: 'EV exemption: an exempt plug-in hybrid benefit before 1 April 2025 needs no earlier use', find: "facts[2] && firstUsed >= '2025-04-01'", replace: "facts[2] && firstUsed > '2025-04-01'" },
   { ...fbt, name: 'FBT car parking contributions take the value below nil', find: 'least(contribution, gross)', replace: 'contribution' },
+  { ...fbt, name: 'FBT property 75% rules take the whole price', find: 'ratioCents(value * 3n, 4n)', replace: 'value' },
+  { ...fbt, name: 'FBT property bought goods take the notional value', find: 'least(money(p.price), money(p.notional))', replace: 'money(p.notional)' },
+  { ...fbt, name: 'FBT in-house reduction applies under salary packaging', find: "&& !method.endsWith('-salary-packaging')", replace: '' },
+  { ...fbt, name: 'FBT in-house reduction takes the value below nil', find: 'least(money(available, 1000), value - rule.reduction)', replace: 'money(available, 1000)' },
+  { ...fbt, name: 'FBT in-house reduction accepts more than $1,000', find: 'money(available, 1000)', replace: 'money(available)' },
+  { ...fbt, name: 'FBT in-house reduction applies to external benefits', find: "method.startsWith('in-house-') && !", replace: '!' },
+  { ...fbt, name: 'FBT otherwise deductible reduction takes the value below nil', find: 'least(gd - applied, value)', replace: 'gd - applied' },
+  { ...fbt, name: 'FBT otherwise deductible RD can exceed GD', find: 'least(rd, gd)', replace: 'rd' },
+  { ...fbt, name: 'FBT property gross deduction on the value after the contribution', find: 'otherwiseDeductible(gross, p.incomeUse, rd)', replace: 'otherwiseDeductible(gross - least(contribution, gross), p.incomeUse, rd)' },
+  { ...fbt, name: 'FBT property accepts RD above the contribution', find: 'if (rd > contribution)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT property contribution takes the value below nil', find: 'const applied = least(paid, gross);', replace: 'const applied = paid;' },
+  { ...fbt, name: 'FBT expense payment gross deduction on the payment', find: 'otherwiseDeductible(expenditure, e.incomeUse, rd)', replace: 'otherwiseDeductible(paid, e.incomeUse, rd)' },
+  { ...fbt, name: 'FBT expense payment portion ignores the contribution', find: 'expenditure - paid + contribution', replace: 'expenditure - paid' },
+  { ...fbt, name: 'FBT expense payment accepts a payment above the expenditure', find: 'if (paid > expenditure)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT expense payment accepts RD above the portion', find: 'if (rd > portion)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT in-house expense payment takes the otherwise deductible inputs', find: 'if (hundredths(e.incomeUse) > 0n || rd > 0n)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT expense payment takes an external property rule', find: "e.method.startsWith('in-house-') ? e.method : ''", replace: 'e.method' },
   { ...pcg, name: 'PCG 2021/4 puts exactly 50% returned in the band below', find: '[50, true]', replace: '[50, false]' },
   { ...pcg, name: 'PCG 2021/4 puts an exactly 30% tax rate in the band below', find: '[30, true]', replace: '[30, false]' },
   { ...pcg, name: 'PCG 2021/4 puts exactly 100% of the benchmark in the band above', find: '[100, false]', replace: '[100, true]' },
@@ -325,6 +359,41 @@ const MUTATIONS = [
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
   { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
   { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
+  { ...packaging, name: 'salary packaging puts meal entertainment in the other type', find: 'grossUp(typeOne + (p.mealsTypeOne ? meals : 0), TYPE_1)', replace: 'grossUp(typeOne + (p.mealsTypeOne ? 0 : meals), TYPE_1)' },
+  { ...packaging, name: 'salary packaging grosses Type 2 benefits up at the Type 1 rate', find: 'typeTwo: grossUp(typeTwo + (p.mealsTypeOne ? 0 : meals), TYPE_2)', replace: 'typeTwo: grossUp(typeTwo + (p.mealsTypeOne ? 0 : meals), TYPE_1)' },
+  { ...packaging, name: 'salary packaging rounds the gross-up down', find: '+ 1000000n) / 2000000n', replace: ') / 2000000n' },
+  { ...packaging, name: 'salary packaging gives a charity the hospital cap', find: 'charity: 30000, hospital: 17000', replace: 'charity: 17000, hospital: 17000' },
+  { ...packaging, name: 'salary packaging allows no meal entertainment over the cap', find: 'const excess = overCap - mealAllowance;', replace: 'const excess = overCap;' },
+  { ...packaging, name: 'salary packaging allows meal entertainment beyond $5,000', find: 'Math.min(MEAL_ALLOWANCE, grossed.meals, overCap)', replace: 'Math.min(grossed.meals, overCap)' },
+  { ...packaging, name: 'salary packaging taxes the excess at 45%', find: 'const fbt = excess * 47;', replace: 'const fbt = excess * 45;' },
+  { ...packaging, name: 'salary packaging reports benefits of exactly $2,000', find: 'packaged > REPORTING_THRESHOLD', replace: 'packaged >= REPORTING_THRESHOLD' },
+  { ...packaging, name: 'salary packaging reports the taxable value without the gross-up', find: 'Math.floor(packaged / 53)', replace: 'Math.floor(packaged / 100)' },
+  { ...packaging, name: 'salary packaging leaves the reportable amount out of the tax', find: 'owed(p, salary - packaged, reportable)', replace: 'owed(p, salary - packaged, 0)' },
+  { ...packaging, name: 'salary packaging takes the standard deduction before 2026-27', find: 'p.year >= STANDARD_DEDUCTION_FROM && ', replace: '' },
+  { ...lease, name: 'novated lease exempts a petrol car', find: "if (n.kind === 'other') return", replace: 'if (false) return' },
+  { ...lease, name: 'novated lease exempts a plug-in hybrid without a commitment', find: '&& !n.commitment) {', replace: '&& false) {' },
+  { ...lease, name: 'novated lease takes a plug-in hybrid commitment with a sale after 2024-25', find: "n.saleYear > '2024-25'", replace: "n.saleYear > '2026-27'" },
+  { ...lease, name: 'novated lease exempts a car first used before 1 July 2022', find: "if (n.firstUsed !== 'after') return", replace: 'if (false) return' },
+  { ...lease, name: 'novated lease finds luxury car tax payable at the threshold', find: 'price > FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100', replace: 'price >= FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100' },
+  { ...lease, name: 'novated lease ignores luxury car tax at another supply or importation', find: 'if (n.otherSupply) return', replace: 'if (false) return' },
+  { ...lease, name: 'novated lease takes the income year’s luxury car tax threshold', find: 'FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100)', replace: 'FUEL_EFFICIENT_THRESHOLD[n.year] * 100)' },
+  { ...lease, name: 'novated lease ignores the reduction after 4 years', find: '(n.reduced ? 2n : 3n)', replace: '3n' },
+  { ...lease, name: 'novated lease counts every day of the year', find: '* BigInt(days), 300n', replace: '* BigInt(yearDays), 300n' },
+  { ...lease, name: 'novated lease takes no GST credit on the costs', find: 'ratioCents(BigInt(gstCosts) * 10n, 11n)', replace: 'BigInt(gstCosts)' },
+  { ...lease, name: 'novated lease charges no GST on the contribution', find: 'ratioCents(BigInt(taxableValue) * 10n, 11n)', replace: 'BigInt(taxableValue)' },
+  { ...lease, name: 'novated lease reports nothing for an exempt car', find: 'taxableValue > 200000 ? Math.floor(taxableValue / 53) : 0', replace: '0' },
+  { ...lease, name: 'novated lease saving leaves out the after-tax contribution', find: '- pre - post + costs', replace: '- pre + costs' },
+  { ...bonus, name: 'Schedule 5 limits withholding to 45%', find: '(additional * 47) / 100)) / 100);', replace: '(additional * 45) / 100)) / 100);' },
+  { ...bonus, name: 'Schedule 5 limit leaves out the study loan component', find: 'limited(step7.total * 100, additional)', replace: 'limited(step7.tax * 100, additional)' },
+  { ...bonus, name: 'Schedule 5 Method A keeps the earnings’ cents', find: 'const step1 = dollarsOnly(earnings);', replace: 'const step1 = earnings;' },
+  { ...bonus, name: 'Schedule 5 Method A keeps the share’s cents', find: 'const step3 = dollarsOnly(additional / spread);', replace: 'const step3 = Math.round(additional / spread);' },
+  { ...bonus, name: 'Schedule 5 Method A always spreads over the year', find: 'step7 = extra(step5, step2, spread);', replace: 'step7 = extra(step5, step2, pays);' },
+  { ...bonus, name: 'Schedule 5 B(i) keeps a negative result', find: 'Math.max(0, each * backPays) / 100', replace: '(each * backPays) / 100' },
+  { ...bonus, name: 'Schedule 5 B(i) ignores what was withheld before', find: 'recalculated.total * 100 - cents(b.backWithheld)', replace: 'recalculated.total * 100' },
+  { ...bonus, name: 'Schedule 5 B(ii) averages without this pay’s B(i) back payment', find: 'dollarsOnly((toDate + backPayment) / paysToDate)', replace: 'dollarsOnly(toDate / paysToDate)' },
+  { ...bonus, name: 'Schedule 5 B(ii) leaves out earlier B(ii) payments', find: 'dollarsOnly((cents(b.earlierAdditional) + additional) / pays)', replace: 'dollarsOnly(additional / pays)' },
+  { ...bonus, name: 'Schedule 5 B(ii) keeps what earlier B(ii) payments withheld', find: 'step7.total * 100 - cents(b.earlierWithheld)', replace: 'step7.total * 100' },
+  { ...bonus, name: 'Schedule 5 Method A year tax ignores the payment', find: 'owed(year + additional) - owed(year)', replace: 'owed(year) - owed(year)' },
   { ...d293, name: 'Division 293 taxes the excess contributions too', find: 'const low = concessional - excess;', replace: 'const low = concessional;' },
   { ...d293, name: 'Division 293 carries unused cap forward whatever the balance', find: 'd.balanceUnder ? Math.min(unused, overCap) : 0', replace: 'Math.min(unused, overCap)' },
   { ...d293, name: 'Division 293 carries forward more than the excess', find: 'Math.min(unused, overCap)', replace: 'unused' },
@@ -539,6 +608,26 @@ const MUTATIONS = [
   { ...leave, name: 'unused leave TFN payee taxed on scale 3', find: '({ tfn: 2,', replace: '({ tfn: 3,' },
   { ...leave, name: 'unused leave part a cent over its total accepted', find: 'given !== null && given > total)', replace: 'given !== null && given > total + 1)' },
   { ...leave, name: 'unused leave pre-1978 share 90% not assessable', find: 'lslPre1978NotAssessable: toCents(pre1978 * 19)', replace: 'lslPre1978NotAssessable: toCents(pre1978 * 18)' },
+  { ...wc, name: 'WC an NSW premium of exactly $30,000 is refused', find: 'if (app > NSW_SMALL_LIMIT) {', replace: 'if (app >= NSW_SMALL_LIMIT) {' },
+  { ...wc, name: 'WC an NSW premium of exactly $240 is refused', find: 'if (premium < NSW_MINIMUM) {', replace: 'if (premium <= NSW_MINIMUM) {' },
+  { ...wc, name: 'WC the Safe Employer Reward applies to wages', find: 'const ser = at(app, reward);', replace: 'const ser = at(wages, reward);' },
+  { ...wc, name: 'WC the NSW apprentice incentive drops out', find: 'const premium = app - ser - incentive;', replace: 'const premium = app - ser;' },
+  { ...wc, name: 'WC GST is charged on the dust diseases contribution', find: 'total: premium + gst + contribution', replace: 'total: premium + gstOn(premium + contribution) + contribution' },
+  { ...wc, name: 'WC Victorian remuneration is truncated to the dollar', find: 'const remuneration = half(wages, 100n);', replace: 'const remuneration = wages / 100n;' },
+  { ...wc, name: 'WC the Victorian deductible amount is $15,000', find: 'VIC_DEDUCTIBLE_DOLLARS = 15500n', replace: 'VIC_DEDUCTIBLE_DOLLARS = 15000n' },
+  { ...wc, name: 'WC the Victorian deductible ignores the days registered', find: 'rate * VIC_DEDUCTIBLE_DOLLARS * days, 365n', replace: 'rate * VIC_DEDUCTIBLE_DOLLARS * 365n, 365n' },
+  { ...wc, name: 'WC the Victorian minimum premium is $300', find: 'VIC_MINIMUM = 40000n', replace: 'VIC_MINIMUM = 30000n' },
+  { ...wc, name: 'WC the excess buy-out is 0.2', find: 'workcover / 10n', replace: 'workcover / 5n' },
+  { ...wc, name: 'WC Queensland duty leaves out the GST', find: '(premium + gst) * QLD_DUTY_PERCENT', replace: 'premium * QLD_DUTY_PERCENT' },
+  { ...wc, name: 'WC the Queensland minimum compares the premium alone', find: 'if (premium + gst + duty >= minimum) {', replace: 'if (premium >= minimum) {' },
+  { ...wc, name: 'WC SA claims costs are capped at 2 × the discount', find: 'const cap = 3n * discount;', replace: 'const cap = 2n * discount;' },
+  { ...wc, name: 'WC an SA band bound takes the lower discount', find: 'base < below * unit', replace: 'base <= below * unit' },
+  { ...wc, name: 'WC the SA premium rounds half up', find: '(minimum ? SA_MINIMUM_DOLLARS * 100n * unit : sum) / (100n * unit) * 100n', replace: 'half(minimum ? SA_MINIMUM_DOLLARS * 100n * unit : sum, 100n * unit) * 100n' },
+  { ...wc, name: 'WC the SA first full year keeps its discount', find: 'const band = first ? 0n :', replace: 'const band = false ? 0n :' },
+  { ...wc, name: 'WC the SA apprentice incentive drops out', find: '+ applied - apprenticeBase;', replace: '+ applied;' },
+  { ...wc, name: 'WC an SA group member passes', find: "['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA'].includes(x.place)", replace: "['AU-NSW', 'AU-VIC', 'AU-QLD'].includes(x.place)" },
+  { ...wc, name: 'WC apprentice wages above the wages pass', find: 'if (apprentice > wages)', replace: 'if (apprentice > wages + 100n)' },
+  { ...wc, name: 'WC private schemes leave out GST', find: 'premium, gst, duty: 0n, total: premium + gst, notes: [] };\n}\n\n/** The premium', replace: 'premium, gst, duty: 0n, total: premium, notes: [] };\n}\n\n/** The premium' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -560,7 +649,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }

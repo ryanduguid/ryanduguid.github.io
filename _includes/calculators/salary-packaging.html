@@ -1,0 +1,63 @@
+<section class="business-calculator" id="salary-packaging">
+<form class="calculator-split" data-calculator="salary-packaging">
+<fieldset disabled><legend>Salary packaging inputs for one year</legend><div class="form-grid"><fieldset><legend>Income year</legend>
+<label><input type="radio" name="year" value="2026-27" checked /> 2026-27</label>
+<label><input type="radio" name="year" value="2025-26" /> 2025-26</label>
+<label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
+<label><input type="radio" name="year" value="2023-24" /> 2023-24</label>
+<label><input type="radio" name="year" value="2022-23" /> 2022-23</label>
+</fieldset>
+<fieldset><legend>Your employer</legend>
+<label><input type="radio" name="employer" value="charity" checked /> A public benevolent institution or health promotion charity ($30,000 cap)</label>
+<label><input type="radio" name="employer" value="hospital" /> A public or not-for-profit hospital, or a public ambulance service you work in or support ($17,000 cap)</label>
+</fieldset>
+<fieldset><legend>Residency for tax purposes all year</legend>
+<label><input type="radio" name="residency" value="resident" checked /> Australian resident</label>
+<label><input type="radio" name="residency" value="foreign" /> Foreign resident</label>
+</fieldset>
+<label class="field" for="salary-packaging-salary">Salary for the year before packaging, without super (whole dollars)<input id="salary-packaging-salary" name="salary" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="70000" required /></label>
+<label class="field" for="salary-packaging-type-two">Benefits your employer gets no GST credit for, such as mortgage, rent or loan payments and other bills (Type 2, dollars and cents)<input id="salary-packaging-type-two" name="type-two" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="15899.93" required /></label>
+<label class="field" for="salary-packaging-type-one">Benefits your employer claims a GST credit for (Type 1, dollars and cents)<input id="salary-packaging-type-one" name="type-one" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="salary-packaging-meals">Salary packaged meal entertainment and venue hire (dollars and cents)<input id="salary-packaging-meals" name="meals" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<fieldset><legend>Does your employer claim GST credits on the meal entertainment?</legend>
+<label><input type="radio" name="meals-type-one" value="yes" checked /> Yes: Type 1</label>
+<label><input type="radio" name="meals-type-one" value="no" /> No: Type 2</label>
+</fieldset>
+<fieldset><legend>Do you have a study or training loan, such as HELP?</legend>
+<label><input type="radio" name="study-loan" value="no" checked /> No</label>
+<label><input type="radio" name="study-loan" value="yes" /> Yes</label>
+</fieldset>
+<fieldset><legend>Private patient hospital cover all year?</legend>
+<label><input type="radio" name="cover" value="yes" checked /> Yes</label>
+<label><input type="radio" name="cover" value="no" /> No</label>
+</fieldset>
+</div>
+<p class="field-note">Each income year takes the FBT year ending 31 March in it. Enter each benefit at its taxable value for that FBT year, usually what your employer pays for it. The calculator takes the salary as your only income and the benefits as paid from it evenly through the year.</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+{% include calculator-example.html inputs="2026-27, Australian resident employed by a public benevolent institution or health promotion charity, salary $70,000.00, Type 2 benefits $15,899.93, Type 1 benefits $0.00, salary packaged meal entertainment $0.00 (Type 1), no study loan, with private hospital cover" rows="Benefits packaged, at their taxable value|$15,899.93;Type 2 benefits grossed up at 1.8868, to the dollar|$30,000.00;Cap for a charity|$30,000.00;Grossed-up amount liable to FBT|$0.00;FBT on it at 47%|$0.00;Reportable fringe benefits amount|$29,999.00;Tax, levies and study loan without packaging|$12,600.00;Tax, levies and study loan with packaging|$7,308.50;Tax saved|$5,291.50;Gain after the FBT, if your employer passes it on|$5,291.50" principal="9" note="Your income statement shows $29,999.00 of reportable fringe benefits: it is not taxed, but it counts for the Medicare levy surcharge, study loan repayments and other income tests" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>The exemption and its caps: sections 57A and 5B(1D) to (1M) of the <a href="https://www.legislation.gov.au/C2004A03280/latest/text">Fringe Benefits Tax Assessment Act 1986</a> (Compilation No. 97, 1 July 2026), read 19 November 2026. An employee’s Type 1 and Type 2 benefits are grossed up and added; the employer pays FBT on the part above $30,000 for a public benevolent institution or health promotion charity, or $17,000 for a public or not-for-profit hospital or public ambulance service, after up to $5,000 more of salary packaged meal entertainment and venue hire.</li>
+<li>Rates, caps and the reporting threshold: the ATO’s <a href="https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds">Fringe benefits tax - rates and thresholds</a> (last updated 20 May 2026), read 19 November 2026: FBT 47%, gross-up rates 2.0802 (Type 1) and 1.8868 (Type 2), for the FBT years ending 31 March 2023 to 2027, and the same caps.</li>
+<li>Method and test case: section 6.10 of the <a href="https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00007">ATO’s guide for employers, chapter 6</a>, read 19 November 2026, which rounds each grossed-up amount to the nearest dollar, as this calculator does. Its example of a health promotion charity employee gives FBT of $1,986.22; this calculator gives the same with the example’s remote area rent entered as a Type 2 benefit.</li>
+<li>Reportable fringe benefits amount: sections 135P and 135Q of the same Act: the benefits’ taxable value, if more than $2,000, times 1 ÷ (1 − 47%), in whole dollars with the cents dropped. Exempt benefits from these employers stay reportable, as the ATO’s <a href="https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/fbt-concessions-for-not-for-profit-organisations/fbt-exempt-organisations">FBT-exempt organisations</a> (last updated 19 June 2024), read 19 November 2026, says.</li>
+<li>Your tax: income tax, the offsets, the Medicare levy and surcharge and any study loan repayment as the <a href="/tools/individual-tax/income-tax/">income tax calculator</a> works and cites them, on the salary less the benefits, with the standard deduction for a resident from 2026-27, and the reportable amount added to income for the surcharge and the study loan.</li>
+<li>Supplied by you: the year, your employer, residency, salary, each group of benefits, your study loan and hospital cover.</li>
+</ul>
+</div>
+</form>
+<h2>How the salary packaging calculator works</h2><p>The salary packaging calculator shows what packaging is worth to an employee of a public benevolent institution, health promotion charity, public or not-for-profit hospital or public ambulance service for one year. Your employer pays chosen expenses from your salary before tax. Those benefits are exempt from FBT up to the employer’s cap, measured on their grossed-up value: the taxable value times 1.8868 when the employer gets no GST credit, or 2.0802 when it does. So about $15,900 of Type 2 benefits fills a $30,000 cap and about $9,010 a $17,000 cap. Salary packaged meal entertainment and venue hire can take up to $5,000 more of grossed-up value before FBT applies.</p>
+<p>The calculator works your tax with and without the packaging and shows the difference. It also gives the reportable fringe benefits amount your income statement will show. That amount is not taxed, but it is added back for the Medicare levy surcharge, study loan repayments and other income tests, so packaging can raise a surcharge or a repayment while it lowers your income tax. If the benefits pass the cap, the employer owes FBT on the excess and usually recovers it from your package; the calculator takes that off the saving.</p>
+<h2>What the salary packaging calculator does not compute</h2><p>The calculator covers the FBT years ending 31 March 2023 to 2027, for one employer and the salary as your only income. It does not compute:</p>
+<ul>
+<li>rebatable employers, such as other registered charities, whose FBT is reduced by a rebate of 47% up to a $30,000 cap, or ordinary employers, who pay full FBT on packaged benefits;</li>
+<li>benefits outside the cap, such as car parking and meal entertainment that is not salary packaged, exempt benefits such as portable electronic devices, or a novated car lease, which the <a href="/tools/individual-tax/novated-lease/">novated lease calculator</a> works;</li>
+<li>an ambulance service employee not predominantly involved in providing or supporting its ambulance services, whose benefits are not exempt (section 57A(3)(b));</li>
+<li>package fees, the cost of the benefits themselves, or whether a benefit is Type 1 or Type 2, which your employer decides;</li>
+<li>excluded fringe benefits, such as remote area housing, which count towards the cap but are not reportable: entered here, they would raise the reportable amount;</li>
+<li>salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge;</li>
+<li>how the FBT year from 1 April to 31 March lines up with the income year from 1 July: the benefits are taken as packaged evenly in the income year.</li>
+</ul>
+<p>Confirm the figures with your employer’s salary packaging provider or a registered tax agent.</p>
+</section>
