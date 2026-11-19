@@ -14,7 +14,7 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Super projection inputs, from 2026-27 to retirement
 
-Your age now (whole years) Retirement age, from 60 (whole years) Super balance now (dollars and cents) Salary for 2026-27, ordinary time earnings before super (whole dollars) Employer contributions, per cent of salary: 12 is the super guarantee, 0 if self-employed Salary sacrifice and personal deductible contributions for 2026-27 (dollars and cents) After-tax contributions for 2026-27 (dollars and cents) Investment return a year, after investment fees and tax on earnings (per cent) Administration fee in dollars for 2026-27 (dollars and cents) Administration fee as a per cent of the balance a year Insurance premiums for 2026-27 (dollars and cents) Wage growth a year, for your salary, contributions, fees and premiums (per cent) Rate for today’s dollars, the present value (per cent a year)
+Your age now (whole years) Retirement age, from 60 (whole years) Super balance now (dollars and cents) Salary for 2026-27 before salary sacrifice, the qualifying earnings the super guarantee is paid on (whole dollars) Employer contributions, per cent of salary: 12 is the super guarantee, 0 if self-employed Salary sacrifice and personal deductible contributions for 2026-27 (dollars and cents) After-tax contributions for 2026-27 (dollars and cents) Investment return a year, after investment fees and tax on earnings (per cent) Administration fee in dollars for 2026-27 (dollars and cents) Administration fee as a per cent of the balance a year Insurance premiums for 2026-27 (dollars and cents) Wage growth a year, for your salary, contributions, fees and premiums (per cent) Rate for today’s dollars, the present value (per cent a year)
 
 Your super fund’s statement gives your balance, fees and premiums. Every figure is an assumption you can change. This calculator is not intended to be relied on for a decision about a financial product: consider getting advice from an Australian financial services licensee before making any financial decision.
 
@@ -22,9 +22,9 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 ## How the super projection calculator works
 
-The super projection calculator projects one accumulation super account from 2026-27 to the age you retire, a year at a time, and gives the balance then in future dollars and at its present value, in the dollars of today’s wages. Each year your employer contributes its rate of your salary, up to the maximum contribution base, and your own contributions are added. The fund takes 15% contributions tax from the employer and salary sacrifice contributions, takes out the dollar fee, the percentage fee and the premiums, and claims them as a deduction, which saves 15% of them. The return is earned on the balance at the start of the year and on half the year’s contributions less fees, as they come in through the year. After the first year, your salary, contributions, fees and premiums grow at the wage growth rate.
+The super projection calculator projects one accumulation super account from 2026-27 to the age you retire, a year at a time, and gives the balance then in future dollars and at its present value, in the dollars of today’s wages. Each year your employer contributes its rate of your salary, up to the maximum contribution base, and your own contributions are added. The fund takes 15% contributions tax from the employer and salary sacrifice contributions, takes out the dollar fee, the percentage fee and the premiums, and claims them as a deduction, which saves 15% of them. The return and the percentage fee are worked on the balance at the start of the year and on half the year’s contributions less the dollar fee and premiums, as they come in through the year. After the first year, your salary, contributions, fees and premiums grow at the wage growth rate.
 
-The present value is the balance at retirement divided by 1.037 for each year projected, so that it reads against today’s wages. The calculator is general information about super, not advice: it shows the effect of the figures you enter and does not recommend a fund, an investment option or a contribution.
+The present value divides the balance at retirement once by 1 plus the present value rate (3.7% unless you change it) to the power of the years projected, rounded to the cent, so that it reads against today’s wages. The calculator is general information about super, not advice: it shows the effect of the figures you enter and does not recommend a fund, an investment option or a contribution.
 
 ## The assumptions and why they are reasonable
 
@@ -70,7 +70,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twelve individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -78,4 +78,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twelve individual tax calculators: https://duguid.com.au/tools/individual-tax/
