@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const d293 = { file: 'assets/division-293.mjs', test: individualTest };
 const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
 const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
 const incomeTests = { file: 'assets/income-tests.mjs', test: individualTest };
@@ -241,7 +242,7 @@ const MUTATIONS = [
   { ...incomeTests, name: 'income tests count section 57A benefits in full where adjusted', find: 'Math.floor((p.fringe57a * 53) / 100)', replace: 'p.fringe57a' },
   { ...incomeTests, name: 'income tests take reportable super contributions below nil', find: 'Math.max(0, p.employerSuper + p.personalSuper - p.excessConcessional)', replace: 'p.employerSuper + p.personalSuper - p.excessConcessional' },
   { ...incomeTests, name: 'income tests keep the FHSS released amount', find: 'Math.max(0, p.taxable - p.fhss)', replace: 'p.taxable' },
-  { ...incomeTests, name: 'Division 293 income keeps reportable super contributions', find: 'division293Income: surcharge - contributions', replace: 'division293Income: surcharge' },
+  { ...incomeTests, name: 'Division 293 income keeps reportable super contributions', find: 'trust: p.familyTrust, fringe, losses, lumpSum: 0', replace: 'trust: p.familyTrust + contributions, fringe, losses, lumpSum: 0' },
   { ...incomeTests, name: 'rebate income adds family trust distribution amounts', find: 'rebateIncome: taxable + contributions', replace: 'rebateIncome: taxable + p.familyTrust + contributions' },
   { ...incomeTests, name: 'adjusted taxable income ignores child support', find: '+ contributions - p.childSupport,', replace: '+ contributions,' },
   { ...incomeTests, name: 'repayment income takes the adjusted fringe benefits total', find: 'repaymentIncome: taxable + losses + fringe', replace: 'repaymentIncome: taxable + losses + adjustedFringe' },
@@ -324,6 +325,15 @@ const MUTATIONS = [
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
   { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
   { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
+  { ...d293, name: 'Division 293 taxes the excess contributions too', find: 'const low = concessional - excess;', replace: 'const low = concessional;' },
+  { ...d293, name: 'Division 293 carries unused cap forward whatever the balance', find: 'd.balanceUnder ? Math.min(unused, overCap) : 0', replace: 'Math.min(unused, overCap)' },
+  { ...d293, name: 'Division 293 carries forward more than the excess', find: 'Math.min(unused, overCap)', replace: 'unused' },
+  { ...d293, name: 'Division 293 counts the FHSS released amount', find: 'Math.max(0, taxable - fhss)', replace: 'taxable' },
+  { ...d293, name: 'Division 293 leaves out family trust distribution tax income', find: 'base + trust + ', replace: 'base + ' },
+  { ...d293, name: 'Division 293 counts a zero-rate lump sum', find: 'losses - lumpSum;', replace: 'losses;' },
+  { ...d293, name: 'Division 293 takes a zero-rate lump sum after 2023-24', find: "year >= '2024-25'", replace: "year >= '2027-28'" },
+  { ...d293, name: 'Division 293 tax rounds down', find: 'Math.round((taxable * 15) / 100)', replace: 'Math.floor((taxable * 15) / 100)' },
+  { ...d293, name: 'Division 293 accepts a defined benefit interest', find: "if (d.interests !== 'accumulation') {", replace: 'if (false) {' },
   { ...soleTrader, name: 'the small business offset is 13%', find: 'const OFFSET_RATE = 16;', replace: 'const OFFSET_RATE = 13;' },
   { ...soleTrader, name: 'the small business offset has no $1,000 cap', find: 'Math.min(share, OFFSET_CAP, tax - offset - lmito)', replace: 'Math.min(share, tax - offset - lmito)' },
   { ...soleTrader, name: 'the small business offset can take the tax below nil', find: 'Math.min(share, OFFSET_CAP, tax - offset - lmito)', replace: 'Math.min(share, OFFSET_CAP)' },
