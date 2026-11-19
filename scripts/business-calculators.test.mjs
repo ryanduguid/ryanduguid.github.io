@@ -3257,16 +3257,37 @@ test('the concessions rows name the turnover rule, the 2-year bar and a failed b
 
 // Sections 152-305 and 152-325: an individual under 55 contributes to super; a company or trust
 // pays its stakeholders within 7 days, into super for one under 55.
+// Subparagraph 152-35(2)(b)(ii): the 12 months run back from the CGT event, so a business that
+// ceased on 29 February 2024 did not cease in the 12 months before 1 March 2025.
+test('the active asset test period ends at a cessation in the 12 months before the CGT event', () => {
+  const ended = (ceased) => calculations.cgtConcessions({ ...concessionsBase(), acquired: '2014-03-03', event: '2025-03-01',
+    ceased, extension: 'no', active: '2000' });
+  const leap = ended('2024-02-29');
+  assert.deepEqual([leap.testTo, leap.testDays, leap.activeAsset], ['2025-03-01', 4017, false]);
+  const within = ended('2024-03-01');
+  assert.deepEqual([within.testTo, within.testDays, within.activeAsset], ['2024-03-01', 3652, true]);
+  // From 29 February the replacement asset period takes the narrower reading of each end (subsection 104-190(1A)).
+  const leapSale = calculations.cgtConcessions({ ...concessionsBase(), acquired: '2014-03-03', event: '2024-02-29' });
+  assert.deepEqual([leapSale.replacementFrom, leapSale.replacementTo], ['2023-03-01', '2026-02-28']);
+  // Winding up a business carries it on for the CGT small business entity test (subsection 328-110(5)).
+  assert.equal(calculations.cgtConcessions({ ...concessionsBase(), business: 'winding-up' }).smallBusiness, true);
+});
+
 test('the retirement exemption row gives each entity its conditions and the limit left', () => {
   assert.equal(concessionRow({}, 'Retirement exemption'), 'Available: up to $500,000.00 of the gain left after the 50% reduction '
-    + '(section 152-320), with the exempt amount paid into a complying super fund or RSA, as the individual is under 55 just '
-    + 'before the choice (paragraph 152-305(1)(b))');
+    + '(section 152-320), with the exempt amount contributed to a complying super fund or RSA at the later of the choice and '
+    + 'receiving the proceeds, each instalment in turn, as the individual is under 55 just before the choice (subsections '
+    + '152-305(1) and (1A))');
   assert.equal(concessionRow({ entity: 'company', significant: 'yes', used: '125000.50' }, 'Retirement exemption'),
     'Available: up to $374,999.50 for this stakeholder, counted as their percentage of what the company or trust disregards '
-    + '(subsections 152-320(1) and (2)), paid to its CGT '
-    + 'concession stakeholders within 7 days of the later of the choice and receiving the proceeds (subsection 152-325(4)), with '
-    + 'the exempt amount paid into a complying super fund or RSA, as the individual is under 55 just before the payment '
-    + '(subsection 152-325(7))');
+    + '(subsections 152-320(1) and (2)), with the lesser of the proceeds received and the exempt amount paid to its CGT '
+    + 'concession stakeholders within 7 days of the later of the choice and receiving the proceeds, each instalment in turn '
+    + '(subsections 152-325(2), (4) and (5)), with the payment contributed to a complying super fund or RSA, telling its '
+    + 'trustee or provider, as the individual is under 55 just before the payment (subsection 152-325(7))');
+  // A company or trust can give its exempt amount to another stakeholder, even a nil percentage to this one.
+  assert.equal(concessionRow({ entity: 'company', significant: 'yes', used: '500000' }, 'Retirement exemption'),
+    'Not available for this stakeholder, whose $500,000 limit is used up; another CGT concession stakeholder with limit '
+    + 'left can take a percentage of the exempt amount (subsections 152-315(2) and (5))');
   assert.equal(concessionRow({ entity: 'trust' }, 'Retirement exemption'),
     'Not available: no significant individual just before the CGT event (paragraph 152-305(2)(b))');
   assert.equal(concessionRow({ used: '500000' }, 'Retirement exemption'), 'Not available: the $500,000 limit is used up (section 152-320)');

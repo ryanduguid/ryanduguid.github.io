@@ -30,9 +30,10 @@ const TURNOVER = 200_000_000;
 const NET_ASSETS = 600_000_000;
 /** Subsection 152-320(1), in cents. */
 const RETIREMENT_LIMIT = 50_000_000;
-/** The shortest and longest 7.5 years in days: 7 years with 1 leap day and the shortest 6 months
- * (2,556 + 181), and 7 years with 2 leap days and the longest 6 months (2,557 + 184). */
-const SEVEN_AND_A_HALF = { shortest: 2737, longest: 2741 };
+/** The shortest and longest 7.5 years in days, as a total of separate active periods: 7 years
+ * without a leap day and the shortest 6 months (2,555 + 181), and 7 leap years and the longest 6
+ * months (2,562 + 184). */
+const SEVEN_AND_A_HALF = { shortest: 2736, longest: 2746 };
 
 const DAY = 86400000;
 /** @param {string} iso */
@@ -124,15 +125,15 @@ function activeAsset(x, acquired, event) {
     if (ceased < acquired || ceased > event) throw new Error('Enter the day the business ceased from the purchase to the sale contract.');
     chosen(x.extension, YES_NO, 'Choose whether the Commissioner allowed longer than 12 months.');
     // Subparagraph 152-35(2)(b)(ii): a business that ceased in the 12 months before the event, or a longer period allowed.
-    if (yearsLater(ceased, 1) >= event || x.extension === 'yes') to = ceased;
+    if (ceased >= yearsLater(event, -1) || x.extension === 'yes') to = ceased;
   }
   const testDays = dayOf(to) - dayOf(acquired) + 1;
   const activeDays = number(x.active, { integer: true, max: 100_000 });
   if (activeDays > testDays) throw new Error(`The days active cannot exceed the ${testDays.toLocaleString('en-AU')} days of the test period.`);
   const over15 = yearsLater(acquired, 15) < event;
   if (over15 && activeDays >= SEVEN_AND_A_HALF.shortest && activeDays < SEVEN_AND_A_HALF.longest) {
-    throw new Error('A total of 7.5 years is 2,737 to 2,741 days, depending on the leap days and months it spans: count '
-      + 'the active periods in years and months to see whether they reach 7.5 years (paragraph 152-35(1)(b)).');
+    throw new Error('A total of 7.5 years is 2,736 to 2,746 days, depending on the leap days and months the active '
+      + 'periods span: count them in years and months to see whether they reach 7.5 years (paragraph 152-35(1)(b)).');
   }
   const met = over15 ? activeDays >= SEVEN_AND_A_HALF.longest : 2 * activeDays >= testDays;
   return { activeAsset: met, over15, testFrom: acquired, testTo: to, testDays, activeDays };
@@ -194,7 +195,10 @@ export function cgtConcessions(x) {
   return { basic, ...business, netValue, netAssets, passive, ...active, fifteenYear, fifteenYearUnmet: unmet,
     reduction: !fifteenYear && basic, retirement, significant, retirementLimit: (RETIREMENT_LIMIT - used) / 100,
     superContribution: retirement && under55, rollover: !fifteenYear && basic,
-    replacementFrom: yearsLater(event, -1), replacementTo: yearsLater(event, 2) };
+    // From 29 February, 1 year before is 1 March and 2 years after is 28 February, the narrower
+    // reading of subsection 104-190(1A).
+    replacementFrom: yearsLater(event, -1),
+    replacementTo: event.endsWith('-02-29') ? `${Number(event.slice(0, 4)) + 2}-02-28` : yearsLater(event, 2) };
 }
 
 /** The engine's input from the form's fields. @param {(name: string) => string} value @returns {ConcessionAnswers} */
@@ -257,19 +261,27 @@ function retirementOf(r, company) {
   if (r.fifteenYear) return 'Not needed: the 15-year exemption disregards the whole gain (section 152-330)';
   if (!r.basic) return 'Not available: the basic conditions are not met';
   if (!r.significant) return 'Not available: no significant individual just before the CGT event (paragraph 152-305(2)(b))';
-  if (!r.retirement) return 'Not available: the $500,000 limit is used up (section 152-320)';
+  if (!r.retirement) {
+    return company
+      ? 'Not available for this stakeholder, whose $500,000 limit is used up; another CGT concession stakeholder with limit '
+        + 'left can take a percentage of the exempt amount (subsections 152-315(2) and (5))'
+      : 'Not available: the $500,000 limit is used up (section 152-320)';
+  }
   const limit = `$${r.retirementLimit.toLocaleString('en-AU', { minimumFractionDigits: 2 })}`;
   const parts = [company
     ? `Available: up to ${limit} for this stakeholder, counted as their percentage of what the company or trust disregards `
       + '(subsections 152-320(1) and (2))'
     : `Available: up to ${limit} of the gain left after the 50% reduction (section 152-320)`];
   if (company) {
-    parts.push('paid to its CGT concession stakeholders within 7 days of the later of the choice and receiving the proceeds '
-      + '(subsection 152-325(4))');
+    parts.push('with the lesser of the proceeds received and the exempt amount paid to its CGT concession stakeholders within '
+      + '7 days of the later of the choice and receiving the proceeds, each instalment in turn (subsections 152-325(2), (4) and (5))');
   }
   if (r.superContribution) {
-    parts.push(`with the exempt amount paid into a complying super fund or RSA, as the individual is under 55 just before the `
-      + `${company ? 'payment' : 'choice'} (${company ? 'subsection 152-325(7)' : 'paragraph 152-305(1)(b)'})`);
+    parts.push(company
+      ? 'with the payment contributed to a complying super fund or RSA, telling its trustee or provider, as the individual is '
+        + 'under 55 just before the payment (subsection 152-325(7))'
+      : 'with the exempt amount contributed to a complying super fund or RSA at the later of the choice and receiving the '
+        + 'proceeds, each instalment in turn, as the individual is under 55 just before the choice (subsections 152-305(1) and (1A))');
   }
   return parts.join(', ');
 }
