@@ -783,7 +783,7 @@ fn half_up_i(numerator: i128, denominator: i128) -> i128 {
 
 /// The 2026-27 figures typed from their sources: the maximum contribution base of $270,830 (the
 /// ATO's 'Super guarantee', Table 23), the caps of $32,500 and $130,000 (the ATO's 'Contributions
-/// caps', Tables 1.1 and 4) and 15% contributions tax (ITAA 1997 s 295-160). Each year earns on
+/// caps', Tables 1.1 and 4) and 15% contributions tax (ITAA 1997 s 295-160; Income Tax Rates Act 1986 s 26(1)). Each year earns on
 /// the opening balance and half its net flows; the fees and premiums are deducted at 15%; the
 /// present value is the final balance over 1.037 (or the rate entered) to the power of the years.
 fn projection_oracle(p: &Projection) -> Value {

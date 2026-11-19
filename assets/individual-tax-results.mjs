@@ -125,7 +125,7 @@ function superProjectionResult(value, aud) {
     ['Investment earnings, after investment fees and tax', aud(r.earnings)],
     ['Administration fees and insurance premiums, less the fund’s tax deduction', aud(r.fees)],
     [`Balance at ${r.retire} in future dollars`, aud(r.balance)],
-    [`Balance at ${r.retire} in today’s dollars: its present value at ${rate('discount')} a year`, aud(r.present)]];
+    [`Balance at ${r.retire} at its present value, discounted at ${rate('discount')} a year to today’s dollars`, aud(r.present)]];
   return { inputs: `Age ${value('age')}, retiring at ${r.retire}, super balance ${aud(Number(value('balance')))}, salary `
     + `${aud(Number(value('salary')))}, employer contributions ${rate('employer')} of salary, salary sacrifice `
     + `${aud(Number(value('sacrifice')))} and after-tax contributions ${aud(Number(value('after-tax')))} a year, return `

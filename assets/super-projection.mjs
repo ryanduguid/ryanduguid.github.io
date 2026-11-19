@@ -16,8 +16,9 @@ export const PROJECTION_YEAR = '2026-27';
 // Super is preserved until 60 for anyone born after 30 June 1964 (SIS Regulations reg 6.01(2)),
 // and contributions after 75 are mostly refused, so retirement falls between them. The
 // non-concessional contributions cap for 2026-27 in whole dollars, from the ATO's 'Contributions
-// caps' (Table 4, last updated 11 September 2026), read 19 November 2026. Contributions tax is 15%
-// (ITAA 1997 s 295-160), here in hundredths of a per cent.
+// caps' (Table 4, last updated 11 September 2026), read 19 November 2026. Contributions are the fund's
+// assessable income (ITAA 1997 s 295-160), taxed at 15% (Income Tax Rates Act 1986 s 26(1)), here in
+// hundredths of a per cent.
 const PRESERVATION_AGE = 60;
 const LAST_AGE = 75;
 const NON_CONCESSIONAL_CAP = 130000;
