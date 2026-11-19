@@ -94,14 +94,13 @@ export function gstMarginSchemeResult(input, aud) {
   const r = gstMarginScheme(input);
   const valuation = input.method === 'valuation';
   const count = (/** @type {string} */ value) => Number(value).toLocaleString('en-AU');
-  const part = input.part === input.whole ? '' : `, this sale being ${count(input.part)} of ${count(input.whole)}`;
+  const part = input.part === input.whole ? '' : ` for ${count(input.part)} of ${count(input.whole)}`;
   const acquired = MARGIN_ACQUISITIONS[input.acquired];
   const inputs = `${MARGIN_INTERESTS[input.interest]}; agreed in writing: ${input.agreed ? 'yes' : 'no'}; `
     + `${acquired[0].toLowerCase()}${acquired.slice(1)}; price ${aud(Number(input.price))} GST-${input.basis}; `
-    + `${valuation ? 'approved valuation' : 'consideration for the acquisition'} ${aud(Number(input.cost))}${part}`;
+    + `${valuation ? 'approved valuation' : 'consideration'} ${aud(Number(input.cost))}${part}`;
   const conditions = [[MARGIN_INTERESTS[input.interest], r.conditions.interest ? 'Condition met' : 'Condition not met'],
-    ['Agreed in writing with the buyer on or before the sale, or within a further period the Commissioner allows '
-      + '(subsections 75-5(1) and (1A))', r.conditions.agreed ? 'Condition met' : 'Condition not met'],
+    ['Agreed in writing with the buyer (subsections 75-5(1) and (1A))', r.conditions.agreed ? 'Condition met' : 'Condition not met'],
     [MARGIN_ACQUISITIONS[input.acquired], r.conditions.eligible ? 'Condition met' : 'Condition not met']];
   if (!r.applies) {
     return { inputs, rows: [...conditions, ['The margin scheme', 'Cannot apply: GST is worked out on the whole price'],
@@ -109,7 +108,7 @@ export function gstMarginSchemeResult(input, aud) {
       ['GST on the sale, 1/11 of the GST-inclusive price', aud(r.gst)]], principal: conditions.length + 2,
     note: 'Without the margin scheme a registered buyer can claim an input tax credit for the GST, given a tax invoice' };
   }
-  return { inputs, rows: [...conditions, ['The margin scheme', 'Can apply: each condition of section 75-5 is met'],
+  return { inputs, rows: [...conditions, ['The margin scheme', 'Can apply: section 75-5 is met'],
     [`${valuation ? 'Approved valuation' : 'Consideration for the acquisition'}${part ? ', this part’s share (section 75-15)' : ''}`,
       aud(r.share)],
     ['Consideration for the sale, GST-inclusive', aud(r.consideration)],
@@ -117,6 +116,5 @@ export function gstMarginSchemeResult(input, aud) {
     ['GST under the margin scheme, 1/11 of the margin', aud(r.schemeGst)],
     ['GST without the margin scheme, 1/11 of the GST-inclusive price', aud(r.basicGst)],
     ['GST the margin scheme saves', aud(r.saving)]], principal: conditions.length + 4,
-  note: 'The buyer cannot claim an input tax credit for a sale under the margin scheme (section 75-20), and no tax '
-    + 'invoice is required (section 75-30). GST rounds to the nearest cent, half a cent up (section 9-90)' };
+  note: 'The buyer cannot claim an input tax credit (section 75-20) and needs no tax invoice (section 75-30)' };
 }

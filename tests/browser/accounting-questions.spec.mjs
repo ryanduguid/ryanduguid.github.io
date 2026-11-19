@@ -948,9 +948,8 @@ test('GST margin scheme works GSTR 2006/8 Example 14 offline and refuses a sale 
   await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('Price for the sale (AUD)', { exact: true }).fill('96364');
-  await form.getByRole('group', { name: 'Does the price include GST?' }).getByLabel('No, GST-exclusive: work out the GST to add').check();
-  await form.getByLabel('Consideration paid for the acquisition, or the approved valuation, for the whole of what you acquired (AUD)',
-    { exact: true }).fill('60000');
+  await form.getByRole('group', { name: 'Does the price include GST?' }).getByLabel('No, GST-exclusive', { exact: true }).check();
+  await form.getByLabel('Consideration or approved valuation for the whole (AUD)', { exact: true }).fill('60000');
   await form.getByLabel('This sale’s part, by area, lots or anticipated price', { exact: true }).fill('1');
   await form.getByLabel('The whole, in the same measure', { exact: true }).fill('1');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
