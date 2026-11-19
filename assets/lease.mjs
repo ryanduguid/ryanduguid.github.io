@@ -213,8 +213,9 @@ export function leaseComparison(terms, purchase) {
   };
   const decline = (/** @type {bigint} */ cost, /** @type {Map<string, {cash: bigint, credits: bigint, deductions: bigint}>} */ years) => {
     const lines = declineInValue({ cost, life, start: terms.start, yearEnd: lastYear + 1, method: purchase.method });
-    for (const line of lines) years.get(yearLabel(line.yearEnd - 1)).deductions += line.deduction;
-    return lines.at(-1).closing;
+    // The schedule runs from commencement to the last year, so each of its years is in the map.
+    for (const line of lines) /** @type {{deductions: bigint}} */ (years.get(yearLabel(line.yearEnd - 1))).deductions += line.deduction;
+    return /** @type {{closing: bigint}} */ (lines.at(-1)).closing;
   };
 
   // The lease: each regular payment, the one at commencement included, then the residual bought.

@@ -362,7 +362,7 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
 
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
  * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
- *   | 'breakEven' | 'companyTax' | 'foreignSurcharge'>} calculate */
+ *   | 'lease' | 'breakEven' | 'companyTax' | 'foreignSurcharge'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
