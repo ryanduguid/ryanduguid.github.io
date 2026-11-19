@@ -513,13 +513,27 @@ const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full i
   + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
   + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
 
+const SUPER_PROJECTION_DESCRIPTION = 'A projection in AUD of one accumulation super account from 2026-27 to a retirement '
+  + 'age of 60 to 75, a whole year at a time: employer contributions at their rate of salary up to the $270,830 maximum '
+  + 'contribution base, 15% contributions tax on them and on salary sacrifice, after-tax contributions, a steady return '
+  + 'after investment fees and tax earned on the opening balance and half the year\'s net flows, dollar and percentage '
+  + 'administration fees and insurance premiums less the fund\'s 15% deduction for them; salary, contributions, fees, '
+  + 'premiums and the base grow at the wage growth rate after the first year. The present value divides the final balance '
+  + 'by (1 + the discount rate) per year (ASIC Instrument 2022/603 s 4: 3.7% by default; retirement at 67 by default). '
+  + 'Refuses 2026-27 contributions above the $32,500 concessional or $130,000 non-concessional cap. It does not compute '
+  + 'retirement income, the age pension, the low income super tax offset, co-contributions or Division 293 tax. A model '
+  + 'on stated assumptions, not a prediction or a recommendation. '
+  + `Sources and the reasons for each default on ${INDIVIDUAL}super-projection/.`;
+
 /**
- * WebMCP descriptors for the income tax estimate and take-home pay calculators, keyed by the
- * `data-calculator` name of the form whose page registers them.
+ * WebMCP descriptors for the income tax estimate, take-home pay and super projection calculators,
+ * keyed by the `data-calculator` name of the form whose page registers them.
  * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
- *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay, incomeYears: string[], payYears: string[]}} engines
+ *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay,
+ *   superProjection: typeof import('./super-projection.mjs').superProjection, incomeYears: string[],
+ *   payYears: string[]}} engines
  */
-export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payYears }) {
+export function individualTaxTools({ taxEstimate, takeHomePay, superProjection, incomeYears, payYears }) {
   return {
     'income-tax': tool({
       name: 'estimate_income_tax',
@@ -584,6 +598,39 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payY
           paygWithholding: r.withheld ? { eachPay: dollars(r.withheld.total), studyLoanComponent: dollars(r.withheld.studyLoan),
             year: dollars(r.withheld.year), ...settled(r.withheld.refund) } : null,
           currency: 'AUD', source: `${INDIVIDUAL}take-home-pay/`,
+        };
+      },
+    }),
+    'super-projection': tool({
+      name: 'project_super_balance',
+      title: 'Super projection calculator',
+      description: SUPER_PROJECTION_DESCRIPTION,
+      inputSchema: record({
+        age: whole(15, 74, 'Age now in whole years.'),
+        retirementAge: whole(60, 75, 'Retirement age in whole years; 67 when omitted.'),
+        balance: text('amount', 'Super balance now in AUD.'),
+        salary: whole(0, 1e9, 'Salary for 2026-27 before super, ordinary time earnings, in whole AUD.'),
+        employerRate: text('percent', 'Employer contributions as a per cent of salary, up to 30; "12" (the super guarantee) when omitted.'),
+        salarySacrifice: text('amount', 'Salary sacrifice and personal deductible contributions for 2026-27 in AUD; "0" when omitted.'),
+        afterTaxContributions: text('amount', 'After-tax contributions for 2026-27 in AUD; "0" when omitted.'),
+        returnRate: text('percent', 'Return a year after investment fees and tax on earnings, per cent up to 20; "6.1" when omitted.'),
+        adminFee: text('amount', 'Dollar administration fee for 2026-27 in AUD; "59" when omitted.'),
+        percentFee: text('percent', 'Administration fee as a per cent of the balance a year, up to 5; "0.11" when omitted.'),
+        insurancePremiums: text('amount', 'Insurance premiums for 2026-27 in AUD; "599" when omitted.'),
+        wageGrowth: text('percent', 'Wage growth a year, per cent up to 10; "3.7" when omitted.'),
+        discountRate: text('percent', 'Present value rate a year, per cent up to 10; "3.7" (ASIC Instrument 2022/603) when omitted.'),
+      }, ['age', 'balance', 'salary']),
+      run({ age, retirementAge = 67, balance, salary, employerRate = '12', salarySacrifice = '0', afterTaxContributions = '0',
+        returnRate = '6.1', adminFee = '59', percentFee = '0.11', insurancePremiums = '599', wageGrowth = '3.7',
+        discountRate = '3.7' }) {
+        const r = superProjection({ age: String(age), retire: String(retirementAge), balance, salary: String(salary),
+          employer: employerRate, sacrifice: salarySacrifice, afterTax: afterTaxContributions, returnRate, percentFee, adminFee,
+          insurance: insurancePremiums, growth: wageGrowth, discount: discountRate });
+        return {
+          yearsProjected: r.years, retirementAge: r.retire, employerContributionsFirstYear: dollars(r.employer),
+          concessionalContributionsFirstYear: dollars(r.concessional), contributionsAfterTax: dollars(r.contributed),
+          earnings: dollars(r.earnings), feesAndPremiumsAfterDeduction: dollars(r.fees), balanceAtRetirement: dollars(r.balance),
+          presentValue: dollars(r.present), currency: 'AUD', source: `${INDIVIDUAL}super-projection/`,
         };
       },
     }),

@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const projection = { file: 'assets/super-projection.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -271,6 +272,17 @@ const MUTATIONS = [
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
   { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
   { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
+  { ...projection, name: 'super projection pays the employer rate on salary above the base', find: 'y.salary < y.base ? y.salary : y.base', replace: 'y.salary' },
+  { ...projection, name: 'super projection takes no contributions tax', find: 'concessional - share(concessional, CONTRIBUTIONS_TAX) + y.afterTax', replace: 'concessional + y.afterTax' },
+  { ...projection, name: 'super projection taxes after-tax contributions', find: 'concessional - share(concessional, CONTRIBUTIONS_TAX) + y.afterTax', replace: 'concessional + y.afterTax - share(concessional + y.afterTax, CONTRIBUTIONS_TAX)' },
+  { ...projection, name: 'super projection earns a full year on the year’s flows', find: 'const twiceAverage = 2n * balance + flow > 0n ? 2n * balance + flow : 0n;', replace: 'const twiceAverage = 2n * (balance + flow) > 0n ? 2n * (balance + flow) : 0n;' },
+  { ...projection, name: 'super projection gives no deduction for fees', find: 'const net = fees - share(fees, CONTRIBUTIONS_TAX);', replace: 'const net = fees;' },
+  { ...projection, name: 'super projection lets fees overdraw the account', find: 'const taken = net < available ? net : available;', replace: 'const taken = net;' },
+  { ...projection, name: 'super projection grows the flows from the first year', find: 'if (year) y =', replace: 'y =' },
+  { ...projection, name: 'super projection discounts one year too few', find: 'const years = BigInt(retire - age);', replace: 'const years = BigInt(retire - age - 1);' },
+  { ...projection, name: 'super projection allows retirement before 60', find: 'const PRESERVATION_AGE = 60;', replace: 'const PRESERVATION_AGE = 55;' },
+  { ...projection, name: 'super projection accepts concessional contributions over the cap', find: 'if (first.concessional > BigInt', replace: 'if (false && first.concessional > BigInt' },
+  { ...projection, name: 'super projection leaves the percentage fee out', find: 'const fees = y.fee + y.insurance + percentFee;', replace: 'const fees = y.fee + y.insurance;' },
   { ...div7a, name: 'Division 7A schedule counts the remaining term from the year made', find: 'const remainingTerm = term - k + 1;', replace: 'const remainingTerm = term - k + 2;' },
   { ...div7a, name: 'Division 7A schedule drops unpaid interest from the loan', find: 'const principal = repayment - interest;', replace: 'const principal = repayment > interest ? repayment - interest : 0n;' },
   { ...div7a, name: 'Division 7A schedule runs on past a shortfall', find: 'if (shortfall > 0n || opening === 0n) break;', replace: 'if (opening === 0n) break;' },

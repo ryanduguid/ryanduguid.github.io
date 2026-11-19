@@ -7,6 +7,7 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { superProjection } from './super-projection.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
 
@@ -110,7 +111,34 @@ function studyLoanResult(value, aud) {
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
 }
 
-const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult]]);
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function superProjectionResult(value, aud) {
+  const r = superProjection({ age: value('age'), retire: value('retire'), balance: value('balance'), salary: value('salary'),
+    employer: value('employer'), sacrifice: value('sacrifice'), afterTax: value('after-tax'), returnRate: value('return'),
+    percentFee: value('percent-fee'), adminFee: value('admin-fee'), insurance: value('insurance'), growth: value('growth'),
+    discount: value('discount') });
+  const rate = (/** @type {string} */ name) => `${Number(value(name))}%`;
+  const rows = [[`Years projected, from age ${value('age')} to ${r.retire}`, String(r.years)],
+    ['Employer contributions in 2026-27', aud(r.employer)],
+    ['Concessional contributions in 2026-27, within the $32,500 cap', aud(r.concessional)],
+    ['Contributions paid in, less the 15% contributions tax', aud(r.contributed)],
+    ['Investment earnings, after investment fees and tax', aud(r.earnings)],
+    ['Administration fees and insurance premiums, less the fund’s tax deduction', aud(r.fees)],
+    [`Balance at ${r.retire} in future dollars`, aud(r.balance)],
+    [`Balance at ${r.retire} in today’s dollars: its present value at ${rate('discount')} a year`, aud(r.present)]];
+  return { inputs: `Age ${value('age')}, retiring at ${r.retire}, super balance ${aud(Number(value('balance')))}, salary `
+    + `${aud(Number(value('salary')))}, employer contributions ${rate('employer')} of salary, salary sacrifice `
+    + `${aud(Number(value('sacrifice')))} and after-tax contributions ${aud(Number(value('after-tax')))} a year, return `
+    + `${rate('return')} after investment fees and tax, administration fees ${aud(Number(value('admin-fee')))} and `
+    + `${rate('percent-fee')} of the balance, insurance premiums ${aud(Number(value('insurance')))} a year, wages growing `
+    + `${rate('growth')} a year`, rows, principal: rows.length - 1,
+  note: 'A model on the assumptions shown, not a prediction. It is not intended to be relied on for a decision about a '
+    + 'financial product: consider getting advice from an Australian financial services licensee before making any '
+    + 'financial decision' };
+}
+
+const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
+  ['super-projection', superProjectionResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -120,4 +148,5 @@ export function individualResult(kind, value, aud) {
 }
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
-export const engines = { taxEstimate, takeHomePay, incomeYears: INCOME_TAX_YEARS, payYears: Object.keys(SUPER_GUARANTEE) };
+export const engines = { taxEstimate, takeHomePay, superProjection, incomeYears: INCOME_TAX_YEARS,
+  payYears: Object.keys(SUPER_GUARANTEE) };

@@ -5,7 +5,8 @@ import { test, expect } from '@playwright/test';
 import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
-const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80' };
+const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
+  'super-projection': '$539,266.80' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -74,11 +75,28 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('super projection works one year and refuses salary sacrifice over the cap', async ({ page }) => {
+  await page.goto('/tools/individual-tax/super-projection/');
+  const form = page.locator('#super-projection form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Your age now/).fill('66');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Balance at 67 in future dollars')).toHaveText('$60,829.25');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,658.87');
+  await expect(form.locator('output')).toContainText('not intended to be relied on');
+  await form.getByLabel(/^Salary sacrifice/).fill('25000');
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('above the $32,500 cap');
+});
+
 for (const [id, name, input, expected] of [
   ['income-tax', 'estimate_income_tax', { incomeYear: '2026-27', residency: 'resident', taxableIncome: 90000,
     reportableFringeBenefits: 27000, daysWithoutHospitalCover: 365, taxWithheld: '21000' }, { refund: '510.00' }],
   ['take-home-pay', 'calculate_take_home_pay', { incomeYear: '2025-26', residency: 'resident', salary: '75000' },
     { takeHomeYear: '60212.00' }],
+  ['super-projection', 'project_super_balance', { age: 66, balance: '50000', salary: 80000 }, { balanceAtRetirement: '60829.25' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {

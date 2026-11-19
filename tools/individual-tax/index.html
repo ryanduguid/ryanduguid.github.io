@@ -51,8 +51,8 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Individual tax calculators</li></ol></nav>
         <h1>Individual tax calculators</h1>
-        <p class="lead-note">Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
-        <p class="field-note">Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.</p>
+        <p class="lead-note">Four calculators for one person’s tax year and super, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
+        <p class="field-note">Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay from 2021-22, and super projected from 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.</p>
         {% assign checked = "" %}{% for calculator in site.data.individual_tax_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 17 November 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
@@ -62,6 +62,7 @@
           <li id="income-tax"><a class="collection-entry__title" href="/tools/individual-tax/income-tax/">Income tax calculator</a> Tax on taxable income, the offsets, the Medicare levy and surcharge and any study loan repayment, less the tax withheld, for an Australian resident, a foreign resident or a working holiday maker.</li>
           <li id="take-home-pay"><a class="collection-entry__title" href="/tools/individual-tax/take-home-pay/">Take-home pay calculator</a> What is left of a salary each year, month, fortnight and week after salary sacrifice to super, tax, levies and any study loan repayment, with the employer’s super guarantee and the PAYG withheld from a 2026-27 pay.</li>
           <li id="study-loan"><a class="collection-entry__title" href="/tools/individual-tax/study-loan/">Study and training loan calculator</a> The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.</li>
+          <li id="super-projection"><a class="collection-entry__title" href="/tools/individual-tax/super-projection/">Super projection calculator</a> Your super balance at retirement in future and today’s dollars, with every assumption stated and changeable.</li>
         </ul>
         <p>For a business, see the <a href="/tools/business-calculators/">business calculators</a>.</p>
       <p class="byline">
@@ -82,7 +83,7 @@
       "description": "Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and 2026-27 PAYG withholding, each step cited.",
       "inLanguage": "en-AU",
       "datePublished": "2026-11-17",
-      "dateModified": "2026-11-18",
+      "dateModified": "2026-11-19",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

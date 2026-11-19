@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! An independent oracle for the individual tax engines: `assets/income-tax.mjs`,
-//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs` and `assets/payg-withholding.mjs`.
+//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs` and
+//! `assets/super-projection.mjs`.
 //! Seeded fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser modules return under Node.
 //!
@@ -20,9 +21,12 @@
 //!
 //! The route is independent; the conventions are not. Both round a half cent up and cap the offsets
 //! at the tax, and the take-home oracle splits a package including super by the engine's formula,
-//! so it checks how the parts combine, not that split.
+//! so it checks how the parts combine, not that split. The super projection oracle types its own
+//! caps, base and rates and works the present value with big integers, but shares the engine's
+//! rounding of each year's figures to the cent.
 //! The engines run from the repository's own `assets/`, not the rendered site.
 
+use num_bigint::BigUint;
 use serde_json::{Value, json};
 use std::io::Write;
 use std::path::Path;
@@ -32,6 +36,7 @@ const HARNESS: &str = r"
 import { incomeTax, medicareLevySurcharge } from './assets/income-tax.mjs';
 import { studyLoanRepayment } from './assets/study-loan.mjs';
 import { takeHomePay } from './assets/take-home-pay.mjs';
+import { superProjection } from './assets/super-projection.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const cents = (result) => result === null ? null : Object.fromEntries(Object.entries(result)
@@ -43,6 +48,13 @@ const run = {
     super: '0', foreign: '0' }, year)),
   pay: ({ pay }) => cents(takeHomePay(pay)),
   mls: ({ mls }) => cents(medicareLevySurcharge(mls)),
+  projection: ({ projection }) => {
+    try {
+      return cents(superProjection(projection));
+    } catch (error) {
+      return { error: error.message };
+    }
+  },
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 ";
@@ -59,6 +71,7 @@ const TAX_CASES: usize = 700;
 const LOAN_CASES: usize = 400;
 const PAY_CASES: usize = 600;
 const MLS_CASES: usize = 400;
+const PROJECTION_CASES: usize = 500;
 
 /// A fixed sequence (xorshift64*), so a failure names a case that reappears on a rerun.
 struct Seeded(u64);
@@ -741,6 +754,161 @@ fn the_take_home_pay_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 "includesSuper": p.included, "sacrifice": money(sacrifice), "studyLoan": p.loan,
                 "hospitalCover": p.cover});
             (json!({"kind": "pay", "pay": pay}), pay_oracle(&p))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+/// One super projection case: money in cents, rates in hundredths of a per cent.
+#[derive(Clone, Copy)]
+struct Projection {
+    age: u64,
+    retire: u64,
+    balance: i128,
+    salary: i128,
+    employer: i128,
+    sacrifice: i128,
+    after_tax: i128,
+    earn: i128,
+    percent_fee: i128,
+    admin_fee: i128,
+    insurance: i128,
+    growth: i128,
+    discount: u32,
+}
+
+fn half_up_i(numerator: i128, denominator: i128) -> i128 {
+    (2 * numerator + denominator) / (2 * denominator)
+}
+
+/// The 2026-27 figures typed from their sources: the maximum contribution base of $270,830 (the
+/// ATO's 'Super guarantee', Table 23), the caps of $32,500 and $130,000 (the ATO's 'Contributions
+/// caps', Tables 1.1 and 4) and 15% contributions tax (ITAA 1997 s 295-160). Each year earns on
+/// the opening balance and half its net flows; the fees and premiums are deducted at 15%; the
+/// present value is the final balance over 1.037 (or the rate entered) to the power of the years.
+fn projection_oracle(p: &Projection) -> Value {
+    let (mut salary, mut base, mut sacrifice, mut after_tax, mut fee, mut insurance) = (
+        p.salary,
+        27_083_000,
+        p.sacrifice,
+        p.after_tax,
+        p.admin_fee,
+        p.insurance,
+    );
+    let mut balance = p.balance;
+    let (mut contributed_total, mut earnings_total, mut fees_total) = (0, 0, 0);
+    let mut first = None;
+    for year in 0..p.retire - p.age {
+        if year > 0 {
+            let grow = |v: i128| half_up_i(v * (10_000 + p.growth), 10_000);
+            (salary, base, sacrifice, after_tax, fee, insurance) = (
+                grow(salary),
+                grow(base),
+                grow(sacrifice),
+                grow(after_tax),
+                grow(fee),
+                grow(insurance),
+            );
+        }
+        let employer = half_up_i(salary.min(base) * p.employer, 10_000);
+        let concessional = employer + sacrifice;
+        if year == 0 {
+            if concessional > 3_250_000 {
+                return json!({"error": "Your concessional contributions for 2026-27 are above the $32,500 cap; this projection does not compute excess contributions."});
+            }
+            if after_tax > 13_000_000 {
+                return json!({"error": "Your after-tax contributions for 2026-27 are above the $130,000 cap; this projection does not compute excess contributions."});
+            }
+            first = Some((employer, concessional));
+        }
+        let contributed = concessional - half_up_i(concessional * 1_500, 10_000) + after_tax;
+        let twice = (2 * balance + contributed - fee - insurance).max(0);
+        let earnings = half_up_i(twice * p.earn, 20_000);
+        let fees = fee + insurance + half_up_i(twice * p.percent_fee, 20_000);
+        let net = fees - half_up_i(fees * 1_500, 10_000);
+        let available = balance + contributed + earnings;
+        let taken = net.min(available);
+        balance = available - taken;
+        contributed_total += contributed;
+        earnings_total += earnings;
+        fees_total += taken;
+    }
+    let years = (p.retire - p.age) as u32;
+    let denominator = BigUint::from(10_000 + p.discount).pow(years);
+    let numerator = BigUint::from(balance as u128) * BigUint::from(10_000u32).pow(years);
+    let present = (numerator * 2u32 + &denominator) / (denominator * 2u32);
+    let present: u128 = present.try_into().unwrap();
+    let (employer, concessional) = first.unwrap();
+    let u = |v: i128| u64::try_from(v).unwrap();
+    json!({"years": years * 100, "retire": p.retire * 100, "employer": u(employer), "concessional": u(concessional),
+        "balance": u(balance), "present": u64::try_from(present).unwrap(), "contributed": u(contributed_total),
+        "earnings": u(earnings_total), "fees": u(fees_total)})
+}
+
+const DEFAULTS: Projection = Projection {
+    age: 30,
+    retire: 67,
+    balance: 5_000_000,
+    salary: 8_000_000,
+    employer: 1_200,
+    sacrifice: 0,
+    after_tax: 0,
+    earn: 610,
+    percent_fee: 11,
+    admin_fee: 5_900,
+    insurance: 59_900,
+    growth: 370,
+    discount: 370,
+};
+
+#[test]
+fn the_oracle_works_a_super_projection_year_by_hand() {
+    // $50,000 at 66: $9,600 less $1,440 tax, $658 of fees and premiums, 6.1% and 0.11% on $53,751.
+    let year = projection_oracle(&Projection {
+        age: 66,
+        ..DEFAULTS
+    });
+    assert_eq!(year["balance"], 6_082_925);
+    assert_eq!(year["present"], 5_865_887);
+    assert!(
+        projection_oracle(&Projection {
+            sacrifice: 2_290_001,
+            ..DEFAULTS
+        })["error"]
+            .is_string()
+    );
+}
+
+#[test]
+fn the_super_projection_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0007);
+    let money = |cents: i128| format!("{}.{:02}", cents / 100, cents % 100);
+    let rate = |hundredths: i128| format!("{}.{:02}", hundredths / 100, hundredths % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..PROJECTION_CASES)
+        .map(|_| {
+            let retire = 60 + rng.below(16);
+            let age = 15 + rng.below(retire - 15);
+            let p = Projection {
+                age,
+                retire,
+                balance: rng.below(200_000_001) as i128,
+                salary: (rng.income(&[270_830, 0, 300_000]) * 100) as i128,
+                employer: if rng.below(3) == 0 { rng.below(3_001) as i128 } else { 1_200 },
+                sacrifice: if rng.below(3) == 0 { rng.below(3_000_001) as i128 } else { 0 },
+                after_tax: if rng.below(4) == 0 { rng.below(14_000_001) as i128 } else { 0 },
+                earn: rng.below(1_201) as i128,
+                percent_fee: rng.below(151) as i128,
+                admin_fee: rng.below(30_001) as i128,
+                insurance: rng.below(150_001) as i128,
+                growth: rng.below(601) as i128,
+                discount: rng.below(601) as u32,
+            };
+            let input = json!({"age": age.to_string(), "retire": retire.to_string(), "balance": money(p.balance),
+                "salary": (p.salary / 100).to_string(), "employer": rate(p.employer), "sacrifice": money(p.sacrifice),
+                "afterTax": money(p.after_tax), "returnRate": rate(p.earn), "percentFee": rate(p.percent_fee),
+                "adminFee": money(p.admin_fee), "insurance": money(p.insurance), "growth": rate(p.growth),
+                "discount": rate(p.discount as i128)});
+            (json!({"kind": "projection", "projection": input}), projection_oracle(&p))
         })
         .unzip();
     agree(&cases, &expected);

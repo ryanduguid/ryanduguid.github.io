@@ -11,8 +11,9 @@ import { CONCESSIONAL_CAP, division293, takeHomePay, SUPER_GUARANTEE } from '../
 import { taxEstimate } from '../assets/tax-estimate.mjs';
 import { withholding } from '../assets/payg-withholding.mjs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
+import { superProjection } from '../assets/super-projection.mjs';
 
-const engines = { taxEstimate, takeHomePay, studyLoanRepayment };
+const engines = { taxEstimate, takeHomePay, studyLoanRepayment, superProjection };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -34,6 +35,11 @@ const INPUTS = {
     + `${p.includesSuper ? 'including' : 'plus'} super${p.sacrifice === '0' ? '' : `, ${whole(p.sacrifice)} sacrificed`}`
     + `${p.studyLoan ? ', study loan' : ''}${p.hospitalCover ? '' : ', no hospital cover'}`,
   studyLoanRepayment: (r, year) => `${year}: ${parts(r)}`,
+  superProjection: (p) => `Age ${p.age} to ${p.retire}, balance ${dollars(p.balance)}, salary ${whole(p.salary)} at ${p.employer}%`
+    + `${p.sacrifice === '0' ? '' : `, sacrifice ${dollars(p.sacrifice)}`}`
+    + `${p.afterTax === '0' ? '' : `, after tax ${dollars(p.afterTax)}`}`
+    + `, return ${p.returnRate}%, fees ${dollars(p.adminFee)} and ${p.percentFee}%, premiums ${dollars(p.insurance)}`
+    + `, growth ${p.growth}%, present value at ${p.discount}%`,
 };
 const OUTPUTS = {
   taxEstimate: (r, call) => `Tax ${dollars(r.tax)}, offset ${dollars(r.offset)}`
@@ -44,6 +50,7 @@ const OUTPUTS = {
     + `${r.withheld ? `; withheld ${dollars(r.withheld.total)} a pay, ${settle(r.withheld.refund)}` : ''}`
     + `${r.overCap ? `; ${dollars(r.overCap)} over the cap` : ''}${r.division293 ? `; Division 293 on ${dollars(r.division293)}` : ''}`,
   studyLoanRepayment: (r) => `Repayment income ${dollars(r.repaymentIncome)}, repayment ${dollars(r.repayment)}`,
+  superProjection: (r) => `${r.years} year${r.years === 1 ? '' : 's'}: ${dollars(r.balance)}, present value ${dollars(r.present)}`,
 };
 
 test('each individual tax page has its boundary cases', () => {
@@ -82,6 +89,9 @@ const FORM_CALLS = {
     includesSuper: f.super === 'included', sacrifice: f.sacrifice, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes' }],
   studyLoanRepayment: (f) => [{ taxable: f.taxable, fringe: f.fringe, losses: f.losses, super: f.super, foreign: f.foreign }, f.year],
+  superProjection: (f) => [{ age: f.age, retire: f.retire, balance: f.balance, salary: f.salary, employer: f.employer,
+    sacrifice: f.sacrifice, afterTax: f['after-tax'], returnRate: f.return, percentFee: f['percent-fee'], adminFee: f['admin-fee'],
+    insurance: f.insurance, growth: f.growth, discount: f.discount }],
 };
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the worked example`, () => {
@@ -409,4 +419,65 @@ test('a form that is not an individual tax calculator gets no result, whatever i
   for (const kind of ['gst', 'constructor', 'toString', '__proto__']) {
     assert.equal(individualResult(kind, () => '0', String), undefined, kind);
   }
+});
+
+const SUPER = { age: '30', retire: '67', balance: '50000', salary: '80000', employer: '12', sacrifice: '0', afterTax: '0',
+  returnRate: '6.1', percentFee: '0.11', adminFee: '59', insurance: '599', growth: '3.7', discount: '3.7' };
+const project = (fields) => superProjection({ ...SUPER, ...fields });
+
+// Worked by hand: $50,000, $9,600 from the employer less $1,440 tax, $59 and $599 out, so $7,502 of net flows;
+// 6.1% and 0.11% of $53,751 are $3,278.81 and $59.13; 15% of the $717.13 of fees is deducted.
+test('super projection works one year by hand', () => {
+  const r = project({ age: '66' });
+  assert.deepEqual([r.employer, r.contributed, r.earnings, r.fees, r.balance], [9600, 8160, 3278.81, 609.56, 60829.25]);
+  assert.equal(r.present, 58658.87);
+});
+
+test('super projection adds up: the balance is the start plus contributions and earnings less fees', () => {
+  for (const fields of [{}, { sacrifice: '22900' }, { employer: '0', afterTax: '5000' }, { age: '45', retire: '60' }]) {
+    const r = project(fields);
+    assert.equal(Math.round((50000 + r.contributed + r.earnings - r.fees) * 100), Math.round(r.balance * 100));
+  }
+});
+
+// ASIC Corporations (Superannuation Calculators and Retirement Estimates) Instrument 2022/603, s 4 'present value'.
+test('super projection discounts the final balance at the Instrument’s 3.7% for each year', () => {
+  const r = project({});
+  assert.equal(r.years, 37);
+  assert.equal(r.present, Math.round((r.balance / 1.037 ** 37) * 100) / 100);
+  assert.equal(project({ discount: '0' }).present, r.balance);
+});
+
+test('super projection pays the employer rate only up to the maximum contribution base', () => {
+  assert.equal(project({ salary: '270830' }).employer, 32499.6);
+  assert.equal(project({ salary: '300000', employer: '10' }).employer, 27083);
+  assert.equal(project({ salary: '400000' }).employer, 32499.6);
+  assert.equal(project({ employer: '15' }).employer, 12000);
+});
+
+test('super projection grows salary, contributions, fees and premiums with wages after the first year', () => {
+  const flat = project({ age: '65', returnRate: '0', percentFee: '0', growth: '0', discount: '0' });
+  const grown = project({ age: '65', returnRate: '0', percentFee: '0', growth: '10', discount: '0' });
+  assert.equal(grown.contributed - flat.contributed, 816);
+  assert.equal(Math.round((grown.fees - flat.fees) * 100), Math.round(65.8 * 85));
+});
+
+test('super projection lets fees take no more than the account holds', () => {
+  const r = project({ balance: '1000', salary: '0', employer: '0' });
+  assert.equal(r.balance, 0);
+  assert.equal(Math.round((1000 + r.earnings) * 100), Math.round(r.fees * 100));
+});
+
+test('super projection refuses what it does not compute', () => {
+  assert.throws(() => project({ retire: '59' }), /between 60 and 75/);
+  assert.throws(() => project({ retire: '76' }), /between 60 and 75/);
+  assert.throws(() => project({ age: '67', retire: '67' }), /after your current age/);
+  assert.throws(() => project({ age: '14' }), /between 15 and 74/);
+  assert.throws(() => project({ sacrifice: '22900.01' }), /above the \$32,500 cap/);
+  assert.equal(project({ sacrifice: '22900' }).concessional, 32500);
+  assert.throws(() => project({ afterTax: '130000.01' }), /above the \$130,000 cap/);
+  assert.throws(() => project({ returnRate: '20.01' }), /between 0 and 20/);
+  assert.throws(() => project({ employer: '30.01' }), /between 0 and 30/);
+  assert.throws(() => project({ percentFee: '0.111' }), /2 decimal places/);
+  assert.throws(() => project({ salary: '80000.5' }), /whole number/);
 });
