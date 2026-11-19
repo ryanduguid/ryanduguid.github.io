@@ -325,7 +325,7 @@ const MUTATIONS = [
   { ...soleTrader, name: 'PAYG instalment entry at more than $4,000 only', find: 'income >= INSTALMENT_INCOME', replace: 'income > INSTALMENT_INCOME' },
   { ...soleTrader, name: 'the surcharge is left out', find: 'const surcharge = hospitalCover ? 0 :', replace: 'const surcharge = true ? 0 :' },
   { ...soleTrader, name: 'super contributions are left out of repayment and surcharge income', find: 'const reported = Math.floor(contributions / 100);', replace: 'const reported = 0;' },
-  { ...soleTrader, name: 'the wages alone report contributions they cannot absorb', find: 'Math.min(contributions, room)', replace: 'contributions' },
+  { ...soleTrader, name: 'the wages alone report contributions they cannot absorb', find: 'Math.floor(aloneContributions / 100));', replace: 'reported);' },
   { ...soleTrader, name: 'a business loss is worked', find: 'if (expenses > income) {', replace: 'if (false) {' },
   { ...div7a, name: 'Division 7A schedule counts the remaining term from the year made', find: 'const remainingTerm = term - k + 1;', replace: 'const remainingTerm = term - k + 2;' },
   { ...div7a, name: 'Division 7A schedule drops unpaid interest from the loan', find: 'const principal = repayment - interest;', replace: 'const principal = repayment > interest ? repayment - interest : 0n;' },
