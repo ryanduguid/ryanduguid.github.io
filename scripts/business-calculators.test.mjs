@@ -3191,7 +3191,7 @@ const cgtHtml = readFileSync(new URL('../_includes/calculators/cgt.html', import
 const cgtPlain = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
   { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const CGT_WHO = { individual: 'Individual', trust: 'Trust', super: 'Complying super fund', company: 'Company' };
-const CGT_KIND = { investment: 'investment', home: 'home', personal: 'personal use asset' };
+const CGT_KIND = { investment: 'investment', equity: 'shares or units held at least 10%', home: 'home', personal: 'personal use asset' };
 const CGT_METHOD = { discount: 'discount method', indexation: 'indexation method', other: 'other method', loss: 'a capital loss',
   exempt: 'fully exempt', nil: 'no gain or loss' };
 Object.assign(INPUTS, {
@@ -3227,6 +3227,14 @@ Object.assign(ENGINE_LABELS, {
     incomeTime: (v) => (v ? `taken to be acquired ${cgtPlain(v)}` : 'section 118-192 does not apply'), tax: 'extra tax' },
 });
 const cgtBase = () => structuredClone(shownCases.cgt.rows[0].call[0]);
+/** A call the CGT page must work, not refuse: a refusal fails an assertion. @param {() => any} call */
+const cgtWorks = (call) => {
+  try {
+    return call();
+  } catch (error) {
+    return assert.fail(`refused: ${error.message}`);
+  }
+};
 
 // ATO, Guide to capital gains tax 2026, 'How to work out your capital gain or capital loss' (last
 // updated 30 May 2026), read 19 November 2026: example 12, '68.7 ÷ 63.8 = 1.077'; example 13,
@@ -3277,6 +3285,8 @@ test('the 6 years a rented home can stay the main residence run per absence, acr
   assert.deepEqual([anniversary.method, anniversary.nonMainDays], ['exempt', 0]);
   const over = sale([rented('2002-05-29', '2008-05-30'), { from: '2008-05-31', to: '2010-05-28', rented: false, choose: true }], '500000');
   assert.deepEqual([over.nonMainDays, over.incomeTime, over.ownershipDays], [1, '2002-05-29', 8767]);
+  // The result says how it counts the 6 years only when they end a rented absence's main residence days.
+  assert.deepEqual([anniversary.sixYears, over.sixYears], [false, true]);
   // From 29 February the 6 years run to 28 February, as australian-accounting counts them.
   const leap = (to, back) => sale([rented('2004-02-29', to), { from: back, to: '2012-05-28', rented: false, choose: true }], '500000');
   assert.deepEqual([leap('2010-02-28', '2010-03-01').nonMainDays, leap('2010-03-01', '2010-03-02').nonMainDays], [0, 1]);
@@ -3305,9 +3315,17 @@ test('part use, and when section 118-192 applies to the home', () => {
   const sale = (home) => calculations.capitalGain({ ...cgtBase(), kind: 'home', acquired: '1994-01-10', event: '2025-05-01', proceeds: '600000',
     price: '200000', buying: { amount: '0', date: '' }, improvements: [{ amount: '0', date: '' }, { amount: '0', date: '' }], selling: '0',
     works: '0', home: { ...cgtBase().home, purchased: '1994-02-10', sold: '2025-05-29', movedIn: '1994-02-10', ...home } });
-  const surgery = sale({ partPercent: '25', partFrom: '1994-02-10', partTo: '2025-05-29',
-    away: [{ from: '2019-07-01', to: '2025-05-29', rented: true, choose: true }, ...cgtBase().home.away.slice(1)] });
+  const surgery = cgtWorks(() => sale({ partPercent: '25', partFrom: '1994-02-10', partTo: '2025-05-29',
+    away: [{ from: '2019-07-01', to: '2025-05-29', rented: true, choose: true }, ...cgtBase().home.away.slice(1)] }));
   assert.deepEqual([surgery.incomeTime, surgery.partDays, surgery.gain], [null, 11432, 100000]);
+  // Part use that began during a chosen absence is ignored for it (subsection 118-190(3)): refused.
+  const away = [{ from: '2019-07-01', to: '2022-06-30', rented: false, choose: true }, ...cgtBase().home.away.slice(1)];
+  for (const partFrom of ['2019-07-01', '2022-06-30']) {
+    assert.throws(() => sale({ partPercent: '25', partFrom, partTo: '2025-05-29', market: '450000', away }), /subsection 118-190\(3\)/, partFrom);
+  }
+  assert.equal(sale({ partPercent: '25', partFrom: '2022-07-01', partTo: '2025-05-29', market: '450000', away }).incomeTime, '2022-07-01');
+  assert.equal(sale({ partPercent: '25', partFrom: '2019-07-01', partTo: '2025-05-29', market: '450000',
+    away: [{ ...away[0], choose: false }, ...away.slice(1)] }).incomeTime, '2019-07-01');
   const later = sale({ partPercent: '25', partFrom: '2010-01-01', partTo: '2025-05-29', market: '450000' });
   assert.deepEqual([later.incomeTime, later.ownershipDays, later.partDays, later.gain], ['2010-01-01', 5628, 5628, 37500]);
   assert.throws(() => sale({ partPercent: '25', partFrom: '1996-08-20', partTo: '2025-05-29', market: '300000' }),
@@ -3354,6 +3372,12 @@ test('the CGT page refuses malformed, out-of-range and missing figures instead o
   // Costs of owning are in the cost base unindexed and not in the reduced cost base (subsection 110-55(2)).
   const owned = calculations.capitalGain({ ...cgtBase(), owning: '1000' });
   assert.deepEqual([owned.costBase, owned.indexedCostBase, owned.reducedCostBase], [207245, 212493, 206245]);
+  // A company gets no discount, so section 115-45 does not matter to its shares.
+  const company = { ...cgtBase(), entity: 'company' };
+  assert.deepEqual(cgtWorks(() => calculations.capitalGain({ ...company, kind: 'equity' })), calculations.capitalGain(company));
+  for (const entity of ['individual', 'trust', 'super']) {
+    assert.throws(() => calculations.capitalGain({ ...cgtBase(), entity, kind: 'equity' }), /section 115-45/, entity);
+  }
   // Unused losses of this year and earlier years are both carried forward, with a capital loss.
   const antonio = shownCases.cgt.rows.find((row) => row.case.startsWith('ATO example 14')).call[0];
   assert.equal(calculations.capitalGain({ ...antonio, currentLosses: '1000', priorLosses: '400' }).carried, 3900);
@@ -3381,7 +3405,8 @@ test('the CGT page opens on the result its calculation gives for the form’s in
   assert.equal(result.note, example[4]);
   for (const cited of ['as at 21 May 2026 (Compilation No. 264), read 19 November 2026', '(Act No. 49 of 2026, read 19 November 2026)',
     '(Guide to capital gains tax 2026, last updated 30 May 2026), read 19 November 2026', '(published 30 May 2026), read 19 November 2026',
-    '(last updated 30 May 2026), read 19 November 2026', 'label H of $289,755 and label A of $144,877']) {
+    '(last updated 30 May 2026), read 19 November 2026', 'label H of $289,755 and label A of $144,877',
+    'A company, not a life insurance company or listed investment company']) {
     assert.ok(cgtHtml.includes(cited), cited);
   }
   // A home: example 72's figures as the page shows them.

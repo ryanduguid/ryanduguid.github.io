@@ -6508,13 +6508,26 @@ fn cgt_case(rng: &mut Seeded) -> (Value, Value) {
                 .iter()
                 .any(|&(_, day)| day > date(1999, 6, 30));
         let cut_off = date(1999, 9, 21);
+        // The engine also refuses part use that began during a chosen absence (subsection
+        // 118-190(3)), and costs of owning when section 118-192 applies, as it cannot date them.
+        let part_while_away = sale.home.as_ref().is_some_and(|home| {
+            home.part.is_some_and(|(_, from, _)| {
+                home.away
+                    .iter()
+                    .any(|a| a.choose && a.from <= from && from <= a.to)
+            })
+        });
         if first_use != Some(date(1996, 8, 20))
             && (sale.works == 0 || first_use != Some(date(1997, 5, 13)))
             && !split_works
             && sale.acquired != cut_off
             && first_use != Some(cut_off)
+            && !part_while_away
         {
-            return (cgt_input(&sale), cgt_oracle(&sale));
+            let expected = cgt_oracle(&sale);
+            if sale.owning == 0 || expected["incomeTime"].is_null() {
+                return (cgt_input(&sale), expected);
+            }
         }
     }
 }

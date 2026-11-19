@@ -75,20 +75,26 @@ export function indexationFactor(iso) {
 /** @type {Record<CgtEntity, [bigint, bigint] | null>} */
 const DISCOUNT = { individual: [1n, 2n], trust: [1n, 2n], super: [1n, 3n], company: null };
 const ENTITIES = { individual: 'An individual', trust: 'A trust', super: 'A complying superannuation fund',
-  company: 'A company (not a listed investment company)' };
+  company: 'A company (not a life insurance company or listed investment company)' };
 
 /** The scope checks that refuse what this page does not work out. @param {CgtEvent} x */
 function checkScope(x) {
   if (!Object.hasOwn(ENTITIES, x.entity)) throw new Error('Choose who made the capital gain or loss.');
   if (x.resident !== 'yes') {
     throw new Error('This page works out residents only: a foreign or temporary resident’s CGT discount is reduced or nil '
-      + '(sections 115-105 to 115-120) and, at the CGT event, there is no main residence exemption (subsection 118-110(3)).');
+      + '(sections 115-105 to 115-120), and a foreign resident at the CGT event generally has no main residence exemption '
+      + '(subsection 118-110(3)).');
   }
   if (x.kind === 'personal') {
     throw new Error('Collectables and personal use assets have their own rules (sections 108-10 to 108-30, 118-10): '
       + 'this page does not work them out.');
   }
-  if (!['investment', 'home'].includes(x.kind)) throw new Error('Choose what kind of asset it is.');
+  if (!['investment', 'equity', 'home'].includes(x.kind)) throw new Error('Choose what kind of asset it is.');
+  if (x.kind === 'equity' && x.entity !== 'company') {
+    throw new Error('The gain on shares or trust units you and your associates own at least 10% of is not a discount capital '
+      + 'gain when most of the company’s or trust’s assets, by cost base and by net capital gain, were acquired in the 12 months '
+      + 'before the sale (section 115-45): this page does not test that.');
+  }
   const acquired = dateOf(x.acquired, 'date of the purchase contract');
   const event = dateOf(x.event, 'date of the sale contract');
   if (event < CGT_EVENTS.from || event > CGT_EVENTS.until) {
@@ -141,6 +147,10 @@ function elementsOf(x, acquired, event, incomeTime) {
     }
   });
   const owning = cents(x.owning);
+  if (owning && incomeTime) {
+    throw new Error(`Section 118-192 treats the home as acquired on ${longDate(incomeTime)} for its market value, so only costs `
+      + 'of owning from then count, and this page cannot date them: it works this sale only with costs of owning of $0.');
+  }
   if (owning && acquired <= '1991-08-20') {
     throw new Error('Costs of owning form part of the cost base only for an asset acquired after 20 August 1991 (subsection 110-25(4)).');
   }
@@ -188,6 +198,7 @@ function absenceOf(row, n) {
 function markAbsences(main, income, rows, start, movedIn, end) {
   let previous = null;
   let left = null;
+  let capped = false;
   for (const row of rows) {
     if (row.from <= movedIn || row.to > end) {
       throw new Error(`Absence ${row.n} must start after the home became the main residence and end by settlement of the sale.`);
@@ -202,11 +213,13 @@ function markAbsences(main, income, rows, start, movedIn, end) {
         left = dayOf(yearsLater(first, 6)) - row.from + (first.endsWith('-02-29') ? 0 : 1);
       }
       const covered = Math.min(left, row.to - row.from + 1);
+      capped ||= covered < row.to - row.from + 1;
       main.fill(0, row.from - start + covered, row.to - start + 1);
       left -= covered;
     }
     previous = row;
   }
+  return capped;
 }
 
 /** Part used to produce income: hundredths of 1% of the floor area, and its first and last days.
@@ -254,19 +267,23 @@ function residence(home, acquired, event) {
   const income = new Uint8Array(end - start + 1);
   if (home.practicable === 'no') main.fill(0, 0, movedIn - start);
   const rows = home.away.map((row, i) => absenceOf(row, i + 1)).filter((row) => row !== null);
-  markAbsences(main, income, rows, start, movedIn, end);
+  const capped = markAbsences(main, income, rows, start, movedIn, end);
   const part = partUse(home, start, end);
+  if (part.percent && rows.some((row) => row.choose && part.from >= row.from && part.from <= row.to)) {
+    throw new Error('Use of part of the home to produce income that began whilst you were away, with the home treated as your '
+      + 'main residence, is ignored for that period (subsection 118-190(3)): this page does not work it out.');
+  }
   if (part.percent) income.fill(1, part.from - start, part.to - start + 1);
   const days = count(main, 0, part, start);
   const first = income.indexOf(1);
   const incomeNotExempt = days.partDays > 0 || income.some((used, i) => used && !main[i]);
   const mainBefore = first > 0 && main.subarray(0, first).every(Boolean);
-  if (first < 0 || !incomeNotExempt || !mainBefore || start + first < dayOf('1996-08-20')) return { ...days, part, incomeTime: null };
+  if (first < 0 || !incomeNotExempt || !mainBefore || start + first < dayOf('1996-08-20')) return { ...days, part, capped, incomeTime: null };
   if (isoOf(start + first) === '1996-08-20') {
     throw new Error('Whether section 118-192 applies to first use to produce income on 20 August 1996 turns on whether it '
       + 'began after 7.30 pm: this page cannot tell.');
   }
-  return { ...count(main, first, part, start), part, incomeTime: isoOf(start + first) };
+  return { ...count(main, first, part, start), part, capped, incomeTime: isoOf(start + first) };
 }
 
 /** A signed amount in cents times numerator over denominator, its size rounded half up.
@@ -345,7 +362,7 @@ export function capitalGain(x) {
     nonMainDays: home?.nonMain ?? null, partDays: home?.partDays ?? null, partPercent: home ? home.part.percent / 100 : null,
     incomeTime: home?.incomeTime ?? null, gain: money(chosen.gain), loss: money(loss), currentApplied: money(chosen.currentApplied),
     priorApplied: money(chosen.priorApplied), discount: money(chosen.discount), net: money(chosen.net), labelA,
-    carried: money(carried), labelV: Number(carried / 100n), tax,
+    carried: money(carried), labelV: Number(carried / 100n), tax, sixYears: home?.capped ?? false,
     alternative: !['discount', 'indexation'].includes(chosen.method) || methods.length === 1 ? null : { method: methods[1].method, net: money(methods[1].net) } };
 }
 
@@ -379,7 +396,8 @@ const METHODS = {
   exempt: 'Main residence exemption: the capital gain or loss is disregarded (section 118-110)',
   nil: 'No capital gain or loss (section 104-10)',
 };
-const KINDS = { investment: 'an investment or business asset', home: 'a home that was the individual’s main residence' };
+const KINDS = { investment: 'an investment or business asset', equity: 'shares or trust units, at least 10% with associates',
+  home: 'a home that was the individual’s main residence' };
 /** @param {number} value whole dollars */
 const wholeAud = (value) => `$${value.toLocaleString('en-AU')}`;
 
@@ -388,7 +406,7 @@ function inputsOf(x, money) {
   const cost = (/** @type {string} */ amount) => money(cents(amount) / 100);
   const costs = x.improvements.filter(({ amount }) => cents(amount))
     .map(({ amount, date }) => `, improvement or title cost ${cost(amount)} on ${longDate(date)}`).join('');
-  const parts = [`${ENTITIES[x.entity]}, an Australian resident; ${KINDS[/** @type {'investment' | 'home'} */ (x.kind)]} `
+  const parts = [`${ENTITIES[x.entity]}, an Australian resident; ${KINDS[/** @type {'investment' | 'equity' | 'home'} */ (x.kind)]} `
     + `bought under a contract of ${longDate(x.acquired)} and sold under a contract of ${longDate(x.event)} for ${cost(x.proceeds)}`,
   `purchase price ${cost(x.price)}${cents(x.buying.amount) ? `, buying costs ${cost(x.buying.amount)} on ${longDate(x.buying.date)}` : ''}`
     + `${costs}, selling costs ${cost(x.selling)}, costs of owning ${cost(x.owning)}, capital works deductions ${cost(x.works)}`,
@@ -427,6 +445,10 @@ function homeRows(r, x, aud) {
 /** @param {ReturnType<typeof capitalGain>} r @param {CgtEvent} x */
 function notesOf(r, x) {
   const notes = [`The CGT event happened in ${r.year}, the income year of the sale contract (subsection 104-10(3))`];
+  if (r.sixYears) {
+    notes.push('the 6 years a rented absence stays the main residence run to the sixth anniversary of its first day rented, '
+      + 'inclusive, as the ATO’s example 72 counts them; its example 80 counts a day fewer');
+  }
   if (x.entity === 'trust') notes.push('a beneficiary grosses up their share of a discounted gain and applies their own discount (Subdivision 115-C)');
   if (r.tax !== null) {
     notes.push('the estimate adds label A to the other taxable income at the resident rates, with the low income tax offset and '
