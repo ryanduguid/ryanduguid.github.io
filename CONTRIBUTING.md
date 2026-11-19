@@ -374,7 +374,8 @@ The same decision would let Actions build `feed.xml`, `llms-full.txt` and the
 `index.txt` pages at deploy time instead of committing them. That ends their merge
 conflicts, but it takes them out of the repository and changes what
 `build_feed --check` and `build_llms_full --check` verify. The `changelog-rows`
-merge driver (Pull requests, below) resolves the common conflict without it.
+and `generated` merge drivers (Pull requests, below) resolve those conflicts
+without it.
 
 The npm override pins `@puppeteer/browsers` to 3.2.2 because Lighthouse CI's
 dependency chain otherwise installs vulnerable `extract-zip` 2.0.1
@@ -581,22 +582,43 @@ does not name, such as a new `llms-full` part, stays in review until it is added
 
 Concurrent pull requests each add a dated row at the top of a changelog table,
 so a plain rebase stops in `changelog/index.html` and again in
-`changelog/index.txt`, `llms-full.txt`, its changelog parts
-`llms-full-changelog-*.txt` and `feed.xml`. `.gitattributes` assigns
-those files to the `changelog-rows` merge driver. After installing `site-tools`,
-configure it once per clone; worktrees share the setting, and removing it means
-removing the whole `merge.changelog-rows` section:
+`changelog/index.txt` and `feed.xml`. `.gitattributes` assigns
+those files to the `changelog-rows` merge driver. Each pull request that adds or
+edits a page also rewrites the files the builders write from the pages:
+`llms.txt`'s part index, `.well-known/llms.txt`, `llms-full.txt` and its parts,
+the other `index.txt` copies and `scripts/design_baseline.json`. `.gitattributes`
+assigns those to the `generated` driver, which keeps the current side, merges
+`llms.txt` outside its part index and merges the baseline's keys. After
+installing `site-tools`, configure both once per clone; worktrees share the
+setting, and removing one means removing its whole `merge.<name>` section:
 
 ```bash
 git config merge.changelog-rows.name "changelog rows in date order"
 git config merge.changelog-rows.driver "site-tools merge_driver %O %A %B || git merge-file -L current -L base -L incoming --marker-size=%L %A %O %B"
+git config merge.generated.name "builder output, rebuilt after the merge"
+git config merge.generated.driver "site-tools merge_driver --generated %O %A %B %P || git merge-file -L current -L base -L incoming --marker-size=%L %A %O %B"
 ```
+
+Merge the default branch with `git merge --no-commit origin/main`, resolve any
+conflict in a page source, then rebuild before committing: `site-tools build_feed
+--write`, `site-tools build_llms_full --write` and `site-tools check_design
+--update-baseline`, in that order. The driver also keeps the current side of
+`tools/depreciation-rates/llms.txt` and the effective life pages' `index.txt`
+mirrors, so when both sides changed those pages, run `site-tools
+build_effective_life_pages --write` first. A generated file the merge kept from the
+current side is stale until then, and the `--check` runs fail on it. GitHub runs
+no merge driver, so a pull request page still reports these conflicts until the
+default branch is merged in locally. Git takes merge attributes from the
+checked-out branch, so a branch cut before a change to these `.gitattributes`
+lines merges with its old ones: for that merge, first copy the default branch's
+with `git show origin/main:.gitattributes > "$(git rev-parse --git-path
+info/attributes)"`, and delete that file after it. A `site-tools` older than
+`--generated` leaves Git's markers in these files.
 
 The driver runs Git's three-way merge, then resolves only conflicts where both
 sides added dated changelog rows, or whole feed entries from one changelog table,
 and changed nothing else at that point, and the feed's own `<updated>` date,
-which takes the later side. In `llms-full.txt` and its parts that means the
-changelog page's section. It keeps both sides' additions, newest date first; on
+which takes the later side. It keeps both sides' additions, newest date first; on
 the same date the incoming side goes above, so a rebased pull request's row stays
 on top. If any other conflict remains in a file, or `site-tools` cannot run, the
 command falls back to `git merge-file` and the whole file keeps Git's markers:
