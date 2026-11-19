@@ -53,6 +53,7 @@ const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
+const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
 const wc = { ...business, file: 'assets/workers-compensation.mjs' };
 
 const MUTATIONS = [
@@ -649,6 +650,21 @@ const MUTATIONS = [
   { ...leave, name: 'unused leave TFN payee taxed on scale 3', find: '({ tfn: 2,', replace: '({ tfn: 3,' },
   { ...leave, name: 'unused leave part a cent over its total accepted', find: 'given !== null && given > total)', replace: 'given !== null && given > total + 1)' },
   { ...leave, name: 'unused leave pre-1978 share 90% not assessable', find: 'lslPre1978NotAssessable: toCents(pre1978 * 19)', replace: 'lslPre1978NotAssessable: toCents(pre1978 * 18)' },
+  { ...borrow, name: 'borrowing maximum truncates the cents', find: 'const maximum = ratioCents(remaining * BigInt(days), BigInt(left));', replace: 'const maximum = (remaining * BigInt(days)) / BigInt(left);' },
+  { ...borrow, name: 'borrowing days leave out the first day', find: 'const [left, days] = [end - begin + 1, Math.min(end, last) - begin + 1];', replace: 'const [left, days] = [end - begin + 1, Math.min(end, last) - begin];' },
+  { ...borrow, name: 'borrowing period runs 5 years and a day', find: 'return civil(same)[2] === civil(start)[2] ? same - 1 : same;', replace: 'return civil(same)[2] === civil(start)[2] ? same : same;' },
+  { ...borrow, name: 'borrowing period ignores the contract', find: 'const planned = loan.termEnd === null ? five : Math.min(loan.termEnd, five);', replace: 'const planned = five;' },
+  { ...borrow, name: 'borrowing period ignores a repayment', find: 'return loan.repaid !== null && loan.repaid <= last ? Math.min(planned, loan.repaid) : planned;', replace: 'return planned;' },
+  { ...borrow, name: 'borrowing $100 test takes under $100 only', find: 't.num <= 10000n * t.den;', replace: 't.num < 10000n * t.den;' },
+  { ...borrow, name: 'borrowing $100 test ignores nil use', find: 'return f.uses[0].num !== 0n && t.num', replace: 'return t.num' },
+  { ...borrow, name: 'borrowing $100 test counts each loan alone', find: 'num: t.num * f.uses[0].den + f.expenditure * f.uses[0].num * t.den, den', replace: 'num: f.expenditure * f.uses[0].num, den: f.uses[0].den' },
+  { ...borrow, name: 'borrowing deduction ignores the income use', find: 'deduction: ratioCents(y.maximum * f.uses[i].num, f.uses[i].den),', replace: 'deduction: y.maximum,' },
+  { ...borrow, name: 'borrowing loans before 2017-18 pass', find: 'if (loan.firstYear < FIRST_YEAR) refuse(', replace: 'if (false) refuse(' },
+  { ...borrow, name: 'borrowing refinancing on another day passes', find: '&& loans[k - 1].loan.repaid === facts.loan.start;', replace: ';' },
+  { ...borrow, name: 'borrowing s 26-155 flag from 2028-29', find: 'section_26_155: first >= 2027, projected: first > LAST_YEAR }));', replace: 'section_26_155: first >= 2028, projected: first > LAST_YEAR }));' },
+  { ...borrow, name: 'borrowing 10% test at 5%', find: 'if (change < 0.1) {', replace: 'if (change < 0.05) {' },
+  { ...borrow, name: 'borrowing 10% test counts fees paid to others', find: '+ Number(lenderFees) / 100;', replace: '+ Number(t.borrowingExpenses) / 100;' },
+  { ...borrow, name: 'borrowing early repayment is not an extinguishment', find: 'return { cost, balances, writtenOff: stop };', replace: 'return { cost, balances, writtenOff: null };' },
   { ...wc, name: 'WC an NSW premium of exactly $30,000 is refused', find: 'if (app > NSW_SMALL_LIMIT) {', replace: 'if (app >= NSW_SMALL_LIMIT) {' },
   { ...wc, name: 'WC an NSW premium of exactly $240 is refused', find: 'if (premium < NSW_MINIMUM) {', replace: 'if (premium <= NSW_MINIMUM) {' },
   { ...wc, name: 'WC the Safe Employer Reward applies to wages', find: 'const ser = at(app, reward);', replace: 'const ser = at(wages, reward);' },
@@ -690,7 +706,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
