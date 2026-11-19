@@ -243,7 +243,13 @@
       "aed04320a1e984625737411e6688f860dd30308e78cf544b438f407c0cbf2037"
     ],
     "tools/individual-tax/index.html": [
-      "5703434a1b42669cce63c44a6e8619ddaa75e93efc74bc9a66c6d23c9664aea7"
+      "fe3980829b8e788e736896dd303886e127bf71d5d743cc78e777e661a1b9c458"
+    ],
+    "tools/individual-tax/novated-lease/index.html": [
+      "394108910814f30418a839af23406d866a322b29e7a28a9fe388e4d1aa427120"
+    ],
+    "tools/individual-tax/salary-packaging/index.html": [
+      "a2f356cc25a225ff2ab5e98e4f3d6d86c1f191571b7a4798dd04e52f3c13e6fa"
     ],
     "tools/individual-tax/study-loan/index.html": [
       "e097fdd02619bd0715a3d91bb3455b08912994564bdbc0e0807df76c91cc5cea"
@@ -313,9 +319,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "5288d7306ce0f609a5d3c510e268f7632a5b3af5128818bef72d86afb1d0dbfc",
+    "llms.txt": "155e1e9aabc4a7547acb036301ac2cf4088d932ae98b59acc3cee496862588e8",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "131633181289dfd9227361fb0f1e8b267e7aa2157d115689ef7a0ba0b9375d6c"
+    "sitemap.xml": "94c5116294484be6df108a3d5fd2bfafef396dacfd0df4a02604d9168a83e40e"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -375,7 +381,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7773,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7775,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

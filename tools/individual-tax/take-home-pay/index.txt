@@ -77,7 +77,7 @@ Working holiday maker: no withholding worked | 2026-27, working holiday maker, $
 Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a year plus super, $10,000 sacrificed | Take-home $167,100.00 a year, $6,426.92 a fortnight; super $31,200.00; $8,700.00 over the cap; Division 293 on $40,200.00
 2021-22 at 10%, with LMITO | 2021-22, Australian resident, $70,000 a year plus super | Take-home $56,883.00 a year, $2,187.81 a fortnight; super $7,000.00
 
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -89,4 +89,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- five individual tax calculators: https://duguid.com.au/tools/individual-tax/

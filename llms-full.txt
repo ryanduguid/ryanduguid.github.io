@@ -3181,7 +3181,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 33 business planning calculators, 3 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 33 business planning calculators, 5 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3399,7 +3399,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 33 business planning calculators: https://duguid.com.au/tools/business-calculators/
-- 3 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 5 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -5551,6 +5551,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+19 November 2026 | Two new individual tax calculators. The salary packaging calculator works what packaging saves an employee of a public benevolent institution, health promotion charity, hospital or ambulance service for 2022-23 to 2026-27: the benefits grossed up against the $30,000 or $17,000 cap, the $5,000 allowance for meal entertainment, FBT on any excess, the reportable fringe benefits amount and the tax with and without packaging; it gives the $1,986.22 of FBT in the ATO’s example. The novated lease calculator tests a car against each condition of the electric car exemption and compares a year of the lease with paying from after-tax pay, both exempt and under the employee contribution method, for 2023-24 to 2026-27.
 19 November 2026 | The tool pages, changelog and release record name the releases of 18 and 19 November: Ozzit v3.7.0, which adds PAYG withholding, and aus-accounting-mcp/v0.10.0, whose tax worksheets need a separately installed calculators executable. The Ozzit page still documents v3.6.0 and its worked examples, and the MCP guide’s Adopt section still describes v0.9.0.
 18 November 2026 | The loan calculator now sets out every payment, weekly, fortnightly, monthly, quarterly or yearly, in arrears or in advance, with a balloon as an amount or a percentage, and works out whichever of the payment, the amount financed, the number of payments or the rate is missing; the schedule downloads as CSV. Each period’s interest is rounded to the cent and the last payment takes what rounding leaves, so the schedule closes on the balloon exactly. A new hire purchase and chattel mortgage calculator gives the same schedule with the interest by income year and a journal for each payment, citing Division 240 of the Income Tax Assessment Act 1997 and the ATO’s GST guidance, read on 18 November 2026. It does not account for leases under AASB 16.
 18 November 2026 | Three new business calculators. The company tax and franking calculator applies the base rate entity test for a 25% or 30% rate, finds the rate for franking from the previous year and works out the maximum franking credit and a shareholder’s top-up tax or refund; it agrees with the ATO’s base rate entity examples and gives Dillmore Manufacture’s exact credit of $42,857.14. The foreign purchaser surcharge calculator applies each state and territory’s own test of a foreign buyer, company or trust, then works out the duty surcharge and the land tax surcharge for a full year; it refuses exemptions, which each Commissioner decides, and states where none is charged. The business days calculator counts business days between 2 dates, or finds a date a number of business days on or back, with each government’s public holidays for 2026 and 2027, and refuses dates outside them. Sources were read on 18 November 2026.
@@ -11655,17 +11656,19 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Five calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
-Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay from 2021-22, salary packaging from 2022-23 and novated leases from 2023-24. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Published 17 November 2026. Last checked 18 November 2026, the newest of the calculators’ source checks.
+Published 17 November 2026. Last checked 19 November 2026, the newest of the calculators’ source checks.
 
 ## Tax, pay and study loans
 
 - Income tax calculator Tax on taxable income, the offsets, the Medicare levy and surcharge and any study loan repayment, less the tax withheld, for an Australian resident, a foreign resident or a working holiday maker.
 - Take-home pay calculator What is left of a salary each year, month, fortnight and week after salary sacrifice to super, tax, levies and any study loan repayment, with the employer’s super guarantee and the PAYG withheld from a 2026-27 pay.
 - Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
+- Salary packaging calculator What packaging saves an employee of a charity, hospital or ambulance service, with the FBT cap, any FBT on the excess and the reportable amount.
+- Novated lease calculator A year of a novated car lease against paying from after-tax pay, with the electric car FBT exemption tested condition by condition.
 
 For a business, see the business calculators.
 
@@ -11676,6 +11679,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- Salary packaging calculator: https://duguid.com.au/tools/individual-tax/salary-packaging/
+- Novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -11768,7 +11773,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11778,7 +11783,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -11861,7 +11866,7 @@ Working holiday maker: no withholding worked | 2026-27, working holiday maker, $
 Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a year plus super, $10,000 sacrificed | Take-home $167,100.00 a year, $6,426.92 a fortnight; super $31,200.00; $8,700.00 over the cap; Division 293 on $40,200.00
 2021-22 at 10%, with LMITO | 2021-22, Australian resident, $70,000 a year plus super | Take-home $56,883.00 a year, $2,187.81 a fortnight; super $7,000.00
 
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11873,7 +11878,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -11944,7 +11949,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11954,7 +11959,181 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Salary packaging calculator for FBT-exempt employers
+
+Source: https://duguid.com.au/tools/individual-tax/salary-packaging/
+
+> Salary packaging with a charity, hospital or ambulance service: the $30,000 or $17,000 FBT cap, FBT on the excess, the reportable amount and tax saved.
+
+# Salary packaging calculator
+
+What packaging saves an employee of a charity, hospital or ambulance service, with the FBT cap, the FBT on any excess and the reportable amount, for 2022-23 to 2026-27.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Salary packaging inputs for one year with an FBT-exempt employer
+
+Income year, with the FBT year ending 31 March in it 2026-27 2025-26 2024-25 2023-24 2022-23
+
+Your employer A public benevolent institution or health promotion charity ($30,000 cap) A public or not-for-profit hospital or a public ambulance service ($17,000 cap)
+
+Residency for tax purposes all year Australian resident Foreign resident
+
+Salary for the year before packaging, without super (whole dollars) Benefits your employer gets no GST credit for, such as mortgage, rent or loan payments and other bills (Type 2, dollars and cents) Benefits your employer claims a GST credit for (Type 1, dollars and cents) Salary packaged meal entertainment and venue hire (dollars and cents) Does your employer claim GST credits on the meal entertainment? Yes: Type 1 No: Type 2
+
+Do you have a study or training loan, such as HELP? No Yes
+
+Private patient hospital cover all year? Yes No
+
+Enter each benefit at its taxable value for the FBT year, usually what your employer pays for it. The calculator takes the salary as your only income and the benefits as paid from it evenly through the year.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, Australian resident employed by a public benevolent institution or health promotion charity, salary $70,000.00, Type 2 benefits $15,899.93, Type 1 benefits $0.00, salary packaged meal entertainment $0.00 (Type 1), no study loan, with private hospital cover. Benefits packaged, at their taxable value $15,899.93 Type 2 benefits grossed up at 1.8868, to the dollar $30,000.00 Cap for a charity $30,000.00 Grossed-up amount liable to FBT $0.00 FBT on it at 47% $0.00 Reportable fringe benefits amount $29,999.00 Tax, levies and study loan without packaging $12,600.00 Tax, levies and study loan with packaging $7,308.50 Tax saved $5,291.50 Gain after the FBT, if your employer passes it on $5,291.50 Your income statement shows $29,999.00 of reportable fringe benefits: it is not taxed, but it counts for the Medicare levy surcharge, study loan repayments and other income tests.
+
+## How the salary packaging calculator works
+
+The salary packaging calculator shows what packaging is worth to an employee of a public benevolent institution, health promotion charity, public or not-for-profit hospital or public ambulance service for one year. Your employer pays chosen expenses from your salary before tax. Those benefits are exempt from FBT up to the employer’s cap, measured on their grossed-up value: the taxable value times 1.8868 when the employer gets no GST credit, or 2.0802 when it does. So about $15,900 of Type 2 benefits fills a $30,000 cap and about $9,010 a $17,000 cap. Salary packaged meal entertainment and venue hire can take up to $5,000 more of grossed-up value before FBT applies.
+
+The calculator works your tax with and without the packaging and shows the difference. It also gives the reportable fringe benefits amount your income statement will show. That amount is not taxed, but it is added back for the Medicare levy surcharge, study loan repayments and other income tests, so packaging can raise a surcharge or a repayment while it lowers your income tax. If the benefits pass the cap, the employer owes FBT on the excess and usually recovers it from your package; the calculator takes that off the saving.
+
+## What the salary packaging calculator does not compute
+
+The calculator covers the FBT years ending 31 March 2023 to 2027, for one employer and the salary as your only income. It does not compute:
+
+- rebatable employers, such as other registered charities, whose FBT is reduced by a rebate of 47% up to a $30,000 cap, or ordinary employers, who pay full FBT on packaged benefits;
+- benefits outside the cap, such as car parking and meal entertainment that is not salary packaged, exempt benefits such as portable electronic devices, or a novated car lease, which the novated lease calculator works;
+- package fees, the cost of the benefits themselves, or whether a benefit is Type 1 or Type 2, which your employer decides;
+- salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge;
+- how the FBT year from 1 April to 31 March lines up with the income year from 1 July: the benefits are taken as packaged evenly in the income year.
+
+Confirm the figures with your employer’s salary packaging provider or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Salary packaging calculator
+
+Case | Inputs | Result
+A charity’s cap filled with Type 2 benefits: $15,899.93 grosses up to $30,000 | 2026-27, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,291.50: tax saved $5,291.50, FBT $0.00, reportable $29,999
+The ATO’s example: a health promotion charity employee’s FBT of $1,986.22 | 2026-27, charity, resident, salary $80,000, Type 2 $9,000.00, Type 1 $7,700.00, meal entertainment $3,300.00 (Type 2) | Gain $4,528.78: tax saved $6,515.00, FBT $1,986.22, reportable $37,735
+A hospital’s cap filled: $9,009.96 grosses up to $17,000 | 2026-27, hospital, resident, salary $70,000, Type 2 $9,009.96 | Gain $2,983.35: tax saved $2,983.35, FBT $0.00, reportable $16,999
+To the dollar, $15,900.20 still grosses up to $30,000 | 2026-27, charity, resident, salary $70,000, Type 2 $15,900.20 | Gain $5,291.84: tax saved $5,291.84, FBT $0.00, reportable $30,000
+A cent more is $1 over the cap and $0.47 of FBT | 2026-27, charity, resident, salary $70,000, Type 2 $15,900.21 | Gain $5,291.37: tax saved $5,291.84, FBT $0.47, reportable $30,000
+Meal entertainment up to $5,000 grossed up sits above the cap | 2026-27, charity, resident, salary $70,000, Type 2 $15,899.93, meal entertainment $2,403.61 (Type 1) | Gain $6,096.84: tax saved $6,096.84, FBT $0.00, reportable $34,534
+Meal entertainment beyond the $5,000 allowance is taxed with the rest | 2026-27, charity, resident, salary $70,000, Type 2 $20,000.00, meal entertainment $3,000.00 (Type 1) | Gain $3,450.81: tax saved $7,670.00, FBT $4,219.19, reportable $43,396
+Benefits of $2,000 are not reportable | 2026-27, charity, resident, salary $70,000, Type 2 $2,000.00 | Gain $640.00: tax saved $640.00, FBT $0.00, reportable $0
+A cent more is reportable as $3,773, as the ATO’s threshold table says | 2026-27, charity, resident, salary $70,000, Type 2 $2,000.01 | Gain $640.32: tax saved $640.32, FBT $0.00, reportable $3,773
+The reportable amount brings on the surcharge and raises the study loan repayment | 2026-27, charity, resident, salary $100,000, Type 2 $15,899.93, study loan, no hospital cover | Gain $1,842.16: tax saved $1,842.16, FBT $0.00, reportable $29,999
+A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
+2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
+
+One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
+- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Novated lease and electric car FBT exemption calculator
+
+Source: https://duguid.com.au/tools/individual-tax/novated-lease/
+
+> Novated lease saving for an electric or other car, 2023-24 to 2026-27: the FBT exemption conditions, the reportable amount and the employee contribution method.
+
+# Novated lease calculator
+
+A year of a novated car lease against paying the same costs from after-tax pay: whether the electric car FBT exemption applies, and the saving with and without it.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Novated lease inputs for one year
+
+Income year, with the FBT year ending 31 March in it 2026-27 2025-26 2024-25 2023-24
+
+Residency for tax purposes all year Australian resident Foreign resident
+
+Salary for the year before the lease, without super (whole dollars) The car Battery electric Hydrogen fuel cell electric Plug-in hybrid Petrol, diesel or other hybrid
+
+When was the car first both held and used by anyone? On or after 1 July 2022 Before 1 July 2022
+
+Plug-in hybrid only: was it exempt and in use before 1 April 2025, under a lease still unchanged? No Yes
+
+Financial year of the car’s first retail sale 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+The car’s cost price, with GST and dealer-fitted options, without registration and stamp duty (dollars and cents) Has the lessor held the car for more than 4 years before this FBT year? No Yes: two-thirds of the cost price counts
+
+Days in the year the car is available for your private use Yearly lease payments and running costs that include GST, such as charging or fuel, servicing, tyres and insurance (dollars and cents) Yearly costs without GST, such as registration (dollars and cents) Do you have a study or training loan, such as HELP? No Yes
+
+Private patient hospital cover all year? Yes No
+
+Take the yearly costs from your lease quote. The calculator compares the lease with paying the same costs from after-tax pay, takes the salary as your only income and the employer as registered for GST.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, Australian resident, salary $100,000.00, battery electric car first held and used on or after 1 July 2022, first sold in 2026-27 for $60,000.00, available 365 days, costs with GST $15,000.00 and without $1,000.00, no study loan, with private hospital cover. Statutory formula value for 365 days $12,000.00 Luxury car tax threshold for fuel-efficient cars, 2026-27 $91,661.00 Electric car exemption applies Yearly car costs $16,000.00 The same less the GST credits your employer claims $14,636.36 Tax, levies and study loan paying the costs from after-tax pay $22,200.00 Exempt: all from pre-tax salary $14,636.36 Exempt: reportable fringe benefits amount $22,641.00 Exempt: tax, levies and study loan $17,516.16 Exempt: saving $6,047.48 Were it not exempt: after-tax contribution $12,000.00 Were it not exempt: from pre-tax salary $3,727.27 Were it not exempt: tax, levies and study loan $21,007.04 Were it not exempt: saving $1,465.69 The exempt car’s $22,641.00 reportable amount is not taxed, but it counts for the Medicare levy surcharge, study loan repayments and other income tests.
+
+## How the novated lease calculator works
+
+The novated lease calculator compares a year of a novated car lease with paying the same car costs from your after-tax pay. Under the lease your employer pays the lease and running costs from your salary, claims back the GST and passes it on, so less of your salary is taxed.
+
+The FBT exemption for electric cars decides how the costs are split. If the car is a battery electric or hydrogen fuel cell car, was first held and used on or after 1 July 2022 and no luxury car tax was payable on it, the whole cost comes from your pre-tax salary with no FBT. Its value under the statutory formula, 20% of the cost price for a full year, is still reported on your income statement, grossed up. That reportable amount is not taxed but counts for the Medicare levy surcharge and study loan repayments. A plug-in hybrid kept the exemption only under a lease in place and in use before 1 April 2025.
+
+Without the exemption, the usual approach is the employee contribution method: you pay the car’s taxable value from your after-tax pay, which leaves no FBT, and the rest of the cost from your pre-tax salary. The calculator works both ways for an exempt car, so you can see what the exemption is worth, and says which condition fails when it does not apply.
+
+## What the novated lease calculator does not compute
+
+The calculator covers the FBT years ending 31 March 2024 to 2027, for one car and one employer, with the salary as your only income. It does not compute:
+
+- the lease payments themselves, the residual value, interest or fees, which come from your lease quote;
+- the operating cost method, FBT left over when the costs are less than the taxable value, or an employer that does not claim GST credits;
+- a car on which luxury car tax was paid at a later sale, a car with a value at first sale different from its cost price, or a home charger;
+- the end of the lease, when you pay the residual or refinance;
+- salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge.
+
+Confirm the figures with your employer, your lease provider or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Novated lease calculator
+
+Case | Inputs | Result
+A battery electric car under the exemption | 2026-27, bev, first held and used after 1 July 2022, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $12,000.00, saving $6,047.48, $1,465.69 without the exemption
+A petrol car under the employee contribution method | 2026-27, other, first held and used after 1 July 2022, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Not exempt (it is not a battery electric or hydrogen fuel cell car): value $12,000.00, saving $1,465.69
+A plug-in hybrid from 1 April 2025 without an earlier commitment | 2026-27, phev, first held and used after 1 July 2022, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Not exempt (a plug-in hybrid is exempt from 1 April 2025 only under a commitment made and used before then): value $12,000.00, saving $1,465.69
+A plug-in hybrid under a commitment from before 1 April 2025 | 2026-27, phev, first held and used after 1 July 2022, earlier commitment, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $12,000.00, saving $6,047.48, $1,465.69 without the exemption
+A plug-in hybrid in 2024-25 needs no commitment | 2024-25, phev, first held and used after 1 July 2022, sold 2024-25 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $12,000.00, saving $6,047.48, $1,465.69 without the exemption
+First held and used before 1 July 2022 | 2026-27, bev, first held and used before 1 July 2022, sold 2021-22 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Not exempt (it was first held and used before 1 July 2022): value $12,000.00, saving $1,465.69
+At the luxury car tax threshold for fuel-efficient cars | 2026-27, bev, first held and used after 1 July 2022, sold 2026-27 at $91,661.00, 365 days, costs $25,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $18,332.20, saving $9,865.69, $2,866.01 without the exemption
+A cent over the threshold: luxury car tax was payable | 2026-27, bev, first held and used after 1 July 2022, sold 2026-27 at $91,661.01, 365 days, costs $25,000.00 with GST and $1,000.00 without, salary $100,000 | Not exempt (luxury car tax was payable on its first retail sale): value $18,332.20, saving $2,866.01
+First sold in 2022-23 under that year’s $84,916 threshold | 2026-27, bev, first held and used after 1 July 2022, sold 2022-23 at $84,916.01, 365 days, costs $25,000.00 with GST and $1,000.00 without, salary $100,000 | Not exempt (luxury car tax was payable on its first retail sale): value $16,983.20, saving $3,380.96
+2023-24 has 366 days | 2023-24, bev, first held and used after 1 July 2022, sold 2023-24 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $11,967.21, saving $6,413.40, $1,572.22 without the exemption
+Held over 4 years: two-thirds of the cost price | 2026-27, bev, first held and used after 1 July 2022, sold 2026-27 at $60,000.00, held over 4 years, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $8,000.00, saving $6,047.48, $2,992.85 without the exemption
+Half a year available | 2026-27, bev, first held and used after 1 July 2022, sold 2026-27 at $60,000.00, 182 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $5,983.56, saving $6,047.48, $3,762.72 without the exemption
+The reportable amount brings on the surcharge | 2026-27, bev, first held and used after 1 July 2022, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $120,000, no hospital cover | Exempt: value $12,000.00, saving $5,649.93, $1,502.97 without the exemption
+
+One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
