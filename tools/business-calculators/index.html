@@ -52,7 +52,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Forty-three calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
+        <p class="lead-note">Forty-four calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
@@ -62,6 +62,7 @@
         <h2>Pricing, planning and loans</h2>
         <ul class="calculator-list">
           <li id="gst"><a class="collection-entry__title" href="/tools/business-calculators/gst/">GST calculator</a> Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.</li>
+          <li id="gst-margin-scheme"><a class="collection-entry__title" href="/tools/business-calculators/gst-margin-scheme/">GST margin scheme calculator</a> Whether the margin scheme can apply to a sale of land, a stratum unit or a long-term lease, the margin and its GST, and the GST it saves.</li>
           <li id="business-use"><a class="collection-entry__title" href="/tools/business-calculators/business-use/">Business use share calculator</a> Apportion an eligible cost by a supported business use percentage. It does not decide deductibility, depreciation or record sufficiency.</li>
           <li id="margin"><a class="collection-entry__title" href="/tools/business-calculators/margin/">Margin and markup calculator</a> Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.</li>
           <li id="break-even"><a class="collection-entry__title" href="/tools/business-calculators/break-even/">Break-even sales calculator</a> Whole units and sales required to cover fixed costs from price and variable cost per unit.</li>

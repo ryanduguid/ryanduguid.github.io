@@ -225,6 +225,17 @@ calculate.companyTax({ ...companyInput, existed: 'yes' });
 const companyReason: number = calculate.companyTax(companyInput).entity;
 void companyNet;
 void companyReason;
+const marginInput = { interest: 'freehold' as const, taxable: true, agreed: true, acquired: 'margin' as const, associate: false,
+  method: 'consideration' as const, price: '190000', basis: 'inclusive' as const, cost: '400000', part: '200000', whole: '2000000' };
+const marginGst: number = calculate.gstMarginScheme(marginInput).gst;
+// @ts-expect-error The written agreement is a boolean, not the form's 'yes'.
+calculate.gstMarginScheme({ ...marginInput, agreed: 'yes' });
+// @ts-expect-error An acquisition is one of the 5 the page offers.
+calculate.gstMarginScheme({ ...marginInput, acquired: 'gift' });
+// @ts-expect-error Whether the scheme applies is a boolean, not an amount.
+const marginApplies: number = calculate.gstMarginScheme(marginInput).applies;
+void marginGst;
+void marginApplies;
 const surchargeBuyer = { type: 'individual' as const, status: 'other' as const, daysBefore: '0', daysDecember: '0', nzResident: false,
   resides: false, absent: false, home: false, overseas: false, largest: '0', combined: '0', absentee: '0', capital: '0', amendable: false, control: false,
   named: false, defaults: '0', exemption: false };

@@ -3023,6 +3023,73 @@ Object.assign(ENGINE_LABELS, {
 const businessDayRows = JSON.parse(readFileSync(new URL('../_data/payday_super_business_days.json', import.meta.url), 'utf8')).non_business_days;
 const businessDayHolidays = calculations.parseHolidays(JSON.stringify(businessDayRows));
 
+// The GST margin scheme: how each call and result reads on its page, and how its form passes its fields.
+const MARGIN_WHAT = { freehold: 'Freehold', stratum: 'Stratum unit', lease: 'Long-term lease', other: 'Not land, a unit or a long-term lease' };
+const MARGIN_HOW = { margin: 'bought under the margin scheme', untaxed: 'bought in a sale not taxable',
+  'before-2000': 'held since before 1 July 2000', 'full-gst': 'bought with GST on the whole price', special: 'acquired under section 75-11' };
+const counted = (value) => Number(value).toLocaleString('en-AU');
+Object.assign(INPUTS, {
+  gstMarginScheme: (i) => `${MARGIN_WHAT[i.interest]}${i.taxable ? '' : ', not a taxable sale'}${i.agreed ? '' : ', no written agreement'}, `
+    + `${MARGIN_HOW[i.acquired]}${i.associate ? ', sold to an associate' : ''}; price ${dollars(i.price)} GST-${i.basis}, `
+    + `${i.method === 'valuation' ? 'valuation' : 'cost'} ${dollars(i.cost)}${i.part === i.whole ? '' : `, ${counted(i.part)} of ${counted(i.whole)}`}`,
+});
+Object.assign(FORM_CALLS, {
+  gstMarginScheme: (f) => [{ interest: f.interest, taxable: f.taxable === 'yes', agreed: f.agreed === 'yes', acquired: f.acquired,
+    associate: f.associate === 'yes', method: f.method, price: f.price, basis: f.basis, cost: f.cost, part: f.part, whole: f.whole }],
+});
+Object.assign(ENGINE_LABELS, {
+  gstMarginScheme: { applies: (v) => (v ? 'margin scheme can apply' : 'margin scheme cannot apply'), share: (v) => `cost share ${dollars(v)}`,
+    consideration: (v) => `GST-inclusive price ${dollars(v)}`, margin: (v) => `margin ${dollars(v)}`,
+    schemeGst: (v) => `margin scheme GST ${dollars(v)}`, basicGst: (v) => `GST on the whole price ${dollars(v)}`,
+    saving: (v) => `saved ${dollars(v)}`, gst: (v) => `GST payable ${dollars(v)}` },
+});
+
+test('the GST margin scheme page opens on GSTR 2006/8 Example 6 as its calculation gives it', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const html = calculatorInclude('gst-margin-scheme');
+  const example = html.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/).slice(1);
+  const r = calculations.gstMarginSchemeResult(FORM_CALLS.gstMarginScheme(formDefaults(html))[0], aud);
+  assert.deepEqual([r.inputs, r.rows.map((row) => row.join('|')).join(';'), String(r.principal), r.note], example);
+  assert.equal(r.rows[r.principal][1], '$13,636.36');
+});
+
+// GSTR 2006/8 Example 14 (paragraph 145): GST-inclusive price = ((E - C) / 10) + E, so the GST on a
+// GST-exclusive price is 1/11 of the margin on the price it gives, to the cent either way.
+test('a GST-exclusive price adds GST that is 1/11 of the margin on the price it makes', () => {
+  const input = { interest: 'freehold', taxable: true, agreed: true, acquired: 'margin', associate: false, method: 'consideration',
+    basis: 'exclusive', part: '1', whole: '1' };
+  for (const [price, cost] of [['96364', '60000'], ['100000.05', '100000'], ['250000.01', '0'], ['900000000000.07', '1']]) {
+    const exclusive = calculations.gstMarginScheme({ ...input, price, cost });
+    const inclusive = calculations.gstMarginScheme({ ...input, basis: 'inclusive', price: exclusive.consideration.toFixed(2), cost });
+    assert.equal(inclusive.schemeGst, exclusive.schemeGst, price);
+  }
+});
+
+// Section 75-15 takes the exact proportion and s 9-90 rounds only the GST, as PR 740's command does: a share rounded
+// to the cent first would move each of these GSTs by a cent.
+test('the margin scheme GST on a lot is worked from the exact share and rounded once', () => {
+  const input = { interest: 'freehold', taxable: true, agreed: true, acquired: 'margin', associate: false, method: 'consideration' };
+  const inclusive = calculations.gstMarginScheme({ ...input, basis: 'inclusive', price: '863124.48', cost: '135641.61', part: '289', whole: '306' });
+  assert.deepEqual([inclusive.share, inclusive.schemeGst], [128105.97, 66819.87]);
+  const exclusive = calculations.gstMarginScheme({ ...input, basis: 'exclusive', price: '684719.36', cost: '80630.34', part: '781', whole: '4306' });
+  assert.deepEqual([exclusive.share, exclusive.schemeGst], [14624.31, 67009.5]);
+  // The margin shown is the exact one rounded: $1.00 less half of 1 cent is $0.995, so $1.00, not $1.00 less a rounded cent.
+  const tiny = calculations.gstMarginScheme({ ...input, basis: 'inclusive', price: '1', cost: '0.01', part: '1', whole: '2' });
+  assert.deepEqual([tiny.share, tiny.margin, tiny.schemeGst], [0.01, 1, 0.09]);
+});
+
+test('the margin scheme leaves the buyer without an input tax credit and says so', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const call = FORM_CALLS.gstMarginScheme(formDefaults(calculatorInclude('gst-margin-scheme')))[0];
+  assert.match(calculations.gstMarginSchemeResult(call, aud).note, /cannot claim an input tax credit .*section 75-20/);
+  const ineligible = calculations.gstMarginSchemeResult({ ...call, acquired: 'full-gst' }, aud);
+  assert.deepEqual(ineligible.rows[ineligible.principal], ['GST on the sale, 1/11 of the GST-inclusive price', '$17,272.73']);
+  // PR 740's command names s 11-5: only a buyer making a creditable acquisition can claim the credit.
+  assert.match(ineligible.note, /creditable acquisition \(section 11-5: .*can claim an input tax credit/);
+  // A part acquired with GST on the whole price is refused with s 75-22, as the command refuses it.
+  assert.throws(() => calculations.gstMarginScheme({ ...call, acquired: 'special' }), /section 75-22/);
+});
+
 test('the company tax law is the Income Tax Rates Act’s, and the page states it', () => {
   assert.deepEqual(COMPANY_TAX_LAW, { threshold: '50000000', passiveLimit: '80', baseRate: '25', rate: '30' });
   const html = readFileSync(new URL('../_includes/calculators/company-tax.html', import.meta.url), 'utf8');

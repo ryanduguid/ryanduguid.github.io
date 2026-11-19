@@ -84,7 +84,7 @@ Method 1 for LPG, which PCG 2016/2 does not cover | 2026-27; line 1: $10.00 of L
 The basic method for a business that is not a small claimant | 2026-27; heavy vehicle (basic method): 11,430 litres of diesel acquired 30 September 2026, 32,000 km in total, a 32 tonne rigid truck | Refused: the simplified methods are for a business whose fuel tax credits were $10,000 or less in the previous 12 months and are expected to be in the current 12 months (PCG 2016/2 paragraph 4; PCG 2021/2 paragraph 6)
 Fuel acquired outside the income year chosen | 2025-26; line 1: 100 litres of diesel acquired 1 July 2026, other business use | Refused: line 1 was acquired outside the income year 2025-26; work each income year apart
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -94,7 +94,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Australian Institute of Petroleum’s weekly average retail (pump) prices: https://aip.com.au/pricing/pump-prices-retail/
 - fuel tax credit tools: https://www.ato.gov.au/calculators-and-tools/fuel-tax-credit-tools
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -167,7 +167,7 @@ A part for a period before the accrual start is refused | Annual leave $6,000.00
 A part above its total is refused | Annual leave $0.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $5,000.00 ($5,000.01 16 August 1978 to 17 August 1993), accrued from 1 January 1985, normal termination, TFN, scale 2, $1,155.00 a week | Refused: the long service leave for 16 August 1978 to 17 August 1993 is more than the long service leave it is part of
 Under $300 with pre-16 August 1978 leave is refused | Annual leave $100.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $1,000.00 ($1,000.00 before 16 August 1978) ($0.00 16 August 1978 to 17 August 1993), accrued from 1 January 1970, normal termination, TFN, scale 2, $1,155.00 a week | Refused: a post-17 August 1993 payment under $300 has at most 32% of it withheld, and Schedule 7 does not say how to apply that limit when pre-16 August 1978 long service leave joins it in the marginal rate calculation
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -177,7 +177,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Schedule 7: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-7-tax-table-for-unused-leave-payments-on-termination-of-employment
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -256,7 +256,7 @@ A member of a group in New South Wales: refused | New South Wales, wages $500,00
 Tasmania with apprentice wages: refused, as no discount applies there | Tasmania, wages $300,000.00 at 2.18%, apprentice wages $10,000.00 | Refused: there is no apprentice deduction for Tasmania here: enter 0 apprentice wages
 New South Wales, actual wages that take the premium over $30,000: refused | New South Wales, wages $1,000,000.00 at 2%, dust diseases 0%, reward 0%, actual wages $1,600,000.00 | Refused: on the actual wages, the average performance premium of $32,000.00 is more than $30,000, so icare experience-rates the premium on its claims model (Market Practice and Premiums Guidelines 2026, clause 6.7): use the renewal notice
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -264,7 +264,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -326,7 +326,7 @@ A company new this year franks at 25% whatever its own year | Turnover $60,000,0
 Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
 Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
 
@@ -335,7 +335,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -424,7 +424,7 @@ Commercial property in New South Wales bears neither surcharge | New South Wales
 An exemption is refused: each Commissioner decides it | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia, exemption sought; residential property $1,000,000.00, land $1,000,000.00 | Refused: exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, so this page does not work them out
 A partner or retirement visa holder is refused | New South Wales, individual, partner or retirement visa, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Refused: this page does not decide the status of a partner (provisional) or retirement visa holder: each revenue office treats them differently
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -435,7 +435,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -493,7 +493,7 @@ An end before the start is refused | New South Wales, Wednesday 18 November 2026
 A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -501,4 +501,84 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# GST margin scheme calculator: eligibility, margin and GST saved
+
+Source: https://duguid.com.au/tools/business-calculators/gst-margin-scheme/
+
+> GST margin scheme conditions under section 75-5, the margin by consideration or approved valuation, subdivided lots, a GST-exclusive price and the GST saved.
+
+# GST margin scheme calculator
+
+Whether the margin scheme can apply to a sale of land, a stratum unit or a long-term lease, the margin and its GST, and the GST it saves.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+GST margin scheme inputs for one sale of real property
+
+What is sold? A freehold interest in land A stratum unit A lease of 50 years or more Something else Is the sale a taxable supply? Yes No Have you and the buyer agreed in writing to use the margin scheme? Yes No How did you acquire it? Bought under the margin scheme Bought without GST, such as from an unregistered seller Acquired, or contracted for, before 1 July 2000, and not settled later with GST on the whole price Bought with GST on the whole price, including a contract made before 1 July 2000 and settled that way Inherited, or from a GST group, joint venture or associate, as a GST-free going concern, farm land or government land, or partly with GST on the whole price Is the buyer your associate? The example answers No: check it, as a sale to an associate is refused (section 75-13) No Yes
+
+## The price and the margin
+
+Price for the sale (AUD) Does the price include GST? Yes, GST-inclusive No, GST-exclusive Work out the margin from The consideration you paid An approved valuation (held since before 1 July 2000), as at the day subsection 75-10(3) sets: not checked here Consideration or approved valuation for the whole (AUD) This sale’s part, by area, lots or anticipated price The whole, in the same measure
+
+Land only: no building costs, duty or fees (section 75-14) and nothing unpaid (section 75-12). For a whole sale, enter the same part and whole.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: A freehold interest in land (paragraph 75-5(1)(a)); agreed in writing: yes; acquired under the margin scheme; price $190,000.00 GST-inclusive; consideration $400,000.00 for 200,000 of 2,000,000. Consideration for the sale, GST-inclusive $190,000.00 A freehold interest in land (paragraph 75-5(1)(a)) Condition met Agreed in writing with the buyer (subsections 75-5(1) and (1A)) Condition met Acquired under the margin scheme Condition met The margin scheme Can apply: section 75-5 is met Consideration for the acquisition, this part’s share (section 75-15) $40,000.00 Margin (subsection 75-10(2)) $150,000.00 GST under the margin scheme, 1/11 of the margin $13,636.36 GST without the margin scheme, 1/11 of the GST-inclusive price $17,272.73 GST the margin scheme saves $3,636.37 The buyer cannot claim an input tax credit (section 75-20) and needs no tax invoice (section 75-30).
+
+## How the GST margin scheme calculator works
+
+The GST margin scheme calculator first checks the conditions of section 75-5 of the GST Act that it can decide: what is sold, a written agreement with the buyer, and how you acquired the property. The sale must be a taxable sale (you are registered for GST, you sell in the course of your enterprise, and the sale is not GST-free or input taxed) of a freehold interest in land, a stratum unit or a lease of at least 50 years, and you must not have acquired it with GST on the whole price. The written agreement is made on or before the sale, or within a further period the Commissioner allows.
+
+Under the margin scheme the GST is 1/11 of the margin, the GST-inclusive price less the consideration you paid for the land (subsection 75-10(2)), or less an approved valuation for property held since before 1 July 2000 (subsection 75-10(3)), as at 1 July 2000 or, if you registered after then, the date of effect of your registration or the earlier day you applied. A margin that is not more than nil gives no GST. Building and development costs are left out of the consideration (section 75-14); you may claim input tax credits for them where each purchase is a creditable acquisition (section 11-5). For one lot of a subdivision, only the lot’s share of the consideration counts (section 75-15), by any fair and reasonable measure such as area, number of lots or anticipated selling price (GSTR 2006/8, paragraphs 58 to 61).
+
+From a GST-exclusive price the calculator adds GST of one tenth of the price less the consideration, which is 1/11 of the margin on the resulting price (GSTR 2006/8, paragraph 145). Beside the margin scheme it gives the GST without it, 1/11 of the GST-inclusive price, and the difference. Each GST rounds to the nearest cent, half a cent up (section 9-90). The buyer cannot claim an input tax credit on a margin scheme sale (section 75-20), so the scheme suits a buyer who could not claim one anyway.
+
+The calculator reproduces GSTR 2006/8’s worked examples: $20,000 on Bob’s house and land (Example 3), $4,000 on Josine’s 800 square metre lot (Example 4), $13,636.36 on Adam’s Lot 1 (Example 6) and a $100,000 GST-inclusive price from Example 14’s $96,364, here $100,000.40 to the cent.
+
+## What the GST margin scheme calculator does not cover
+
+The GST margin scheme calculator refuses a sale to your associate, because section 75-13 takes the GST-inclusive market value as the price. It also refuses property inherited, acquired within a GST group or joint venture, as a GST-free going concern, farm land or government land, or from an associate: paragraphs 75-5(3)(b) to (g), item 2A of subsection 75-10(3) and section 75-11 set their own tests and margins. It refuses property acquired partly in a sale with GST on the whole price, which has an increasing adjustment (section 75-22).
+
+Not covered: adjustments for bad debts and for consideration paid later (sections 75-25 and 75-27), the valuation day for government land under item 4 of subsection 75-10(3), and whether the sale is taxable in the first place, such as whether residential premises are new. The calculator takes your valuation as given and does not check that it meets the Commissioner’s requirements for an approved valuation (section 75-35). Have a registered tax agent confirm eligibility and the result before you settle.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: GST margin scheme calculator
+
+Case | Inputs | Result
+GSTR 2006/8 Example 6: Adam’s Lot 1, its anticipated price $200,000 of $2,000,000 | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 200,000 of 2,000,000 | margin scheme can apply, cost share $40,000.00, GST-inclusive price $190,000.00, margin $150,000.00, margin scheme GST $13,636.36, GST on the whole price $17,272.73, saved $3,636.37, GST payable $13,636.36
+GSTR 2006/8 Example 3: Bob’s house and land, the building cost left out | Freehold, bought under the margin scheme; price $400,000.00 GST-inclusive, cost $180,000.00 | margin scheme can apply, cost share $180,000.00, GST-inclusive price $400,000.00, margin $220,000.00, margin scheme GST $20,000.00, GST on the whole price $36,363.64, saved $16,363.64, GST payable $20,000.00
+GSTR 2006/8 Example 4: Josine’s 800 square metre lot of 2,000 | Freehold, bought under the margin scheme; price $140,000.00 GST-inclusive, cost $240,000.00, 800 of 2,000 | margin scheme can apply, cost share $96,000.00, GST-inclusive price $140,000.00, margin $44,000.00, margin scheme GST $4,000.00, GST on the whole price $12,727.27, saved $8,727.27, GST payable $4,000.00
+GSTR 2006/8 Example 14: a GST-exclusive price of $96,364 | Freehold, bought under the margin scheme; price $96,364.00 GST-exclusive, cost $60,000.00 | margin scheme can apply, cost share $60,000.00, GST-inclusive price $100,000.40, margin $40,000.40, margin scheme GST $3,636.40, GST on the whole price $9,636.40, saved $6,000.00, GST payable $3,636.40
+A stratum unit’s anticipated price share, GST rounded to the nearest cent | Stratum unit, bought under the margin scheme; price $610,000.00 GST-inclusive, cost $400,000.00, 600,000 of 2,400,000 | margin scheme can apply, cost share $100,000.00, GST-inclusive price $610,000.00, margin $510,000.00, margin scheme GST $46,363.64, GST on the whole price $55,454.55, saved $9,090.91, GST payable $46,363.64
+Held since before 1 July 2000: an approved valuation of $100,000 | Freehold, held since before 1 July 2000; price $144,000.00 GST-inclusive, valuation $100,000.00 | margin scheme can apply, cost share $100,000.00, GST-inclusive price $144,000.00, margin $44,000.00, margin scheme GST $4,000.00, GST on the whole price $13,090.91, saved $9,090.91, GST payable $4,000.00
+Held since before 1 July 2000: the consideration paid instead | Freehold, held since before 1 July 2000; price $144,000.00 GST-inclusive, cost $75,000.00 | margin scheme can apply, cost share $75,000.00, GST-inclusive price $144,000.00, margin $69,000.00, margin scheme GST $6,272.73, GST on the whole price $13,090.91, saved $6,818.18, GST payable $6,272.73
+A long-term lease bought in a sale not taxable | Long-term lease, bought in a sale not taxable; price $550,000.00 GST-inclusive, cost $330,000.00 | margin scheme can apply, cost share $330,000.00, GST-inclusive price $550,000.00, margin $220,000.00, margin scheme GST $20,000.00, GST on the whole price $50,000.00, saved $30,000.00, GST payable $20,000.00
+A sale for less than the cost has a nil margin and no GST | Freehold, bought under the margin scheme; price $100,000.00 GST-inclusive, cost $120,000.00 | margin scheme can apply, cost share $120,000.00, GST-inclusive price $100,000.00, margin $0.00, margin scheme GST $0.00, GST on the whole price $9,090.91, saved $9,090.91, GST payable $0.00
+Half a cent of GST from a GST-exclusive price rounds up | Freehold, bought under the margin scheme; price $100,000.05 GST-exclusive, cost $100,000.00 | margin scheme can apply, cost share $100,000.00, GST-inclusive price $100,000.06, margin $0.06, margin scheme GST $0.01, GST on the whole price $10,000.01, saved $10,000.00, GST payable $0.01
+Bought with GST on the whole price: ineligible | Freehold, bought with GST on the whole price; price $100,000.00 GST-inclusive, cost $50,000.00 | margin scheme cannot apply, GST on the whole price $9,090.91, GST payable $9,090.91
+No written agreement: GST on the whole price | Freehold, no written agreement, bought under the margin scheme; price $100,000.00 GST-inclusive, cost $50,000.00 | margin scheme cannot apply, GST on the whole price $9,090.91, GST payable $9,090.91
+A short lease is not real property the margin scheme covers | Not land, a unit or a long-term lease, bought under the margin scheme; price $100,000.00 GST-inclusive, cost $50,000.00 | margin scheme cannot apply, GST on the whole price $9,090.91, GST payable $9,090.91
+A sale that is not taxable is refused | Freehold, not a taxable sale, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 200,000 of 2,000,000 | Refused: the margin scheme works out the GST on a taxable sale (subsection 75-5(1)); a sale that is not taxable, such as one of established residential premises or one that is GST-free, has no GST to work out
+An inherited property is refused | Freehold, acquired under section 75-11; price $190,000.00 GST-inclusive, cost $400,000.00, 200,000 of 2,000,000 | Refused: property inherited, acquired within a GST group or joint venture, as a GST-free going concern, farm land or government land, or from an associate, has its own eligibility tests (paragraphs 75-5(3)(b) to (g)) and margins (subsection 75-10(3) item 2A and section 75-11), and property acquired partly in a sale with GST on the whole price has an increasing adjustment (section 75-22): this calculator does not work them out
+A sale to an associate is refused | Freehold, bought under the margin scheme, sold to an associate; price $190,000.00 GST-inclusive, cost $400,000.00, 200,000 of 2,000,000 | Refused: on a sale to your associate the consideration is the GST-inclusive market value (section 75-13): this calculator does not work out that value
+A valuation for property acquired after 1 July 2000 is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, valuation $400,000.00, 200,000 of 2,000,000 | Refused: an approved valuation sets the margin only for property held since before 1 July 2000 (subsection 75-10(3)); use the consideration you paid for property acquired later
+A part larger than the whole is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 2,000,001 of 2,000,000 | Refused: this sale’s part cannot be more than the whole it is part of
+
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/

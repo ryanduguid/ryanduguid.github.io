@@ -188,6 +188,9 @@
     "tools/business-calculators/gic-payment-plan/index.html": [
       "e3de2d186fb139dd4197a71b00171daff2f218a2ca2dda7c9188f891a7f6a1aa"
     ],
+    "tools/business-calculators/gst-margin-scheme/index.html": [
+      "f17ddd47426b0af26020684efc5189eba8f36aa74f7493e59cd308e6eee7fc02"
+    ],
     "tools/business-calculators/gst/index.html": [
       "22416c01f7ec1fdbfc3f1870cbb7ac7715321d1430e3c2878ef2b7824c04f948"
     ],
@@ -367,9 +370,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "107ca30fd8380b6bf3f3640123d10cf5408b9ac25fe393ea5c969c5b36e08914",
+    "llms.txt": "dab0979682b2e13c429743ac5b1b2a8f1caea7696f2467e68c0274547c4add1b",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "151be8c38746b2c546be064544cd4aa2bf0ec3cdedccd8b9888b08a92016056c"
+    "sitemap.xml": "69538cb773c9c2c34eee639035f2f10371a9d6c0940c20e7000a26d448b3b452"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -429,7 +432,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7791,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7792,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

@@ -43,6 +43,13 @@
     <summary>A new business calculator works out a business’s fuel tax credits for fuel acquired in one income year from 2022-23 to 2026-27, each line at the rate the ATO published for the day it was acquired, its fuel and its use, and gives the whole dollars for label 7D. It holds all 16 of the ATO’s rate periods from 1 July 2022, read on 19 November 2026, so earlier periods can be worked for an amendment. A small claimant can enter fuel by its cost and the average pump price, which the page asks for and links to the Australian Institute of Petroleum rather than reproducing, split a heavy vehicle’s diesel by the basic method, and take the rate on a tax period’s last day across an indexation change. It flags fuel acquired more than 4 years before the return and refuses fuel after 31 January 2027.</summary>
   </entry>
   <entry>
+    <title>A GST margin scheme calculator. It decides the conditions of section 75-5 of…</title>
+    <link href="https://duguid.com.au/changelog/#entry-c28bd30fa53ef32e" />
+    <id>https://duguid.com.au/changelog/#entry-c28bd30fa53ef32e</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A GST margin scheme calculator. It decides the conditions of section 75-5 of the GST Act it can (what is sold, the written agreement and how the property was acquired), works the margin from the consideration paid or an approved valuation, with a subdivided lot’s share of the cost and a GST-exclusive price, and sets the GST under the margin scheme beside the GST on the whole price. It gives the GST in GSTR 2006/8’s Examples 3, 4, 6 and 14, and refuses sales to associates and the acquisitions section 75-11 covers. Sources were read on 19 November 2026.</summary>
+  </entry>
+  <entry>
     <title>The take-home pay calculator now works the PAYG withheld from each weekly…</title>
     <link href="https://duguid.com.au/changelog/#entry-6eb640faaa410cf0" />
     <id>https://duguid.com.au/changelog/#entry-6eb640faaa410cf0</id>
