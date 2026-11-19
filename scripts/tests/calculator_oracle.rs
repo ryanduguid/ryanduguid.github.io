@@ -6475,15 +6475,16 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             }
             // Premiums Order (No. 34): remuneration to the dollar (clause 6(6)), the preliminary
             // premium in millionths of a dollar, and clause 11 as written, preliminary premium
-            // ÷ R × 15,500 × N ÷ 365; the WorkCover premium down to the cent and at least $400.
+            // ÷ R × 15,500 × N ÷ 365 to the nearest cent (clause 6(4)); the WorkCover premium
+            // down to the cent and at least $400.
             let remuneration = wc_half(wages, 100);
             let preliminary = remuneration * c.rate;
             let deductible = if remuneration == 0 {
                 0
             } else {
-                wc_half(preliminary * 15_500 * c.days, remuneration * 365)
+                wc_half(preliminary * 15_500 * c.days, remuneration * 365 * 10_000)
             };
-            let workcover = ((preliminary - deductible).max(0) / 10_000).max(40_000);
+            let workcover = ((preliminary - deductible * 10_000).max(0) / 10_000).max(40_000);
             let premium = workcover + if c.buyout { workcover / 10 } else { 0 };
             Some([premium, gst(premium), 0, premium + gst(premium)])
         }

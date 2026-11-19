@@ -3569,6 +3569,8 @@ test('workers compensation applies each scheme’s thresholds, rounding and mini
   // Premiums Order (No. 34) clauses 9 and 11: 2% of $150,000 less 2% of $15,500; the $400 minimum below that.
   assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2' }).premium, 2690);
   assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', days: '73' }).premium, 2938);
+  // Clause 6(4): the deductible of $84.931507 is $84.93 before it comes off, so $2,915.07, not $2,915.06.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', days: '100' }).premium, 2915.07);
   assert.equal(ok({ place: 'AU-VIC', wages: '35499', rate: '2' }).premium, 400);
   assert.equal(ok({ place: 'AU-VIC', wages: '35501', rate: '2' }).premium, 400.02);
   // Clause 6(6): remuneration to the nearest dollar.

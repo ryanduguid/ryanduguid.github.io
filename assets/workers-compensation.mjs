@@ -138,11 +138,12 @@ function victoria(wages, rate, x) {
     throw new Error('Enter the days in 2026-27 the employer is registered, from 1 to 365.');
   }
   const remuneration = half(wages, 100n); // clause 6(6): to the nearest dollar
-  // Clause 9(2): R × premium rate; clause 11: preliminary premium ÷ R × 15,500 × N ÷ 365, which is
-  // the premium rate × 15,500 × N ÷ 365. Millionths of a dollar: the rate is in millionths of 1.
+  // Clause 9(2): R × premium rate, in millionths of a dollar, as the rate is in millionths of 1;
+  // clause 11: preliminary premium ÷ R × 15,500 × N ÷ 365, which is the premium rate × 15,500
+  // × N ÷ 365, rounded to the nearest cent (clause 6(4)).
   const preliminary = remuneration * rate;
-  const deductible = half(rate * VIC_DEDUCTIBLE_DOLLARS * days, 365n);
-  const worked = preliminary > deductible ? (preliminary - deductible) / 10000n : 0n;
+  const deductible = half(rate * VIC_DEDUCTIBLE_DOLLARS * days, 365n * 10000n);
+  const worked = preliminary > deductible * 10000n ? (preliminary - deductible * 10000n) / 10000n : 0n;
   const minimum = worked < VIC_MINIMUM;
   const workcover = minimum ? VIC_MINIMUM : worked;
   const buyout = x.buyout === 'yes' ? workcover / 10n : 0n;
@@ -150,7 +151,7 @@ function victoria(wages, rate, x) {
   /** @type {WcLine[]} */
   const lines = [[`Preliminary premium: remuneration of ${dollarsText(remuneration * 100n)} × premium rate of ${rateText(rate)} (clause 9(2))`,
     half(preliminary, 10000n)],
-  [`Less deductible benefit: premium rate × $15,500 × ${days} days ÷ 365 (clause 11)`, -half(deductible, 10000n)],
+  [`Less deductible benefit: premium rate × $15,500 × ${days} days ÷ 365, to the cent (clauses 11 and 6(4))`, -deductible],
   [minimum ? 'WorkCover premium: the minimum premium of $400 (clause 9(1)(b))' : 'WorkCover premium, rounded down to the cent (clause 9(1))', workcover]];
   if (buyout) lines.push(['Excess buy-out premium: 0.1 × WorkCover premium (clause 10)', buyout]);
   lines.push(['GST at 10% (clause 8)', gst]);
