@@ -88,11 +88,11 @@ test('Division 293 leaves out the excess over the cap until unused cap carried f
   await calculate.click();
   await expect(row('Excess concessional contributions')).toHaveText('$12,500.00');
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$3,825.00');
-  await form.getByLabel(/^Under \$500,000/).check();
+  await form.getByLabel('Under $500,000').check();
   await calculate.click();
   await expect(row('Unused cap carried forward that raises it')).toHaveText('$12,500.00');
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$5,700.00');
-  await form.getByLabel(/^A defined benefit interest/).check();
+  await form.getByLabel('A defined benefit interest').check();
   await calculate.click();
   await expect(form.locator('output')).toContainText('Subdivisions 293-D to 293-F');
 });

@@ -776,7 +776,7 @@ struct D293<'a> {
 /// reaches the threshold, else the part above it. 15% of a cent rounds half up.
 fn d293_oracle(d: &D293) -> Value {
     let [taxable, fringe, losses, trust, fhss, lump_sum] = d.parts;
-    let income = (taxable + trust + fringe + losses - fhss - lump_sum) * 100;
+    let income = (taxable.saturating_sub(fhss) + trust + fringe + losses - lump_sum) * 100;
     let cap = concessional_cap(d.year) * 100;
     let raised = if d.under { cap + d.unused } else { cap };
     let excess = d.concessional.saturating_sub(raised);
@@ -835,8 +835,9 @@ fn the_division_293_engine_agrees_with_the_oracle_on_every_seeded_case() {
             let small = |rng: &mut Seeded| if rng.below(3) == 0 { rng.below(40_001) } else { 0 };
             let taxable = rng.income(&[250_000, 220_000, 217_500, 222_500, 200_000, 0]);
             let (fringe, losses, trust) = (small(&mut rng), small(&mut rng), small(&mut rng));
-            let fhss = small(&mut rng).min(taxable);
-            let lump_sum = small(&mut rng).min(taxable - fhss);
+            let fhss = small(&mut rng);
+            // s 301-20(3) is nil from 2024-25, and the lump sum is part of taxable income.
+            let lump_sum = if year < "2024-25" { small(&mut rng).min(taxable.saturating_sub(fhss)) } else { 0 };
             let concessional = match rng.below(4) {
                 0 => 0,
                 1 => concessional_cap(year) * 100 + rng.below(3) * 100 - 100,

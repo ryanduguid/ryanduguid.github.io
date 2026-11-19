@@ -21,21 +21,28 @@ const THRESHOLD = 25000000;
  *   fhss: string, lumpSum: string, concessional: string, unused: string, balanceUnder: boolean}} Division293
  */
 
-/** Division 293 income (s 293-20(1)(a)): income for surcharge purposes (s 995-1) disregarding
- * reportable superannuation contributions, so taxable income less any assessable FHSS released
- * amount, plus income on which family trust distribution tax was paid (disregarding s 271-105(1) of
- * Schedule 2F to the 1936 Act), the reportable fringe benefits total and the total net investment
- * loss, less the taxed element of a super lump sum taxed at the zero rate (s 301-20(3)); in cents.
- * @param {Division293} d */
-function income(d) {
-  const taxable = wholeDollars(d.taxable);
-  const fhss = wholeDollars(d.fhss);
-  const lumpSum = wholeDollars(d.lumpSum);
-  if (fhss + lumpSum > taxable) {
-    throw new Error('The FHSS released amount and the zero-rate lump sum are parts of taxable income, so together they cannot exceed it.');
+/** Division 293 income (s 293-20(1)(a)) in whole dollars: income for surcharge purposes (s 995-1)
+ * disregarding reportable superannuation contributions, so taxable income without any assessable
+ * FHSS released amount (none left where that is more), plus income on which family trust
+ * distribution tax was paid (disregarding s 271-105(1) of Schedule 2F to the 1936 Act), the
+ * reportable fringe benefits total and the total net investment loss, less the s 301-20(3) amount: the
+ * taxable component of a super lump sum taxed at 0%, which only a person at or over preservation age
+ * and under 60 receives, so nobody from 2024-25, when preservation age is 60 for everyone under 60.
+ * Exported so the income tests page can work the same measure.
+ * @param {{taxable: number, fhss: number, trust: number, fringe: number, losses: number, lumpSum: number}} parts
+ *   whole dollars @param {string} year */
+export function division293Income({ taxable, fhss, trust, fringe, losses, lumpSum }, year) {
+  if (lumpSum && year >= '2024-25') {
+    throw new Error('From 2024-25 nobody under 60 has reached preservation age, so no super lump sum is taxed at 0% (section 301-20).');
   }
-  return (taxable - fhss + wholeDollars(d.trust) + wholeDollars(d.fringe) + wholeDollars(d.losses) - lumpSum) * 100;
+  const base = Math.max(0, taxable - fhss);
+  if (lumpSum > base) throw new Error('The zero-rate lump sum is part of taxable income, so it cannot exceed taxable income less the FHSS amount.');
+  return base + trust + fringe + losses - lumpSum;
 }
+
+/** @param {Division293} d */
+const income = (d) => division293Income({ taxable: wholeDollars(d.taxable), fhss: wholeDollars(d.fhss), trust: wholeDollars(d.trust),
+  fringe: wholeDollars(d.fringe), losses: wholeDollars(d.losses), lumpSum: wholeDollars(d.lumpSum) }, d.year) * 100;
 
 /** Division 293 tax for an individual whose contributions are all to accumulation interests. Low
  * tax contributions are the concessional contributions less excess concessional contributions (ss

@@ -436,9 +436,15 @@ test('Division 293 gives the ATO’s example: Jan’s $255,000 is $5,000 over, t
 test('Division 293 income adds the surcharge measure’s parts without reportable super contributions', () => {
   // s 995-1: taxable income less FHSS, plus family trust distribution tax income, fringe benefits and net investment loss,
   // less a zero-rate lump sum.
-  const r = d293({ taxable: '200000', fringe: '10000', losses: '15000', trust: '20000', fhss: '5000', lumpSum: '3000' });
+  const r = d293({ year: '2023-24', taxable: '200000', fringe: '10000', losses: '15000', trust: '20000', fhss: '5000',
+    lumpSum: '3000' });
   assert.equal(r.income, 237000);
-  assert.throws(() => d293({ taxable: '1000', fhss: '600', lumpSum: '401' }), /together they cannot exceed it/);
+  // Taxable income without an FHSS amount larger than it is nil, as the income tests page takes it.
+  assert.equal(d293({ taxable: '1000', fhss: '1500', fringe: '300' }).income, 300);
+  assert.throws(() => d293({ year: '2023-24', taxable: '1000', fhss: '600', lumpSum: '401' }), /cannot exceed taxable income less/);
+  // s 301-20 taxes a lump sum at 0% only from preservation age to under 60: nobody from 2024-25.
+  assert.equal(d293({ year: '2023-24', taxable: '1000', lumpSum: '1000' }).income, 0);
+  assert.throws(() => d293({ year: '2024-25', taxable: '1000', lumpSum: '1' }), /From 2024-25 nobody under 60/);
 });
 
 test('Division 293 leaves out the excess over the cap unless unused cap carried forward covers it', () => {

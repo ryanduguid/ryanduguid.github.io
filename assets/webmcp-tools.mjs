@@ -612,7 +612,7 @@ export function individualTaxTools({ taxEstimate, takeHomePay, division293Tax, i
         totalNetInvestmentLoss: dollarsOnly('Total net investment loss, financial and rental.'),
         familyTrustDistributionIncome: dollarsOnly('Income on which family trust distribution tax was paid.'),
         assessableFhssReleasedAmount: dollarsOnly('Assessable first home super saver released amount in taxable income.'),
-        zeroRateLumpSum: dollarsOnly('Taxed element of a super lump sum taxed at the zero rate (s 301-20(3)).'),
+        zeroRateLumpSum: dollarsOnly('Taxable component of a super lump sum taxed at 0% (s 301-20(3)), received from preservation age to under 60: 2023-24 and earlier only.'),
         concessionalContributions: text('amount', 'Concessional contributions for the financial year in AUD with at most 2 decimal places.'),
         unusedCapCarriedForward: text('amount', 'Unapplied unused concessional cap from the previous 5 years in AUD; "0" when omitted.'),
         totalSuperBalanceUnder500k: { type: 'boolean', description: 'true when the total super balance just before the year was under $500,000; false when omitted.' },
