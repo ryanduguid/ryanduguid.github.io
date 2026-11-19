@@ -645,6 +645,32 @@ const SUPER_PROJECTION_DESCRIPTION = 'A projection in AUD of one accumulation su
   + `Sources and the reasons for each default on ${INDIVIDUAL}super-projection/.`;
 
 /**
+ * The WebMCP descriptor for the income tests calculator.
+ * @param {typeof import('./income-tests.mjs').incomeTests} incomeTests
+ */
+function incomeTestsTool(incomeTests) {
+  return tool({
+    name: 'calculate_income_tests',
+    title: 'Income tests calculator',
+    description: INCOME_TESTS_DESCRIPTION,
+    inputSchema: record(Object.fromEntries(INCOME_TEST_INPUTS.map(([name, , description]) => [name, dollarsOnly(description)])),
+      ['taxableIncome']),
+    run(input) {
+      const parts = Object.fromEntries(INCOME_TEST_INPUTS.map(([name, key]) => [key, String(input[name] ?? 0)]));
+      const r = incomeTests(/** @type {import('./income-tests.mjs').IncomeTestParts} */ ({ ...parts, resident: true }));
+      return {
+        incomeForSurchargePurposes: dollars(r.surchargeIncome), division293Income: dollars(r.division293Income),
+        rebateIncome: dollars(r.rebateIncome), repaymentIncome: dollars(r.repaymentIncome),
+        adjustedTaxableIncome: dollars(r.adjustedTaxableIncome), coContributionTotalIncome: dollars(r.coContributionIncome),
+        reportableFringeBenefitsTotal: dollars(r.fringeTotal), adjustedFringeBenefitsTotal: dollars(r.adjustedFringe),
+        totalNetInvestmentLoss: dollars(r.losses), reportableSuperContributions: dollars(r.contributions),
+        currency: 'AUD', source: `${INDIVIDUAL}income-tests/`,
+      };
+    },
+  });
+}
+
+/**
  * The WebMCP descriptor for the super projection calculator.
  * @param {typeof import('./super-projection.mjs').superProjection} superProjection
  */
@@ -697,25 +723,7 @@ function superProjectionTool(superProjection) {
 export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAside, incomeTests, superProjection,
   incomeYears, payYears, soleTraderYears }) {
   return {
-    'income-tests': tool({
-      name: 'calculate_income_tests',
-      title: 'Income tests calculator',
-      description: INCOME_TESTS_DESCRIPTION,
-      inputSchema: record(Object.fromEntries(INCOME_TEST_INPUTS.map(([name, , description]) => [name, dollarsOnly(description)])),
-        ['taxableIncome']),
-      run(input) {
-        const parts = Object.fromEntries(INCOME_TEST_INPUTS.map(([name, key]) => [key, String(input[name] ?? 0)]));
-        const r = incomeTests(/** @type {import('./income-tests.mjs').IncomeTestParts} */ ({ ...parts, resident: true }));
-        return {
-          incomeForSurchargePurposes: dollars(r.surchargeIncome), division293Income: dollars(r.division293Income),
-          rebateIncome: dollars(r.rebateIncome), repaymentIncome: dollars(r.repaymentIncome),
-          adjustedTaxableIncome: dollars(r.adjustedTaxableIncome), coContributionTotalIncome: dollars(r.coContributionIncome),
-          reportableFringeBenefitsTotal: dollars(r.fringeTotal), adjustedFringeBenefitsTotal: dollars(r.adjustedFringe),
-          totalNetInvestmentLoss: dollars(r.losses), reportableSuperContributions: dollars(r.contributions),
-          currency: 'AUD', source: `${INDIVIDUAL}income-tests/`,
-        };
-      },
-    }),
+    'income-tests': incomeTestsTool(incomeTests),
     'income-tax': tool({
       name: 'estimate_income_tax',
       title: 'Income tax and refund estimate',
