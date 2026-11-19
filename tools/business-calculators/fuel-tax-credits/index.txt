@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
 
 # Fuel tax credit calculator
 
-A business’s fuel tax credits for fuel acquired from 1 July 2022, each line at the ATO’s rate for its day, fuel and use, with label 7D and the small claimant methods.
+Fuel tax credits at the ATO’s rate for each day from 1 July 2022, with label 7D and the small claimant methods.
 
 Published 19 November 2026. Last checked 19 November 2026.
 
@@ -14,9 +14,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Fuel tax credit inputs for one income year
 
+Activity statement date (optional)
+
 Income year the fuel was acquired in 2026-27 2025-26 2024-25 2023-24 2022-23
 
-Optional: the day the activity statement is given, to flag fuel acquired more than 4 years before it
+With an activity statement date, the page flags any line acquired more than 4 years before it (subsection 47-5(2)).
 
 ## Fuel lines
 
