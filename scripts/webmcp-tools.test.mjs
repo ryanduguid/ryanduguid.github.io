@@ -68,7 +68,7 @@ test('each business calculator tool is keyed by the form that registers it', () 
 test('every calculator tool is read-only, refuses unknown inputs and has its own name', () => {
   const all = [...Object.values(tools), declineInValue, levy];
   assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_schedule',
-    'calculate_hire_purchase_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_borrowing_expenses', 'calculate_decline_in_value',
+    'calculate_hire_purchase_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_fuel_tax_credits', 'calculate_borrowing_expenses', 'calculate_decline_in_value',
     'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -580,4 +580,21 @@ test('llms.txt and the agent tooling notes name every calculator tool', () => {
     assert.ok(llms.includes(`\`${name}\``), `llms.txt ${name}`);
     assert.ok(notes.includes(`\`${name}\``), `docs/agent-tooling.md ${name}`);
   }
+});
+
+// The fuel tax credit page's example (from 3 August 2026) and the ATO's Jim by the basic method, then refusals.
+test('fuel tax credit tool returns the page worked example and the basic method, and refuses what the page refuses', async () => {
+  const tool = calculatorTools(calculate)['fuel-tax-credits'];
+  const r = await tool.execute({ year: '2026-27', lines: [{ fuel: 'diesel', use: 'heavy_vehicle_public_road', acquired: '2026-09-15', quantity: '10000' },
+    { fuel: 'diesel', use: 'other_business', acquired: '2026-09-15', quantity: '2000' }] });
+  assert.deepEqual([r.fuelTaxCredits, r.label7d, r.lines.map((l) => [l.rateCents, l.credit]), r.currency, r.timeLimitLines],
+    ['3204.00', '3204', [['21.3', '2130.00'], ['53.7', '1074.00']], 'AUD', null]);
+  assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/fuel-tax-credits/');
+  const jim = await tool.execute({ year: '2026-27', smallClaimant: true, lines: [{ method: 'basic_heavy_vehicle', fuel: 'diesel', acquired: '2026-09-30',
+    litres: '11430', totalKm: '32000', rigidTruckGrossWeightTonnes: '32' }] });
+  assert.deepEqual([jim.fuelTaxCredits, jim.lines[0].publicRoadLitres, jim.lines[0].otherLitres], ['2567.17', '11020.8', '409.2']);
+  const base = { year: '2026-27', lines: [{ fuel: 'diesel', use: 'other_business', acquired: '2027-02-01', quantity: '100' }] };
+  await assert.rejects(tool.execute(base), /no published rate is held/);
+  await assert.rejects(tool.execute({ ...base, lines: [{ ...base.lines[0], quantity: 100 }] }), /quantity does not match its description/);
+  await assert.rejects(tool.execute({ ...base, vehicle: 'truck' }), /vehicle is not an input of this tool/);
 });

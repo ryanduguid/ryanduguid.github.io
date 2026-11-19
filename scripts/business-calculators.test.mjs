@@ -3839,6 +3839,24 @@ const borrowCode = (input) => {
   return 'computed';
 };
 
+// The fuel tax credit page: how each call and result reads, the ATO's rates for each period, the
+// small claimant methods and the command it ports, run on the same cases.
+const ftcHtml = readFileSync(new URL('../_includes/calculators/fuel-tax-credits.html', import.meta.url), 'utf8');
+const ftcAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+Object.assign(INPUTS, { fuelTaxCredits: (x) => calculations.fuelInputsText(x, ftcAud) });
+Object.assign(FORM_CALLS, { fuelTaxCredits: (f) => [calculations.fuelFormInput((name) => f[name] ?? '')] });
+Object.assign(ENGINE_LABELS, { fuelTaxCredits: { total: 'fuel tax credits', label7d: (v) => `label 7D ${dollars(v)}` } });
+const ftcLine = (fuel, use, acquired, quantity) => ({ fuel, use, acquired, quantity });
+const ftc = (year, lines, more = {}) => calculations.fuelTaxCredits({ year, lines, ...more });
+const ftcCode = (input) => {
+  try {
+    calculations.fuelTaxCredits(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
 test('the borrowing expenses page opens on the result its calculation gives, and dates its sources', () => {
   const example = borrowHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
   const fields = formDefaults(borrowHtml);
@@ -3994,5 +4012,131 @@ test('borrowing expenses agree with the australian-accounting command on every d
       deduction: r.deduction.toFixed(2), remaining_expenditure_after_year: r.remainingAfterYear.toFixed(2) }, amounts, source);
     assert.deepEqual(r.loans.map((l) => l.rows.map((row) => `${row.income_year} ${text(row.remaining)} ${row.days ?? '-'}/${row.left ?? '-'} `
       + `${text(row.maximum)} ${text(row.deduction)}${row.section_26_155 ? ' s26-155' : ''}${row.projected ? ' projected' : ''}`)), loans, source);
+  }
+});
+
+test('the fuel tax credit page opens on the result its calculation gives, and names the average price source', () => {
+  const example = ftcHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(ftcHtml);
+  const result = calculations.fuelTaxCreditsResult((name) => fields[name] ?? '', ftcAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  assert.ok(ftcHtml.includes('<a href="https://aip.com.au/pricing/pump-prices-retail/">'));
+  for (const cited of ['(last updated 29 July 2026)', '2022-23</a> (27 June 2024)', '2024-25</a> (29 January 2025)', '2025-26</a> (28 April 2026)',
+    '(last updated 2 June 2021), both read 19 November 2026', 'PCG 2016/2</a>, read 19 November 2026']) {
+    assert.ok(ftcHtml.includes(cited), cited);
+  }
+});
+
+// The liquid fuel rates in cents a litre, heavy vehicle on a public road and all other business uses,
+// typed from the ATO's year pages (QC69964, QC72768, QC102637, QC105117 and QC107638), read
+// 19 November 2026, apart from the module's table.
+const ATO_LIQUID = [['2022-07-01', '0', '22.1'], ['2022-08-01', '0', '23.0'], ['2022-09-29', '18.8', '46.0'], ['2023-02-01', '20.5', '47.7'],
+  ['2023-07-01', '18.9', '47.7'], ['2023-08-01', '20.0', '48.8'], ['2024-02-05', '20.8', '49.6'], ['2024-07-01', '19.1', '49.6'],
+  ['2024-08-05', '20.1', '50.6'], ['2025-02-03', '20.3', '50.8'], ['2025-07-01', '18.4', '50.8'], ['2025-08-04', '19.2', '51.6'],
+  ['2026-02-02', '20.2', '52.6'], ['2026-04-01', '20.6', '20.6'], ['2026-07-01', '20.2', '36.6'], ['2026-08-03', '21.3', '53.7']];
+const yearOf = (iso) => (Number(iso.slice(5, 7)) >= 7 ? `${iso.slice(0, 4)}-${String(Number(iso.slice(2, 4)) + 1).padStart(2, '0')}`
+  : `${Number(iso.slice(0, 4)) - 1}-${iso.slice(2, 4)}`);
+const dayBefore = (iso) => new Date(Date.parse(`${iso}T00:00:00Z`) - 86400000).toISOString().slice(0, 10);
+
+test('each fuel tax credit period takes the ATO’s rate from its first day to its last', () => {
+  assert.deepEqual(calculations.FTC_PERIODS.map((p) => [p.from, p.heavy[0], p.other[0]]), ATO_LIQUID);
+  const ends = [...ATO_LIQUID.slice(1).map(([from]) => dayBefore(from)), '2027-01-31'];
+  ATO_LIQUID.forEach(([from, heavy, other], i) => {
+    for (const day of [from, ends[i]]) {
+      const r = ftc(yearOf(day), [ftcLine('diesel', 'heavy_vehicle_public_road', day, '100'), ftcLine('petrol', 'other_business', day, '100')]);
+      assert.deepEqual(r.lines.map((l) => l.credit), [Number(heavy), Number(other)], day);
+    }
+  });
+  // 192 rates in all: 6 rows in 2 uses for each of the 16 periods, each from an ATO page.
+  assert.equal(calculations.FTC_PERIODS.flatMap((p) => [...p.heavy, ...p.other]).length, 192);
+  assert.ok(calculations.FTC_PERIODS.every((p) => /^QC\d+$/.test(p.page) && /^Table \d$/.test(p.table)));
+});
+
+test('gaseous fuels, blends and B100 take their own rows, LNG and CNG by the kilogram', () => {
+  for (const [fuel, use, day, credit] of [['lng_cng', 'other_business', '2026-09-01', 36.8], ['lng_cng', 'heavy_vehicle_public_road', '2026-07-15', 3.2],
+    ['lng_cng', 'heavy_vehicle_public_road', '2026-09-01', 0], ['lpg', 'other_business', '2026-09-01', 17.5], ['e10', 'other_business', '2023-03-01', 47.7],
+    ['b100', 'other_business', '2023-07-01', 12.7], ['e85', 'heavy_vehicle_public_road', '2026-05-01', 8.87]]) {
+    assert.equal(ftc(yearOf(day), [ftcLine(fuel, use, day, '100')]).lines[0].credit, credit, `${fuel} ${day}`);
+  }
+  assert.equal(ftc('2026-27', [ftcLine('lng_cng', 'other_business', '2026-09-01', '1')]).lines[0].unit, 'kilograms');
+});
+
+test('fuel tax credit lines round half up to the cent and label 7D drops the cents', () => {
+  const r = ftc('2026-27', [ftcLine('e85', 'other_business', '2026-10-01', '300'), ftcLine('diesel', 'other_business', '2026-10-01', '1001')]);
+  assert.deepEqual([r.lines[0].credit, r.lines[1].credit, r.total, r.label7d], [69.05, 537.54, 606.59, 606]);
+  // 0.0001 litre at 53.7 cents is 0.00537 cents: nothing.
+  assert.equal(ftc('2026-27', [ftcLine('diesel', 'other_business', '2026-10-01', '0.0001')]).total, 0);
+});
+
+test('the basic method splits a heavy vehicle’s diesel and takes each rigid truck class’s rate', () => {
+  const vehicle = { method: 'basic_heavy_vehicle', fuel: 'diesel', acquired: '2026-09-30', litres: '11430' };
+  const jim = { ...vehicle, total_km: '32000', rigid_truck_gross_weight_tonnes: '32' };
+  const l = ftc('2026-27', [jim], { small_claimant: true }).lines[0];
+  assert.deepEqual([l.publicRoadKm, l.litresPerKm, l.publicRoadLitres, l.otherLitres, l.publicRoadCredit, l.otherCredit, l.credit],
+    ['31488', '0.35', '11020.8', '409.2', 2347.43, 219.74, 2567.17]);
+  // Actual kilometres and the engine's diagnostic rate, PCG 2021/2 paragraph 9.
+  const actual = ftc('2026-27', [{ ...vehicle, public_road_km: '20000', litres_per_km: '0.493' }], { small_claimant: true }).lines[0];
+  assert.deepEqual([actual.publicRoadLitres, actual.otherLitres], ['9860', '1570']);
+  for (const [weight, rate] of [['4.501', '0.18'], ['12', '0.18'], ['12.001', '0.23'], ['16.5', '0.23'], ['24', '0.28'], ['30', '0.32'], ['30.001', '0.35']]) {
+    const truck = { ...vehicle, public_road_km: '100', rigid_truck_gross_weight_tonnes: weight };
+    assert.equal(ftc('2026-27', [truck], { small_claimant: true }).lines[0].litresPerKm, rate, weight);
+  }
+  assert.equal(ftcCode({ year: '2026-27', lines: [{ ...jim, rigid_truck_gross_weight_tonnes: '4.5' }], small_claimant: true }), 'fuel_tax_credits.simplified_method_unavailable');
+  assert.equal(ftcCode({ year: '2026-27', lines: [{ ...jim, total_km: '40000' }], small_claimant: true }), 'fuel_tax_credits.fact_conflict');
+});
+
+test('PCG 2016/2 Method 1 works out litres from the cost, and Method 2 spans indexation only', () => {
+  const fromCost = (cost) => ({ method: 'litres_from_cost', fuel: 'diesel', use: 'other_business', acquired: '2026-09-30', cost, average_price_cents_per_litre: '245.9' });
+  const r = ftc('2026-27', [fromCost('2459.00'), fromCost('100.00')], { small_claimant: true });
+  assert.deepEqual(r.lines.map((l) => [l.quantity, l.credit]), [['1000.0000', 537], ['40.6669', 21.84]]);
+  const across = (start, end, day) => ftcCode({ year: yearOf(day), lines: [ftcLine('diesel', 'other_business', day, '1000')], small_claimant: true,
+    rate_at_period_end: { start, end } });
+  assert.equal(ftc('2025-26', [ftcLine('diesel', 'other_business', '2026-01-10', '1000')], { small_claimant: true,
+    rate_at_period_end: { start: '2026-01-01', end: '2026-03-31' } }).total, 526);
+  for (const [start, end, day] of [['2022-07-01', '2022-09-30', '2022-07-10'], ['2026-01-01', '2026-06-30', '2026-01-10'], ['2026-07-01', '2026-09-30', '2026-07-10']]) {
+    assert.equal(across(start, end, day), 'fuel_tax_credits.simplified_method_unavailable', start);
+  }
+  // A period that starts on the change day spans no change; one ending after 31 January 2027 has no rate.
+  assert.equal(across('2026-04-01', '2026-06-30', '2026-05-01'), 'computed');
+  assert.equal(across('2027-01-01', '2027-03-31', '2027-01-10'), 'fuel_tax_credits.rate_unpublished');
+  assert.equal(across('2023-01-01', '2023-03-31', '2023-01-10'), 'computed');
+});
+
+test('a line acquired more than 4 years before the return is flagged under subsection 47-5(2) and kept', () => {
+  const lines = [ftcLine('diesel', 'other_business', '2022-11-19', '100'), ftcLine('diesel', 'other_business', '2023-01-05', '100')];
+  assert.deepEqual(ftc('2022-23', lines, { return_date: '2026-11-19' }).timeLimitLines, []);
+  const late = ftc('2022-23', lines, { return_date: '2026-11-20' });
+  assert.deepEqual([late.timeLimitLines, late.total], [[1], 92]);
+  assert.match(late.warnings.join(' '), /subsection 47-5\(2\).*Linfox/);
+  // Section 47-10 relieves only subsection 47-5(1), so it is no exception to this warning.
+  assert.doesNotMatch(late.warnings.join(' '), /47-10/);
+  assert.equal(ftcCode({ year: '2022-23', lines, return_date: '2022-11-18' }), 'fuel_tax_credits.fact_conflict');
+});
+
+test('the fuel tax credit form passes the small claimant answer only with a simplified method', () => {
+  const fields = formDefaults(ftcHtml);
+  const input = (change) => calculations.fuelFormInput((name) => ({ ...fields, ...change })[name] ?? '');
+  assert.equal(input({}).small_claimant, undefined);
+  assert.equal(input({ 'small-claimant': 'yes' }).small_claimant, undefined);
+  assert.equal(input({ 'quantity-2': '', 'cost-2': '100', 'price-2': '200', 'small-claimant': 'yes' }).small_claimant, true);
+  assert.deepEqual(input({ 'basic-litres': '100', 'basic-acquired': '2026-09-01', 'basic-public-km': '10', 'basic-per-km': '0.3' }).lines[2],
+    { method: 'basic_heavy_vehicle', fuel: 'diesel', acquired: '2026-09-01', litres: '100', public_road_km: '10', litres_per_km: '0.3' });
+  assert.throws(() => input({ 'cost-1': '100' }), { message: 'Line 1: enter the litres, or the cost and the average price, not both.' });
+  assert.throws(() => input({ 'quantity-1': '' }), { message: 'Line 1: enter the quantity, or the cost and the average price.' });
+  assert.equal(ftcCode(input({ 'fuel-1': '', 'fuel-2': '' })), 'fuel_tax_credits.lines_invalid');
+});
+
+// The command this page ports, run on the same cases: see the fixture's engine line.
+test('fuel tax credits agree with the australian-accounting command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./fuel-tax-credits-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 200);
+  for (const { source, call, amounts, refused } of cases) {
+    if (refused) {
+      assert.equal(ftcCode(call), refused, source);
+      continue;
+    }
+    const r = calculations.fuelTaxCredits(call);
+    assert.deepEqual({ fuel_tax_credits: r.total.toFixed(2), label_7d: `${r.label7d}.00`, lines: r.lines.map((l) => l.credit.toFixed(2)),
+      time_limit_lines: r.timeLimitLines?.map(String) ?? null }, amounts, source);
   }
 });

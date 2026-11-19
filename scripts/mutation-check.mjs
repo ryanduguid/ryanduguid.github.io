@@ -49,6 +49,7 @@ const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
+const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
 const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
 const wc = { ...business, file: 'assets/workers-compensation.mjs' };
@@ -577,6 +578,22 @@ const MUTATIONS = [
   { ...lsl, name: 'LSL more leave taken than the entitlement passes', find: 'if (taken > weeks) {', replace: 'if (taken > weeks + 10000000n) {' },
   { ...lsl, name: 'LSL next date ignores excluded days', find: 'anniversary(start, next) - 1 + excluded;', replace: 'anniversary(start, next) - 1;' },
   { ...lsl, name: 'LSL service before 23 June 1990 passes', find: 'value < LSL_EARLIEST_START', replace: "value < '1900-01-01'" },
+  { ...ftc, name: 'FTC credit truncates the cents', find: 'ratioCents(q * milli(rate), 10n ** 7n)', replace: '(q * milli(rate)) / 10n ** 7n' },
+  { ...ftc, name: 'FTC label 7D rounds the cents', find: 'Number(cents / 100n)', replace: 'Number((cents + 50n) / 100n)' },
+  { ...ftc, name: 'FTC a heavy vehicle on a public road takes the full rate', find: "line.use === 'heavy_vehicle_public_road' ? heavy", replace: "line.use === 'heavy_vehicle_public_road' ? other" },
+  { ...ftc, name: 'FTC a light vehicle on a public road earns the full rate', find: "line.use === 'other_business' ? other : '0'", replace: "line.use === 'other_business' ? other : other" },
+  { ...ftc, name: 'FTC fuel after 31 January 2027 passes', find: 'if (line.acquired > dayOf(FTC_LAST_DAY)) {', replace: 'if (line.acquired > dayOf(FTC_LAST_DAY) + 366) {' },
+  { ...ftc, name: 'FTC fuel outside the income year passes', find: 'if (line.acquired < year[0] || line.acquired > year[1]) {', replace: 'if (false) {' },
+  { ...ftc, name: 'FTC Method 2 spans any rate change', find: "&& p.starts !== 'indexation');", replace: '&& false);' },
+  { ...ftc, name: 'FTC Method 2 period after the last rate passes', find: 'if (end > dayOf(FTC_LAST_DAY)) {', replace: 'if (false) {' },
+  { ...ftc, name: 'FTC Method 1 loses a factor of 10', find: 'cost * milli(rate) * 10n, price', replace: 'cost * milli(rate), price' },
+  { ...ftc, name: 'FTC derived kilometres take 100%', find: '* 984n, kmBasis', replace: '* 1000n, kmBasis' },
+  { ...ftc, name: 'FTC a rigid truck class boundary takes the heavier rate', find: 'weight <= milli(top)', replace: 'weight < milli(top)' },
+  { ...ftc, name: 'FTC a 4.5 tonne rigid truck is a heavy vehicle', find: 'if (weight <= 4500n) {', replace: 'if (weight < 4500n) {' },
+  { ...ftc, name: 'FTC public road litres may exceed the diesel', find: 'if (publicLitres > all) {', replace: 'if (false) {' },
+  { ...ftc, name: 'FTC simplified methods pass without the small claimant test', find: 'if (!input.small_claimant) {', replace: 'if (false) {' },
+  { ...ftc, name: 'FTC Method 1 takes LPG', find: "const LIQUID = ['diesel',", replace: "const LIQUID = ['lpg', 'diesel'," },
+  { ...ftc, name: 'FTC the time limit runs 5 years', find: 'Number(acquired.slice(0, 4)) + 4}', replace: 'Number(acquired.slice(0, 4)) + 5}' },
   { ...leave, name: 'unused leave capped parts withheld at 30%', find: 'const FLAT_PERCENT = 32;', replace: 'const FLAT_PERCENT = 30;' },
   { ...leave, name: 'unused leave small payment limit at $200', find: 'const SMALL_PAYMENT = 30000;', replace: 'const SMALL_PAYMENT = 20000;' },
   { ...leave, name: 'unused leave small payment limit ignored', find: 'under300 ? roundDollars(', replace: 'false ? roundDollars(' },
@@ -648,7 +665,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
