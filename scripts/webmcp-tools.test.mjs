@@ -405,6 +405,10 @@ test('sole trader tool returns the page worked example and the GST share of each
     ['7800.00', '21320.00', '21.54', '236.89']);
   const none = await tool.execute({ incomeYear: '2026-27', businessIncome: '22000', smallBusinessOffset: false });
   assert.equal(none.smallBusinessIncomeTaxOffset, '0.00');
+  // The unit test's 2025-26 case: $10,000 of contributions joins repayment and surcharge income.
+  const contributions = await tool.execute({ incomeYear: '2025-26', businessIncome: '110000',
+    personalSuperContributions: '10000', studyLoan: true, privateHospitalCover: false });
+  assert.deepEqual([contributions.taxableIncome, contributions.businessTax], ['100000.00', '29238.00']);
   for (const limit of [/refuses a business loss/, /all sales are taxable supplies/, /at most \$1,000/]) {
     assert.match(tool.description, limit);
   }

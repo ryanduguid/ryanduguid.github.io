@@ -44,32 +44,35 @@ const nearest = (numerator, denominator) => Number(ratioCents(BigInt(numerator),
 const cents = (/** @type {number} */ value) => Math.round(value * 100);
 
 /**
- * @typedef {{year: string, income: string, expenses: string, wages: string, deductions: string, offset: boolean,
- *   studyLoan: boolean, hospitalCover: boolean, gst: boolean, credits: string, invoice: string}} SoleTrader
+ * @typedef {{year: string, income: string, expenses: string, wages: string, deductions: string, super: string,
+ *   offset: boolean, studyLoan: boolean, hospitalCover: boolean, gst: boolean, credits: string, invoice: string}} SoleTrader
  */
 
 /** The year's tax, levies and repayment for a resident single person on `taxable` whole dollars, with
  * `business` whole dollars of net small business income for the offset (0 without it), each in cents.
  * The offset applies after the low income and the low and middle income tax offsets and, like them,
- * cannot take the tax below nil (s 63-10, item 20). @param {string} year @param {number} taxable
- * @param {number} business @param {boolean} studyLoan @param {boolean} hospitalCover */
-function assess(year, taxable, business, studyLoan, hospitalCover) {
+ * cannot take the tax below nil (s 63-10, item 20). Deductible personal super contributions, `reported`
+ * whole dollars, are reportable super contributions, so they join income for surcharge purposes and
+ * repayment income (HESA s 154-5(1); the ATO's 'Income tests', last updated 8 June 2026, read
+ * 19 November 2026). @param {string} year @param {number} taxable
+ * @param {number} business @param {boolean} studyLoan @param {boolean} hospitalCover @param {number} reported */
+function assess(year, taxable, business, studyLoan, hospitalCover, reported) {
   const t = incomeTax(String(taxable), year, 'resident');
   const [tax, offset, lmito] = [cents(t.tax), cents(t.offset), cents(t.lmito)];
   const share = taxable ? nearest(OFFSET_RATE * Math.min(business, taxable) * tax, 100 * taxable) : 0;
   const small = Math.min(share, OFFSET_CAP, tax - offset - lmito);
-  const surcharge = hospitalCover ? 0 : cents(medicareLevySurcharge({ year, taxable, fringe: 0, super: 0, losses: 0,
+  const surcharge = hospitalCover ? 0 : cents(medicareLevySurcharge({ year, taxable, fringe: 0, super: reported, losses: 0,
     spouse: null, children: 0, uncoveredDays: daysInYear(year) }).surcharge);
-  const loan = studyLoan ? cents(studyLoanRepayment({ taxable: String(taxable), fringe: '0', losses: '0', super: '0',
+  const loan = studyLoan ? cents(studyLoanRepayment({ taxable: String(taxable), fringe: '0', losses: '0', super: String(reported),
     foreign: '0' }, year).repayment) : 0;
   const medicare = cents(t.medicare);
   return { tax, offset, lmito, small, medicare, surcharge, loan,
     total: tax - offset - lmito - small + medicare + surcharge + loan };
 }
 
-/** One full year: business income and expenses exclusive of GST, wages from a job, and other deductions
- * that are not the business's (tax agent fees, gifts and personal super contributions), each in dollars
- * and cents. Taxable income is their net in whole dollars, less the standard deduction on the wages from
+/** One full year: business income and expenses exclusive of GST, wages from a job, other deductions that
+ * are not the business's (tax agent fees and gifts) and personal super contributions claimed as a
+ * deduction, each in dollars and cents. Taxable income is their net in whole dollars, less the standard deduction on the wages from
  * 2026-27; the net small business income is the profit in whole dollars when `offset` says the business
  * qualifies. The business's tax is the year's total less the total on the wages and deductions alone,
  * which assumes the wages were withheld from as though they were the only income. A GST-registered
@@ -84,25 +87,27 @@ export function soleTraderSetAside(s) {
     ['gst', 'Say whether the business is registered for GST.']]) {
     if (typeof s[/** @type {keyof SoleTrader} */ (field)] !== 'boolean') throw new Error(question);
   }
-  const [income, expenses, wages, deductions, credits, invoice] = [s.income, s.expenses, s.wages, s.deductions,
-    s.credits, s.invoice].map(amountCents);
+  const [income, expenses, wages, deductions, contributions, credits, invoice] = [s.income, s.expenses, s.wages,
+    s.deductions, s.super, s.credits, s.invoice].map(amountCents);
   if (expenses > income) {
     throw new Error('Enter business expenses no more than the business income: a loss is not worked here.');
   }
   const profit = income - expenses;
   const deduction = s.year >= STANDARD_DEDUCTION_FROM ? Math.min(100000, wages) : 0;
-  if (deductions > profit + wages - deduction) {
-    throw new Error('Enter other deductions no more than the profit and wages less any standard deduction.');
+  if (deductions + contributions > profit + wages - deduction) {
+    throw new Error('Enter other deductions and super contributions no more than the profit and wages less any '
+      + 'standard deduction.');
   }
   const gstOnIncome = s.gst ? nearest(income, GST_TENTHS) : 0;
   if (!s.gst && credits) throw new Error('Enter 0 for GST credits when the business is not registered for GST.');
   if (credits > gstOnIncome) {
     throw new Error('Enter GST credits no more than the GST on the business income: a refund is not worked here.');
   }
-  const taxable = Math.floor((profit + wages - deduction - deductions) / 100);
-  const all = assess(s.year, taxable, s.offset ? Math.floor(profit / 100) : 0, s.studyLoan, s.hospitalCover);
-  const alone = assess(s.year, Math.floor(Math.max(0, wages - deduction - deductions) / 100), 0, s.studyLoan,
-    s.hospitalCover);
+  const taxable = Math.floor((profit + wages - deduction - deductions - contributions) / 100);
+  const reported = Math.floor(contributions / 100);
+  const all = assess(s.year, taxable, s.offset ? Math.floor(profit / 100) : 0, s.studyLoan, s.hospitalCover, reported);
+  const alone = assess(s.year, Math.floor(Math.max(0, wages - deduction - deductions - contributions) / 100), 0,
+    s.studyLoan, s.hospitalCover, reported);
   const businessTax = all.total - alone.total;
   const gst = gstOnIncome - credits;
   const setAside = businessTax + gst;

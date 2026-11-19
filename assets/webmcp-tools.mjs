@@ -532,7 +532,9 @@ const soleTraderTool = (soleTraderSetAside, years) => tool({
     businessIncome: text('amount', 'Business income for the year excluding GST, in AUD with at most 2 decimal places.'),
     businessExpenses: text('amount', 'Deductible business expenses for the year excluding GST, in AUD; "0" when omitted.'),
     wages: text('amount', 'Salary and wages from a job for the year before tax, in AUD; "0" when omitted.'),
-    otherDeductions: text('amount', 'Tax agent fees, gifts and personal super contributions claimed, in AUD; "0" when omitted.'),
+    otherDeductions: text('amount', 'Tax agent fees and gifts claimed, in AUD; "0" when omitted.'),
+    personalSuperContributions: text('amount', 'Personal super contributions claimed as a deduction, in AUD; they also '
+      + 'count in study loan repayment income and income for surcharge purposes; "0" when omitted.'),
     smallBusinessOffset: { type: 'boolean', description: 'false when the business does not qualify for the small business '
       + 'income tax offset (aggregated turnover of $5 million or more, or personal services income outside a personal '
       + 'services business); true when omitted.' },
@@ -542,11 +544,12 @@ const soleTraderTool = (soleTraderSetAside, years) => tool({
     gstCredits: text('amount', 'GST credits on business purchases for the year, in AUD; "0" when omitted.'),
     invoice: text('amount', 'One invoice as charged, GST included when registered, in AUD; "0" when omitted.'),
   }, ['incomeYear', 'businessIncome']),
-  run({ incomeYear, businessIncome, businessExpenses = '0', wages = '0', otherDeductions = '0', smallBusinessOffset = true,
-    studyLoan = false, privateHospitalCover = true, registeredForGst = false, gstCredits = '0', invoice = '0' }) {
+  run({ incomeYear, businessIncome, businessExpenses = '0', wages = '0', otherDeductions = '0',
+    personalSuperContributions = '0', smallBusinessOffset = true, studyLoan = false, privateHospitalCover = true,
+    registeredForGst = false, gstCredits = '0', invoice = '0' }) {
     const r = soleTraderSetAside({ year: incomeYear, income: businessIncome, expenses: businessExpenses, wages,
-      deductions: otherDeductions, offset: smallBusinessOffset, studyLoan, hospitalCover: privateHospitalCover,
-      gst: registeredForGst, credits: gstCredits, invoice });
+      deductions: otherDeductions, super: personalSuperContributions, offset: smallBusinessOffset, studyLoan,
+      hospitalCover: privateHospitalCover, gst: registeredForGst, credits: gstCredits, invoice });
     return {
       businessProfit: dollars(r.profit), taxableIncome: dollars(r.taxable), smallBusinessIncomeTaxOffset: dollars(r.smallBusinessOffset),
       totalTaxLeviesAndRepayment: dollars(r.total), onWagesAlone: dollars(r.wagesTax), businessTax: dollars(r.businessTax),

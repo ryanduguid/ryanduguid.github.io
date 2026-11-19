@@ -593,6 +593,7 @@ struct Sole<'a> {
     expenses: u64,
     wages: u64,
     deductions: u64,
+    contributions: u64,
     offset: bool,
     loan: bool,
     cover: bool,
@@ -607,6 +608,9 @@ struct Sole<'a> {
 /// income tax liability; otherwise 16% of the liability's share in that income's proportion; at most
 /// $1,000 and no more than the tax the other offsets leave.
 fn sole_year(s: &Sole, taxable: u64, business: u64) -> [u64; 8] {
+    // Deductible personal super contributions are reportable super contributions: they join
+    // income for surcharge purposes and repayment income (HESA s 154-5(1); ATO 'Income tests').
+    let reported = s.contributions / 100;
     let t = tax_oracle(taxable, s.year, "resident");
     let get = |key: &str| t[key].as_u64().unwrap();
     let (tax, offset, lmito, levy) = (get("tax"), get("offset"), get("lmito"), get("medicare"));
@@ -621,10 +625,15 @@ fn sole_year(s: &Sole, taxable: u64, business: u64) -> [u64; 8] {
     let surcharge = if s.cover {
         0
     } else {
-        half_up(taxable * surcharge_rate(taxable, s.year, false, 0), 100)
+        half_up(
+            taxable * surcharge_rate(taxable + reported, s.year, false, 0),
+            100,
+        )
     };
     let loan = if s.loan {
-        loan_oracle(taxable, s.year)["repayment"].as_u64().unwrap()
+        loan_oracle(taxable + reported, s.year)["repayment"]
+            .as_u64()
+            .unwrap()
     } else {
         0
     };
@@ -643,12 +652,12 @@ fn sole_oracle(s: &Sole) -> Value {
     } else {
         0
     };
-    let taxable = (profit + s.wages - deduction - s.deductions) / 100;
+    let taxable = (profit + s.wages - deduction - s.deductions - s.contributions) / 100;
     let business = if s.offset { profit / 100 } else { 0 };
     let all = sole_year(s, taxable, business);
     let alone = sole_year(
         s,
-        (s.wages - deduction).saturating_sub(s.deductions) / 100,
+        (s.wages - deduction).saturating_sub(s.deductions + s.contributions) / 100,
         0,
     );
     let business_tax = i64::try_from(all[7]).unwrap() - i64::try_from(alone[7]).unwrap();
@@ -866,6 +875,11 @@ fn the_sole_trader_engine_agrees_with_the_oracle_on_every_seeded_case() {
             let deduction = if year == "2026-27" { wages.min(100_000) } else { 0 };
             let room = income - expenses + wages - deduction;
             let deductions = if rng.below(4) == 0 { rng.below(room.min(1_000_000) + 1) } else { 0 };
+            let contributions = if rng.below(4) == 0 {
+                rng.below((room - deductions).min(3_000_000) + 1)
+            } else {
+                0
+            };
             let gst = rng.below(2) == 0;
             let credits = if gst && rng.below(2) == 0 { rng.below(half_up(income, 10) + 1) } else { 0 };
             let s = Sole {
@@ -874,6 +888,7 @@ fn the_sole_trader_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 expenses,
                 wages,
                 deductions,
+                contributions,
                 offset: rng.below(4) != 0,
                 loan: rng.below(3) == 0,
                 cover: rng.below(3) != 0,
@@ -882,7 +897,7 @@ fn the_sole_trader_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 invoice: rng.below(1_000_001),
             };
             let sole = json!({"year": year, "income": money(income), "expenses": money(expenses), "wages": money(wages),
-                "deductions": money(deductions), "offset": s.offset, "studyLoan": s.loan, "hospitalCover": s.cover,
+                "deductions": money(deductions), "super": money(contributions), "offset": s.offset, "studyLoan": s.loan, "hospitalCover": s.cover,
                 "gst": gst, "credits": money(credits), "invoice": money(s.invoice)});
             (json!({"kind": "sole", "sole": sole}), sole_oracle(&s))
         })

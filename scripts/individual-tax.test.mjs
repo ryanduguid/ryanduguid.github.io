@@ -37,6 +37,7 @@ const INPUTS = {
   studyLoanRepayment: (r, year) => `${year}: ${parts(r)}`,
   soleTraderSetAside: (s) => `${s.year}, business ${whole(s.income)} less ${whole(s.expenses)}`
     + `${s.wages === '0' ? '' : `, wages ${whole(s.wages)}`}${s.deductions === '0' ? '' : `, other deductions ${whole(s.deductions)}`}`
+    + `${s.super === '0' ? '' : `, super contributions ${whole(s.super)}`}`
     + `${s.offset ? '' : ', no offset'}${s.studyLoan ? ', study loan' : ''}${s.hospitalCover ? '' : ', no hospital cover'}`
     + `${s.gst ? `, GST registered, credits ${whole(s.credits)}` : ''}, invoice ${dollars(s.invoice)}`,
 };
@@ -91,7 +92,7 @@ const FORM_CALLS = {
     hospitalCover: f.cover === 'yes' }],
   studyLoanRepayment: (f) => [{ taxable: f.taxable, fringe: f.fringe, losses: f.losses, super: f.super, foreign: f.foreign }, f.year],
   soleTraderSetAside: (f) => [{ year: f.year, income: f.income, expenses: f.expenses, wages: f.wages, deductions: f.deductions,
-    offset: f.offset === 'yes', studyLoan: f['study-loan'] === 'yes', hospitalCover: f.cover === 'yes', gst: f.gst === 'yes',
+    super: f.super, offset: f.offset === 'yes', studyLoan: f['study-loan'] === 'yes', hospitalCover: f.cover === 'yes', gst: f.gst === 'yes',
     credits: f.credits, invoice: f.invoice }],
 };
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
@@ -422,8 +423,8 @@ test('a form that is not an individual tax calculator gets no result, whatever i
   }
 });
 
-const SOLE = { year: '2026-27', income: '22000', expenses: '2000', wages: '60000', deductions: '0', offset: true, studyLoan: false,
-  hospitalCover: true, gst: false, credits: '0', invoice: '1000' };
+const SOLE = { year: '2026-27', income: '22000', expenses: '2000', wages: '60000', deductions: '0', super: '0', offset: true,
+  studyLoan: false, hospitalCover: true, gst: false, credits: '0', invoice: '1000' };
 const sole = (extra) => soleTraderSetAside({ ...SOLE, ...extra });
 
 // ITAA 1997 s 328-360 (Compilation No. 268, read 19 November 2026), worked by hand. 2026-27: $20,000 of
@@ -470,6 +471,23 @@ test('with no job the whole year’s tax is the business’s; with one it is the
 });
 
 // GST Act ss 9-70 and 9-75 (Compilation No. 96, read 19 November 2026): 10% of the GST-exclusive income.
+// Deductible personal super contributions are reportable super contributions, so they come off taxable income
+// but count in repayment income and income for surcharge purposes (HESA s 154-5(1); ATO 'Income tests', read
+// 19 November 2026). 2025-26, $110,000 of profit and $10,000 of contributions: taxable $100,000, taxed $4,288
+// plus 30% of $55,000, $20,788, less the $1,000 cap, plus $2,000 levy; surcharge income $110,000 is tier 1, 1% of
+// $100,000; repayment income $110,000 repays 15% of $43,000, $6,450. Alone, $10,000 of contributions owes nothing.
+test('personal super contributions reduce taxable income but join repayment and surcharge income', () => {
+  const r = sole({ year: '2025-26', income: '110000', expenses: '0', wages: '0', super: '10000', studyLoan: true,
+    hospitalCover: false });
+  assert.deepEqual([r.taxable, r.tax, r.smallBusinessOffset, r.medicare, r.surcharge, r.studyLoan, r.total, r.wagesTax],
+    [100000, 20788, 1000, 2000, 1000, 6450, 29238, 0]);
+  // The offset's share leaves them out (s 328-370(c)): the whole $110,000 of profit is above taxable income.
+  const deducted = sole({ year: '2025-26', income: '110000', expenses: '0', wages: '0', super: '10000' });
+  assert.equal(deducted.smallBusinessOffset, 1000);
+  assert.equal(sole({ year: '2023-24', income: '40000', expenses: '5000', wages: '0', super: '3000' }).smallBusinessOffset,
+    419.52);
+});
+
 test('a GST-registered business sets aside GST less credits, and one share of each invoice covers both', () => {
   const r = sole({ income: '90000', expenses: '15000', wages: '0', gst: true, credits: '1200', invoice: '1100' });
   assert.deepEqual([r.gstOnIncome, r.gst, r.businessTax, r.setAside], [9000, 7800, 13520, 21320]);
@@ -502,8 +520,10 @@ test('the sole trader calculator refuses what it does not work', () => {
   assert.throws(() => sole({ year: '2027-28' }), { message: 'Choose an income year from 2021-22 to 2026-27.' });
   assert.throws(() => sole({ expenses: '22000.01' }),
     { message: 'Enter business expenses no more than the business income: a loss is not worked here.' });
-  assert.throws(() => sole({ wages: '0', deductions: '20000.01' }),
-    { message: 'Enter other deductions no more than the profit and wages less any standard deduction.' });
+  const tooMuch = { message: 'Enter other deductions and super contributions no more than the profit and wages less '
+    + 'any standard deduction.' };
+  assert.throws(() => sole({ wages: '0', deductions: '20000.01' }), tooMuch);
+  assert.throws(() => sole({ wages: '0', deductions: '10000', super: '10000.01' }), tooMuch);
   assert.throws(() => sole({ credits: '1' }), { message: 'Enter 0 for GST credits when the business is not registered for GST.' });
   assert.throws(() => sole({ gst: true, credits: '2200.01' }),
     { message: 'Enter GST credits no more than the GST on the business income: a refund is not worked here.' });

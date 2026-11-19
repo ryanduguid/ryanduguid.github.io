@@ -116,8 +116,8 @@ function soleTraderResult(value, aud) {
   const yes = (/** @type {string} */ name) => value(name) === 'yes';
   const year = value('year');
   const r = soleTraderSetAside({ year, income: value('income'), expenses: value('expenses'), wages: value('wages'),
-    deductions: value('deductions'), offset: yes('offset'), studyLoan: yes('study-loan'), hospitalCover: yes('cover'),
-    gst: yes('gst'), credits: value('credits'), invoice: value('invoice') });
+    deductions: value('deductions'), super: value('super'), offset: yes('offset'), studyLoan: yes('study-loan'),
+    hospitalCover: yes('cover'), gst: yes('gst'), credits: value('credits'), invoice: value('invoice') });
   const wages = Number(value('wages')) > 0;
   const rows = [['Business profit', aud(r.profit)]];
   if (r.deduction) rows.push(['Standard deduction on the wages', aud(r.deduction)]);
@@ -138,13 +138,21 @@ function soleTraderResult(value, aud) {
   const notes = [`As a PAYG instalment rate, ${r.taxShare.toFixed(2)}% of business income excluding GST covers this `
     + 'year’s tax on it'];
   if (r.instalments) {
-    notes.push('This meets 2 PAYG instalment entry tests, $4,000 of business income and $1,000 of tax; the ATO works out '
-      + 'the third, $500 of notional tax');
+    notes.push('On a return like this, 2 of the 3 tests for automatic entry to PAYG instalments are met, $4,000 of '
+      + 'instalment income and $1,000 of tax payable; the ATO works out the third, $500 of notional tax, and '
+      + 'decides entry');
   }
-  if (r.mustRegister) notes.push('Business income of $75,000 or more a year means the business must register for GST');
-  if (wages) notes.push('This assumes the wages’ withholding covers the tax on the wages alone');
+  if (r.mustRegister) {
+    notes.push('Business income of $75,000 or more a year means the business must register for GST, within 21 days of '
+      + 'its turnover over 12 months reaching $75,000');
+  }
+  if (wages) {
+    notes.push('This assumes the wages’ withholding covers the tax, levy and any study loan repayment on the wages '
+      + 'alone');
+  }
   return { inputs: `${year}, business income ${aud(Number(value('income')))} and expenses ${aud(Number(value('expenses')))} `
     + `excluding GST, wages ${aud(Number(value('wages')))}, other deductions ${aud(Number(value('deductions')))}, `
+    + `${Number(value('super')) > 0 ? `personal super contributions ${aud(Number(value('super')))}, ` : ''}`
     + `${yes('offset') ? 'qualifies' : 'does not qualify'} for the small business income tax offset, `
     + `${yes('study-loan') ? 'with a' : 'no'} study or training loan, ${yes('cover') ? 'with' : 'no'} private hospital cover, `
     + `${yes('gst') ? `registered for GST with credits of ${aud(Number(value('credits')))}` : 'not registered for GST'}, `
