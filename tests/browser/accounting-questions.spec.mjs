@@ -763,6 +763,11 @@ test('SGC page works a Payday Super charge, an old-law quarter and a refusal off
   await form.getByLabel('Quarterly, 2022-23 to 2025-26').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('SG charge for the quarter: $1,519.18.');
+  // Norfolk Island's lower transitional rate is refused, not replaced by the general rate.
+  await form.locator('[name="norfolk-island"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('Norfolk Island salary or wages have a lower transitional super guarantee rate '
+    + '(7% to 10% for 2022-23 to 2025-26, 11% for 2026-27), which this calculator does not apply.');
 });
 
 test('franking account page works EKW Ltd’s example, shows the ledger and refuses a private company without its income tax offline', async ({ page, context }) => {
