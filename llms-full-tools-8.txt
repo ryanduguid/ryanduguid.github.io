@@ -26,7 +26,7 @@ Year you received the arrears 2026-27 2025-26 2024-25 Taxable income of that yea
 
 The accrual year before it, if any Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, with 3 or more accrual years (whole dollars, blank if none) If you got this offset for it: its own total arrears amount (whole dollars) Arrears of an earlier year you got this offset for that accrued in it (whole dollars)
 
-Any earlier accrual years: the income year and the arrears that accrued in it, every payer’s together.
+Earlier accrual years, every payer’s arrears together.
 
 Year | Income year | Arrears (whole dollars)
 1 | |
@@ -34,7 +34,7 @@ Year | Income year | Arrears (whole dollars)
 3 | |
 4 | |
 
-An accrual year is an earlier income year in which part of the lump sum accrued. Your income statement or the payer’s letter gives the amount for each year; leave unused years blank.
+Each year’s amount is on your income statement or the payer’s letter; leave unused years blank.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, taxable income $100,000.00, net capital gain $0.00, accrual years 2023-24 $3,000.00 on taxable income $30,000.00, 2022-23 $2,500.00 on taxable income $17,000.00, 2021-22 $1,400.00, 2020-21 $1,700.00, 2019-20 $1,400.00, 2018-19 $1,000.00. Total arrears amount $11,000.00 Normal taxable income $100,000.00 10% of normal taxable income less the arrears $8,900.00 Tax on arrears in 2025-26 $3,300.00 Notional tax for 2023-24 $570.00 Notional tax for 2022-23 $247.00 Notional tax for the distant years $794.75 Notional tax on arrears $1,611.75 Lump sum payment in arrears tax offset $1,688.25 The distant years 2021-22, 2020-21, 2019-20 and 2018-19 take the average rate on recent arrears, 14.45%: 19% for 2023-24 and 9.9% for 2022-23.
 
