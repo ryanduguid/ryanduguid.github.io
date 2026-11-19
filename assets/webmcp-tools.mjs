@@ -318,9 +318,51 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
   },
 });
 
+const LSL_REASON_CODES = ['resign', 'pressing', 'no-notice', 'retire', 'redundancy', 'illness-dismissal', 'performance', 'misconduct',
+  'fixed-term', 'death'];
+
+/** @param {typeof import('./business-calculators.mjs').longServiceLeave} longServiceLeave */
+const longServiceLeaveTool = (longServiceLeave) => tool({
+  name: 'calculate_long_service_leave',
+  title: 'Long service leave calculator',
+  description: 'One employee\'s long service leave under the general Act of an Australian state or territory: the service counted, '
+    + 'the weeks the employee can take while employment continues or the weeks payable when it ends for a given reason, less leave '
+    + 'already taken or paid, and their value in AUD at the weekly ordinary pay, with the provision applied. Service runs from the '
+    + 'first day to the end of the last day, less the excluded days. It refuses a reason an Act leaves unsettled, and does not '
+    + 'decide which Act or award applies, continuity of service, ordinary pay averaging, portable schemes or tax.',
+  inputSchema: record({
+    place: choice(SURCHARGE_PLACES, 'State or territory whose Act applies, for example "AU-NSW".'),
+    firstDay: text('date', 'First day of service, YYYY-MM-DD, from 1990-06-23 to 2099-12-31.'),
+    lastDay: text('date', 'Last day of employment, or the day to work the leave out at while it continues, YYYY-MM-DD, no earlier than firstDay.'),
+    excludedDays: whole(0, 36500, 'Calendar days inside the service that do not count towards it, such as unpaid leave; 0 when omitted.'),
+    employment: choice(['ends', 'employed'], '"ends" when employment ends on lastDay, or "employed" for the leave the employee can take now.'),
+    reason: choice(LSL_REASON_CODES, 'Why employment ends, required when employment is "ends": "resign", "pressing" (resignation for illness, '
+      + 'incapacity or a domestic or other pressing necessity), "no-notice" (resignation without the notice the contract requires), "retire" '
+      + '(at or after the retiring age), "redundancy" (or another dismissal not about conduct, capacity or performance), "illness-dismissal", '
+      + '"performance" (dismissal for conduct, capacity or performance short of serious misconduct, or of serious and wilful misconduct in NSW, '
+      + 'SA, Tasmania and the ACT), "misconduct" (serious misconduct, or serious and wilful misconduct in NSW, SA, Tasmania and the ACT), '
+      + '"fixed-term" or "death".'),
+    takenWeeks: text('rate', 'Weeks of long service leave already taken or paid, with at most 4 decimal places; "0" when omitted.'),
+    weeklyPay: text('amount', 'Ordinary pay a week in AUD with at most 2 decimal places, no more than 1000000.'),
+  }, ['place', 'firstDay', 'lastDay', 'employment', 'weeklyPay']),
+  run(input) {
+    if (input.employment === 'ends' && input.reason === undefined) throw new Error('reason is required when employment ends.');
+    const r = longServiceLeave({ place: input.place, start: input.firstDay, end: input.lastDay, excluded: String(input.excludedDays ?? 0),
+      taken: input.takenWeeks ?? '0', mode: input.employment, reason: input.reason ?? 'redundancy', pay: input.weeklyPay });
+    return {
+      years: r.years, months: r.months, days: r.days, daysCounted: r.counted, rule: r.rule, weeks: r.weeks.toFixed(4),
+      takenWeeks: r.taken.toFixed(4), weeksLeft: r.balance.toFixed(4), value: dollars(r.value), currency: 'AUD',
+      next: r.next && { years: r.next.years, date: r.next.date, weeks: r.next.weeks.toFixed(4) },
+      basis: 'Each state and territory\'s general long service leave Act as read 19 November 2026. Weeks round half up to 4 decimal places; '
+        + 'the value is the exact weeks times the pay, rounded half up to the cent.',
+      source: `${CALCULATORS}long-service-leave/`,
+    };
+  },
+});
+
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
  * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
- *   | 'breakEven' | 'companyTax' | 'foreignSurcharge'>} calculate */
+ *   | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'longServiceLeave'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -330,6 +372,7 @@ export function calculatorTools(calculate) {
     'break-even': breakEvenTool(calculate.breakEven),
     'company-tax': companyTaxTool(calculate.companyTax),
     'foreign-surcharge': foreignSurchargeTool(calculate.foreignSurcharge),
+    'long-service-leave': longServiceLeaveTool(calculate.longServiceLeave),
   };
 }
 
@@ -507,11 +550,107 @@ const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full i
   + 'worked on the year\'s earnings, not pay by pay or quarter by quarter. A weekly, fortnightly or monthly salary '
   + 'is 52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not computed. The surcharge is a single '
   + 'person\'s with no dependants, and the study loan repayment assumes the debt is at least the repayment. For a '
-  + '2026-27 weekly, fortnightly or monthly pay of a resident (scale 2, tax-free threshold claimed) or a foreign '
-  + 'resident (scale 3) it also gives the PAYG withheld each pay under the ATO\'s Schedules 1 and 8 and the refund '
-  + 'or amount owing over the year; for a working holiday maker it gives none. '
+  + 'weekly, fortnightly or monthly pay of a resident (scale 2, tax-free threshold claimed) or a foreign resident '
+  + '(scale 3) it also gives the PAYG withheld each pay under the year\'s Schedules 1 and 8 and the refund or amount '
+  + 'owing over the year; for a working holiday maker it gives none. For 2025-26 every pay takes the study loan '
+  + 'component from 24 September 2025, and so do the year\'s withholding and the refund or amount owing; the component '
+  + 'before that date is given beside it and not mixed in. '
   + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
   + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
+
+const BONUS_WITHHOLDING_DESCRIPTION = 'PAYG withholding in AUD from one 2026-27 weekly, fortnightly or monthly pay that includes a '
+  + 'back payment, commission, bonus or similar payment, by the methods of the ATO\'s Schedule 5 for payments made from '
+  + '1 July 2026, on scale 2 (resident claiming the tax-free threshold) or scale 3 (foreign resident), with the Schedule 8 '
+  + 'study loan component when the payee has one. Method A spreads the payment over the pays in a year, or fewer for a '
+  + 'commission or bonus for a defined period under 12 months, and limits it to 47%. Method B works a back payment for earlier pays this year '
+  + 'by B(i), each pay with the same earnings, back payment and earlier withholding, and any other payment by B(ii) on '
+  + 'the average earnings to date, limited to 47%. Method A also gives the tax and study loan repayment the payment adds '
+  + 'to a year of this pay. It does not compute scales 1, 5 or 6, a payee without a tax file number, a working holiday '
+  + `maker, a withholding variation, or years before 2026-27. Sources on ${INDIVIDUAL}bonus-withholding/.`;
+const SOLE_TRADER_DESCRIPTION = 'What an Australian resident sole trader sets aside in AUD for a full income year: the income '
+  + 'tax, Medicare levy, any Medicare levy surcharge and study loan repayment that the business profit adds to any wages, '
+  + 'after the small business income tax offset (16% of the share of basic income tax liability on net small business '
+  + 'income, at most $1,000), plus the GST on the business income less GST credits when registered, as a share of each '
+  + 'invoice and an amount each quarter, month and week, each rounded half up to the cent. It assumes all sales are '
+  + 'taxable supplies, the wages were withheld from as though they were the only income, a single person with no '
+  + 'dependants, an adult, and a study loan debt at least the repayment; it refuses a business loss and GST credits '
+  + `above the GST on income. Sources on ${INDIVIDUAL}sole-trader/.`;
+
+/** @param {typeof import('./sole-trader.mjs').soleTraderSetAside} soleTraderSetAside @param {string[]} years */
+const soleTraderTool = (soleTraderSetAside, years) => tool({
+  name: 'calculate_sole_trader_set_aside',
+  title: 'Sole trader tax set-aside calculator',
+  description: SOLE_TRADER_DESCRIPTION,
+  inputSchema: record({
+    incomeYear: choice(years, `Income year, ${years.at(-1)} to ${years[0]}.`),
+    businessIncome: text('amount', 'Business income for the year excluding GST, in AUD with at most 2 decimal places.'),
+    businessExpenses: text('amount', 'Deductible business expenses for the year excluding GST, in AUD; "0" when omitted.'),
+    wages: text('amount', 'Salary and wages from a job for the year before tax, in AUD; "0" when omitted.'),
+    otherDeductions: text('amount', 'Tax agent fees and gifts claimed, in AUD; "0" when omitted.'),
+    personalSuperContributions: text('amount', 'Personal super contributions claimed as a deduction, in AUD; they also '
+      + 'count in study loan repayment income and income for surcharge purposes; "0" when omitted.'),
+    smallBusinessOffset: { type: 'boolean', description: 'false when the business does not qualify for the small business '
+      + 'income tax offset (aggregated turnover of $5 million or more, or personal services income outside a personal '
+      + 'services business); true when omitted.' },
+    studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+    privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+    registeredForGst: { type: 'boolean', description: 'true when the business is registered for GST; false when omitted.' },
+    gstCredits: text('amount', 'GST credits on business purchases for the year, in AUD; "0" when omitted.'),
+    invoice: text('amount', 'One invoice as charged, GST included when registered, in AUD; "0" when omitted.'),
+  }, ['incomeYear', 'businessIncome']),
+  run({ incomeYear, businessIncome, businessExpenses = '0', wages = '0', otherDeductions = '0',
+    personalSuperContributions = '0', smallBusinessOffset = true, studyLoan = false, privateHospitalCover = true,
+    registeredForGst = false, gstCredits = '0', invoice = '0' }) {
+    const r = soleTraderSetAside({ year: incomeYear, income: businessIncome, expenses: businessExpenses, wages,
+      deductions: otherDeductions, super: personalSuperContributions, offset: smallBusinessOffset, studyLoan,
+      hospitalCover: privateHospitalCover, gst: registeredForGst, credits: gstCredits, invoice });
+    return {
+      businessProfit: dollars(r.profit), taxableIncome: dollars(r.taxable), smallBusinessIncomeTaxOffset: dollars(r.smallBusinessOffset),
+      totalTaxLeviesAndRepayment: dollars(r.total), onWagesAlone: dollars(r.wagesTax), businessTax: dollars(r.businessTax),
+      gst: dollars(r.gst), setAsideYear: dollars(r.setAside), setAsideQuarter: dollars(r.quarterly),
+      setAsideMonth: dollars(r.monthly), setAsideWeek: dollars(r.weekly), invoiceSharePercent: r.invoiceShare.toFixed(2),
+      setAsideFromInvoice: dollars(r.invoice.setAside), currency: 'AUD', source: `${INDIVIDUAL}sole-trader/`,
+    };
+  },
+});
+
+const INCOME_TESTS_DESCRIPTION = 'The income measures that the tax return of one person resident in Australia all year feeds, '
+  + 'for 2024-25 to 2026-27, in '
+  + 'whole AUD: income for surcharge purposes (Medicare levy surcharge), Division 293 income, rebate income (seniors and '
+  + 'pensioners tax offset), repayment income (study and training loans), adjusted taxable income (dependant offsets) and '
+  + 'the super co-contribution’s total income, with the reportable fringe benefits total, the adjusted fringe benefits '
+  + 'total (section 57A amounts times 0.53, rounded down), total net investment loss and reportable super contributions. '
+  + 'Every amount is whole dollars and 0 when omitted. It works the measures only; it does not decide the offsets, '
+  + 'surcharge, repayment or co-contribution, a part-year or foreign resident, or the Services Australia income tests. '
+  + `Sources on ${INDIVIDUAL}income-tests/.`;
+/** The income tests tool's inputs and the engine's names for them. */
+const INCOME_TEST_INPUTS = /** @type {const} */ ([['taxableIncome', 'taxable', 'Taxable income, including any assessable FHSS released amount.'],
+  ['assessableFhssReleasedAmount', 'fhss', 'Assessable first home super saver released amount (ITAA 1997 s 313-20).'],
+  ['familyTrustDistributionAmounts', 'familyTrust', 'Amounts on which family trust distribution tax was paid.'],
+  ['reportableFringeBenefitsSection57a', 'fringe57a', 'Reportable fringe benefits from FBTAA s 57A exempt employers (IT1 label N).'],
+  ['reportableFringeBenefitsOther', 'fringeOther', 'Reportable fringe benefits from other employers (IT1 label W).'],
+  ['reportableEmployerSuperContributions', 'employerSuper', 'Reportable employer super contributions (IT2).'],
+  ['deductiblePersonalSuperContributions', 'personalSuper', 'Personal super contributions deducted (D12).'],
+  ['excessConcessionalContributions', 'excessConcessional', 'Excess concessional contributions for the year.'],
+  ['netFinancialInvestmentLoss', 'financialLoss', 'Net financial investment loss (IT5).'],
+  ['netRentalPropertyLoss', 'rentalLoss', 'Net rental property loss (IT6).'],
+  ['taxFreeGovernmentPensions', 'pensions', 'Tax-free government pensions or benefits (IT3).'],
+  ['targetForeignIncome', 'targetForeign', 'Target foreign income, including exempt foreign employment income (IT4).'],
+  ['exemptForeignEmploymentIncome', 'exemptForeign', 'Exempt foreign employment income, net of the costs of earning it.'],
+  ['childSupportPaid', 'childSupport', 'Child support paid (IT7).'],
+  ['assessableIncome', 'assessable', 'Assessable income, at least the taxable income.'],
+  ['businessDeductions', 'businessDeductions', 'Deductions from carrying on a business.']]);
+
+const DIVISION_293_DESCRIPTION = 'Division 293 tax in AUD for one individual and income year (ITAA 1997 Division 293), '
+  + 'for contributions to accumulation interests only. Division 293 income is taxable income less any assessable first '
+  + 'home super saver released amount, plus income on which family trust distribution tax was paid, the reportable '
+  + 'fringe benefits total and total net investment loss, less a super lump sum taxed element at the zero rate. Low tax '
+  + 'contributions are the concessional contributions less excess concessional contributions over the year\'s cap, '
+  + 'raised by unused cap carried forward when the total super balance just before the year was under $500,000. '
+  + 'Taxable contributions are the lesser of the low tax contributions and the amount by which they plus Division 293 '
+  + 'income exceed $250,000; the tax is 15% of them. It does not compute defined benefit interests, constitutionally '
+  + 'protected funds, Commonwealth judges\' pensions, contributions the Commissioner disregarded or reallocated, or '
+  + `interest, deferral or release from super. Sources on ${INDIVIDUAL}division-293/.`;
 
 const SALARY_PACKAGING_DESCRIPTION = 'Salary packaging in AUD for one employee of an FBT-exempt employer for one year: a public '
   + 'benevolent institution or health promotion charity ($30,000 cap) or a public or not-for-profit hospital or public '
@@ -532,17 +671,24 @@ const NOVATED_LEASE_DESCRIPTION = 'A novated car lease in AUD for one year again
   + `or other income. Sources on ${INDIVIDUAL}novated-lease/.`;
 
 /**
- * WebMCP descriptors for the income tax estimate, take-home pay, salary packaging and novated lease
- * calculators, keyed by the `data-calculator` name of the form whose page registers them.
+ * WebMCP descriptors for the income tax estimate, take-home pay, sole trader set-aside, Division 293, income
+ * tests, bonus withholding, salary packaging and novated lease calculators, keyed by the `data-calculator` name
+ * of the form whose page registers them.
  * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
  *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay,
+ *   soleTraderSetAside: typeof import('./sole-trader.mjs').soleTraderSetAside,
+ *   division293Tax: typeof import('./division-293.mjs').division293Tax,
+ *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[],
+ *   soleTraderYears: string[], division293Years: string[],
  *   salaryPackaging: typeof import('./salary-packaging.mjs').salaryPackaging,
- *   novatedLease: typeof import('./novated-lease.mjs').novatedLease, incomeYears: string[], payYears: string[],
- *   packagingYears: string[], novatedYears: string[]}} engines
+ *   novatedLease: typeof import('./novated-lease.mjs').novatedLease, packagingYears: string[],
+ *   novatedYears: string[]}} engines
  */
-export function individualTaxTools({ taxEstimate, takeHomePay, salaryPackaging, novatedLease, incomeYears, payYears,
-  packagingYears, novatedYears }) {
+export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAside, division293Tax, incomeTests, incomeYears,
+  payYears, soleTraderYears, division293Years, bonusWithholding, salaryPackaging, novatedLease, packagingYears,
+  novatedYears }) {
   return {
+    'income-tests': incomeTestsTool(incomeTests),
     'income-tax': tool({
       name: 'estimate_income_tax',
       title: 'Income tax and refund estimate',
@@ -604,14 +750,43 @@ export function individualTaxTools({ taxEstimate, takeHomePay, salaryPackaging, 
           takeHomeMonth: dollars(r.monthly), takeHomeFortnight: dollars(r.fortnightly), takeHomeWeek: dollars(r.weekly),
           concessionalOverCap: dollars(r.overCap), division293TaxableContributions: dollars(r.division293),
           paygWithholding: r.withheld ? { eachPay: dollars(r.withheld.total), studyLoanComponent: dollars(r.withheld.studyLoan),
+            studyLoanComponentBefore24September2025: r.withheld.earlierStudyLoan === null ? null
+              : dollars(r.withheld.earlierStudyLoan),
             year: dollars(r.withheld.year), ...settled(r.withheld.refund) } : null,
           currency: 'AUD', source: `${INDIVIDUAL}take-home-pay/`,
         };
       },
     }),
+    'sole-trader': soleTraderTool(soleTraderSetAside, soleTraderYears),
+    'division-293': division293Tool({ division293Tax, division293Years }),
+    'bonus-withholding': bonusWithholdingTool(bonusWithholding),
     'salary-packaging': salaryPackagingTool(salaryPackaging, packagingYears),
     'novated-lease': novatedLeaseTool(novatedLease, novatedYears),
   };
+}
+
+/** The WebMCP descriptor for the income tests calculator.
+ * @param {typeof import('./income-tests.mjs').incomeTests} incomeTests */
+function incomeTestsTool(incomeTests) {
+  return tool({
+    name: 'calculate_income_tests',
+    title: 'Income tests calculator',
+    description: INCOME_TESTS_DESCRIPTION,
+    inputSchema: record(Object.fromEntries(INCOME_TEST_INPUTS.map(([name, , description]) => [name, dollarsOnly(description)])),
+      ['taxableIncome']),
+    run(input) {
+      const parts = Object.fromEntries(INCOME_TEST_INPUTS.map(([name, key]) => [key, String(input[name] ?? 0)]));
+      const r = incomeTests(/** @type {import('./income-tests.mjs').IncomeTestParts} */ ({ ...parts, resident: true }));
+      return {
+        incomeForSurchargePurposes: dollars(r.surchargeIncome), division293Income: dollars(r.division293Income),
+        rebateIncome: dollars(r.rebateIncome), repaymentIncome: dollars(r.repaymentIncome),
+        adjustedTaxableIncome: dollars(r.adjustedTaxableIncome), coContributionTotalIncome: dollars(r.coContributionIncome),
+        reportableFringeBenefitsTotal: dollars(r.fringeTotal), adjustedFringeBenefitsTotal: dollars(r.adjustedFringe),
+        totalNetInvestmentLoss: dollars(r.losses), reportableSuperContributions: dollars(r.contributions),
+        currency: 'AUD', source: `${INDIVIDUAL}income-tests/`,
+      };
+    },
+  });
 }
 
 /** The WebMCP descriptor for the salary packaging calculator.
@@ -645,6 +820,43 @@ function salaryPackagingTool(salaryPackaging, packagingYears) {
         liableToFbt: dollars(r.excess), fbt: dollars(r.fbt), reportableFringeBenefits: dollars(r.reportable),
         owedWithout: dollars(r.owedBefore), owedWith: dollars(r.owedAfter), taxSaved: dollars(r.saved), gainAfterFbt: dollars(r.gain),
         roomUnderCapTypeTwo: dollars(r.roomTypeTwo), currency: 'AUD', source: `${INDIVIDUAL}salary-packaging/`,
+      };
+    },
+  });
+}
+
+/** The WebMCP descriptor for the Division 293 tax calculator.
+ * @param {{division293Tax: typeof import('./division-293.mjs').division293Tax, division293Years: string[]}} engines */
+function division293Tool({ division293Tax, division293Years }) {
+  return tool({
+    name: 'calculate_division_293_tax',
+    title: 'Division 293 tax calculator',
+    description: DIVISION_293_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(division293Years, `Income year, ${division293Years.at(-1)} to ${division293Years[0]}.`),
+      accumulationOnly: { type: 'boolean', description: 'true when every contribution is to an accumulation interest; false refuses.' },
+      taxableIncome: whole(0, 1e9, 'Taxable income in whole AUD, including any excess concessional contributions assessed.'),
+      reportableFringeBenefits: dollarsOnly('Reportable fringe benefits total.'),
+      totalNetInvestmentLoss: dollarsOnly('Total net investment loss, financial and rental.'),
+      familyTrustDistributionIncome: dollarsOnly('Income on which family trust distribution tax was paid.'),
+      assessableFhssReleasedAmount: dollarsOnly('Assessable first home super saver released amount in taxable income.'),
+      zeroRateLumpSum: dollarsOnly('Taxable component of a super lump sum taxed at 0% (s 301-20(3)), received from preservation age to under 60: 2023-24 and earlier only.'),
+      concessionalContributions: text('amount', 'Concessional contributions for the financial year in AUD with at most 2 decimal places.'),
+      unusedCapCarriedForward: text('amount', 'Unapplied unused concessional cap from the previous 5 years in AUD; "0" when omitted.'),
+      totalSuperBalanceUnder500k: { type: 'boolean', description: 'true when the total super balance just before the year was under $500,000; false when omitted.' },
+    }, ['incomeYear', 'accumulationOnly', 'taxableIncome', 'concessionalContributions']),
+    run({ incomeYear, accumulationOnly, taxableIncome, reportableFringeBenefits = 0, totalNetInvestmentLoss = 0,
+      familyTrustDistributionIncome = 0, assessableFhssReleasedAmount = 0, zeroRateLumpSum = 0, concessionalContributions,
+      unusedCapCarriedForward = '0', totalSuperBalanceUnder500k = false }) {
+      const r = division293Tax({ year: incomeYear, interests: accumulationOnly ? 'accumulation' : 'other',
+        taxable: String(taxableIncome), fringe: String(reportableFringeBenefits), losses: String(totalNetInvestmentLoss),
+        trust: String(familyTrustDistributionIncome), fhss: String(assessableFhssReleasedAmount), lumpSum: String(zeroRateLumpSum),
+        concessional: concessionalContributions, unused: unusedCapCarriedForward, balanceUnder: totalSuperBalanceUnder500k });
+      return {
+        division293Income: dollars(r.income), concessionalContributionsCap: dollars(r.cap), unusedCapApplied: dollars(r.carried),
+        excessConcessionalContributions: dollars(r.excess), lowTaxContributions: dollars(r.low), overThreshold: dollars(r.over),
+        taxableContributions: dollars(r.taxable), division293Tax: dollars(r.tax), roomUnderThreshold: dollars(r.room),
+        currency: 'AUD', source: `${INDIVIDUAL}division-293/`,
       };
     },
   });
@@ -693,6 +905,53 @@ function novatedLeaseTool(novatedLease, novatedYears) {
         exemptCase: way(r.exemptCase), employeeContributionMethod: way(r.contribution), currency: 'AUD',
         source: `${INDIVIDUAL}novated-lease/`,
       };
+    },
+  });
+}
+
+/** The WebMCP descriptor for the bonus and back payment withholding calculator.
+ * @param {typeof import('./bonus-withholding.mjs').bonusWithholding} bonusWithholding */
+function bonusWithholdingTool(bonusWithholding) {
+  return tool({
+    name: 'calculate_bonus_withholding',
+    title: 'Bonus withholding calculator',
+    description: BONUS_WITHHOLDING_DESCRIPTION,
+    inputSchema: record({
+      payPeriod: choice(['week', 'fortnight', 'month'], 'How often the payee is paid.'),
+      residency: choice(['resident', 'foreign'], 'resident: an Australian resident claiming the tax-free threshold (scale 2); '
+        + 'foreign: a foreign resident (scale 3).'),
+      studyLoan: { type: 'boolean', description: 'true when the payee has a HELP or other study or training loan; false when omitted.' },
+      method: choice(['A', 'B'], 'Schedule 5 Method A, or Method B with B(i) and B(ii).'),
+      earnings: text('amount', 'Gross earnings this pay without any additional payment, in AUD.'),
+      additionalPayment: text('amount', 'The bonus, commission or other additional payment in AUD; under Method B, the part '
+        + 'worked by B(ii). "0" when omitted.'),
+      spreadOverPays: whole(2, 52, 'Method A: pays to spread the payment over: the pays in a year, or for a commission or bonus '
+        + 'for a defined period under 12 months, the pays it covers; the pays in a year when omitted.'),
+      backPayPays: whole(0, 52, 'Method B(i): earlier pays this year the back payment covers; 0 when omitted.'),
+      backPayEach: text('amount', 'Method B(i): back payment for each of those pays in AUD; "0" when omitted.'),
+      backPayPayEarnings: text('amount', 'Method B(i): earnings each of those pays had before it in AUD; "0" when omitted.'),
+      backPayPayWithheld: text('amount', 'Method B(i): amount withheld from each of those pays in AUD; "0" when omitted.'),
+      earningsToDate: text('amount', 'Method B(ii): normal earnings this year to date, with this pay and B(i) back payments '
+        + 'made in earlier pays (not this pay’s), in AUD; "0" when omitted.'),
+      paysToDate: whole(1, 53, 'Method B(ii): pays this year to date, with this pay; 1 when omitted.'),
+      earlierAdditionalPayments: text('amount', 'Method B(ii): earlier additional payments this year worked by B(ii), in AUD; '
+        + '"0" when omitted.'),
+      earlierAdditionalWithheld: text('amount', 'Method B(ii): amount withheld from those payments, in AUD; "0" when omitted.'),
+    }, ['payPeriod', 'residency', 'method', 'earnings']),
+    run({ payPeriod, residency, studyLoan = false, method, earnings, additionalPayment = '0', spreadOverPays, backPayPays = 0,
+      backPayEach = '0', backPayPayEarnings = '0', backPayPayWithheld = '0', earningsToDate = '0', paysToDate = 1,
+      earlierAdditionalPayments = '0', earlierAdditionalWithheld = '0' }) {
+      const spread = spreadOverPays ?? { week: 52, fortnight: 26, month: 12 }[/** @type {string} */ (payPeriod)];
+      const r = bonusWithholding({ period: payPeriod, residency, studyLoan, method, earnings, additional: additionalPayment,
+        spread: String(spread), backPays: String(backPayPays), backEarnings: backPayPayEarnings, backEach: backPayEach,
+        backWithheld: backPayPayWithheld, yearToDate: earningsToDate, paysToDate: String(paysToDate),
+        earlierAdditional: earlierAdditionalPayments, earlierWithheld: earlierAdditionalWithheld });
+      const parts = r.method === 'A' ? { withheldOnAdditionalPayment: dollars(r.onAdditional), limit: dollars(r.limit),
+        beforeLimit: dollars(r.step7.total), taxAddedToYear: dollars(r.yearTax) }
+        : { methodBi: r.methodBi ? dollars(r.methodBi.onBackPayment) : null,
+          methodBii: r.methodBii ? dollars(r.methodBii.onAdditional) : null };
+      return { method: r.method, withheldOnEarnings: dollars(r.onEarnings), ...parts, totalWithheld: dollars(r.total),
+        currency: 'AUD', source: `${INDIVIDUAL}bonus-withholding/` };
     },
   });
 }

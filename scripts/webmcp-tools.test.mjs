@@ -68,7 +68,7 @@ test('each business calculator tool is keyed by the form that registers it', () 
 test('every calculator tool is read-only, refuses unknown inputs and has its own name', () => {
   const all = [...Object.values(tools), declineInValue, levy];
   assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_schedule',
-    'calculate_hire_purchase_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_decline_in_value',
+    'calculate_hire_purchase_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_decline_in_value',
     'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -328,11 +328,39 @@ test('foreign surcharge tool returns the page worked example and refuses what th
   assert.match(counted.dutyTest, /^Not foreign: /);
 });
 
+// The long service leave page's example (redundancy after 12 years and 6 months in New South Wales) and
+// SafeWork SA's Liam, still employed after 13 years with 10 weeks taken.
+test('long service leave tool returns the page worked example and passes the form’s strings', async () => {
+  const calls = [];
+  const spied = calculatorTools({ ...calculate, longServiceLeave: (input) => (calls.push(input), calculate.longServiceLeave(input)) });
+  const tool = spied['long-service-leave'];
+  const r = await tool.execute({ place: 'AU-NSW', firstDay: '2014-02-01', lastDay: '2026-07-31', employment: 'ends', reason: 'redundancy',
+    weeklyPay: '1500' });
+  assert.deepEqual([r.years, r.months, r.days, r.daysCounted, r.weeks, r.weeksLeft, r.value, r.currency, r.next],
+    [12, 6, 0, 4564, '10.8333', '10.8333', '16250.00', 'AUD', null]);
+  assert.equal(r.rule, 'Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii)');
+  assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/long-service-leave/');
+  const liam = await tool.execute({ place: 'AU-SA', firstDay: '2013-01-01', lastDay: '2025-12-31', employment: 'employed',
+    takenWeeks: '10', excludedDays: 0, weeklyPay: '1000' });
+  assert.deepEqual([liam.weeks, liam.takenWeeks, liam.weeksLeft, liam.value, liam.next], ['16.9000', '10.0000', '6.9000', '6900.00',
+    { years: 14, date: '2026-12-31', weeks: '18.2000' }]);
+  assert.deepEqual(calls[1], { place: 'AU-SA', start: '2013-01-01', end: '2025-12-31', excluded: '0', taken: '10', mode: 'employed',
+    reason: 'redundancy', pay: '1000' });
+  const base = { place: 'AU-NSW', firstDay: '2014-02-01', lastDay: '2026-07-31', employment: 'ends', weeklyPay: '1500' };
+  await assert.rejects(tool.execute(base), /reason is required when employment ends/);
+  await assert.rejects(tool.execute({ ...base, reason: 'sacked' }), /reason does not match its description/);
+  await assert.rejects(tool.execute({ ...base, reason: 'resign', weeklyPay: 1500 }), /weeklyPay does not match its description/);
+  await assert.rejects(tool.execute({ ...base, place: 'AU-NT', firstDay: '2017-01-01', lastDay: '2025-12-31', reason: 'death' }),
+    /subsection 10[(]3[)]/);
+});
+
 const individual = individualTaxTools(individualEngines);
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
-  assert.deepEqual(Object.values(individual).map(t => t.name), ['estimate_income_tax', 'calculate_take_home_pay',
-    'calculate_salary_packaging', 'calculate_novated_lease']);
+  assert.deepEqual(Object.values(individual).map(t => t.name), ['calculate_income_tests', 'estimate_income_tax',
+    'calculate_take_home_pay', 'calculate_sole_trader_set_aside', 'calculate_division_293_tax',
+    'calculate_bonus_withholding', 'calculate_salary_packaging',
+    'calculate_novated_lease']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -356,11 +384,15 @@ test('income tax tool returns the page worked example: the ATO’s Tom with $21,
   assert.equal(family.medicareLevySurcharge, '1130.01');
 });
 
-test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a year', async () => {
+test('take-home pay tool gives PAYG withholding for a pay in any year and none for a year', async () => {
   const r = await individual['take-home-pay'].execute({ incomeYear: '2026-27', residency: 'resident', salary: '3000',
     payPeriod: 'fortnight', salarySacrifice: '200', studyLoan: true });
-  assert.deepEqual(r.paygWithholding, { eachPay: '554.00', studyLoanComponent: '20.00', year: '14404.00', refund: '0.00',
-    amountOwing: '212.80' });
+  assert.deepEqual(r.paygWithholding, { eachPay: '554.00', studyLoanComponent: '20.00',
+    studyLoanComponentBefore24September2025: null, year: '14404.00', refund: '0.00', amountOwing: '212.80' });
+  const late = await individual['take-home-pay'].execute({ incomeYear: '2025-26', residency: 'resident', salary: '3000',
+    payPeriod: 'fortnight', studyLoan: true });
+  assert.deepEqual(late.paygWithholding, { eachPay: '672.00', studyLoanComponent: '64.00',
+    studyLoanComponentBefore24September2025: '106.00', year: '17472.00', refund: '74.00', amountOwing: '0.00' });
   assert.equal(r.takeHomeYear, '58183.20');
   const year = await individual['take-home-pay'].execute({ incomeYear: '2025-26', residency: 'resident', salary: '75000' });
   assert.deepEqual([year.takeHomeYear, year.medicareLevy, year.paygWithholding], ['60212.00', '1500.00', null]);
@@ -368,6 +400,8 @@ test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a
     salary: '3000', payPeriod: 'fortnight' });
   assert.equal(holiday.paygWithholding, null);
   assert.match(individual['take-home-pay'].description, /for a working holiday maker it gives none/);
+  assert.match(individual['take-home-pay'].description,
+    /For 2025-26 every pay takes the study loan component from 24 September 2025, and so do the year's withholding/);
   for (const limit of [/first home super saver/, /family trust distribution tax/, /super lump sum/, /debt still owed/,
     /Medicare levy exemption/, /working holiday maker who is an Australian resident or has other income/]) {
     assert.match(individual['income-tax'].description, limit);
@@ -376,6 +410,26 @@ test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a
     /52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not computed/]) {
     assert.match(individual['take-home-pay'].description, limit);
   }
+});
+
+// ATO, 'When you must repay your loan' (last updated 13 October 2026, read 19 November 2026): Christina's $73,810.
+test('income tests tool returns the page worked example and refuses what the page refuses', async () => {
+  const tool = individual['income-tests'];
+  const r = await tool.execute({ taxableIncome: 50420, netFinancialInvestmentLoss: 1250, reportableFringeBenefitsOther: 4560,
+    exemptForeignEmploymentIncome: 2580, targetForeignIncome: 2580, reportableEmployerSuperContributions: 15000,
+    assessableIncome: 50420 });
+  assert.deepEqual([r.repaymentIncome, r.incomeForSurchargePurposes, r.division293Income, r.rebateIncome,
+    r.adjustedTaxableIncome, r.coContributionTotalIncome, r.source],
+  ['73810.00', '71230.00', '56230.00', '71230.00', '73810.00', '69980.00',
+    'https://duguid.com.au/tools/individual-tax/income-tests/']);
+  const exempt = await tool.execute({ taxableIncome: 40000, assessableIncome: 40000, reportableFringeBenefitsSection57a: 4567 });
+  assert.deepEqual([exempt.adjustedFringeBenefitsTotal, exempt.rebateIncome], ['2420.00', '42420.00']);
+  assert.equal((await tool.execute({ taxableIncome: 0, childSupportPaid: 1000 })).adjustedTaxableIncome, '-1000.00');
+  await assert.rejects(tool.execute({ taxableIncome: 2, assessableIncome: 1 }), /cannot exceed assessable income/);
+  await assert.rejects(tool.execute({ taxableIncome: 1.5 }), /taxableIncome must be a whole number/);
+  await assert.rejects(tool.execute({ taxableIncome: 1, residency: 'foreign' }), /residency is not an input of this tool/);
+  await assert.rejects(tool.execute({}), /taxableIncome is required/);
+  assert.match(tool.description, /resident in Australia all year/);
 });
 
 test('individual tax tools refuse a year they do not offer, cents of taxable income and an unknown input', async () => {
@@ -427,6 +481,74 @@ test('novated lease tool tests the electric car exemption and refuses what the p
   await assert.rejects(tool.execute({ ...car, car: 'diesel' }), /car does not match/);
   await assert.rejects(tool.execute({ ...car, costPrice: undefined }), /costPrice/);
   assert.match(tool.description, /employee contribution method/);
+});
+
+test('bonus withholding tool gives the ATO’s Schedule 5 examples and refuses what the page refuses', async () => {
+  const tool = individual['bonus-withholding'];
+  const jarrod = await tool.execute({ payPeriod: 'week', residency: 'resident', studyLoan: true, method: 'A', earnings: '1400',
+    additionalPayment: '900' });
+  assert.deepEqual([jarrod.withheldOnEarnings, jarrod.beforeLimit, jarrod.limit, jarrod.withheldOnAdditionalPayment,
+    jarrod.totalWithheld], ['277.00', '364.00', '423.00', '364.00', '641.00']);
+  const bradley = await tool.execute({ payPeriod: 'month', residency: 'resident', studyLoan: true, method: 'B', earnings: '7000',
+    backPayPays: 2, backPayEach: '800', backPayPayEarnings: '6200', backPayPayWithheld: '1257', additionalPayment: '8800',
+    earningsToDate: '19400', paysToDate: 3 });
+  assert.deepEqual([bradley.methodBi, bradley.methodBii, bradley.totalWithheld], ['754.00', '4104.00', '6492.00']);
+  await assert.rejects(tool.execute({ payPeriod: 'year', residency: 'resident', method: 'A', earnings: '1' }), /payPeriod does not match/);
+  await assert.rejects(tool.execute({ payPeriod: 'week', residency: 'working-holiday', method: 'A', earnings: '1' }),
+    /residency does not match/);
+  await assert.rejects(tool.execute({ payPeriod: 'month', residency: 'resident', method: 'A', earnings: '1', additionalPayment: '1',
+    spreadOverPays: 13 }), /between 2 and 12/);
+  assert.match(tool.description, /does not compute scales 1, 5 or 6, a payee without a tax file number, a working holiday maker/);
+});
+
+test('Division 293 tool gives the ATO’s example and refuses what the page refuses', async () => {
+  const tool = individual['division-293'];
+  const jan = await tool.execute({ incomeYear: '2026-27', accumulationOnly: true, taxableIncome: 240000,
+    concessionalContributions: '15000' });
+  assert.deepEqual([jan.division293Income, jan.taxableContributions, jan.division293Tax, jan.source],
+    ['240000.00', '5000.00', '750.00', 'https://duguid.com.au/tools/individual-tax/division-293/']);
+  const carried = await tool.execute({ incomeYear: '2026-27', accumulationOnly: true, taxableIncome: 210000,
+    reportableFringeBenefits: 33000, concessionalContributions: '45000', unusedCapCarriedForward: '20000',
+    totalSuperBalanceUnder500k: true });
+  assert.deepEqual([carried.unusedCapApplied, carried.excessConcessionalContributions, carried.division293Tax],
+    ['12500.00', '0.00', '5700.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', accumulationOnly: false, taxableIncome: 1, concessionalContributions: '1' }),
+    /Subdivisions 293-D to 293-F/);
+  await assert.rejects(tool.execute({ incomeYear: '2027-28', accumulationOnly: true, taxableIncome: 1, concessionalContributions: '1' }),
+    /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', accumulationOnly: true, taxableIncome: 1 }), /concessionalContributions/);
+  assert.match(tool.description, /defined benefit interests/);
+});
+
+test('sole trader tool returns the page worked example and the GST share of each invoice', async () => {
+  const tool = individual['sole-trader'];
+  const r = await tool.execute({ incomeYear: '2026-27', businessIncome: '22000', businessExpenses: '2000', wages: '60000',
+    invoice: '1000' });
+  assert.deepEqual([r.taxableIncome, r.smallBusinessIncomeTaxOffset, r.businessTax, r.setAsideQuarter, r.invoiceSharePercent,
+    r.setAsideFromInvoice], ['79000.00', '576.00', '5939.00', '1484.75', '27.00', '269.95']);
+  const gst = await tool.execute({ incomeYear: '2026-27', businessIncome: '90000', businessExpenses: '15000',
+    registeredForGst: true, gstCredits: '1200', invoice: '1100' });
+  assert.deepEqual([gst.gst, gst.setAsideYear, gst.invoiceSharePercent, gst.setAsideFromInvoice],
+    ['7800.00', '21320.00', '21.54', '236.89']);
+  const none = await tool.execute({ incomeYear: '2026-27', businessIncome: '22000', smallBusinessOffset: false });
+  assert.equal(none.smallBusinessIncomeTaxOffset, '0.00');
+  // The unit test's 2025-26 case: $10,000 of contributions joins repayment and surcharge income.
+  const contributions = await tool.execute({ incomeYear: '2025-26', businessIncome: '110000',
+    personalSuperContributions: '10000', studyLoan: true, privateHospitalCover: false });
+  assert.deepEqual([contributions.taxableIncome, contributions.businessTax], ['100000.00', '29238.00']);
+  for (const limit of [/refuses a business loss/, /all sales are taxable supplies/, /at most \$1,000/]) {
+    assert.match(tool.description, limit);
+  }
+});
+
+test('sole trader tool refuses a year it does not offer, a loss, a number for an amount and an unknown input', async () => {
+  const tool = individual['sole-trader'];
+  await assert.rejects(tool.execute({ incomeYear: '2020-21', businessIncome: '1' }), /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', businessIncome: '1', businessExpenses: '2' }), /a loss is not worked here/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', businessIncome: 1 }), /businessIncome does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', businessIncome: '1', residency: 'resident' }),
+    /residency is not an input of this tool/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', businessIncome: '1', gstCredits: '1' }), /not registered for GST/);
 });
 
 test('llms.txt and the agent tooling notes name every calculator tool', () => {

@@ -9,7 +9,8 @@ import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSchedule, interestByIncomeYear,
   staffCost, cashForecast, div7aMinimumRepayment, transferDuty, firstHomeDuty } from '../assets/business-calculators.mjs';
-import { fbtBenefitResult } from '../assets/fbt-benefit-forms.mjs';
+import { EV_EXEMPT_NOTE, fbtBenefitResult, fbtEvResult } from '../assets/fbt-benefit-forms.mjs';
+import { FUEL_EFFICIENT_THRESHOLDS } from '../assets/fbt-ev-exemption.mjs';
 import { COMPANY_TAX_LAW } from '../assets/company-tax.mjs';
 import { FOREIGN_SURCHARGES } from '../assets/foreign-surcharge.mjs';
 import { BUSINESS_DAY_PLACES, BUSINESS_DAYS_COVERAGE, STATE_ONLY_HOLIDAYS } from '../assets/business-days.mjs';
@@ -711,6 +712,16 @@ Object.assign(ENGINE_LABELS, {
     contributionApplied: 'contributions applied', excess: 'excess contributions', average: 'average cost',
     annual: 'annual value', statutoryBenefit: 'total statutory benefit' },
 });
+// The electric cars exemption cases: the car's facts and the verdict with the threshold it applied.
+Object.assign(INPUTS, {
+  fbtEvExemption: (e, y) => `${{ battery: 'Battery electric', 'fuel-cell': 'Hydrogen fuel cell electric', 'plug-in-hybrid': 'Plug-in hybrid' }[e.vehicle]}, `
+    + `${e.currentEmployee ? 'current' : 'former or future'} employee, first held and used ${e.firstUsed}, first retail sale ${e.firstSale} `
+    + `at ${dollars(e.lctValue)}${e.otherSupply ? ', LCT on another supply' : ''}`
+    + `${e.hybrid ? `, ${e.hybrid.committed ? 'committed' : 'not committed'} before 1 April 2025, ${e.hybrid.newCommitment ? 'a' : 'no'} new commitment, `
+      + `${e.hybrid.exemptBefore ? 'an' : 'no'} exempt benefit before 1 April 2025` : ''}; FBT year ending 31 March ${y.ended}`,
+});
+ENGINE_LABELS.fbtEvExemption = { exempt: (v) => (v ? 'exempt' : 'not exempt'), saleYear: (v) => `sale in ${v}`,
+  threshold: (v) => (v === null ? 'after the FBT year' : `threshold ${dollars(v)}`) };
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -934,6 +945,127 @@ test('FBT car page says the FBT return takes whole dollars', () => {
 test('FBT car page dates the review of the ATO guide chapter it applies', () => {
   const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
   assert.match(html, /On 15 November 2026 chapter 7 of the ATO’s guide said it was being reviewed after the Full Federal Court’s decision of 27 March 2026 in SEPL Pty Ltd as trustee of the SFT Trust v Commissioner of Taxation \[2026\] FCAFC 36/);
+});
+
+// The electric cars exemption: Fringe Benefits Tax Assessment Act 1986 s 8A (Compilation No. 97, 1 July 2026)
+// and the Treasury Laws Amendment (Electric Car Discount) Act 2022 as made, Schedule 1 item 7(2) and Schedule 2
+// item 5, read 19 November 2026 at https://www.legislation.gov.au/C2004A03280/latest/text and
+// https://www.legislation.gov.au/C2022A00086/asmade/text. The ATO's 'Electric cars exemption' (last updated
+// 1 April 2026) and 'FBT on plug-in hybrid electric vehicles' (last updated 14 March 2025), read the same day,
+// give the worked examples: Shelly's car first used on 1 April 2022 is not exempt; John's, held from 15 June 2022
+// and first used on 5 July 2022, is; GHI Co's $85,000 car was above 2022-23's threshold; Simon's plug-in hybrid
+// lease from 1 April 2024 to 31 March 2027 stays exempt; Tony's break in the novation is a new commitment.
+// The boundary cases' Cleancut example is a published FBT worked example (¶3-045, reviewed 30 June 2026): a $72,000
+// car before GST, $79,200 with it, first held and used on 1 July 2025, under 2025-26's $91,387 threshold, is exempt.
+const evFacts = (fields) => ({ vehicle: 'battery', currentEmployee: true, firstUsed: '2026-04-01', firstSale: '2026-04-01',
+  lctValue: '60000', otherSupply: false, ...fields });
+const evYear = { ended: '2027' };
+const unmet = (r) => r.conditions.filter((c) => !c.met).map((c) => c.condition);
+test('the electric cars exemption names each condition and fails on any one of them', () => {
+  const cleancut = calculations.fbtEvExemption(evFacts({}), evYear);
+  assert.deepEqual(cleancut.conditions.map((c) => c.condition),
+    ['current-employee', 'zero-or-low-emissions', 'first-held-and-used', 'first-sale', 'other-supply']);
+  assert.equal(cleancut.exempt, true);
+  assert.equal(calculations.fbtEvExemption(evFacts({ vehicle: 'fuel-cell' }), evYear).exempt, true);
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ currentEmployee: false }), evYear)), ['current-employee']);
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ otherSupply: true }), evYear)), ['other-supply']);
+  // Schedule 1 item 7(2): the earliest time a person both held and used the car is at or after the start of 1 July 2022.
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ firstUsed: '2022-06-30', firstSale: '2022-06-30' }), evYear)),
+    ['first-held-and-used']);
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2022-07-01', firstSale: '2022-06-30' }), evYear).exempt, true);
+  const all = calculations.fbtEvExemption(evFacts({ currentEmployee: false, firstUsed: '2022-01-01', firstSale: '2022-01-01',
+    lctValue: '90000', otherSupply: true }), evYear);
+  assert.deepEqual(unmet(all), ['current-employee', 'first-held-and-used', 'first-sale', 'other-supply']);
+});
+
+test('the electric cars exemption takes a plug-in hybrid only under Schedule 2 item 5(2)', () => {
+  const hybrid = (committed, newCommitment, exemptBefore) => calculations.fbtEvExemption(evFacts({ vehicle: 'plug-in-hybrid',
+    firstUsed: '2024-06-01', firstSale: '2024-06-01', hybrid: { committed, newCommitment, exemptBefore } }), evYear);
+  assert.deepEqual(hybrid(true, false, true).conditions.map((c) => c.condition), ['current-employee', 'hybrid-committed',
+    'hybrid-no-new-commitment', 'hybrid-exempt-before', 'first-held-and-used', 'first-sale', 'other-supply']);
+  assert.equal(hybrid(true, false, true).exempt, true);
+  assert.deepEqual(unmet(hybrid(false, false, true)), ['hybrid-committed']);
+  assert.deepEqual(unmet(hybrid(true, true, true)), ['hybrid-no-new-commitment']);
+  assert.deepEqual(unmet(hybrid(true, false, false)), ['hybrid-exempt-before']);
+});
+
+// The ATO's 'Luxury car tax rate and thresholds' (last updated 1 June 2026), read 19 November 2026:
+// https://www.ato.gov.au/tax-rates-and-codes/luxury-car-tax-rate-and-thresholds, fuel-efficient vehicles.
+test('the fuel-efficient threshold is the ATO table’s for the financial year of the first retail sale', () => {
+  assert.deepEqual(Object.entries(FUEL_EFFICIENT_THRESHOLDS), [['2012-13', 75375], ['2013-14', 75375], ['2014-15', 75375],
+    ['2015-16', 75375], ['2016-17', 75526], ['2017-18', 75526], ['2018-19', 75526], ['2019-20', 75526], ['2020-21', 77565],
+    ['2021-22', 79659], ['2022-23', 84916], ['2023-24', 89332], ['2024-25', 91387], ['2025-26', 91387], ['2026-27', 91661]]);
+  // A sale on 30 June falls in the year ending then; one on 1 July, in the next.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2025-06-30', firstSale: '2025-06-30' }), evYear).saleYear, '2024-25');
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstSale: '2026-07-01' }), evYear).threshold, 91661);
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstSale: '2012-07-01', firstUsed: '2022-07-01' }), evYear).threshold, 75375);
+  // LCT Act s 25-1(1): luxury car tax falls on a value above the threshold, so the threshold itself pays none.
+  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '91387.00', firstSale: '2025-07-01' }), evYear).exempt, true);
+  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '91387.01', firstSale: '2025-07-01' }), evYear).exempt, false);
+  // s 8A(1)(c) counts luxury car tax payable before the benefit: a first retail sale after the FBT year,
+  // in 2026-27 or a later year the table does not hold, comes after every benefit in it.
+  // These facts settle the year, so a refusal here is a wrong result.
+  const settled = (fields) => {
+    let result;
+    assert.doesNotThrow(() => { result = calculations.fbtEvExemption(evFacts(fields), evYear); }, JSON.stringify(fields));
+    return result;
+  };
+  for (const firstSale of ['2027-04-01', '2027-07-01']) {
+    const later = settled({ lctValue: '200000', firstSale });
+    assert.equal(later.exempt, true, firstSale);
+    assert.equal(later.threshold, null, firstSale);
+  }
+  assert.equal(settled({ lctValue: '200000', firstUsed: '2027-03-31', firstSale: '2027-03-31' }).exempt, false);
+  // An after-year sale settles only that sale: luxury car tax on an earlier supply or import still fails s 8A(1)(c).
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ firstSale: '2027-04-01', otherSupply: true }), evYear)), ['other-supply']);
+  // No benefit comes before the car is first held and used, so a sale before the year, or on or before that day, precedes them all.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2025-01-01', firstSale: '2026-03-31', lctValue: '200000' }), evYear).exempt, false);
+  assert.equal(settled({ firstUsed: '2026-07-01', firstSale: '2026-07-01', lctValue: '200000' }).exempt, false);
+  // A sale within the year after that day may fall between benefits; under the threshold it fails nothing.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2026-04-01', firstSale: '2026-07-01', lctValue: '91661' }), evYear).exempt, true);
+});
+
+test('the electric cars exemption refuses facts it cannot decide or that contradict the year', () => {
+  const refuses = (fields, message) => assert.throws(() => calculations.fbtEvExemption(evFacts(fields), evYear), { message });
+  refuses({ vehicle: 'diesel' }, 'Choose a battery electric, hydrogen fuel cell electric or plug-in hybrid car.');
+  refuses({ hybrid: { committed: true, newCommitment: false, exemptBefore: true } }, 'Answer the plug-in hybrid questions for a plug-in hybrid only.');
+  refuses({ vehicle: 'plug-in-hybrid' }, 'Answer the plug-in hybrid questions for a plug-in hybrid only.');
+  refuses({ vehicle: 'plug-in-hybrid', hybrid: { committed: 'yes', newCommitment: false, exemptBefore: true } }, 'Answer each yes or no question.');
+  refuses({ otherSupply: 'no' }, 'Answer each yes or no question.');
+  refuses({ firstUsed: '2026-02-30' }, 'Enter the date the car was first held and used as a calendar date.');
+  refuses({ firstSale: '1 July 2026' }, 'Enter the date of the car’s first retail sale as a calendar date.');
+  refuses({ firstUsed: '2027-04-01' }, 'The car was first held and used after 31 March 2027, so it gave no car benefit in the FBT year.');
+  refuses({ firstUsed: '2026-04-01', firstSale: '2026-04-02', lctValue: '91661.01' }, 'Luxury car tax on a first retail sale within the FBT year, '
+    + 'after the car was first held and used, does not affect a benefit provided before the sale (section 8A(1)(c)), so this calculator '
+    + 'cannot give one result for the year.');
+  refuses({ firstUsed: '2025-01-01', firstSale: '2026-04-01', lctValue: '200000' }, /^Luxury car tax on a first retail sale within the FBT year/);
+  refuses({ firstSale: '2012-06-30' }, 'This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
+  refuses({ vehicle: 'plug-in-hybrid', firstUsed: '2025-04-01', hybrid: { committed: true, newCommitment: false, exemptBefore: true } },
+    'A car first held and used from 1 April 2025 cannot have given an exempt car benefit before that day.');
+  assert.throws(() => calculations.fbtEvExemption(evFacts({}), { ended: '2025' }), { message: 'Enter a whole number between 2026 and 2100.' });
+});
+
+// The form reads the exemption's facts by name and, for an exempt car, the FBT car result sets the taxable
+// value, the gross-up and FBT to nil and shows the value before the exemption as reportable (s 135P(3)).
+test('the FBT car form passes the electric car facts and says what an exempt car still reports', () => {
+  const fields = { kind: 'battery', 'current-employee': 'yes', 'first-used': '2026-07-01', 'first-sale': '2026-07-01',
+    'lct-value': '60000', 'other-supply': 'no', 'hybrid-committed': 'no', 'hybrid-new': 'no', 'hybrid-exempt-before': 'no' };
+  const value = (name) => fields[name];
+  const form = { dataset: { yearEnded: '2027' } };
+  const result = () => fbtEvResult(form, calculations, { aud: String, value, money: value });
+  assert.equal(result().exempt, true);
+  assert.equal(result().rows.at(-1).join(': '), 'Electric cars exemption, section 8A: applies');
+  assert.match(result().inputs, /^battery electric car for a current employee, first held and used 1 July 2026, first sold at retail 1 July 2026 /);
+  fields.kind = 'plug-in-hybrid';
+  assert.deepEqual(result().rows.filter(([, met]) => met === 'not met').map(([label]) => label),
+    ['Committed before 1 April 2025 for a period that began before then and includes the benefit, Schedule 2 item 5(2)(b)',
+      'An exempt car benefit with the car before 1 April 2025, Schedule 2 item 5(2)(d) and (e)']);
+  fields.kind = 'other';
+  assert.equal(result(), null);
+  assert.match(EV_EXEMPT_NOTE, /subsection 135P\(3\)\), reported when the employee’s total for the year is more than \$2,000, unless the car is a pooled or shared car/);
+  const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
+  assert.ok(html.includes('data-year-ended="2027"'));
+  for (const name of Object.keys(fields)) assert.match(html, new RegExp(`name="${name}"`), name);
 });
 
 // The values each form opens with, read from its include: an input's value or
@@ -3184,4 +3316,445 @@ test('the SGC page opens on the result its calculation gives for the form’s in
   // The quarterly form opens on one of the Imogen example's 30 employees.
   const quarter = calculations.sgcPaydayResult((name) => ({ ...fields, regime: 'quarter' })[name], aud);
   assert.equal(quarter.rows.at(-1).join('|'), 'SG charge for the quarter|$1,519.18');
+});
+
+// The unused leave page: how each call and result reads. Its figures come from Schedule 7 for payments
+// from 1 July 2026 and the ATO's examples, read 19 November 2026.
+const leaveHtml = readFileSync(new URL('../_includes/calculators/unused-leave.html', import.meta.url), 'utf8');
+const LEAVE_REASONS = { normal: 'normal termination', 'genuine-redundancy': 'genuine redundancy',
+  'early-retirement': 'early retirement scheme', invalidity: 'invalidity' };
+const LEAVE_PAYEES = { tfn: 'TFN, scale 2', 'tfn-foreign': 'foreign resident with a TFN, scale 3', 'no-tfn': 'no TFN',
+  'no-tfn-foreign': 'foreign resident with no TFN' };
+const LEAVE_PERIODS = { week: 'a week', fortnight: 'a fortnight', month: 'a month' };
+const leavePart = (text, words) => (text === '' ? '' : ` (${dollars(Number(text))} ${words})`);
+Object.assign(INPUTS, {
+  unusedLeave: (x) => [`Annual leave ${dollars(Number(x.annual))}${leavePart(x.annualBefore1993, 'before 18 August 1993')}`,
+    `loading ${dollars(Number(x.loading))}${leavePart(x.loadingBefore1993, 'before 18 August 1993')}`,
+    `long service leave ${dollars(Number(x.longService))}${leavePart(x.lslBefore1978, 'before 16 August 1978')}`
+      + `${leavePart(x.lsl1978To1993, '16 August 1978 to 17 August 1993')}`,
+    `accrued from ${plainDate(x.accrualStart)}`, LEAVE_REASONS[x.reason], LEAVE_PAYEES[x.payee],
+    ...(x.payee.startsWith('tfn') ? [`${dollars(Number(x.earnings))} ${LEAVE_PERIODS[x.period]}`] : [])].join(', '),
+});
+Object.assign(FORM_CALLS, { unusedLeave: (f) => [{ annual: f.annual, loading: f.loading, longService: f['long-service'],
+  accrualStart: f['accrual-start'], reason: f.reason, annualBefore1993: f['annual-1993'], loadingBefore1993: f['loading-1993'],
+  lslBefore1978: f['lsl-1978'], lsl1978To1993: f['lsl-1993'], payee: f.payee, earnings: f.earnings, period: f.period }] });
+Object.assign(ENGINE_LABELS, {
+  unusedLeave: { capped: (v) => `lump sum A ${dollars(v)}`, lumpSumAType: (v) => `type ${v}`, lumpSumB: (v) => `lump sum B ${dollars(v)}`,
+    unusedLeave: (v) => `paid leave type U ${dollars(v)}`, assessable: (v) => `assessable ${dollars(v)}`,
+    flat: (v) => `32% part ${dollars(v)}`, marginalWithheld: (v) => `marginal rate part ${dollars(v)}`,
+    withholding: (v) => `withhold ${dollars(v)}` },
+});
+const leave = { annual: '0', loading: '0', longService: '0', accrualStart: '2000-01-01', reason: 'normal', annualBefore1993: '',
+  loadingBefore1993: '', lslBefore1978: '', lsl1978To1993: '', payee: 'tfn', earnings: '1155', period: 'week' };
+const norman = { ...leave, longService: '22020', lslBefore1978: '780', lsl1978To1993: '6420', accrualStart: '1977-01-01' };
+
+test('unused leave reproduces Schedule 7’s example for Norman step by step', () => {
+  const r = calculations.unusedLeave(norman);
+  // 5% of $780 is $39; $6,420 × 32% is $2,054.40; ($39 + $14,820) ÷ 52 is $285.75, so $285; $1,155 withholds
+  // $188 and $1,440 $279, so ($279 − $188) × 52 is $4,732; $2,054 + $4,732 is $6,786.
+  assert.deepEqual([r.lslPre1978Assessable, r.flat, r.marginalAmount, r.marginal?.onEarnings, r.marginal?.share,
+    r.marginal?.withShare, r.marginalWithheld, r.withholding], [39, 2054, 14859, 188, 285, 279, 4732, 6786]);
+  assert.deepEqual([r.lslPre1978NotAssessable, r.assessable, r.capped, r.lumpSumA, r.lumpSumB, r.unusedLeave, r.lumpSumAType],
+    [741, 21279, 6420, 6420, 780, 14820, 'T']);
+});
+
+test('unused leave keeps the parts of the ATO’s examples that do not depend on their 2014-15 tax tables', () => {
+  // Matt (example 8): $80,000 with $3,852 before 16 August 1978, $31,407 to 17 August 1993 and $44,741 after.
+  const matt = calculations.unusedLeave({ ...leave, longService: '80000', lslBefore1978: '3852', lsl1978To1993: '31407',
+    accrualStart: '1977-01-01', earnings: '1200' });
+  assert.deepEqual([matt.lslPre1978Assessable, matt.flat, matt.marginalAmount, matt.marginal?.share], [192.6, 10050, 44933.6, 864]);
+  // Mark (example 4): $4,000 after 17 August 1993 over 52 weeks is $76.
+  assert.equal(calculations.unusedLeave({ ...leave, annual: '4000', earnings: '1000' }).marginal?.share, 76);
+  // Sali (example 9): all $16,000 before 16 August 1978; 5% is $800, $15 a week.
+  const sali = calculations.unusedLeave({ ...leave, longService: '16000', lslBefore1978: '16000', lsl1978To1993: '0',
+    accrualStart: '1972-01-01', earnings: '2400' });
+  assert.deepEqual([sali.lslPre1978Assessable, sali.marginal?.share, sali.capped], [800, 15, 0]);
+});
+
+test('unused leave withholds 32% to the nearest dollar, 50 cents up, and limits a small normal payment to 32%', () => {
+  const capped = (amount) => calculations.unusedLeave({ ...leave, annual: amount, reason: 'invalidity' }).withholding;
+  // $1.57 × 32% is $0.5024, so $1; $1.56 is $0.4992, so nil.
+  assert.deepEqual([capped('1.57'), capped('1.56')], [1, 0]);
+  // On $3,000 a week, $299.99 is $5 a week; under $300 the lesser of the marginal amount and 32% ($96) is withheld.
+  const under = calculations.unusedLeave({ ...leave, annual: '299.99', earnings: '3000' });
+  assert.deepEqual([under.marginal?.beforeLimit, under.marginal?.limited, under.marginalWithheld], [104, true, 96]);
+  const at = calculations.unusedLeave({ ...leave, annual: '300', earnings: '3000' });
+  assert.deepEqual([at.marginal?.limited, at.marginalWithheld], [false, at.marginal?.beforeLimit]);
+  // A capped payment on a genuine redundancy is not limited, however small.
+  assert.equal(calculations.unusedLeave({ ...leave, annual: '100', reason: 'genuine-redundancy' }).marginal?.limited, false);
+});
+
+test('without a TFN unused leave withholds 47%, or 45% for a foreign resident, from the whole payment, cents ignored', () => {
+  const noTfn = (fields) => calculations.unusedLeave({ ...leave, payee: 'no-tfn', earnings: '', period: '', ...fields });
+  // $1,002 × 47% is $470.94, so $470; $1,002.99 is $471.4053, so $471.
+  assert.deepEqual([noTfn({ annual: '1002' }).withholding, noTfn({ annual: '1002.99' }).withholding], [470, 471]);
+  // Norman's $22,020, the 95% of his pre-16 August 1978 leave included: 45% is $9,909.
+  const foreign = calculations.unusedLeave({ ...norman, payee: 'no-tfn-foreign' });
+  assert.deepEqual([foreign.withholding, foreign.noTfnRate, foreign.flat, foreign.lumpSumB], [9909, 45, null, 780]);
+  // No $300 limit applies, and pre-16 August 1978 leave may join a small payment.
+  assert.equal(noTfn({ annual: '100', longService: '1000', lslBefore1978: '1000', lsl1978To1993: '0', annualBefore1993: '0',
+    loadingBefore1993: '0', accrualStart: '1970-01-01' }).withholding, 517);
+});
+
+test('unused leave needs each part from the day before its date and not after it', () => {
+  const run = (accrualStart, fields = {}) => calculations.unusedLeave({ ...leave, annual: '6000', longService: '9000', accrualStart, ...fields });
+  assert.throws(() => run('1993-08-17'), { message: /^Enter the annual leave for employment before 18 August 1993: / });
+  assert.doesNotThrow(() => run('1993-08-18'));
+  assert.throws(() => run('1993-08-18', { annualBefore1993: '1' }), { message: /^The leave accrued from 18 August 1993, so none of it is annual leave/ });
+  assert.equal(run('1993-08-18', { annualBefore1993: '0' }).capped, 0);
+  const from1978 = { annualBefore1993: '0', loadingBefore1993: '0', lsl1978To1993: '0' };
+  assert.throws(() => run('1978-08-15', from1978), { message: /^Enter the long service leave for the period before 16 August 1978: / });
+  assert.doesNotThrow(() => run('1978-08-16', from1978));
+  assert.throws(() => run('1978-08-16', { ...from1978, lslBefore1978: '1' }), { message: /so none of it is long service leave for the period before 16 August 1978/ });
+  // A genuine redundancy caps every part from 16 August 1978, so only the 1978 part is needed.
+  const redundancy = run('1970-01-01', { reason: 'genuine-redundancy', lslBefore1978: '1000' });
+  assert.deepEqual([redundancy.capped, redundancy.lumpSumAType, redundancy.unusedLeave], [14000, 'R', 0]);
+});
+
+test('unused leave refuses what it cannot work out', () => {
+  const refuses = (fields, message) => assert.throws(() => calculations.unusedLeave({ ...leave, ...fields }), { message }, JSON.stringify(fields));
+  refuses({ payee: 'whm' }, 'Choose whether the employee gave a TFN and is a foreign resident.');
+  refuses({ period: 'quarter' }, 'Choose weekly, fortnightly or monthly pay.');
+  refuses({ earnings: '' }, 'Normal gross earnings: enter a number using digits only.');
+  refuses({ reason: 'death' }, 'Choose the reason the employment ended.');
+  for (const accrualStart of ['', '2026-02-30', '1899-12-31', '2027-07-01', '1 July 2000']) {
+    refuses({ accrualStart }, 'Enter the day the leave began to accrue, from 1 January 1900 to 30 June 2027.');
+  }
+  for (const [field, label] of [['annual', 'Annual leave'], ['loading', 'Leave loading'], ['longService', 'Long service leave']]) {
+    for (const value of ['', '-1', '1.001', 'abc']) assert.throws(() => calculations.unusedLeave({ ...leave, [field]: value }), { message: new RegExp(`^${label}: `) });
+  }
+  refuses({ longService: '5000', lslBefore1978: '3000', lsl1978To1993: '2500', accrualStart: '1970-01-01', annualBefore1993: '0',
+    loadingBefore1993: '0' }, 'The long service leave before 16 August 1978 and from then to 17 August 1993 together are more than the long service leave.');
+  refuses({ annual: '100', longService: '1000', lslBefore1978: '1000', lsl1978To1993: '0', annualBefore1993: '0', loadingBefore1993: '0',
+    accrualStart: '1970-01-01' }, /^A post-17 August 1993 payment under \$300 has at most 32% of it withheld/);
+});
+
+test('unused leave agrees with australian-tax-calculators 1.0.0 on every recorded case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./unused-leave-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /^australian-tax-calculators 1\.0\.0 .*commit 6ac566682829731d52a1b4456708a0b9d29b5695/);
+  assert.ok(cases.length >= 250);
+  const toCents = (text) => {
+    const [whole, fraction = ''] = text.split('.');
+    const digits = `${fraction}000`;
+    return (Number(whole) * 100 + Number(digits.slice(0, 2)) + (Number(digits[2]) >= 5 ? 1 : 0)) / 100;
+  };
+  for (const { source, call, amounts, lump_sum_a_type: type, refused } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.unusedLeave(call), Error, source);
+      continue;
+    }
+    const r = calculations.unusedLeave(call);
+    const mine = { annual_leave_capped: r.annualCapped, annual_leave_marginal: r.annualMarginal, long_service_leave_pre_1978: r.lslPre1978,
+      long_service_leave_pre_1978_assessable: r.lslPre1978Assessable, long_service_leave_pre_1978_not_assessable: r.lslPre1978NotAssessable,
+      long_service_leave_capped: r.lslCapped, long_service_leave_marginal: r.lslMarginal, assessable_income: r.assessable,
+      offset_capped_income: r.capped, withholding: r.withholding, lump_sum_a: r.lumpSumA, lump_sum_b: r.lumpSumB,
+      unused_leave_on_termination: r.unusedLeave, qualifying_earnings: 0,
+      ...(r.marginal ? { flat_rate_withholding: r.flat, marginal_rate_amount: r.marginalAmount, withholding_on_earnings: r.marginal.onEarnings,
+        marginal_amount_per_period: r.marginal.share, withholding_on_earnings_and_share: r.marginal.withShare,
+        marginal_withholding_before_limit: r.marginal.beforeLimit, marginal_withholding: r.marginalWithheld } : {}) };
+    assert.deepEqual(mine, Object.fromEntries(Object.entries(amounts).map(([key, value]) => [key, toCents(value)])), source);
+    assert.equal(r.lumpSumAType, type, source);
+  }
+});
+
+test('the unused leave page opens on Norman’s result and cites each source with its date', () => {
+  const example = leaveHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(leaveHtml);
+  const result = calculations.unusedLeaveResult((name) => fields[name], aud);
+  assert.equal(result.inputs, example[1]);
+  assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
+  assert.equal(String(result.principal), example[3]);
+  assert.equal(result.note, example[4]);
+  assert.equal(result.rows.at(-1).join('|'), 'Total to withhold from the leave|$6,786.00');
+  for (const cited of ['read on the ATO Legal Database 19 November 2026', '(published 17 June 2026, for payments from 1 July 2026), read 19 November 2026',
+    '(both last updated 1 May 2020), read 19 November 2026', '(last updated 12 November 2025), read 19 November 2026']) {
+    assert.ok(leaveHtml.includes(cited), cited);
+  }
+  // Without a TFN the form needs no earnings, and the result says why the whole payment counts.
+  const noTfn = calculations.unusedLeaveResult((name) => ({ ...fields, payee: 'no-tfn', earnings: '' })[name], aud);
+  assert.equal(noTfn.rows.at(-1).join('|'), 'To withhold: 47% of the payment, cents ignored|$10,349.00');
+});
+
+// The long service leave page: how each call and result reads, and the Acts' thresholds a day
+// either side.
+const lslHtml = readFileSync(new URL('../_includes/calculators/long-service-leave.html', import.meta.url), 'utf8');
+Object.assign(INPUTS, { longServiceLeave: (x) => `${PLACES[x.place]}, ${plainDate(x.start)} to ${plainDate(x.end)}`
+  + `${x.excluded === '0' ? '' : `, ${x.excluded} days excluded`}, `
+  + `${x.mode === 'ends' ? `ends by ${calculations.lslReasonText(x.place, x.reason)}` : 'still employed'}${x.taken === '0' ? '' : `, ${x.taken} weeks taken`}, `
+  + `pay ${dollars(Number(x.pay))} a week` });
+Object.assign(FORM_CALLS, { longServiceLeave: (f) => [{ place: f.jurisdiction, start: f.start, end: f.end, excluded: f.excluded,
+  taken: f.taken, mode: f.mode, reason: f.reason, pay: f.pay }] });
+Object.assign(ENGINE_LABELS, { longServiceLeave: { weeks: (v) => `${v.toFixed(4)} weeks`, balance: (v) => `${v.toFixed(4)} weeks left`,
+  value: 'payment' } });
+const lsl = (change) => calculations.longServiceLeave({ place: 'AU-NSW', start: '2016-01-01', end: '2025-12-31', excluded: '0',
+  taken: '0', mode: 'employed', reason: 'redundancy', pay: '1500', ...change });
+
+test('the long service leave page opens on the result its calculation gives, and cites each Act with its version and date read', () => {
+  const example = lslHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(lslHtml);
+  const result = calculations.longServiceLeaveResult((name) => fields[name], aud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['(version for 1 July 2025 to date), read 19 November 2026', '(Authorised Version No. 006, as at 12 December 2025), read 19 November 2026',
+    '(reprint current from 1 January 2026), read 19 November 2026','(official version 04-m0-00, as at 31 January 2025), read 19 November 2026',
+    '(version of 1 July 2017), read 19 November 2026', '(version current from 10 December 2018), read 19 November 2026',
+    '(republication R29, effective 19 November 2025), read 19 November 2026', '(reprint as in force at 14 October 2015), read 19 November 2026',
+    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read the same day']) {
+    assert.ok(lslHtml.includes(cited), cited);
+  }
+  const radios = [...lslHtml.matchAll(/name="jurisdiction" value="([^"]+)"(?: checked)? \/> ([^<]+)</g)].map(([, code, name]) => [code, name]);
+  assert.deepEqual(radios, Object.entries(calculations.LSL_ACTS).map(([code, { name }]) => [code, name]));
+  const reasons = [...lslHtml.matchAll(/name="reason" value="([^"]+)"/g)].map(([, code]) => code);
+  assert.deepEqual(reasons, Object.keys(calculations.LSL_REASONS));
+});
+
+test('long service leave becomes available on the day each Act’s qualifying period completes, not the day before', () => {
+  // Each Act's full entitlement at its qualifying period: 8 2/3 weeks for 10 years in NSW, Qld, WA
+  // and Tas; 13 weeks in SA and the NT; 1/60th of 2,557 days in Victoria; 7 × 1/5 of a month in the ACT.
+  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000],
+    ['AU-WA', 10, 8.6667, 13000], ['AU-SA', 10, 13, 19500], ['AU-TAS', 10, 8.6667, 13000], ['AU-ACT', 7, 6.0667, 9100], ['AU-NT', 10, 13, 19500]]) {
+    const last = `${2015 + years}-12-31`;
+    assert.deepEqual([lsl({ place, end: `${2015 + years}-12-30` }).weeks, lsl({ place, end: last }).weeks, lsl({ place, end: last }).value],
+      [0, weeks, value], place);
+  }
+  // The ACT guidelines' 7 years at $560 a week: the exact 91/15 weeks, not the rounded 6.0667, times the pay.
+  assert.equal(lsl({ place: 'AU-ACT', end: '2022-12-31', pay: '560' }).value, 3397.33);
+  // Pro rata from 5 years in NSW and the ACT and 7 elsewhere, for a redundancy.
+  for (const [place, years] of [['AU-NSW', 5], ['AU-QLD', 7], ['AU-WA', 7], ['AU-SA', 7], ['AU-TAS', 7], ['AU-ACT', 5], ['AU-NT', 7], ['AU-VIC', 7]]) {
+    const ends = (end) => lsl({ place, end, mode: 'ends' }).weeks;
+    assert.equal(ends(`${2015 + years}-12-30`), 0, place);
+    assert.ok(ends(`${2015 + years}-12-31`) > 0, place);
+  }
+});
+
+test('long service leave service counts completed months from a day a later month lacks to that month’s last day', () => {
+  // 29 February 2016: 10 years complete with 28 February 2026, and 15 with 28 February 2031.
+  const leap = lsl({ start: '2016-02-29', end: '2026-02-28' });
+  assert.deepEqual([leap.years, leap.months, leap.days, leap.weeks, leap.next], [10, 0, 0, 8.6667, { years: 15, date: '2031-02-28', weeks: 13 }]);
+  assert.equal(lsl({ start: '2016-02-29', end: '2026-02-27' }).years, 9);
+  // 31 January: a month completes with 28 February.
+  assert.deepEqual(['months', 'days'].map((f) => lsl({ start: '2025-01-31', end: '2025-02-28' })[f]), [1, 0]);
+  assert.deepEqual(['months', 'days'].map((f) => lsl({ start: '2025-01-31', end: '2025-02-27' })[f]), [0, 28]);
+});
+
+test('long service leave gives the next amount’s date, moved on by excluded days, while employment continues', () => {
+  const at = (change) => calculations.longServiceLeaveResult((name) => ({ jurisdiction: 'AU-NSW', start: '2014-02-01', end: '2026-07-31',
+    excluded: '0', taken: '0', mode: 'employed', reason: 'redundancy', pay: '1500', ...change })[name], String);
+  assert.equal(at({}).note, '15 years of service completes on 31 January 2029, when the leave to take becomes 13.0000 weeks, if no more days are excluded');
+  assert.equal(at({ excluded: '30' }).note, '15 years of service completes on 2 March 2029, when the leave to take becomes 13.0000 weeks, if no more days are excluded');
+  assert.equal(at({ jurisdiction: 'AU-VIC' }).note, 'Leave accrues continuously from here under the Long Service Leave Act 2018 (Vic)');
+  assert.equal(at({ jurisdiction: 'AU-SA' }).note.slice(0, 41), '13 years of service completes on 31 Janua');
+  assert.equal(at({ mode: 'ends' }).note, undefined);
+  assert.deepEqual(at({ taken: '2.5' }).rows.slice(2, 4), [['Less leave already taken or paid', '2.5000 weeks'], ['Weeks the employee can take now', '6.1667 weeks']]);
+  // 8 2/3 less 2.5 weeks is 37/6 weeks: $9,250.00, not 6.1667 × $1,500.
+  assert.equal(lsl({ end: '2026-07-31', start: '2014-02-01', taken: '2.5' }).value, 9250);
+});
+
+test('long service leave refuses malformed input instead of returning nil leave', () => {
+  for (const [change, message] of [[{ place: 'AU-XX' }, 'Choose the state or territory whose Act applies.'],
+    [{ mode: 'maybe' }, 'Choose whether the employee is still employed or employment ends.'],
+    [{ mode: 'ends', reason: '' }, 'Choose why employment ends.'],
+    [{ start: '2025-02-30' }, 'Enter the first day of service from 23 June 1990 to 31 December 2099.'],
+    [{ start: '1990-06-22' }, 'Enter the first day of service from 23 June 1990 to 31 December 2099.'],
+    [{ end: '2100-01-01' }, 'Enter the day to work it out at from 23 June 1990 to 31 December 2099.'],
+    [{ end: '2026-7-31' }, 'Enter the day to work it out at from 23 June 1990 to 31 December 2099.'],
+    [{ pay: '1000000.01' }, 'Enter weekly pay of no more than $1,000,000.'],
+    [{ excluded: '3653' }, 'Excluded days must be fewer than the days from the first day to the last.']]) {
+    assert.throws(() => lsl(change), { message }, JSON.stringify(change));
+  }
+  for (const [field, value] of [['excluded', '1.5'], ['excluded', '-1'], ['excluded', ''], ['taken', '1.00001'], ['taken', '-1'],
+    ['taken', 'abc'], ['pay', '-1'], ['pay', '100.001'], ['pay', '']]) {
+    assert.throws(() => lsl({ [field]: value }), Error, `${field} ${value}`);
+  }
+  assert.equal(lsl({ excluded: '3652', end: '2025-12-31' }).counted, 1);
+});
+
+test('long service leave keeps the fixed amounts and exclusions the Acts state', () => {
+  // Queensland, paragraph 95(2)(a): 8.6667 weeks to take from 10 years until 15, not a proportion of 12½ years.
+  assert.equal(lsl({ place: 'AU-QLD', start: '2014-01-01', end: '2026-06-30' }).weeks, 8.6667);
+  // South Australia, subsection 5(4): nothing under 10 years after dismissal for serious and wilful misconduct.
+  assert.equal(lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-12-31', mode: 'ends', reason: 'misconduct' }).weeks, 0);
+  assert.equal(lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-12-31', mode: 'ends', reason: 'performance' }).weeks, 10.4);
+});
+
+test('Queensland counts a part year’s days over 364 and flags an unfair dismissal under 10 years', () => {
+  // Business Queensland: 18 years, 3 months, 2 weeks and 2 days is 15.8548 weeks (16/364 of a year, not 16/365.25).
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16' }).weeks, 15.8548);
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16', mode: 'ends', reason: 'resign' }).weeks, 15.8548);
+  // Other Acts keep days over 365.25: WorkSafe Tasmania's 13 years, 6 months and 14 days is 13.5383 years.
+  assert.equal(lsl({ place: 'AU-TAS', start: '2012-01-01', end: '2025-07-14', mode: 'ends', reason: 'resign' }).weeks, 11.7332);
+  // Subparagraph 95(4)(c)(iii) pays for an unfair dismissal, which the calculator cannot decide: the row says so.
+  for (const reason of ['performance', 'misconduct']) {
+    const r = lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason });
+    assert.deepEqual([r.weeks, r.rule.endsWith('unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide')], [0, true], reason);
+  }
+  assert.ok(!lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason: 'resign' }).rule.includes('unfair'));
+});
+
+test('long service leave words each Act’s misconduct test and states the conditions it cannot decide', () => {
+  // 9 years of service, or 6 in the ACT, whose full period is 7 years.
+  const ends = (place, reason) => lsl({ place, start: place === 'AU-ACT' ? '2020-01-01' : '2017-01-01', end: '2025-12-31', mode: 'ends', reason });
+  const shown = (place, reason) => calculations.longServiceLeaveResult((name) => ({ jurisdiction: place, start: '2017-01-01', end: '2025-12-31',
+    excluded: '0', taken: '0', mode: 'ends', reason, pay: '1500' })[name], String).inputs;
+  // NSW s 4(2)(a)(iii), SA s 5(4)(a), Tas s 8(3)(d) and ACT s 11C(1)(a)(iv) withhold pro rata only for serious and wilful
+  // misconduct, so a serious but not wilful dismissal is the dismissal short of it, which pays.
+  for (const place of ['AU-NSW', 'AU-SA', 'AU-TAS', 'AU-ACT']) {
+    assert.deepEqual([ends(place, 'misconduct').weeks, ends(place, 'misconduct').rule.startsWith(
+      `Under ${calculations.LSL_ACTS[place].full} years, dismissal for serious and wilful misconduct does not qualify`)], [0, true], place);
+    assert.ok(ends(place, 'performance').weeks > 0, place);
+    assert.ok(shown(place, 'performance').includes('ends by dismissal for conduct, capacity or performance short of serious and wilful misconduct,'), place);
+  }
+  // WA s 8(3) and NT s 10(2) say serious misconduct, without 'wilful'.
+  for (const place of ['AU-WA', 'AU-NT']) {
+    assert.ok(!ends(place, 'misconduct').rule.includes('wilful'), place);
+    assert.ok(shown(place, 'misconduct').includes('ends by dismissal for serious misconduct,'), place);
+  }
+  // The form's labels, shared by all 8 Acts, carry the same distinction.
+  const wilful = '(serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory)</label>';
+  for (const label of [`value="performance" /> Dismissal for conduct, capacity or performance short of serious misconduct ${wilful}`,
+    `value="misconduct" /> Dismissal for serious misconduct ${wilful}`]) {
+    assert.ok(lslHtml.includes(label), label);
+  }
+  // SA s 5(4)(b): leaving without the required notice is an unlawful termination only where the notice was required.
+  assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
+  assert.ok(ends('AU-SA', 'resign').weeks > 0);
+});
+
+// The workers compensation premium page: how each call and result reads, each scheme's published
+// examples and the edges of its method.
+const wcHtml = readFileSync(new URL('../_includes/calculators/workers-compensation.html', import.meta.url), 'utf8');
+Object.assign(INPUTS, { workersCompensation: (x) => [`${PLACES[x.place]}, wages ${dollars(Number(x.wages))} at ${x.rate}%`,
+  x.apprentice !== '0' && `apprentice wages ${dollars(Number(x.apprentice))}`,
+  x.place === 'AU-NSW' && `dust diseases ${x.dust}%, reward ${x.reward}%`,
+  x.place === 'AU-VIC' && `${x.vicEmployer} employer, ${x.days} days${x.buyout === 'yes' ? ', excess bought out' : ''}`,
+  x.place === 'AU-QLD' && `policy from ${x.qldStart}`,
+  x.place === 'AU-SA' && (x.firstYear === 'yes' ? 'first full year' : `claims ${dollars(Number(x.claims))}`),
+  x.group === 'yes' && 'a member of a group',
+  x.actual !== '' && `actual wages ${dollars(Number(x.actual))}`].filter(Boolean).join(', ') });
+Object.assign(FORM_CALLS, { workersCompensation: (f) => [{ place: f.jurisdiction, wages: f.wages, rate: f.rate, apprentice: f.apprentice,
+  actual: f.actual, group: f.group, dust: f.dust, reward: f.reward, vicEmployer: f['vic-employer'], days: f.days, buyout: f.buyout,
+  qldStart: f['qld-start'], firstYear: f['first-year'], claims: f.claims }] });
+Object.assign(ENGINE_LABELS, { workersCompensation: { premium: 'premium before GST', total: 'payable', actualTotal: 'payable on actual wages',
+  adjustment: 'adjustment' } });
+const wc = (change) => calculations.workersCompensation({ place: 'AU-NT', wages: '400000', rate: '3.5', apprentice: '0', actual: '', group: 'no',
+  dust: '0', reward: '0', vicEmployer: 'new', days: '365', buyout: 'no', qldStart: 'q1', firstYear: 'no', claims: '0', ...change });
+// A refusal where a result is due fails as an assertion, so the mutation check counts it as caught.
+const ok = (change) => {
+  try {
+    return wc(change);
+  } catch (error) {
+    return assert.fail(`${JSON.stringify(change)} was refused: ${error.message}`);
+  }
+};
+
+test('the workers compensation page opens on the result its calculation gives, names every scheme and cites each source with the date read', () => {
+  const example = wcHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(wcHtml);
+  const result = calculations.workersCompensationResult((name) => fields[name], aud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  const radios = [...wcHtml.matchAll(/name="jurisdiction" value="([^"]+)"(?: checked)? \/> ([^<]+)</g)].map(([, code, name]) => [code, name]);
+  assert.deepEqual(radios, Object.entries(calculations.WC_SCHEMES).map(([code, { name }]) => [code, name]));
+  for (const cited of ['Guidelines 2026</a>, for policies issued or renewed from 4 pm on 30 June 2026, read 19 November 2026',
+    '(updated 9 November 2026)', 'and the values WorkSafe set in Gazette S 284 of 2 June 2026, both read 19 November 2026',
+    '(Queensland Government Gazette No. 43, 26 June 2026), read 19 November 2026', '(reprint current from 22 October 2026), read 19 November 2026',
+    'Your premium explained</a>, read 19 November 2026', '(last updated 21 March 2025), read 19 November 2026',
+    'suggested reasonable premium rates for 2026/27, each read 19 November 2026']) {
+    assert.ok(wcHtml.includes(cited), cited);
+  }
+});
+
+test('workers compensation matches each scheme’s published worked figures', () => {
+  // NT WorkSafe's bulletin: $400,000 × 3.50% = $14,000 + $1,400 GST; $500,000 actual gives $19,250, $3,850 more.
+  assert.deepEqual(['total', 'actualTotal', 'adjustment'].map((k) => ok({ actual: '500000' })[k]), [15400, 19250, 3850]);
+  // ReturnToWorkSA's 3 examples, before GST and the WHS fee.
+  for (const [wages, rate, claims, premium] of [['450000', '2', '0', 8550], ['450000', '2', '2500', 9900], ['1000000', '6', '5000', 56000]]) {
+    assert.equal(ok({ place: 'AU-SA', wages, rate, claims }).premium, premium, `${wages} ${claims}`);
+  }
+  // icare's Rob's Restaurant: $1,200,000 at 2.250% is an APP of $27,000; the 7.5% reward takes $2,025 off.
+  const rob = ok({ place: 'AU-NSW', wages: '1200000', rate: '2.25', reward: '7.5' });
+  assert.deepEqual([rob.lines[0][1], rob.lines[1][1], rob.premium], [2700000n, -202500n, 24975]);
+});
+
+test('workers compensation applies each scheme’s thresholds, rounding and minimums at their edges', () => {
+  // SIRA Guidelines 2026 clause 6.7: a basic tariff premium that does not exceed $30,000 is a small employer's.
+  assert.equal(ok({ place: 'AU-NSW', wages: '1000000', rate: '3' }).premium, 30000);
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '1000000.17', rate: '3' }), /\$30,000\.01 is more than \$30,000/);
+  // icare's $240 minimum: $12,000 at 2% is exactly $240 and stands; a cent of premium less is refused.
+  assert.equal(ok({ place: 'AU-NSW', wages: '12000', rate: '2' }).premium, 240);
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '11999.5', rate: '2' }), /\$239\.99 is below icare’s minimum premium of \$240/);
+  // NSW: the apprentice incentive is apprentice wages × the WIC rate, and the dust diseases rate already includes GST.
+  const nsw = ok({ place: 'AU-NSW', wages: '500000', rate: '2', apprentice: '50000', dust: '0.044' });
+  assert.deepEqual([nsw.premium, nsw.gst, nsw.total], [9000, 900, 10120]);
+  // ReturnToWorkSA's discount bands: 5% under $10,000 up to 30% at $1,000,000, each from its lower bound.
+  for (const [base, band] of [['9999.99', 5], ['10000', 10], ['49999.99', 10], ['50000', 15], ['99999.99', 15], ['100000', 20],
+    ['499999.99', 20], ['500000', 25], ['999999.99', 25], ['1000000', 30]]) {
+    const { lines } = ok({ place: 'AU-SA', wages: String(Number(base) * 50), rate: '2' });
+    assert.equal(lines[1][0], `Less discount at ${band}% for a base premium in its band`, base);
+  }
+  // Claims costs are capped at 3 × D × BP, $1,350 on a $9,000 base premium; the premium rounds down to the dollar.
+  assert.equal(ok({ place: 'AU-SA', wages: '450000', rate: '2', claims: '1350' }).premium, 9900);
+  assert.equal(ok({ place: 'AU-SA', wages: '450000', rate: '2', claims: '1349.99' }).premium, 9899);
+  assert.equal(ok({ place: 'AU-SA', wages: '1000', rate: '2' }).premium, 200);
+  assert.equal(ok({ place: 'AU-SA', wages: '450000', rate: '2', firstYear: 'yes', claims: 'not read' }).premium, 9000);
+  // Premiums Order (No. 34) clauses 9 and 11: 2% of $150,000 less 2% of $15,500; the $400 minimum below that.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2' }).premium, 2690);
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', days: '73' }).premium, 2938);
+  // Clause 6(4): the deductible of $84.931507 is $84.93 before it comes off, so $2,915.07, not $2,915.06.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', days: '100' }).premium, 2915.07);
+  assert.equal(ok({ place: 'AU-VIC', wages: '35499', rate: '2' }).premium, 400);
+  assert.equal(ok({ place: 'AU-VIC', wages: '35501', rate: '2' }).premium, 400.02);
+  // Clause 6(6): remuneration to the nearest dollar.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000.49', rate: '2' }).premium, 2690);
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000.50', rate: '2' }).premium, 2690.02);
+  // Clause 10: the buy-out is 0.1 of the WorkCover premium.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', buyout: 'yes' }).premium, 2959);
+  // Queensland: 5% duty on the premium and its GST (DA356.1), and section 4.1's minimums by quarter, including both.
+  const qld = ok({ place: 'AU-QLD', wages: '500000', rate: '1.343' });
+  assert.deepEqual([qld.premium, qld.gst, qld.duty, qld.total], [6715, 671.5, 369.33, 7755.83]);
+  for (const [qldStart, minimum] of [['q1', 200], ['q2', 150], ['q3', 100], ['q4', 50]]) {
+    assert.equal(ok({ place: 'AU-QLD', wages: '1000', rate: '1.343', qldStart }).total, minimum, qldStart);
+  }
+  // A premium of $181.31 is under $200 alone, but $209.41 with GST and duty, so no minimum applies.
+  assert.equal(ok({ place: 'AU-QLD', wages: '13500', rate: '1.343' }).total, 209.41);
+});
+
+test('workers compensation refuses what only the insurer decides and malformed input instead of guessing', () => {
+  const rate = 'Enter the rate as a percentage from 0.0001% to 100%, to no more than 4 decimal places.';
+  for (const [change, message] of [[{ place: 'AU-CTH' }, 'Choose the state or territory whose scheme insures the workers.'],
+    [{ group: 'maybe' }, 'Choose whether the employer is a member of a group.'],
+    [{ place: 'AU-VIC', vicEmployer: 'other' }, /performance-rated premium/],
+    [{ place: 'AU-QLD', qldStart: 'existing' }, /simplified or experience-based model/],
+    [{ place: 'AU-SA', group: 'yes' }, /group’s wages or premiums together/],
+    [{ place: 'AU-NSW', apprentice: '400000.01' }, 'Apprentice wages are part of the wages: enter no more than the wages.'],
+    [{ place: 'AU-WA', apprentice: '1' }, 'There is no apprentice deduction for Western Australia here: enter 0 apprentice wages.'],
+    [{ rate: '0' }, rate], [{ rate: '1.00001' }, rate], [{ rate: '' }, rate],
+    [{ wages: '' }, 'Enter the estimated wages in dollars and cents, from $0 to $10,000,000,000.'],
+    [{ actual: '-1' }, 'Enter the actual wages in dollars and cents, from $0 to $10,000,000,000.'],
+    [{ place: 'AU-NSW', dust: '' }, 'Enter the dust diseases rate as a percentage from 0% to 10%, to no more than 4 decimal places.'],
+    [{ place: 'AU-VIC', days: '366' }, 'Enter the days in 2026-27 the employer is registered, from 1 to 365.'],
+    [{ place: 'AU-SA', claims: '' }, 'Enter the claims costs in dollars and cents, from $0 to $10,000,000,000.'],
+    [{ place: 'AU-NSW', wages: '1000000', rate: '2', actual: '1600000' }, /Error: On the actual wages, the average performance premium of \$32,000\.00/]]) {
+    assert.throws(() => wc(change), message instanceof RegExp ? message : { message }, JSON.stringify(change));
+  }
+  // A group does not change a privately set rate × wages, and only the chosen scheme's own answers are read.
+  assert.equal(wc({ group: 'yes' }).total, 15400);
+  assert.equal(wc({ dust: 'x', days: 'x', claims: 'x', vicEmployer: 'x', qldStart: 'x', firstYear: 'x' }).total, 15400);
+});
+
+// ATO Key superannuation rates and thresholds, Table 21, read 19 November 2026: Norfolk Island's
+// transitional rate is 11% for 2026-27 and 7% to 10% for 2022-23 to 2025-26.
+test('the SGC page refuses Norfolk Island salary or wages under either law rather than apply the general rate', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const fields = formDefaults(sgcHtml);
+  assert.equal(fields['norfolk-island'], 'no');
+  for (const regime of ['payday', 'quarter']) {
+    assert.throws(() => calculations.sgcPaydayResult((name) => ({ ...fields, regime, 'norfolk-island': 'yes' })[name], aud),
+      { message: 'Norfolk Island salary or wages have a lower transitional super guarantee rate (7% to 10% for 2022-23 to '
+        + '2025-26, 11% for 2026-27), which this calculator does not apply.' }, regime);
+    assert.throws(() => calculations.sgcPaydayResult((name) => ({ ...fields, regime, 'norfolk-island': undefined })[name], aud),
+      { message: 'Say whether any of the pay is Norfolk Island salary or wages.' }, regime);
+  }
+  assert.ok(sgcHtml.includes('(Table 21, read 19 November 2026)'));
 });

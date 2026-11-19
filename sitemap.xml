@@ -170,7 +170,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-20</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/depreciation-rates/</loc>
@@ -258,7 +258,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/fbt-car/</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/fbt-car-parking/</loc>
@@ -333,16 +333,40 @@
     <lastmod>2026-11-19</lastmod>
   </url>
   <url>
+    <loc>https://duguid.com.au/tools/individual-tax/concessional-catch-up/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
     <loc>https://duguid.com.au/tools/individual-tax/income-tax/</loc>
     <lastmod>2026-11-18</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/take-home-pay/</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/lump-sum-arrears/</loc>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/study-loan/</loc>
     <lastmod>2026-11-18</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/sole-trader/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/division-293/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/income-tests/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/bonus-withholding/</loc>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/salary-packaging/</loc>
@@ -358,7 +382,19 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/sgc-payday/</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/long-service-leave/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/unused-leave/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/workers-compensation/</loc>
+    <lastmod>2026-11-20</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/company-tax/</loc>

@@ -109,6 +109,17 @@ calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
 const operatingValue: number = calculate.fbtCar(car, fbtYear).operating;
 void fbt;
 void operatingValue;
+const ev = { vehicle: 'battery', currentEmployee: true, firstUsed: '2026-04-01', firstSale: '2026-04-01', lctValue: '60000',
+  otherSupply: false } as const;
+const evExempt: boolean = calculate.fbtEvExemption(ev, { ended: '2027' }).exempt;
+// @ts-expect-error A current employee is a boolean, as the form passes it.
+calculate.fbtEvExemption({ ...ev, currentEmployee: 'yes' }, { ended: '2027' });
+// @ts-expect-error The vehicle is one of the 3 kinds the exemption can reach.
+calculate.fbtEvExemption({ ...ev, vehicle: 'diesel' }, { ended: '2027' });
+// @ts-expect-error The threshold is whole dollars, a number, or null for a first retail sale after the FBT year.
+const evThreshold: string = calculate.fbtEvExemption(ev, { ended: '2027' }).threshold;
+void evExempt;
+void evThreshold;
 const terms = { solve: 'payment', amount: '60000', rate: '7.5', payments: '60', payment: '', balloon: '18000',
   balloonKind: 'amount', frequency: 'monthly', timing: 'advance', start: '2026-07-01' } as const;
 const lastPayment: number = calculate.financeSchedule(terms).finalPayment;
@@ -230,3 +241,35 @@ const sgcDue: number = calculate.paydaySuperDue(sgcPay).due;
 calculate.quarterlySgCharge({ year: '2026-27', quarter: '1', wages: '1', ote: '1', contributions: '0', lodged: '2026-11-20' });
 void sgcCharge;
 void sgcDue;
+const leaveInput = { place: 'AU-NSW', start: '2014-02-01', end: '2026-07-31', excluded: '0', taken: '0', mode: 'ends',
+  reason: 'redundancy', pay: '1500' } as const;
+const leaveWeeks: number = calculate.longServiceLeave(leaveInput).weeks;
+// @ts-expect-error The place is a state or territory code, as the form's radios carry it.
+calculate.longServiceLeave({ ...leaveInput, place: 'NSW' });
+// @ts-expect-error Weekly pay is a decimal string, as the form passes it.
+calculate.longServiceLeave({ ...leaveInput, pay: 1500 });
+// @ts-expect-error The reason is one of the form's 10 reasons.
+calculate.longServiceLeave({ ...leaveInput, reason: 'sacked' });
+void leaveWeeks;
+const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
+  loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;
+const leaveWithheld: number = calculate.unusedLeave(leavePay).withholding;
+const leaveType: 'R' | 'T' = calculate.unusedLeave(leavePay).lumpSumAType;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.unusedLeave({ ...leavePay, annual: 0 });
+// @ts-expect-error The reason is one of the 4 the form offers; death is out of scope.
+calculate.unusedLeave({ ...leavePay, reason: 'death' });
+// @ts-expect-error A working holiday maker is not a payee choice: Schedule 15 covers them.
+calculate.unusedLeave({ ...leavePay, payee: 'working-holiday-maker' });
+void leaveWithheld;
+void leaveType;
+const premiumInput = { place: 'AU-SA', wages: '450000', rate: '2', apprentice: '0', actual: '', group: 'no', dust: '', reward: '0',
+  vicEmployer: 'new', days: '365', buyout: 'no', qldStart: 'q1', firstYear: 'no', claims: '0' } as const;
+const premiumTotal: number = calculate.workersCompensation(premiumInput).total;
+// @ts-expect-error The place is a state or territory code, as the form's radios carry it.
+calculate.workersCompensation({ ...premiumInput, place: 'SA' });
+// @ts-expect-error Wages are a decimal string, as the form passes them.
+calculate.workersCompensation({ ...premiumInput, wages: 450000 });
+// @ts-expect-error The Queensland start is one of the form's 5 choices.
+calculate.workersCompensation({ ...premiumInput, qldStart: 'q5' });
+void premiumTotal;

@@ -23,13 +23,15 @@ commit them.
 
 ## WebMCP pilot
 
-Thirteen calculator pages each offer one WebMCP tool to a browser's built-in agent
+Fourteen calculator pages each offer one WebMCP tool to a browser's built-in agent
 through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `modelContext` API: `calculate_gst`, `calculate_div7a_minimum_repayment`,
-`calculate_loan_schedule`, `calculate_hire_purchase_schedule`, `calculate_break_even`, `calculate_company_tax` and
-`calculate_foreign_purchaser_surcharges` on the business calculator pages,
-`estimate_income_tax`, `calculate_take_home_pay`, `calculate_salary_packaging` and
-`calculate_novated_lease` on the income tax, take-home pay, salary packaging and novated lease calculators, `calculate_decline_in_value` on the depreciation rates page and
+`calculate_loan_schedule`, `calculate_hire_purchase_schedule`, `calculate_break_even`, `calculate_company_tax`,
+`calculate_foreign_purchaser_surcharges` and `calculate_long_service_leave` on the business calculator pages,
+`estimate_income_tax`, `calculate_take_home_pay`, `calculate_sole_trader_set_aside`, `calculate_division_293_tax`,
+`calculate_bonus_withholding`, `calculate_income_tests`, `calculate_salary_packaging` and `calculate_novated_lease` on
+the income tax, take-home pay, sole trader set-aside, Division 293, bonus withholding, income tests, salary packaging
+and novated lease calculators, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and
 `assets/levy-page.mjs` import `assets/webmcp-tools.mjs` only when the browser
@@ -41,8 +43,8 @@ to the tool's own `inputSchema` and refuses a wrong type, a value outside its
 pattern, range or list, or a name the schema does not declare, rather than
 converting it. `scripts/webmcp-tools.test.mjs` covers each tool, with a refused
 input for each, and the WebMCP tests in `tests/browser/calculator.spec.mjs`
-cover registration on the GST, Division 7A, depreciation rates and Coal LSL
-pages; `tests/browser/individual-tax.spec.mjs` covers the 4 individual tax pages.
+cover registration on the GST, Division 7A, long service leave, depreciation rates and
+Coal LSL pages; `tests/browser/individual-tax.spec.mjs` covers the 11 individual tax pages.
 
 The 6 Ozzit module pages offer a second read-only tool, `ozzit_function`, through
 `assets/ozzit-tools.mjs`. It looks up one formula by name in the published
@@ -60,9 +62,9 @@ signal from Firefox or Safari; the specification was a W3C Community Group draft
 dated 13 November 2026. No origin-trial token is committed; registering one is an
 account action for the site owner. No trial with a real agent is recorded for
 any tool here, the GST pilot included. The earlier rule was to add calculators only after that
-trial; the 12 tools beyond GST were added without it: 5 on 15 November 2026,
+trial; the 15 tools beyond GST were added without it: 5 on 15 November 2026,
 4 on 18 November, and on 19 November the loan payment tool became the loan and
-hire purchase schedule tools and a tool for each of salary packaging and novated leases was added. Only the Node tests and browser tests with a
+hire purchase schedule tools, and the Division 293, income tests, long service leave, bonus withholding, salary packaging and novated lease tools were added. Only the Node tests and browser tests with a
 stand-in `modelContext` check them.
 Cloudflare's WebMCP toggle is a separate edge-injected bridge and stays off:
 its packs cover image provenance and a same-origin `/mcp` endpoint, and this
