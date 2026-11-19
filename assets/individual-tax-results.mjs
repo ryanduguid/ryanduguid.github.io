@@ -7,6 +7,7 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { incomeTests } from './income-tests.mjs';
 import { CAP, concessionalCatchUp } from './concessional-catch-up.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
@@ -73,8 +74,14 @@ function takeHomeResult(value, aud) {
     rows.push([`PAYG withheld each ${period}${loan ? ', with the study loan component' : ''}`, aud(r.withheld.total)],
       [`Pay after withholding each ${period}`, aud(r.withheld.afterWithholding)],
       ['PAYG withheld over the year', aud(r.withheld.year)], settle(r.withheld.refund, aud));
-    notes.push('The take-home rows spread the year’s tax evenly; PAYG withheld is what the ATO’s 2026-27 Schedule 1'
+    const year = value('year');
+    notes.push(`The take-home rows spread the year’s tax evenly; PAYG withheld is what the ${year} Schedule 1`
       + `${loan ? ' and Schedule 8' : ''} take from each pay, and the refund or amount owing is the difference over the year`);
+    if (loan && year === '2025-26') {
+      notes.push(`Pays before 24 September 2025 had ${aud(r.withheld.earlierStudyLoan)} withheld for the study loan each `
+        + `${period} under the earlier Schedule 8, not ${aud(r.withheld.studyLoan)}; the year’s figures use the later one for `
+        + 'every pay');
+    }
   } else {
     notes.push('The year’s tax on this salary spread evenly, not the amounts an employer withholds each pay');
   }
@@ -145,8 +152,39 @@ function catchUpResult(value, aud) {
   note: notes.join('. ') };
 }
 
+/** Each income test part's form field and how the inputs sentence names it. */
+const INCOME_TEST_FIELDS = /** @type {const} */ ([['taxable', 'taxable', 'taxable income'],
+  ['fhss', 'fhss', 'assessable FHSS released amount'], ['familyTrust', 'family-trust', 'family trust distribution amounts'],
+  ['fringe57a', 'fringe-57a', 'reportable fringe benefits from section 57A employers'],
+  ['fringeOther', 'fringe-other', 'reportable fringe benefits from other employers'],
+  ['employerSuper', 'employer-super', 'reportable employer super contributions'],
+  ['personalSuper', 'personal-super', 'deductible personal super contributions'],
+  ['excessConcessional', 'excess-concessional', 'excess concessional contributions'],
+  ['financialLoss', 'financial-loss', 'net financial investment loss'], ['rentalLoss', 'rental-loss', 'net rental property loss'],
+  ['pensions', 'pensions', 'tax-free government pensions'], ['targetForeign', 'target-foreign', 'target foreign income'],
+  ['exemptForeign', 'exempt-foreign', 'exempt foreign employment income'], ['childSupport', 'child-support', 'child support paid'],
+  ['assessable', 'assessable', 'assessable income'], ['businessDeductions', 'business-deductions', 'business deductions']]);
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function incomeTestsResult(value, aud) {
+  const parts = /** @type {import('./income-tests.mjs').IncomeTestParts} */ (Object.fromEntries([
+    ...INCOME_TEST_FIELDS.map(([key, field]) => [key, value(field)]), ['resident', value('resident') === 'yes']]));
+  const r = incomeTests(parts);
+  const given = INCOME_TEST_FIELDS.filter(([key]) => key === 'taxable' || Number(parts[key]) !== 0)
+    .map(([key, , label]) => `${label} ${aud(Number(parts[key]))}`);
+  return { inputs: `resident all year, ${given.join(', ')}`, principal: 8,
+    rows: [['Taxable income without the FHSS amount', aud(r.taxableWithoutFhss)],
+      ['Reportable fringe benefits total', aud(r.fringeTotal)], ['Adjusted fringe benefits total', aud(r.adjustedFringe)],
+      ['Total net investment loss', aud(r.losses)], ['Reportable super contributions', aud(r.contributions)],
+      ['Income for surcharge purposes', aud(r.surchargeIncome)], ['Division 293 income', aud(r.division293Income)],
+      ['Rebate income', aud(r.rebateIncome)], ['Repayment income', aud(r.repaymentIncome)],
+      ['Adjusted taxable income', aud(r.adjustedTaxableIncome)], ['Co-contribution total income', aud(r.coContributionIncome)]],
+    note: r.exemptForeignDiffers ? 'Income for surcharge purposes leaves out exempt foreign employment income, as section 995-1 '
+      + 'defines it; the ATO’s surcharge page adds it where taxable income is $1 or more' : undefined };
+}
+
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
-  ['concessional-catch-up', catchUpResult]]);
+  ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -156,4 +194,5 @@ export function individualResult(kind, value, aud) {
 }
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
-export const engines = { taxEstimate, takeHomePay, incomeYears: INCOME_TAX_YEARS, payYears: Object.keys(SUPER_GUARANTEE) };
+export const engines = { taxEstimate, takeHomePay, incomeTests, incomeYears: INCOME_TAX_YEARS,
+  payYears: Object.keys(SUPER_GUARANTEE) };

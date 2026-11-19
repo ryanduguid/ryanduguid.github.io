@@ -3,12 +3,12 @@
 
 // Take-home pay from one salary: the year's income tax, Medicare levy, any Medicare levy surcharge
 // and study loan repayment on that salary, spread evenly over the year, and the employer's super
-// guarantee. For 2026-27 it also works the PAYG amount withheld from each pay under the ATO's
-// Schedules 1 and 8, which is a different figure from the year's tax spread evenly.
+// guarantee. It also works the PAYG amount withheld from each pay under the Commissioner's Schedules 1
+// and 8 for the year, which is a different figure from the year's tax spread evenly.
 import { daysInYear, incomeTax, medicareLevySurcharge } from './income-tax.mjs';
 import { number } from './money.mjs';
 import { studyLoanRepayment } from './study-loan.mjs';
-import { PAYS, WITHHOLDING_YEAR, withholding } from './payg-withholding.mjs';
+import { PAYS, withholding } from './payg-withholding.mjs';
 
 // The general super guarantee rate per cent and the maximum contribution base for a full year of
 // earnings paid evenly. 2026-27: the charge percentage, 12, in s 17A(2) of the Superannuation
@@ -71,10 +71,11 @@ const amountCents = (value) => Math.round(number(value, { max: 1e9, money: true 
  * purposes in whole dollars. Taxable income is the salary less the sacrifice and any standard
  * deduction, in whole dollars. A resident without private patient hospital cover pays the surcharge
  * of a single person for the whole year. The year's net pay divides by 12, 26 and 52, each rounded
- * half up to the cent. For 2026-27, a resident (scale 2) or foreign resident (scale 3) paid each
- * week, fortnight or month also gets the amount withheld from one pay of the salary less the
+ * half up to the cent. A resident (scale 2) or foreign resident (scale 3) paid each week, fortnight
+ * or month also gets the amount withheld from one pay of the salary less the
  * sacrifice, a 52nd, 26th or 12th of the year's to the cent, and the year's withholding less the
- * year's tax: positive is a refund, negative an amount owing.
+ * year's tax: positive is a refund, negative an amount owing. For 2025-26 every pay takes the study
+ * loan component from 24 September 2025; `earlierStudyLoan` is the one paid before then.
  * @param {Pay} pay */
 export function takeHomePay(pay) {
   if (!Object.hasOwn(SUPER_GUARANTEE, pay.year)) throw new Error('Choose an income year from 2021-22 to 2026-27.');
@@ -116,9 +117,9 @@ export function takeHomePay(pay) {
   const overCap = Math.max(0, concessional - CONCESSIONAL_CAP[pay.year] * 100);
   const taxableContributions = division293(taxable * 100, concessional);
   let withheld = null;
-  if (pay.year === WITHHOLDING_YEAR && pay.residency !== 'working-holiday' && pay.period !== 'year') {
+  if (pay.residency !== 'working-holiday' && pay.period !== 'year') {
     const earnings = nearest(paid, pays);
-    const each = withholding(earnings, pay.period, resident ? 2 : 3, pay.studyLoan);
+    const each = withholding(earnings, pay.period, resident ? 2 : 3, pay.studyLoan, pay.year);
     withheld = { ...each, earnings: earnings / 100, afterWithholding: (earnings - each.total * 100) / 100,
       year: each.total * pays, refund: (each.total * pays * 100 - owed) / 100 };
   }

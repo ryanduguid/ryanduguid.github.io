@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Australian income tax, take-home pay and HELP calculators</title>
-  <meta name="description" content="Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and 2026-27 PAYG withholding, each step cited." />
+  <meta name="description" content="Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and PAYG withholding from 2021-22, each step cited." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Australian income tax, take-home pay and HELP calculators" />
-  <meta property="og:description" content="Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and 2026-27 PAYG withholding, each step cited." />
+  <meta property="og:description" content="Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and PAYG withholding from 2021-22, each step cited." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Australian income tax, take-home pay and HELP calculators" />
-  <meta name="twitter:description" content="Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and 2026-27 PAYG withholding, each step cited." />
+  <meta name="twitter:description" content="Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and PAYG withholding from 2021-22, each step cited." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/individual-tax/" />
@@ -51,7 +51,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Individual tax calculators</li></ol></nav>
         <h1>Individual tax calculators</h1>
-        <p class="lead-note">Four calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
+        <p class="lead-note">Five calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
         <p class="field-note">Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.</p>
         {% assign checked = "" %}{% for calculator in site.data.individual_tax_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 17 November 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
@@ -60,8 +60,9 @@
         <h2>Tax, pay and study loans</h2>
         <ul class="calculator-list">
           <li id="income-tax"><a class="collection-entry__title" href="/tools/individual-tax/income-tax/">Income tax calculator</a> Tax on taxable income, the offsets, the Medicare levy and surcharge and any study loan repayment, less the tax withheld, for an Australian resident, a foreign resident or a working holiday maker.</li>
-          <li id="take-home-pay"><a class="collection-entry__title" href="/tools/individual-tax/take-home-pay/">Take-home pay calculator</a> What is left of a salary each year, month, fortnight and week after salary sacrifice to super, tax, levies and any study loan repayment, with the employer’s super guarantee and the PAYG withheld from a 2026-27 pay.</li>
+          <li id="take-home-pay"><a class="collection-entry__title" href="/tools/individual-tax/take-home-pay/">Take-home pay calculator</a> What is left of a salary each year, month, fortnight and week after salary sacrifice to super, tax, levies and any study loan repayment, with the employer’s super guarantee and the PAYG withheld from each pay under that year’s schedules.</li>
           <li id="study-loan"><a class="collection-entry__title" href="/tools/individual-tax/study-loan/">Study and training loan calculator</a> The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.</li>
+          <li id="income-tests"><a class="collection-entry__title" href="/tools/individual-tax/income-tests/">Income tests calculator</a> Income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution income, from the amounts in one tax return.</li>
           <li id="concessional-catch-up"><a class="collection-entry__title" href="/tools/individual-tax/concessional-catch-up/">Concessional catch-up calculator</a> The concessional contributions cap with unused cap carried forward from the previous 5 years, earliest year first, and the year each amount lapses.</li>
         </ul>
         <p>For a business, see the <a href="/tools/business-calculators/">business calculators</a>.</p>
@@ -80,7 +81,7 @@
       "@id": "https://duguid.com.au/tools/individual-tax/#webpage",
       "url": "https://duguid.com.au/tools/individual-tax/",
       "name": "Individual tax calculators",
-      "description": "Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and 2026-27 PAYG withholding, each step cited.",
+      "description": "Income tax, refund estimates and study loan repayments from 2020-21, and take-home pay with salary sacrifice and PAYG withholding from 2021-22, each step cited.",
       "inLanguage": "en-AU",
       "datePublished": "2026-11-17",
       "dateModified": "2026-11-19",
