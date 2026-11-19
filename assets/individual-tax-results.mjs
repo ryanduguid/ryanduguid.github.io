@@ -8,6 +8,7 @@ import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
 import { DIVISION_293_YEARS, division293Tax } from './division-293.mjs';
+import { incomeTests } from './income-tests.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
 
@@ -150,8 +151,39 @@ function division293Result(value, aud) {
   rows, principal, note: notes.length ? notes.join('. ') : undefined };
 }
 
+/** Each income test part's form field and how the inputs sentence names it. */
+const INCOME_TEST_FIELDS = /** @type {const} */ ([['taxable', 'taxable', 'taxable income'],
+  ['fhss', 'fhss', 'assessable FHSS released amount'], ['familyTrust', 'family-trust', 'family trust distribution amounts'],
+  ['fringe57a', 'fringe-57a', 'reportable fringe benefits from section 57A employers'],
+  ['fringeOther', 'fringe-other', 'reportable fringe benefits from other employers'],
+  ['employerSuper', 'employer-super', 'reportable employer super contributions'],
+  ['personalSuper', 'personal-super', 'deductible personal super contributions'],
+  ['excessConcessional', 'excess-concessional', 'excess concessional contributions'],
+  ['financialLoss', 'financial-loss', 'net financial investment loss'], ['rentalLoss', 'rental-loss', 'net rental property loss'],
+  ['pensions', 'pensions', 'tax-free government pensions'], ['targetForeign', 'target-foreign', 'target foreign income'],
+  ['exemptForeign', 'exempt-foreign', 'exempt foreign employment income'], ['childSupport', 'child-support', 'child support paid'],
+  ['assessable', 'assessable', 'assessable income'], ['businessDeductions', 'business-deductions', 'business deductions']]);
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function incomeTestsResult(value, aud) {
+  const parts = /** @type {import('./income-tests.mjs').IncomeTestParts} */ (Object.fromEntries([
+    ...INCOME_TEST_FIELDS.map(([key, field]) => [key, value(field)]), ['resident', value('resident') === 'yes']]));
+  const r = incomeTests(parts);
+  const given = INCOME_TEST_FIELDS.filter(([key]) => key === 'taxable' || Number(parts[key]) !== 0)
+    .map(([key, , label]) => `${label} ${aud(Number(parts[key]))}`);
+  return { inputs: `resident all year, ${given.join(', ')}`, principal: 8,
+    rows: [['Taxable income without the FHSS amount', aud(r.taxableWithoutFhss)],
+      ['Reportable fringe benefits total', aud(r.fringeTotal)], ['Adjusted fringe benefits total', aud(r.adjustedFringe)],
+      ['Total net investment loss', aud(r.losses)], ['Reportable super contributions', aud(r.contributions)],
+      ['Income for surcharge purposes', aud(r.surchargeIncome)], ['Division 293 income', aud(r.division293Income)],
+      ['Rebate income', aud(r.rebateIncome)], ['Repayment income', aud(r.repaymentIncome)],
+      ['Adjusted taxable income', aud(r.adjustedTaxableIncome)], ['Co-contribution total income', aud(r.coContributionIncome)]],
+    note: r.exemptForeignDiffers ? 'Income for surcharge purposes leaves out exempt foreign employment income, as section 995-1 '
+      + 'defines it; the ATO’s surcharge page adds it where taxable income is $1 or more' : undefined };
+}
+
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
-  ['division-293', division293Result]]);
+  ['division-293', division293Result], ['income-tests', incomeTestsResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -161,5 +193,5 @@ export function individualResult(kind, value, aud) {
 }
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
-export const engines = { taxEstimate, takeHomePay, division293Tax, incomeYears: INCOME_TAX_YEARS,
+export const engines = { taxEstimate, takeHomePay, division293Tax, incomeTests, incomeYears: INCOME_TAX_YEARS,
   payYears: Object.keys(SUPER_GUARANTEE), division293Years: DIVISION_293_YEARS };

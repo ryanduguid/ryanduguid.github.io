@@ -18,6 +18,7 @@ Published 17 November 2026. Last checked 19 November 2026, the newest of the cal
 - Take-home pay calculator What is left of a salary each year, month, fortnight and week after salary sacrifice to super, tax, levies and any study loan repayment, with the employer’s super guarantee and the PAYG withheld from each pay under that year’s schedules.
 - Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
 - Division 293 tax calculator The extra 15% tax on concessional super contributions above the $250,000 threshold, after excess contributions and unused cap carried forward, with the room left under it.
+- Income tests calculator Income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution income, from the amounts in one tax return.
 
 For a business, see the business calculators.
 
@@ -29,4 +30,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
+- Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 - business calculators: https://duguid.com.au/tools/business-calculators/

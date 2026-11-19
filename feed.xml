@@ -22,6 +22,13 @@
     <summary>The take-home pay calculator now works the PAYG withheld from each weekly, fortnightly or monthly pay for every year from 2021-22, not only 2026-27, under the withholding schedules the Commissioner made for each year, read on 19 November 2026 from the Federal Register of Legislation. It matches all 288 scale 2 and 3 amounts in each instrument’s sample data. For 2021-22 the refund includes the low and middle income tax offset, which withholding does not allow for. For 2025-26 with a study loan it shows the component under the Schedule 8 for pays before 24 September 2025 beside the one from that date.</summary>
   </entry>
   <entry>
+    <title>A new individual tax calculator works out the 6 income measures that the income…</title>
+    <link href="https://duguid.com.au/changelog/#entry-a5027e535c310a9a" />
+    <id>https://duguid.com.au/changelog/#entry-a5027e535c310a9a</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A new individual tax calculator works out the 6 income measures that the income tests section of a tax return feeds, for a person resident all year in 2024-25 to 2026-27: income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution total income. Each definition was read on 19 November 2026 in the Income Tax Assessment Acts 1936 and 1997, the Higher Education Support Act 2003, the Family Assistance Act and the co-contribution Act, and the page opens on the ATO’s worked example of Christina’s $73,810 of repayment income. It works the measures, not the offsets, surcharge or repayments they decide.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>
     <link href="https://duguid.com.au/changelog/#entry-806ecf6f51665308" />
     <id>https://duguid.com.au/changelog/#entry-806ecf6f51665308</id>
