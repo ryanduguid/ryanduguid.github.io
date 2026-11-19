@@ -442,16 +442,17 @@ verification in CI. Local checks still fetch it and fail on HTTP 404; other
 LinkedIn URLs receive no CI exception. Remove this exception when runner access
 works again.
 
-Government and publisher sites often refuse automated requests, GitHub's runners
-most of all: by 19 November 2026 the checker held 209 cited ATO, state revenue,
-holiday and legislation pages on a list of exact URLs allowed to answer HTTP 403,
-each loaded locally or in a browser, and every new citation of such a site needed
-an entry. The link checker therefore reports any HTTP 403,
-and LinkedIn's HTTP 999, as "refused the runner": a `REFUSED` line, an Actions
-annotation and a count at the end, but not a failure, because the refusal says
-nothing about the page. Check a refused source in a browser when you cite it or
-edit its citation. A 404, 410, 401 or any other HTTP error still fails, and so does
-a refusal on a `github.com/ryanduguid/` link, whose identity check stays strict.
+Government sites often refuse automated requests, GitHub's runners most of all:
+by 19 November 2026 the checker held 209 cited ATO, state revenue, holiday and
+legislation pages on a list of exact URLs allowed to answer HTTP 403, each loaded
+locally or in a browser, every one on a `.gov.au` host, and every new citation of
+such a site needed an entry. The link checker therefore reports an HTTP 403 from a
+`.gov.au` host, and LinkedIn's HTTP 999, as "refused the runner": a `REFUSED`
+line, an Actions annotation and a count at the end, but not a failure, because the
+refusal says nothing about the page. Check a refused source in a browser when you
+cite it or edit its citation. A 403 from any other host still fails, as cloud
+storage answers 403 for a missing file, and so do a 404, 410, 401 or any other
+HTTP error.
 
 ## Release claims
 

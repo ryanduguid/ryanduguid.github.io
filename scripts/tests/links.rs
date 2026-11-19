@@ -523,7 +523,7 @@ fn rate_limit_retry_headers_for_both_fetchers() {
             assert_eq!(harness.sleeps(), vec![*delay], "{header:?}");
         }
     }
-    assert!(!refused_the_runner(429));
+    assert!(!refused_the_runner("https://www.ato.gov.au/", 429));
 }
 
 #[test]
@@ -763,7 +763,8 @@ fn offline_mode_still_checks_local_links_without_external_requests() {
 
 #[test]
 fn a_source_refusing_the_runner_is_reported_not_failed() {
-    // Any HTTP 403, listed or not, and LinkedIn's 999: the answer says nothing of the page.
+    // Any HTTP 403 from a .gov.au host, listed or not, and LinkedIn's 999: the answer
+    // says nothing of the page.
     for (href, code) in [
         ("https://www.ato.gov.au/a-page-never-checked-before", 403),
         ("https://www.sro.tas.gov.au/land-tax", 403),
@@ -788,10 +789,22 @@ fn a_source_refusing_the_runner_is_reported_not_failed() {
 
 #[test]
 fn a_missing_or_moved_page_still_fails_beside_refusals() {
-    for code in [401, 404, 410, 451] {
-        let href = "https://www.ato.gov.au/withdrawn";
+    let ato = "https://www.ato.gov.au/withdrawn";
+    for (href, code) in [
+        (ato, 401),
+        (ato, 404),
+        (ato, 410),
+        (ato, 451),
+        // A 403 outside .gov.au can be a missing file: cloud storage answers 403 for one.
+        ("https://example-bucket.s3.amazonaws.com/missing.pdf", 403),
+        ("https://notgov.au/page", 403),
+        // An own repository's identity check stays strict.
+        ("https://github.com/ryanduguid/Ozzit", 403),
+        ("https://www.example.com/profile", 999),
+    ] {
         let harness = Harness::new(vec![http(code)]);
         let (failures, refusals) = harness.run(|c| {
+            c.lookup_hook = Some(Box::new(|_| Ok(false)));
             let failures = c
                 .check_hrefs("page.html", &strings(&[href]), false)
                 .unwrap();
@@ -800,19 +813,7 @@ fn a_missing_or_moved_page_still_fails_beside_refusals() {
         assert_eq!(failures, [format!("page.html: {href} -> HTTP {code}")]);
         assert!(refusals.is_empty(), "{refusals:?}");
     }
-    // An own repository's identity check stays strict, refusal or not.
-    let href = "https://github.com/ryanduguid/Ozzit";
-    let harness = Harness::new(vec![http(403)]);
-    let (failures, refusals) = harness.run(|c| {
-        c.lookup_hook = Some(Box::new(|_| Ok(false)));
-        let failures = c
-            .check_hrefs("page.html", &strings(&[href]), false)
-            .unwrap();
-        (failures, c.refusals.clone())
-    });
-    assert_eq!(failures, [format!("page.html: {href} -> HTTP 403")]);
-    assert!(refusals.is_empty(), "{refusals:?}");
-    assert!(!refused_the_runner(429) && !refused_the_runner(404));
+    assert!(!refused_the_runner(ato, 429) && !refused_the_runner(ato, 404));
 }
 
 #[test]
