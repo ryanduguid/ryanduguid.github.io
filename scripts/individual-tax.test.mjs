@@ -351,6 +351,8 @@ test('PAYG withholding for 2021-22 to 2025-26 matches each instrument’s sample
   assert.equal(withholding(109584, 'week', 2, true, '2024-25').earlierStudyLoan, null);
   // Each band starts at its first dollar: $903.99 a week is nil in 2021-22 and $904.00 is 1%, $9.
   assert.deepEqual([component('2021-22', 90399, 'week'), component('2021-22', 90400, 'week')], [0, 9]);
+  // Each year has its own thresholds: $950 a week is 1% ($10) in 2022-23 but below 2023-24's $991.
+  assert.deepEqual([component('2022-23', 95000, 'week'), component('2023-24', 95000, 'week')], [10, 0]);
   // The 2023 instrument's 3.5% band is printed as ending at $1,44.99; $1,444.99 is 3.5% and $1,445 is 4%.
   assert.deepEqual([component('2023-24', 144499, 'week'), component('2023-24', 144500, 'week')], [51, 58]);
   assert.throws(() => withholding(100000, 'week', 2, false, '2020-21'), /from 2021-22 to 2026-27/);
