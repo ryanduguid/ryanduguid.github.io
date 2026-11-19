@@ -47,6 +47,7 @@ const concessions = { ...business, file: 'assets/cgt-concessions.mjs' };
 const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
 const payroll = { ...business, file: 'assets/payroll-tax.mjs' };
 const companyTax = { ...business, file: 'assets/company-tax.mjs' };
+const marginScheme = { ...business, file: 'assets/gst-margin-scheme.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
@@ -566,6 +567,19 @@ const MUTATIONS = [
   { ...businessDays, name: 'Victoria is covered after the AFL Grand Final eve is set', find: "VIC: '2027-08-31', ", replace: '' },
   { ...businessDays, name: 'business days accept an end before the start', find: 'if (end < start) throw', replace: 'if (false) throw' },
   { ...businessDays, name: 'business days accept an impossible date', find: '&& toIso(toDay(value)) === value', replace: '' },
+  { ...marginScheme, name: 'the margin scheme refuses no sale that is not taxable', find: 'if (!input.taxable) {', replace: 'if (false) {' },
+  { ...marginScheme, name: 'the margin scheme works out section 75-11 acquisitions', find: "if (input.acquired === 'special') {", replace: 'if (false) {' },
+  { ...marginScheme, name: 'the margin scheme takes a sale to an associate at its price', find: 'if (input.associate) {', replace: 'if (false) {' },
+  { ...marginScheme, name: 'the margin scheme takes a valuation for property acquired after 1 July 2000', find: "input.method === 'valuation' && input.acquired !== 'before-2000'", replace: 'false' },
+  { ...marginScheme, name: 'the margin scheme takes a part larger than the whole', find: 'if (part > whole) throw', replace: 'if (false) throw' },
+  { ...marginScheme, name: 'a subdivided lot carries the whole cost', find: 'const share = part === whole ? cost : ratioCents(cost * part, whole);', replace: 'const share = cost;' },
+  { ...marginScheme, name: 'the margin scheme applies to a short lease', find: "interest: input.interest !== 'other'", replace: 'interest: true' },
+  { ...marginScheme, name: 'the margin scheme applies without a written agreement', find: 'agreed: input.agreed,', replace: 'agreed: true,' },
+  { ...marginScheme, name: 'the margin scheme applies to property bought with GST on the whole price', find: "eligible: input.acquired !== 'full-gst'", replace: 'eligible: true' },
+  { ...marginScheme, name: 'a sale below cost gives margin scheme GST back', find: 'ratioCents(nil(price * whole - cost * part)', replace: 'ratioCents((price * whole - cost * part)' },
+  { ...marginScheme, name: 'a GST-exclusive price takes 1/11 of the price less the cost', find: '(exclusive ? 10n : 11n) * whole)', replace: '11n * whole)' },
+  { ...marginScheme, name: 'GST without the margin scheme takes 1/11 of a GST-exclusive price', find: 'ratioCents(price, exclusive ? 10n : 11n)', replace: 'ratioCents(price, 11n)' },
+  { ...marginScheme, name: 'an ineligible sale pays the margin scheme GST', find: 'gst: dollars(applies ? schemeGst : basic)', replace: 'gst: dollars(schemeGst)' },
   { ...sgc, name: 'SGC due date counts 6 business days', find: "const usual = [businessDaysAfter(qe, 7), '7", replace: "const usual = [businessDaysAfter(qe, 6), '7" },
   { ...sgc, name: 'SGC due date ignores public holidays', find: '&& !HOLIDAYS.has(day)', replace: '&& true' },
   { ...sgc, name: 'SGC exceptional circumstances take the earlier date', find: 'Math.max(businessDaysAfter(qe, 20), businessDaysAfter(made, 20))', replace: 'Math.min(businessDaysAfter(qe, 20), businessDaysAfter(made, 20))' },
