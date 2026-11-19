@@ -3010,8 +3010,8 @@ test('the company tax, foreign surcharge, business days, loan and hire purchase 
   const opening = (page) => FORM_CALLS[shownCases[page].function](formDefaults(calculatorInclude(page)))[0];
   assert.deepEqual(shown(calculations.companyTaxResult(opening('company-tax'), aud)), example('company-tax'));
   const [buyer, purchase] = FORM_CALLS.foreignSurcharge(formDefaults(calculatorInclude('foreign-surcharge')));
-  assert.deepEqual(shown(calculations.foreignSurchargeResult(buyer, purchase,
-    transferDuty(purchase.value, transferDutyScales[purchase.place]).duty, aud)), example('foreign-surcharge'));
+  assert.deepEqual(shown(calculations.foreignSurchargeResult(buyer, purchase, surchargeGenerals(purchase.value),
+    formDefaults(calculatorInclude('foreign-surcharge')).firb, aud)), example('foreign-surcharge'));
   assert.deepEqual(shown(calculations.businessDaysResult(opening('business-days'), businessDayHolidays)), example('business-days'));
   assert.deepEqual(shown(calculations.financeResult(opening('loan'), aud)), example('loan'));
   assert.deepEqual(shown(calculations.financeResult(opening('hire-purchase'), aud, formDefaults(calculatorInclude('hire-purchase')).agreement)),
@@ -3184,4 +3184,61 @@ test('the SGC page opens on the result its calculation gives for the form’s in
   // The quarterly form opens on one of the Imogen example's 30 employees.
   const quarter = calculations.sgcPaydayResult((name) => ({ ...fields, regime: 'quarter' })[name], aud);
   assert.equal(quarter.rows.at(-1).join('|'), 'SG charge for the quarter|$1,519.18');
+});
+
+// The foreign surcharge page's general duty in each jurisdiction, as its radios' scales give it.
+const surchargeGenerals = (value) => Object.fromEntries(Object.keys(PLACES).map((place) => [place, transferDuty(value, transferDutyScales[place]).duty]));
+Object.assign(INPUTS, {
+  firbFee: (kind, consideration) => `${{ none: 'No FIRB application', vacant: 'Residential land without an established dwelling',
+    established: 'An established dwelling' }[kind]}, consideration ${dollars(consideration)}`,
+});
+
+test('the FIRB fee follows Guidance Note 10’s steps and examples for 2026-27', () => {
+  const fee = (kind, consideration) => calculations.firbFee(kind, consideration).fee;
+  // Guidance Note 10 (version 12), examples 2 and 3: $2 million of residential land.
+  assert.equal(fee('vacant', '2000000'), 31300);
+  assert.equal(fee('established', '2000000'), 93900);
+  // The schedule of fees (version 8): each step, the $75,000 lower fee and the cap above $40 million.
+  for (const [consideration, vacant, established] of [['1', 4600, 13800], ['74999', 4600, 13800], ['75000', 15600, 46800],
+    ['1000000', 15600, 46800], ['1000001', 31300, 93900], ['3000000', 62600, 187800], ['3000001', 93900, 281700],
+    ['40000000', 1220700, 3662100], ['40000001', 1245500, 3736500], ['1000000000', 1245500, 3736500]]) {
+    assert.deepEqual([fee('vacant', consideration), fee('established', consideration)], [vacant, established], consideration);
+  }
+  assert.equal(fee('none', '2000000'), 0);
+  assert.throws(() => fee('commercial', '2000000'), { message: 'Choose whether a FIRB application is made, and for which kind of residential land.' });
+  for (const consideration of ['0', '', '1.5', '-1', '1000000001']) assert.throws(() => fee('vacant', consideration), Error, consideration);
+});
+
+test('the foreign surcharge page compares every jurisdiction and adds the FIRB fee to the upfront total', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const [buyer, purchase] = FORM_CALLS.foreignSurcharge(formDefaults(calculatorInclude('foreign-surcharge')));
+  const result = (firb, change = {}) => calculations.foreignSurchargeResult(buyer, { ...purchase, ...change },
+    surchargeGenerals(change.value ?? purchase.value), firb, aud);
+  const vacant = result('vacant');
+  assert.deepEqual(vacant.tables.places.map((row) => row[0]), Object.values(PLACES));
+  // Each row is that jurisdiction's own general duty and surcharge, with the one FIRB fee.
+  for (const [i, place] of Object.keys(PLACES).entries()) {
+    const general = transferDuty(purchase.value, transferDutyScales[place]).duty;
+    const surcharge = calculations.foreignSurcharge(buyer, { ...purchase, place }).duty;
+    assert.deepEqual(vacant.tables.places[i], [PLACES[place], aud(general), aud(surcharge), aud(Math.round((general + surcharge + 15600) * 100) / 100)]);
+  }
+  assert.deepEqual(vacant.tables.places[0], ['New South Wales', '$39,187.00', '$90,000.00', '$144,787.00']);
+  assert.deepEqual(vacant.tables.places[7].slice(2), ['$0.00', aud(transferDuty(purchase.value, transferDutyScales['AU-NT']).duty + 15600)]);
+  // Without an application there is no fee row and the total is the duty and surcharge.
+  const none = result('none');
+  assert.equal(none.rows.some(([label]) => label.startsWith('FIRB')), false);
+  assert.deepEqual(none.rows.find(([label]) => label.startsWith('Upfront total')), ['Upfront total: general duty, duty surcharge and FIRB fee', '$129,187.00']);
+  // An established dwelling's fee is tripled, and the result names the ban.
+  const established = result('established');
+  assert.deepEqual(established.rows.find(([label]) => label.startsWith('FIRB')), ['FIRB application fee for 2026-27 on the buyer’s share', '$46,800.00']);
+  assert.match(established.note, /From 1 April 2025 to 30 June 2029 foreign persons are generally banned from buying established dwellings/);
+  // The fee is on the buyer's share.
+  assert.equal(result('vacant', { share: '2500000', value: '5000000' }).rows.find(([label]) => label.startsWith('FIRB'))[1], '$62,600.00');
+  // Not residential: no general duty, no comparison, and no residential land fee.
+  const generals = Object.fromEntries(Object.keys(PLACES).map((place) => [place, null]));
+  const other = calculations.foreignSurchargeResult(buyer, { ...purchase, use: 'other' }, generals, 'none', aud);
+  assert.equal(other.tables.places, undefined);
+  assert.equal(other.rows.some(([label]) => label.startsWith('Upfront total')), false);
+  assert.throws(() => calculations.foreignSurchargeResult(buyer, { ...purchase, use: 'other' }, generals, 'vacant', aud),
+    { message: 'The FIRB fee here is for residential land; agricultural and commercial land have their own fee steps.' });
 });

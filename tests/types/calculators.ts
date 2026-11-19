@@ -209,6 +209,10 @@ const surchargeDuty: number = calculate.foreignSurcharge(surchargeBuyer, surchar
 calculate.foreignSurcharge(surchargeBuyer, { ...surchargePurchase, value: 1000000 });
 // @ts-expect-error A buyer is one of the 5 kinds the page offers.
 calculate.foreignSurcharge({ ...surchargeBuyer, type: 'partnership' }, surchargePurchase);
+const firb: number = calculate.firbFee('established', '2000000').fee;
+// @ts-expect-error A FIRB application is for residential land without or with an established dwelling, or none.
+calculate.firbFee('commercial', '2000000');
+void firb;
 void surchargeDuty;
 const holidays = calculate.parseHolidays('[]');
 const businessDayCount: number = calculate.businessDays({ mode: 'count', place: 'NSW', start: '2026-12-21', end: '2027-01-04', count: '10' },

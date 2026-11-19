@@ -400,6 +400,13 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC quarterly administration applies with no shortfall', find: 'shortfall > 0 ? 2000 : 0', replace: '2000' },
   { ...sgc, name: 'SGC quarterly lodgment day is the 28th of the next month', find: 'Date.UTC(first, month + 4, 28)', replace: 'Date.UTC(first, month + 3, 28)' },
   { ...sgc, name: 'SGC quarterly 29 February is not refused', find: "if (isoOf(day).endsWith('-02-29')) {", replace: 'if (false) {' },
+
+  { ...surcharges, name: 'the FIRB lower fee applies at $75,000', find: 'value < 75000 ?', replace: 'value <= 75000 ?' },
+  { ...surcharges, name: 'an exact million pays the next FIRB step', find: 'Math.floor((value - 1) / f.constant)', replace: 'Math.floor(value / f.constant)' },
+  { ...surcharges, name: 'the FIRB fee is not capped above $40 million', find: 'value > f.tiers * f.constant ? f.maximum', replace: 'false ? f.maximum' },
+  { ...surcharges, name: 'an established dwelling pays the single FIRB fee', find: "kind === 'established' ? fee * f.established : fee", replace: 'fee' },
+  { ...surcharges, name: 'the FIRB fee falls on the whole property', find: 'firbFee(firb, purchase.share)', replace: 'firbFee(firb, purchase.value)' },
+  { ...surcharges, name: 'the comparison takes the chosen jurisdiction’s duty everywhere', find: 'const duty = /** @type {number} */ (generals[place]);', replace: 'const duty = /** @type {number} */ (generals[purchase.place]);' },
 ];
 
 // Runs that must read as invalid, not as caught.
