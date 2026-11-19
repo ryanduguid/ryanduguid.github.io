@@ -224,7 +224,7 @@ const MUTATIONS = [
   { ...incomeTests, name: 'income tests count section 57A benefits in full where adjusted', find: 'Math.floor((p.fringe57a * 53) / 100)', replace: 'p.fringe57a' },
   { ...incomeTests, name: 'income tests take reportable super contributions below nil', find: 'Math.max(0, p.employerSuper + p.personalSuper - p.excessConcessional)', replace: 'p.employerSuper + p.personalSuper - p.excessConcessional' },
   { ...incomeTests, name: 'income tests keep the FHSS released amount', find: 'Math.max(0, p.taxable - p.fhss)', replace: 'p.taxable' },
-  { ...incomeTests, name: 'Division 293 income keeps reportable super contributions', find: 'division293Income: surcharge - contributions', replace: 'division293Income: surcharge' },
+  { ...incomeTests, name: 'Division 293 income keeps reportable super contributions', find: 'trust: p.familyTrust, fringe, losses, lumpSum: 0', replace: 'trust: p.familyTrust + contributions, fringe, losses, lumpSum: 0' },
   { ...incomeTests, name: 'rebate income adds family trust distribution amounts', find: 'rebateIncome: taxable + contributions', replace: 'rebateIncome: taxable + p.familyTrust + contributions' },
   { ...incomeTests, name: 'adjusted taxable income ignores child support', find: '+ contributions - p.childSupport,', replace: '+ contributions,' },
   { ...incomeTests, name: 'repayment income takes the adjusted fringe benefits total', find: 'repaymentIncome: taxable + losses + fringe', replace: 'repaymentIncome: taxable + losses + adjustedFringe' },

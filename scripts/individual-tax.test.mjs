@@ -653,3 +653,18 @@ test('income tests agree with the australian-accounting engine on every differen
     assert.equal(result.exemptForeignDiffers, warns, source);
   }
 });
+
+// The income tests page works Division 293 income with the Division 293 calculator's own function.
+test('the income tests and Division 293 pages give the same Division 293 income', () => {
+  for (const given of [
+    { taxable: '200000', fringeOther: '20000', financialLoss: '5000', employerSuper: '20000', assessable: '200000' },
+    { taxable: '30000', fhss: '40000', familyTrust: '1000', fringe57a: '3000', assessable: '50000' },
+    { taxable: '260000', familyTrust: '20000', rentalLoss: '7000', personalSuper: '10000', excessConcessional: '2000',
+      assessable: '262000' },
+  ]) {
+    const t = tests(given);
+    const d = d293({ taxable: given.taxable, fhss: given.fhss ?? '0', trust: given.familyTrust ?? '0',
+      fringe: String(t.fringeTotal), losses: String(t.losses) });
+    assert.equal(d.income, t.division293Income, JSON.stringify(given));
+  }
+});
