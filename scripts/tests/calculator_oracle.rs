@@ -6489,7 +6489,10 @@ fn cgt_case(rng: &mut Seeded) -> (Value, Value) {
             home,
         };
         // A first use to produce income on 20 August 1996, or one on 13 May 1997 with capital
-        // works deductions, turns on the time of day, which the engine refuses; draw again.
+        // works deductions, turns on the time of day, which the engine refuses; draw again. So do
+        // an acquisition or first use on 21 September 1999 (sections 114-1 and 114-10), and
+        // capital works deductions on an asset acquired before 13 May 1997 that was improved
+        // after 30 June 1999 (subsection 110-45(1A)).
         let first_use = sale.home.as_ref().and_then(|home| {
             home.away
                 .iter()
@@ -6498,8 +6501,18 @@ fn cgt_case(rng: &mut Seeded) -> (Value, Value) {
                 .chain(home.part.map(|p| p.1))
                 .min()
         });
+        let split_works = sale.works > 0
+            && sale.acquired < date(1997, 5, 13)
+            && sale
+                .improvements
+                .iter()
+                .any(|&(_, day)| day > date(1999, 6, 30));
+        let cut_off = date(1999, 9, 21);
         if first_use != Some(date(1996, 8, 20))
             && (sale.works == 0 || first_use != Some(date(1997, 5, 13)))
+            && !split_works
+            && sale.acquired != cut_off
+            && first_use != Some(cut_off)
         {
             return (cgt_input(&sale), cgt_oracle(&sale));
         }
