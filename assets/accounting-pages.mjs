@@ -521,6 +521,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'long-service-leave':
             result = calculate.longServiceLeaveResult(value, aud);
             break;
+          case 'unused-leave':
+            result = calculate.unusedLeaveResult(value, aud);
+            break;
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
