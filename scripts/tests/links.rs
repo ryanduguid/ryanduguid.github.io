@@ -3,8 +3,8 @@
 
 //! scripts/test_check_links.py: deterministic transport tests for the link checker.
 use site_tools::check_links::{
-    Checker, Clock, NetError, Opened, Opener, github_blob_raw_url, is_accepted_automation_denial,
-    is_release_asset_redirect, is_sign_in_redirect, own_repository,
+    Checker, Clock, NetError, Opened, Opener, github_blob_raw_url, is_release_asset_redirect,
+    is_sign_in_redirect, own_repository, refused_the_runner,
 };
 use std::cell::RefCell;
 use std::collections::VecDeque;
@@ -523,10 +523,7 @@ fn rate_limit_retry_headers_for_both_fetchers() {
             assert_eq!(harness.sleeps(), vec![*delay], "{header:?}");
         }
     }
-    assert!(!is_accepted_automation_denial(
-        "https://www.linkedin.com/in/ryan-duguid",
-        429
-    ));
+    assert!(!refused_the_runner("https://www.ato.gov.au/", 429));
 }
 
 #[test]
@@ -765,45 +762,58 @@ fn offline_mode_still_checks_local_links_without_external_requests() {
 }
 
 #[test]
-fn accepts_only_runner_confirmed_denials() {
-    for url in [
-        "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation",
-        "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method",
-        "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
-        "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks",
-        "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates",
-        "https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate",
-        "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
-        "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll",
-        "https://www.ato.gov.au/single-page-applications/legaldatabase",
-        "https://www.ato.gov.au/individuals-and-families/your-tax-return",
-        "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works",
-        "https://www.ato.gov.au/",
-        "https://www.oaic.gov.au/",
+fn a_source_refusing_the_runner_is_reported_not_failed() {
+    // Any HTTP 403 from a .gov.au host, listed or not, and LinkedIn's 999: the answer
+    // says nothing of the page.
+    for (href, code) in [
+        ("https://www.ato.gov.au/a-page-never-checked-before", 403),
+        ("https://www.sro.tas.gov.au/land-tax", 403),
+        ("https://www.linkedin.com/in/ryan-duguid", 999),
     ] {
-        assert!(is_accepted_automation_denial(url, 403), "{url}");
-        for status in [401, 404, 408, 429, 500, 503, 999] {
-            assert!(!is_accepted_automation_denial(url, status));
-        }
-        assert!(!is_accepted_automation_denial(
-            &format!("{url}/missing"),
-            403
-        ));
+        let harness = Harness::new(vec![http(code)]);
+        let (failures, refusals) = harness.run(|c| {
+            let failures = c
+                .check_hrefs("page.html", &strings(&[href]), false)
+                .unwrap();
+            (failures, c.refusals.clone())
+        });
+        assert!(failures.is_empty(), "{href}: {failures:?}");
+        assert_eq!(refusals, [format!("page.html: {href} -> HTTP {code}")]);
+        // A refusal is not retried.
+        assert_eq!(harness.requests().len(), 1);
+        assert!(harness.printed.borrow().contains(&format!(
+            "refused the runner page.html: {href} -> HTTP {code}"
+        )));
     }
-    assert!(!is_accepted_automation_denial(
-        "https://www.ato.gov.au/about-ato",
-        403
-    ));
-    let profile = "https://www.linkedin.com/in/ryan-duguid";
-    assert!(is_accepted_automation_denial(profile, 999));
-    assert!(
-        !is_accepted_automation_denial(profile, 403)
-            && !is_accepted_automation_denial(profile, 404)
-    );
-    assert!(!is_accepted_automation_denial(
-        "https://www.linkedin.com/company/example",
-        999
-    ));
+}
+
+#[test]
+fn a_missing_or_moved_page_still_fails_beside_refusals() {
+    let ato = "https://www.ato.gov.au/withdrawn";
+    for (href, code) in [
+        (ato, 401),
+        (ato, 404),
+        (ato, 410),
+        (ato, 451),
+        // A 403 outside .gov.au can be a missing file: cloud storage answers 403 for one.
+        ("https://example-bucket.s3.amazonaws.com/missing.pdf", 403),
+        ("https://notgov.au/page", 403),
+        // An own repository's identity check stays strict.
+        ("https://github.com/ryanduguid/Ozzit", 403),
+        ("https://www.example.com/profile", 999),
+    ] {
+        let harness = Harness::new(vec![http(code)]);
+        let (failures, refusals) = harness.run(|c| {
+            c.lookup_hook = Some(Box::new(|_| Ok(false)));
+            let failures = c
+                .check_hrefs("page.html", &strings(&[href]), false)
+                .unwrap();
+            (failures, c.refusals.clone())
+        });
+        assert_eq!(failures, [format!("page.html: {href} -> HTTP {code}")]);
+        assert!(refusals.is_empty(), "{refusals:?}");
+    }
+    assert!(!refused_the_runner(ato, 429) && !refused_the_runner(ato, 404));
 }
 
 #[test]

@@ -550,20 +550,69 @@ const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full i
   + 'worked on the year\'s earnings, not pay by pay or quarter by quarter. A weekly, fortnightly or monthly salary '
   + 'is 52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not computed. The surcharge is a single '
   + 'person\'s with no dependants, and the study loan repayment assumes the debt is at least the repayment. For a '
-  + '2026-27 weekly, fortnightly or monthly pay of a resident (scale 2, tax-free threshold claimed) or a foreign '
-  + 'resident (scale 3) it also gives the PAYG withheld each pay under the ATO\'s Schedules 1 and 8 and the refund '
-  + 'or amount owing over the year; for a working holiday maker it gives none. '
+  + 'weekly, fortnightly or monthly pay of a resident (scale 2, tax-free threshold claimed) or a foreign resident '
+  + '(scale 3) it also gives the PAYG withheld each pay under the year\'s Schedules 1 and 8 and the refund or amount '
+  + 'owing over the year; for a working holiday maker it gives none. For 2025-26 every pay takes the study loan '
+  + 'component from 24 September 2025, and so do the year\'s withholding and the refund or amount owing; the component '
+  + 'before that date is given beside it and not mixed in. '
   + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
   + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
 
+const INCOME_TESTS_DESCRIPTION = 'The income measures that the tax return of one person resident in Australia all year feeds, '
+  + 'for 2024-25 to 2026-27, in '
+  + 'whole AUD: income for surcharge purposes (Medicare levy surcharge), Division 293 income, rebate income (seniors and '
+  + 'pensioners tax offset), repayment income (study and training loans), adjusted taxable income (dependant offsets) and '
+  + 'the super co-contribution’s total income, with the reportable fringe benefits total, the adjusted fringe benefits '
+  + 'total (section 57A amounts times 0.53, rounded down), total net investment loss and reportable super contributions. '
+  + 'Every amount is whole dollars and 0 when omitted. It works the measures only; it does not decide the offsets, '
+  + 'surcharge, repayment or co-contribution, a part-year or foreign resident, or the Services Australia income tests. '
+  + `Sources on ${INDIVIDUAL}income-tests/.`;
+/** The income tests tool's inputs and the engine's names for them. */
+const INCOME_TEST_INPUTS = /** @type {const} */ ([['taxableIncome', 'taxable', 'Taxable income, including any assessable FHSS released amount.'],
+  ['assessableFhssReleasedAmount', 'fhss', 'Assessable first home super saver released amount (ITAA 1997 s 313-20).'],
+  ['familyTrustDistributionAmounts', 'familyTrust', 'Amounts on which family trust distribution tax was paid.'],
+  ['reportableFringeBenefitsSection57a', 'fringe57a', 'Reportable fringe benefits from FBTAA s 57A exempt employers (IT1 label N).'],
+  ['reportableFringeBenefitsOther', 'fringeOther', 'Reportable fringe benefits from other employers (IT1 label W).'],
+  ['reportableEmployerSuperContributions', 'employerSuper', 'Reportable employer super contributions (IT2).'],
+  ['deductiblePersonalSuperContributions', 'personalSuper', 'Personal super contributions deducted (D12).'],
+  ['excessConcessionalContributions', 'excessConcessional', 'Excess concessional contributions for the year.'],
+  ['netFinancialInvestmentLoss', 'financialLoss', 'Net financial investment loss (IT5).'],
+  ['netRentalPropertyLoss', 'rentalLoss', 'Net rental property loss (IT6).'],
+  ['taxFreeGovernmentPensions', 'pensions', 'Tax-free government pensions or benefits (IT3).'],
+  ['targetForeignIncome', 'targetForeign', 'Target foreign income, including exempt foreign employment income (IT4).'],
+  ['exemptForeignEmploymentIncome', 'exemptForeign', 'Exempt foreign employment income, net of the costs of earning it.'],
+  ['childSupportPaid', 'childSupport', 'Child support paid (IT7).'],
+  ['assessableIncome', 'assessable', 'Assessable income, at least the taxable income.'],
+  ['businessDeductions', 'businessDeductions', 'Deductions from carrying on a business.']]);
+
 /**
- * WebMCP descriptors for the income tax estimate and take-home pay calculators, keyed by the
- * `data-calculator` name of the form whose page registers them.
+ * WebMCP descriptors for the income tax estimate, take-home pay and income tests calculators, keyed by
+ * the `data-calculator` name of the form whose page registers them.
  * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
- *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay, incomeYears: string[], payYears: string[]}} engines
+ *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay,
+ *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[]}} engines
  */
-export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payYears }) {
+export function individualTaxTools({ taxEstimate, takeHomePay, incomeTests, incomeYears, payYears }) {
   return {
+    'income-tests': tool({
+      name: 'calculate_income_tests',
+      title: 'Income tests calculator',
+      description: INCOME_TESTS_DESCRIPTION,
+      inputSchema: record(Object.fromEntries(INCOME_TEST_INPUTS.map(([name, , description]) => [name, dollarsOnly(description)])),
+        ['taxableIncome']),
+      run(input) {
+        const parts = Object.fromEntries(INCOME_TEST_INPUTS.map(([name, key]) => [key, String(input[name] ?? 0)]));
+        const r = incomeTests(/** @type {import('./income-tests.mjs').IncomeTestParts} */ ({ ...parts, resident: true }));
+        return {
+          incomeForSurchargePurposes: dollars(r.surchargeIncome), division293Income: dollars(r.division293Income),
+          rebateIncome: dollars(r.rebateIncome), repaymentIncome: dollars(r.repaymentIncome),
+          adjustedTaxableIncome: dollars(r.adjustedTaxableIncome), coContributionTotalIncome: dollars(r.coContributionIncome),
+          reportableFringeBenefitsTotal: dollars(r.fringeTotal), adjustedFringeBenefitsTotal: dollars(r.adjustedFringe),
+          totalNetInvestmentLoss: dollars(r.losses), reportableSuperContributions: dollars(r.contributions),
+          currency: 'AUD', source: `${INDIVIDUAL}income-tests/`,
+        };
+      },
+    }),
     'income-tax': tool({
       name: 'estimate_income_tax',
       title: 'Income tax and refund estimate',
@@ -625,6 +674,8 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payY
           takeHomeMonth: dollars(r.monthly), takeHomeFortnight: dollars(r.fortnightly), takeHomeWeek: dollars(r.weekly),
           concessionalOverCap: dollars(r.overCap), division293TaxableContributions: dollars(r.division293),
           paygWithholding: r.withheld ? { eachPay: dollars(r.withheld.total), studyLoanComponent: dollars(r.withheld.studyLoan),
+            studyLoanComponentBefore24September2025: r.withheld.earlierStudyLoan === null ? null
+              : dollars(r.withheld.earlierStudyLoan),
             year: dollars(r.withheld.year), ...settled(r.withheld.refund) } : null,
           currency: 'AUD', source: `${INDIVIDUAL}take-home-pay/`,
         };
