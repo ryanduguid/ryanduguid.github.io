@@ -39,6 +39,7 @@ const companyTax = { ...business, file: 'assets/company-tax.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
+const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -400,6 +401,20 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC quarterly administration applies with no shortfall', find: 'shortfall > 0 ? 2000 : 0', replace: '2000' },
   { ...sgc, name: 'SGC quarterly lodgment day is the 28th of the next month', find: 'Date.UTC(first, month + 4, 28)', replace: 'Date.UTC(first, month + 3, 28)' },
   { ...sgc, name: 'SGC quarterly 29 February is not refused', find: "if (isoOf(day).endsWith('-02-29')) {", replace: 'if (false) {' },
+  { ...salaryDividend, name: 'salary against dividends pays super guarantee above the base', find: 'Math.min(salary, y.cap) * y.tenths + 1000', replace: 'salary * y.tenths + 1000' },
+  { ...salaryDividend, name: 'salary against dividends franks at 30% whatever the rate', find: 'BigInt(dividend) * y.rate / (10000n - y.rate)', replace: 'BigInt(dividend) * 3000n / 7000n' },
+  { ...salaryDividend, name: 'salary against dividends gives the standard deduction from 2025-26', find: 'STANDARD_DEDUCTION_FROM = \'2026-27\'', replace: 'STANDARD_DEDUCTION_FROM = \'2025-26\'' },
+  { ...salaryDividend, name: 'salary against dividends gives no standard deduction', find: 'const deduction = y.deduction ? Math.min(STANDARD_DEDUCTION, salary) : 0;', replace: 'const deduction = 0;' },
+  { ...salaryDividend, name: 'salary against dividends taxes super at 30%', find: 'const SUPER_TAX = 1500n;', replace: 'const SUPER_TAX = 3000n;' },
+  { ...salaryDividend, name: 'salary against dividends leaves out Division 293 tax', find: '+ division293Tax;', replace: ';' },
+  { ...salaryDividend, name: 'salary against dividends ignores the tax on other income', find: '- credit - taxOn(Math.floor(other / 100), y.year);', replace: '- credit;' },
+  { ...salaryDividend, name: 'salary against dividends rounds the franking credit up', find: 'const credit = Number(BigInt(dividend) * y.rate / (10000n - y.rate));', replace: 'const credit = Number((BigInt(dividend) * y.rate + 10000n - y.rate - 1n) / (10000n - y.rate));' },
+  { ...salaryDividend, name: 'salary against dividends lets the salary use all the profit', find: 'if (salary > largest) {', replace: 'if (salary > profit) {' },
+  { ...salaryDividend, name: 'salary against dividends misses the Medicare levy thresholds', find: '...MEDICARE_THRESHOLDS[y.year],', replace: '' },
+  { ...salaryDividend, name: 'salary against dividends misses where the offsets stop clearing the tax', find: '    firstTaxed(y.year)].map', replace: '    ].map' },
+  { ...salaryDividend, name: 'salary against dividends misses the standard deduction step', find: 'const salaries = [0, largest, y.cap, deduction,', replace: 'const salaries = [0, largest, y.cap,' },
+  { ...salaryDividend, name: 'salary against dividends breaks a tie towards the higher salary', find: 'one[1] > top[1] + 1e-6', replace: 'one[1] >= top[1] - 1e-6' },
+  { ...salaryDividend, name: 'salary against dividends takes the 2025-26 base rate as 30%', find: 'rate: baseRate ? 2500n : 3000n', replace: 'rate: baseRate && year !== \'2025-26\' ? 2500n : 3000n' },
 ];
 
 // Runs that must read as invalid, not as caught.

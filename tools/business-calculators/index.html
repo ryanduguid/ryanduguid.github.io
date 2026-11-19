@@ -52,7 +52,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Thirty-three calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
+        <p class="lead-note">Thirty-four calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
@@ -86,6 +86,7 @@
           <li id="division-296"><a class="collection-entry__title" href="/tools/business-calculators/division-296/">Division 296 tax calculator</a> One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.</li>
           <li id="psi-determination"><a class="collection-entry__title" href="/tools/business-calculators/psi-determination/">PSI rules checker</a> Whether the personal services income rules apply, step by step through Divisions 84 to 87.</li>
           <li id="company-tax"><a class="collection-entry__title" href="/tools/business-calculators/company-tax/">Company tax and franking calculator</a> A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.</li>
+          <li id="salary-dividend"><a class="collection-entry__title" href="/tools/business-calculators/salary-dividend/">Salary against dividends calculator</a> A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.</li>
         </ul>
         <h2>Staff and cash</h2>
         <ul class="calculator-list">
@@ -122,7 +123,7 @@
       "description": "Calculate GST, margins, loans, Division 7A, FBT, payroll tax, land tax, transfer duty, PAYG instalments, fixed fees and 13-week cash flow in your browser.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-11-18",
+      "dateModified": "2026-11-19",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

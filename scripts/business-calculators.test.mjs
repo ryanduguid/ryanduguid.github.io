@@ -3185,3 +3185,101 @@ test('the SGC page opens on the result its calculation gives for the form’s in
   const quarter = calculations.sgcPaydayResult((name) => ({ ...fields, regime: 'quarter' })[name], aud);
   assert.equal(quarter.rows.at(-1).join('|'), 'SG charge for the quarter|$1,519.18');
 });
+
+// Salary against dividends: how each call and result reads, how the form passes its fields, and the
+// page's example worked by hand. 2026-27, a base rate entity, $200,000 of profit, $100,000 of salary:
+// super guarantee 12% of $100,000 = $12,000; company tax 25% of $88,000 = $22,000; dividend $66,000
+// with a credit of $66,000 x 25/75 = $22,000; taxable income $100,000 + $66,000 + $22,000 less the
+// $1,000 standard deduction = $187,000; tax $31,020 + 37% of $52,000 = $50,260 and the Medicare levy
+// $3,740, $54,000 less the $22,000 credit = $32,000; cash $166,000 - $32,000 = $134,000; super
+// $12,000 less 15% = $10,200. All salary: $178,571.43 and $21,428.57 of super guarantee use the
+// profit; taxable income $177,571, tax $31,020 + 37% of $42,571 = $46,771.27 and levy $3,551.42, so
+// cash $128,248.74, and super $21,428.57 less $3,214.29 = $18,214.28. All dividends: company tax
+// $50,000, taxable income $200,000, tax $55,870 and levy $4,000 less the $50,000 credit = $9,870.
+const { SALARY_DIVIDEND_YEARS } = await import('../assets/salary-dividend.mjs');
+const salaryDividendHtml = readFileSync(new URL('../_includes/calculators/salary-dividend.html', import.meta.url), 'utf8');
+const ownerPay = { year: '2026-27', profit: '200000', baseRate: true, salary: '100000', other: '0' };
+Object.assign(INPUTS, {
+  salaryDividend: (p) => `${p.year}, profit ${dollars(Number(p.profit))}, ${p.baseRate ? '25%' : '30%'} company, salary `
+    + `${dollars(Number(p.salary))}, other income ${dollars(Number(p.other))}`,
+});
+Object.assign(FORM_CALLS, {
+  salaryDividend: (f) => [{ year: f.year, profit: f.profit, baseRate: f['base-rate'] === 'yes', salary: f.salary, other: f.other }],
+});
+Object.assign(ENGINE_LABELS, {
+  salaryDividend: { superGuarantee: 'super guarantee', companyTax: 'company tax', dividend: 'dividend', credit: 'franking credit',
+    ownerTax: (v) => (v < 0 ? `owner’s refund ${dollars(-v)}` : `owner’s tax ${dollars(v)}`), superTax: 'super tax', cash: 'cash kept',
+    superNet: 'super kept', kept: 'kept in all', allSalary: 'all salary keeps', allDividends: 'all dividends keep',
+    bestSalary: 'best salary', bestKept: 'best keeps' },
+});
+
+test('salary against dividends works the page’s example, all salary and all dividends as by hand', () => {
+  const r = calculations.salaryDividend(ownerPay);
+  assert.deepEqual([r.superGuarantee, r.companyTax, r.dividend, r.credit, r.taxable, r.ownerTax, r.cash, r.superTax, r.superNet, r.kept],
+    [12000, 22000, 66000, 22000, 187000, 32000, 134000, 1800, 10200, 144200]);
+  assert.deepEqual([r.largest, r.allSalary, r.allDividends], [178571.43, 146463.02, 140130]);
+  const all = calculations.salaryDividend({ ...ownerPay, salary: '178571.43' });
+  assert.deepEqual([all.superGuarantee, all.companyTax, all.taxable, all.ownerTax, all.cash, all.superTax, all.superNet],
+    [21428.57, 0, 177571, 50322.69, 128248.74, 3214.29, 18214.28]);
+  const none = calculations.salaryDividend({ ...ownerPay, salary: '0' });
+  assert.deepEqual([none.companyTax, none.taxable, none.ownerTax, none.cash], [50000, 200000, 9870, 140130]);
+});
+
+test('salary against dividends counts Division 293 tax and stops the super guarantee at the year’s base', () => {
+  // Taxable income $566,500 and $32,499.60 of super guarantee exceed $250,000 by more than the
+  // contributions, so Division 293 taxes all $32,499.60 at 15%: $4,874.94 (section 293-20).
+  const r = calculations.salaryDividend({ ...ownerPay, profit: '600000', salary: '270830' });
+  assert.deepEqual([r.superGuarantee, r.division293, r.superTax], [32499.6, 4874.94, 9749.88]);
+  assert.equal(calculations.salaryDividend({ ...ownerPay, profit: '600000', salary: '300000' }).superGuarantee, 32499.6);
+  // 2025-26: 4 quarters of $62,500 is the base; above it a salary adds no super guarantee.
+  assert.equal(calculations.salaryDividend({ ...ownerPay, year: '2025-26', profit: '400000', salary: '260000' }).superGuarantee, 30000);
+  assert.equal(calculations.salaryDividend({ ...ownerPay, year: '2024-25', salary: '100000' }).superGuarantee, 11500);
+});
+
+test('salary against dividends finds a best split no worse than all salary, all dividends or the split entered', () => {
+  for (const [year, profit, baseRate, other] of [['2026-27', '30000', true, '0'], ['2025-26', '24000', true, '0'],
+    ['2021-22', '41000', false, '0'], ['2024-25', '38000', true, '12000'], ['2026-27', '900000', false, '50000']]) {
+    for (const salary of ['0', '5000', '20000']) {
+      const r = calculations.salaryDividend({ year, profit, baseRate, salary, other });
+      for (const kept of [r.allSalary, r.allDividends, r.kept]) assert.ok(r.bestKept >= kept - 1, `${year} ${profit} ${salary}`);
+      assert.equal(calculations.salaryDividend({ year, profit, baseRate, salary: String(r.bestSalary), other }).kept, r.bestKept);
+    }
+  }
+});
+
+test('salary against dividends refuses what it does not cover', () => {
+  assert.throws(() => calculations.salaryDividend({ ...ownerPay, year: '2020-21' }), { message: 'Choose an income year from 2021-22 to 2026-27.' });
+  assert.throws(() => calculations.salaryDividend({ ...ownerPay, baseRate: 'yes' }), { message: 'Say whether the company is a base rate entity.' });
+  assert.throws(() => calculations.salaryDividend({ ...ownerPay, salary: '178571.44' }),
+    { message: 'Enter a salary of no more than $178,571.43: the profit also pays its super guarantee.' });
+  assert.throws(() => calculations.salaryDividend({ ...ownerPay, other: '-1' }), { message: 'Enter an amount between 0 and 1000000000.' });
+});
+
+test('the salary against dividends page offers each year the engine covers and opens on its example', () => {
+  const years = [...salaryDividendHtml.matchAll(/name="year" value="([^"]+)"/g)].map(([, year]) => year);
+  assert.deepEqual(years, SALARY_DIVIDEND_YEARS);
+  assert.deepEqual(SALARY_DIVIDEND_YEARS, ['2026-27', '2025-26', '2024-25', '2023-24', '2022-23', '2021-22']);
+  const example = salaryDividendHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const result = calculations.salaryDividendResult(ownerPay, aud);
+  assert.equal(result.inputs, example[1]);
+  assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
+  assert.equal(String(result.principal), example[3]);
+  assert.equal(result.note, example[4]);
+  for (const cited of ['(last updated 17 April 2026), read 19 November 2026', '(last updated 4 September 2026), read 19 November 2026',
+    'last updated 24 August 2026, read 19 November 2026', 'paragraph 26(1)(a) of the Income Tax Rates Act 1986, read 19 November 2026']) {
+    assert.ok(salaryDividendHtml.includes(cited), cited);
+  }
+});
+
+test('salary against dividends charges the owner only the extra tax over other income, and rounds the credit down', () => {
+  // $40,000 of other income alone: 15% of $21,800 = $3,270, less the $575 low income tax offset,
+  // plus the $800 levy = $3,495. With the $37,500 dividend and $12,500 credit, taxable income is
+  // $90,000: $4,020 + 30% of $45,000 = $17,520 and the $1,800 levy, less the credit, $6,820; the
+  // extra tax is $6,820 - $3,495 = $3,325.
+  const other = calculations.salaryDividend({ ...ownerPay, profit: '50000', salary: '0', other: '40000' });
+  assert.deepEqual([other.taxable, other.ownerTax, other.cash], [90000, 3325, 34175]);
+  // At 30%, $100,000.01 leaves a $70,000.01 dividend: 3/7 of it is $30,000.0043, so $30,000.00.
+  const odd = calculations.salaryDividend({ ...ownerPay, profit: '100000.01', baseRate: false, salary: '0' });
+  assert.deepEqual([odd.companyTax, odd.dividend, odd.credit], [30000, 70000.01, 30000]);
+});

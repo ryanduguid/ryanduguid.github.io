@@ -521,6 +521,10 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
+          case 'salary-dividend':
+            result = calculate.salaryDividendResult({ year: value('year'), profit: value('profit'), baseRate: value('base-rate') === 'yes',
+              salary: value('salary'), other: value('other') }, aud);
+            break;
           case 'company-tax': {
             const year = (prefix) => ({ turnover: value(`${prefix}turnover`), assessable: value(`${prefix}assessable`), passive: value(`${prefix}passive`) });
             result = calculate.companyTaxResult({ ...year(''), taxable: value('taxable'), existed: value('existed') === 'yes', prior: year('prior-'),

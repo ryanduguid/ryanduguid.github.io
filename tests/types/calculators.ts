@@ -230,3 +230,10 @@ const sgcDue: number = calculate.paydaySuperDue(sgcPay).due;
 calculate.quarterlySgCharge({ year: '2026-27', quarter: '1', wages: '1', ote: '1', contributions: '0', lodged: '2026-11-20' });
 void sgcCharge;
 void sgcDue;
+const ownerPay = { year: '2026-27', profit: '200000', baseRate: true, salary: '100000', other: '0' };
+const ownerKept: number = calculate.salaryDividend(ownerPay).bestKept;
+// @ts-expect-error Whether the company is a base rate entity is a boolean, as the form passes it.
+calculate.salaryDividend({ ...ownerPay, baseRate: 'yes' });
+// @ts-expect-error Money is a decimal string.
+calculate.salaryDividend({ ...ownerPay, profit: 200000 });
+void ownerKept;

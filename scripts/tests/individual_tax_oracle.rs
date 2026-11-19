@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! An independent oracle for the individual tax engines: `assets/income-tax.mjs`,
-//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs` and `assets/payg-withholding.mjs`.
+//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs` and
+//! `assets/salary-dividend.mjs`.
 //! Seeded fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser modules return under Node.
 //!
@@ -21,6 +22,12 @@
 //! The route is independent; the conventions are not. Both round a half cent up and cap the offsets
 //! at the tax, and the take-home oracle splits a package including super by the engine's formula,
 //! so it checks how the parts combine, not that split.
+//!
+//! The salary against dividends oracle works each split from the tables here and the super
+//! guarantee figures below, and checks the engine's best split against all salary, all dividends,
+//! the split entered and, for small profits, every whole dollar of salary, where the engine tries
+//! only the salaries at which the kept total can change slope. Both round the franking credit down
+//! and the rest half up, and take taxable income to the dollar.
 //! The engines run from the repository's own `assets/`, not the rendered site.
 
 use serde_json::{Value, json};
@@ -32,6 +39,7 @@ const HARNESS: &str = r"
 import { incomeTax, medicareLevySurcharge } from './assets/income-tax.mjs';
 import { studyLoanRepayment } from './assets/study-loan.mjs';
 import { takeHomePay } from './assets/take-home-pay.mjs';
+import { salaryDividend } from './assets/salary-dividend.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const cents = (result) => result === null ? null : Object.fromEntries(Object.entries(result)
@@ -43,6 +51,7 @@ const run = {
     super: '0', foreign: '0' }, year)),
   pay: ({ pay }) => cents(takeHomePay(pay)),
   mls: ({ mls }) => cents(medicareLevySurcharge(mls)),
+  owner: ({ pay }) => cents(salaryDividend(pay)),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 ";
@@ -744,4 +753,155 @@ fn the_take_home_pay_engine_agrees_with_the_oracle_on_every_seeded_case() {
         })
         .unzip();
     agree(&cases, &expected);
+}
+
+const OWNER_CASES: usize = 160;
+const OWNER_SCANS: usize = 24;
+
+/// A company owner's year: the company's profit before the owner's pay and other taxable income,
+/// in cents, and whether the company is a base rate entity.
+struct Owner<'a> {
+    year: &'a str,
+    profit: u64,
+    base_rate: bool,
+    other: u64,
+}
+
+fn resident_total(income: u64, year: &str) -> i64 {
+    tax_oracle(income, year, "resident")["total"].as_i64().unwrap()
+}
+
+fn owner_super(salary: u64, year: &str) -> u64 {
+    let (mille, cap, _) = super_guarantee(year);
+    half_up(salary.min(cap * 100) * mille, 1000)
+}
+
+/// The largest salary whose super guarantee the profit also pays, by bisection.
+fn owner_largest(o: &Owner) -> u64 {
+    let (mut low, mut high) = (0, o.profit);
+    while low < high {
+        let middle = (low + high).div_ceil(2);
+        if middle + owner_super(middle, o.year) <= o.profit {
+            low = middle;
+        } else {
+            high = middle - 1;
+        }
+    }
+    low
+}
+
+/// One split in cents: the salary and its super guarantee; company tax at 25% or 30% of the rest,
+/// half up; the rest a dividend franked at 1/3 or 3/7 of itself, rounded down (ITAA 1997 s 202-60);
+/// the owner's tax on other income, salary, dividend and credit (s 207-20), less up to $1,000 of
+/// salary from 2026-27 (s 25-130), to the dollar, less the credit and the tax on the other income
+/// alone; super less 15% of the super guarantee and 15% of the part over $250,000 (s 293-20).
+fn owner_split(o: &Owner, salary: u64) -> Value {
+    let sg = owner_super(salary, o.year);
+    let left = o.profit - salary - sg;
+    let rate = if o.base_rate { 25 } else { 30 };
+    let company_tax = half_up(left * rate, 100);
+    let dividend = left - company_tax;
+    let credit = dividend * rate / (100 - rate);
+    let deduction = if o.year == "2026-27" {
+        salary.min(100_000)
+    } else {
+        0
+    };
+    let taxable = (o.other + salary + dividend + credit - deduction) / 100;
+    let owner_tax =
+        resident_total(taxable, o.year) - credit as i64 - resident_total(o.other / 100, o.year);
+    let excess = (taxable * 100 + sg).saturating_sub(25_000_000).min(sg);
+    let division_293 = half_up(excess * 15, 100);
+    let super_tax = half_up(sg * 15, 100) + division_293;
+    let cash = (salary + dividend) as i64 - owner_tax;
+    json!({"salary": salary, "superGuarantee": sg, "companyTax": company_tax, "dividend": dividend,
+        "credit": credit, "taxable": taxable * 100, "ownerTax": owner_tax, "cash": cash, "superTax": super_tax,
+        "superNet": sg - super_tax, "kept": cash + (sg - super_tax) as i64, "division293": division_293})
+}
+
+fn kept(split: &Value) -> i64 {
+    split["kept"].as_i64().unwrap()
+}
+
+#[test]
+fn the_salary_dividend_oracle_works_the_page_example_by_hand() {
+    let o = Owner {
+        year: "2026-27",
+        profit: 20_000_000,
+        base_rate: true,
+        other: 0,
+    };
+    // $12,000 of super guarantee, $22,000 of company tax, a $66,000 dividend with a $22,000
+    // credit; tax on $187,000 of $54,000 less the credit; $134,000 cash and $10,200 of super.
+    let split = owner_split(&o, 10_000_000);
+    assert_eq!(
+        split,
+        json!({"salary": 10_000_000, "superGuarantee": 1_200_000, "companyTax": 2_200_000,
+            "dividend": 6_600_000, "credit": 2_200_000, "taxable": 18_700_000, "ownerTax": 3_200_000,
+            "cash": 13_400_000, "superTax": 180_000, "superNet": 1_020_000, "kept": 14_420_000,
+            "division293": 0})
+    );
+    // All salary: $178,571.43 and its $21,428.57 of super guarantee use the whole profit.
+    assert_eq!(owner_largest(&o), 17_857_143);
+    assert_eq!(kept(&owner_split(&o, 17_857_143)), 14_646_302);
+}
+
+#[test]
+fn the_salary_dividend_engine_agrees_with_the_oracle_and_no_dollar_of_salary_keeps_more() {
+    let mut rng = Seeded(0x2026_1119_5A1A_D1F0);
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let mut owners = Vec::new();
+    let mut cases = Vec::new();
+    for index in 0..OWNER_CASES + OWNER_SCANS {
+        let profit = if index < OWNER_CASES {
+            rng.income(&[0, 20_000, 40_000, 60_000, 250_000, 300_000, 350_000]) * 100 + rng.below(100)
+        } else {
+            (5_000 + rng.below(35_001)) * 100
+        };
+        let other = rng.pick(&[0, 0, rng.below(15_000_001)]);
+        let o = Owner {
+            year: rng.pick(&PAY_YEARS),
+            profit,
+            base_rate: rng.below(2) == 0,
+            other,
+        };
+        let largest = owner_largest(&o);
+        let any = rng.below(largest + 1);
+        let cap = super_guarantee(o.year).1 * 100;
+        let salary = rng.pick(&[0, largest, cap.min(largest), any, any]);
+        let pay = json!({"year": o.year, "profit": money(profit), "baseRate": o.base_rate,
+            "salary": money(salary), "other": money(other)});
+        cases.push(json!({"kind": "owner", "pay": pay}));
+        owners.push((o, salary, largest, index >= OWNER_CASES));
+    }
+    let actual = run_node(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, (o, salary, largest, scan)), got) in cases.iter().zip(&owners).zip(&actual) {
+        let best_salary = got["bestSalary"].as_u64().unwrap();
+        assert!(best_salary <= *largest, "{case}");
+        let best = owner_split(o, best_salary);
+        let mut want = owner_split(o, *salary);
+        let all_salary = owner_split(o, *largest);
+        let all_dividends = owner_split(o, 0);
+        for (key, value) in [
+            ("largest", json!(largest)),
+            ("allSalary", all_salary["kept"].clone()),
+            ("allDividends", all_dividends["kept"].clone()),
+            ("bestSalary", json!(best_salary)),
+            ("bestKept", best["kept"].clone()),
+            ("bestCash", best["cash"].clone()),
+            ("bestSuper", best["superNet"].clone()),
+        ] {
+            want[key] = value;
+        }
+        assert_eq!(got, &want, "{case}");
+        // Rounding to the cent and taxable income to the dollar move the total by cents from one
+        // dollar of salary to the next, so the best may trail another salary by less than $1.
+        let mut others = vec![kept(&want), kept(&all_salary), kept(&all_dividends)];
+        if *scan {
+            others.extend((0..=largest / 100).map(|dollars| kept(&owner_split(o, dollars * 100))));
+        }
+        let most = others.into_iter().max().unwrap();
+        assert!(kept(&best) > most - 100, "{case}: {} against {most}", kept(&best));
+    }
 }
