@@ -316,27 +316,86 @@ test('PAYG withholding for 2026-27 matches the ATO’s sample data and Schedule 
   for (const period of ['week', 'fortnight', 'month']) {
     for (const [earnings, scale2, scale3] of sample[period]) {
       const amount = Math.round(Number(earnings) * 100);
-      assert.equal(withholding(amount, period, 2, false).tax, scale2, `${period} ${earnings} scale 2`);
-      assert.equal(withholding(amount, period, 3, false).tax, scale3, `${period} ${earnings} scale 3`);
+      assert.equal(withholding(amount, period, 2, false, '2026-27').tax, scale2, `${period} ${earnings} scale 2`);
+      assert.equal(withholding(amount, period, 3, false, '2026-27').tax, scale3, `${period} ${earnings} scale 3`);
       checked += 2;
     }
   }
   assert.equal(checked, 288);
-  assert.deepEqual(withholding(260836, 'week', 2, true).studyLoan, 193);
-  assert.deepEqual(withholding(440975, 'fortnight', 2, true).studyLoan, 260);
-  assert.equal(withholding(260836, 'week', 2, false).studyLoan, 0);
+  assert.deepEqual(withholding(260836, 'week', 2, true, '2026-27').studyLoan, 193);
+  assert.deepEqual(withholding(440975, 'fortnight', 2, true, '2026-27').studyLoan, 260);
+  assert.equal(withholding(260836, 'week', 2, false, '2026-27').studyLoan, 0);
 });
 
-test('take-home pay works withholding only for 2026-27 pays on scale 2 or 3', () => {
+// The withholding schedules instruments as made (read 19 November 2026): all 288 scale 2 and 3 amounts in
+// each one's sample data, from the 2021 instrument for 2021-22 to 2023-24 (the 2022 and 2023 instruments
+// print the same) and the 2024 one for 2024-25 and 2025-26 (as both 2025 instruments do), and each
+// instrument's Schedule 8 examples for the tax-free threshold claimed.
+test('PAYG withholding for 2021-22 to 2025-26 matches each instrument’s sample data and Schedule 8 examples', () => {
+  let checked = 0;
+  for (const file of ['./payg-withholding-sample-2020.json', './payg-withholding-sample-2024.json']) {
+    const sample = JSON.parse(readFileSync(new URL(file, import.meta.url), 'utf8'));
+    for (const year of sample.years) {
+      for (const period of ['week', 'fortnight', 'month']) {
+        for (const [earnings, scale2, scale3] of sample[period]) {
+          const amount = Math.round(Number(earnings) * 100);
+          assert.equal(withholding(amount, period, 2, false, year).tax, scale2, `${year} ${period} ${earnings} scale 2`);
+          assert.equal(withholding(amount, period, 3, false, year).tax, scale3, `${year} ${period} ${earnings} scale 3`);
+          checked += 2;
+        }
+      }
+    }
+  }
+  assert.equal(checked, 288 * 5);
+  // Above the samples' top: $5,000 a week, x = 5,000.99. Scale 2 is 0.47x − 563.5196 (2020) or − 650.6154 (2024);
+  // scale 3 is 0.45x − 380.7692 or − 474.0385.
+  const top = (year) => [2, 3].map((scale) => withholding(500000, 'week', scale, false, year).tax);
+  assert.deepEqual([top('2021-22'), top('2024-25')], [[1787, 1870], [1700, 1776]]);
+  const component =(year, earnings, period) => withholding(earnings, period, 2, true, year).studyLoan;
+  assert.deepEqual(['2021-22', '2022-23', '2023-24'].map((year) => [component(year, 109584, 'week'),
+    component(year, 235578, 'fortnight'), component(year, 548845, 'month')]), [[22, 70, 191], [22, 58, 165], [11, 48, 139]]);
+  assert.deepEqual([component('2024-25', 109584, 'week'), component('2024-25', 245578, 'fortnight'),
+    component('2024-25', 568845, 'month')], [11, 50, 143]);
+  // 2025-26: the marginal Schedule 8 from 24 September 2025 ($2,608.36 a week, $202; $4,409.75 a fortnight,
+  // $274) and the percentage one before it ($1,095.84 a week, $11; $2,455.78 a fortnight, $24; $5,688.45 a
+  // month, $113).
+  assert.deepEqual([component('2025-26', 260836, 'week'), component('2025-26', 440975, 'fortnight')], [202, 274]);
+  const earlier = (earnings, period) => withholding(earnings, period, 2, true, '2025-26').earlierStudyLoan;
+  assert.deepEqual([earlier(109584, 'week'), earlier(245578, 'fortnight'), earlier(568845, 'month')], [11, 24, 113]);
+  assert.equal(withholding(109584, 'week', 2, false, '2025-26').earlierStudyLoan, 0);
+  assert.equal(withholding(109584, 'week', 2, true, '2024-25').earlierStudyLoan, null);
+  // Each band starts at its first dollar: $903.99 a week is nil in 2021-22 and $904.00 is 1%, $9.
+  assert.deepEqual([component('2021-22', 90399, 'week'), component('2021-22', 90400, 'week')], [0, 9]);
+  // Each year has its own thresholds: $950 a week is 1% ($10) in 2022-23 but below 2023-24's $991.
+  assert.deepEqual([component('2022-23', 95000, 'week'), component('2023-24', 95000, 'week')], [10, 0]);
+  // The 2023 instrument's 3.5% band is printed as ending at $1,44.99; $1,444.99 is 3.5% and $1,445 is 4%.
+  assert.deepEqual([component('2023-24', 144499, 'week'), component('2023-24', 144500, 'week')], [51, 58]);
+  assert.throws(() => withholding(100000, 'week', 2, false, '2020-21'), /from 2021-22 to 2026-27/);
+});
+
+test('take-home pay works withholding for every year’s pays on scale 2 or 3', () => {
   const r = pay({ salary: '3000', period: 'fortnight', sacrifice: '200', studyLoan: true });
-  assert.deepEqual(r.withheld, { tax: 534, studyLoan: 20, total: 554, earnings: 2800, afterWithholding: 2246, year: 14404,
-    refund: -212.8 });
+  assert.deepEqual(r.withheld, { tax: 534, studyLoan: 20, total: 554, earlierStudyLoan: null, earnings: 2800,
+    afterWithholding: 2246, year: 14404, refund: -212.8 });
   assert.equal(cents(r.withheld.refund), r.withheld.year * 100 - (cents(r.tax) - cents(r.offset) + cents(r.medicare)
     + cents(r.surcharge) + cents(r.studyLoan)));
   assert.equal(pay({ salary: '78000', period: 'year' }).withheld, null);
-  assert.equal(pay({ year: '2025-26', salary: '3000', period: 'fortnight' }).withheld, null);
   assert.equal(pay({ residency: 'working-holiday', salary: '3000', period: 'fortnight' }).withheld, null);
-  assert.equal(pay({ residency: 'foreign', salary: '1500', period: 'week' }).withheld.tax, withholding(150000, 'week', 3, false).tax);
+  assert.equal(pay({ residency: 'foreign', salary: '1500', period: 'week' }).withheld.tax,
+    withholding(150000, 'week', 3, false, '2026-27').tax);
+  // 2021-22, $3,000 a fortnight: x = 1,500.99, 0.3450x − 182.7504 = 335.09, so $670 a pay and $17,420 a year.
+  // The year's tax is $15,817 less the $1,500 low and middle income tax offset, which withholding leaves to
+  // the return, plus $1,560 Medicare levy: $15,877, so $1,543 comes back.
+  const early = pay({ year: '2021-22', salary: '3000', period: 'fortnight' });
+  assert.deepEqual(early.withheld, { tax: 670, studyLoan: 0, total: 670, earlierStudyLoan: null, earnings: 3000,
+    afterWithholding: 2330, year: 17420, refund: 1543 });
+  // 2025-26 with a loan: 0.32x − 176.5769 = 303.74, $608 a pay; Schedule 8 from 24 September 2025,
+  // 0.15x − 193.2692 = 31.88, $64; before it 3.5% of x, 52.53, $106. A year of $672 pays is $17,472 against
+  // $14,188 tax, $1,560 levy and a $1,650 repayment: $74 back.
+  const late = pay({ year: '2025-26', salary: '3000', period: 'fortnight', studyLoan: true });
+  assert.deepEqual(late.withheld, { tax: 608, studyLoan: 64, total: 672, earlierStudyLoan: 106, earnings: 3000,
+    afterWithholding: 2328, year: 17472, refund: 74 });
+  assert.equal(pay({ year: '2025-26', salary: '3000', period: 'fortnight' }).withheld.earlierStudyLoan, 0);
 });
 
 // Medicare Levy Act 1986 ss 8B to 8D, Private Health Insurance Act 2007 ss 22-30 to 22-45 and the ATO's
