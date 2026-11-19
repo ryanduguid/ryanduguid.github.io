@@ -1004,17 +1004,23 @@ test('the fuel-efficient threshold is the ATO table’s for the financial year o
   assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '91387.01', firstSale: '2025-07-01' }), evYear).exempt, false);
   // s 8A(1)(c) counts luxury car tax payable before the benefit: a first retail sale after the FBT year,
   // in 2026-27 or a later year the table does not hold, comes after every benefit in it.
+  // These facts settle the year, so a refusal here is a wrong result.
+  const settled = (fields) => {
+    let result;
+    assert.doesNotThrow(() => { result = calculations.fbtEvExemption(evFacts(fields), evYear); }, JSON.stringify(fields));
+    return result;
+  };
   for (const firstSale of ['2027-04-01', '2027-07-01']) {
-    const later = calculations.fbtEvExemption(evFacts({ lctValue: '200000', firstSale }), evYear);
+    const later = settled({ lctValue: '200000', firstSale });
     assert.equal(later.exempt, true, firstSale);
     assert.equal(later.threshold, null, firstSale);
   }
-  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '200000', firstUsed: '2027-03-31', firstSale: '2027-03-31' }), evYear).exempt, false);
+  assert.equal(settled({ lctValue: '200000', firstUsed: '2027-03-31', firstSale: '2027-03-31' }).exempt, false);
   // An after-year sale settles only that sale: luxury car tax on an earlier supply or import still fails s 8A(1)(c).
   assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ firstSale: '2027-04-01', otherSupply: true }), evYear)), ['other-supply']);
   // No benefit comes before the car is first held and used, so a sale before the year, or on or before that day, precedes them all.
   assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2025-01-01', firstSale: '2026-03-31', lctValue: '200000' }), evYear).exempt, false);
-  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2026-07-01', firstSale: '2026-07-01', lctValue: '200000' }), evYear).exempt, false);
+  assert.equal(settled({ firstUsed: '2026-07-01', firstSale: '2026-07-01', lctValue: '200000' }).exempt, false);
   // A sale within the year after that day may fall between benefits; under the threshold it fails nothing.
   assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2026-04-01', firstSale: '2026-07-01', lctValue: '91661' }), evYear).exempt, true);
 });
