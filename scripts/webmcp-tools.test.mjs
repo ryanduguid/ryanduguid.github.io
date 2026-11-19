@@ -68,7 +68,7 @@ test('each business calculator tool is keyed by the form that registers it', () 
 test('every calculator tool is read-only, refuses unknown inputs and has its own name', () => {
   const all = [...Object.values(tools), declineInValue, levy];
   assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_schedule',
-    'calculate_hire_purchase_schedule', 'calculate_lease_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_fuel_tax_credits', 'calculate_decline_in_value',
+    'calculate_hire_purchase_schedule', 'calculate_lease_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_fuel_tax_credits', 'calculate_borrowing_expenses', 'calculate_decline_in_value',
     'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -373,6 +373,26 @@ test('long service leave tool returns the page worked example and passes the for
   await assert.rejects(tool.execute({ ...base, reason: 'resign', weeklyPay: 1500 }), /weeklyPay does not match its description/);
   await assert.rejects(tool.execute({ ...base, place: 'AU-NT', firstDay: '2017-01-01', lastDay: '2025-12-31', reason: 'death' }),
     /subsection 10[(]3[)]/);
+});
+
+// The borrowing expenses page's example (the ATO's Peter and Fiona and Max in 2024-25) and a
+// refinancing, then refusals.
+test('borrowing expenses tool returns the page worked example and a refinancing, and refuses what the page refuses', async () => {
+  const tool = calculatorTools(calculate)['borrowing-expenses'];
+  const peter = { borrowingExpenses: '1600.00', firstBorrowed: '2020-07-03', contractEnd: '2045-07-02', incomeUse: '1' };
+  const r = await tool.execute({ year: '2024-25', loans: [peter,
+    { borrowingExpenses: '1670.00', firstBorrowed: '2020-07-17', contractEnd: '2040-07-16', incomeUse: '0.813397' }] });
+  assert.deepEqual([r.borrowingExpenses, r.maximumDeduction, r.deduction, r.remainingAfterYear, r.currency],
+    ['3270.00', '653.65', '591.36', '16.38', 'AUD']);
+  assert.deepEqual(r.loans[1].years.at(-1), { incomeYear: '2025-26', remaining: '14.63', daysInYear: 16, daysLeft: 16, maximum: '14.63',
+    deduction: '11.90', section26_155: false, projected: false });
+  assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/borrowing-expenses/');
+  const refinanced = await tool.execute({ year: '2025-26', loans: [{ borrowingExpenses: '1500.00', firstBorrowed: '2024-09-01',
+    contractEnd: '2028-08-31', repaidOn: '2025-12-31', incomeUse: '1' }, { borrowingExpenses: '800.00', firstBorrowed: '2025-12-31', incomeUse: '1', refinances: 1 }] });
+  assert.equal(refinanced.deduction, '1268.65');
+  await assert.rejects(tool.execute({ year: '2024-25', loans: [{ ...peter, firstBorrowed: '2017-06-30' }] }), /before 1 July 2017/);
+  await assert.rejects(tool.execute({ year: '2024-25', loans: [{ ...peter, incomeUse: 1 }] }), /incomeUse does not match its description/);
+  await assert.rejects(tool.execute({ year: '2024-25', loans: [{ ...peter, accounting: true }] }), /accounting is not an input of this tool/);
 });
 
 const individual = individualTaxTools(individualEngines);

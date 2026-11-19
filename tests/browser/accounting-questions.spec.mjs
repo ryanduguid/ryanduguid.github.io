@@ -560,6 +560,25 @@ test('the AASB 16 lease page works IFRS 16 Example 13 and hides the comparison o
   await expect(form.locator('table[data-results="comparison"]')).toBeHidden();
 });
 
+test('CGT concessions give Janet’s 40% interest the 15-year exemption and refuse a share offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/cgt-concessions/');
+  const form = page.locator('#cgt-concessions form');
+  const output = form.locator('output');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  // The ATO's 15-year exemption page: Janet sells land she bought on 1 December 2002 on her 60th birthday, and retires.
+  const fields = { acquired: '2002-12-01', event: '2020-12-15', born: '1960-12-15', active: '6590', choice: '2021-05-01' };
+  for (const [name, value] of Object.entries(fields)) await form.locator(`[name="${name}"]`).fill(value);
+  await form.locator('[name="retiring"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('15-year exemption (Division 152)');
+  await expect(output).toContainText('Active for 6,590 of the 6,590 days from 1 December 2002 to 15 December 2020');
+  await expect(output).toContainText('Not needed: the 15-year exemption disregards the whole gain (section 152-330)');
+  await form.locator('[name="asset"][value="share"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('subsection 152-10(2)');
+});
+
 test('Division 7A takes the chosen year’s rate from the table and works the repayment offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/div7a/');
   const form = page.locator('#div7a form');
@@ -593,6 +612,30 @@ test('Division 296 works both tiers and a death by 30 June 2027 offline', async 
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(output).toContainText('Division 296 tax: $0.00');
   await expect(output).toContainText('Not liable: died on or before 30 June 2027');
+});
+
+test('CGT works a rented home under section 118-192 and refuses a foreign resident offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/cgt/');
+  const form = page.locator('#cgt form');
+  const output = form.locator('output');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  // The ATO's example 72: Roya rents out her apartment from 29 September 1997 and chooses to treat it as her main residence.
+  const fields = { acquired: '1995-08-15', event: '2024-07-15', proceeds: '555000', price: '280000', buying: '0', 'buying-date': '',
+    'improvement-1': '0', 'improvement-1-date': '', selling: '15000', works: '0', purchased: '1995-09-15', sold: '2024-09-29',
+    'moved-in': '1995-09-15', 'away-1-from': '1997-09-29', 'away-1-to': '2024-09-29', market: '340000' };
+  await form.locator('[name="kind"][value="home"]').check();
+  for (const [name, value] of Object.entries(fields)) await form.locator(`[name="${name}"]`).fill(value);
+  await form.locator('[name="away-1-rented"]').check();
+  await form.locator('[name="away-1-choose"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('9,863 days, 7,671 not the main residence');
+  await expect(output).toContainText('Applies: taken to be acquired on 29 September 1997 for $340,000.00');
+  await expect(output).toContainText('Total current year capital gains (label H): $155,551.05');
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$77,775.53');
+  await form.locator('[name="resident"][value="no"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('This page works out residents only');
 });
 
 test('Division 7A schedule lists each year, stops at a shortfall and refuses an interposed loan offline', async ({ page, context }) => {
@@ -899,6 +942,25 @@ test('unused leave page works Schedule 7’s example, a no-TFN payment and a ref
   await expect(form.locator('output')).toHaveText('The leave accrued from 1 January 1980, so none of it is long service leave for the period before 16 August 1978: enter 0 or leave it blank.');
 });
 
+// The ATO's Peter and Fiona and Max in 2024-25, the accounting column beside them, and a loan first drawn after the year.
+test('borrowing expenses page works its example, the accounting column and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/borrowing-expenses/');
+  const form = page.locator('#borrowing-expenses form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Deduction for 2024-25: $591.36.');
+  await expect(form.locator('table[data-results="loans"] tbody tr')).toHaveCount(12);
+  await expect(form.locator('table[data-results="accounting"]')).toBeHidden();
+  await form.locator('input[name="accounting"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Loan 1: effective interest rate (AASB 9): 6.2274% a year.');
+  await expect(form.locator('table[data-results="accounting"]')).toBeVisible();
+  await form.locator('[name="start-1"]').fill('2025-08-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText(/loan 1: loan_start must not be after the 2024-25 income year ended/i);
+});
+
 // The fuel tax credit page's example, its second line by the cost and average price (PCG 2016/2 Method 1), and fuel
 // acquired after the last rate the page holds.
 test('fuel tax credit page works its example, a line from its cost and a refusal offline', async ({ page, context }) => {
@@ -1201,8 +1263,8 @@ test('business days skip Melbourne Cup Day in Victoria offline and refuse a date
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'hire-purchase', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
-  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave',
+  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'lease'];
 
 test.describe('before any script runs', () => {

@@ -26,7 +26,7 @@ The site publishes its pages as registers, each under one top-level path.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates, each rendered by `_layouts/rate.html` from its front matter, and `/rates/register/register.json` is a versioned machine-readable register, which so far carries one series, the Coal LSL levy percentage. `/rates/` itself lists every table with its current value and Source checked date.
 - `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.
-- `/tools/business-calculators/` indexes 40 business calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario, the loan schedule, the hire purchase schedule and the AASB 16 lease have CSV export.
+- `/tools/business-calculators/` indexes 43 business calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario, the loan schedule, the hire purchase schedule and the AASB 16 lease have CSV export.
 - `/tools/individual-tax/` indexes 11 individual tax calculators (income tax with a refund estimate, take-home pay with PAYG withholding from 2021-22 study and training loan repayment, and a sole trader's tax and GST set-aside, 2020-21 to 2026-27, salary packaging with an FBT-exempt employer from 2022-23, a novated lease with the electric car exemption from 2023-24, Division 293 tax, 2021-22 to 2026-27, the lump sum in arrears tax offset and the income tests, 2024-25 to 2026-27, and the concessional contributions cap with carry-forward, 2024-25 to 2026-27, and Schedule 5 withholding from a 2026-27 bonus or back payment), rendered the same way; `scripts/individual-tax.test.mjs` and the `individual_tax_oracle` test check them.
 - `/tools/ozzit/` documents the Ozzit Excel function library, with one page per module under `functions/`, rendered by `site-tools build_ozzit_reference` from the function reference of the release `scripts/release_record.json` names.
 - `assets/hub-routes.mjs` forwards an old `#q12` or `#cash` bookmark on either index to the page that now holds it.
@@ -99,7 +99,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - the rates register's shape, provenance, ordering and checksums, and a primary `source_url` and a `checked_at` date on every row of the rate CSVs, run with `site-tools check_rates_register` and `cargo test --test rates`
 - the business planning arithmetic and the boundary cases each calculator page shows from `_data/calculator_cases.json`, run with `node --test scripts/business-calculators.test.mjs`
-- 584 named money errors applied to a temporary copy of the Coal LSL, business and individual tax engines, each of which must fail an assertion in those engines' tests, run with `node scripts/mutation-check.mjs`
+- 667 named money errors applied to a temporary copy of the Coal LSL, business and individual tax engines, each of which must fail an assertion in those engines' tests, run with `node scripts/mutation-check.mjs`
 - 4,710 seeded fictional cases for 26 engines (loan, Division 7A, FBT car, Coal LSL, fixed fee, transfer duty, first home buyer duty, objection deadline, PAYG instalment, ETP, PCG 2021/4, PCG 2021/4 allocation, GIC payment plan, land tax, vehicle classifier, payroll tax, FBT benefits, Division 7A schedule, Division 296, company tax, foreign purchaser surcharges, the Payday Super charge, the quarterly super guarantee charge, long service leave, workers compensation premiums and the AASB 16 lease), each worked by a different route, which the engines must match, run with `cargo test --test calculator_oracle`
 - the individual tax boundary cases from `_data/individual_tax_cases.json`, run with `node --test scripts/individual-tax.test.mjs`, and 2,400 seeded fictional income tax, Medicare levy surcharge, study loan, take-home and income test cases worked from the ATO's printed tables and the Acts' definitions, run with `cargo test --test individual_tax_oracle`
 - every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `site-tools check_agent_files` and `cargo test --test agent_files`
@@ -261,7 +261,7 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. All 115 canonical pages
+GitHub Pages builds the repository with Jekyll. All 118 canonical pages
 include `_includes/site-header.html` and `_includes/site-footer.html`,
 directly or through a layout in `_layouts/`; the header sets the current page
 or section from each page's URL. The count is the number of URLs in

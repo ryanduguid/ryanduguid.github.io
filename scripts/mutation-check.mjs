@@ -42,16 +42,19 @@ const evExemption = { ...business, file: 'assets/fbt-ev-exemption.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
 const psi = { ...business, file: 'assets/psi-determination.mjs' };
+const concessions = { ...business, file: 'assets/cgt-concessions.mjs' };
 const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
 const payroll = { ...business, file: 'assets/payroll-tax.mjs' };
 const companyTax = { ...business, file: 'assets/company-tax.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
+const cgt = { ...business, file: 'assets/cgt.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
+const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
 const wc = { ...business, file: 'assets/workers-compensation.mjs' };
 
 const MUTATIONS = [
@@ -231,6 +234,32 @@ const MUTATIONS = [
   { ...psi, name: 'PSI applies Division 85 to an entity', find: 'entity ? \'Division 86 applies\' : \'Division 85 applies\'', replace: '\'Division 85 applies\'' },
   { ...psi, name: 'PSI accepts others’ work worth more than the PSI', find: 'if (others > total)', replace: 'if (false)' },
   { ...psi, name: 'PSI accepts more than $1,000,000,000', find: 'if (total > 100_000_000_000)', replace: 'if (false)' },
+  { ...concessions, name: 'CGT concessions use the $10 million turnover', find: 'const TURNOVER = 200_000_000;', replace: 'const TURNOVER = 1_000_000_000;' },
+  { ...concessions, name: 'CGT concessions count a previous turnover of $2 million', find: "previous < TURNOVER) rule = 'subparagraph 328-110(1)(b)(i)'", replace: "previous <= TURNOVER) rule = 'subparagraph 328-110(1)(b)(i)'" },
+  { ...concessions, name: 'CGT concessions drop the 2-year bar on likely turnover', find: 'likely < TURNOVER && !barred', replace: 'likely < TURNOVER' },
+  { ...concessions, name: 'CGT concessions ignore the turnover at the end of the year', find: 'else if (actual < TURNOVER)', replace: 'else if (actual < 0)' },
+  { ...concessions, name: 'CGT concessions treat no business as a small business entity', find: "if (x.business !== 'no') {", replace: 'if (true) {' },
+  { ...concessions, name: 'CGT concessions fail net assets of exactly $6 million', find: 'netValue <= NET_ASSETS', replace: 'netValue < NET_ASSETS' },
+  { ...concessions, name: 'CGT concessions allow 2 years after the business ceased', find: "ceased >= yearsLater(event, -1) || x.extension === 'yes'", replace: "ceased >= yearsLater(event, -2) || x.extension === 'yes'" },
+  { ...concessions, name: 'CGT concessions count the 12 months on from the cessation', find: 'ceased >= yearsLater(event, -1)', replace: 'yearsLater(ceased, 1) >= event' },
+  { ...concessions, name: 'CGT concessions ignore a longer period the Commissioner allows', find: "|| x.extension === 'yes') to = ceased", replace: '|| false) to = ceased' },
+  { ...concessions, name: 'CGT concessions count the test period without its first day', find: 'dayOf(to) - dayOf(acquired) + 1', replace: 'dayOf(to) - dayOf(acquired)' },
+  { ...concessions, name: 'CGT concessions need more than half the test period', find: '2 * activeDays >= testDays', replace: '2 * activeDays > testDays' },
+  { ...concessions, name: 'CGT concessions apply the half test to an asset owned more than 15 years', find: 'const over15 = yearsLater(acquired, 15) < event;', replace: 'const over15 = yearsLater(acquired, 15) > event;' },
+  { ...concessions, name: 'CGT concessions need more than 7.5 years', find: 'activeDays >= SEVEN_AND_A_HALF.longest', replace: 'activeDays > SEVEN_AND_A_HALF.longest' },
+  { ...concessions, name: 'CGT concessions need 14 years for the 15-year exemption', find: 'yearsLater(acquired, 15) < event, retires', replace: 'yearsLater(acquired, 14) < event, retires' },
+  { ...concessions, name: 'CGT concessions are not 55 on the 55th birthday', find: 'fiftyFifth <= event', replace: 'fiftyFifth < event' },
+  { ...concessions, name: 'CGT concessions test age 55 at the sale for the super contribution', find: 'under55: fiftyFifth > choice', replace: 'under55: fiftyFifth > event' },
+  { ...concessions, name: 'CGT concessions ignore permanent incapacity', find: "|| x.incapacitated === 'yes'", replace: '|| false' },
+  { ...concessions, name: 'CGT concessions skip the 15 years with a significant individual', find: 'unmet.push(`a significant individual for a total of 15 years of ownership (${at}(c))`);', replace: 'void at;' },
+  { ...concessions, name: 'CGT concessions skip the significant individual just before the sale', find: "if (x.significant !== 'yes') unmet.push", replace: 'if (false) unmet.push' },
+  { ...concessions, name: 'CGT concessions let a passively held asset through beside your own business', find: "if (x.passive !== 'none' && x.business !== 'no') {", replace: 'if (false) {' },
+  { ...concessions, name: 'CGT concessions ignore a passively held asset', find: "const passive = x.passive !== 'none';", replace: 'const passive = false;' },
+  { ...concessions, name: 'CGT concessions take the basic conditions without the active asset test', find: '(business.smallBusiness || netAssets || passive) && active.activeAsset', replace: '(business.smallBusiness || netAssets || passive) || active.activeAsset' },
+  { ...concessions, name: 'CGT concessions let a trust without a significant individual choose the retirement exemption', find: "const significant = x.entity === 'individual' || x.significant === 'yes';", replace: 'const significant = true;' },
+  { ...concessions, name: 'CGT concessions allow the retirement exemption once the limit is used', find: 'used < RETIREMENT_LIMIT', replace: 'used <= RETIREMENT_LIMIT' },
+  { ...concessions, name: 'CGT concessions end the replacement asset period after 1 year', find: "-02-28` : yearsLater(event, 2) };", replace: "-02-28` : yearsLater(event, 1) };" },
+  { ...concessions, name: 'CGT concessions end a replacement period from 29 February on 1 March', find: "event.endsWith('-02-29') ? `", replace: "false ? `" },
   { ...business, name: 'an activity statement figure rounds its cents', find: 'Math.floor(value / 100)', replace: 'Math.round(value / 100)' },
   { ...business, name: 'a varied amount takes a fifth of estimated tax a quarter', find: 'BigInt(instalment), 4n', replace: 'BigInt(instalment), 5n' },
   { ...business, name: 'credits claimed are not added back', find: 'return earlier - credits;', replace: 'return earlier;' },
@@ -551,6 +580,48 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC quarterly administration applies with no shortfall', find: 'shortfall > 0 ? 2000 : 0', replace: '2000' },
   { ...sgc, name: 'SGC quarterly lodgment day is the 28th of the next month', find: 'Date.UTC(first, month + 4, 28)', replace: 'Date.UTC(first, month + 3, 28)' },
   { ...sgc, name: 'SGC quarterly 29 February is not refused', find: "if (isoOf(day).endsWith('-02-29')) {", replace: 'if (false) {' },
+  { ...cgt, name: 'CGT indexes to the June 1999 quarter', find: 'SEPTEMBER_1999 = 687n', replace: 'SEPTEMBER_1999 = 681n' },
+  { ...cgt, name: 'CGT indexation factor truncates instead of rounding', find: '(2n * SEPTEMBER_1999 * 1000n + BigInt(index)) / (2n * BigInt(index))', replace: '(SEPTEMBER_1999 * 1000n) / BigInt(index)' },
+  { ...cgt, name: "CGT a cost's quarter is a month late", find: 'Math.floor((Number(iso.slice(5, 7)) - 1) / 3)', replace: 'Math.floor(Number(iso.slice(5, 7)) / 3)' },
+  { ...cgt, name: 'CGT a super fund gets the 50% discount', find: 'super: [1n, 3n]', replace: 'super: [1n, 2n]' },
+  { ...cgt, name: 'CGT capital works deductions never reduce the cost base', find: "const fromCostBase = acquired > '1997-05-13' ? deducted : 0n;", replace: 'const fromCostBase = 0n;' },
+  { ...cgt, name: 'CGT capital works deductions do not reduce the reduced cost base', find: 'reducedCostBase: spent - deducted', replace: 'reducedCostBase: spent' },
+  { ...cgt, name: 'CGT costs of owning are left out of the indexed cost base', find: 'indexed + BigInt(selling + owning) - fromCostBase', replace: 'indexed + BigInt(selling) - fromCostBase' },
+  { ...cgt, name: 'CGT costs of owning are left out of the cost base', find: 'costBase: spent + BigInt(owning) - fromCostBase', replace: 'costBase: spent - fromCostBase' },
+  { ...cgt, name: 'CGT the 6 years end the day before the sixth anniversary', find: '- row.from + (leap ? 0 : 1);', replace: '- row.from;' },
+  { ...cgt, name: 'CGT the 6 years from 29 February run to 1 March', find: '- row.from + (leap ? 0 : 1);', replace: '- row.from + 1;' },
+  { ...cgt, name: 'CGT separate absences share one 6 years', find: 'if (!previous || row.from !== previous.to + 1) {', replace: 'if (!previous) {' },
+  { ...cgt, name: 'CGT a rented absence has no 6-year limit', find: 'const covered = Math.min(left, row.to - row.from + 1);', replace: 'const covered = row.to - row.from + 1;' },
+  { ...cgt, name: 'CGT moving in late counts only when practicable', find: "if (home.practicable === 'no') main.fill", replace: "if (home.practicable === 'yes') main.fill" },
+  { ...cgt, name: 'CGT section 118-192 ignores days before the first use', find: 'const mainBefore = first > 0 && main.subarray(0, first).every(Boolean);', replace: 'const mainBefore = first > 0;' },
+  { ...cgt, name: 'CGT section 118-192 applies from 20 August 1996 inclusive', find: "start + first < dayOf('1996-08-20')", replace: "start + first < dayOf('1996-08-19')" },
+  { ...cgt, name: 'CGT section 118-192 keeps the original ownership period', find: 'return { ...count(main, first, part, start), part, capped, incomeTime', replace: 'return { ...count(main, 0, part, start), part, capped, incomeTime' },
+  { ...cgt, name: 'CGT section 118-192 keeps costs spent before the first use', find: 'if (improvement && !(incomeTime && improvement.date < incomeTime)) {', replace: 'if (improvement) {' },
+  { ...cgt, name: 'CGT capital works on an asset bought before 13 May 1997 and improved after June 1999 stay in the cost base', find: "if (deducted && acquired < '1997-05-13' && improvedAfterJune1999) {", replace: 'if (false) {' },
+  { ...cgt, name: 'CGT indexation is open for an asset bought on 21 September 1999', find: "if (acquired === '1999-09-21') {", replace: 'if (false) {' },
+  { ...cgt, name: 'CGT part use is not taxed', find: 'BigInt(home.nonMain * 10000 + home.part.percent * home.partDays)', replace: 'BigInt(home.nonMain * 10000)' },
+  { ...cgt, name: 'CGT the discount needs 12 months and a day', find: 'event >= yearsLater(isoOf(dayOf(acquired) + 1), 1)', replace: 'event > yearsLater(isoOf(dayOf(acquired) + 1), 1)' },
+  { ...cgt, name: 'CGT the 12 months count the day bought', find: 'event >= yearsLater(isoOf(dayOf(acquired) + 1), 1)', replace: 'event >= yearsLater(isoOf(dayOf(acquired)), 1)' },
+  { ...cgt, name: 'CGT indexation stops at 1990', find: "const indexable = acquired <= '1999-09-21';", replace: "const indexable = acquired <= '1990-09-21';" },
+  { ...cgt, name: 'CGT a company gets no indexation', find: "if (entity === 'company') return [indexable ? 'indexation' : 'other'];", replace: "if (entity === 'company') return ['other'];" },
+  { ...cgt, name: "CGT earlier years' losses are not applied", find: 'const remaining = gain - currentApplied - priorApplied;', replace: 'const remaining = gain - currentApplied;' },
+  { ...cgt, name: "CGT this year's unused losses are not carried forward", find: 'carried: current - currentApplied + prior - priorApplied', replace: 'carried: prior - priorApplied' },
+  { ...cgt, name: 'CGT a tie between methods ignores the losses carried forward', find: '(a.net === b.net ? Number(b.carried - a.carried) : Number(a.net - b.net))', replace: 'Number(a.net - b.net)' },
+  { ...cgt, name: 'CGT the tax estimate leaves out the Medicare levy', find: "'resident').total - base) * 100) / 100;", replace: "'resident').netTax - base) * 100) / 100;" },
+  { ...cgt, name: 'CGT label A rounds the cents', find: 'const labelA = Number(chosen.net / 100n);', replace: 'const labelA = Math.round(Number(chosen.net) / 100);' },
+  { ...cgt, name: 'CGT a sale contract from 1 July 2027 is worked', find: "until: '2027-06-30'", replace: "until: '2027-07-01'" },
+  { ...cgt, name: 'CGT a pre-CGT asset is worked', find: "if (acquired < '1985-09-20') {", replace: "if (acquired < '1985-09-19') {" },
+  { ...cgt, name: 'CGT costs of owning are accepted from June 1991', find: "if (owning && acquired <= '1991-08-20') {", replace: "if (owning && acquired < '1991-06-01') {" },
+  { ...cgt, name: 'CGT costs of owning stay in when section 118-192 applies', find: 'if (owning && incomeTime) {', replace: 'if (false) {' },
+  { ...cgt, name: 'CGT part use begun during a chosen absence is worked', find: 'row.choose && part.from >= row.from && part.from <= row.to', replace: 'false' },
+  { ...cgt, name: 'CGT part use begun before a chosen absence is refused', find: 'row.choose && part.from >= row.from && part.from <= row.to', replace: 'row.choose && part.from <= row.to' },
+  { ...cgt, name: 'CGT shares held at least 10% get the discount', find: "if (x.kind === 'equity' && x.entity !== 'company') {", replace: 'if (false) {' },
+  { ...cgt, name: 'CGT a company is refused shares held at least 10%', find: "x.kind === 'equity' && x.entity !== 'company'", replace: "x.kind === 'equity'" },
+  { ...cgt, name: 'CGT the 6-year note is never given', find: 'capped ||= rented > allowance;', replace: '' },
+  { ...cgt, name: 'CGT rent ending on the sixth anniversary is worked', find: 'if (rented >= allowance && rented <= allowance + (leap ? 1 : 0)) {', replace: 'if (false) {' },
+  { ...cgt, name: 'CGT rent from 29 February ending on 1 March is worked', find: 'allowance + (leap ? 1 : 0)', replace: 'allowance' },
+  { ...cgt, name: 'CGT an absence that ends after another starts is not checked', find: '      settle();', replace: '' },
+  { ...cgt, name: 'CGT part use begun past the 6 years is refused', find: 'main[part.from - start] && rows.some', replace: 'rows.some' },
   { ...lsl, name: 'LSL NSW pro rata from 4 years', find: "(NSW)', full: 10, early: 5", replace: "(NSW)', full: 10, early: 4" },
   { ...lsl, name: 'LSL Victoria needs 10 years', find: "(Vic)', full: 7, early: 7", replace: "(Vic)', full: 10, early: 7" },
   { ...lsl, name: 'LSL service leaves out the last day', find: 'const until = end + 1 - excluded;', replace: 'const until = end - excluded;' },
@@ -623,6 +694,21 @@ const MUTATIONS = [
   { ...leave, name: 'unused leave TFN payee taxed on scale 3', find: '({ tfn: 2,', replace: '({ tfn: 3,' },
   { ...leave, name: 'unused leave part a cent over its total accepted', find: 'given !== null && given > total)', replace: 'given !== null && given > total + 1)' },
   { ...leave, name: 'unused leave pre-1978 share 90% not assessable', find: 'lslPre1978NotAssessable: toCents(pre1978 * 19)', replace: 'lslPre1978NotAssessable: toCents(pre1978 * 18)' },
+  { ...borrow, name: 'borrowing maximum truncates the cents', find: 'const maximum = ratioCents(remaining * BigInt(days), BigInt(left));', replace: 'const maximum = (remaining * BigInt(days)) / BigInt(left);' },
+  { ...borrow, name: 'borrowing days leave out the first day', find: 'const [left, days] = [end - begin + 1, Math.min(end, last) - begin + 1];', replace: 'const [left, days] = [end - begin + 1, Math.min(end, last) - begin];' },
+  { ...borrow, name: 'borrowing period runs 5 years and a day', find: 'return civil(same)[2] === civil(start)[2] ? same - 1 : same;', replace: 'return civil(same)[2] === civil(start)[2] ? same : same;' },
+  { ...borrow, name: 'borrowing period ignores the contract', find: 'const planned = loan.termEnd === null ? five : Math.min(loan.termEnd, five);', replace: 'const planned = five;' },
+  { ...borrow, name: 'borrowing period ignores a repayment', find: 'return loan.repaid !== null && loan.repaid <= last ? Math.min(planned, loan.repaid) : planned;', replace: 'return planned;' },
+  { ...borrow, name: 'borrowing $100 test takes under $100 only', find: 't.num <= 10000n * t.den;', replace: 't.num < 10000n * t.den;' },
+  { ...borrow, name: 'borrowing $100 test ignores nil use', find: 'return f.uses[0].num !== 0n && t.num', replace: 'return t.num' },
+  { ...borrow, name: 'borrowing $100 test counts each loan alone', find: 'num: t.num * f.uses[0].den + f.expenditure * f.uses[0].num * t.den, den', replace: 'num: f.expenditure * f.uses[0].num, den: f.uses[0].den' },
+  { ...borrow, name: 'borrowing deduction ignores the income use', find: 'deduction: ratioCents(y.maximum * f.uses[i].num, f.uses[i].den),', replace: 'deduction: y.maximum,' },
+  { ...borrow, name: 'borrowing loans before 2017-18 pass', find: 'if (loan.firstYear < FIRST_YEAR) refuse(', replace: 'if (false) refuse(' },
+  { ...borrow, name: 'borrowing refinancing on another day passes', find: '&& loans[k - 1].loan.repaid === facts.loan.start;', replace: ';' },
+  { ...borrow, name: 'borrowing s 26-155 flag from 2028-29', find: 'section_26_155: first >= 2027, projected: first > LAST_YEAR }));', replace: 'section_26_155: first >= 2028, projected: first > LAST_YEAR }));' },
+  { ...borrow, name: 'borrowing 10% test at 5%', find: 'if (change < 0.1) {', replace: 'if (change < 0.05) {' },
+  { ...borrow, name: 'borrowing 10% test counts fees paid to others', find: '+ Number(lenderFees) / 100;', replace: '+ Number(t.borrowingExpenses) / 100;' },
+  { ...borrow, name: 'borrowing early repayment is not an extinguishment', find: 'return { cost, balances, writtenOff: stop };', replace: 'return { cost, balances, writtenOff: null };' },
   { ...wc, name: 'WC an NSW premium of exactly $30,000 is refused', find: 'if (app > NSW_SMALL_LIMIT) {', replace: 'if (app >= NSW_SMALL_LIMIT) {' },
   { ...wc, name: 'WC an NSW premium of exactly $240 is refused', find: 'if (premium < NSW_MINIMUM) {', replace: 'if (premium <= NSW_MINIMUM) {' },
   { ...wc, name: 'WC the Safe Employer Reward applies to wages', find: 'const ser = at(app, reward);', replace: 'const ser = at(wages, reward);' },
@@ -664,7 +750,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
