@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 
 # Small business CGT concessions checker
 
-Which Division 152 small business CGT concessions are open for one capital gain.
+Which Division 152 CGT concessions are open for one capital gain.
 
 Published 19 November 2026. Last checked 19 November 2026.
 
@@ -20,7 +20,7 @@ Who made the capital gain An individual A company A trust The asset Land, buildi
 
 CGT small business entity: aggregated turnover, with affiliates and connected entities (section 328-110 at $2 million)
 
-A business carried on in the income year of the sale? Yes Winding up a business that was a small business entity in the year it stopped No A business carried on in the previous income year? Yes No Aggregated turnover, previous income year (AUD) A business carried on in the income year before that? Yes No Aggregated turnover, the income year before that (AUD) Likely aggregated turnover for the year of the sale, as at its first day (AUD) Aggregated turnover for the year of the sale, at its end (AUD)
+A business carried on in the income year of the sale? Yes Winding up a business, as a CGT small business entity in the income year it stopped (subsection 328-110(5)) No A business carried on in the previous income year? Yes No Aggregated turnover, previous income year (AUD) A business carried on in the income year before that? Yes No Aggregated turnover, the income year before that (AUD) Likely aggregated turnover for the year of the sale, as at its first day (AUD) Aggregated turnover for the year of the sale, at its end (AUD)
 
 Net value of the CGT assets of yours, connected entities and affiliates just before the sale (AUD; 0 if nil or less) Passively held: used in another entity’s business, with you carrying on none yourself (subsections 152-10(1A) and (1B))? No Yes: an affiliate or connected entity that is a CGT small business entity carries on that business Yes: a partnership you are a partner in, a CGT small business entity, carries on that business Days the asset was an active asset, from purchase to sale or to the end of the business (both days counted) Day the business ceased, if it did before the sale Ceased more than 12 months before the sale: did the Commissioner allow a longer period? No Yes
 
@@ -28,7 +28,7 @@ Net value of the CGT assets of yours, connected entities and affiliates just bef
 
 The individual: you, or for a company or trust its significant individual
 
-Date of birth The sale is in connection with their retirement? No Yes Permanently incapacitated at the sale? No Yes Day of the retirement exemption choice, or for a company or trust its payment CGT exempt amounts already chosen by or for the individual (AUD)
+Date of birth The sale is in connection with their retirement? No Yes Permanently incapacitated at the sale? No Yes Day of the retirement exemption choice, or for a company or trust its payment CGT exempt amounts already chosen by or for the individual, only their percentage of a company’s or trust’s (AUD)
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: An individual, bought 3 March 2014, sold 2 February 2026; a business carried on; turnover $2,150,000.00 the previous year, $1,900,000.00 the year before, $2,100,000.00 likely and $1,950,000.00 actual this year; net value of CGT assets $6,200,000.00, not passively held; active for 3,000 days; born 14 August 1975; choice on 31 October 2026, $0.00 of the retirement limit used. Concessions open 50% active asset reduction, retirement exemption and roll-over (Division 152) Basic conditions (subsection 152-10(1)) Met CGT small business entity (subsection 152-10(1AA) and section 328-110 at $2 million) Aggregated turnover for the year, at its end, $1,950,000.00, under $2,000,000 (subsection 328-110(4)): met Maximum net asset value test (section 152-15) $6,200,000.00, more than $6,000,000: not met Passively held asset (subsection 152-10(1A) or (1B)) No, as you answered Active asset test (section 152-35) Active for 3,000 of the 4,355 days from 3 March 2014 to 2 February 2026, against the half needed for an asset owned 15 years or less: met 15-year exemption (Subdivision 152-B) Not available, as these are not met: continuous ownership for the 15 years before the CGT event (paragraph 152-105(b)) and aged 55 or over and retiring, or permanently incapacitated (paragraph 152-105(d)) 50% active asset reduction (Subdivision 152-C) Applies: the gain left after losses and any CGT discount is halved, unless you choose otherwise (sections 152-205 and 152-220) Retirement exemption (Subdivision 152-D) Available: up to $500,000.00 of the gain left after the 50% reduction (section 152-320), with the exempt amount paid into a complying super fund or RSA, as the individual is under 55 just before the choice (paragraph 152-305(1)(b)) Roll-over (Subdivision 152-E) Available: a replacement active asset or capital improvement from 2 February 2025 to 2 February 2028 (subsection 104-190(1A)) They apply in the order of subsection 102-5(1): the 15-year exemption, then losses, the CGT discount and the 50% reduction, then the retirement exemption and roll-over in either order (section 152-210).
 
@@ -93,7 +93,7 @@ An asset bought before 20 September 1985 is refused | Individual; bought 19 Sept
 Bought on the same date 15 years before the sale is refused | Individual; bought 2 February 2011, sold 2 February 2026; business, turnover $2,150,000.00 previous, $1,900,000.00 before, $2,100,000.00 likely, $1,950,000.00 actual; net assets $6,200,000.00; active 3000 days; born 14 August 1975; choice 31 October 2026 | Refused: whether an asset bought on the same date 15 years before the sale was owned for 15 years (sections 152-35 and 152-105) turns on the time of day of each contract: this page cannot tell
 Owned more than 15 years and active for 2,738 days is refused | Individual; bought 30 June 2005, sold 2 February 2026; business, turnover $2,150,000.00 previous, $1,900,000.00 before, $2,100,000.00 likely, $1,950,000.00 actual; net assets $6,200,000.00; active 2738 days; born 14 August 1975; choice 31 October 2026 | Refused: a total of 7.5 years is 2,737 to 2,741 days, depending on the leap days and months it spans: count the active periods in years and months to see whether they reach 7.5 years (paragraph 152-35(1)(b))
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -101,4 +101,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
