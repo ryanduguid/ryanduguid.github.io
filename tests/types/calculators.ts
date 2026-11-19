@@ -248,3 +248,15 @@ calculate.fuelTaxCredits({ ...ftcInput, year: 2026 });
 const ftcLabel: string = calculate.fuelTaxCredits(ftcInput).label7d;
 void ftcTotal;
 void ftcLabel;
+const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
+  loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;
+const leaveWithheld: number = calculate.unusedLeave(leavePay).withholding;
+const leaveType: 'R' | 'T' = calculate.unusedLeave(leavePay).lumpSumAType;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.unusedLeave({ ...leavePay, annual: 0 });
+// @ts-expect-error The reason is one of the 4 the form offers; death is out of scope.
+calculate.unusedLeave({ ...leavePay, reason: 'death' });
+// @ts-expect-error A working holiday maker is not a payee choice: Schedule 15 covers them.
+calculate.unusedLeave({ ...leavePay, payee: 'working-holiday-maker' });
+void leaveWithheld;
+void leaveType;
