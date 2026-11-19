@@ -533,4 +533,8 @@ test('the bonus calculator refuses what Schedule 5 or its scales here do not cov
   assert.throws(() => bonus({ method: 'B', backPays: '2' }), { message: 'Enter the back payment for each earlier pay.' });
   assert.throws(() => bonus({ method: 'B', earnings: '100', additional: '1', yearToDate: '99' }),
     { message: 'Enter normal earnings to date that include this pay.' });
+  // The first failure wins: a missing payment before a bad spread, a missing B(i) amount before a bad B(ii) count.
+  assert.throws(() => bonus({ spread: '1' }), { message: 'Enter the additional payment.' });
+  assert.throws(() => bonus({ method: 'B', backPays: '2', additional: '1', paysToDate: '0' }),
+    { message: 'Enter the back payment for each earlier pay.' });
 });
