@@ -13,8 +13,9 @@ import { CONCESSIONAL_CAP, SUPER_GUARANTEE } from './take-home-pay.mjs';
 /** The first year projected, whose caps, super guarantee rate and maximum contribution base apply. */
 export const PROJECTION_YEAR = '2026-27';
 
-// Super is preserved until 60 for anyone born after 30 June 1964 (SIS Regulations reg 6.01(2)),
-// and contributions after 75 are mostly refused, so retirement falls between them. The
+// Super is preserved until 60 for anyone born after 30 June 1964 (SIS Regulations reg 6.01(2)), so
+// for anyone young enough to enter a retirement age below 60, and contributions after 75 are mostly
+// refused, so retirement falls between them. The
 // non-concessional contributions cap for 2026-27 in whole dollars, from the ATO's 'Contributions
 // caps' (Table 4, last updated 11 September 2026), read 19 November 2026. Contributions are the fund's
 // assessable income (ITAA 1997 s 295-160), taxed at 15% (Income Tax Rates Act 1986 s 26(1)), here in
@@ -65,7 +66,8 @@ function projectYear(balance, y, rates) {
  * @param {Projection} p */
 export function superProjection(p) {
   const age = number(p.age, { min: 15, max: LAST_AGE - 1, integer: true });
-  const retire = number(p.retire, { min: PRESERVATION_AGE, max: LAST_AGE, integer: true });
+  // Instrument s 4: the assumed retirement age is the greater of the age entered and the preservation age.
+  const retire = Math.max(number(p.retire, { min: 15, max: LAST_AGE, integer: true }), PRESERVATION_AGE);
   if (retire <= age) {
     throw new Error('Enter a retirement age after your current age; '
       + 'this projection does not cover an account already paying a pension.');

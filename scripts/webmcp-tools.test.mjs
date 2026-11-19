@@ -454,7 +454,8 @@ test('super projection tool gives the page’s worked example and refuses what t
     [37, '2068319.69', '539266.80', 'https://duguid.com.au/tools/individual-tax/super-projection/']);
   const year = await tool.execute({ age: 66, balance: '50000', salary: 80000 });
   assert.deepEqual([year.employerContributionsFirstYear, year.balanceAtRetirement], ['9600.00', '60829.25']);
-  await assert.rejects(tool.execute({ age: 30, retirementAge: 59, balance: '50000', salary: 80000 }), /retirementAge/);
+  assert.equal((await tool.execute({ age: 30, retirementAge: 59, balance: '50000', salary: 80000 })).retirementAge, 60);
+  await assert.rejects(tool.execute({ age: 30, retirementAge: 76, balance: '50000', salary: 80000 }), /retirementAge/);
   await assert.rejects(tool.execute({ age: 30, balance: '50000', salary: 80000, salarySacrifice: '30000' }), /\$32,500 cap/);
   await assert.rejects(tool.execute({ age: 30, balance: 50000, salary: 80000 }), /balance/);
   assert.match(tool.description, /not a prediction or a recommendation/);

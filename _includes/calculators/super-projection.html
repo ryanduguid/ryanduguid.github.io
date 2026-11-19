@@ -1,9 +1,9 @@
 <section class="business-calculator" id="super-projection">
 <form class="calculator-split" data-calculator="super-projection">
 <fieldset disabled><legend>Super projection inputs, from 2026-27 to retirement</legend><div class="form-grid"><label class="field" for="super-projection-age">Your age now (whole years)<input id="super-projection-age" name="age" type="number" inputmode="numeric" min="15" max="74" step="1" value="30" required /></label>
-<label class="field" for="super-projection-retire">Retirement age, from 60 (whole years)<input id="super-projection-retire" name="retire" type="number" inputmode="numeric" min="60" max="75" step="1" value="67" required /></label>
+<label class="field" for="super-projection-retire">Retirement age, 60 at the earliest (whole years)<input id="super-projection-retire" name="retire" type="number" inputmode="numeric" min="15" max="75" step="1" value="67" required /></label>
 <label class="field" for="super-projection-balance">Super balance now (dollars and cents)<input id="super-projection-balance" name="balance" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="50000" required /></label>
-<label class="field" for="super-projection-salary">Salary for 2026-27 before salary sacrifice (whole dollars)<input id="super-projection-salary" name="salary" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="80000" required /></label>
+<label class="field" for="super-projection-salary">Salary for 2026-27 before salary sacrifice: your qualifying earnings (whole dollars)<input id="super-projection-salary" name="salary" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="80000" required /></label>
 <label class="field" for="super-projection-employer">Employer contributions, per cent of salary: 12 is the super guarantee, 0 if self-employed<input id="super-projection-employer" name="employer" type="number" inputmode="decimal" min="0" max="30" step="0.01" value="12" required /></label>
 <label class="field" for="super-projection-sacrifice">Salary sacrifice and personal deductible contributions for 2026-27 (dollars and cents)<input id="super-projection-sacrifice" name="sacrifice" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 <label class="field" for="super-projection-after-tax">After-tax contributions for 2026-27 (dollars and cents)<input id="super-projection-after-tax" name="after-tax" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
@@ -32,7 +32,7 @@
 <p>The present value divides the balance at retirement once by 1 plus the present value rate (3.7% unless you change it) to the power of the years projected, rounded to the cent, so that it reads against today’s wages. The calculator is general information about super, not advice: it shows the effect of the figures you enter and does not recommend a fund, an investment option or a contribution.</p>
 <h2>The assumptions and why they are reasonable</h2>
 <ul>
-<li>Retirement at 67: the default ASIC’s Instrument 2022/603 sets for anyone younger. Super is preserved until 60, so an earlier age is not accepted.</li>
+<li>Retirement at 67: the default ASIC’s Instrument 2022/603 sets for anyone younger. Super is preserved until 60, so an earlier age is projected to 60, as the Instrument takes the greater of the age you enter and your preservation age.</li>
 <li>Today’s dollars at 3.7% a year: the rate the Instrument sets, the long-term growth in wages the Treasury’s 2023 Intergenerational Report expects, so the result compares with what wages buy now.</li>
 <li>Wage growth of 3.7% a year for your salary, contributions, fees and premiums: the same long-term forecast, as ASIC’s guide expects contributions to rise with wages.</li>
 <li>A return of 6.1% a year after investment fees and tax on earnings, steady every year: ASIC’s assumption for a balanced investment option. Real returns vary and can be negative in some years; your fund’s option may have a different mix.</li>

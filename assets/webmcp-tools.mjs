@@ -725,7 +725,7 @@ function superProjectionTool(superProjection) {
     description: SUPER_PROJECTION_DESCRIPTION,
     inputSchema: record({
       age: whole(15, 74, 'Age now in whole years.'),
-      retirementAge: whole(60, 75, 'Retirement age in whole years; 67 when omitted.'),
+      retirementAge: whole(15, 75, 'Retirement age in whole years; 67 when omitted; an age under 60, the preservation age, is taken as 60.'),
       balance: text('amount', 'Super balance now in AUD.'),
       salary: whole(0, 1e9, 'Salary for 2026-27 before salary sacrifice, the qualifying earnings the super guarantee is paid on, in whole AUD.'),
       employerRate: text('percent', 'Employer contributions as a per cent of salary, up to 30; "12" (the super guarantee) when omitted.'),

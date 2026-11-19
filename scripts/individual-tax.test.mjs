@@ -614,6 +614,14 @@ test('super projection discounts the final balance at the Instrument’s 3.7% fo
   assert.equal(project({ discount: '0' }).present, r.balance);
 });
 
+// Instrument 2022/603, s 4 'assumed retirement age': the greater of the age entered and the preservation age, 60.
+test('super projection takes a retirement age under 60 as the preservation age', () => {
+  const early = project({ age: '45', retire: '55' });
+  assert.deepEqual([early.retire, early.years], [60, 15]);
+  assert.deepEqual(early, project({ age: '45', retire: '60' }));
+  assert.throws(() => project({ age: '60', retire: '59' }), /after your current age/);
+});
+
 test('super projection pays the employer rate only up to the maximum contribution base', () => {
   assert.equal(project({ salary: '270830' }).employer, 32499.6);
   assert.equal(project({ salary: '300000', employer: '10' }).employer, 27083);
@@ -635,8 +643,8 @@ test('super projection lets fees take no more than the account holds', () => {
 });
 
 test('super projection refuses what it does not compute', () => {
-  assert.throws(() => project({ retire: '59' }), /between 60 and 75/);
-  assert.throws(() => project({ retire: '76' }), /between 60 and 75/);
+  assert.throws(() => project({ retire: '14' }), /between 15 and 75/);
+  assert.throws(() => project({ retire: '76' }), /between 15 and 75/);
   assert.throws(() => project({ age: '67', retire: '67' }), /after your current age/);
   assert.throws(() => project({ age: '14' }), /between 15 and 74/);
   assert.throws(() => project({ sacrifice: '22900.01' }), /above the \$32,500 cap/);
