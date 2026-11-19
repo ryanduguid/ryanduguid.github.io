@@ -180,13 +180,16 @@
       "86f5b0ff1e4b4d0e186d3618e5a14afff83676fbf6740a4d258e5a4dd0912673"
     ],
     "tools/business-calculators/index.html": [
-      "9e1d328cc9c552f1c04e273e35fa62f03b707d0f81813d7149db4fbc59f67de7"
+      "91040c7259a600ad1ffeb26f60090dc76dd1a63a2fa108e8a25138771eff2dc0"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
     ],
     "tools/business-calculators/loan/index.html": [
       "ae4b492b58d76e770fd168a2a59cd246d6851b4673116a2601fb20e965bb3531"
+    ],
+    "tools/business-calculators/long-service-leave/index.html": [
+      "a2819929d6a29592a36dc68bdd074299aa65bb698d837297f7cfac4606e86a2c"
     ],
     "tools/business-calculators/margin/index.html": [
       "d03a1db0e3f831d4e7bf0c732357b3a42114c678b134c1a34dc1b51df26b0c2b"
@@ -241,6 +244,9 @@
     ],
     "tools/individual-tax/income-tax/index.html": [
       "aed04320a1e984625737411e6688f860dd30308e78cf544b438f407c0cbf2037"
+    ],
+    "tools/individual-tax/income-tests/index.html": [
+      "9b56ccfac53459f3663618c951c61fc738455aac814bb2c30fa161b97510be22"
     ],
     "tools/individual-tax/index.html": [
       "095fbe24d680773871d1b5b157fe447fd1d2746ca217452e29c61ad4a202f088"
@@ -316,9 +322,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "9fe2cdcfda102e9f93bfcfbe24b5c79284becbc16a4279f74e5fe0fab4908e21",
+    "llms.txt": "8edebf059f2a44fbe0efc8d7d02abb43466646495477d9b3fe6dab832dd6422f",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "a5577a9b868f8ff151b8fbe370dfa77ebc4d454b44ae2f850241060b9d93b6e2"
+    "sitemap.xml": "a476f443fecf0ba7e654de5812147238c8b6ba2ec35ff0f5a4946f4bbebd224d"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -378,7 +384,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7774,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7776,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
