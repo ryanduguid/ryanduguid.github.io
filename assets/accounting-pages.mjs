@@ -538,6 +538,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'sgc-payday':
             result = calculate.sgcPaydayResult(value, aud);
             break;
+          case 'cgt':
+            result = calculate.cgtResult(value, (name) => form.elements.namedItem(name).checked, aud);
+            break;
           case 'long-service-leave':
             result = calculate.longServiceLeaveResult(value, aud);
             break;

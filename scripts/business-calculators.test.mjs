@@ -3443,6 +3443,255 @@ test('the SGC page opens on the result its calculation gives for the form’s in
   assert.equal(quarter.rows.at(-1).join('|'), 'SG charge for the quarter|$1,519.18');
 });
 
+// The CGT page: how each call and result reads.
+const cgtHtml = readFileSync(new URL('../_includes/calculators/cgt.html', import.meta.url), 'utf8');
+const cgtPlain = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
+  { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const CGT_WHO = { individual: 'Individual', trust: 'Trust', super: 'Complying super fund', company: 'Company' };
+const CGT_KIND = { investment: 'investment', equity: 'shares or units held at least 10%', home: 'home', personal: 'personal use asset' };
+const CGT_METHOD = { discount: 'discount method', indexation: 'indexation method', other: 'other method', loss: 'a capital loss',
+  exempt: 'fully exempt', nil: 'no gain or loss' };
+Object.assign(INPUTS, {
+  capitalGain: (x) => {
+    const money = (v) => dollars(Number(v));
+    const costs = [`price ${money(x.price)}`, Number(x.buying.amount) && `buying ${money(x.buying.amount)} on ${cgtPlain(x.buying.date)}`,
+      ...x.improvements.filter((c) => Number(c.amount)).map((c) => `cost ${money(c.amount)} on ${cgtPlain(c.date)}`),
+      Number(x.selling) && `selling ${money(x.selling)}`, Number(x.owning) && `owning ${money(x.owning)}`,
+      Number(x.works) && `capital works ${money(x.works)}`].filter(Boolean);
+    const parts = [`${CGT_WHO[x.entity]}${x.resident === 'yes' ? '' : ', not resident'}, ${CGT_KIND[x.kind]}`,
+      `bought ${cgtPlain(x.acquired)}, sold ${cgtPlain(x.event)} for ${money(x.proceeds)}`, costs.join(', ')];
+    if (Number(x.currentLosses) || Number(x.priorLosses)) parts.push(`losses ${money(x.currentLosses)} this year, ${money(x.priorLosses)} earlier`);
+    if (x.entity === 'individual') parts.push(`other income ${money(x.income)}`);
+    if (x.kind === 'home') {
+      const h = x.home;
+      parts.push(`settled ${cgtPlain(h.purchased)} and ${cgtPlain(h.sold)}, moved in ${cgtPlain(h.movedIn)}`
+        + `${h.practicable === 'yes' ? '' : ', not as soon as practicable'}`, ...h.away.filter((a) => a.from)
+        .map((a) => `away ${cgtPlain(a.from)} to ${cgtPlain(a.to)}${a.rented ? ', rented' : ''}${a.choose ? ', chosen' : ''}`));
+      if (Number(h.partPercent)) parts.push(`${h.partPercent}% used for income ${cgtPlain(h.partFrom)} to ${cgtPlain(h.partTo)}`);
+      if (Number(h.market)) parts.push(`market value ${money(h.market)}`);
+      if (h.exclusions !== 'none') parts.push('an excluded case');
+    }
+    return parts.join('; ');
+  },
+});
+Object.assign(FORM_CALLS, { capitalGain: (f) => [calculations.cgtEventOf((name) => f[name], (name) => f[name])] });
+Object.assign(ENGINE_LABELS, {
+  capitalGain: { method: (v) => CGT_METHOD[v], costBase: 'cost base', indexedCostBase: 'indexed cost base',
+    reducedCostBase: 'reduced cost base', gain: 'capital gain', loss: 'capital loss', discount: 'discount', net: 'net capital gain',
+    labelA: (v) => `label A $${v.toLocaleString('en-AU')}`, carried: 'losses carried forward',
+    ownershipDays: (v) => `${v.toLocaleString('en-AU')} ownership days`,
+    nonMainDays: (v) => `${v.toLocaleString('en-AU')} non-main residence days`, partDays: (v) => `${v.toLocaleString('en-AU')} part-use days`,
+    incomeTime: (v) => (v ? `taken to be acquired ${cgtPlain(v)}` : 'section 118-192 does not apply'), tax: 'extra tax' },
+});
+const cgtBase = () => structuredClone(shownCases.cgt.rows[0].call[0]);
+/** A call the CGT page must work, not refuse: a refusal fails an assertion. @param {() => any} call */
+const cgtWorks = (call) => {
+  try {
+    return call();
+  } catch (error) {
+    return assert.fail(`refused: ${error.message}`);
+  }
+};
+
+// ATO, Guide to capital gains tax 2026, 'How to work out your capital gain or capital loss' (last
+// updated 30 May 2026), read 19 November 2026: example 12, '68.7 ÷ 63.8 = 1.077'; example 13,
+// '68.7 ÷ 59.0 = 1.164' and '68.7 ÷ 59.3 = 1.159'. Appendix 2 (published 30 May 2026): the
+// September 1985 quarter is the first, 39.7, and the September 1999 quarter the last, 68.7.
+test('indexation factors are the ATO’s, from the September 1985 quarter to September 1999', () => {
+  assert.equal(calculations.indexationFactor('1995-03-15'), 1077n);
+  assert.equal(calculations.indexationFactor('1991-06-24'), 1164n);
+  assert.equal(calculations.indexationFactor('1991-09-30'), 1159n);
+  assert.equal(calculations.indexationFactor('1985-07-01'), 1730n);
+  assert.equal(calculations.indexationFactor('1999-06-30'), 1009n);
+  assert.equal(calculations.indexationFactor('1999-07-01'), 1000n);
+  assert.equal(calculations.indexationFactor('2025-10-01'), 1000n);
+  assert.deepEqual([calculations.CPI[1985], calculations.CPI[1990][3], calculations.CPI[1991][0], calculations.CPI[1999]],
+    [[0, 0, 397, 405], 590, 589, [678, 681, 687, 0]]);
+  assert.throws(() => calculations.indexationFactor('1985-06-30'),
+    { message: 'The CPI index numbers start at the September 1985 quarter: enter a later date of expenditure.' });
+});
+
+test('the 12 months for the discount leave out the day bought and the day sold, and 29 February moves to 1 March', () => {
+  const held = (acquired, event) => calculations.capitalGain({ ...cgtBase(), acquired, event, buying: { amount: '0', date: '' },
+    improvements: [{ amount: '0', date: '' }, { amount: '0', date: '' }], works: '0' }).method;
+  assert.equal(held('2025-02-02', '2026-02-03'), 'discount');
+  assert.equal(held('2025-02-02', '2026-02-02'), 'other');
+  // Acquired 28 February 2023: the 12 months run from 1 March 2023 to 29 February 2024.
+  assert.equal(held('2023-02-28', '2024-02-29'), 'other');
+  assert.equal(held('2023-02-28', '2024-03-01'), 'discount');
+  // Acquired 29 February 2024: from 1 March 2024 to 28 February 2025.
+  assert.equal(held('2024-02-29', '2025-02-28'), 'other');
+  assert.equal(held('2024-02-29', '2025-03-01'), 'discount');
+});
+
+// Section 118-145(2) and the ATO's examples 77 and 79: 6 years for each absence while the home is
+// rented, unlimited while it is not, and a new 6 years after moving back in.
+test('the 6 years a rented home can stay the main residence run per absence, across its rows', () => {
+  const sale = (away, market = '0') => calculations.capitalGain({ ...cgtBase(), kind: 'home', acquired: '2000-01-10', event: '2026-05-01',
+    proceeds: '900000', price: '400000', buying: { amount: '0', date: '' }, improvements: [{ amount: '0', date: '' }, { amount: '0', date: '' }],
+    selling: '0', works: '0', home: { ...cgtBase().home, purchased: '2000-02-10', sold: '2026-05-29', movedIn: '2000-02-10', market,
+      away: [...away, ...Array.from({ length: 4 - away.length }, () => ({ from: '', to: '', rented: false, choose: false }))] } });
+  const rented = (from, to, choose = true) => ({ from, to, rented: true, choose });
+  // Example 79: 2 absences, each with 6 years rented and 2 vacant, 2 years home between them.
+  const lana = sale([rented('2002-05-29', '2008-05-28'), { from: '2008-05-29', to: '2010-05-28', rented: false, choose: true },
+    rented('2012-05-29', '2018-05-28'), { from: '2018-05-29', to: '2020-05-28', rented: false, choose: true }], '500000');
+  assert.deepEqual([lana.method, lana.nonMainDays], ['exempt', 0]);
+  // The 6 years run to the sixth anniversary inclusive, as the ATO's example 72 counts them, and its
+  // example 80 counts a day fewer, so rent ending on the anniversary is refused, in one row or across
+  // an absence's rows. The day before is within both counts; a day after is over under both, section
+  // 118-192 then starts the ownership period at the first rent, and the result notes the count.
+  const boundary = /examples 72 and 80 count the 6 years a rented home can stay the main residence a day apart/;
+  const vacant = (from, to) => ({ from, to, rented: false, choose: true });
+  assert.throws(() => sale([rented('2002-05-29', '2008-05-29'), vacant('2008-05-30', '2010-05-28'), vacant('2011-01-01', '2011-06-30')],
+    '500000'), boundary);
+  assert.throws(() => sale([rented('2002-05-29', '2005-05-28'), vacant('2005-05-29', '2006-05-28'), rented('2006-05-29', '2009-05-29')],
+    '500000'), boundary);
+  const within = cgtWorks(() => sale([rented('2002-05-29', '2008-05-28'), vacant('2008-05-29', '2010-05-28')], '500000'));
+  assert.deepEqual([within.method, within.nonMainDays, within.sixYears], ['exempt', 0, false]);
+  const over = cgtWorks(() => sale([rented('2002-05-29', '2008-05-30'), vacant('2008-05-31', '2010-05-28')], '500000'));
+  assert.deepEqual([over.nonMainDays, over.incomeTime, over.ownershipDays, over.sixYears], [1, '2002-05-29', 8767, true]);
+  // From 29 February the anniversary is 28 February or 1 March, so rent ending on either is refused.
+  const leap = (to, back) => sale([rented('2004-02-29', to), vacant(back, '2012-05-28')], '500000');
+  for (const [to, back] of [['2010-02-28', '2010-03-01'], ['2010-03-01', '2010-03-02']]) assert.throws(() => leap(to, back), boundary, to);
+  assert.deepEqual([cgtWorks(() => leap('2010-02-27', '2010-02-28')).nonMainDays, cgtWorks(() => leap('2010-03-02', '2010-03-03')).nonMainDays],
+    [0, 2]);
+  // Rows that do not follow on are separate absences, each with its own 6 years.
+  const apart = sale([rented('2002-05-29', '2008-05-28'), rented('2008-05-30', '2014-05-28')], '500000');
+  assert.equal(apart.nonMainDays, 0);
+  // Not choosing makes every day away a non-main residence day.
+  const unchosen = sale([rented('2002-05-29', '2004-05-28', false)], '500000');
+  assert.deepEqual([unchosen.nonMainDays, unchosen.incomeTime], [731, '2002-05-29']);
+  assert.throws(() => sale([rented('2000-02-10', '2001-02-09')]),
+    { message: 'Absence 1 must start after the home became the main residence and end by settlement of the sale.' });
+  assert.throws(() => sale([rented('2002-05-29', '2004-05-28'), rented('2004-05-28', '2005-05-28')]),
+    { message: 'Enter the absences in date order, without overlaps.' });
+  assert.throws(() => sale([rented('2002-05-29', '2002-05-28')]), { message: 'Absence 1 must end on or after the day it starts.' });
+  assert.throws(() => sale([rented('2002-05-29', '2026-05-29'), rented('2010-01-01', '2011-01-01')]),
+    { message: 'Enter the absences in date order, without overlaps.' });
+  assert.throws(() => sale([rented('2002-05-29', '2026-05-29')]),
+    { message: 'Enter the market value when the home was first used to produce income (section 118-192).' });
+});
+
+// Section 118-190(3): use to produce income during a chosen absence is ignored only for a part not
+// so used just before the move; ATO example 81's surgery stays taxable. Section 118-192 needs the
+// home fully exempt until first used to produce income (ATO examples 68 and 69: not when used so
+// from purchase), and a first use on 20 August 1996 turns on the time.
+test('part use, and when section 118-192 applies to the home', () => {
+  const sale = (home) => calculations.capitalGain({ ...cgtBase(), kind: 'home', acquired: '1994-01-10', event: '2025-05-01', proceeds: '600000',
+    price: '200000', buying: { amount: '0', date: '' }, improvements: [{ amount: '0', date: '' }, { amount: '0', date: '' }], selling: '0',
+    works: '0', home: { ...cgtBase().home, purchased: '1994-02-10', sold: '2025-05-29', movedIn: '1994-02-10', ...home } });
+  const surgery = cgtWorks(() => sale({ partPercent: '25', partFrom: '1994-02-10', partTo: '2025-05-29',
+    away: [{ from: '2019-07-01', to: '2025-05-29', rented: true, choose: true }, ...cgtBase().home.away.slice(1)] }));
+  assert.deepEqual([surgery.incomeTime, surgery.partDays, surgery.gain], [null, 11432, 100000]);
+  // Part use that began during a chosen absence is ignored for it (subsection 118-190(3)): refused.
+  const away = [{ from: '2019-07-01', to: '2022-06-30', rented: false, choose: true }, ...cgtBase().home.away.slice(1)];
+  for (const partFrom of ['2019-07-01', '2022-06-30']) {
+    assert.throws(() => sale({ partPercent: '25', partFrom, partTo: '2025-05-29', market: '450000', away }), /subsection 118-190\(3\)/, partFrom);
+  }
+  assert.equal(sale({ partPercent: '25', partFrom: '2022-07-01', partTo: '2025-05-29', market: '450000', away }).incomeTime, '2022-07-01');
+  // Part use that began past the 6 years of a rented absence is not under the choice, so it is worked.
+  const pastSix = [{ from: '2010-01-01', to: '2025-05-29', rented: true, choose: true }, ...cgtBase().home.away.slice(1)];
+  assert.equal(cgtWorks(() => sale({ partPercent: '25', partFrom: '2018-01-01', partTo: '2025-05-29', market: '450000', away: pastSix })).incomeTime,
+    '2010-01-01');
+  assert.equal(sale({ partPercent: '25', partFrom: '2019-07-01', partTo: '2025-05-29', market: '450000',
+    away: [{ ...away[0], choose: false }, ...away.slice(1)] }).incomeTime, '2019-07-01');
+  const later = sale({ partPercent: '25', partFrom: '2010-01-01', partTo: '2025-05-29', market: '450000' });
+  assert.deepEqual([later.incomeTime, later.ownershipDays, later.partDays, later.gain], ['2010-01-01', 5628, 5628, 37500]);
+  assert.throws(() => sale({ partPercent: '25', partFrom: '1996-08-20', partTo: '2025-05-29', market: '300000' }),
+    { message: 'Whether section 118-192 applies to first use to produce income on 20 August 1996 turns on whether it began after '
+      + '7.30 pm: this page cannot tell.' });
+  const early = sale({ partPercent: '25', partFrom: '1996-08-19', partTo: '2025-05-29', market: '300000' });
+  // $400,000 × 25% × 10,511 ÷ 11,432 days.
+  assert.deepEqual([early.incomeTime, early.partDays, early.gain], [null, 10511, 91943.67]);
+  // Moving in late, not as soon as practicable, means it was not fully exempt before the first use.
+  const late = sale({ movedIn: '1995-02-10', practicable: 'no', partPercent: '25', partFrom: '2010-01-01', partTo: '2025-05-29', market: '450000' });
+  assert.deepEqual([late.incomeTime, late.nonMainDays], [null, 365]);
+  // A cost spent before the first use is in the market value that replaces the cost base.
+  const improved = sale({ partPercent: '25', partFrom: '2010-01-01', partTo: '2025-05-29', market: '450000' });
+  const withCost = calculations.capitalGain({ ...cgtBase(), kind: 'home', acquired: '1994-01-10', event: '2025-05-01', proceeds: '600000',
+    price: '200000', buying: { amount: '0', date: '' }, improvements: [{ amount: '50000', date: '2005-03-01' }, { amount: '0', date: '' }],
+    selling: '0', works: '0', home: { ...cgtBase().home, purchased: '1994-02-10', sold: '2025-05-29', movedIn: '1994-02-10', partPercent: '25',
+      partFrom: '2010-01-01', partTo: '2025-05-29', market: '450000' } });
+  assert.deepEqual([withCost.costBase, withCost.gain], [improved.costBase, improved.gain]);
+  assert.throws(() => sale({ partPercent: '25', partFrom: '1994-02-09', partTo: '2025-05-29' }),
+    { message: 'Enter the part used to produce income within the ownership period, from settlement to settlement.' });
+  assert.throws(() => sale({ movedIn: '1994-02-09' }),
+    { message: 'Enter the day you moved in from settlement of the purchase to settlement of the sale.' });
+  assert.throws(() => sale({ exclusions: 'some' }), /does not work out a home on more than 2 hectares/);
+  assert.throws(() => sale({ purchased: '1994-01-09' }), { message: 'Each settlement must be on or after its contract.' });
+});
+
+test('the CGT page refuses malformed, out-of-range and missing figures instead of reading them as nil', () => {
+  for (const field of ['proceeds', 'price', 'selling', 'owning', 'works', 'currentLosses', 'priorLosses']) {
+    for (const value of ['', 'abc', '-1', '1e3', '100.001', '1000000001']) {
+      assert.throws(() => calculations.capitalGain({ ...cgtBase(), [field]: value }), Error, `${field} ${value}`);
+    }
+  }
+  for (const value of ['', '90000.5', '-1']) assert.throws(() => calculations.capitalGain({ ...cgtBase(), income: value }), Error, value);
+  assert.throws(() => calculations.capitalGain({ ...cgtBase(), acquired: '2026-02-30' }), { message: 'Enter the date of the purchase contract as a date.' });
+  assert.throws(() => calculations.capitalGain({ ...cgtBase(), event: '2020-06-30' }), { message: 'Enter a sale contract from 1 July 2020 to 30 June 2027.' });
+  assert.throws(() => calculations.capitalGain({ ...cgtBase(), acquired: '2026-02-01' }), { message: 'The sale contract must come after the purchase contract.' });
+  assert.throws(() => calculations.capitalGain({ ...cgtBase(), entity: 'partnership' }), { message: 'Choose who made the capital gain or loss.' });
+  assert.throws(() => calculations.capitalGain({ ...cgtBase(), improvements: [{ amount: '100', date: '' }, { amount: '0', date: '' }] }),
+    { message: 'Enter the date of the improvement or title cost 1 as a date.' });
+  assert.throws(() => calculations.capitalGain({ ...cgtBase(), improvements: [{ amount: '100', date: '1997-06-30' }, { amount: '0', date: '' }] }),
+    { message: 'Enter the date of the improvement or title cost 1 from 1 July 1997 to 1 February 2026.' });
+  assert.throws(() => calculations.capitalGain({ ...cgtBase(), works: '300000' }),
+    { message: 'Capital works deductions cannot exceed the amounts spent on the asset.' });
+  // Costs of owning are in the cost base unindexed and not in the reduced cost base (subsection 110-55(2)).
+  const owned = calculations.capitalGain({ ...cgtBase(), owning: '1000' });
+  assert.deepEqual([owned.costBase, owned.indexedCostBase, owned.reducedCostBase], [207245, 212493, 206245]);
+  // A company gets no discount, so section 115-45 does not matter to its shares.
+  const company = { ...cgtBase(), entity: 'company' };
+  assert.deepEqual(cgtWorks(() => calculations.capitalGain({ ...company, kind: 'equity' })), calculations.capitalGain(company));
+  for (const entity of ['individual', 'trust', 'super']) {
+    assert.throws(() => calculations.capitalGain({ ...cgtBase(), entity, kind: 'equity' }), /section 115-45/, entity);
+  }
+  // Unused losses of this year and earlier years are both carried forward, with a capital loss.
+  const antonio = shownCases.cgt.rows.find((row) => row.case.startsWith('ATO example 14')).call[0];
+  assert.equal(calculations.capitalGain({ ...antonio, currentLosses: '1000', priorLosses: '400' }).carried, 3900);
+  // When both methods leave nil, the one carrying more losses forward wins.
+  const val = shownCases.cgt.rows.find((row) => row.case.startsWith('ATO example 13')).call[0];
+  const both = calculations.capitalGain({ ...val, currentLosses: '200000' });
+  assert.deepEqual([both.method, both.net, both.carried], ['indexation', 0, 38213]);
+  // Capital works deductions on an asset acquired before 13 May 1997 come out of the reduced cost base
+  // only, unless they can be on an improvement after 30 June 1999 (subsection 110-45(1A)).
+  const before = calculations.capitalGain({ ...cgtBase(), acquired: '1997-05-12', buying: { amount: '20000', date: '1997-05-12' },
+    improvements: [{ amount: '30000', date: '1999-06-30' }, { amount: '0', date: '' }] });
+  assert.deepEqual([before.costBase, before.reducedCostBase], [206500, 206245]);
+  assert.throws(() => calculations.capitalGain({ ...cgtBase(), acquired: '1997-05-12', buying: { amount: '20000', date: '1997-05-12' } }),
+    /subsection 110-45\(1A\)/);
+});
+
+test('the CGT page opens on the result its calculation gives for the form’s inputs, and cites each source with its date', () => {
+  const example = cgtHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(cgtHtml);
+  const result = calculations.cgtResult((name) => fields[name], (name) => fields[name], aud);
+  assert.equal(result.inputs, example[1]);
+  assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
+  assert.equal(String(result.principal), example[3]);
+  assert.equal(result.note, example[4]);
+  for (const cited of ['as at 21 May 2026 (Compilation No. 264), read 19 November 2026', '(Act No. 49 of 2026, read 19 November 2026)',
+    '(Guide to capital gains tax 2026, last updated 30 May 2026), read 19 November 2026', '(published 30 May 2026), read 19 November 2026',
+    '(last updated 30 May 2026), read 19 November 2026', 'label H of $289,755 and label A of $144,877',
+    'A company, not a life insurance company or listed investment company']) {
+    assert.ok(cgtHtml.includes(cited), cited);
+  }
+  // A home: example 72's figures as the page shows them.
+  const roya = shownCases.cgt.rows.find((row) => row.case.startsWith('ATO example 72')).call[0];
+  const flat = { entity: 'individual', resident: 'yes', kind: 'home', acquired: roya.acquired, event: roya.event, proceeds: roya.proceeds,
+    price: roya.price, buying: '0', 'buying-date': '', 'improvement-1': '0', 'improvement-1-date': '', 'improvement-2': '0',
+    'improvement-2-date': '', selling: roya.selling, owning: '0', works: '0', 'current-losses': '0', 'prior-losses': '0', income: '90000',
+    purchased: roya.home.purchased, sold: roya.home.sold, 'moved-in': roya.home.movedIn, practicable: 'yes', exclusions: 'none',
+    'away-1-from': '1997-09-29', 'away-1-to': '2024-09-29', 'away-1-rented': true, 'away-1-choose': true, 'part-percent': '0',
+    'part-from': '', 'part-to': '', market: '340000' };
+  const home = calculations.cgtResult((name) => flat[name] ?? '', (name) => flat[name] === true, aud);
+  assert.deepEqual(home.rows.slice(4, 7), [['Ownership period, settlement to settlement', '9,863 days, 7,671 not the main residence'],
+    ['Home first used to produce income (section 118-192)', 'Applies: taken to be acquired on 29 September 1997 for $340,000.00'],
+    ['Capital gain before the main residence exemption', '$200,000.00']]);
+});
+
 // The small business CGT concessions checker: how each call and result reads.
 const concessionsHtml = readFileSync(new URL('../_includes/calculators/cgt-concessions.html', import.meta.url), 'utf8');
 const concessionDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
