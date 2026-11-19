@@ -783,6 +783,25 @@ test('unused leave page works Schedule 7’s example, a no-TFN payment and a ref
   await expect(form.locator('output')).toHaveText('The leave accrued from 1 January 1980, so none of it is long service leave for the period before 16 August 1978: enter 0 or leave it blank.');
 });
 
+// The ATO's Peter and Fiona and Max in 2024-25, the accounting column beside them, and a loan before 2017-18.
+test('borrowing expenses page works its example, the accounting column and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/borrowing-expenses/');
+  const form = page.locator('#borrowing-expenses form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Deduction for 2024-25: $591.36.');
+  await expect(form.locator('table[data-results="loans"] tbody tr')).toHaveCount(12);
+  await expect(form.locator('table[data-results="accounting"]')).toBeHidden();
+  await form.locator('input[name="accounting"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Loan 1: effective interest rate (AASB 9): 6.2274% a year.');
+  await expect(form.locator('table[data-results="accounting"]')).toBeVisible();
+  await form.locator('[name="start-1"]').fill('2017-06-30');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText(/loan 1: a loan first drawn before 1 July 2017 is out of scope/i);
+});
+
 // Western Australia's Anastasia (serious misconduct after 12 years and 1 month: the 8 2/3 weeks accrued), the same
 // service still employed, and the Northern Territory death under 10 years the page refuses.
 test('long service leave page works a Western Australian example, the leave still to come and a refusal offline', async ({ page, context }) => {
@@ -1044,7 +1063,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave'];
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave', 'borrowing-expenses'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

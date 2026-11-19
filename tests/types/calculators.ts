@@ -252,3 +252,10 @@ calculate.unusedLeave({ ...leavePay, reason: 'death' });
 calculate.unusedLeave({ ...leavePay, payee: 'working-holiday-maker' });
 void leaveWithheld;
 void leaveType;
+const borrowInput = { year: '2024-25', loans: [{ borrowing_expenses: '1600.00', loan_start: '2020-07-03', loan_term_end: '2045-07-02',
+  repaid_on: null, income_use: '1', section_26_50_applies: false }] };
+const borrowDeduction: number = calculate.borrowingSchedule(borrowInput).deduction;
+// @ts-expect-error The rows hold whole cents as bigint, not dollars.
+const borrowRemaining: number = calculate.borrowingSchedule(borrowInput).loans[0].rows[0].remaining;
+void borrowDeduction;
+void borrowRemaining;

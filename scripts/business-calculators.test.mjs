@@ -3488,3 +3488,165 @@ test('long service leave words each Act’s misconduct test and states the condi
   assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
 });
+
+// The borrowing expenses page: how each call and result reads, section 25-25 against the ATO's
+// and the command's cases, the accounting column against an independent effective rate, and the
+// command it ports, run on the same cases.
+const borrowHtml = readFileSync(new URL('../_includes/calculators/borrowing-expenses.html', import.meta.url), 'utf8');
+const borrowAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+Object.assign(INPUTS, { borrowingSchedule: (x) => calculations.borrowingInputsText(x, borrowAud) });
+Object.assign(FORM_CALLS, { borrowingSchedule: (f) => [calculations.borrowingFormInput((name) => f[name] ?? '')] });
+Object.assign(ENGINE_LABELS, { borrowingSchedule: { borrowingExpenses: 'borrowing expenses', maximumDeduction: 'maximum deduction', deduction: 'deduction',
+  remainingAfterYear: 'still to deduct' } });
+const borrowLoan = (over = {}) => ({ borrowing_expenses: '1600.00', loan_start: '2020-07-03', loan_term_end: '2045-07-02', repaid_on: null,
+  income_use: '1', section_26_50_applies: false, ...over });
+const borrowRows = (r, n) => r.loans[n - 1].rows.map((row) => [row.income_year, (Number(row.remaining) / 100).toFixed(2),
+  (Number(row.maximum) / 100).toFixed(2), (Number(row.deduction) / 100).toFixed(2), row.days, row.left]);
+const borrowCode = (input) => {
+  try {
+    calculations.borrowingSchedule(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+test('the borrowing expenses page opens on the result its calculation gives, and dates its sources', () => {
+  const example = borrowHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(borrowHtml);
+  const result = calculations.borrowingResult((name) => fields[name] ?? '', borrowAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['section 25-25</a> of the Income Tax Assessment Act 1997 at the ATO’s legal database, read 19 November 2026',
+    '(last updated 22 May 2026), read 19 November 2026', 'section 26-155</a>, read 19 November 2026', '(compilation 6, 31 December 2025)',
+    '(compilation 2, 30 June 2021)']) {
+    assert.ok(borrowHtml.includes(cited), cited);
+  }
+});
+
+// The ATO's Peter and Fiona and Max, 'Borrowing expenses' (last updated 22 May 2026), read
+// 19 November 2026, as the command's tests give each year.
+test('borrowing expenses give every year of the ATO’s Peter and Fiona and Max by days', () => {
+  const r = calculations.borrowingSchedule({ year: '2024-25', loans: [borrowLoan(),
+    borrowLoan({ borrowing_expenses: '1670.00', loan_start: '2020-07-17', loan_term_end: '2040-07-16', income_use: '0.813397' })] });
+  assert.deepEqual(borrowRows(r, 1), [['2020-21', '1600.00', '318.07', '318.07', 363, 1826], ['2021-22', '1281.93', '319.83', '319.83', 365, 1463],
+    ['2022-23', '962.10', '319.82', '319.82', 365, 1098], ['2023-24', '642.28', '320.70', '320.70', 366, 733],
+    ['2024-25', '321.58', '319.83', '319.83', 365, 367], ['2025-26', '1.75', '1.75', '1.75', 2, 2]]);
+  assert.deepEqual(borrowRows(r, 2), [['2020-21', '1670.00', '319.18', '259.62', 349, 1826], ['2021-22', '1350.82', '333.82', '271.53', 365, 1477],
+    ['2022-23', '1017.00', '333.82', '271.53', 365, 1112], ['2023-24', '683.18', '334.73', '272.27', 366, 747],
+    ['2024-25', '348.45', '333.82', '271.53', 365, 381], ['2025-26', '14.63', '14.63', '11.90', 16, 16]]);
+  assert.equal(r.loans[0].to, '2025-07-02');
+});
+
+test('a loan’s period ends at its contract, a repayment or 5 years, and years from 2027-28 are flagged', () => {
+  const ben = calculations.borrowingSchedule({ year: '2027-28', loans: [borrowLoan({ borrowing_expenses: '3600.00', loan_start: '2025-09-01',
+    loan_term_end: '2029-08-31' })] });
+  assert.deepEqual(ben.loans[0].rows.map((row) => [row.days, row.left, row.section_26_155, row.projected]),
+    [[303, 1461, false, false], [365, 1158, false, false], [366, 793, true, false], [365, 427, true, true], [62, 62, true, true]]);
+  assert.match(ben.warnings.join(' '), /s 26-155\(1\)/);
+  assert.deepEqual(ben.schedule.map((row) => [row.income_year, row.section_26_155, row.projected]),
+    [['2025-26', false, false], ['2026-27', false, false], ['2027-28', true, false], ['2028-29', true, true], ['2029-30', true, true]]);
+  // Refinanced on 31 December 2025: loan 1 deducts what remains that year, loan 2 spreads over its own 5 years.
+  const refinanced = calculations.borrowingSchedule({ year: '2025-26', loans: [borrowLoan({ borrowing_expenses: '1500.00', loan_start: '2024-09-01',
+    loan_term_end: '2028-08-31', repaid_on: '2025-12-31' }), borrowLoan({ borrowing_expenses: '800.00', loan_start: '2025-12-31', loan_term_end: null, refinances: 1 })] });
+  assert.deepEqual(borrowRows(refinanced, 1).at(-1), ['2025-26', '1188.91', '1188.91', '1188.91', 184, 184]);
+  assert.deepEqual(borrowRows(refinanced, 2)[0], ['2025-26', '800.00', '79.74', '79.74', 182, 1826]);
+  assert.equal(refinanced.loans[0].refinancedBy, 2);
+  // A 29 February start: 5 years end on 28 February 2029.
+  assert.equal(calculations.borrowingSchedule({ year: '2023-24', loans: [borrowLoan({ loan_start: '2024-02-29', loan_term_end: null })] }).loans[0].to, '2029-02-28');
+});
+
+test('the $100 rule counts every loan first drawn in the year and the other borrowing expenses', () => {
+  const loans = [borrowLoan({ borrowing_expenses: '60.00', loan_start: '2025-08-01', loan_term_end: '2028-07-31' }),
+    borrowLoan({ borrowing_expenses: '40.00', loan_start: '2026-02-01', loan_term_end: null })];
+  const whole = calculations.borrowingSchedule({ year: '2025-26', loans });
+  assert.deepEqual([whole.deduction, whole.loans[1].spread], [100, 'not spread: $100 or less (s 25-25(6))']);
+  const spread = calculations.borrowingSchedule({ year: '2025-26', loans, other_borrowing_expenses: { '2025-26': '0.01' } });
+  assert.equal(spread.loans[0].spread, 'spread over the period of the loan (s 25-25(4))');
+  // Nil income use in the first year is not the $100 test's use: the expenses are still spread.
+  assert.equal(calculations.borrowingSchedule({ year: '2025-26', loans: [{ ...loans[0], income_use: '0' }] }).loans[0].rows.length > 1, true);
+});
+
+test('borrowing expenses refuse what section 25-25 as read does not cover', () => {
+  const at = (year, over) => borrowCode({ year, loans: [borrowLoan(over)] });
+  assert.equal(at('2024-25', { loan_start: '2017-06-30' }), 'borrowing.loan_before_2017_18');
+  assert.equal(at('2028-29', {}), 'period.unsupported');
+  assert.equal(at('2019-20', { loan_start: '2020-07-03' }), 'borrowing.loan_starts_after_year');
+  assert.equal(at('2024-25', { section_26_50_applies: true }), 'borrowing.s26_50_denied');
+  assert.equal(at('2024-25', { income_use: '1.5' }), 'borrowing.income_use_invalid');
+  assert.equal(at('2024-25', { borrowing_expenses: '12.345' }), 'input.amount_invalid');
+  assert.equal(at('2024-25', { lender: 'bank' }), 'input.field_unknown');
+});
+
+// The effective interest rate and each year's amortisation, from an independent Decimal solve of
+// the same monthly cash flows at 40 digits, 19 November 2026.
+test('the accounting column amortises the costs at the effective interest rate and adds up to them', () => {
+  const account = (loan, facts, year = '2026-27') => {
+    const input = { year, loans: [loan], accounting: [{ annual_rate: '6', balloon_percent: '0', qualifying_asset: false, ...facts }] };
+    return calculations.borrowingAccounting(input, calculations.borrowingSchedule(input))[0];
+  };
+  for (const [loan, facts, rate, firstYears] of [
+    [borrowLoan(), { amount: '300000', payments: '300' }, '6.2274223332', [72.66, 74.44, 75.69]],
+    [borrowLoan({ borrowing_expenses: '1500.00', loan_start: '2025-07-01', loan_term_end: '2030-06-30' }), { amount: '100000', payments: '60' },
+      '6.8354893170', [495.76, 411.61, 314.39]],
+    [borrowLoan({ borrowing_expenses: '1670.00', loan_start: '2020-07-17', loan_term_end: '2040-07-16' }), { amount: '209000', payments: '240' },
+      '6.2732820936', [102.43, 108.05, 108.57]]]) {
+    const a = account(loan, facts);
+    assert.equal(a.effectiveAnnualRate.toFixed(10), rate);
+    assert.deepEqual(a.years.slice(0, 3).map((y) => y.cost), firstYears);
+    assert.equal(Math.round(a.years.reduce((s, y) => s + y.cost, 0) * 100), Math.round(Number(loan.borrowing_expenses) * 100));
+    assert.equal(a.years.at(-1).unamortised, 0);
+  }
+  // Repaid early: what is left is written off in that year (AASB 9 para 3.3.3).
+  const early = account(borrowLoan({ repaid_on: '2023-03-15' }), { amount: '300000', payments: '300' });
+  assert.deepEqual([early.years.at(-1).first, early.years.at(-1).unamortised], [2022, 0]);
+  assert.match(early.notes.join(' '), /written off in profit or loss \(para 3\.3\.3\)/);
+  assert.match(account(borrowLoan(), { amount: '300000', payments: '300', qualifying_asset: true }).notes[0], /AASB 123 paras 8 and 17 to 25/);
+});
+
+test('a refinancing with the same lender takes the 10% test, and under 10% is refused', () => {
+  const loans = (term) => [borrowLoan({ repaid_on: '2023-03-15' }), borrowLoan({ borrowing_expenses: '900.00', loan_start: '2023-03-15', loan_term_end: term, refinances: 1 })];
+  const facts = (amount, rate, payments, lender) => [{ amount: '300000', annual_rate: '6', payments: '300', balloon_percent: '0', qualifying_asset: false },
+    { amount, annual_rate: rate, payments, balloon_percent: '0', qualifying_asset: false, ...(lender === undefined ? {} : { same_lender: lender }) }];
+  const account = (term, accounting) => {
+    const input = { year: '2024-25', loans: loans(term), accounting };
+    return calculations.borrowingAccounting(input, calculations.borrowingSchedule(input));
+  };
+  const substantial = account('2048-03-14', facts('290000', '3', '300', true))[1];
+  assert.ok(substantial.test.change >= 0.1);
+  assert.deepEqual([substantial.years[0].first, substantial.years[0].cost, substantial.years.slice(1).every((y) => y.cost === 0)], [2022, 900, true]);
+  assert.match(substantial.notes[0], /para B3\.3\.6A/);
+  assert.match(account('2048-03-14', facts('290000', '5', '300', false))[1].notes[0], /another lender/);
+  assert.throws(() => account('2042-07-02', facts('288000', '6', '232', true)), { code: 'accounting.modification_out_of_scope' });
+  // Either side of 10%: 4.8% a year differs by 9.41% and is refused, 4.6% by 11.22% and is not.
+  assert.throws(() => account('2048-03-14', facts('290000', '4.8', '300', true)), { message: /differ by 9\.41%, under 10%/ });
+  assert.equal(account('2048-03-14', facts('290000', '4.6', '300', true))[1].test.change.toFixed(4), '0.1122');
+  assert.throws(() => account('2048-03-14', facts('290000', '5', '300')), { code: 'input.flag_invalid' });
+});
+
+test('the borrowing expenses form reads use by year and needs the loans in order', () => {
+  const fields = formDefaults(borrowHtml);
+  const input = (change) => calculations.borrowingFormInput((name) => ({ ...fields, ...change })[name] ?? '');
+  assert.deepEqual(input({ 'use-by-year-1': '2022-23 50, 2023-24 50, 2024-25 0, 2025-26 50' }).loans[0].income_use,
+    { '2020-21': '1', '2021-22': '1', '2022-23': '0.5', '2023-24': '0.5', '2024-25': '0', '2025-26': '0.5' });
+  assert.throws(() => input({ 'use-by-year-1': '2019-20 50' }), { message: 'Loan 1: 2019-20 is not an income year of the loan’s period.' });
+  assert.throws(() => input({ 'expenses-2': '', 'expenses-3': '100' }), { message: 'Fill in loan 2 before loan 3.' });
+  assert.equal(input({ accounting: 'yes' }).accounting.length, 2);
+});
+
+// The command this page ports, run on the same cases: see the fixture's engine line.
+test('borrowing expenses agree with the australian-accounting command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./borrowing-expenses-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 200);
+  const text = (cents) => (Number(cents) / 100).toFixed(2);
+  for (const { source, call, amounts, loans, refused } of cases) {
+    if (refused) {
+      assert.equal(borrowCode(call), refused, source);
+      continue;
+    }
+    const r = calculations.borrowingSchedule(call);
+    assert.deepEqual({ borrowing_expenses: r.borrowingExpenses.toFixed(2), maximum_deduction: r.maximumDeduction.toFixed(2),
+      deduction: r.deduction.toFixed(2), remaining_expenditure_after_year: r.remainingAfterYear.toFixed(2) }, amounts, source);
+    assert.deepEqual(r.loans.map((l) => l.rows.map((row) => `${row.income_year} ${text(row.remaining)} ${row.days ?? '-'}/${row.left ?? '-'} `
+      + `${text(row.maximum)} ${text(row.deduction)}${row.section_26_155 ? ' s26-155' : ''}${row.projected ? ' projected' : ''}`)), loans, source);
+  }
+});

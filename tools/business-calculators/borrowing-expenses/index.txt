@@ -1,0 +1,82 @@
+# Borrowing expenses calculator: section 25-25 by days
+
+Source: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
+
+> Borrowing expenses under ITAA 1997 s 25-25 for each income year from 2017-18: days, the 5 year period, the $100 rule, refinancing and AASB 9 amortisation.
+
+# Borrowing expenses calculator
+
+Section 25-25 borrowing expenses by income year for up to 3 loans, with the $100 rule and an optional AASB 9 column.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Borrowing expenses inputs
+
+What to work out The tax deduction only The tax and the AASB 9 accounting column
+
+Income year asked about 2027-28 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18
+
+Is any loan’s money used for a holiday home or other leisure facility? No, or s 26-50(3) applies all year Yes Other borrowing expenses on loans not listed, income share (AUD, optional) Income year they were incurred2027-28 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18
+
+## Loan 1
+
+Each loan’s borrowing expenses are spread over its own period of the loan, the shortest of the contract, the time to repayment and 5 years.
+
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes
+
+## Loan 2 (optional)
+
+Leave the borrowing expenses blank to skip loan 2.
+
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender
+
+## Loan 3 (optional)
+
+Leave the borrowing expenses blank to skip loan 3.
+
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Loan 2 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2024-25; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use; loan 2: $1,670.00 of borrowing expenses from 17 July 2020, contract to 16 July 2040, 81.3397% income use. Borrowing expenses, all loans $3,270.00 Maximum deduction for 2024-25 $653.65 Still to deduct after 2024-25 $16.38 Deduction for 2024-25 $591.36
+
+## How the borrowing expenses calculator works
+
+The borrowing expenses calculator works out the deduction for costs of borrowing money, such as loan establishment fees, mortgage registration and lender’s mortgage insurance, under section 25-25 for up to 3 loans and every income year of each. Each year’s maximum is what is left of the expenditure over the days left in the period of the loan, times those days in the year, rounded to the cent. The deduction is that maximum times the year’s income use, which can change from year to year.
+
+A loan repaid early ends its period that day, so that year deducts what is left. A loan that refinances an earlier one spreads its own expenses from its own first day. When everything incurred for borrowing in a year comes to $100 or less of income use, it is deducted that year instead.
+
+The optional accounting column sets the same expenses against the loan under AASB 9: the effective interest rate that discounts the loan’s monthly payments to the amount borrowed less the expenses, the expenses recognised each year by that rate, the write-off when a loan is extinguished, the 10% test for a refinancing with the same lender, and the amortised cost at 30 June. Beside each year’s tax deduction it shows the difference, the temporary difference AASB 112 works with.
+
+## What the borrowing expenses calculator does not cover
+
+The calculator does not decide which costs are borrowing expenses rather than interest or a capital cost of the property, or how much of the money is used to produce income: you state those. It refuses a loan first drawn before 1 July 2017, an income year after 2027-28, a holiday home or other leisure facility unless subsection 26-50(3) applies all year, and a refinancing whose dates do not meet. It works years after 2027-28 under section 25-25 as read and marks them projected. It does not apply section 26-155, interest deductions, redraws, Division 7A loans or debt forgiveness.
+
+The accounting column takes every expense as integral to the effective interest rate, fixed monthly payments in arrears and the expected life you give. It does not work a modification under 10%, a variable rate repricing, fair value through profit or loss, AASB 112 deferred tax or the AASB 123 capitalisation period. Confirm the result with the ATO’s Borrowing expenses page or a registered tax agent before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Borrowing expenses calculator
+
+Case | Inputs | Result
+The ATO’s Peter ($1,600 from 3 July 2020) and Fiona and Max ($1,670 from 17 July 2020, 81.3397% income use) in 2024-25 | 2024-25; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use; loan 2: $1,670.00 of borrowing expenses from 17 July 2020, contract to 16 July 2040, 81.3397% income use | borrowing expenses $3,270.00, maximum deduction $653.65, deduction $591.36, still to deduct $16.38
+Ben’s $3,600 over his 4 year contract from 1 September 2025: 366 of 793 days in 2027-28, flagged for section 26-155 | 2027-28; loan 1: $3,600.00 of borrowing expenses from 1 September 2025, contract to 31 August 2029, 100% income use | borrowing expenses $3,600.00, maximum deduction $901.85, deduction $901.85, still to deduct $1,052.16
+A $1,500 loan refinanced on 31 December 2025 by an $800 loan: the first deducts its remaining $1,188.91, the second $79.74 | 2025-26; loan 1: $1,500.00 of borrowing expenses from 1 September 2024, contract to 31 August 2028, repaid 31 December 2025, 100% income use; loan 2: $800.00 of borrowing expenses from 31 December 2025, refinancing loan 1, 100% income use | borrowing expenses $2,300.00, maximum deduction $1,268.65, deduction $1,268.65, still to deduct $720.26
+Peter’s loan used half for income from 2022-23: 2023-24’s maximum of $320.70 at 50% | 2023-24; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, income use by year | borrowing expenses $1,600.00, maximum deduction $320.70, deduction $160.35, still to deduct $321.58
+$60 and $40 of borrowing expenses on 2 loans first drawn in 2025-26 make $100, deducted that year (section 25-25(6)) | 2025-26; loan 1: $60.00 of borrowing expenses from 1 August 2025, contract to 31 July 2028, 100% income use; loan 2: $40.00 of borrowing expenses from 1 February 2026, 100% income use | borrowing expenses $100.00, maximum deduction $100.00, deduction $100.00, still to deduct $0.00
+A loan first drawn before 1 July 2017 | 2024-25; loan 1: $1,600.00 of borrowing expenses from 30 June 2017, contract to 2 July 2045, 100% income use | Refused: loan 1: a loan first drawn before 1 July 2017 is out of scope: s 25-25 was read as it applies from the 2017-18 income year
+A refinancing that does not start on the day the earlier loan was repaid | 2026-27; loan 1: $1,500.00 of borrowing expenses from 1 September 2024, contract to 31 August 2028, repaid 31 December 2025, 100% income use; loan 2: $800.00 of borrowing expenses from 1 January 2026, refinancing loan 1, 100% income use | Refused: loan 2: refinances must be the number of an earlier loan in loans, repaid on this loan's loan_start and refinanced by no other loan
+An income year after 2027-28 | 2028-29; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use | Refused: choose an income year from 2017-18 to 2027-28
+
+One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Borrowing expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/borrowing-expenses
+- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
