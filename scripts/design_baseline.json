@@ -180,7 +180,7 @@
       "86f5b0ff1e4b4d0e186d3618e5a14afff83676fbf6740a4d258e5a4dd0912673"
     ],
     "tools/business-calculators/index.html": [
-      "9e1d328cc9c552f1c04e273e35fa62f03b707d0f81813d7149db4fbc59f67de7"
+      "91040c7259a600ad1ffeb26f60090dc76dd1a63a2fa108e8a25138771eff2dc0"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
@@ -220,6 +220,9 @@
     ],
     "tools/business-calculators/transfer-duty/index.html": [
       "d6d94998df89089a8bbb70e1e120145f78fe37b761c1ae9133a7da58a2ce4012"
+    ],
+    "tools/business-calculators/unused-leave/index.html": [
+      "b474836ab7947cc22d04488d392c5d9a0599b6bc0ab39f06cb3bd47f69ccd5e8"
     ],
     "tools/business-calculators/variance/index.html": [
       "4f1496eb7a4b0b99b7dd224f877a8a779709eaf56171a421e4ba64b94ede334e"
@@ -313,9 +316,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "8075b9246f2cb914cfd8b026fe0851334ec176f2c1775b051e754957093bbce8",
+    "llms.txt": "4cce9576f5a1ca5fdbec60de2bd0cd4de00e9153c8c8e007613f49285bc43b9c",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "131633181289dfd9227361fb0f1e8b267e7aa2157d115689ef7a0ba0b9375d6c"
+    "sitemap.xml": "b829d9b1235cae226066ebdeb667cd383c4200e7b31e48ea8bb176962fb1f328"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -375,7 +378,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7773,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7774,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

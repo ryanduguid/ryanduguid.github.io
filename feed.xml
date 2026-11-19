@@ -8,6 +8,13 @@
   <updated>2026-11-19T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator works out PAYG withholding under Schedule 7 from…</title>
+    <link href="https://duguid.com.au/changelog/#entry-55802bfea10bb03b" />
+    <id>https://duguid.com.au/changelog/#entry-55802bfea10bb03b</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A new business calculator works out PAYG withholding under Schedule 7 from unused annual leave, leave loading and long service leave paid on termination from 1 July 2026: the parts capped at 30% and withheld at 32%, the 5% of long service leave from before 16 August 1978 that is assessable, the marginal rate calculation on the rest with the $300 limit, 47% or 45% without a TFN, and the lump sum A, B and paid leave type U amounts for the income statement. Schedule 7, Subdivisions 83-A and 83-B of the Income Tax Assessment Act 1997 and the ATO’s examples were read on 19 November 2026, and the page opens on Schedule 7’s example of Norman’s long service leave.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>
     <link href="https://duguid.com.au/changelog/#entry-806ecf6f51665308" />
     <id>https://duguid.com.au/changelog/#entry-806ecf6f51665308</id>
