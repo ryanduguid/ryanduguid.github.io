@@ -35,6 +35,7 @@ const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
 const finance = { ...business, file: 'assets/finance-schedule.mjs' };
 const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
+const evExemption = { ...business, file: 'assets/fbt-ev-exemption.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
 const psi = { ...business, file: 'assets/psi-determination.mjs' };
@@ -137,6 +138,18 @@ const MUTATIONS = [
   { ...fbt, name: 'FBT car parking spaces take 230 days', find: '228n * spaces', replace: '230n * spaces' },
   { ...fbt, name: 'FBT car parking spaces ignore fewer employees', find: 'e0 + e1 < s0 + s1 ?', replace: 'false ?' },
   { ...fbt, name: 'FBT car parking average cost takes the first fee only', find: 'money(p.firstFee) + money(p.lastFee)', replace: '2n * money(p.firstFee)' },
+  { ...evExemption, name: 'EV exemption: a value at the threshold pays luxury car tax', find: 'value <= threshold * 100', replace: 'value < threshold * 100' },
+  { ...evExemption, name: 'EV exemption: a car first used on 1 July 2022 is not exempt', find: "firstUsed >= '2022-07-01'", replace: "firstUsed > '2022-07-01'" },
+  { ...evExemption, name: 'EV exemption: a sale on 1 July falls in the year before', find: "iso.slice(5) < '07-01'", replace: "iso.slice(5) <= '07-01'" },
+  { ...evExemption, name: 'EV exemption: a new plug-in hybrid commitment is ignored', find: "['hybrid-no-new-commitment', !facts[1]]", replace: "['hybrid-no-new-commitment', true]" },
+  { ...evExemption, name: 'EV exemption: luxury car tax on another supply is ignored', find: "['other-supply', !otherSupply]", replace: "['other-supply', true]" },
+  { ...evExemption, name: 'EV exemption: a former employee is exempt', find: "['current-employee', current]", replace: "['current-employee', true]" },
+  { ...evExemption, name: 'EV exemption: a taxed sale within the year after first use gives one result', find: 'firstSale > firstUsed && firstSale >=', replace: 'false && firstSale >=' },
+  { ...evExemption, name: 'EV exemption: a taxed sale on 1 April after first use precedes the year', find: "firstSale >= `${ended - 1}-04-01`", replace: "firstSale > `${ended - 1}-04-01`" },
+  { ...evExemption, name: 'EV exemption: a taxed sale on the day of first use is refused', find: 'firstSale > firstUsed &&', replace: 'firstSale >= firstUsed &&' },
+  { ...evExemption, name: 'EV exemption: one condition met is enough', find: 'conditions.every((c) => c.met)', replace: 'conditions.some((c) => c.met)' },
+  { ...evExemption, name: 'EV exemption: a first retail sale after the FBT year counts its luxury car tax', find: 'const afterYear = firstSale > yearEnd;', replace: 'const afterYear = false;' },
+  { ...evExemption, name: 'EV exemption: an exempt plug-in hybrid benefit before 1 April 2025 needs no earlier use', find: "facts[2] && firstUsed >= '2025-04-01'", replace: "facts[2] && firstUsed > '2025-04-01'" },
   { ...fbt, name: 'FBT car parking contributions take the value below nil', find: 'least(contribution, gross)', replace: 'contribution' },
   { ...pcg, name: 'PCG 2021/4 puts exactly 50% returned in the band below', find: '[50, true]', replace: '[50, false]' },
   { ...pcg, name: 'PCG 2021/4 puts an exactly 30% tax rate in the band below', find: '[30, true]', replace: '[30, false]' },

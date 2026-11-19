@@ -9,7 +9,8 @@ import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSchedule, interestByIncomeYear,
   staffCost, cashForecast, div7aMinimumRepayment, transferDuty, firstHomeDuty } from '../assets/business-calculators.mjs';
-import { fbtBenefitResult } from '../assets/fbt-benefit-forms.mjs';
+import { EV_EXEMPT_NOTE, fbtBenefitResult, fbtEvResult } from '../assets/fbt-benefit-forms.mjs';
+import { FUEL_EFFICIENT_THRESHOLDS } from '../assets/fbt-ev-exemption.mjs';
 import { COMPANY_TAX_LAW } from '../assets/company-tax.mjs';
 import { FOREIGN_SURCHARGES } from '../assets/foreign-surcharge.mjs';
 import { BUSINESS_DAY_PLACES, BUSINESS_DAYS_COVERAGE, STATE_ONLY_HOLIDAYS } from '../assets/business-days.mjs';
@@ -711,6 +712,16 @@ Object.assign(ENGINE_LABELS, {
     contributionApplied: 'contributions applied', excess: 'excess contributions', average: 'average cost',
     annual: 'annual value', statutoryBenefit: 'total statutory benefit' },
 });
+// The electric cars exemption cases: the car's facts and the verdict with the threshold it applied.
+Object.assign(INPUTS, {
+  fbtEvExemption: (e, y) => `${{ battery: 'Battery electric', 'fuel-cell': 'Hydrogen fuel cell electric', 'plug-in-hybrid': 'Plug-in hybrid' }[e.vehicle]}, `
+    + `${e.currentEmployee ? 'current' : 'former or future'} employee, first held and used ${e.firstUsed}, first retail sale ${e.firstSale} `
+    + `at ${dollars(e.lctValue)}${e.otherSupply ? ', LCT on another supply' : ''}`
+    + `${e.hybrid ? `, ${e.hybrid.committed ? 'committed' : 'not committed'} before 1 April 2025, ${e.hybrid.newCommitment ? 'a' : 'no'} new commitment, `
+      + `${e.hybrid.exemptBefore ? 'an' : 'no'} exempt benefit before 1 April 2025` : ''}; FBT year ending 31 March ${y.ended}`,
+});
+ENGINE_LABELS.fbtEvExemption = { exempt: (v) => (v ? 'exempt' : 'not exempt'), saleYear: (v) => `sale in ${v}`,
+  threshold: (v) => (v === null ? 'after the FBT year' : `threshold ${dollars(v)}`) };
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -934,6 +945,127 @@ test('FBT car page says the FBT return takes whole dollars', () => {
 test('FBT car page dates the review of the ATO guide chapter it applies', () => {
   const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
   assert.match(html, /On 15 November 2026 chapter 7 of the ATO’s guide said it was being reviewed after the Full Federal Court’s decision of 27 March 2026 in SEPL Pty Ltd as trustee of the SFT Trust v Commissioner of Taxation \[2026\] FCAFC 36/);
+});
+
+// The electric cars exemption: Fringe Benefits Tax Assessment Act 1986 s 8A (Compilation No. 97, 1 July 2026)
+// and the Treasury Laws Amendment (Electric Car Discount) Act 2022 as made, Schedule 1 item 7(2) and Schedule 2
+// item 5, read 19 November 2026 at https://www.legislation.gov.au/C2004A03280/latest/text and
+// https://www.legislation.gov.au/C2022A00086/asmade/text. The ATO's 'Electric cars exemption' (last updated
+// 1 April 2026) and 'FBT on plug-in hybrid electric vehicles' (last updated 14 March 2025), read the same day,
+// give the worked examples: Shelly's car first used on 1 April 2022 is not exempt; John's, held from 15 June 2022
+// and first used on 5 July 2022, is; GHI Co's $85,000 car was above 2022-23's threshold; Simon's plug-in hybrid
+// lease from 1 April 2024 to 31 March 2027 stays exempt; Tony's break in the novation is a new commitment.
+// The boundary cases' Cleancut example is a published FBT worked example (¶3-045, reviewed 30 June 2026): a $72,000
+// car before GST, $79,200 with it, first held and used on 1 July 2025, under 2025-26's $91,387 threshold, is exempt.
+const evFacts = (fields) => ({ vehicle: 'battery', currentEmployee: true, firstUsed: '2026-04-01', firstSale: '2026-04-01',
+  lctValue: '60000', otherSupply: false, ...fields });
+const evYear = { ended: '2027' };
+const unmet = (r) => r.conditions.filter((c) => !c.met).map((c) => c.condition);
+test('the electric cars exemption names each condition and fails on any one of them', () => {
+  const cleancut = calculations.fbtEvExemption(evFacts({}), evYear);
+  assert.deepEqual(cleancut.conditions.map((c) => c.condition),
+    ['current-employee', 'zero-or-low-emissions', 'first-held-and-used', 'first-sale', 'other-supply']);
+  assert.equal(cleancut.exempt, true);
+  assert.equal(calculations.fbtEvExemption(evFacts({ vehicle: 'fuel-cell' }), evYear).exempt, true);
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ currentEmployee: false }), evYear)), ['current-employee']);
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ otherSupply: true }), evYear)), ['other-supply']);
+  // Schedule 1 item 7(2): the earliest time a person both held and used the car is at or after the start of 1 July 2022.
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ firstUsed: '2022-06-30', firstSale: '2022-06-30' }), evYear)),
+    ['first-held-and-used']);
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2022-07-01', firstSale: '2022-06-30' }), evYear).exempt, true);
+  const all = calculations.fbtEvExemption(evFacts({ currentEmployee: false, firstUsed: '2022-01-01', firstSale: '2022-01-01',
+    lctValue: '90000', otherSupply: true }), evYear);
+  assert.deepEqual(unmet(all), ['current-employee', 'first-held-and-used', 'first-sale', 'other-supply']);
+});
+
+test('the electric cars exemption takes a plug-in hybrid only under Schedule 2 item 5(2)', () => {
+  const hybrid = (committed, newCommitment, exemptBefore) => calculations.fbtEvExemption(evFacts({ vehicle: 'plug-in-hybrid',
+    firstUsed: '2024-06-01', firstSale: '2024-06-01', hybrid: { committed, newCommitment, exemptBefore } }), evYear);
+  assert.deepEqual(hybrid(true, false, true).conditions.map((c) => c.condition), ['current-employee', 'hybrid-committed',
+    'hybrid-no-new-commitment', 'hybrid-exempt-before', 'first-held-and-used', 'first-sale', 'other-supply']);
+  assert.equal(hybrid(true, false, true).exempt, true);
+  assert.deepEqual(unmet(hybrid(false, false, true)), ['hybrid-committed']);
+  assert.deepEqual(unmet(hybrid(true, true, true)), ['hybrid-no-new-commitment']);
+  assert.deepEqual(unmet(hybrid(true, false, false)), ['hybrid-exempt-before']);
+});
+
+// The ATO's 'Luxury car tax rate and thresholds' (last updated 1 June 2026), read 19 November 2026:
+// https://www.ato.gov.au/tax-rates-and-codes/luxury-car-tax-rate-and-thresholds, fuel-efficient vehicles.
+test('the fuel-efficient threshold is the ATO table’s for the financial year of the first retail sale', () => {
+  assert.deepEqual(Object.entries(FUEL_EFFICIENT_THRESHOLDS), [['2012-13', 75375], ['2013-14', 75375], ['2014-15', 75375],
+    ['2015-16', 75375], ['2016-17', 75526], ['2017-18', 75526], ['2018-19', 75526], ['2019-20', 75526], ['2020-21', 77565],
+    ['2021-22', 79659], ['2022-23', 84916], ['2023-24', 89332], ['2024-25', 91387], ['2025-26', 91387], ['2026-27', 91661]]);
+  // A sale on 30 June falls in the year ending then; one on 1 July, in the next.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2025-06-30', firstSale: '2025-06-30' }), evYear).saleYear, '2024-25');
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstSale: '2026-07-01' }), evYear).threshold, 91661);
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstSale: '2012-07-01', firstUsed: '2022-07-01' }), evYear).threshold, 75375);
+  // LCT Act s 25-1(1): luxury car tax falls on a value above the threshold, so the threshold itself pays none.
+  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '91387.00', firstSale: '2025-07-01' }), evYear).exempt, true);
+  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '91387.01', firstSale: '2025-07-01' }), evYear).exempt, false);
+  // s 8A(1)(c) counts luxury car tax payable before the benefit: a first retail sale after the FBT year,
+  // in 2026-27 or a later year the table does not hold, comes after every benefit in it.
+  // These facts settle the year, so a refusal here is a wrong result.
+  const settled = (fields) => {
+    let result;
+    assert.doesNotThrow(() => { result = calculations.fbtEvExemption(evFacts(fields), evYear); }, JSON.stringify(fields));
+    return result;
+  };
+  for (const firstSale of ['2027-04-01', '2027-07-01']) {
+    const later = settled({ lctValue: '200000', firstSale });
+    assert.equal(later.exempt, true, firstSale);
+    assert.equal(later.threshold, null, firstSale);
+  }
+  assert.equal(settled({ lctValue: '200000', firstUsed: '2027-03-31', firstSale: '2027-03-31' }).exempt, false);
+  // An after-year sale settles only that sale: luxury car tax on an earlier supply or import still fails s 8A(1)(c).
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ firstSale: '2027-04-01', otherSupply: true }), evYear)), ['other-supply']);
+  // No benefit comes before the car is first held and used, so a sale before the year, or on or before that day, precedes them all.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2025-01-01', firstSale: '2026-03-31', lctValue: '200000' }), evYear).exempt, false);
+  assert.equal(settled({ firstUsed: '2026-07-01', firstSale: '2026-07-01', lctValue: '200000' }).exempt, false);
+  // A sale within the year after that day may fall between benefits; under the threshold it fails nothing.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2026-04-01', firstSale: '2026-07-01', lctValue: '91661' }), evYear).exempt, true);
+});
+
+test('the electric cars exemption refuses facts it cannot decide or that contradict the year', () => {
+  const refuses = (fields, message) => assert.throws(() => calculations.fbtEvExemption(evFacts(fields), evYear), { message });
+  refuses({ vehicle: 'diesel' }, 'Choose a battery electric, hydrogen fuel cell electric or plug-in hybrid car.');
+  refuses({ hybrid: { committed: true, newCommitment: false, exemptBefore: true } }, 'Answer the plug-in hybrid questions for a plug-in hybrid only.');
+  refuses({ vehicle: 'plug-in-hybrid' }, 'Answer the plug-in hybrid questions for a plug-in hybrid only.');
+  refuses({ vehicle: 'plug-in-hybrid', hybrid: { committed: 'yes', newCommitment: false, exemptBefore: true } }, 'Answer each yes or no question.');
+  refuses({ otherSupply: 'no' }, 'Answer each yes or no question.');
+  refuses({ firstUsed: '2026-02-30' }, 'Enter the date the car was first held and used as a calendar date.');
+  refuses({ firstSale: '1 July 2026' }, 'Enter the date of the car’s first retail sale as a calendar date.');
+  refuses({ firstUsed: '2027-04-01' }, 'The car was first held and used after 31 March 2027, so it gave no car benefit in the FBT year.');
+  refuses({ firstUsed: '2026-04-01', firstSale: '2026-04-02', lctValue: '91661.01' }, 'Luxury car tax on a first retail sale within the FBT year, '
+    + 'after the car was first held and used, does not affect a benefit provided before the sale (section 8A(1)(c)), so this calculator '
+    + 'cannot give one result for the year.');
+  refuses({ firstUsed: '2025-01-01', firstSale: '2026-04-01', lctValue: '200000' }, /^Luxury car tax on a first retail sale within the FBT year/);
+  refuses({ firstSale: '2012-06-30' }, 'This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
+  refuses({ vehicle: 'plug-in-hybrid', firstUsed: '2025-04-01', hybrid: { committed: true, newCommitment: false, exemptBefore: true } },
+    'A car first held and used from 1 April 2025 cannot have given an exempt car benefit before that day.');
+  assert.throws(() => calculations.fbtEvExemption(evFacts({}), { ended: '2025' }), { message: 'Enter a whole number between 2026 and 2100.' });
+});
+
+// The form reads the exemption's facts by name and, for an exempt car, the FBT car result sets the taxable
+// value, the gross-up and FBT to nil and shows the value before the exemption as reportable (s 135P(3)).
+test('the FBT car form passes the electric car facts and says what an exempt car still reports', () => {
+  const fields = { kind: 'battery', 'current-employee': 'yes', 'first-used': '2026-07-01', 'first-sale': '2026-07-01',
+    'lct-value': '60000', 'other-supply': 'no', 'hybrid-committed': 'no', 'hybrid-new': 'no', 'hybrid-exempt-before': 'no' };
+  const value = (name) => fields[name];
+  const form = { dataset: { yearEnded: '2027' } };
+  const result = () => fbtEvResult(form, calculations, { aud: String, value, money: value });
+  assert.equal(result().exempt, true);
+  assert.equal(result().rows.at(-1).join(': '), 'Electric cars exemption, section 8A: applies');
+  assert.match(result().inputs, /^battery electric car for a current employee, first held and used 1 July 2026, first sold at retail 1 July 2026 /);
+  fields.kind = 'plug-in-hybrid';
+  assert.deepEqual(result().rows.filter(([, met]) => met === 'not met').map(([label]) => label),
+    ['Committed before 1 April 2025 for a period that began before then and includes the benefit, Schedule 2 item 5(2)(b)',
+      'An exempt car benefit with the car before 1 April 2025, Schedule 2 item 5(2)(d) and (e)']);
+  fields.kind = 'other';
+  assert.equal(result(), null);
+  assert.match(EV_EXEMPT_NOTE, /subsection 135P\(3\)\), reported when the employee’s total for the year is more than \$2,000, unless the car is a pooled or shared car/);
+  const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
+  assert.ok(html.includes('data-year-ended="2027"'));
+  for (const name of Object.keys(fields)) assert.match(html, new RegExp(`name="${name}"`), name);
 });
 
 // The values each form opens with, read from its include: an input's value or
