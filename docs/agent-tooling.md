@@ -28,8 +28,8 @@ through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `modelContext` API: `calculate_gst`, `calculate_div7a_minimum_repayment`,
 `calculate_loan_schedule`, `calculate_hire_purchase_schedule`, `calculate_break_even`, `calculate_company_tax` and
 `calculate_foreign_purchaser_surcharges` on the business calculator pages,
-`estimate_income_tax`, `calculate_take_home_pay` and `project_super_balance` on the
-income tax, take-home pay and super projection calculators, `calculate_decline_in_value` on the depreciation rates page and
+`estimate_income_tax`, `calculate_take_home_pay`, `calculate_income_tests` and `project_super_balance` on the
+income tax, take-home pay, income tests and super projection calculators, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and
 `assets/levy-page.mjs` import `assets/webmcp-tools.mjs` only when the browser

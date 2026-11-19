@@ -11,9 +11,10 @@ import { CONCESSIONAL_CAP, division293, takeHomePay, SUPER_GUARANTEE } from '../
 import { taxEstimate } from '../assets/tax-estimate.mjs';
 import { withholding } from '../assets/payg-withholding.mjs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
+import { incomeTests, INCOME_TEST_PARTS } from '../assets/income-tests.mjs';
 import { superProjection } from '../assets/super-projection.mjs';
 
-const engines = { taxEstimate, takeHomePay, studyLoanRepayment, superProjection };
+const engines = { taxEstimate, takeHomePay, studyLoanRepayment, incomeTests, superProjection };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -24,6 +25,12 @@ const PERIOD = { year: 'a year', month: 'a month', fortnight: 'a fortnight', wee
 const parts = (r) => PARTS.filter(([key]) => key === 'taxable' || r[key] !== '0').map(([key, label]) => `${label} ${whole(r[key])}`)
   .join(', ');
 const settle = (value) => `${value < 0 ? 'owing' : 'refund'} ${dollars(Math.abs(value))}`;
+const INCOME_TEST_LABELS = { taxable: 'taxable', fhss: 'FHSS', familyTrust: 'family trust', fringe57a: 'section 57A fringe',
+  fringeOther: 'other fringe', employerSuper: 'employer super', personalSuper: 'personal super',
+  excessConcessional: 'excess concessional', financialLoss: 'financial loss', rentalLoss: 'rental loss', pensions: 'pensions',
+  targetForeign: 'target foreign', exemptForeign: 'exempt foreign', childSupport: 'child support', assessable: 'assessable',
+  businessDeductions: 'business deductions' };
+const signed = (value) => (value < 0 ? `-${whole(-value)}` : whole(value));
 
 // How each row's call reads on the page and how its result reads, so neither can drift from the engine.
 const INPUTS = {
@@ -40,6 +47,9 @@ const INPUTS = {
     + `${p.afterTax === '0' ? '' : `, after tax ${dollars(p.afterTax)}`}`
     + `, return ${p.returnRate}%, fees ${dollars(p.adminFee)} and ${p.percentFee}%, premiums ${dollars(p.insurance)}`
     + `, growth ${p.growth}%, present value at ${p.discount}%`,
+  incomeTests: (p) => `${p.resident ? 'Resident' : 'Not resident'} all year, `
+    + INCOME_TEST_PARTS.filter((key) => key === 'taxable' || p[key] !== '0').map((key) => `${INCOME_TEST_LABELS[key]} ${whole(p[key])}`)
+      .join(', '),
 };
 const OUTPUTS = {
   taxEstimate: (r, call) => `Tax ${dollars(r.tax)}, offset ${dollars(r.offset)}`
@@ -51,6 +61,9 @@ const OUTPUTS = {
     + `${r.overCap ? `; ${dollars(r.overCap)} over the cap` : ''}${r.division293 ? `; Division 293 on ${dollars(r.division293)}` : ''}`,
   studyLoanRepayment: (r) => `Repayment income ${dollars(r.repaymentIncome)}, repayment ${dollars(r.repayment)}`,
   superProjection: (r) => `${r.years} year${r.years === 1 ? '' : 's'}: ${dollars(r.balance)}, present value ${dollars(r.present)}`,
+  incomeTests: (r) => `Surcharge ${whole(r.surchargeIncome)}, Division 293 ${whole(r.division293Income)}, `
+    + `rebate ${whole(r.rebateIncome)}, repayment ${whole(r.repaymentIncome)}, adjusted taxable ${signed(r.adjustedTaxableIncome)}, `
+    + `co-contribution ${signed(r.coContributionIncome)}`,
 };
 
 test('each individual tax page has its boundary cases', () => {
@@ -92,6 +105,8 @@ const FORM_CALLS = {
   superProjection: (f) => [{ age: f.age, retire: f.retire, balance: f.balance, salary: f.salary, employer: f.employer,
     sacrifice: f.sacrifice, afterTax: f['after-tax'], returnRate: f.return, percentFee: f['percent-fee'], adminFee: f['admin-fee'],
     insurance: f.insurance, growth: f.growth, discount: f.discount }],
+  incomeTests: (f) => [{ resident: f.resident === 'yes', ...Object.fromEntries(INCOME_TEST_PARTS
+    .map((key) => [key, f[key.replace(/[A-Z0-9]+/g, (part) => `-${part.toLowerCase()}`)]])) }],
 };
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the worked example`, () => {
@@ -311,27 +326,86 @@ test('PAYG withholding for 2026-27 matches the ATO’s sample data and Schedule 
   for (const period of ['week', 'fortnight', 'month']) {
     for (const [earnings, scale2, scale3] of sample[period]) {
       const amount = Math.round(Number(earnings) * 100);
-      assert.equal(withholding(amount, period, 2, false).tax, scale2, `${period} ${earnings} scale 2`);
-      assert.equal(withholding(amount, period, 3, false).tax, scale3, `${period} ${earnings} scale 3`);
+      assert.equal(withholding(amount, period, 2, false, '2026-27').tax, scale2, `${period} ${earnings} scale 2`);
+      assert.equal(withholding(amount, period, 3, false, '2026-27').tax, scale3, `${period} ${earnings} scale 3`);
       checked += 2;
     }
   }
   assert.equal(checked, 288);
-  assert.deepEqual(withholding(260836, 'week', 2, true).studyLoan, 193);
-  assert.deepEqual(withholding(440975, 'fortnight', 2, true).studyLoan, 260);
-  assert.equal(withholding(260836, 'week', 2, false).studyLoan, 0);
+  assert.deepEqual(withholding(260836, 'week', 2, true, '2026-27').studyLoan, 193);
+  assert.deepEqual(withholding(440975, 'fortnight', 2, true, '2026-27').studyLoan, 260);
+  assert.equal(withholding(260836, 'week', 2, false, '2026-27').studyLoan, 0);
 });
 
-test('take-home pay works withholding only for 2026-27 pays on scale 2 or 3', () => {
+// The withholding schedules instruments as made (read 19 November 2026): all 288 scale 2 and 3 amounts in
+// each one's sample data, from the 2021 instrument for 2021-22 to 2023-24 (the 2022 and 2023 instruments
+// print the same) and the 2024 one for 2024-25 and 2025-26 (as both 2025 instruments do), and each
+// instrument's Schedule 8 examples for the tax-free threshold claimed.
+test('PAYG withholding for 2021-22 to 2025-26 matches each instrument’s sample data and Schedule 8 examples', () => {
+  let checked = 0;
+  for (const file of ['./payg-withholding-sample-2020.json', './payg-withholding-sample-2024.json']) {
+    const sample = JSON.parse(readFileSync(new URL(file, import.meta.url), 'utf8'));
+    for (const year of sample.years) {
+      for (const period of ['week', 'fortnight', 'month']) {
+        for (const [earnings, scale2, scale3] of sample[period]) {
+          const amount = Math.round(Number(earnings) * 100);
+          assert.equal(withholding(amount, period, 2, false, year).tax, scale2, `${year} ${period} ${earnings} scale 2`);
+          assert.equal(withholding(amount, period, 3, false, year).tax, scale3, `${year} ${period} ${earnings} scale 3`);
+          checked += 2;
+        }
+      }
+    }
+  }
+  assert.equal(checked, 288 * 5);
+  // Above the samples' top: $5,000 a week, x = 5,000.99. Scale 2 is 0.47x − 563.5196 (2020) or − 650.6154 (2024);
+  // scale 3 is 0.45x − 380.7692 or − 474.0385.
+  const top = (year) => [2, 3].map((scale) => withholding(500000, 'week', scale, false, year).tax);
+  assert.deepEqual([top('2021-22'), top('2024-25')], [[1787, 1870], [1700, 1776]]);
+  const component =(year, earnings, period) => withholding(earnings, period, 2, true, year).studyLoan;
+  assert.deepEqual(['2021-22', '2022-23', '2023-24'].map((year) => [component(year, 109584, 'week'),
+    component(year, 235578, 'fortnight'), component(year, 548845, 'month')]), [[22, 70, 191], [22, 58, 165], [11, 48, 139]]);
+  assert.deepEqual([component('2024-25', 109584, 'week'), component('2024-25', 245578, 'fortnight'),
+    component('2024-25', 568845, 'month')], [11, 50, 143]);
+  // 2025-26: the marginal Schedule 8 from 24 September 2025 ($2,608.36 a week, $202; $4,409.75 a fortnight,
+  // $274) and the percentage one before it ($1,095.84 a week, $11; $2,455.78 a fortnight, $24; $5,688.45 a
+  // month, $113).
+  assert.deepEqual([component('2025-26', 260836, 'week'), component('2025-26', 440975, 'fortnight')], [202, 274]);
+  const earlier = (earnings, period) => withholding(earnings, period, 2, true, '2025-26').earlierStudyLoan;
+  assert.deepEqual([earlier(109584, 'week'), earlier(245578, 'fortnight'), earlier(568845, 'month')], [11, 24, 113]);
+  assert.equal(withholding(109584, 'week', 2, false, '2025-26').earlierStudyLoan, 0);
+  assert.equal(withholding(109584, 'week', 2, true, '2024-25').earlierStudyLoan, null);
+  // Each band starts at its first dollar: $903.99 a week is nil in 2021-22 and $904.00 is 1%, $9.
+  assert.deepEqual([component('2021-22', 90399, 'week'), component('2021-22', 90400, 'week')], [0, 9]);
+  // Each year has its own thresholds: $950 a week is 1% ($10) in 2022-23 but below 2023-24's $991.
+  assert.deepEqual([component('2022-23', 95000, 'week'), component('2023-24', 95000, 'week')], [10, 0]);
+  // The 2023 instrument's 3.5% band is printed as ending at $1,44.99; $1,444.99 is 3.5% and $1,445 is 4%.
+  assert.deepEqual([component('2023-24', 144499, 'week'), component('2023-24', 144500, 'week')], [51, 58]);
+  assert.throws(() => withholding(100000, 'week', 2, false, '2020-21'), /from 2021-22 to 2026-27/);
+});
+
+test('take-home pay works withholding for every year’s pays on scale 2 or 3', () => {
   const r = pay({ salary: '3000', period: 'fortnight', sacrifice: '200', studyLoan: true });
-  assert.deepEqual(r.withheld, { tax: 534, studyLoan: 20, total: 554, earnings: 2800, afterWithholding: 2246, year: 14404,
-    refund: -212.8 });
+  assert.deepEqual(r.withheld, { tax: 534, studyLoan: 20, total: 554, earlierStudyLoan: null, earnings: 2800,
+    afterWithholding: 2246, year: 14404, refund: -212.8 });
   assert.equal(cents(r.withheld.refund), r.withheld.year * 100 - (cents(r.tax) - cents(r.offset) + cents(r.medicare)
     + cents(r.surcharge) + cents(r.studyLoan)));
   assert.equal(pay({ salary: '78000', period: 'year' }).withheld, null);
-  assert.equal(pay({ year: '2025-26', salary: '3000', period: 'fortnight' }).withheld, null);
   assert.equal(pay({ residency: 'working-holiday', salary: '3000', period: 'fortnight' }).withheld, null);
-  assert.equal(pay({ residency: 'foreign', salary: '1500', period: 'week' }).withheld.tax, withholding(150000, 'week', 3, false).tax);
+  assert.equal(pay({ residency: 'foreign', salary: '1500', period: 'week' }).withheld.tax,
+    withholding(150000, 'week', 3, false, '2026-27').tax);
+  // 2021-22, $3,000 a fortnight: x = 1,500.99, 0.3450x − 182.7504 = 335.09, so $670 a pay and $17,420 a year.
+  // The year's tax is $15,817 less the $1,500 low and middle income tax offset, which withholding leaves to
+  // the return, plus $1,560 Medicare levy: $15,877, so $1,543 comes back.
+  const early = pay({ year: '2021-22', salary: '3000', period: 'fortnight' });
+  assert.deepEqual(early.withheld, { tax: 670, studyLoan: 0, total: 670, earlierStudyLoan: null, earnings: 3000,
+    afterWithholding: 2330, year: 17420, refund: 1543 });
+  // 2025-26 with a loan: 0.32x − 176.5769 = 303.74, $608 a pay; Schedule 8 from 24 September 2025,
+  // 0.15x − 193.2692 = 31.88, $64; before it 3.5% of x, 52.53, $106. A year of $672 pays is $17,472 against
+  // $14,188 tax, $1,560 levy and a $1,650 repayment: $74 back.
+  const late = pay({ year: '2025-26', salary: '3000', period: 'fortnight', studyLoan: true });
+  assert.deepEqual(late.withheld, { tax: 608, studyLoan: 64, total: 672, earlierStudyLoan: 106, earnings: 3000,
+    afterWithholding: 2328, year: 17472, refund: 74 });
+  assert.equal(pay({ year: '2025-26', salary: '3000', period: 'fortnight' }).withheld.earlierStudyLoan, 0);
 });
 
 // Medicare Levy Act 1986 ss 8B to 8D, Private Health Insurance Act 2007 ss 22-30 to 22-45 and the ATO's
@@ -480,4 +554,106 @@ test('super projection refuses what it does not compute', () => {
   assert.throws(() => project({ employer: '30.01' }), /between 0 and 30/);
   assert.throws(() => project({ percentFee: '0.111' }), /2 decimal places/);
   assert.throws(() => project({ salary: '80000.5' }), /whole number/);
+});
+
+// Income tests. Read 19 November 2026: ITAA 1997 s 995-1 and s 293-20 (Compilation No. 268), ITAA 1936 s 6(1),
+// HESA s 154-5(1), the Co-contribution Act s 8 and the Family Assistance Act Sch 3 cls 2 and 4 (Compilation No. 124).
+const tests = (given, resident = true) => incomeTests({ resident,
+  ...Object.fromEntries(INCOME_TEST_PARTS.map((key) => [key, '0'])), ...given });
+
+// ATO, 'When you must repay your loan' (last updated 13 October 2026): $50,420 + $1,250 + $4,560 + $2,580 +
+// $15,000 = $73,810. 'Study and training loan repayment thresholds and rates' (last updated 30 June 2026), example
+// 1: $60,470 + $5,400 + $1,330 + $16,500 + $2,680 = $86,380. 'Medicare levy surcharge income, thresholds and rates'
+// (last updated 22 June 2026): Tom's $90,000 and $27,000 give $117,000. All read 19 November 2026.
+test('income tests give the ATO’s repayment income and income for surcharge purposes', () => {
+  assert.equal(tests({ taxable: '50420', financialLoss: '1250', fringeOther: '4560', exemptForeign: '2580',
+    targetForeign: '2580', employerSuper: '15000', assessable: '50420' }).repaymentIncome, 73810);
+  assert.equal(tests({ taxable: '60470', fringeOther: '5400', rentalLoss: '1330', employerSuper: '16500',
+    exemptForeign: '2680', targetForeign: '2680', assessable: '60470' }).repaymentIncome, 86380);
+  assert.equal(tests({ taxable: '90000', fringeOther: '27000', assessable: '90000' }).surchargeIncome, 117000);
+});
+
+// The ATO's 'Rebate income 2026' worksheet (last updated 30 May 2026, read 19 November 2026): 'question IT1 – label N
+// in your tax return multiplied by 0.53 and rounded down to the nearest dollar', plus label W. $4,567 x 0.53 =
+// $2,420.51, so $2,420; $1 x 0.53 is nil; $100 x 0.53 is $53 exactly.
+test('section 57A fringe benefits count at 53%, rounded down, in rebate and adjusted taxable income only', () => {
+  const r = tests({ taxable: '40000', fringe57a: '4567', fringeOther: '1000', assessable: '40000' });
+  assert.deepEqual([r.fringeTotal, r.adjustedFringe, r.rebateIncome, r.adjustedTaxableIncome, r.surchargeIncome,
+    r.repaymentIncome, r.coContributionIncome], [5567, 3420, 43420, 43420, 45567, 45567, 45567]);
+  assert.equal(tests({ fringe57a: '1' }).adjustedFringe, 0);
+  assert.equal(tests({ fringe57a: '100' }).adjustedFringe, 53);
+});
+
+// Each measure's own list: s 995-1 'income for surcharge purposes' (a) adds the family trust distribution amounts
+// Sch 2F s 271-105(1) kept out; Sch 3 cl 2(1) adds tax-free pensions and target foreign income less child support,
+// with no floor; s 293-20(1)(a) leaves out reportable super contributions; s 8(2) takes off business deductions.
+test('each income measure adds only the parts its definition names', () => {
+  const trust = tests({ taxable: '100000', familyTrust: '20000', assessable: '100000' });
+  assert.deepEqual([trust.surchargeIncome, trust.division293Income, trust.rebateIncome, trust.repaymentIncome,
+    trust.adjustedTaxableIncome, trust.coContributionIncome], [120000, 120000, 100000, 100000, 100000, 100000]);
+  const family = tests({ taxable: '20000', pensions: '5000', targetForeign: '3000', childSupport: '8000', assessable: '20000' });
+  assert.deepEqual([family.adjustedTaxableIncome, family.rebateIncome, family.surchargeIncome], [20000, 20000, 20000]);
+  assert.equal(tests({ childSupport: '1000' }).adjustedTaxableIncome, -1000);
+  const business = tests({ taxable: '35000', fringeOther: '2000', employerSuper: '1000', businessDeductions: '5000',
+    assessable: '40000' });
+  assert.deepEqual([business.coContributionIncome, business.division293Income, business.surchargeIncome], [38000, 37000, 38000]);
+});
+
+// s 995-1 'reportable superannuation contributions' and the Co-contribution Act s 8(1A): 'reduced (but not below
+// zero)' by excess concessional contributions. $10,000 + $5,000 - $3,000 = $12,000; $10,000 - $3,000 = $7,000.
+test('excess concessional contributions reduce the contributions, but not below nil', () => {
+  const some = tests({ taxable: '60000', employerSuper: '10000', personalSuper: '5000', excessConcessional: '3000',
+    assessable: '63000' });
+  assert.deepEqual([some.contributions, some.coEmployer, some.coContributionIncome], [12000, 7000, 70000]);
+  const all = tests({ taxable: '60000', employerSuper: '10000', personalSuper: '5000', excessConcessional: '20000',
+    assessable: '63000' });
+  assert.deepEqual([all.contributions, all.coEmployer, all.rebateIncome], [0, 0, 60000]);
+});
+
+// Each measure disregards the assessable FHSS released amount; more than taxable income leaves none (ITAA 1997
+// s 4-15(1)). The co-contribution takes it from assessable income (s 8(1)(a)).
+test('the FHSS released amount comes out of every measure', () => {
+  const part = tests({ taxable: '30000', fhss: '10000', assessable: '45000' });
+  assert.deepEqual([part.taxableWithoutFhss, part.rebateIncome, part.coContributionIncome], [20000, 20000, 35000]);
+  const all = tests({ taxable: '30000', fhss: '40000', assessable: '50000' });
+  assert.deepEqual([all.taxableWithoutFhss, all.repaymentIncome, all.coContributionIncome], [0, 0, 10000]);
+});
+
+test('income tests name where the ATO’s surcharge page adds exempt foreign employment income', () => {
+  assert.equal(tests({ taxable: '50420', exemptForeign: '2580', targetForeign: '2580', assessable: '50420' }).exemptForeignDiffers, true);
+  assert.equal(tests({ exemptForeign: '2580', targetForeign: '2580' }).exemptForeignDiffers, false);
+  assert.equal(tests({ taxable: '50420', assessable: '50420' }).exemptForeignDiffers, false);
+});
+
+test('income tests refuse a part larger than its whole, cents, residency they do not cover and missing parts', () => {
+  for (const [given, message] of [
+    [{ taxable: '50421', assessable: '50420' }, 'Taxable income cannot exceed assessable income: it is assessable income less deductions.'],
+    [{ fhss: '2', assessable: '1' }, 'The assessable FHSS released amount cannot exceed assessable income, which includes it.'],
+    [{ excessConcessional: '2', assessable: '1' }, 'Excess concessional contributions cannot exceed assessable income, which includes them.'],
+    [{ exemptForeign: '2581', targetForeign: '2580' }, 'Exempt foreign employment income cannot exceed target foreign income, which includes it.'],
+    [{ taxable: '1.50' }, 'Enter each amount in whole dollars, 0 if none.'],
+    [{ rentalLoss: '-1' }, 'Enter each amount in whole dollars, 0 if none.'],
+    [{ pensions: '1000000001' }, 'Enter a whole number between 0 and 1000000000.'],
+    [{ childSupport: undefined }, 'Enter each amount in whole dollars, 0 if none.'],
+  ]) {
+    assert.throws(() => tests(given), { message }, JSON.stringify(given));
+  }
+  assert.throws(() => tests({}, false), { message: 'This calculator works the measures only for a person resident in Australia for the whole year.' });
+  assert.throws(() => tests({}, 'yes'), { message: 'Say whether the person was an Australian resident all year.' });
+});
+
+// australian-tax-calculators 1.0.0, the release the page ports: see the fixture's engine line.
+test('income tests agree with the australian-accounting engine on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./income-tests-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 240);
+  assert.ok(cases.filter((c) => c.refused).length > 10);
+  for (const { source, call, amounts, warns, refused } of cases) {
+    if (refused) {
+      assert.throws(() => incomeTests(call), Error, `${source}: the engine refused, ${refused}`);
+      continue;
+    }
+    const result = incomeTests(call);
+    assert.deepEqual(Object.fromEntries(Object.keys(amounts).map((key) => [key, result[key].toFixed(2)])), amounts, source);
+    assert.equal(result.exemptForeignDiffers, warns, source);
+  }
 });

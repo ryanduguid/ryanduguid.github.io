@@ -4,7 +4,8 @@ The proposed publisher uses the Jekyll tree checked by the main `checks` job.
 It waits for `checks-gates` and `publication`, then rechecks main and the external results after
 admission to `github-pages`. Deployment is serialised, and only the deploy job
 holds Pages and identity-token write permissions. PR, scheduled and manual runs
-cannot publish. The artifact name includes the source SHA and run attempt.
+cannot publish. The artifact is named by the source SHA alone, so rerunning only a
+failed deploy finds it; a rerun of the `checks` job replaces it.
 
 Deployment is held while `PAGES_VALIDATED_DEPLOYMENT` is absent or false. The
 `CodeQL` results check from app 57789 exists only on pull requests, and one from
@@ -33,8 +34,7 @@ attribution audit job, token permissions and the `github-pages` branch rule.
 Publish this workflow before switching Pages from legacy branch builds to
 Actions. Disable the legacy path before enabling `PAGES_VALIDATED_DEPLOYMENT`;
 two active publishers would bypass the ordering contract. Use 'Re-run all jobs'
-on a push of the current main SHA after enabling it. Rerunning only failed jobs
-cannot recreate the artifact named for the new run attempt.
+on a push of the current main SHA after enabling it.
 
 Verify successful publication, a failed mandatory dependency, a cancelled
 validation run, delayed external results, missing results and a run delayed
