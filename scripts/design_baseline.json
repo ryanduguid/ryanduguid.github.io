@@ -176,6 +176,9 @@
     "tools/business-calculators/foreign-surcharge/index.html": [
       "a495a8a73d55b01347bf24d200eb54d5c3057d0dfde53c8552763f9f06ddae2c"
     ],
+    "tools/business-calculators/fuel-tax-credits/index.html": [
+      "19ea0999e623b4df3739325bd8b325f4a04d713829648174d8399ee03b6eb9e5"
+    ],
     "tools/business-calculators/gic-payment-plan/index.html": [
       "e3de2d186fb139dd4197a71b00171daff2f218a2ca2dda7c9188f891a7f6a1aa"
     ],
@@ -355,9 +358,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "29c610c325e01435259227fefcd9836fa5452551baf01d1f3252003dc63c6677",
+    "llms.txt": "368cc47823ec90f8046fe05a80647870f1babfc512248eafb76a8a020206ae99",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "04738b64014bd19c5b9c6dfa2e8fd3c6dba1d64a80aa4a8473e05639d61b8905"
+    "sitemap.xml": "26e2e1a7263bc1cf86d6cc98ebaa52c5c312916935bade7fdf7e219d870583b9"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -417,7 +420,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7787,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7788,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

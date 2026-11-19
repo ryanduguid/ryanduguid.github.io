@@ -29,6 +29,13 @@
     <summary>A new individual tax calculator works out Division 293 tax for 2021-22 to 2026-27: Division 293 income from its parts, the low tax contributions after any excess over the concessional cap, raised by unused cap carried forward when the total super balance was under $500,000, and the taxable contributions above the $250,000 threshold, taxed at 15%, with the room left under the threshold. It agrees with the ATO’s worked example and refuses defined benefit interests and the other special cases.</summary>
   </entry>
   <entry>
+    <title>A new business calculator works out a business’s fuel tax credits for fuel…</title>
+    <link href="https://duguid.com.au/changelog/#entry-f91913d802ebe51c" />
+    <id>https://duguid.com.au/changelog/#entry-f91913d802ebe51c</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A new business calculator works out a business’s fuel tax credits for fuel acquired in one income year from 2022-23 to 2026-27, each line at the rate the ATO published for the day it was acquired, its fuel and its use, and gives the whole dollars for label 7D. It holds all 16 of the ATO’s rate periods from 1 July 2022, read on 19 November 2026, so earlier periods can be worked for an amendment. A small claimant can enter fuel by its cost and the average pump price, which the page asks for and links to the Australian Institute of Petroleum rather than reproducing, split a heavy vehicle’s diesel by the basic method, and take the rate on a tax period’s last day across an indexation change. It flags fuel acquired more than 4 years before the return and refuses fuel after 31 January 2027.</summary>
+  </entry>
+  <entry>
     <title>The take-home pay calculator now works the PAYG withheld from each weekly…</title>
     <link href="https://duguid.com.au/changelog/#entry-6eb640faaa410cf0" />
     <id>https://duguid.com.au/changelog/#entry-6eb640faaa410cf0</id>
