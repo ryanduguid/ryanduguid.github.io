@@ -464,6 +464,8 @@ HTTP 200 locally on 18 November 2026. They are in the same list beside the legal
 database and guidance pages already there, unchecked in Actions.
 Run 44229492536 returned HTTP 403 for 5 ATO pages that the company tax and franking
 calculator cites; each returned HTTP 200 locally on 18 November 2026 and is in the same list.
+The capital gains tax calculator cites 3 pages of the ATO’s Guide to capital gains tax 2026; each
+returned HTTP 200 locally on 19 November 2026 and is in the same list.
 
 The [Division 7A benchmark rate table](https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate)
 also returned HTTP 403 in run 34852175800.

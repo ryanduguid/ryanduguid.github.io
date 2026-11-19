@@ -39,6 +39,7 @@ const companyTax = { ...business, file: 'assets/company-tax.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
+const cgt = { ...business, file: 'assets/cgt.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -400,6 +401,35 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC quarterly administration applies with no shortfall', find: 'shortfall > 0 ? 2000 : 0', replace: '2000' },
   { ...sgc, name: 'SGC quarterly lodgment day is the 28th of the next month', find: 'Date.UTC(first, month + 4, 28)', replace: 'Date.UTC(first, month + 3, 28)' },
   { ...sgc, name: 'SGC quarterly 29 February is not refused', find: "if (isoOf(day).endsWith('-02-29')) {", replace: 'if (false) {' },
+  { ...cgt, name: 'CGT indexes to the June 1999 quarter', find: 'SEPTEMBER_1999 = 687n', replace: 'SEPTEMBER_1999 = 681n' },
+  { ...cgt, name: 'CGT indexation factor truncates instead of rounding', find: '(2n * SEPTEMBER_1999 * 1000n + BigInt(index)) / (2n * BigInt(index))', replace: '(SEPTEMBER_1999 * 1000n) / BigInt(index)' },
+  { ...cgt, name: "CGT a cost's quarter is a month late", find: 'Math.floor((Number(iso.slice(5, 7)) - 1) / 3)', replace: 'Math.floor(Number(iso.slice(5, 7)) / 3)' },
+  { ...cgt, name: 'CGT a super fund gets the 50% discount', find: 'super: [1n, 3n]', replace: 'super: [1n, 2n]' },
+  { ...cgt, name: 'CGT capital works deductions never reduce the cost base', find: "const fromCostBase = acquired > '1997-05-13' ? deducted : 0n;", replace: 'const fromCostBase = 0n;' },
+  { ...cgt, name: 'CGT capital works deductions do not reduce the reduced cost base', find: 'reducedCostBase: spent - deducted', replace: 'reducedCostBase: spent' },
+  { ...cgt, name: 'CGT costs of owning are left out of the indexed cost base', find: 'indexed + BigInt(selling + owning) - fromCostBase', replace: 'indexed + BigInt(selling) - fromCostBase' },
+  { ...cgt, name: 'CGT costs of owning are left out of the cost base', find: 'costBase: spent + BigInt(owning) - fromCostBase', replace: 'costBase: spent - fromCostBase' },
+  { ...cgt, name: 'CGT the 6 years include the sixth anniversary', find: 'left ??= dayOf(yearsLater(isoOf(row.from), 6)) - row.from;', replace: 'left ??= dayOf(yearsLater(isoOf(row.from), 6)) - row.from + 1;' },
+  { ...cgt, name: 'CGT separate absences share one 6 years', find: 'if (!previous || row.from !== previous.to + 1) left = null;', replace: 'if (!previous) left = null;' },
+  { ...cgt, name: 'CGT a rented absence has no 6-year limit', find: 'const covered = Math.min(left, row.to - row.from + 1);', replace: 'const covered = row.to - row.from + 1;' },
+  { ...cgt, name: 'CGT moving in late counts only when practicable', find: "if (home.practicable === 'no') main.fill", replace: "if (home.practicable === 'yes') main.fill" },
+  { ...cgt, name: 'CGT section 118-192 ignores days before the first use', find: 'const mainBefore = first > 0 && main.subarray(0, first).every(Boolean);', replace: 'const mainBefore = first > 0;' },
+  { ...cgt, name: 'CGT section 118-192 applies from 20 August 1996 inclusive', find: "start + first < dayOf('1996-08-20')", replace: "start + first < dayOf('1996-08-19')" },
+  { ...cgt, name: 'CGT section 118-192 keeps the original ownership period', find: 'return { ...count(main, first, part, start), part, incomeTime', replace: 'return { ...count(main, 0, part, start), part, incomeTime' },
+  { ...cgt, name: 'CGT section 118-192 keeps costs spent before the first use', find: 'if (improvement && !(incomeTime && improvement.date < incomeTime)) dated.push(improvement);', replace: 'if (improvement) dated.push(improvement);' },
+  { ...cgt, name: 'CGT part use is not taxed', find: 'BigInt(home.nonMain * 10000 + home.part.percent * home.partDays)', replace: 'BigInt(home.nonMain * 10000)' },
+  { ...cgt, name: 'CGT the discount needs 12 months and a day', find: 'event >= yearsLater(isoOf(dayOf(acquired) + 1), 1)', replace: 'event > yearsLater(isoOf(dayOf(acquired) + 1), 1)' },
+  { ...cgt, name: 'CGT the 12 months count the day bought', find: 'event >= yearsLater(isoOf(dayOf(acquired) + 1), 1)', replace: 'event >= yearsLater(isoOf(dayOf(acquired)), 1)' },
+  { ...cgt, name: 'CGT indexation stops at 1990', find: "const indexable = acquired <= '1999-09-21';", replace: "const indexable = acquired <= '1990-09-21';" },
+  { ...cgt, name: 'CGT a company gets no indexation', find: "if (entity === 'company') return [indexable ? 'indexation' : 'other'];", replace: "if (entity === 'company') return ['other'];" },
+  { ...cgt, name: "CGT earlier years' losses are not applied", find: 'const remaining = gain - currentApplied - priorApplied;', replace: 'const remaining = gain - currentApplied;' },
+  { ...cgt, name: "CGT this year's unused losses are not carried forward", find: 'carried: current - currentApplied + prior - priorApplied', replace: 'carried: prior - priorApplied' },
+  { ...cgt, name: 'CGT a tie between methods ignores the losses carried forward', find: '(a.net === b.net ? Number(b.carried - a.carried) : Number(a.net - b.net))', replace: 'Number(a.net - b.net)' },
+  { ...cgt, name: 'CGT the tax estimate leaves out the Medicare levy', find: "'resident').total - base) * 100) / 100;", replace: "'resident').netTax - base) * 100) / 100;" },
+  { ...cgt, name: 'CGT label A rounds the cents', find: 'const labelA = Number(chosen.net / 100n);', replace: 'const labelA = Math.round(Number(chosen.net) / 100);' },
+  { ...cgt, name: 'CGT a sale contract from 1 July 2027 is worked', find: "until: '2027-06-30'", replace: "until: '2027-07-01'" },
+  { ...cgt, name: 'CGT a pre-CGT asset is worked', find: "if (acquired < '1985-09-20') {", replace: "if (acquired < '1985-09-19') {" },
+  { ...cgt, name: 'CGT costs of owning are accepted from June 1991', find: "if (owning && acquired <= '1991-08-20') {", replace: "if (owning && acquired < '1991-06-01') {" },
 ];
 
 // Runs that must read as invalid, not as caught.

@@ -38,7 +38,7 @@ pub const CI_MANUAL_URLS: [&str; 20] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 212] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -132,6 +132,9 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     // Still HTTP 403 on hosted CI in run 44173032679 (18 November 2026).
     "https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator",
     "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator",
+    "https://www.ato.gov.au/forms-and-instructions/capital-gains-tax-guide-2026/about-capital-gains-tax/how-to-work-out-your-capital-gain-or-capital-loss",
+    "https://www.ato.gov.au/forms-and-instructions/capital-gains-tax-guide-2026/about-capital-gains-tax/real-estate-and-main-residence",
+    "https://www.ato.gov.au/forms-and-instructions/capital-gains-tax-guide-2026/appendixes/appendix-2-consumer-price-index-cpi",
     "https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form",
     "https://www.ato.gov.au/forms-and-instructions/fringe-benefits-tax-return-2026-instructions/item-23-fringe-benefit-categories-for-fbt-return-2026",
     "https://www.ato.gov.au/forms-and-instructions/guide-to-completing-the-super-guarantee-charge-statement",
