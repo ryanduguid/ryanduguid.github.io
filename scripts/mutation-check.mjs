@@ -47,6 +47,7 @@ const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
+const wc = { ...business, file: 'assets/workers-compensation.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -535,6 +536,26 @@ const MUTATIONS = [
   { ...leave, name: 'unused leave TFN payee taxed on scale 3', find: '({ tfn: 2,', replace: '({ tfn: 3,' },
   { ...leave, name: 'unused leave part a cent over its total accepted', find: 'given !== null && given > total)', replace: 'given !== null && given > total + 1)' },
   { ...leave, name: 'unused leave pre-1978 share 90% not assessable', find: 'lslPre1978NotAssessable: toCents(pre1978 * 19)', replace: 'lslPre1978NotAssessable: toCents(pre1978 * 18)' },
+  { ...wc, name: 'WC an NSW premium of exactly $30,000 is refused', find: 'if (app > NSW_SMALL_LIMIT) {', replace: 'if (app >= NSW_SMALL_LIMIT) {' },
+  { ...wc, name: 'WC an NSW premium of exactly $240 is refused', find: 'if (premium < NSW_MINIMUM) {', replace: 'if (premium <= NSW_MINIMUM) {' },
+  { ...wc, name: 'WC the Safe Employer Reward applies to wages', find: 'const ser = at(app, reward);', replace: 'const ser = at(wages, reward);' },
+  { ...wc, name: 'WC the NSW apprentice incentive drops out', find: 'const premium = app - ser - incentive;', replace: 'const premium = app - ser;' },
+  { ...wc, name: 'WC GST is charged on the dust diseases contribution', find: 'total: premium + gst + contribution', replace: 'total: premium + gstOn(premium + contribution) + contribution' },
+  { ...wc, name: 'WC Victorian remuneration is truncated to the dollar', find: 'const remuneration = half(wages, 100n);', replace: 'const remuneration = wages / 100n;' },
+  { ...wc, name: 'WC the Victorian deductible amount is $15,000', find: 'VIC_DEDUCTIBLE_DOLLARS = 15500n', replace: 'VIC_DEDUCTIBLE_DOLLARS = 15000n' },
+  { ...wc, name: 'WC the Victorian deductible ignores the days registered', find: 'rate * VIC_DEDUCTIBLE_DOLLARS * days, 365n', replace: 'rate * VIC_DEDUCTIBLE_DOLLARS * 365n, 365n' },
+  { ...wc, name: 'WC the Victorian minimum premium is $300', find: 'VIC_MINIMUM = 40000n', replace: 'VIC_MINIMUM = 30000n' },
+  { ...wc, name: 'WC the excess buy-out is 0.2', find: 'workcover / 10n', replace: 'workcover / 5n' },
+  { ...wc, name: 'WC Queensland duty leaves out the GST', find: '(premium + gst) * QLD_DUTY_PERCENT', replace: 'premium * QLD_DUTY_PERCENT' },
+  { ...wc, name: 'WC the Queensland minimum compares the premium alone', find: 'if (premium + gst + duty >= minimum) {', replace: 'if (premium >= minimum) {' },
+  { ...wc, name: 'WC SA claims costs are capped at 2 × the discount', find: 'const cap = 3n * discount;', replace: 'const cap = 2n * discount;' },
+  { ...wc, name: 'WC an SA band bound takes the lower discount', find: 'base < below * unit', replace: 'base <= below * unit' },
+  { ...wc, name: 'WC the SA premium rounds half up', find: '(minimum ? SA_MINIMUM_DOLLARS * 100n * unit : sum) / (100n * unit) * 100n', replace: 'half(minimum ? SA_MINIMUM_DOLLARS * 100n * unit : sum, 100n * unit) * 100n' },
+  { ...wc, name: 'WC the SA first full year keeps its discount', find: 'const band = first ? 0n :', replace: 'const band = false ? 0n :' },
+  { ...wc, name: 'WC the SA apprentice incentive drops out', find: '+ applied - apprenticeBase;', replace: '+ applied;' },
+  { ...wc, name: 'WC an SA group member passes', find: "['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA'].includes(x.place)", replace: "['AU-NSW', 'AU-VIC', 'AU-QLD'].includes(x.place)" },
+  { ...wc, name: 'WC apprentice wages above the wages pass', find: 'if (apprentice > wages)', replace: 'if (apprentice > wages + 100n)' },
+  { ...wc, name: 'WC private schemes leave out GST', find: 'premium, gst, duty: 0n, total: premium + gst, notes: [] };\n}\n\n/** The premium', replace: 'premium, gst, duty: 0n, total: premium, notes: [] };\n}\n\n/** The premium' },
 ];
 
 // Runs that must read as invalid, not as caught.
