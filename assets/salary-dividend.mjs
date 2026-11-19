@@ -161,8 +161,9 @@ export function salaryDividend(pay) {
   const best = split(bestSalary, profit, other, y);
   const allSalary = split(largest, profit, other, y);
   const allDividends = split(0, profit, other, y);
-  return { ...Object.fromEntries(Object.entries(chosen).map(([key, value]) => [key, key === 'taxable' ? value : dollars(value)])),
-    largest: dollars(largest), allSalary: dollars(allSalary.kept), allDividends: dollars(allDividends.kept),
+  const shown = /** @type {Split} */ (Object.fromEntries(Object.entries(chosen)
+    .map(([key, value]) => [key, key === 'taxable' ? value : dollars(value)])));
+  return { ...shown, largest: dollars(largest), allSalary: dollars(allSalary.kept), allDividends: dollars(allDividends.kept),
     bestSalary: dollars(best.salary), bestKept: dollars(best.kept), bestCash: dollars(best.cash), bestSuper: dollars(best.superNet) };
 }
 
