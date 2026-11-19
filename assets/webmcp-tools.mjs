@@ -604,37 +604,43 @@ export function individualTaxTools({ taxEstimate, takeHomePay, division293Tax, i
         };
       },
     }),
-    'division-293': tool({
-      name: 'calculate_division_293_tax',
-      title: 'Division 293 tax calculator',
-      description: DIVISION_293_DESCRIPTION,
-      inputSchema: record({
-        incomeYear: choice(division293Years, `Income year, ${division293Years.at(-1)} to ${division293Years[0]}.`),
-        accumulationOnly: { type: 'boolean', description: 'true when every contribution is to an accumulation interest; false refuses.' },
-        taxableIncome: whole(0, 1e9, 'Taxable income in whole AUD, including any excess concessional contributions assessed.'),
-        reportableFringeBenefits: dollarsOnly('Reportable fringe benefits total.'),
-        totalNetInvestmentLoss: dollarsOnly('Total net investment loss, financial and rental.'),
-        familyTrustDistributionIncome: dollarsOnly('Income on which family trust distribution tax was paid.'),
-        assessableFhssReleasedAmount: dollarsOnly('Assessable first home super saver released amount in taxable income.'),
-        zeroRateLumpSum: dollarsOnly('Taxable component of a super lump sum taxed at 0% (s 301-20(3)), received from preservation age to under 60: 2023-24 and earlier only.'),
-        concessionalContributions: text('amount', 'Concessional contributions for the financial year in AUD with at most 2 decimal places.'),
-        unusedCapCarriedForward: text('amount', 'Unapplied unused concessional cap from the previous 5 years in AUD; "0" when omitted.'),
-        totalSuperBalanceUnder500k: { type: 'boolean', description: 'true when the total super balance just before the year was under $500,000; false when omitted.' },
-      }, ['incomeYear', 'accumulationOnly', 'taxableIncome', 'concessionalContributions']),
-      run({ incomeYear, accumulationOnly, taxableIncome, reportableFringeBenefits = 0, totalNetInvestmentLoss = 0,
-        familyTrustDistributionIncome = 0, assessableFhssReleasedAmount = 0, zeroRateLumpSum = 0, concessionalContributions,
-        unusedCapCarriedForward = '0', totalSuperBalanceUnder500k = false }) {
-        const r = division293Tax({ year: incomeYear, interests: accumulationOnly ? 'accumulation' : 'other',
-          taxable: String(taxableIncome), fringe: String(reportableFringeBenefits), losses: String(totalNetInvestmentLoss),
-          trust: String(familyTrustDistributionIncome), fhss: String(assessableFhssReleasedAmount), lumpSum: String(zeroRateLumpSum),
-          concessional: concessionalContributions, unused: unusedCapCarriedForward, balanceUnder: totalSuperBalanceUnder500k });
-        return {
-          division293Income: dollars(r.income), concessionalContributionsCap: dollars(r.cap), unusedCapApplied: dollars(r.carried),
-          excessConcessionalContributions: dollars(r.excess), lowTaxContributions: dollars(r.low), overThreshold: dollars(r.over),
-          taxableContributions: dollars(r.taxable), division293Tax: dollars(r.tax), roomUnderThreshold: dollars(r.room),
-          currency: 'AUD', source: `${INDIVIDUAL}division-293/`,
-        };
-      },
-    }),
+    'division-293': division293Tool({ division293Tax, division293Years }),
   };
+}
+
+/** The WebMCP descriptor for the Division 293 tax calculator.
+ * @param {{division293Tax: typeof import('./division-293.mjs').division293Tax, division293Years: string[]}} engines */
+function division293Tool({ division293Tax, division293Years }) {
+  return tool({
+    name: 'calculate_division_293_tax',
+    title: 'Division 293 tax calculator',
+    description: DIVISION_293_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(division293Years, `Income year, ${division293Years.at(-1)} to ${division293Years[0]}.`),
+      accumulationOnly: { type: 'boolean', description: 'true when every contribution is to an accumulation interest; false refuses.' },
+      taxableIncome: whole(0, 1e9, 'Taxable income in whole AUD, including any excess concessional contributions assessed.'),
+      reportableFringeBenefits: dollarsOnly('Reportable fringe benefits total.'),
+      totalNetInvestmentLoss: dollarsOnly('Total net investment loss, financial and rental.'),
+      familyTrustDistributionIncome: dollarsOnly('Income on which family trust distribution tax was paid.'),
+      assessableFhssReleasedAmount: dollarsOnly('Assessable first home super saver released amount in taxable income.'),
+      zeroRateLumpSum: dollarsOnly('Taxable component of a super lump sum taxed at 0% (s 301-20(3)), received from preservation age to under 60: 2023-24 and earlier only.'),
+      concessionalContributions: text('amount', 'Concessional contributions for the financial year in AUD with at most 2 decimal places.'),
+      unusedCapCarriedForward: text('amount', 'Unapplied unused concessional cap from the previous 5 years in AUD; "0" when omitted.'),
+      totalSuperBalanceUnder500k: { type: 'boolean', description: 'true when the total super balance just before the year was under $500,000; false when omitted.' },
+    }, ['incomeYear', 'accumulationOnly', 'taxableIncome', 'concessionalContributions']),
+    run({ incomeYear, accumulationOnly, taxableIncome, reportableFringeBenefits = 0, totalNetInvestmentLoss = 0,
+      familyTrustDistributionIncome = 0, assessableFhssReleasedAmount = 0, zeroRateLumpSum = 0, concessionalContributions,
+      unusedCapCarriedForward = '0', totalSuperBalanceUnder500k = false }) {
+      const r = division293Tax({ year: incomeYear, interests: accumulationOnly ? 'accumulation' : 'other',
+        taxable: String(taxableIncome), fringe: String(reportableFringeBenefits), losses: String(totalNetInvestmentLoss),
+        trust: String(familyTrustDistributionIncome), fhss: String(assessableFhssReleasedAmount), lumpSum: String(zeroRateLumpSum),
+        concessional: concessionalContributions, unused: unusedCapCarriedForward, balanceUnder: totalSuperBalanceUnder500k });
+      return {
+        division293Income: dollars(r.income), concessionalContributionsCap: dollars(r.cap), unusedCapApplied: dollars(r.carried),
+        excessConcessionalContributions: dollars(r.excess), lowTaxContributions: dollars(r.low), overThreshold: dollars(r.over),
+        taxableContributions: dollars(r.taxable), division293Tax: dollars(r.tax), roomUnderThreshold: dollars(r.room),
+        currency: 'AUD', source: `${INDIVIDUAL}division-293/`,
+      };
+    },
+  });
 }
