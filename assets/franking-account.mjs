@@ -211,8 +211,9 @@ function workDistribution(dist, i, periods, f) {
     differential = sub(pct, reference);
   }
   const consequence = div(mul(dist.amount, differential.n < 0n ? neg(differential) : differential), mul(q(100n), f.grossUp));
-  return { maximum, credit, pct, period, reference, over: differential.n > 0n ? consequence : ZERO,
-    under: differential.n < 0n ? consequence : ZERO };
+  const over = differential.n > 0n ? consequence : ZERO;
+  const under = differential.n < 0n ? consequence : ZERO;
+  return { maximum, credit, pct, period, reference, over, under };
 }
 
 /** Each distribution under the benchmark rule, in its franking period.
@@ -448,12 +449,13 @@ export function frankingAccount(input) {
   refunds.sort((a, b) => Number(b.taken) - Number(a.taken));
   const total = tax ? add(offset, tax.forward) : null;
   const used = tax && total ? min(total, tax.before) : null;
+  const balanceCode = closing.n < 0n ? 'D' : 'S';
   return {
     credits: aud(credits), debits: aud(sum((l) => !l.credit)), closing: aud(closing), fdt: aud(fdt), fdtFromRefunds: aud(sub(fdt, beforeRefunds)),
     reduction: aud(reduction), offset: aud(offset), labelK: aud(labelK), oft: aud(oft), payable: aud(add(fdt, oft)), rdCarried: aud(rdPool),
     offsetTotal: total ? aud(total) : null, offsetUsed: used ? aud(used) : null, offsetCarried: total && used ? aud(sub(total, used)) : null,
     grossUp: (Number((f.grossUp.n * 10000n * 2n + f.grossUp.d) / (2n * f.grossUp.d)) / 10000).toFixed(4),
-    balanceCode: closing.n < 0n ? 'D' : 'S', offsetCode: code, authority, variation, required, due: required ? due : null,
+    balanceCode, offsetCode: code, authority, variation, required, due: required ? due : null,
     ledger: ledgerRows(opening, lines), distributions: distributionRows(dists, worked, periods), periods: rows, refunds,
   };
 }
