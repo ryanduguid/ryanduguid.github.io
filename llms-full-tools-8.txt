@@ -88,7 +88,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -100,7 +100,82 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Lump sum in arrears tax offset calculator (LSPIA)
+
+Source: https://duguid.com.au/tools/individual-tax/lump-sum-arrears/
+
+> The lump sum payment in arrears tax offset under ITAA 1936 ss 159ZR to 159ZRD for a resident, with the 10% test and each accrual year's tax, for 2024-25 to 2026-27.
+
+# Lump sum in arrears tax offset calculator
+
+The tax offset on back pay received as a lump sum, for 2024-25 to 2026-27.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Lump sum payments in arrears received in one income year
+
+Year you received the arrears 2026-27 2025-26 2024-25 Taxable income of that year, including the arrears (whole dollars) Net capital gain included in it (whole dollars) Were you an Australian resident for the whole of that year and of the 2 latest accrual years, with the full tax-free threshold? Yes No Did those years include a termination payment, unused leave, a super benefit, special professional income or primary producer averaging? No Yes The latest year in which part of the arrears accrued Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, only with 3 or more accrual years (whole dollars) If you got this offset for it: its total arrears amount (whole dollars) Arrears of an earlier offset year that accrued in it (whole dollars)
+
+The accrual year before it, if any Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, only with 3 or more accrual years (whole dollars) If you got this offset for it: its total arrears amount (whole dollars) Arrears of an earlier offset year that accrued in it (whole dollars)
+
+Earlier accrual years, every payer’s arrears together.
+
+Year | Income year | Arrears (whole dollars)
+1 | |
+2 | |
+3 | |
+4 | |
+
+Leave unused rows blank; over 6 accrual years, put the oldest years’ total in row 4.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, taxable income $100,000.00, net capital gain $0.00, accrual years 2023-24 $3,000.00 on taxable income $30,000.00, 2022-23 $2,500.00 on taxable income $17,000.00, 2021-22 $1,400.00, 2020-21 $1,700.00, 2019-20 $1,400.00, 2018-19 $1,000.00. Total arrears amount $11,000.00 Normal taxable income $100,000.00 10% of normal taxable income less the arrears $8,900.00 Tax on arrears in 2025-26 $3,300.00 Notional tax for 2023-24 $570.00 Notional tax for 2022-23 $247.00 Notional tax for the distant years $794.75 Notional tax on arrears $1,611.75 Lump sum payment in arrears tax offset $1,688.25 The distant years 2021-22, 2020-21, 2019-20 and 2018-19 take the average rate on recent arrears, 14.45%: 19% for 2023-24 and 9.9% for 2022-23.
+
+## How the lump sum in arrears calculator works
+
+Salary, wages or a Centrelink or compensation payment that you receive as a lump sum, for earlier years, is taxed in the year you receive it, often at a higher rate than it would have been in the years it was for. The tax offset gives back the difference. The calculator first tests whether the arrears are at least 10% of the rest of your normal taxable income for the year. If they are, it works out the tax the arrears add this year and the tax they would have added in the years they accrued in, and the offset is the amount by which the first exceeds the second.
+
+For the 2 latest accrual years it adds the arrears to that year’s taxable income at that year’s resident rates. Arrears from any earlier years are taxed at the average of those 2 years’ rates, so the oldest years’ arrears can share one row. Where a recent year was itself a year you got this offset for, or arrears of such a year accrued in it, its income is adjusted as the Act directs.
+
+The ATO’s page on lump sum payments in arrears works Yan’s breakdown of arrears by year, received in 2025-26. The calculator opens on it; the ATO does not give Yan’s taxable incomes, so the $100,000, $30,000 and $17,000 are fictional. Anthony’s, Sudeep’s and Heather’s examples are among the boundary cases.
+
+## What the lump sum in arrears calculator does not cover
+
+The calculator works the offset for a person resident in Australia for the whole of the year of receipt and of each recent accrual year, entitled to the full tax-free threshold, for a year of receipt of 2024-25, 2025-26 or 2026-27. It does not decide what is a lump sum in arrears: it takes the arrears you enter as eligible income that accrued more than 12 months before you received it. It refuses an employment termination payment, unused leave paid on termination, a super lump sum or income stream, above-average special professional income or primary producer averaging in the year of receipt or a recent accrual year, and does not cover a minor’s income or a trustee.
+
+It does not work out the Medicare levy or surcharge on the arrears, which have their own rules, or apply the offset against your tax. The ATO works the offset when you lodge with the amounts for each year; confirm the figures with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Lump sum in arrears tax offset calculator
+
+Case | Inputs | Result
+ATO example: Yan’s 4 distant years take the average of the recent years’ rates | 2025-26, taxable $100,000.00; 2023-24 $3,000.00 on $30,000.00, 2022-23 $2,500.00 on $17,000.00, 2021-22 $1,400.00, 2020-21 $1,700.00, 2019-20 $1,400.00, 2018-19 $1,000.00 | Tax on arrears $3,300.00, notional tax $1,611.75, offset $1,688.25
+ATO example: Anthony’s 2016-17 arrears at 37% against 45% in 2025-26 | 2025-26, taxable $314,166.00, net capital gain $111,231.00; 2016-17 $43,979.00 on $100,000.00 | Tax on arrears $19,790.55, notional tax $16,272.23, offset $3,518.32
+ATO example: Sudeep’s $3,500 is less than 10% of $49,500, so no offset | 2025-26, taxable $53,000.00; 2023-24 $3,500.00 on $50,000.00 | Arrears $3,500.00 below $4,950.00, offset $0.00
+ATO example: Heather meets the test but paid less tax in 2025-26 | 2025-26, taxable $34,000.00; 2022-23 $4,000.00 on $28,000.00, 2023-24 $4,500.00 on $30,000.00 | Tax on arrears $1,360.00, notional tax $1,615.00, offset $0.00
+A rate of exactly 0.0985 rises to 0.099, and 0.0984 stays 0.098 | 2025-26, taxable $40,000.00; 2023-24 $3,800.00 on $16,370.00, 2022-23 $3,800.00 on $16,368.00, 2021-22 $1,000.00 | Tax on arrears $1,376.00, notional tax $846.72, offset $529.28
+The distant years’ rate uses normal taxable income, without the net capital gain | 2025-26, taxable $60,000.00; 2023-24 $3,000.00 on $50,000.00 with a gain of $10,000.00, 2022-23 $2,500.00 on $17,000.00, 2021-22 $1,000.00 | Tax on arrears $1,950.00, notional tax $1,366.50, offset $583.50
+A recent year that was a rebate year itself is adjusted both ways | 2025-26, taxable $30,000.00; 2023-24 $3,000.00 on $46,000.00, less $4,000.00 as a rebate year, plus $1,000.00 of an earlier one | Tax on arrears $480.00, notional tax $705.00, offset $0.00
+2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
+2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
+
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -171,7 +246,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -181,7 +256,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -257,7 +332,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -267,7 +342,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -331,7 +406,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -341,7 +416,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -417,7 +492,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -425,7 +500,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -591,104 +666,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
 - GIC table: https://duguid.com.au/rates/general-interest-charge/
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Long service leave calculator for every state and territory
-
-Source: https://duguid.com.au/tools/business-calculators/long-service-leave/
-
-> Long service leave in all 8 states and territories: qualifying periods, accrual, pro rata on termination by reason and the payment, each cited to its Act.
-
-# Long service leave calculator
-
-Long service leave under the Act of any Australian state or territory: the leave to take now, or what is paid when employment ends and why, each step cited.
-
-Published 19 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Long service leave inputs for one employee
-
-State or territory whose Act applies New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory First day of service Last day of employment, or the day to work it out at Days that do not count as service Employment Ends on the last day Continues: leave the employee can take now Why employment ends Resignation Resignation because of illness, incapacity, or a domestic or other pressing necessity Resignation without the notice the contract requires Retirement at or after the retiring age Redundancy, or another dismissal not about conduct, capacity or performance Dismissal because of illness or injury Dismissal for conduct, capacity or performance short of serious misconduct (serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory) Dismissal for serious misconduct (serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory) A fixed term ended Death of the employee Long service leave already taken or paid (weeks) Ordinary pay a week (AUD)
-
-Count each calendar day of an absence that keeps service continuous but does not count towards it, such as unpaid leave, as the Act you choose defines it. Each Act sets which pay is ordinary pay and how varied hours are averaged: enter the weekly figure that gives. Tax withheld from a payment on termination is worked out separately, from the termination payment calculator’s page.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, Long Service Leave Act 1955 (NSW), service from 1 February 2014 to 31 July 2026, employment ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, no leave already taken or paid, ordinary pay $1,500.00 a week. Service counted 12 years, 6 months and 0 days (4,564 days) Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii) 10.8333 weeks Weeks to pay on termination 10.8333 weeks Payment at $1,500.00 a week $16,250.00
-
-## How the long service leave calculator works
-
-Long service leave comes from each state and territory’s own Act, not the National Employment Standards. The calculator measures the service from the first day to the last, less the days you exclude, and applies the Act you choose. While employment continues, it gives the leave the employee can take now and when the next amount becomes available. When employment ends, it decides from the length of service and the reason whether the Act pays anything, works out the weeks it pays, deducts leave already taken or paid, and values the rest at the weekly ordinary pay. Each step names its provision. Victoria and the Australian Capital Territory give full leave after 7 years and the other states and territories after 10; New South Wales and the Australian Capital Territory can pay a pro rata amount from 5 years, the others from 7, and Victoria not before 7 years at all.
-
-## What the long service leave calculator does not cover
-
-The calculator gives an estimate under one Act for one employee, and no legal advice. It does not cover:
-
-- which Act applies to employment in more than one state or territory, and whether an award, enterprise agreement or contract gives a better entitlement, including the long service leave terms of a pre-2010 award or agreement that section 113 of the Fair Work Act 2009 preserves;
-- portable schemes, such as building and construction, contract cleaning, community services and security, and the black coal mining industry, Commonwealth and state public servants, Queensland seasonal employees in the sugar industry and meat works and other seasonal employees, and Tasmanian mining employees, who have their own rules;
-- whether a break keeps service continuous, which absences count, and whether a reason for leaving qualifies, such as a pressing necessity or serious misconduct: you decide those;
-- averaging pay for varied hours, casual or part-time work, commission or piece rates;
-- leave taken in advance of the entitlement, cashing out, and service before 23 June 1990, which some Acts count under earlier rules;
-- tax withheld from the payment.
-
-The figures follow each Act as read on 19 November 2026; a future date assumes it is unchanged. Confirm the result with the state or territory’s long service leave regulator or a lawyer before relying on it.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Long service leave calculator
-
-Case | Inputs | Result
-Redundancy after 12 years and 6 months in New South Wales: a proportion on 3 months for 15 years | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii), 10.8333 weeks, payment $16,250.00
-NSW Industrial Relations’ Dean: 5 years and 6 months, his store closed (its calculator shows 4.76 weeks) | New South Wales, 1 November 2009 to 30 April 2015, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subparagraph 4(2)(a)(iii), 4.7667 weeks, payment $7,150.00
-New South Wales, a day short of 5 years: nothing | New South Wales, 1 January 2016 to 30 December 2020, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Under 5 years: nothing is payable, 0.0000 weeks, payment $0.00
-New South Wales, a resignation a day short of 10 years: nothing | New South Wales, 1 January 2016 to 30 December 2025, ends by resignation, pay $1,500.00 a week | Under 10 years, resignation does not qualify for pro rata leave, subparagraph 4(2)(a)(iii), 0.0000 weeks, payment $0.00
-New South Wales, a resignation at 10 years: any reason qualifies | New South Wales, 1 January 2016 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii), 8.6667 weeks, payment $13,000.00
-New South Wales, serious misconduct after 15 years and 6 months: each completed year | New South Wales, 1 January 2010 to 30 June 2025, ends by dismissal for serious and wilful misconduct, pay $1,500.00 a week | Each completed year at 2 months for 10 years, any reason, subparagraph 4(2)(a)(i), 13.0000 weeks, payment $19,500.00
-New South Wales, still employed after 12 years and 6 months: 2 months to take | New South Wales, 1 February 2014 to 31 July 2026, still employed, pay $1,500.00 a week | 8 2/3 weeks for 10 years and 4 1/3 weeks for each completed 5 years after, subparagraph 4(2)(a)(i), 8.6667 weeks, payment $13,000.00
-New South Wales, 30 days excluded leave 10 years a month short | New South Wales, 1 January 2016 to 31 December 2025, 30 days excluded, still employed, pay $1,500.00 a week | Under 10 years: no leave to take yet, 0.0000 weeks, payment $0.00
-Victoria, death a day short of 7 years: nothing | Victoria, 1 January 2019 to 30 December 2025, ends by the employee’s death, pay $1,500.00 a week | Under 7 years: nothing is payable, 0.0000 weeks, payment $0.00
-Victoria, a resignation at 7 years: 1/60th of 2,557 days | Victoria, 1 January 2019 to 31 December 2025, ends by resignation, pay $1,500.00 a week | 1/60th of the period of continuous employment, any reason, sections 6, 9 and 10, 6.0881 weeks, payment $9,132.14
-Queensland, a resignation at 9 years: nothing | Queensland, 1 January 2017 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Under 10 years, resignation does not qualify for pro rata leave, subsection 95(4), 0.0000 weeks, payment $0.00
-Queensland, a dismissal for performance at 9 years: nothing | Queensland, 1 January 2017 to 31 December 2025, ends by dismissal for conduct, capacity or performance short of serious misconduct, pay $1,500.00 a week | Under 10 years, dismissal for conduct, capacity or performance short of serious misconduct does not qualify for pro rata leave, subsection 95(4), unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide, 0.0000 weeks, payment $0.00
-Queensland, a fixed term ending at 9 years | Queensland, 1 January 2017 to 31 December 2025, ends by the end of a fixed term, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subsection 95(4), if the employee reasonably expected to complete 10 years and was prepared to stay, 7.8000 weeks, payment $11,700.00
-Business Queensland: 18 years, 3 months, 2 weeks and 2 days, 15.8548 weeks | Queensland, 1 January 2007 to 16 April 2025, still employed, pay $1,500.00 a week | 8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2), 15.8548 weeks, payment $23,782.14
-Queensland, still employed after 16 years and 6 months: the proportion for the further period | Queensland, 1 January 2010 to 30 June 2026, still employed, pay $1,500.00 a week | 8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2), 14.3000 weeks, payment $21,450.00
-Western Australia’s Lee: redundancy after 12 years, 10.4 weeks | Western Australia, 1 January 2014 to 31 December 2025, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Each completed year at 8 2/3 weeks for 10 years, subsection 8(2), 10.4000 weeks, payment $15,600.00
-Western Australia’s Anastasia: serious misconduct after 12 years and 1 month, the 8.667 weeks accrued | Western Australia, 1 January 2014 to 31 January 2026, ends by dismissal for serious misconduct, pay $1,500.00 a week | Leave already accrued only, after dismissal for serious misconduct, subsection 8(2), 8.6667 weeks, payment $13,000.00
-Western Australia, a resignation at 8 years: pro rata | Western Australia, 1 January 2018 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subsection 8(3), 6.9333 weeks, payment $10,400.00
-Western Australia, serious misconduct at 8 years: nothing | Western Australia, 1 January 2018 to 31 December 2025, ends by dismissal for serious misconduct, pay $1,500.00 a week | Under 10 years, dismissal for serious misconduct does not qualify for pro rata leave, subsection 8(3), 0.0000 weeks, payment $0.00
-SafeWork SA’s Aisha: a resignation after 8 years and 6 months, 10.4 weeks | South Australia, 1 January 2017 to 30 June 2025, ends by resignation, pay $1,500.00 a week | 1.3 weeks for each completed year, subsections 5(3) and (4), 10.4000 weeks, payment $15,600.00
-SafeWork SA’s Ajay: 7 years and 6 months, left without the required notice, nothing | South Australia, 1 January 2018 to 30 June 2025, ends by resignation without the notice the contract requires, pay $1,500.00 a week | Under 10 years, resignation without the notice the contract requires does not qualify for pro rata leave, subsections 5(3) and (4), as SafeWork SA reads leaving without the required notice as an unlawful termination by the worker: if the employer waived the notice, choose resignation, 0.0000 weeks, payment $0.00
-SafeWork SA’s Liam: 13 years, 10 weeks taken, 6.9 weeks left | South Australia, 1 January 2013 to 31 December 2025, still employed, 10 weeks taken, pay $1,500.00 a week | 13 weeks for 10 years and 1.3 weeks for each completed year after, section 5, 16.9000 weeks, 6.9000 weeks left, payment $10,350.00
-SafeWork SA: 12 years and 6 months, 15.6 weeks for any reason | South Australia, 1 January 2013 to 30 June 2025, ends by dismissal for serious and wilful misconduct, pay $1,500.00 a week | 13 weeks for 10 years and 1.3 weeks for each completed year after, any reason, section 5, 15.6000 weeks, payment $23,400.00
-WorkSafe Tasmania’s example 1: exactly 9 years, left because of ill health (7.8003 at a rounded rate) | Tasmania, 1 January 2017 to 31 December 2025, ends by resignation because of illness, incapacity, or a domestic or other pressing necessity, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subsection 8(3), 7.8000 weeks, payment $11,700.00
-WorkSafe Tasmania’s example 2: 13 years, 6 months and 14 days, 13.5383 years (11.7336 at a rounded rate) | Tasmania, 1 January 2012 to 14 July 2025, ends by resignation, pay $1,500.00 a week | Leave accrued and a proportion of 8 2/3 weeks for the years since, any reason, paragraph 8(2)(a), 11.7332 weeks, payment $17,599.83
-Tasmania, a resignation at 8 years: nothing | Tasmania, 1 January 2018 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Under 10 years, resignation does not qualify for pro rata leave, subsection 8(3), 0.0000 weeks, payment $0.00
-Tasmania, death at 9 years: 1/60th of the employment | Tasmania, 1 January 2017 to 31 December 2025, ends by the employee’s death, pay $1,500.00 a week | 1/60th of the period of continuous employment, paragraph 9(2)(b), 7.8262 weeks, payment $11,739.29
-Tasmania, death at 12 years: 8 2/3 weeks and 1/60th of the 2 years since | Tasmania, 1 January 2014 to 31 December 2025, ends by the employee’s death, pay $1,500.00 a week | Leave accrued and 1/60th of the employment since, paragraph 9(2)(a), 10.4071 weeks, payment $15,610.71
-WorkSafe ACT’s full-time employee: 7 years, 6.0667 weeks at $560 a week | Australian Capital Territory, 1 January 2019 to 31 December 2025, still employed, pay $560.00 a week | 1/5 of a month for each completed year, sections 3 and 4, 6.0667 weeks, payment $3,397.33
-Australian Capital Territory, redundancy at 6 years and 6 months: completed months count | Australian Capital Territory, 1 January 2019 to 30 June 2025, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Pro rata on 2 months for 10 years, completed years and months, subsection 11C(2), 5.6333 weeks, payment $8,450.00
-Australian Capital Territory, a resignation at 6 years: nothing | Australian Capital Territory, 1 January 2020 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Under 7 years, resignation does not qualify for pro rata leave, subsection 11C(1), 0.0000 weeks, payment $0.00
-Northern Territory, redundancy at 9 years: 1.3 weeks a completed year | Northern Territory, 1 January 2017 to 31 December 2025, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | 1.3 weeks for each completed year, subsection 10(2), 11.7000 weeks, payment $17,550.00
-Northern Territory, serious misconduct at 12 years: the completed 10 years only | Northern Territory, 1 January 2014 to 31 December 2025, ends by dismissal for serious misconduct, pay $1,500.00 a week | The completed 10 and 5-year periods only, after serious misconduct, subsection 10(1A), 13.0000 weeks, payment $19,500.00
-Northern Territory, death at 9 years is refused: choose the reason that would have applied | Northern Territory, 1 January 2017 to 31 December 2025, ends by the employee’s death, pay $1,500.00 a week | Refused: under 10 years, the NT Act pays on death what the employee would have been paid for leaving that day for a reason in subsection 10(2) (subsection 10(3)): choose that reason instead
-New South Wales, a fixed term ending at 7 years is refused | New South Wales, 1 January 2019 to 31 December 2025, ends by the end of a fixed term, pay $1,500.00 a week | Refused: the NSW Act pays pro rata leave under 10 years when the employer ends the employment, and does not say whether a fixed term ending is that: this calculator does not decide it
-Service before 23 June 1990 is refused | New South Wales, 22 June 1990 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: enter the first day of service from 23 June 1990 to 31 December 2099
-A last day before the first is refused | New South Wales, 1 August 2026 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: the last day must be on or after the first day of service
-Excluded days that use up the service are refused | New South Wales, 1 July 2026 to 31 July 2026, 31 days excluded, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: excluded days must be fewer than the days from the first day to the last
-More leave taken than the entitlement is refused | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, 11 weeks taken, pay $1,500.00 a week | Refused: leave taken or paid is more than this entitlement: the Acts treat leave taken in advance differently, and this calculator does not cover it
-
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- termination payment calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
-- black coal mining industry: https://duguid.com.au/tools/coal-lsl-levy/
 - thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
