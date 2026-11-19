@@ -653,10 +653,10 @@ test('FBT property values goods bought for the business and takes the in-house r
   const form = page.locator('#fbt-property form');
   await waitForCalculator(form);
   await context.setOffline(true);
-  await form.getByLabel('In-house, goods you buy for your business').check();
-  await form.getByLabel('Price rules only: the lowest trade or public price, the arm’s length purchase price').fill('500');
-  await form.getByLabel('Notional value rules and goods you buy').fill('750');
-  await form.getByLabel('Employee contribution, what the employee paid for the property (AUD)').fill('400');
+  await form.getByLabel('In-house goods you buy for the business').check();
+  await form.getByLabel('Price rules only').fill('500');
+  await form.getByLabel('Notional value: what the employee').fill('750');
+  await form.getByLabel('Employee contribution paid for the property (AUD)').fill('400');
   await form.getByLabel('In-house rules other than salary packaging').fill('1000');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
@@ -677,15 +677,15 @@ test('FBT expense payment refuses the otherwise deductible rule in-house, then w
   const form = page.locator('#fbt-expense-payment form');
   await waitForCalculator(form);
   await context.setOffline(true);
-  await form.getByLabel('In-house property, goods you make and sell to the trade').check();
-  await form.getByLabel('Employee’s expenditure, what they spent before any reimbursement (AUD)').fill('1000');
-  await form.getByLabel('Your payment of that expenditure or reimbursement of it (AUD)').fill('250');
+  await form.getByLabel('In-house goods you make and sell to the trade').check();
+  await form.getByLabel('Employee’s expenditure before any reimbursement (AUD)').fill('1000');
+  await form.getByLabel('Your payment or reimbursement of it (AUD)').fill('250');
   await form.getByLabel('In-house price rules only').fill('800');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('This calculator does not apply the otherwise deductible rule to an in-house '
     + 'expense payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction.');
   await form.getByLabel('External only: share of the expenditure').fill('0');
-  await form.getByLabel('External only: deduction the employee could claim').fill('0');
+  await form.getByLabel('External only: employee’s deduction').fill('0');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
     'Inputs: in-house made and sold to the trade, the lowest arm’s length price, lowest trade price $800.00, expenditure $1,000.00, '
