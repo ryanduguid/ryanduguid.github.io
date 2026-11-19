@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! An independent oracle for the individual tax engines: `assets/income-tax.mjs`,
-//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs` and
-//! `assets/income-tests.mjs`.
+//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs`,
+//! `assets/sole-trader.mjs` and `assets/income-tests.mjs`.
 //! Seeded fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser modules return under Node.
 //!
@@ -37,6 +37,7 @@ const HARNESS: &str = r"
 import { incomeTax, medicareLevySurcharge } from './assets/income-tax.mjs';
 import { studyLoanRepayment } from './assets/study-loan.mjs';
 import { takeHomePay } from './assets/take-home-pay.mjs';
+import { soleTraderSetAside } from './assets/sole-trader.mjs';
 import { incomeTests } from './assets/income-tests.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
@@ -49,6 +50,7 @@ const run = {
     super: '0', foreign: '0' }, year)),
   pay: ({ pay }) => cents(takeHomePay(pay)),
   mls: ({ mls }) => cents(medicareLevySurcharge(mls)),
+  sole: ({ sole }) => cents(soleTraderSetAside(sole)),
   tests: ({ parts }) => cents(incomeTests(parts)),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
@@ -66,6 +68,7 @@ const TAX_CASES: usize = 700;
 const LOAN_CASES: usize = 400;
 const PAY_CASES: usize = 900;
 const MLS_CASES: usize = 400;
+const SOLE_CASES: usize = 600;
 
 /// A fixed sequence (xorshift64*), so a failure names a case that reappears on a rerun.
 struct Seeded(u64);
@@ -773,6 +776,111 @@ fn pay_oracle(p: &Pay) -> Value {
         "fortnightly": half_up(net, 26), "weekly": half_up(net, 52), "withheld": withheld})
 }
 
+struct Sole<'a> {
+    year: &'a str,
+    income: u64,
+    expenses: u64,
+    wages: u64,
+    deductions: u64,
+    contributions: u64,
+    offset: bool,
+    loan: bool,
+    cover: bool,
+    gst: bool,
+    credits: u64,
+    invoice: u64,
+}
+
+/// One year's tax, levies and repayment in cents on `taxable` whole dollars with `business` whole
+/// dollars of net small business income. The offset follows the ATO's 'Small business income tax
+/// offset' page: with total net small business income at or above taxable income, 16% of the basic
+/// income tax liability; otherwise 16% of the liability's share in that income's proportion; at most
+/// $1,000 and no more than the tax the other offsets leave.
+/// `reported` whole dollars of deductible personal super contributions are reportable super
+/// contributions: they join income for surcharge purposes and repayment income (HESA s 154-5(1);
+/// ATO 'Income tests').
+fn sole_year(s: &Sole, taxable: u64, business: u64, reported: u64) -> [u64; 8] {
+    let t = tax_oracle(taxable, s.year, "resident");
+    let get = |key: &str| t[key].as_u64().unwrap();
+    let (tax, offset, lmito, levy) = (get("tax"), get("offset"), get("lmito"), get("medicare"));
+    let share = if taxable == 0 {
+        0
+    } else if business >= taxable {
+        half_up(tax * 16, 100)
+    } else {
+        half_up(tax * business * 16, taxable * 100)
+    };
+    let small = share.min(100_000).min(tax - offset - lmito);
+    let surcharge = if s.cover {
+        0
+    } else {
+        half_up(
+            taxable * surcharge_rate(taxable + reported, s.year, false, 0),
+            100,
+        )
+    };
+    let loan = if s.loan {
+        loan_oracle(taxable + reported, s.year)["repayment"]
+            .as_u64()
+            .unwrap()
+    } else {
+        0
+    };
+    let total = tax - offset - lmito - small + levy + surcharge + loan;
+    [tax, offset, lmito, small, levy, surcharge, loan, total]
+}
+
+/// The set-aside in cents: the year's total less the total on the wages and other deductions alone,
+/// plus a tenth of the income as GST less the credits when registered, then shared over the year's
+/// invoices including GST.
+fn sole_oracle(s: &Sole) -> Value {
+    let profit = s.income - s.expenses;
+    // ITAA 1997 s 25-130 from 2026-27, on the wages only.
+    let deduction = if s.year == "2026-27" {
+        s.wages.min(100_000)
+    } else {
+        0
+    };
+    let taxable = (profit + s.wages - deduction - s.deductions - s.contributions) / 100;
+    let business = if s.offset { profit / 100 } else { 0 };
+    let all = sole_year(s, taxable, business, s.contributions / 100);
+    // The wages alone deduct, and so report, only the contributions they can absorb.
+    let room = (s.wages - deduction).saturating_sub(s.deductions);
+    let absorbed = s.contributions.min(room);
+    let alone = sole_year(s, (room - absorbed) / 100, 0, absorbed / 100);
+    let business_tax = i64::try_from(all[7]).unwrap() - i64::try_from(alone[7]).unwrap();
+    assert!(
+        business_tax >= 0,
+        "the business never lowers the year's tax"
+    );
+    let business_tax = business_tax as u64;
+    let gst_on = if s.gst { half_up(s.income, 10) } else { 0 };
+    let gst = gst_on - s.credits;
+    let set_aside = business_tax + gst;
+    let invoiced = s.income + gst_on;
+    let share = |part: u64, whole: u64| {
+        if whole == 0 {
+            0
+        } else {
+            half_up(part * 10_000, whole)
+        }
+    };
+    let from_invoice = if invoiced == 0 {
+        0
+    } else {
+        half_up(s.invoice * set_aside, invoiced)
+    };
+    json!({"profit": profit, "deduction": deduction, "taxable": taxable * 100, "tax": all[0], "offset": all[1],
+        "lmito": all[2], "smallBusinessOffset": all[3], "medicare": all[4], "surcharge": all[5], "studyLoan": all[6],
+        "total": all[7], "wagesTax": alone[7], "businessTax": business_tax, "gstOnIncome": gst_on, "credits": s.credits,
+        "gst": gst, "setAside": set_aside, "taxShare": share(business_tax, s.income),
+        "invoiceShare": share(set_aside, invoiced), "quarterly": half_up(set_aside, 4), "monthly": half_up(set_aside, 12),
+        "weekly": half_up(set_aside, 52),
+        "invoice": {"amount": s.invoice, "setAside": from_invoice, "left": s.invoice - from_invoice},
+        "instalments": s.income >= 400_000 && all[7] - all[6] >= 100_000,
+        "mustRegister": !s.gst && s.income >= 7_500_000})
+}
+
 fn run_node(cases: &[Value]) -> Vec<Value> {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let mut node = Command::new("node")
@@ -954,6 +1062,55 @@ fn the_take_home_pay_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 "includesSuper": p.included, "sacrifice": money(sacrifice), "studyLoan": p.loan,
                 "hospitalCover": p.cover});
             (json!({"kind": "pay", "pay": pay}), pay_oracle(&p))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+#[test]
+fn the_sole_trader_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0005);
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..SOLE_CASES)
+        .map(|_| {
+            let year = rng.pick(&YEARS[1..]);
+            let cents = |rng: &mut Seeded| if rng.below(2) == 0 { rng.below(100) } else { 0 };
+            let income = rng.income(&[4_000, 22_000, 52_000, 75_000, 100_000, 135_000, 160_584]) * 100
+                + cents(&mut rng);
+            let expenses = if rng.below(3) == 0 { 0 } else { rng.below(income + 1) };
+            let wages = if rng.below(2) == 0 {
+                0
+            } else {
+                rng.income(&TAX_THRESHOLDS) * 100 + cents(&mut rng)
+            };
+            let deduction = if year == "2026-27" { wages.min(100_000) } else { 0 };
+            let room = income - expenses + wages - deduction;
+            let deductions = if rng.below(4) == 0 { rng.below(room.min(1_000_000) + 1) } else { 0 };
+            let contributions = if rng.below(4) == 0 {
+                rng.below((room - deductions).min(3_000_000) + 1)
+            } else {
+                0
+            };
+            let gst = rng.below(2) == 0;
+            let credits = if gst && rng.below(2) == 0 { rng.below(half_up(income, 10) + 1) } else { 0 };
+            let s = Sole {
+                year,
+                income,
+                expenses,
+                wages,
+                deductions,
+                contributions,
+                offset: rng.below(4) != 0,
+                loan: rng.below(3) == 0,
+                cover: rng.below(3) != 0,
+                gst,
+                credits,
+                invoice: rng.below(1_000_001),
+            };
+            let sole = json!({"year": year, "income": money(income), "expenses": money(expenses), "wages": money(wages),
+                "deductions": money(deductions), "super": money(contributions), "offset": s.offset, "studyLoan": s.loan, "hospitalCover": s.cover,
+                "gst": gst, "credits": money(credits), "invoice": money(s.invoice)});
+            (json!({"kind": "sole", "sole": sole}), sole_oracle(&s))
         })
         .unzip();
     agree(&cases, &expected);
