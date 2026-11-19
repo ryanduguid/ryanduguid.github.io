@@ -141,19 +141,7 @@ function bonusResult(value, aud) {
     return loan ? `Each amount withheld includes the Schedule 8 study loan component: ${each.slice(0, -1).join(', ')}`
       + `${each.length > 1 ? ' and ' : ''}${each.at(-1)}` : '';
   };
-  if (r.method === 'A') {
-    const rows = [['Earnings this pay, cents ignored (step 1)', aud(r.step1)], ['Withheld from those earnings (step 2)', aud(r.step2.total)],
-      [`The payment divided by ${r.spread}, cents ignored (step 3)`, aud(r.step3)],
-      [`Withheld from earnings of ${aud(r.step4).replace('.00', '')} (steps 4 and 5)`, aud(r.step5.total)],
-      [`The difference, times ${r.spread} (steps 6 and 7)`, aud(r.step7.total)], ['47% of the payment, the limit (step 8)', aud(r.limit)],
-      ['Withheld from the payment, the lesser (step 9)', aud(r.onAdditional)], ['Total withheld this pay (step 10)', aud(r.total)],
-      [`Tax${loan ? ' and study loan repayment' : ''} the payment adds to a year of this pay`, aud(r.yearTax)]];
-    const notes = [loanNote([[r.step2, 'on this pay’s earnings'], [r.step7, 'on the payment']]),
-      'The last row is the payment’s effect on the year’s assessment, were every pay this pay; the withholding schedules do not aim to match it']
-      .filter(Boolean);
-    return { inputs: `${head}, Method A: additional payment ${money('additional')} spread over ${r.spread} pays`, rows, principal: 7,
-      note: notes.join('. ') };
-  }
+  if (r.method === 'A') return methodAResult(r, { aud, loan, head, money, loanNote });
   const rows = [['Withheld from this pay’s earnings', aud(r.base.total)]];
   const parts = /** @type {[{studyLoan: number, total: number}, string][]} */ ([[r.base, 'on this pay’s earnings']]);
   const described = [];
@@ -180,6 +168,24 @@ function bonusResult(value, aud) {
   if (r.methodBii) parts.push([r.methodBii.step7, 'by B(ii)']);
   rows.push(['Total withheld this pay', aud(r.total)]);
   return { inputs: `${head}, Method B, ${described.join('; ')}`, rows, principal: rows.length - 1, note: loanNote(parts) || undefined };
+}
+
+
+/** The Method A rows. @param {Extract<ReturnType<typeof bonusWithholding>, {method: 'A'}>} r
+ * @param {{aud: (amount: number) => string, loan: boolean, head: string, money: (name: string) => string,
+ *   loanNote: (parts: [{studyLoan: number, total: number}, string][]) => string}} f @returns {Result} */
+function methodAResult(r, { aud, loan, head, money, loanNote }) {
+  const rows = [['Earnings this pay, cents ignored (step 1)', aud(r.step1)], ['Withheld from those earnings (step 2)', aud(r.step2.total)],
+    [`The payment divided by ${r.spread}, cents ignored (step 3)`, aud(r.step3)],
+    [`Withheld from earnings of ${aud(r.step4).replace('.00', '')} (steps 4 and 5)`, aud(r.step5.total)],
+    [`The difference, times ${r.spread} (steps 6 and 7)`, aud(r.step7.total)], ['47% of the payment, the limit (step 8)', aud(r.limit)],
+    ['Withheld from the payment, the lesser (step 9)', aud(r.onAdditional)], ['Total withheld this pay (step 10)', aud(r.total)],
+    [`Tax${loan ? ' and study loan repayment' : ''} the payment adds to a year of this pay`, aud(r.yearTax)]];
+  const notes = [loanNote([[r.step2, 'on this pay’s earnings'], [r.step7, 'on the payment']]),
+    'The last row is the payment’s effect on the year’s assessment, were every pay this pay; the withholding schedules do not aim to match it']
+    .filter(Boolean);
+  return { inputs: `${head}, Method A: additional payment ${money('additional')} spread over ${r.spread} pays`, rows, principal: 7,
+    note: notes.join('. ') };
 }
 
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],

@@ -56,7 +56,6 @@ export function bonusWithholding(b) {
   }
   if (typeof b.studyLoan !== 'boolean') throw new Error('Say whether the payee has a study or training loan.');
   if (!['A', 'B'].includes(b.method)) throw new Error('Choose Method A or Method B.');
-  const pays = PAYS[b.period];
   const scale = b.residency === 'resident' ? 2 : 3;
   /** @param {number} amount cents @returns {Table} */
   const table = (amount) => {
@@ -65,55 +64,67 @@ export function bonusWithholding(b) {
   };
   const earnings = cents(b.earnings);
   const additional = cents(b.additional);
-  if (b.method === 'A') {
-    if (!additional) throw new Error('Enter the additional payment.');
-    const spread = count(b.spread, 2, pays);
-    const step1 = dollarsOnly(earnings);
-    const step2 = table(step1);
-    const step3 = dollarsOnly(additional / spread);
-    const step5 = table(step1 + step3);
-    const step7 = extra(step5, step2, spread);
-    const onAdditional = limited(step7.total * 100, additional);
-    const yearPay = { year: BONUS_YEAR, residency: b.residency, period: 'year', includesSuper: false, sacrifice: '0',
-      studyLoan: b.studyLoan, hospitalCover: true };
-    const owed = (/** @type {number} */ salary) => {
-      const r = takeHomePay({ ...yearPay, salary: (salary / 100).toFixed(2) });
-      return Math.round(r.salary * 100) - Math.round(r.net * 100);
-    };
-    const year = earnings * pays;
-    return { method: /** @type {'A'} */ ('A'), spread, step1: step1 / 100, step2, step3: step3 / 100, step4: (step1 + step3) / 100, step5, step7,
-      limit: Math.floor((additional * 47) / 100) / 100, onAdditional, onEarnings: step2.total,
-      total: step2.total + onAdditional, yearTax: (owed(year + additional) - owed(year)) / 100 };
-  }
+  if (b.method === 'A') return methodA(b, table, earnings, additional);
   const backPays = count(b.backPays, 0, MOST_PAYS[b.period] - 1);
   const backEach = cents(b.backEach);
   if (!backPays && !additional) throw new Error('Enter a back payment for earlier pays this year or another additional payment.');
   const base = table(earnings);
-  let methodBi = null;
-  if (backPays) {
-    if (!backEach) throw new Error('Enter the back payment for each earlier pay.');
-    const before = cents(b.backEarnings);
-    const recalculated = table(before + backEach);
-    const each = recalculated.total * 100 - cents(b.backWithheld);
-    methodBi = { pays: backPays, each: backEach / 100, earnings: (before + backEach) / 100, recalculated,
-      onBackPayment: Math.max(0, each * backPays) / 100 };
-  }
-  let methodBii = null;
-  const backPayment = backEach * backPays;
-  if (additional) {
-    const paysToDate = count(b.paysToDate, 1, MOST_PAYS[b.period]);
-    const toDate = cents(b.yearToDate);
-    if (toDate < earnings) throw new Error('Enter normal earnings to date that include this pay.');
-    const step1 = dollarsOnly((toDate + backPayment) / paysToDate);
-    const step2 = table(step1);
-    const step3 = dollarsOnly((cents(b.earlierAdditional) + additional) / pays);
-    const step5 = table(step1 + step3);
-    const step7 = extra(step5, step2, pays);
-    const step8 = step7.total * 100 - cents(b.earlierWithheld);
-    methodBii = { step1: step1 / 100, step2, step3: step3 / 100, step4: (step1 + step3) / 100, step5, step7,
-      step8: step8 / 100, limit: Math.floor((additional * 47) / 100) / 100, onAdditional: limited(step8, additional) };
-  }
+  const methodBi = backPays ? methodBI(b, table, backPays, backEach) : null;
+  const methodBii = additional ? methodBII(b, table, earnings, additional, backEach * backPays) : null;
   const onAdditional = Math.round(((methodBi?.onBackPayment ?? 0) * 100 + (methodBii?.onAdditional ?? 0) * 100)) / 100;
   return { method: /** @type {'B'} */ ('B'), base, methodBi, methodBii, onEarnings: base.total, onAdditional,
     total: Math.round(base.total * 100 + onAdditional * 100) / 100 };
+}
+
+/** Method A, steps 1 to 10. @param {Bonus} b @param {(amount: number) => Table} table
+ * @param {number} earnings cents @param {number} additional cents */
+function methodA(b, table, earnings, additional) {
+  if (!additional) throw new Error('Enter the additional payment.');
+  const pays = PAYS[b.period];
+  const spread = count(b.spread, 2, pays);
+  const step1 = dollarsOnly(earnings);
+  const step2 = table(step1);
+  const step3 = dollarsOnly(additional / spread);
+  const step5 = table(step1 + step3);
+  const step7 = extra(step5, step2, spread);
+  const onAdditional = limited(step7.total * 100, additional);
+  const yearPay = { year: BONUS_YEAR, residency: b.residency, period: 'year', includesSuper: false, sacrifice: '0',
+    studyLoan: b.studyLoan, hospitalCover: true };
+  const owed = (/** @type {number} */ salary) => {
+    const r = takeHomePay({ ...yearPay, salary: (salary / 100).toFixed(2) });
+    return Math.round(r.salary * 100) - Math.round(r.net * 100);
+  };
+  const year = earnings * pays;
+  return { method: /** @type {'A'} */ ('A'), spread, step1: step1 / 100, step2, step3: step3 / 100, step4: (step1 + step3) / 100, step5, step7,
+    limit: Math.floor((additional * 47) / 100) / 100, onAdditional, onEarnings: step2.total,
+    total: step2.total + onAdditional, yearTax: (owed(year + additional) - owed(year)) / 100 };
+}
+
+/** Method B(i), steps 1 to 7, for `backPays` earlier pays of `backEach` cents each.
+ * @param {Bonus} b @param {(amount: number) => Table} table @param {number} backPays @param {number} backEach cents */
+function methodBI(b, table, backPays, backEach) {
+  if (!backEach) throw new Error('Enter the back payment for each earlier pay.');
+  const before = cents(b.backEarnings);
+  const recalculated = table(before + backEach);
+  const each = recalculated.total * 100 - cents(b.backWithheld);
+  return { pays: backPays, each: backEach / 100, earnings: (before + backEach) / 100, recalculated,
+    onBackPayment: Math.max(0, each * backPays) / 100 };
+}
+
+/** Method B(ii), steps 1 to 12, with this pay's B(i) `backPayment` in the average total earnings.
+ * @param {Bonus} b @param {(amount: number) => Table} table @param {number} earnings cents
+ * @param {number} additional cents @param {number} backPayment cents */
+function methodBII(b, table, earnings, additional, backPayment) {
+  const pays = PAYS[b.period];
+  const paysToDate = count(b.paysToDate, 1, MOST_PAYS[b.period]);
+  const toDate = cents(b.yearToDate);
+  if (toDate < earnings) throw new Error('Enter normal earnings to date that include this pay.');
+  const step1 = dollarsOnly((toDate + backPayment) / paysToDate);
+  const step2 = table(step1);
+  const step3 = dollarsOnly((cents(b.earlierAdditional) + additional) / pays);
+  const step5 = table(step1 + step3);
+  const step7 = extra(step5, step2, pays);
+  const step8 = step7.total * 100 - cents(b.earlierWithheld);
+  return { step1: step1 / 100, step2, step3: step3 / 100, step4: (step1 + step3) / 100, step5, step7,
+    step8: step8 / 100, limit: Math.floor((additional * 47) / 100) / 100, onAdditional: limited(step8, additional) };
 }

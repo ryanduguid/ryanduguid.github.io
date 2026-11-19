@@ -602,47 +602,53 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payY
         };
       },
     }),
-    'bonus-withholding': tool({
-      name: 'calculate_bonus_withholding',
-      title: 'Bonus and back payment withholding calculator',
-      description: BONUS_WITHHOLDING_DESCRIPTION,
-      inputSchema: record({
-        payPeriod: choice(['week', 'fortnight', 'month'], 'How often the payee is paid.'),
-        residency: choice(['resident', 'foreign'], 'resident: an Australian resident claiming the tax-free threshold (scale 2); '
-          + 'foreign: a foreign resident (scale 3).'),
-        studyLoan: { type: 'boolean', description: 'true when the payee has a HELP or other study or training loan; false when omitted.' },
-        method: choice(['A', 'B'], 'Schedule 5 Method A, or Method B with B(i) and B(ii).'),
-        earnings: text('amount', 'Gross earnings this pay without any additional payment, in AUD.'),
-        additionalPayment: text('amount', 'The bonus, commission or other additional payment in AUD; under Method B, the part '
-          + 'worked by B(ii). "0" when omitted.'),
-        spreadOverPays: whole(2, 52, 'Method A: pays to spread the payment over: the pays in a year, or for a commission or bonus '
-          + 'for a defined period under 12 months, the pays it covers; the pays in a year when omitted.'),
-        backPayPays: whole(0, 52, 'Method B(i): earlier pays this year the back payment covers; 0 when omitted.'),
-        backPayEach: text('amount', 'Method B(i): back payment for each of those pays in AUD; "0" when omitted.'),
-        backPayPayEarnings: text('amount', 'Method B(i): earnings each of those pays had before it in AUD; "0" when omitted.'),
-        backPayPayWithheld: text('amount', 'Method B(i): amount withheld from each of those pays in AUD; "0" when omitted.'),
-        earningsToDate: text('amount', 'Method B(ii): normal earnings this year to date, with this pay and B(i) back payments '
-          + 'made in earlier pays (not this pay’s), in AUD; "0" when omitted.'),
-        paysToDate: whole(1, 53, 'Method B(ii): pays this year to date, with this pay; 1 when omitted.'),
-        earlierAdditionalPayments: text('amount', 'Method B(ii): earlier additional payments this year worked by B(ii), in AUD; '
-          + '"0" when omitted.'),
-        earlierAdditionalWithheld: text('amount', 'Method B(ii): amount withheld from those payments, in AUD; "0" when omitted.'),
-      }, ['payPeriod', 'residency', 'method', 'earnings']),
-      run({ payPeriod, residency, studyLoan = false, method, earnings, additionalPayment = '0', spreadOverPays, backPayPays = 0,
-        backPayEach = '0', backPayPayEarnings = '0', backPayPayWithheld = '0', earningsToDate = '0', paysToDate = 1,
-        earlierAdditionalPayments = '0', earlierAdditionalWithheld = '0' }) {
-        const spread = spreadOverPays ?? { week: 52, fortnight: 26, month: 12 }[/** @type {string} */ (payPeriod)];
-        const r = bonusWithholding({ period: payPeriod, residency, studyLoan, method, earnings, additional: additionalPayment,
-          spread: String(spread), backPays: String(backPayPays), backEarnings: backPayPayEarnings, backEach: backPayEach,
-          backWithheld: backPayPayWithheld, yearToDate: earningsToDate, paysToDate: String(paysToDate),
-          earlierAdditional: earlierAdditionalPayments, earlierWithheld: earlierAdditionalWithheld });
-        const parts = r.method === 'A' ? { withheldOnAdditionalPayment: dollars(r.onAdditional), limit: dollars(r.limit),
-          beforeLimit: dollars(r.step7.total), taxAddedToYear: dollars(r.yearTax) }
-          : { methodBi: r.methodBi ? dollars(r.methodBi.onBackPayment) : null,
-            methodBii: r.methodBii ? dollars(r.methodBii.onAdditional) : null };
-        return { method: r.method, withheldOnEarnings: dollars(r.onEarnings), ...parts, totalWithheld: dollars(r.total),
-          currency: 'AUD', source: `${INDIVIDUAL}bonus-withholding/` };
-      },
-    }),
+    'bonus-withholding': bonusWithholdingTool(bonusWithholding),
   };
+}
+
+/** The WebMCP descriptor for the bonus and back payment withholding calculator.
+ * @param {typeof import('./bonus-withholding.mjs').bonusWithholding} bonusWithholding */
+function bonusWithholdingTool(bonusWithholding) {
+  return tool({
+    name: 'calculate_bonus_withholding',
+    title: 'Bonus and back payment withholding calculator',
+    description: BONUS_WITHHOLDING_DESCRIPTION,
+    inputSchema: record({
+      payPeriod: choice(['week', 'fortnight', 'month'], 'How often the payee is paid.'),
+      residency: choice(['resident', 'foreign'], 'resident: an Australian resident claiming the tax-free threshold (scale 2); '
+        + 'foreign: a foreign resident (scale 3).'),
+      studyLoan: { type: 'boolean', description: 'true when the payee has a HELP or other study or training loan; false when omitted.' },
+      method: choice(['A', 'B'], 'Schedule 5 Method A, or Method B with B(i) and B(ii).'),
+      earnings: text('amount', 'Gross earnings this pay without any additional payment, in AUD.'),
+      additionalPayment: text('amount', 'The bonus, commission or other additional payment in AUD; under Method B, the part '
+        + 'worked by B(ii). "0" when omitted.'),
+      spreadOverPays: whole(2, 52, 'Method A: pays to spread the payment over: the pays in a year, or for a commission or bonus '
+        + 'for a defined period under 12 months, the pays it covers; the pays in a year when omitted.'),
+      backPayPays: whole(0, 52, 'Method B(i): earlier pays this year the back payment covers; 0 when omitted.'),
+      backPayEach: text('amount', 'Method B(i): back payment for each of those pays in AUD; "0" when omitted.'),
+      backPayPayEarnings: text('amount', 'Method B(i): earnings each of those pays had before it in AUD; "0" when omitted.'),
+      backPayPayWithheld: text('amount', 'Method B(i): amount withheld from each of those pays in AUD; "0" when omitted.'),
+      earningsToDate: text('amount', 'Method B(ii): normal earnings this year to date, with this pay and B(i) back payments '
+        + 'made in earlier pays (not this pay’s), in AUD; "0" when omitted.'),
+      paysToDate: whole(1, 53, 'Method B(ii): pays this year to date, with this pay; 1 when omitted.'),
+      earlierAdditionalPayments: text('amount', 'Method B(ii): earlier additional payments this year worked by B(ii), in AUD; '
+        + '"0" when omitted.'),
+      earlierAdditionalWithheld: text('amount', 'Method B(ii): amount withheld from those payments, in AUD; "0" when omitted.'),
+    }, ['payPeriod', 'residency', 'method', 'earnings']),
+    run({ payPeriod, residency, studyLoan = false, method, earnings, additionalPayment = '0', spreadOverPays, backPayPays = 0,
+      backPayEach = '0', backPayPayEarnings = '0', backPayPayWithheld = '0', earningsToDate = '0', paysToDate = 1,
+      earlierAdditionalPayments = '0', earlierAdditionalWithheld = '0' }) {
+      const spread = spreadOverPays ?? { week: 52, fortnight: 26, month: 12 }[/** @type {string} */ (payPeriod)];
+      const r = bonusWithholding({ period: payPeriod, residency, studyLoan, method, earnings, additional: additionalPayment,
+        spread: String(spread), backPays: String(backPayPays), backEarnings: backPayPayEarnings, backEach: backPayEach,
+        backWithheld: backPayPayWithheld, yearToDate: earningsToDate, paysToDate: String(paysToDate),
+        earlierAdditional: earlierAdditionalPayments, earlierWithheld: earlierAdditionalWithheld });
+      const parts = r.method === 'A' ? { withheldOnAdditionalPayment: dollars(r.onAdditional), limit: dollars(r.limit),
+        beforeLimit: dollars(r.step7.total), taxAddedToYear: dollars(r.yearTax) }
+        : { methodBi: r.methodBi ? dollars(r.methodBi.onBackPayment) : null,
+          methodBii: r.methodBii ? dollars(r.methodBii.onAdditional) : null };
+      return { method: r.method, withheldOnEarnings: dollars(r.onEarnings), ...parts, totalWithheld: dollars(r.total),
+        currency: 'AUD', source: `${INDIVIDUAL}bonus-withholding/` };
+    },
+  });
 }
