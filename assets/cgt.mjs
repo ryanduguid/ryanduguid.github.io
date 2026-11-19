@@ -19,6 +19,7 @@ export const AWAY_ROWS = 4;
 
 /** The ATO's Appendix 2 CPI (all groups, weighted average of 8 capital cities), in tenths, for the
  * quarters ending March, June, September and December; 0 where the table has none. */
+/** @type {Record<number, number[]>} */
 export const CPI = {
   1985: [0, 0, 397, 405], 1986: [414, 421, 432, 444], 1987: [453, 460, 468, 476], 1988: [484, 493, 502, 512],
   1989: [517, 530, 542, 552], 1990: [562, 571, 575, 590], 1991: [589, 590, 593, 599], 1992: [599, 597, 598, 601],
@@ -34,7 +35,7 @@ const SEPTEMBER_1999 = 687n;
  * @typedef {{purchased: string, sold: string, movedIn: string, practicable: string, exclusions: string,
  *   away: CgtAbsence[], partPercent: string, partFrom: string, partTo: string, market: string}} CgtHome
  * @typedef {{entity: CgtEntity, resident: string, kind: string, acquired: string, event: string, proceeds: string,
- *   price: string, buying: CgtCost, improvements: CgtCost[], selling: string, owning: string, works: string,
+ *   price: string, buying: CgtCost, improvements: readonly CgtCost[], selling: string, owning: string, works: string,
  *   currentLosses: string, priorLosses: string, income: string, home: CgtHome}} CgtEvent
  */
 
@@ -71,6 +72,7 @@ export function indexationFactor(iso) {
 }
 
 /** Section 115-100: the discount percentage as [numerator, denominator]; none for a company. */
+/** @type {Record<CgtEntity, [bigint, bigint] | null>} */
 const DISCOUNT = { individual: [1n, 2n], trust: [1n, 2n], super: [1n, 3n], company: null };
 const ENTITIES = { individual: 'An individual', trust: 'A trust', super: 'A complying superannuation fund',
   company: 'A company (not a listed investment company)' };
@@ -172,7 +174,7 @@ function absenceOf(row, n) {
  * is not main residence; a chosen one is, and while the home produces income only for 6 years from
  * the first day it does in that absence (s 118-145(2)). Rows that follow on day after day are one
  * absence, so the 6 years run across them. @param {Uint8Array} main @param {Uint8Array} income
- * @param {ReturnType<typeof absenceOf>[]} rows @param {number} start @param {number} movedIn @param {number} end */
+ * @param {NonNullable<ReturnType<typeof absenceOf>>[]} rows @param {number} start @param {number} movedIn @param {number} end */
 function markAbsences(main, income, rows, start, movedIn, end) {
   let previous = null;
   let left = null;
@@ -302,6 +304,7 @@ export function capitalGain(x) {
   const from = home?.incomeTime ?? acquired;
   const bases = costBases(elementsOf(x, acquired, event, home?.incomeTime ?? null), from, x.works);
   const proceeds = BigInt(cents(x.proceeds));
+  /** @type {[bigint, bigint]} */
   const taxable = home ? [BigInt(home.nonMain * 10000 + home.part.percent * home.partDays), BigInt(home.ownership * 10000)]
     : [1n, 1n];
   const [current, prior] = [BigInt(cents(x.currentLosses)), BigInt(cents(x.priorLosses))];
@@ -309,7 +312,7 @@ export function capitalGain(x) {
     - (method === 'indexation' ? bases.indexedCostBase : bases.costBase), taxable, method === 'discount' ? DISCOUNT[x.entity] : null,
   current, prior) }));
   methods.sort((a, b) => (a.net === b.net ? Number(b.carried - a.carried) : Number(a.net - b.net)));
-  const loss = proceeds < bases.reducedCostBase ? share(bases.reducedCostBase - proceeds, ...taxable) : 0n;
+  const loss = bases.reducedCostBase > proceeds ? share(bases.reducedCostBase - proceeds, ...taxable) : 0n;
   let chosen = methods[0];
   if (home && !taxable[0]) chosen = { ...chosen, method: 'exempt' };
   else if (loss) chosen = { ...netOf(0n, taxable, null, current, prior), gross: proceeds - bases.reducedCostBase, method: 'loss' };
@@ -326,7 +329,7 @@ export function capitalGain(x) {
     incomeTime: home?.incomeTime ?? null, gain: money(chosen.gain), loss: money(loss), currentApplied: money(chosen.currentApplied),
     priorApplied: money(chosen.priorApplied), discount: money(chosen.discount), net: money(chosen.net), labelA,
     carried: money(carried), labelV: Number(carried / 100n), tax,
-    alternative: !['discount', 'indexation'].includes(chosen.method) || methods.length < 2 ? null : { method: methods[1].method, net: money(methods[1].net) } };
+    alternative: !['discount', 'indexation'].includes(chosen.method) || methods.length === 1 ? null : { method: methods[1].method, net: money(methods[1].net) } };
 }
 
 /** The extra resident income tax and Medicare levy the net capital gain adds to other taxable
@@ -350,6 +353,7 @@ export const cgtEventOf = (value, checked) => ({ entity: /** @type {CgtEntity} *
       to: value(`away-${i + 1}-to`), rented: checked(`away-${i + 1}-rented`), choose: checked(`away-${i + 1}-choose`) })),
     partPercent: value('part-percent'), partFrom: value('part-from'), partTo: value('part-to'), market: value('market') } });
 
+/** @type {Record<string, string>} */
 const METHODS = {
   discount: 'Discount method: held at least 12 months, so the discount applies (sections 115-25 and 115-100)',
   indexation: 'Indexation method: the cost base indexed to the September 1999 quarter (sections 114-1 and 960-275)',
@@ -392,7 +396,7 @@ function homeInputs(h, cost) {
 
 /** The main residence rows. @param {ReturnType<typeof capitalGain>} r @param {CgtEvent} x @param {(amount: number) => string} aud */
 function homeRows(r, x, aud) {
-  const days = (/** @type {number} */ n) => n.toLocaleString('en-AU');
+  const days = (/** @type {number | null} */ n) => (n ?? 0).toLocaleString('en-AU');
   const rows = [['Ownership period, settlement to settlement', `${days(r.ownershipDays)} days, ${days(r.nonMainDays)} not the main residence`]];
   if (r.partPercent) {
     rows.push(['Part used to produce income (section 118-190)', `${r.partPercent.toFixed(2)}% of the floor area for ${days(r.partDays)} days`]);

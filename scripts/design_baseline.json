@@ -138,7 +138,7 @@
       "f39459d528bd96610d20b36c8914bbb34e3d7a9ffa3a6d7a4c13f8b914217496"
     ],
     "tools/business-calculators/cgt/index.html": [
-      "62d29e555e81f72fbd79c010552e9c15898ce7f68be99b61c20a7f590d37e481"
+      "92814ae5850e078caf05fcd16d4923aa7735f3e5d8ac98f9fb2fc9611306095e"
     ],
     "tools/business-calculators/company-tax/index.html": [
       "b3b965f4611802ef5b3553ac3d4fa1d4b100c8743eaf59b677cd66ad0422563b"
@@ -316,7 +316,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "90af231c3c15b233f032a588c2b47ca4dbd67ca93f56620d6f929138e08315f0",
+    "llms.txt": "e304160c96543125dad497b0432ac6166dce1f89105354c1f5f01d67ed327cb0",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "24d1c862c57442bbbccad5cc5f9a5fb537cef929c02dcd5be4d444c624b5ef95"
   },

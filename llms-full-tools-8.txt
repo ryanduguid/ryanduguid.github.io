@@ -490,11 +490,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Capital gains tax (CGT) calculator: discount, indexation and main residence
+# CGT calculator: discount, indexation and main residence
 
 Source: https://duguid.com.au/tools/business-calculators/cgt/
 
-> CGT on one sale from 1 July 2020 to 30 June 2027: cost base, the 50% discount or indexation, capital losses, the main residence exemption, the 6-year absence rule and question 18 labels.
+> CGT on one sale from 1 July 2020 to 30 June 2027: cost base, the 50% discount or indexation, losses, the main residence exemption and the 6-year absence rule.
 
 # Capital gains tax calculator
 

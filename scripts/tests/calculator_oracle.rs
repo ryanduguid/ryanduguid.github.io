@@ -6055,7 +6055,10 @@ fn cgt_factor(day: Date) -> i128 {
     if day > date(1999, 9, 30) {
         return 1000;
     }
-    let (_, quarters) = CGT_CPI.iter().find(|(year, _)| *year == day.year()).unwrap();
+    let (_, quarters) = CGT_CPI
+        .iter()
+        .find(|(year, _)| *year == day.year())
+        .unwrap();
     let index = i128::from(quarters[usize::try_from((day.month() - 1) / 3).unwrap()]);
     let four = 687 * 10_000 / index;
     four / 10 + i128::from(four % 10 >= 5)
@@ -6097,7 +6100,8 @@ fn cgt_not_main(home: &Home) -> Vec<(Date, Date)> {
         if !away.choose {
             periods.push((away.from, away.to));
         } else if away.rented {
-            let cap = left.get_or_insert_with(|| cgt_days(away.from, cgt_years_later(away.from, 6)) - 1);
+            let cap =
+                left.get_or_insert_with(|| cgt_days(away.from, cgt_years_later(away.from, 6)) - 1);
             let covered = (*cap).min(length);
             if covered < length {
                 periods.push((away.from + i64::try_from(covered).unwrap().days(), away.to));
@@ -6115,15 +6119,27 @@ fn cgt_residence(home: &Home) -> (i128, i128, i128, Option<Date>) {
     let not_main = cgt_not_main(home);
     let count = |start: Date| {
         let window = (start, home.sold);
-        let non_main: i128 = not_main.iter().map(|&period| cgt_overlap(period, window)).sum();
+        let non_main: i128 = not_main
+            .iter()
+            .map(|&period| cgt_overlap(period, window))
+            .sum();
         let part = home.part.map_or(0, |(_, from, to)| {
             let used = (from.max(start), to);
-            cgt_days(used.0, used.1) - not_main.iter().map(|&period| cgt_overlap(period, used)).sum::<i128>()
+            cgt_days(used.0, used.1)
+                - not_main
+                    .iter()
+                    .map(|&period| cgt_overlap(period, used))
+                    .sum::<i128>()
         });
         (cgt_days(start, home.sold), non_main, part)
     };
     let (days, non_main, part) = count(home.purchased);
-    let mut income: Vec<(Date, Date)> = home.away.iter().filter(|away| away.rented).map(|away| (away.from, away.to)).collect();
+    let mut income: Vec<(Date, Date)> = home
+        .away
+        .iter()
+        .filter(|away| away.rented)
+        .map(|away| (away.from, away.to))
+        .collect();
     if let Some((_, from, to)) = home.part {
         income.push((from, to));
     }
@@ -6132,10 +6148,18 @@ fn cgt_residence(home: &Home) -> (i128, i128, i128, Option<Date>) {
     };
     let rented_not_main: i128 = income
         .iter()
-        .flat_map(|&used| not_main.iter().map(move |&period| cgt_overlap(used, period)))
+        .flat_map(|&used| {
+            not_main
+                .iter()
+                .map(move |&period| cgt_overlap(used, period))
+        })
         .sum();
     let main_before = not_main.iter().all(|period| period.0 >= first);
-    if first > home.purchased && first > date(1996, 8, 20) && main_before && (part > 0 || rented_not_main > 0) {
+    if first > home.purchased
+        && first > date(1996, 8, 20)
+        && main_before
+        && (part > 0 || rented_not_main > 0)
+    {
         let (days, non_main, part) = count(first);
         return (days, non_main, part, Some(first));
     }
@@ -6144,8 +6168,18 @@ fn cgt_residence(home: &Home) -> (i128, i128, i128, Option<Date>) {
 
 /// A method's gain after the taxable share, losses applied this year's first, and the net
 /// capital gain after the discount, with the losses left to carry forward, in cents.
-fn cgt_net(gross: i128, share: (i128, i128), keep: Option<(i128, i128)>, current: i128, prior: i128) -> [i128; 3] {
-    let gain = if gross > 0 { cgt_half_up(gross * share.0, share.1) } else { 0 };
+fn cgt_net(
+    gross: i128,
+    share: (i128, i128),
+    keep: Option<(i128, i128)>,
+    current: i128,
+    prior: i128,
+) -> [i128; 3] {
+    let gain = if gross > 0 {
+        cgt_half_up(gross * share.0, share.1)
+    } else {
+        0
+    };
     let from_current = gain.min(current);
     let from_prior = (gain - from_current).min(prior);
     let left = gain - from_current - from_prior;
@@ -6165,12 +6199,24 @@ fn cgt_oracle(sale: &Sale) -> Value {
         costs.push((i128::from(sale.price), sale.acquired));
         costs.extend(sale.buying.map(|(amount, day)| (i128::from(amount), day)));
     }
-    costs.extend(sale.improvements.iter().filter(|(_, day)| *day >= from).map(|&(amount, day)| (i128::from(amount), day)));
-    let (selling, owning, works) = (i128::from(sale.selling), i128::from(sale.owning), i128::from(sale.works));
+    costs.extend(
+        sale.improvements
+            .iter()
+            .filter(|(_, day)| *day >= from)
+            .map(|&(amount, day)| (i128::from(amount), day)),
+    );
+    let (selling, owning, works) = (
+        i128::from(sale.selling),
+        i128::from(sale.owning),
+        i128::from(sale.works),
+    );
     let out_of_cost_base = if from > date(1997, 5, 13) { works } else { 0 };
     let spent: i128 = costs.iter().map(|cost| cost.0).sum::<i128>() + selling;
     let cost_base = spent + owning - out_of_cost_base;
-    let indexed: i128 = costs.iter().map(|&(amount, day)| cgt_half_up(amount * cgt_factor(day), 1000)).sum::<i128>()
+    let indexed: i128 = costs
+        .iter()
+        .map(|&(amount, day)| cgt_half_up(amount * cgt_factor(day), 1000))
+        .sum::<i128>()
         + selling
         + owning
         - out_of_cost_base;
@@ -6184,7 +6230,11 @@ fn cgt_oracle(sale: &Sale) -> Value {
     let indexable = from < date(1999, 9, 22);
     let mut methods: Vec<(&str, i128)> = Vec::new();
     if sale.owner == Owner::Company {
-        methods.push(if indexable { ("indexation", indexed) } else { ("other", cost_base) });
+        methods.push(if indexable {
+            ("indexation", indexed)
+        } else {
+            ("other", cost_base)
+        });
     } else {
         if held {
             methods.push(("discount", cost_base));
@@ -6201,16 +6251,35 @@ fn cgt_oracle(sale: &Sale) -> Value {
         Owner::Super => Some((2, 3)),
         Owner::Company => None,
     };
-    let (current, prior, proceeds) = (i128::from(sale.current), i128::from(sale.prior), i128::from(sale.proceeds));
+    let (current, prior, proceeds) = (
+        i128::from(sale.current),
+        i128::from(sale.prior),
+        i128::from(sale.proceeds),
+    );
     let worked: Vec<(&str, [i128; 3])> = methods
         .iter()
-        .map(|&(name, base)| (name, cgt_net(proceeds - base, share, if name == "discount" { keep } else { None }, current, prior)))
+        .map(|&(name, base)| {
+            (
+                name,
+                cgt_net(
+                    proceeds - base,
+                    share,
+                    if name == "discount" { keep } else { None },
+                    current,
+                    prior,
+                ),
+            )
+        })
         .collect();
     let best = worked
         .iter()
         .min_by(|a, b| a.1[1].cmp(&b.1[1]).then(b.1[2].cmp(&a.1[2])))
         .unwrap();
-    let loss = if proceeds < reduced { cgt_half_up((reduced - proceeds) * share.0, share.1) } else { 0 };
+    let loss = if proceeds < reduced {
+        cgt_half_up((reduced - proceeds) * share.0, share.1)
+    } else {
+        0
+    };
     let (method, [gain, net, carried]) = if residence.is_some() && share.0 == 0 {
         ("exempt", best.1)
     } else if loss > 0 {
@@ -6220,13 +6289,16 @@ fn cgt_oracle(sale: &Sale) -> Value {
     } else {
         *best
     };
-    let days = |pick: fn(&(i128, i128, i128, Option<Date>)) -> i128| residence.as_ref().map(|r| pick(r).to_string());
+    let days = residence
+        .as_ref()
+        .map(|r| [r.0, r.1, r.2].map(|n| n.to_string()));
     json!({
         "method": method, "costBase": cgt_money(cost_base),
         "indexedCostBase": methods.iter().any(|m| m.0 == "indexation").then(|| cgt_money(indexed)),
         "reducedCostBase": cgt_money(reduced), "gain": cgt_money(gain), "loss": cgt_money(loss), "net": cgt_money(net),
         "labelA": (net / 100).to_string(), "carried": cgt_money(carried),
-        "ownershipDays": days(|r| r.0), "nonMainDays": days(|r| r.1), "partDays": days(|r| r.2),
+        "ownershipDays": days.as_ref().map(|d| &d[0]), "nonMainDays": days.as_ref().map(|d| &d[1]),
+        "partDays": days.as_ref().map(|d| &d[2]),
         "incomeTime": income_time.map(cgt_iso),
     })
 }
@@ -6274,7 +6346,11 @@ fn cgt_day(rng: &mut Seeded, first: Date, last: Date) -> Date {
 fn cgt_home(rng: &mut Seeded, acquired: Date, event: Date) -> Home {
     let purchased = cgt_day(rng, acquired, (acquired + 89.days()).min(event));
     let sold = cgt_day(rng, event, event + 89.days());
-    let moved_in = if rng.below(2) == 0 { purchased } else { cgt_day(rng, purchased, (purchased + 400.days()).min(sold)) };
+    let moved_in = if rng.below(2) == 0 {
+        purchased
+    } else {
+        cgt_day(rng, purchased, (purchased + 400.days()).min(sold))
+    };
     let mut away = Vec::new();
     let mut cursor = moved_in + i64::try_from(1 + rng.below(2_500)).unwrap().days();
     for _ in 0..rng.below(5) {
@@ -6282,15 +6358,36 @@ fn cgt_home(rng: &mut Seeded, acquired: Date, event: Date) -> Home {
             break;
         }
         let to = (cursor + i64::try_from(rng.below(3_000)).unwrap().days()).min(sold);
-        away.push(Away { from: cursor, to, rented: rng.below(3) != 0, choose: rng.below(4) != 0 });
-        let gap = if rng.below(2) == 0 { 0 } else { 1 + rng.below(1_500) };
+        away.push(Away {
+            from: cursor,
+            to,
+            rented: rng.below(3) != 0,
+            choose: rng.below(4) != 0,
+        });
+        let gap = if rng.below(2) == 0 {
+            0
+        } else {
+            1 + rng.below(1_500)
+        };
         cursor = to + i64::try_from(1 + gap).unwrap().days();
     }
     let part = (rng.below(3) == 0).then(|| {
         let from = cgt_day(rng, purchased, sold);
-        (i128::from(1 + rng.below(10_000)), from, cgt_day(rng, from, sold))
+        (
+            i128::from(1 + rng.below(10_000)),
+            from,
+            cgt_day(rng, from, sold),
+        )
     });
-    Home { purchased, sold, moved_in, practicable: rng.below(2) == 0, away, part, market: 1 + rng.cents(200_000_000) }
+    Home {
+        purchased,
+        sold,
+        moved_in,
+        practicable: rng.below(2) == 0,
+        away,
+        part,
+        market: 1 + rng.cents(200_000_000),
+    }
 }
 
 /// One seeded sale: a resident owner, a sale contract from 1 July 2020 to 30 June 2027, an asset
@@ -6298,7 +6395,14 @@ fn cgt_home(rng: &mut Seeded, acquired: Date, event: Date) -> Home {
 /// sometimes a home with absences and part use.
 fn cgt_case(rng: &mut Seeded) -> (Value, Value) {
     loop {
-        let owner = rng.pick(&[Owner::Individual, Owner::Individual, Owner::Individual, Owner::Trust, Owner::Super, Owner::Company]);
+        let owner = rng.pick(&[
+            Owner::Individual,
+            Owner::Individual,
+            Owner::Individual,
+            Owner::Trust,
+            Owner::Super,
+            Owner::Company,
+        ]);
         let acquired = match rng.below(5) {
             0 | 1 => cgt_day(rng, date(1985, 9, 20), date(1999, 9, 21)),
             2 | 3 => cgt_day(rng, date(1999, 9, 22), date(2020, 6, 30)),
@@ -6312,10 +6416,22 @@ fn cgt_case(rng: &mut Seeded) -> (Value, Value) {
             cgt_day(rng, earliest, date(2027, 6, 30))
         };
         let price = 1 + rng.cents(150_000_000);
-        let buying = (rng.below(2) == 0).then(|| (1 + rng.cents(5_000_000), cgt_day(rng, acquired, (acquired + 59.days()).min(event))));
-        let improvements = (0..rng.below(3)).map(|_| (1 + rng.cents(10_000_000), cgt_day(rng, acquired, event))).collect();
-        let home = (owner == Owner::Individual && rng.below(3) == 0).then(|| cgt_home(rng, acquired, event));
-        let works = if acquired == date(1997, 5, 13) { 0 } else { rng.cents(price.min(3_000_000)) };
+        let buying = (rng.below(2) == 0).then(|| {
+            (
+                1 + rng.cents(5_000_000),
+                cgt_day(rng, acquired, (acquired + 59.days()).min(event)),
+            )
+        });
+        let improvements = (0..rng.below(3))
+            .map(|_| (1 + rng.cents(10_000_000), cgt_day(rng, acquired, event)))
+            .collect();
+        let home = (owner == Owner::Individual && rng.below(3) == 0)
+            .then(|| cgt_home(rng, acquired, event));
+        let works = if acquired == date(1997, 5, 13) {
+            0
+        } else {
+            rng.cents(price.min(3_000_000))
+        };
         let sale = Sale {
             owner,
             acquired,
@@ -6325,18 +6441,37 @@ fn cgt_case(rng: &mut Seeded) -> (Value, Value) {
             buying,
             improvements,
             selling: rng.cents(5_000_000),
-            owning: if acquired > date(1991, 8, 20) { rng.cents(5_000_000) } else { 0 },
+            owning: if acquired > date(1991, 8, 20) {
+                rng.cents(5_000_000)
+            } else {
+                0
+            },
             works: works.min(home.as_ref().map_or(works, |h| h.market)),
-            current: if rng.below(2) == 0 { 0 } else { rng.cents(50_000_000) },
-            prior: if rng.below(2) == 0 { 0 } else { rng.cents(50_000_000) },
+            current: if rng.below(2) == 0 {
+                0
+            } else {
+                rng.cents(50_000_000)
+            },
+            prior: if rng.below(2) == 0 {
+                0
+            } else {
+                rng.cents(50_000_000)
+            },
             home,
         };
         // A first use to produce income on 20 August 1996, or one on 13 May 1997 with capital
         // works deductions, turns on the time of day, which the engine refuses; draw again.
         let first_use = sale.home.as_ref().and_then(|home| {
-            home.away.iter().filter(|a| a.rented).map(|a| a.from).chain(home.part.map(|p| p.1)).min()
+            home.away
+                .iter()
+                .filter(|a| a.rented)
+                .map(|a| a.from)
+                .chain(home.part.map(|p| p.1))
+                .min()
         });
-        if first_use != Some(date(1996, 8, 20)) && (sale.works == 0 || first_use != Some(date(1997, 5, 13))) {
+        if first_use != Some(date(1996, 8, 20))
+            && (sale.works == 0 || first_use != Some(date(1997, 5, 13)))
+        {
             return (cgt_input(&sale), cgt_oracle(&sale));
         }
     }
@@ -6368,19 +6503,40 @@ fn the_cgt_oracle_works_the_atos_examples() {
         ..sale(date(1997, 7, 1), date(2026, 2, 1), 496_000, 144_000)
     });
     assert_eq!(
-        [&brett["costBase"], &brett["indexedCostBase"], &brett["gain"], &brett["labelA"]],
-        [&json!("206245"), &json!("211493"), &json!("289755"), &json!("144877")]
+        [
+            &brett["costBase"],
+            &brett["indexedCostBase"],
+            &brett["gain"],
+            &brett["labelA"]
+        ],
+        [
+            &json!("206245"),
+            &json!("211493"),
+            &json!("289755"),
+            &json!("144877")
+        ]
     );
     // Example 13, Val: factors 1.164 and 1.159, indexed cost base $188,213, net $93,750.
-    assert_eq!((cgt_factor(date(1991, 6, 24)), cgt_factor(date(1991, 7, 20))), (1164, 1159));
+    assert_eq!(
+        (cgt_factor(date(1991, 6, 24)), cgt_factor(date(1991, 7, 20))),
+        (1164, 1159)
+    );
     let val = cgt_oracle(&Sale {
         buying: Some((700_000, date(1991, 7, 20))),
         selling: 550_000,
         ..sale(date(1991, 6, 24), date(2025, 10, 15), 350_000, 150_000)
     });
-    assert_eq!([&val["indexedCostBase"], &val["net"]], [&json!("188213"), &json!("93750")]);
+    assert_eq!(
+        [&val["indexedCostBase"], &val["net"]],
+        [&json!("188213"), &json!("93750")]
+    );
     // Example 80, Ian: 11,201 days owned, 365 over the 6 years, $250,000 × 365 ÷ 11,201 = $8,146.59.
-    let away = |from, to, rented| Away { from, to, rented, choose: true };
+    let away = |from, to, rented| Away {
+        from,
+        to,
+        rented,
+        choose: true,
+    };
     let ian = cgt_oracle(&Sale {
         home: Some(Home {
             purchased: date(1994, 7, 1),
@@ -6399,8 +6555,18 @@ fn the_cgt_oracle_works_the_atos_examples() {
         ..sale(date(1994, 6, 1), date(2025, 1, 31), 400_000, 150_000)
     });
     assert_eq!(
-        [&ian["ownershipDays"], &ian["nonMainDays"], &ian["gain"], &ian["incomeTime"]],
-        [&json!("11201"), &json!("365"), &json!("8146.59"), &Value::Null]
+        [
+            &ian["ownershipDays"],
+            &ian["nonMainDays"],
+            &ian["gain"],
+            &ian["incomeTime"]
+        ],
+        [
+            &json!("11201"),
+            &json!("365"),
+            &json!("8146.59"),
+            &Value::Null
+        ]
     );
     // Example 70, Erin: rented from 2 August 2005, so taken to be acquired then for $450,000.
     let erin = cgt_oracle(&Sale {
@@ -6409,13 +6575,21 @@ fn the_cgt_oracle_works_the_atos_examples() {
             sold: date(2026, 4, 14),
             moved_in: date(2002, 7, 15),
             practicable: true,
-            away: vec![Away { from: date(2005, 8, 2), to: date(2026, 4, 14), rented: true, choose: false }],
+            away: vec![Away {
+                from: date(2005, 8, 2),
+                to: date(2026, 4, 14),
+                rented: true,
+                choose: false,
+            }],
             part: None,
             market: 45_000_000,
         }),
         ..sale(date(2002, 6, 15), date(2026, 4, 14), 496_000, 280_000)
     });
-    assert_eq!([&erin["gain"], &erin["net"], &erin["incomeTime"]], [&json!("46000"), &json!("23000"), &json!("2005-08-02")]);
+    assert_eq!(
+        [&erin["gain"], &erin["net"], &erin["incomeTime"]],
+        [&json!("46000"), &json!("23000"), &json!("2005-08-02")]
+    );
 }
 
 #[test]
