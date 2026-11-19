@@ -324,7 +324,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Salary vs dividends calculator for a company owner, 2021-22 to 2026-27
+# Company owner salary vs dividends calculator, 2021-22 to 2026-27
 
 Source: https://duguid.com.au/tools/business-calculators/salary-dividend/
 
