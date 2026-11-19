@@ -531,6 +531,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'unused-leave':
             result = calculate.unusedLeaveResult(value, aud);
             break;
+          case 'workers-compensation':
+            result = calculate.workersCompensationResult(value, aud);
+            break;
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
