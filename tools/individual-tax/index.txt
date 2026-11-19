@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Four calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Five calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
 Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay and Division 293 tax from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
