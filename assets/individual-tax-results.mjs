@@ -7,6 +7,8 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { lumpSumArrears } from './lump-sum-arrears.mjs';
+import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 import { incomeTests } from './income-tests.mjs';
 import { CAP, concessionalCatchUp } from './concessional-catch-up.mjs';
 
@@ -118,6 +120,99 @@ function studyLoanResult(value, aud) {
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
 }
 
+/** The form's accrual year slots: the 2 that take each recent year's taxable income and adjustments, then the rest. */
+const ARREARS_SLOTS = ['latest', 'before', 'earlier-1', 'earlier-2', 'earlier-3', 'earlier-4'];
+const ARREARS_FACTS = /** @type {const} */ ([['taxable', 'taxable'], ['gain', 'gain'], ['rebateYearArrears', 'rebate-year'],
+  ['earlierRebateArrears', 'earlier-rebate']]);
+const percent = (/** @type {number} */ rate) => `${Number((rate * 100).toFixed(2))}%`;
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function lumpSumArrearsResult(value, aud) {
+  const accrual = [];
+  for (const slot of ARREARS_SLOTS) {
+    const field = (/** @type {string} */ name) => (value(`${slot}-${name}`) ?? '').trim();
+    // Only the 2 latest accrual years take their own taxable income and rebate facts.
+    const facts = slot.startsWith('earlier') ? []
+      : ARREARS_FACTS.map(([key, name]) => [key, field(name)]).filter(([, text]) => text !== '');
+    if (field('year') === '' && field('arrears') === '' && facts.length === 0) continue;
+    if (field('year') === '') throw new Error('Enter the income year of each accrual year you fill in, such as 2023-24.');
+    accrual.push({ year: field('year'), arrears: field('arrears'), ...Object.fromEntries(facts) });
+  }
+  const year = value('year');
+  const r = lumpSumArrears({ year, resident: value('resident') === 'yes',
+    otherAmounts: value('other') !== 'no', taxable: value('taxable'), gain: value('gain'),
+    accrual });
+  const rows = [['Total arrears amount', aud(r.total)], ['Normal taxable income', aud(r.normal)],
+    ['10% of normal taxable income less the arrears', aud(r.tenPercent)]];
+  let note = 'No offset: the total arrears amount is less than 10% of normal taxable income less it';
+  if (r.met) {
+    rows.push([`Tax on arrears in ${year}`, aud(/** @type {number} */ (r.taxOnArrears))],
+      ...(r.notional ?? []).map(({ year: accrued, amount }) => [`Notional tax for ${accrued}`, aud(amount)]));
+    if (r.distant) rows.push(['Notional tax for the distant years', aud(r.distant.amount)]);
+    rows.push(['Notional tax on arrears', aud(/** @type {number} */ (r.notionalTotal))]);
+    const [latest, before] = r.notional ?? [];
+    const distant = r.distant?.years ?? [];
+    const listed = distant.length > 1 ? `${distant.slice(0, -1).join(', ')} and ${distant.at(-1)}` : distant[0];
+    note = r.distant && r.rates ? `${distant.length > 1 ? 'The distant years' : 'The distant year'} ${listed} `
+      + `${distant.length > 1 ? 'take' : 'takes'} the average rate on recent arrears, `
+      + `${percent(r.rates.average)}: ${percent(r.rates.mostRecent)} for ${latest.year} and ${percent(r.rates.secondMostRecent)} `
+      + `for ${before.year}` : 'The notional tax is what the arrears would have added to the tax of the years they accrued in';
+    if (r.offset === 0) note += '. Nil: the notional tax is not less than the tax on arrears';
+  }
+  rows.push(['Lump sum payment in arrears tax offset', aud(r.offset)]);
+  const accrued = accrual.map((a) => `${a.year} ${aud(Number(a.arrears))}`
+    + `${a.taxable === undefined ? '' : ` on taxable income ${aud(Number(a.taxable))}`}`).join(', ');
+  return { inputs: `${year}, taxable income ${aud(Number(value('taxable')))}, net capital gain ${aud(Number(value('gain')))}, `
+    + `accrual years ${accrued}`, principal: rows.length - 1, rows, note };
+}
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function soleTraderResult(value, aud) {
+  const yes = (/** @type {string} */ name) => value(name) === 'yes';
+  const year = value('year');
+  const r = soleTraderSetAside({ year, income: value('income'), expenses: value('expenses'), wages: value('wages'),
+    deductions: value('deductions'), super: value('super'), offset: yes('offset'), studyLoan: yes('study-loan'),
+    hospitalCover: yes('cover'), gst: yes('gst'), credits: value('credits'), invoice: value('invoice') });
+  const wages = Number(value('wages')) > 0;
+  const rows = [['Business profit', aud(r.profit)]];
+  if (r.deduction) rows.push(['Standard deduction on the wages', aud(r.deduction)]);
+  rows.push(['Taxable income', whole(r.taxable)], ['Tax on taxable income', aud(r.tax)], ['Low income tax offset', aud(r.offset)]);
+  if (year === '2021-22') rows.push(['Low and middle income tax offset', aud(r.lmito)]);
+  rows.push(['Small business income tax offset', aud(r.smallBusinessOffset)], ['Medicare levy', aud(r.medicare)]);
+  if (!yes('cover')) rows.push(['Medicare levy surcharge', aud(r.surcharge)]);
+  if (yes('study-loan')) rows.push(['Study and training loan repayment', aud(r.studyLoan)]);
+  rows.push(['Total tax, levies and repayment', aud(r.total)]);
+  if (wages) rows.push(['Less the same on the wages alone', aud(r.wagesTax)]);
+  rows.push(['Tax to set aside for the business', aud(r.businessTax)]);
+  if (yes('gst')) rows.push(['GST on the business income', aud(r.gstOnIncome)], ['Less GST credits', aud(r.credits)]);
+  const principal = rows.length;
+  rows.push(['Total to set aside for the year', aud(r.setAside)], ['Each quarter', aud(r.quarterly)],
+    ['Each month', aud(r.monthly)], ['Each week', aud(r.weekly)],
+    [`Share of each invoice${yes('gst') ? ', GST included,' : ''} to set aside`, `${r.invoiceShare.toFixed(2)}%`],
+    [`From an invoice of ${aud(r.invoice.amount)}, set aside`, aud(r.invoice.setAside)]);
+  const notes = [`As a PAYG instalment rate, ${r.taxShare.toFixed(2)}% of business income excluding GST covers this `
+    + 'year’s tax on it'];
+  if (r.instalments) {
+    notes.push('A return like this meets 2 of the 3 PAYG instalment entry tests; the ATO works out the third, '
+      + 'notional tax, and decides entry');
+  }
+  if (r.mustRegister) {
+    notes.push('Business income of $75,000 or more a year means the business must register for GST, within 21 days of '
+      + 'its turnover over 12 months reaching $75,000');
+  }
+  if (wages) {
+    notes.push('This assumes the wages’ withholding covers the tax, levy and any study loan repayment on the wages '
+      + 'alone');
+  }
+  return { inputs: `${year}, business income ${aud(Number(value('income')))} and expenses ${aud(Number(value('expenses')))} `
+    + `excluding GST, wages ${aud(Number(value('wages')))}, other deductions ${aud(Number(value('deductions')))}, `
+    + `${Number(value('super')) > 0 ? `personal super contributions ${aud(Number(value('super')))}, ` : ''}`
+    + `${yes('offset') ? 'qualifies' : 'does not qualify'} for the small business income tax offset, `
+    + `${yes('study-loan') ? 'with a' : 'no'} study or training loan, ${yes('cover') ? 'with' : 'no'} private hospital cover, `
+    + `${yes('gst') ? `registered for GST with credits of ${aud(Number(value('credits')))}` : 'not registered for GST'}, `
+    + `invoice ${aud(Number(value('invoice')))}`, principal, rows, note: notes.join('. ') };
+}
+
 /** The earlier years the catch-up form asks about, from 2018-19 to the year before the latest it works. */
 const CATCH_UP_EARLIER = Object.keys(CAP).filter((year) => year < '2026-27').sort((a, b) => a.localeCompare(b));
 
@@ -184,7 +279,7 @@ function incomeTestsResult(value, aud) {
 }
 
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
-  ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult]]);
+  ['sole-trader', soleTraderResult], ['lump-sum-arrears', lumpSumArrearsResult], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -194,5 +289,5 @@ export function individualResult(kind, value, aud) {
 }
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
-export const engines = { taxEstimate, takeHomePay, incomeTests, incomeYears: INCOME_TAX_YEARS,
-  payYears: Object.keys(SUPER_GUARANTEE) };
+export const engines = { taxEstimate, takeHomePay, soleTraderSetAside, incomeTests, incomeYears: INCOME_TAX_YEARS,
+  payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS };

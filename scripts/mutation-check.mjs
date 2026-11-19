@@ -25,6 +25,8 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
+const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
 const incomeTests = { file: 'assets/income-tests.mjs', test: individualTest };
 const catchUp = { file: 'assets/concessional-catch-up.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
@@ -238,6 +240,18 @@ const MUTATIONS = [
   { ...division296, name: 'Division 296 shows a negative component as nil', find: 'component: shown(component, 10000n)', replace: 'component: shown(component < 0n ? 0n : component, 10000n)' },
   { ...division296, name: 'Division 296 accepts an exception answered with text', find: "typeof flag !== 'boolean'", replace: 'false' },
 
+  { ...arrears, name: 'the repair levy runs into 2017-18', find: "const LEVY_YEARS = ['2014-15', '2015-16', '2016-17'];", replace: "const LEVY_YEARS = ['2014-15', '2015-16', '2016-17', '2017-18'];" },
+  { ...arrears, name: 'the repair levy is 3%', find: 'income - 180000) * 40 : 0', replace: 'income - 180000) * 60 : 0' },
+  { ...arrears, name: 'amounts round half down', find: 'Math.floor((units + 10) / 20)', replace: 'Math.floor((units + 9) / 20)' },
+  { ...arrears, name: 'arrears of exactly 10% fail the test', find: 'met: total * 10 >= testIncome', replace: 'met: total * 10 > testIncome' },
+  { ...arrears, name: 'the net capital gain stays in normal taxable income', find: 'const normal = Math.max(0, taxable - gain);', replace: 'const normal = taxable;' },
+  { ...arrears, name: '3 accrual years are recent', find: 'const recent = years.slice(0, 2);', replace: 'const recent = years.slice(0, 3);' },
+  { ...arrears, name: 'a fourth place of 5 is not raised', find: '(units * 5) / arrears) + 5) / 10', replace: '(units * 5) / arrears) + 4) / 10' },
+  { ...arrears, name: 'distant years take the latest rate only', find: 'distantArrears * (recentRates[0] + recentRates[1])', replace: 'distantArrears * recentRates[0] * 2' },
+  { ...arrears, name: 'a rebate year adds its own arrears', find: 'income - (year.facts.rebateYearArrears ?? 0)', replace: 'income + (year.facts.rebateYearArrears ?? 0)' },
+  { ...arrears, name: 'the distant rate keeps the net capital gain', find: 'Math.max(0, year.facts.taxable - (year.facts.gain ?? 0))', replace: 'year.facts.taxable' },
+  { ...arrears, name: '2017-18 37% band starts at $80,000', find: "'2017-18': [[18200, 19], [37000, 32.5], [87000", replace: "'2017-18': [[18200, 19], [37000, 32.5], [80000" },
+  { ...arrears, name: 'a negative offset is kept', find: 'money(Math.max(0, taxOnArrears - notionalTotal))', replace: 'money(taxOnArrears - notionalTotal)' },
   { ...incomeTests, name: 'income tests round section 57A benefits to the nearest dollar', find: 'Math.floor((p.fringe57a * 53) / 100)', replace: 'Math.round((p.fringe57a * 53) / 100)' },
   { ...incomeTests, name: 'income tests count section 57A benefits in full where adjusted', find: 'Math.floor((p.fringe57a * 53) / 100)', replace: 'p.fringe57a' },
   { ...incomeTests, name: 'income tests take reportable super contributions below nil', find: 'Math.max(0, p.employerSuper + p.personalSuper - p.excessConcessional)', replace: 'p.employerSuper + p.personalSuper - p.excessConcessional' },
@@ -325,6 +339,24 @@ const MUTATIONS = [
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
   { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
   { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
+  { ...soleTrader, name: 'the small business offset is 13%', find: 'const OFFSET_RATE = 16;', replace: 'const OFFSET_RATE = 13;' },
+  { ...soleTrader, name: 'the small business offset has no $1,000 cap', find: 'Math.min(share, OFFSET_CAP, tax - offset - lmito)', replace: 'Math.min(share, tax - offset - lmito)' },
+  { ...soleTrader, name: 'the small business offset can take the tax below nil', find: 'Math.min(share, OFFSET_CAP, tax - offset - lmito)', replace: 'Math.min(share, OFFSET_CAP)' },
+  { ...soleTrader, name: 'the offset’s share is not capped at taxable income', find: 'Math.min(business, taxable) * tax', replace: 'business * tax' },
+  { ...soleTrader, name: 'the offset is 16% of the whole tax', find: 'Math.min(business, taxable) * tax', replace: 'taxable * tax' },
+  { ...soleTrader, name: 'the standard deduction also takes the profit', find: 'Math.min(100000, wages) : 0', replace: 'Math.min(100000, wages + profit) : 0' },
+  { ...soleTrader, name: 'the tax on the wages alone is not taken off', find: 'const businessTax = all.total - alone.total;', replace: 'const businessTax = all.total;' },
+  { ...soleTrader, name: 'the wages alone keep the other deductions off', find: 'Math.max(0, wages - deduction - deductions)', replace: 'Math.max(0, wages - deduction)' },
+  { ...soleTrader, name: 'GST is an eleventh of the GST-exclusive income', find: 'const GST_TENTHS = 10;', replace: 'const GST_TENTHS = 11;' },
+  { ...soleTrader, name: 'GST credits are not taken off', find: 'const gst = gstOnIncome - credits;', replace: 'const gst = gstOnIncome;' },
+  { ...soleTrader, name: 'the invoice share leaves the GST out of the invoices', find: 'const invoiced = income + gstOnIncome;', replace: 'const invoiced = income;' },
+  { ...soleTrader, name: 'a quarter is a third', find: 'nearest(setAside, 4)', replace: 'nearest(setAside, 3)' },
+  { ...soleTrader, name: 'GST registration at more than $75,000 only', find: 'income >= GST_THRESHOLD', replace: 'income > GST_THRESHOLD' },
+  { ...soleTrader, name: 'PAYG instalment entry at more than $4,000 only', find: 'income >= INSTALMENT_INCOME', replace: 'income > INSTALMENT_INCOME' },
+  { ...soleTrader, name: 'the surcharge is left out', find: 'const surcharge = hospitalCover ? 0 :', replace: 'const surcharge = true ? 0 :' },
+  { ...soleTrader, name: 'super contributions are left out of repayment and surcharge income', find: 'const reported = Math.floor(contributions / 100);', replace: 'const reported = 0;' },
+  { ...soleTrader, name: 'the wages alone report contributions they cannot absorb', find: 'Math.floor(aloneContributions / 100));', replace: 'reported);' },
+  { ...soleTrader, name: 'a business loss is worked', find: 'if (expenses > income) {', replace: 'if (false) {' },
   { ...div7a, name: 'Division 7A schedule counts the remaining term from the year made', find: 'const remainingTerm = term - k + 1;', replace: 'const remainingTerm = term - k + 2;' },
   { ...div7a, name: 'Division 7A schedule drops unpaid interest from the loan', find: 'const principal = repayment - interest;', replace: 'const principal = repayment > interest ? repayment - interest : 0n;' },
   { ...div7a, name: 'Division 7A schedule runs on past a shortfall', find: 'if (shortfall > 0n || opening === 0n) break;', replace: 'if (opening === 0n) break;' },
@@ -502,7 +534,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
