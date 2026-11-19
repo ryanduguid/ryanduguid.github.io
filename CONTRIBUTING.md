@@ -681,7 +681,12 @@ conflict in a page source, then rebuild before committing: `site-tools build_fee
 --update-baseline`, in that order. A generated file the merge kept from the
 current side is stale until then, and the `--check` runs fail on it. GitHub runs
 no merge driver, so a pull request page still reports these conflicts until the
-default branch is merged in locally.
+default branch is merged in locally. Git takes merge attributes from the
+checked-out branch, so a branch cut before a change to these `.gitattributes`
+lines merges with its old ones: for that merge, first copy the default branch's
+with `git show origin/main:.gitattributes > "$(git rev-parse --git-path
+info/attributes)"`, and delete that file after it. A `site-tools` older than
+`--generated` leaves Git's markers in these files.
 
 The driver runs Git's three-way merge, then resolves only conflicts where both
 sides added dated changelog rows, or whole feed entries from one changelog table,
