@@ -142,7 +142,7 @@ function soleTraderResult(value, aud) {
       + 'the third, $500 of notional tax');
   }
   if (r.mustRegister) notes.push('Business income of $75,000 or more a year means the business must register for GST');
-  if (wages) notes.push('This assumes the tax withheld from the wages covers the tax on the wages alone');
+  if (wages) notes.push('This assumes the wages’ withholding covers the tax on the wages alone');
   return { inputs: `${year}, business income ${aud(Number(value('income')))} and expenses ${aud(Number(value('expenses')))} `
     + `excluding GST, wages ${aud(Number(value('wages')))}, other deductions ${aud(Number(value('deductions')))}, `
     + `${yes('offset') ? 'qualifies' : 'does not qualify'} for the small business income tax offset, `
