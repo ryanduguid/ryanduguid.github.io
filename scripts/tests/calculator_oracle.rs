@@ -6142,6 +6142,34 @@ fn cgt_not_main(home: &Home) -> Vec<(Date, Date)> {
     periods
 }
 
+/// Whether a chosen absence's rented days end on the day the ATO's examples 72 and 80 count the
+/// 6 years apart (from 29 February, on 28 February or 1 March), which the engine refuses.
+fn cgt_six_year_boundary(home: &Home) -> bool {
+    let on_boundary =
+        |(cap, slack, rented): (i128, i128, i128)| rented >= cap && rented <= cap + slack;
+    let mut absence: Option<(i128, i128, i128)> = None;
+    let mut previous: Option<Date> = None;
+    let mut boundary = false;
+    for away in &home.away {
+        if previous.is_none_or(|end| end.tomorrow().unwrap() != away.from) {
+            boundary |= absence.take().is_some_and(on_boundary);
+        }
+        if away.choose && away.rented {
+            let entry = absence.get_or_insert_with(|| {
+                let leap_day = i128::from(away.from.month() == 2 && away.from.day() == 29);
+                (
+                    cgt_days(away.from, cgt_years_later(away.from, 6)) - leap_day,
+                    leap_day,
+                    0,
+                )
+            });
+            entry.2 += cgt_days(away.from, away.to);
+        }
+        previous = Some(away.to);
+    }
+    boundary || absence.is_some_and(on_boundary)
+}
+
 /// The ownership period's days, those not the main residence and the part-use days that are, from
 /// `start`, and the first day of use to produce income where section 118-192 moves the start there.
 fn cgt_residence(home: &Home) -> (i128, i128, i128, Option<Date>) {
@@ -6509,13 +6537,15 @@ fn cgt_case(rng: &mut Seeded) -> (Value, Value) {
                 .any(|&(_, day)| day > date(1999, 6, 30));
         let cut_off = date(1999, 9, 21);
         // The engine also refuses part use that began during a chosen absence (subsection
-        // 118-190(3)), and costs of owning when section 118-192 applies, as it cannot date them.
+        // 118-190(3)), rent ending on the day the ATO's examples count the 6 years apart, and
+        // costs of owning when section 118-192 applies, as it cannot date them.
         let part_while_away = sale.home.as_ref().is_some_and(|home| {
-            home.part.is_some_and(|(_, from, _)| {
-                home.away
-                    .iter()
-                    .any(|a| a.choose && a.from <= from && from <= a.to)
-            })
+            cgt_six_year_boundary(home)
+                || home.part.is_some_and(|(_, from, _)| {
+                    home.away
+                        .iter()
+                        .any(|a| a.choose && a.from <= from && from <= a.to)
+                })
         });
         if first_use != Some(date(1996, 8, 20))
             && (sale.works == 0 || first_use != Some(date(1997, 5, 13)))

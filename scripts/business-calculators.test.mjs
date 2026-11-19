@@ -3279,17 +3279,25 @@ test('the 6 years a rented home can stay the main residence run per absence, acr
   const lana = sale([rented('2002-05-29', '2008-05-28'), { from: '2008-05-29', to: '2010-05-28', rented: false, choose: true },
     rented('2012-05-29', '2018-05-28'), { from: '2018-05-29', to: '2020-05-28', rented: false, choose: true }], '500000');
   assert.deepEqual([lana.method, lana.nonMainDays], ['exempt', 0]);
-  // The 6 years run to the sixth anniversary inclusive, as the ATO's example 72 counts them; a day
-  // more is one day over, and section 118-192 then starts the ownership period at the first rent.
-  const anniversary = sale([rented('2002-05-29', '2008-05-29'), { from: '2008-05-30', to: '2010-05-28', rented: false, choose: true }], '500000');
-  assert.deepEqual([anniversary.method, anniversary.nonMainDays], ['exempt', 0]);
-  const over = sale([rented('2002-05-29', '2008-05-30'), { from: '2008-05-31', to: '2010-05-28', rented: false, choose: true }], '500000');
-  assert.deepEqual([over.nonMainDays, over.incomeTime, over.ownershipDays], [1, '2002-05-29', 8767]);
-  // The result says how it counts the 6 years only when they end a rented absence's main residence days.
-  assert.deepEqual([anniversary.sixYears, over.sixYears], [false, true]);
-  // From 29 February the 6 years run to 28 February, as australian-accounting counts them.
-  const leap = (to, back) => sale([rented('2004-02-29', to), { from: back, to: '2012-05-28', rented: false, choose: true }], '500000');
-  assert.deepEqual([leap('2010-02-28', '2010-03-01').nonMainDays, leap('2010-03-01', '2010-03-02').nonMainDays], [0, 1]);
+  // The 6 years run to the sixth anniversary inclusive, as the ATO's example 72 counts them, and its
+  // example 80 counts a day fewer, so rent ending on the anniversary is refused, in one row or across
+  // an absence's rows. The day before is within both counts; a day after is over under both, section
+  // 118-192 then starts the ownership period at the first rent, and the result notes the count.
+  const boundary = /examples 72 and 80 count the 6 years a rented home can stay the main residence a day apart/;
+  const vacant = (from, to) => ({ from, to, rented: false, choose: true });
+  assert.throws(() => sale([rented('2002-05-29', '2008-05-29'), vacant('2008-05-30', '2010-05-28'), vacant('2011-01-01', '2011-06-30')],
+    '500000'), boundary);
+  assert.throws(() => sale([rented('2002-05-29', '2005-05-28'), vacant('2005-05-29', '2006-05-28'), rented('2006-05-29', '2009-05-29')],
+    '500000'), boundary);
+  const within = cgtWorks(() => sale([rented('2002-05-29', '2008-05-28'), vacant('2008-05-29', '2010-05-28')], '500000'));
+  assert.deepEqual([within.method, within.nonMainDays, within.sixYears], ['exempt', 0, false]);
+  const over = cgtWorks(() => sale([rented('2002-05-29', '2008-05-30'), vacant('2008-05-31', '2010-05-28')], '500000'));
+  assert.deepEqual([over.nonMainDays, over.incomeTime, over.ownershipDays, over.sixYears], [1, '2002-05-29', 8767, true]);
+  // From 29 February the anniversary is 28 February or 1 March, so rent ending on either is refused.
+  const leap = (to, back) => sale([rented('2004-02-29', to), vacant(back, '2012-05-28')], '500000');
+  for (const [to, back] of [['2010-02-28', '2010-03-01'], ['2010-03-01', '2010-03-02']]) assert.throws(() => leap(to, back), boundary, to);
+  assert.deepEqual([cgtWorks(() => leap('2010-02-27', '2010-02-28')).nonMainDays, cgtWorks(() => leap('2010-03-02', '2010-03-03')).nonMainDays],
+    [0, 2]);
   // Rows that do not follow on are separate absences, each with its own 6 years.
   const apart = sale([rented('2002-05-29', '2008-05-28'), rented('2008-05-30', '2014-05-28')], '500000');
   assert.equal(apart.nonMainDays, 0);
@@ -3324,6 +3332,10 @@ test('part use, and when section 118-192 applies to the home', () => {
     assert.throws(() => sale({ partPercent: '25', partFrom, partTo: '2025-05-29', market: '450000', away }), /subsection 118-190\(3\)/, partFrom);
   }
   assert.equal(sale({ partPercent: '25', partFrom: '2022-07-01', partTo: '2025-05-29', market: '450000', away }).incomeTime, '2022-07-01');
+  // Part use that began past the 6 years of a rented absence is not under the choice, so it is worked.
+  const pastSix = [{ from: '2010-01-01', to: '2025-05-29', rented: true, choose: true }, ...cgtBase().home.away.slice(1)];
+  assert.equal(cgtWorks(() => sale({ partPercent: '25', partFrom: '2018-01-01', partTo: '2025-05-29', market: '450000', away: pastSix })).incomeTime,
+    '2010-01-01');
   assert.equal(sale({ partPercent: '25', partFrom: '2019-07-01', partTo: '2025-05-29', market: '450000',
     away: [{ ...away[0], choose: false }, ...away.slice(1)] }).incomeTime, '2019-07-01');
   const later = sale({ partPercent: '25', partFrom: '2010-01-01', partTo: '2025-05-29', market: '450000' });

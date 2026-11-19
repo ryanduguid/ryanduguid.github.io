@@ -91,9 +91,9 @@ function checkScope(x) {
   }
   if (!['investment', 'equity', 'home'].includes(x.kind)) throw new Error('Choose what kind of asset it is.');
   if (x.kind === 'equity' && x.entity !== 'company') {
-    throw new Error('The gain on shares or trust units you and your associates own at least 10% of is not a discount capital '
-      + 'gain when most of the company’s or trust’s assets, by cost base and by net capital gain, were acquired in the 12 months '
-      + 'before the sale (section 115-45): this page does not test that.');
+    throw new Error('The gain on shares, or units or other fixed or voting interests in a trust, that you and your associates '
+      + 'own at least 10% of is not a discount capital gain when most of the company’s or trust’s assets, by cost base and by '
+      + 'net capital gain, were acquired in the 12 months before the sale (section 115-45): this page does not test that.');
   }
   const acquired = dateOf(x.acquired, 'date of the purchase contract');
   const event = dateOf(x.event, 'date of the sale contract');
@@ -193,32 +193,53 @@ function absenceOf(row, n) {
  * is not main residence; a chosen one is, and while the home produces income only for 6 years from
  * the first day it does in that absence (s 118-145(2)), to the sixth anniversary inclusive as the
  * ATO's example 72 counts them (from 29 February, to 28 February). Rows that follow on day after day
- * are one absence, so the 6 years run across them. @param {Uint8Array} main @param {Uint8Array} income
+ * are one absence, so the 6 years run across them. The ATO's example 80 counts a day fewer, so an
+ * absence whose rented days end on the day the 2 counts differ on is refused (from 29 February, on
+ * 28 February or 1 March); one past it is worked and noted. Returns whether one was past it.
+ * @param {Uint8Array} main @param {Uint8Array} income
  * @param {NonNullable<ReturnType<typeof absenceOf>>[]} rows @param {number} start @param {number} movedIn @param {number} end */
 function markAbsences(main, income, rows, start, movedIn, end) {
   let previous = null;
   let left = null;
   let capped = false;
+  let allowance = 0;
+  let leap = false;
+  let rented = 0;
+  const settle = () => {
+    if (left === null) return;
+    if (rented >= allowance && rented <= allowance + (leap ? 1 : 0)) {
+      throw new Error('The ATO’s examples 72 and 80 count the 6 years a rented home can stay the main residence a day apart '
+        + '(subsection 118-145(2)), and the rented days of this absence end on that day: this page cannot tell which count is right.');
+    }
+    capped ||= rented > allowance;
+  };
   for (const row of rows) {
     if (row.from <= movedIn || row.to > end) {
       throw new Error(`Absence ${row.n} must start after the home became the main residence and end by settlement of the sale.`);
     }
     if (previous && row.from <= previous.to) throw new Error('Enter the absences in date order, without overlaps.');
-    if (!previous || row.from !== previous.to + 1) left = null;
+    if (!previous || row.from !== previous.to + 1) {
+      settle();
+      left = null;
+    }
     if (row.rented) income.fill(1, row.from - start, row.to - start + 1);
     if (!row.choose) main.fill(0, row.from - start, row.to - start + 1);
     else if (row.rented) {
       if (left === null) {
         const first = isoOf(row.from);
-        left = dayOf(yearsLater(first, 6)) - row.from + (first.endsWith('-02-29') ? 0 : 1);
+        leap = first.endsWith('-02-29');
+        allowance = dayOf(yearsLater(first, 6)) - row.from + (leap ? 0 : 1);
+        left = allowance;
+        rented = 0;
       }
       const covered = Math.min(left, row.to - row.from + 1);
-      capped ||= covered < row.to - row.from + 1;
+      rented += row.to - row.from + 1;
       main.fill(0, row.from - start + covered, row.to - start + 1);
       left -= covered;
     }
     previous = row;
   }
+  settle();
   return capped;
 }
 
@@ -269,7 +290,7 @@ function residence(home, acquired, event) {
   const rows = home.away.map((row, i) => absenceOf(row, i + 1)).filter((row) => row !== null);
   const capped = markAbsences(main, income, rows, start, movedIn, end);
   const part = partUse(home, start, end);
-  if (part.percent && rows.some((row) => row.choose && part.from >= row.from && part.from <= row.to)) {
+  if (part.percent && main[part.from - start] && rows.some((row) => row.choose && part.from >= row.from && part.from <= row.to)) {
     throw new Error('Use of part of the home to produce income that began whilst you were away, with the home treated as your '
       + 'main residence, is ignored for that period (subsection 118-190(3)): this page does not work it out.');
   }
@@ -396,7 +417,7 @@ const METHODS = {
   exempt: 'Main residence exemption: the capital gain or loss is disregarded (section 118-110)',
   nil: 'No capital gain or loss (section 104-10)',
 };
-const KINDS = { investment: 'an investment or business asset', equity: 'shares or trust units, at least 10% with associates',
+const KINDS = { investment: 'an investment or business asset', equity: 'shares or trust interests, at least 10% with associates',
   home: 'a home that was the individual’s main residence' };
 /** @param {number} value whole dollars */
 const wholeAud = (value) => `$${value.toLocaleString('en-AU')}`;
