@@ -1306,63 +1306,54 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# AASB 16 lease calculator: liability, asset and lease or buy
+# Division 7A minimum yearly repayment calculator
 
-Source: https://duguid.com.au/tools/business-calculators/lease/
+Source: https://duguid.com.au/tools/business-calculators/div7a/
 
-> AASB 16 lease liability and right-of-use asset by income year, with interest, depreciation, journals and a lease, hire purchase or buy comparison.
+> The Division 7A minimum yearly repayment on an amalgamated loan for one income year, from its balance, that year’s benchmark rate and the remaining term.
 
-# AASB 16 lease calculator
+# Division 7A loan calculator
 
-Lease liability and right-of-use asset by income year, beside hire purchase and buying, after GST and tax.
+Minimum yearly repayment, interest and principal on one amalgamated loan.
 
-Published 19 November 2026. Last checked 19 November 2026.
+Published 13 November 2026. Last checked 13 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-AASB 16 lease inputs
+Division 7A minimum yearly repayment inputs
 
-Regular lease payment, excluding GST you can claim (AUD) Number of payments in the lease term Payments fall Weekly Fortnightly Monthly Quarterly Yearly Each payment falls At the end of its period (in arrears) At the start of its period (in advance) Discount rate: the rate implicit in the lease, or your incremental borrowing rate (% a year) Commencement date Residual value guarantee you expect to pay, or a purchase option you are reasonably certain to exercise, at the end of the term (AUD) Lease payments made before commencement (AUD) Lease incentives received (AUD) Initial direct costs (AUD) Estimated cost to dismantle, remove or restore (AUD) Ownership transfers by the end of the term, or the purchase option is reasonably certain No: depreciate over the lease term Yes: depreciate over the useful life Useful life of the asset from commencement, in months (needed when ownership transfers; else only if shorter than the term)
+Loan not repaid at the end of the previous income year (AUD)
 
-Compare with hire purchase and buying outright, after GST and tax Yes No
+Income year (benchmark rate) 2026-27 (8.77%) 2025-26 (8.37%) 2024-25 (8.77%) 2023-24 (8.27%) 2022-23 (4.77%) 2021-22 (4.52%) 2020-21 (4.52%) 2019-20 (5.37%)
 
-Price to buy the asset, excluding GST (AUD) GST Charged, and you claim full GST credits Charged, and you claim none Not charged Hire purchase interest rate (% a year) Effective life for tax (years, such as 8 or 6 2/3) Decline in value method Diminishing value Prime cost Your tax rate on the deductions (%) The asset is a car that costs more than the car limit No Yes
+Remaining term (whole years)
 
-Enter the lease amounts excluding any GST you can claim back. The comparison adds GST as you choose. Hire purchase runs on the lease’s payment dates with the residual as its balloon; buying pays the price on the commencement date; under the lease the residual, if any, is paid at the end to buy the asset. Look up an effective life on the depreciation rates page.
+The years and rates are those in the Division 7A benchmark rate table, for a company whose income year ends on 30 June. Round a remaining term that is not a whole number up to the next whole year.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 60 monthly payments of $1,000.00 in arrears, 7.5% a year discount rate, initial direct costs $500.00, commencing 1 July 2026. Lease liability at commencement $49,905.31 Right-of-use asset at commencement $50,405.31 Total interest over the lease $10,094.69 Lease term ends 1 July 2031 Right-of-use asset depreciated straight line to 1 July 2031 Net cost after GST and tax, lease $45,000.00 Net cost after GST and tax, hire purchase $47,306.02 Net cost after GST and tax, buying outright $39,720.66 Hire purchase at 7.5% a year pays $1,102.09 a period; GST charged and claimed in full.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27 income year at the 8.77% benchmark rate, $1,000.00 not repaid at 30 June 2026, 1 year remaining. Minimum yearly repayment $1,087.70 Interest for the year, if repaid on 30 June $87.70 Principal, if repaid on 30 June $1,000.00
 
-Download schedule CSV
+## How the Division 7A minimum yearly repayment calculator works
 
-## How the AASB 16 lease calculator works
+The Division 7A minimum yearly repayment calculator works out the least a borrower must repay on one amalgamated loan in one income year after the year the loan was made. It applies the formula in subsection 109E(6) of the Income Tax Assessment Act 1936: the loan not repaid at the end of the previous income year, times the year’s benchmark interest rate, divided by 1 minus (1 ÷ (1 + the rate)) raised to the remaining term in years.
 
-The calculator measures a lessee’s lease under AASB 16 at commencement and sets out each income year to the end of the lease. The lease liability is the payments not yet paid, with any residual value guarantee you expect to pay or purchase option you are reasonably certain to exercise, discounted at the rate you enter: the rate implicit in the lease or, if that cannot be readily determined, your incremental borrowing rate. A payment in advance falls on the commencement date, so it goes into the right-of-use asset’s cost, not the liability. The asset’s cost adds payments made before commencement, less incentives received, initial direct costs and the estimated cost to dismantle, remove or restore.
+The interest for the year is the benchmark rate on the whole balance, and the principal is the rest of the repayment. That split assumes the whole repayment is made on the last day of the income year. The ATO works interest out from the daily balance, so a repayment made earlier in the year carries less interest and more of it reduces the principal.
 
-Each period’s interest is the period rate on the liability. The schedule sets out every payment’s interest and principal, which are the journal for that payment, and the income year table gives each year’s interest, payments, straight-line depreciation and the liability and asset at 30 June. Depreciation is an equal amount each payment period over the lease term, or each month over the useful life where ownership transfers. Download schedule CSV saves the tables as plain figures.
+The ATO’s worked example on Loans by private companies takes $55,000 at 5.95% with 7 years remaining and gives $9,835 to the nearest dollar; this calculator gives $9,834.92 for those figures.
 
-With the comparison on, the page puts the same asset under hire purchase at your rate and bought outright, beside the lease, for each income year to the year the lease term ends: cash paid with GST, GST credits, deductions, the tax they save at your rate and the net cost. The lease deducts its payments when they are paid. Hire purchase deducts its notional interest and, like buying, the asset’s decline in value. The tax value left at the end is what can still be deducted after it: the residual if a lease buys the asset, and the asset’s adjustable value otherwise.
+## What the Division 7A minimum yearly repayment calculator does not cover
 
-## What the AASB 16 lease calculator does not cover
-
-The calculator does not decide whether a contract is or contains a lease, the lease term, the discount rate or whether a purchase option is reasonably certain. It does not remeasure a lease: a change in an index or rate, a lease modification, a reassessed term or option, an early payout, or variable payments that do not depend on an index or rate. It does not separate non-lease components, apply the revaluation or fair value models, impairment, a sale and leaseback, a lessor’s accounting, not-for-profit concessionary leases or deferred tax.
-
-The comparison does not discount the cash flows, value the asset at the end of the term, apply the prepayment rules to a payment in advance, the luxury car lease rules (it refuses a car above the car limit), small business simplified depreciation or an instant asset write-off, or an asset first used after the commencement date. It takes GST credits on the payment dates rather than at the end of each tax period, and the tax saved at 30 June of each year. Confirm the treatment with the agreement, the financier’s statements and a registered tax agent or auditor.
+The calculator does not decide whether a payment or loan is a Division 7A loan, whether the loan agreement complies, whether a shortfall is a deemed dividend or how much of it, or how a distributable surplus limits one. It works one income year only, with no repayment schedule, and none for the year in which the loan was made. It takes the balance as you enter it: it does not work it out from the loans made, repayments made before the lodgment day or the previous year’s interest, and it does not combine several loans. It does not handle an income year that ends on a day other than 30 June. Subsection 109E(5) lets regulations set another amount, and this calculator applies the formula only. Confirm the figures with the ATO Division 7A calculator and decision tool or a registered tax agent.
 
 ## Boundary cases
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: AASB 16 lease calculator
+Boundary cases: Division 7A loan calculator
 
 Case | Inputs | Result
-Equipment leased for 5 years, paid monthly in arrears, with initial direct costs | 60 monthly payments of $1,000.00, 7.5% a year, initial direct costs $500.00, from 2026-07-01 | Lease liability $49,905.31, right-of-use asset $50,405.31, total interest $10,094.69
-IFRS 16 Example 13: 10 yearly payments in advance, the first paid at commencement, CU355,391 and CU420,391 | 10 annual payments of $50,000.00 in advance, 5% a year, incentives $5,000.00, initial direct costs $20,000.00, from 2026-07-01 | Lease liability $355,391.08, right-of-use asset $420,391.08, total interest $94,608.92
-A residual value guarantee expected to be paid with the last payment | 60 monthly payments of $1,000.00, 7.5% a year, residual $10,000.00, from 2026-07-01 | Lease liability $56,786.23, right-of-use asset $56,786.23, total interest $13,213.77
-Paid in advance, the residual falls a period after the last payment | 60 monthly payments of $1,000.00 in advance, 7.5% a year, residual $10,000.00, from 2026-07-01 | Lease liability $56,098.13, right-of-use asset $57,098.13, total interest $12,901.87
-At nil interest the liability is the payments; 12 months and no purchase option may be expensed | 12 monthly payments of $100.00, 0% a year, from 2026-07-01 | Lease liability $1,200.00, total interest $0.00, short term
-A payment before commencement and the restoration estimate add to the asset, quarterly from mid-September | 20 quarterly payments of $5,000.00, 6% a year, paid before commencement $5,000.00, restoration $8,000.00, from 2026-09-15 | Lease liability $85,843.19, right-of-use asset $98,843.19, total interest $14,156.81
-Incentives as large as the rest of the cost are refused | 60 monthly payments of $1,000.00, 7.5% a year, incentives $60,000.00, from 2026-07-01 | Refused: the incentives received are as much as the rest of the right-of-use asset’s cost, which leaves it nothing to depreciate
-Ownership transferring without a useful life is refused | 60 monthly payments of $1,000.00, 7.5% a year, residual $5,000.00, from 2026-07-01, ownership transfers | Refused: enter the asset’s useful life in months: with ownership transferring, the asset is depreciated over it
+One year left repays the balance and a year’s interest | $1,000.00 at 8.77% over 1 year | Repayment $1,087.70, interest $87.70, principal $1,000.00
+The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
+No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
 One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -1372,5 +1363,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/
+- Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
+- Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
+- ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
 - thirty-four business calculators: https://duguid.com.au/tools/business-calculators/

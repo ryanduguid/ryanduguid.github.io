@@ -68,7 +68,7 @@ test('each business calculator tool is keyed by the form that registers it', () 
 test('every calculator tool is read-only, refuses unknown inputs and has its own name', () => {
   const all = [...Object.values(tools), declineInValue, levy];
   assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_schedule',
-    'calculate_hire_purchase_schedule', 'calculate_lease_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_decline_in_value',
+    'calculate_hire_purchase_schedule', 'calculate_lease_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_decline_in_value',
     'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -347,6 +347,32 @@ test('foreign surcharge tool returns the page worked example and refuses what th
   await assert.rejects(tool.execute({ ...permanent, daysBefore: 365 }), /give daysBefore and daysToDecember/);
   const counted = await tool.execute({ ...permanent, daysBefore: 365, daysToDecember: 0 });
   assert.match(counted.dutyTest, /^Not foreign: /);
+});
+
+// The long service leave page's example (redundancy after 12 years and 6 months in New South Wales) and
+// SafeWork SA's Liam, still employed after 13 years with 10 weeks taken.
+test('long service leave tool returns the page worked example and passes the form’s strings', async () => {
+  const calls = [];
+  const spied = calculatorTools({ ...calculate, longServiceLeave: (input) => (calls.push(input), calculate.longServiceLeave(input)) });
+  const tool = spied['long-service-leave'];
+  const r = await tool.execute({ place: 'AU-NSW', firstDay: '2014-02-01', lastDay: '2026-07-31', employment: 'ends', reason: 'redundancy',
+    weeklyPay: '1500' });
+  assert.deepEqual([r.years, r.months, r.days, r.daysCounted, r.weeks, r.weeksLeft, r.value, r.currency, r.next],
+    [12, 6, 0, 4564, '10.8333', '10.8333', '16250.00', 'AUD', null]);
+  assert.equal(r.rule, 'Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii)');
+  assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/long-service-leave/');
+  const liam = await tool.execute({ place: 'AU-SA', firstDay: '2013-01-01', lastDay: '2025-12-31', employment: 'employed',
+    takenWeeks: '10', excludedDays: 0, weeklyPay: '1000' });
+  assert.deepEqual([liam.weeks, liam.takenWeeks, liam.weeksLeft, liam.value, liam.next], ['16.9000', '10.0000', '6.9000', '6900.00',
+    { years: 14, date: '2026-12-31', weeks: '18.2000' }]);
+  assert.deepEqual(calls[1], { place: 'AU-SA', start: '2013-01-01', end: '2025-12-31', excluded: '0', taken: '10', mode: 'employed',
+    reason: 'redundancy', pay: '1000' });
+  const base = { place: 'AU-NSW', firstDay: '2014-02-01', lastDay: '2026-07-31', employment: 'ends', weeklyPay: '1500' };
+  await assert.rejects(tool.execute(base), /reason is required when employment ends/);
+  await assert.rejects(tool.execute({ ...base, reason: 'sacked' }), /reason does not match its description/);
+  await assert.rejects(tool.execute({ ...base, reason: 'resign', weeklyPay: 1500 }), /weeklyPay does not match its description/);
+  await assert.rejects(tool.execute({ ...base, place: 'AU-NT', firstDay: '2017-01-01', lastDay: '2025-12-31', reason: 'death' }),
+    /subsection 10[(]3[)]/);
 });
 
 const individual = individualTaxTools(individualEngines);

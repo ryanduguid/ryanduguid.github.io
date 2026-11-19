@@ -185,11 +185,11 @@
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
     ],
-    "tools/business-calculators/lease/index.html": [
-      "013f833a538f274e54177facd237c41b72420cfb02f3ec6ccf0cff2ef06669b6"
-    ],
     "tools/business-calculators/loan/index.html": [
       "ae4b492b58d76e770fd168a2a59cd246d6851b4673116a2601fb20e965bb3531"
+    ],
+    "tools/business-calculators/long-service-leave/index.html": [
+      "a2819929d6a29592a36dc68bdd074299aa65bb698d837297f7cfac4606e86a2c"
     ],
     "tools/business-calculators/margin/index.html": [
       "d03a1db0e3f831d4e7bf0c732357b3a42114c678b134c1a34dc1b51df26b0c2b"
@@ -319,9 +319,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "07cdb3f2b3418e05d3b3f45f63618d6ab49babce62d471ab2a784be7a777f67d",
+    "llms.txt": "e781e57a84c20a58ee351471cb37cc8edd50a9f6c0734a36c81f79e17d8241dc",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "23e43f3b995ee1e577f2fd20e2f9914dbf9ca57cda0185eae6a1843dd275e928"
+    "sitemap.xml": "94093894f3b179373e743190325a9575a0086b179f4c863a85619d9853c0a291"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

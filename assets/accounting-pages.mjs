@@ -520,6 +520,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'sgc-payday':
             result = calculate.sgcPaydayResult(value, aud);
             break;
+          case 'long-service-leave':
+            result = calculate.longServiceLeaveResult(value, aud);
+            break;
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
