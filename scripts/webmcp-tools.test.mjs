@@ -410,3 +410,14 @@ test('bonus withholding tool gives the ATO’s Schedule 5 examples and refuses w
     spreadOverPays: 13 }), /between 2 and 12/);
   assert.match(tool.description, /does not compute scales 1, 5 or 6, a payee without a tax file number, a working holiday maker/);
 });
+
+test('llms.txt and the agent tooling notes name every calculator tool', () => {
+  const names = [...Object.values(tools), declineInValue, levy, ...Object.values(individual)].map(t => t.name);
+  const llms = readFileSync(new URL('../llms.txt', import.meta.url), 'utf8');
+  const notes = readFileSync(new URL('../docs/agent-tooling.md', import.meta.url), 'utf8').replace(/\s+/g, ' ');
+  assert.ok(llms.includes(`${names.length} read-only calculator tools`), `llms.txt should count ${names.length} tools`);
+  for (const name of names) {
+    assert.ok(llms.includes(`\`${name}\``), `llms.txt ${name}`);
+    assert.ok(notes.includes(`\`${name}\``), `docs/agent-tooling.md ${name}`);
+  }
+});
