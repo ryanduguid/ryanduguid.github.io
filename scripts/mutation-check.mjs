@@ -52,6 +52,7 @@ const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
 const cgt = { ...business, file: 'assets/cgt.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
+const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
 const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
@@ -662,6 +663,20 @@ const MUTATIONS = [
   { ...lsl, name: 'LSL more leave taken than the entitlement passes', find: 'if (taken > weeks) {', replace: 'if (taken > weeks + 10000000n) {' },
   { ...lsl, name: 'LSL next date ignores excluded days', find: 'anniversary(start, next) - 1 + excluded;', replace: 'anniversary(start, next) - 1;' },
   { ...lsl, name: 'LSL service before 23 June 1990 passes', find: 'value < LSL_EARLIEST_START', replace: "value < '1900-01-01'" },
+
+  { ...leaseEngine, name: 'the payment at commencement stays in the liability', find: 'BigInt(Math.round(pv.amount * 100)) - (advance ? payment : 0n)', replace: 'BigInt(Math.round(pv.amount * 100))' },
+  { ...leaseEngine, name: 'incentives add to the right-of-use asset', find: '- incentives + direct + restoration', replace: '+ incentives + direct + restoration' },
+  { ...leaseEngine, name: 'initial direct costs are left out of the asset', find: '+ direct + restoration;', replace: '+ restoration;' },
+  { ...leaseEngine, name: 'the last period does not take the rounding', find: 'period === last ? paid - balance : ', replace: 'false ? paid - balance : ' },
+  { ...leaseEngine, name: 'the residual is left out of the schedule', find: '(period === last ? residual : 0n)', replace: '0n' },
+  { ...leaseEngine, name: 'a residual paid in advance falls with the last payment', find: 'const last = advance && residual ? count + 1 : count;', replace: 'const last = count;' },
+  { ...leaseEngine, name: 'a shorter useful life is ignored', find: "periodsAfter(start, months, 'monthly') < end)", replace: 'false)' },
+  { ...leaseEngine, name: 'ownership transferring keeps the lease term', find: "(terms.ownership === 'yes' || periodsAfter", replace: '(periodsAfter' },
+  { ...leaseEngine, name: 'a 12-month lease is not short term', find: "end <= periodsAfter(start, 12, 'monthly')", replace: "end < periodsAfter(start, 12, 'monthly')" },
+  { ...leaseEngine, name: 'a claimed GST credit is also deducted', find: '(claim ? value : gross(value))', replace: 'gross(value)' },
+  { ...leaseEngine, name: 'the hire purchase credit is the price’s GST', find: 'ratioCents(hpTotal, 11n)', replace: 'gstOn(price)' },
+  { ...leaseEngine, name: 'hire purchase interest is deducted with its GST', find: 'claim ? ratioCents(value * 10n, 11n) : value', replace: 'value' },
+  { ...leaseEngine, name: 'the comparison stops before a payment on 1 July', find: 'const lastYear = yearStarting(dayOf(leased.end));', replace: 'const lastYear = yearStarting(dayOf(leased.end) - 1);' },
   { ...ftc, name: 'FTC credit truncates the cents', find: 'ratioCents(q * milli(rate), 10n ** 7n)', replace: '(q * milli(rate)) / 10n ** 7n' },
   { ...ftc, name: 'FTC label 7D rounds the cents', find: 'Number(cents / 100n)', replace: 'Number((cents + 50n) / 100n)' },
   { ...ftc, name: 'FTC a heavy vehicle on a public road takes the full rate', find: "line.use === 'heavy_vehicle_public_road' ? heavy", replace: "line.use === 'heavy_vehicle_public_road' ? other" },

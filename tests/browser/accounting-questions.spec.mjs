@@ -537,6 +537,29 @@ test('hire purchase totals interest by income year and sets out the journal', as
   await expect(form.locator('table[data-results="journal"] tbody tr').last()).toHaveText('Total$1,000.00$20.07$1,020.07');
 });
 
+test('the AASB 16 lease page works IFRS 16 Example 13 and hides the comparison once it is turned off', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/lease/');
+  const form = page.locator('#lease form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('table[data-results="comparison"] tbody tr').last()).toHaveText('Tax value left at the end$0.00$8,882.68$8,882.68');
+  await form.getByLabel('Regular lease payment, excluding GST you can claim (AUD)').fill('50000');
+  await form.getByLabel('Number of payments in the lease term').fill('10');
+  await form.getByRole('radio', { name: 'Yearly', exact: true }).check();
+  await form.getByRole('radio', { name: 'At the start of its period (in advance)', exact: true }).check();
+  await form.getByLabel('Discount rate: the rate implicit in the lease, or your incremental borrowing rate (% a year)').fill('5');
+  await form.getByLabel('Lease incentives received (AUD)').fill('5000');
+  await form.getByLabel('Initial direct costs (AUD)').fill('20000');
+  await form.getByRole('group', { name: /^Compare with hire purchase/ }).getByRole('radio', { name: 'No', exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Lease liability at commencement: $355,391.08.');
+  await expect(form.locator('output')).toContainText('Right-of-use asset at commencement: $420,391.08.');
+  await expect(form.locator('table[data-results="years"] tbody tr').first()).toHaveText('2026-27$17,769.55$0.00$373,160.63$42,039.11$378,351.97');
+  await expect(form.locator('table[data-results="schedule"] tbody tr')).toHaveCount(9);
+  await expect(form.locator('table[data-results="comparison"]')).toBeHidden();
+});
+
 test('CGT concessions give Janet’s 40% interest the 15-year exemption and refuse a share offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/cgt-concessions/');
   const form = page.locator('#cgt-concessions form');
@@ -1265,7 +1288,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'gst-margin-scheme'];
+  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

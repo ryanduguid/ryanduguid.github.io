@@ -312,7 +312,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -323,7 +323,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -370,7 +370,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -380,7 +380,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -427,7 +427,7 @@ Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.
 
 Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -437,7 +437,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -483,7 +483,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -492,7 +492,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -536,7 +536,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -545,7 +545,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -595,7 +595,7 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
 
@@ -604,7 +604,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -655,7 +655,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -665,7 +665,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -732,7 +732,7 @@ Payments that add up to less than the amount financed have no rate | $1,000.00 f
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.45 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -744,7 +744,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -799,7 +799,7 @@ The implicit rate of a hire purchase agreement with a residual | $50,000.00 fina
 A residual equal to the amount financed leaves interest only | $1,000.00 financed, 12% a year, 12 monthly payments, balloon $1,000.00, from 2026-07-01; working out the payment | Payment $10.00, last payment $10.00, total interest $120.00
 A payment that does not cover the interest never reaches the residual | $60,000.00 financed, 7.5% a year, monthly payments, $375.00 each, balloon $18,000.00, from 2026-07-01; working out the number of payments | Refused: the payment does not cover a period’s interest, so the balance never falls to the balloon
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -808,7 +808,78 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# AASB 16 lease calculator: liability, asset and lease or buy
+
+Source: https://duguid.com.au/tools/business-calculators/lease/
+
+> AASB 16 lease liability and right-of-use asset by income year, with interest, depreciation, journals and a lease, hire purchase or buy comparison.
+
+# AASB 16 lease calculator
+
+Lease liability and right-of-use asset by income year, beside hire purchase and buying, after GST and tax.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+AASB 16 lease inputs
+
+Regular lease payment, excluding GST you can claim (AUD) Number of payments in the lease term Payments fall Weekly Fortnightly Monthly Quarterly Yearly Each payment falls At the end of its period (in arrears) At the start of its period (in advance) Discount rate: the rate implicit in the lease, or your incremental borrowing rate (% a year) Commencement date Residual value guarantee you expect to pay, or a purchase option reasonably certain to be exercised (AUD) Lease payments made before commencement (AUD) Lease incentives received (AUD) Initial direct costs (AUD) Estimated cost to dismantle, remove or restore (AUD) Ownership transfers, or the purchase option is reasonably certain No: depreciate over the lease term Yes: depreciate over the useful life Useful life from commencement, in months (if ownership transfers, or if shorter than the term)
+
+Compare with hire purchase and buying, after GST and tax Yes No
+
+Price to buy, excluding GST (AUD) GST Charged, and you claim full GST credits Charged, and you claim none Not charged Hire purchase interest rate (% a year) Effective life for tax (years, such as 8 or 6 2/3) Decline in value method Diminishing value Prime cost Your tax rate on the deductions (%) A car costing more than the car limit No Yes
+
+Enter amounts excluding GST you can claim. Hire purchase uses the lease’s dates, with the residual as its balloon; buying pays at commencement. Effective lives: the depreciation rates page.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 60 monthly payments of $1,000.00 in arrears, 7.5% a year discount rate, initial direct costs $500.00, commencing 1 July 2026. Lease liability at commencement $49,905.31 Right-of-use asset at commencement $50,405.31 Total interest over the lease $10,094.69 Lease term ends 1 July 2031 Right-of-use asset depreciated straight line to 1 July 2031 Net cost after GST and tax, lease $45,000.00 Net cost after GST and tax, hire purchase $47,306.02 Net cost after GST and tax, buying outright $39,720.66 Hire purchase at 7.5% a year pays $1,102.09 a period; GST charged and claimed in full.
+
+Download schedule CSV
+
+## How the AASB 16 lease calculator works
+
+The calculator measures a lessee’s lease under AASB 16 at commencement and sets out each income year to the end of the lease. The lease liability is the payments not yet paid, with any residual value guarantee you expect to pay or purchase option you are reasonably certain to exercise, discounted at the rate you enter: the rate implicit in the lease or, if that cannot be readily determined, your incremental borrowing rate. A payment in advance falls on the commencement date, so it goes into the right-of-use asset’s cost, not the liability. The asset’s cost adds payments made before commencement, less incentives received, initial direct costs and the estimated cost to dismantle, remove or restore.
+
+Each period’s interest is the period rate on the liability. The schedule sets out every payment’s interest and principal, which are the journal for that payment, and the income year table gives each year’s interest, payments, straight-line depreciation and the liability and asset at 30 June. Depreciation is an equal amount each payment period over the lease term, or each month over the useful life where ownership transfers. Download schedule CSV saves the tables as plain figures.
+
+With the comparison on, the page puts the same asset under hire purchase at your rate and bought outright, beside the lease, for each income year to the year the lease term ends: cash paid with GST, GST credits, deductions, the tax they save at your rate and the net cost. The lease deducts its payments when they are paid. Hire purchase deducts its notional interest and, like buying, the asset’s decline in value. The tax value left at the end is what can still be deducted after it: the residual if a lease buys the asset, and the asset’s adjustable value otherwise.
+
+## What the AASB 16 lease calculator does not cover
+
+The calculator does not decide whether a contract is or contains a lease, the lease term, the discount rate or whether a purchase option is reasonably certain. It flags a short-term lease but not a lease of a low-value asset, which paragraph 5(b) also lets the lessee expense. It does not remeasure a lease: a change in an index or rate, a lease modification, a reassessed term or option, an early payout, or variable payments that do not depend on an index or rate. It does not separate non-lease components, apply the revaluation or fair value models, impairment, a sale and leaseback, a lessor’s accounting, not-for-profit concessionary leases or deferred tax.
+
+The comparison does not discount the cash flows, value the asset at the end of the term, apply the prepayment rules to a payment in advance, the luxury car lease rules (it refuses a car above the car limit), small business simplified depreciation or an instant asset write-off, or an asset first used after the commencement date. It takes GST credits on the payment dates rather than at the end of each tax period, and the tax saved at 30 June of each year. Confirm the treatment with the agreement, the financier’s statements and a registered tax agent or auditor.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: AASB 16 lease calculator
+
+Case | Inputs | Result
+Equipment leased for 5 years, paid monthly in arrears, with initial direct costs | 60 monthly payments of $1,000.00, 7.5% a year, initial direct costs $500.00, from 2026-07-01 | Lease liability $49,905.31, right-of-use asset $50,405.31, total interest $10,094.69
+IFRS 16 Example 13: 10 yearly payments in advance, the first paid at commencement, CU355,391 and CU420,391 | 10 annual payments of $50,000.00 in advance, 5% a year, incentives $5,000.00, initial direct costs $20,000.00, from 2026-07-01 | Lease liability $355,391.08, right-of-use asset $420,391.08, total interest $94,608.92
+A residual value guarantee expected to be paid with the last payment | 60 monthly payments of $1,000.00, 7.5% a year, residual $10,000.00, from 2026-07-01 | Lease liability $56,786.23, right-of-use asset $56,786.23, total interest $13,213.77
+Paid in advance, the residual falls a period after the last payment | 60 monthly payments of $1,000.00 in advance, 7.5% a year, residual $10,000.00, from 2026-07-01 | Lease liability $56,098.13, right-of-use asset $57,098.13, total interest $12,901.87
+At nil interest the liability is the payments; 12 months and no purchase option may be expensed | 12 monthly payments of $100.00, 0% a year, from 2026-07-01 | Lease liability $1,200.00, total interest $0.00, short term
+A payment before commencement and the restoration estimate add to the asset, quarterly from mid-September | 20 quarterly payments of $5,000.00, 6% a year, paid before commencement $5,000.00, restoration $8,000.00, from 2026-09-15 | Lease liability $85,843.19, right-of-use asset $98,843.19, total interest $14,156.81
+Incentives as large as the rest of the cost are refused | 60 monthly payments of $1,000.00, 7.5% a year, incentives $60,000.00, from 2026-07-01 | Refused: the incentives received are as much as the rest of the right-of-use asset’s cost, which leaves it nothing to depreciate
+Ownership transferring without a useful life is refused | 60 monthly payments of $1,000.00, 7.5% a year, residual $5,000.00, from 2026-07-01, ownership transfers | Refused: enter the asset’s useful life in months: with ownership transferring, the asset is depreciated over it
+
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -884,7 +955,7 @@ A loan first drawn before 1 July 2017 | 2024-25; loan 1: $1,600.00 of borrowing 
 A refinancing that does not start on the day the earlier loan was repaid | 2026-27; loan 1: $1,500.00 of borrowing expenses from 1 September 2024, contract to 31 August 2028, repaid 31 December 2025, 100% income use; loan 2: $800.00 of borrowing expenses from 1 January 2026, refinancing loan 1, 100% income use | Refused: loan 2: refinances must be the number of an earlier loan in loans, repaid on this loan's loan_start and refinanced by no other loan
 An income year after 2027-28 | 2028-29; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use | Refused: choose an income year from 2017-18 to 2027-28
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -893,7 +964,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Borrowing expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/borrowing-expenses
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -946,7 +1017,7 @@ One year left repays the balance and a year’s interest | $1,000.00 at 8.77% ov
 The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
 No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -957,85 +1028,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# FBT car calculator: statutory formula and operating cost
-
-Source: https://duguid.com.au/tools/business-calculators/fbt-car/
-
-> Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method, with the electric cars exemption checked.
-
-# FBT car calculator
-
-Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or the operating cost method.
-
-Published 15 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-FBT car inputs for the FBT year 1 April 2026 to 31 March 2027
-
-Valuation method Statutory formula Operating cost, elected, with log book records Cost price, including GST, dealer delivery and accessories fitted at purchase (AUD) Non-business accessories fitted later (AUD) First held by the employer or an associate before 1 April 2022? No Yes: use two-thirds of the cost price Days used or available for private use Operating costs for the year, operating cost method only (AUD) Business use percentage, operating cost method only Employee contributions for the year (AUD) Is the employer, or another provider, entitled to a GST credit for providing the car? Yes: Type 1 gross-up, 2.0802 No: Type 2 gross-up, 1.8868 Kind of car Petrol, diesel or other Battery electric Hydrogen fuel cell electric Plug-in hybrid electric Electric cars only: for a current employee or their associate? Yes No Electric cars only: first day held and used or available for use, by anyone Electric cars only: first retail sale Electric cars only: luxury car tax value at that sale, GST included (AUD) Electric cars only: luxury car tax on another sale or import before the benefit? No Yes Plug-in hybrids only: committed before 1 April 2025 to the employee’s use, for a period that began before then and includes this year’s use? No Yes Plug-in hybrids only: a new commitment made from 1 April 2025 for a period that includes this year’s use? No Yes Plug-in hybrids only: an exempt car benefit before 1 April 2025? No Yes
-
-Operating costs include deemed depreciation and deemed interest for a car the employer owns, or the lease charges for a leased car.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, 182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up 2.0802. Base value $60,000.00 Statutory formula taxable value $4,983.56 Taxable value $4,983.56 Grossed-up taxable value $10,366.80 FBT at 47% $4,872.40
-
-## How the FBT car calculator works
-
-The FBT car calculator values one car’s fringe benefits for the FBT year from 1 April 2026 to 31 March 2027, which has 365 days. Under the statutory formula, the taxable value is the car’s base value times 20%, times the days it was used or available for an employee’s private use, divided by 365, less what the employee contributed. The base value is the cost price plus non-business accessories fitted later; if the employer or an associate first held the car before 1 April 2022, only two-thirds of the cost price counts.
-
-Under the operating cost method, the taxable value is the year’s operating costs times the private use share, 100% less the business use percentage, less contributions. The method applies only if the employer elected it and kept log book and odometer records; without them the business use percentage is nil. If the statutory formula gives a lower value, the calculator uses that value, as subsection 10(5) of the Act requires.
-
-The taxable value is then grossed up: at the Type 1 rate, 2.0802, if the employer, or another provider, is entitled to a GST credit for providing the car, or the Type 2 rate, 1.8868, if not, as section 2.3 of the guide’s chapter 2 sets out. FBT is 47% of the grossed-up value. The FBT return for the year ending 31 March 2026, read 15 November 2026, asks for whole dollars at each taxable value and grossed-up amount and works the FBT from the total of all benefits, so a return’s figures can differ from these by the cents.
-
-Example 28 in section 7.8 of the ATO’s guide for employers takes a $60,000 car available for 182 of 365 days, with $1,000 of fuel paid by the employee. It shows $5,983 at step 4, leaving out the cents of $5,983.56, and a taxable value of $4,983; this calculator gives $4,983.56. Example 31 in section 7.9 takes $19,580 of operating costs, 75% business use and a $2,000 contribution, and gives $2,895; this calculator gives $2,895.00 when the statutory formula value is higher.
-
-## How the FBT car calculator checks the electric cars exemption
-
-For a battery electric, hydrogen fuel cell electric or plug-in hybrid car, the calculator checks the electric cars exemption in section 8A, one condition to a row. The car must be provided to a current employee, first both held and used by anyone on or after 1 July 2022, and have had no luxury car tax payable on its first retail sale or on any other sale or import before the benefit. A first retail sale after 31 March 2027, such as a dealer’s demonstrator sold later, comes after every benefit in the year, so its luxury car tax does not count. A first retail sale within the year after the car was first held and used may come between the year’s benefits, so the calculator refuses one on which luxury car tax was payable: that tax does not affect a benefit provided before the sale. For the first retail sale, the calculator compares the luxury car tax value, the price with GST and any accessories sold with the car but without luxury car tax, with the fuel-efficient threshold for the financial year of the sale: $91,661 for 2026-27, and $91,387 for 2024-25 and 2025-26. A plug-in hybrid also needs a commitment made before 1 April 2025 for a period that began before then and includes the benefit, no new commitment since for a period that includes the benefit, such as an optional extension, a break in the novation, changed lease payments or residual value, or a new employer, and an exempt car benefit before that day. When every condition is met, the taxable value and FBT are nil, and the result shows the value before the exemption, which still counts towards the employee’s reportable fringe benefits amount unless the car is a pooled or shared car.
-
-The ATO’s Electric cars exemption page gives 3 examples, each a boundary case below: Shelly’s car, first used on 1 April 2022, is not exempt; John’s, held from 15 June 2022 but first used on 5 July 2022, is exempt; GHI Co’s $85,000 car was above 2022-23’s $84,916 threshold when first sold, so it is not. Its plug-in hybrid page’s Simon, whose lease runs from 1 April 2024 to 31 March 2027, stays exempt; Tony’s break in his novation from 1 May 2025 is a new commitment, so his car is not.
-
-## What the FBT car calculator does not cover
-
-The calculator does not decide whether a vehicle is a car, whether a benefit arises, or whether the work vehicle exemption or a reduction applies. For the electric cars exemption it does not decide the kind of car, its dates, its luxury car tax value or a plug-in hybrid’s commitments, which you state. It takes the fuel-efficient threshold, so it does not cover a car that was not fuel-efficient under the Luxury Car Tax Act when first sold, or a car never sold at retail in Australia, such as one its user imported, and it reads a value above the threshold as luxury car tax payable, so a supply exempt from that tax is not covered either. The changes announced on 5 May 2026 for electric cars from 1 April 2027 were not law when read on 19 November 2026; they are listed under announced, not yet law. It does not work out operating costs: add deemed depreciation, at 25% of the car’s depreciated value for a car acquired on or after 10 May 2006, and deemed interest at the statutory interest rate on the ATO’s FBT rates and thresholds page, both apportioned to the days held. It values one car for one FBT year. It does not work out a leased car value, apply the older statutory percentages kept for commitments made before 10 May 2011, or work out the reportable fringe benefits amount or FBT for other benefits. On 15 November 2026 chapter 7 of the ATO’s guide said it was being reviewed after the Full Federal Court’s decision of 27 March 2026 in SEPL Pty Ltd as trustee of the SFT Trust v Commissioner of Taxation [2026] FCAFC 36, on whether the directors of a discretionary trust’s corporate trustee were employees and whether their cars were provided in respect of employment, a question this calculator leaves to you. Confirm the figures with the ATO’s guide or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: FBT car calculator
-
-Case | Inputs | Result
-The ATO’s statutory formula example 28, to the cent | Statutory formula; cost price $60,000.00, 182 of 365 days, contributions $1,000.00, gross-up 2.0802 | Statutory formula value $4,983.56, taxable value $4,983.56, grossed-up value $10,366.80, FBT $4,872.40
-The ATO’s operating cost example 31, beside a fictional $50,000 cost price | Operating cost $19,580.00 at 75% business use; cost price $50,000.00, 365 of 365 days, contributions $2,000.00, gross-up 2.0802 | Operating cost value $2,895.00, statutory formula value $8,000.00, taxable value $2,895.00
-A lower statutory value replaces the operating cost value | Operating cost $30,000.00 at 0% business use; cost price $20,000.00, 365 of 365 days, contributions $0.00, gross-up 2.0802 | Operating cost value $30,000.00, statutory formula value $4,000.00, taxable value $4,000.00
-The ATO’s example 23: a third off the cost price, none off later accessories | Statutory formula; cost price $39,000.00 plus $4,000.00 accessories, held 4 years, 365 of 365 days, contributions $0.00, gross-up 1.8868 | Base value $30,000.00, statutory formula value $6,000.00, grossed-up value $11,320.80, FBT $5,320.78
-Contributions above the value leave nil | Statutory formula; cost price $10,000.00, 365 of 365 days, contributions $3,000.00, gross-up 2.0802 | Statutory formula value $0.00, taxable value $0.00, FBT $0.00
-More days than the FBT year are refused | Statutory formula; cost price $10,000.00, 366 of 365 days, contributions $0.00, gross-up 2.0802 | Refused: enter a whole number between 0 and 365
-A published worked example: Cleancut’s electric car, $72,000 before GST, first held and used on 1 July 2025, is exempt | Battery electric, current employee, first held and used 2025-07-01, first retail sale 2025-07-01 at $79,200.00; FBT year ending 31 March 2027 | Exempt, sale in 2025-26, threshold $91,387.00
-The ATO’s example: John’s car, held from 15 June 2022 but first used on 5 July 2022, is exempt | Battery electric, current employee, first held and used 2022-07-05, first retail sale 2022-06-15 at $60,000.00; FBT year ending 31 March 2027 | Exempt, sale in 2021-22, threshold $79,659.00
-The ATO’s example: Shelly’s car, first used on 1 April 2022, is not exempt for its later owner | Battery electric, current employee, first held and used 2022-04-01, first retail sale 2022-04-01 at $60,000.00; FBT year ending 31 March 2027 | Not exempt, sale in 2021-22, threshold $79,659.00
-The ATO’s example: GHI Co’s $85,000 car, above 2022-23’s threshold at its first sale, is not exempt | Battery electric, current employee, first held and used 2022-07-01, first retail sale 2022-07-01 at $85,000.00; FBT year ending 31 March 2027 | Not exempt, sale in 2022-23, threshold $84,916.00
-A luxury car tax value at the threshold pays no luxury car tax | Battery electric, current employee, first held and used 2026-07-01, first retail sale 2026-07-01 at $91,661.00; FBT year ending 31 March 2027 | Exempt, sale in 2026-27, threshold $91,661.00
-One cent above the threshold, luxury car tax was payable | Battery electric, current employee, first held and used 2026-07-01, first retail sale 2026-07-01 at $91,661.01; FBT year ending 31 March 2027 | Not exempt, sale in 2026-27, threshold $91,661.00
-The ATO’s example: Simon’s plug-in hybrid, leased from 1 April 2024 to 31 March 2027, stays exempt | Plug-in hybrid, current employee, first held and used 2024-04-01, first retail sale 2024-04-01 at $60,000.00, committed before 1 April 2025, no new commitment, an exempt benefit before 1 April 2025; FBT year ending 31 March 2027 | Exempt, sale in 2023-24, threshold $89,332.00
-The ATO’s example: Tony’s break in the novation from 1 May 2025 is a new commitment, so his plug-in hybrid is not exempt | Plug-in hybrid, current employee, first held and used 2024-09-01, first retail sale 2024-09-01 at $60,000.00, committed before 1 April 2025, a new commitment, an exempt benefit before 1 April 2025; FBT year ending 31 March 2027 | Not exempt, sale in 2024-25, threshold $91,387.00
-A first retail sale after the FBT year comes after every benefit in it, so its luxury car tax does not count | Battery electric, current employee, first held and used 2026-04-01, first retail sale 2027-04-01 at $100,000.00; FBT year ending 31 March 2027 | Exempt, sale in 2026-27, after the FBT year
-
-One of the forty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- guide’s chapter 2: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003
-- ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
-- announced, not yet law: https://duguid.com.au/rates/announced-not-yet-law/
-- ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- forty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
