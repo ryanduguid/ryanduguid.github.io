@@ -109,6 +109,17 @@ calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
 const operatingValue: number = calculate.fbtCar(car, fbtYear).operating;
 void fbt;
 void operatingValue;
+const ev = { vehicle: 'battery', currentEmployee: true, firstUsed: '2026-04-01', firstSale: '2026-04-01', lctValue: '60000',
+  otherSupply: false } as const;
+const evExempt: boolean = calculate.fbtEvExemption(ev, { ended: '2027' }).exempt;
+// @ts-expect-error A current employee is a boolean, as the form passes it.
+calculate.fbtEvExemption({ ...ev, currentEmployee: 'yes' }, { ended: '2027' });
+// @ts-expect-error The vehicle is one of the 3 kinds the exemption can reach.
+calculate.fbtEvExemption({ ...ev, vehicle: 'diesel' }, { ended: '2027' });
+// @ts-expect-error The threshold is whole dollars, a number.
+const evThreshold: string = calculate.fbtEvExemption(ev, { ended: '2027' }).threshold;
+void evExempt;
+void evThreshold;
 const terms = { solve: 'payment', amount: '60000', rate: '7.5', payments: '60', payment: '', balloon: '18000',
   balloonKind: 'amount', frequency: 'monthly', timing: 'advance', start: '2026-07-01' } as const;
 const lastPayment: number = calculate.financeSchedule(terms).finalPayment;

@@ -3,6 +3,7 @@
 
 import { number, cents, ratioCents, ratioMoney, ratioPercent } from './money.mjs';
 export { fbtCarParking, fbtLoan, fbtMealEntertainment } from './fbt-benefits.mjs';
+export { fbtEvExemption } from './fbt-ev-exemption.mjs';
 export { landTaxYear } from './land-tax.mjs';
 export { vehicleClass } from './vehicle-class.mjs';
 export { pcgRisk, pcgAllocation, pcgAllocationResult } from './pcg-2021-4.mjs';
