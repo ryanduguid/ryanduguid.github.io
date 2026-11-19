@@ -678,7 +678,10 @@ git config merge.generated.driver "site-tools merge_driver --generated %O %A %B 
 Merge the default branch with `git merge --no-commit origin/main`, resolve any
 conflict in a page source, then rebuild before committing: `site-tools build_feed
 --write`, `site-tools build_llms_full --write` and `site-tools check_design
---update-baseline`, in that order. A generated file the merge kept from the
+--update-baseline`, in that order. The driver also keeps the current side of
+`tools/depreciation-rates/llms.txt` and the effective life pages' `index.txt`
+mirrors, so when both sides changed those pages, run `site-tools
+build_effective_life_pages --write` first. A generated file the merge kept from the
 current side is stale until then, and the `--check` runs fail on it. GitHub runs
 no merge driver, so a pull request page still reports these conflicts until the
 default branch is merged in locally. Git takes merge attributes from the
