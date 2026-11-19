@@ -8,6 +8,13 @@
   <updated>2026-11-19T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A GST margin scheme calculator. It decides the conditions of section 75-5 of…</title>
+    <link href="https://duguid.com.au/changelog/#entry-c28bd30fa53ef32e" />
+    <id>https://duguid.com.au/changelog/#entry-c28bd30fa53ef32e</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A GST margin scheme calculator. It decides the conditions of section 75-5 of the GST Act it can (what is sold, the written agreement and how the property was acquired), works the margin from the consideration paid or an approved valuation, with a subdivided lot’s share of the cost and a GST-exclusive price, and sets the GST under the margin scheme beside the GST on the whole price. It gives the GST in GSTR 2006/8’s Examples 3, 4, 6 and 14, and refuses sales to associates and the acquisitions section 75-11 covers. Sources were read on 19 November 2026.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>
     <link href="https://duguid.com.au/changelog/#entry-806ecf6f51665308" />
     <id>https://duguid.com.au/changelog/#entry-806ecf6f51665308</id>
