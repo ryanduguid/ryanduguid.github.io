@@ -79,8 +79,10 @@ export function fbtEvExemption(e, year) {
   if (firstUsed > yearEnd) throw new Error(`The car was first held and used after 31 March ${ended}, so it gave no car benefit in the FBT year.`);
   if (firstSale > yearEnd) throw new Error(`This calculator takes a car first sold at retail by 31 March ${ended}, the end of the FBT year.`);
   const saleYear = financialYear(firstSale);
+  if (!Object.hasOwn(FUEL_EFFICIENT_THRESHOLDS, saleYear)) {
+    throw new Error('This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
+  }
   const threshold = FUEL_EFFICIENT_THRESHOLDS[saleYear];
-  if (threshold === undefined) throw new Error('This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
   // Item 5(2)(d): a car first held and used from 1 April 2025 gave no car benefit before that day.
   if (facts[2] && firstUsed >= '2025-04-01') {
     throw new Error('A car first held and used from 1 April 2025 cannot have given an exempt car benefit before that day.');
