@@ -5552,6 +5552,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 
 Date | Change
 19 November 2026 | The take-home pay calculator now works the PAYG withheld from each weekly, fortnightly or monthly pay for every year from 2021-22, not only 2026-27, under the withholding schedules the Commissioner made for each year, read on 19 November 2026 from the Federal Register of Legislation. It matches all 288 scale 2 and 3 amounts in each instrument’s sample data. For 2021-22 the refund includes the low and middle income tax offset, which withholding does not allow for. For 2025-26 with a study loan it shows the component under the Schedule 8 for pays before 24 September 2025 beside the one from that date.
+19 November 2026 | A new individual tax calculator works out the 6 income measures that the income tests section of a tax return feeds, for a person resident all year in 2024-25 to 2026-27: income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution total income. Each definition was read on 19 November 2026 in the Income Tax Assessment Acts 1936 and 1997, the Higher Education Support Act 2003, the Family Assistance Act and the co-contribution Act, and the page opens on the ATO’s worked example of Christina’s $73,810 of repayment income. It works the measures, not the offsets, surcharge or repayments they decide.
 19 November 2026 | A new sole trader tax set-aside calculator, for 2021-22 to 2026-27, works out the income tax, Medicare levy, any surcharge and study loan repayment that business profit adds to any wages, after the small business income tax offset worked as section 328-360 sets it, as the profit’s share of the tax and not a flat 16%, adds the GST less GST credits when the business is registered, and gives one share to keep from every invoice and the amount each quarter, month and week. It refuses a business loss.
 19 November 2026 | The tool pages, changelog and release record name the releases of 18 and 19 November: Ozzit v3.7.0, which adds PAYG withholding, and aus-accounting-mcp/v0.10.0, whose tax worksheets need a separately installed calculators executable. The Ozzit page still documents v3.6.0 and its worked examples, and the MCP guide’s Adopt section still describes v0.9.0.
 18 November 2026 | The loan calculator now sets out every payment, weekly, fortnightly, monthly, quarterly or yearly, in arrears or in advance, with a balloon as an amount or a percentage, and works out whichever of the payment, the amount financed, the number of payments or the rate is missing; the schedule downloads as CSV. Each period’s interest is rounded to the cent and the last payment takes what rounding leaves, so the schedule closes on the balloon exactly. A new hire purchase and chattel mortgage calculator gives the same schedule with the interest by income year and a journal for each payment, citing Division 240 of the Income Tax Assessment Act 1997 and the ATO’s GST guidance, read on 18 November 2026. It does not account for leases under AASB 16.
@@ -11657,7 +11658,7 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Four calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Five calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
 Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay and a sole trader’s set-aside from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11669,6 +11670,7 @@ Published 17 November 2026. Last checked 19 November 2026, the newest of the cal
 - Take-home pay calculator What is left of a salary each year, month, fortnight and week after salary sacrifice to super, tax, levies and any study loan repayment, with the employer’s super guarantee and the PAYG withheld from each pay under that year’s schedules.
 - Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
 - Sole trader tax set-aside calculator How much of each invoice and each quarter a sole trader keeps for income tax, the Medicare levy, any study loan repayment and GST, after the small business income tax offset, on top of any wages.
+- Income tests calculator Income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution income, from the amounts in one tax return.
 
 For a business, see the business calculators.
 
@@ -11680,6 +11682,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
 - Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
+- Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -12047,6 +12050,80 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
+- four individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Income tests calculator: rebate, repayment and surcharge income
+
+Source: https://duguid.com.au/tools/individual-tax/income-tests/
+
+> The 6 income measures behind the surcharge, offsets, study loans and the co-contribution, from one resident's tax return for 2024-25 to 2026-27, each cited.
+
+# Income tests calculator
+
+The 6 income measures one resident's tax return feeds, for 2024-25 to 2026-27.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Income test amounts for one income year
+
+Was the person an Australian resident for the whole income year? Yes No Taxable income, including any assessable FHSS released amount (whole dollars) Assessable income, before deductions (whole dollars) Assessable first home super saver (FHSS) released amount (whole dollars) Amounts on which family trust distribution tax was paid (whole dollars) Reportable fringe benefits from employers exempt under section 57A, IT1 label N (whole dollars) Reportable fringe benefits from other employers, IT1 label W (whole dollars) Reportable employer super contributions, IT2 (whole dollars) Personal super contributions you deduct, D12 (whole dollars) Excess concessional contributions for the year (whole dollars) Net financial investment loss, IT5 (whole dollars) Net rental property loss, IT6 (whole dollars) Tax-free government pensions or benefits, IT3 (whole dollars) Target foreign income, including exempt foreign employment income, IT4 (whole dollars) Exempt foreign employment income, less the costs of earning it (whole dollars) Child support you paid, IT7 (whole dollars) Deductions from carrying on a business (whole dollars)
+
+Enter 0 for any amount you do not have. The labels are those of the income tests section of the individual tax return.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: resident all year, taxable income $50,420.00, reportable fringe benefits from other employers $4,560.00, reportable employer super contributions $15,000.00, net financial investment loss $1,250.00, target foreign income $2,580.00, exempt foreign employment income $2,580.00, assessable income $50,420.00. Taxable income without the FHSS amount $50,420.00 Reportable fringe benefits total $4,560.00 Adjusted fringe benefits total $4,560.00 Total net investment loss $1,250.00 Reportable super contributions $15,000.00 Income for surcharge purposes $71,230.00 Division 293 income $56,230.00 Rebate income $71,230.00 Repayment income $73,810.00 Adjusted taxable income $73,810.00 Co-contribution total income $69,980.00 Income for surcharge purposes leaves out exempt foreign employment income, as section 995-1 defines it; the ATO’s surcharge page adds it where taxable income is $1 or more.
+
+## How the income tests calculator works
+
+The income tests calculator adds up the 6 income measures that the income tests section of an individual tax return feeds, from the same amounts. Each measure starts from taxable income without any assessable first home super saver released amount, then adds the parts its own definition names.
+
+- Income for surcharge purposes, for the Medicare levy surcharge and the private health insurance rebate, adds family trust distribution amounts, fringe benefits, reportable super contributions and investment losses.
+- Division 293 income, for the extra 15% tax when it and low tax contributions together exceed $250,000, is the same less reportable super contributions.
+- Rebate income, for the seniors and pensioners tax offset, adds super contributions, investment losses and the adjusted fringe benefits total.
+- Repayment income, for study and training loans, adds investment losses, fringe benefits, exempt foreign employment income and super contributions.
+- Adjusted taxable income, for the dependant (invalid and invalid carer) tax offset, adds adjusted fringe benefits, target foreign income, investment losses, tax-free pensions and super contributions, less child support paid.
+- Co-contribution total income starts from assessable income instead, adds fringe benefits and employer contributions and takes off business deductions.
+
+The ATO’s page When you must repay your loan, last updated 13 October 2026 and read 19 November 2026, works Christina’s repayment income: taxable income of $50,420, a $1,250 net investment loss, $4,560 of reportable fringe benefits, $2,580 of exempt foreign employment income and $15,000 of reportable super contributions give $73,810. The calculator opens on her figures, with her loss taken as a financial investment loss, the benefits from an employer that pays FBT, the contributions from her employer, her target foreign income as the exempt income alone and assessable income equal to taxable income; those splits are fictional. Tom’s income for surcharge purposes of $117,000, from the ATO’s surcharge page, is among the boundary cases.
+
+## What the income tests calculator does not cover
+
+The calculator works the measures only. It does not decide whether an offset, the surcharge, a study loan repayment, Division 293 tax or a co-contribution applies, or work out their amounts; the income tax calculator works the surcharge and a study loan repayment. It covers a person resident in Australia for the whole of 2024-25, 2025-26 or 2026-27: a foreign resident pays no Medicare levy or surcharge and repays a study loan on worldwide income, and a part-year resident’s measures were not checked.
+
+It does not add a spouse’s income, work out family tax benefit or child care subsidy income, which also count a partner’s, or the Commonwealth Seniors Health Card income test, which Services Australia applies. It takes each amount as you enter it: it does not decide what is a reportable fringe benefit, target foreign income or a tax-free pension, or work out excess concessional contributions. Confirm the figures with the ATO’s income tests calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Income tests calculator
+
+Case | Inputs | Result
+ATO example: Christina’s repayment income of $73,810 | Resident all year, taxable $50,420, other fringe $4,560, employer super $15,000, financial loss $1,250, target foreign $2,580, exempt foreign $2,580, assessable $50,420 | Surcharge $71,230, Division 293 $56,230, rebate $71,230, repayment $73,810, adjusted taxable $73,810, co-contribution $69,980
+ATO example: Christina’s 2026-27 repayment income of $86,380 | Resident all year, taxable $60,470, other fringe $5,400, employer super $16,500, financial loss $1,330, target foreign $2,680, exempt foreign $2,680, assessable $60,470 | Surcharge $83,700, Division 293 $67,200, rebate $83,700, repayment $86,380, adjusted taxable $86,380, co-contribution $82,370
+ATO example: Tom’s income for surcharge purposes of $117,000 | Resident all year, taxable $90,000, other fringe $27,000, assessable $90,000 | Surcharge $117,000, Division 293 $117,000, rebate $117,000, repayment $117,000, adjusted taxable $117,000, co-contribution $117,000
+Division 293 income leaves out the $20,000 of contributions: $240,000 | Resident all year, taxable $200,000, other fringe $25,000, employer super $20,000, financial loss $15,000, assessable $230,000 | Surcharge $260,000, Division 293 $240,000, rebate $260,000, repayment $260,000, adjusted taxable $260,000, co-contribution $275,000
+A section 57A employer’s $4,567 counts as $2,420, rounded down, where adjusted | Resident all year, taxable $40,000, section 57A fringe $4,567, other fringe $1,000, assessable $40,000 | Surcharge $45,567, Division 293 $45,567, rebate $43,420, repayment $45,567, adjusted taxable $43,420, co-contribution $45,567
+Excess concessional contributions reduce the contributions, but not below nil | Resident all year, taxable $60,000, employer super $10,000, personal super $5,000, excess concessional $20,000, assessable $63,000 | Surcharge $60,000, Division 293 $60,000, rebate $60,000, repayment $60,000, adjusted taxable $60,000, co-contribution $63,000
+An FHSS released amount larger than taxable income leaves no taxable income | Resident all year, taxable $30,000, FHSS $40,000, assessable $50,000 | Surcharge $0, Division 293 $0, rebate $0, repayment $0, adjusted taxable $0, co-contribution $10,000
+Family trust distribution amounts count for the surcharge only | Resident all year, taxable $100,000, family trust $20,000, assessable $100,000 | Surcharge $120,000, Division 293 $120,000, rebate $100,000, repayment $100,000, adjusted taxable $100,000, co-contribution $100,000
+Child support paid can take adjusted taxable income below nil | Resident all year, taxable $0, child support $1,000 | Surcharge $0, Division 293 $0, rebate $0, repayment $0, adjusted taxable -$1,000, co-contribution $0
+Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
+Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
+
+One of the four individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
+- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - four individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---

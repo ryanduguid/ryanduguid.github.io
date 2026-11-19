@@ -51,7 +51,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Individual tax calculators</li></ol></nav>
         <h1>Individual tax calculators</h1>
-        <p class="lead-note">Four calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
+        <p class="lead-note">Five calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
         <p class="field-note">Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay and a sole trader’s set-aside from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.</p>
         {% assign checked = "" %}{% for calculator in site.data.individual_tax_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 17 November 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
@@ -63,6 +63,7 @@
           <li id="take-home-pay"><a class="collection-entry__title" href="/tools/individual-tax/take-home-pay/">Take-home pay calculator</a> What is left of a salary each year, month, fortnight and week after salary sacrifice to super, tax, levies and any study loan repayment, with the employer’s super guarantee and the PAYG withheld from each pay under that year’s schedules.</li>
           <li id="study-loan"><a class="collection-entry__title" href="/tools/individual-tax/study-loan/">Study and training loan calculator</a> The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.</li>
           <li id="sole-trader"><a class="collection-entry__title" href="/tools/individual-tax/sole-trader/">Sole trader tax set-aside calculator</a> How much of each invoice and each quarter a sole trader keeps for income tax, the Medicare levy, any study loan repayment and GST, after the small business income tax offset, on top of any wages.</li>
+          <li id="income-tests"><a class="collection-entry__title" href="/tools/individual-tax/income-tests/">Income tests calculator</a> Income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution income, from the amounts in one tax return.</li>
         </ul>
         <p>For a business, see the <a href="/tools/business-calculators/">business calculators</a>.</p>
       <p class="byline">

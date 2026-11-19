@@ -6,7 +6,7 @@ import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
 const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
-  'sole-trader': '$5,939.00' };
+  'sole-trader': '$5,939.00', 'income-tests': '$73,810.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -56,6 +56,22 @@ test('a foreign resident pays no Medicare levy or surcharge and gets no offset',
   await expect(row('Amount owing estimate')).toHaveText('$9,000.00');
   await expect(form.locator('output .result-note')).toHaveText(
     'A foreign resident gets no low income tax offset and pays no Medicare levy or surcharge.');
+});
+
+test('income tests count section 57A benefits at 53% and refuse a person not resident all year offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tests/');
+  const form = page.locator('#income-tests form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel(/^Reportable fringe benefits from employers exempt under section 57A/).fill('4567');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Adjusted fringe benefits total')).toHaveText('$6,980.00');
+  await expect(row('Rebate income')).toHaveText('$73,650.00');
+  await form.locator('[name="resident"][value="no"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(
+    'This calculator works the measures only for a person resident in Australia for the whole year.');
 });
 
 test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenly', async ({ page }) => {
@@ -115,6 +131,8 @@ for (const [id, name, input, expected] of [
     { takeHomeYear: '60212.00' }],
   ['sole-trader', 'calculate_sole_trader_set_aside', { incomeYear: '2026-27', businessIncome: '22000', businessExpenses: '2000',
     wages: '60000', invoice: '1000' }, { setAsideYear: '5939.00' }],
+  ['income-tests', 'calculate_income_tests', { taxableIncome: 90000, reportableFringeBenefitsOther: 27000, assessableIncome: 90000 },
+    { incomeForSurchargePurposes: '117000.00' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {
