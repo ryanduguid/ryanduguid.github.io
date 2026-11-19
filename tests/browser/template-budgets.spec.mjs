@@ -22,14 +22,17 @@ const topics = paths.filter((path) => /^\/tools\/accounting-questions\/[a-z-]+\/
 test('calculator and question pages open on their working control', async ({ page }) => {
   expect(calculators.map((path) => path.split('/').at(-2)).sort()).toEqual(calculatorIncludes);
   expect(topics).toHaveLength(10);
+  // Every page is measured before the assertion, so one failure does not hide the rest.
+  const overBudget = [];
   for (const path of [...calculators, ...topics]) {
     await page.goto(path);
     const selector = calculators.includes(path) ? 'form[data-calculator] input' : 'details.question summary';
     const box = await page.locator(selector).first().boundingBox();
-    expect(box, path).not.toBeNull();
     // The whole control, not only its first 44 pixels, ends inside the first screen.
-    expect(box.y + box.height, path).toBeLessThanOrEqual(firstScreen(page));
+    if (!box) overBudget.push(`${path}: no control`);
+    else if (box.y + box.height > firstScreen(page)) overBudget.push(`${path}: ends at ${box.y + box.height}px`);
   }
+  expect(overBudget).toEqual([]);
 });
 
 test('the header scrolls away on phones and stays one sticky line on wide screens', async ({ page }, testInfo) => {
@@ -52,6 +55,7 @@ test('the header scrolls away on phones and stays one sticky line on wide screen
 
 test('reading paragraphs stay within about 75 characters a line', async ({ page }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'desktop', 'line length is a wide-screen measure');
+  const overWidth = [];
   for (const path of paths) {
     await page.goto(path);
     await page.evaluate(() => document.fonts.ready);
@@ -67,6 +71,7 @@ test('reading paragraphs stay within about 75 characters a line', async ({ page 
         })
         .filter(({ characters }) => characters > 78);
     });
-    expect(long, path).toEqual([]);
+    overWidth.push(...long.map((line) => ({ path, ...line })));
   }
+  expect(overWidth).toEqual([]);
 });
