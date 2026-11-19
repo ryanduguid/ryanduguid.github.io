@@ -6501,12 +6501,12 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             let premium = cents_at(wages, c.rate) - cents_at(c.apprentice, c.rate);
             // Duties Act 2001 (Qld) s 362(3): 5% of the premium, its GST included.
             let duty = wc_half((premium + gst(premium)) * 5, 100);
-            Some([
-                premium,
-                gst(premium),
-                duty,
-                (premium + gst(premium) + duty).max(minimum),
-            ])
+            if premium + gst(premium) + duty >= minimum {
+                return Some([premium, gst(premium), duty, premium + gst(premium) + duty]);
+            }
+            // Below it, the premium within the minimum is the minimum ÷ 1.155.
+            let within = wc_half(minimum * 1000, 1155);
+            Some([within, gst(within), minimum - within - gst(within), minimum])
         }
         "AU-SA" => {
             // ReturnToWorkSA: BP × (1 − D) + C − A, D by the base premium's band in dollars,

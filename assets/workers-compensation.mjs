@@ -143,7 +143,7 @@ function victoria(wages, rate, x) {
   // × N ÷ 365, rounded to the nearest cent (clause 6(4)).
   const preliminary = remuneration * rate;
   const deductible = half(rate * VIC_DEDUCTIBLE_DOLLARS * days, 365n * 10000n);
-  const worked = preliminary > deductible * 10000n ? (preliminary - deductible * 10000n) / 10000n : 0n;
+  const worked = (preliminary - deductible * 10000n) / 10000n; // below $400 whenever negative
   const minimum = worked < VIC_MINIMUM;
   const workcover = minimum ? VIC_MINIMUM : worked;
   const buyout = x.buyout === 'yes' ? workcover / 10n : 0n;
@@ -176,13 +176,17 @@ function queensland(wages, rate, apprentice, x) {
   /** @type {WcLine[]} */
   const lines = [[`Estimated premium: wages ÷ $100 × industry rate of $${Number(rate) / 10000} (sections 5.2 and 10.1)`, estimated]];
   if (discount) lines.push(['Less apprentice discount: apprentice wages ÷ $100 × the rate (section 8.3)', -discount]);
-  lines.push(['GST at 10%', gst], ['Insurance duty at 5% of the premium and GST (Duties Act 2001 (Qld) s 362(3))', duty]);
-  const total = premium + gst + duty;
-  if (total < QLD_MINIMUM[start]) {
-    lines.push([`Minimum premium for a policy commencing then, including GST and duty (section 4.1)`, QLD_MINIMUM[start]]);
-    return { lines, premium, gst, duty, total: QLD_MINIMUM[start], notes: [] };
+  const minimum = QLD_MINIMUM[start];
+  if (premium + gst + duty >= minimum) {
+    lines.push(['GST at 10%', gst], ['Insurance duty at 5% of the premium and GST (Duties Act 2001 (Qld) s 362(3))', duty]);
+    return { lines, premium, gst, duty, total: premium + gst + duty, notes: [] };
   }
-  return { lines, premium, gst, duty, total, notes: [] };
+  // Section 4.1's minimum includes GST and duty: the premium within it is the minimum ÷ 1.1 ÷ 1.05.
+  const within = half(minimum * 1000n, 1155n);
+  const withinGst = gstOn(within);
+  lines.push([`Premium within the minimum of ${dollarsText(minimum)} for a policy commencing then, including GST and duty (section 4.1)`, within],
+    ['GST at 10%', withinGst], ['Insurance duty at 5% of the premium and GST (Duties Act 2001 (Qld) s 362(3))', minimum - within - withinGst]);
+  return { lines, premium: within, gst: withinGst, duty: minimum - within - withinGst, total: minimum, notes: [] };
 }
 
 /** South Australia: BP × (1 - D) + C - A, with SUR nil, as ReturnToWorkSA's 2026-27 calculator

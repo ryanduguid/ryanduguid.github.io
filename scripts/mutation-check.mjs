@@ -524,7 +524,7 @@ const MUTATIONS = [
   { ...wc, name: 'WC the Victorian minimum premium is $300', find: 'VIC_MINIMUM = 40000n', replace: 'VIC_MINIMUM = 30000n' },
   { ...wc, name: 'WC the excess buy-out is 0.2', find: 'workcover / 10n', replace: 'workcover / 5n' },
   { ...wc, name: 'WC Queensland duty leaves out the GST', find: '(premium + gst) * QLD_DUTY_PERCENT', replace: 'premium * QLD_DUTY_PERCENT' },
-  { ...wc, name: 'WC the Queensland minimum compares the premium alone', find: 'if (total < QLD_MINIMUM[start]) {', replace: 'if (premium < QLD_MINIMUM[start]) {' },
+  { ...wc, name: 'WC the Queensland minimum compares the premium alone', find: 'if (premium + gst + duty >= minimum) {', replace: 'if (premium >= minimum) {' },
   { ...wc, name: 'WC SA claims costs are capped at 2 × the discount', find: 'const cap = 3n * discount;', replace: 'const cap = 2n * discount;' },
   { ...wc, name: 'WC an SA band bound takes the lower discount', find: 'base < below * unit', replace: 'base <= below * unit' },
   { ...wc, name: 'WC the SA premium rounds half up', find: '(minimum ? SA_MINIMUM_DOLLARS * 100n * unit : sum) / (100n * unit) * 100n', replace: 'half(minimum ? SA_MINIMUM_DOLLARS * 100n * unit : sum, 100n * unit) * 100n' },

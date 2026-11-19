@@ -105,9 +105,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Premium inputs for a 2026-27 policy
 
-State or territory of the scheme New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory Estimated wages for the policy period (AUD) Industry or premium rate from your insurer (% of wages, or $ per $100 of wages) Apprentice wages included above, for the New South Wales, Queensland and South Australian apprentice discounts (AUD) Actual wages for the policy period, to work out the adjustment (AUD; leave blank before the period ends) Member of a group of employers for premium purposes No Yes
+State or territory of the scheme New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory Estimated wages for the policy period (AUD) Industry or premium rate from your insurer (% of wages, or $ per $100 of wages) Apprentice wages included above that qualify for the New South Wales, Queensland or South Australian apprentice discount (AUD) Actual wages for the policy period, to work out the adjustment (AUD; leave blank before the period ends) Member of a group of employers for premium purposes No Yes
 
 Each scheme defines wages in its own document, linked under Sources applied, which differs from payroll tax wages. Enter only the wages of workers this scheme covers.
+
+Each scheme sets its own conditions: in New South Wales, apprentices under a NSW Training Services contract; in Queensland, only where the employer has reasonably complied with sections 48 and 50 of the Act and section 8 of the Regulation (notice section 8.1). Enter 0 if they are not met.
 
 This page holds no rate table: use the rate your insurer gives your industry classification, or the scheme’s rates linked under Sources applied.
 
@@ -124,7 +126,7 @@ Every state and territory scheme bills a premium on the wages an employer estima
 The calculator gives an estimate for one employer and one policy, and no advice. It does not cover:
 
 - the industry classification or the rate, which are the insurer’s, and the wages, which each scheme’s definition decides, including whether a contractor or director counts as a worker;
-- experience-rated and performance-rated premiums: New South Wales above $30,000 of basic tariff premium and the Loss Prevention and Recovery products, Victorian employers that are neither new nor small, Queensland policies in force before 1 July 2026 or carried on from an earlier policy (reinstated within 6 months, or a business taken over: sections 11 and 12 of the notice), and a South Australian supplementary underwriting rate;
+- experience-rated and performance-rated premiums: New South Wales above $30,000 of basic tariff premium and the Loss Prevention and Recovery products, Victorian employers that are neither new nor small, Queensland policies in force before 1 July 2026 or carried on from an earlier policy (reinstated within 6 months, or a business taken over: sections 11 and 12 of the notice) and Queensland default assessments, which have a $500 minimum (section 4.2), and a South Australian supplementary underwriting rate;
 - members of a group in New South Wales, Victoria, Queensland and South Australia, policies for less than 12 months in New South Wales, the Mine Safety Fund adjustment for mining WICs, the catastrophic claims contribution and the performance discount;
 - Comcare and self-insured employers, household workers, the South Australian work health and safety fee, discounts for paying early and instalment interest;
 - whether an employer is exempt from holding a policy, which the result flags where a scheme’s limit was read, and any policy year other than 2026-27.
@@ -156,8 +158,8 @@ Victoria, a premium below $400: the minimum premium | Victoria, wages $20,000.00
 Victoria, neither new nor small: refused | Victoria, wages $500,000.00 at 2%, other employer, 365 days | Refused: an employer that is neither new nor small (annualised 2025-26 remuneration over $200,000) has a performance-rated premium (Premiums Order clause 12): use WorkSafe’s premium notice
 Queensland, a policy commencing in 2026-27 at the $1.343 average: GST, then 5% duty on both | Queensland, wages $500,000.00 at 1.343%, policy from q1 | premium before GST $6,715.00, GST $671.50, duty $369.33, payable $7,755.83
 Queensland, apprentice wages of $40,000 excluded | Queensland, wages $500,000.00 at 1.343%, apprentice wages $40,000.00, policy from q1 | premium before GST $6,177.80, GST $617.78, duty $339.78, payable $7,135.36
-Queensland, $5,000 of wages: the $200 minimum including GST and duty | Queensland, wages $5,000.00 at 1.343%, policy from q1 | premium before GST $67.15, GST $6.72, duty $3.69, payable $200.00
-Queensland, $1,000 of wages from April 2027: the $50 minimum | Queensland, wages $1,000.00 at 1.343%, policy from q4 | premium before GST $13.43, GST $1.34, duty $0.74, payable $50.00
+Queensland, $5,000 of wages: the $200 minimum including GST and duty | Queensland, wages $5,000.00 at 1.343%, policy from q1 | premium before GST $173.16, GST $17.32, duty $9.52, payable $200.00
+Queensland, $1,000 of wages from April 2027: the $50 minimum | Queensland, wages $1,000.00 at 1.343%, policy from q4 | premium before GST $43.29, GST $4.33, duty $2.38, payable $50.00
 Queensland, a policy in force before 1 July 2026: refused | Queensland, wages $500,000.00 at 1.343%, policy from existing | Refused: a policy that commenced before 1 July 2026 has a premium rate from WorkCover Queensland’s simplified or experience-based model and an adjustment for 2025-26 (Notice (No. 1) of 2026, parts 5 and 6): use the premium notice
 Western Australia: the insurer’s rate × wages, plus GST | Western Australia, wages $250,000.00 at 1.931% | premium before GST $4,827.50, GST $482.75, payable $5,310.25
 A member of a group in New South Wales: refused | New South Wales, wages $500,000.00 at 2%, dust diseases 0%, reward 0%, a member of a group | Refused: a member of a group is classed and rated on the group’s wages or premiums together: use the insurer’s notice
