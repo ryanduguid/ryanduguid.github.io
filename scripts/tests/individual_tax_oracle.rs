@@ -646,16 +646,33 @@ fn sole_oracle(s: &Sole) -> Value {
     let taxable = (profit + s.wages - deduction - s.deductions) / 100;
     let business = if s.offset { profit / 100 } else { 0 };
     let all = sole_year(s, taxable, business);
-    let alone = sole_year(s, (s.wages - deduction).saturating_sub(s.deductions) / 100, 0);
+    let alone = sole_year(
+        s,
+        (s.wages - deduction).saturating_sub(s.deductions) / 100,
+        0,
+    );
     let business_tax = i64::try_from(all[7]).unwrap() - i64::try_from(alone[7]).unwrap();
-    assert!(business_tax >= 0, "the business never lowers the year's tax");
+    assert!(
+        business_tax >= 0,
+        "the business never lowers the year's tax"
+    );
     let business_tax = business_tax as u64;
     let gst_on = if s.gst { half_up(s.income, 10) } else { 0 };
     let gst = gst_on - s.credits;
     let set_aside = business_tax + gst;
     let invoiced = s.income + gst_on;
-    let share = |part: u64, whole: u64| if whole == 0 { 0 } else { half_up(part * 10_000, whole) };
-    let from_invoice = if invoiced == 0 { 0 } else { half_up(s.invoice * set_aside, invoiced) };
+    let share = |part: u64, whole: u64| {
+        if whole == 0 {
+            0
+        } else {
+            half_up(part * 10_000, whole)
+        }
+    };
+    let from_invoice = if invoiced == 0 {
+        0
+    } else {
+        half_up(s.invoice * set_aside, invoiced)
+    };
     json!({"profit": profit, "deduction": deduction, "taxable": taxable * 100, "tax": all[0], "offset": all[1],
         "lmito": all[2], "smallBusinessOffset": all[3], "medicare": all[4], "surcharge": all[5], "studyLoan": all[6],
         "total": all[7], "wagesTax": alone[7], "businessTax": business_tax, "gstOnIncome": gst_on, "credits": s.credits,

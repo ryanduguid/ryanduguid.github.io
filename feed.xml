@@ -8,6 +8,13 @@
   <updated>2026-11-19T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new sole trader tax set-aside calculator, for 2021-22 to 2026-27, works out…</title>
+    <link href="https://duguid.com.au/changelog/#entry-eac714b3c6329bf5" />
+    <id>https://duguid.com.au/changelog/#entry-eac714b3c6329bf5</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A new sole trader tax set-aside calculator, for 2021-22 to 2026-27, works out the income tax, Medicare levy, any surcharge and study loan repayment that business profit adds to any wages, after the small business income tax offset worked as section 328-360 sets it, as the profit’s share of the tax and not a flat 16%, adds the GST less GST credits when the business is registered, and gives one share to keep from every invoice and the amount each quarter, month and week. It refuses a business loss.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>
     <link href="https://duguid.com.au/changelog/#entry-806ecf6f51665308" />
     <id>https://duguid.com.au/changelog/#entry-806ecf6f51665308</id>

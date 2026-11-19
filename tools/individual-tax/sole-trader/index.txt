@@ -1,0 +1,83 @@
+# Sole trader tax set-aside calculator for 2026-27: tax and GST
+
+Source: https://duguid.com.au/tools/individual-tax/sole-trader/
+
+> Tax to set aside from sole trader income on top of a job: income tax, the small business income tax offset, Medicare levy, HELP and GST, per invoice and period.
+
+# Sole trader tax set-aside calculator
+
+How much of each invoice a sole trader keeps for tax, Medicare levy, study loan and GST, 2021-22 to 2026-27, after the small business income tax offset.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Sole trader inputs for one full income year
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Business income for the year, excluding GST (dollars and cents) Business expenses you can deduct, excluding GST (dollars and cents) Salary and wages from a job for the year, before tax (dollars and cents) Tax agent fees, gifts and personal super contributions you claim (dollars and cents) Does the business qualify for the small business income tax offset? Yes: aggregated turnover under $5 million, and not personal services income outside a personal services business No
+
+Do you have a study or training loan, such as HELP? No Yes
+
+Did you have private patient hospital cover all year? Yes No
+
+Is the business registered for GST? No Yes
+
+GST credits on business purchases for the year, if registered (dollars and cents) One invoice as you charge it, GST included if registered (dollars and cents)
+
+For an Australian resident aged 18 or over, single with no dependants, all year. Business income and expenses are the year’s estimate; every sale is taken as a taxable supply.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, business income $22,000.00 and expenses $2,000.00 excluding GST, wages $60,000.00, other deductions $0.00, qualifies for the small business income tax offset, no study or training loan, with private hospital cover, not registered for GST, invoice $1,000.00. Business profit $20,000.00 Standard deduction on the wages $1,000.00 Taxable income $79,000 Tax on taxable income $14,220.00 Low income tax offset $0.00 Small business income tax offset $576.00 Medicare levy $1,580.00 Total tax, levies and repayment $15,224.00 Less the same on the wages alone $9,285.00 Tax to set aside for the business $5,939.00 Total to set aside for the year $5,939.00 Each quarter $1,484.75 Each month $494.92 Each week $114.21 Share of each invoice to set aside 27.00% From an invoice of $1,000.00, set aside $269.95 The tax is 27.00% of the business income excluding GST, which as a PAYG instalment rate would cover this year’s tax on it. A return like this meets 2 of the 3 tests for automatic entry to PAYG instalments, business income of $4,000 or more and tax of $1,000 or more; the third, notional tax of $500 or more, the ATO works out. This assumes the tax withheld from the wages covers the tax on the wages alone.
+
+## How the sole trader tax set-aside calculator works
+
+The calculator takes a year’s business income and expenses, any wages from a job and any tax agent fees, gifts or personal super contributions you claim, and works out the year’s income tax, the offsets, the Medicare levy, any Medicare levy surcharge and any study or training loan repayment. It then works the same on the wages alone. The difference is the tax the business adds, which nobody withholds, so it is the amount to set aside from business income.
+
+The small business income tax offset is worked as section 328-360 sets it: 16% of the share of the tax on taxable income that the business profit makes up. On arrival the example shows it below its $1,000 cap: $20,000 of profit is 20/79 of $79,000 of taxable income, so the offset is 16% of 20/79 of $14,220, which is $576.00. The business also costs the low income tax offset the wages alone would have had, $115.00, which the difference picks up.
+
+A business registered for GST also sets aside the GST on its income less its GST credits, paid with each activity statement. The calculator gives one share to keep from every invoice, covering both, and the year’s amount split by quarter, month and week. It also gives the tax as a share of the business income excluding GST, which as a PAYG instalment rate would cover this year’s tax on it.
+
+## What the sole trader tax set-aside calculator does not compute
+
+The calculator is for an Australian resident aged 18 or over with one business as a sole trader, a full year of income and no dependants. It does not compute:
+
+- a business loss, which the non-commercial loss rules in Division 35 may defer, or losses carried forward;
+- personal services income rules, which can deny deductions: see the PSI rules checker;
+- GST-free or input-taxed sales, GST on a cash or accruals basis by period, or a GST refund when credits exceed the GST on income;
+- other income such as interest, dividends, rent or capital gains, or partnership and trust distributions, which change both the tax and the offset’s share;
+- work-related deductions against the wages, which reduce the standard deduction from 2026-27, or a job withheld from at the wrong rate;
+- super guarantee, which a sole trader does not pay for themselves, or personal super contributions beyond entering them as a deduction;
+- a family’s Medicare levy, levy reduction or surcharge, or the seniors and pensioners tax offset;
+- notional tax or the instalment rate the ATO sets, or when each instalment and activity statement is due;
+- a study loan debt smaller than the repayment, which section 154-20(1)(c) of the Higher Education Support Act 2003 caps at what is still owed;
+- 2027-28, whose working Australians tax offset (Subdivision 61-E, added by Act No. 49 of 2026) applies from that year.
+
+Confirm the figures with the ATO’s calculators and tools or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Sole trader tax set-aside calculator
+
+Case | Inputs | Result
+$20,000 of profit on top of $60,000 of wages in 2026-27: the offset is 20/79 of 16% of the tax | 2026-27, business $22,000 less $2,000, wages $60,000, invoice $1,000.00 | Offset $576.00, business tax $5,939.00; set aside $5,939.00 a year, $1,484.75 a quarter, 27.00% of each invoice
+No job, registered for GST: the offset reaches its $1,000 cap | 2026-27, business $90,000 less $15,000, GST registered, credits $1,200, invoice $1,100.00 | Offset $1,000.00, business tax $13,520.00, GST $7,800.00; set aside $21,320.00 a year, $5,330.00 a quarter, 21.54% of each invoice
+No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare levy | 2026-27, business $20,000 less $0, wages $70,000, no offset, invoice $1,000.00 | Offset $0.00, business tax $6,400.00; set aside $6,400.00 a year, $1,600.00 a quarter, 32.00% of each invoice
+2024-25, $29,000 of profit on $131,584 of wages: 16% of $7,359.76 is above the cap | 2024-25, business $29,000 less $0, wages $131,584, invoice $1,000.00 | Offset $1,000.00, business tax $10,070.88; set aside $10,070.88 a year, $2,517.72 a quarter, 34.73% of each invoice
+2025-26 with a study loan and no hospital cover: the repayment and surcharge join the set-aside | 2025-26, business $130,000 less $10,000, study loan, no hospital cover, invoice $1,000.00 | Offset $1,000.00, business tax $37,638.00; set aside $37,638.00 a year, $9,409.50 a quarter, 28.95% of each invoice
+2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
+2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
+
+One of the four individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- calculators and tools: https://www.ato.gov.au/calculators-and-tools
+- four individual tax calculators: https://duguid.com.au/tools/individual-tax/
