@@ -667,6 +667,55 @@ test('FBT car works the operating cost method at the Type 2 gross-up offline', a
   await expect(form.locator('.field-error')).toHaveText('Enter 100 or less.');
 });
 
+test('FBT property values goods bought for the business and takes the in-house reduction offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-property/');
+  const form = page.locator('#fbt-property form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('In-house goods you buy for the business').check();
+  await form.getByLabel('Price rules only').fill('500');
+  await form.getByLabel('Notional value: what the employee').fill('750');
+  await form.getByLabel('Employee contribution paid for the property (AUD)').fill('400');
+  await form.getByLabel('In-house rules other than salary packaging').fill('1000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: in-house bought for the business, the lesser of the arm’s length purchase price and the notional value, arm’s length '
+    + 'purchase price $500.00, notional value $750.00, employee contribution $400.00, 0% income use, deduction for the contribution '
+    + '$0.00, in-house reduction left $1,000.00. Value before the contribution: $500.00. Employee contribution applied: $400.00. '
+    + 'Excess contribution: $0.00. Value after the contribution: $100.00. Gross deduction: $0.00. Deduction for the contribution '
+    + 'applied: $0.00. Notional deduction: $0.00. Otherwise deductible reduction: $0.00. In-house reduction, section 62: $100.00. '
+    + 'Taxable value: $0.00. The $1,000 in-house reduction in section 62 is for all of the employee’s in-house fringe benefits in '
+    + 'the year together.');
+  await form.getByLabel('Deduction the employee could claim for their contribution (AUD)').fill('400.01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('The deduction for the employee’s contribution cannot be more than the contribution.');
+});
+
+test('FBT expense payment refuses the otherwise deductible rule in-house, then works the guide’s petroleum offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-expense-payment/');
+  const form = page.locator('#fbt-expense-payment form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('In-house goods the seller bought for its business').check();
+  await form.getByLabel('Employee’s expenditure before any reimbursement (AUD)').fill('1000');
+  await form.getByLabel('Your payment or reimbursement of it (AUD)').fill('250');
+  await form.getByLabel('In-house price rules only').fill('800');
+  await form.getByLabel('In-house notional value').fill('1000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('This calculator does not apply the otherwise deductible rule to an in-house '
+    + 'expense payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction.');
+  await form.getByLabel('External only: share of the expenditure').fill('0');
+  await form.getByLabel('External only: employee’s deduction').fill('0');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: in-house bought for the business, the lesser of the arm’s length purchase price and the notional value, '
+    + 'arm’s length purchase price $800.00, notional value $1,000.00, expenditure $1,000.00, '
+    + 'paid or reimbursed $250.00, employee contribution $0.00, in-house reduction left $0.00. In-house value: $800.00. '
+    + 'Recipient’s portion: $750.00. Recipient’s portion applied: $750.00. Excess portion: $0.00. Value after the portion: $50.00. '
+    + 'In-house reduction, section 62: $0.00. Taxable value: $50.00. The $1,000 in-house reduction in section 62 is for all of the '
+    + 'employee’s in-house fringe benefits in the year together.');
+});
+
 test('FBT car exempts an eligible electric car and keeps its value reportable offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/fbt-car/');
   const form = page.locator('#fbt-car form');
@@ -1126,7 +1175,7 @@ test('business days skip Melbourne Cup Day in Victoria offline and refuse a date
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'hire-purchase', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
-  'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
+  'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave',
   'workers-compensation'];
