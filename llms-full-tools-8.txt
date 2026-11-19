@@ -253,11 +253,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Long service leave calculator for every Australian state and territory
+# Long service leave calculator for every state and territory
 
 Source: https://duguid.com.au/tools/business-calculators/long-service-leave/
 
-> Long service leave for all 8 states and territories: qualifying periods, accrual, pro rata on termination by reason, leave taken and the payment, each cited to its Act.
+> Long service leave in all 8 states and territories: qualifying periods, accrual, pro rata on termination by reason and the payment, each cited to its Act.
 
 # Long service leave calculator
 
