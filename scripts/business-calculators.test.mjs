@@ -3188,15 +3188,16 @@ test('the SGC page opens on the result its calculation gives for the form’s in
 
 // ATO Key superannuation rates and thresholds, Table 21, read 19 November 2026: Norfolk Island's
 // transitional rate is 11% for 2026-27 and 7% to 10% for 2022-23 to 2025-26.
-test('the SGC page refuses a Norfolk Island employee under either law rather than apply the general rate', () => {
+test('the SGC page refuses Norfolk Island salary or wages under either law rather than apply the general rate', () => {
   const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
   const fields = formDefaults(sgcHtml);
-  assert.equal(fields.location, 'elsewhere');
+  assert.equal(fields['norfolk-island'], 'no');
   for (const regime of ['payday', 'quarter']) {
-    assert.throws(() => calculations.sgcPaydayResult((name) => ({ ...fields, regime, location: 'norfolk-island' })[name], aud),
-      { message: 'Norfolk Island has a lower transitional super guarantee rate (11% for 2026-27), which this calculator does not apply.' }, regime);
-    assert.throws(() => calculations.sgcPaydayResult((name) => ({ ...fields, regime, location: undefined })[name], aud),
-      { message: 'Choose where the employee works.' }, regime);
+    assert.throws(() => calculations.sgcPaydayResult((name) => ({ ...fields, regime, 'norfolk-island': 'yes' })[name], aud),
+      { message: 'Norfolk Island salary or wages have a lower transitional super guarantee rate (7% to 10% for 2022-23 to '
+        + '2025-26, 11% for 2026-27), which this calculator does not apply.' }, regime);
+    assert.throws(() => calculations.sgcPaydayResult((name) => ({ ...fields, regime, 'norfolk-island': undefined })[name], aud),
+      { message: 'Say whether any of the pay is Norfolk Island salary or wages.' }, regime);
   }
   assert.ok(sgcHtml.includes('(Table 21, read 19 November 2026)'));
 });
