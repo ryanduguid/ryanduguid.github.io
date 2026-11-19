@@ -1474,9 +1474,7 @@ fn the_issue_body_lists_each_finding_with_its_citing_files_and_names_no_local_pa
     for private in ["Users", "AppData", "vault", "ATO Watch"] {
         assert!(!body.contains(private), "{private}");
     }
-    assert!(body.contains(
-        "`scripts/src/check_links_data.rs` (keep HTTP_403_AUTOMATION_DENIAL_URLS sorted"
-    ));
+    assert!(body.contains("`scripts/src/check_links_data.rs` (keep CI_MANUAL_URLS sorted"));
     assert!(body.contains("- `https://www.ato.gov.au/rental` → `https://www.ato.gov.au/property/rental`. Cited in: `ryanduguid.github.io/scripts/src/check_links_data.rs`"));
     assert!(body.contains(&format!(
         "old-article` → `{NEWSROOM}` (a hub or newsroom, so the cited page was probably withdrawn"

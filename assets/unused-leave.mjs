@@ -4,6 +4,9 @@
 import { cents } from './money.mjs';
 import { PAYS, withholding } from './payg-withholding.mjs';
 
+/** Schedule 7 from 1 July 2026 works the marginal rate calculation with Schedule 1 for 2026-27. */
+const SCHEDULE_1_YEAR = '2026-27';
+
 // Unused annual leave, leave loading and long service leave paid on termination, for payments from
 // 1 July 2026, read 19 November 2026:
 // - ITAA 1997 ss 83-10 and 83-15 (annual leave and loading: assessable, with a tax offset keeping the
@@ -165,9 +168,9 @@ export function unusedLeave(input) {
   // The marginal rate calculation, steps 1 to 7: the payment over the pay periods, cents ignored, added to
   // one pay's normal gross earnings, and the extra Schedule 1 then withholds, times the pay periods.
   const periods = PAYS[input.period];
-  const onEarnings = withholding(earnings, input.period, scale, false).tax;
+  const onEarnings = withholding(earnings, input.period, scale, false, SCHEDULE_1_YEAR).tax;
   const share = Math.floor(marginalTwentieths / (2000 * periods));
-  const withShare = withholding(earnings + share * 100, input.period, scale, false).tax;
+  const withShare = withholding(earnings + share * 100, input.period, scale, false, SCHEDULE_1_YEAR).tax;
   const beforeLimit = (withShare - onEarnings) * periods;
   const marginalWithheld = under300 ? roundDollars(Math.min(beforeLimit * 10000, post1993 * FLAT_PERCENT)) : beforeLimit;
   return { ...shares, flat, marginal: { onEarnings, share, withShare, beforeLimit, limited: under300, periods },

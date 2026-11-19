@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! The changelog-rows merge driver: which conflicts it resolves and which it leaves.
-use site_tools::merge_driver::{resolve, resolve_conflicts};
+use site_tools::merge_driver::{merge_baseline, merge_llms_index, resolve, resolve_conflicts};
 use std::process::Command;
 
 fn row(date: &str, text: &str) -> String {
@@ -398,33 +398,44 @@ fn a_real_git_merge_preserves_all_four_builder_outputs_with_lf_and_crlf() {
 }
 
 #[test]
-fn every_committed_file_holding_changelog_rows_uses_the_driver() {
-    // build_llms_full also writes each section to llms-full-<section>-<n>.txt; a
-    // part holding the changelog page conflicts like llms-full.txt does.
+fn every_committed_builder_output_has_a_merge_driver() {
+    // The changelog and the two files built from it alone merge rows; every other
+    // file build_llms_full and check_design --update-baseline write, llms-full parts
+    // and page copies included, is rebuilt after a merge.
     let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
-    let source = "Source: https://duguid.com.au/changelog/\n";
-    let mut files = vec![
-        "changelog/index.html".to_owned(),
-        "changelog/index.txt".to_owned(),
-        "feed.xml".to_owned(),
-    ];
+    let rows = ["changelog/index.html", "changelog/index.txt", "feed.xml"];
+    let mut files: Vec<String> = rows.map(str::to_owned).to_vec();
+    files.extend(
+        [
+            "llms.txt",
+            ".well-known/llms.txt",
+            "scripts/design_baseline.json",
+        ]
+        .map(str::to_owned),
+    );
     for entry in std::fs::read_dir(&root).unwrap() {
         let name = entry.unwrap().file_name().into_string().unwrap();
-        if name.starts_with("llms-full")
-            && name.ends_with(".txt")
-            && std::fs::read_to_string(root.join(&name))
-                .unwrap()
-                .replace("\r\n", "\n")
-                .contains(source)
-        {
+        if name.starts_with("llms-full") && name.ends_with(".txt") {
             files.push(name);
         }
     }
+    let pages = site_tools::seo_core::sitemap_urls(&root).unwrap();
+    for url in &pages {
+        let page = url
+            .trim_start_matches("https://duguid.com.au")
+            .trim_matches('/');
+        files.push(if page.is_empty() {
+            "index.txt".to_owned()
+        } else {
+            format!("{page}/index.txt")
+        });
+    }
     assert!(files.iter().any(|f| f == "llms-full.txt"), "{files:?}");
     assert!(
-        files.len() > 4,
-        "no llms-full part holds the changelog: {files:?}"
+        files.iter().filter(|f| f.starts_with("llms-full-")).count() > 4,
+        "no llms-full parts: {files:?}"
     );
+    assert!(pages.len() > 50, "{} sitemap pages", pages.len());
     // Read the attributes in a repository of their own, so the test also runs from a
     // copy of the tree that is not a git checkout.
     let attributes = tempfile::tempdir().unwrap();
@@ -450,11 +461,305 @@ fn every_committed_file_holding_changelog_rows_uses_the_driver() {
     assert!(out.status.success());
     let text = String::from_utf8(out.stdout).unwrap();
     for file in &files {
+        let driver = if rows.contains(&file.as_str()) {
+            "changelog-rows"
+        } else {
+            "generated"
+        };
         assert!(
-            text.contains(&format!("{file}: merge: changelog-rows\n")),
-            "{file} is not assigned to the changelog-rows driver:\n{text}"
+            text.contains(&format!("{file}: merge: {driver}\n")),
+            "{file} is not assigned to the {driver} driver:\n{text}"
         );
     }
+}
+
+const PART_INDEX: &str = "## Full text by section\n\n";
+
+fn llms_txt(tools: &[&str], parts: &str) -> String {
+    let tools: String = tools
+        .iter()
+        .map(|t| format!("- [{t}](https://duguid.com.au/tools/{t}/): {t}.\n"))
+        .collect();
+    format!(
+        "# Site\n\n> Summary.\n\n## Tools\n\n{tools}\n## Guides\n\n- [Guide](https://duguid.com.au/guide/): A guide.\n\n{PART_INDEX}{parts}\n## Optional\n\n- [Old](https://duguid.com.au/old/): Old.\n"
+    )
+}
+
+fn part(titles: &str) -> String {
+    format!("- [llms-full-tools-1.txt](https://duguid.com.au/llms-full-tools-1.txt): {titles}\n")
+}
+
+#[test]
+fn llms_txt_merges_hand_kept_entries_and_keeps_the_current_part_index() {
+    let base = llms_txt(&["a", "c"], &part("A; C"));
+    let current = llms_txt(&["a", "b", "c"], &part("A; B; C"));
+    let incoming = llms_txt(&["a", "c", "d"], &part("A; C; D"));
+    let merged = merge_llms_index(&base, &current, &incoming)
+        .unwrap()
+        .unwrap();
+    assert_eq!(merged, llms_txt(&["a", "b", "c", "d"], &part("A; B; C")));
+    // CRLF files merge the same way.
+    let crlf = |text: &str| text.replace('\n', "\r\n");
+    let merged = merge_llms_index(&crlf(&base), &crlf(&current), &crlf(&incoming))
+        .unwrap()
+        .unwrap();
+    assert_eq!(
+        merged,
+        crlf(&llms_txt(&["a", "b", "c", "d"], &part("A; B; C")))
+    );
+}
+
+#[test]
+fn llms_txt_hand_conflicts_and_a_missing_part_index_are_left_to_git() {
+    let base = llms_txt(&["a"], &part("A"));
+    let current = llms_txt(&["a", "b"], &part("A; B"));
+    let incoming = llms_txt(&["a", "z"], &part("A; Z"));
+    assert_eq!(merge_llms_index(&base, &current, &incoming).unwrap(), None);
+    let no_index = current.replace(PART_INDEX, "## Parts\n\n");
+    assert_eq!(merge_llms_index(&base, &no_index, &incoming).unwrap(), None);
+}
+
+fn baseline(json_ld: &[(&str, &str)], llms_digest: &str, count: u32) -> String {
+    let entries: Vec<String> = json_ld
+        .iter()
+        .map(|(page, digest)| format!("    \"{page}\": [\n      \"{digest}\"\n    ]"))
+        .collect();
+    format!(
+        "{{\n  \"json_ld\": {{\n{}\n  }},\n  \"protected_files\": {{\n    \"llms.txt\": \"{llms_digest}\"\n  }},\n  \"protected_text\": {{\n    \"Not advice.\": {count}\n  }}\n}}\n",
+        entries.join(",\n")
+    )
+}
+
+#[test]
+fn the_design_baseline_merges_keys_and_keeps_current_values() {
+    let base = baseline(&[("a.html", "1"), ("d.html", "4")], "old", 10);
+    // Both sides add a page beside the other's and move the shared digest and count.
+    let current = baseline(
+        &[("a.html", "1"), ("b.html", "2"), ("d.html", "4")],
+        "ours",
+        11,
+    );
+    let incoming = baseline(
+        &[("a.html", "9"), ("c.html", "3"), ("d.html", "4")],
+        "theirs",
+        11,
+    );
+    let merged = merge_baseline(&base, &current, &incoming).unwrap();
+    assert_eq!(
+        merged,
+        baseline(
+            &[
+                ("a.html", "9"),
+                ("b.html", "2"),
+                ("c.html", "3"),
+                ("d.html", "4")
+            ],
+            "ours",
+            11
+        )
+    );
+    // A page incoming removed goes; one the current side changed stays a conflict.
+    let removed = baseline(&[("a.html", "1")], "old", 10);
+    assert_eq!(
+        merge_baseline(&base, &current, &removed).unwrap(),
+        baseline(&[("a.html", "1"), ("b.html", "2")], "ours", 11)
+    );
+    let changed = baseline(&[("a.html", "1"), ("d.html", "5")], "ours", 11);
+    assert_eq!(merge_baseline(&base, &changed, &removed), None);
+    // Repeated keys and other shapes are left to Git.
+    assert_eq!(merge_baseline(&base, &current, "[]\n"), None);
+    let repeated = current.replace("\"b.html\"", "\"a.html\"");
+    assert_eq!(merge_baseline(&base, &repeated, &incoming), None);
+}
+
+#[test]
+fn the_committed_design_baseline_round_trips_unchanged() {
+    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let text = std::fs::read_to_string(root.join("scripts/design_baseline.json"))
+        .unwrap()
+        .replace("\r\n", "\n");
+    assert_eq!(merge_baseline(&text, &text, &text).unwrap(), text);
+}
+
+#[test]
+fn generated_files_keep_the_current_side_through_the_command() {
+    let dir = tempfile::tempdir().unwrap();
+    let write = |name: &str, text: &str| {
+        let path = dir.path().join(name);
+        std::fs::write(&path, text).unwrap();
+        path.to_string_lossy().into_owned()
+    };
+    let tools = env!("CARGO_BIN_EXE_site-tools");
+    let run = |path: &str, sides: [&str; 3]| {
+        let [base, current, incoming] = [
+            ("base", sides[0]),
+            ("current", sides[1]),
+            ("incoming", sides[2]),
+        ]
+        .map(|(name, text)| write(name, text));
+        let status = Command::new(tools)
+            .args([
+                "merge_driver",
+                "--generated",
+                &base,
+                &current,
+                &incoming,
+                path,
+            ])
+            .status()
+            .unwrap();
+        (status.code(), std::fs::read_to_string(&current).unwrap())
+    };
+    let kept = run("llms-full-tools-1.txt", ["base\n", "ours\n", "theirs\n"]);
+    assert_eq!(kept, (Some(0), "ours\n".to_owned()));
+    let base = llms_txt(&["a", "c"], &part("A; C"));
+    let current = llms_txt(&["a", "b", "c"], &part("A; B; C"));
+    let incoming = llms_txt(&["a", "c", "d"], &part("A; C; D"));
+    let merged = run("llms.txt", [&base, &current, &incoming]);
+    assert_eq!(
+        merged,
+        (Some(0), llms_txt(&["a", "b", "c", "d"], &part("A; B; C")))
+    );
+    let conflict = llms_txt(&["a", "z", "c"], &part("A; Z; C"));
+    assert_eq!(
+        run("llms.txt", [&base, &current, &conflict]),
+        (Some(1), current)
+    );
+}
+
+/// Two branches that each add a page, merged one after the other as GitHub would
+/// see them and with both drivers configured.
+#[test]
+fn two_page_additions_merge_cleanly_through_a_real_git_merge() {
+    let root_dir = tempfile::tempdir().unwrap();
+    let root = root_dir.path();
+    let git = |args: &[&str]| {
+        Command::new("git")
+            .args(args)
+            .current_dir(root)
+            .env("GIT_CONFIG_NOSYSTEM", "1")
+            .output()
+            .unwrap()
+    };
+    for args in [
+        vec!["init", "-q", "-b", "main"],
+        vec!["config", "user.name", "Test"],
+        vec!["config", "user.email", "test@example.invalid"],
+        vec!["config", "core.autocrlf", "false"],
+    ] {
+        assert!(git(&args).status.success());
+    }
+    let repository = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    std::fs::copy(
+        repository.join(".gitattributes"),
+        root.join(".gitattributes"),
+    )
+    .unwrap();
+    let write = |pages: &[&str]| {
+        let titles: Vec<String> = pages.iter().map(|p| p.to_uppercase()).collect();
+        std::fs::write(
+            root.join("llms.txt"),
+            llms_txt(pages, &part(&titles.join("; "))),
+        )
+        .unwrap();
+        std::fs::create_dir_all(root.join(".well-known")).unwrap();
+        std::fs::write(root.join(".well-known/llms.txt"), titles.join("; ")).unwrap();
+        // Pages carry the page count into the full text too.
+        let full: String = pages
+            .iter()
+            .map(|p| format!("---\n\n# {p}\n\nOne of {} tools.\n", pages.len()))
+            .collect();
+        std::fs::write(root.join("llms-full.txt"), &full).unwrap();
+        std::fs::write(root.join("llms-full-tools-1.txt"), &full).unwrap();
+        std::fs::create_dir_all(root.join("scripts")).unwrap();
+        let pins: Vec<(String, String)> = pages
+            .iter()
+            .map(|p| (format!("tools/{p}/index.html"), p.repeat(4)))
+            .collect();
+        let pins: Vec<(&str, &str)> = pins.iter().map(|(a, b)| (a.as_str(), b.as_str())).collect();
+        let digest = titles.concat();
+        let count = u32::try_from(pages.len()).unwrap();
+        std::fs::write(
+            root.join("scripts/design_baseline.json"),
+            baseline(&pins, &digest, count),
+        )
+        .unwrap();
+        for page in pages {
+            std::fs::create_dir_all(root.join(format!("tools/{page}"))).unwrap();
+            // Every page copy carries the page count, as the calculator pages do.
+            std::fs::write(
+                root.join(format!("tools/{page}/index.txt")),
+                format!("# {page}\n\nOne of {count} tools.\n"),
+            )
+            .unwrap();
+        }
+    };
+    write(&["a", "c", "e"]);
+    assert!(git(&["add", "."]).status.success());
+    assert!(git(&["commit", "-qm", "base"]).status.success());
+    for (branch, pages) in [
+        ("b", &["a", "b", "b2", "c", "e"][..]),
+        ("d", &["a", "c", "d", "e"]),
+    ] {
+        assert!(
+            git(&["checkout", "-q", "-b", branch, "main"])
+                .status
+                .success()
+        );
+        write(pages);
+        assert!(git(&["add", "."]).status.success());
+        assert!(git(&["commit", "-qm", branch]).status.success());
+    }
+    assert!(git(&["checkout", "-q", "main"]).status.success());
+    assert!(git(&["merge", "-q", "--no-edit", "b"]).status.success());
+    // Without the drivers, as GitHub merges, the second page conflicts.
+    let plain = git(&["merge", "--no-edit", "d"]);
+    assert_eq!(plain.status.code(), Some(1));
+    let unmerged =
+        String::from_utf8(git(&["diff", "--name-only", "--diff-filter=U"]).stdout).unwrap();
+    for file in [
+        "llms.txt",
+        "llms-full.txt",
+        "scripts/design_baseline.json",
+        "tools/a/index.txt",
+    ] {
+        assert!(
+            unmerged.contains(file),
+            "{file} merged without a driver: {unmerged}"
+        );
+    }
+    assert!(git(&["merge", "--abort"]).status.success());
+    let binary = env!("CARGO_BIN_EXE_site-tools").replace('\\', "/");
+    assert!(
+        git(&[
+            "config",
+            "merge.generated.driver",
+            &format!(
+                "\"{binary}\" merge_driver --generated %O %A %B %P || git merge-file %A %O %B"
+            ),
+        ])
+        .status
+        .success()
+    );
+    let merged = git(&["merge", "--no-edit", "d"]);
+    assert!(
+        merged.status.success(),
+        "{}",
+        String::from_utf8_lossy(&merged.stdout)
+    );
+    let llms = std::fs::read_to_string(root.join("llms.txt")).unwrap();
+    assert_eq!(
+        llms,
+        llms_txt(&["a", "b", "b2", "c", "d", "e"], &part("A; B; B2; C; E"))
+    );
+    let pins = std::fs::read_to_string(root.join("scripts/design_baseline.json")).unwrap();
+    for page in ["a", "b", "b2", "c", "d", "e"] {
+        assert!(
+            pins.contains(&format!("\"tools/{page}/index.html\"")),
+            "{pins}"
+        );
+    }
+    assert!(root.join("tools/d/index.txt").is_file());
 }
 
 #[test]
