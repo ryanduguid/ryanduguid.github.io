@@ -152,7 +152,7 @@ The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 
 Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
 Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
 
-One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -161,7 +161,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -239,7 +239,7 @@ Interest across 29 February 2024 | Quarter 3 of 2023-24; salary or wages $12,000
 Contributions with no ordinary time earnings | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $0.00; contributions $100.00; lodged 20 November 2025 | Refused: enter the ordinary time earnings for the quarter: contributions reduce the charge percentage in proportion to them
 A statement lodged by the contribution due date | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 28 October 2025 | Refused: enter the day the statement was or will be lodged from 29 October 2025 to 30 June 2031
 
-One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -249,7 +249,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
 - GIC table: https://duguid.com.au/rates/general-interest-charge/
-- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -311,7 +311,7 @@ A company new this year franks at 25% whatever its own year | Turnover $60,000,0
 Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
 Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
 
-One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
 
@@ -320,7 +320,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
-- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -409,7 +409,7 @@ Commercial property in New South Wales bears neither surcharge | New South Wales
 An exemption is refused: each Commissioner decides it | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia, exemption sought; residential property $1,000,000.00, land $1,000,000.00 | Refused: exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, so this page does not work them out
 A partner or retirement visa holder is refused | New South Wales, individual, partner or retirement visa, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Refused: this page does not decide the status of a partner (provisional) or retirement visa holder: each revenue office treats them differently
 
-One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -420,7 +420,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -478,7 +478,7 @@ An end before the start is refused | New South Wales, Wednesday 18 November 2026
 A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
-One of the thirty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -486,4 +486,118 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Capital gains tax (CGT) calculator: discount, indexation and main residence
+
+Source: https://duguid.com.au/tools/business-calculators/cgt/
+
+> CGT on one sale from 1 July 2020 to 30 June 2027: cost base, the 50% discount or indexation, capital losses, the main residence exemption, the 6-year absence rule and question 18 labels.
+
+# Capital gains tax calculator
+
+The capital gain or loss on one sale to 30 June 2027: discount or indexation, losses, and the main residence and 6-year rules, each step cited.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One CGT event: a sale contract from 1 July 2020 to 30 June 2027
+
+Who made the gain or loss An individual A trust A complying super fund A company An Australian resident, not a temporary resident, at the sale and for all of the ownership after 8 May 2012? Yes No The asset Shares, units, a rental property or another investment or business asset A home that was the individual’s main residence at some time A collectable or personal use asset Purchase contract date Sale contract date Capital proceeds (AUD) Purchase price (AUD) Buying costs: stamp duty, legal fees (AUD) Date the buying costs were incurred Capital improvement or title cost 1 (AUD) Date of cost 1 Capital improvement or title cost 2 (AUD) Date of cost 2 Selling costs: agent, legal fees (AUD) Costs of owning not deducted: interest, rates, repairs (AUD) Capital works deductions claimed or claimable (AUD) Other capital losses this income year (AUD) Net capital losses from earlier years (AUD) Individual: other taxable income this year (whole AUD)
+
+A home: the main residence exemption (individuals only)
+
+Settlement of the purchase Settlement of the sale Day you moved in Moved in as soon as practicable after settlement (section 118-135)? Yes No: it was rented or left empty first Do any of these apply: more than 2 hectares, a spouse with another main residence, inherited, a home built on land you owned, or a new home bought before this one was sold? None of them One or more
+
+Period away after moving in | First day away | Last day away | Rented or available for rent | Choose to treat as the main residence (section 118-145)
+Away 1 | | | |
+Away 2 | | | |
+Away 3 | | | |
+Away 4 | | | |
+
+Rows that follow on day after day are one absence, and the 6 years for a rented home run across them.
+
+Floor area used to produce income, such as a rented room or a surgery (%) First day of that use Last day of that use Market value when first used to produce income (AUD)
+
+‘How to enter a sale in the CGT calculator’ says where each cost goes.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: An individual, an Australian resident; an investment or business asset bought under a contract of 1 July 1997 and sold under a contract of 1 February 2026 for $496,000.00; purchase price $144,000.00, buying costs $20,000.00 on 1 July 1997, improvement or title cost $30,000.00 on 1 October 2025, selling costs $12,500.00, costs of owning $0.00, capital works deductions $255.00; capital losses this year $0.00, from earlier years $0.00; other taxable income $90,000. Method Discount method: held at least 12 months, so the discount applies (sections 115-25 and 115-100) Capital proceeds $496,000.00 Cost base $206,245.00 Indexed cost base $211,493.00 Total current year capital gains (label H) $289,755.00 CGT discount of 50% $144,877.50 Net capital gain $144,877.50 Net capital gain (label A), whole dollars $144,877 By the indexation method instead Net capital gain $284,507.00 Extra income tax and Medicare levy for 2025-26, estimate $56,942.19 The CGT event happened in 2025-26, the income year of the sale contract (subsection 104-10(3)); the estimate adds label A to the other taxable income at the resident rates, with the low income tax offset and the Medicare levy, and leaves out other offsets, the Medicare levy surcharge and study loan repayments.
+
+## How the CGT calculator works
+
+The CGT calculator works out the capital gain or capital loss from one sale (CGT event A1) for an Australian resident individual, trust, complying super fund or company, for a sale contract from 1 July 2020 to 30 June 2027. The sale contract’s date decides the income year and the 12 months held; the cost base adds the purchase price, buying costs, capital improvements, title costs, selling costs and, for an asset bought after 20 August 1991, costs of owning that were not deducted, less capital works deductions.
+
+It then works the gain by each method the owner can use. The discount method halves the gain of an individual or trust, and takes a third off a complying super fund’s, once the asset was held at least 12 months, not counting the day bought or the day sold. The indexation method, for an asset bought by 21 September 1999, indexes each cost (except costs of owning) to the September 1999 quarter; a company must use it and gets no discount. Capital losses this year and then net capital losses from earlier years come off the gain before the discount, which is why indexation sometimes wins.
+
+For a home, it counts the days of the ownership period, from settlement to settlement, when the home was not the main residence: before moving in, unless that was as soon as practicable, and each period away that is not treated as the main residence. A period away can be treated as the main residence indefinitely while empty, and for 6 years while rented, the 6 years starting again each time you move back in. The taxable share is those days over the ownership period, plus the floor area used to produce income for the days it was. If the home was first rented or used to produce income after 20 August 1996, was fully exempt until then and is now only partly exempt, section 118-192 treats it as bought then for its market value, and the method follows that date.
+
+The result gives the amounts for question 18 of the supplementary tax return, in whole dollars as the return takes them, and for an individual an estimate of the extra tax and Medicare levy.
+
+## How to enter a sale in the CGT calculator
+
+Enter the dates of the contracts, not of settlement: the sale contract’s date is when the CGT event happens (subsection 104-10(3)). Put stamp duty and legal fees on buying in buying costs, with the date they were incurred; a deposit paid at the contract is part of the purchase price. Put capital improvements, and costs of defending your title, in the 2 cost rows with their dates; add 2 costs incurred in the same quarter together. Selling costs are agent’s commission, advertising and legal fees on the sale. Costs of owning are interest, rates, land tax, insurance and repairs you could not deduct, such as for a home or vacant land. Leave out anything you deducted, and the amounts for depreciating assets such as carpets and appliances, which have their own balancing adjustment.
+
+For a home, enter the settlement dates and the day you moved in, then each period you lived elsewhere before the sale. Tick ‘Rented’ for a period it was rented or available for rent, and ‘Choose’ for the periods you treat as your main residence; you cannot treat another home as your main residence for those periods (subsection 118-145(4)). A rented room or a surgery goes in the floor area fields, with the days that use ran; use that continued while you were away stays taxable (subsection 118-190(3)). Enter the market value at first use to produce income in case section 118-192 applies; the result says whether it did.
+
+## What the CGT calculator does not cover
+
+The calculator gives an estimate for one sale, and no advice. It does not cover:
+
+- sale contracts from 1 July 2027, under Schedule 1 to the Treasury Laws Amendment (Tax Reform No. 1) Act 2026, and before 1 July 2020;
+- foreign and temporary residents, collectables, personal use assets, and CGT events other than a sale;
+- other capital gains in the same year, and splitting a parcel of shares between the methods, as example 12 of the ATO’s guide does;
+- the small business concessions in Division 152, roll-overs, and the extra discount for affordable housing (section 115-125);
+- the 6 months for 2 homes when changing main residences (section 118-140), land over 2 hectares, spouses with different main residences, inherited homes and building on land you owned;
+- indexing capital works deductions, which come off at their face amount, and a substituted accounting period.
+
+Confirm the figure with the ATO or a registered tax agent before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Capital gains tax calculator
+
+Case | Inputs | Result
+ATO example 54: Brett’s rental property, the discount method beating indexation | Individual, investment; bought 1 July 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00 | Discount method, cost base $206,245.00, indexed cost base $211,493.00, capital gain $289,755.00, discount $144,877.50, net capital gain $144,877.50, label A $144,877, extra tax $56,942.19
+ATO example 9: Marie-Anne’s property bought and sold within 12 months, the other method | Individual, investment; bought 23 June 2025, sold 16 October 2025 for $315,000.00; price $250,000.00, buying $7,000.00 on 4 August 2025, selling $5,500.00; other income $90,000.00 | Other method, cost base $262,500.00, capital gain $52,500.00, net capital gain $52,500.00
+ATO example 10: held 12 months excluding the day bought and the day sold, from 3 February 2026 | Individual, investment; bought 2 February 2025, sold 3 February 2026 for $1,000.00; price $800.00; other income $90,000.00 | Discount method, capital gain $200.00, net capital gain $100.00
+ATO example 10: a day earlier, no discount | Individual, investment; bought 2 February 2025, sold 2 February 2026 for $1,000.00; price $800.00; other income $90,000.00 | Other method, capital gain $200.00, net capital gain $200.00
+ATO example 13: Val’s property indexed by 1.164 and 1.159, against the discount | Individual, investment; bought 24 June 1991, sold 15 October 2025 for $350,000.00; price $150,000.00, buying $7,000.00 on 20 July 1991, selling $5,500.00; other income $90,000.00 | Discount method, cost base $162,500.00, indexed cost base $188,213.00, capital gain $187,500.00, net capital gain $93,750.00
+ATO example 11’s point, worked on Val: capital losses this year make indexation the better method | Individual, investment; bought 24 June 1991, sold 15 October 2025 for $350,000.00; price $150,000.00, buying $7,000.00 on 20 July 1991, selling $5,500.00; losses $150,000.00 this year, $0.00 earlier; other income $90,000.00 | Indexation method, capital gain $161,787.00, net capital gain $11,787.00
+ATO example 12: Clare’s shares, the $3,500 of earlier losses applied before the discount | Individual, investment; bought 15 March 1995, sold 15 March 2026 for $12,500.00; price $7,500.00; losses $0.00 this year, $3,500.00 earlier; other income $90,000.00 | Discount method, indexed cost base $8,077.50, capital gain $5,000.00, discount $750.00, net capital gain $750.00
+ATO example 14: Antonio’s loss after capital works deductions | Individual, investment; bought 28 September 2001, sold 15 November 2025 for $90,000.00; price $100,000.00, capital works $7,500.00; other income $90,000.00 | A capital loss, reduced cost base $92,500.00, capital loss $2,500.00, losses carried forward $2,500.00
+ATO example 15: Chandra’s shares, a loss from the reduced cost base | Individual, investment; bought 15 July 1998, sold 15 December 2025 for $2,000.00; price $2,400.00, buying $100.00 on 15 July 1998, selling $75.00; losses $0.00 this year, $100.00 earlier; other income $90,000.00 | A capital loss, reduced cost base $2,575.00, capital loss $575.00, losses carried forward $675.00
+ATO example 54 for a complying super fund: a third off | Complying super fund, investment; bought 1 July 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00 | Discount method, capital gain $289,755.00, discount $96,585.00, net capital gain $193,170.00
+ATO example 54 for a company: indexation, no discount | Company, investment; bought 1 July 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00 | Indexation method, indexed cost base $211,493.00, capital gain $284,507.00, net capital gain $284,507.00
+ATO example 63: Frank’s home, the main residence for the whole ownership period | Individual, home; bought 14 August 2001, sold 25 May 2025 for $390,000.00; price $300,000.00; other income $90,000.00; settled 26 October 2002 and 20 July 2025, moved in 26 October 2002 | Fully exempt, 8,304 ownership days, 0 non-main residence days, capital gain $0.00, net capital gain $0.00
+ATO example 64: Frank rented it out for 494 days before moving in | Individual, home; bought 14 August 2001, sold 25 May 2025 for $390,000.00; price $300,000.00; other income $90,000.00; settled 26 October 2002 and 20 July 2025, moved in 3 March 2004, not as soon as practicable | Discount method, 8,304 ownership days, 494 non-main residence days, capital gain $5,354.05, net capital gain $2,677.03
+ATO example 67: Andrew’s home rented from 1995 without the choice | Individual, home; bought 1 June 1992, sold 1 July 2024 for $250,000.00; price $150,000.00; other income $90,000.00; settled 1 July 1992 and 31 August 2024, moved in 1 July 1992; away 1 July 1995 to 31 August 2024, rented | Discount method, 11,750 ownership days, 10,655 non-main residence days, section 118-192 does not apply, capital gain $90,680.85
+ATO example 68: Thomas rents out 35% of his home for the whole ownership period | Individual, home; bought 1 June 1999, sold 1 May 2026 for $320,000.00; price $200,000.00; other income $90,000.00; settled 1 July 1999 and 30 June 2026, moved in 1 July 1999; 35% used for income 1 July 1999 to 30 June 2026 | Discount method, 9,862 part-use days, section 118-192 does not apply, capital gain $42,000.00
+ATO example 69: Ruth runs a business in 25% of her home for half the ownership period | Individual, home; bought 3 May 1999, sold 1 June 2025 for $230,000.00; price $150,000.00; other income $90,000.00; settled 1 June 1999 and 29 June 2025, moved in 1 June 1999; 25% used for income 1 June 1999 to 14 June 2012 | 9,526 ownership days, 4,763 part-use days, section 118-192 does not apply, capital gain $10,000.00
+ATO example 70: Erin rents her old home from 2005, so section 118-192 takes its $450,000 market value | Individual, home; bought 15 June 2002, sold 14 April 2026 for $496,000.00; price $280,000.00; other income $90,000.00; settled 15 July 2002 and 14 April 2026, moved in 15 July 2002; away 2 August 2005 to 14 April 2026, rented; market value $450,000.00 | Discount method, taken to be acquired 2 August 2005, cost base $450,000.00, capital gain $46,000.00, net capital gain $23,000.00
+ATO example 71: Louise’s consultancy in half her home, held under 12 months from first use, the other method | Individual, home; bought 15 November 1993, sold 15 August 2025 for $350,000.00; price $200,000.00; other income $90,000.00; settled 15 December 1993 and 15 September 2025, moved in 15 December 1993; 50% used for income 1 November 2024 to 15 September 2025; market value $320,000.00 | Other method, taken to be acquired 1 November 2024, capital gain $15,000.00, net capital gain $15,000.00
+ATO example 72: Roya rents out her apartment for 27 years; 6 years are her main residence | Individual, home; bought 15 August 1995, sold 15 July 2024 for $555,000.00; price $280,000.00, selling $15,000.00; other income $90,000.00; settled 15 September 1995 and 29 September 2024, moved in 15 September 1995; away 29 September 1997 to 29 September 2024, rented, chosen; market value $340,000.00 | Discount method, taken to be acquired 29 September 1997, 9,863 ownership days, 7,672 non-main residence days, capital gain $155,571.33, net capital gain $77,785.67
+ATO example 77: Lisa rents her home for 6 years then leaves it vacant for 4, and is fully exempt | Individual, home; bought 10 January 2005, sold 30 January 2026 for $900,000.00; price $400,000.00; other income $90,000.00; settled 10 February 2005 and 26 February 2026, moved in 10 February 2005; away 27 February 2016 to 26 February 2022, rented, chosen; away 27 February 2022 to 26 February 2026, chosen | Fully exempt, 0 non-main residence days, capital gain $0.00
+ATO example 77’s variant: rented 4 years, vacant 3, rented 3: a year over the 6, so section 118-192 applies | Individual, home; bought 10 January 2005, sold 30 January 2026 for $900,000.00; price $400,000.00; other income $90,000.00; settled 10 February 2005 and 26 February 2026, moved in 10 February 2005; away 27 February 2016 to 26 February 2020, rented, chosen; away 27 February 2020 to 26 February 2023, chosen; away 27 February 2023 to 26 February 2026, rented, chosen; market value $700,000.00 | 3,653 ownership days, 365 non-main residence days, taken to be acquired 27 February 2016, capital gain $19,983.58
+ATO example 80: Ian’s 2 rental periods in one absence pass 6 years by 365 days | Individual, home; bought 1 June 1994, sold 31 January 2025 for $400,000.00; price $150,000.00; other income $90,000.00; settled 1 July 1994 and 28 February 2025, moved in 1 July 1994; away 1 January 1996 to 31 December 2000, rented, chosen; away 1 January 2001 to 28 February 2001, chosen; away 1 March 2001 to 28 February 2003, rented, chosen; away 1 March 2003 to 30 December 2004, chosen | Discount method, 11,201 ownership days, 365 non-main residence days, section 118-192 does not apply, capital gain $8,146.59, net capital gain $4,073.30
+A sale contract from 1 July 2027 is refused | Individual, investment; bought 1 July 1997, sold 1 July 2027 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00 | Refused: from 1 July 2027 Schedule 1 to the Treasury Laws Amendment (Tax Reform No. 1) Act 2026 changes the CGT rules, and the CPI it indexes by is not yet published: this page covers sale contracts to 30 June 2027
+A pre-CGT asset is refused | Individual, investment; bought 19 September 1985, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00 | Refused: an asset acquired before 20 September 1985 is a pre-CGT asset: a capital gain or loss from it is disregarded (subsection 104-10(5)), though a later improvement can be a separate asset (section 108-70)
+A foreign or temporary resident is refused | Individual, not resident, investment; bought 1 July 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00 | Refused: this page works out residents only: a foreign or temporary resident’s CGT discount is reduced or nil (sections 115-105 to 115-120) and, at the CGT event, there is no main residence exemption (subsection 118-110(3))
+A collectable or personal use asset is refused | Individual, personal use asset; bought 1 July 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00 | Refused: collectables and personal use assets have their own rules (sections 108-10 to 108-30, 118-10): this page does not work them out
+A trust’s home is refused | Trust, home; bought 14 August 2001, sold 25 May 2025 for $390,000.00; price $300,000.00; settled 26 October 2002 and 20 July 2025, moved in 26 October 2002 | Refused: the main residence exemption is for individuals (section 118-110): choose an individual or another asset
+Costs of owning on an asset bought by 20 August 1991 are refused | Individual, investment; bought 24 June 1991, sold 15 October 2025 for $350,000.00; price $150,000.00, buying $7,000.00 on 20 July 1991, selling $5,500.00, owning $1,000.00; other income $90,000.00 | Refused: costs of owning form part of the cost base only for an asset acquired after 20 August 1991 (subsection 110-25(4))
+Capital works deductions on an asset bought on 13 May 1997 are refused | Individual, investment; bought 13 May 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 13 May 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00 | Refused: for an asset acquired on 13 May 1997, whether capital works deductions reduce the cost base turns on whether it was acquired after 7.30 pm (subsection 110-45(1)): this page cannot tell
+
+One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
