@@ -138,9 +138,8 @@ function soleTraderResult(value, aud) {
   const notes = [`As a PAYG instalment rate, ${r.taxShare.toFixed(2)}% of business income excluding GST covers this `
     + 'year’s tax on it'];
   if (r.instalments) {
-    notes.push('On a return like this, 2 of the 3 tests for automatic entry to PAYG instalments are met, $4,000 of '
-      + 'instalment income and $1,000 of tax payable; the ATO works out the third, $500 of notional tax, and '
-      + 'decides entry');
+    notes.push('A return like this meets 2 of the 3 PAYG instalment entry tests; the ATO works out the third, '
+      + 'notional tax, and decides entry');
   }
   if (r.mustRegister) {
     notes.push('Business income of $75,000 or more a year means the business must register for GST, within 21 days of '
