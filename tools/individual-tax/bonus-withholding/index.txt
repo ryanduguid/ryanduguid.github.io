@@ -1,0 +1,86 @@
+# Bonus and back pay tax withheld calculator 2026-27: Schedule 5
+
+Source: https://duguid.com.au/tools/individual-tax/bonus-withholding/
+
+> PAYG withholding on a bonus, commission or back payment for 2026-27 by the ATO's Schedule 5 methods, with study loans and the 47% limit, each step cited.
+
+# Bonus and back payment withholding calculator
+
+PAYG withheld from a 2026-27 pay that includes a bonus, commission or back payment, by Schedule 5's Method A, B(i) or B(ii), each step shown.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Bonus and back payment withholding inputs for one 2026-27 pay
+
+Pay period Weekly Fortnightly Monthly
+
+Payee Australian resident claiming the tax-free threshold (scale 2) Foreign resident (scale 3)
+
+Has the payee told you of a study or training loan, such as HELP? No Yes
+
+Gross earnings this pay, without the bonus or back payment (dollars and cents) Schedule 5 method Method A: the payment spread over the pays in a year Method B: B(i) for back pay of earlier pays this year, B(ii) for the rest
+
+Bonus, commission or other additional payment; under Method B, the part not taken by B(i) (dollars and cents) Method A: pays to spread it over, the pays in a year or fewer for a payment for a shorter defined period Method B(i): earlier pays this year the back payment covers (0 for none) Method B(i): back payment for each of those pays (dollars and cents) Method B(i): earnings each of those pays had before it (dollars and cents) Method B(i): amount withheld from each of those pays, with any study loan component (dollars and cents) Method B(ii): normal earnings paid this year to date, with this pay and any earlier B(i) back payments (dollars and cents) Method B(ii): pays this year to date, with this pay Method B(ii): earlier additional payments this year worked by B(ii) (dollars and cents) Method B(ii): amount withheld from those earlier payments (dollars and cents)
+
+For a payment made from 1 July 2026 to 30 June 2027 to an employee who has given a tax file number declaration. Method A needs only the fields above the B(i) ones. Method B takes a back payment for earlier pays this year by B(i) and the additional payment field by B(ii); a back payment covering this year and earlier years is split between them. A bonus for work in this pay alone is not a Schedule 5 payment: add it to this pay’s earnings in the take-home pay calculator.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, weekly pay, Australian resident claiming the tax-free threshold (scale 2), with a study or training loan, earnings $1,400.00 this pay, Method A: additional payment $900.00 spread over 52 pays. Earnings this pay, cents ignored (step 1) $1,400.00 Withheld from those earnings (step 2) $277.00 The payment divided by 52, cents ignored (step 3) $17.00 Withheld from earnings of $1,417 (steps 4 and 5) $284.00 The difference, times 52 (steps 6 and 7) $364.00 47% of the payment, the limit (step 8) $423.00 Withheld from the payment, the lesser (step 9) $364.00 Total withheld this pay (step 10) $641.00 Tax and study loan repayment the payment adds to a year of this pay $423.00 Each amount withheld includes the Schedule 8 study loan component: $10 of the $277 on this pay’s earnings and $104 of the $364 on the payment. The last row is the payment’s effect on the year’s assessment, were every pay this pay; the withholding schedules do not aim to match it.
+
+## How the bonus and back payment withholding calculator works
+
+The bonus and back payment withholding calculator works the PAYG amount an employer withholds from a 2026-27 pay that includes a bonus, commission, back payment or similar payment, by the methods of the ATO’s Schedule 5, and shows each step by its number. Either method is acceptable, and Method B usually comes closer to the tax the payee will owe.
+
+Method A spreads the payment over the year: it works out what the tax table withholds from this pay’s earnings, then from those earnings plus a 52nd, 26th or 12th of the payment, and withholds the difference times 52, 26 or 12, but no more than 47% of the payment. A commission or bonus for a defined period shorter than a year can be spread over the pays it relates to instead.
+
+Method B(i) is for a back payment of earlier pays in the same financial year: each of those pays is worked again with its share of the back payment, and what was withheld from it then comes off. Method B(ii) is for back pay of an earlier financial year and for a bonus or other payment that does not relate to one pay: it works like Method A, but on the average of this year’s pays to date, and takes into account earlier payments this year worked the same way.
+
+With a study or training loan, each tax table amount includes the Schedule 8 component, and the 47% limit applies to the two together. Under Method A the calculator also gives the tax and study loan repayment the payment adds to a year of this pay, so a payee can see whether the withholding will cover it.
+
+## What the bonus and back payment withholding calculator does not compute
+
+The calculator applies the 2026-27 schedules only, to a resident claiming the tax-free threshold or a foreign resident. It does not compute:
+
+- payments made before 1 July 2026, or scales 1, 5 and 6: a resident not claiming the tax-free threshold, or one with a full or half Medicare levy exemption;
+- a payee who has not quoted a tax file number, who has 47% withheld, or 45% for a foreign resident, or a working holiday maker, whose payments all fall under Schedule 15;
+- a withholding variation, a withholding declaration’s offsets, or a Medicare levy variation;
+- payments for a single pay period, which are added to that pay’s earnings, and unused leave or employment termination payments on termination, which are withheld under other schedules;
+- back payments of earlier pays with different earnings or withholding each: Method B(i) here takes the same amounts for each, so work pays that differ one group at a time;
+- the split of a back payment between this financial year and earlier ones, which you enter; lump sum E reporting; or the tax offset for a lump sum in arrears, which the ATO works out on assessment.
+
+Confirm the figures with the ATO’s tax withheld calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Bonus and back payment withholding calculator
+
+Case | Inputs | Result
+ATO example 1: Jarrod’s $900 bonus by Method A, with HELP | weekly, scale 2, study loan, $1,400.00 this pay; Method A: $900.00 over 52 pays | Withheld $641.00: $277.00 on earnings, $364.00 on the payment (limit $423.00); adds $423.00 to a year
+ATO example 1 without the HELP component | weekly, scale 2, $1,400.00 this pay; Method A: $900.00 over 52 pays | Withheld $527.00: $267.00 on earnings, $260.00 on the payment (limit $423.00); adds $288.00 to a year
+A 4-week commission spread over the 4 pays it relates to | weekly, scale 2, $1,400.00 this pay; Method A: $400.00 over 4 pays | Withheld $395.00: $267.00 on earnings, $128.00 on the payment (limit $188.00); adds $128.00 to a year
+The 47% limit binds, with the study loan component inside it | weekly, scale 2, study loan, $4,000.00 this pay; Method A: $5,200.99 over 52 pays | Withheld $4,069.00: $1,625.00 on earnings, $2,444.00 on the payment (limit $2,444.46); adds $2,964.00 to a year
+Method A ignores the pay’s cents: a month of $4,346.33 is $1,002 a week, not $1,003 | monthly, scale 2, $4,346.33 this pay; Method A: $1,200.00 over 12 pays | Withheld $1,018.00: $598.00 on earnings, $420.00 on the payment (limit $564.00); adds $402.00 to a year
+Below the tax-free threshold the payment adds no withholding | weekly, scale 2, $200.00 this pay; Method A: $1,000.00 over 52 pays | Withheld $0.00: $0.00 on earnings, $0.00 on the payment (limit $470.00); adds $0.00 to a year
+Foreign resident, scale 3, fortnightly | fortnightly, scale 3, $3,000.00 this pay; Method A: $5,000.00 over 26 pays | Withheld $2,408.00: $900.00 on earnings, $1,508.00 on the payment (limit $2,350.00); adds $1,500.00 to a year
+ATO example 2: Robyn’s back pay by Method B(i) | weekly, scale 2, $1,700.00 this pay; B(i): $100.00 for each of 8 pays of $1,600.00 that had $331.00 withheld | Withheld $619.00: $363.00 on earnings, $256.00 by B(i)
+ATO example 2 with HELP | weekly, scale 2, study loan, $1,700.00 this pay; B(i): $100.00 for each of 8 pays of $1,600.00 that had $371.00 withheld | Withheld $794.00: $418.00 on earnings, $376.00 by B(i)
+B(i): more was withheld than the pay worked again gives, so nil | weekly, scale 2, $1,700.00 this pay; B(i): $1.00 for each of 1 pays of $1,600.00 that had $400.00 withheld | Withheld $363.00: $363.00 on earnings, $0.00 by B(i)
+ATO example 3: Laura’s lump sum in arrears by Method B(ii) | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date | Withheld $992.00: $212.00 on earnings, $780.00 by B(ii) (limit $1,165.60)
+B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $500.00 withheld | Withheld $804.00: $212.00 on earnings, $592.00 by B(ii) (limit $1,165.60)
+B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
+ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
+
+One of the four individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
+- tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
+- four individual tax calculators: https://duguid.com.au/tools/individual-tax/

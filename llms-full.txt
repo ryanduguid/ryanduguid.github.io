@@ -3181,7 +3181,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 33 business planning calculators, 3 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 33 business planning calculators, 4 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3399,7 +3399,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 33 business planning calculators: https://duguid.com.au/tools/business-calculators/
-- 3 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 4 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -5551,6 +5551,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+19 November 2026 | A new individual tax calculator works out the PAYG withheld from a 2026-27 pay that includes a bonus, commission or back payment, by the ATO’s Schedule 5: Method A, Method B(i) for back pay of earlier pays in the same year and Method B(ii) for the rest, with the Schedule 8 study loan component and the 47% limit, each step shown by its number. It agrees with the ATO’s 4 worked examples, and under Method A it also gives the tax the payment adds to the year.
 19 November 2026 | The tool pages, changelog and release record name the releases of 18 and 19 November: Ozzit v3.7.0, which adds PAYG withholding, and aus-accounting-mcp/v0.10.0, whose tax worksheets need a separately installed calculators executable. The Ozzit page still documents v3.6.0 and its worked examples, and the MCP guide’s Adopt section still describes v0.9.0.
 18 November 2026 | The loan calculator now sets out every payment, weekly, fortnightly, monthly, quarterly or yearly, in arrears or in advance, with a balloon as an amount or a percentage, and works out whichever of the payment, the amount financed, the number of payments or the rate is missing; the schedule downloads as CSV. Each period’s interest is rounded to the cent and the last payment takes what rounding leaves, so the schedule closes on the balloon exactly. A new hire purchase and chattel mortgage calculator gives the same schedule with the interest by income year and a journal for each payment, citing Division 240 of the Income Tax Assessment Act 1997 and the ATO’s GST guidance, read on 18 November 2026. It does not account for leases under AASB 16.
 18 November 2026 | Three new business calculators. The company tax and franking calculator applies the base rate entity test for a 25% or 30% rate, finds the rate for franking from the previous year and works out the maximum franking credit and a shareholder’s top-up tax or refund; it agrees with the ATO’s base rate entity examples and gives Dillmore Manufacture’s exact credit of $42,857.14. The foreign purchaser surcharge calculator applies each state and territory’s own test of a foreign buyer, company or trust, then works out the duty surcharge and the land tax surcharge for a full year; it refuses exemptions, which each Commissioner decides, and states where none is charged. The business days calculator counts business days between 2 dates, or finds a date a number of business days on or back, with each government’s public holidays for 2026 and 2027, and refuses dates outside them. Sources were read on 18 November 2026.
@@ -11655,17 +11656,18 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Three calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Four calculators for one person’s tax year and pay, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
-Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay from 2021-22, and the withholding from a 2026-27 pay with a bonus or back payment. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Published 17 November 2026. Last checked 18 November 2026, the newest of the calculators’ source checks.
+Published 17 November 2026. Last checked 19 November 2026, the newest of the calculators’ source checks.
 
 ## Tax, pay and study loans
 
 - Income tax calculator Tax on taxable income, the offsets, the Medicare levy and surcharge and any study loan repayment, less the tax withheld, for an Australian resident, a foreign resident or a working holiday maker.
 - Take-home pay calculator What is left of a salary each year, month, fortnight and week after salary sacrifice to super, tax, levies and any study loan repayment, with the employer’s super guarantee and the PAYG withheld from a 2026-27 pay.
 - Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
+- Bonus and back payment withholding calculator The PAYG withheld from a 2026-27 pay that includes a bonus, commission or back payment, by the ATO’s Schedule 5 methods, step by step, with the tax the payment adds to the year.
 
 For a business, see the business calculators.
 
@@ -11676,6 +11678,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
+- Bonus and back payment withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -11768,7 +11771,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the four individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11778,7 +11781,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- four individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -11861,7 +11864,7 @@ Working holiday maker: no withholding worked | 2026-27, working holiday maker, $
 Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a year plus super, $10,000 sacrificed | Take-home $167,100.00 a year, $6,426.92 a fortnight; super $31,200.00; $8,700.00 over the cap; Division 293 on $40,200.00
 2021-22 at 10%, with LMITO | 2021-22, Australian resident, $70,000 a year plus super | Take-home $56,883.00 a year, $2,187.81 a fortnight; super $7,000.00
 
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the four individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11873,7 +11876,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- four individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -11944,7 +11947,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the three individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the four individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11954,7 +11957,96 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- three individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- four individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Bonus and back pay tax withheld calculator 2026-27: Schedule 5
+
+Source: https://duguid.com.au/tools/individual-tax/bonus-withholding/
+
+> PAYG withholding on a bonus, commission or back payment for 2026-27 by the ATO's Schedule 5 methods, with study loans and the 47% limit, each step cited.
+
+# Bonus and back payment withholding calculator
+
+PAYG withheld from a 2026-27 pay that includes a bonus, commission or back payment, by Schedule 5's Method A, B(i) or B(ii), each step shown.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Bonus and back payment withholding inputs for one 2026-27 pay
+
+Pay period Weekly Fortnightly Monthly
+
+Payee Australian resident claiming the tax-free threshold (scale 2) Foreign resident (scale 3)
+
+Has the payee told you of a study or training loan, such as HELP? No Yes
+
+Gross earnings this pay, without the bonus or back payment (dollars and cents) Schedule 5 method Method A: the payment spread over the pays in a year Method B: B(i) for back pay of earlier pays this year, B(ii) for the rest
+
+Bonus, commission or other additional payment; under Method B, the part not taken by B(i) (dollars and cents) Method A: pays to spread it over, the pays in a year or fewer for a payment for a shorter defined period Method B(i): earlier pays this year the back payment covers (0 for none) Method B(i): back payment for each of those pays (dollars and cents) Method B(i): earnings each of those pays had before it (dollars and cents) Method B(i): amount withheld from each of those pays, with any study loan component (dollars and cents) Method B(ii): normal earnings paid this year to date, with this pay and any earlier B(i) back payments (dollars and cents) Method B(ii): pays this year to date, with this pay Method B(ii): earlier additional payments this year worked by B(ii) (dollars and cents) Method B(ii): amount withheld from those earlier payments (dollars and cents)
+
+For a payment made from 1 July 2026 to 30 June 2027 to an employee who has given a tax file number declaration. Method A needs only the fields above the B(i) ones. Method B takes a back payment for earlier pays this year by B(i) and the additional payment field by B(ii); a back payment covering this year and earlier years is split between them. A bonus for work in this pay alone is not a Schedule 5 payment: add it to this pay’s earnings in the take-home pay calculator.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, weekly pay, Australian resident claiming the tax-free threshold (scale 2), with a study or training loan, earnings $1,400.00 this pay, Method A: additional payment $900.00 spread over 52 pays. Earnings this pay, cents ignored (step 1) $1,400.00 Withheld from those earnings (step 2) $277.00 The payment divided by 52, cents ignored (step 3) $17.00 Withheld from earnings of $1,417 (steps 4 and 5) $284.00 The difference, times 52 (steps 6 and 7) $364.00 47% of the payment, the limit (step 8) $423.00 Withheld from the payment, the lesser (step 9) $364.00 Total withheld this pay (step 10) $641.00 Tax and study loan repayment the payment adds to a year of this pay $423.00 Each amount withheld includes the Schedule 8 study loan component: $10 of the $277 on this pay’s earnings and $104 of the $364 on the payment. The last row is the payment’s effect on the year’s assessment, were every pay this pay; the withholding schedules do not aim to match it.
+
+## How the bonus and back payment withholding calculator works
+
+The bonus and back payment withholding calculator works the PAYG amount an employer withholds from a 2026-27 pay that includes a bonus, commission, back payment or similar payment, by the methods of the ATO’s Schedule 5, and shows each step by its number. Either method is acceptable, and Method B usually comes closer to the tax the payee will owe.
+
+Method A spreads the payment over the year: it works out what the tax table withholds from this pay’s earnings, then from those earnings plus a 52nd, 26th or 12th of the payment, and withholds the difference times 52, 26 or 12, but no more than 47% of the payment. A commission or bonus for a defined period shorter than a year can be spread over the pays it relates to instead.
+
+Method B(i) is for a back payment of earlier pays in the same financial year: each of those pays is worked again with its share of the back payment, and what was withheld from it then comes off. Method B(ii) is for back pay of an earlier financial year and for a bonus or other payment that does not relate to one pay: it works like Method A, but on the average of this year’s pays to date, and takes into account earlier payments this year worked the same way.
+
+With a study or training loan, each tax table amount includes the Schedule 8 component, and the 47% limit applies to the two together. Under Method A the calculator also gives the tax and study loan repayment the payment adds to a year of this pay, so a payee can see whether the withholding will cover it.
+
+## What the bonus and back payment withholding calculator does not compute
+
+The calculator applies the 2026-27 schedules only, to a resident claiming the tax-free threshold or a foreign resident. It does not compute:
+
+- payments made before 1 July 2026, or scales 1, 5 and 6: a resident not claiming the tax-free threshold, or one with a full or half Medicare levy exemption;
+- a payee who has not quoted a tax file number, who has 47% withheld, or 45% for a foreign resident, or a working holiday maker, whose payments all fall under Schedule 15;
+- a withholding variation, a withholding declaration’s offsets, or a Medicare levy variation;
+- payments for a single pay period, which are added to that pay’s earnings, and unused leave or employment termination payments on termination, which are withheld under other schedules;
+- back payments of earlier pays with different earnings or withholding each: Method B(i) here takes the same amounts for each, so work pays that differ one group at a time;
+- the split of a back payment between this financial year and earlier ones, which you enter; lump sum E reporting; or the tax offset for a lump sum in arrears, which the ATO works out on assessment.
+
+Confirm the figures with the ATO’s tax withheld calculator or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Bonus and back payment withholding calculator
+
+Case | Inputs | Result
+ATO example 1: Jarrod’s $900 bonus by Method A, with HELP | weekly, scale 2, study loan, $1,400.00 this pay; Method A: $900.00 over 52 pays | Withheld $641.00: $277.00 on earnings, $364.00 on the payment (limit $423.00); adds $423.00 to a year
+ATO example 1 without the HELP component | weekly, scale 2, $1,400.00 this pay; Method A: $900.00 over 52 pays | Withheld $527.00: $267.00 on earnings, $260.00 on the payment (limit $423.00); adds $288.00 to a year
+A 4-week commission spread over the 4 pays it relates to | weekly, scale 2, $1,400.00 this pay; Method A: $400.00 over 4 pays | Withheld $395.00: $267.00 on earnings, $128.00 on the payment (limit $188.00); adds $128.00 to a year
+The 47% limit binds, with the study loan component inside it | weekly, scale 2, study loan, $4,000.00 this pay; Method A: $5,200.99 over 52 pays | Withheld $4,069.00: $1,625.00 on earnings, $2,444.00 on the payment (limit $2,444.46); adds $2,964.00 to a year
+Method A ignores the pay’s cents: a month of $4,346.33 is $1,002 a week, not $1,003 | monthly, scale 2, $4,346.33 this pay; Method A: $1,200.00 over 12 pays | Withheld $1,018.00: $598.00 on earnings, $420.00 on the payment (limit $564.00); adds $402.00 to a year
+Below the tax-free threshold the payment adds no withholding | weekly, scale 2, $200.00 this pay; Method A: $1,000.00 over 52 pays | Withheld $0.00: $0.00 on earnings, $0.00 on the payment (limit $470.00); adds $0.00 to a year
+Foreign resident, scale 3, fortnightly | fortnightly, scale 3, $3,000.00 this pay; Method A: $5,000.00 over 26 pays | Withheld $2,408.00: $900.00 on earnings, $1,508.00 on the payment (limit $2,350.00); adds $1,500.00 to a year
+ATO example 2: Robyn’s back pay by Method B(i) | weekly, scale 2, $1,700.00 this pay; B(i): $100.00 for each of 8 pays of $1,600.00 that had $331.00 withheld | Withheld $619.00: $363.00 on earnings, $256.00 by B(i)
+ATO example 2 with HELP | weekly, scale 2, study loan, $1,700.00 this pay; B(i): $100.00 for each of 8 pays of $1,600.00 that had $371.00 withheld | Withheld $794.00: $418.00 on earnings, $376.00 by B(i)
+B(i): more was withheld than the pay worked again gives, so nil | weekly, scale 2, $1,700.00 this pay; B(i): $1.00 for each of 1 pays of $1,600.00 that had $400.00 withheld | Withheld $363.00: $363.00 on earnings, $0.00 by B(i)
+ATO example 3: Laura’s lump sum in arrears by Method B(ii) | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date | Withheld $992.00: $212.00 on earnings, $780.00 by B(ii) (limit $1,165.60)
+B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $500.00 withheld | Withheld $804.00: $212.00 on earnings, $592.00 by B(ii) (limit $1,165.60)
+B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
+ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
+
+One of the four individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
+- tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
+- four individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
