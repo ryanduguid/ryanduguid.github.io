@@ -521,8 +521,7 @@ const MUTATIONS = [
   { ...cgt, name: 'CGT the 6-year note is never given', find: 'capped ||= rented > allowance;', replace: '' },
   { ...cgt, name: 'CGT rent ending on the sixth anniversary is worked', find: 'if (rented >= allowance && rented <= allowance + (leap ? 1 : 0)) {', replace: 'if (false) {' },
   { ...cgt, name: 'CGT rent from 29 February ending on 1 March is worked', find: 'allowance + (leap ? 1 : 0)', replace: 'allowance' },
-  { ...cgt, name: 'CGT an absence that ends after another starts is not checked', find: '      settle();
-', replace: '' },
+  { ...cgt, name: 'CGT an absence that ends after another starts is not checked', find: '      settle();', replace: '' },
   { ...cgt, name: 'CGT part use begun past the 6 years is refused', find: 'main[part.from - start] && rows.some', replace: 'rows.some' },
   { ...lsl, name: 'LSL NSW pro rata from 4 years', find: "(NSW)', full: 10, early: 5", replace: "(NSW)', full: 10, early: 4" },
   { ...lsl, name: 'LSL Victoria needs 10 years', find: "(Vic)', full: 7, early: 7", replace: "(Vic)', full: 10, early: 7" },

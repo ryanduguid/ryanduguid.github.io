@@ -200,6 +200,7 @@ function absenceOf(row, n) {
  * @param {NonNullable<ReturnType<typeof absenceOf>>[]} rows @param {number} start @param {number} movedIn @param {number} end */
 function markAbsences(main, income, rows, start, movedIn, end) {
   let previous = null;
+  /** @type {number | null} */
   let left = null;
   let capped = false;
   let allowance = 0;
