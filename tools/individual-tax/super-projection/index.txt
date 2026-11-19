@@ -14,7 +14,7 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Super projection inputs, from 2026-27 to retirement
 
-Your age now (whole years) Retirement age, from 60 (whole years) Super balance now (dollars and cents) Salary for 2026-27 before salary sacrifice (whole dollars) Employer contributions, per cent of salary: 12 is the super guarantee, 0 if self-employed Salary sacrifice and personal deductible contributions for 2026-27 (dollars and cents) After-tax contributions for 2026-27 (dollars and cents) Investment return a year, after investment fees and tax on earnings (per cent) Administration fee in dollars for 2026-27 (dollars and cents) Administration fee as a per cent of the balance a year Insurance premiums for 2026-27 (dollars and cents) Wage growth a year, for your salary, contributions, fees and premiums (per cent) Rate for today’s dollars, the present value (per cent a year)
+Your age now (whole years) Retirement age, from 60 (whole years) Super balance now (dollars and cents) Salary for 2026-27 before salary sacrifice: your qualifying earnings (whole dollars) Employer contributions, per cent of salary: 12 is the super guarantee, 0 if self-employed Salary sacrifice and personal deductible contributions for 2026-27 (dollars and cents) After-tax contributions for 2026-27 (dollars and cents) Investment return a year, after investment fees and tax on earnings (per cent) Administration fee in dollars for 2026-27 (dollars and cents) Administration fee as a per cent of the balance a year Insurance premiums for 2026-27 (dollars and cents) Wage growth a year, for your salary, contributions, fees and premiums (per cent) Rate for today’s dollars, the present value (per cent a year)
 
 Your super fund’s statement gives your balance, fees and premiums. Every figure is an assumption you can change. This calculator is not intended to be relied on for a decision about a financial product: consider getting advice from an Australian financial services licensee before making any financial decision.
 
@@ -28,7 +28,7 @@ The present value divides the balance at retirement once by 1 plus the present v
 
 ## The assumptions and why they are reasonable
 
-- Retirement at 67: the default ASIC’s Instrument 2022/603 sets for anyone younger. Super is preserved until 60, so an earlier age is not accepted.
+- Retirement at 67: the default ASIC’s Instrument 2022/603 sets for anyone younger. Super is preserved until 60, so an earlier age is projected to 60, as the Instrument takes the greater of the age you enter and your preservation age.
 - Today’s dollars at 3.7% a year: the rate the Instrument sets, the long-term growth in wages the Treasury’s 2023 Intergenerational Report expects, so the result compares with what wages buy now.
 - Wage growth of 3.7% a year for your salary, contributions, fees and premiums: the same long-term forecast, as ASIC’s guide expects contributions to rise with wages.
 - A return of 6.1% a year after investment fees and tax on earnings, steady every year: ASIC’s assumption for a balanced investment option. Real returns vary and can be negative in some years; your fund’s option may have a different mix.
