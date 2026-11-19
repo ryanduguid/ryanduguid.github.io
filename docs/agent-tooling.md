@@ -23,10 +23,10 @@ commit them.
 
 ## WebMCP pilot
 
-Twenty-one calculator pages each offer one WebMCP tool to a browser's built-in agent
+Twenty-two calculator pages each offer one WebMCP tool to a browser's built-in agent
 through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `modelContext` API: `calculate_gst`, `calculate_div7a_minimum_repayment`,
-`calculate_loan_schedule`, `calculate_hire_purchase_schedule`, `calculate_break_even`, `calculate_company_tax`,
+`calculate_loan_schedule`, `calculate_hire_purchase_schedule`, `calculate_lease_schedule`, `calculate_break_even`, `calculate_company_tax`,
 `calculate_foreign_purchaser_surcharges`, `calculate_long_service_leave`, `calculate_fuel_tax_credits` and `calculate_borrowing_expenses` on the business calculator pages,
 `estimate_income_tax`, `calculate_take_home_pay`, `calculate_sole_trader_set_aside`, `calculate_division_293_tax`,
 `calculate_bonus_withholding`, `calculate_income_tests`, `calculate_salary_packaging`, `calculate_novated_lease` and
@@ -62,9 +62,9 @@ signal from Firefox or Safari; the specification was a W3C Community Group draft
 dated 13 November 2026. No origin-trial token is committed; registering one is an
 account action for the site owner. No trial with a real agent is recorded for
 any tool here, the GST pilot included. The earlier rule was to add calculators only after that
-trial; the 20 tools beyond GST were added without it: 5 on 15 November 2026,
+trial; the 21 tools beyond GST were added without it: 5 on 15 November 2026,
 4 on 18 November, and on 19 November the loan payment tool became the loan and
-hire purchase schedule tools, and the Division 293, income tests, long service leave, bonus withholding, salary packaging, novated lease, fuel tax credit, borrowing expenses and super projection tools were added. Only the Node tests and browser tests with a
+hire purchase schedule tools, and the Division 293, income tests, long service leave, bonus withholding, salary packaging, novated lease, fuel tax credit, borrowing expenses, AASB 16 lease and super projection tools were added. Only the Node tests and browser tests with a
 stand-in `modelContext` check them.
 Cloudflare's WebMCP toggle is a separate edge-injected bridge and stays off:
 its packs cover image provenance and a same-origin `/mcp` endpoint, and this

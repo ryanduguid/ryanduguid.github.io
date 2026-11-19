@@ -15,6 +15,13 @@
     <summary>A super projection calculator. It projects one accumulation account from 2026-27 to retirement, a year at a time, with the 12% super guarantee up to the maximum contribution base, 15% contributions tax, fees and premiums and their tax deduction, and gives the balance in future dollars and at its present value. Its defaults follow ASIC’s Instrument 2022/603 (retirement at 67, today’s dollars at 3.7% a year) and ASIC’s own stated assumptions for returns, fees and premiums; each is listed with why it is reasonable and can be changed.</summary>
   </entry>
   <entry>
+    <title>A new business calculator measures a lessee’s lease under AASB 16: the lease…</title>
+    <link href="https://duguid.com.au/changelog/#entry-f24988a0706970f1" />
+    <id>https://duguid.com.au/changelog/#entry-f24988a0706970f1</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A new business calculator measures a lessee’s lease under AASB 16: the lease liability and right-of-use asset at commencement, each payment’s interest and principal, and each income year’s interest, payments, straight-line depreciation and closing balances, with the journal at commencement and a CSV download. It agrees with Example 13 of the Illustrative Examples accompanying IFRS 16. With the comparison on, it sets the lease beside hire purchase and buying outright for each income year after GST and tax, citing the ATO’s GST and business expenses guidance and Divisions 27, 40 and 240 of the Income Tax Assessment Act 1997. Sources were read on 19 November 2026.</summary>
+  </entry>
+  <entry>
     <title>Two new individual tax calculators. The salary packaging calculator works what…</title>
     <link href="https://duguid.com.au/changelog/#entry-d2546bf724f9e6d3" />
     <id>https://duguid.com.au/changelog/#entry-d2546bf724f9e6d3</id>
