@@ -162,9 +162,23 @@ const meal = { method: 'register', expenses: '900', registerBenefits: '1000', re
 const mealValue: number = calculate.fbtMealEntertainment({ ...meal, earlier: [] }, { ended: '2027' }).taxableValue;
 // @ts-expect-error Earlier years' expenses are a list of decimal strings.
 calculate.fbtMealEntertainment({ ...meal, earlier: '1000' }, { ended: '2027' });
+const property = { method: 'in-house-public-price', price: '900', notional: '0', contribution: '500', incomeUse: '0',
+  contributionDeduction: '0', available: '0' } as const;
+const propertyValue: number = calculate.fbtProperty(property).taxableValue;
+const inHouseReduction: number | undefined = calculate.fbtProperty(property).inHouseReduction;
+// @ts-expect-error Airline transport is not one of the property rules.
+calculate.fbtProperty({ ...property, method: 'in-house-airline' });
+const expense = { method: 'external', expenditure: '500', paid: '250', contribution: '0', incomeUse: '80', portionDeduction: '200',
+  price: '0', notional: '0', available: '0' } as const;
+const expenseValue: number = calculate.fbtExpensePayment(expense).taxableValue;
+// @ts-expect-error An external property rule does not value an expense payment.
+calculate.fbtExpensePayment({ ...expense, method: 'external-cost-price' });
 void parkingValue;
 void loanValue;
 void mealValue;
+void propertyValue;
+void inHouseReduction;
+void expenseValue;
 const landTax: number = calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess', surcharge: '0,0,2,0,excess' },
   { foreign: true, surchargeValue: '400000' }).total;
 // @ts-expect-error A land value is a decimal string, as the form field gives it.

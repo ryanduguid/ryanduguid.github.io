@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Thirty-six calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Thirty-eight calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
@@ -31,8 +31,10 @@ Published 11 September 2026. Last checked 20 November 2026, the newest of the ca
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
 - FBT car parking calculator Whether car parking fringe benefits arise against the $11.48 threshold, and their taxable value by any of the 5 methods, for the FBT year ending 31 March 2027.
+- FBT expense payment calculator Taxable value of an expense payment fringe benefit, external with the otherwise deductible rule or in-house by the in-house rules, for the FBT year ending 31 March 2027.
 - FBT loan calculator Taxable value of a loan fringe benefit at the 8.27% statutory interest rate, with the otherwise deductible rule, for the FBT year ending 31 March 2027.
 - Meal entertainment calculator Taxable value of meal entertainment fringe benefits by the 50/50 split or 12-week register method, for the FBT year ending 31 March 2027.
+- FBT property calculator Taxable value of a property fringe benefit by the in-house or external rules, with the otherwise deductible rule and the $1,000 in-house reduction, for the FBT year ending 31 March 2027.
 - Vehicle classifier Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - PCG 2021/4 allocation Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.
@@ -79,8 +81,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
+- FBT expense payment calculator: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
 - FBT loan calculator: https://duguid.com.au/tools/business-calculators/fbt-loan/
 - Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
+- FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/
 - Vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - PCG 2021/4 allocation: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
