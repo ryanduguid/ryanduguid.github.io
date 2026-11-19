@@ -2154,14 +2154,20 @@ test('FBT property and expense payment forms show the rule’s figures and the n
   assert.equal(run('fbt-property', { method: 'external-cost-price', price: '50' }).note, undefined);
   const bought = run('fbt-property', { method: 'in-house-acquired', price: '500', notional: '750' });
   assert.match(bought.inputs, /arm’s length purchase price \$500, notional value \$750, employee contribution \$0, .*, in-house reduction left \$0$/);
-  const petrol = run('fbt-expense-payment', { method: 'in-house-trade-price', expenditure: '1000', paid: '250', price: '800' });
+  // Guide 9.3: s 22A values the retailer's sale to the employee, goods it bought: the lesser of its cost and the notional value.
+  const petrol = run('fbt-expense-payment', { method: 'in-house-acquired', expenditure: '1000', paid: '250', price: '800',
+    notional: '1000' });
   assert.deepEqual(petrol.rows.map(([label]) => label), ['In-house value', 'Recipient’s portion', 'Recipient’s portion applied',
     'Excess portion', 'Value after the portion', 'In-house reduction, section 62', 'Taxable value']);
   assert.equal(petrol.rows.at(-1)[1], '50');
   const reimbursed = run('fbt-expense-payment', { method: 'external', expenditure: '500', paid: '250', 'income-use': '80',
     'portion-deduction': '200' });
   assert.equal(reimbursed.rows.at(-1)[1], '50');
-  assert.match(reimbursed.note, /documentary evidence .*\(paragraphs 24\(1\)\(c\) and \(e\)\)$/);
+  assert.match(reimbursed.note, /evidence paragraph 24\(1\)\(c\) asks for, .*\(paragraph 24\(1\)\(e\)\)$/);
+  // The field note's RD: the employee bore $500 − ($250 − $50) = $300, 80% of it $240; GD $400 less $240 is $160 off $200.
+  const contributed = run('fbt-expense-payment', { method: 'external', expenditure: '500', paid: '250', contribution: '50',
+    'income-use': '80', 'portion-deduction': '240' });
+  assert.equal(contributed.rows.at(-1)[1], '40');
   assert.throws(() => run('fbt-property', { method: 'in-house-airline' }), { message: 'Choose a valuation rule.' });
   assert.throws(() => run('fbt-expense-payment', { method: 'external-cost-price' }), { message: 'Choose a valuation rule.' });
 });

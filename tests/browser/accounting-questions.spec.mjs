@@ -677,10 +677,11 @@ test('FBT expense payment refuses the otherwise deductible rule in-house, then w
   const form = page.locator('#fbt-expense-payment form');
   await waitForCalculator(form);
   await context.setOffline(true);
-  await form.getByLabel('In-house goods you make and sell to the trade').check();
+  await form.getByLabel('In-house goods the seller bought for its business').check();
   await form.getByLabel('Employee’s expenditure before any reimbursement (AUD)').fill('1000');
   await form.getByLabel('Your payment or reimbursement of it (AUD)').fill('250');
   await form.getByLabel('In-house price rules only').fill('800');
+  await form.getByLabel('In-house notional value').fill('1000');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('This calculator does not apply the otherwise deductible rule to an in-house '
     + 'expense payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction.');
@@ -688,7 +689,8 @@ test('FBT expense payment refuses the otherwise deductible rule in-house, then w
   await form.getByLabel('External only: employee’s deduction').fill('0');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
-    'Inputs: in-house made and sold to the trade, the lowest arm’s length price, lowest trade price $800.00, expenditure $1,000.00, '
+    'Inputs: in-house bought for the business, the lesser of the arm’s length purchase price and the notional value, '
+    + 'arm’s length purchase price $800.00, notional value $1,000.00, expenditure $1,000.00, '
     + 'paid or reimbursed $250.00, employee contribution $0.00, in-house reduction left $0.00. In-house value: $800.00. '
     + 'Recipient’s portion: $750.00. Recipient’s portion applied: $750.00. Excess portion: $0.00. Value after the portion: $50.00. '
     + 'In-house reduction, section 62: $0.00. Taxable value: $50.00. The $1,000 in-house reduction in section 62 is for all of the '

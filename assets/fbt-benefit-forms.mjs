@@ -188,8 +188,9 @@ function expensePayment(_form, calculate, { aud, value, money }) {
   return { inputs: external ? `external, ${paid}, ${value('income-use')}% income use, deduction for the recipient’s portion `
     + `${money('portion-deduction')}` : `${ruleSummary(method, money)}, ${paid}${reductionLeft(method, money)}`,
   rows, principal: rows.length - 1,
-  note: benefitNote(r, 'The otherwise deductible reduction needs documentary evidence of the expenditure and, for most '
-    + 'payments, the employee’s declaration before the declaration date (paragraphs 24(1)(c) and (e))') };
+  note: benefitNote(r, 'The otherwise deductible reduction needs the evidence paragraph 24(1)(c) asks for, usually '
+    + 'documentary evidence of the expenditure, and for most payments the employee’s declaration before the declaration date '
+    + '(paragraph 24(1)(e))') };
 }
 
 /** The result of the FBT benefit form `form`, for renderResult in accounting-pages.mjs.
