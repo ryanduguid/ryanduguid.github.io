@@ -506,13 +506,13 @@ Source: https://duguid.com.au/tools/business-calculators/salary-dividend/
 
 # Salary against dividends calculator
 
-Pay a company owner by salary, franked dividends or a mix, and see the cash and super kept after tax.
+Pay a company owner by salary, dividends or both, and see what is kept after tax.
 
 Published 19 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Salary against dividends inputs for one company owner and one income year from 2021-22
+Salary against dividends inputs for one owner
 
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 Company profit before the owner’s salary and super (AUD) Is the company a base rate entity this year and last year? Yes: tax and franking at 25% No: tax and franking at 30% Salary paid to the owner (AUD) Owner’s other taxable income (AUD)
 

@@ -157,7 +157,7 @@ export function salaryDividend(pay) {
   // Rounding to the cent and taxable income to the dollar move the total by cents from one dollar of
   // salary to the next, so the candidates are ranked unrounded; a tie keeps the lower salary.
   const ranked = candidates(profit, other, largest, y).map((one) => [one, unrounded(one, profit, other, y)]);
-  const [bestSalary] = ranked.reduce((top, one) => (one[1] > top[1] + 1e-6 ? one : top));
+  const [bestSalary] = ranked.reduce((top, one) => (one[1] > top[1] + 1e-6 ? one : top), ranked[0]);
   const best = split(bestSalary, profit, other, y);
   const allSalary = split(largest, profit, other, y);
   const allDividends = split(0, profit, other, y);
