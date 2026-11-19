@@ -188,6 +188,9 @@
     "tools/business-calculators/loan/index.html": [
       "ae4b492b58d76e770fd168a2a59cd246d6851b4673116a2601fb20e965bb3531"
     ],
+    "tools/business-calculators/long-service-leave/index.html": [
+      "a2819929d6a29592a36dc68bdd074299aa65bb698d837297f7cfac4606e86a2c"
+    ],
     "tools/business-calculators/margin/index.html": [
       "d03a1db0e3f831d4e7bf0c732357b3a42114c678b134c1a34dc1b51df26b0c2b"
     ],
@@ -244,6 +247,9 @@
     ],
     "tools/individual-tax/income-tax/index.html": [
       "aed04320a1e984625737411e6688f860dd30308e78cf544b438f407c0cbf2037"
+    ],
+    "tools/individual-tax/income-tests/index.html": [
+      "9b56ccfac53459f3663618c951c61fc738455aac814bb2c30fa161b97510be22"
     ],
     "tools/individual-tax/index.html": [
       "095fbe24d680773871d1b5b157fe447fd1d2746ca217452e29c61ad4a202f088"
