@@ -95,7 +95,7 @@
 //! A further 400 seeded CGT sales, from their own seed, type the CPI from the ATO's Appendix 2
 //! and take each indexation factor to 4 places and then 3, as s 960-275(5) words it, where the
 //! engine rounds once. Main residence days are periods and their overlaps, where the engine
-//! marks a day at a time, and the 6 years of s 118-145 end the day before the anniversary.
+//! marks a day at a time, and the 6 years of s 118-145 end on the anniversary (on 28 February from 29 February).
 mod common;
 
 use jiff::ToSpan;
@@ -6100,8 +6100,10 @@ fn cgt_not_main(home: &Home) -> Vec<(Date, Date)> {
         if !away.choose {
             periods.push((away.from, away.to));
         } else if away.rented {
-            let cap =
-                left.get_or_insert_with(|| cgt_days(away.from, cgt_years_later(away.from, 6)) - 1);
+            let cap = left.get_or_insert_with(|| {
+                let leap_day = away.from.month() == 2 && away.from.day() == 29;
+                cgt_days(away.from, cgt_years_later(away.from, 6)) - i128::from(leap_day)
+            });
             let covered = (*cap).min(length);
             if covered < length {
                 periods.push((away.from + i64::try_from(covered).unwrap().days(), away.to));
@@ -6530,7 +6532,8 @@ fn the_cgt_oracle_works_the_atos_examples() {
         [&val["indexedCostBase"], &val["net"]],
         [&json!("188213"), &json!("93750")]
     );
-    // Example 80, Ian: 11,201 days owned, 365 over the 6 years, $250,000 × 365 ÷ 11,201 = $8,146.59.
+    // Example 80, Ian: 11,201 days owned, 364 over the 6 years to the anniversary, $250,000 × 364 ÷ 11,201
+    // = $8,124.27; the ATO counts 365 and $8,147.
     let away = |from, to, rented| Away {
         from,
         to,
@@ -6563,8 +6566,8 @@ fn the_cgt_oracle_works_the_atos_examples() {
         ],
         [
             &json!("11201"),
-            &json!("365"),
-            &json!("8146.59"),
+            &json!("364"),
+            &json!("8124.27"),
             &Value::Null
         ]
     );

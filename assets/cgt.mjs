@@ -123,6 +123,7 @@ function datedCost(cost, label, from, to) {
  * @param {CgtEvent} x @param {string} acquired @param {string} event @param {string | null} incomeTime */
 function elementsOf(x, acquired, event, incomeTime) {
   const dated = [];
+  let improvedAfterJune1999 = false;
   if (incomeTime) {
     const market = cents(x.home.market);
     if (!market) throw new Error('Enter the market value when the home was first used to produce income (section 118-192).');
@@ -134,24 +135,32 @@ function elementsOf(x, acquired, event, incomeTime) {
   }
   x.improvements.forEach((cost, i) => {
     const improvement = datedCost(cost, `improvement or title cost ${i + 1}`, x.acquired, event);
-    if (improvement && !(incomeTime && improvement.date < incomeTime)) dated.push(improvement);
+    if (improvement && !(incomeTime && improvement.date < incomeTime)) {
+      dated.push(improvement);
+      improvedAfterJune1999 ||= improvement.date > '1999-06-30';
+    }
   });
   const owning = cents(x.owning);
   if (owning && acquired <= '1991-08-20') {
     throw new Error('Costs of owning form part of the cost base only for an asset acquired after 20 August 1991 (subsection 110-25(4)).');
   }
-  return { dated, selling: cents(x.selling), owning };
+  return { dated, selling: cents(x.selling), owning, improvedAfterJune1999 };
 }
 
 /** Cost base, indexed cost base and reduced cost base in cents. Capital works deductions come out of
  * the reduced cost base (s 110-55(4)) and, for an asset acquired after 7.30 pm on 13 May 1997, out of
- * the cost base (s 110-45(2)); they come out at their face amount.
+ * the cost base (s 110-45(2)); they come out at their face amount. For an earlier asset, those on an
+ * improvement after 30 June 1999 also come out of the cost base (s 110-45(1A)), and the others do not.
  * @param {ReturnType<typeof elementsOf>} elements @param {string} acquired @param {string} works */
-function costBases({ dated, selling, owning }, acquired, works) {
+function costBases({ dated, selling, owning, improvedAfterJune1999 }, acquired, works) {
   const deducted = BigInt(cents(works));
   if (deducted && acquired === '1997-05-13') {
     throw new Error('For an asset acquired on 13 May 1997, whether capital works deductions reduce the cost base turns on '
       + 'whether it was acquired after 7.30 pm (subsection 110-45(1)): this page cannot tell.');
+  }
+  if (deducted && acquired < '1997-05-13' && improvedAfterJune1999) {
+    throw new Error('For an asset acquired before 13 May 1997, capital works deductions on an improvement made after 30 June '
+      + '1999 reduce the cost base and others do not (subsection 110-45(1A)): this page cannot split them.');
   }
   const spent = dated.reduce((sum, { amount }) => sum + BigInt(amount), 0n) + BigInt(selling);
   if (deducted > spent) throw new Error('Capital works deductions cannot exceed the amounts spent on the asset.');
@@ -172,8 +181,9 @@ function absenceOf(row, n) {
 
 /** Marks the absences in `main` (1 for a main residence day): an absence not chosen under s 118-145
  * is not main residence; a chosen one is, and while the home produces income only for 6 years from
- * the first day it does in that absence (s 118-145(2)). Rows that follow on day after day are one
- * absence, so the 6 years run across them. @param {Uint8Array} main @param {Uint8Array} income
+ * the first day it does in that absence (s 118-145(2)), to the sixth anniversary inclusive as the
+ * ATO's example 72 counts them (from 29 February, to 28 February). Rows that follow on day after day
+ * are one absence, so the 6 years run across them. @param {Uint8Array} main @param {Uint8Array} income
  * @param {NonNullable<ReturnType<typeof absenceOf>>[]} rows @param {number} start @param {number} movedIn @param {number} end */
 function markAbsences(main, income, rows, start, movedIn, end) {
   let previous = null;
@@ -187,7 +197,10 @@ function markAbsences(main, income, rows, start, movedIn, end) {
     if (row.rented) income.fill(1, row.from - start, row.to - start + 1);
     if (!row.choose) main.fill(0, row.from - start, row.to - start + 1);
     else if (row.rented) {
-      left ??= dayOf(yearsLater(isoOf(row.from), 6)) - row.from;
+      if (left === null) {
+        const first = isoOf(row.from);
+        left = dayOf(yearsLater(first, 6)) - row.from + (first.endsWith('-02-29') ? 0 : 1);
+      }
       const covered = Math.min(left, row.to - row.from + 1);
       main.fill(0, row.from - start + covered, row.to - start + 1);
       left -= covered;
@@ -288,6 +301,10 @@ const incomeYearOf = (iso) => {
  * (ss 114-1, 114-10); the 'other' method when neither applies.
  * @param {CgtEntity} entity @param {string} acquired @param {string} event */
 function methodsOf(entity, acquired, event) {
+  if (acquired === '1999-09-21') {
+    throw new Error('For an asset acquired on 21 September 1999, whether the cost base can be indexed turns on whether it '
+      + 'was acquired by 11.45 am (sections 114-1 and 114-10): this page cannot tell.');
+  }
   const indexable = acquired <= '1999-09-21';
   if (entity === 'company') return [indexable ? 'indexation' : 'other'];
   const methods = event >= yearsLater(isoOf(dayOf(acquired) + 1), 1) ? ['discount'] : [];
@@ -432,7 +449,7 @@ export function cgtResult(value, checked, aud) {
   if (cents(x.currentLosses) || cents(x.priorLosses)) {
     rows.push(['Capital losses of this year applied', aud(r.currentApplied)], ['Net capital losses of earlier years applied', aud(r.priorApplied)]);
   }
-  if (r.method === 'discount') rows.push([`CGT discount of ${x.entity === 'super' ? '33⅓' : '50'}%`, aud(r.discount)]);
+  if (r.method === 'discount') rows.push([`CGT discount of ${x.entity === 'super' ? '33 1/3' : '50'}%`, aud(r.discount)]);
   const principal = rows.push(['Net capital gain', aud(r.net)]) - 1;
   rows.push(['Net capital gain (label A), whole dollars', wholeAud(r.labelA)]);
   if (r.carried) rows.push(['Net capital losses carried forward (label V), whole dollars', wholeAud(r.labelV)]);

@@ -587,10 +587,10 @@ test('CGT works a rented home under section 118-192 and refuses a foreign reside
   await form.locator('[name="away-1-rented"]').check();
   await form.locator('[name="away-1-choose"]').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(output).toContainText('9,863 days, 7,672 not the main residence');
+  await expect(output).toContainText('9,863 days, 7,671 not the main residence');
   await expect(output).toContainText('Applies: taken to be acquired on 29 September 1997 for $340,000.00');
-  await expect(output).toContainText('Total current year capital gains (label H): $155,571.33');
-  await expect(output.locator('.result-row--principal strong')).toHaveText('$77,785.67');
+  await expect(output).toContainText('Total current year capital gains (label H): $155,551.05');
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$77,775.53');
   await form.locator('[name="resident"][value="no"]').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(output).toContainText('This page works out residents only');

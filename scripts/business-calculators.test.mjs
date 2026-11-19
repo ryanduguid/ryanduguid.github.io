@@ -3271,10 +3271,15 @@ test('the 6 years a rented home can stay the main residence run per absence, acr
   const lana = sale([rented('2002-05-29', '2008-05-28'), { from: '2008-05-29', to: '2010-05-28', rented: false, choose: true },
     rented('2012-05-29', '2018-05-28'), { from: '2018-05-29', to: '2020-05-28', rented: false, choose: true }], '500000');
   assert.deepEqual([lana.method, lana.nonMainDays], ['exempt', 0]);
-  // One day more of rent in the first absence is one day over the 6 years, and section 118-192
-  // then starts the ownership period at the first rent.
-  const over = sale([rented('2002-05-29', '2008-05-29'), { from: '2008-05-30', to: '2010-05-28', rented: false, choose: true }], '500000');
+  // The 6 years run to the sixth anniversary inclusive, as the ATO's example 72 counts them; a day
+  // more is one day over, and section 118-192 then starts the ownership period at the first rent.
+  const anniversary = sale([rented('2002-05-29', '2008-05-29'), { from: '2008-05-30', to: '2010-05-28', rented: false, choose: true }], '500000');
+  assert.deepEqual([anniversary.method, anniversary.nonMainDays], ['exempt', 0]);
+  const over = sale([rented('2002-05-29', '2008-05-30'), { from: '2008-05-31', to: '2010-05-28', rented: false, choose: true }], '500000');
   assert.deepEqual([over.nonMainDays, over.incomeTime, over.ownershipDays], [1, '2002-05-29', 8767]);
+  // From 29 February the 6 years run to 28 February, as australian-accounting counts them.
+  const leap = (to, back) => sale([rented('2004-02-29', to), { from: back, to: '2012-05-28', rented: false, choose: true }], '500000');
+  assert.deepEqual([leap('2010-02-28', '2010-03-01').nonMainDays, leap('2010-03-01', '2010-03-02').nonMainDays], [0, 1]);
   // Rows that do not follow on are separate absences, each with its own 6 years.
   const apart = sale([rented('2002-05-29', '2008-05-28'), rented('2008-05-30', '2014-05-28')], '500000');
   assert.equal(apart.nonMainDays, 0);
@@ -3356,9 +3361,13 @@ test('the CGT page refuses malformed, out-of-range and missing figures instead o
   const val = shownCases.cgt.rows.find((row) => row.case.startsWith('ATO example 13')).call[0];
   const both = calculations.capitalGain({ ...val, currentLosses: '200000' });
   assert.deepEqual([both.method, both.net, both.carried], ['indexation', 0, 38213]);
-  // Capital works deductions on an asset acquired by 13 May 1997 come out of the reduced cost base only.
-  const before = calculations.capitalGain({ ...cgtBase(), acquired: '1997-05-12', buying: { amount: '20000', date: '1997-05-12' } });
+  // Capital works deductions on an asset acquired before 13 May 1997 come out of the reduced cost base
+  // only, unless they can be on an improvement after 30 June 1999 (subsection 110-45(1A)).
+  const before = calculations.capitalGain({ ...cgtBase(), acquired: '1997-05-12', buying: { amount: '20000', date: '1997-05-12' },
+    improvements: [{ amount: '30000', date: '1999-06-30' }, { amount: '0', date: '' }] });
   assert.deepEqual([before.costBase, before.reducedCostBase], [206500, 206245]);
+  assert.throws(() => calculations.capitalGain({ ...cgtBase(), acquired: '1997-05-12', buying: { amount: '20000', date: '1997-05-12' } }),
+    /subsection 110-45\(1A\)/);
 });
 
 test('the CGT page opens on the result its calculation gives for the form’s inputs, and cites each source with its date', () => {
@@ -3384,7 +3393,7 @@ test('the CGT page opens on the result its calculation gives for the form’s in
     'away-1-from': '1997-09-29', 'away-1-to': '2024-09-29', 'away-1-rented': true, 'away-1-choose': true, 'part-percent': '0',
     'part-from': '', 'part-to': '', market: '340000' };
   const home = calculations.cgtResult((name) => flat[name] ?? '', (name) => flat[name] === true, aud);
-  assert.deepEqual(home.rows.slice(4, 7), [['Ownership period, settlement to settlement', '9,863 days, 7,672 not the main residence'],
+  assert.deepEqual(home.rows.slice(4, 7), [['Ownership period, settlement to settlement', '9,863 days, 7,671 not the main residence'],
     ['Home first used to produce income (section 118-192)', 'Applies: taken to be acquired on 29 September 1997 for $340,000.00'],
     ['Capital gain before the main residence exemption', '$200,000.00']]);
 });
