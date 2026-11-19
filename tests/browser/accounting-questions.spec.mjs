@@ -905,6 +905,27 @@ test('long service leave page works a Western Australian example, the leave stil
     'Under 10 years, the NT Act pays on death what the employee would have been paid for leaving that day for a reason in subsection 10(2) (subsection 10(3)): choose that reason instead.');
 });
 
+// ReturnToWorkSA's example 1 ($450,000 at 2%: a $9,000 base premium less the 5% discount), then a Queensland
+// policy renewed from before 1 July 2026, whose rate only WorkCover Queensland sets, refused.
+test('workers compensation page works a South Australian example and refuses a renewed Queensland policy offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/workers-compensation/');
+  const form = page.locator('#workers-compensation form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('South Australia', { exact: true }).check();
+  await form.getByLabel('Estimated wages for the policy period').fill('450000');
+  await form.getByLabel('Industry or premium rate from your insurer').fill('2');
+  await form.getByLabel('Actual wages for the policy period').fill('');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Premium payable on the estimated wages: $9,405.00.');
+  await expect(form.locator('output')).toContainText('Less discount at 5% for a base premium in its band: $450.00.');
+  await form.getByLabel('Queensland', { exact: true }).check();
+  await form.getByLabel('Before 1 July 2026, renewed for 2026-27').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(
+    'A policy that commenced before 1 July 2026 has a premium rate from WorkCover Queensland’s simplified or experience-based model and an adjustment for 2025-26 (Notice (No. 1) of 2026, parts 5 and 6): use the premium notice.');
+});
+
 // TR 2022/3 example 22 (paragraphs 210 to 214): Kevin's brother's company is an associate, and Pebbles and
 // GemCo found him through his website; equal thirds are this test's figures. Then an agent paid 75% commission,
 // whom section 87-40 may cover, is refused.
@@ -1137,7 +1158,8 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave'];
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave',
+  'workers-compensation'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

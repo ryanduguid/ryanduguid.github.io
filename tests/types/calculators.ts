@@ -277,3 +277,13 @@ calculate.unusedLeave({ ...leavePay, reason: 'death' });
 calculate.unusedLeave({ ...leavePay, payee: 'working-holiday-maker' });
 void leaveWithheld;
 void leaveType;
+const premiumInput = { place: 'AU-SA', wages: '450000', rate: '2', apprentice: '0', actual: '', group: 'no', dust: '', reward: '0',
+  vicEmployer: 'new', days: '365', buyout: 'no', qldStart: 'q1', firstYear: 'no', claims: '0' } as const;
+const premiumTotal: number = calculate.workersCompensation(premiumInput).total;
+// @ts-expect-error The place is a state or territory code, as the form's radios carry it.
+calculate.workersCompensation({ ...premiumInput, place: 'SA' });
+// @ts-expect-error Wages are a decimal string, as the form passes them.
+calculate.workersCompensation({ ...premiumInput, wages: 450000 });
+// @ts-expect-error The Queensland start is one of the form's 5 choices.
+calculate.workersCompensation({ ...premiumInput, qldStart: 'q5' });
+void premiumTotal;

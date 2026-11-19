@@ -51,8 +51,8 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Individual tax calculators</li></ol></nav>
         <h1>Individual tax calculators</h1>
-        <p class="lead-note">Eight calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
-        <p class="field-note">Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.</p>
+        <p class="lead-note">Nine calculators for one person’s tax year and pay, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.</p>
+        <p class="field-note">Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, and the withholding from a 2026-27 pay with a bonus or back payment. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.</p>
         {% assign checked = "" %}{% for calculator in site.data.individual_tax_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 17 November 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
@@ -67,6 +67,7 @@
           <li id="division-293"><a class="collection-entry__title" href="/tools/individual-tax/division-293/">Division 293 tax calculator</a> The extra 15% tax on concessional super contributions above the $250,000 threshold, after excess contributions and unused cap carried forward, with the room left under it.</li>
           <li id="income-tests"><a class="collection-entry__title" href="/tools/individual-tax/income-tests/">Income tests calculator</a> Income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution income, from the amounts in one tax return.</li>
           <li id="concessional-catch-up"><a class="collection-entry__title" href="/tools/individual-tax/concessional-catch-up/">Concessional catch-up calculator</a> The concessional contributions cap with unused cap carried forward from the previous 5 years, earliest year first, and the year each amount lapses.</li>
+          <li id="bonus-withholding"><a class="collection-entry__title" href="/tools/individual-tax/bonus-withholding/">Bonus withholding calculator</a> The PAYG withheld from a 2026-27 pay that includes a bonus, commission or back payment, by the ATO’s Schedule 5 methods, step by step, with the tax the payment adds to the year.</li>
         </ul>
         <p>For a business, see the <a href="/tools/business-calculators/">business calculators</a>.</p>
       <p class="byline">

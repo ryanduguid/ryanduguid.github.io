@@ -3679,6 +3679,128 @@ test('long service leave words each Act’s misconduct test and states the condi
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
 });
 
+// The workers compensation premium page: how each call and result reads, each scheme's published
+// examples and the edges of its method.
+const wcHtml = readFileSync(new URL('../_includes/calculators/workers-compensation.html', import.meta.url), 'utf8');
+Object.assign(INPUTS, { workersCompensation: (x) => [`${PLACES[x.place]}, wages ${dollars(Number(x.wages))} at ${x.rate}%`,
+  x.apprentice !== '0' && `apprentice wages ${dollars(Number(x.apprentice))}`,
+  x.place === 'AU-NSW' && `dust diseases ${x.dust}%, reward ${x.reward}%`,
+  x.place === 'AU-VIC' && `${x.vicEmployer} employer, ${x.days} days${x.buyout === 'yes' ? ', excess bought out' : ''}`,
+  x.place === 'AU-QLD' && `policy from ${x.qldStart}`,
+  x.place === 'AU-SA' && (x.firstYear === 'yes' ? 'first full year' : `claims ${dollars(Number(x.claims))}`),
+  x.group === 'yes' && 'a member of a group',
+  x.actual !== '' && `actual wages ${dollars(Number(x.actual))}`].filter(Boolean).join(', ') });
+Object.assign(FORM_CALLS, { workersCompensation: (f) => [{ place: f.jurisdiction, wages: f.wages, rate: f.rate, apprentice: f.apprentice,
+  actual: f.actual, group: f.group, dust: f.dust, reward: f.reward, vicEmployer: f['vic-employer'], days: f.days, buyout: f.buyout,
+  qldStart: f['qld-start'], firstYear: f['first-year'], claims: f.claims }] });
+Object.assign(ENGINE_LABELS, { workersCompensation: { premium: 'premium before GST', total: 'payable', actualTotal: 'payable on actual wages',
+  adjustment: 'adjustment' } });
+const wc = (change) => calculations.workersCompensation({ place: 'AU-NT', wages: '400000', rate: '3.5', apprentice: '0', actual: '', group: 'no',
+  dust: '0', reward: '0', vicEmployer: 'new', days: '365', buyout: 'no', qldStart: 'q1', firstYear: 'no', claims: '0', ...change });
+// A refusal where a result is due fails as an assertion, so the mutation check counts it as caught.
+const ok = (change) => {
+  try {
+    return wc(change);
+  } catch (error) {
+    return assert.fail(`${JSON.stringify(change)} was refused: ${error.message}`);
+  }
+};
+
+test('the workers compensation page opens on the result its calculation gives, names every scheme and cites each source with the date read', () => {
+  const example = wcHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(wcHtml);
+  const result = calculations.workersCompensationResult((name) => fields[name], aud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  const radios = [...wcHtml.matchAll(/name="jurisdiction" value="([^"]+)"(?: checked)? \/> ([^<]+)</g)].map(([, code, name]) => [code, name]);
+  assert.deepEqual(radios, Object.entries(calculations.WC_SCHEMES).map(([code, { name }]) => [code, name]));
+  for (const cited of ['Guidelines 2026</a>, for policies issued or renewed from 4 pm on 30 June 2026, read 19 November 2026',
+    '(updated 9 November 2026)', 'and the values WorkSafe set in Gazette S 284 of 2 June 2026, both read 19 November 2026',
+    '(Queensland Government Gazette No. 43, 26 June 2026), read 19 November 2026', '(reprint current from 22 October 2026), read 19 November 2026',
+    'Your premium explained</a>, read 19 November 2026', '(last updated 21 March 2025), read 19 November 2026',
+    'suggested reasonable premium rates for 2026/27, each read 19 November 2026']) {
+    assert.ok(wcHtml.includes(cited), cited);
+  }
+});
+
+test('workers compensation matches each scheme’s published worked figures', () => {
+  // NT WorkSafe's bulletin: $400,000 × 3.50% = $14,000 + $1,400 GST; $500,000 actual gives $19,250, $3,850 more.
+  assert.deepEqual(['total', 'actualTotal', 'adjustment'].map((k) => ok({ actual: '500000' })[k]), [15400, 19250, 3850]);
+  // ReturnToWorkSA's 3 examples, before GST and the WHS fee.
+  for (const [wages, rate, claims, premium] of [['450000', '2', '0', 8550], ['450000', '2', '2500', 9900], ['1000000', '6', '5000', 56000]]) {
+    assert.equal(ok({ place: 'AU-SA', wages, rate, claims }).premium, premium, `${wages} ${claims}`);
+  }
+  // icare's Rob's Restaurant: $1,200,000 at 2.250% is an APP of $27,000; the 7.5% reward takes $2,025 off.
+  const rob = ok({ place: 'AU-NSW', wages: '1200000', rate: '2.25', reward: '7.5' });
+  assert.deepEqual([rob.lines[0][1], rob.lines[1][1], rob.premium], [2700000n, -202500n, 24975]);
+});
+
+test('workers compensation applies each scheme’s thresholds, rounding and minimums at their edges', () => {
+  // SIRA Guidelines 2026 clause 6.7: a basic tariff premium that does not exceed $30,000 is a small employer's.
+  assert.equal(ok({ place: 'AU-NSW', wages: '1000000', rate: '3' }).premium, 30000);
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '1000000.17', rate: '3' }), /\$30,000\.01 is more than \$30,000/);
+  // icare's $240 minimum: $12,000 at 2% is exactly $240 and stands; a cent of premium less is refused.
+  assert.equal(ok({ place: 'AU-NSW', wages: '12000', rate: '2' }).premium, 240);
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '11999.5', rate: '2' }), /\$239\.99 is below icare’s minimum premium of \$240/);
+  // NSW: the apprentice incentive is apprentice wages × the WIC rate, and the dust diseases rate already includes GST.
+  const nsw = ok({ place: 'AU-NSW', wages: '500000', rate: '2', apprentice: '50000', dust: '0.044' });
+  assert.deepEqual([nsw.premium, nsw.gst, nsw.total], [9000, 900, 10120]);
+  // ReturnToWorkSA's discount bands: 5% under $10,000 up to 30% at $1,000,000, each from its lower bound.
+  for (const [base, band] of [['9999.99', 5], ['10000', 10], ['49999.99', 10], ['50000', 15], ['99999.99', 15], ['100000', 20],
+    ['499999.99', 20], ['500000', 25], ['999999.99', 25], ['1000000', 30]]) {
+    const { lines } = ok({ place: 'AU-SA', wages: String(Number(base) * 50), rate: '2' });
+    assert.equal(lines[1][0], `Less discount at ${band}% for a base premium in its band`, base);
+  }
+  // Claims costs are capped at 3 × D × BP, $1,350 on a $9,000 base premium; the premium rounds down to the dollar.
+  assert.equal(ok({ place: 'AU-SA', wages: '450000', rate: '2', claims: '1350' }).premium, 9900);
+  assert.equal(ok({ place: 'AU-SA', wages: '450000', rate: '2', claims: '1349.99' }).premium, 9899);
+  assert.equal(ok({ place: 'AU-SA', wages: '1000', rate: '2' }).premium, 200);
+  assert.equal(ok({ place: 'AU-SA', wages: '450000', rate: '2', firstYear: 'yes', claims: 'not read' }).premium, 9000);
+  // Premiums Order (No. 34) clauses 9 and 11: 2% of $150,000 less 2% of $15,500; the $400 minimum below that.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2' }).premium, 2690);
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', days: '73' }).premium, 2938);
+  // Clause 6(4): the deductible of $84.931507 is $84.93 before it comes off, so $2,915.07, not $2,915.06.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', days: '100' }).premium, 2915.07);
+  assert.equal(ok({ place: 'AU-VIC', wages: '35499', rate: '2' }).premium, 400);
+  assert.equal(ok({ place: 'AU-VIC', wages: '35501', rate: '2' }).premium, 400.02);
+  // Clause 6(6): remuneration to the nearest dollar.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000.49', rate: '2' }).premium, 2690);
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000.50', rate: '2' }).premium, 2690.02);
+  // Clause 10: the buy-out is 0.1 of the WorkCover premium.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', buyout: 'yes' }).premium, 2959);
+  // Queensland: 5% duty on the premium and its GST (DA356.1), and section 4.1's minimums by quarter, including both.
+  const qld = ok({ place: 'AU-QLD', wages: '500000', rate: '1.343' });
+  assert.deepEqual([qld.premium, qld.gst, qld.duty, qld.total], [6715, 671.5, 369.33, 7755.83]);
+  for (const [qldStart, minimum] of [['q1', 200], ['q2', 150], ['q3', 100], ['q4', 50]]) {
+    assert.equal(ok({ place: 'AU-QLD', wages: '1000', rate: '1.343', qldStart }).total, minimum, qldStart);
+  }
+  // A premium of $181.31 is under $200 alone, but $209.41 with GST and duty, so no minimum applies.
+  assert.equal(ok({ place: 'AU-QLD', wages: '13500', rate: '1.343' }).total, 209.41);
+});
+
+test('workers compensation refuses what only the insurer decides and malformed input instead of guessing', () => {
+  const rate = 'Enter the rate as a percentage from 0.0001% to 100%, to no more than 4 decimal places.';
+  for (const [change, message] of [[{ place: 'AU-CTH' }, 'Choose the state or territory whose scheme insures the workers.'],
+    [{ group: 'maybe' }, 'Choose whether the employer is a member of a group.'],
+    [{ place: 'AU-VIC', vicEmployer: 'other' }, /performance-rated premium/],
+    [{ place: 'AU-QLD', qldStart: 'existing' }, /simplified or experience-based model/],
+    [{ place: 'AU-SA', group: 'yes' }, /group’s wages or premiums together/],
+    [{ place: 'AU-NSW', apprentice: '400000.01' }, 'Apprentice wages are part of the wages: enter no more than the wages.'],
+    [{ place: 'AU-WA', apprentice: '1' }, 'There is no apprentice deduction for Western Australia here: enter 0 apprentice wages.'],
+    [{ rate: '0' }, rate], [{ rate: '1.00001' }, rate], [{ rate: '' }, rate],
+    [{ wages: '' }, 'Enter the estimated wages in dollars and cents, from $0 to $10,000,000,000.'],
+    [{ actual: '-1' }, 'Enter the actual wages in dollars and cents, from $0 to $10,000,000,000.'],
+    [{ place: 'AU-NSW', dust: '' }, 'Enter the dust diseases rate as a percentage from 0% to 10%, to no more than 4 decimal places.'],
+    [{ place: 'AU-VIC', days: '366' }, 'Enter the days in 2026-27 the employer is registered, from 1 to 365.'],
+    [{ place: 'AU-SA', claims: '' }, 'Enter the claims costs in dollars and cents, from $0 to $10,000,000,000.'],
+    [{ place: 'AU-NSW', wages: '1000000', rate: '2', actual: '1600000' }, /Error: On the actual wages, the average performance premium of \$32,000\.00/]]) {
+    assert.throws(() => wc(change), message instanceof RegExp ? message : { message }, JSON.stringify(change));
+  }
+  // A group does not change a privately set rate × wages, and only the chosen scheme's own answers are read.
+  assert.equal(wc({ group: 'yes' }).total, 15400);
+  assert.equal(wc({ dust: 'x', days: 'x', claims: 'x', vicEmployer: 'x', qldStart: 'x', firstYear: 'x' }).total, 15400);
+});
+
 // ATO Key superannuation rates and thresholds, Table 21, read 19 November 2026: Norfolk Island's
 // transitional rate is 11% for 2026-27 and 7% to 10% for 2022-23 to 2025-26.
 test('the SGC page refuses Norfolk Island salary or wages under either law rather than apply the general rate', () => {
