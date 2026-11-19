@@ -654,8 +654,8 @@ test('FBT car exempts an eligible electric car and keeps its value reportable of
   await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByLabel('Battery electric').check();
-  await form.getByLabel('Electric cars only: first day anyone both held and used the car').fill('2026-07-01');
-  await form.getByLabel('Electric cars only: day of the car’s first retail sale').fill('2026-07-01');
+  await form.getByLabel('Electric cars only: first day held and used').fill('2026-07-01');
+  await form.getByLabel('Electric cars only: first retail sale').fill('2026-07-01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
     'Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
@@ -675,7 +675,7 @@ test('FBT car exempts an eligible electric car and keeps its value reportable of
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: does not apply.');
   await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.40.');
-  await form.getByLabel('Electric cars only: day of the car’s first retail sale').fill('2027-04-01');
+  await form.getByLabel('Electric cars only: first retail sale').fill('2027-04-01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('.field-error')).toHaveText('Enter 31 March 2027 or earlier.');
 });

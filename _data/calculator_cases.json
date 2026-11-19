@@ -108,7 +108,7 @@
     ]
   },
   "fbt-car": {
-    "checked": "2026-11-15",
+    "checked": "2026-11-19",
     "function": "fbtCar",
     "rows": [
       {"case": "The ATO’s statutory formula example 28, to the cent", "input": "Statutory formula; cost price $60,000.00, 182 of 365 days, contributions $1,000.00, gross-up 2.0802", "call": [{"method": "statutory", "cost": "60000", "accessories": "0", "reduced": false, "days": "182", "costs": "0", "businessUse": "0", "contribution": "1000"}, {"days": "365", "grossUp": "2.0802", "fbtRate": "47"}], "result": {"statutory": 4983.56, "taxableValue": 4983.56, "grossedUp": 10366.8, "fbt": 4872.4}, "output": "Statutory formula value $4,983.56, taxable value $4,983.56, grossed-up value $10,366.80, FBT $4,872.40"},
