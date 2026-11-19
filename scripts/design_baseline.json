@@ -234,7 +234,7 @@
       "3cb6d9eb132cb07a5d4a2ba9bd84a6948bfce2a886038c27936b4ce1ae353f67"
     ],
     "tools/business-calculators/workers-compensation/index.html": [
-      "caeb3e4c30f2f4fdb38c9329a0bdaf7e102c29d9a92e0415364f1baa2fbb70c6"
+      "f0401c056eb9d551612e5b7aaef1f68bc60ec7202a1c2bebce8b4a0b6c6c4f47"
     ],
     "tools/coal-lsl-levy/index.html": [
       "d228eaa6008eb3d815ffce6b7cb0b31696e81a8cdec6cb60a1aa11acf0b0ed7b"
@@ -339,7 +339,7 @@
   "protected_files": {
     "llms.txt": "f4cf485d257fda0c2529ee22942ef786791b768c19cfe18461cfd576d9fd59b2",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "d652ab63027cb06b83a87d9355b09a42a559d53ad3cb90ef224db96223c74d57"
+    "sitemap.xml": "f322a8c1206e477960032eedbf52b99396842415a542274aae75b1abd39df1a5"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
