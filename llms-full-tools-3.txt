@@ -301,7 +301,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Thirty-nine calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Forty-one calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
@@ -320,6 +320,7 @@ Published 11 September 2026. Last checked 20 November 2026, the newest of the ca
 - Budget variance calculator Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 - Loan repayment schedule calculator Every payment of a loan, weekly to yearly, in arrears or in advance, with an optional balloon; works out the payment, the amount, the term or the rate, with CSV export.
 - Hire purchase and chattel mortgage schedule The same schedule for a hire purchase agreement or chattel mortgage, with the interest by income year and a journal for each payment.
+- Borrowing expenses calculator Section 25-25 borrowing expenses by income year from 2017-18, spread by days, with the $100 rule, refinancing and an optional AASB 9 column.
 
 ## Division 7A, FBT, professional firms and GIC
 
@@ -379,6 +380,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
 - Loan repayment schedule calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
+- Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/

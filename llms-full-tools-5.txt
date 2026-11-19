@@ -806,7 +806,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -817,7 +817,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -864,7 +864,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -874,7 +874,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -921,7 +921,7 @@ Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.
 
 Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -931,7 +931,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -977,7 +977,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -986,7 +986,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1030,7 +1030,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -1039,7 +1039,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1089,7 +1089,7 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
 
@@ -1098,7 +1098,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1149,7 +1149,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -1159,7 +1159,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1226,7 +1226,7 @@ Payments that add up to less than the amount financed have no rate | $1,000.00 f
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.45 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1238,7 +1238,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -1293,7 +1293,7 @@ The implicit rate of a hire purchase agreement with a residual | $50,000.00 fina
 A residual equal to the amount financed leaves interest only | $1,000.00 financed, 12% a year, 12 monthly payments, balloon $1,000.00, from 2026-07-01; working out the payment | Payment $10.00, last payment $10.00, total interest $120.00
 A payment that does not cover the interest never reaches the residual | $60,000.00 financed, 7.5% a year, monthly payments, $375.00 each, balloon $18,000.00, from 2026-07-01; working out the number of payments | Refused: the payment does not cover a period’s interest, so the balance never falls to the balloon
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1302,60 +1302,83 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
-# Division 7A minimum yearly repayment calculator
+# Borrowing expenses calculator: section 25-25 by days
 
-Source: https://duguid.com.au/tools/business-calculators/div7a/
+Source: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 
-> The Division 7A minimum yearly repayment on an amalgamated loan for one income year, from its balance, that year’s benchmark rate and the remaining term.
+> Borrowing expenses under ITAA 1997 s 25-25 for each income year from 2017-18: days, the 5 year period, the $100 rule, refinancing and AASB 9 amortisation.
 
-# Division 7A loan calculator
+# Borrowing expenses calculator
 
-Minimum yearly repayment, interest and principal on one amalgamated loan.
+Section 25-25 borrowing expenses by income year for up to 3 loans, with the $100 rule and an optional AASB 9 column.
 
-Published 13 November 2026. Last checked 13 November 2026.
+Published 19 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Division 7A minimum yearly repayment inputs
+Borrowing expenses inputs
 
-Loan not repaid at the end of the previous income year (AUD)
+What to work out The tax deduction only The tax and the AASB 9 accounting column
 
-Income year (benchmark rate) 2026-27 (8.77%) 2025-26 (8.37%) 2024-25 (8.77%) 2023-24 (8.27%) 2022-23 (4.77%) 2021-22 (4.52%) 2020-21 (4.52%) 2019-20 (5.37%)
+Income year asked about 2027-28 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18
 
-Remaining term (whole years)
+Is any loan’s money used for a holiday home or other leisure facility? No, or s 26-50(3) applies all year Yes Other borrowing expenses on loans not listed, income share (AUD, optional) Income year they were incurred2027-28 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18
 
-The years and rates are those in the Division 7A benchmark rate table, for a company whose income year ends on 30 June. Round a remaining term that is not a whole number up to the next whole year.
+## Loan 1
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27 income year at the 8.77% benchmark rate, $1,000.00 not repaid at 30 June 2026, 1 year remaining. Minimum yearly repayment $1,087.70 Interest for the year, if repaid on 30 June $87.70 Principal, if repaid on 30 June $1,000.00
+Each loan’s borrowing expenses are spread over its own period of the loan, the shortest of the contract, the time to repayment and 5 years.
 
-## How the Division 7A minimum yearly repayment calculator works
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes
 
-The Division 7A minimum yearly repayment calculator works out the least a borrower must repay on one amalgamated loan in one income year after the year the loan was made. It applies the formula in subsection 109E(6) of the Income Tax Assessment Act 1936: the loan not repaid at the end of the previous income year, times the year’s benchmark interest rate, divided by 1 minus (1 ÷ (1 + the rate)) raised to the remaining term in years.
+## Loan 2 (optional)
 
-The interest for the year is the benchmark rate on the whole balance, and the principal is the rest of the repayment. That split assumes the whole repayment is made on the last day of the income year. The ATO works interest out from the daily balance, so a repayment made earlier in the year carries less interest and more of it reduces the principal.
+Leave the borrowing expenses blank to skip loan 2.
 
-The ATO’s worked example on Loans by private companies takes $55,000 at 5.95% with 7 years remaining and gives $9,835 to the nearest dollar; this calculator gives $9,834.92 for those figures.
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender Accounting: of the borrowing expenses, fees paid to the same lender (AUD)
 
-## What the Division 7A minimum yearly repayment calculator does not cover
+## Loan 3 (optional)
 
-The calculator does not decide whether a payment or loan is a Division 7A loan, whether the loan agreement complies, whether a shortfall is a deemed dividend or how much of it, or how a distributable surplus limits one. It works one income year only, with no repayment schedule, and none for the year in which the loan was made. It takes the balance as you enter it: it does not work it out from the loans made, repayments made before the lodgment day or the previous year’s interest, and it does not combine several loans. It does not handle an income year that ends on a day other than 30 June. Subsection 109E(5) lets regulations set another amount, and this calculator applies the formula only. Confirm the figures with the ATO Division 7A calculator and decision tool or a registered tax agent.
+Leave the borrowing expenses blank to skip loan 3.
+
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Loan 2 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender Accounting: of the borrowing expenses, fees paid to the same lender (AUD)
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2024-25; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use; loan 2: $1,670.00 of borrowing expenses from 17 July 2020, contract to 16 July 2040, 81.3397% income use. Borrowing expenses, all loans $3,270.00 Maximum deduction for 2024-25 $653.65 Still to deduct after 2024-25 $16.38 Deduction for 2024-25 $591.36
+
+## How the borrowing expenses calculator works
+
+The borrowing expenses calculator works out the deduction for costs of borrowing money, such as loan establishment fees, mortgage registration and lender’s mortgage insurance, under section 25-25 for up to 3 loans and every income year of each. Each year’s maximum is what is left of the expenditure over the days left in the period of the loan, times those days in the year, rounded to the cent. The deduction is that maximum times the year’s income use, which can change from year to year.
+
+A loan repaid early ends its period that day, so that year deducts what is left. A loan that refinances an earlier one spreads its own expenses from its own first day. When everything incurred for borrowing in a year comes to $100 or less of income use, it is deducted that year instead.
+
+The optional accounting column sets the same expenses against the loan under AASB 9: the effective interest rate that discounts the loan’s monthly payments to the amount borrowed less the expenses, the expenses recognised each year by that rate, the write-off when a loan is extinguished, the 10% test for a refinancing with the same lender, and the amortised cost at 30 June. Beside each year’s tax deduction it shows the difference, and what tax and accounting each still carry at 30 June.
+
+## What the borrowing expenses calculator does not cover
+
+The calculator does not decide which costs are borrowing expenses rather than interest or a capital cost of the property, or how much of the money is used to produce income: you state those. It refuses a loan first drawn before 1 July 2017, an income year after 2027-28, a holiday home or other leisure facility unless subsection 26-50(3) applies all year (whether the anti-avoidance rule in subsection 26-50(7) stops it applying is yours to decide), and a refinancing whose dates do not meet. It works years after 2027-28 under section 25-25 as read and marks them projected. It does not apply section 26-155, interest deductions, redraws, Division 7A loans or debt forgiveness.
+
+The accounting column takes every expense as integral to the effective interest rate, fixed monthly payments in arrears and the expected life you give, and shares a month’s amortisation across 30 June by days. It does not work a modification under 10%, a variable rate repricing, fair value through profit or loss, AASB 112 deferred tax or the AASB 123 capitalisation period. Confirm the result with the ATO’s Borrowing expenses page or a registered tax agent before relying on it.
 
 ## Boundary cases
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Division 7A loan calculator
+Boundary cases: Borrowing expenses calculator
 
 Case | Inputs | Result
-One year left repays the balance and a year’s interest | $1,000.00 at 8.77% over 1 year | Repayment $1,087.70, interest $87.70, principal $1,000.00
-The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
-No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
+The ATO’s Peter ($1,600 from 3 July 2020) and Fiona and Max ($1,670 from 17 July 2020, 81.3397% income use) in 2024-25 | 2024-25; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use; loan 2: $1,670.00 of borrowing expenses from 17 July 2020, contract to 16 July 2040, 81.3397% income use | borrowing expenses $3,270.00, maximum deduction $653.65, deduction $591.36, still to deduct $16.38
+Ben’s $3,600 over his 4 year contract from 1 September 2025: 366 of 793 days in 2027-28, flagged for section 26-155 | 2027-28; loan 1: $3,600.00 of borrowing expenses from 1 September 2025, contract to 31 August 2029, 100% income use | borrowing expenses $3,600.00, maximum deduction $901.85, deduction $901.85, still to deduct $1,052.16
+A $1,500 loan refinanced on 31 December 2025 by an $800 loan: the first deducts its remaining $1,188.91, the second $79.74 | 2025-26; loan 1: $1,500.00 of borrowing expenses from 1 September 2024, contract to 31 August 2028, repaid 31 December 2025, 100% income use; loan 2: $800.00 of borrowing expenses from 31 December 2025, refinancing loan 1, 100% income use | borrowing expenses $2,300.00, maximum deduction $1,268.65, deduction $1,268.65, still to deduct $720.26
+Peter’s loan used half for income from 2022-23: 2023-24’s maximum of $320.70 at 50% | 2023-24; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, income use by year | borrowing expenses $1,600.00, maximum deduction $320.70, deduction $160.35, still to deduct $321.58
+$60 and $40 of borrowing expenses on 2 loans first drawn in 2025-26 make $100, deducted that year (section 25-25(6)) | 2025-26; loan 1: $60.00 of borrowing expenses from 1 August 2025, contract to 31 July 2028, 100% income use; loan 2: $40.00 of borrowing expenses from 1 February 2026, 100% income use | borrowing expenses $100.00, maximum deduction $100.00, deduction $100.00, still to deduct $0.00
+A loan first drawn before 1 July 2017 | 2024-25; loan 1: $1,600.00 of borrowing expenses from 30 June 2017, contract to 2 July 2045, 100% income use | Refused: loan 1: a loan first drawn before 1 July 2017 is out of scope: s 25-25 was read as it applies from the 2017-18 income year
+A refinancing that does not start on the day the earlier loan was repaid | 2026-27; loan 1: $1,500.00 of borrowing expenses from 1 September 2024, contract to 31 August 2028, repaid 31 December 2025, 100% income use; loan 2: $800.00 of borrowing expenses from 1 January 2026, refinancing loan 1, 100% income use | Refused: loan 2: refinances must be the number of an earlier loan in loans, repaid on this loan's loan_start and refinanced by no other loan
+An income year after 2027-28 | 2028-29; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use | Refused: choose an income year from 2017-18 to 2027-28
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -1363,7 +1386,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
-- Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
-- ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- Borrowing expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/borrowing-expenses
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/
