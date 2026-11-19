@@ -23,13 +23,13 @@ commit them.
 
 ## WebMCP pilot
 
-Eleven calculator pages each offer one WebMCP tool to a browser's built-in agent
+Thirteen calculator pages each offer one WebMCP tool to a browser's built-in agent
 through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `modelContext` API: `calculate_gst`, `calculate_div7a_minimum_repayment`,
 `calculate_loan_schedule`, `calculate_hire_purchase_schedule`, `calculate_break_even`, `calculate_company_tax` and
 `calculate_foreign_purchaser_surcharges` on the business calculator pages,
-`estimate_income_tax` and `calculate_take_home_pay` on the income tax and
-take-home pay calculators, `calculate_decline_in_value` on the depreciation rates page and
+`estimate_income_tax`, `calculate_take_home_pay`, `calculate_salary_packaging` and
+`calculate_novated_lease` on the income tax, take-home pay, salary packaging and novated lease calculators, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and
 `assets/levy-page.mjs` import `assets/webmcp-tools.mjs` only when the browser
@@ -42,7 +42,7 @@ pattern, range or list, or a name the schema does not declare, rather than
 converting it. `scripts/webmcp-tools.test.mjs` covers each tool, with a refused
 input for each, and the WebMCP tests in `tests/browser/calculator.spec.mjs`
 cover registration on the GST, Division 7A, depreciation rates and Coal LSL
-pages; `tests/browser/individual-tax.spec.mjs` covers the 2 individual tax pages.
+pages; `tests/browser/individual-tax.spec.mjs` covers the 4 individual tax pages.
 
 The 6 Ozzit module pages offer a second read-only tool, `ozzit_function`, through
 `assets/ozzit-tools.mjs`. It looks up one formula by name in the published
