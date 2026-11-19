@@ -171,6 +171,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       if (csv) download(csv, csvDownload.dataset.csv, 'text/csv;charset=utf-8');
     });
 
+    // Each table's rows: a label cell, then figures; a table the result has no rows for stays hidden.
+    /** @param {Record<string, string[][]>} tables */
+    const showTables = (tables) => {
+      for (const table of form.querySelectorAll('table[data-results]')) {
+        const rows = tables[table.dataset.results];
+        if (!rows) continue;
+        table.tBodies[0].replaceChildren(...rows.map(cells => {
+          const tr = document.createElement('tr');
+          tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
+          return tr;
+        }));
+        table.parentElement.hidden = false;
+      }
+    };
     form.addEventListener('submit', event => {
       event.preventDefault();
       invalidate();
@@ -228,19 +242,15 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
               payment: value('payment'), balloon: value('balloon'), balloonKind: value('balloon-kind'), frequency: value('frequency'),
               timing: value('timing'), start: value('start') }, aud, form.dataset.calculator === 'loan' ? null : value('agreement'));
-            // Each table's rows: a label cell, then figures.
-            for (const table of form.querySelectorAll('table[data-results]')) {
-              table.tBodies[0].replaceChildren(...result.tables[table.dataset.results].map(cells => {
-                const tr = document.createElement('tr');
-                tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
-                return tr;
-              }));
-              table.parentElement.hidden = false;
-            }
+            showTables(result.tables);
             csv = result.csv;
             csvDownload.disabled = false;
             break;
           }
+          case 'borrowing-expenses':
+            result = calculate.borrowingResult(value, aud);
+            showTables(result.tables);
+            break;
           case 'div7a': {
             // The year's benchmark rate comes from the option, which lists only years the site's rate table holds.
             const year = form.elements.namedItem('year').selectedOptions[0];
