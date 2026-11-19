@@ -105,6 +105,7 @@ export function variance(actual, budget, kind) {
 }
 
 export { FREQUENCIES, financeSchedule, financeResult, interestByIncomeYear } from './finance-schedule.mjs';
+export { lease, leaseComparison, leaseResult } from './lease.mjs';
 export { div7aMinimumRepayment, div7aSchedule, div7aScheduleResult } from './div7a.mjs';
 
 const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula'];

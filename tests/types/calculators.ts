@@ -230,3 +230,16 @@ const sgcDue: number = calculate.paydaySuperDue(sgcPay).due;
 calculate.quarterlySgCharge({ year: '2026-27', quarter: '1', wages: '1', ote: '1', contributions: '0', lodged: '2026-11-20' });
 void sgcCharge;
 void sgcDue;
+const leaseTerms = { payment: '1000', payments: '60', frequency: 'monthly', timing: 'arrears', rate: '7.5', start: '2026-07-01', residual: '0',
+  prepaid: '0', incentives: '0', direct: '500', restoration: '0', ownership: 'no', life: '' } as const;
+const leaseLiability: number = calculate.lease(leaseTerms).liability;
+// @ts-expect-error Ownership is the form's yes or no, not a boolean.
+calculate.lease({ ...leaseTerms, ownership: false });
+// @ts-expect-error A lease payment is a decimal string, as the form passes it.
+calculate.lease({ ...leaseTerms, payment: 1000 });
+const leasePurchase = { price: '50000', gst: 'credit', hpRate: '7.5', life: '8', method: 'diminishing-value', taxRate: '25', car: 'no' } as const;
+const leaseNet: number = calculate.leaseComparison(leaseTerms, leasePurchase).hirePurchase.net;
+// @ts-expect-error GST is charged and claimed, charged and not claimed, or not charged.
+calculate.leaseComparison(leaseTerms, { ...leasePurchase, gst: 'partly' });
+void leaseLiability;
+void leaseNet;

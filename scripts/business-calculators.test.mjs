@@ -3185,3 +3185,106 @@ test('the SGC page opens on the result its calculation gives for the form’s in
   const quarter = calculations.sgcPaydayResult((name) => ({ ...fields, regime: 'quarter' })[name], aud);
   assert.equal(quarter.rows.at(-1).join('|'), 'SG charge for the quarter|$1,519.18');
 });
+
+// The AASB 16 lease page: how its call and results read.
+const leaseHtml = calculatorInclude('lease');
+const LEASE_EXTRAS = [['residual', 'residual'], ['prepaid', 'paid before commencement'], ['incentives', 'incentives'],
+  ['direct', 'initial direct costs'], ['restoration', 'restoration']];
+Object.assign(INPUTS, {
+  lease: (t) => [`${t.payments} ${t.frequency} payments of ${dollars(Number(t.payment))}${t.timing === 'advance' ? ' in advance' : ''}`,
+    `${t.rate}% a year`, ...LEASE_EXTRAS.filter(([k]) => Number(t[k]) !== 0).map(([k, w]) => `${w} ${dollars(Number(t[k]))}`), `from ${t.start}`,
+    t.ownership === 'yes' ? `ownership transfers${t.life ? `, useful life ${t.life} months` : ''}` : t.life ? `useful life ${t.life} months` : '']
+    .filter(Boolean).join(', '),
+});
+Object.assign(FORM_CALLS, {
+  lease: (f) => [{ payment: f.payment, payments: f.payments, frequency: f.frequency, timing: f.timing, rate: f.rate, start: f.start,
+    residual: f.residual, prepaid: f.prepaid, incentives: f.incentives, direct: f.direct, restoration: f.restoration,
+    ownership: f.ownership, life: f.life }],
+});
+Object.assign(ENGINE_LABELS, {
+  lease: { liability: 'lease liability', cost: 'right-of-use asset', shortTerm: (v) => (v ? 'short term' : 'not short term') },
+});
+const LEASE_TERMS = FORM_CALLS.lease(formDefaults(leaseHtml))[0];
+const leaseOf = (changes = {}) => calculations.lease({ ...LEASE_TERMS, ...changes });
+const PURCHASE = { price: '50000', gst: 'credit', hpRate: '7.5', life: '8', method: 'diminishing-value', taxRate: '25', car: 'no' };
+const compare = (terms = {}, purchase = {}) => calculations.leaseComparison({ ...LEASE_TERMS, ...terms }, { ...PURCHASE, ...purchase });
+
+test('the lease page opens on the result its calculation gives for the form’s inputs', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const example = leaseHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const fields = formDefaults(leaseHtml);
+  const result = calculations.leaseResult((name) => fields[name], aud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  assert.deepEqual(Object.keys(result.tables), ['years', 'schedule', 'commencement', 'comparison']);
+  assert.equal(calculations.leaseResult((name) => ({ ...fields, compare: 'no' })[name], aud).tables.comparison, undefined);
+});
+
+test('the lease engine reproduces IFRS 16 Example 13 to the currency unit, year by year', () => {
+  // Illustrative Examples accompanying IFRS 16, Example 13 (IE5 as amended in 2020): CU50,000 a year
+  // in advance for 10 years at 5%, initial direct costs CU20,000, an incentive CU5,000. The example
+  // rounds each year to the whole CU; the engine rounds to the cent, so each figure is within 1 CU.
+  const r = leaseOf({ payment: '50000', payments: '10', frequency: 'annual', timing: 'advance', rate: '5', incentives: '5000', direct: '20000' });
+  assert.deepEqual([r.liability, r.cost], [355391.08, 420391.08]);
+  const ie = [[17770, 373161, 378352], [16158, 339319, 336313], [14466, 303785, 294274], [12689, 266474, 252235],
+    [10823, 227297, 210196], [8865, 186162, 168157]];
+  ie.forEach(([interest, liability, asset], i) => {
+    const year = r.years[i];
+    for (const [got, want] of [[year.interest, interest], [year.liability, liability], [year.asset, asset], [year.depreciation, 42039]]) {
+      assert.ok(Math.abs(got - want) <= 1, `${year.year}: ${got} against ${want}`);
+    }
+  });
+  // Over the whole term the depreciation is the cost and the liability closes on nil.
+  assert.equal(Math.round(r.years.reduce((sum, year) => sum + year.depreciation * 100, 0)), 42039108);
+  assert.equal(r.years.at(-1).liability, 0);
+});
+
+test('the lease engine depreciates over the useful life when ownership transfers or the life is shorter', () => {
+  assert.equal(leaseOf().depreciationEnd, '2031-07-01');
+  assert.equal(leaseOf({ residual: '5000', ownership: 'yes', life: '96' }).depreciationEnd, '2034-07-01');
+  assert.equal(leaseOf({ life: '36' }).depreciationEnd, '2029-07-01');
+  // A longer life without ownership transferring leaves the lease term as the period.
+  assert.equal(leaseOf({ life: '96' }).depreciationEnd, '2031-07-01');
+  assert.equal(leaseOf({ payment: '2000', payments: '12', rate: '6' }).shortTerm, true);
+  assert.equal(leaseOf({ payment: '2000', payments: '12', rate: '6', residual: '100', ownership: 'yes', life: '60' }).shortTerm, false);
+  assert.equal(leaseOf({ payments: '13' }).shortTerm, false);
+  for (const [changes, message] of [[{ payments: '0' }, 'Enter a whole number between 1 and 600.'], [{ life: '1.5' }, 'Enter a whole number between 1 and 600.'],
+    [{ ownership: 'maybe' }, 'Choose whether ownership transfers or a purchase option is reasonably certain.']]) {
+    assert.throws(() => leaseOf(changes), { message }, JSON.stringify(changes));
+  }
+});
+
+test('the lease comparison times each GST credit as the ATO’s hire purchase and leasing guidance does', () => {
+  // ATO, GST and hire purchase and leasing: a $220 monthly lease payment carries a $20 credit in the
+  // period it is paid; a hire purchase entered into after 1 July 2012 gives one-eleventh of all its
+  // payments as a credit in the period of the first payment.
+  const melinda = compare({ payment: '200', payments: '36' }, { price: '6000' });
+  // Paid monthly in arrears from 1 July 2026: 11 payments in 2026-27 and the 36th on 1 July 2029.
+  assert.deepEqual(melinda.lease.years.map((y) => y.credits), [220, 240, 240, 20]);
+  assert.deepEqual(melinda.lease.years.map((y) => y.cash), [2420, 2640, 2640, 220]);
+  const c = compare();
+  assert.equal(c.hirePurchase.years[0].credits, Math.round(c.hirePurchase.cash * 100 / 11) / 100);
+  assert.ok(c.hirePurchase.years.slice(1).every((y) => y.credits === 0));
+  assert.deepEqual([c.buy.years[0].cash, c.buy.years[0].credits], [55000, 5000]);
+  assert.deepEqual([c.lease.net, c.hirePurchase.net, c.buy.net], [45000, 47306.02, 39720.66]);
+  // Section 27-5: a claimed credit is not deductible, so the lease deducts the GST-exclusive payments.
+  assert.equal(c.lease.deductions, 60000);
+  // Without a credit, the GST paid is part of each deduction; with no GST charged, nothing is added.
+  const noCredit = compare({}, { gst: 'no-credit' });
+  assert.deepEqual([noCredit.lease.credits, noCredit.lease.deductions, noCredit.buy.cash], [0, 66000, 55000]);
+  const none = compare({}, { gst: 'none' });
+  assert.deepEqual([none.lease.cash, none.lease.credits, none.buy.cash], [60000, 0, 50000]);
+  // Every income year from commencement to the last payment is shown, so a payment on 1 July 2031 counts.
+  assert.equal(c.lastYear, '2031-32');
+  assert.equal(c.lease.years.reduce((sum, y) => sum + y.cash * 100, 0), 6600000);
+});
+
+test('the lease comparison refuses a car above the car limit and inputs it cannot read', () => {
+  assert.throws(() => compare({}, { car: 'yes' }), /Division 242/);
+  for (const [purchase, message] of [[{ car: '' }, 'Choose whether the asset is a car above the car limit.'], [{ gst: 'some' }, 'Choose how GST applies.'],
+    [{ method: 'straight' }, 'Choose prime cost or diminishing value.']]) {
+    assert.throws(() => compare({}, purchase), { message }, JSON.stringify(purchase));
+  }
+  for (const purchase of [{ price: '-1' }, { price: '' }, { taxRate: '100.01' }, { hpRate: 'abc' }, { life: '0' }]) {
+    assert.throws(() => compare({}, purchase), Error, JSON.stringify(purchase));
+  }
+});

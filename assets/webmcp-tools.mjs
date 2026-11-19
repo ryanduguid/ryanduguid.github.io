@@ -196,6 +196,48 @@ const financeTool = ({ financeSchedule, interestByIncomeYear }, hirePurchase) =>
   },
 });
 
+/** The AASB 16 lessee schedule tool. @param {typeof import('./business-calculators.mjs').lease} lease */
+const leaseTool = (lease) => tool({
+  name: 'calculate_lease_schedule',
+  title: 'AASB 16 lessee lease schedule',
+  description: 'A lessee\'s AASB 16 lease liability and right-of-use asset in AUD for level lease payments weekly, fortnightly, monthly, '
+    + 'quarterly or yearly, in arrears or in advance. The liability is the payments not paid at commencement and any residual value '
+    + 'guarantee or purchase option price, discounted at the given annual rate (paragraph 26); the asset adds payments made at or '
+    + 'before commencement, initial direct costs and the restoration estimate, less incentives (paragraph 24). Interest is rounded '
+    + 'half up to the cent each period and the last period takes the rest; the asset is depreciated straight line over the lease term, '
+    + 'or over the useful life when ownership transfers or the life ends first. Interest, payments and depreciation are totalled by '
+    + 'income year, 1 July to 30 June. It does not remeasure for a change in rate, term or payments, and it does not work out GST or income tax.',
+  inputSchema: record({
+    payment: text('amount', 'Each lease payment in AUD excluding GST, with at most 2 decimal places, for example "1000".'),
+    payments: whole(1, 2600, 'Number of lease payments in the lease term, at most 50 years of them.'),
+    frequency: choice(['weekly', 'fortnightly', 'monthly', 'quarterly', 'annual'], 'How often payments fall; "monthly" when omitted.'),
+    timing: choice(['arrears', 'advance'], '"arrears" (or omitted) for payments at the end of each period, "advance" for the start, the first at commencement.'),
+    annualRate: text('rate', 'Discount rate in per cent a year with at most 4 decimal places: the rate implicit in the lease or the incremental borrowing rate.'),
+    startDate: text('date', 'Commencement date as YYYY-MM-DD, from 1900-01-01 to 2099-12-31.'),
+    residual: text('amount', 'Residual value guarantee expected to be paid, or purchase option price, in AUD; "0" or omitted for none.'),
+    prepaid: text('amount', 'Lease payments made before commencement, in AUD; "0" or omitted for none.'),
+    incentives: text('amount', 'Lease incentives received, in AUD; "0" or omitted for none.'),
+    initialDirectCosts: text('amount', 'Initial direct costs, in AUD; "0" or omitted for none.'),
+    restoration: text('amount', 'Estimated cost of dismantling or restoring, in AUD; "0" or omitted for none.'),
+    ownershipTransfers: { type: 'boolean', description: 'True when ownership transfers or a purchase option is reasonably certain to be exercised.' },
+    usefulLifeMonths: whole(1, 600, 'Useful life of the underlying asset in months; required when ownershipTransfers is true.'),
+  }, ['payment', 'payments', 'annualRate', 'startDate']),
+  run({ payment, payments, frequency = 'monthly', timing = 'arrears', annualRate, startDate, residual = '0', prepaid = '0', incentives = '0',
+    initialDirectCosts = '0', restoration = '0', ownershipTransfers = false, usefulLifeMonths }) {
+    const r = lease({ payment, payments: String(payments), frequency, timing, rate: annualRate, start: startDate, residual, prepaid, incentives,
+      direct: initialDirectCosts, restoration, ownership: ownershipTransfers ? 'yes' : 'no', life: usefulLifeMonths === undefined ? '' : String(usefulLifeMonths) });
+    return {
+      leaseLiability: dollars(r.liability), rightOfUseAsset: dollars(r.cost), totalInterest: dollars(r.totalInterest), leaseTermEnds: r.end,
+      depreciatedTo: r.depreciationEnd, shortTermElectionAvailable: r.shortTerm,
+      incomeYears: r.years.map((y) => ({ year: y.year, interest: dollars(y.interest), payments: dollars(y.paid), leaseLiability: dollars(y.liability),
+        depreciation: dollars(y.depreciation), rightOfUseAsset: dollars(y.asset) })),
+      schedule: r.rows.map((row) => ({ date: row.date, opening: dollars(row.opening), payment: dollars(row.payment), interest: dollars(row.interest),
+        principal: dollars(row.principal), closing: dollars(row.closing) })),
+      currency: 'AUD', source: `${CALCULATORS}lease/`,
+    };
+  },
+});
+
 /** @param {typeof import('./business-calculators.mjs').breakEven} breakEven */
 const breakEvenTool = (breakEven) => tool({
   name: 'calculate_break_even',
@@ -327,6 +369,7 @@ export function calculatorTools(calculate) {
     div7a: div7aTool(calculate.div7aMinimumRepayment),
     loan: financeTool(calculate, false),
     'hire-purchase': financeTool(calculate, true),
+    lease: leaseTool(calculate.lease),
     'break-even': breakEvenTool(calculate.breakEven),
     'company-tax': companyTaxTool(calculate.companyTax),
     'foreign-surcharge': foreignSurchargeTool(calculate.foreignSurcharge),

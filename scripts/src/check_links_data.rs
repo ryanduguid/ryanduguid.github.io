@@ -38,7 +38,7 @@ pub const CI_MANUAL_URLS: [&str; 20] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 213] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -132,6 +132,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     // Still HTTP 403 on hosted CI in run 44173032679 (18 November 2026).
     "https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator",
     "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator",
+    "https://www.ato.gov.au/forms-and-instructions/business-and-professional-items-schedule-2026-instructions/instructions-to-complete-the-bpi-schedule-2026/business-income-and-expenses-p8/expenses-p8",
     "https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form",
     "https://www.ato.gov.au/forms-and-instructions/fringe-benefits-tax-return-2026-instructions/item-23-fringe-benefit-categories-for-fbt-return-2026",
     "https://www.ato.gov.au/forms-and-instructions/guide-to-completing-the-super-guarantee-charge-statement",
@@ -204,7 +205,10 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/240-20",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/240-25",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/240-60",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/27-5",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-27",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-72",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-75",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-80",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/67-25",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/995-1",

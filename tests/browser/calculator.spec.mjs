@@ -924,6 +924,9 @@ test('GST page registers a read-only WebMCP tool only where the browser offers m
 for (const [path, name, input, expected] of [
   ['/tools/business-calculators/div7a/', 'calculate_div7a_minimum_repayment',
     { balance: '1000', benchmarkRate: '8.77', remainingTerm: 1 }, { minimumRepayment: '1087.70' }],
+  ['/tools/business-calculators/lease/', 'calculate_lease_schedule',
+    { payment: '1000', payments: 60, annualRate: '7.5', startDate: '2026-07-01', initialDirectCosts: '500' },
+    { leaseLiability: '49905.31', rightOfUseAsset: '50405.31' }],
   ['/tools/depreciation-rates/', 'calculate_decline_in_value',
     { cost: '1500', effectiveLife: '5', startDate: '2025-07-01', incomeYearEnding: 2026, method: 'prime-cost' }, { rate: '20.00%' }],
   ['/tools/coal-lsl-levy/', 'calculate_coal_lsl_levy',

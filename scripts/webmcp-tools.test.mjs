@@ -68,7 +68,7 @@ test('each business calculator tool is keyed by the form that registers it', () 
 test('every calculator tool is read-only, refuses unknown inputs and has its own name', () => {
   const all = [...Object.values(tools), declineInValue, levy];
   assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_schedule',
-    'calculate_hire_purchase_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_decline_in_value',
+    'calculate_hire_purchase_schedule', 'calculate_lease_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_decline_in_value',
     'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -184,6 +184,27 @@ test('hire purchase tool adds interest by income year, sharing a period across 3
   assert.equal((await tools.loan.execute({ solve: 'payment', amount: '1000', annualRate: '12', payments: 3,
     startDate: '2027-06-15' })).interestByIncomeYear, undefined);
   assert.match(tools['hire-purchase'].description, /does not work out GST, the GST credit, the car limit or income tax/);
+});
+
+test('lease tool returns the page’s AASB 16 schedule and refuses what the page refuses', async () => {
+  // IFRS 16 Illustrative Example 13: CU355,391 and CU420,391.
+  const r = await tools.lease.execute({ payment: '50000', payments: 10, frequency: 'annual', timing: 'advance', annualRate: '5',
+    startDate: '2026-07-01', incentives: '5000', initialDirectCosts: '20000' });
+  assert.deepEqual([r.leaseLiability, r.rightOfUseAsset, r.totalInterest, r.leaseTermEnds], ['355391.08', '420391.08', '94608.92', '2036-07-01']);
+  // As in the example's table, the payment made at commencement is not a payment against the liability.
+  assert.deepEqual(r.incomeYears[0], { year: '2026-27', interest: '17769.55', payments: '0.00', leaseLiability: '373160.63',
+    depreciation: '42039.11', rightOfUseAsset: '378351.97' });
+  assert.equal(r.schedule.length, 9);
+  assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/lease/');
+  const opening = { payment: '1000', payments: 60, annualRate: '7.5', startDate: '2026-07-01', initialDirectCosts: '500' };
+  assert.deepEqual([(await tools.lease.execute(opening)).leaseLiability, (await tools.lease.execute(opening)).shortTermElectionAvailable], ['49905.31', false]);
+  const owned = await tools.lease.execute({ ...opening, residual: '5000', ownershipTransfers: true, usefulLifeMonths: 96 });
+  assert.equal(owned.depreciatedTo, '2034-07-01');
+  await assert.rejects(tools.lease.execute({ ...opening, ownershipTransfers: true }), /Enter the asset’s useful life in months/);
+  await assert.rejects(tools.lease.execute({ ...opening, ownershipTransfers: 'yes' }), /ownershipTransfers must be true or false/);
+  await assert.rejects(tools.lease.execute({ ...opening, payment: '1,000' }), /payment does not match/);
+  await assert.rejects(tools.lease.execute({ ...opening, incentives: '60000' }), /nothing to depreciate/);
+  assert.match(tools.lease.description, /does not work out GST or income tax/);
 });
 
 test('break-even tool rounds units up as the page does', async () => {

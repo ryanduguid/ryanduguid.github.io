@@ -224,12 +224,14 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           }
           case 'loan':
-          case 'hire-purchase': {
-            result = calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
+          case 'hire-purchase':
+          case 'lease': {
+            result = form.dataset.calculator === 'lease' ? calculate.leaseResult(value, aud) : calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
               payment: value('payment'), balloon: value('balloon'), balloonKind: value('balloon-kind'), frequency: value('frequency'),
               timing: value('timing'), start: value('start') }, aud, form.dataset.calculator === 'loan' ? null : value('agreement'));
-            // Each table's rows: a label cell, then figures.
+            // Each table's rows: a label cell, then figures. A table the result leaves out stays hidden.
             for (const table of form.querySelectorAll('table[data-results]')) {
+              if (!result.tables[table.dataset.results]) continue;
               table.tBodies[0].replaceChildren(...result.tables[table.dataset.results].map(cells => {
                 const tr = document.createElement('tr');
                 tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));

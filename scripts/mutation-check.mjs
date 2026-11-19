@@ -39,6 +39,7 @@ const companyTax = { ...business, file: 'assets/company-tax.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
+const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -400,6 +401,20 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC quarterly administration applies with no shortfall', find: 'shortfall > 0 ? 2000 : 0', replace: '2000' },
   { ...sgc, name: 'SGC quarterly lodgment day is the 28th of the next month', find: 'Date.UTC(first, month + 4, 28)', replace: 'Date.UTC(first, month + 3, 28)' },
   { ...sgc, name: 'SGC quarterly 29 February is not refused', find: "if (isoOf(day).endsWith('-02-29')) {", replace: 'if (false) {' },
+
+  { ...leaseEngine, name: 'the payment at commencement stays in the liability', find: 'BigInt(Math.round(pv.amount * 100)) - (advance ? payment : 0n)', replace: 'BigInt(Math.round(pv.amount * 100))' },
+  { ...leaseEngine, name: 'incentives add to the right-of-use asset', find: '- incentives + direct + restoration', replace: '+ incentives + direct + restoration' },
+  { ...leaseEngine, name: 'initial direct costs are left out of the asset', find: '+ direct + restoration;', replace: '+ restoration;' },
+  { ...leaseEngine, name: 'the last period does not take the rounding', find: 'period === last ? paid - balance : ', replace: 'false ? paid - balance : ' },
+  { ...leaseEngine, name: 'the residual is left out of the schedule', find: '(period === last ? residual : 0n)', replace: '0n' },
+  { ...leaseEngine, name: 'a residual paid in advance falls with the last payment', find: 'const last = advance && residual ? count + 1 : count;', replace: 'const last = count;' },
+  { ...leaseEngine, name: 'a shorter useful life is ignored', find: "periodsAfter(start, months, 'monthly') < end)", replace: 'false)' },
+  { ...leaseEngine, name: 'ownership transferring keeps the lease term', find: "(terms.ownership === 'yes' || periodsAfter", replace: '(periodsAfter' },
+  { ...leaseEngine, name: 'a 12-month lease is not short term', find: "end <= periodsAfter(start, 12, 'monthly')", replace: "end < periodsAfter(start, 12, 'monthly')" },
+  { ...leaseEngine, name: 'a claimed GST credit is also deducted', find: '(claim ? value : gross(value))', replace: 'gross(value)' },
+  { ...leaseEngine, name: 'the hire purchase credit is the price’s GST', find: 'ratioCents(hpTotal, 11n)', replace: 'gstOn(price)' },
+  { ...leaseEngine, name: 'hire purchase interest is deducted with its GST', find: 'claim ? ratioCents(value * 10n, 11n) : value', replace: 'value' },
+  { ...leaseEngine, name: 'the comparison stops before a payment on 1 July', find: 'const lastYear = yearStarting(dayOf(leased.end));', replace: 'const lastYear = yearStarting(dayOf(leased.end) - 1);' },
 ];
 
 // Runs that must read as invalid, not as caught.
