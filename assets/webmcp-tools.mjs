@@ -683,7 +683,7 @@ function superProjectionTool(superProjection) {
       age: whole(15, 74, 'Age now in whole years.'),
       retirementAge: whole(60, 75, 'Retirement age in whole years; 67 when omitted.'),
       balance: text('amount', 'Super balance now in AUD.'),
-      salary: whole(0, 1e9, 'Salary for 2026-27 before super, ordinary time earnings, in whole AUD.'),
+      salary: whole(0, 1e9, 'Salary for 2026-27 before salary sacrifice, the qualifying earnings the super guarantee is paid on, in whole AUD.'),
       employerRate: text('percent', 'Employer contributions as a per cent of salary, up to 30; "12" (the super guarantee) when omitted.'),
       salarySacrifice: text('amount', 'Salary sacrifice and personal deductible contributions for 2026-27 in AUD; "0" when omitted.'),
       afterTaxContributions: text('amount', 'After-tax contributions for 2026-27 in AUD; "0" when omitted.'),
