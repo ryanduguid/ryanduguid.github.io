@@ -16,11 +16,21 @@ tests/browser/*-snapshots/** linguist-generated
 tools/depreciation-rates/industry/** linguist-generated
 tools/depreciation-rates/asset/** linguist-generated
 
+# Every pull request that adds or edits a page rewrites the files the builders
+# write from the pages, so two of them always conflicted there. With the
+# generated merge driver configured (CONTRIBUTING.md), a merge keeps the current
+# side of each, merges the hand-kept part of llms.txt and the design baseline's
+# keys, and leaves the builders to write them again; unconfigured, Git merges as usual.
+llms.txt merge=generated
+.well-known/llms.txt merge=generated
+llms-full.txt merge=generated
+llms-full-*.txt merge=generated
+index.txt merge=generated
+scripts/design_baseline.json merge=generated
+
 # Concurrent pull requests each add a dated row at the top of a changelog table.
 # With the changelog-rows driver configured (CONTRIBUTING.md), a merge or rebase
 # keeps both sides' new rows in date order; unconfigured, Git merges as usual.
 changelog/index.html merge=changelog-rows
-llms-full.txt merge=changelog-rows
-llms-full-changelog-*.txt merge=changelog-rows
 changelog/index.txt merge=changelog-rows
 feed.xml merge=changelog-rows
