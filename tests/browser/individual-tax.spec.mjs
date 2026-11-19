@@ -97,6 +97,20 @@ test('Division 293 leaves out the excess over the cap until unused cap carried f
   await expect(form.locator('output')).toContainText('Subdivisions 293-D to 293-F');
 });
 
+test('a 2025-26 fortnightly pay with a loan shows both Schedule 8 components', async ({ page }) => {
+  await page.goto('/tools/individual-tax/take-home-pay/');
+  const form = page.locator('#take-home-pay form');
+  await waitForCalculator(form);
+  await form.getByLabel('A fortnight').check();
+  await form.getByLabel(/^Salary for each pay period/).fill('3000');
+  await form.locator('input[name="study-loan"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('PAYG withheld each fortnight, with the study loan component')).toHaveText('$672.00');
+  await expect(row('Refund estimate')).toHaveText('$74.00');
+  await expect(form.locator('output .result-note')).toContainText('Pays before 24 September 2025 had $106.00 withheld');
+});
+
 for (const [id, name, input, expected] of [
   ['income-tax', 'estimate_income_tax', { incomeYear: '2026-27', residency: 'resident', taxableIncome: 90000,
     reportableFringeBenefits: 27000, daysWithoutHospitalCover: 365, taxWithheld: '21000' }, { refund: '510.00' }],

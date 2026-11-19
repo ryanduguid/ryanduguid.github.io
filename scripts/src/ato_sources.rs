@@ -1212,7 +1212,7 @@ fn public_text(text: &str) -> String {
     UNIX_PATH.replace_all(&text, "(local path)").into_owned()
 }
 
-const MOVES_HELP: &str = "Replace each cited URL with its target in every file listed, including `scripts/src/check_links_data.rs` (keep HTTP_403_AUTOMATION_DENIAL_URLS sorted and its length current) and `scripts/src/site_contracts/data.rs`.";
+const MOVES_HELP: &str = "Replace each cited URL with its target in every file listed, including `scripts/src/check_links_data.rs` (keep CI_MANUAL_URLS sorted and its length current) and `scripts/src/site_contracts/data.rs`.";
 
 /// A cited page that now redirects to a hub or newsroom was withdrawn rather than moved.
 fn withdrawn(target: &str) -> bool {

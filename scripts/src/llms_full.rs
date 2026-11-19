@@ -269,7 +269,7 @@ pub fn section_parts(entries: &[(String, String)]) -> Result<Vec<Part>, String> 
     Ok(parts)
 }
 
-const PART_INDEX_HEADING: &str = "## Full text by section";
+pub(crate) const PART_INDEX_HEADING: &str = "## Full text by section";
 
 /// The part index section of llms.txt: the complete file, each part file and the page
 /// titles it holds, so a reader can fetch only the part it needs.
