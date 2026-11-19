@@ -507,9 +507,11 @@ const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full i
   + 'worked on the year\'s earnings, not pay by pay or quarter by quarter. A weekly, fortnightly or monthly salary '
   + 'is 52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not computed. The surcharge is a single '
   + 'person\'s with no dependants, and the study loan repayment assumes the debt is at least the repayment. For a '
-  + '2026-27 weekly, fortnightly or monthly pay of a resident (scale 2, tax-free threshold claimed) or a foreign '
-  + 'resident (scale 3) it also gives the PAYG withheld each pay under the ATO\'s Schedules 1 and 8 and the refund '
-  + 'or amount owing over the year; for a working holiday maker it gives none. '
+  + 'weekly, fortnightly or monthly pay of a resident (scale 2, tax-free threshold claimed) or a foreign resident '
+  + '(scale 3) it also gives the PAYG withheld each pay under the year\'s Schedules 1 and 8 and the refund or amount '
+  + 'owing over the year; for a working holiday maker it gives none. For 2025-26 every pay takes the study loan '
+  + 'component from 24 September 2025, and so do the year\'s withholding and the refund or amount owing; the component '
+  + 'before that date is given beside it and not mixed in. '
   + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
   + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
 
@@ -593,6 +595,8 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payY
           takeHomeMonth: dollars(r.monthly), takeHomeFortnight: dollars(r.fortnightly), takeHomeWeek: dollars(r.weekly),
           concessionalOverCap: dollars(r.overCap), division293TaxableContributions: dollars(r.division293),
           paygWithholding: r.withheld ? { eachPay: dollars(r.withheld.total), studyLoanComponent: dollars(r.withheld.studyLoan),
+            studyLoanComponentBefore24September2025: r.withheld.earlierStudyLoan === null ? null
+              : dollars(r.withheld.earlierStudyLoan),
             year: dollars(r.withheld.year), ...settled(r.withheld.refund) } : null,
           currency: 'AUD', source: `${INDIVIDUAL}take-home-pay/`,
         };

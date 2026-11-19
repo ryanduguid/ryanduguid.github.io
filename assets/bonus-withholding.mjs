@@ -7,11 +7,11 @@
 // read 19 November 2026. The 'relevant tax table' at each step is the 2026-27 Schedule 1 amount,
 // plus the Schedule 8 component for a study and training support loan, from payg-withholding.mjs.
 import { cents, number } from './money.mjs';
-import { PAYS, WITHHOLDING_YEAR, withholding } from './payg-withholding.mjs';
+import { PAYS, withholding } from './payg-withholding.mjs';
 import { takeHomePay } from './take-home-pay.mjs';
 
 /** The income year of the schedules this module applies. */
-export const BONUS_YEAR = WITHHOLDING_YEAR;
+export const BONUS_YEAR = '2026-27';
 
 // The most pays a financial year can hold, so the most earlier pays a Method B(i) back payment can
 // cover is one fewer. Schedule 5's 'Pay periods per financial year' stay 52, 26 and 12 regardless.
@@ -59,7 +59,10 @@ export function bonusWithholding(b) {
   const pays = PAYS[b.period];
   const scale = b.residency === 'resident' ? 2 : 3;
   /** @param {number} amount cents @returns {Table} */
-  const table = (amount) => withholding(amount, b.period, scale, b.studyLoan);
+  const table = (amount) => {
+    const { tax, studyLoan, total } = withholding(amount, b.period, scale, b.studyLoan, BONUS_YEAR);
+    return { tax, studyLoan, total };
+  };
   const earnings = cents(b.earnings);
   const additional = cents(b.additional);
   if (b.method === 'A') {

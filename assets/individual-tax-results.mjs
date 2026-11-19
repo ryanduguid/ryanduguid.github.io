@@ -74,8 +74,14 @@ function takeHomeResult(value, aud) {
     rows.push([`PAYG withheld each ${period}${loan ? ', with the study loan component' : ''}`, aud(r.withheld.total)],
       [`Pay after withholding each ${period}`, aud(r.withheld.afterWithholding)],
       ['PAYG withheld over the year', aud(r.withheld.year)], settle(r.withheld.refund, aud));
-    notes.push('The take-home rows spread the year’s tax evenly; PAYG withheld is what the ATO’s 2026-27 Schedule 1'
+    const year = value('year');
+    notes.push(`The take-home rows spread the year’s tax evenly; PAYG withheld is what the ${year} Schedule 1`
       + `${loan ? ' and Schedule 8' : ''} take from each pay, and the refund or amount owing is the difference over the year`);
+    if (loan && year === '2025-26') {
+      notes.push(`Pays before 24 September 2025 had ${aud(r.withheld.earlierStudyLoan)} withheld for the study loan each `
+        + `${period} under the earlier Schedule 8, not ${aud(r.withheld.studyLoan)}; the year’s figures use the later one for `
+        + 'every pay');
+    }
   } else {
     notes.push('The year’s tax on this salary spread evenly, not the amounts an employer withholds each pay');
   }
