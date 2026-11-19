@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const incomeTests = { file: 'assets/income-tests.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -228,6 +229,17 @@ const MUTATIONS = [
   { ...division296, name: 'Division 296 shows a negative component as nil', find: 'component: shown(component, 10000n)', replace: 'component: shown(component < 0n ? 0n : component, 10000n)' },
   { ...division296, name: 'Division 296 accepts an exception answered with text', find: "typeof flag !== 'boolean'", replace: 'false' },
 
+  { ...incomeTests, name: 'income tests round section 57A benefits to the nearest dollar', find: 'Math.floor((p.fringe57a * 53) / 100)', replace: 'Math.round((p.fringe57a * 53) / 100)' },
+  { ...incomeTests, name: 'income tests count section 57A benefits in full where adjusted', find: 'Math.floor((p.fringe57a * 53) / 100)', replace: 'p.fringe57a' },
+  { ...incomeTests, name: 'income tests take reportable super contributions below nil', find: 'Math.max(0, p.employerSuper + p.personalSuper - p.excessConcessional)', replace: 'p.employerSuper + p.personalSuper - p.excessConcessional' },
+  { ...incomeTests, name: 'income tests keep the FHSS released amount', find: 'Math.max(0, p.taxable - p.fhss)', replace: 'p.taxable' },
+  { ...incomeTests, name: 'Division 293 income keeps reportable super contributions', find: 'division293Income: surcharge - contributions', replace: 'division293Income: surcharge' },
+  { ...incomeTests, name: 'rebate income adds family trust distribution amounts', find: 'rebateIncome: taxable + contributions', replace: 'rebateIncome: taxable + p.familyTrust + contributions' },
+  { ...incomeTests, name: 'adjusted taxable income ignores child support', find: '+ contributions - p.childSupport,', replace: '+ contributions,' },
+  { ...incomeTests, name: 'repayment income takes the adjusted fringe benefits total', find: 'repaymentIncome: taxable + losses + fringe', replace: 'repaymentIncome: taxable + losses + adjustedFringe' },
+  { ...incomeTests, name: 'co-contribution income keeps business deductions', find: '+ coEmployer - p.businessDeductions,', replace: '+ coEmployer,' },
+  { ...incomeTests, name: 'income tests accept a part larger than its whole', find: 'if (p[part] > p[whole]) throw', replace: 'if (false) throw' },
+  { ...incomeTests, name: 'income tests accept a person not resident all year', find: 'if (!parts.resident) throw', replace: 'if (false) throw' },
   { ...incomeTax, name: '2026-27 starts at 16%', find: "'2026-27': [[18200, 15]", replace: "'2026-27': [[18200, 16]" },
   { ...incomeTax, name: 'foreign residents reach 37% at $120,000', find: '[[0, 30], [135000, 37]', replace: '[[0, 30], [120000, 37]' },
   { ...incomeTax, name: 'working holiday makers reach 30% at $37,000', find: '[[0, 15], [45000, 30]', replace: '[[0, 15], [37000, 30]' },
@@ -270,12 +282,23 @@ const MUTATIONS = [
   { ...withholding, name: 'a monthly amount is cut, not rounded', find: 'Math.floor((2 * amount * 13 + 3) / 6)', replace: 'Math.floor((amount * 13) / 3)' },
   { ...withholding, name: 'scale 2 at 19% from $721', find: '[865, 1790, 608377]', replace: '[865, 1900, 608377]' },
   { ...withholding, name: 'the study loan component at 17% from the start', find: '[2494, 1500, 2005615]', replace: '[2494, 1700, 2005615]' },
+  { ...withholding, name: '2021-22 to 2023-24 on the 2024 coefficients', find: "'2023-24': FROM_OCTOBER_2020, '2022-23': FROM_OCTOBER_2020, '2021-22': FROM_OCTOBER_2020,", replace: "'2023-24': FROM_JULY_2024, '2022-23': FROM_JULY_2024, '2021-22': FROM_JULY_2024," },
+  { ...withholding, name: 'scale 3 from October 2020 at 37% to the top', find: '[3461, 3700, 1038462], [0, 4500, 3807692]', replace: '[3461, 3700, 1038462], [0, 3700, 1038462]' },
+  { ...withholding, name: 'scale 2 from July 2024 at 26% from $500', find: '[625, 2600, 1078462], [721, 1800, 578462]', replace: '[625, 2600, 1078462], [721, 2600, 1078462]' },
+  { ...withholding, name: 'a percentage band one row late', find: '(a, band) => [firsts[band] ?? 0, a, 0]', replace: '(a, band) => [firsts[band + 1] ?? 0, a, 0]' },
+  { ...withholding, name: 'the 2% band at 2.5%', find: 'const COMPONENT_RATES = [0, 100, 200, 250,', replace: 'const COMPONENT_RATES = [0, 100, 250, 250,' },
+  { ...withholding, name: '2025-26 on the percentage Schedule 8 all year', find: "'2025-26': [[1288, 0, 0], [2403, 1500, 1932692], [3447, 1700, 2413462], [0, 1000, 0]],", replace: "'2025-26': EARLY_2025_26," },
+  { ...withholding, name: '2023-24 study loan bands on 2022-23 thresholds', find: "'2023-24': percentBands([991,", replace: "'2023-24': percentBands([930," },
+  { ...withholding, name: 'the earlier 2025-26 component goes to every year', find: "earlierStudyLoan: year === '2025-26' ? component(EARLY_2025_26) : null", replace: 'earlierStudyLoan: component(EARLY_2025_26)' },
+  { ...withholding, name: 'the earlier 2025-26 component without a loan', find: '(studyLoan ? forPeriod(weekly(bands, x), period) : 0)', replace: 'forPeriod(weekly(bands, x), period)' },
+  { ...withholding, name: 'an unknown year falls through', find: "if (!Object.hasOwn(SCHEDULE_1, year)) throw", replace: "if (false) throw" },
   { ...takeHome, name: 'super guarantee on the salary after the sacrifice', find: 'Math.min(entered, capCents) * tenths', replace: 'Math.min(entered - amountCents(pay.sacrifice) * pays, capCents) * tenths' },
   { ...takeHome, name: 'the sacrifice is not reportable', find: 'const reported = Math.floor(sacrifice / 100);', replace: 'const reported = 0;' },
   { ...takeHome, name: 'the sacrifice stays taxable', find: 'const paid = salary - sacrifice;', replace: 'const paid = salary;' },
   { ...takeHome, name: 'the cap is a dollar higher', find: 'CONCESSIONAL_CAP[pay.year] * 100', replace: '(CONCESSIONAL_CAP[pay.year] + 1) * 100' },
   { ...takeHome, name: 'Division 293 from $300,000', find: '25000000', replace: '30000000' },
-  { ...takeHome, name: 'withholding for every year', find: 'if (pay.year === WITHHOLDING_YEAR &&', replace: 'if (true &&' },
+  { ...takeHome, name: 'no withholding for a working holiday maker is dropped', find: "if (pay.residency !== 'working-holiday' && pay.period !== 'year')", replace: "if (pay.period !== 'year')" },
+  { ...takeHome, name: 'withholding under the 2026-27 schedules every year', find: 'resident ? 2 : 3, pay.studyLoan, pay.year);', replace: "resident ? 2 : 3, pay.studyLoan, '2026-27');" },
   { ...takeHome, name: 'withholding on the salary before the sacrifice', find: 'const earnings = nearest(paid, pays);', replace: 'const earnings = nearest(salary, pays);' },
   { ...takeHome, name: 'no cover all year costs nothing', find: 'pay.hospitalCover ? 0 : daysInYear(pay.year)', replace: 'pay.hospitalCover ? 0 : 0' },
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
@@ -431,7 +454,8 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json']) {
+    'scripts/fbt-engine-differential.json', 'scripts/income-tests-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
