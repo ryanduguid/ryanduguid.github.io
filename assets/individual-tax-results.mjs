@@ -185,7 +185,7 @@ function novatedLeaseResult(value, aud) {
     + `${aud(Number(value('salary')))}, ${CAR[value('kind')]} first held and used ${value('first-used') === 'after' ? 'on or after' : 'before'} `
     + `1 July 2022${value('kind') === 'phev' ? `, ${flag('commitment') ? 'with' : 'without'} a commitment from before 1 April 2025` : ''}, `
     + `first sold in ${value('sale-year')} for ${aud(Number(value('price')))}, `
-    + `${flag('other-supply') ? 'luxury car tax payable at another sale or importation, ' : ''}${flag('reduced') ? 'held over 4 years, ' : ''}`
+    + `${flag('other-supply') ? 'luxury car tax payable at another supply or importation, ' : ''}${flag('reduced') ? 'held over 4 years, ' : ''}`
     + `available ${value('days')} days, costs with GST ${aud(Number(value('gst-costs')))} and without ${aud(Number(value('other-costs')))}, `
     + `${flag('study-loan') ? 'with' : 'no'} study loan, ${flag('cover') ? 'with' : 'without'} private hospital cover`, rows, principal, note };
 }

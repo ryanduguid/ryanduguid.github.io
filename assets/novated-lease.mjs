@@ -30,7 +30,8 @@ export const FUEL_EFFICIENT_THRESHOLD = /** @type {Record<string, number>} */ ({
 
 /** Why s 8A does not exempt the car's benefits, or null when it does, the payee being a current employee
  * (s 8A(1)(a)). Luxury car tax payable on any supply or importation fails s 8A(1)(c): at the first retail
- * sale read from the cost price, at any other supply or importation from `otherSupply`. A plug-in hybrid
+ * sale read from the cost price, at any other supply (a sale, lease or hire) or importation before or during
+ * the year from `otherSupply`. A plug-in hybrid
  * stopped being a zero or low emissions vehicle on 1 April 2025 (s 8A(2)); the ATO's 'FBT on plug-in hybrid
  * electric vehicles' (last updated 14 March 2025) keeps the exemption where it applied to the car's
  * use before that date under a financially binding commitment that continues unchanged.

@@ -95,7 +95,7 @@ test('salary packaging works the ATO’s FBT example and the hospital cap', asyn
   await expect(row('FBT on it at 47%')).toHaveText('$8,096.22');
 });
 
-test('novated lease names the exemption condition a plug-in hybrid fails, then applies it under a commitment', async ({ page }) => {
+test('novated lease names the exemption condition a plug-in hybrid fails, applies it under a commitment, then refuses it for luxury car tax at another supply', async ({ page }) => {
   await page.goto('/tools/individual-tax/novated-lease/');
   const form = page.locator('#novated-lease form');
   await waitForCalculator(form);
@@ -110,6 +110,10 @@ test('novated lease names the exemption condition a plug-in hybrid fails, then a
   await calculate.click();
   await expect(row('Electric car exemption')).toHaveText('applies');
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$6,047.48');
+  await form.getByRole('group', { name: /other supply of the car/ }).getByLabel('Yes').check();
+  await calculate.click();
+  await expect(row('Electric car exemption')).toHaveText(/another supply or an importation/);
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$1,465.69');
 });
 
 for (const [id, name, input, expected] of [
