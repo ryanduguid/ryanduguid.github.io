@@ -313,13 +313,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const r = calculate.fbtCar({ method: value('method'), cost: value('cost'), accessories: value('accessories'), reduced,
               days: value('days'), costs: value('costs'), businessUse: value('business-use'), contribution: value('contribution') },
             { days: form.dataset.yearDays, grossUp: type.dataset.grossUp, fbtRate: form.dataset.fbtRate });
+            // An exempt electric car's taxable value is nil (s 8A); its value before the exemption is still reportable.
+            const ev = fbtForms.fbtEvResult(form, calculate, { aud, value, money });
+            const exempt = ev?.exempt === true;
             result = { inputs: `${operating ? 'operating cost method' : 'statutory formula'}, cost price ${money('cost')}, later non-business accessories ${money('accessories')}, `
               + `first held ${reduced ? 'before' : 'on or after'} 1 April 2022, ${count(value('days'), 'day')} of ${form.dataset.yearDays} available for private use, `
-              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up ${type.dataset.grossUp}`,
-            rows: [['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
-              ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []), ['Taxable value', aud(r.taxableValue)],
-              ['Grossed-up taxable value', aud(r.grossedUp)], [`FBT at ${form.dataset.fbtRate}%`, aud(r.fbt)]],
-            note: operating && r.statutory < r.operating ? 'The statutory formula value is lower, so it applies under subsection 10(5)' : undefined };
+              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up ${type.dataset.grossUp}`
+              + `${ev ? `, ${ev.inputs}` : ''}`,
+            rows: [...(ev?.rows ?? []), ['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
+              ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []),
+              ...(exempt ? [['Taxable value before the exemption, for reporting', aud(r.taxableValue)]] : []),
+              ['Taxable value', aud(exempt ? 0 : r.taxableValue)], ['Grossed-up taxable value', aud(exempt ? 0 : r.grossedUp)],
+              [`FBT at ${form.dataset.fbtRate}%`, aud(exempt ? 0 : r.fbt)]],
+            note: [exempt && fbtForms.EV_EXEMPT_NOTE, operating && r.statutory < r.operating
+              && 'The statutory formula value is lower, so it applies under subsection 10(5)'].filter(Boolean).join('. ') || undefined };
             result.principal = result.rows.length - 1;
             break;
           }
@@ -534,6 +541,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'unused-leave':
             result = calculate.unusedLeaveResult(value, aud);
             break;
+          case 'workers-compensation':
+            result = calculate.workersCompensationResult(value, aud);
+            break;
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
@@ -585,7 +595,7 @@ function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
   Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`),
-    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined }]).then(initialiseCalculators)
+    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up', 'bonus-withholding'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined }]).then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
       for (const form of forms) {

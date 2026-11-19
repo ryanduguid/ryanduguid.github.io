@@ -126,7 +126,7 @@
       "0cd228c7fb91aae4af73006d6ec4dd8fdbc67f341b2466fc721ea4dada27f930"
     ],
     "tools/business-calculators/borrowing-expenses/index.html": [
-      "5b294a58431a1ea0dcee25464477849fef3d7b7460d5a35ade9ad289a3330013"
+      "f5661580fa97a81922142d07158b6e69f25d0df5542f310c0c71a9211abd2498"
     ],
     "tools/business-calculators/break-even/index.html": [
       "af623f4039e036a9ef612948565c5d4d8eee6221daaefa39832be3353340eff0"
@@ -156,7 +156,7 @@
       "6779b0afc7823c5ddb31c82c0b2e48a14121e5b485d5fc3c9ea0a05c349c3c77"
     ],
     "tools/business-calculators/fbt-car/index.html": [
-      "1458825601cec0091a9b8476ce67c8ac72d5903f7453d0e03b2709d2c2d23bc0"
+      "cc13654c944a00876a7cc5dd846eabae044a9ae41ccfb7faeb9ef8d5f407196d"
     ],
     "tools/business-calculators/fbt-loan/index.html": [
       "34ec7682bf66270bb43e736e946b42c37f2a3f2d476b986a0583e59787d6c9dd"
@@ -183,7 +183,7 @@
       "86f5b0ff1e4b4d0e186d3618e5a14afff83676fbf6740a4d258e5a4dd0912673"
     ],
     "tools/business-calculators/index.html": [
-      "91040c7259a600ad1ffeb26f60090dc76dd1a63a2fa108e8a25138771eff2dc0"
+      "7f3b3ee331884be9b2ab5a4ea04ab9722783a2abc111a92f9edb6dd8f205cba6"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
@@ -236,6 +236,9 @@
     "tools/business-calculators/vehicle-class/index.html": [
       "3cb6d9eb132cb07a5d4a2ba9bd84a6948bfce2a886038c27936b4ce1ae353f67"
     ],
+    "tools/business-calculators/workers-compensation/index.html": [
+      "f0401c056eb9d551612e5b7aaef1f68bc60ec7202a1c2bebce8b4a0b6c6c4f47"
+    ],
     "tools/coal-lsl-levy/index.html": [
       "d228eaa6008eb3d815ffce6b7cb0b31696e81a8cdec6cb60a1aa11acf0b0ed7b"
     ],
@@ -247,6 +250,9 @@
     ],
     "tools/index.html": [
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
+    ],
+    "tools/individual-tax/bonus-withholding/index.html": [
+      "83ba43ec351fd61ee50c8b345baaf6559cdcd3e2ae004122301ba394a131040a"
     ],
     "tools/individual-tax/concessional-catch-up/index.html": [
       "f2dac755283bcb93913fd739ccab0b4d70c1acaf94d5d3fce56971c93f985ba0"
@@ -337,9 +343,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "27079122e74bd792ce1d4c1796b53a34894d6d688423877f4b81749620cc77fb",
+    "llms.txt": "7dfd73d1620efd289ae47760ae498cb524e483d68f828e5d80cfdf29a770af21",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "8d4ac330eb0009b07d69409b172e7b0c21af60c88ceab3f8005ce54ea9f5d4b6"
+    "sitemap.xml": "18521ff85410f71fa5c14d75bcffa162372ffd59f62f009a59966689a28b1c6e"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -399,7 +405,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7781,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7783,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

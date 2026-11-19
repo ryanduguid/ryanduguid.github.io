@@ -52,7 +52,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Thirty-six calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
+        <p class="lead-note">Thirty-seven calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
@@ -94,6 +94,7 @@
           <li id="cash"><a class="collection-entry__title" href="/tools/business-calculators/cash/">13-week cash forecast</a> Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.</li>
           <li id="sgc-payday"><a class="collection-entry__title" href="/tools/business-calculators/sgc-payday/">SGC and Payday Super calculator</a> When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.</li>
           <li id="long-service-leave"><a class="collection-entry__title" href="/tools/business-calculators/long-service-leave/">Long service leave calculator</a> One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.</li>
+          <li id="workers-compensation"><a class="collection-entry__title" href="/tools/business-calculators/workers-compensation/">Workers compensation premium calculator</a> A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.</li>
         </ul>
         <h2>Objections, instalments, termination, land tax, duty and business days</h2>
         <ul class="calculator-list">
@@ -125,7 +126,7 @@
       "description": "Calculate GST, margins, loans, Division 7A, FBT, payroll tax, land tax, transfer duty, PAYG instalments, fixed fees and 13-week cash flow in your browser.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-11-19",
+      "dateModified": "2026-11-20",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

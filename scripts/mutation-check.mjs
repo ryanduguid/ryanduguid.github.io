@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const bonus = { file: 'assets/bonus-withholding.mjs', test: individualTest };
 const d293 = { file: 'assets/division-293.mjs', test: individualTest };
 const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
 const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
@@ -35,6 +36,7 @@ const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
 const finance = { ...business, file: 'assets/finance-schedule.mjs' };
 const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
+const evExemption = { ...business, file: 'assets/fbt-ev-exemption.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
 const psi = { ...business, file: 'assets/psi-determination.mjs' };
@@ -47,6 +49,7 @@ const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
 const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
+const wc = { ...business, file: 'assets/workers-compensation.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -137,6 +140,18 @@ const MUTATIONS = [
   { ...fbt, name: 'FBT car parking spaces take 230 days', find: '228n * spaces', replace: '230n * spaces' },
   { ...fbt, name: 'FBT car parking spaces ignore fewer employees', find: 'e0 + e1 < s0 + s1 ?', replace: 'false ?' },
   { ...fbt, name: 'FBT car parking average cost takes the first fee only', find: 'money(p.firstFee) + money(p.lastFee)', replace: '2n * money(p.firstFee)' },
+  { ...evExemption, name: 'EV exemption: a value at the threshold pays luxury car tax', find: 'value <= threshold * 100', replace: 'value < threshold * 100' },
+  { ...evExemption, name: 'EV exemption: a car first used on 1 July 2022 is not exempt', find: "firstUsed >= '2022-07-01'", replace: "firstUsed > '2022-07-01'" },
+  { ...evExemption, name: 'EV exemption: a sale on 1 July falls in the year before', find: "iso.slice(5) < '07-01'", replace: "iso.slice(5) <= '07-01'" },
+  { ...evExemption, name: 'EV exemption: a new plug-in hybrid commitment is ignored', find: "['hybrid-no-new-commitment', !facts[1]]", replace: "['hybrid-no-new-commitment', true]" },
+  { ...evExemption, name: 'EV exemption: luxury car tax on another supply is ignored', find: "['other-supply', !otherSupply]", replace: "['other-supply', true]" },
+  { ...evExemption, name: 'EV exemption: a former employee is exempt', find: "['current-employee', current]", replace: "['current-employee', true]" },
+  { ...evExemption, name: 'EV exemption: a taxed sale within the year after first use gives one result', find: 'firstSale > firstUsed && firstSale >=', replace: 'false && firstSale >=' },
+  { ...evExemption, name: 'EV exemption: a taxed sale on 1 April after first use precedes the year', find: "firstSale >= `${ended - 1}-04-01`", replace: "firstSale > `${ended - 1}-04-01`" },
+  { ...evExemption, name: 'EV exemption: a taxed sale on the day of first use is refused', find: 'firstSale > firstUsed &&', replace: 'firstSale >= firstUsed &&' },
+  { ...evExemption, name: 'EV exemption: one condition met is enough', find: 'conditions.every((c) => c.met)', replace: 'conditions.some((c) => c.met)' },
+  { ...evExemption, name: 'EV exemption: a first retail sale after the FBT year counts its luxury car tax', find: 'const afterYear = firstSale > yearEnd;', replace: 'const afterYear = false;' },
+  { ...evExemption, name: 'EV exemption: an exempt plug-in hybrid benefit before 1 April 2025 needs no earlier use', find: "facts[2] && firstUsed >= '2025-04-01'", replace: "facts[2] && firstUsed > '2025-04-01'" },
   { ...fbt, name: 'FBT car parking contributions take the value below nil', find: 'least(contribution, gross)', replace: 'contribution' },
   { ...pcg, name: 'PCG 2021/4 puts exactly 50% returned in the band below', find: '[50, true]', replace: '[50, false]' },
   { ...pcg, name: 'PCG 2021/4 puts an exactly 30% tax rate in the band below', find: '[30, true]', replace: '[30, false]' },
@@ -325,6 +340,17 @@ const MUTATIONS = [
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
   { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
   { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
+  { ...bonus, name: 'Schedule 5 limits withholding to 45%', find: '(additional * 47) / 100)) / 100);', replace: '(additional * 45) / 100)) / 100);' },
+  { ...bonus, name: 'Schedule 5 limit leaves out the study loan component', find: 'limited(step7.total * 100, additional)', replace: 'limited(step7.tax * 100, additional)' },
+  { ...bonus, name: 'Schedule 5 Method A keeps the earnings’ cents', find: 'const step1 = dollarsOnly(earnings);', replace: 'const step1 = earnings;' },
+  { ...bonus, name: 'Schedule 5 Method A keeps the share’s cents', find: 'const step3 = dollarsOnly(additional / spread);', replace: 'const step3 = Math.round(additional / spread);' },
+  { ...bonus, name: 'Schedule 5 Method A always spreads over the year', find: 'step7 = extra(step5, step2, spread);', replace: 'step7 = extra(step5, step2, pays);' },
+  { ...bonus, name: 'Schedule 5 B(i) keeps a negative result', find: 'Math.max(0, each * backPays) / 100', replace: '(each * backPays) / 100' },
+  { ...bonus, name: 'Schedule 5 B(i) ignores what was withheld before', find: 'recalculated.total * 100 - cents(b.backWithheld)', replace: 'recalculated.total * 100' },
+  { ...bonus, name: 'Schedule 5 B(ii) averages without this pay’s B(i) back payment', find: 'dollarsOnly((toDate + backPayment) / paysToDate)', replace: 'dollarsOnly(toDate / paysToDate)' },
+  { ...bonus, name: 'Schedule 5 B(ii) leaves out earlier B(ii) payments', find: 'dollarsOnly((cents(b.earlierAdditional) + additional) / pays)', replace: 'dollarsOnly(additional / pays)' },
+  { ...bonus, name: 'Schedule 5 B(ii) keeps what earlier B(ii) payments withheld', find: 'step7.total * 100 - cents(b.earlierWithheld)', replace: 'step7.total * 100' },
+  { ...bonus, name: 'Schedule 5 Method A year tax ignores the payment', find: 'owed(year + additional) - owed(year)', replace: 'owed(year) - owed(year)' },
   { ...d293, name: 'Division 293 taxes the excess contributions too', find: 'const low = concessional - excess;', replace: 'const low = concessional;' },
   { ...d293, name: 'Division 293 carries unused cap forward whatever the balance', find: 'd.balanceUnder ? Math.min(unused, overCap) : 0', replace: 'Math.min(unused, overCap)' },
   { ...d293, name: 'Division 293 carries forward more than the excess', find: 'Math.min(unused, overCap)', replace: 'unused' },
@@ -538,6 +564,26 @@ const MUTATIONS = [
   { ...borrow, name: 'borrowing 10% test at 5%', find: 'if (change < 0.1) {', replace: 'if (change < 0.05) {' },
   { ...borrow, name: 'borrowing 10% test counts fees paid to others', find: '+ Number(lenderFees) / 100;', replace: '+ Number(t.borrowingExpenses) / 100;' },
   { ...borrow, name: 'borrowing early repayment is not an extinguishment', find: 'return { cost, balances, writtenOff: stop };', replace: 'return { cost, balances, writtenOff: null };' },
+  { ...wc, name: 'WC an NSW premium of exactly $30,000 is refused', find: 'if (app > NSW_SMALL_LIMIT) {', replace: 'if (app >= NSW_SMALL_LIMIT) {' },
+  { ...wc, name: 'WC an NSW premium of exactly $240 is refused', find: 'if (premium < NSW_MINIMUM) {', replace: 'if (premium <= NSW_MINIMUM) {' },
+  { ...wc, name: 'WC the Safe Employer Reward applies to wages', find: 'const ser = at(app, reward);', replace: 'const ser = at(wages, reward);' },
+  { ...wc, name: 'WC the NSW apprentice incentive drops out', find: 'const premium = app - ser - incentive;', replace: 'const premium = app - ser;' },
+  { ...wc, name: 'WC GST is charged on the dust diseases contribution', find: 'total: premium + gst + contribution', replace: 'total: premium + gstOn(premium + contribution) + contribution' },
+  { ...wc, name: 'WC Victorian remuneration is truncated to the dollar', find: 'const remuneration = half(wages, 100n);', replace: 'const remuneration = wages / 100n;' },
+  { ...wc, name: 'WC the Victorian deductible amount is $15,000', find: 'VIC_DEDUCTIBLE_DOLLARS = 15500n', replace: 'VIC_DEDUCTIBLE_DOLLARS = 15000n' },
+  { ...wc, name: 'WC the Victorian deductible ignores the days registered', find: 'rate * VIC_DEDUCTIBLE_DOLLARS * days, 365n', replace: 'rate * VIC_DEDUCTIBLE_DOLLARS * 365n, 365n' },
+  { ...wc, name: 'WC the Victorian minimum premium is $300', find: 'VIC_MINIMUM = 40000n', replace: 'VIC_MINIMUM = 30000n' },
+  { ...wc, name: 'WC the excess buy-out is 0.2', find: 'workcover / 10n', replace: 'workcover / 5n' },
+  { ...wc, name: 'WC Queensland duty leaves out the GST', find: '(premium + gst) * QLD_DUTY_PERCENT', replace: 'premium * QLD_DUTY_PERCENT' },
+  { ...wc, name: 'WC the Queensland minimum compares the premium alone', find: 'if (premium + gst + duty >= minimum) {', replace: 'if (premium >= minimum) {' },
+  { ...wc, name: 'WC SA claims costs are capped at 2 × the discount', find: 'const cap = 3n * discount;', replace: 'const cap = 2n * discount;' },
+  { ...wc, name: 'WC an SA band bound takes the lower discount', find: 'base < below * unit', replace: 'base <= below * unit' },
+  { ...wc, name: 'WC the SA premium rounds half up', find: '(minimum ? SA_MINIMUM_DOLLARS * 100n * unit : sum) / (100n * unit) * 100n', replace: 'half(minimum ? SA_MINIMUM_DOLLARS * 100n * unit : sum, 100n * unit) * 100n' },
+  { ...wc, name: 'WC the SA first full year keeps its discount', find: 'const band = first ? 0n :', replace: 'const band = false ? 0n :' },
+  { ...wc, name: 'WC the SA apprentice incentive drops out', find: '+ applied - apprenticeBase;', replace: '+ applied;' },
+  { ...wc, name: 'WC an SA group member passes', find: "['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA'].includes(x.place)", replace: "['AU-NSW', 'AU-VIC', 'AU-QLD'].includes(x.place)" },
+  { ...wc, name: 'WC apprentice wages above the wages pass', find: 'if (apprentice > wages)', replace: 'if (apprentice > wages + 100n)' },
+  { ...wc, name: 'WC private schemes leave out GST', find: 'premium, gst, duty: 0n, total: premium + gst, notes: [] };\n}\n\n/** The premium', replace: 'premium, gst, duty: 0n, total: premium, notes: [] };\n}\n\n/** The premium' },
 ];
 
 // Runs that must read as invalid, not as caught.

@@ -55,7 +55,7 @@ One year left repays the balance and a year’s interest | $1,000.00 at 8.77% ov
 The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
 No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -66,7 +66,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -74,21 +74,21 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/business-calculators/fbt-car/
 
-> The taxable value, grossed-up value and FBT on one car for the FBT year ending 31 March 2027, under the statutory formula or the operating cost method.
+> Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method, with the electric cars exemption checked.
 
 # FBT car calculator
 
 Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or the operating cost method.
 
-Published 15 November 2026. Last checked 15 November 2026.
+Published 15 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 FBT car inputs for the FBT year 1 April 2026 to 31 March 2027
 
-Valuation method Statutory formula Operating cost, elected, with log book records Cost price, including GST, dealer delivery and accessories fitted at purchase (AUD) Non-business accessories fitted later (AUD) First held by the employer or an associate before 1 April 2022? No Yes: use two-thirds of the cost price Days used or available for private use Operating costs for the year, operating cost method only (AUD) Business use percentage, operating cost method only Employee contributions for the year (AUD) Is the employer, or another provider, entitled to a GST credit for providing the car? Yes: Type 1 gross-up, 2.0802 No: Type 2 gross-up, 1.8868
+Valuation method Statutory formula Operating cost, elected, with log book records Cost price, including GST, dealer delivery and accessories fitted at purchase (AUD) Non-business accessories fitted later (AUD) First held by the employer or an associate before 1 April 2022? No Yes: use two-thirds of the cost price Days used or available for private use Operating costs for the year, operating cost method only (AUD) Business use percentage, operating cost method only Employee contributions for the year (AUD) Is the employer, or another provider, entitled to a GST credit for providing the car? Yes: Type 1 gross-up, 2.0802 No: Type 2 gross-up, 1.8868 Kind of car Petrol, diesel or other Battery electric Hydrogen fuel cell electric Plug-in hybrid electric Electric cars only: for a current employee or their associate? Yes No Electric cars only: first day held and used or available for use, by anyone Electric cars only: first retail sale Electric cars only: luxury car tax value at that sale, GST included (AUD) Electric cars only: luxury car tax on another sale or import before the benefit? No Yes Plug-in hybrids only: committed before 1 April 2025 to the employee’s use, for a period that began before then and includes this year’s use? No Yes Plug-in hybrids only: a new commitment made from 1 April 2025 for a period that includes this year’s use? No Yes Plug-in hybrids only: an exempt car benefit before 1 April 2025? No Yes
 
-The gross-up rates and the 47% FBT rate are those in the FBT rate table for the FBT year ending 31 March 2027. Operating costs include deemed depreciation and deemed interest for a car the employer owns, or the lease charges for a leased car.
+Operating costs include deemed depreciation and deemed interest for a car the employer owns, or the lease charges for a leased car.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, 182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up 2.0802. Base value $60,000.00 Statutory formula taxable value $4,983.56 Taxable value $4,983.56 Grossed-up taxable value $10,366.80 FBT at 47% $4,872.40
 
@@ -102,9 +102,15 @@ The taxable value is then grossed up: at the Type 1 rate, 2.0802, if the employe
 
 Example 28 in section 7.8 of the ATO’s guide for employers takes a $60,000 car available for 182 of 365 days, with $1,000 of fuel paid by the employee. It shows $5,983 at step 4, leaving out the cents of $5,983.56, and a taxable value of $4,983; this calculator gives $4,983.56. Example 31 in section 7.9 takes $19,580 of operating costs, 75% business use and a $2,000 contribution, and gives $2,895; this calculator gives $2,895.00 when the statutory formula value is higher.
 
+## How the FBT car calculator checks the electric cars exemption
+
+For a battery electric, hydrogen fuel cell electric or plug-in hybrid car, the calculator checks the electric cars exemption in section 8A, one condition to a row. The car must be provided to a current employee, first both held and used by anyone on or after 1 July 2022, and have had no luxury car tax payable on its first retail sale or on any other sale or import before the benefit. A first retail sale after 31 March 2027, such as a dealer’s demonstrator sold later, comes after every benefit in the year, so its luxury car tax does not count. A first retail sale within the year after the car was first held and used may come between the year’s benefits, so the calculator refuses one on which luxury car tax was payable: that tax does not affect a benefit provided before the sale. For the first retail sale, the calculator compares the luxury car tax value, the price with GST and any accessories sold with the car but without luxury car tax, with the fuel-efficient threshold for the financial year of the sale: $91,661 for 2026-27, and $91,387 for 2024-25 and 2025-26. A plug-in hybrid also needs a commitment made before 1 April 2025 for a period that began before then and includes the benefit, no new commitment since for a period that includes the benefit, such as an optional extension, a break in the novation, changed lease payments or residual value, or a new employer, and an exempt car benefit before that day. When every condition is met, the taxable value and FBT are nil, and the result shows the value before the exemption, which still counts towards the employee’s reportable fringe benefits amount unless the car is a pooled or shared car.
+
+The ATO’s Electric cars exemption page gives 3 examples, each a boundary case below: Shelly’s car, first used on 1 April 2022, is not exempt; John’s, held from 15 June 2022 but first used on 5 July 2022, is exempt; GHI Co’s $85,000 car was above 2022-23’s $84,916 threshold when first sold, so it is not. Its plug-in hybrid page’s Simon, whose lease runs from 1 April 2024 to 31 March 2027, stays exempt; Tony’s break in his novation from 1 May 2025 is a new commitment, so his car is not.
+
 ## What the FBT car calculator does not cover
 
-The calculator does not decide whether a vehicle is a car, whether a benefit arises, or whether the electric car exemption, the work vehicle exemption or a reduction applies. It does not work out operating costs: add deemed depreciation, at 25% of the car’s depreciated value for a car acquired on or after 10 May 2006, and deemed interest at the statutory interest rate on the ATO’s FBT rates and thresholds page, both apportioned to the days held. It values one car for one FBT year. It does not work out a leased car value, apply the older statutory percentages kept for commitments made before 10 May 2011, or work out the reportable fringe benefits amount or FBT for other benefits. On 15 November 2026 chapter 7 of the ATO’s guide said it was being reviewed after the Full Federal Court’s decision of 27 March 2026 in SEPL Pty Ltd as trustee of the SFT Trust v Commissioner of Taxation [2026] FCAFC 36, on whether the directors of a discretionary trust’s corporate trustee were employees and whether their cars were provided in respect of employment, a question this calculator leaves to you. Confirm the figures with the ATO’s guide or a registered tax agent.
+The calculator does not decide whether a vehicle is a car, whether a benefit arises, or whether the work vehicle exemption or a reduction applies. For the electric cars exemption it does not decide the kind of car, its dates, its luxury car tax value or a plug-in hybrid’s commitments, which you state. It takes the fuel-efficient threshold, so it does not cover a car that was not fuel-efficient under the Luxury Car Tax Act when first sold, or a car never sold at retail in Australia, such as one its user imported, and it reads a value above the threshold as luxury car tax payable, so a supply exempt from that tax is not covered either. The changes announced on 5 May 2026 for electric cars from 1 April 2027 were not law when read on 19 November 2026; they are listed under announced, not yet law. It does not work out operating costs: add deemed depreciation, at 25% of the car’s depreciated value for a car acquired on or after 10 May 2006, and deemed interest at the statutory interest rate on the ATO’s FBT rates and thresholds page, both apportioned to the days held. It values one car for one FBT year. It does not work out a leased car value, apply the older statutory percentages kept for commitments made before 10 May 2011, or work out the reportable fringe benefits amount or FBT for other benefits. On 15 November 2026 chapter 7 of the ATO’s guide said it was being reviewed after the Full Federal Court’s decision of 27 March 2026 in SEPL Pty Ltd as trustee of the SFT Trust v Commissioner of Taxation [2026] FCAFC 36, on whether the directors of a discretionary trust’s corporate trustee were employees and whether their cars were provided in respect of employment, a question this calculator leaves to you. Confirm the figures with the ATO’s guide or a registered tax agent.
 
 ## Boundary cases
 
@@ -119,8 +125,17 @@ A lower statutory value replaces the operating cost value | Operating cost $30,0
 The ATO’s example 23: a third off the cost price, none off later accessories | Statutory formula; cost price $39,000.00 plus $4,000.00 accessories, held 4 years, 365 of 365 days, contributions $0.00, gross-up 1.8868 | Base value $30,000.00, statutory formula value $6,000.00, grossed-up value $11,320.80, FBT $5,320.78
 Contributions above the value leave nil | Statutory formula; cost price $10,000.00, 365 of 365 days, contributions $3,000.00, gross-up 2.0802 | Statutory formula value $0.00, taxable value $0.00, FBT $0.00
 More days than the FBT year are refused | Statutory formula; cost price $10,000.00, 366 of 365 days, contributions $0.00, gross-up 2.0802 | Refused: enter a whole number between 0 and 365
+A published worked example: Cleancut’s electric car, $72,000 before GST, first held and used on 1 July 2025, is exempt | Battery electric, current employee, first held and used 2025-07-01, first retail sale 2025-07-01 at $79,200.00; FBT year ending 31 March 2027 | Exempt, sale in 2025-26, threshold $91,387.00
+The ATO’s example: John’s car, held from 15 June 2022 but first used on 5 July 2022, is exempt | Battery electric, current employee, first held and used 2022-07-05, first retail sale 2022-06-15 at $60,000.00; FBT year ending 31 March 2027 | Exempt, sale in 2021-22, threshold $79,659.00
+The ATO’s example: Shelly’s car, first used on 1 April 2022, is not exempt for its later owner | Battery electric, current employee, first held and used 2022-04-01, first retail sale 2022-04-01 at $60,000.00; FBT year ending 31 March 2027 | Not exempt, sale in 2021-22, threshold $79,659.00
+The ATO’s example: GHI Co’s $85,000 car, above 2022-23’s threshold at its first sale, is not exempt | Battery electric, current employee, first held and used 2022-07-01, first retail sale 2022-07-01 at $85,000.00; FBT year ending 31 March 2027 | Not exempt, sale in 2022-23, threshold $84,916.00
+A luxury car tax value at the threshold pays no luxury car tax | Battery electric, current employee, first held and used 2026-07-01, first retail sale 2026-07-01 at $91,661.00; FBT year ending 31 March 2027 | Exempt, sale in 2026-27, threshold $91,661.00
+One cent above the threshold, luxury car tax was payable | Battery electric, current employee, first held and used 2026-07-01, first retail sale 2026-07-01 at $91,661.01; FBT year ending 31 March 2027 | Not exempt, sale in 2026-27, threshold $91,661.00
+The ATO’s example: Simon’s plug-in hybrid, leased from 1 April 2024 to 31 March 2027, stays exempt | Plug-in hybrid, current employee, first held and used 2024-04-01, first retail sale 2024-04-01 at $60,000.00, committed before 1 April 2025, no new commitment, an exempt benefit before 1 April 2025; FBT year ending 31 March 2027 | Exempt, sale in 2023-24, threshold $89,332.00
+The ATO’s example: Tony’s break in the novation from 1 May 2025 is a new commitment, so his plug-in hybrid is not exempt | Plug-in hybrid, current employee, first held and used 2024-09-01, first retail sale 2024-09-01 at $60,000.00, committed before 1 April 2025, a new commitment, an exempt benefit before 1 April 2025; FBT year ending 31 March 2027 | Not exempt, sale in 2024-25, threshold $91,387.00
+A first retail sale after the FBT year comes after every benefit in it, so its luxury car tax does not count | Battery electric, current employee, first held and used 2026-04-01, first retail sale 2027-04-01 at $100,000.00; FBT year ending 31 March 2027 | Exempt, sale in 2026-27, after the FBT year
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -128,11 +143,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- FBT rate table: https://duguid.com.au/rates/fbt-rate/
 - guide’s chapter 2: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
+- announced, not yet law: https://duguid.com.au/rates/announced-not-yet-law/
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -189,7 +204,7 @@ The guide’s example 18: 4 spaces at $10 for 182 days, 3 employees | Spaces, 4 
 Spaces without a benefit are refused | Spaces, 4 at $10.00 for 182 days, employees 0 and 0, spaces 0 and 0, contributions $0.00; fee $11.48 against $11.48 | Refused: these spaces gave rise to no car parking benefit: the first business day fee is not more than the car parking threshold, so the spaces method does not count them
 A register first valid 5 years back has lapsed | Register, $2,500.00 over 183 days, first valid 2022; fee $12.36 against $11.48 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -198,7 +213,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -250,7 +265,7 @@ Interest at the statutory rate leaves no value | Daily balances $18,250,000.00, 
 A $20,000 loan owed for 100 days accrues by the day | Daily balances $2,000,000.00, accrued $0.00, income use 0%, deduction $0.00, at 8.27% | Notional interest $453.15, taxable value $453.15
 A deduction above the interest accrued is refused | Daily balances $18,250,000.00, accrued $1,000.00, income use 60%, deduction $1,000.01, at 8.27% | Refused: the deduction for the interest accrued cannot be more than that interest
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -259,7 +274,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -314,7 +329,7 @@ Expenses more than 20% above the first year end the register | Register, expense
 A nil first year is refused as unsupported, not let through the 20% rule | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2025, earlier years $0.00 and $0.00 | Refused: this calculator does not take a register whose first valid year had nil expenses: enter that year’s expenses
 A register first valid 5 years back has lapsed | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2022, earlier years $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -323,7 +338,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -394,7 +409,7 @@ A payload that disagrees with the mass and kerb weight is refused | Passenger bo
 A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
 Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -403,7 +418,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -456,7 +471,7 @@ Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways 
 One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
 A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -465,7 +480,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - PCG 2021/4 allocation calculator: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -530,7 +545,7 @@ A recipient this calculator cannot tax is refused | 2026-27 rates; gateways pass
 Amounts on a row marked not used are refused, not dropped | 2026-27 rates; gateways passed; IPP $300,000.00; associate 1 not used $100,000.00 | Refused: associate 1 is marked not used but has amounts; choose who it is or set them to 0
 A failed Gateway 2 is refused | 2020-21 rates; Gateway 2 failed; IPP $330,000.00; associate 1 base rate company $270,000.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -538,7 +553,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -593,7 +608,7 @@ A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 mo
 A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
 More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -602,7 +617,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -657,7 +672,7 @@ A child recipient has taxable earnings but no liability | Balance $4,000,000.00,
 Death by 30 June 2027 makes the balance nil | Balance $12,000,000.00, earnings $500,000.00, died by 30 June 2027 | Not liable: died, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
 A negative balance is refused | Balance -$1.00, earnings $100,000.00 | Refused: enter an amount between 0 and 1000000000
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -665,80 +680,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Division 7A loan schedule: minimum repayments over 7 or 25 years
-
-Source: https://duguid.com.au/tools/business-calculators/div7a-schedule/
-
-> A Division 7A loan year by year over 7 or 25 years: minimum repayments at the ATO’s benchmark rates, interest, extra repayments and any shortfall dividend.
-
-# Division 7A loan schedule calculator
-
-A complying Division 7A loan year by year: each minimum yearly repayment, the interest, extra repayments and any shortfall taken to be a dividend.
-
-Published 17 November 2026. Last checked 17 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Division 7A loan schedule inputs
-
-Date the company made the loan Amalgamated loan not repaid at 30 June of the year it was made: the loans made that year with this term, less repayments by 30 June (AUD) Term in the written loan agreement, which must be the maximum under subsection 109N(3) 7 years: unsecured, or any other loan 25 years: 100% secured by a registered mortgage over real property worth at least 110% of the loan, after debts secured ahead of it, when first made Benchmark interest rate to assume for each year after 2026-27 (%) Repayment for each year from the first, made on 30 June, separated by semicolons; a blank entry or field means the minimum (AUD) Optional: the borrower’s marginal tax rate, to show the dividend that would leave each repayment after tax (%) Franking of that dividend Unfranked Fully franked at 30% Fully franked at 25% Was any of the loan repaid after 30 June and before the company’s lodgment day for the year it was made? No Yes Does the loan refinance another, or was its term extended because it became secured by a mortgage? No Yes Was the loan made through an interposed entity? No Yes
-
-Rates to 2026-27 are the ATO’s, also in the Division 7A benchmark rate table. The ATO publishes each year’s rate as that year starts, so every figure from 2027-28 on is a projection on the rate you assume.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: loan made 1 October 2022, in 2022-23, $100,000.00 not repaid at 30 June 2023, 7-year unsecured term, benchmark rate after 2026-27 assumed at 8.77%, repayments: the minimum each year, no funding dividend worked. Minimum yearly repayment for 2023-24 $19,384.96 Repaid from 2023-24 to 2029-30 $137,086.99 Interest at the benchmark rates $37,086.99 Not repaid at 30 June 2030 $0.00 Shortfall taken to be a dividend $0.00 Figures from 2027-28 on are a projection on your assumed benchmark rate of 8.77%, as the ATO has published rates only to 2026-27.
-
-## How the Division 7A loan schedule calculator works
-
-The Division 7A loan schedule calculator sets out a complying loan from a private company year by year, from the first income year after the year it was made to the end of its term. Each year it works the minimum yearly repayment under subsection 109E(6) at that year’s benchmark rate, the interest at that rate, how much of the repayment reduces the loan and the balance left at 30 June. Leave the repayments blank to pay the minimum each year; enter more in any year to see the later minimums fall and the loan end sooner.
-
-In the last year the minimum is the balance and a full year’s interest. A repayment on 30 June carries that day on the reduced balance, so repaying the loan then needs a day’s interest less than the minimum; a blank entry repays the loan and no more, and a repayment that repays the loan is no shortfall.
-
-If a year’s repayment is less than its minimum, subsection 109E(1) takes the company to pay a dividend of the shortfall at the end of that year, limited by section 109Y to its distributable surplus. The schedule stops at that year. The heading of subsection 109E(1) speaks of the first year in which a payment falls short, and the sources applied do not say how later years are worked.
-
-The minimum for a single year matches the Division 7A minimum yearly repayment calculator. The ATO’s worked example on Loans by private companies takes $55,000 at 5.95% over 7 years for $9,835 and then $50,430 at 5.45% over 6 years for $10,079, to the nearest dollar; those years are before the published rates this page holds.
-
-## What the Division 7A loan schedule calculator does not cover
-
-The calculator does not decide whether a payment is a loan, whether the agreement is in writing before the lodgment day or charges at least the benchmark rate, or whether a mortgage meets the 110% test: it takes the term you choose. It works only a loan whose written term is the maximum, 7 or 25 years: subsection 109E(6) counts the remaining term from the loan’s own term, so a loan agreed for fewer years has higher minimums than this page shows. It refuses a loan made before 4 December 1997, which Division 7A reaches only once its term or amount is varied (subsection 109D(5)); a loan made before 1 July 2020, whose first year is before the ATO rates it holds; a loan made through an interposed entity (Subdivision E); a loan that refinances another or was extended under a mortgage, whose term subsections 109N(3A) to (3D) and 109E(3A) and (3B) reduce or restart; and a repayment made between 30 June and the lodgment day for the year the loan was made, which the ATO takes off the loan and also counts in the next year.
-
-It assumes each repayment is made on 30 June and that the company’s income year ends on 30 June. A repayment made earlier in a year carries less interest. It does not apply section 109Q, which lets the Commissioner disregard a shortfall that would cause undue hardship, section 109R, which disregards a repayment funded by a new loan from the company, section 109Y’s limit or the regulations that subsection 109E(5) allows. It does not combine loans with different terms: each is a separate amalgamated loan with its own schedule.
-
-The funding dividend is arithmetic on the marginal rate you give. It does not check that the company has the profits or franking credits to pay it, and it is not advice on whether to repay by dividend, salary or cash. Future benchmark rates are not known: the figures from 2027-28 rest on your assumption. Confirm the figures with the ATO Division 7A calculator and decision tool or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Division 7A loan schedule calculator
-
-Case | Inputs | Result
-Minimum repayments over 7 years, projected from 2027-28 | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '' | first minimum $19,384.96, repaid $137,086.99, interest $37,086.99, last year 2029-30, not repaid $0.00, shortfall $0.00, projected from 2027-28
-A larger first repayment lowers every later minimum | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '40000' | first minimum $19,384.96, repaid $130,395.95, interest $30,395.95, last year 2029-30, not repaid $0.00, shortfall $0.00, projected from 2027-28
-A second-year repayment short of the minimum is a dividend, and the schedule stops | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '; 10000' | first minimum $19,384.96, repaid $29,384.96, interest $16,058.05, last year 2024-25, not repaid $86,673.09, shortfall $9,677.59, no projected year
-Repaying the balance and interest to 29 June ends the loan early | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99' | first minimum $19,384.96, repaid $113,353.99, interest $13,353.99, last year 2024-25, not repaid $0.00, shortfall $0.00, no projected year
-A 25-year secured loan made in 2026-27 is projected throughout | Made 2027-01-15, $500,000.00, 25 years, 8.77% assumed, repayments '' | first minimum $49,957.64, repaid $1,248,437.49, interest $748,437.49, last year 2051-52, not repaid $0.00, shortfall $0.00, projected from 2027-28
-A higher assumed rate raises only the projected years | Made 2022-10-01, $100,000.00, 7 years, 10% assumed, repayments '' | first minimum $19,384.96, repaid $138,384.15, interest $38,384.15, last year 2029-30, not repaid $0.00, shortfall $0.00, projected from 2027-28
-A loan made on 1 July 2020 starts at the 2021-22 rate | Made 2020-07-01, $1,000.00, 7 years, 8.77% assumed, repayments '' | first minimum $169.83, repaid $1,287.84, interest $287.84, last year 2027-28, not repaid $0.00, shortfall $0.00, projected from 2027-28
-A loan made before 4 December 1997 | Made 1997-12-03, $100,000.00, 7 years, 8.77% assumed, repayments '' | Refused: division 7A reaches a loan made before 4 December 1997 only once its term or amount is varied (subsection 109D(5)); this page does not work one
-A loan made on 4 December 1997, before the published rates | Made 1997-12-04, $100,000.00, 7 years, 8.77% assumed, repayments '' | Refused: enter a loan made from 1 July 2020 to 30 June 2027: the ATO’s published rates start with 2021-22
-A loan made through an interposed entity | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '', interposed | Refused: this page does not work a loan made through an interposed entity (Subdivision E of Division 7A)
-A repayment above the amount that repays the loan on 30 June | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '108247.41' | Refused: the 2023-24 repayment is more than $108,247.40, which repays the loan on 30 June
-Repayments after the loan is repaid | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99; 1' | Refused: the loan is repaid in 2024-25; leave out the repayments after it
-More repayments than years of the term | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '1;1;1;1;1;1;1;1' | Refused: enter no more than 7 repayments, one for each year of the term
-
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
-- Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
-- ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/

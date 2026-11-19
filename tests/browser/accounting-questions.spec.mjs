@@ -648,6 +648,45 @@ test('FBT car works the operating cost method at the Type 2 gross-up offline', a
   await expect(form.locator('.field-error')).toHaveText('Enter 100 or less.');
 });
 
+test('FBT car exempts an eligible electric car and keeps its value reportable offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-car/');
+  const form = page.locator('#fbt-car form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('Battery electric').check();
+  await form.getByLabel('Electric cars only: first day held and used').fill('2026-07-01');
+  await form.getByLabel('Electric cars only: first retail sale').fill('2026-07-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
+    + '182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up 2.0802, battery electric car for a '
+    + 'current employee, first held and used 1 July 2026, first sold at retail 1 July 2026 at a luxury car tax value of $60,000.00 against '
+    + 'the 2026-27 fuel-efficient threshold of $91,661.00, no luxury car tax on another sale or an import before the benefit. '
+    + 'Provided to a current employee, s 8A(1)(a): met. A battery electric or hydrogen fuel cell electric car, s 8A(1)(b): met. '
+    + 'First held and used on or after 1 July 2022, Schedule 1 item 7(2): met. '
+    + 'No luxury car tax payable on the first retail sale before the benefit, s 8A(1)(c): met. '
+    + 'No luxury car tax payable on another sale or an import before the benefit, s 8A(1)(c): met. Electric cars exemption, section 8A: applies. '
+    + 'Base value: $60,000.00. Statutory formula taxable value: $4,983.56. Taxable value before the exemption, for reporting: $4,983.56. '
+    + 'Taxable value: $0.00. Grossed-up taxable value: $0.00. FBT at 47%: $0.00. '
+    + 'The taxable value before the exemption still counts in the employee’s reportable fringe benefits amount (subsection 135P(3)), '
+    + 'reported when the employee’s total for the year is more than $2,000, unless the car is a pooled or shared car, whose benefit is '
+    + 'excluded. The car’s registration, insurance, repairs, maintenance and fuel, electricity included, are exempt too (subsection 53(1)) '
+    + 'and not reported; a home charging station is not a car expense under that exemption.');
+  // A plug-in hybrid with no commitment from before 1 April 2025 is not exempt, so FBT is due.
+  await form.getByLabel('Plug-in hybrid electric').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: does not apply.');
+  await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.40.');
+  // A first retail sale after the FBT year comes after every benefit in it, whatever its luxury car tax value (s 8A(1)(c)).
+  await form.getByLabel('Battery electric').check();
+  await form.getByLabel('Electric cars only: first retail sale').fill('2027-04-01');
+  await form.getByLabel('Electric cars only: luxury car tax value').fill('150000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('first sold at retail 1 April 2027 after the FBT year, so after every benefit in it, ');
+  await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: applies.');
+  await expect(form.locator('output')).toContainText('FBT at 47%: $0.00.');
+});
+
 test('fixed fee takes its rounding step from a radio and shows one payment for one instalment', async ({ page }) => {
   await page.goto('/tools/business-calculators/fixed-fee/');
   const form = page.locator('#fixed-fee form');
@@ -834,6 +873,27 @@ test('long service leave page works a Western Australian example, the leave stil
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toHaveText(
     'Under 10 years, the NT Act pays on death what the employee would have been paid for leaving that day for a reason in subsection 10(2) (subsection 10(3)): choose that reason instead.');
+});
+
+// ReturnToWorkSA's example 1 ($450,000 at 2%: a $9,000 base premium less the 5% discount), then a Queensland
+// policy renewed from before 1 July 2026, whose rate only WorkCover Queensland sets, refused.
+test('workers compensation page works a South Australian example and refuses a renewed Queensland policy offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/workers-compensation/');
+  const form = page.locator('#workers-compensation form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('South Australia', { exact: true }).check();
+  await form.getByLabel('Estimated wages for the policy period').fill('450000');
+  await form.getByLabel('Industry or premium rate from your insurer').fill('2');
+  await form.getByLabel('Actual wages for the policy period').fill('');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Premium payable on the estimated wages: $9,405.00.');
+  await expect(form.locator('output')).toContainText('Less discount at 5% for a base premium in its band: $450.00.');
+  await form.getByLabel('Queensland', { exact: true }).check();
+  await form.getByLabel('Before 1 July 2026, renewed for 2026-27').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(
+    'A policy that commenced before 1 July 2026 has a premium rate from WorkCover Queensland’s simplified or experience-based model and an adjustment for 2025-26 (Notice (No. 1) of 2026, parts 5 and 6): use the premium notice.');
 });
 
 // TR 2022/3 example 22 (paragraphs 210 to 214): Kevin's brother's company is an associate, and Pebbles and
@@ -1068,7 +1128,8 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave', 'borrowing-expenses'];
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
+  'workers-compensation'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

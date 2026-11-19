@@ -30,13 +30,13 @@ Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan c
 
 Leave the borrowing expenses blank to skip loan 2.
 
-Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender Accounting: of the borrowing expenses, fees paid to the same lender (AUD)
 
 ## Loan 3 (optional)
 
 Leave the borrowing expenses blank to skip loan 3.
 
-Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Loan 2 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Loan 2 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender Accounting: of the borrowing expenses, fees paid to the same lender (AUD)
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2024-25; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use; loan 2: $1,670.00 of borrowing expenses from 17 July 2020, contract to 16 July 2040, 81.3397% income use. Borrowing expenses, all loans $3,270.00 Maximum deduction for 2024-25 $653.65 Still to deduct after 2024-25 $16.38 Deduction for 2024-25 $591.36
 
@@ -46,7 +46,7 @@ The borrowing expenses calculator works out the deduction for costs of borrowing
 
 A loan repaid early ends its period that day, so that year deducts what is left. A loan that refinances an earlier one spreads its own expenses from its own first day. When everything incurred for borrowing in a year comes to $100 or less of income use, it is deducted that year instead.
 
-The optional accounting column sets the same expenses against the loan under AASB 9: the effective interest rate that discounts the loan’s monthly payments to the amount borrowed less the expenses, the expenses recognised each year by that rate, the write-off when a loan is extinguished, the 10% test for a refinancing with the same lender, and the amortised cost at 30 June. Beside each year’s tax deduction it shows the difference, the temporary difference AASB 112 works with.
+The optional accounting column sets the same expenses against the loan under AASB 9: the effective interest rate that discounts the loan’s monthly payments to the amount borrowed less the expenses, the expenses recognised each year by that rate, the write-off when a loan is extinguished, the 10% test for a refinancing with the same lender, and the amortised cost at 30 June. Beside each year’s tax deduction it shows the difference, and what tax and accounting each still carry at 30 June.
 
 ## What the borrowing expenses calculator does not cover
 
@@ -70,7 +70,7 @@ A loan first drawn before 1 July 2017 | 2024-25; loan 1: $1,600.00 of borrowing 
 A refinancing that does not start on the day the earlier loan was repaid | 2026-27; loan 1: $1,500.00 of borrowing expenses from 1 September 2024, contract to 31 August 2028, repaid 31 December 2025, 100% income use; loan 2: $800.00 of borrowing expenses from 1 January 2026, refinancing loan 1, 100% income use | Refused: loan 2: refinances must be the number of an earlier loan in loans, repaid on this loan's loan_start and refinanced by no other loan
 An income year after 2027-28 | 2028-29; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use | Refused: choose an income year from 2017-18 to 2027-28
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -79,4 +79,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Borrowing expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/borrowing-expenses
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/

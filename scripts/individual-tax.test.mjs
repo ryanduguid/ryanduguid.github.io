@@ -17,7 +17,9 @@ import { SOLE_TRADER_YEARS, soleTraderSetAside } from '../assets/sole-trader.mjs
 import { incomeTests, INCOME_TEST_PARTS } from '../assets/income-tests.mjs';
 import { CAP, concessionalCatchUp } from '../assets/concessional-catch-up.mjs';
 
-const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp };
+import { bonusWithholding } from '../assets/bonus-withholding.mjs';
+const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp,
+  bonusWithholding };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -28,6 +30,7 @@ const PERIOD = { year: 'a year', month: 'a month', fortnight: 'a fortnight', wee
 const parts = (r) => PARTS.filter(([key]) => key === 'taxable' || r[key] !== '0').map(([key, label]) => `${label} ${whole(r[key])}`)
   .join(', ');
 const settle = (value) => `${value < 0 ? 'owing' : 'refund'} ${dollars(Math.abs(value))}`;
+const PAY_NAME = { week: 'weekly', fortnight: 'fortnightly', month: 'monthly' };
 const DIVISION_293_PARTS = [['fringe', 'fringe benefits'], ['losses', 'net investment loss'],
   ['trust', 'family trust distribution tax income'], ['fhss', 'less FHSS'], ['lumpSum', 'less zero-rate lump sum']];
 const INCOME_TEST_LABELS = { taxable: 'taxable', fhss: 'FHSS', familyTrust: 'family trust', fringe57a: 'section 57A fringe',
@@ -47,6 +50,12 @@ const INPUTS = {
     + `${p.includesSuper ? 'including' : 'plus'} super${p.sacrifice === '0' ? '' : `, ${whole(p.sacrifice)} sacrificed`}`
     + `${p.studyLoan ? ', study loan' : ''}${p.hospitalCover ? '' : ', no hospital cover'}`,
   studyLoanRepayment: (r, year) => `${year}: ${parts(r)}`,
+  bonusWithholding: (b) => `${PAY_NAME[b.period]}, scale ${b.residency === 'resident' ? 2 : 3}${b.studyLoan ? ', study loan' : ''}, `
+    + `${dollars(b.earnings)} this pay; ` + (b.method === 'A' ? `Method A: ${dollars(b.additional)} over ${b.spread} pays`
+    : [b.backPays !== '0' ? `B(i): ${dollars(b.backEach)} for each of ${b.backPays} pays of ${dollars(b.backEarnings)} that had `
+      + `${dollars(b.backWithheld)} withheld` : '', b.additional !== '0' ? `B(ii): ${dollars(b.additional)}, ${dollars(b.yearToDate)} `
+      + `over ${b.paysToDate} pays to date${b.earlierAdditional === '0' ? '' : `, earlier ${dollars(b.earlierAdditional)} with `
+      + `${dollars(b.earlierWithheld)} withheld`}` : ''].filter(Boolean).join('; ')),
   division293Tax: (d) => `${d.year}: taxable income ${whole(d.taxable)}`
     + DIVISION_293_PARTS.filter(([key]) => d[key] !== '0').map(([key, label]) => `, ${label} ${whole(d[key])}`).join('')
     + `; contributions ${dollars(d.concessional)}`
@@ -78,6 +87,10 @@ const OUTPUTS = {
     + `${r.withheld ? `; withheld ${dollars(r.withheld.total)} a pay, ${settle(r.withheld.refund)}` : ''}`
     + `${r.overCap ? `; ${dollars(r.overCap)} over the cap` : ''}${r.division293 ? `; Division 293 on ${dollars(r.division293)}` : ''}`,
   studyLoanRepayment: (r) => `Repayment income ${dollars(r.repaymentIncome)}, repayment ${dollars(r.repayment)}`,
+  bonusWithholding: (r) => `Withheld ${dollars(r.total)}: ${dollars(r.onEarnings)} on earnings`
+    + (r.method === 'A' ? `, ${dollars(r.onAdditional)} on the payment (limit ${dollars(r.limit)}); adds ${dollars(r.yearTax)} to a year`
+      : `${r.methodBi ? `, ${dollars(r.methodBi.onBackPayment)} by B(i)` : ''}`
+        + `${r.methodBii ? `, ${dollars(r.methodBii.onAdditional)} by B(ii) (limit ${dollars(r.methodBii.limit)})` : ''}`),
   division293Tax: (r) => `Division 293 income ${dollars(r.income)}, low tax contributions ${dollars(r.low)}`
     + `${r.excess ? ` after ${dollars(r.excess)} excess` : ''}, taxable contributions ${dollars(r.taxable)}, tax ${dollars(r.tax)}`,
   soleTraderSetAside: (r, s) => `Offset ${dollars(r.smallBusinessOffset)}, business tax ${dollars(r.businessTax)}`
@@ -129,6 +142,10 @@ const FORM_CALLS = {
     includesSuper: f.super === 'included', sacrifice: f.sacrifice, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes' }],
   studyLoanRepayment: (f) => [{ taxable: f.taxable, fringe: f.fringe, losses: f.losses, super: f.super, foreign: f.foreign }, f.year],
+  bonusWithholding: (f) => [{ period: f.period, residency: f.residency, studyLoan: f['study-loan'] === 'yes', method: f.method,
+    earnings: f.earnings, additional: f.additional, spread: f.spread, backPays: f['back-pays'], backEarnings: f['back-earnings'],
+    backEach: f['back-each'], backWithheld: f['back-withheld'], yearToDate: f['year-to-date'], paysToDate: f['pays-to-date'],
+    earlierAdditional: f['earlier-additional'], earlierWithheld: f['earlier-withheld'] }],
   division293Tax: (f) => [{ year: f.year, interests: f.interests, taxable: f.taxable, fringe: f.fringe, losses: f.losses,
     trust: f.trust, fhss: f.fhss, lumpSum: f['lump-sum'], concessional: f.concessional, unused: f.unused,
     balanceUnder: f['balance-under'] === 'yes' }],
@@ -536,6 +553,59 @@ test('a form that is not an individual tax calculator gets no result, whatever i
   for (const kind of ['gst', 'constructor', 'toString', '__proto__']) {
     assert.equal(individualResult(kind, () => '0', String), undefined, kind);
   }
+});
+
+const BONUS = { period: 'week', residency: 'resident', studyLoan: false, method: 'A', earnings: '0', additional: '0', spread: '52',
+  backPays: '0', backEarnings: '0', backEach: '0', backWithheld: '0', yearToDate: '0', paysToDate: '1', earlierAdditional: '0',
+  earlierWithheld: '0' };
+const bonus = (fields) => bonusWithholding({ ...BONUS, ...fields });
+
+// Schedule 5, 'Withholding amounts examples' (published 17 June 2026), read 19 November 2026: each step of example 1.
+test('Method A gives each step of the ATO’s example 1, Jarrod, with and without HELP', () => {
+  const plain = bonus({ earnings: '1400', additional: '900' });
+  assert.deepEqual([plain.step1, plain.step2.tax, plain.step3, plain.step4, plain.step5.tax, plain.step7.tax, plain.limit],
+    [1400, 267, 17, 1417, 272, 260, 423]);
+  const help = bonus({ earnings: '1400', additional: '900', studyLoan: true });
+  assert.deepEqual([help.step2.studyLoan, help.step5.studyLoan, help.step7.studyLoan, help.onAdditional, help.total],
+    [10, 12, 104, 364, 641]);
+});
+
+test('the 47% limit applies to the additional payment with its study loan component, cents ignored', () => {
+  const r = bonus({ earnings: '4000', additional: '5200.99', studyLoan: true });
+  assert.equal(r.step7.total, 2964);
+  assert.equal(r.limit, 2444.46);
+  assert.equal(r.onAdditional, 2444);
+  assert.equal(r.total, r.step2.total + 2444);
+  // Method B(i) has no limit: with nothing withheld before, the earlier pay's whole withholding is more than 47%.
+  const back = bonus({ method: 'B', earnings: '4000', backPays: '1', backEarnings: '4000', backEach: '5200', backWithheld: '0' });
+  assert.ok(back.methodBi.onBackPayment > 5200 * 0.47);
+});
+
+test('Method B(ii) averages this pay’s B(i) back payment into the earnings to date, as example 4 does', () => {
+  const r = bonus({ method: 'B', period: 'month', studyLoan: true, earnings: '7000', backPays: '2', backEarnings: '6200',
+    backEach: '800', backWithheld: '1257', additional: '8800', yearToDate: '19400', paysToDate: '3' });
+  assert.equal(r.methodBii.step1, 7000);
+  assert.deepEqual([r.methodBii.step7.tax, r.methodBii.step7.studyLoan], [2808, 1296]);
+  assert.equal(r.total, 6492);
+});
+
+test('the bonus calculator refuses what Schedule 5 or its scales here do not cover', () => {
+  assert.throws(() => bonus({ period: 'year', additional: '1' }), { message: 'Choose weekly, fortnightly or monthly pay.' });
+  assert.throws(() => bonus({ residency: 'working-holiday', additional: '1' }), /tax-free threshold or a foreign resident/);
+  assert.throws(() => bonus({ studyLoan: 'no', additional: '1' }), { message: 'Say whether the payee has a study or training loan.' });
+  assert.throws(() => bonus({ method: 'C', additional: '1' }), { message: 'Choose Method A or Method B.' });
+  assert.throws(() => bonus({}), { message: 'Enter the additional payment.' });
+  assert.throws(() => bonus({ additional: '1', spread: '1' }), /between 2 and 52/);
+  assert.throws(() => bonus({ period: 'month', additional: '1', spread: '13' }), /between 2 and 12/);
+  assert.throws(() => bonus({ method: 'B' }), /back payment for earlier pays this year or another additional payment/);
+  assert.throws(() => bonus({ method: 'B', backPays: '53' }), /between 0 and 52/);
+  assert.throws(() => bonus({ method: 'B', backPays: '2' }), { message: 'Enter the back payment for each earlier pay.' });
+  assert.throws(() => bonus({ method: 'B', earnings: '100', additional: '1', yearToDate: '99' }),
+    { message: 'Enter normal earnings to date that include this pay.' });
+  // The first failure wins: a missing payment before a bad spread, a missing B(i) amount before a bad B(ii) count.
+  assert.throws(() => bonus({ spread: '1' }), { message: 'Enter the additional payment.' });
+  assert.throws(() => bonus({ method: 'B', backPays: '2', additional: '1', paysToDate: '0' }),
+    { message: 'Enter the back payment for each earlier pay.' });
 });
 
 const D293 = { year: '2026-27', interests: 'accumulation', taxable: '0', fringe: '0', losses: '0', trust: '0', fhss: '0', lumpSum: '0',
