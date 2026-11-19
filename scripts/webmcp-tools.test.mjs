@@ -352,7 +352,8 @@ test('foreign surcharge tool returns the page worked example and refuses what th
 const individual = individualTaxTools(individualEngines);
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
-  assert.deepEqual(Object.values(individual).map(t => t.name), ['estimate_income_tax', 'calculate_take_home_pay']);
+  assert.deepEqual(Object.values(individual).map(t => t.name), ['calculate_income_tests', 'estimate_income_tax',
+    'calculate_take_home_pay']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -376,11 +377,15 @@ test('income tax tool returns the page worked example: the ATO’s Tom with $21,
   assert.equal(family.medicareLevySurcharge, '1130.01');
 });
 
-test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a year', async () => {
+test('take-home pay tool gives PAYG withholding for a pay in any year and none for a year', async () => {
   const r = await individual['take-home-pay'].execute({ incomeYear: '2026-27', residency: 'resident', salary: '3000',
     payPeriod: 'fortnight', salarySacrifice: '200', studyLoan: true });
-  assert.deepEqual(r.paygWithholding, { eachPay: '554.00', studyLoanComponent: '20.00', year: '14404.00', refund: '0.00',
-    amountOwing: '212.80' });
+  assert.deepEqual(r.paygWithholding, { eachPay: '554.00', studyLoanComponent: '20.00',
+    studyLoanComponentBefore24September2025: null, year: '14404.00', refund: '0.00', amountOwing: '212.80' });
+  const late = await individual['take-home-pay'].execute({ incomeYear: '2025-26', residency: 'resident', salary: '3000',
+    payPeriod: 'fortnight', studyLoan: true });
+  assert.deepEqual(late.paygWithholding, { eachPay: '672.00', studyLoanComponent: '64.00',
+    studyLoanComponentBefore24September2025: '106.00', year: '17472.00', refund: '74.00', amountOwing: '0.00' });
   assert.equal(r.takeHomeYear, '58183.20');
   const year = await individual['take-home-pay'].execute({ incomeYear: '2025-26', residency: 'resident', salary: '75000' });
   assert.deepEqual([year.takeHomeYear, year.medicareLevy, year.paygWithholding], ['60212.00', '1500.00', null]);
@@ -388,6 +393,8 @@ test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a
     salary: '3000', payPeriod: 'fortnight' });
   assert.equal(holiday.paygWithholding, null);
   assert.match(individual['take-home-pay'].description, /for a working holiday maker it gives none/);
+  assert.match(individual['take-home-pay'].description,
+    /For 2025-26 every pay takes the study loan component from 24 September 2025, and so do the year's withholding/);
   for (const limit of [/first home super saver/, /family trust distribution tax/, /super lump sum/, /debt still owed/,
     /Medicare levy exemption/, /working holiday maker who is an Australian resident or has other income/]) {
     assert.match(individual['income-tax'].description, limit);
@@ -396,6 +403,26 @@ test('take-home pay tool gives PAYG withholding for a 2026-27 pay and none for a
     /52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not computed/]) {
     assert.match(individual['take-home-pay'].description, limit);
   }
+});
+
+// ATO, 'When you must repay your loan' (last updated 13 October 2026, read 19 November 2026): Christina's $73,810.
+test('income tests tool returns the page worked example and refuses what the page refuses', async () => {
+  const tool = individual['income-tests'];
+  const r = await tool.execute({ taxableIncome: 50420, netFinancialInvestmentLoss: 1250, reportableFringeBenefitsOther: 4560,
+    exemptForeignEmploymentIncome: 2580, targetForeignIncome: 2580, reportableEmployerSuperContributions: 15000,
+    assessableIncome: 50420 });
+  assert.deepEqual([r.repaymentIncome, r.incomeForSurchargePurposes, r.division293Income, r.rebateIncome,
+    r.adjustedTaxableIncome, r.coContributionTotalIncome, r.source],
+  ['73810.00', '71230.00', '56230.00', '71230.00', '73810.00', '69980.00',
+    'https://duguid.com.au/tools/individual-tax/income-tests/']);
+  const exempt = await tool.execute({ taxableIncome: 40000, assessableIncome: 40000, reportableFringeBenefitsSection57a: 4567 });
+  assert.deepEqual([exempt.adjustedFringeBenefitsTotal, exempt.rebateIncome], ['2420.00', '42420.00']);
+  assert.equal((await tool.execute({ taxableIncome: 0, childSupportPaid: 1000 })).adjustedTaxableIncome, '-1000.00');
+  await assert.rejects(tool.execute({ taxableIncome: 2, assessableIncome: 1 }), /cannot exceed assessable income/);
+  await assert.rejects(tool.execute({ taxableIncome: 1.5 }), /taxableIncome must be a whole number/);
+  await assert.rejects(tool.execute({ taxableIncome: 1, residency: 'foreign' }), /residency is not an input of this tool/);
+  await assert.rejects(tool.execute({}), /taxableIncome is required/);
+  assert.match(tool.description, /resident in Australia all year/);
 });
 
 test('individual tax tools refuse a year they do not offer, cents of taxable income and an unknown input', async () => {

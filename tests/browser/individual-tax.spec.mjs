@@ -5,7 +5,8 @@ import { test, expect } from '@playwright/test';
 import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
-const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80' };
+const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
+  'income-tests': '$73,810.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -57,6 +58,22 @@ test('a foreign resident pays no Medicare levy or surcharge and gets no offset',
     'A foreign resident gets no low income tax offset and pays no Medicare levy or surcharge.');
 });
 
+test('income tests count section 57A benefits at 53% and refuse a person not resident all year offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tests/');
+  const form = page.locator('#income-tests form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel(/^Reportable fringe benefits from employers exempt under section 57A/).fill('4567');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Adjusted fringe benefits total')).toHaveText('$6,980.00');
+  await expect(row('Rebate income')).toHaveText('$73,650.00');
+  await form.locator('[name="resident"][value="no"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(
+    'This calculator works the measures only for a person resident in Australia for the whole year.');
+});
+
 test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenly', async ({ page }) => {
   await page.goto('/tools/individual-tax/take-home-pay/');
   const form = page.locator('#take-home-pay form');
@@ -74,11 +91,27 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('a 2025-26 fortnightly pay with a loan shows both Schedule 8 components', async ({ page }) => {
+  await page.goto('/tools/individual-tax/take-home-pay/');
+  const form = page.locator('#take-home-pay form');
+  await waitForCalculator(form);
+  await form.getByLabel('A fortnight').check();
+  await form.getByLabel(/^Salary for each pay period/).fill('3000');
+  await form.locator('input[name="study-loan"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('PAYG withheld each fortnight, with the study loan component')).toHaveText('$672.00');
+  await expect(row('Refund estimate')).toHaveText('$74.00');
+  await expect(form.locator('output .result-note')).toContainText('Pays before 24 September 2025 had $106.00 withheld');
+});
+
 for (const [id, name, input, expected] of [
   ['income-tax', 'estimate_income_tax', { incomeYear: '2026-27', residency: 'resident', taxableIncome: 90000,
     reportableFringeBenefits: 27000, daysWithoutHospitalCover: 365, taxWithheld: '21000' }, { refund: '510.00' }],
   ['take-home-pay', 'calculate_take_home_pay', { incomeYear: '2025-26', residency: 'resident', salary: '75000' },
     { takeHomeYear: '60212.00' }],
+  ['income-tests', 'calculate_income_tests', { taxableIncome: 90000, reportableFringeBenefitsOther: 27000, assessableIncome: 90000 },
+    { incomeForSurchargePurposes: '117000.00' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {

@@ -180,13 +180,10 @@
       "86f5b0ff1e4b4d0e186d3618e5a14afff83676fbf6740a4d258e5a4dd0912673"
     ],
     "tools/business-calculators/index.html": [
-      "91040c7259a600ad1ffeb26f60090dc76dd1a63a2fa108e8a25138771eff2dc0"
+      "9e1d328cc9c552f1c04e273e35fa62f03b707d0f81813d7149db4fbc59f67de7"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
-    ],
-    "tools/business-calculators/lease/index.html": [
-      "f51cee6140d1cc3d69ae4d5e9bcc22033393779c9da9195315c87fcf762e8bfd"
     ],
     "tools/business-calculators/loan/index.html": [
       "ae4b492b58d76e770fd168a2a59cd246d6851b4673116a2601fb20e965bb3531"
@@ -245,14 +242,17 @@
     "tools/individual-tax/income-tax/index.html": [
       "aed04320a1e984625737411e6688f860dd30308e78cf544b438f407c0cbf2037"
     ],
+    "tools/individual-tax/income-tests/index.html": [
+      "9b56ccfac53459f3663618c951c61fc738455aac814bb2c30fa161b97510be22"
+    ],
     "tools/individual-tax/index.html": [
-      "5703434a1b42669cce63c44a6e8619ddaa75e93efc74bc9a66c6d23c9664aea7"
+      "095fbe24d680773871d1b5b157fe447fd1d2746ca217452e29c61ad4a202f088"
     ],
     "tools/individual-tax/study-loan/index.html": [
       "e097fdd02619bd0715a3d91bb3455b08912994564bdbc0e0807df76c91cc5cea"
     ],
     "tools/individual-tax/take-home-pay/index.html": [
-      "637a2eb7aebf613f8e4cd0e47638caa3fa6b1f9bb8db8b2bbb6a460734e96b76"
+      "70b6d4498a6e9ea18382da96ebaef855657d615de6bb0f1480257c14a3d3c828"
     ],
     "tools/limitations/index.html": [
       "3d85de7054154595c228acc7da3d1acfa7316401cf6cfad0a929e4aed6ad6c24"
@@ -316,9 +316,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "69993ddab7ec293181e1c16258be5af44b6a5d2ce850cffc9adbbcbfb0eb5a10",
+    "llms.txt": "3bd27fdf063ab8a67afe28d6ee2e596a9b84189362c5c520689d2460ae6362c4",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "ea2712944ea029f07d891cb7abbde8b93d102a7c9020ec61abb254b5df16c1f7"
+    "sitemap.xml": "452d9816d61c2d167ed5e2310ffb93fc0895e3ce6f8e1d25d6466af92cca0792"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
