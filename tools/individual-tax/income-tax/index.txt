@@ -86,7 +86,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the nine individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eleven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -96,4 +96,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- nine individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eleven individual tax calculators: https://duguid.com.au/tools/individual-tax/
