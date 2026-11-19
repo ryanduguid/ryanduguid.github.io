@@ -29,6 +29,13 @@
     <summary>A new individual tax calculator works out the 6 income measures that the income tests section of a tax return feeds, for a person resident all year in 2024-25 to 2026-27: income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution total income. Each definition was read on 19 November 2026 in the Income Tax Assessment Acts 1936 and 1997, the Higher Education Support Act 2003, the Family Assistance Act and the co-contribution Act, and the page opens on the ATO’s worked example of Christina’s $73,810 of repayment income. It works the measures, not the offsets, surcharge or repayments they decide.</summary>
   </entry>
   <entry>
+    <title>A new business calculator works out one employee’s long service leave under the…</title>
+    <link href="https://duguid.com.au/changelog/#entry-1ee1f0ba04abd34a" />
+    <id>https://duguid.com.au/changelog/#entry-1ee1f0ba04abd34a</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A new business calculator works out one employee’s long service leave under the Act of any of the 8 states and territories, from the service dates and the days that do not count: the leave to take now and when more becomes available, or, when employment ends, whether the reason qualifies for a pro rata payment, the weeks payable less leave already taken, and their value at the weekly pay. Each step names its provision, and it refuses the cases an Act leaves unsettled.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>
     <link href="https://duguid.com.au/changelog/#entry-806ecf6f51665308" />
     <id>https://duguid.com.au/changelog/#entry-806ecf6f51665308</id>
