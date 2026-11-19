@@ -38,7 +38,7 @@ pub const CI_MANUAL_URLS: [&str; 20] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 218] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -90,6 +90,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding/payments-you-need-to-withhold-from/payments-to-employees/types-of-payments-to-employees",
     "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll",
     "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/finalising-your-stp-data",
+    "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines/when-an-employee-transfers-or-leaves",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/backing-business-investment-accelerated-depreciation",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/general-depreciation-rules-capital-allowances/effective-life-of-an-asset/effective-life-determinations-rulings-and-law",
     "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off",
@@ -133,6 +134,8 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     "https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator",
     "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator",
     "https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form",
+    "https://www.ato.gov.au/forms-and-instructions/employment-termination-payments-withholding-from-unused-leave-payments/unused-annual-leave",
+    "https://www.ato.gov.au/forms-and-instructions/employment-termination-payments-withholding-from-unused-leave-payments/unused-long-service-leave/examples",
     "https://www.ato.gov.au/forms-and-instructions/fringe-benefits-tax-return-2026-instructions/item-23-fringe-benefit-categories-for-fbt-return-2026",
     "https://www.ato.gov.au/forms-and-instructions/guide-to-completing-the-super-guarantee-charge-statement",
     "https://www.ato.gov.au/forms-and-instructions/low-and-middle-income-earner-tax-offsets",
@@ -207,6 +210,11 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-27",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/40-80",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/67-25",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/83-10",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/83-15",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/83-80",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/83-85",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/83-90",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/995-1",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/69-10",
     "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003",
@@ -242,6 +250,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/using-a-formula",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/working-out-the-weekly-earnings",
     "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments",
+    "https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-7-tax-table-for-unused-leave-payments-on-termination-of-employment",
     "https://www.ato.gov.au/tax-rates-and-codes/schedule-8-statement-of-formulas-for-calculating-study-and-training-support-loans-components",
     "https://www.ato.gov.au/tax-rates-and-codes/study-and-training-loan-minimum-repayment-income-and-rates",
     "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",

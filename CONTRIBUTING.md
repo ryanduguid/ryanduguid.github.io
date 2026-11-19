@@ -530,6 +530,13 @@ PCG 2018/3 and LCTD 2023/1. They were added to the same list before a CI run for
 same reason. Each returned HTTP 200 with the expected text to a local request on
 16 November 2026.
 
+The unused leave calculator cites 9 ATO pages not linked elsewhere: Schedule 7, the
+unused annual leave and long service leave example pages, the STP Phase 2 guideline
+'When an employee transfers or leaves', and ITAA 1997 ss 83-10, 83-15, 83-80, 83-85 and
+83-90 on the Legal Database. They were added to the same list before a CI run for the
+same reason. Each returned HTTP 200 with the expected text to a local request on
+19 November 2026.
+
 ## Release claims
 
 `scripts/release_record.json` is the reviewed statement of which release each page

@@ -39,6 +39,7 @@ const companyTax = { ...business, file: 'assets/company-tax.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
+const leave = { ...business, file: 'assets/unused-leave.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -400,6 +401,21 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC quarterly administration applies with no shortfall', find: 'shortfall > 0 ? 2000 : 0', replace: '2000' },
   { ...sgc, name: 'SGC quarterly lodgment day is the 28th of the next month', find: 'Date.UTC(first, month + 4, 28)', replace: 'Date.UTC(first, month + 3, 28)' },
   { ...sgc, name: 'SGC quarterly 29 February is not refused', find: "if (isoOf(day).endsWith('-02-29')) {", replace: 'if (false) {' },
+  { ...leave, name: 'unused leave capped parts withheld at 30%', find: 'const FLAT_PERCENT = 32;', replace: 'const FLAT_PERCENT = 30;' },
+  { ...leave, name: 'unused leave small payment limit at $200', find: 'const SMALL_PAYMENT = 30000;', replace: 'const SMALL_PAYMENT = 20000;' },
+  { ...leave, name: 'unused leave small payment limit ignored', find: 'under300 ? roundDollars(', replace: 'false ? roundDollars(' },
+  { ...leave, name: 'unused leave without a TFN at 46%', find: "'no-tfn': 47", replace: "'no-tfn': 46" },
+  { ...leave, name: 'unused leave foreign resident without a TFN at 47%', find: "'no-tfn-foreign': 45", replace: "'no-tfn-foreign': 47" },
+  { ...leave, name: 'unused leave without a TFN rounds to the dollar', find: 'Math.floor(((annual + loading + longService) * noTfnRate) / 10000)', replace: 'Math.round(((annual + loading + longService) * noTfnRate) / 10000)' },
+  { ...leave, name: 'unused leave 1993 split needed a day late', find: "start < '1993-08-18'", replace: "start <= '1993-08-18'" },
+  { ...leave, name: 'unused leave 1978 split needed a day late', find: "start < '1978-08-16'", replace: "start <= '1978-08-16'" },
+  { ...leave, name: 'unused leave redundancy caps pre-1978 long service leave too', find: 'concessional ? longService - pre1978 : lsl1993', replace: 'concessional ? longService : lsl1993' },
+  { ...leave, name: 'unused leave 5% share left out of the marginal rate calculation', find: 'post1993 * 20 + pre1978', replace: 'post1993 * 20' },
+  { ...leave, name: 'unused leave 32% amounts ignore cents', find: 'Math.floor((units + 5000) / 10000)', replace: 'Math.floor(units / 10000)' },
+  { ...leave, name: 'unused leave pay share keeps rounding up', find: 'Math.floor(marginalTwentieths / (2000 * periods))', replace: 'Math.round(marginalTwentieths / (2000 * periods))' },
+  { ...leave, name: 'unused leave TFN payee taxed on scale 3', find: '({ tfn: 2,', replace: '({ tfn: 3,' },
+  { ...leave, name: 'unused leave part a cent over its total accepted', find: 'given !== null && given > total)', replace: 'given !== null && given > total + 1)' },
+  { ...leave, name: 'unused leave pre-1978 share 90% not assessable', find: 'lslPre1978NotAssessable: toCents(pre1978 * 19)', replace: 'lslPre1978NotAssessable: toCents(pre1978 * 18)' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -421,7 +437,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json']) {
+    'scripts/fbt-engine-differential.json', 'scripts/unused-leave-engine-differential.json','_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 

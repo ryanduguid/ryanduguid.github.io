@@ -3185,3 +3185,161 @@ test('the SGC page opens on the result its calculation gives for the form’s in
   const quarter = calculations.sgcPaydayResult((name) => ({ ...fields, regime: 'quarter' })[name], aud);
   assert.equal(quarter.rows.at(-1).join('|'), 'SG charge for the quarter|$1,519.18');
 });
+
+// The unused leave page: how each call and result reads. Its figures come from Schedule 7 for payments
+// from 1 July 2026 and the ATO's examples, read 19 November 2026.
+const leaveHtml = readFileSync(new URL('../_includes/calculators/unused-leave.html', import.meta.url), 'utf8');
+const LEAVE_REASONS = { normal: 'normal termination', 'genuine-redundancy': 'genuine redundancy',
+  'early-retirement': 'early retirement scheme', invalidity: 'invalidity' };
+const LEAVE_PAYEES = { tfn: 'TFN, scale 2', 'tfn-foreign': 'foreign resident with a TFN, scale 3', 'no-tfn': 'no TFN',
+  'no-tfn-foreign': 'foreign resident with no TFN' };
+const LEAVE_PERIODS = { week: 'a week', fortnight: 'a fortnight', month: 'a month' };
+const leavePart = (text, words) => (text === '' ? '' : ` (${dollars(Number(text))} ${words})`);
+Object.assign(INPUTS, {
+  unusedLeave: (x) => [`Annual leave ${dollars(Number(x.annual))}${leavePart(x.annualBefore1993, 'before 18 August 1993')}`,
+    `loading ${dollars(Number(x.loading))}${leavePart(x.loadingBefore1993, 'before 18 August 1993')}`,
+    `long service leave ${dollars(Number(x.longService))}${leavePart(x.lslBefore1978, 'before 16 August 1978')}`
+      + `${leavePart(x.lsl1978To1993, '16 August 1978 to 17 August 1993')}`,
+    `accrued from ${plainDate(x.accrualStart)}`, LEAVE_REASONS[x.reason], LEAVE_PAYEES[x.payee],
+    ...(x.payee.startsWith('tfn') ? [`${dollars(Number(x.earnings))} ${LEAVE_PERIODS[x.period]}`] : [])].join(', '),
+});
+Object.assign(FORM_CALLS, { unusedLeave: (f) => [{ annual: f.annual, loading: f.loading, longService: f['long-service'],
+  accrualStart: f['accrual-start'], reason: f.reason, annualBefore1993: f['annual-1993'], loadingBefore1993: f['loading-1993'],
+  lslBefore1978: f['lsl-1978'], lsl1978To1993: f['lsl-1993'], payee: f.payee, earnings: f.earnings, period: f.period }] });
+Object.assign(ENGINE_LABELS, {
+  unusedLeave: { capped: (v) => `lump sum A ${dollars(v)}`, lumpSumAType: (v) => `type ${v}`, lumpSumB: (v) => `lump sum B ${dollars(v)}`,
+    unusedLeave: (v) => `paid leave type U ${dollars(v)}`, assessable: (v) => `assessable ${dollars(v)}`,
+    flat: (v) => `32% part ${dollars(v)}`, marginalWithheld: (v) => `marginal rate part ${dollars(v)}`,
+    withholding: (v) => `withhold ${dollars(v)}` },
+});
+const leave = { annual: '0', loading: '0', longService: '0', accrualStart: '2000-01-01', reason: 'normal', annualBefore1993: '',
+  loadingBefore1993: '', lslBefore1978: '', lsl1978To1993: '', payee: 'tfn', earnings: '1155', period: 'week' };
+const norman = { ...leave, longService: '22020', lslBefore1978: '780', lsl1978To1993: '6420', accrualStart: '1977-01-01' };
+
+test('unused leave reproduces Schedule 7’s example for Norman step by step', () => {
+  const r = calculations.unusedLeave(norman);
+  // 5% of $780 is $39; $6,420 × 32% is $2,054.40; ($39 + $14,820) ÷ 52 is $285.75, so $285; $1,155 withholds
+  // $188 and $1,440 $279, so ($279 − $188) × 52 is $4,732; $2,054 + $4,732 is $6,786.
+  assert.deepEqual([r.lslPre1978Assessable, r.flat, r.marginalAmount, r.marginal?.onEarnings, r.marginal?.share,
+    r.marginal?.withShare, r.marginalWithheld, r.withholding], [39, 2054, 14859, 188, 285, 279, 4732, 6786]);
+  assert.deepEqual([r.lslPre1978NotAssessable, r.assessable, r.capped, r.lumpSumA, r.lumpSumB, r.unusedLeave, r.lumpSumAType],
+    [741, 21279, 6420, 6420, 780, 14820, 'T']);
+});
+
+test('unused leave keeps the parts of the ATO’s examples that do not depend on their 2014-15 tax tables', () => {
+  // Matt (example 8): $80,000 with $3,852 before 16 August 1978, $31,407 to 17 August 1993 and $44,741 after.
+  const matt = calculations.unusedLeave({ ...leave, longService: '80000', lslBefore1978: '3852', lsl1978To1993: '31407',
+    accrualStart: '1977-01-01', earnings: '1200' });
+  assert.deepEqual([matt.lslPre1978Assessable, matt.flat, matt.marginalAmount, matt.marginal?.share], [192.6, 10050, 44933.6, 864]);
+  // Mark (example 4): $4,000 after 17 August 1993 over 52 weeks is $76.
+  assert.equal(calculations.unusedLeave({ ...leave, annual: '4000', earnings: '1000' }).marginal?.share, 76);
+  // Sali (example 9): all $16,000 before 16 August 1978; 5% is $800, $15 a week.
+  const sali = calculations.unusedLeave({ ...leave, longService: '16000', lslBefore1978: '16000', lsl1978To1993: '0',
+    accrualStart: '1972-01-01', earnings: '2400' });
+  assert.deepEqual([sali.lslPre1978Assessable, sali.marginal?.share, sali.capped], [800, 15, 0]);
+});
+
+test('unused leave withholds 32% to the nearest dollar, 50 cents up, and limits a small normal payment to 32%', () => {
+  const capped = (amount) => calculations.unusedLeave({ ...leave, annual: amount, reason: 'invalidity' }).withholding;
+  // $1.57 × 32% is $0.5024, so $1; $1.56 is $0.4992, so nil.
+  assert.deepEqual([capped('1.57'), capped('1.56')], [1, 0]);
+  // On $3,000 a week, $299.99 is $5 a week; under $300 the lesser of the marginal amount and 32% ($96) is withheld.
+  const under = calculations.unusedLeave({ ...leave, annual: '299.99', earnings: '3000' });
+  assert.deepEqual([under.marginal?.beforeLimit, under.marginal?.limited, under.marginalWithheld], [104, true, 96]);
+  const at = calculations.unusedLeave({ ...leave, annual: '300', earnings: '3000' });
+  assert.deepEqual([at.marginal?.limited, at.marginalWithheld], [false, at.marginal?.beforeLimit]);
+  // A capped payment on a genuine redundancy is not limited, however small.
+  assert.equal(calculations.unusedLeave({ ...leave, annual: '100', reason: 'genuine-redundancy' }).marginal?.limited, false);
+});
+
+test('without a TFN unused leave withholds 47%, or 45% for a foreign resident, from the whole payment, cents ignored', () => {
+  const noTfn = (fields) => calculations.unusedLeave({ ...leave, payee: 'no-tfn', earnings: '', period: '', ...fields });
+  // $1,002 × 47% is $470.94, so $470; $1,002.99 is $471.4053, so $471.
+  assert.deepEqual([noTfn({ annual: '1002' }).withholding, noTfn({ annual: '1002.99' }).withholding], [470, 471]);
+  // Norman's $22,020, the 95% of his pre-16 August 1978 leave included: 45% is $9,909.
+  const foreign = calculations.unusedLeave({ ...norman, payee: 'no-tfn-foreign' });
+  assert.deepEqual([foreign.withholding, foreign.noTfnRate, foreign.flat, foreign.lumpSumB], [9909, 45, null, 780]);
+  // No $300 limit applies, and pre-16 August 1978 leave may join a small payment.
+  assert.equal(noTfn({ annual: '100', longService: '1000', lslBefore1978: '1000', lsl1978To1993: '0', annualBefore1993: '0',
+    loadingBefore1993: '0', accrualStart: '1970-01-01' }).withholding, 517);
+});
+
+test('unused leave needs each part from the day before its date and not after it', () => {
+  const run = (accrualStart, fields = {}) => calculations.unusedLeave({ ...leave, annual: '6000', longService: '9000', accrualStart, ...fields });
+  assert.throws(() => run('1993-08-17'), { message: /^Enter the annual leave for employment before 18 August 1993: / });
+  assert.doesNotThrow(() => run('1993-08-18'));
+  assert.throws(() => run('1993-08-18', { annualBefore1993: '1' }), { message: /^The leave accrued from 18 August 1993, so none of it is annual leave/ });
+  assert.equal(run('1993-08-18', { annualBefore1993: '0' }).capped, 0);
+  const from1978 = { annualBefore1993: '0', loadingBefore1993: '0', lsl1978To1993: '0' };
+  assert.throws(() => run('1978-08-15', from1978), { message: /^Enter the long service leave for the period before 16 August 1978: / });
+  assert.doesNotThrow(() => run('1978-08-16', from1978));
+  assert.throws(() => run('1978-08-16', { ...from1978, lslBefore1978: '1' }), { message: /so none of it is long service leave for the period before 16 August 1978/ });
+  // A genuine redundancy caps every part from 16 August 1978, so only the 1978 part is needed.
+  const redundancy = run('1970-01-01', { reason: 'genuine-redundancy', lslBefore1978: '1000' });
+  assert.deepEqual([redundancy.capped, redundancy.lumpSumAType, redundancy.unusedLeave], [14000, 'R', 0]);
+});
+
+test('unused leave refuses what it cannot work out', () => {
+  const refuses = (fields, message) => assert.throws(() => calculations.unusedLeave({ ...leave, ...fields }), { message }, JSON.stringify(fields));
+  refuses({ payee: 'whm' }, 'Choose whether the employee gave a TFN and is a foreign resident.');
+  refuses({ period: 'quarter' }, 'Choose weekly, fortnightly or monthly pay.');
+  refuses({ earnings: '' }, 'Normal gross earnings: enter a number using digits only.');
+  refuses({ reason: 'death' }, 'Choose the reason the employment ended.');
+  for (const accrualStart of ['', '2026-02-30', '1899-12-31', '2027-07-01', '1 July 2000']) {
+    refuses({ accrualStart }, 'Enter the day the leave began to accrue, from 1 January 1900 to 30 June 2027.');
+  }
+  for (const [field, label] of [['annual', 'Annual leave'], ['loading', 'Leave loading'], ['longService', 'Long service leave']]) {
+    for (const value of ['', '-1', '1.001', 'abc']) assert.throws(() => calculations.unusedLeave({ ...leave, [field]: value }), { message: new RegExp(`^${label}: `) });
+  }
+  refuses({ longService: '5000', lslBefore1978: '3000', lsl1978To1993: '2500', accrualStart: '1970-01-01', annualBefore1993: '0',
+    loadingBefore1993: '0' }, 'The long service leave before 16 August 1978 and from then to 17 August 1993 together are more than the long service leave.');
+  refuses({ annual: '100', longService: '1000', lslBefore1978: '1000', lsl1978To1993: '0', annualBefore1993: '0', loadingBefore1993: '0',
+    accrualStart: '1970-01-01' }, /^A post-17 August 1993 payment under \$300 has at most 32% of it withheld/);
+});
+
+test('unused leave agrees with australian-tax-calculators 1.0.0 on every recorded case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./unused-leave-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /^australian-tax-calculators 1\.0\.0 .*commit 6ac566682829731d52a1b4456708a0b9d29b5695/);
+  assert.ok(cases.length >= 250);
+  const toCents = (text) => {
+    const [whole, fraction = ''] = text.split('.');
+    const digits = `${fraction}000`;
+    return (Number(whole) * 100 + Number(digits.slice(0, 2)) + (Number(digits[2]) >= 5 ? 1 : 0)) / 100;
+  };
+  for (const { source, call, amounts, lump_sum_a_type: type, refused } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.unusedLeave(call), Error, source);
+      continue;
+    }
+    const r = calculations.unusedLeave(call);
+    const mine = { annual_leave_capped: r.annualCapped, annual_leave_marginal: r.annualMarginal, long_service_leave_pre_1978: r.lslPre1978,
+      long_service_leave_pre_1978_assessable: r.lslPre1978Assessable, long_service_leave_pre_1978_not_assessable: r.lslPre1978NotAssessable,
+      long_service_leave_capped: r.lslCapped, long_service_leave_marginal: r.lslMarginal, assessable_income: r.assessable,
+      offset_capped_income: r.capped, withholding: r.withholding, lump_sum_a: r.lumpSumA, lump_sum_b: r.lumpSumB,
+      unused_leave_on_termination: r.unusedLeave, qualifying_earnings: 0,
+      ...(r.marginal ? { flat_rate_withholding: r.flat, marginal_rate_amount: r.marginalAmount, withholding_on_earnings: r.marginal.onEarnings,
+        marginal_amount_per_period: r.marginal.share, withholding_on_earnings_and_share: r.marginal.withShare,
+        marginal_withholding_before_limit: r.marginal.beforeLimit, marginal_withholding: r.marginalWithheld } : {}) };
+    assert.deepEqual(mine, Object.fromEntries(Object.entries(amounts).map(([key, value]) => [key, toCents(value)])), source);
+    assert.equal(r.lumpSumAType, type, source);
+  }
+});
+
+test('the unused leave page opens on Norman’s result and cites each source with its date', () => {
+  const example = leaveHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(leaveHtml);
+  const result = calculations.unusedLeaveResult((name) => fields[name], aud);
+  assert.equal(result.inputs, example[1]);
+  assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
+  assert.equal(String(result.principal), example[3]);
+  assert.equal(result.note, example[4]);
+  assert.equal(result.rows.at(-1).join('|'), 'Total to withhold from the leave|$6,786.00');
+  for (const cited of ['read on the ATO Legal Database 19 November 2026', '(published 17 June 2026, for payments from 1 July 2026), read 19 November 2026',
+    '(both last updated 1 May 2020), read 19 November 2026', '(last updated 12 November 2025), read 19 November 2026']) {
+    assert.ok(leaveHtml.includes(cited), cited);
+  }
+  // Without a TFN the form needs no earnings, and the result says why the whole payment counts.
+  const noTfn = calculations.unusedLeaveResult((name) => ({ ...fields, payee: 'no-tfn', earnings: '' })[name], aud);
+  assert.equal(noTfn.rows.at(-1).join('|'), 'To withhold: 47% of the payment, cents ignored|$10,349.00');
+});
