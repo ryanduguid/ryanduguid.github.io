@@ -768,7 +768,9 @@ struct Owner<'a> {
 }
 
 fn resident_total(income: u64, year: &str) -> i64 {
-    tax_oracle(income, year, "resident")["total"].as_i64().unwrap()
+    tax_oracle(income, year, "resident")["total"]
+        .as_i64()
+        .unwrap()
 }
 
 fn owner_super(salary: u64, year: &str) -> u64 {
@@ -854,11 +856,13 @@ fn the_salary_dividend_engine_agrees_with_the_oracle_and_no_dollar_of_salary_kee
     let mut cases = Vec::new();
     for index in 0..OWNER_CASES + OWNER_SCANS {
         let profit = if index < OWNER_CASES {
-            rng.income(&[0, 20_000, 40_000, 60_000, 250_000, 300_000, 350_000]) * 100 + rng.below(100)
+            rng.income(&[0, 20_000, 40_000, 60_000, 250_000, 300_000, 350_000]) * 100
+                + rng.below(100)
         } else {
             (5_000 + rng.below(35_001)) * 100
         };
-        let other = rng.pick(&[0, 0, rng.below(15_000_001)]);
+        let some = rng.below(15_000_001);
+        let other = rng.pick(&[0, 0, some]);
         let o = Owner {
             year: rng.pick(&PAY_YEARS),
             profit,
@@ -902,6 +906,10 @@ fn the_salary_dividend_engine_agrees_with_the_oracle_and_no_dollar_of_salary_kee
             others.extend((0..=largest / 100).map(|dollars| kept(&owner_split(o, dollars * 100))));
         }
         let most = others.into_iter().max().unwrap();
-        assert!(kept(&best) > most - 100, "{case}: {} against {most}", kept(&best));
+        assert!(
+            kept(&best) > most - 100,
+            "{case}: {} against {most}",
+            kept(&best)
+        );
     }
 }
