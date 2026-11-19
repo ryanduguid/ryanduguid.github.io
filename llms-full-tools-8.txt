@@ -125,6 +125,7 @@ The calculator covers 2021-22 to 2026-27, for contributions to accumulation inte
 
 - defined benefit interests, whose defined benefit contributions the regulations work out and whose tax is deferred to a debt account (Subdivision 293-D), or the rules for State higher level office holders with constitutionally protected funds and for Commonwealth justices and judges (Subdivisions 293-E and 293-F);
 - contributions the Commissioner has disregarded or reallocated to another year, which stay in low tax contributions, or which contributions count: enter them as your fund reports them;
+- contributions that count differently for Division 293 than for the cap: a super guarantee amnesty amount the Commissioner paid to your fund, which is not a low tax contribution (section 293-30(4)(c)), and a contribution refunded under section 99G(6) of the Superannuation Industry (Supervision) Act 1993, which is not a concessional contribution (section 291-25(2)(e));
 - each part of Division 293 income, the unused cap or your total super balance, which you enter;
 - 2027-28 and later years, whose cap is not yet known, or years before 2021-22;
 - the refund for a former temporary resident who receives a departing Australia superannuation payment, interest, or the release from super itself.
