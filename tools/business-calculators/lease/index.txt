@@ -18,11 +18,11 @@ Regular lease payment, excluding GST you can claim (AUD) Number of payments in t
 
 Compare with hire purchase and buying, after GST and tax Yes No
 
-Price to buy the asset, excluding GST (AUD) GST Charged, and you claim full GST credits Charged, and you claim none Not charged Hire purchase interest rate (% a year) Effective life for tax (years, such as 8 or 6 2/3) Decline in value method Diminishing value Prime cost Your tax rate on the deductions (%) The asset is a car that costs more than the car limit No Yes
+Price to buy, excluding GST (AUD) GST Charged, and you claim full GST credits Charged, and you claim none Not charged Hire purchase interest rate (% a year) Effective life for tax (years, such as 8 or 6 2/3) Decline in value method Diminishing value Prime cost Your tax rate on the deductions (%) A car costing more than the car limit No Yes
 
-Enter amounts excluding GST you can claim back. Hire purchase uses the lease’s payment dates, with the residual as its balloon; buying pays at commencement. Effective lives are on the depreciation rates page.
+Enter amounts excluding GST you can claim. Hire purchase uses the lease’s dates, with the residual as its balloon; buying pays at commencement. Effective lives: the depreciation rates page.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 60 monthly payments of $1,000.00 in arrears at 7.5%, direct costs $500.00, from 1 July 2026. Lease liability at commencement $49,905.31 Right-of-use asset at commencement $50,405.31 Total interest over the lease $10,094.69 Lease term ends 1 July 2031 Right-of-use asset depreciated straight line to 1 July 2031 Net cost after GST and tax, lease $45,000.00 Net cost after GST and tax, hire purchase $47,306.02 Net cost after GST and tax, buying outright $39,720.66 Hire purchase pays $1,102.09 a period.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 60 monthly payments of $1,000.00 in arrears, 7.5% a year discount rate, initial direct costs $500.00, commencing 1 July 2026. Lease liability at commencement $49,905.31 Right-of-use asset at commencement $50,405.31 Total interest over the lease $10,094.69 Lease term ends 1 July 2031 Right-of-use asset depreciated straight line to 1 July 2031 Net cost after GST and tax, lease $45,000.00 Net cost after GST and tax, hire purchase $47,306.02 Net cost after GST and tax, buying outright $39,720.66 Hire purchase at 7.5% a year pays $1,102.09 a period; GST charged and claimed in full.
 
 Download schedule CSV
 
