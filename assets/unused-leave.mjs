@@ -91,6 +91,35 @@ const plainDay = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU
 const roundDollars = (units) => Math.floor((units + 5000) / 10000);
 
 /**
+ * Each total's capped, marginal and pre-16 August 1978 parts in cents, from the parts the user gives.
+ * @param {UnusedLeave} input @param {number} annual @param {number} loading @param {number} longService cents
+ * @param {boolean} concessional a genuine redundancy, early retirement scheme or invalidity @param {string} start
+ */
+function splitLeave(input, annual, loading, longService, concessional, start) {
+  // A normal termination taxes annual leave and loading for employment before 18 August 1993 apart
+  // (s 83-15(b)), and long service leave for the pre-18/8/93 period (s 83-85(2)(a)); the pre-16/8/78
+  // period is 5% assessable whatever the reason (s 83-80(1) item 1).
+  const before1993 = start < '1993-08-18';
+  const before1978 = start < '1978-08-16';
+  const needed1993 = before1993 && !concessional;
+  const annual1993 = part('annual leave for employment before 18 August 1993', input.annualBefore1993, annual,
+    'annual leave', before1993, needed1993, start) ?? 0;
+  const loading1993 = part('leave loading for employment before 18 August 1993', input.loadingBefore1993, loading,
+    'leave loading', before1993, needed1993, start) ?? 0;
+  const pre1978 = part('long service leave for the period before 16 August 1978', input.lslBefore1978, longService,
+    'long service leave', before1978, before1978, start) ?? 0;
+  const lsl1993 = part('long service leave for 16 August 1978 to 17 August 1993', input.lsl1978To1993, longService,
+    'long service leave', before1993, needed1993, start) ?? 0;
+  if (pre1978 + lsl1993 > longService) {
+    throw new Error('The long service leave before 16 August 1978 and from then to 17 August 1993 together are more than the long service leave.');
+  }
+  const annualCapped = concessional ? annual + loading : annual1993 + loading1993;
+  const lslCapped = concessional ? longService - pre1978 : lsl1993;
+  return { pre1978, annualCapped, annualMarginal: annual + loading - annualCapped, lslCapped,
+    lslMarginal: longService - pre1978 - lslCapped };
+}
+
+/**
  * The assessable shares, the 30% capped amount, the Schedule 7 withholding and the reporting labels of one
  * employee's unused leave paid on termination from 1 July 2026 to 30 June 2027.
  * @param {UnusedLeave} input money as decimal strings in AUD
@@ -110,27 +139,8 @@ export function unusedLeave(input) {
   const start = accrualDate(input.accrualStart);
   const [annual, loading, longService] = [['Annual leave', input.annual], ['Leave loading', input.loading],
     ['Long service leave', input.longService]].map(([label, text]) => amount(label, text));
-  // A normal termination taxes annual leave and loading for employment before 18 August 1993 apart
-  // (s 83-15(b)), and long service leave for the pre-18/8/93 period (s 83-85(2)(a)); the pre-16/8/78
-  // period is 5% assessable whatever the reason (s 83-80(1) item 1).
-  const before1993 = start < '1993-08-18';
-  const before1978 = start < '1978-08-16';
-  const needed1993 = before1993 && !concessional;
-  const annual1993 = part('annual leave for employment before 18 August 1993', input.annualBefore1993, annual,
-    'annual leave', before1993, needed1993, start) ?? 0;
-  const loading1993 = part('leave loading for employment before 18 August 1993', input.loadingBefore1993, loading,
-    'leave loading', before1993, needed1993, start) ?? 0;
-  const pre1978 = part('long service leave for the period before 16 August 1978', input.lslBefore1978, longService,
-    'long service leave', before1978, before1978, start) ?? 0;
-  const lsl1993 = part('long service leave for 16 August 1978 to 17 August 1993', input.lsl1978To1993, longService,
-    'long service leave', before1993, needed1993, start) ?? 0;
-  if (pre1978 + lsl1993 > longService) {
-    throw new Error('The long service leave before 16 August 1978 and from then to 17 August 1993 together are more than the long service leave.');
-  }
-  const annualCapped = concessional ? annual + loading : annual1993 + loading1993;
-  const annualMarginal = annual + loading - annualCapped;
-  const lslCapped = concessional ? longService - pre1978 : lsl1993;
-  const lslMarginal = longService - pre1978 - lslCapped;
+  const { pre1978, annualCapped, annualMarginal, lslCapped, lslMarginal } = splitLeave(input, annual, loading, longService,
+    concessional, start);
   const capped = annualCapped + lslCapped;
   const post1993 = annualMarginal + lslMarginal;
   // 5% of the pre-16/8/78 part, in 20ths of a cent: 20 × cents × 5% is the cents themselves.
