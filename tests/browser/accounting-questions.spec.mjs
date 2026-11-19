@@ -648,6 +648,45 @@ test('FBT car works the operating cost method at the Type 2 gross-up offline', a
   await expect(form.locator('.field-error')).toHaveText('Enter 100 or less.');
 });
 
+test('FBT car exempts an eligible electric car and keeps its value reportable offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-car/');
+  const form = page.locator('#fbt-car form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('Battery electric').check();
+  await form.getByLabel('Electric cars only: first day held and used').fill('2026-07-01');
+  await form.getByLabel('Electric cars only: first retail sale').fill('2026-07-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
+    + '182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up 2.0802, battery electric car for a '
+    + 'current employee, first held and used 1 July 2026, first sold at retail 1 July 2026 at a luxury car tax value of $60,000.00 against '
+    + 'the 2026-27 fuel-efficient threshold of $91,661.00, no luxury car tax on another sale or an import before the benefit. '
+    + 'Provided to a current employee, s 8A(1)(a): met. A battery electric or hydrogen fuel cell electric car, s 8A(1)(b): met. '
+    + 'First held and used on or after 1 July 2022, Schedule 1 item 7(2): met. '
+    + 'No luxury car tax payable on the first retail sale before the benefit, s 8A(1)(c): met. '
+    + 'No luxury car tax payable on another sale or an import before the benefit, s 8A(1)(c): met. Electric cars exemption, section 8A: applies. '
+    + 'Base value: $60,000.00. Statutory formula taxable value: $4,983.56. Taxable value before the exemption, for reporting: $4,983.56. '
+    + 'Taxable value: $0.00. Grossed-up taxable value: $0.00. FBT at 47%: $0.00. '
+    + 'The taxable value before the exemption still counts in the employee’s reportable fringe benefits amount (subsection 135P(3)), '
+    + 'reported when the employee’s total for the year is more than $2,000, unless the car is a pooled or shared car, whose benefit is '
+    + 'excluded. The car’s registration, insurance, repairs, maintenance and fuel, electricity included, are exempt too (subsection 53(1)) '
+    + 'and not reported; a home charging station is not a car expense under that exemption.');
+  // A plug-in hybrid with no commitment from before 1 April 2025 is not exempt, so FBT is due.
+  await form.getByLabel('Plug-in hybrid electric').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: does not apply.');
+  await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.40.');
+  // A first retail sale after the FBT year comes after every benefit in it, whatever its luxury car tax value (s 8A(1)(c)).
+  await form.getByLabel('Battery electric').check();
+  await form.getByLabel('Electric cars only: first retail sale').fill('2027-04-01');
+  await form.getByLabel('Electric cars only: luxury car tax value').fill('150000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('first sold at retail 1 April 2027 after the FBT year, so after every benefit in it, ');
+  await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: applies.');
+  await expect(form.locator('output')).toContainText('FBT at 47%: $0.00.');
+});
+
 test('fixed fee takes its rounding step from a radio and shows one payment for one instalment', async ({ page }) => {
   await page.goto('/tools/business-calculators/fixed-fee/');
   const form = page.locator('#fixed-fee form');
