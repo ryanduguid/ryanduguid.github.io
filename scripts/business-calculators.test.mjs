@@ -3489,6 +3489,22 @@ test('long service leave words each Act’s misconduct test and states the condi
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
 });
 
+// ATO Key superannuation rates and thresholds, Table 21, read 19 November 2026: Norfolk Island's
+// transitional rate is 11% for 2026-27 and 7% to 10% for 2022-23 to 2025-26.
+test('the SGC page refuses Norfolk Island salary or wages under either law rather than apply the general rate', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const fields = formDefaults(sgcHtml);
+  assert.equal(fields['norfolk-island'], 'no');
+  for (const regime of ['payday', 'quarter']) {
+    assert.throws(() => calculations.sgcPaydayResult((name) => ({ ...fields, regime, 'norfolk-island': 'yes' })[name], aud),
+      { message: 'Norfolk Island salary or wages have a lower transitional super guarantee rate (7% to 10% for 2022-23 to '
+        + '2025-26, 11% for 2026-27), which this calculator does not apply.' }, regime);
+    assert.throws(() => calculations.sgcPaydayResult((name) => ({ ...fields, regime, 'norfolk-island': undefined })[name], aud),
+      { message: 'Say whether any of the pay is Norfolk Island salary or wages.' }, regime);
+  }
+  assert.ok(sgcHtml.includes('(Table 21, read 19 November 2026)'));
+});
+
 // The borrowing expenses page: how each call and result reads, section 25-25 against the ATO's
 // and the command's cases, the accounting column against an independent effective rate, and the
 // command it ports, run on the same cases.
