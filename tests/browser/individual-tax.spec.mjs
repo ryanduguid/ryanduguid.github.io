@@ -6,7 +6,7 @@ import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
 const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
-  'sole-trader': '$5,939.00', 'lump-sum-arrears': '$1,688.25', 'income-tests': '$73,810.00',
+  'sole-trader': '$5,939.00', 'lump-sum-arrears': '$1,688.25', 'division-293': '$750.00', 'income-tests': '$73,810.00',
   'concessional-catch-up': '$97,500.00' };
 
 test.describe('before any script runs', () => {
@@ -130,6 +130,28 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('Division 293 leaves out the excess over the cap until unused cap carried forward covers it', async ({ page }) => {
+  await page.goto('/tools/individual-tax/division-293/');
+  const form = page.locator('#division-293 form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Taxable income/).fill('210000');
+  await form.getByLabel(/^Reportable fringe benefits/).fill('33000');
+  await form.getByLabel(/^Concessional contributions/).fill('45000');
+  await form.getByLabel(/^Unused concessional cap/).fill('20000');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Excess concessional contributions')).toHaveText('$12,500.00');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$3,825.00');
+  await form.getByLabel('Under $500,000').check();
+  await calculate.click();
+  await expect(row('Unused cap carried forward that raises it')).toHaveText('$12,500.00');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$5,700.00');
+  await form.getByLabel('A defined benefit interest').check();
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('Subdivisions 293-D to 293-F');
+});
+
 test('a GST-registered sole trader with no job keeps one share of each invoice for tax and GST', async ({ page }) => {
   await page.goto('/tools/individual-tax/sole-trader/');
   const form = page.locator('#sole-trader form');
@@ -170,6 +192,8 @@ for (const [id, name, input, expected] of [
     { takeHomeYear: '60212.00' }],
   ['sole-trader', 'calculate_sole_trader_set_aside', { incomeYear: '2026-27', businessIncome: '22000', businessExpenses: '2000',
     wages: '60000', invoice: '1000' }, { setAsideYear: '5939.00' }],
+  ['division-293', 'calculate_division_293_tax', { incomeYear: '2026-27', accumulationOnly: true, taxableIncome: 300000,
+    concessionalContributions: '25000' }, { division293Tax: '3750.00' }],
   ['income-tests', 'calculate_income_tests', { taxableIncome: 90000, reportableFringeBenefitsOther: 27000, assessableIncome: 90000 },
     { incomeForSurchargePurposes: '117000.00' }],
 ]) {

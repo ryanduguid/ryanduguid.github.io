@@ -3181,7 +3181,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 35 business planning calculators, 7 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 35 business planning calculators, 8 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3399,7 +3399,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 35 business planning calculators: https://duguid.com.au/tools/business-calculators/
-- 7 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 8 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -5551,6 +5551,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+19 November 2026 | A new individual tax calculator works out Division 293 tax for 2021-22 to 2026-27: Division 293 income from its parts, the low tax contributions after any excess over the concessional cap, raised by unused cap carried forward when the total super balance was under $500,000, and the taxable contributions above the $250,000 threshold, taxed at 15%, with the room left under the threshold. It agrees with the ATO’s worked example and refuses defined benefit interests and the other special cases.
 19 November 2026 | The take-home pay calculator now works the PAYG withheld from each weekly, fortnightly or monthly pay for every year from 2021-22, not only 2026-27, under the withholding schedules the Commissioner made for each year, read on 19 November 2026 from the Federal Register of Legislation. It matches all 288 scale 2 and 3 amounts in each instrument’s sample data. For 2021-22 the refund includes the low and middle income tax offset, which withholding does not allow for. For 2025-26 with a study loan it shows the component under the Schedule 8 for pays before 24 September 2025 beside the one from that date.
 19 November 2026 | A new individual tax calculator works out the 6 income measures that the income tests section of a tax return feeds, for a person resident all year in 2024-25 to 2026-27: income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution total income. Each definition was read on 19 November 2026 in the Income Tax Assessment Acts 1936 and 1997, the Higher Education Support Act 2003, the Family Assistance Act and the co-contribution Act, and the page opens on the ATO’s worked example of Christina’s $73,810 of repayment income. It works the measures, not the offsets, surcharge or repayments they decide.
 19 November 2026 | A new business calculator works out one employee’s long service leave under the Act of any of the 8 states and territories, from the service dates and the days that do not count: the leave to take now and when more becomes available, or, when employment ends, whether the reason qualifies for a pro rata payment, the weeks payable less leave already taken, and their value at the weekly pay. Each step names its provision, and it refuses the cases an Act leaves unsettled.
@@ -11666,9 +11667,9 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Seven calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Eight calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
-Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay and a sole trader’s set-aside from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
 Published 17 November 2026. Last checked 19 November 2026, the newest of the calculators’ source checks.
 
@@ -11679,6 +11680,7 @@ Published 17 November 2026. Last checked 19 November 2026, the newest of the cal
 - Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
 - Sole trader tax set-aside calculator How much of each invoice and each quarter a sole trader keeps for income tax, the Medicare levy, any study loan repayment and GST, after the small business income tax offset, on top of any wages.
 - Lump sum in arrears tax offset calculator The tax offset for back pay received as a lump sum, with the 10% test and the tax the arrears would have cost in each year they accrued.
+- Division 293 tax calculator The extra 15% tax on concessional super contributions above the $250,000 threshold, after excess contributions and unused cap carried forward, with the room left under it.
 - Income tests calculator Income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution income, from the amounts in one tax return.
 - Concessional catch-up calculator The concessional contributions cap with unused cap carried forward from the previous 5 years, earliest year first, and the year each amount lapses.
 
@@ -11693,6 +11695,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
 - Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
 - Lump sum in arrears tax offset calculator: https://duguid.com.au/tools/individual-tax/lump-sum-arrears/
+- Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - business calculators: https://duguid.com.au/tools/business-calculators/
@@ -11763,7 +11766,7 @@ A balance a cent below $500,000 still carries forward | 2024-25, balance $499,99
 At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
 2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11771,7 +11774,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -11863,7 +11866,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11873,7 +11876,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -11959,7 +11962,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11971,7 +11974,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12038,7 +12041,7 @@ A recent year that was a rebate year itself is adjusted both ways | 2025-26, tax
 2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
 2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12046,7 +12049,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12117,7 +12120,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12127,7 +12130,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12203,7 +12206,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12213,7 +12216,86 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Division 293 tax calculator 2021-22 to 2026-27
+
+Source: https://duguid.com.au/tools/individual-tax/division-293/
+
+> Division 293 tax on super contributions above the $250,000 threshold for 2021-22 to 2026-27, with excess contributions and carry-forward cap, cited.
+
+# Division 293 tax calculator
+
+The extra 15% tax on concessional super contributions when income and contributions exceed $250,000, for 2021-22 to 2026-27, each step shown.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Division 293 tax inputs for one income year
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Your super interests this year Accumulation interests only A defined benefit interest, a constitutionally protected fund or a Commonwealth judges’ pension scheme
+
+Taxable income, including any excess concessional contributions assessed (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, financial and rental (whole dollars) Income on which family trust distribution tax was paid (whole dollars) Assessable first home super saver released amount in taxable income (whole dollars) Super lump sum taxed at 0%, received from preservation age to under 60, to 2023-24 only (whole dollars) Concessional contributions for the financial year: employer, super guarantee, salary sacrifice and personal contributions you deduct (dollars and cents) Unused concessional cap from the previous 5 years not yet applied (dollars and cents) Total super balance just before the year began $500,000 or more Under $500,000, so unused cap carries forward
+
+Enter 0 for any part you do not have. Your tax return gives the income parts and your super fund’s statements the contributions; your ATO online account shows unused cap and your total super balance. Leave out contributions made under the super guarantee amnesty.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, accumulation interests only, taxable income $240,000.00, reportable fringe benefits $0.00, total net investment loss $0.00, family trust distribution tax income $0.00, assessable FHSS released amount $0.00, zero-rate super lump sum $0.00, concessional contributions $15,000.00, unused cap carried forward $0.00. Division 293 income: income for surcharge purposes less reportable super contributions $240,000.00 Concessional contributions $15,000.00 Concessional contributions cap for 2026-27 $32,500.00 Excess concessional contributions $0.00 Low tax contributions: the contributions less the excess $15,000.00 Division 293 income plus low tax contributions $255,000.00 Amount over the $250,000 threshold $5,000.00 Taxable contributions: the lesser of the low tax contributions and that amount $5,000.00 Division 293 tax at 15% $750.00 The ATO assesses it on a separate notice, payable 21 days after it is given (section 293-65).
+
+## How the Division 293 tax calculator works
+
+The Division 293 tax calculator works out the extra 15% tax on concessional super contributions for one income year when income and contributions together exceed $250,000. It adds up Division 293 income, the income measure used for the Medicare levy surcharge without reportable super contributions, then takes the contributions less any excess over the year’s cap, raised by unused cap carried forward when your total super balance allows it. Those are the low tax contributions. The taxable contributions are the lesser of the low tax contributions and the amount by which they and Division 293 income exceed $250,000, so only the part above the threshold is taxed, and never more than the contributions. Each step is shown, with the room left under the threshold when you are below it.
+
+Excess concessional contributions are not taxed by Division 293: they are added to your assessable income and taxed at your marginal rate less a 15% offset instead. A one-off event, such as a capital gain, an employment termination payment or back pay, can take you over the threshold for a single year. The ATO assesses Division 293 tax on its own notice once it has your return and your fund’s contribution reports. It is payable 21 days after the notice, and you can elect within 60 days to have it released from super.
+
+## What the Division 293 tax calculator does not compute
+
+The calculator covers 2021-22 to 2026-27, for contributions to accumulation interests. It does not compute:
+
+- defined benefit interests, whose defined benefit contributions the regulations work out and whose tax is deferred to a debt account (Subdivision 293-D), or the rules for State higher level office holders with constitutionally protected funds and for Commonwealth justices and judges (Subdivisions 293-E and 293-F);
+- contributions the Commissioner has disregarded or reallocated to another year, which stay in low tax contributions, or which contributions count: enter them as your fund reports them;
+- contributions that count differently for Division 293 than for the cap: a super guarantee amnesty amount the Commissioner paid to your fund, which is not a low tax contribution (section 293-30(4)(c)), and a contribution refunded under section 99G(6) of the Superannuation Industry (Supervision) Act 1993, which is not a concessional contribution (section 291-25(2)(e));
+- each part of Division 293 income, the unused cap or your total super balance, which you enter;
+- 2027-28 and later years, whose cap is not yet known, or years before 2021-22;
+- the refund for a former temporary resident who receives a departing Australia superannuation payment, interest, or the release from super itself.
+
+Confirm the figures with your Division 293 notice from the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Division 293 tax calculator
+
+Case | Inputs | Result
+The ATO’s example: Jan’s $240,000 and $15,000 give $5,000 taxed | 2026-27: taxable income $240,000; contributions $15,000.00 | Division 293 income $240,000.00, low tax contributions $15,000.00, taxable contributions $5,000.00, tax $750.00
+Below the threshold: $30,000 of room left | 2026-27: taxable income $200,000; contributions $20,000.00 | Division 293 income $200,000.00, low tax contributions $20,000.00, taxable contributions $0.00, tax $0.00
+Income alone over $250,000: all the contributions are taxed | 2026-27: taxable income $300,000; contributions $25,000.00 | Division 293 income $300,000.00, low tax contributions $25,000.00, taxable contributions $25,000.00, tax $3,750.00
+No low tax contributions, so no taxable contributions (s 293-20(2)) | 2026-27: taxable income $400,000; contributions $0.00 | Division 293 income $400,000.00, low tax contributions $0.00, taxable contributions $0.00, tax $0.00
+Exactly $250,000 does not exceed the threshold | 2026-27: taxable income $235,000; contributions $15,000.00 | Division 293 income $235,000.00, low tax contributions $15,000.00, taxable contributions $0.00, tax $0.00
+One cent over: 15% of a cent rounds to nil | 2026-27: taxable income $235,000; contributions $15,000.01 | Division 293 income $235,000.00, low tax contributions $15,000.01, taxable contributions $0.01, tax $0.00
+Ten cents over: 1.5 cents rounds half up to 2 | 2026-27: taxable income $235,000; contributions $15,000.10 | Division 293 income $235,000.00, low tax contributions $15,000.10, taxable contributions $0.10, tax $0.02
+Excess concessional contributions are left out | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00 | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
+Unused cap carried forward covers the excess, so all of it counts | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance under | Division 293 income $243,000.00, low tax contributions $45,000.00, taxable contributions $38,000.00, tax $5,700.00
+Unused cap does not carry forward with a balance of $500,000 or more | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance $500,000 or more | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
+Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $5,000.00, balance under | Division 293 income $243,000.00, low tax contributions $37,500.00 after $7,500.00 excess, taxable contributions $30,500.00, tax $4,575.00
+2025-26, cap $30,000 | 2025-26: taxable income $230,000; contributions $35,000.00 | Division 293 income $230,000.00, low tax contributions $30,000.00 after $5,000.00 excess, taxable contributions $10,000.00, tax $1,500.00
+2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
+2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
+
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12277,7 +12359,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12287,7 +12369,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
