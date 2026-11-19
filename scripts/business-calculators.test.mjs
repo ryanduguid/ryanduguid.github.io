@@ -3292,3 +3292,148 @@ test('the SGC page opens on the result its calculation gives for the form’s in
   const quarter = calculations.sgcPaydayResult((name) => ({ ...fields, regime: 'quarter' })[name], aud);
   assert.equal(quarter.rows.at(-1).join('|'), 'SG charge for the quarter|$1,519.18');
 });
+
+// The long service leave page: how each call and result reads, and the Acts' thresholds a day
+// either side.
+const lslHtml = readFileSync(new URL('../_includes/calculators/long-service-leave.html', import.meta.url), 'utf8');
+Object.assign(INPUTS, { longServiceLeave: (x) => `${PLACES[x.place]}, ${plainDate(x.start)} to ${plainDate(x.end)}`
+  + `${x.excluded === '0' ? '' : `, ${x.excluded} days excluded`}, `
+  + `${x.mode === 'ends' ? `ends by ${calculations.lslReasonText(x.place, x.reason)}` : 'still employed'}${x.taken === '0' ? '' : `, ${x.taken} weeks taken`}, `
+  + `pay ${dollars(Number(x.pay))} a week` });
+Object.assign(FORM_CALLS, { longServiceLeave: (f) => [{ place: f.jurisdiction, start: f.start, end: f.end, excluded: f.excluded,
+  taken: f.taken, mode: f.mode, reason: f.reason, pay: f.pay }] });
+Object.assign(ENGINE_LABELS, { longServiceLeave: { weeks: (v) => `${v.toFixed(4)} weeks`, balance: (v) => `${v.toFixed(4)} weeks left`,
+  value: 'payment' } });
+const lsl = (change) => calculations.longServiceLeave({ place: 'AU-NSW', start: '2016-01-01', end: '2025-12-31', excluded: '0',
+  taken: '0', mode: 'employed', reason: 'redundancy', pay: '1500', ...change });
+
+test('the long service leave page opens on the result its calculation gives, and cites each Act with its version and date read', () => {
+  const example = lslHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(lslHtml);
+  const result = calculations.longServiceLeaveResult((name) => fields[name], aud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['(version for 1 July 2025 to date), read 19 November 2026', '(Authorised Version No. 006, as at 12 December 2025), read 19 November 2026',
+    '(reprint current from 1 January 2026), read 19 November 2026','(official version 04-m0-00, as at 31 January 2025), read 19 November 2026',
+    '(version of 1 July 2017), read 19 November 2026', '(version current from 10 December 2018), read 19 November 2026',
+    '(republication R29, effective 19 November 2025), read 19 November 2026', '(reprint as in force at 14 October 2015), read 19 November 2026',
+    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read the same day']) {
+    assert.ok(lslHtml.includes(cited), cited);
+  }
+  const radios = [...lslHtml.matchAll(/name="jurisdiction" value="([^"]+)"(?: checked)? \/> ([^<]+)</g)].map(([, code, name]) => [code, name]);
+  assert.deepEqual(radios, Object.entries(calculations.LSL_ACTS).map(([code, { name }]) => [code, name]));
+  const reasons = [...lslHtml.matchAll(/name="reason" value="([^"]+)"/g)].map(([, code]) => code);
+  assert.deepEqual(reasons, Object.keys(calculations.LSL_REASONS));
+});
+
+test('long service leave becomes available on the day each Act’s qualifying period completes, not the day before', () => {
+  // Each Act's full entitlement at its qualifying period: 8 2/3 weeks for 10 years in NSW, Qld, WA
+  // and Tas; 13 weeks in SA and the NT; 1/60th of 2,557 days in Victoria; 7 × 1/5 of a month in the ACT.
+  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000],
+    ['AU-WA', 10, 8.6667, 13000], ['AU-SA', 10, 13, 19500], ['AU-TAS', 10, 8.6667, 13000], ['AU-ACT', 7, 6.0667, 9100], ['AU-NT', 10, 13, 19500]]) {
+    const last = `${2015 + years}-12-31`;
+    assert.deepEqual([lsl({ place, end: `${2015 + years}-12-30` }).weeks, lsl({ place, end: last }).weeks, lsl({ place, end: last }).value],
+      [0, weeks, value], place);
+  }
+  // The ACT guidelines' 7 years at $560 a week: the exact 91/15 weeks, not the rounded 6.0667, times the pay.
+  assert.equal(lsl({ place: 'AU-ACT', end: '2022-12-31', pay: '560' }).value, 3397.33);
+  // Pro rata from 5 years in NSW and the ACT and 7 elsewhere, for a redundancy.
+  for (const [place, years] of [['AU-NSW', 5], ['AU-QLD', 7], ['AU-WA', 7], ['AU-SA', 7], ['AU-TAS', 7], ['AU-ACT', 5], ['AU-NT', 7], ['AU-VIC', 7]]) {
+    const ends = (end) => lsl({ place, end, mode: 'ends' }).weeks;
+    assert.equal(ends(`${2015 + years}-12-30`), 0, place);
+    assert.ok(ends(`${2015 + years}-12-31`) > 0, place);
+  }
+});
+
+test('long service leave service counts completed months from a day a later month lacks to that month’s last day', () => {
+  // 29 February 2016: 10 years complete with 28 February 2026, and 15 with 28 February 2031.
+  const leap = lsl({ start: '2016-02-29', end: '2026-02-28' });
+  assert.deepEqual([leap.years, leap.months, leap.days, leap.weeks, leap.next], [10, 0, 0, 8.6667, { years: 15, date: '2031-02-28', weeks: 13 }]);
+  assert.equal(lsl({ start: '2016-02-29', end: '2026-02-27' }).years, 9);
+  // 31 January: a month completes with 28 February.
+  assert.deepEqual(['months', 'days'].map((f) => lsl({ start: '2025-01-31', end: '2025-02-28' })[f]), [1, 0]);
+  assert.deepEqual(['months', 'days'].map((f) => lsl({ start: '2025-01-31', end: '2025-02-27' })[f]), [0, 28]);
+});
+
+test('long service leave gives the next amount’s date, moved on by excluded days, while employment continues', () => {
+  const at = (change) => calculations.longServiceLeaveResult((name) => ({ jurisdiction: 'AU-NSW', start: '2014-02-01', end: '2026-07-31',
+    excluded: '0', taken: '0', mode: 'employed', reason: 'redundancy', pay: '1500', ...change })[name], String);
+  assert.equal(at({}).note, '15 years of service completes on 31 January 2029, when the leave to take becomes 13.0000 weeks, if no more days are excluded');
+  assert.equal(at({ excluded: '30' }).note, '15 years of service completes on 2 March 2029, when the leave to take becomes 13.0000 weeks, if no more days are excluded');
+  assert.equal(at({ jurisdiction: 'AU-VIC' }).note, 'Leave accrues continuously from here under the Long Service Leave Act 2018 (Vic)');
+  assert.equal(at({ jurisdiction: 'AU-SA' }).note.slice(0, 41), '13 years of service completes on 31 Janua');
+  assert.equal(at({ mode: 'ends' }).note, undefined);
+  assert.deepEqual(at({ taken: '2.5' }).rows.slice(2, 4), [['Less leave already taken or paid', '2.5000 weeks'], ['Weeks the employee can take now', '6.1667 weeks']]);
+  // 8 2/3 less 2.5 weeks is 37/6 weeks: $9,250.00, not 6.1667 × $1,500.
+  assert.equal(lsl({ end: '2026-07-31', start: '2014-02-01', taken: '2.5' }).value, 9250);
+});
+
+test('long service leave refuses malformed input instead of returning nil leave', () => {
+  for (const [change, message] of [[{ place: 'AU-XX' }, 'Choose the state or territory whose Act applies.'],
+    [{ mode: 'maybe' }, 'Choose whether the employee is still employed or employment ends.'],
+    [{ mode: 'ends', reason: '' }, 'Choose why employment ends.'],
+    [{ start: '2025-02-30' }, 'Enter the first day of service from 23 June 1990 to 31 December 2099.'],
+    [{ start: '1990-06-22' }, 'Enter the first day of service from 23 June 1990 to 31 December 2099.'],
+    [{ end: '2100-01-01' }, 'Enter the day to work it out at from 23 June 1990 to 31 December 2099.'],
+    [{ end: '2026-7-31' }, 'Enter the day to work it out at from 23 June 1990 to 31 December 2099.'],
+    [{ pay: '1000000.01' }, 'Enter weekly pay of no more than $1,000,000.'],
+    [{ excluded: '3653' }, 'Excluded days must be fewer than the days from the first day to the last.']]) {
+    assert.throws(() => lsl(change), { message }, JSON.stringify(change));
+  }
+  for (const [field, value] of [['excluded', '1.5'], ['excluded', '-1'], ['excluded', ''], ['taken', '1.00001'], ['taken', '-1'],
+    ['taken', 'abc'], ['pay', '-1'], ['pay', '100.001'], ['pay', '']]) {
+    assert.throws(() => lsl({ [field]: value }), Error, `${field} ${value}`);
+  }
+  assert.equal(lsl({ excluded: '3652', end: '2025-12-31' }).counted, 1);
+});
+
+test('long service leave keeps the fixed amounts and exclusions the Acts state', () => {
+  // Queensland, paragraph 95(2)(a): 8.6667 weeks to take from 10 years until 15, not a proportion of 12½ years.
+  assert.equal(lsl({ place: 'AU-QLD', start: '2014-01-01', end: '2026-06-30' }).weeks, 8.6667);
+  // South Australia, subsection 5(4): nothing under 10 years after dismissal for serious and wilful misconduct.
+  assert.equal(lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-12-31', mode: 'ends', reason: 'misconduct' }).weeks, 0);
+  assert.equal(lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-12-31', mode: 'ends', reason: 'performance' }).weeks, 10.4);
+});
+
+test('Queensland counts a part year’s days over 364 and flags an unfair dismissal under 10 years', () => {
+  // Business Queensland: 18 years, 3 months, 2 weeks and 2 days is 15.8548 weeks (16/364 of a year, not 16/365.25).
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16' }).weeks, 15.8548);
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16', mode: 'ends', reason: 'resign' }).weeks, 15.8548);
+  // Other Acts keep days over 365.25: WorkSafe Tasmania's 13 years, 6 months and 14 days is 13.5383 years.
+  assert.equal(lsl({ place: 'AU-TAS', start: '2012-01-01', end: '2025-07-14', mode: 'ends', reason: 'resign' }).weeks, 11.7332);
+  // Subparagraph 95(4)(c)(iii) pays for an unfair dismissal, which the calculator cannot decide: the row says so.
+  for (const reason of ['performance', 'misconduct']) {
+    const r = lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason });
+    assert.deepEqual([r.weeks, r.rule.endsWith('unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide')], [0, true], reason);
+  }
+  assert.ok(!lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason: 'resign' }).rule.includes('unfair'));
+});
+
+test('long service leave words each Act’s misconduct test and states the conditions it cannot decide', () => {
+  // 9 years of service, or 6 in the ACT, whose full period is 7 years.
+  const ends = (place, reason) => lsl({ place, start: place === 'AU-ACT' ? '2020-01-01' : '2017-01-01', end: '2025-12-31', mode: 'ends', reason });
+  const shown = (place, reason) => calculations.longServiceLeaveResult((name) => ({ jurisdiction: place, start: '2017-01-01', end: '2025-12-31',
+    excluded: '0', taken: '0', mode: 'ends', reason, pay: '1500' })[name], String).inputs;
+  // NSW s 4(2)(a)(iii), SA s 5(4)(a), Tas s 8(3)(d) and ACT s 11C(1)(a)(iv) withhold pro rata only for serious and wilful
+  // misconduct, so a serious but not wilful dismissal is the dismissal short of it, which pays.
+  for (const place of ['AU-NSW', 'AU-SA', 'AU-TAS', 'AU-ACT']) {
+    assert.deepEqual([ends(place, 'misconduct').weeks, ends(place, 'misconduct').rule.startsWith(
+      `Under ${calculations.LSL_ACTS[place].full} years, dismissal for serious and wilful misconduct does not qualify`)], [0, true], place);
+    assert.ok(ends(place, 'performance').weeks > 0, place);
+    assert.ok(shown(place, 'performance').includes('ends by dismissal for conduct, capacity or performance short of serious and wilful misconduct,'), place);
+  }
+  // WA s 8(3) and NT s 10(2) say serious misconduct, without 'wilful'.
+  for (const place of ['AU-WA', 'AU-NT']) {
+    assert.ok(!ends(place, 'misconduct').rule.includes('wilful'), place);
+    assert.ok(shown(place, 'misconduct').includes('ends by dismissal for serious misconduct,'), place);
+  }
+  // The form's labels, shared by all 8 Acts, carry the same distinction.
+  const wilful = '(serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory)</label>';
+  for (const label of [`value="performance" /> Dismissal for conduct, capacity or performance short of serious misconduct ${wilful}`,
+    `value="misconduct" /> Dismissal for serious misconduct ${wilful}`]) {
+    assert.ok(lslHtml.includes(label), label);
+  }
+  // SA s 5(4)(b): leaving without the required notice is an unlawful termination only where the notice was required.
+  assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
+  assert.ok(ends('AU-SA', 'resign').weeks > 0);
+});
