@@ -2881,7 +2881,10 @@ test('the margin scheme leaves the buyer without an input tax credit and says so
   assert.match(calculations.gstMarginSchemeResult(call, aud).note, /cannot claim an input tax credit .*section 75-20/);
   const ineligible = calculations.gstMarginSchemeResult({ ...call, acquired: 'full-gst' }, aud);
   assert.deepEqual(ineligible.rows[ineligible.principal], ['GST on the sale, 1/11 of the GST-inclusive price', '$17,272.73']);
-  assert.match(ineligible.note, /can claim an input tax credit/);
+  // PR 740's command names s 11-5: only a buyer making a creditable acquisition can claim the credit.
+  assert.match(ineligible.note, /creditable acquisition \(section 11-5: .*can claim an input tax credit/);
+  // A part acquired with GST on the whole price is refused with s 75-22, as the command refuses it.
+  assert.throws(() => calculations.gstMarginScheme({ ...call, acquired: 'special' }), /section 75-22/);
 });
 
 test('the company tax law is the Income Tax Rates Act’s, and the page states it', () => {

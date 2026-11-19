@@ -30,9 +30,9 @@ export const MARGIN_INTERESTS = {
 export const MARGIN_ACQUISITIONS = {
   margin: 'Acquired under the margin scheme',
   untaxed: 'Acquired in a sale that was not taxable',
-  'before-2000': 'Held since before 1 July 2000',
+  'before-2000': 'Acquired, or contracted to acquire, before 1 July 2000 (GSTR 2006/8 paragraph 39A)',
   'full-gst': 'Acquired in a taxable sale with GST on the whole price: ineligible (subsections 75-5(2) and (3))',
-  special: 'Acquired in a way section 75-11 provides for',
+  special: 'Acquired in a way section 75-11 or 75-22 provides for',
 };
 
 /** Whole cents from dollars and cents, to $1,000,000,000,000. @param {string} value */
@@ -57,9 +57,10 @@ export function gstMarginScheme(input) {
       + 'taxable, such as one of established residential premises or one that is GST-free, has no GST to work out.');
   }
   if (input.acquired === 'special') {
-    throw new Error('Property inherited, acquired within a GST group or joint venture, as a GST-free going concern '
-      + 'or farm land, or from an associate, has its own eligibility tests (paragraphs 75-5(3)(b) to (g)) and margins '
-      + '(section 75-11): this calculator does not work them out.');
+    throw new Error('Property inherited, acquired within a GST group or joint venture, as a GST-free going concern, '
+      + 'farm land or government land, or from an associate, has its own eligibility tests (paragraphs 75-5(3)(b) to (g)) '
+      + 'and margins (subsection 75-10(3) item 2A and section 75-11), and property acquired partly in a sale with GST on '
+      + 'the whole price has an increasing adjustment (section 75-22): this calculator does not work them out.');
   }
   if (input.associate) {
     throw new Error('On a sale to your associate the consideration is the GST-inclusive market value (section 75-13): '
@@ -106,7 +107,8 @@ export function gstMarginSchemeResult(input, aud) {
     return { inputs, rows: [['Consideration for the sale, GST-inclusive', aud(r.basicConsideration)], ...conditions,
       ['The margin scheme', 'Cannot apply: GST is worked out on the whole price'],
       ['GST on the sale, 1/11 of the GST-inclusive price', aud(r.gst)]], principal: conditions.length + 2,
-    note: 'Without the margin scheme a registered buyer can claim an input tax credit for the GST, given a tax invoice' };
+    note: 'Without the margin scheme a buyer whose purchase is a creditable acquisition (section 11-5: for a creditable '
+      + 'purpose, for consideration and registered or required to be registered) can claim an input tax credit for the GST' };
   }
   // The sale's price leads, so the first row of every example is an amount.
   return { inputs, rows: [['Consideration for the sale, GST-inclusive', aud(r.consideration)], ...conditions,
