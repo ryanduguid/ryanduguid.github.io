@@ -70,7 +70,7 @@ A balance a cent below $500,000 still carries forward | 2024-25, balance $499,99
 At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
 2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -78,7 +78,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -170,7 +170,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -180,7 +180,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -266,7 +266,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -278,7 +278,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -345,7 +345,7 @@ A recent year that was a rebate year itself is adjusted both ways | 2025-26, tax
 2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
 2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -353,7 +353,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -424,7 +424,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -434,7 +434,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -510,7 +510,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -520,7 +520,86 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Division 293 tax calculator 2021-22 to 2026-27
+
+Source: https://duguid.com.au/tools/individual-tax/division-293/
+
+> Division 293 tax on super contributions above the $250,000 threshold for 2021-22 to 2026-27, with excess contributions and carry-forward cap, cited.
+
+# Division 293 tax calculator
+
+The extra 15% tax on concessional super contributions when income and contributions exceed $250,000, for 2021-22 to 2026-27, each step shown.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Division 293 tax inputs for one income year
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Your super interests this year Accumulation interests only A defined benefit interest, a constitutionally protected fund or a Commonwealth judges’ pension scheme
+
+Taxable income, including any excess concessional contributions assessed (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, financial and rental (whole dollars) Income on which family trust distribution tax was paid (whole dollars) Assessable first home super saver released amount in taxable income (whole dollars) Super lump sum taxed at 0%, received from preservation age to under 60, to 2023-24 only (whole dollars) Concessional contributions for the financial year: employer, super guarantee, salary sacrifice and personal contributions you deduct (dollars and cents) Unused concessional cap from the previous 5 years not yet applied (dollars and cents) Total super balance just before the year began $500,000 or more Under $500,000, so unused cap carries forward
+
+Enter 0 for any part you do not have. Your tax return gives the income parts and your super fund’s statements the contributions; your ATO online account shows unused cap and your total super balance. Leave out contributions made under the super guarantee amnesty.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, accumulation interests only, taxable income $240,000.00, reportable fringe benefits $0.00, total net investment loss $0.00, family trust distribution tax income $0.00, assessable FHSS released amount $0.00, zero-rate super lump sum $0.00, concessional contributions $15,000.00, unused cap carried forward $0.00. Division 293 income: income for surcharge purposes less reportable super contributions $240,000.00 Concessional contributions $15,000.00 Concessional contributions cap for 2026-27 $32,500.00 Excess concessional contributions $0.00 Low tax contributions: the contributions less the excess $15,000.00 Division 293 income plus low tax contributions $255,000.00 Amount over the $250,000 threshold $5,000.00 Taxable contributions: the lesser of the low tax contributions and that amount $5,000.00 Division 293 tax at 15% $750.00 The ATO assesses it on a separate notice, payable 21 days after it is given (section 293-65).
+
+## How the Division 293 tax calculator works
+
+The Division 293 tax calculator works out the extra 15% tax on concessional super contributions for one income year when income and contributions together exceed $250,000. It adds up Division 293 income, the income measure used for the Medicare levy surcharge without reportable super contributions, then takes the contributions less any excess over the year’s cap, raised by unused cap carried forward when your total super balance allows it. Those are the low tax contributions. The taxable contributions are the lesser of the low tax contributions and the amount by which they and Division 293 income exceed $250,000, so only the part above the threshold is taxed, and never more than the contributions. Each step is shown, with the room left under the threshold when you are below it.
+
+Excess concessional contributions are not taxed by Division 293: they are added to your assessable income and taxed at your marginal rate less a 15% offset instead. A one-off event, such as a capital gain, an employment termination payment or back pay, can take you over the threshold for a single year. The ATO assesses Division 293 tax on its own notice once it has your return and your fund’s contribution reports. It is payable 21 days after the notice, and you can elect within 60 days to have it released from super.
+
+## What the Division 293 tax calculator does not compute
+
+The calculator covers 2021-22 to 2026-27, for contributions to accumulation interests. It does not compute:
+
+- defined benefit interests, whose defined benefit contributions the regulations work out and whose tax is deferred to a debt account (Subdivision 293-D), or the rules for State higher level office holders with constitutionally protected funds and for Commonwealth justices and judges (Subdivisions 293-E and 293-F);
+- contributions the Commissioner has disregarded or reallocated to another year, which stay in low tax contributions, or which contributions count: enter them as your fund reports them;
+- contributions that count differently for Division 293 than for the cap: a super guarantee amnesty amount the Commissioner paid to your fund, which is not a low tax contribution (section 293-30(4)(c)), and a contribution refunded under section 99G(6) of the Superannuation Industry (Supervision) Act 1993, which is not a concessional contribution (section 291-25(2)(e));
+- each part of Division 293 income, the unused cap or your total super balance, which you enter;
+- 2027-28 and later years, whose cap is not yet known, or years before 2021-22;
+- the refund for a former temporary resident who receives a departing Australia superannuation payment, interest, or the release from super itself.
+
+Confirm the figures with your Division 293 notice from the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Division 293 tax calculator
+
+Case | Inputs | Result
+The ATO’s example: Jan’s $240,000 and $15,000 give $5,000 taxed | 2026-27: taxable income $240,000; contributions $15,000.00 | Division 293 income $240,000.00, low tax contributions $15,000.00, taxable contributions $5,000.00, tax $750.00
+Below the threshold: $30,000 of room left | 2026-27: taxable income $200,000; contributions $20,000.00 | Division 293 income $200,000.00, low tax contributions $20,000.00, taxable contributions $0.00, tax $0.00
+Income alone over $250,000: all the contributions are taxed | 2026-27: taxable income $300,000; contributions $25,000.00 | Division 293 income $300,000.00, low tax contributions $25,000.00, taxable contributions $25,000.00, tax $3,750.00
+No low tax contributions, so no taxable contributions (s 293-20(2)) | 2026-27: taxable income $400,000; contributions $0.00 | Division 293 income $400,000.00, low tax contributions $0.00, taxable contributions $0.00, tax $0.00
+Exactly $250,000 does not exceed the threshold | 2026-27: taxable income $235,000; contributions $15,000.00 | Division 293 income $235,000.00, low tax contributions $15,000.00, taxable contributions $0.00, tax $0.00
+One cent over: 15% of a cent rounds to nil | 2026-27: taxable income $235,000; contributions $15,000.01 | Division 293 income $235,000.00, low tax contributions $15,000.01, taxable contributions $0.01, tax $0.00
+Ten cents over: 1.5 cents rounds half up to 2 | 2026-27: taxable income $235,000; contributions $15,000.10 | Division 293 income $235,000.00, low tax contributions $15,000.10, taxable contributions $0.10, tax $0.02
+Excess concessional contributions are left out | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00 | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
+Unused cap carried forward covers the excess, so all of it counts | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance under | Division 293 income $243,000.00, low tax contributions $45,000.00, taxable contributions $38,000.00, tax $5,700.00
+Unused cap does not carry forward with a balance of $500,000 or more | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance $500,000 or more | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
+Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $5,000.00, balance under | Division 293 income $243,000.00, low tax contributions $37,500.00 after $7,500.00 excess, taxable contributions $30,500.00, tax $4,575.00
+2025-26, cap $30,000 | 2025-26: taxable income $230,000; contributions $35,000.00 | Division 293 income $230,000.00, low tax contributions $30,000.00 after $5,000.00 excess, taxable contributions $10,000.00, tax $1,500.00
+2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
+2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
+
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -584,7 +663,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -594,7 +673,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -663,7 +742,7 @@ The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 
 Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
 Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
 
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -672,92 +751,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Super guarantee charge and Payday Super due date calculator
-
-Source: https://duguid.com.au/tools/business-calculators/sgc-payday/
-
-> Payday Super due dates with business days, days late and the super guarantee charge for one employee: notional earnings, uplift and the old quarterly charge.
-
-# SGC and Payday Super calculator
-
-Payday Super due dates in business days, and the super guarantee charge for one employee, each step cited.
-
-Published 18 November 2026. Last checked 18 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Super guarantee charge inputs for one employee
-
-Law Payday Super, 2026-27 Quarterly, 2022-23 to 2025-26 Payday Time the fund has 7 business days 20 business days: first contribution to this fund Out of cycle ATO determination First contribution, out of cycle Out of cycle, ATO determination Next regular payday (out of cycle) Determination date Qualifying earnings (AUD) Earlier earnings in 2026-27 (AUD) Received on time (AUD) Received late (AUD) Late receipt date Assessment date ATO-initiated assessment or estimate by payday No Yes Voluntary disclosure None Lodged Disclosure date GIC rate after 2026 (%) Income year 2022-23 (10.5%) 2023-24 (11%) 2024-25 (11.5%) 2025-26 (12%) Quarter July to September October to December January to March April to June Salary or wages (AUD) Ordinary time earnings (AUD) Contributions within 28 days (AUD) SGC statement lodged
-
-Each law and choice reads only its own fields. Business days are from the Payday Super calendar; GIC rates from the GIC table.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: payday 30 July 2026, the usual 7 business days, qualifying earnings $1,000.00, on time $0.00, late $120.00, assessment 1 December 2026, no ATO-initiated assessment or estimate from 1 July 2026 to the payday, no voluntary disclosure. Fund must receive it by (7 business days after payday) Tuesday 11 August 2026 SG amount, 12% $120.00 Late contributions received Tuesday 25 August 2026, 14 days late Business days from payday to receipt 17 Base shortfall $120.00 Late contributions applied $120.00 Final shortfall $0.00 Notional earnings, 14 days to 25 August 2026 $0.53 Administrative uplift, 40% $0.21 SG charge for the payday, before any choice loading $0.74
-
-## How the SGC and Payday Super calculator works
-
-From 1 July 2026, under Payday Super, an employer owes super guarantee for each payday, and the employee’s fund must receive it within 7 business days, or a longer period for a first contribution, out-of-cycle pay or an ATO determination. The calculator finds that due date from the site’s business days calendar, then works out the super guarantee charge for one employee if the fund received less than 12% of qualifying earnings by then: the final shortfall still unpaid at the assessment, notional earnings at the GIC rate on the amount that was late, and the administrative uplift, reduced if the ATO had not itself assessed or estimated the employer’s SG charge from 1 July 2026 to the payday, and for a voluntary disclosure. A contribution counts from the day the fund received it with what it needs to allocate it to the employee. For a quarter that ended by 30 June 2026 it applies the old law instead: the shortfall at that year’s charge percentage, 10% nominal interest and the $20 administration component.
-
-## What the SGC and Payday Super calculator does not cover
-
-The calculator gives an estimate for one employee and one payday or quarter, and no advice. It does not cover:
-
-- the choice loading for not meeting choice of fund obligations;
-- the late payment offset under the old section 23A for quarterly contributions made late;
-- bunched contributions under section 18C(2) item 4;
-- a contribution made from 1 to 28 July 2026 that item 186 of the transition applies first to a shortfall for the quarter ending 30 June 2026: count only what is left of it;
-- a disclosed contribution with no receipt day, whose notional earnings section 36(3) works out as if the fund received it 7 business days after it was paid;
-- exemption certificates, and amounts paid that have not reached the fund;
-- GIC and penalties once the charge is payable;
-- paydays after 30 June 2027, whose maximum contributions base is not yet known, and quarters before July 2022.
-
-Confirm the figure with the ATO or a registered tax agent before relying on it.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: SGC and Payday Super calculator
-
-Case | Inputs | Result
-ATO’s 30 July 2026 payday, due a day later for NT Picnic Day, and paid 14 days late | Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 25 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure | Due Tuesday 11 August 2026, 14 days of notional earnings, notional earnings $0.53, uplift 40%, uplift $0.21, SG charge $0.74
-ATO example 1: Hannah’s first contribution for a new employee, 9 July 2026 | Payday 9 July 2026; 20 business days for a first contribution; earnings $1,000.00; on time $120.00 | Due Friday 7 August 2026, 20 business days after payday, subsection 18C(2) item 1, SG charge $0.00
-ATO example 2: Floyd’s first contribution to a new fund, 7 August 2026 | Payday 7 August 2026; 20 business days for a first contribution; earnings $1,000.00; on time $120.00 | Due Friday 4 September 2026, 20 business days after payday, subsection 18C(2) item 1, SG charge $0.00
-ATO example 2: Floyd’s next payday, 4 September 2026 | Payday 4 September 2026; 7 business days; earnings $1,000.00; on time $120.00 | Due Tuesday 15 September 2026, 7 business days after payday, SG charge $0.00
-ATO example 3: Virgil’s Christmas bonus out of cycle, due with the 10 December payday | Payday 7 December 2026; out of cycle, next regular payday 10 December 2026; earnings $1,000.00; on time $120.00 | Due Monday 21 December 2026, 7 business days after the next regular payday, subsection 18C(2) item 2, SG charge $0.00
-ATO example 4: Priya’s back payment out of cycle, due with the 3 September payday | Payday 29 August 2026; out of cycle, next regular payday 3 September 2026; earnings $1,000.00; on time $120.00 | Due Monday 14 September 2026, 7 business days after the next regular payday, subsection 18C(2) item 2, SG charge $0.00
-ATO example 5: Christen’s 4 August payday, determination made 7 August | Payday 4 August 2026; determination made 7 August 2026; earnings $1,000.00; on time $120.00 | Due Friday 4 September 2026, the later of 20 business days after payday and after the determination, subsection 18C(2) item 3, SG charge $0.00
-ATO example 5: Christen’s 18 August payday under the same determination | Payday 18 August 2026; determination made 7 August 2026; earnings $1,000.00; on time $120.00 | Due Tuesday 15 September 2026, the later of 20 business days after payday and after the determination, subsection 18C(2) item 3, SG charge $0.00
-LCR 2026/2 Example 9’s pair: an out-of-cycle bonus under a determination is due at the later period’s end | Payday 7 August 2026; out of cycle, next regular payday 10 September 2026, determination made 7 August 2026; earnings $1,000.00; on time $120.00 | Due Monday 21 September 2026, 7 business days after the next regular payday, subsection 18C(2) item 2, SG charge $0.00
-Part paid late after an ATO-initiated assessment; disclosed on day 29 of the 30-day period, so 60% less 40 points | Payday 6 August 2026; 7 business days; earnings $6,500.00; on time $0.00; late $540.00 received 2 September 2026; assessed 10 December 2026; an earlier ATO-initiated assessment; disclosure lodged 4 September 2026 | Due Monday 17 August 2026, SG amount $780.00, base shortfall $780.00, final shortfall $240.00, 114 days of notional earnings, notional earnings $28.47, uplift 20%, uplift $53.69, SG charge $322.16
-The same, disclosed the next day, after the 30-day period: 60% less 35 points | Payday 6 August 2026; 7 business days; earnings $6,500.00; on time $0.00; late $540.00 received 2 September 2026; assessed 10 December 2026; an earlier ATO-initiated assessment; disclosure lodged 5 September 2026 | Notional earnings $28.47, uplift 25%, uplift $67.12, SG charge $335.59
-Earnings that pass the $270,830 base count only to it | Payday 3 September 2026; 7 business days; earnings $1,000.00; $270,000.00 earlier in 2026-27; on time $99.60 | Due Monday 14 September 2026, SG amount $99.60, base shortfall $0.00, SG charge $0.00
-Unpaid and assessed in 2027, with the assumed GIC rate after December 2026 | Payday 5 November 2026; 7 business days; earnings $2,000.00; on time $0.00; assessed 15 February 2027; no earlier ATO-initiated assessment; no disclosure; GIC 11.51% assumed after 2026 | Due Monday 16 November 2026, final shortfall $240.00, 90 days of notional earnings, 45 days at the assumed rate, notional earnings $6.91, uplift 40%, uplift $98.76, SG charge $345.67
-A contribution received on the due date | Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 11 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure | Refused: a contribution the fund received by the due date is on time: add it to the on-time amount
-A contribution received on the assessment day | Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 1 December 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure | Refused: a contribution the fund receives on or after the assessment day does not count for it: leave it out
-A payday before Payday Super began | Payday 30 June 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 25 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure | Refused: enter a payday from 1 July 2026 to 30 June 2027
-A due date past the business day calendar | Payday 30 June 2027; out of cycle, next regular payday 30 August 2027; earnings $1,000.00; on time $120.00 | Refused: that due date falls after 31 August 2027, where the business day calendar ends
-A voluntary disclosure lodged on the assessment day | Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 25 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; disclosure lodged 1 December 2026 | Refused: enter the day the voluntary disclosure statement was lodged from 30 July 2026 to 30 November 2026
-ATO module 6: one of Imogen’s 30 employees, quarter 1 of 2025-26, statement lodged before 28 November | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 20 November 2025 | Payable Friday 28 November 2025, shortfall $1,440.00, 150 days, nominal interest $59.18, administration component $20.00, SG charge $1,519.18
-Contributions of 6% of ordinary time earnings leave 6% of salary or wages, and interest runs to a late statement | Quarter 2 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $600.00; lodged 10 March 2026 | Payable Tuesday 10 March 2026, charge percentage 6.00%, shortfall $720.00, 160 days, nominal interest $31.56, administration component $20.00, SG charge $771.56
-Salary or wages above the $62,500 quarterly base count only to it | Quarter 4 of 2025-26; salary or wages $80,000.00; ordinary time earnings $80,000.00; contributions $0.00; lodged 20 August 2026 | Payable Friday 28 August 2026, shortfall $7,500.00, 149 days, nominal interest $306.16, administration component $20.00, SG charge $7,826.16
-Contributions of 11.5% of ordinary time earnings in 2024-25 leave no charge | Quarter 2 of 2024-25; salary or wages $10,000.00; ordinary time earnings $10,000.00; contributions $1,150.00; lodged 1 March 2025 | Charge percentage 0.00%, shortfall $0.00, SG charge $0.00
-Interest across 29 February 2024 | Quarter 3 of 2023-24; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 20 May 2024 | Refused: the nominal interest period includes 29 February, and the ATO does not say whether that year has 365 or 366 days
-Contributions with no ordinary time earnings | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $0.00; contributions $100.00; lodged 20 November 2025 | Refused: enter the ordinary time earnings for the quarter: contributions reduce the charge percentage in proportion to them
-A statement lodged by the contribution due date | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 28 October 2025 | Refused: enter the day the statement was or will be lodged from 29 October 2025 to 30 June 2031
-
-One of the thirty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
-- GIC table: https://duguid.com.au/rates/general-interest-charge/
-- thirty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-seven business calculators: https://duguid.com.au/tools/business-calculators/

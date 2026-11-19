@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const d293 = { file: 'assets/division-293.mjs', test: individualTest };
 const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
 const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
 const incomeTests = { file: 'assets/income-tests.mjs', test: individualTest };
@@ -34,6 +35,7 @@ const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
 const finance = { ...business, file: 'assets/finance-schedule.mjs' };
 const fbt = { ...business, file: 'assets/fbt-benefits.mjs' };
+const evExemption = { ...business, file: 'assets/fbt-ev-exemption.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
 const psi = { ...business, file: 'assets/psi-determination.mjs' };
@@ -44,6 +46,7 @@ const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
+const leave = { ...business, file: 'assets/unused-leave.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -134,6 +137,18 @@ const MUTATIONS = [
   { ...fbt, name: 'FBT car parking spaces take 230 days', find: '228n * spaces', replace: '230n * spaces' },
   { ...fbt, name: 'FBT car parking spaces ignore fewer employees', find: 'e0 + e1 < s0 + s1 ?', replace: 'false ?' },
   { ...fbt, name: 'FBT car parking average cost takes the first fee only', find: 'money(p.firstFee) + money(p.lastFee)', replace: '2n * money(p.firstFee)' },
+  { ...evExemption, name: 'EV exemption: a value at the threshold pays luxury car tax', find: 'value <= threshold * 100', replace: 'value < threshold * 100' },
+  { ...evExemption, name: 'EV exemption: a car first used on 1 July 2022 is not exempt', find: "firstUsed >= '2022-07-01'", replace: "firstUsed > '2022-07-01'" },
+  { ...evExemption, name: 'EV exemption: a sale on 1 July falls in the year before', find: "iso.slice(5) < '07-01'", replace: "iso.slice(5) <= '07-01'" },
+  { ...evExemption, name: 'EV exemption: a new plug-in hybrid commitment is ignored', find: "['hybrid-no-new-commitment', !facts[1]]", replace: "['hybrid-no-new-commitment', true]" },
+  { ...evExemption, name: 'EV exemption: luxury car tax on another supply is ignored', find: "['other-supply', !otherSupply]", replace: "['other-supply', true]" },
+  { ...evExemption, name: 'EV exemption: a former employee is exempt', find: "['current-employee', current]", replace: "['current-employee', true]" },
+  { ...evExemption, name: 'EV exemption: a taxed sale within the year after first use gives one result', find: 'firstSale > firstUsed && firstSale >=', replace: 'false && firstSale >=' },
+  { ...evExemption, name: 'EV exemption: a taxed sale on 1 April after first use precedes the year', find: "firstSale >= `${ended - 1}-04-01`", replace: "firstSale > `${ended - 1}-04-01`" },
+  { ...evExemption, name: 'EV exemption: a taxed sale on the day of first use is refused', find: 'firstSale > firstUsed &&', replace: 'firstSale >= firstUsed &&' },
+  { ...evExemption, name: 'EV exemption: one condition met is enough', find: 'conditions.every((c) => c.met)', replace: 'conditions.some((c) => c.met)' },
+  { ...evExemption, name: 'EV exemption: a first retail sale after the FBT year counts its luxury car tax', find: 'const afterYear = firstSale > yearEnd;', replace: 'const afterYear = false;' },
+  { ...evExemption, name: 'EV exemption: an exempt plug-in hybrid benefit before 1 April 2025 needs no earlier use', find: "facts[2] && firstUsed >= '2025-04-01'", replace: "facts[2] && firstUsed > '2025-04-01'" },
   { ...fbt, name: 'FBT car parking contributions take the value below nil', find: 'least(contribution, gross)', replace: 'contribution' },
   { ...fbt, name: 'FBT property 75% rules take the whole price', find: 'ratioCents(value * 3n, 4n)', replace: 'value' },
   { ...fbt, name: 'FBT property bought goods take the notional value', find: 'least(money(p.price), money(p.notional))', replace: 'money(p.notional)' },
@@ -256,7 +271,7 @@ const MUTATIONS = [
   { ...incomeTests, name: 'income tests count section 57A benefits in full where adjusted', find: 'Math.floor((p.fringe57a * 53) / 100)', replace: 'p.fringe57a' },
   { ...incomeTests, name: 'income tests take reportable super contributions below nil', find: 'Math.max(0, p.employerSuper + p.personalSuper - p.excessConcessional)', replace: 'p.employerSuper + p.personalSuper - p.excessConcessional' },
   { ...incomeTests, name: 'income tests keep the FHSS released amount', find: 'Math.max(0, p.taxable - p.fhss)', replace: 'p.taxable' },
-  { ...incomeTests, name: 'Division 293 income keeps reportable super contributions', find: 'division293Income: surcharge - contributions', replace: 'division293Income: surcharge' },
+  { ...incomeTests, name: 'Division 293 income keeps reportable super contributions', find: 'trust: p.familyTrust, fringe, losses, lumpSum: 0', replace: 'trust: p.familyTrust + contributions, fringe, losses, lumpSum: 0' },
   { ...incomeTests, name: 'rebate income adds family trust distribution amounts', find: 'rebateIncome: taxable + contributions', replace: 'rebateIncome: taxable + p.familyTrust + contributions' },
   { ...incomeTests, name: 'adjusted taxable income ignores child support', find: '+ contributions - p.childSupport,', replace: '+ contributions,' },
   { ...incomeTests, name: 'repayment income takes the adjusted fringe benefits total', find: 'repaymentIncome: taxable + losses + fringe', replace: 'repaymentIncome: taxable + losses + adjustedFringe' },
@@ -339,6 +354,15 @@ const MUTATIONS = [
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
   { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
   { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
+  { ...d293, name: 'Division 293 taxes the excess contributions too', find: 'const low = concessional - excess;', replace: 'const low = concessional;' },
+  { ...d293, name: 'Division 293 carries unused cap forward whatever the balance', find: 'd.balanceUnder ? Math.min(unused, overCap) : 0', replace: 'Math.min(unused, overCap)' },
+  { ...d293, name: 'Division 293 carries forward more than the excess', find: 'Math.min(unused, overCap)', replace: 'unused' },
+  { ...d293, name: 'Division 293 counts the FHSS released amount', find: 'Math.max(0, taxable - fhss)', replace: 'taxable' },
+  { ...d293, name: 'Division 293 leaves out family trust distribution tax income', find: 'base + trust + ', replace: 'base + ' },
+  { ...d293, name: 'Division 293 counts a zero-rate lump sum', find: 'losses - lumpSum;', replace: 'losses;' },
+  { ...d293, name: 'Division 293 takes a zero-rate lump sum after 2023-24', find: "year >= '2024-25'", replace: "year >= '2027-28'" },
+  { ...d293, name: 'Division 293 tax rounds down', find: 'Math.round((taxable * 15) / 100)', replace: 'Math.floor((taxable * 15) / 100)' },
+  { ...d293, name: 'Division 293 accepts a defined benefit interest', find: "if (d.interests !== 'accumulation') {", replace: 'if (false) {' },
   { ...soleTrader, name: 'the small business offset is 13%', find: 'const OFFSET_RATE = 16;', replace: 'const OFFSET_RATE = 13;' },
   { ...soleTrader, name: 'the small business offset has no $1,000 cap', find: 'Math.min(share, OFFSET_CAP, tax - offset - lmito)', replace: 'Math.min(share, tax - offset - lmito)' },
   { ...soleTrader, name: 'the small business offset can take the tax below nil', find: 'Math.min(share, OFFSET_CAP, tax - offset - lmito)', replace: 'Math.min(share, OFFSET_CAP)' },
@@ -513,6 +537,21 @@ const MUTATIONS = [
   { ...lsl, name: 'LSL more leave taken than the entitlement passes', find: 'if (taken > weeks) {', replace: 'if (taken > weeks + 10000000n) {' },
   { ...lsl, name: 'LSL next date ignores excluded days', find: 'anniversary(start, next) - 1 + excluded;', replace: 'anniversary(start, next) - 1;' },
   { ...lsl, name: 'LSL service before 23 June 1990 passes', find: 'value < LSL_EARLIEST_START', replace: "value < '1900-01-01'" },
+  { ...leave, name: 'unused leave capped parts withheld at 30%', find: 'const FLAT_PERCENT = 32;', replace: 'const FLAT_PERCENT = 30;' },
+  { ...leave, name: 'unused leave small payment limit at $200', find: 'const SMALL_PAYMENT = 30000;', replace: 'const SMALL_PAYMENT = 20000;' },
+  { ...leave, name: 'unused leave small payment limit ignored', find: 'under300 ? roundDollars(', replace: 'false ? roundDollars(' },
+  { ...leave, name: 'unused leave without a TFN at 46%', find: "'no-tfn': 47", replace: "'no-tfn': 46" },
+  { ...leave, name: 'unused leave foreign resident without a TFN at 47%', find: "'no-tfn-foreign': 45", replace: "'no-tfn-foreign': 47" },
+  { ...leave, name: 'unused leave without a TFN rounds to the dollar', find: 'Math.floor(((annual + loading + longService) * noTfnRate) / 10000)', replace: 'Math.round(((annual + loading + longService) * noTfnRate) / 10000)' },
+  { ...leave, name: 'unused leave 1993 split needed a day late', find: "start < '1993-08-18'", replace: "start <= '1993-08-18'" },
+  { ...leave, name: 'unused leave 1978 split needed a day late', find: "start < '1978-08-16'", replace: "start <= '1978-08-16'" },
+  { ...leave, name: 'unused leave redundancy caps pre-1978 long service leave too', find: 'concessional ? longService - pre1978 : lsl1993', replace: 'concessional ? longService : lsl1993' },
+  { ...leave, name: 'unused leave 5% share left out of the marginal rate calculation', find: 'post1993 * 20 + pre1978', replace: 'post1993 * 20' },
+  { ...leave, name: 'unused leave 32% amounts ignore cents', find: 'Math.floor((units + 5000) / 10000)', replace: 'Math.floor(units / 10000)' },
+  { ...leave, name: 'unused leave pay share keeps rounding up', find: 'Math.floor(marginalTwentieths / (2000 * periods))', replace: 'Math.round(marginalTwentieths / (2000 * periods))' },
+  { ...leave, name: 'unused leave TFN payee taxed on scale 3', find: '({ tfn: 2,', replace: '({ tfn: 3,' },
+  { ...leave, name: 'unused leave part a cent over its total accepted', find: 'given !== null && given > total)', replace: 'given !== null && given > total + 1)' },
+  { ...leave, name: 'unused leave pre-1978 share 90% not assessable', find: 'lslPre1978NotAssessable: toCents(pre1978 * 19)', replace: 'lslPre1978NotAssessable: toCents(pre1978 * 18)' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -534,7 +573,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
