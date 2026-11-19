@@ -12364,7 +12364,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# GST margin scheme calculator: eligibility, margin and GST on property
+# GST margin scheme calculator: eligibility, margin and GST saved
 
 Source: https://duguid.com.au/tools/business-calculators/gst-margin-scheme/
 
