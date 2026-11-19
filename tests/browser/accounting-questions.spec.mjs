@@ -537,6 +537,25 @@ test('hire purchase totals interest by income year and sets out the journal', as
   await expect(form.locator('table[data-results="journal"] tbody tr').last()).toHaveText('Total$1,000.00$20.07$1,020.07');
 });
 
+test('CGT concessions give Janet’s 40% interest the 15-year exemption and refuse a share offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/cgt-concessions/');
+  const form = page.locator('#cgt-concessions form');
+  const output = form.locator('output');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  // The ATO's 15-year exemption page: Janet sells land she bought on 1 December 2002 on her 60th birthday, and retires.
+  const fields = { acquired: '2002-12-01', event: '2020-12-15', born: '1960-12-15', active: '6590', choice: '2021-05-01' };
+  for (const [name, value] of Object.entries(fields)) await form.locator(`[name="${name}"]`).fill(value);
+  await form.locator('[name="retiring"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('15-year exemption (Division 152)');
+  await expect(output).toContainText('Active for 6,590 of the 6,590 days from 1 December 2002 to 15 December 2020');
+  await expect(output).toContainText('Not needed: the 15-year exemption disregards the whole gain (section 152-330)');
+  await form.locator('[name="asset"][value="share"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('subsection 152-10(2)');
+});
+
 test('Division 7A takes the chosen year’s rate from the table and works the repayment offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/div7a/');
   const form = page.locator('#div7a form');
@@ -670,6 +689,94 @@ test('FBT car works the operating cost method at the Type 2 gross-up offline', a
   await form.getByLabel('Business use percentage, operating cost method only').fill('101');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('.field-error')).toHaveText('Enter 100 or less.');
+});
+
+test('FBT property values goods bought for the business and takes the in-house reduction offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-property/');
+  const form = page.locator('#fbt-property form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('In-house goods you buy for the business').check();
+  await form.getByLabel('Price rules only').fill('500');
+  await form.getByLabel('Notional value: what the employee').fill('750');
+  await form.getByLabel('Employee contribution paid for the property (AUD)').fill('400');
+  await form.getByLabel('In-house rules other than salary packaging').fill('1000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: in-house bought for the business, the lesser of the arm’s length purchase price and the notional value, arm’s length '
+    + 'purchase price $500.00, notional value $750.00, employee contribution $400.00, 0% income use, deduction for the contribution '
+    + '$0.00, in-house reduction left $1,000.00. Value before the contribution: $500.00. Employee contribution applied: $400.00. '
+    + 'Excess contribution: $0.00. Value after the contribution: $100.00. Gross deduction: $0.00. Deduction for the contribution '
+    + 'applied: $0.00. Notional deduction: $0.00. Otherwise deductible reduction: $0.00. In-house reduction, section 62: $100.00. '
+    + 'Taxable value: $0.00. The $1,000 in-house reduction in section 62 is for all of the employee’s in-house fringe benefits in '
+    + 'the year together.');
+  await form.getByLabel('Deduction the employee could claim for their contribution (AUD)').fill('400.01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('The deduction for the employee’s contribution cannot be more than the contribution.');
+});
+
+test('FBT expense payment refuses the otherwise deductible rule in-house, then works the guide’s petroleum offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-expense-payment/');
+  const form = page.locator('#fbt-expense-payment form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('In-house goods the seller bought for its business').check();
+  await form.getByLabel('Employee’s expenditure before any reimbursement (AUD)').fill('1000');
+  await form.getByLabel('Your payment or reimbursement of it (AUD)').fill('250');
+  await form.getByLabel('In-house price rules only').fill('800');
+  await form.getByLabel('In-house notional value').fill('1000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('This calculator does not apply the otherwise deductible rule to an in-house '
+    + 'expense payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction.');
+  await form.getByLabel('External only: share of the expenditure').fill('0');
+  await form.getByLabel('External only: employee’s deduction').fill('0');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: in-house bought for the business, the lesser of the arm’s length purchase price and the notional value, '
+    + 'arm’s length purchase price $800.00, notional value $1,000.00, expenditure $1,000.00, '
+    + 'paid or reimbursed $250.00, employee contribution $0.00, in-house reduction left $0.00. In-house value: $800.00. '
+    + 'Recipient’s portion: $750.00. Recipient’s portion applied: $750.00. Excess portion: $0.00. Value after the portion: $50.00. '
+    + 'In-house reduction, section 62: $0.00. Taxable value: $50.00. The $1,000 in-house reduction in section 62 is for all of the '
+    + 'employee’s in-house fringe benefits in the year together.');
+});
+
+test('FBT car exempts an eligible electric car and keeps its value reportable offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-car/');
+  const form = page.locator('#fbt-car form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('Battery electric').check();
+  await form.getByLabel('Electric cars only: first day held and used').fill('2026-07-01');
+  await form.getByLabel('Electric cars only: first retail sale').fill('2026-07-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
+    'Inputs: statutory formula, cost price $60,000.00, later non-business accessories $0.00, first held on or after 1 April 2022, '
+    + '182 days of 365 available for private use, employee contributions $1,000.00, Type 1 gross-up 2.0802, battery electric car for a '
+    + 'current employee, first held and used 1 July 2026, first sold at retail 1 July 2026 at a luxury car tax value of $60,000.00 against '
+    + 'the 2026-27 fuel-efficient threshold of $91,661.00, no luxury car tax on another sale or an import before the benefit. '
+    + 'Provided to a current employee, s 8A(1)(a): met. A battery electric or hydrogen fuel cell electric car, s 8A(1)(b): met. '
+    + 'First held and used on or after 1 July 2022, Schedule 1 item 7(2): met. '
+    + 'No luxury car tax payable on the first retail sale before the benefit, s 8A(1)(c): met. '
+    + 'No luxury car tax payable on another sale or an import before the benefit, s 8A(1)(c): met. Electric cars exemption, section 8A: applies. '
+    + 'Base value: $60,000.00. Statutory formula taxable value: $4,983.56. Taxable value before the exemption, for reporting: $4,983.56. '
+    + 'Taxable value: $0.00. Grossed-up taxable value: $0.00. FBT at 47%: $0.00. '
+    + 'The taxable value before the exemption still counts in the employee’s reportable fringe benefits amount (subsection 135P(3)), '
+    + 'reported when the employee’s total for the year is more than $2,000, unless the car is a pooled or shared car, whose benefit is '
+    + 'excluded. The car’s registration, insurance, repairs, maintenance and fuel, electricity included, are exempt too (subsection 53(1)) '
+    + 'and not reported; a home charging station is not a car expense under that exemption.');
+  // A plug-in hybrid with no commitment from before 1 April 2025 is not exempt, so FBT is due.
+  await form.getByLabel('Plug-in hybrid electric').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: does not apply.');
+  await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.40.');
+  // A first retail sale after the FBT year comes after every benefit in it, whatever its luxury car tax value (s 8A(1)(c)).
+  await form.getByLabel('Battery electric').check();
+  await form.getByLabel('Electric cars only: first retail sale').fill('2027-04-01');
+  await form.getByLabel('Electric cars only: luxury car tax value').fill('150000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('first sold at retail 1 April 2027 after the FBT year, so after every benefit in it, ');
+  await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: applies.');
+  await expect(form.locator('output')).toContainText('FBT at 47%: $0.00.');
 });
 
 test('fixed fee takes its rounding step from a radio and shows one payment for one instalment', async ({ page }) => {
@@ -812,6 +919,27 @@ test('unused leave page works Schedule 7’s example, a no-TFN payment and a ref
   await expect(form.locator('output')).toHaveText('The leave accrued from 1 January 1980, so none of it is long service leave for the period before 16 August 1978: enter 0 or leave it blank.');
 });
 
+// The fuel tax credit page's example, its second line by the cost and average price (PCG 2016/2 Method 1), and fuel
+// acquired after the last rate the page holds.
+test('fuel tax credit page works its example, a line from its cost and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fuel-tax-credits/');
+  const form = page.locator('#fuel-tax-credits form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Label 7D on the BAS, in whole dollars: $3,204.00.');
+  await form.locator('[name="quantity-2"]').fill('');
+  await form.locator('[name="cost-2"]').fill('2459');
+  await form.locator('[name="price-2"]').fill('245.9');
+  await form.locator('input[name="small-claimant"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Line 2: 1,000.0000 litres worked out from the cost (PCG 2016/2 Method 1), other business use, at 53.7 cents a litre from 3 August 2026: $537.00.');
+  await expect(form.locator('output .result-row--principal')).toHaveText('Label 7D on the BAS, in whole dollars: $2,667.00.');
+  await form.locator('[name="acquired-1"]').fill('2027-02-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Line 1: no published rate is held for fuel acquired after 31 January 2027');
+});
+
 // Western Australia's Anastasia (serious misconduct after 12 years and 1 month: the 8 2/3 weeks accrued), the same
 // service still employed, and the Northern Territory death under 10 years the page refuses.
 test('long service leave page works a Western Australian example, the leave still to come and a refusal offline', async ({ page, context }) => {
@@ -839,6 +967,27 @@ test('long service leave page works a Western Australian example, the leave stil
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toHaveText(
     'Under 10 years, the NT Act pays on death what the employee would have been paid for leaving that day for a reason in subsection 10(2) (subsection 10(3)): choose that reason instead.');
+});
+
+// ReturnToWorkSA's example 1 ($450,000 at 2%: a $9,000 base premium less the 5% discount), then a Queensland
+// policy renewed from before 1 July 2026, whose rate only WorkCover Queensland sets, refused.
+test('workers compensation page works a South Australian example and refuses a renewed Queensland policy offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/workers-compensation/');
+  const form = page.locator('#workers-compensation form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('South Australia', { exact: true }).check();
+  await form.getByLabel('Estimated wages for the policy period').fill('450000');
+  await form.getByLabel('Industry or premium rate from your insurer').fill('2');
+  await form.getByLabel('Actual wages for the policy period').fill('');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Premium payable on the estimated wages: $9,405.00.');
+  await expect(form.locator('output')).toContainText('Less discount at 5% for a base premium in its band: $450.00.');
+  await form.getByLabel('Queensland', { exact: true }).check();
+  await form.getByLabel('Before 1 July 2026, renewed for 2026-27').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(
+    'A policy that commenced before 1 July 2026 has a premium rate from WorkCover Queensland’s simplified or experience-based model and an adjustment for 2025-26 (Notice (No. 1) of 2026, parts 5 and 6): use the premium notice.');
 });
 
 // TR 2022/3 example 22 (paragraphs 210 to 214): Kevin's brother's company is an associate, and Pebbles and
@@ -1071,9 +1220,10 @@ test('business days skip Melbourne Cup Day in Victoria offline and refuse a date
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'hire-purchase', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
-  'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
-  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave'];
+  'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
+  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave',
+  'workers-compensation', 'fuel-tax-credits'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

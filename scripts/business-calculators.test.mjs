@@ -9,7 +9,8 @@ import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSchedule, interestByIncomeYear,
   staffCost, cashForecast, div7aMinimumRepayment, transferDuty, firstHomeDuty } from '../assets/business-calculators.mjs';
-import { fbtBenefitResult } from '../assets/fbt-benefit-forms.mjs';
+import { EV_EXEMPT_NOTE, fbtBenefitResult, fbtEvResult } from '../assets/fbt-benefit-forms.mjs';
+import { FUEL_EFFICIENT_THRESHOLDS } from '../assets/fbt-ev-exemption.mjs';
 import { COMPANY_TAX_LAW } from '../assets/company-tax.mjs';
 import { FOREIGN_SURCHARGES } from '../assets/foreign-surcharge.mjs';
 import { BUSINESS_DAY_PLACES, BUSINESS_DAYS_COVERAGE, STATE_ONLY_HOLIDAYS } from '../assets/business-days.mjs';
@@ -702,7 +703,17 @@ Object.assign(INPUTS, {
     spaces: `Spaces, ${p.spaces} at ${dollars(p.rate)} for ${p.spaceDays} days, employees ${p.employeesStart} and `
       + `${p.employeesEnd}, spaces ${p.spacesStart} and ${p.spacesEnd}` }[p.method]}`
     + `${p.method === 'register' ? '' : `, contributions ${dollars(p.contribution)}`}; fee ${dollars(p.fee)} against ${dollars(y.threshold)}`,
+  fbtProperty: (p) => `${p.method}, price ${dollars(p.price)}, notional value ${dollars(p.notional)}, contribution `
+    + `${dollars(p.contribution)}, income use ${p.incomeUse}%, deduction ${dollars(p.contributionDeduction)}, in-house reduction `
+    + `left ${dollars(p.available)}`,
+  fbtExpensePayment: (e) => `${e.method}, expenditure ${dollars(e.expenditure)}, paid ${dollars(e.paid)}, contribution `
+    + `${dollars(e.contribution)}, income use ${e.incomeUse}%, deduction ${dollars(e.portionDeduction)}, price ${dollars(e.price)}, `
+    + `notional value ${dollars(e.notional)}, in-house reduction left ${dollars(e.available)}`,
 });
+const BENEFIT_LABELS = { gross: 'value before contributions', recipientsPortion: 'recipient’s portion',
+  contributionApplied: 'contribution applied', excess: 'excess contribution', valueAfterContribution: 'value after the contribution',
+  grossDeduction: 'gross deduction', deductionApplied: 'deduction applied', notionalDeduction: 'notional deduction',
+  reduction: 'reduction', inHouseReduction: 'in-house reduction' };
 Object.assign(ENGINE_LABELS, {
   fbtLoan: { notional: 'notional interest', gross: 'gross taxable value', grossDeduction: 'gross deduction',
     notionalDeduction: 'notional deduction', reduction: 'reduction' },
@@ -710,7 +721,19 @@ Object.assign(ENGINE_LABELS, {
   fbtCarParking: { benefit: (v) => (v ? 'benefit arises' : 'no benefit arises'), gross: 'gross taxable value',
     contributionApplied: 'contributions applied', excess: 'excess contributions', average: 'average cost',
     annual: 'annual value', statutoryBenefit: 'total statutory benefit' },
+  fbtProperty: BENEFIT_LABELS,
+  fbtExpensePayment: BENEFIT_LABELS,
 });
+// The electric cars exemption cases: the car's facts and the verdict with the threshold it applied.
+Object.assign(INPUTS, {
+  fbtEvExemption: (e, y) => `${{ battery: 'Battery electric', 'fuel-cell': 'Hydrogen fuel cell electric', 'plug-in-hybrid': 'Plug-in hybrid' }[e.vehicle]}, `
+    + `${e.currentEmployee ? 'current' : 'former or future'} employee, first held and used ${e.firstUsed}, first retail sale ${e.firstSale} `
+    + `at ${dollars(e.lctValue)}${e.otherSupply ? ', LCT on another supply' : ''}`
+    + `${e.hybrid ? `, ${e.hybrid.committed ? 'committed' : 'not committed'} before 1 April 2025, ${e.hybrid.newCommitment ? 'a' : 'no'} new commitment, `
+      + `${e.hybrid.exemptBefore ? 'an' : 'no'} exempt benefit before 1 April 2025` : ''}; FBT year ending 31 March ${y.ended}`,
+});
+ENGINE_LABELS.fbtEvExemption = { exempt: (v) => (v ? 'exempt' : 'not exempt'), saleYear: (v) => `sale in ${v}`,
+  threshold: (v) => (v === null ? 'after the FBT year' : `threshold ${dollars(v)}`) };
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -936,6 +959,127 @@ test('FBT car page dates the review of the ATO guide chapter it applies', () => 
   assert.match(html, /On 15 November 2026 chapter 7 of the ATO’s guide said it was being reviewed after the Full Federal Court’s decision of 27 March 2026 in SEPL Pty Ltd as trustee of the SFT Trust v Commissioner of Taxation \[2026\] FCAFC 36/);
 });
 
+// The electric cars exemption: Fringe Benefits Tax Assessment Act 1986 s 8A (Compilation No. 97, 1 July 2026)
+// and the Treasury Laws Amendment (Electric Car Discount) Act 2022 as made, Schedule 1 item 7(2) and Schedule 2
+// item 5, read 19 November 2026 at https://www.legislation.gov.au/C2004A03280/latest/text and
+// https://www.legislation.gov.au/C2022A00086/asmade/text. The ATO's 'Electric cars exemption' (last updated
+// 1 April 2026) and 'FBT on plug-in hybrid electric vehicles' (last updated 14 March 2025), read the same day,
+// give the worked examples: Shelly's car first used on 1 April 2022 is not exempt; John's, held from 15 June 2022
+// and first used on 5 July 2022, is; GHI Co's $85,000 car was above 2022-23's threshold; Simon's plug-in hybrid
+// lease from 1 April 2024 to 31 March 2027 stays exempt; Tony's break in the novation is a new commitment.
+// The boundary cases' Cleancut example is a published FBT worked example (¶3-045, reviewed 30 June 2026): a $72,000
+// car before GST, $79,200 with it, first held and used on 1 July 2025, under 2025-26's $91,387 threshold, is exempt.
+const evFacts = (fields) => ({ vehicle: 'battery', currentEmployee: true, firstUsed: '2026-04-01', firstSale: '2026-04-01',
+  lctValue: '60000', otherSupply: false, ...fields });
+const evYear = { ended: '2027' };
+const unmet = (r) => r.conditions.filter((c) => !c.met).map((c) => c.condition);
+test('the electric cars exemption names each condition and fails on any one of them', () => {
+  const cleancut = calculations.fbtEvExemption(evFacts({}), evYear);
+  assert.deepEqual(cleancut.conditions.map((c) => c.condition),
+    ['current-employee', 'zero-or-low-emissions', 'first-held-and-used', 'first-sale', 'other-supply']);
+  assert.equal(cleancut.exempt, true);
+  assert.equal(calculations.fbtEvExemption(evFacts({ vehicle: 'fuel-cell' }), evYear).exempt, true);
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ currentEmployee: false }), evYear)), ['current-employee']);
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ otherSupply: true }), evYear)), ['other-supply']);
+  // Schedule 1 item 7(2): the earliest time a person both held and used the car is at or after the start of 1 July 2022.
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ firstUsed: '2022-06-30', firstSale: '2022-06-30' }), evYear)),
+    ['first-held-and-used']);
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2022-07-01', firstSale: '2022-06-30' }), evYear).exempt, true);
+  const all = calculations.fbtEvExemption(evFacts({ currentEmployee: false, firstUsed: '2022-01-01', firstSale: '2022-01-01',
+    lctValue: '90000', otherSupply: true }), evYear);
+  assert.deepEqual(unmet(all), ['current-employee', 'first-held-and-used', 'first-sale', 'other-supply']);
+});
+
+test('the electric cars exemption takes a plug-in hybrid only under Schedule 2 item 5(2)', () => {
+  const hybrid = (committed, newCommitment, exemptBefore) => calculations.fbtEvExemption(evFacts({ vehicle: 'plug-in-hybrid',
+    firstUsed: '2024-06-01', firstSale: '2024-06-01', hybrid: { committed, newCommitment, exemptBefore } }), evYear);
+  assert.deepEqual(hybrid(true, false, true).conditions.map((c) => c.condition), ['current-employee', 'hybrid-committed',
+    'hybrid-no-new-commitment', 'hybrid-exempt-before', 'first-held-and-used', 'first-sale', 'other-supply']);
+  assert.equal(hybrid(true, false, true).exempt, true);
+  assert.deepEqual(unmet(hybrid(false, false, true)), ['hybrid-committed']);
+  assert.deepEqual(unmet(hybrid(true, true, true)), ['hybrid-no-new-commitment']);
+  assert.deepEqual(unmet(hybrid(true, false, false)), ['hybrid-exempt-before']);
+});
+
+// The ATO's 'Luxury car tax rate and thresholds' (last updated 1 June 2026), read 19 November 2026:
+// https://www.ato.gov.au/tax-rates-and-codes/luxury-car-tax-rate-and-thresholds, fuel-efficient vehicles.
+test('the fuel-efficient threshold is the ATO table’s for the financial year of the first retail sale', () => {
+  assert.deepEqual(Object.entries(FUEL_EFFICIENT_THRESHOLDS), [['2012-13', 75375], ['2013-14', 75375], ['2014-15', 75375],
+    ['2015-16', 75375], ['2016-17', 75526], ['2017-18', 75526], ['2018-19', 75526], ['2019-20', 75526], ['2020-21', 77565],
+    ['2021-22', 79659], ['2022-23', 84916], ['2023-24', 89332], ['2024-25', 91387], ['2025-26', 91387], ['2026-27', 91661]]);
+  // A sale on 30 June falls in the year ending then; one on 1 July, in the next.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2025-06-30', firstSale: '2025-06-30' }), evYear).saleYear, '2024-25');
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstSale: '2026-07-01' }), evYear).threshold, 91661);
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstSale: '2012-07-01', firstUsed: '2022-07-01' }), evYear).threshold, 75375);
+  // LCT Act s 25-1(1): luxury car tax falls on a value above the threshold, so the threshold itself pays none.
+  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '91387.00', firstSale: '2025-07-01' }), evYear).exempt, true);
+  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '91387.01', firstSale: '2025-07-01' }), evYear).exempt, false);
+  // s 8A(1)(c) counts luxury car tax payable before the benefit: a first retail sale after the FBT year,
+  // in 2026-27 or a later year the table does not hold, comes after every benefit in it.
+  // These facts settle the year, so a refusal here is a wrong result.
+  const settled = (fields) => {
+    let result;
+    assert.doesNotThrow(() => { result = calculations.fbtEvExemption(evFacts(fields), evYear); }, JSON.stringify(fields));
+    return result;
+  };
+  for (const firstSale of ['2027-04-01', '2027-07-01']) {
+    const later = settled({ lctValue: '200000', firstSale });
+    assert.equal(later.exempt, true, firstSale);
+    assert.equal(later.threshold, null, firstSale);
+  }
+  assert.equal(settled({ lctValue: '200000', firstUsed: '2027-03-31', firstSale: '2027-03-31' }).exempt, false);
+  // An after-year sale settles only that sale: luxury car tax on an earlier supply or import still fails s 8A(1)(c).
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ firstSale: '2027-04-01', otherSupply: true }), evYear)), ['other-supply']);
+  // No benefit comes before the car is first held and used, so a sale before the year, or on or before that day, precedes them all.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2025-01-01', firstSale: '2026-03-31', lctValue: '200000' }), evYear).exempt, false);
+  assert.equal(settled({ firstUsed: '2026-07-01', firstSale: '2026-07-01', lctValue: '200000' }).exempt, false);
+  // A sale within the year after that day may fall between benefits; under the threshold it fails nothing.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2026-04-01', firstSale: '2026-07-01', lctValue: '91661' }), evYear).exempt, true);
+});
+
+test('the electric cars exemption refuses facts it cannot decide or that contradict the year', () => {
+  const refuses = (fields, message) => assert.throws(() => calculations.fbtEvExemption(evFacts(fields), evYear), { message });
+  refuses({ vehicle: 'diesel' }, 'Choose a battery electric, hydrogen fuel cell electric or plug-in hybrid car.');
+  refuses({ hybrid: { committed: true, newCommitment: false, exemptBefore: true } }, 'Answer the plug-in hybrid questions for a plug-in hybrid only.');
+  refuses({ vehicle: 'plug-in-hybrid' }, 'Answer the plug-in hybrid questions for a plug-in hybrid only.');
+  refuses({ vehicle: 'plug-in-hybrid', hybrid: { committed: 'yes', newCommitment: false, exemptBefore: true } }, 'Answer each yes or no question.');
+  refuses({ otherSupply: 'no' }, 'Answer each yes or no question.');
+  refuses({ firstUsed: '2026-02-30' }, 'Enter the date the car was first held and used as a calendar date.');
+  refuses({ firstSale: '1 July 2026' }, 'Enter the date of the car’s first retail sale as a calendar date.');
+  refuses({ firstUsed: '2027-04-01' }, 'The car was first held and used after 31 March 2027, so it gave no car benefit in the FBT year.');
+  refuses({ firstUsed: '2026-04-01', firstSale: '2026-04-02', lctValue: '91661.01' }, 'Luxury car tax on a first retail sale within the FBT year, '
+    + 'after the car was first held and used, does not affect a benefit provided before the sale (section 8A(1)(c)), so this calculator '
+    + 'cannot give one result for the year.');
+  refuses({ firstUsed: '2025-01-01', firstSale: '2026-04-01', lctValue: '200000' }, /^Luxury car tax on a first retail sale within the FBT year/);
+  refuses({ firstSale: '2012-06-30' }, 'This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
+  refuses({ vehicle: 'plug-in-hybrid', firstUsed: '2025-04-01', hybrid: { committed: true, newCommitment: false, exemptBefore: true } },
+    'A car first held and used from 1 April 2025 cannot have given an exempt car benefit before that day.');
+  assert.throws(() => calculations.fbtEvExemption(evFacts({}), { ended: '2025' }), { message: 'Enter a whole number between 2026 and 2100.' });
+});
+
+// The form reads the exemption's facts by name and, for an exempt car, the FBT car result sets the taxable
+// value, the gross-up and FBT to nil and shows the value before the exemption as reportable (s 135P(3)).
+test('the FBT car form passes the electric car facts and says what an exempt car still reports', () => {
+  const fields = { kind: 'battery', 'current-employee': 'yes', 'first-used': '2026-07-01', 'first-sale': '2026-07-01',
+    'lct-value': '60000', 'other-supply': 'no', 'hybrid-committed': 'no', 'hybrid-new': 'no', 'hybrid-exempt-before': 'no' };
+  const value = (name) => fields[name];
+  const form = { dataset: { yearEnded: '2027' } };
+  const result = () => fbtEvResult(form, calculations, { aud: String, value, money: value });
+  assert.equal(result().exempt, true);
+  assert.equal(result().rows.at(-1).join(': '), 'Electric cars exemption, section 8A: applies');
+  assert.match(result().inputs, /^battery electric car for a current employee, first held and used 1 July 2026, first sold at retail 1 July 2026 /);
+  fields.kind = 'plug-in-hybrid';
+  assert.deepEqual(result().rows.filter(([, met]) => met === 'not met').map(([label]) => label),
+    ['Committed before 1 April 2025 for a period that began before then and includes the benefit, Schedule 2 item 5(2)(b)',
+      'An exempt car benefit with the car before 1 April 2025, Schedule 2 item 5(2)(d) and (e)']);
+  fields.kind = 'other';
+  assert.equal(result(), null);
+  assert.match(EV_EXEMPT_NOTE, /subsection 135P\(3\)\), reported when the employee’s total for the year is more than \$2,000, unless the car is a pooled or shared car/);
+  const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
+  assert.ok(html.includes('data-year-ended="2027"'));
+  for (const name of Object.keys(fields)) assert.match(html, new RegExp(`name="${name}"`), name);
+});
+
 // The values each form opens with, read from its include: an input's value or
 // checked state, the checked radio's value, and a select's selected option (else its first).
 const formDefaults = (html) => {
@@ -1021,6 +1165,10 @@ Object.assign(FORM_CALLS, {
     return [{ method: f.method, expenses: f.expenses, registerBenefits: f['register-benefits'], registerTotal: f['register-total'],
       firstYear: f['first-year'], earlier }, { ended: yearEnded }];
   },
+  fbtProperty: (f) => [{ method: f.method, price: f.price, notional: f.notional, contribution: f.contribution,
+    incomeUse: f['income-use'], contributionDeduction: f['contribution-deduction'], available: f.available }],
+  fbtExpensePayment: (f) => [{ method: f.method, expenditure: f.expenditure, paid: f.paid, contribution: f.contribution,
+    incomeUse: f['income-use'], portionDeduction: f['portion-deduction'], price: f.price, notional: f.notional, available: f.available }],
 });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
@@ -2116,6 +2264,46 @@ test('FBT loan agrees with the guide’s worked examples at their 5.65% rate', (
   assert.equal(at('2000', '60', '282.50').taxableValue, 0);
 });
 
+// FBTAA ss 42(1), 44(1) and 62, Compilation No. 97, read 19 November 2026: '75% of the lowest price at which
+// that property was so sold to a member of the public'; s 62(1) reduces an employee's in-house total by
+// '$1,000'; s 62(2) 'does not apply to an in-house fringe benefit provided under a salary packaging
+// arrangement'. The forms name only the figures the chosen rule reads and the notes the result rests on.
+test('FBT property and expense payment forms show the rule’s figures and the notes they rest on', () => {
+  const run = (calculator, fields) => {
+    const value = (name) => fields[name] ?? '0';
+    return fbtBenefitResult({ dataset: { calculator } }, calculations, { aud: String, value, money: (name) => `$${value(name)}` });
+  };
+  const desk = run('fbt-property', { method: 'in-house-public-price', price: '900', contribution: '500', available: '1000' });
+  assert.equal(desk.inputs, 'in-house made and sold to the public, 75% of the lowest public price, lowest public price $900, '
+    + 'employee contribution $500, 0% income use, deduction for the contribution $0, in-house reduction left $1000');
+  assert.deepEqual(desk.rows.slice(-2), [['In-house reduction, section 62', '175'], ['Taxable value', '0']]);
+  assert.equal(desk.principal, desk.rows.length - 1);
+  assert.match(desk.note, /^The \$1,000 in-house reduction in section 62 is for all of the employee’s in-house fringe benefits/);
+  const packaged = run('fbt-property', { method: 'in-house-salary-packaging', notional: '2000', available: '1000', 'income-use': '50' });
+  assert.equal(packaged.inputs.startsWith('in-house under salary packaging, the notional value, notional value $2000, employee'), true);
+  assert.equal(packaged.rows.some(([label]) => label.startsWith('In-house reduction')), false);
+  assert.match(packaged.note, /^The otherwise deductible reduction needs the employee’s declaration .*\(paragraph 44\(1\)\(c\)\)/);
+  assert.equal(run('fbt-property', { method: 'external-cost-price', price: '50' }).note, undefined);
+  const bought = run('fbt-property', { method: 'in-house-acquired', price: '500', notional: '750' });
+  assert.match(bought.inputs, /arm’s length purchase price \$500, notional value \$750, employee contribution \$0, .*, in-house reduction left \$0$/);
+  // Guide 9.3: s 22A values the retailer's sale to the employee, goods it bought: the lesser of its cost and the notional value.
+  const petrol = run('fbt-expense-payment', { method: 'in-house-acquired', expenditure: '1000', paid: '250', price: '800',
+    notional: '1000' });
+  assert.deepEqual(petrol.rows.map(([label]) => label), ['In-house value', 'Recipient’s portion', 'Recipient’s portion applied',
+    'Excess portion', 'Value after the portion', 'In-house reduction, section 62', 'Taxable value']);
+  assert.equal(petrol.rows.at(-1)[1], '50');
+  const reimbursed = run('fbt-expense-payment', { method: 'external', expenditure: '500', paid: '250', 'income-use': '80',
+    'portion-deduction': '200' });
+  assert.equal(reimbursed.rows.at(-1)[1], '50');
+  assert.match(reimbursed.note, /evidence paragraph 24\(1\)\(c\) asks for, .*\(paragraph 24\(1\)\(e\)\)$/);
+  // The field note's RD: the employee bore $500 − ($250 − $50) = $300, 80% of it $240; GD $400 less $240 is $160 off $200.
+  const contributed = run('fbt-expense-payment', { method: 'external', expenditure: '500', paid: '250', contribution: '50',
+    'income-use': '80', 'portion-deduction': '240' });
+  assert.equal(contributed.rows.at(-1)[1], '40');
+  assert.throws(() => run('fbt-property', { method: 'in-house-airline' }), { message: 'Choose a valuation rule.' });
+  assert.throws(() => run('fbt-expense-payment', { method: 'external-cost-price' }), { message: 'Choose a valuation rule.' });
+});
+
 // s 19(1)(ba): RD above GD leaves no notional deduction, so the value is not increased. Worked by hand at
 // 8.27%: notional interest $4,135.00 less $4,000.00 accrued is $135.00; GD is 10% of $4,135.00, $413.50.
 test('FBT loan: a deduction for accrued interest above the gross deduction adds nothing', () => {
@@ -2194,8 +2382,10 @@ test('FBT benefits refuse inputs they cannot work', () => {
 
 // The engines the FBT pages port, run on the same cases: see the fixture's engine line.
 test('FBT benefits agree with the australian-accounting engines on every differential case', () => {
-  const { cases } = JSON.parse(readFileSync(new URL('./fbt-engine-differential.json', import.meta.url), 'utf8'));
-  assert.ok(cases.length > 150);
+  const fixture = (file) => JSON.parse(readFileSync(new URL(file, import.meta.url), 'utf8')).cases;
+  const cases = [...fixture('./fbt-engine-differential.json'), ...fixture('./fbt-property-expense-engine-differential.json')];
+  assert.ok(cases.length > 330);
+  for (const name of ['fbtProperty', 'fbtExpensePayment']) assert.ok(cases.filter((c) => c.name === name).length > 75, name);
   for (const { name, source, call, amounts, refused } of cases) {
     if (refused) {
       assert.throws(() => calculations[name](...call), Error, `${source}: the engine refused, ${refused}`);
@@ -3435,6 +3625,142 @@ test('the CGT page opens on the result its calculation gives for the form’s in
     ['Capital gain before the main residence exemption', '$200,000.00']]);
 });
 
+// The small business CGT concessions checker: how each call and result reads.
+const concessionsHtml = readFileSync(new URL('../_includes/calculators/cgt-concessions.html', import.meta.url), 'utf8');
+const concessionDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
+  { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const CONCESSION_WHO = { individual: 'Individual', company: 'Company', trust: 'Trust' };
+const CONCESSION_BUSINESS = { yes: 'business', 'winding-up': 'winding up', no: 'no business' };
+Object.assign(INPUTS, {
+  cgtConcessions: (x) => {
+    const money = (v) => dollars(Number(v));
+    const turnover = (business, amount) => (business === 'yes' ? money(amount) : 'none');
+    const parts = [`${CONCESSION_WHO[x.entity]}${x.asset === 'share' ? ', a share or trust interest' : ''}`
+      + `${x.partnership === 'yes' ? ', a partnership asset' : ''}`, `bought ${concessionDate(x.acquired)}, sold ${concessionDate(x.event)}`,
+    `${CONCESSION_BUSINESS[x.business]}, turnover ${turnover(x.previousBusiness, x.previous)} previous, `
+      + `${turnover(x.earlierBusiness, x.earlier)} before, ${money(x.likely)} likely, ${money(x.actual)} actual`,
+    `net assets ${money(x.netAssets)}${x.passive === 'none' ? '' : `, passively held (${x.passive})`}`,
+    `active ${x.active} days${x.ceased ? `, ceased ${concessionDate(x.ceased)}${x.extension === 'yes' ? ' with a longer period allowed' : ''}` : ''}`,
+    `born ${concessionDate(x.born)}${x.retiring === 'yes' ? ', retiring' : ''}${x.incapacitated === 'yes' ? ', incapacitated' : ''}`];
+    if (x.entity !== 'individual') parts.push(`significant individual ${x.significant}, for 15 years ${x.fifteen}`);
+    parts.push(`choice ${concessionDate(x.choice)}${Number(x.used) ? `, ${money(x.used)} already chosen` : ''}`);
+    return parts.join('; ');
+  },
+});
+Object.assign(FORM_CALLS, { cgtConcessions: (f) => [calculations.cgtConcessionsAnswersOf((name) => f[name])] });
+Object.assign(ENGINE_LABELS, {
+  cgtConcessions: { basic: (v) => `basic conditions ${v ? 'met' : 'not met'}`,
+    turnoverRule: (v) => (v ? `a CGT small business entity by ${v}` : 'not a CGT small business entity'),
+    netAssets: (v) => `net asset value test ${v ? 'met' : 'not met'}`, testDays: (v) => `${v.toLocaleString('en-AU')}-day test period`,
+    activeAsset: (v) => `active asset test ${v ? 'met' : 'not met'}`,
+    fifteenYear: (v) => `15-year exemption ${v ? 'available' : 'not available'}`,
+    reduction: (v) => `50% reduction ${v ? 'applies' : 'does not apply'}`,
+    retirement: (v) => `retirement exemption ${v ? 'available' : 'not available'}`,
+    superContribution: (v) => (v ? 'contributed to super' : 'no super contribution'), retirementLimit: 'limit left',
+    rollover: (v) => `roll-over ${v ? 'available' : 'not available'}`, replacementTo: 'replacement asset period to' },
+});
+const concessionAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+const concessionsBase = () => structuredClone(shownCases['cgt-concessions'].rows[0].call[0]);
+const concessionRow = (x, label) => calculations.cgtConcessionsResult((name) => ({ ...concessionsFields(), ...x })[name], concessionAud)
+  .rows.find(([start]) => start.startsWith(label))?.[1];
+const concessionsFields = () => formDefaults(concessionsHtml);
+
+test('the concessions page opens on a cited example whose rows the example tag can split', () => {
+  const view = calculations.cgtConcessionsResult((name) => concessionsFields()[name], concessionAud);
+  const tag = concessionsHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="0"/);
+  assert.equal(tag[2], view.rows.map((row) => row.join('|')).join(';'));
+  for (const [label, finding] of view.rows) assert.doesNotMatch(`${label}${finding}`, /[;|]/, label);
+  assert.equal(view.rows[0].join('|'), 'Concessions open|50% active asset reduction, retirement exemption and roll-over (Division 152)');
+  assert.match(concessionsHtml, /Compilation No\. 264\), read 19 November 2026/);
+  assert.match(concessionsHtml, /Schedule 1 item 82/);
+  // The explanation gives the band the engine refuses, as the 2,735 and 2,746 day cases bound it.
+  assert.match(concessionsHtml, /7\.5 years is 2,736 to 2,746 days, [^<]*a total from 2,736 to 2,745 is refused/);
+});
+
+// Subsection 152-10(1AA) and section 328-110 (Compilation No. 264, read 19 November 2026): each
+// route to a CGT small business entity, the subsection (3) bar and the partnership's own test.
+test('the concessions rows name the turnover rule, the 2-year bar and a failed basic condition', () => {
+  assert.equal(concessionRow({}, 'CGT small business entity'),
+    'Aggregated turnover for the year, at its end, $1,950,000.00, under $2,000,000 (subsection 328-110(4)): met');
+  assert.equal(concessionRow({ previous: '2200000', earlier: '2300000', likely: '1800000', actual: '2100000' }, 'CGT small business entity'),
+    'No aggregated turnover under $2,000,000 that counts: the likely turnover does not after 2 years at $2,000,000 or more '
+    + '(subsection 328-110(3)): not met');
+  assert.equal(concessionRow({ business: 'no' }, 'CGT small business entity'),
+    'No business carried on in the income year (paragraph 328-110(1)(a)): not met');
+  assert.equal(concessionRow({ partnership: 'yes', 'previous-business': 'no' }, 'Partnership a CGT small business entity'),
+    'Aggregated turnover for the year, at its end, $1,950,000.00, under $2,000,000 (subsection 328-110(4)): met');
+  assert.equal(concessionRow({ 'previous-business': 'no', likely: '1999999.99' }, 'CGT small business entity'),
+    'Likely aggregated turnover for the year $1,999,999.99, under $2,000,000 (subparagraph 328-110(1)(b)(ii)): met');
+  assert.equal(concessionRow({ actual: '2000000', active: '2000' }, 'Basic conditions'),
+    'Not met: none of the 4 tests in paragraph 152-10(1)(c) and the active asset test (paragraph 152-10(1)(d))');
+  assert.equal(concessionRow({ active: '2000' }, 'Basic conditions'), 'Not met: the active asset test (paragraph 152-10(1)(d))');
+});
+
+// Sections 152-305 and 152-325: an individual under 55 contributes to super; a company or trust
+// pays its stakeholders within 7 days, into super for one under 55.
+// Subparagraph 152-35(2)(b)(ii): the 12 months run back from the CGT event, so a business that
+// ceased on 29 February 2024 did not cease in the 12 months before 1 March 2025.
+test('the active asset test period ends at a cessation in the 12 months before the CGT event', () => {
+  const ended = (ceased) => calculations.cgtConcessions({ ...concessionsBase(), acquired: '2014-03-03', event: '2025-03-01',
+    ceased, extension: 'no', active: '2000' });
+  const leap = ended('2024-02-29');
+  assert.deepEqual([leap.testTo, leap.testDays, leap.activeAsset], ['2025-03-01', 4017, false]);
+  const within = ended('2024-03-01');
+  assert.deepEqual([within.testTo, within.testDays, within.activeAsset], ['2024-03-01', 3652, true]);
+  // From 29 February the replacement asset period takes the narrower reading of each end (subsection 104-190(1A)).
+  const leapSale = calculations.cgtConcessions({ ...concessionsBase(), acquired: '2014-03-03', event: '2024-02-29' });
+  assert.deepEqual([leapSale.replacementFrom, leapSale.replacementTo], ['2023-03-01', '2026-02-28']);
+  // Winding up a business carries it on for the CGT small business entity test (subsection 328-110(5)).
+  assert.equal(calculations.cgtConcessions({ ...concessionsBase(), business: 'winding-up' }).smallBusiness, true);
+});
+
+test('the retirement exemption row gives each entity its conditions and the limit left', () => {
+  assert.equal(concessionRow({}, 'Retirement exemption'), 'Available: up to $500,000.00 of the gain left after the 50% reduction '
+    + '(section 152-320), with the exempt amount contributed to a complying super fund or RSA at the later of the choice and '
+    + 'receiving the proceeds, each instalment in turn, as the individual is under 55 just before the choice (subsections '
+    + '152-305(1) and (1A))');
+  assert.equal(concessionRow({ entity: 'company', significant: 'yes', used: '125000.50' }, 'Retirement exemption'),
+    'Available: up to $374,999.50 for this stakeholder, counted as their percentage of what the company or trust disregards '
+    + '(subsections 152-320(1) and (2)), with the lesser of the proceeds received and the exempt amount paid to its CGT '
+    + 'concession stakeholders within 7 days of the later of the choice and receiving the proceeds, each instalment in turn '
+    + '(subsections 152-325(2), (4) and (5)), with the payment contributed to a complying super fund or RSA, telling its '
+    + 'trustee or provider, as the individual is under 55 just before the payment (subsection 152-325(7))');
+  // A company or trust can give its exempt amount to another stakeholder, even a nil percentage to this one.
+  assert.equal(concessionRow({ entity: 'company', significant: 'yes', used: '500000' }, 'Retirement exemption'),
+    'Not available for this stakeholder, whose $500,000 limit is used up; another CGT concession stakeholder with limit '
+    + 'left can take a percentage of the exempt amount (subsections 152-315(2) and (5))');
+  assert.equal(concessionRow({ entity: 'trust' }, 'Retirement exemption'),
+    'Not available: no significant individual just before the CGT event (paragraph 152-305(2)(b))');
+  assert.equal(concessionRow({ used: '500000' }, 'Retirement exemption'), 'Not available: the $500,000 limit is used up (section 152-320)');
+  const fifteen = { acquired: '2005-06-30', active: '7523', born: '1962-05-20', retiring: 'yes' };
+  assert.equal(concessionRow(fifteen, 'Retirement exemption'), 'Not needed: the 15-year exemption disregards the whole gain (section 152-330)');
+  assert.equal(concessionRow(fifteen, '50% active asset reduction'), 'Not needed: the 15-year exemption disregards the whole gain (section 152-215)');
+  assert.equal(concessionRow({ entity: 'company', ...fifteen }, '15-year exemption'), 'Not available, as these are not met: a significant '
+    + 'individual for a total of 15 years of ownership (paragraph 152-110(1)(c)) and a significant individual just before the CGT '
+    + 'event (paragraph 152-110(1)(d))');
+});
+
+test('the concessions engine refuses malformed answers with a reason', () => {
+  const refuses = (fields, message) => assert.throws(() => calculations.cgtConcessions({ ...concessionsBase(), ...fields }), { message });
+  refuses({ entity: 'partnership' }, 'Choose who made the capital gain.');
+  refuses({ partnership: 'yes', passive: 'affiliate' }, 'Subsections 152-10(1A) and (1B) are for an asset that is not your interest in '
+    + 'an asset of a partnership you are a partner in: choose one or the other.');
+  refuses({ passive: 'affiliate' }, /paragraphs 152-10\(1A\)\(b\) and \(1B\)\(c\)/);
+  refuses({ passive: 'partnership', business: 'winding-up' }, /answer No to a business carried on/);
+  refuses({ event: '2020-06-30' }, 'Enter a sale contract from 1 July 2020 to 30 June 2027.');
+  refuses({ acquired: '2026-02-02' }, 'The sale contract must come after the purchase contract.');
+  refuses({ acquired: '2026-02-30' }, 'Enter the date of the purchase contract as a date.');
+  refuses({ business: 'maybe' }, 'Choose whether a business was carried on in the income year.');
+  refuses({ previous: '-1' }, 'Enter an amount between 0 and 1000000000.');
+  refuses({ ceased: '2013-01-01' }, 'Enter the day the business ceased from the purchase to the sale contract.');
+  refuses({ active: '4356' }, 'The days active cannot exceed the 4,355 days of the test period.');
+  refuses({ active: '3000.5' }, 'Enter a whole number between 0 and 100000.');
+  refuses({ born: '2026-02-02' }, 'The date of birth must come before the sale contract.');
+  refuses({ choice: '2026-02-01' }, 'The choice is made on or after the sale contract.');
+  refuses({ used: '500000.01' }, 'The CGT exempt amounts already chosen cannot exceed the $500,000 limit (section 152-320).');
+  refuses({ entity: 'company', significant: '' }, 'Choose whether there was a significant individual just before the CGT event.');
+});
+
 // The unused leave page: how each call and result reads. Its figures come from Schedule 7 for payments
 // from 1 July 2026 and the ATO's examples, read 19 November 2026.
 const leaveHtml = readFileSync(new URL('../_includes/calculators/unused-leave.html', import.meta.url), 'utf8');
@@ -3738,6 +4064,128 @@ test('long service leave words each Act’s misconduct test and states the condi
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
 });
 
+// The workers compensation premium page: how each call and result reads, each scheme's published
+// examples and the edges of its method.
+const wcHtml = readFileSync(new URL('../_includes/calculators/workers-compensation.html', import.meta.url), 'utf8');
+Object.assign(INPUTS, { workersCompensation: (x) => [`${PLACES[x.place]}, wages ${dollars(Number(x.wages))} at ${x.rate}%`,
+  x.apprentice !== '0' && `apprentice wages ${dollars(Number(x.apprentice))}`,
+  x.place === 'AU-NSW' && `dust diseases ${x.dust}%, reward ${x.reward}%`,
+  x.place === 'AU-VIC' && `${x.vicEmployer} employer, ${x.days} days${x.buyout === 'yes' ? ', excess bought out' : ''}`,
+  x.place === 'AU-QLD' && `policy from ${x.qldStart}`,
+  x.place === 'AU-SA' && (x.firstYear === 'yes' ? 'first full year' : `claims ${dollars(Number(x.claims))}`),
+  x.group === 'yes' && 'a member of a group',
+  x.actual !== '' && `actual wages ${dollars(Number(x.actual))}`].filter(Boolean).join(', ') });
+Object.assign(FORM_CALLS, { workersCompensation: (f) => [{ place: f.jurisdiction, wages: f.wages, rate: f.rate, apprentice: f.apprentice,
+  actual: f.actual, group: f.group, dust: f.dust, reward: f.reward, vicEmployer: f['vic-employer'], days: f.days, buyout: f.buyout,
+  qldStart: f['qld-start'], firstYear: f['first-year'], claims: f.claims }] });
+Object.assign(ENGINE_LABELS, { workersCompensation: { premium: 'premium before GST', total: 'payable', actualTotal: 'payable on actual wages',
+  adjustment: 'adjustment' } });
+const wc = (change) => calculations.workersCompensation({ place: 'AU-NT', wages: '400000', rate: '3.5', apprentice: '0', actual: '', group: 'no',
+  dust: '0', reward: '0', vicEmployer: 'new', days: '365', buyout: 'no', qldStart: 'q1', firstYear: 'no', claims: '0', ...change });
+// A refusal where a result is due fails as an assertion, so the mutation check counts it as caught.
+const ok = (change) => {
+  try {
+    return wc(change);
+  } catch (error) {
+    return assert.fail(`${JSON.stringify(change)} was refused: ${error.message}`);
+  }
+};
+
+test('the workers compensation page opens on the result its calculation gives, names every scheme and cites each source with the date read', () => {
+  const example = wcHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(wcHtml);
+  const result = calculations.workersCompensationResult((name) => fields[name], aud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  const radios = [...wcHtml.matchAll(/name="jurisdiction" value="([^"]+)"(?: checked)? \/> ([^<]+)</g)].map(([, code, name]) => [code, name]);
+  assert.deepEqual(radios, Object.entries(calculations.WC_SCHEMES).map(([code, { name }]) => [code, name]));
+  for (const cited of ['Guidelines 2026</a>, for policies issued or renewed from 4 pm on 30 June 2026, read 19 November 2026',
+    '(updated 9 November 2026)', 'and the values WorkSafe set in Gazette S 284 of 2 June 2026, both read 19 November 2026',
+    '(Queensland Government Gazette No. 43, 26 June 2026), read 19 November 2026', '(reprint current from 22 October 2026), read 19 November 2026',
+    'Your premium explained</a>, read 19 November 2026', '(last updated 21 March 2025), read 19 November 2026',
+    'suggested reasonable premium rates for 2026/27, each read 19 November 2026']) {
+    assert.ok(wcHtml.includes(cited), cited);
+  }
+});
+
+test('workers compensation matches each scheme’s published worked figures', () => {
+  // NT WorkSafe's bulletin: $400,000 × 3.50% = $14,000 + $1,400 GST; $500,000 actual gives $19,250, $3,850 more.
+  assert.deepEqual(['total', 'actualTotal', 'adjustment'].map((k) => ok({ actual: '500000' })[k]), [15400, 19250, 3850]);
+  // ReturnToWorkSA's 3 examples, before GST and the WHS fee.
+  for (const [wages, rate, claims, premium] of [['450000', '2', '0', 8550], ['450000', '2', '2500', 9900], ['1000000', '6', '5000', 56000]]) {
+    assert.equal(ok({ place: 'AU-SA', wages, rate, claims }).premium, premium, `${wages} ${claims}`);
+  }
+  // icare's Rob's Restaurant: $1,200,000 at 2.250% is an APP of $27,000; the 7.5% reward takes $2,025 off.
+  const rob = ok({ place: 'AU-NSW', wages: '1200000', rate: '2.25', reward: '7.5' });
+  assert.deepEqual([rob.lines[0][1], rob.lines[1][1], rob.premium], [2700000n, -202500n, 24975]);
+});
+
+test('workers compensation applies each scheme’s thresholds, rounding and minimums at their edges', () => {
+  // SIRA Guidelines 2026 clause 6.7: a basic tariff premium that does not exceed $30,000 is a small employer's.
+  assert.equal(ok({ place: 'AU-NSW', wages: '1000000', rate: '3' }).premium, 30000);
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '1000000.17', rate: '3' }), /\$30,000\.01 is more than \$30,000/);
+  // icare's $240 minimum: $12,000 at 2% is exactly $240 and stands; a cent of premium less is refused.
+  assert.equal(ok({ place: 'AU-NSW', wages: '12000', rate: '2' }).premium, 240);
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '11999.5', rate: '2' }), /\$239\.99 is below icare’s minimum premium of \$240/);
+  // NSW: the apprentice incentive is apprentice wages × the WIC rate, and the dust diseases rate already includes GST.
+  const nsw = ok({ place: 'AU-NSW', wages: '500000', rate: '2', apprentice: '50000', dust: '0.044' });
+  assert.deepEqual([nsw.premium, nsw.gst, nsw.total], [9000, 900, 10120]);
+  // ReturnToWorkSA's discount bands: 5% under $10,000 up to 30% at $1,000,000, each from its lower bound.
+  for (const [base, band] of [['9999.99', 5], ['10000', 10], ['49999.99', 10], ['50000', 15], ['99999.99', 15], ['100000', 20],
+    ['499999.99', 20], ['500000', 25], ['999999.99', 25], ['1000000', 30]]) {
+    const { lines } = ok({ place: 'AU-SA', wages: String(Number(base) * 50), rate: '2' });
+    assert.equal(lines[1][0], `Less discount at ${band}% for a base premium in its band`, base);
+  }
+  // Claims costs are capped at 3 × D × BP, $1,350 on a $9,000 base premium; the premium rounds down to the dollar.
+  assert.equal(ok({ place: 'AU-SA', wages: '450000', rate: '2', claims: '1350' }).premium, 9900);
+  assert.equal(ok({ place: 'AU-SA', wages: '450000', rate: '2', claims: '1349.99' }).premium, 9899);
+  assert.equal(ok({ place: 'AU-SA', wages: '1000', rate: '2' }).premium, 200);
+  assert.equal(ok({ place: 'AU-SA', wages: '450000', rate: '2', firstYear: 'yes', claims: 'not read' }).premium, 9000);
+  // Premiums Order (No. 34) clauses 9 and 11: 2% of $150,000 less 2% of $15,500; the $400 minimum below that.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2' }).premium, 2690);
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', days: '73' }).premium, 2938);
+  // Clause 6(4): the deductible of $84.931507 is $84.93 before it comes off, so $2,915.07, not $2,915.06.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', days: '100' }).premium, 2915.07);
+  assert.equal(ok({ place: 'AU-VIC', wages: '35499', rate: '2' }).premium, 400);
+  assert.equal(ok({ place: 'AU-VIC', wages: '35501', rate: '2' }).premium, 400.02);
+  // Clause 6(6): remuneration to the nearest dollar.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000.49', rate: '2' }).premium, 2690);
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000.50', rate: '2' }).premium, 2690.02);
+  // Clause 10: the buy-out is 0.1 of the WorkCover premium.
+  assert.equal(ok({ place: 'AU-VIC', wages: '150000', rate: '2', buyout: 'yes' }).premium, 2959);
+  // Queensland: 5% duty on the premium and its GST (DA356.1), and section 4.1's minimums by quarter, including both.
+  const qld = ok({ place: 'AU-QLD', wages: '500000', rate: '1.343' });
+  assert.deepEqual([qld.premium, qld.gst, qld.duty, qld.total], [6715, 671.5, 369.33, 7755.83]);
+  for (const [qldStart, minimum] of [['q1', 200], ['q2', 150], ['q3', 100], ['q4', 50]]) {
+    assert.equal(ok({ place: 'AU-QLD', wages: '1000', rate: '1.343', qldStart }).total, minimum, qldStart);
+  }
+  // A premium of $181.31 is under $200 alone, but $209.41 with GST and duty, so no minimum applies.
+  assert.equal(ok({ place: 'AU-QLD', wages: '13500', rate: '1.343' }).total, 209.41);
+});
+
+test('workers compensation refuses what only the insurer decides and malformed input instead of guessing', () => {
+  const rate = 'Enter the rate as a percentage from 0.0001% to 100%, to no more than 4 decimal places.';
+  for (const [change, message] of [[{ place: 'AU-CTH' }, 'Choose the state or territory whose scheme insures the workers.'],
+    [{ group: 'maybe' }, 'Choose whether the employer is a member of a group.'],
+    [{ place: 'AU-VIC', vicEmployer: 'other' }, /performance-rated premium/],
+    [{ place: 'AU-QLD', qldStart: 'existing' }, /simplified or experience-based model/],
+    [{ place: 'AU-SA', group: 'yes' }, /group’s wages or premiums together/],
+    [{ place: 'AU-NSW', apprentice: '400000.01' }, 'Apprentice wages are part of the wages: enter no more than the wages.'],
+    [{ place: 'AU-WA', apprentice: '1' }, 'There is no apprentice deduction for Western Australia here: enter 0 apprentice wages.'],
+    [{ rate: '0' }, rate], [{ rate: '1.00001' }, rate], [{ rate: '' }, rate],
+    [{ wages: '' }, 'Enter the estimated wages in dollars and cents, from $0 to $10,000,000,000.'],
+    [{ actual: '-1' }, 'Enter the actual wages in dollars and cents, from $0 to $10,000,000,000.'],
+    [{ place: 'AU-NSW', dust: '' }, 'Enter the dust diseases rate as a percentage from 0% to 10%, to no more than 4 decimal places.'],
+    [{ place: 'AU-VIC', days: '366' }, 'Enter the days in 2026-27 the employer is registered, from 1 to 365.'],
+    [{ place: 'AU-SA', claims: '' }, 'Enter the claims costs in dollars and cents, from $0 to $10,000,000,000.'],
+    [{ place: 'AU-NSW', wages: '1000000', rate: '2', actual: '1600000' }, /Error: On the actual wages, the average performance premium of \$32,000\.00/]]) {
+    assert.throws(() => wc(change), message instanceof RegExp ? message : { message }, JSON.stringify(change));
+  }
+  // A group does not change a privately set rate × wages, and only the chosen scheme's own answers are read.
+  assert.equal(wc({ group: 'yes' }).total, 15400);
+  assert.equal(wc({ dust: 'x', days: 'x', claims: 'x', vicEmployer: 'x', qldStart: 'x', firstYear: 'x' }).total, 15400);
+});
+
 // ATO Key superannuation rates and thresholds, Table 21, read 19 November 2026: Norfolk Island's
 // transitional rate is 11% for 2026-27 and 7% to 10% for 2022-23 to 2025-26.
 test('the SGC page refuses Norfolk Island salary or wages under either law rather than apply the general rate', () => {
@@ -3752,4 +4200,148 @@ test('the SGC page refuses Norfolk Island salary or wages under either law rathe
       { message: 'Say whether any of the pay is Norfolk Island salary or wages.' }, regime);
   }
   assert.ok(sgcHtml.includes('(Table 21, read 19 November 2026)'));
+});
+
+// The fuel tax credit page: how each call and result reads, the ATO's rates for each period, the
+// small claimant methods and the command it ports, run on the same cases.
+const ftcHtml = readFileSync(new URL('../_includes/calculators/fuel-tax-credits.html', import.meta.url), 'utf8');
+const ftcAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+Object.assign(INPUTS, { fuelTaxCredits: (x) => calculations.fuelInputsText(x, ftcAud) });
+Object.assign(FORM_CALLS, { fuelTaxCredits: (f) => [calculations.fuelFormInput((name) => f[name] ?? '')] });
+Object.assign(ENGINE_LABELS, { fuelTaxCredits: { total: 'fuel tax credits', label7d: (v) => `label 7D ${dollars(v)}` } });
+const ftcLine = (fuel, use, acquired, quantity) => ({ fuel, use, acquired, quantity });
+const ftc = (year, lines, more = {}) => calculations.fuelTaxCredits({ year, lines, ...more });
+const ftcCode = (input) => {
+  try {
+    calculations.fuelTaxCredits(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+test('the fuel tax credit page opens on the result its calculation gives, and names the average price source', () => {
+  const example = ftcHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(ftcHtml);
+  const result = calculations.fuelTaxCreditsResult((name) => fields[name] ?? '', ftcAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  assert.ok(ftcHtml.includes('<a href="https://aip.com.au/pricing/pump-prices-retail/">'));
+  for (const cited of ['(last updated 29 July 2026)', '2022-23</a> (27 June 2024)', '2024-25</a> (29 January 2025)', '2025-26</a> (28 April 2026)',
+    '(last updated 2 June 2021), both read 19 November 2026', 'PCG 2016/2</a>, read 19 November 2026']) {
+    assert.ok(ftcHtml.includes(cited), cited);
+  }
+});
+
+// The liquid fuel rates in cents a litre, heavy vehicle on a public road and all other business uses,
+// typed from the ATO's year pages (QC69964, QC72768, QC102637, QC105117 and QC107638), read
+// 19 November 2026, apart from the module's table.
+const ATO_LIQUID = [['2022-07-01', '0', '22.1'], ['2022-08-01', '0', '23.0'], ['2022-09-29', '18.8', '46.0'], ['2023-02-01', '20.5', '47.7'],
+  ['2023-07-01', '18.9', '47.7'], ['2023-08-01', '20.0', '48.8'], ['2024-02-05', '20.8', '49.6'], ['2024-07-01', '19.1', '49.6'],
+  ['2024-08-05', '20.1', '50.6'], ['2025-02-03', '20.3', '50.8'], ['2025-07-01', '18.4', '50.8'], ['2025-08-04', '19.2', '51.6'],
+  ['2026-02-02', '20.2', '52.6'], ['2026-04-01', '20.6', '20.6'], ['2026-07-01', '20.2', '36.6'], ['2026-08-03', '21.3', '53.7']];
+const yearOf = (iso) => (Number(iso.slice(5, 7)) >= 7 ? `${iso.slice(0, 4)}-${String(Number(iso.slice(2, 4)) + 1).padStart(2, '0')}`
+  : `${Number(iso.slice(0, 4)) - 1}-${iso.slice(2, 4)}`);
+const dayBefore = (iso) => new Date(Date.parse(`${iso}T00:00:00Z`) - 86400000).toISOString().slice(0, 10);
+
+test('each fuel tax credit period takes the ATO’s rate from its first day to its last', () => {
+  assert.deepEqual(calculations.FTC_PERIODS.map((p) => [p.from, p.heavy[0], p.other[0]]), ATO_LIQUID);
+  const ends = [...ATO_LIQUID.slice(1).map(([from]) => dayBefore(from)), '2027-01-31'];
+  ATO_LIQUID.forEach(([from, heavy, other], i) => {
+    for (const day of [from, ends[i]]) {
+      const r = ftc(yearOf(day), [ftcLine('diesel', 'heavy_vehicle_public_road', day, '100'), ftcLine('petrol', 'other_business', day, '100')]);
+      assert.deepEqual(r.lines.map((l) => l.credit), [Number(heavy), Number(other)], day);
+    }
+  });
+  // 192 rates in all: 6 rows in 2 uses for each of the 16 periods, each from an ATO page.
+  assert.equal(calculations.FTC_PERIODS.flatMap((p) => [...p.heavy, ...p.other]).length, 192);
+  assert.ok(calculations.FTC_PERIODS.every((p) => /^QC\d+$/.test(p.page) && /^Table \d$/.test(p.table)));
+});
+
+test('gaseous fuels, blends and B100 take their own rows, LNG and CNG by the kilogram', () => {
+  for (const [fuel, use, day, credit] of [['lng_cng', 'other_business', '2026-09-01', 36.8], ['lng_cng', 'heavy_vehicle_public_road', '2026-07-15', 3.2],
+    ['lng_cng', 'heavy_vehicle_public_road', '2026-09-01', 0], ['lpg', 'other_business', '2026-09-01', 17.5], ['e10', 'other_business', '2023-03-01', 47.7],
+    ['b100', 'other_business', '2023-07-01', 12.7], ['e85', 'heavy_vehicle_public_road', '2026-05-01', 8.87]]) {
+    assert.equal(ftc(yearOf(day), [ftcLine(fuel, use, day, '100')]).lines[0].credit, credit, `${fuel} ${day}`);
+  }
+  assert.equal(ftc('2026-27', [ftcLine('lng_cng', 'other_business', '2026-09-01', '1')]).lines[0].unit, 'kilograms');
+});
+
+test('fuel tax credit lines round half up to the cent and label 7D drops the cents', () => {
+  const r = ftc('2026-27', [ftcLine('e85', 'other_business', '2026-10-01', '300'), ftcLine('diesel', 'other_business', '2026-10-01', '1001')]);
+  assert.deepEqual([r.lines[0].credit, r.lines[1].credit, r.total, r.label7d], [69.05, 537.54, 606.59, 606]);
+  // 0.0001 litre at 53.7 cents is 0.00537 cents: nothing.
+  assert.equal(ftc('2026-27', [ftcLine('diesel', 'other_business', '2026-10-01', '0.0001')]).total, 0);
+});
+
+test('the basic method splits a heavy vehicle’s diesel and takes each rigid truck class’s rate', () => {
+  const vehicle = { method: 'basic_heavy_vehicle', fuel: 'diesel', acquired: '2026-09-30', litres: '11430' };
+  const jim = { ...vehicle, total_km: '32000', rigid_truck_gross_weight_tonnes: '32' };
+  const l = ftc('2026-27', [jim], { small_claimant: true }).lines[0];
+  assert.deepEqual([l.publicRoadKm, l.litresPerKm, l.publicRoadLitres, l.otherLitres, l.publicRoadCredit, l.otherCredit, l.credit],
+    ['31488', '0.35', '11020.8', '409.2', 2347.43, 219.74, 2567.17]);
+  // Actual kilometres and the engine's diagnostic rate, PCG 2021/2 paragraph 9.
+  const actual = ftc('2026-27', [{ ...vehicle, public_road_km: '20000', litres_per_km: '0.493' }], { small_claimant: true }).lines[0];
+  assert.deepEqual([actual.publicRoadLitres, actual.otherLitres], ['9860', '1570']);
+  for (const [weight, rate] of [['4.501', '0.18'], ['12', '0.18'], ['12.001', '0.23'], ['16.5', '0.23'], ['24', '0.28'], ['30', '0.32'], ['30.001', '0.35']]) {
+    const truck = { ...vehicle, public_road_km: '100', rigid_truck_gross_weight_tonnes: weight };
+    assert.equal(ftc('2026-27', [truck], { small_claimant: true }).lines[0].litresPerKm, rate, weight);
+  }
+  assert.equal(ftcCode({ year: '2026-27', lines: [{ ...jim, rigid_truck_gross_weight_tonnes: '4.5' }], small_claimant: true }), 'fuel_tax_credits.simplified_method_unavailable');
+  assert.equal(ftcCode({ year: '2026-27', lines: [{ ...jim, total_km: '40000' }], small_claimant: true }), 'fuel_tax_credits.fact_conflict');
+});
+
+test('PCG 2016/2 Method 1 works out litres from the cost, and Method 2 spans indexation only', () => {
+  const fromCost = (cost) => ({ method: 'litres_from_cost', fuel: 'diesel', use: 'other_business', acquired: '2026-09-30', cost, average_price_cents_per_litre: '245.9' });
+  const r = ftc('2026-27', [fromCost('2459.00'), fromCost('100.00')], { small_claimant: true });
+  assert.deepEqual(r.lines.map((l) => [l.quantity, l.credit]), [['1000.0000', 537], ['40.6669', 21.84]]);
+  const across = (start, end, day) => ftcCode({ year: yearOf(day), lines: [ftcLine('diesel', 'other_business', day, '1000')], small_claimant: true,
+    rate_at_period_end: { start, end } });
+  assert.equal(ftc('2025-26', [ftcLine('diesel', 'other_business', '2026-01-10', '1000')], { small_claimant: true,
+    rate_at_period_end: { start: '2026-01-01', end: '2026-03-31' } }).total, 526);
+  for (const [start, end, day] of [['2022-07-01', '2022-09-30', '2022-07-10'], ['2026-01-01', '2026-06-30', '2026-01-10'], ['2026-07-01', '2026-09-30', '2026-07-10']]) {
+    assert.equal(across(start, end, day), 'fuel_tax_credits.simplified_method_unavailable', start);
+  }
+  // A period that starts on the change day spans no change; one ending after 31 January 2027 has no rate.
+  assert.equal(across('2026-04-01', '2026-06-30', '2026-05-01'), 'computed');
+  assert.equal(across('2027-01-01', '2027-03-31', '2027-01-10'), 'fuel_tax_credits.rate_unpublished');
+  assert.equal(across('2023-01-01', '2023-03-31', '2023-01-10'), 'computed');
+});
+
+test('a line acquired more than 4 years before the return is flagged under subsection 47-5(2) and kept', () => {
+  const lines = [ftcLine('diesel', 'other_business', '2022-11-19', '100'), ftcLine('diesel', 'other_business', '2023-01-05', '100')];
+  assert.deepEqual(ftc('2022-23', lines, { return_date: '2026-11-19' }).timeLimitLines, []);
+  const late = ftc('2022-23', lines, { return_date: '2026-11-20' });
+  assert.deepEqual([late.timeLimitLines, late.total], [[1], 92]);
+  assert.match(late.warnings.join(' '), /subsection 47-5\(2\).*Linfox/);
+  // Section 47-10 relieves only subsection 47-5(1), so it is no exception to this warning.
+  assert.doesNotMatch(late.warnings.join(' '), /47-10/);
+  assert.equal(ftcCode({ year: '2022-23', lines, return_date: '2022-11-18' }), 'fuel_tax_credits.fact_conflict');
+});
+
+test('the fuel tax credit form passes the small claimant answer only with a simplified method', () => {
+  const fields = formDefaults(ftcHtml);
+  const input = (change) => calculations.fuelFormInput((name) => ({ ...fields, ...change })[name] ?? '');
+  assert.equal(input({}).small_claimant, undefined);
+  assert.equal(input({ 'small-claimant': 'yes' }).small_claimant, undefined);
+  assert.equal(input({ 'quantity-2': '', 'cost-2': '100', 'price-2': '200', 'small-claimant': 'yes' }).small_claimant, true);
+  assert.deepEqual(input({ 'basic-litres': '100', 'basic-acquired': '2026-09-01', 'basic-public-km': '10', 'basic-per-km': '0.3' }).lines[2],
+    { method: 'basic_heavy_vehicle', fuel: 'diesel', acquired: '2026-09-01', litres: '100', public_road_km: '10', litres_per_km: '0.3' });
+  assert.throws(() => input({ 'cost-1': '100' }), { message: 'Line 1: enter the litres, or the cost and the average price, not both.' });
+  assert.throws(() => input({ 'quantity-1': '' }), { message: 'Line 1: enter the quantity, or the cost and the average price.' });
+  assert.equal(ftcCode(input({ 'fuel-1': '', 'fuel-2': '' })), 'fuel_tax_credits.lines_invalid');
+});
+
+// The command this page ports, run on the same cases: see the fixture's engine line.
+test('fuel tax credits agree with the australian-accounting command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./fuel-tax-credits-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 200);
+  for (const { source, call, amounts, refused } of cases) {
+    if (refused) {
+      assert.equal(ftcCode(call), refused, source);
+      continue;
+    }
+    const r = calculations.fuelTaxCredits(call);
+    assert.deepEqual({ fuel_tax_credits: r.total.toFixed(2), label_7d: `${r.label7d}.00`, lines: r.lines.map((l) => l.credit.toFixed(2)),
+      time_limit_lines: r.timeLimitLines?.map(String) ?? null }, amounts, source);
+  }
 });

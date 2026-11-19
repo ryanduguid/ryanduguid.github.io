@@ -68,7 +68,7 @@ test('each business calculator tool is keyed by the form that registers it', () 
 test('every calculator tool is read-only, refuses unknown inputs and has its own name', () => {
   const all = [...Object.values(tools), declineInValue, levy];
   assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_schedule',
-    'calculate_hire_purchase_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_decline_in_value',
+    'calculate_hire_purchase_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_fuel_tax_credits', 'calculate_decline_in_value',
     'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -358,7 +358,9 @@ const individual = individualTaxTools(individualEngines);
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
   assert.deepEqual(Object.values(individual).map(t => t.name), ['calculate_income_tests', 'estimate_income_tax',
-    'calculate_take_home_pay', 'calculate_sole_trader_set_aside', 'calculate_division_293_tax']);
+    'calculate_take_home_pay', 'calculate_sole_trader_set_aside', 'calculate_division_293_tax',
+    'calculate_bonus_withholding', 'calculate_salary_packaging',
+    'calculate_novated_lease']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -445,6 +447,60 @@ test('individual tax tools refuse a year they do not offer, cents of taxable inc
     /payPeriod does not match/);
 });
 
+test('salary packaging tool gives the ATO’s FBT example and refuses what the page refuses', async () => {
+  const tool = individual['salary-packaging'];
+  const ato = await tool.execute({ incomeYear: '2026-27', residency: 'resident', employer: 'charity', salary: 80000,
+    typeOneBenefits: '7700', typeTwoBenefits: '9000', mealEntertainment: '3300', mealEntertainmentTypeOne: false });
+  assert.deepEqual([ato.grossedUp, ato.mealEntertainmentAllowed, ato.liableToFbt, ato.fbt, ato.reportableFringeBenefits, ato.source],
+    ['39226.00', '5000.00', '4226.00', '1986.22', '37735.00', 'https://duguid.com.au/tools/individual-tax/salary-packaging/']);
+  const filled = await tool.execute({ incomeYear: '2026-27', residency: 'resident', employer: 'charity', salary: 70000,
+    typeTwoBenefits: '15899.93' });
+  assert.deepEqual([filled.fbt, filled.gainAfterFbt], ['0.00', '5291.50']);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', residency: 'resident', employer: 'rebatable', salary: 1 }),
+    /employer does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2021-22', residency: 'resident', employer: 'charity', salary: 1 }),
+    /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', residency: 'resident', employer: 'charity' }), /salary/);
+  assert.match(tool.description, /rebatable or ordinary employers/);
+  assert.match(tool.inputSchema.properties.employer.description, /predominantly in or supporting its ambulance services/);
+});
+
+test('novated lease tool tests the electric car exemption and refuses what the page refuses', async () => {
+  const tool = individual['novated-lease'];
+  const car = { incomeYear: '2026-27', residency: 'resident', salary: 100000, car: 'bev', firstHeldAndUsedFrom1July2022: true,
+    firstSaleYear: '2026-27', costPrice: '60000', daysAvailable: 365, costsWithGst: '15000', costsWithoutGst: '1000' };
+  const bev = await tool.execute(car);
+  assert.deepEqual([bev.exempt, bev.statutoryValue, bev.exemptCase.saving, bev.exemptCase.reportableFringeBenefits,
+    bev.employeeContributionMethod.saving, bev.source],
+    [true, '12000.00', '6047.48', '22641.00', '1465.69', 'https://duguid.com.au/tools/individual-tax/novated-lease/']);
+  const phev = await tool.execute({ ...car, car: 'phev' });
+  assert.deepEqual([phev.exempt, phev.exemptCase], [false, null]);
+  assert.match(phev.reasonNotExempt, /commitment/);
+  assert.equal((await tool.execute({ ...car, car: 'phev', phevCommitment: true, firstSaleYear: '2024-25' })).exempt, true);
+  assert.match((await tool.execute({ ...car, luxuryCarTaxOnOtherSupply: true })).reasonNotExempt, /another supply or an importation/);
+  await assert.rejects(tool.execute({ ...car, car: 'diesel' }), /car does not match/);
+  await assert.rejects(tool.execute({ ...car, costPrice: undefined }), /costPrice/);
+  assert.match(tool.description, /employee contribution method/);
+});
+
+test('bonus withholding tool gives the ATO’s Schedule 5 examples and refuses what the page refuses', async () => {
+  const tool = individual['bonus-withholding'];
+  const jarrod = await tool.execute({ payPeriod: 'week', residency: 'resident', studyLoan: true, method: 'A', earnings: '1400',
+    additionalPayment: '900' });
+  assert.deepEqual([jarrod.withheldOnEarnings, jarrod.beforeLimit, jarrod.limit, jarrod.withheldOnAdditionalPayment,
+    jarrod.totalWithheld], ['277.00', '364.00', '423.00', '364.00', '641.00']);
+  const bradley = await tool.execute({ payPeriod: 'month', residency: 'resident', studyLoan: true, method: 'B', earnings: '7000',
+    backPayPays: 2, backPayEach: '800', backPayPayEarnings: '6200', backPayPayWithheld: '1257', additionalPayment: '8800',
+    earningsToDate: '19400', paysToDate: 3 });
+  assert.deepEqual([bradley.methodBi, bradley.methodBii, bradley.totalWithheld], ['754.00', '4104.00', '6492.00']);
+  await assert.rejects(tool.execute({ payPeriod: 'year', residency: 'resident', method: 'A', earnings: '1' }), /payPeriod does not match/);
+  await assert.rejects(tool.execute({ payPeriod: 'week', residency: 'working-holiday', method: 'A', earnings: '1' }),
+    /residency does not match/);
+  await assert.rejects(tool.execute({ payPeriod: 'month', residency: 'resident', method: 'A', earnings: '1', additionalPayment: '1',
+    spreadOverPays: 13 }), /between 2 and 12/);
+  assert.match(tool.description, /does not compute scales 1, 5 or 6, a payee without a tax file number, a working holiday maker/);
+});
+
 test('Division 293 tool gives the ATO’s example and refuses what the page refuses', async () => {
   const tool = individual['division-293'];
   const jan = await tool.execute({ incomeYear: '2026-27', accumulationOnly: true, taxableIncome: 240000,
@@ -504,4 +560,21 @@ test('llms.txt and the agent tooling notes name every calculator tool', () => {
     assert.ok(llms.includes(`\`${name}\``), `llms.txt ${name}`);
     assert.ok(notes.includes(`\`${name}\``), `docs/agent-tooling.md ${name}`);
   }
+});
+
+// The fuel tax credit page's example (from 3 August 2026) and the ATO's Jim by the basic method, then refusals.
+test('fuel tax credit tool returns the page worked example and the basic method, and refuses what the page refuses', async () => {
+  const tool = calculatorTools(calculate)['fuel-tax-credits'];
+  const r = await tool.execute({ year: '2026-27', lines: [{ fuel: 'diesel', use: 'heavy_vehicle_public_road', acquired: '2026-09-15', quantity: '10000' },
+    { fuel: 'diesel', use: 'other_business', acquired: '2026-09-15', quantity: '2000' }] });
+  assert.deepEqual([r.fuelTaxCredits, r.label7d, r.lines.map((l) => [l.rateCents, l.credit]), r.currency, r.timeLimitLines],
+    ['3204.00', '3204', [['21.3', '2130.00'], ['53.7', '1074.00']], 'AUD', null]);
+  assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/fuel-tax-credits/');
+  const jim = await tool.execute({ year: '2026-27', smallClaimant: true, lines: [{ method: 'basic_heavy_vehicle', fuel: 'diesel', acquired: '2026-09-30',
+    litres: '11430', totalKm: '32000', rigidTruckGrossWeightTonnes: '32' }] });
+  assert.deepEqual([jim.fuelTaxCredits, jim.lines[0].publicRoadLitres, jim.lines[0].otherLitres], ['2567.17', '11020.8', '409.2']);
+  const base = { year: '2026-27', lines: [{ fuel: 'diesel', use: 'other_business', acquired: '2027-02-01', quantity: '100' }] };
+  await assert.rejects(tool.execute(base), /no published rate is held/);
+  await assert.rejects(tool.execute({ ...base, lines: [{ ...base.lines[0], quantity: 100 }] }), /quantity does not match its description/);
+  await assert.rejects(tool.execute({ ...base, vehicle: 'truck' }), /vehicle is not an input of this tool/);
 });

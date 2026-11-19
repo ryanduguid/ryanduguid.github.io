@@ -105,6 +105,14 @@
 //! per rule. The conventions (a part year as months over 12 and days over 365.25, weeks half
 //! up to 4 places, the value from the exact weeks) are the engine's, so the oracle cannot show
 //! them.
+//!
+//! A further 300 seeded workers compensation premiums, from their own seed, a third of the New
+//! South Wales and South Australian ones a cent either side of the $30,000 average performance
+//! premium or a discount band, type each scheme's thresholds, minimums and duty here from its
+//! source. Victoria's deductible is clause 11 as written, the preliminary premium over the
+//! remuneration, where the engine takes the rate, and South Australia's bands are typed in
+//! dollars and its premium worked as BP × (1 − D) + C − A. Each half-up or round-down step is
+//! the engine's, so the oracle cannot show those conventions.
 mod common;
 
 use jiff::ToSpan;
@@ -3886,10 +3894,11 @@ fn the_vehicle_engine_agrees_with_the_oracle_on_every_seeded_case() {
 
 /// Runs the FBT benefit engines, as `HARNESS` runs the others.
 const FBT_BENEFIT_HARNESS: &str = r"
-import { fbtLoan, fbtMealEntertainment, fbtCarParking } from './assets/business-calculators.mjs';
+import { fbtLoan, fbtMealEntertainment, fbtCarParking, fbtProperty, fbtExpensePayment } from './assets/business-calculators.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
-const engines = { loan: fbtLoan, meal: fbtMealEntertainment, parking: fbtCarParking };
+const engines = { loan: fbtLoan, meal: fbtMealEntertainment, parking: fbtCarParking, property: fbtProperty,
+  expense: fbtExpensePayment };
 const run = ({ kind, inputs, year }) => {
   try {
     return Object.fromEntries(Object.entries(engines[kind](inputs, year))
@@ -4292,6 +4301,261 @@ fn the_fbt_benefit_engines_agree_with_the_oracle_on_every_seeded_case() {
             0 => fbt_loan_case(&mut rng),
             1 => fbt_meal_case(&mut rng),
             _ => fbt_parking_case(&mut rng),
+        })
+        .unzip();
+    let actual = run_node(FBT_BENEFIT_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+// FBT property (Division 11) and expense payment (Division 5) benefits, FBTAA 1986 Compilation
+// No. 97, read 19 November 2026. The oracle takes 75% of a value as 75/100 of it, works the
+// otherwise deductible rule (ss 24(1) and 44(1)) as TV - ND floored at nil, where the engine caps
+// the reduction at the value, and takes s 62's reduction last, capped at what is left. The
+// conventions are shared: 75% of a value and the gross deduction round half up to the cent.
+
+const FBT_PROPERTY_CASES: usize = 240;
+const PROPERTY_METHODS: [&str; 9] = [
+    "in-house-salary-packaging",
+    "in-house-trade-price",
+    "in-house-public-price",
+    "in-house-produced-other",
+    "in-house-acquired",
+    "in-house-other",
+    "external-cost-price",
+    "external-expenditure",
+    "external-notional-value",
+];
+const RESIDUAL_METHODS: [&str; 3] = [
+    "in-house-residual-salary-packaging",
+    "in-house-residual-public-price",
+    "in-house-residual-other",
+];
+
+/// The value `method` gives before any contribution, in cents: ss 42(1), 43, 48 and 49.
+fn fbt_rule_value(method: &str, price: u64, notional: u64) -> u64 {
+    let three_quarters = |cents: u64| exact_half_up(u128::from(cents) * 75, 100) as u64;
+    match method {
+        "in-house-salary-packaging"
+        | "in-house-residual-salary-packaging"
+        | "external-notional-value" => notional,
+        "in-house-trade-price" | "external-cost-price" | "external-expenditure" => price,
+        "in-house-public-price" | "in-house-residual-public-price" => three_quarters(price),
+        "in-house-acquired" => price.min(notional),
+        _ => three_quarters(notional),
+    }
+}
+
+/// Whether s 62 reduces a benefit under `method`: an in-house rule, not salary packaging.
+fn fbt_reduces(method: &str) -> bool {
+    method.starts_with("in-house-") && !method.ends_with("-salary-packaging")
+}
+
+/// A benefit's figures from `gross`: `paid` against it, the otherwise deductible rule where
+/// `deductible` holds (the gross deduction's base, the use in hundredths of 1%, RD), and s 62
+/// where `available` holds.
+fn fbt_benefit_figures(
+    gross: u64,
+    paid: u64,
+    deductible: Option<(u64, u64, u64)>,
+    available: Option<u64>,
+) -> serde_json::Map<String, Value> {
+    let applied = paid.min(gross);
+    let value = gross - applied;
+    let mut figures = vec![
+        ("gross", gross),
+        ("contributionApplied", applied),
+        ("excess", paid - applied),
+        ("valueAfterContribution", value),
+    ];
+    let mut taxable = value;
+    if let Some((base, income_use, rd)) = deductible {
+        let gd = exact_half_up(u128::from(base) * u128::from(income_use), 10_000) as u64;
+        let notional = gd - rd.min(gd);
+        taxable = value.saturating_sub(notional);
+        figures.extend([
+            ("grossDeduction", gd),
+            ("deductionApplied", rd.min(gd)),
+            ("notionalDeduction", notional),
+            ("reduction", value - taxable),
+        ]);
+    }
+    if let Some(available) = available {
+        let s62 = available.min(taxable);
+        taxable -= s62;
+        figures.push(("inHouseReduction", s62));
+    }
+    figures.push(("taxableValue", taxable));
+    figures
+        .into_iter()
+        .map(|(name, cents)| (name.to_owned(), shown(cents).into()))
+        .collect()
+}
+
+/// A percentage in hundredths of 1% as a form field holds it.
+fn hundredths_field(hundredths: u64) -> String {
+    format!("{}.{:02}", hundredths / 100, hundredths % 100)
+}
+
+fn fbt_property_case(rng: &mut Seeded) -> (Value, Value) {
+    let method = rng.pick(&PROPERTY_METHODS);
+    let (price, notional) = (rng.cents(500_000), rng.cents(500_000));
+    let gross = fbt_rule_value(method, price, notional);
+    let any_contribution = rng.below(gross + 2);
+    let large_contribution = rng.cents(500_000);
+    let contribution = rng.pick(&[0, gross, any_contribution, large_contribution]);
+    let any_use = rng.below(10_001);
+    let income_use = rng.pick(&[0, 5_000, 10_000, any_use]);
+    let any_rd = rng.below(contribution + 1);
+    let rd = rng.pick(&[0, contribution, any_rd, any_rd, contribution + 1]);
+    let any_available = rng.below(100_001);
+    let available = rng.pick(&[0, 100_000, any_available]);
+    let inputs = json!({"method": method, "price": dollars(price), "notional": dollars(notional),
+        "contribution": dollars(contribution), "incomeUse": hundredths_field(income_use),
+        "contributionDeduction": dollars(rd), "available": dollars(available)});
+    let expected = if rd > contribution {
+        json!({"refused": "The deduction for the employee’s contribution cannot be more than the contribution."})
+    } else {
+        Value::Object(fbt_benefit_figures(
+            gross,
+            contribution,
+            Some((gross, income_use, rd)),
+            fbt_reduces(method).then_some(available),
+        ))
+    };
+    (json!({"kind": "property", "inputs": inputs}), expected)
+}
+
+fn fbt_expense_case(rng: &mut Seeded) -> (Value, Value) {
+    let in_house: Vec<&str> = PROPERTY_METHODS[..6]
+        .iter()
+        .chain(&RESIDUAL_METHODS)
+        .copied()
+        .collect();
+    let method = if rng.below(3) == 0 {
+        "external"
+    } else {
+        rng.pick(&in_house)
+    };
+    let expenditure = rng.cents(500_000);
+    let any_paid = rng.below(expenditure + 1);
+    let paid = rng.pick(&[0, expenditure, any_paid, any_paid, expenditure + 1]);
+    let any_contribution = rng.below(paid + 1);
+    let contribution = rng.pick(&[0, any_contribution]);
+    let portion = (expenditure + contribution).saturating_sub(paid);
+    let (price, notional) = (rng.cents(500_000), rng.cents(500_000));
+    let any_available = rng.below(100_001);
+    let available = rng.pick(&[0, 100_000, any_available]);
+    let any_use = rng.below(10_001);
+    let any_rd = rng.below(portion + 1);
+    let (income_use, rd) = if method == "external" {
+        (
+            rng.pick(&[0, 8_000, 10_000, any_use]),
+            rng.pick(&[0, portion, any_rd, portion + 1]),
+        )
+    } else {
+        // Most in-house cases leave the otherwise deductible inputs at nil; the rest are refused.
+        rng.pick(&[
+            (0, 0),
+            (0, 0),
+            (0, 0),
+            (any_use.max(1), 0),
+            (0, any_rd.max(1)),
+        ])
+    };
+    let inputs = json!({"method": method, "expenditure": dollars(expenditure), "paid": dollars(paid),
+        "contribution": dollars(contribution), "incomeUse": hundredths_field(income_use),
+        "portionDeduction": dollars(rd), "price": dollars(price), "notional": dollars(notional),
+        "available": dollars(available)});
+    let expected = if paid > expenditure {
+        json!({"refused": "The payment or reimbursement cannot be more than the employee’s expenditure (section 20)."})
+    } else if method == "external" && rd > portion {
+        json!({"refused": "The deduction for the recipient’s portion cannot be more than that portion, the expenditure \
+            less the payment net of the contribution."})
+    } else if method == "external" {
+        Value::Object(fbt_benefit_figures(
+            paid,
+            contribution,
+            Some((expenditure, income_use, rd)),
+            None,
+        ))
+    } else if income_use > 0 || rd > 0 {
+        json!({"refused": "This calculator does not apply the otherwise deductible rule to an in-house expense \
+            payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction."})
+    } else {
+        let mut figures = fbt_benefit_figures(
+            fbt_rule_value(method, price, notional),
+            portion,
+            None,
+            fbt_reduces(method).then_some(available),
+        );
+        figures.insert("recipientsPortion".to_owned(), shown(portion).into());
+        Value::Object(figures)
+    };
+    (json!({"kind": "expense", "inputs": inputs}), expected)
+}
+
+#[test]
+fn the_fbt_property_oracle_works_the_guides_examples_by_hand() {
+    // Guide 17.3: 75% of $900 less $500; $950; 75% of $30 less $5; the lesser of $500 and $750 less $400.
+    let taxable = |figures: serde_json::Map<String, Value>| figures["taxableValue"].clone();
+    let value = |method, price, notional, paid| {
+        taxable(fbt_benefit_figures(
+            fbt_rule_value(method, price, notional),
+            paid,
+            None,
+            None,
+        ))
+    };
+    assert_eq!(value("in-house-public-price", 90_000, 0, 50_000), "175");
+    assert_eq!(value("in-house-trade-price", 95_000, 0, 0), "950");
+    assert_eq!(value("in-house-produced-other", 0, 3_000, 500), "17.5");
+    assert_eq!(value("in-house-acquired", 50_000, 75_000, 40_000), "100");
+    // Guide 17.5: $500 of goods, $250 paid, 80% work use, RD $200 then $150.
+    let deductible = |rd| {
+        taxable(fbt_benefit_figures(
+            50_000,
+            25_000,
+            Some((50_000, 8_000, rd)),
+            None,
+        ))
+    };
+    assert_eq!([deductible(20_000), deductible(15_000)], ["50", "0"]);
+    // Guide 9.3: petroleum the retailer bought for $800, $1,000 spent, $250 reimbursed.
+    assert_eq!(
+        taxable(fbt_benefit_figures(80_000, 75_000, None, Some(0))),
+        "50"
+    );
+    // Guide 9.4: $500 spent, 80% for work, $250 reimbursed and RD $200; $350 and RD $50.
+    let external = |paid, rd| {
+        taxable(fbt_benefit_figures(
+            paid,
+            0,
+            Some((50_000, 8_000, rd)),
+            None,
+        ))
+    };
+    assert_eq!(
+        [external(25_000, 20_000), external(35_000, 5_000)],
+        ["50", "0"]
+    );
+}
+
+#[test]
+fn the_fbt_property_and_expense_payment_engines_agree_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1119_0F8B_0042);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..FBT_PROPERTY_CASES)
+        .map(|index| {
+            if index % 2 == 0 {
+                fbt_property_case(&mut rng)
+            } else {
+                fbt_expense_case(&mut rng)
+            }
         })
         .unzip();
     let actual = run_node(FBT_BENEFIT_HARNESS, &cases);
@@ -7105,6 +7369,317 @@ fn the_lsl_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let (cases, expected): (Vec<_>, Vec<_>) = (0..LSL_CASES).map(|_| lsl_case(&mut rng)).unzip();
     let actual = run_node(LSL_HARNESS, &cases);
     assert_eq!(actual.len(), LSL_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the workers compensation engine, as `HARNESS` runs the others. A refusal is reported as
+/// one, without its wording, which the Node tests hold.
+const WC_HARNESS: &str = r"
+import { workersCompensation } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const shown = (value) => value === null ? null : String(value);
+const run = (inputs) => {
+  try {
+    const r = workersCompensation(inputs);
+    return { premium: shown(r.premium), gst: shown(r.gst), duty: shown(r.duty), total: shown(r.total),
+      actualTotal: shown(r.actualTotal), adjustment: shown(r.adjustment) };
+  } catch {
+    return { refused: true };
+  }
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+const WC_CASES: usize = 300;
+const WC_PLACES: [&str; 8] = [
+    "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+];
+
+/// One employer as the form gives it: money in cents and rates in ten-thousandths of 1%.
+struct WcCase {
+    place: &'static str,
+    wages: i128,
+    rate: i128,
+    apprentice: i128,
+    actual: Option<i128>,
+    group: bool,
+    dust: i128,
+    reward: i128,
+    vic_employer: &'static str,
+    days: i128,
+    buyout: bool,
+    qld_start: &'static str,
+    first_year: bool,
+    claims: i128,
+}
+
+fn wc_half(numerator: i128, denominator: i128) -> i128 {
+    (2 * numerator + denominator) / (2 * denominator)
+}
+
+/// The premium before GST, the GST, the duty and the total on one wages figure, typed from each
+/// scheme's source read on 19 November 2026, or `None` where the source leaves the premium to
+/// the insurer.
+fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
+    let cents_at = |amount: i128, rate: i128| wc_half(amount * rate, 1_000_000);
+    let gst = |premium: i128| wc_half(premium, 10);
+    if c.apprentice > wages {
+        return None;
+    }
+    match c.place {
+        "AU-NSW" => {
+            // SIRA's Guidelines 2026 clause 6.7: small while the APP does not exceed $30,000;
+            // icare's $240 minimum; the dust diseases rate includes its GST.
+            let app = cents_at(wages, c.rate);
+            let premium = app - cents_at(app, c.reward) - cents_at(c.apprentice, c.rate);
+            if app > 3_000_000 || premium < 24_000 {
+                return None;
+            }
+            Some([
+                premium,
+                gst(premium),
+                0,
+                premium + gst(premium) + cents_at(wages, c.dust),
+            ])
+        }
+        "AU-VIC" => {
+            if c.vic_employer == "other" {
+                return None;
+            }
+            // Premiums Order (No. 34): remuneration to the dollar (clause 6(6)), the preliminary
+            // premium in millionths of a dollar, and clause 11 as written, preliminary premium
+            // ÷ R × 15,500 × N ÷ 365 to the nearest cent (clause 6(4)); the WorkCover premium
+            // down to the cent and at least $400.
+            let remuneration = wc_half(wages, 100);
+            let preliminary = remuneration * c.rate;
+            let deductible = if remuneration == 0 {
+                0
+            } else {
+                wc_half(preliminary * 15_500 * c.days, remuneration * 365 * 10_000)
+            };
+            let workcover = ((preliminary - deductible * 10_000).max(0) / 10_000).max(40_000);
+            let premium = workcover + if c.buyout { workcover / 10 } else { 0 };
+            Some([premium, gst(premium), 0, premium + gst(premium)])
+        }
+        "AU-QLD" => {
+            // Notice (No. 1) of 2026 section 4.1: the minimum, including GST and duty, by the
+            // quarter the policy commences.
+            let minimum = match c.qld_start {
+                "q1" => 20_000,
+                "q2" => 15_000,
+                "q3" => 10_000,
+                "q4" => 5_000,
+                _ => return None,
+            };
+            let premium = cents_at(wages, c.rate) - cents_at(c.apprentice, c.rate);
+            // Duties Act 2001 (Qld) s 362(3): 5% of the premium, its GST included.
+            let duty = wc_half((premium + gst(premium)) * 5, 100);
+            if premium + gst(premium) + duty >= minimum {
+                return Some([premium, gst(premium), duty, premium + gst(premium) + duty]);
+            }
+            // Below it, the premium within the minimum is the minimum ÷ 1.155.
+            let within = wc_half(minimum * 1000, 1155);
+            Some([within, gst(within), minimum - within - gst(within), minimum])
+        }
+        "AU-SA" => {
+            // ReturnToWorkSA: BP × (1 − D) + C − A, D by the base premium's band in dollars,
+            // C capped at 3 × D × BP, at least $200 and down to the whole dollar. Hundred-
+            // millionths of a cent: wages × rate is the base premium in millionths of a cent.
+            let d = if c.first_year {
+                0
+            } else {
+                [
+                    (10_000, 5),
+                    (50_000, 10),
+                    (100_000, 15),
+                    (500_000, 20),
+                    (1_000_000, 25),
+                ]
+                .iter()
+                .find(|(dollars, _)| wages * c.rate < dollars * 100_000_000)
+                .map_or(30, |&(_, d)| d)
+            };
+            let base = wages * c.rate * 100;
+            let claims = if c.first_year {
+                0
+            } else {
+                (c.claims * 100_000_000).min(3 * base * d / 100)
+            };
+            let sum = base * (100 - d) / 100 + claims - c.apprentice * c.rate * 100;
+            let dollar = 100 * 100_000_000;
+            let premium = if sum < 200 * dollar {
+                20_000
+            } else {
+                sum / dollar * 100
+            };
+            Some([premium, gst(premium), 0, premium + gst(premium)])
+        }
+        _ => {
+            let premium = cents_at(wages, c.rate);
+            Some([premium, gst(premium), 0, premium + gst(premium)])
+        }
+    }
+}
+
+fn wc_oracle(c: &WcCase) -> Value {
+    let refused = json!({"refused": true});
+    let state = ["AU-NSW", "AU-VIC", "AU-QLD", "AU-SA"].contains(&c.place);
+    let apprentices = ["AU-NSW", "AU-QLD", "AU-SA"].contains(&c.place);
+    if (c.group && state) || (!apprentices && c.apprentice != 0) {
+        return refused;
+    }
+    let Some([premium, gst, duty, total]) = wc_premium(c, c.wages) else {
+        return refused;
+    };
+    let actual = match c.actual.map(|wages| wc_premium(c, wages)) {
+        Some(None) => return refused,
+        found => found.flatten().map(|[.., actual]| actual),
+    };
+    json!({"premium": shown_signed(premium), "gst": shown_signed(gst), "duty": shown_signed(duty),
+        "total": shown_signed(total), "actualTotal": actual.map(shown_signed),
+        "adjustment": actual.map(|actual| shown_signed(actual - total))})
+}
+
+fn wc_case(rng: &mut Seeded) -> (Value, Value) {
+    let most = 1_000_000_000_000;
+    let place = rng.pick(&WC_PLACES);
+    let rate = 1 + i128::from(rng.below(200_000));
+    let mut wages = i128::from(rng.cents(1_000_000_000_000));
+    // A third of the NSW and SA cases sit a cent either side of the $30,000 APP or a band.
+    let bound = match place {
+        "AU-NSW" => 3_000_000,
+        "AU-SA" => rng.pick(&[1_000_000, 5_000_000, 10_000_000, 50_000_000, 100_000_000]),
+        _ => 0,
+    };
+    if bound > 0 && rng.below(3) == 0 {
+        wages = ((bound * 1_000_000 + rate - 1) / rate - i128::from(rng.below(2))).min(most);
+    }
+    let users = ["AU-NSW", "AU-QLD", "AU-SA"].contains(&place);
+    // Apprentice wages up to a cent over the wages, and now and then where no scheme takes them.
+    let apprentice = match (rng.below(3), users) {
+        (0, true) => i128::from(rng.below(u64::try_from(wages).unwrap() + 2)),
+        (0, false) if rng.below(4) == 0 => 1 + i128::from(rng.below(1_000_000)),
+        _ => 0,
+    };
+    let actual = (rng.below(3) == 0).then(|| {
+        (wages * i128::from(80 + rng.below(41)) / 100 + i128::from(rng.below(100))).min(most)
+    });
+    let c = WcCase {
+        place,
+        wages,
+        rate,
+        apprentice,
+        actual,
+        group: rng.below(10) == 0,
+        dust: i128::from(rng.below(2_001)),
+        reward: i128::from(rng.below(150_001)),
+        vic_employer: if rng.below(12) == 0 {
+            "other"
+        } else {
+            rng.pick(&["new", "small"])
+        },
+        days: 1 + i128::from(rng.below(365)),
+        buyout: rng.below(2) == 0,
+        qld_start: if rng.below(12) == 0 {
+            "existing"
+        } else {
+            rng.pick(&["q1", "q2", "q3", "q4"])
+        },
+        first_year: rng.below(4) == 0,
+        claims: i128::from(rng.cents(100_000_000_000)),
+    };
+    let cents = |amount: i128| dollars(u64::try_from(amount).unwrap());
+    let rate_of = |rate: i128| rate_shown(u64::try_from(rate).unwrap());
+    let yes = |answer: bool| if answer { "yes" } else { "no" };
+    let case = json!({"place": c.place, "wages": cents(c.wages), "rate": rate_of(c.rate),
+        "apprentice": cents(c.apprentice), "actual": c.actual.map_or(String::new(), cents),
+        "group": yes(c.group), "dust": rate_of(c.dust), "reward": rate_of(c.reward),
+        "vicEmployer": c.vic_employer, "days": c.days.to_string(), "buyout": yes(c.buyout),
+        "qldStart": c.qld_start, "firstYear": yes(c.first_year), "claims": cents(c.claims)});
+    (case, wc_oracle(&c))
+}
+
+#[test]
+fn the_wc_oracle_works_the_published_examples_by_hand() {
+    let case = |place, wages, rate| WcCase {
+        place,
+        wages,
+        rate,
+        apprentice: 0,
+        actual: None,
+        group: false,
+        dust: 0,
+        reward: 0,
+        vic_employer: "new",
+        days: 365,
+        buyout: false,
+        qld_start: "q1",
+        first_year: false,
+        claims: 0,
+    };
+    // NT WorkSafe's bulletin: $400,000 at 3.50%, then $500,000 actual.
+    let nt = WcCase {
+        actual: Some(50_000_000),
+        ..case("AU-NT", 40_000_000, 35_000)
+    };
+    assert_eq!(
+        wc_oracle(&nt),
+        json!({"premium": "14000", "gst": "1400", "duty": "0", "total": "15400",
+            "actualTotal": "19250", "adjustment": "3850"})
+    );
+    // ReturnToWorkSA's 3 examples: $8,550, $9,900 and $56,000 before GST.
+    let sa = |wages, rate, claims| {
+        wc_premium(
+            &WcCase {
+                claims,
+                ..case("AU-SA", wages, rate)
+            },
+            wages,
+        )
+        .unwrap()[0]
+    };
+    assert_eq!(
+        [
+            sa(45_000_000, 20_000, 0),
+            sa(45_000_000, 20_000, 250_000),
+            sa(100_000_000, 60_000, 500_000)
+        ],
+        [855_000, 990_000, 5_600_000]
+    );
+    // icare's Rob's Restaurant: $1,200,000 at 2.250%, a 7.5% reward, a 0.022% dust diseases rate.
+    let rob = WcCase {
+        reward: 75_000,
+        dust: 220,
+        ..case("AU-NSW", 120_000_000, 22_500)
+    };
+    assert_eq!(
+        wc_premium(&rob, rob.wages),
+        Some([2_497_500, 249_750, 0, 2_773_650])
+    );
+    let vic = case("AU-VIC", 15_000_000, 20_000);
+    assert_eq!(
+        wc_premium(&vic, vic.wages),
+        Some([269_000, 26_900, 0, 295_900])
+    );
+    let qld = case("AU-QLD", 50_000_000, 13_430);
+    assert_eq!(
+        wc_premium(&qld, qld.wages),
+        Some([671_500, 67_150, 36_933, 775_583])
+    );
+}
+
+#[test]
+fn the_wc_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1119_0000_0350);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..WC_CASES).map(|_| wc_case(&mut rng)).unzip();
+    let actual = run_node(WC_HARNESS, &cases);
+    assert_eq!(actual.len(), WC_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

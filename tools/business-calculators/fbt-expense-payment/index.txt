@@ -1,0 +1,61 @@
+# FBT expense payment calculator with the otherwise deductible rule
+
+Source: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
+
+> An expense payment fringe benefit’s taxable value for the FBT year ending 31 March 2027: the payment less the otherwise deductible amount, or by the in-house rules.
+
+# FBT expense payment calculator
+
+An expense payment fringe benefit’s taxable value, by the otherwise deductible rule or the in-house rules.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Inputs for one expense payment fringe benefit, FBT year ending 31 March 2027
+
+Kind of expense payment External: the payment or reimbursement, with the otherwise deductible rule In-house goods under salary packaging: the notional value In-house goods the seller makes and sells to the trade: the lowest arm’s length price In-house goods the seller makes and sells to the public: 75% of the lowest public price In-house goods the seller makes, otherwise: 75% of the notional value In-house goods the seller bought for its business: the lesser of its arm’s length purchase price and the notional value Other in-house goods: 75% of the notional value In-house service under salary packaging: the notional value In-house service the seller provides to the public: 75% of the lowest public price Other in-house service: 75% of the notional value Employee’s expenditure before any reimbursement (AUD) Your payment or reimbursement of it (AUD) Payments only: employee contribution towards your payment (AUD) External only: share of the expenditure giving a once-only deduction (%) External only: employee’s deduction for the part they bore (AUD) In-house price rules only: the lowest price or arm’s length price, with GST (AUD) In-house notional value: what the employee would pay at arm’s length (AUD) In-house rules other than salary packaging: the employee’s $1,000 in-house reduction left this year (AUD)
+
+Where your payment ignored the business share, the employee’s deduction for their part is (expenditure − payment net of their contribution) × the share; where it covered that share, expenditure × the share − that net payment, never below nil.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: external, expenditure $500.00, paid or reimbursed $250.00, employee contribution $0.00, 80% income use, deduction for the recipient’s portion $200.00. Payment or reimbursement $250.00 Employee contribution applied $0.00 Excess contribution $0.00 Value after the contribution $250.00 Gross deduction $400.00 Deduction for the recipient’s portion applied $200.00 Notional deduction $200.00 Otherwise deductible reduction $200.00 Taxable value $50.00 The otherwise deductible reduction needs the evidence paragraph 24(1)(c) asks for, usually documentary evidence of the expenditure, and for most payments the employee’s declaration before the declaration date (paragraph 24(1)(e)).
+
+## How the FBT expense payment calculator works
+
+The FBT expense payment calculator values one expense payment fringe benefit in the FBT year from 1 April 2026 to 31 March 2027: your payment of an employee’s expenditure to a third party, or your reimbursement of it. An external expense payment is valued at the payment, less any contribution the employee made towards it, or at the reimbursement. Where the employee could have deducted the expenditure at once, the otherwise deductible rule reduces the value: the gross deduction is the expenditure × the share that would be deductible; the notional deduction is that less the deduction for the part the employee bore. The taxable value is the payment less the contribution and the notional deduction, never below nil.
+
+Where the employee bought goods or a service that you, or an associate, sell to customers in the ordinary course of business, the payment is an in-house expense payment. The calculator values the goods or service by the in-house rule that applies to the seller, as if the seller’s sale to the employee were an in-house benefit (section 22A), and takes off the part of the expenditure the employee bore, the expenditure less your payment net of their contribution, then the part of the employee’s $1,000 in-house reduction for the year that their other in-house benefits have not used, outside salary packaging.
+
+This page opens on the first example in section 9.4 of the ATO’s guide for employers: an employee spends $500, 80% for work, and you reimburse $250 without regard to the business share. The gross deduction of $400 less the employee’s deduction of ($500 − $250) × 80% = $200 leaves a notional deduction of $200, so the taxable value is $250 − $200 = $50. The tests also hold the guide’s second section 9.4 example and its section 9.3 in-house example.
+
+## What the FBT expense payment calculator does not cover
+
+The calculator does not decide whether an expense payment fringe benefit arises or whether an exemption applies, such as a no-private-use declaration (section 20A), accommodation away from home (section 21), car expenses (section 22) or the exemptions in Division 13. It does not apply the otherwise deductible rule to an in-house expense payment (subparagraph 24(1)(b)(i)): choose 0% and $0 for one. It does not value airline transport, a car expense, whose otherwise deductible amount follows the car substantiation rules, an expense paid for an employee and an associate jointly, whose reduction is limited to the employee’s interest, the reduction for entertainment of others in section 63A, the living-away-from-home food reduction in section 63, or several payments for the same expenditure (subsection 22A(4)). It does not check the documentary evidence, declaration or travel diary the otherwise deductible rule needs (paragraphs 24(1)(c) to (e)) or work out the employee’s deduction. It values one benefit: the $1,000 in-house reduction is for all of an employee’s in-house fringe benefits in the year, so enter what the others have not used. Goods or services you buy and give an employee, or buy on your credit card, are property or residual benefits, not expense payments. It stops at the taxable value and does not gross it up or work out FBT. Confirm the figures with the ATO’s guide or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: FBT expense payment calculator
+
+Case | Inputs | Result
+The guide’s section 9.4: $500 spent, 80% for work, $250 reimbursed without regard to it | external, expenditure $500.00, paid $250.00, contribution $0.00, income use 80%, deduction $200.00, price $0.00, notional value $0.00, in-house reduction left $0.00 | Value before contributions $250.00, value after the contribution $250.00, gross deduction $400.00, deduction applied $200.00, notional deduction $200.00, reduction $200.00, taxable value $50.00
+The guide’s section 9.4: $350 reimbursed for the business share, RD $50, nil | external, expenditure $500.00, paid $350.00, contribution $0.00, income use 80%, deduction $50.00, price $0.00, notional value $0.00, in-house reduction left $0.00 | Value before contributions $350.00, deduction applied $50.00, notional deduction $350.00, reduction $350.00, taxable value $0.00
+A payment less the employee’s contribution towards it | external, expenditure $1,000.00, paid $1,000.00, contribution $300.00, income use 0%, deduction $0.00, price $0.00, notional value $0.00, in-house reduction left $0.00 | Value before contributions $1,000.00, contribution applied $300.00, taxable value $700.00
+The guide’s section 9.3: the retailer’s petroleum, bought for $800 and sold for $1,000, $250 reimbursed | in-house-acquired, expenditure $1,000.00, paid $250.00, contribution $0.00, income use 0%, deduction $0.00, price $800.00, notional value $1,000.00, in-house reduction left $0.00 | Recipient’s portion $750.00, value before contributions $800.00, contribution applied $750.00, value after the contribution $50.00, in-house reduction $0.00, taxable value $50.00
+The same petroleum inside the employee’s unused $1,000 in-house reduction: nil | in-house-acquired, expenditure $1,000.00, paid $250.00, contribution $0.00, income use 0%, deduction $0.00, price $800.00, notional value $1,000.00, in-house reduction left $1,000.00 | In-house reduction $50.00, taxable value $0.00
+An in-house service reimbursed in full under salary packaging: the notional value, no in-house reduction | in-house-residual-salary-packaging, expenditure $120.00, paid $120.00, contribution $0.00, income use 0%, deduction $0.00, price $0.00, notional value $120.00, in-house reduction left $1,000.00 | Recipient’s portion $0.00, value before contributions $120.00, taxable value $120.00
+A payment above the expenditure is refused | external, expenditure $100.00, paid $100.01, contribution $0.00, income use 0%, deduction $0.00, price $0.00, notional value $0.00, in-house reduction left $0.00 | Refused: the payment or reimbursement cannot be more than the employee’s expenditure (section 20)
+A deduction above the part the employee bore is refused | external, expenditure $100.00, paid $60.00, contribution $10.00, income use 0%, deduction $50.01, price $0.00, notional value $0.00, in-house reduction left $0.00 | Refused: the deduction for the recipient’s portion cannot be more than that portion, the expenditure less the payment net of the contribution
+The otherwise deductible rule for an in-house expense payment is refused, not applied | in-house-other, expenditure $100.00, paid $100.00, contribution $0.00, income use 50%, deduction $0.00, price $0.00, notional value $100.00, in-house reduction left $0.00 | Refused: this calculator does not apply the otherwise deductible rule to an in-house expense payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction
+
+One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00010
+- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
