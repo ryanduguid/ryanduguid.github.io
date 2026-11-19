@@ -271,6 +271,13 @@ const count = (n, word) => `${n.toLocaleString('en-AU')} ${word}${n === 1 ? '' :
  * @param {(amount: number) => string} aud money as the page writes it */
 export function sgcPaydayResult(value, aud) {
   const money = (/** @type {string} */ name) => aud(cents(value(name)) / 100);
+  // ATO Key superannuation rates and thresholds, Table 21 (last updated 17 April 2026, read 19 November 2026):
+  // the transitional rate for Norfolk Island is 11% for 2026-27 and 7% to 10% for 2022-23 to 2025-26, below
+  // the general rate both charges here apply.
+  if (value('location') === 'norfolk-island') {
+    throw new Error('Norfolk Island has a lower transitional super guarantee rate (11% for 2026-27), which this calculator does not apply.');
+  }
+  if (value('location') !== 'elsewhere') throw new Error('Choose where the employee works.');
   if (value('regime') === 'quarter') {
     const inputs = /** @type {QuarterCharge} */ ({ year: value('year'), quarter: value('quarter'), wages: value('wages'),
       ote: value('ote'), contributions: value('contributions'), lodged: value('statement') });
