@@ -266,6 +266,16 @@ const sgcDue: number = calculate.paydaySuperDue(sgcPay).due;
 calculate.quarterlySgCharge({ year: '2026-27', quarter: '1', wages: '1', ote: '1', contributions: '0', lodged: '2026-11-20' });
 void sgcCharge;
 void sgcDue;
+const concessionAnswers = { entity: 'individual', partnership: 'no', asset: 'business', acquired: '2014-03-03', event: '2026-02-02',
+  business: 'yes', previousBusiness: 'yes', previous: '2150000', earlierBusiness: 'yes', earlier: '1900000', likely: '2100000',
+  actual: '1950000', netAssets: '6200000', passive: 'none', ceased: '', extension: 'no', active: '3000', born: '1975-08-14',
+  retiring: 'no', incapacitated: 'no', significant: 'no', fifteen: 'no', choice: '2026-10-31', used: '0' } as const;
+const concessionsOpen: boolean = calculate.cgtConcessions(concessionAnswers).basic;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.cgtConcessions({ ...concessionAnswers, netAssets: 6200000 });
+// @ts-expect-error The entity is an individual, a company or a trust.
+calculate.cgtConcessions({ ...concessionAnswers, entity: 'partnership' });
+void concessionsOpen;
 const leaveInput = { place: 'AU-NSW', start: '2014-02-01', end: '2026-07-31', excluded: '0', taken: '0', mode: 'ends',
   reason: 'redundancy', pay: '1500' } as const;
 const leaveWeeks: number = calculate.longServiceLeave(leaveInput).weeks;

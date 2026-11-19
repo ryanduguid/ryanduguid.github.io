@@ -3443,6 +3443,142 @@ test('the SGC page opens on the result its calculation gives for the form’s in
   assert.equal(quarter.rows.at(-1).join('|'), 'SG charge for the quarter|$1,519.18');
 });
 
+// The small business CGT concessions checker: how each call and result reads.
+const concessionsHtml = readFileSync(new URL('../_includes/calculators/cgt-concessions.html', import.meta.url), 'utf8');
+const concessionDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
+  { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const CONCESSION_WHO = { individual: 'Individual', company: 'Company', trust: 'Trust' };
+const CONCESSION_BUSINESS = { yes: 'business', 'winding-up': 'winding up', no: 'no business' };
+Object.assign(INPUTS, {
+  cgtConcessions: (x) => {
+    const money = (v) => dollars(Number(v));
+    const turnover = (business, amount) => (business === 'yes' ? money(amount) : 'none');
+    const parts = [`${CONCESSION_WHO[x.entity]}${x.asset === 'share' ? ', a share or trust interest' : ''}`
+      + `${x.partnership === 'yes' ? ', a partnership asset' : ''}`, `bought ${concessionDate(x.acquired)}, sold ${concessionDate(x.event)}`,
+    `${CONCESSION_BUSINESS[x.business]}, turnover ${turnover(x.previousBusiness, x.previous)} previous, `
+      + `${turnover(x.earlierBusiness, x.earlier)} before, ${money(x.likely)} likely, ${money(x.actual)} actual`,
+    `net assets ${money(x.netAssets)}${x.passive === 'none' ? '' : `, passively held (${x.passive})`}`,
+    `active ${x.active} days${x.ceased ? `, ceased ${concessionDate(x.ceased)}${x.extension === 'yes' ? ' with a longer period allowed' : ''}` : ''}`,
+    `born ${concessionDate(x.born)}${x.retiring === 'yes' ? ', retiring' : ''}${x.incapacitated === 'yes' ? ', incapacitated' : ''}`];
+    if (x.entity !== 'individual') parts.push(`significant individual ${x.significant}, for 15 years ${x.fifteen}`);
+    parts.push(`choice ${concessionDate(x.choice)}${Number(x.used) ? `, ${money(x.used)} already chosen` : ''}`);
+    return parts.join('; ');
+  },
+});
+Object.assign(FORM_CALLS, { cgtConcessions: (f) => [calculations.cgtConcessionsAnswersOf((name) => f[name])] });
+Object.assign(ENGINE_LABELS, {
+  cgtConcessions: { basic: (v) => `basic conditions ${v ? 'met' : 'not met'}`,
+    turnoverRule: (v) => (v ? `a CGT small business entity by ${v}` : 'not a CGT small business entity'),
+    netAssets: (v) => `net asset value test ${v ? 'met' : 'not met'}`, testDays: (v) => `${v.toLocaleString('en-AU')}-day test period`,
+    activeAsset: (v) => `active asset test ${v ? 'met' : 'not met'}`,
+    fifteenYear: (v) => `15-year exemption ${v ? 'available' : 'not available'}`,
+    reduction: (v) => `50% reduction ${v ? 'applies' : 'does not apply'}`,
+    retirement: (v) => `retirement exemption ${v ? 'available' : 'not available'}`,
+    superContribution: (v) => (v ? 'contributed to super' : 'no super contribution'), retirementLimit: 'limit left',
+    rollover: (v) => `roll-over ${v ? 'available' : 'not available'}`, replacementTo: 'replacement asset period to' },
+});
+const concessionAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+const concessionsBase = () => structuredClone(shownCases['cgt-concessions'].rows[0].call[0]);
+const concessionRow = (x, label) => calculations.cgtConcessionsResult((name) => ({ ...concessionsFields(), ...x })[name], concessionAud)
+  .rows.find(([start]) => start.startsWith(label))?.[1];
+const concessionsFields = () => formDefaults(concessionsHtml);
+
+test('the concessions page opens on a cited example whose rows the example tag can split', () => {
+  const view = calculations.cgtConcessionsResult((name) => concessionsFields()[name], concessionAud);
+  const tag = concessionsHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="0"/);
+  assert.equal(tag[2], view.rows.map((row) => row.join('|')).join(';'));
+  for (const [label, finding] of view.rows) assert.doesNotMatch(`${label}${finding}`, /[;|]/, label);
+  assert.equal(view.rows[0].join('|'), 'Concessions open|50% active asset reduction, retirement exemption and roll-over (Division 152)');
+  assert.match(concessionsHtml, /Compilation No\. 264\), read 19 November 2026/);
+  assert.match(concessionsHtml, /Schedule 1 item 82/);
+  // The explanation gives the band the engine refuses, as the 2,735 and 2,746 day cases bound it.
+  assert.match(concessionsHtml, /7\.5 years is 2,736 to 2,746 days, [^<]*a total from 2,736 to 2,745 is refused/);
+});
+
+// Subsection 152-10(1AA) and section 328-110 (Compilation No. 264, read 19 November 2026): each
+// route to a CGT small business entity, the subsection (3) bar and the partnership's own test.
+test('the concessions rows name the turnover rule, the 2-year bar and a failed basic condition', () => {
+  assert.equal(concessionRow({}, 'CGT small business entity'),
+    'Aggregated turnover for the year, at its end, $1,950,000.00, under $2,000,000 (subsection 328-110(4)): met');
+  assert.equal(concessionRow({ previous: '2200000', earlier: '2300000', likely: '1800000', actual: '2100000' }, 'CGT small business entity'),
+    'No aggregated turnover under $2,000,000 that counts: the likely turnover does not after 2 years at $2,000,000 or more '
+    + '(subsection 328-110(3)): not met');
+  assert.equal(concessionRow({ business: 'no' }, 'CGT small business entity'),
+    'No business carried on in the income year (paragraph 328-110(1)(a)): not met');
+  assert.equal(concessionRow({ partnership: 'yes', 'previous-business': 'no' }, 'Partnership a CGT small business entity'),
+    'Aggregated turnover for the year, at its end, $1,950,000.00, under $2,000,000 (subsection 328-110(4)): met');
+  assert.equal(concessionRow({ 'previous-business': 'no', likely: '1999999.99' }, 'CGT small business entity'),
+    'Likely aggregated turnover for the year $1,999,999.99, under $2,000,000 (subparagraph 328-110(1)(b)(ii)): met');
+  assert.equal(concessionRow({ actual: '2000000', active: '2000' }, 'Basic conditions'),
+    'Not met: none of the 4 tests in paragraph 152-10(1)(c) and the active asset test (paragraph 152-10(1)(d))');
+  assert.equal(concessionRow({ active: '2000' }, 'Basic conditions'), 'Not met: the active asset test (paragraph 152-10(1)(d))');
+});
+
+// Sections 152-305 and 152-325: an individual under 55 contributes to super; a company or trust
+// pays its stakeholders within 7 days, into super for one under 55.
+// Subparagraph 152-35(2)(b)(ii): the 12 months run back from the CGT event, so a business that
+// ceased on 29 February 2024 did not cease in the 12 months before 1 March 2025.
+test('the active asset test period ends at a cessation in the 12 months before the CGT event', () => {
+  const ended = (ceased) => calculations.cgtConcessions({ ...concessionsBase(), acquired: '2014-03-03', event: '2025-03-01',
+    ceased, extension: 'no', active: '2000' });
+  const leap = ended('2024-02-29');
+  assert.deepEqual([leap.testTo, leap.testDays, leap.activeAsset], ['2025-03-01', 4017, false]);
+  const within = ended('2024-03-01');
+  assert.deepEqual([within.testTo, within.testDays, within.activeAsset], ['2024-03-01', 3652, true]);
+  // From 29 February the replacement asset period takes the narrower reading of each end (subsection 104-190(1A)).
+  const leapSale = calculations.cgtConcessions({ ...concessionsBase(), acquired: '2014-03-03', event: '2024-02-29' });
+  assert.deepEqual([leapSale.replacementFrom, leapSale.replacementTo], ['2023-03-01', '2026-02-28']);
+  // Winding up a business carries it on for the CGT small business entity test (subsection 328-110(5)).
+  assert.equal(calculations.cgtConcessions({ ...concessionsBase(), business: 'winding-up' }).smallBusiness, true);
+});
+
+test('the retirement exemption row gives each entity its conditions and the limit left', () => {
+  assert.equal(concessionRow({}, 'Retirement exemption'), 'Available: up to $500,000.00 of the gain left after the 50% reduction '
+    + '(section 152-320), with the exempt amount contributed to a complying super fund or RSA at the later of the choice and '
+    + 'receiving the proceeds, each instalment in turn, as the individual is under 55 just before the choice (subsections '
+    + '152-305(1) and (1A))');
+  assert.equal(concessionRow({ entity: 'company', significant: 'yes', used: '125000.50' }, 'Retirement exemption'),
+    'Available: up to $374,999.50 for this stakeholder, counted as their percentage of what the company or trust disregards '
+    + '(subsections 152-320(1) and (2)), with the lesser of the proceeds received and the exempt amount paid to its CGT '
+    + 'concession stakeholders within 7 days of the later of the choice and receiving the proceeds, each instalment in turn '
+    + '(subsections 152-325(2), (4) and (5)), with the payment contributed to a complying super fund or RSA, telling its '
+    + 'trustee or provider, as the individual is under 55 just before the payment (subsection 152-325(7))');
+  // A company or trust can give its exempt amount to another stakeholder, even a nil percentage to this one.
+  assert.equal(concessionRow({ entity: 'company', significant: 'yes', used: '500000' }, 'Retirement exemption'),
+    'Not available for this stakeholder, whose $500,000 limit is used up; another CGT concession stakeholder with limit '
+    + 'left can take a percentage of the exempt amount (subsections 152-315(2) and (5))');
+  assert.equal(concessionRow({ entity: 'trust' }, 'Retirement exemption'),
+    'Not available: no significant individual just before the CGT event (paragraph 152-305(2)(b))');
+  assert.equal(concessionRow({ used: '500000' }, 'Retirement exemption'), 'Not available: the $500,000 limit is used up (section 152-320)');
+  const fifteen = { acquired: '2005-06-30', active: '7523', born: '1962-05-20', retiring: 'yes' };
+  assert.equal(concessionRow(fifteen, 'Retirement exemption'), 'Not needed: the 15-year exemption disregards the whole gain (section 152-330)');
+  assert.equal(concessionRow(fifteen, '50% active asset reduction'), 'Not needed: the 15-year exemption disregards the whole gain (section 152-215)');
+  assert.equal(concessionRow({ entity: 'company', ...fifteen }, '15-year exemption'), 'Not available, as these are not met: a significant '
+    + 'individual for a total of 15 years of ownership (paragraph 152-110(1)(c)) and a significant individual just before the CGT '
+    + 'event (paragraph 152-110(1)(d))');
+});
+
+test('the concessions engine refuses malformed answers with a reason', () => {
+  const refuses = (fields, message) => assert.throws(() => calculations.cgtConcessions({ ...concessionsBase(), ...fields }), { message });
+  refuses({ entity: 'partnership' }, 'Choose who made the capital gain.');
+  refuses({ partnership: 'yes', passive: 'affiliate' }, 'Subsections 152-10(1A) and (1B) are for an asset that is not your interest in '
+    + 'an asset of a partnership you are a partner in: choose one or the other.');
+  refuses({ passive: 'affiliate' }, /paragraphs 152-10\(1A\)\(b\) and \(1B\)\(c\)/);
+  refuses({ passive: 'partnership', business: 'winding-up' }, /answer No to a business carried on/);
+  refuses({ event: '2020-06-30' }, 'Enter a sale contract from 1 July 2020 to 30 June 2027.');
+  refuses({ acquired: '2026-02-02' }, 'The sale contract must come after the purchase contract.');
+  refuses({ acquired: '2026-02-30' }, 'Enter the date of the purchase contract as a date.');
+  refuses({ business: 'maybe' }, 'Choose whether a business was carried on in the income year.');
+  refuses({ previous: '-1' }, 'Enter an amount between 0 and 1000000000.');
+  refuses({ ceased: '2013-01-01' }, 'Enter the day the business ceased from the purchase to the sale contract.');
+  refuses({ active: '4356' }, 'The days active cannot exceed the 4,355 days of the test period.');
+  refuses({ active: '3000.5' }, 'Enter a whole number between 0 and 100000.');
+  refuses({ born: '2026-02-02' }, 'The date of birth must come before the sale contract.');
+  refuses({ choice: '2026-02-01' }, 'The choice is made on or after the sale contract.');
+  refuses({ used: '500000.01' }, 'The CGT exempt amounts already chosen cannot exceed the $500,000 limit (section 152-320).');
+  refuses({ entity: 'company', significant: '' }, 'Choose whether there was a significant individual just before the CGT event.');
+});
+
 // The unused leave page: how each call and result reads. Its figures come from Schedule 7 for payments
 // from 1 July 2026 and the ATO's examples, read 19 November 2026.
 const leaveHtml = readFileSync(new URL('../_includes/calculators/unused-leave.html', import.meta.url), 'utf8');
