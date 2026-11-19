@@ -125,6 +125,9 @@
     "tools/bas-due-dates/index.html": [
       "0cd228c7fb91aae4af73006d6ec4dd8fdbc67f341b2466fc721ea4dada27f930"
     ],
+    "tools/business-calculators/borrowing-expenses/index.html": [
+      "f5661580fa97a81922142d07158b6e69f25d0df5542f310c0c71a9211abd2498"
+    ],
     "tools/business-calculators/break-even/index.html": [
       "af623f4039e036a9ef612948565c5d4d8eee6221daaefa39832be3353340eff0"
     ],
@@ -136,6 +139,12 @@
     ],
     "tools/business-calculators/cash/index.html": [
       "f39459d528bd96610d20b36c8914bbb34e3d7a9ffa3a6d7a4c13f8b914217496"
+    ],
+    "tools/business-calculators/cgt-concessions/index.html": [
+      "924871e8fc07407e0d5afb5ce82dc94fd6a252508ae5bc0e4420d262db46f67a"
+    ],
+    "tools/business-calculators/cgt/index.html": [
+      "92814ae5850e078caf05fcd16d4923aa7735f3e5d8ac98f9fb2fc9611306095e"
     ],
     "tools/business-calculators/company-tax/index.html": [
       "b3b965f4611802ef5b3553ac3d4fa1d4b100c8743eaf59b677cd66ad0422563b"
@@ -358,9 +367,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "6cb0f352f223dd3ba9d1f61f47af1e057b4918a484c59d50ad7d9162f79ad359",
+    "llms.txt": "72402b09ba733a359c1f910827f4c56f8b7a7b62f5911fd9d0fffc59f4f0bba8",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "8e30c73abacd3c9365749f101a96b4eb760ee023f1aaf26e35b4383ddb82d770"
+    "sitemap.xml": "f67cc5148b80ac6265f96048181a09405db4ffc5444c6eee8e20233a48214010"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -420,7 +429,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7788,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7791,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

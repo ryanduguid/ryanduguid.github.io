@@ -52,7 +52,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Thirty-nine calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
+        <p class="lead-note">Forty-one calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
@@ -70,6 +70,7 @@
           <li id="variance"><a class="collection-entry__title" href="/tools/business-calculators/variance/">Budget variance calculator</a> Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.</li>
           <li id="loan"><a class="collection-entry__title" href="/tools/business-calculators/loan/">Loan repayment schedule calculator</a> Every payment of a loan, weekly to yearly, in arrears or in advance, with an optional balloon; works out the payment, the amount, the term or the rate, with CSV export.</li>
           <li id="hire-purchase"><a class="collection-entry__title" href="/tools/business-calculators/hire-purchase/">Hire purchase and chattel mortgage schedule</a> The same schedule for a hire purchase agreement or chattel mortgage, with the interest by income year and a journal for each payment.</li>
+          <li id="borrowing-expenses"><a class="collection-entry__title" href="/tools/business-calculators/borrowing-expenses/">Borrowing expenses calculator</a> Section 25-25 borrowing expenses by income year from 2017-18, spread by days, with the $100 rule, refinancing and an optional AASB 9 column.</li>
         </ul>
         <h2>Division 7A, FBT, professional firms and GIC</h2>
         <ul class="calculator-list">
@@ -88,6 +89,11 @@
           <li id="division-296"><a class="collection-entry__title" href="/tools/business-calculators/division-296/">Division 296 tax calculator</a> One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.</li>
           <li id="psi-determination"><a class="collection-entry__title" href="/tools/business-calculators/psi-determination/">PSI rules checker</a> Whether the personal services income rules apply, step by step through Divisions 84 to 87.</li>
           <li id="company-tax"><a class="collection-entry__title" href="/tools/business-calculators/company-tax/">Company tax and franking calculator</a> A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.</li>
+        </ul>
+        <h2>Capital gains tax</h2>
+        <ul class="calculator-list">
+          <li id="cgt"><a class="collection-entry__title" href="/tools/business-calculators/cgt/">Capital gains tax calculator</a> The capital gain or loss on one sale to 30 June 2027: discount or indexation, losses, and the main residence and 6-year rules, each step cited.</li>
+          <li id="cgt-concessions"><a class="collection-entry__title" href="/tools/business-calculators/cgt-concessions/">Small business CGT concessions checker</a> Which of the 4 small business CGT concessions in Division 152 are open for one capital gain, each with the provision that decides it.</li>
         </ul>
         <h2>Staff and cash</h2>
         <ul class="calculator-list">

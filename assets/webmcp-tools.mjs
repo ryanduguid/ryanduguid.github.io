@@ -18,6 +18,7 @@ const PATTERNS = {
   life: /^(?:\d{1,3}(?:\.\d{1,4})?|(?:\d{1,3} )?\d{1,2}\/\d{1,2})$/,
   date: /^\d{4}-\d{2}-\d{2}$/,
   month: /^\d{4}-(?:0[1-9]|1[0-2])$/,
+  share: /^(?:0(?:\.\d{1,12})?|1(?:\.0{1,12})?)$/,
   quantity: /^\d{1,12}(?:\.\d{1,4})?$/,
   consumption: /^\d{1,3}(?:\.\d{1,6})?$/,
 };
@@ -362,6 +363,50 @@ const longServiceLeaveTool = (longServiceLeave) => tool({
   },
 });
 
+/** Whole cents as dollars to 2 decimal places. @param {bigint} cents */
+const centsText = (cents) => `${cents < 0n ? '-' : ''}${(cents < 0n ? -cents : cents) / 100n}.${String((cents < 0n ? -cents : cents) % 100n).padStart(2, '0')}`;
+
+/** @param {typeof import('./business-calculators.mjs').borrowingSchedule} borrowingSchedule @param {string[]} years */
+const borrowingTool = (borrowingSchedule, years) => tool({
+  name: 'calculate_borrowing_expenses',
+  title: 'Borrowing expenses deduction schedule',
+  description: 'Borrowing expenses deductions under ITAA 1997 s 25-25 for up to 20 loans and every income year of each: each year’s '
+    + 'remaining expenditure, days, maximum deduction and deduction at the income use, the year asked about’s totals in AUD, and the $100 '
+    + 'rule of s 25-25(6) across loans first drawn in the same year. A refinancing is the earlier loan repaid on the new loan’s first '
+    + 'day. Years from 2027-28 are flagged for s 26-155, which it does not apply, and years after 2027-28 are marked projected. It does '
+    + 'not decide which costs are borrowing expenses or the use of the money, and does not work the page’s accounting column. It assumes '
+    + 'no loan’s money is used for a holiday home or other leisure facility, or that s 26-50(3) applies all year: otherwise s 26-50 may deny '
+    + 'the deduction.',
+  inputSchema: record({
+    year: choice(years, 'Income year asked about, for example "2025-26".'),
+    loans: { type: 'array', maxItems: 20, description: 'Each loan, in order; a refinancing names an earlier one by its number from 1.',
+      items: record({
+        borrowingExpenses: text('cost', 'Borrowing expenses in AUD with at most 2 decimal places.'),
+        firstBorrowed: text('date', 'First day the money was borrowed, YYYY-MM-DD, from 2017-07-01.'),
+        contractEnd: text('date', 'Last day of the period the original loan contract specifies, YYYY-MM-DD; omit when it has none.'),
+        repaidOn: text('date', 'Day the loan was repaid, YYYY-MM-DD; omit when it is not.'),
+        incomeUse: text('share', 'Fraction of the money used to produce assessable income in every year, from "0" to "1".'),
+        refinances: whole(1, 19, 'Number of the earlier loan this loan repaid on its first day; omit when none.'),
+      }, ['borrowingExpenses', 'firstBorrowed', 'incomeUse']) },
+  }, ['year', 'loans']),
+  run(input) {
+    const loans = input.loans.map((/** @type {Record<string, any>} */ l) => ({ borrowing_expenses: l.borrowingExpenses, loan_start: l.firstBorrowed,
+      loan_term_end: l.contractEnd ?? null, repaid_on: l.repaidOn ?? null, income_use: l.incomeUse, section_26_50_applies: false,
+      ...(l.refinances === undefined ? {} : { refinances: l.refinances }) }));
+    const r = borrowingSchedule({ year: input.year, loans });
+    return {
+      year: r.year, borrowingExpenses: r.borrowingExpenses.toFixed(2), maximumDeduction: r.maximumDeduction.toFixed(2),
+      deduction: r.deduction.toFixed(2), remainingAfterYear: r.remainingAfterYear.toFixed(2), currency: 'AUD',
+      loans: r.loans.map((l) => ({ loan: l.loan, periodTo: l.to, periodBasis: l.basis, spread: l.spread, totalDeduction: centsText(l.total),
+        years: l.rows.map((row) => ({ incomeYear: row.income_year, remaining: centsText(row.remaining), daysInYear: row.days, daysLeft: row.left,
+          maximum: centsText(row.maximum), deduction: centsText(row.deduction), section26_155: row.section_26_155, projected: row.projected })) })),
+      warnings: r.warnings,
+      basis: 'ITAA 1997 s 25-25 as read 19 November 2026; each maximum is rounded half up to the cent and carried forward, as the ATO’s examples are.',
+      source: `${CALCULATORS}borrowing-expenses/`,
+    };
+  },
+});
+
 const FTC_LINE = record({
   method: choice(['litres_from_cost', 'basic_heavy_vehicle'], 'Omit for a line by quantity; "litres_from_cost" (a small claimant\'s PCG 2016/2 '
     + 'Method 1) to work out the litres from cost and averagePriceCentsPerLitre; "basic_heavy_vehicle" (a small claimant\'s PCG 2021/2 basic method) '
@@ -422,7 +467,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
 
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
  * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
- *   | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'longServiceLeave' | 'fuelTaxCredits'>} calculate */
+ *   | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'longServiceLeave' | 'fuelTaxCredits' | 'borrowingSchedule'
+ *   | 'BORROWING_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -434,6 +480,7 @@ export function calculatorTools(calculate) {
     'foreign-surcharge': foreignSurchargeTool(calculate.foreignSurcharge),
     'long-service-leave': longServiceLeaveTool(calculate.longServiceLeave),
     'fuel-tax-credits': fuelTaxCreditsTool(calculate.fuelTaxCredits),
+    'borrowing-expenses': borrowingTool(calculate.borrowingSchedule, calculate.BORROWING_YEARS),
   };
 }
 
