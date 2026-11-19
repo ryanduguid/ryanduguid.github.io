@@ -324,7 +324,7 @@ The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 
 Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
 Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -333,7 +333,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -411,7 +411,7 @@ Interest across 29 February 2024 | Quarter 3 of 2023-24; salary or wages $12,000
 Contributions with no ordinary time earnings | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $0.00; contributions $100.00; lodged 20 November 2025 | Refused: enter the ordinary time earnings for the quarter: contributions reduce the charge percentage in proportion to them
 A statement lodged by the contribution due date | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 28 October 2025 | Refused: enter the day the statement was or will be lodged from 29 October 2025 to 30 June 2031
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -421,7 +421,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
 - GIC table: https://duguid.com.au/rates/general-interest-charge/
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -511,7 +511,7 @@ A last day before the first is refused | New South Wales, 1 August 2026 to 31 Ju
 Excluded days that use up the service are refused | New South Wales, 1 July 2026 to 31 July 2026, 31 days excluded, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: excluded days must be fewer than the days from the first day to the last
 More leave taken than the entitlement is refused | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, 11 weeks taken, pay $1,500.00 a week | Refused: leave taken or paid is more than this entitlement: the Acts treat leave taken in advance differently, and this calculator does not cover it
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -521,7 +521,97 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - termination payment calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - black coal mining industry: https://duguid.com.au/tools/coal-lsl-levy/
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Fuel tax credit calculator: every ATO rate since July 2022
+
+Source: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
+
+> Fuel tax credits at the ATO’s rate for each day from 1 July 2022: heavy vehicles, off-road use, label 7D, the basic method and PCG 2016/2 Methods 1 and 2.
+
+# Fuel tax credit calculator
+
+A business’s fuel tax credits for fuel acquired from 1 July 2022, each line at the ATO’s rate for its day, fuel and use, with label 7D and the small claimant methods.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Fuel tax credit inputs for one income year
+
+Income year the fuel was acquired in 2026-27 2025-26 2024-25 2023-24 2022-23
+
+Optional: the day the activity statement is given, to flag fuel acquired more than 4 years before it
+
+## Fuel lines
+
+Each line is one fuel acquired on one day for one use. Enter its litres or, for a small claimant, its cost and the average pump price.
+
+Line 1 FuelDiesel Petrol B5 B20 E10 E85 LPG LNG or CNG (kilograms) B100 Day acquired UseHeavy vehicle over 4.5 tonnes GVM on a public road Other business use Vehicle of 4.5 tonnes GVM or less on a public road Litres (kilograms for LNG or CNG) Or the cost (AUD, GST inclusive) and the average pump price (cents a litre)
+
+Line 2 (optional) FuelNo line Diesel Petrol B5 B20 E10 E85 LPG LNG or CNG (kilograms) B100 Day acquired UseHeavy vehicle over 4.5 tonnes GVM on a public road Other business use Vehicle of 4.5 tonnes GVM or less on a public road Litres (kilograms for LNG or CNG) Or the cost (AUD, GST inclusive) and the average pump price (cents a litre)
+
+Line 3 (optional) FuelNo line Diesel Petrol B5 B20 E10 E85 LPG LNG or CNG (kilograms) B100 Day acquired UseHeavy vehicle over 4.5 tonnes GVM on a public road Other business use Vehicle of 4.5 tonnes GVM or less on a public road Litres (kilograms for LNG or CNG) Or the cost (AUD, GST inclusive) and the average pump price (cents a litre)
+
+Line 4 (optional) FuelNo line Diesel Petrol B5 B20 E10 E85 LPG LNG or CNG (kilograms) B100 Day acquired UseHeavy vehicle over 4.5 tonnes GVM on a public road Other business use Vehicle of 4.5 tonnes GVM or less on a public road Litres (kilograms for LNG or CNG) Or the cost (AUD, GST inclusive) and the average pump price (cents a litre)
+
+## Small claimant methods
+
+A small claimant had fuel tax credits of $10,000 or less in the previous 12 months and expects the same in the current 12 months (PCG 2016/2).
+
+Is the business a small claimant? No Yes: a small claimant, who may use the cost, the basic method and the rate at the period’s end Optional: one heavy vehicle’s diesel by the basic method Day acquired Litres of eligible diesel Kilometres on public roads Or the total kilometres, 98.4% taken as on public roads Rigid truck’s gross weight (tonnes) Or its engine report’s ‘driving fuel’ litres a kilometre
+
+Optional: every line at the rate on the tax period’s last day Tax period’s first day Tax period’s last day
+
+For the average price, read the Australian Institute of Petroleum’s weekly average retail (pump) prices: the unleaded petrol or diesel series, in cents a litre including GST, for the location or state the business operates in, and average the weeks of the tax period. The Institute reserves all rights in its figures, so this page holds none of them.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; line 1: 10,000 litres of diesel acquired 15 September 2026, heavy vehicle on a public road; line 2: 2,000 litres of diesel acquired 15 September 2026, other business use. Line 1: 10,000 litres, heavy vehicle on a public road, at 21.3 cents a litre from 3 August 2026 $2,130.00 Line 2: 2,000 litres, other business use, at 53.7 cents a litre from 3 August 2026 $1,074.00 Fuel tax credits $3,204.00 Label 7D on the BAS, in whole dollars $3,204.00
+
+## How the fuel tax credit calculator works
+
+The fuel tax credit calculator works out a business’s fuel tax credits for fuel acquired in one income year from 2022-23 to 2026-27. Each line takes the rate the ATO published for the day the fuel was acquired, for its fuel and its use: a heavy vehicle travelling on a public road takes the rate net of the road user charge, every other business use takes the full rate, and a light vehicle on a public road gets nothing. The page adds the lines and gives the whole dollar amount for label 7D on the business activity statement, with the rate, its period and its ATO page for each line.
+
+A small claimant can also enter a line by its cost and the average pump price instead of its litres, split one heavy vehicle’s diesel between public roads and other use by the basic method, and take every line at the rate on the last day of a tax period that spans only an indexation change. Rates for every period since 1 July 2022 are held here, so an earlier period’s credits can be worked out for an amendment.
+
+## What the fuel tax credit calculator does not cover
+
+The calculator does not decide whether the business is entitled to a credit: you state the facts that settle it. Nor does it decide who acquired the fuel in a hire chain, whether a road is a public road or travel on it is incidental, whether a vehicle meets the environmental criteria of section 41-25, or how fuel is apportioned between uses: you state those. It does not hold the auxiliary equipment percentages of PCG 2016/11, the ATO’s list of heavy vehicles used mainly off public roads, the consumption rates for articulated combinations, or rates for aviation fuel, packaging and supply, domestic heating or electricity generation. It does not work Division 44 adjustments, the attribution of credits to tax periods or the conversion of LPG kilograms to litres. It refuses fuel acquired before 1 July 2022, after 31 January 2027, or outside the income year chosen.
+
+Fuel acquired after 19 November 2026, when the rates were read, carries a warning to check the ATO’s rates page for a change since. Confirm the result with the ATO’s fuel tax credit tools or a registered tax or BAS agent before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Fuel tax credit calculator
+
+Case | Inputs | Result
+10,000 litres of diesel in a heavy vehicle on public roads and 2,000 litres off road from 3 August 2026: $2,130 and $1,074 | 2026-27; line 1: 10,000 litres of diesel acquired 15 September 2026, heavy vehicle on a public road; line 2: 2,000 litres of diesel acquired 15 September 2026, other business use | fuel tax credits $3,204.00, label 7D $3,204.00
+Each line rounds half up to the cent and label 7D drops the cents: 300 litres of E85 at 23.015 cents is $69.05 | 2026-27; line 1: 300 litres of E85 acquired 1 October 2026, other business use; line 2: 1,001 litres of diesel acquired 1 October 2026, other business use | fuel tax credits $606.59, label 7D $606.00
+Petrol in a vehicle of 4.5 tonnes or less on a public road earns nothing (section 41-20) | 2025-26; line 1: 500 litres of petrol acquired 1 October 2025, vehicle of 4.5 tonnes GVM or less on a public road | fuel tax credits $0.00, label 7D $0.00
+The ATO’s Jim by the basic method at the rates from 3 August 2026: 11,020.8 litres on public roads and 409.2 off | 2026-27; heavy vehicle (basic method): 11,430 litres of diesel acquired 30 September 2026, 32,000 km in total, a 32 tonne rigid truck | fuel tax credits $2,567.17, label 7D $2,567.00
+PCG 2016/2 Method 1: $2,459.00 of diesel at an average 245.9 cents is 1,000 litres, and $100.00 is 40.6669 | 2026-27; line 1: $2,459.00 of diesel at an average 245.9 cents a litre acquired 30 September 2026, other business use; line 2: $100.00 of diesel at an average 245.9 cents a litre acquired 30 September 2026, other business use | fuel tax credits $558.84, label 7D $558.00
+PCG 2016/2 Method 2: fuel acquired on 10 January 2026 takes 31 March’s 52.6 cents across the February indexation | 2025-26; line 1: 1,000 litres of diesel acquired 10 January 2026, other business use; the rate on the last day of the tax period 1 January 2026 to 31 March 2026 | fuel tax credits $526.00, label 7D $526.00
+From 1 April to 30 June 2026 the heavy vehicle rate equals the other rate, with a nil road user charge | 2025-26; line 1: 1,000 litres of diesel acquired 1 May 2026, heavy vehicle on a public road | fuel tax credits $206.00, label 7D $206.00
+Fuel acquired on 1 February 2027, after the last rate this page holds | 2026-27; line 1: 100 litres of diesel acquired 1 February 2027, other business use | Refused: line 1: no published rate is held for fuel acquired after 31 January 2027; the rates change at the February 2027 indexation and were not published when this page was checked on 19 November 2026
+Method 2 across 3 August 2026, when the rates changed for more than indexation | 2026-27; line 1: 100 litres of diesel acquired 10 July 2026, other business use; the rate on the last day of the tax period 1 July 2026 to 30 September 2026 | Refused: the rates change on 3 August 2026 for a reason other than indexation alone (indexation, the end of the 30.4% excise reduction and the road user charge of 32.4 cents a litre), so PCG 2016/2 Method 2 (paragraph 11: ‘because of indexation’) does not apply: give each line’s own acquisition day instead
+Method 1 for LPG, which PCG 2016/2 does not cover | 2026-27; line 1: $10.00 of LPG at an average 245.9 cents a litre acquired 30 September 2026, other business use | Refused: line 1: PCG 2016/2 Method 1 is for liquid fuels only (paragraph 4(b)), not LPG, LNG or CNG
+The basic method for a business that is not a small claimant | 2026-27; heavy vehicle (basic method): 11,430 litres of diesel acquired 30 September 2026, 32,000 km in total, a 32 tonne rigid truck | Refused: the simplified methods are for a business whose fuel tax credits were $10,000 or less in the previous 12 months and are expected to be in the current 12 months (PCG 2016/2 paragraph 4; PCG 2021/2 paragraph 6)
+Fuel acquired outside the income year chosen | 2025-26; line 1: 100 litres of diesel acquired 1 July 2026, other business use | Refused: line 1 was acquired outside the income year 2025-26; work each income year apart
+
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Australian Institute of Petroleum’s weekly average retail (pump) prices: https://aip.com.au/pricing/pump-prices-retail/
+- fuel tax credit tools: https://www.ato.gov.au/calculators-and-tools/fuel-tax-credit-tools
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -583,7 +673,7 @@ A company new this year franks at 25% whatever its own year | Turnover $60,000,0
 Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
 Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
 
@@ -592,4 +682,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/

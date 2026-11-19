@@ -240,3 +240,11 @@ calculate.longServiceLeave({ ...leaveInput, pay: 1500 });
 // @ts-expect-error The reason is one of the form's 10 reasons.
 calculate.longServiceLeave({ ...leaveInput, reason: 'sacked' });
 void leaveWeeks;
+const ftcInput = { year: '2026-27', lines: [{ fuel: 'diesel', use: 'other_business', acquired: '2026-09-15', quantity: '2000' }] };
+const ftcTotal: number = calculate.fuelTaxCredits(ftcInput).total;
+// @ts-expect-error The income year is a string such as '2026-27', as the form's select gives it.
+calculate.fuelTaxCredits({ ...ftcInput, year: 2026 });
+// @ts-expect-error Label 7D is whole dollars as a number, not text.
+const ftcLabel: string = calculate.fuelTaxCredits(ftcInput).label7d;
+void ftcTotal;
+void ftcLabel;

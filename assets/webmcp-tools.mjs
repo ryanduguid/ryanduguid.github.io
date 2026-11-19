@@ -18,6 +18,8 @@ const PATTERNS = {
   life: /^(?:\d{1,3}(?:\.\d{1,4})?|(?:\d{1,3} )?\d{1,2}\/\d{1,2})$/,
   date: /^\d{4}-\d{2}-\d{2}$/,
   month: /^\d{4}-(?:0[1-9]|1[0-2])$/,
+  quantity: /^\d{1,12}(?:\.\d{1,4})?$/,
+  consumption: /^\d{1,3}(?:\.\d{1,6})?$/,
 };
 
 /**
@@ -360,9 +362,65 @@ const longServiceLeaveTool = (longServiceLeave) => tool({
   },
 });
 
+const FTC_LINE = record({
+  method: choice(['litres_from_cost', 'basic_heavy_vehicle'], 'Omit for a line by quantity; "litres_from_cost" (a small claimant\'s PCG 2016/2 '
+    + 'Method 1) to work out the litres from cost and averagePriceCentsPerLitre; "basic_heavy_vehicle" (a small claimant\'s PCG 2021/2 basic method) '
+    + 'to split litres of diesel by publicRoadKm or totalKm and rigidTruckGrossWeightTonnes or litresPerKm.'),
+  fuel: choice(['diesel', 'petrol', 'b5', 'b20', 'e10', 'e85', 'lpg', 'lng_cng', 'b100'], 'The eligible fuel; the basic method takes "diesel" only.'),
+  use: choice(['heavy_vehicle_public_road', 'other_business', 'light_vehicle_public_road'], 'The fuel\'s use: a vehicle over 4.5 tonnes GVM on a '
+    + 'public road, every other business use, or a vehicle of 4.5 tonnes or less on a public road (nil). Not with the basic method.'),
+  acquired: text('date', 'Day the fuel was acquired, YYYY-MM-DD, inside the income year and no later than 2027-01-31.'),
+  quantity: text('quantity', 'Litres (kilograms for "lng_cng") with at most 4 decimal places, for a line by quantity.'),
+  cost: text('cost', 'GST inclusive cost in AUD with at most 2 decimal places, with "litres_from_cost".'),
+  averagePriceCentsPerLitre: text('quantity', 'Average GST inclusive pump price for the tax period in cents a litre, from '
+    + 'https://aip.com.au/pricing/pump-prices-retail/, with "litres_from_cost".'),
+  litres: text('quantity', 'Litres of eligible diesel, with "basic_heavy_vehicle".'),
+  publicRoadKm: text('quantity', 'Kilometres travelled on public roads, or give totalKm instead.'),
+  totalKm: text('quantity', 'Total kilometres, of which 98.4% are taken as on public roads.'),
+  rigidTruckGrossWeightTonnes: text('quantity', 'A rigid truck\'s gross weight in tonnes, above 4.5, or give litresPerKm instead.'),
+  litresPerKm: text('consumption', 'The engine diagnostic report\'s \'driving fuel\' economy in litres a kilometre.'),
+}, ['fuel', 'acquired']);
+const FTC_FIELDS = { averagePriceCentsPerLitre: 'average_price_cents_per_litre', publicRoadKm: 'public_road_km', totalKm: 'total_km',
+  rigidTruckGrossWeightTonnes: 'rigid_truck_gross_weight_tonnes', litresPerKm: 'litres_per_km' };
+
+/** @param {typeof import('./business-calculators.mjs').fuelTaxCredits} fuelTaxCredits */
+const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
+  name: 'calculate_fuel_tax_credits',
+  title: 'Fuel tax credit calculator',
+  description: 'A business\'s fuel tax credits in AUD for fuel acquired in one income year from 2022-23 to 2026-27, each line at the ATO\'s '
+    + 'published rate for the day it was acquired, its fuel and its use, rounded half up to the cent, with the whole dollars for label 7D. '
+    + 'Small claimants may give a line by its cost and average price, split a heavy vehicle\'s diesel by the basic method, or take every line '
+    + 'at the rate on a tax period\'s last day across indexation. It refuses fuel acquired after 31 January 2027 and does not decide entitlement, '
+    + 'public roads, hire chains, apportionment or the auxiliary equipment percentages.',
+  inputSchema: record({
+    year: choice(['2022-23', '2023-24', '2024-25', '2025-26', '2026-27'], 'Income year the fuel was acquired in.'),
+    lines: { type: 'array', maxItems: 50, items: FTC_LINE, description: 'From 1 to 50 fuel lines.' },
+    smallClaimant: { type: 'boolean', description: 'Required with a simplified method or ratePeriod: true when the credits were $10,000 or less in '
+      + 'the previous 12 months and are expected to be in the current 12 months.' },
+    ratePeriod: record({ start: text('date', 'Tax period\'s first day, YYYY-MM-DD.'), end: text('date', 'Tax period\'s last day, YYYY-MM-DD.') },
+      ['start', 'end']),
+    returnDate: text('date', 'Day the activity statement is given, YYYY-MM-DD, to list lines acquired more than 4 years before it (subsection 47-5(2)).'),
+  }, ['year', 'lines']),
+  run({ year, lines, smallClaimant, ratePeriod, returnDate }) {
+    const r = fuelTaxCredits({ year, lines: lines.map((/** @type {Record<string, string>} */ line) => Object.fromEntries(Object.entries(line)
+      .map(([key, value]) => [FTC_FIELDS[/** @type {keyof typeof FTC_FIELDS} */ (key)] ?? key, value]))),
+    ...(smallClaimant === undefined ? {} : { small_claimant: smallClaimant }), ...(ratePeriod ? { rate_at_period_end: ratePeriod } : {}),
+    ...(returnDate ? { return_date: returnDate } : {}) });
+    return {
+      lines: r.lines.map((l) => ({ line: l.line, rateDay: l.rateDay, ratePeriod: l.period, ...(l.method === 'basic_heavy_vehicle'
+        ? { publicRoadLitres: l.publicRoadLitres, otherLitres: l.otherLitres, publicRoadRateCents: l.publicRoadRate, otherRateCents: l.otherRate }
+        : { quantity: l.quantity, rateCents: l.rateCents }), credit: dollars(l.credit) })),
+      fuelTaxCredits: dollars(r.total), label7d: String(r.label7d), currency: 'AUD', warnings: r.warnings, timeLimitLines: r.timeLimitLines,
+      basis: 'The ATO\'s 16 published rate periods from 1 July 2022, read 19 November 2026; quantity times rate in cents over 100, rounded half up '
+        + 'to the cent, and label 7D in whole dollars.',
+      source: `${CALCULATORS}fuel-tax-credits/`,
+    };
+  },
+});
+
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
  * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
- *   | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'longServiceLeave'>} calculate */
+ *   | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'longServiceLeave' | 'fuelTaxCredits'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -373,6 +431,7 @@ export function calculatorTools(calculate) {
     'company-tax': companyTaxTool(calculate.companyTax),
     'foreign-surcharge': foreignSurchargeTool(calculate.foreignSurcharge),
     'long-service-leave': longServiceLeaveTool(calculate.longServiceLeave),
+    'fuel-tax-credits': fuelTaxCreditsTool(calculate.fuelTaxCredits),
   };
 }
 
