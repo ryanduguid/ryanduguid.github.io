@@ -60,8 +60,10 @@ signal from Firefox or Safari; the specification was a W3C Community Group draft
 dated 13 November 2026. No origin-trial token is committed; registering one is an
 account action for the site owner. No trial with a real agent is recorded for
 any tool here, the GST pilot included. The earlier rule was to add calculators only after that
-trial; the 5 tools beyond GST were added on 15 November 2026 without it, and
-only the Node tests and browser tests with a stand-in `modelContext` check them.
+trial; the 12 tools beyond GST were added without it: 5 on 15 November 2026,
+4 on 18 November, and on 19 November the loan payment tool became the loan and
+hire purchase schedule tools and a tool for each of salary packaging and novated leases was added. Only the Node tests and browser tests with a
+stand-in `modelContext` check them.
 Cloudflare's WebMCP toggle is a separate edge-injected bridge and stays off:
 its packs cover image provenance and a same-origin `/mcp` endpoint, and this
 static site has neither.
