@@ -8,6 +8,13 @@
   <updated>2026-11-19T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A super projection calculator. It projects one accumulation account from…</title>
+    <link href="https://duguid.com.au/changelog/#entry-523d576965716b10" />
+    <id>https://duguid.com.au/changelog/#entry-523d576965716b10</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A super projection calculator. It projects one accumulation account from 2026-27 to retirement, a year at a time, with the 12% super guarantee up to the maximum contribution base, 15% contributions tax, fees and premiums and their tax deduction, and gives the balance in future dollars and at its present value. Its defaults follow ASIC’s Instrument 2022/603 (retirement at 67, today’s dollars at 3.7% a year) and ASIC’s own stated assumptions for returns, fees and premiums; each is listed with why it is reasonable and can be changed.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>
     <link href="https://duguid.com.au/changelog/#entry-806ecf6f51665308" />
     <id>https://duguid.com.au/changelog/#entry-806ecf6f51665308</id>

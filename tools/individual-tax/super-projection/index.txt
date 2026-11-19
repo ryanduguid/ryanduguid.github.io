@@ -1,0 +1,81 @@
+# Super projection calculator from 2026-27 to retirement
+
+Source: https://duguid.com.au/tools/individual-tax/super-projection/
+
+> Super balance at retirement from 2026-27 at its present value, on ASIC’s default assumptions, with contributions tax, fees and premiums, cited.
+
+# Super projection calculator
+
+Your super balance at retirement from 2026-27, in future dollars and today’s dollars, with every assumption stated and yours to change.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Super projection inputs, from 2026-27 to retirement
+
+Your age now (whole years) Retirement age, from 60 (whole years) Super balance now (dollars and cents) Salary for 2026-27, ordinary time earnings before super (whole dollars) Employer contributions, per cent of salary: 12 is the super guarantee, 0 if self-employed Salary sacrifice and personal deductible contributions for 2026-27 (dollars and cents) After-tax contributions for 2026-27 (dollars and cents) Investment return a year, after investment fees and tax on earnings (per cent) Administration fee in dollars for 2026-27 (dollars and cents) Administration fee as a per cent of the balance a year Insurance premiums for 2026-27 (dollars and cents) Wage growth a year, for your salary, contributions, fees and premiums (per cent) Rate for today’s dollars, the present value (per cent a year)
+
+Your super fund’s statement gives your balance, fees and premiums. Every figure is an assumption you can change. This calculator is not intended to be relied on for a decision about a financial product: consider getting advice from an Australian financial services licensee before making any financial decision.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Age 30, retiring at 67, super balance $50,000.00, salary $80,000.00, employer contributions 12% of salary, salary sacrifice $0.00 and after-tax contributions $0.00 a year, return 6.1% after investment fees and tax, administration fees $59.00 and 0.11% of the balance, insurance premiums $599.00 a year, wages growing 3.7% a year. Years projected, from age 30 to 67 37 Employer contributions in 2026-27 $9,600.00 Concessional contributions in 2026-27, within the $32,500 cap $9,600.00 Contributions paid in, less the 15% contributions tax $625,327.13 Investment earnings, after investment fees and tax $1,458,202.27 Administration fees and insurance premiums, less the fund’s tax deduction $65,209.71 Balance at 67 in future dollars $2,068,319.69 Balance at 67 at its present value, discounted at 3.7% a year to today’s dollars $539,266.80 A model on the assumptions shown, not a prediction. It is not intended to be relied on for a decision about a financial product: consider getting advice from an Australian financial services licensee before making any financial decision.
+
+## How the super projection calculator works
+
+The super projection calculator projects one accumulation super account from 2026-27 to the age you retire, a year at a time, and gives the balance then in future dollars and at its present value, in the dollars of today’s wages. Each year your employer contributes its rate of your salary, up to the maximum contribution base, and your own contributions are added. The fund takes 15% contributions tax from the employer and salary sacrifice contributions, takes out the dollar fee, the percentage fee and the premiums, and claims them as a deduction, which saves 15% of them. The return is earned on the balance at the start of the year and on half the year’s contributions less fees, as they come in through the year. After the first year, your salary, contributions, fees and premiums grow at the wage growth rate.
+
+The present value is the balance at retirement divided by 1.037 for each year projected, so that it reads against today’s wages. The calculator is general information about super, not advice: it shows the effect of the figures you enter and does not recommend a fund, an investment option or a contribution.
+
+## The assumptions and why they are reasonable
+
+- Retirement at 67: the default ASIC’s Instrument 2022/603 sets for anyone younger. Super is preserved until 60, so an earlier age is not accepted.
+- Today’s dollars at 3.7% a year: the rate the Instrument sets, the long-term growth in wages the Treasury’s 2023 Intergenerational Report expects, so the result compares with what wages buy now.
+- Wage growth of 3.7% a year for your salary, contributions, fees and premiums: the same long-term forecast, as ASIC’s guide expects contributions to rise with wages.
+- A return of 6.1% a year after investment fees and tax on earnings, steady every year: ASIC’s assumption for a balanced investment option. Real returns vary and can be negative in some years; your fund’s option may have a different mix.
+- Administration fees of $59 a year and 0.11% of the balance, and insurance premiums of $599 a year: ASIC’s assumptions from industry statistics. Your statement shows your own.
+- Employer contributions at the 12% super guarantee on salary up to the $270,830 maximum contribution base for 2026-27, which is assumed to grow with wages.
+- 15% contributions tax and the fund’s deduction for fees and premiums, as the law now stands; tax and super law are assumed not to change.
+- Contributions within the 2026-27 caps, with the caps assumed to rise with wages after that.
+
+## What the super projection calculator does not compute
+
+The projection covers one accumulation account from 2026-27, with the rules of that year assumed to continue. It does not compute:
+
+- defined benefit interests, or an account already paying a pension or a transition to retirement income stream;
+- income in retirement, the age pension or how long the balance would last;
+- the low income super tax offset, the government co-contribution or spouse contributions, which would add to the balance of someone on a lower income;
+- Division 293 tax for income over $250,000, excess contributions, the nil non-concessional cap for a total super balance at the transfer balance cap, or tax on a withdrawal;
+- years of good and bad returns, career breaks, or contribution, activity, switching and adviser fees, any of which can lower the balance.
+
+Use your fund’s own retirement estimate or a financial adviser for a forecast you would act on.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Super projection calculator
+
+Case | Inputs | Result
+ASIC’s default assumptions for a 30-year-old on $80,000 retiring at 67 | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $2,068,319.69, present value $539,266.80
+One year to go | Age 66 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 3.7% | 1 year: $60,829.25, present value $58,658.87
+Retiring at 60, the preservation age | Age 45 to 60, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 3.7% | 15 years: $348,693.28, present value $202,191.19
+Retiring at 75, the last age contributions are mostly accepted | Age 74 to 75, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 3.7% | 1 year: $60,829.25, present value $58,658.87
+Salary sacrifice up to the $32,500 concessional cap | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, sacrifice $22,900.00, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $6,258,411.20, present value $1,631,736.80
+A salary above the $270,830 maximum contribution base | Age 30 to 67, balance $50,000.00, salary $400,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $6,258,338.31, present value $1,631,717.80
+After-tax contributions of $130,000, the cap | Age 55 to 67, balance $50,000.00, salary $80,000 at 12%, after tax $130,000.00, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 3.7% | 12 years: $2,971,511.78, present value $1,921,464.56
+Self-employed: no employer contributions, after-tax ones instead | Age 30 to 67, balance $50,000.00, salary $80,000 at 0%, after tax $5,000.00, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,388,087.88, present value $361,911.99
+No return, fees, premiums, growth or discount: contributions less tax only | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 0%, fees $0.00 and 0%, premiums $0.00, growth 0%, present value at 0% | 37 years: $351,920.00, present value $351,920.00
+Fees and premiums empty an account with nothing coming in | Age 30 to 67, balance $1,000.00, salary $0 at 0%, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $0.00, present value $0.00
+The present value at 2.5%, as the Instrument allows you to change it | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $599.00, growth 3.7%, present value at 2.5% | 37 years: $2,068,319.69, present value $829,534.87
+A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
+No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
+
+One of the four individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- four individual tax calculators: https://duguid.com.au/tools/individual-tax/
