@@ -84,6 +84,19 @@ const UNSETTLED = {
     death: 'Under 10 years, the NT Act pays on death what the employee would have been paid for leaving that day for a reason in subsection 10(2) (subsection 10(3)): choose that reason instead.' },
 };
 
+const WILFUL = ', only if the misconduct was serious and wilful: otherwise choose the dismissal short of serious misconduct, which qualifies';
+const UNFAIR = ', unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide';
+/** Conditions an Act puts on a reason that does not qualify before the full qualifying period,
+ * stated in the row because the calculator cannot decide them.
+ * @type {Partial<Record<LslPlace, Partial<Record<LslReason, string>>>>} */
+const CONDITIONS = {
+  'AU-NSW': { misconduct: WILFUL },
+  'AU-QLD': { performance: UNFAIR, misconduct: UNFAIR },
+  'AU-SA': { misconduct: WILFUL, 'no-notice': ', as SafeWork SA reads leaving without the required notice as an unlawful termination by the worker: if the employer waived the notice, choose resignation' },
+  'AU-TAS': { misconduct: WILFUL },
+  'AU-ACT': { misconduct: WILFUL },
+};
+
 const DAY = 86400000;
 /** @param {string} iso */
 const dayOf = (iso) => Date.parse(`${iso}T00:00:00Z`) / DAY;
@@ -190,9 +203,8 @@ function proRata(place, s, reason) {
   if (unsettled) throw new Error(unsettled);
   const [reasons, provision] = /** @type {[LslReason[], string]} */ (EARLY[place]);
   if (!reasons.includes(reason)) {
-    const unfair = place === 'AU-QLD' && (reason === 'performance' || reason === 'misconduct')
-      ? ', unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide' : '';
-    return outcomeOf([0n, 1n], `Under ${full} years, ${LSL_REASONS[reason]} does not qualify for pro rata leave, ${provision}${unfair}`);
+    return outcomeOf([0n, 1n], `Under ${full} years, ${LSL_REASONS[reason]} does not qualify for pro rata leave, ${provision}`
+      + `${CONDITIONS[place]?.[reason] ?? ''}`);
   }
   if (place === 'AU-SA' || place === 'AU-NT') {
     return outcomeOf(thirteen(completedYears(s)), `1.3 weeks for each completed year, ${provision}`);

@@ -3301,3 +3301,20 @@ test('Queensland counts a part year’s days over 364 and flags an unfair dismis
   }
   assert.ok(!lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason: 'resign' }).rule.includes('unfair'));
 });
+
+test('long service leave states the conditions an Act puts on a reason that does not qualify before the full period', () => {
+  // 9 years of service, or 6 in the ACT, whose full period is 7 years.
+  const ends = (place, reason) => lsl({ place, start: place === 'AU-ACT' ? '2020-01-01' : '2017-01-01', end: '2025-12-31', mode: 'ends', reason });
+  // NSW s 4(2)(a)(iii), SA s 5(4)(a), Tas s 8(3)(d) and ACT s 11C(1)(a)(iv) withhold pro rata only for serious and wilful misconduct.
+  for (const place of ['AU-NSW', 'AU-SA', 'AU-TAS', 'AU-ACT']) {
+    const r = ends(place, 'misconduct');
+    assert.deepEqual([r.weeks, r.rule.endsWith('only if the misconduct was serious and wilful: otherwise choose the dismissal short of serious misconduct, which qualifies')],
+      [0, true], place);
+    assert.ok(ends(place, 'performance').weeks > 0, place);
+  }
+  // WA s 8(3) and NT s 10(2) say serious misconduct, without 'wilful'.
+  for (const place of ['AU-WA', 'AU-NT']) assert.ok(!ends(place, 'misconduct').rule.includes('wilful'), place);
+  // SA s 5(4)(b): leaving without the required notice is an unlawful termination only where the notice was required.
+  assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
+  assert.ok(ends('AU-SA', 'resign').weeks > 0);
+});

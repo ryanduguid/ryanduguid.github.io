@@ -420,7 +420,7 @@ const MUTATIONS = [
   { ...lsl, name: 'LSL Tasmania death after 10 years drops the time since', find: 'outcomeOf(plus(blockWeeks(s), sixtieth(since))', replace: 'outcomeOf(blockWeeks(s)' },
   { ...lsl, name: 'LSL Queensland 10 to 15 years gives the exact proportion to take', find: 'if (s.years < 15) return outcomeOf([26n, 3n]', replace: 'if (s.years < 10) return outcomeOf([26n, 3n]' },
   { ...lsl, name: 'LSL Queensland part years take days over 365.25', find: "(place === 'AU-QLD'\n", replace: "(place === 'none'\n" },
-  { ...lsl, name: 'LSL Queensland drops the unfair dismissal flag', find: "place === 'AU-QLD' && (reason === 'performance'", replace: "place === 'none' && (reason === 'performance'" },
+  { ...lsl, name: 'LSL drops the conditions on a reason that does not qualify', find: "+ `${CONDITIONS[place]?.[reason] ?? ''}`", replace: "+ ''" },
   { ...lsl, name: 'LSL weeks truncate',find: '(2n * n * 10000n + d) / (2n * d)', replace: '(n * 10000n) / d' },
   { ...lsl, name: 'LSL payment multiplies the rounded weeks', find: 'value: Number((2n * (n * 10000n - taken * d) * pay + d * 10000n) / (2n * d * 10000n)) / 100',
     replace: 'value: Number((2n * balance * pay + 10000n) / 20000n) / 100' },
