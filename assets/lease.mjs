@@ -129,6 +129,22 @@ export function lease(terms) {
   const byLife = months !== null && (terms.ownership === 'yes' || periodsAfter(start, months, 'monthly') < end);
   const depreciation = byLife ? straightLine(cost, start, /** @type {number} */ (months), 'monthly') : straightLine(cost, start, count, terms.frequency);
   const to = byLife ? periodsAfter(start, /** @type {number} */ (months), 'monthly') : end;
+  const years = incomeYears(terms, rows, events, depreciation, liability, cost);
+  const totalInterest = events.reduce((sum, row) => sum + row.interest, 0n);
+  return { liability: dollars(liability), cost: dollars(cost), paidAtStart: dollars(paidAtStart), restoration: dollars(restoration),
+    payment: dollars(payment), payments: count, rate: pv.rate, end: isoDay(end), depreciationEnd: isoDay(to), totalInterest: dollars(totalInterest),
+    // Appendix A: a lease term of 12 months or less. A lease containing a purchase option is not
+    // short-term, which a reasonably certain one shows here; whether it has any other, the note asks.
+    shortTerm: end <= periodsAfter(start, 12, 'monthly') && terms.ownership === 'no',
+    rows, years };
+}
+
+/** Each income year's interest, payments and depreciation, and the liability and asset at its 30 June.
+ * @param {LeaseTerms} terms @param {LeaseRow[]} rows the schedule as shown
+ * @param {{date: number, payment: bigint}[]} events the payments, dated by day
+ * @param {Map<string, bigint>} depreciation by income year @param {bigint} liability @param {bigint} cost
+ * @returns {LeaseYear[]} */
+function incomeYears(terms, rows, events, depreciation, liability, cost) {
   const interestYears = interestByIncomeYear(/** @type {any} */ ({ start: terms.start, timing: terms.timing, frequency: terms.frequency }),
     /** @type {any} */ ({ rows, balloonRow: null }));
   /** @type {Map<string, bigint>} */
@@ -139,7 +155,7 @@ export function lease(terms) {
   }
   const labels = [...new Set([...depreciation.keys(), ...Object.keys(interestYears), ...paidYears.keys()])].sort((a, b) => a.localeCompare(b));
   let [owed, carried] = [liability, cost];
-  const years = labels.map((year) => {
+  return labels.map((year) => {
     const interest = BigInt(Math.round((interestYears[year] ?? 0) * 100));
     const paid = paidYears.get(year) ?? 0n;
     const charge = depreciation.get(year) ?? 0n;
@@ -147,12 +163,6 @@ export function lease(terms) {
     carried -= charge;
     return { year, interest: dollars(interest), paid: dollars(paid), liability: dollars(owed), depreciation: dollars(charge), asset: dollars(carried) };
   });
-  const totalInterest = events.reduce((sum, row) => sum + row.interest, 0n);
-  return { liability: dollars(liability), cost: dollars(cost), paidAtStart: dollars(paidAtStart), restoration: dollars(restoration),
-    payment: dollars(payment), payments: count, rate: pv.rate, end: isoDay(end), depreciationEnd: isoDay(to), totalInterest: dollars(totalInterest),
-    // Appendix A: a lease term of 12 months or less, and no purchase option.
-    shortTerm: end <= periodsAfter(start, 12, 'monthly') && terms.ownership === 'no' && residual === 0n,
-    rows, years };
 }
 
 /**
@@ -301,7 +311,7 @@ export function leaseResult(value, aud) {
     ['Total interest over the lease', aud(r.totalInterest)], ['Lease term ends', longDate(r.end)],
     ['Right-of-use asset depreciated straight line to', longDate(r.depreciationEnd)]];
   /** @type {(string | false)[]} */
-  const notes = [r.shortTerm && 'The lease term is 12 months or less with no purchase option, so paragraphs 5 and 6 let the lessee elect to expense the payments instead'];
+  const notes = [r.shortTerm && 'The lease term is 12 months or less, so unless the lease contains a purchase option, paragraphs 5 and 6 let the lessee elect to expense the payments instead'];
   const all = r.rows.map((row) => ({ ...row, label: row.period > r.payments ? 'Residual' : String(row.period) }));
   const commencement = [['Debit right-of-use asset', aud(r.cost)], ['Credit lease liability', aud(r.liability)],
     ...(r.restoration ? [['Credit provision for restoration', aud(r.restoration)]] : []),

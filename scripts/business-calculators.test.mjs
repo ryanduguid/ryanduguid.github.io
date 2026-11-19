@@ -3404,6 +3404,8 @@ test('the lease engine depreciates over the useful life when ownership transfers
   assert.equal(leaseOf({ life: '96' }).depreciationEnd, '2031-07-01');
   assert.equal(leaseOf({ payment: '2000', payments: '12', rate: '6' }).shortTerm, true);
   assert.equal(leaseOf({ payment: '2000', payments: '12', rate: '6', residual: '100', ownership: 'yes', life: '60' }).shortTerm, false);
+  // Appendix A excludes only a lease with a purchase option: a residual value guarantee alone leaves it short-term.
+  assert.equal(leaseOf({ payment: '2000', payments: '12', rate: '6', residual: '100' }).shortTerm, true);
   assert.equal(leaseOf({ payments: '13' }).shortTerm, false);
   for (const [changes, message] of [[{ payments: '0' }, 'Enter a whole number between 1 and 600.'], [{ life: '1.5' }, 'Enter a whole number between 1 and 600.'],
     [{ ownership: 'maybe' }, 'Choose whether ownership transfers or a purchase option is reasonably certain.']]) {
