@@ -230,3 +230,25 @@ const sgcDue: number = calculate.paydaySuperDue(sgcPay).due;
 calculate.quarterlySgCharge({ year: '2026-27', quarter: '1', wages: '1', ote: '1', contributions: '0', lodged: '2026-11-20' });
 void sgcCharge;
 void sgcDue;
+const leaveInput = { place: 'AU-NSW', start: '2014-02-01', end: '2026-07-31', excluded: '0', taken: '0', mode: 'ends',
+  reason: 'redundancy', pay: '1500' } as const;
+const leaveWeeks: number = calculate.longServiceLeave(leaveInput).weeks;
+// @ts-expect-error The place is a state or territory code, as the form's radios carry it.
+calculate.longServiceLeave({ ...leaveInput, place: 'NSW' });
+// @ts-expect-error Weekly pay is a decimal string, as the form passes it.
+calculate.longServiceLeave({ ...leaveInput, pay: 1500 });
+// @ts-expect-error The reason is one of the form's 10 reasons.
+calculate.longServiceLeave({ ...leaveInput, reason: 'sacked' });
+void leaveWeeks;
+const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
+  loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;
+const leaveWithheld: number = calculate.unusedLeave(leavePay).withholding;
+const leaveType: 'R' | 'T' = calculate.unusedLeave(leavePay).lumpSumAType;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.unusedLeave({ ...leavePay, annual: 0 });
+// @ts-expect-error The reason is one of the 4 the form offers; death is out of scope.
+calculate.unusedLeave({ ...leavePay, reason: 'death' });
+// @ts-expect-error A working holiday maker is not a payee choice: Schedule 15 covers them.
+calculate.unusedLeave({ ...leavePay, payee: 'working-holiday-maker' });
+void leaveWithheld;
+void leaveType;

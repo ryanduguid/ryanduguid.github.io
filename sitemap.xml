@@ -170,7 +170,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/depreciation-rates/</loc>
@@ -333,6 +333,10 @@
     <lastmod>2026-11-19</lastmod>
   </url>
   <url>
+    <loc>https://duguid.com.au/tools/individual-tax/concessional-catch-up/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
     <loc>https://duguid.com.au/tools/individual-tax/income-tax/</loc>
     <lastmod>2026-11-18</lastmod>
   </url>
@@ -341,8 +345,24 @@
     <lastmod>2026-11-19</lastmod>
   </url>
   <url>
+    <loc>https://duguid.com.au/tools/individual-tax/lump-sum-arrears/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
     <loc>https://duguid.com.au/tools/individual-tax/study-loan/</loc>
     <lastmod>2026-11-18</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/sole-trader/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/division-293/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/income-tests/</loc>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/bonus-withholding/</loc>
@@ -355,6 +375,14 @@
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/sgc-payday/</loc>
     <lastmod>2026-11-18</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/long-service-leave/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/unused-leave/</loc>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/company-tax/</loc>

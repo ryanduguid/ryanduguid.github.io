@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 //! An independent oracle for the individual tax engines: `assets/income-tax.mjs`,
-//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs` and
+//! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs`,
+//! `assets/division-293.mjs`, `assets/sole-trader.mjs`, `assets/income-tests.mjs` and
 //! `assets/bonus-withholding.mjs`.
 //! Seeded fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser modules return under Node.
@@ -24,6 +25,8 @@
 //! The route is independent; the conventions are not. Both round a half cent up and cap the offsets
 //! at the tax, and the take-home oracle splits a package including super by the engine's formula,
 //! so it checks how the parts combine, not that split.
+//! The income tests engine (`assets/income-tests.mjs`) works each measure as a formula; the oracle
+//! keeps a table of the terms each definition lists, with their signs, and sums it.
 //! The engines run from the repository's own `assets/`, not the rendered site.
 
 use serde_json::{Value, json};
@@ -36,6 +39,9 @@ import { incomeTax, medicareLevySurcharge } from './assets/income-tax.mjs';
 import { studyLoanRepayment } from './assets/study-loan.mjs';
 import { takeHomePay } from './assets/take-home-pay.mjs';
 import { bonusWithholding } from './assets/bonus-withholding.mjs';
+import { division293Tax } from './assets/division-293.mjs';
+import { soleTraderSetAside } from './assets/sole-trader.mjs';
+import { incomeTests } from './assets/income-tests.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const cents = (result) => result === null ? null : Object.fromEntries(Object.entries(result)
@@ -48,6 +54,9 @@ const run = {
   pay: ({ pay }) => cents(takeHomePay(pay)),
   mls: ({ mls }) => cents(medicareLevySurcharge(mls)),
   bonus: ({ bonus }) => cents(bonusWithholding(bonus)),
+  d293: ({ d293 }) => cents(division293Tax(d293)),
+  sole: ({ sole }) => cents(soleTraderSetAside(sole)),
+  tests: ({ parts }) => cents(incomeTests(parts)),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 ";
@@ -65,6 +74,8 @@ const LOAN_CASES: usize = 400;
 const PAY_CASES: usize = 900;
 const MLS_CASES: usize = 400;
 const BONUS_CASES: usize = 500;
+const DIVISION_293_CASES: usize = 600;
+const SOLE_CASES: usize = 600;
 
 /// A fixed sequence (xorshift64*), so a failure names a case that reappears on a rerun.
 struct Seeded(u64);
@@ -772,6 +783,111 @@ fn pay_oracle(p: &Pay) -> Value {
         "fortnightly": half_up(net, 26), "weekly": half_up(net, 52), "withheld": withheld})
 }
 
+struct Sole<'a> {
+    year: &'a str,
+    income: u64,
+    expenses: u64,
+    wages: u64,
+    deductions: u64,
+    contributions: u64,
+    offset: bool,
+    loan: bool,
+    cover: bool,
+    gst: bool,
+    credits: u64,
+    invoice: u64,
+}
+
+/// One year's tax, levies and repayment in cents on `taxable` whole dollars with `business` whole
+/// dollars of net small business income. The offset follows the ATO's 'Small business income tax
+/// offset' page: with total net small business income at or above taxable income, 16% of the basic
+/// income tax liability; otherwise 16% of the liability's share in that income's proportion; at most
+/// $1,000 and no more than the tax the other offsets leave.
+/// `reported` whole dollars of deductible personal super contributions are reportable super
+/// contributions: they join income for surcharge purposes and repayment income (HESA s 154-5(1);
+/// ATO 'Income tests').
+fn sole_year(s: &Sole, taxable: u64, business: u64, reported: u64) -> [u64; 8] {
+    let t = tax_oracle(taxable, s.year, "resident");
+    let get = |key: &str| t[key].as_u64().unwrap();
+    let (tax, offset, lmito, levy) = (get("tax"), get("offset"), get("lmito"), get("medicare"));
+    let share = if taxable == 0 {
+        0
+    } else if business >= taxable {
+        half_up(tax * 16, 100)
+    } else {
+        half_up(tax * business * 16, taxable * 100)
+    };
+    let small = share.min(100_000).min(tax - offset - lmito);
+    let surcharge = if s.cover {
+        0
+    } else {
+        half_up(
+            taxable * surcharge_rate(taxable + reported, s.year, false, 0),
+            100,
+        )
+    };
+    let loan = if s.loan {
+        loan_oracle(taxable + reported, s.year)["repayment"]
+            .as_u64()
+            .unwrap()
+    } else {
+        0
+    };
+    let total = tax - offset - lmito - small + levy + surcharge + loan;
+    [tax, offset, lmito, small, levy, surcharge, loan, total]
+}
+
+/// The set-aside in cents: the year's total less the total on the wages and other deductions alone,
+/// plus a tenth of the income as GST less the credits when registered, then shared over the year's
+/// invoices including GST.
+fn sole_oracle(s: &Sole) -> Value {
+    let profit = s.income - s.expenses;
+    // ITAA 1997 s 25-130 from 2026-27, on the wages only.
+    let deduction = if s.year == "2026-27" {
+        s.wages.min(100_000)
+    } else {
+        0
+    };
+    let taxable = (profit + s.wages - deduction - s.deductions - s.contributions) / 100;
+    let business = if s.offset { profit / 100 } else { 0 };
+    let all = sole_year(s, taxable, business, s.contributions / 100);
+    // The wages alone deduct, and so report, only the contributions they can absorb.
+    let room = (s.wages - deduction).saturating_sub(s.deductions);
+    let absorbed = s.contributions.min(room);
+    let alone = sole_year(s, (room - absorbed) / 100, 0, absorbed / 100);
+    let business_tax = i64::try_from(all[7]).unwrap() - i64::try_from(alone[7]).unwrap();
+    assert!(
+        business_tax >= 0,
+        "the business never lowers the year's tax"
+    );
+    let business_tax = business_tax as u64;
+    let gst_on = if s.gst { half_up(s.income, 10) } else { 0 };
+    let gst = gst_on - s.credits;
+    let set_aside = business_tax + gst;
+    let invoiced = s.income + gst_on;
+    let share = |part: u64, whole: u64| {
+        if whole == 0 {
+            0
+        } else {
+            half_up(part * 10_000, whole)
+        }
+    };
+    let from_invoice = if invoiced == 0 {
+        0
+    } else {
+        half_up(s.invoice * set_aside, invoiced)
+    };
+    json!({"profit": profit, "deduction": deduction, "taxable": taxable * 100, "tax": all[0], "offset": all[1],
+        "lmito": all[2], "smallBusinessOffset": all[3], "medicare": all[4], "surcharge": all[5], "studyLoan": all[6],
+        "total": all[7], "wagesTax": alone[7], "businessTax": business_tax, "gstOnIncome": gst_on, "credits": s.credits,
+        "gst": gst, "setAside": set_aside, "taxShare": share(business_tax, s.income),
+        "invoiceShare": share(set_aside, invoiced), "quarterly": half_up(set_aside, 4), "monthly": half_up(set_aside, 12),
+        "weekly": half_up(set_aside, 52),
+        "invoice": {"amount": s.invoice, "setAside": from_invoice, "left": s.invoice - from_invoice},
+        "instalments": s.income >= 400_000 && all[7] - all[6] >= 100_000,
+        "mustRegister": !s.gst && s.income >= 7_500_000})
+}
+
 fn run_node(cases: &[Value]) -> Vec<Value> {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let mut node = Command::new("node")
@@ -1162,6 +1278,401 @@ fn the_bonus_withholding_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 "yearToDate": money(to_date), "paysToDate": pays_to_date.to_string(),
                 "earlierAdditional": money(earlier), "earlierWithheld": money(b.to_date.3)});
             (json!({"kind": "bonus", "bonus": bonus}), bonus_oracle(&b))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+/// The general concessional contributions cap in whole dollars, typed from the ATO's 'Contributions
+/// caps' (Table 1.1, last updated 11 September 2026, read 19 November 2026).
+fn concessional_cap(year: &str) -> u64 {
+    match year {
+        "2021-22" | "2022-23" | "2023-24" => 27_500,
+        "2024-25" | "2025-26" => 30_000,
+        _ => 32_500,
+    }
+}
+
+/// One Division 293 case in whole dollars, except the contributions and unused cap in cents.
+struct D293<'a> {
+    year: &'a str,
+    parts: [u64; 6],
+    concessional: u64,
+    unused: u64,
+    under: bool,
+}
+
+/// Division 293 tax by the Acts' own order, in cents: s 291-20(3) and (4) raise the cap by the
+/// unused amount when the balance allows, and the excess is what exceeds the raised cap. Taxable
+/// contributions are then taken case by case, where the engine takes the lesser of 2 amounts:
+/// nothing without low tax contributions or at or under $250,000, all of them when income alone
+/// reaches the threshold, else the part above it. 15% of a cent rounds half up.
+fn d293_oracle(d: &D293) -> Value {
+    let [taxable, fringe, losses, trust, fhss, lump_sum] = d.parts;
+    let income = (taxable.saturating_sub(fhss) + trust + fringe + losses - lump_sum) * 100;
+    let cap = concessional_cap(d.year) * 100;
+    let raised = if d.under { cap + d.unused } else { cap };
+    let excess = d.concessional.saturating_sub(raised);
+    let carried = d.concessional.saturating_sub(cap) - excess;
+    let low = d.concessional - excess;
+    let threshold = 25_000_000;
+    let combined = income + low;
+    let taxed = if low == 0 || combined <= threshold {
+        0
+    } else if income >= threshold {
+        low
+    } else {
+        combined - threshold
+    };
+    json!({"year": d.year, "income": income, "concessional": d.concessional, "cap": cap, "carried": carried,
+        "excess": excess, "low": low, "combined": combined, "over": combined.saturating_sub(threshold),
+        "taxable": taxed, "tax": (taxed * 15 + 50) / 100, "room": threshold.saturating_sub(combined)})
+}
+
+#[test]
+fn the_oracle_works_the_division_293_examples_by_hand() {
+    // ATO, Division 293 tax: Jan, $240,000 and $15,000, $750.
+    let jan = d293_oracle(&D293 {
+        year: "2026-27",
+        parts: [240_000, 0, 0, 0, 0, 0],
+        concessional: 1_500_000,
+        unused: 0,
+        under: false,
+    });
+    assert_eq!(jan["tax"], 75_000);
+    // $45,000 against a $32,500 cap: the $12,500 excess is left out; $20,000 unused cap covers it.
+    let over = D293 {
+        year: "2026-27",
+        parts: [210_000, 33_000, 0, 0, 0, 0],
+        concessional: 4_500_000,
+        unused: 2_000_000,
+        under: false,
+    };
+    assert_eq!(d293_oracle(&over)["tax"], 382_500);
+    assert_eq!(
+        d293_oracle(&D293 {
+            under: true,
+            ..over
+        })["tax"],
+        570_000
+    );
+}
+
+#[test]
+fn the_division_293_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0293);
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..DIVISION_293_CASES)
+        .map(|_| {
+            let year = rng.pick(&PAY_YEARS);
+            let small = |rng: &mut Seeded| if rng.below(3) == 0 { rng.below(40_001) } else { 0 };
+            let taxable = rng.income(&[250_000, 220_000, 217_500, 222_500, 200_000, 0]);
+            let (fringe, losses, trust) = (small(&mut rng), small(&mut rng), small(&mut rng));
+            let fhss = small(&mut rng);
+            // s 301-20(3) is nil from 2024-25, and the lump sum is part of taxable income.
+            let lump_sum = if year < "2024-25" { small(&mut rng).min(taxable.saturating_sub(fhss)) } else { 0 };
+            let concessional = match rng.below(4) {
+                0 => 0,
+                1 => concessional_cap(year) * 100 + rng.below(3) * 100 - 100,
+                _ => rng.below(6_000_001),
+            };
+            let unused = if rng.below(2) == 0 { rng.below(4_000_001) } else { 0 };
+            let d = D293 { year, parts: [taxable, fringe, losses, trust, fhss, lump_sum], concessional, unused,
+                under: rng.below(2) == 0 };
+            let input = json!({"year": year, "interests": "accumulation", "taxable": taxable.to_string(),
+                "fringe": fringe.to_string(), "losses": losses.to_string(), "trust": trust.to_string(),
+                "fhss": fhss.to_string(), "lumpSum": lump_sum.to_string(), "concessional": money(concessional),
+                "unused": money(unused), "balanceUnder": d.under});
+            (json!({"kind": "d293", "d293": input}), d293_oracle(&d))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+#[test]
+fn the_sole_trader_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0005);
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..SOLE_CASES)
+        .map(|_| {
+            let year = rng.pick(&YEARS[1..]);
+            let cents = |rng: &mut Seeded| if rng.below(2) == 0 { rng.below(100) } else { 0 };
+            let income = rng.income(&[4_000, 22_000, 52_000, 75_000, 100_000, 135_000, 160_584]) * 100
+                + cents(&mut rng);
+            let expenses = if rng.below(3) == 0 { 0 } else { rng.below(income + 1) };
+            let wages = if rng.below(2) == 0 {
+                0
+            } else {
+                rng.income(&TAX_THRESHOLDS) * 100 + cents(&mut rng)
+            };
+            let deduction = if year == "2026-27" { wages.min(100_000) } else { 0 };
+            let room = income - expenses + wages - deduction;
+            let deductions = if rng.below(4) == 0 { rng.below(room.min(1_000_000) + 1) } else { 0 };
+            let contributions = if rng.below(4) == 0 {
+                rng.below((room - deductions).min(3_000_000) + 1)
+            } else {
+                0
+            };
+            let gst = rng.below(2) == 0;
+            let credits = if gst && rng.below(2) == 0 { rng.below(half_up(income, 10) + 1) } else { 0 };
+            let s = Sole {
+                year,
+                income,
+                expenses,
+                wages,
+                deductions,
+                contributions,
+                offset: rng.below(4) != 0,
+                loan: rng.below(3) == 0,
+                cover: rng.below(3) != 0,
+                gst,
+                credits,
+                invoice: rng.below(1_000_001),
+            };
+            let sole = json!({"year": year, "income": money(income), "expenses": money(expenses), "wages": money(wages),
+                "deductions": money(deductions), "super": money(contributions), "offset": s.offset, "studyLoan": s.loan, "hospitalCover": s.cover,
+                "gst": gst, "credits": money(credits), "invoice": money(s.invoice)});
+            (json!({"kind": "sole", "sole": sole}), sole_oracle(&s))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+/// Seeded income test cases: 16 return amounts each, consistent with one another.
+const INCOME_TEST_CASES: usize = 300;
+/// The return amounts in the engine's order, `assets/income-tests.mjs` `INCOME_TEST_PARTS`.
+const INCOME_TEST_PARTS: [&str; 16] = [
+    "taxable",
+    "fhss",
+    "familyTrust",
+    "fringe57a",
+    "fringeOther",
+    "employerSuper",
+    "personalSuper",
+    "excessConcessional",
+    "financialLoss",
+    "rentalLoss",
+    "pensions",
+    "targetForeign",
+    "exemptForeign",
+    "childSupport",
+    "assessable",
+    "businessDeductions",
+];
+/// The FBT rate for the FBT years ending 31 March 2025 to 2027, per cent: FBTAA s 135Q(4) grosses a
+/// section 57A employer's quasi amount up at 1 / (1 - rate), so the amount before it is 100 - 47 hundredths.
+const FBT_RATE: i64 = 47;
+
+/// Each measure as its definition lists it, typed from the Acts read 19 November 2026: the terms it adds
+/// (+1) and takes off (-1). The derived terms are worked in `income_test_terms`.
+const MEASURES: [(&str, &[(&str, i64)]); 6] = [
+    // ITAA 1997 s 995-1 'income for surcharge purposes' (a) to (d).
+    (
+        "surchargeIncome",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("familyTrust", 1),
+            ("fringeTotal", 1),
+            ("contributions", 1),
+            ("losses", 1),
+        ],
+    ),
+    // s 293-20(1)(a): the same, disregarding reportable superannuation contributions.
+    (
+        "division293Income",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("familyTrust", 1),
+            ("fringeTotal", 1),
+            ("losses", 1),
+        ],
+    ),
+    // ITAA 1936 s 6(1) 'rebate income' (a) to (d).
+    (
+        "rebateIncome",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("contributions", 1),
+            ("losses", 1),
+            ("adjustedFringe", 1),
+        ],
+    ),
+    // HESA s 154-5(1)(a) to (e).
+    (
+        "repaymentIncome",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("losses", 1),
+            ("fringeTotal", 1),
+            ("exemptForeign", 1),
+            ("contributions", 1),
+        ],
+    ),
+    // Family Assistance Act Sch 3 cl 2(1) (a) to (f), less deductible child maintenance expenditure.
+    (
+        "adjustedTaxableIncome",
+        &[
+            ("taxableWithoutFhss", 1),
+            ("adjustedFringe", 1),
+            ("targetForeign", 1),
+            ("losses", 1),
+            ("pensions", 1),
+            ("contributions", 1),
+            ("childSupport", -1),
+        ],
+    ),
+    // Co-contribution Act s 8(1) (a) to (c) and (2).
+    (
+        "coContributionIncome",
+        &[
+            ("assessable", 1),
+            ("fhss", -1),
+            ("fringeTotal", 1),
+            ("coEmployer", 1),
+            ("businessDeductions", -1),
+        ],
+    ),
+];
+
+/// The return amounts and the terms derived from them, in whole dollars.
+fn income_test_terms(parts: &[(&str, i64)]) -> Vec<(&'static str, i64)> {
+    let get = |name: &str| parts.iter().find(|(n, _)| *n == name).unwrap().1;
+    let mut terms: Vec<(&'static str, i64)> = INCOME_TEST_PARTS
+        .iter()
+        .map(|name| (*name, get(name)))
+        .collect();
+    // Nothing of taxable income is left where the FHSS amount is more (ITAA 1997 s 4-15(1)).
+    terms.push(("taxableWithoutFhss", (get("taxable") - get("fhss")).max(0)));
+    terms.push(("fringeTotal", get("fringe57a") + get("fringeOther")));
+    // The quasi amount: the reportable amount over 1 / (1 - rate), to the dollar below, as the
+    // ATO's 2026 rebate income worksheet rounds it.
+    terms.push((
+        "adjustedFringe",
+        get("fringe57a") * (100 - FBT_RATE) / 100 + get("fringeOther"),
+    ));
+    terms.push(("losses", get("financialLoss") + get("rentalLoss")));
+    terms.push((
+        "contributions",
+        (get("employerSuper") + get("personalSuper") - get("excessConcessional")).max(0),
+    ));
+    terms.push((
+        "coEmployer",
+        (get("employerSuper") - get("excessConcessional")).max(0),
+    ));
+    terms
+}
+
+/// What the engine must return, in cents as the harness gives it.
+fn income_tests_oracle(parts: &[(&str, i64)]) -> Value {
+    let terms = income_test_terms(parts);
+    let term = |name: &str| terms.iter().find(|(n, _)| *n == name).unwrap().1;
+    let mut out = serde_json::Map::new();
+    for name in [
+        "taxableWithoutFhss",
+        "fringeTotal",
+        "adjustedFringe",
+        "losses",
+        "contributions",
+        "coEmployer",
+    ] {
+        out.insert(name.into(), json!(term(name) * 100));
+    }
+    for (measure, list) in MEASURES {
+        let sum: i64 = list.iter().map(|(name, sign)| sign * term(name)).sum();
+        out.insert(measure.into(), json!(sum * 100));
+    }
+    // s 995-1 leaves exempt foreign employment income out of income for surcharge purposes; the
+    // ATO's surcharge page adds it where taxable income is $1 or more.
+    out.insert(
+        "exemptForeignDiffers".into(),
+        json!(term("exemptForeign") > 0 && term("taxable") > 0),
+    );
+    Value::Object(out)
+}
+
+/// Return amounts that hold together: taxable income, the FHSS amount and excess concessional
+/// contributions within assessable income, and exempt foreign employment income within target
+/// foreign income. A quarter of the other amounts are nil.
+fn income_test_case(rng: &mut Seeded) -> Vec<(&'static str, i64)> {
+    let amount = |rng: &mut Seeded, limit: u64| -> i64 {
+        if rng.below(4) == 0 {
+            0
+        } else {
+            i64::try_from(rng.below(limit + 1)).unwrap()
+        }
+    };
+    let mut parts: Vec<(&'static str, i64)> = INCOME_TEST_PARTS
+        .iter()
+        .map(|name| (*name, amount(rng, 80_000)))
+        .collect();
+    let set = |parts: &mut Vec<(&'static str, i64)>, name: &str, value: i64| {
+        parts.iter_mut().find(|(n, _)| *n == name).unwrap().1 = value;
+    };
+    let get = |parts: &[(&str, i64)], name: &str| parts.iter().find(|(n, _)| *n == name).unwrap().1;
+    let taxable = amount(rng, 400_000);
+    set(&mut parts, "taxable", taxable);
+    let floor = taxable
+        .max(get(&parts, "fhss"))
+        .max(get(&parts, "excessConcessional"));
+    let extra = amount(rng, 60_000);
+    set(&mut parts, "assessable", floor + extra);
+    let exempt = get(&parts, "exemptForeign");
+    let more = amount(rng, 20_000);
+    set(&mut parts, "targetForeign", exempt + more);
+    parts
+}
+
+fn income_test_input(parts: &[(&str, i64)]) -> Value {
+    let mut call = serde_json::Map::new();
+    call.insert("resident".into(), json!(true));
+    for (name, value) in parts {
+        call.insert((*name).into(), json!(value.to_string()));
+    }
+    json!({"kind": "tests", "parts": call})
+}
+
+#[test]
+fn the_income_tests_oracle_works_the_atos_examples_by_hand() {
+    let parts = |given: &[(&'static str, i64)]| {
+        INCOME_TEST_PARTS
+            .iter()
+            .map(|name| {
+                let value = given.iter().find(|(n, _)| n == name).map_or(0, |(_, v)| *v);
+                (*name, value)
+            })
+            .collect::<Vec<_>>()
+    };
+    // When you must repay your loan: Christina's $50,420, $1,250, $4,560, $2,580 and $15,000 give
+    // repayment income of $73,810.
+    let christina = income_tests_oracle(&parts(&[
+        ("taxable", 50_420),
+        ("financialLoss", 1_250),
+        ("fringeOther", 4_560),
+        ("exemptForeign", 2_580),
+        ("targetForeign", 2_580),
+        ("employerSuper", 15_000),
+        ("assessable", 50_420),
+    ]));
+    assert_eq!(christina["repaymentIncome"], 7_381_000);
+    // Medicare levy surcharge income, thresholds and rates: Tom's $90,000 and $27,000, $117,000.
+    let tom = income_tests_oracle(&parts(&[
+        ("taxable", 90_000),
+        ("fringeOther", 27_000),
+        ("assessable", 90_000),
+    ]));
+    assert_eq!(tom["surchargeIncome"], 11_700_000);
+    // Rebate income 2026: label N x 0.53 rounded down, $4,567 to $2,420.
+    let exempt = income_tests_oracle(&parts(&[("fringe57a", 4_567)]));
+    assert_eq!(exempt["adjustedFringe"], 242_000);
+}
+
+#[test]
+fn the_income_tests_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0007);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..INCOME_TEST_CASES)
+        .map(|_| {
+            let parts = income_test_case(&mut rng);
+            (income_test_input(&parts), income_tests_oracle(&parts))
         })
         .unzip();
     agree(&cases, &expected);

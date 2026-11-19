@@ -1,0 +1,76 @@
+# Division 293 tax calculator 2021-22 to 2026-27
+
+Source: https://duguid.com.au/tools/individual-tax/division-293/
+
+> Division 293 tax on super contributions above the $250,000 threshold for 2021-22 to 2026-27, with excess contributions and carry-forward cap, cited.
+
+# Division 293 tax calculator
+
+The extra 15% tax on concessional super contributions when income and contributions exceed $250,000, for 2021-22 to 2026-27, each step shown.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Division 293 tax inputs for one income year
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Your super interests this year Accumulation interests only A defined benefit interest, a constitutionally protected fund or a Commonwealth judges’ pension scheme
+
+Taxable income, including any excess concessional contributions assessed (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, financial and rental (whole dollars) Income on which family trust distribution tax was paid (whole dollars) Assessable first home super saver released amount in taxable income (whole dollars) Super lump sum taxed at 0%, received from preservation age to under 60, to 2023-24 only (whole dollars) Concessional contributions for the financial year: employer, super guarantee, salary sacrifice and personal contributions you deduct (dollars and cents) Unused concessional cap from the previous 5 years not yet applied (dollars and cents) Total super balance just before the year began $500,000 or more Under $500,000, so unused cap carries forward
+
+Enter 0 for any part you do not have. Your tax return gives the income parts and your super fund’s statements the contributions; your ATO online account shows unused cap and your total super balance. Leave out contributions made under the super guarantee amnesty.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, accumulation interests only, taxable income $240,000.00, reportable fringe benefits $0.00, total net investment loss $0.00, family trust distribution tax income $0.00, assessable FHSS released amount $0.00, zero-rate super lump sum $0.00, concessional contributions $15,000.00, unused cap carried forward $0.00. Division 293 income: income for surcharge purposes less reportable super contributions $240,000.00 Concessional contributions $15,000.00 Concessional contributions cap for 2026-27 $32,500.00 Excess concessional contributions $0.00 Low tax contributions: the contributions less the excess $15,000.00 Division 293 income plus low tax contributions $255,000.00 Amount over the $250,000 threshold $5,000.00 Taxable contributions: the lesser of the low tax contributions and that amount $5,000.00 Division 293 tax at 15% $750.00 The ATO assesses it on a separate notice, payable 21 days after it is given (section 293-65).
+
+## How the Division 293 tax calculator works
+
+The Division 293 tax calculator works out the extra 15% tax on concessional super contributions for one income year when income and contributions together exceed $250,000. It adds up Division 293 income, the income measure used for the Medicare levy surcharge without reportable super contributions, then takes the contributions less any excess over the year’s cap, raised by unused cap carried forward when your total super balance allows it. Those are the low tax contributions. The taxable contributions are the lesser of the low tax contributions and the amount by which they and Division 293 income exceed $250,000, so only the part above the threshold is taxed, and never more than the contributions. Each step is shown, with the room left under the threshold when you are below it.
+
+Excess concessional contributions are not taxed by Division 293: they are added to your assessable income and taxed at your marginal rate less a 15% offset instead. A one-off event, such as a capital gain, an employment termination payment or back pay, can take you over the threshold for a single year. The ATO assesses Division 293 tax on its own notice once it has your return and your fund’s contribution reports. It is payable 21 days after the notice, and you can elect within 60 days to have it released from super.
+
+## What the Division 293 tax calculator does not compute
+
+The calculator covers 2021-22 to 2026-27, for contributions to accumulation interests. It does not compute:
+
+- defined benefit interests, whose defined benefit contributions the regulations work out and whose tax is deferred to a debt account (Subdivision 293-D), or the rules for State higher level office holders with constitutionally protected funds and for Commonwealth justices and judges (Subdivisions 293-E and 293-F);
+- contributions the Commissioner has disregarded or reallocated to another year, which stay in low tax contributions, or which contributions count: enter them as your fund reports them;
+- contributions that count differently for Division 293 than for the cap: a super guarantee amnesty amount the Commissioner paid to your fund, which is not a low tax contribution (section 293-30(4)(c)), and a contribution refunded under section 99G(6) of the Superannuation Industry (Supervision) Act 1993, which is not a concessional contribution (section 291-25(2)(e));
+- each part of Division 293 income, the unused cap or your total super balance, which you enter;
+- 2027-28 and later years, whose cap is not yet known, or years before 2021-22;
+- the refund for a former temporary resident who receives a departing Australia superannuation payment, interest, or the release from super itself.
+
+Confirm the figures with your Division 293 notice from the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Division 293 tax calculator
+
+Case | Inputs | Result
+The ATO’s example: Jan’s $240,000 and $15,000 give $5,000 taxed | 2026-27: taxable income $240,000; contributions $15,000.00 | Division 293 income $240,000.00, low tax contributions $15,000.00, taxable contributions $5,000.00, tax $750.00
+Below the threshold: $30,000 of room left | 2026-27: taxable income $200,000; contributions $20,000.00 | Division 293 income $200,000.00, low tax contributions $20,000.00, taxable contributions $0.00, tax $0.00
+Income alone over $250,000: all the contributions are taxed | 2026-27: taxable income $300,000; contributions $25,000.00 | Division 293 income $300,000.00, low tax contributions $25,000.00, taxable contributions $25,000.00, tax $3,750.00
+No low tax contributions, so no taxable contributions (s 293-20(2)) | 2026-27: taxable income $400,000; contributions $0.00 | Division 293 income $400,000.00, low tax contributions $0.00, taxable contributions $0.00, tax $0.00
+Exactly $250,000 does not exceed the threshold | 2026-27: taxable income $235,000; contributions $15,000.00 | Division 293 income $235,000.00, low tax contributions $15,000.00, taxable contributions $0.00, tax $0.00
+One cent over: 15% of a cent rounds to nil | 2026-27: taxable income $235,000; contributions $15,000.01 | Division 293 income $235,000.00, low tax contributions $15,000.01, taxable contributions $0.01, tax $0.00
+Ten cents over: 1.5 cents rounds half up to 2 | 2026-27: taxable income $235,000; contributions $15,000.10 | Division 293 income $235,000.00, low tax contributions $15,000.10, taxable contributions $0.10, tax $0.02
+Excess concessional contributions are left out | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00 | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
+Unused cap carried forward covers the excess, so all of it counts | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance under | Division 293 income $243,000.00, low tax contributions $45,000.00, taxable contributions $38,000.00, tax $5,700.00
+Unused cap does not carry forward with a balance of $500,000 or more | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance $500,000 or more | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
+Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $5,000.00, balance under | Division 293 income $243,000.00, low tax contributions $37,500.00 after $7,500.00 excess, taxable contributions $30,500.00, tax $4,575.00
+2025-26, cap $30,000 | 2025-26: taxable income $230,000; contributions $35,000.00 | Division 293 income $230,000.00, low tax contributions $30,000.00 after $5,000.00 excess, taxable contributions $10,000.00, tax $1,500.00
+2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
+2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
+
+One of the nine individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- nine individual tax calculators: https://duguid.com.au/tools/individual-tax/
