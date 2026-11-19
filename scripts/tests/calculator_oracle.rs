@@ -6273,7 +6273,11 @@ fn margin_scheme_oracle(
         let scheme = exact_half_up(11 * excess, 110 * whole);
         (scheme, price + scheme, exact_half_up(price, 10))
     } else {
-        (exact_half_up(excess, 11 * whole), price, exact_half_up(price, 11))
+        (
+            exact_half_up(excess, 11 * whole),
+            price,
+            exact_half_up(price, 11),
+        )
     };
     let applies = interest != "other" && agreed && acquired != "full-gst";
     let cents = |value: u128| shown(u64::try_from(value).unwrap());
