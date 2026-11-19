@@ -3,7 +3,8 @@
 
 //! An independent oracle for the individual tax engines: `assets/income-tax.mjs`,
 //! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs`,
-//! `assets/division-293.mjs`, `assets/sole-trader.mjs` and `assets/income-tests.mjs`.
+//! `assets/division-293.mjs`, `assets/sole-trader.mjs`, `assets/income-tests.mjs` and
+//! `assets/bonus-withholding.mjs`.
 //! Seeded fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser modules return under Node.
 //!
@@ -37,6 +38,7 @@ const HARNESS: &str = r"
 import { incomeTax, medicareLevySurcharge } from './assets/income-tax.mjs';
 import { studyLoanRepayment } from './assets/study-loan.mjs';
 import { takeHomePay } from './assets/take-home-pay.mjs';
+import { bonusWithholding } from './assets/bonus-withholding.mjs';
 import { division293Tax } from './assets/division-293.mjs';
 import { soleTraderSetAside } from './assets/sole-trader.mjs';
 import { incomeTests } from './assets/income-tests.mjs';
@@ -51,6 +53,7 @@ const run = {
     super: '0', foreign: '0' }, year)),
   pay: ({ pay }) => cents(takeHomePay(pay)),
   mls: ({ mls }) => cents(medicareLevySurcharge(mls)),
+  bonus: ({ bonus }) => cents(bonusWithholding(bonus)),
   d293: ({ d293 }) => cents(division293Tax(d293)),
   sole: ({ sole }) => cents(soleTraderSetAside(sole)),
   tests: ({ parts }) => cents(incomeTests(parts)),
@@ -70,6 +73,7 @@ const TAX_CASES: usize = 700;
 const LOAN_CASES: usize = 400;
 const PAY_CASES: usize = 900;
 const MLS_CASES: usize = 400;
+const BONUS_CASES: usize = 500;
 const DIVISION_293_CASES: usize = 600;
 const SOLE_CASES: usize = 600;
 
@@ -1065,6 +1069,215 @@ fn the_take_home_pay_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 "includesSuper": p.included, "sacrifice": money(sacrifice), "studyLoan": p.loan,
                 "hospitalCover": p.cover});
             (json!({"kind": "pay", "pay": pay}), pay_oracle(&p))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+/// Schedule 5 (Tax table for back payments, commissions, bonuses and similar payments, published
+/// 17 June 2026 for payments from 1 July 2026), as its method steps read, in cents. The 'relevant
+/// tax table' is Schedule 1 on scale 2 or 3, plus Schedule 8 with a study loan, each in whole
+/// dollars. B(i) works each earlier pay in turn and adds them up, where the engine multiplies one
+/// pay's result by the count; the 47% limit compares 47 times the payment with 100 times the step's
+/// dollars, where the engine compares cents.
+struct Bonus<'a> {
+    period: &'a str,
+    resident: bool,
+    loan: bool,
+    method_a: bool,
+    earnings: u64,
+    additional: u64,
+    spread: u64,
+    back: (u64, u64, u64, u64),
+    to_date: (u64, u64, u64, u64),
+}
+
+fn per_year(period: &str) -> u64 {
+    match period {
+        "week" => 52,
+        "fortnight" => 26,
+        _ => 12,
+    }
+}
+
+impl Bonus<'_> {
+    /// [tax, study loan, total] in cents withheld from one pay of `earnings` cents.
+    fn table(&self, earnings: u64) -> [u64; 3] {
+        let scale: &[(u64, i64, i64)] = if self.resident { &SCALE_2 } else { &SCALE_3 };
+        let tax = withheld(earnings, self.period, scale) * 100;
+        let loan = if self.loan {
+            withheld(earnings, self.period, &SCHEDULE_8) * 100
+        } else {
+            0
+        };
+        [tax, loan, tax + loan]
+    }
+}
+
+fn split(cents: [u64; 3]) -> Value {
+    json!({"tax": cents[0], "studyLoan": cents[1], "total": cents[2]})
+}
+
+/// Steps 6 and 7 of Method A or B(ii): the higher table less the lower, times `times`.
+fn spread_extra(high: [u64; 3], low: [u64; 3], times: u64) -> [u64; 3] {
+    [0, 1, 2].map(|i| (high[i] - low[i]) * times)
+}
+
+/// The lesser of `amount` cents and 47% of `additional`, cents ignored, nil if negative.
+fn limit_47(amount: i64, additional: u64) -> u64 {
+    let amount = amount.max(0) as u64;
+    let dollars = if amount * 100 <= additional * 47 {
+        amount / 100
+    } else {
+        additional * 47 / 10_000
+    };
+    dollars * 100
+}
+
+fn bonus_oracle(b: &Bonus) -> Value {
+    let pays = per_year(b.period);
+    let floor_dollars = |cents: u64| cents / 100 * 100;
+    if b.method_a {
+        let step1 = floor_dollars(b.earnings);
+        let step2 = b.table(step1);
+        let step3 = floor_dollars(b.additional / b.spread);
+        let step5 = b.table(step1 + step3);
+        let step7 = spread_extra(step5, step2, b.spread);
+        let on_additional = limit_47(step7[2] as i64, b.additional);
+        let year = b.earnings * pays;
+        let owed = |salary: u64| {
+            let r = pay_oracle(&Pay {
+                year: "2026-27",
+                residency: if b.resident { "resident" } else { "foreign" },
+                period: ("year", 1),
+                salary,
+                sacrifice: 0,
+                included: false,
+                loan: b.loan,
+                cover: true,
+            });
+            r["salary"].as_u64().unwrap() - r["net"].as_u64().unwrap()
+        };
+        return json!({"method": "A", "spread": b.spread * 100, "step1": step1, "step2": split(step2),
+            "step3": step3, "step4": step1 + step3, "step5": split(step5), "step7": split(step7),
+            "limit": b.additional * 47 / 100, "onAdditional": on_additional, "onEarnings": step2[2],
+            "total": step2[2] + on_additional,
+            "yearTax": owed(year + b.additional) - owed(year)});
+    }
+    let base = b.table(b.earnings);
+    let (count, before, each, withheld_then) = b.back;
+    let bi = (count > 0).then(|| {
+        let recalculated = b.table(before + each);
+        let sum: i64 = (0..count)
+            .map(|_| recalculated[2] as i64 - withheld_then as i64)
+            .sum();
+        json!({"pays": count * 100, "each": each, "earnings": before + each,
+            "recalculated": split(recalculated), "onBackPayment": sum.max(0)})
+    });
+    let (to_date, pays_to_date, earlier, earlier_withheld) = b.to_date;
+    let bii = (b.additional > 0).then(|| {
+        let step1 = floor_dollars((to_date + each * count) / pays_to_date);
+        let step2 = b.table(step1);
+        let step3 = floor_dollars((earlier + b.additional) / pays);
+        let step5 = b.table(step1 + step3);
+        let step7 = spread_extra(step5, step2, pays);
+        let step8 = step7[2] as i64 - earlier_withheld as i64;
+        json!({"step1": step1, "step2": split(step2), "step3": step3, "step4": step1 + step3,
+            "step5": split(step5), "step7": split(step7), "step8": step8,
+            "limit": b.additional * 47 / 100, "onAdditional": limit_47(step8, b.additional)})
+    });
+    let cents = |v: &Option<Value>, key: &str| v.as_ref().map_or(0, |v| v[key].as_i64().unwrap());
+    let on_additional = cents(&bi, "onBackPayment") + cents(&bii, "onAdditional");
+    json!({"method": "B", "base": split(base), "methodBi": bi, "methodBii": bii, "onEarnings": base[2],
+        "onAdditional": on_additional, "total": base[2] as i64 + on_additional})
+}
+
+#[test]
+fn the_oracle_works_the_schedule_5_examples_by_hand() {
+    let pay = |period, loan, method_a| Bonus {
+        period,
+        resident: true,
+        loan,
+        method_a,
+        earnings: 0,
+        additional: 0,
+        spread: 52,
+        back: (0, 0, 0, 0),
+        to_date: (0, 1, 0, 0),
+    };
+    // Example 1, Jarrod: $1,400 a week and a $900 bonus with HELP, $641 in all.
+    let jarrod = bonus_oracle(&Bonus {
+        earnings: 140_000,
+        additional: 90_000,
+        ..pay("week", true, true)
+    });
+    assert_eq!(jarrod["total"], 64_100);
+    // Example 2, Robyn: 8 weeks of $100 back pay on $1,600, $331 and $40 withheld then, $794 now.
+    let robyn = bonus_oracle(&Bonus {
+        earnings: 170_000,
+        back: (8, 160_000, 10_000, 37_100),
+        ..pay("week", true, false)
+    });
+    assert_eq!(robyn["total"], 79_400);
+    // Example 3, Laura: $2,480 of arrears, $18,000 over 10 fortnights, $992.
+    let laura = bonus_oracle(&Bonus {
+        earnings: 180_000,
+        additional: 248_000,
+        to_date: (1_800_000, 10, 0, 0),
+        ..pay("fortnight", false, false)
+    });
+    assert_eq!(laura["total"], 99_200);
+    // Example 4, Bradley: $1,600 by B(i) and $8,800 by B(ii) with a Financial Supplement debt, $6,492.
+    let bradley = bonus_oracle(&Bonus {
+        earnings: 700_000,
+        additional: 880_000,
+        back: (2, 620_000, 80_000, 125_700),
+        to_date: (1_940_000, 3, 0, 0),
+        ..pay("month", true, false)
+    });
+    assert_eq!(bradley["total"], 649_200);
+}
+
+#[test]
+fn the_bonus_withholding_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0005);
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..BONUS_CASES)
+        .map(|_| {
+            let period = rng.pick(&["week", "fortnight", "month"]);
+            let pays = per_year(period);
+            // Weekly earnings near a Schedule 1 or 8 threshold, or any to $6,000, as this period's pay.
+            let weekly = rng.income(&[362, 538, 673, 721, 865, 1282, 1337, 2494, 2596, 3577, 3653]) % 6_000;
+            let earnings = weekly * 100 * 52 / pays + if rng.below(2) == 0 { rng.below(100) } else { 0 };
+            let additional = rng.below(2_000_000) + 1;
+            let method_a = rng.below(2) == 0;
+            let back = if method_a || rng.below(3) == 0 {
+                (0, 0, 0, 0)
+            } else {
+                (rng.below(pays - 1) + 1, rng.below(800_000), rng.below(50_000) + 1, rng.below(300_000))
+            };
+            let additional = if !method_a && back.0 > 0 && rng.below(2) == 0 { 0 } else { additional };
+            let pays_to_date = rng.below(pays) + 1;
+            let to_date = earnings + rng.below(400_000) * (pays_to_date - 1);
+            let earlier = if rng.below(2) == 0 { rng.below(1_000_000) } else { 0 };
+            let b = Bonus {
+                period,
+                resident: rng.below(3) != 0,
+                loan: rng.below(2) == 0,
+                method_a,
+                earnings,
+                additional,
+                spread: if rng.below(3) == 0 { rng.below(pays - 1) + 2 } else { pays },
+                back,
+                to_date: (to_date, pays_to_date, earlier, if earlier > 0 { rng.below(400_000) } else { 0 }),
+            };
+            let bonus = json!({"period": period, "residency": if b.resident { "resident" } else { "foreign" },
+                "studyLoan": b.loan, "method": if method_a { "A" } else { "B" }, "earnings": money(earnings),
+                "additional": money(additional), "spread": b.spread.to_string(), "backPays": back.0.to_string(),
+                "backEarnings": money(back.1), "backEach": money(back.2), "backWithheld": money(back.3),
+                "yearToDate": money(to_date), "paysToDate": pays_to_date.to_string(),
+                "earlierAdditional": money(earlier), "earlierWithheld": money(b.to_date.3)});
+            (json!({"kind": "bonus", "bonus": bonus}), bonus_oracle(&b))
         })
         .unzip();
     agree(&cases, &expected);

@@ -7,6 +7,8 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { BONUS_YEAR, bonusWithholding } from './bonus-withholding.mjs';
+import { PAYS } from './payg-withholding.mjs';
 import { DIVISION_293_YEARS, division293Tax } from './division-293.mjs';
 import { lumpSumArrears } from './lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
@@ -119,6 +121,76 @@ function studyLoanResult(value, aud) {
     + `total net investment loss ${aud(Number(parts.losses))}, reportable super contributions ${aud(Number(parts.super))}, `
     + `exempt foreign employment income ${aud(Number(parts.foreign))}`, principal: 1,
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
+}
+
+const PAY_NAME = /** @type {Record<string, string>} */ ({ week: 'weekly', fortnight: 'fortnightly', month: 'monthly' });
+const PAYEE = /** @type {Record<string, string>} */ ({ resident: 'Australian resident claiming the tax-free threshold (scale 2)',
+  foreign: 'foreign resident (scale 3)' });
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function bonusResult(value, aud) {
+  const period = value('period');
+  const loan = value('study-loan') === 'yes';
+  const r = bonusWithholding({ period, residency: value('residency'), studyLoan: loan, method: value('method'),
+    earnings: value('earnings'), additional: value('additional'), spread: value('spread'), backPays: value('back-pays'),
+    backEarnings: value('back-earnings'), backEach: value('back-each'), backWithheld: value('back-withheld'),
+    yearToDate: value('year-to-date'), paysToDate: value('pays-to-date'), earlierAdditional: value('earlier-additional'),
+    earlierWithheld: value('earlier-withheld') });
+  const money = (/** @type {string} */ name) => aud(Number(value(name)));
+  const head = `${BONUS_YEAR}, ${PAY_NAME[period]} pay, ${PAYEE[value('residency')]}, ${loan ? 'with a' : 'no'} study or training loan, `
+    + `earnings ${money('earnings')} this pay`;
+  /** The study loan component of each amount withheld, with a loan.
+   * @param {[{studyLoan: number, total: number}, string][]} parts */
+  const loanNote = (parts) => {
+    const each = parts.map(([t, label]) => `${aud(t.studyLoan)} of the ${aud(t.total)}`.replaceAll('.00', '') + ` ${label}`);
+    return loan ? `Each amount withheld includes the Schedule 8 study loan component: ${each.slice(0, -1).join(', ')}`
+      + `${each.length > 1 ? ' and ' : ''}${each.at(-1)}` : '';
+  };
+  if (r.method === 'A') return methodAResult(r, { aud, loan, head, money, loanNote });
+  const rows = [['Withheld from this pay’s earnings', aud(r.base.total)]];
+  const parts = /** @type {[{studyLoan: number, total: number}, string][]} */ ([[r.base, 'on this pay’s earnings']]);
+  const described = [];
+  if (r.methodBi) {
+    const bi = r.methodBi;
+    rows.push([`Each earlier pay worked again on ${aud(bi.earnings).replace('.00', '')} (B(i) steps 2 and 3)`, aud(bi.recalculated.total)],
+      [`Less what was withheld, times ${bi.pays} pays (B(i) steps 4 and 5)`, aud(bi.onBackPayment)]);
+    described.push(`B(i): back payment ${money('back-each')} for each of ${bi.pays} earlier pays this year that paid `
+      + `${money('back-earnings')} and had ${money('back-withheld')} withheld`);
+  }
+  if (r.methodBii) {
+    const bii = r.methodBii;
+    rows.push(['Average total earnings to date, cents ignored (B(ii) step 1)', aud(bii.step1)],
+      ['Withheld from that average (B(ii) step 2)', aud(bii.step2.total)],
+      [`This year’s B(ii) payments divided by ${PAYS[period]}, cents ignored (B(ii) step 3)`, aud(bii.step3)],
+      [`Withheld from earnings of ${aud(bii.step4).replace('.00', '')} (B(ii) steps 4 and 5)`, aud(bii.step5.total)],
+      [`The difference times ${PAYS[period]}, less earlier B(ii) withholding (B(ii) steps 6 to 8)`, aud(bii.step8)],
+      ['47% of the payment, the limit (B(ii) step 9)', aud(bii.limit)],
+      ['Withheld from the payment, the lesser (B(ii) step 10)', aud(bii.onAdditional)]);
+    described.push(`B(ii): additional payment ${money('additional')}, normal earnings to date ${money('year-to-date')} over `
+      + `${value('pays-to-date')} pays, earlier B(ii) payments ${money('earlier-additional')} with ${money('earlier-withheld')} withheld`);
+  }
+  if (r.methodBi) parts.push([r.methodBi.recalculated, 'for each earlier pay']);
+  if (r.methodBii) parts.push([r.methodBii.step7, 'by B(ii)']);
+  rows.push(['Total withheld this pay', aud(r.total)]);
+  return { inputs: `${head}, Method B, ${described.join('; ')}`, rows, principal: rows.length - 1, note: loanNote(parts) || undefined };
+}
+
+
+/** The Method A rows. @param {Extract<ReturnType<typeof bonusWithholding>, {method: 'A'}>} r
+ * @param {{aud: (amount: number) => string, loan: boolean, head: string, money: (name: string) => string,
+ *   loanNote: (parts: [{studyLoan: number, total: number}, string][]) => string}} f @returns {Result} */
+function methodAResult(r, { aud, loan, head, money, loanNote }) {
+  const rows = [['Earnings this pay, cents ignored (step 1)', aud(r.step1)], ['Withheld from those earnings (step 2)', aud(r.step2.total)],
+    [`The payment divided by ${r.spread}, cents ignored (step 3)`, aud(r.step3)],
+    [`Withheld from earnings of ${aud(r.step4).replace('.00', '')} (steps 4 and 5)`, aud(r.step5.total)],
+    [`The difference, times ${r.spread} (steps 6 and 7)`, aud(r.step7.total)], ['47% of the payment, the limit (step 8)', aud(r.limit)],
+    ['Withheld from the payment, the lesser (step 9)', aud(r.onAdditional)], ['Total withheld this pay (step 10)', aud(r.total)],
+    [`Tax${loan ? ' and study loan repayment' : ''} the payment adds to a year of this pay`, aud(r.yearTax)]];
+  const notes = [loanNote([[r.step2, 'on this pay’s earnings'], [r.step7, 'on the payment']]),
+    'The last row is the payment’s effect on the year’s assessment, were every pay this pay; the withholding schedules do not aim to match it']
+    .filter(Boolean);
+  return { inputs: `${head}, Method A: additional payment ${money('additional')} spread over ${r.spread} pays`, rows, principal: 7,
+    note: notes.join('. ') };
 }
 
 /** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
@@ -313,7 +385,8 @@ function incomeTestsResult(value, aud) {
 }
 
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
-  ['sole-trader', soleTraderResult], ['lump-sum-arrears', lumpSumArrearsResult], ['division-293', division293Result], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult]]);
+  ['sole-trader', soleTraderResult], ['lump-sum-arrears', lumpSumArrearsResult], ['division-293', division293Result], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult],
+  ['bonus-withholding', bonusResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -324,4 +397,5 @@ export function individualResult(kind, value, aud) {
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
 export const engines = { taxEstimate, takeHomePay, soleTraderSetAside, division293Tax, incomeTests, incomeYears: INCOME_TAX_YEARS,
-  payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS };
+  payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS,
+  bonusWithholding };
