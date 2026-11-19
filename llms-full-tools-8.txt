@@ -105,7 +105,7 @@ Salary packaging inputs for one year
 
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23
 
-Your employer A public benevolent institution or health promotion charity ($30,000 cap) A public or not-for-profit hospital or a public ambulance service ($17,000 cap)
+Your employer A public benevolent institution or health promotion charity ($30,000 cap) A public or not-for-profit hospital, or a public ambulance service you work in or support ($17,000 cap)
 
 Residency for tax purposes all year Australian resident Foreign resident
 
@@ -131,6 +131,7 @@ The calculator covers the FBT years ending 31 March 2023 to 2027, for one employ
 
 - rebatable employers, such as other registered charities, whose FBT is reduced by a rebate of 47% up to a $30,000 cap, or ordinary employers, who pay full FBT on packaged benefits;
 - benefits outside the cap, such as car parking and meal entertainment that is not salary packaged, exempt benefits such as portable electronic devices, or a novated car lease, which the novated lease calculator works;
+- an ambulance service employee not predominantly involved in providing or supporting its ambulance services, whose benefits are not exempt (section 57A(3)(b));
 - package fees, the cost of the benefits themselves, or whether a benefit is Type 1 or Type 2, which your employer decides;
 - excluded fringe benefits, such as remote area housing, which count towards the cap but are not reportable: entered here, they would raise the reportable amount;
 - salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge;
@@ -232,6 +233,7 @@ The calculator covers the FBT years ending 31 March 2024 to 2027, for one car an
 - the lease payments themselves, the residual value, interest or fees, which come from your lease quote;
 - the operating cost method, FBT left over when the costs are less than the taxable value, or an employer that does not claim GST credits;
 - a vehicle designed to carry a tonne or more or 9 or more passengers, which is not a car for FBT and so not covered by the exemption;
+- a car you or another owner imported, whose luxury car tax at importation also decides the exemption (section 8A(1)(c));
 - a car on which luxury car tax was paid at a later sale, a car with a value at first sale different from its cost price, or a home charger;
 - the end of the lease, when you pay the residual or refinance;
 - salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge.

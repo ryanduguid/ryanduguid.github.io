@@ -59,6 +59,7 @@ The calculator covers the FBT years ending 31 March 2024 to 2027, for one car an
 - the lease payments themselves, the residual value, interest or fees, which come from your lease quote;
 - the operating cost method, FBT left over when the costs are less than the taxable value, or an employer that does not claim GST credits;
 - a vehicle designed to carry a tonne or more or 9 or more passengers, which is not a car for FBT and so not covered by the exemption;
+- a car you or another owner imported, whose luxury car tax at importation also decides the exemption (section 8A(1)(c));
 - a car on which luxury car tax was paid at a later sale, a car with a value at first sale different from its cost price, or a home charger;
 - the end of the lease, when you pay the residual or refinance;
 - salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge.
