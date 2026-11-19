@@ -3621,8 +3621,10 @@ test('the accounting column amortises the costs at the effective interest rate a
 
 test('a refinancing with the same lender takes the 10% test, and under 10% is refused', () => {
   const loans = (term) => [borrowLoan({ repaid_on: '2023-03-15' }), borrowLoan({ borrowing_expenses: '900.00', loan_start: '2023-03-15', loan_term_end: term, refinances: 1 })];
-  const facts = (amount, rate, payments, lender) => [{ amount: '300000', annual_rate: '6', payments: '300', balloon_percent: '0', qualifying_asset: false },
-    { amount, annual_rate: rate, payments, balloon_percent: '0', qualifying_asset: false, ...(lender === undefined ? {} : { same_lender: lender }) }];
+  // The $900 is all paid to the lender unless `fees` says otherwise (null: not given).
+  const facts = (amount, rate, payments, lender, fees = '900') => [{ amount: '300000', annual_rate: '6', payments: '300', balloon_percent: '0', qualifying_asset: false },
+    { amount, annual_rate: rate, payments, balloon_percent: '0', qualifying_asset: false, ...(lender === undefined ? {} : { same_lender: lender }),
+      ...(fees === null ? {} : { lender_fees: fees }) }];
   const account = (term, accounting) => {
     const input = { year: '2024-25', loans: loans(term), accounting };
     return calculations.borrowingAccounting(input, calculations.borrowingSchedule(input));
@@ -3637,6 +3639,13 @@ test('a refinancing with the same lender takes the 10% test, and under 10% is re
   assert.throws(() => account('2048-03-14', facts('290000', '4.8', '300', true)), { message: /differ by 9\.41%, under 10%/ });
   assert.equal(account('2048-03-14', facts('290000', '4.6', '300', true))[1].test.change.toFixed(4), '0.1122');
   assert.throws(() => account('2048-03-14', facts('290000', '5', '300')), { code: 'input.flag_invalid' });
+  // Para B3.3.6 counts only fees between the borrower and the lender: at 4.75% the $900 paid to the
+  // lender leaves the terms 9.86% apart, but paid to a broker it is left out and they are 10.18% apart.
+  assert.throws(() => account('2048-03-14', facts('290000', '4.75', '300', true)), { message: /differ by 9\.86%, under 10%/ });
+  assert.equal(account('2048-03-14', facts('290000', '4.75', '300', true, '0'))[1].test.change.toFixed(4), '0.1018');
+  for (const fees of [null, '900.01']) {
+    assert.throws(() => account('2048-03-14', facts('290000', '4.6', '300', true, fees)), { code: 'accounting.lender_fees_invalid' });
+  }
 });
 
 test('the borrowing expenses form reads use by year and needs the loans in order', () => {
@@ -3647,6 +3656,8 @@ test('the borrowing expenses form reads use by year and needs the loans in order
   assert.throws(() => input({ 'use-by-year-1': '2019-20 50' }), { message: 'Loan 1: 2019-20 is not an income year of the loan’s period.' });
   assert.throws(() => input({ 'expenses-2': '', 'expenses-3': '100' }), { message: 'Fill in loan 2 before loan 3.' });
   assert.equal(input({ accounting: 'yes' }).accounting.length, 2);
+  assert.deepEqual(input({ accounting: 'yes', 'refinances-2': '1', 'lender-2': 'same', 'lender-fees-2': '500' }).accounting[1],
+    { amount: '209000', annual_rate: '6', payments: '240', balloon_percent: '0', qualifying_asset: false, same_lender: true, lender_fees: '500' });
 });
 
 // The command this page ports, run on the same cases: see the fixture's engine line.

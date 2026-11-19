@@ -372,7 +372,9 @@ const borrowingTool = (borrowingSchedule, years) => tool({
     + 'remaining expenditure, days, maximum deduction and deduction at the income use, the year asked about’s totals in AUD, and the $100 '
     + 'rule of s 25-25(6) across loans first drawn in the same year. A refinancing is the earlier loan repaid on the new loan’s first '
     + 'day. Years from 2027-28 are flagged for s 26-155, which it does not apply, and years after 2027-28 are marked projected. It does '
-    + 'not decide which costs are borrowing expenses or the use of the money, and does not work the page’s accounting column.',
+    + 'not decide which costs are borrowing expenses or the use of the money, and does not work the page’s accounting column. It assumes '
+    + 'no loan’s money is used for a holiday home or other leisure facility, or that s 26-50(3) applies all year: otherwise s 26-50 denies '
+    + 'the deduction.',
   inputSchema: record({
     year: choice(years, 'Income year asked about, for example "2025-26".'),
     loans: { type: 'array', maxItems: 20, description: 'Each loan, in order; a refinancing names an earlier one by its number from 1.',
