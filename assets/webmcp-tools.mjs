@@ -598,6 +598,46 @@ const SUPER_PROJECTION_DESCRIPTION = 'A projection in AUD of one accumulation su
   + `Sources and the reasons for each default on ${INDIVIDUAL}super-projection/.`;
 
 /**
+ * The WebMCP descriptor for the super projection calculator.
+ * @param {typeof import('./super-projection.mjs').superProjection} superProjection
+ */
+function superProjectionTool(superProjection) {
+  return tool({
+    name: 'project_super_balance',
+    title: 'Super projection calculator',
+    description: SUPER_PROJECTION_DESCRIPTION,
+    inputSchema: record({
+      age: whole(15, 74, 'Age now in whole years.'),
+      retirementAge: whole(60, 75, 'Retirement age in whole years; 67 when omitted.'),
+      balance: text('amount', 'Super balance now in AUD.'),
+      salary: whole(0, 1e9, 'Salary for 2026-27 before super, ordinary time earnings, in whole AUD.'),
+      employerRate: text('percent', 'Employer contributions as a per cent of salary, up to 30; "12" (the super guarantee) when omitted.'),
+      salarySacrifice: text('amount', 'Salary sacrifice and personal deductible contributions for 2026-27 in AUD; "0" when omitted.'),
+      afterTaxContributions: text('amount', 'After-tax contributions for 2026-27 in AUD; "0" when omitted.'),
+      returnRate: text('percent', 'Return a year after investment fees and tax on earnings, per cent up to 20; "6.1" when omitted.'),
+      adminFee: text('amount', 'Dollar administration fee for 2026-27 in AUD; "59" when omitted.'),
+      percentFee: text('percent', 'Administration fee as a per cent of the balance a year, up to 5; "0.11" when omitted.'),
+      insurancePremiums: text('amount', 'Insurance premiums for 2026-27 in AUD; "599" when omitted.'),
+      wageGrowth: text('percent', 'Wage growth a year, per cent up to 10; "3.7" when omitted.'),
+      discountRate: text('percent', 'Present value rate a year, per cent up to 10; "3.7" (ASIC Instrument 2022/603) when omitted.'),
+    }, ['age', 'balance', 'salary']),
+    run({ age, retirementAge = 67, balance, salary, employerRate = '12', salarySacrifice = '0', afterTaxContributions = '0',
+      returnRate = '6.1', adminFee = '59', percentFee = '0.11', insurancePremiums = '599', wageGrowth = '3.7',
+      discountRate = '3.7' }) {
+      const r = superProjection({ age: String(age), retire: String(retirementAge), balance, salary: String(salary),
+        employer: employerRate, sacrifice: salarySacrifice, afterTax: afterTaxContributions, returnRate, percentFee, adminFee,
+        insurance: insurancePremiums, growth: wageGrowth, discount: discountRate });
+      return {
+        yearsProjected: r.years, retirementAge: r.retire, employerContributionsFirstYear: dollars(r.employer),
+        concessionalContributionsFirstYear: dollars(r.concessional), contributionsAfterTax: dollars(r.contributed),
+        earnings: dollars(r.earnings), feesAndPremiumsAfterDeduction: dollars(r.fees), balanceAtRetirement: dollars(r.balance),
+        presentValue: dollars(r.present), currency: 'AUD', source: `${INDIVIDUAL}super-projection/`,
+      };
+    },
+  });
+}
+
+/**
  * WebMCP descriptors for the income tax estimate, take-home pay, income tests and super projection
  * calculators, keyed by the `data-calculator` name of the form whose page registers them.
  * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
@@ -695,38 +735,6 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeTests, supe
         };
       },
     }),
-    'super-projection': tool({
-      name: 'project_super_balance',
-      title: 'Super projection calculator',
-      description: SUPER_PROJECTION_DESCRIPTION,
-      inputSchema: record({
-        age: whole(15, 74, 'Age now in whole years.'),
-        retirementAge: whole(60, 75, 'Retirement age in whole years; 67 when omitted.'),
-        balance: text('amount', 'Super balance now in AUD.'),
-        salary: whole(0, 1e9, 'Salary for 2026-27 before super, ordinary time earnings, in whole AUD.'),
-        employerRate: text('percent', 'Employer contributions as a per cent of salary, up to 30; "12" (the super guarantee) when omitted.'),
-        salarySacrifice: text('amount', 'Salary sacrifice and personal deductible contributions for 2026-27 in AUD; "0" when omitted.'),
-        afterTaxContributions: text('amount', 'After-tax contributions for 2026-27 in AUD; "0" when omitted.'),
-        returnRate: text('percent', 'Return a year after investment fees and tax on earnings, per cent up to 20; "6.1" when omitted.'),
-        adminFee: text('amount', 'Dollar administration fee for 2026-27 in AUD; "59" when omitted.'),
-        percentFee: text('percent', 'Administration fee as a per cent of the balance a year, up to 5; "0.11" when omitted.'),
-        insurancePremiums: text('amount', 'Insurance premiums for 2026-27 in AUD; "599" when omitted.'),
-        wageGrowth: text('percent', 'Wage growth a year, per cent up to 10; "3.7" when omitted.'),
-        discountRate: text('percent', 'Present value rate a year, per cent up to 10; "3.7" (ASIC Instrument 2022/603) when omitted.'),
-      }, ['age', 'balance', 'salary']),
-      run({ age, retirementAge = 67, balance, salary, employerRate = '12', salarySacrifice = '0', afterTaxContributions = '0',
-        returnRate = '6.1', adminFee = '59', percentFee = '0.11', insurancePremiums = '599', wageGrowth = '3.7',
-        discountRate = '3.7' }) {
-        const r = superProjection({ age: String(age), retire: String(retirementAge), balance, salary: String(salary),
-          employer: employerRate, sacrifice: salarySacrifice, afterTax: afterTaxContributions, returnRate, percentFee, adminFee,
-          insurance: insurancePremiums, growth: wageGrowth, discount: discountRate });
-        return {
-          yearsProjected: r.years, retirementAge: r.retire, employerContributionsFirstYear: dollars(r.employer),
-          concessionalContributionsFirstYear: dollars(r.concessional), contributionsAfterTax: dollars(r.contributed),
-          earnings: dollars(r.earnings), feesAndPremiumsAfterDeduction: dollars(r.fees), balanceAtRetirement: dollars(r.balance),
-          presentValue: dollars(r.present), currency: 'AUD', source: `${INDIVIDUAL}super-projection/`,
-        };
-      },
-    }),
+    'super-projection': superProjectionTool(superProjection),
   };
 }
