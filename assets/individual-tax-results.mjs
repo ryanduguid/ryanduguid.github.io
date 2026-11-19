@@ -7,6 +7,7 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { DIVISION_293_YEARS, division293Tax } from './division-293.mjs';
 import { lumpSumArrears } from './lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 import { incomeTests } from './income-tests.mjs';
@@ -118,6 +119,39 @@ function studyLoanResult(value, aud) {
     + `total net investment loss ${aud(Number(parts.losses))}, reportable super contributions ${aud(Number(parts.super))}, `
     + `exempt foreign employment income ${aud(Number(parts.foreign))}`, principal: 1,
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
+}
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function division293Result(value, aud) {
+  const balanceUnder = value('balance-under') === 'yes';
+  const r = division293Tax({ year: value('year'), interests: value('interests'), taxable: value('taxable'),
+    fringe: value('fringe'), losses: value('losses'), trust: value('trust'), fhss: value('fhss'), lumpSum: value('lump-sum'),
+    concessional: value('concessional'), unused: value('unused'), balanceUnder });
+  const rows = [['Division 293 income: income for surcharge purposes less reportable super contributions', aud(r.income)],
+    ['Concessional contributions', aud(r.concessional)], [`Concessional contributions cap for ${r.year}`, aud(r.cap)]];
+  if (r.carried) rows.push(['Unused cap carried forward that raises it', aud(r.carried)]);
+  rows.push(['Excess concessional contributions', aud(r.excess)], ['Low tax contributions: the contributions less the excess', aud(r.low)],
+    ['Division 293 income plus low tax contributions', aud(r.combined)], ['Amount over the $250,000 threshold', aud(r.over)],
+    ['Taxable contributions: the lesser of the low tax contributions and that amount', aud(r.taxable)],
+    ['Division 293 tax at 15%', aud(r.tax)]);
+  const principal = rows.length - 1;
+  if (r.room) rows.push(['Room left under the $250,000 threshold', aud(r.room)]);
+  const notes = [];
+  if (r.excess) {
+    notes.push(`The ${aud(r.excess)} excess is not taxed here: it is in your assessable income instead (section 291-15), `
+      + 'so the taxable income entered should include it');
+  }
+  if (!balanceUnder && Number(value('unused')) > 0 && r.concessional > r.cap) {
+    notes.push('Unused cap does not carry forward with a total super balance of $500,000 or more just before the year');
+  }
+  if (r.tax) notes.push('The ATO assesses it on a separate notice, payable 21 days after it is given (section 293-65)');
+  const amount = (/** @type {string} */ name) => aud(Number(value(name)));
+  return { inputs: `${r.year}, accumulation interests only, taxable income ${amount('taxable')}, reportable fringe benefits `
+    + `${amount('fringe')}, total net investment loss ${amount('losses')}, family trust distribution tax income ${amount('trust')}, `
+    + `assessable FHSS released amount ${amount('fhss')}, zero-rate super lump sum ${amount('lump-sum')}, concessional `
+    + `contributions ${amount('concessional')}, unused cap carried forward ${amount('unused')}`
+    + `${Number(value('unused')) > 0 ? `, total super balance ${balanceUnder ? 'under $500,000' : '$500,000 or more'}` : ''}`,
+  rows, principal, note: notes.length ? notes.join('. ') : undefined };
 }
 
 /** The form's accrual year slots: the 2 that take each recent year's taxable income and adjustments, then the rest. */
@@ -279,7 +313,7 @@ function incomeTestsResult(value, aud) {
 }
 
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
-  ['sole-trader', soleTraderResult], ['lump-sum-arrears', lumpSumArrearsResult], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult]]);
+  ['sole-trader', soleTraderResult], ['lump-sum-arrears', lumpSumArrearsResult], ['division-293', division293Result], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -289,5 +323,5 @@ export function individualResult(kind, value, aud) {
 }
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
-export const engines = { taxEstimate, takeHomePay, soleTraderSetAside, incomeTests, incomeYears: INCOME_TAX_YEARS,
-  payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS };
+export const engines = { taxEstimate, takeHomePay, soleTraderSetAside, division293Tax, incomeTests, incomeYears: INCOME_TAX_YEARS,
+  payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS };
