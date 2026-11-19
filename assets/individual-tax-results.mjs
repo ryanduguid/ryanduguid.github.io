@@ -122,7 +122,9 @@ function lumpSumArrearsResult(value, aud) {
   const accrual = [];
   for (const slot of ARREARS_SLOTS) {
     const field = (/** @type {string} */ name) => (value(`${slot}-${name}`) ?? '').trim();
-    const facts = ARREARS_FACTS.map(([key, name]) => [key, field(name)]).filter(([, text]) => text !== '');
+    // Only the 2 latest accrual years take their own taxable income and rebate facts.
+    const facts = slot.startsWith('earlier') ? []
+      : ARREARS_FACTS.map(([key, name]) => [key, field(name)]).filter(([, text]) => text !== '');
     if (field('year') === '' && field('arrears') === '' && facts.length === 0) continue;
     if (field('year') === '') throw new Error('Enter the income year of each accrual year you fill in, such as 2023-24.');
     accrual.push({ year: field('year'), arrears: field('arrears'), ...Object.fromEntries(facts) });

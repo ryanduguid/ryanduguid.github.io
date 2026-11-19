@@ -410,7 +410,11 @@ for (const page of Object.keys(shownCases)) {
     const example = html.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
     const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
     const fields = formDefaults(html);
-    const result = individualResult(page, (name) => fields[name], aud);
+    // The browser reads a field through form.elements, which has no entry for a name the form lacks.
+    const result = individualResult(page, (name) => {
+      assert.ok(Object.hasOwn(fields, name), `${page} reads ${name}, which its form does not have`);
+      return fields[name];
+    }, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
     assert.equal(String(result.principal), example[3]);
