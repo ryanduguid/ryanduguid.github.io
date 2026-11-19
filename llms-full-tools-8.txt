@@ -257,7 +257,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/business-calculators/unused-leave/
 
-> PAYG withholding under Schedule 7 from unused annual leave, leave loading and long service leave paid on termination, with the 30% cap, the 5% pre-1978 share and STP labels.
+> Schedule 7 withholding from unused annual leave, leave loading and long service leave paid on termination, with the 30% cap, the 5% pre-1978 share and STP labels.
 
 # Unused leave on termination
 
