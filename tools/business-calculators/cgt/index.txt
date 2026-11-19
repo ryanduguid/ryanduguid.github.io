@@ -104,7 +104,7 @@ Capital works deductions on an asset bought on 13 May 1997 are refused | Individ
 Capital works deductions on an asset bought before 13 May 1997 and improved after 30 June 1999 are refused | Individual, investment; bought 1 March 1990, sold 1 March 2026 for $900,000.00; price $200,000.00, cost $100,000.00 on 1 May 2010, capital works $25,000.00; other income $90,000.00 | Refused: for an asset acquired before 13 May 1997, capital works deductions on an improvement made after 30 June 1999 reduce the cost base and others do not (subsection 110-45(1A)): this page cannot split them
 Indexation for an asset bought on 21 September 1999 is refused | Individual, investment; bought 21 September 1999, sold 1 March 2026 for $500,000.00; price $200,000.00; other income $90,000.00 | Refused: for an asset acquired on 21 September 1999, whether the cost base can be indexed turns on whether it was acquired by 11.45 am (sections 114-1 and 114-10): this page cannot tell
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -112,4 +112,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/

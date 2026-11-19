@@ -330,7 +330,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/income-tax/</loc>
@@ -338,11 +338,15 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/take-home-pay/</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/study-loan/</loc>
     <lastmod>2026-11-18</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/income-tests/</loc>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/payroll-tax/</loc>
@@ -351,6 +355,10 @@
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/sgc-payday/</loc>
     <lastmod>2026-11-18</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/long-service-leave/</loc>
+    <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/company-tax/</loc>

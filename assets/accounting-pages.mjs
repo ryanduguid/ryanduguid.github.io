@@ -521,6 +521,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'cgt':
             result = calculate.cgtResult(value, (name) => form.elements.namedItem(name).checked, aud);
             break;
+          case 'long-service-leave':
+            result = calculate.longServiceLeaveResult(value, aud);
+            break;
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
@@ -572,7 +575,7 @@ function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
   Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`),
-    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined }]).then(initialiseCalculators)
+    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'income-tests'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined }]).then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
       for (const form of forms) {

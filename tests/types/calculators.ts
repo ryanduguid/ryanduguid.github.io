@@ -243,3 +243,13 @@ calculate.capitalGain({ ...cgtSale, entity: 'partnership' });
 // @ts-expect-error An absence's rented and chosen marks are checkbox states.
 calculate.capitalGain({ ...cgtSale, home: { ...cgtHome, away: [{ from: '', to: '', rented: 'yes', choose: false }] } });
 void cgtNet;
+const leaveInput = { place: 'AU-NSW', start: '2014-02-01', end: '2026-07-31', excluded: '0', taken: '0', mode: 'ends',
+  reason: 'redundancy', pay: '1500' } as const;
+const leaveWeeks: number = calculate.longServiceLeave(leaveInput).weeks;
+// @ts-expect-error The place is a state or territory code, as the form's radios carry it.
+calculate.longServiceLeave({ ...leaveInput, place: 'NSW' });
+// @ts-expect-error Weekly pay is a decimal string, as the form passes it.
+calculate.longServiceLeave({ ...leaveInput, pay: 1500 });
+// @ts-expect-error The reason is one of the form's 10 reasons.
+calculate.longServiceLeave({ ...leaveInput, reason: 'sacked' });
+void leaveWeeks;
