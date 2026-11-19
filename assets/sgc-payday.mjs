@@ -266,11 +266,24 @@ const TIMING = { standard: 'the usual 7 business days', first: 'first contributi
 /** @param {number} n @param {string} word */
 const count = (n, word) => `${n.toLocaleString('en-AU')} ${word}${n === 1 ? '' : 's'}`;
 
+/** Refuses Norfolk Island salary or wages, which count only in part: Schedule 2 item 2(2) of the Tax and
+ * Superannuation Laws Amendment (Norfolk Island Reforms) Act 2015 to 2025-26 and Schedule 1 item 189 of the Payday
+ * Super Act for 2026-27, read 19 November 2026, giving Table 21's transitional rates of 7% to 10% and 11%.
+ * @param {string} answer the form's norfolk-island value */
+function refuseNorfolkIsland(answer) {
+  if (answer === 'yes') {
+    throw new Error('Norfolk Island salary or wages have a lower transitional super guarantee rate (7% to 10% for '
+      + '2022-23 to 2025-26, 11% for 2026-27), which this calculator does not apply.');
+  }
+  if (answer !== 'no') throw new Error('Say whether any of the pay is Norfolk Island salary or wages.');
+}
+
 /** The page's inputs, rows and note for either regime.
  * @param {(name: string) => string} value the form's value for a field
  * @param {(amount: number) => string} aud money as the page writes it */
 export function sgcPaydayResult(value, aud) {
   const money = (/** @type {string} */ name) => aud(cents(value(name)) / 100);
+  refuseNorfolkIsland(value('norfolk-island'));
   if (value('regime') === 'quarter') {
     const inputs = /** @type {QuarterCharge} */ ({ year: value('year'), quarter: value('quarter'), wages: value('wages'),
       ote: value('ote'), contributions: value('contributions'), lodged: value('statement') });
