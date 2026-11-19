@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/individual-tax/sole-trader/
 
 # Sole trader tax set-aside calculator
 
-How much of each invoice a sole trader keeps for tax, Medicare levy, study loan and GST, 2021-22 to 2026-27, after the small business income tax offset.
+How much of each invoice a sole trader keeps for tax, Medicare levy, study loan and GST from 2021-22, after the small business income tax offset.
 
 Published 19 November 2026. Last checked 19 November 2026.
 
@@ -16,7 +16,7 @@ Sole trader inputs for one full income year
 
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
 
-Business income for the year, excluding GST (dollars and cents) Business expenses you can deduct, excluding GST (dollars and cents) Salary and wages from a job for the year, before tax (dollars and cents) Tax agent fees, gifts and personal super contributions you claim (dollars and cents) Does the business qualify for the small business income tax offset? Yes: aggregated turnover under $5 million, and not personal services income outside a personal services business No
+Business income for the year, excluding GST (dollars and cents) Deductible business expenses, excluding GST (dollars and cents) Wages from a job for the year, before tax (dollars and cents) Tax agent fees, gifts and personal super contributions you claim (dollars and cents) Does the business qualify for the small business income tax offset? Yes: aggregated turnover under $5 million, not personal services income No
 
 Do you have a study or training loan, such as HELP? No Yes
 
@@ -24,15 +24,15 @@ Did you have private patient hospital cover all year? Yes No
 
 Is the business registered for GST? No Yes
 
-GST credits on business purchases for the year, if registered (dollars and cents) One invoice as you charge it, GST included if registered (dollars and cents)
+GST credits for the year, if registered (dollars and cents) One invoice, GST included if registered (dollars and cents)
 
-For an Australian resident aged 18 or over, single with no dependants, all year. Business income and expenses are the year’s estimate; every sale is taken as a taxable supply.
+For a resident aged 18 or over, single, all year; every sale is a taxable supply.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, business income $22,000.00 and expenses $2,000.00 excluding GST, wages $60,000.00, other deductions $0.00, qualifies for the small business income tax offset, no study or training loan, with private hospital cover, not registered for GST, invoice $1,000.00. Business profit $20,000.00 Standard deduction on the wages $1,000.00 Taxable income $79,000 Tax on taxable income $14,220.00 Low income tax offset $0.00 Small business income tax offset $576.00 Medicare levy $1,580.00 Total tax, levies and repayment $15,224.00 Less the same on the wages alone $9,285.00 Tax to set aside for the business $5,939.00 Total to set aside for the year $5,939.00 Each quarter $1,484.75 Each month $494.92 Each week $114.21 Share of each invoice to set aside 27.00% From an invoice of $1,000.00, set aside $269.95 The tax is 27.00% of the business income excluding GST, which as a PAYG instalment rate would cover this year’s tax on it. A return like this meets 2 of the 3 tests for automatic entry to PAYG instalments, business income of $4,000 or more and tax of $1,000 or more; the third, notional tax of $500 or more, the ATO works out. This assumes the tax withheld from the wages covers the tax on the wages alone.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, business income $22,000.00 and expenses $2,000.00 excluding GST, wages $60,000.00, other deductions $0.00, qualifies for the small business income tax offset, no study or training loan, with private hospital cover, not registered for GST, invoice $1,000.00. Business profit $20,000.00 Standard deduction on the wages $1,000.00 Taxable income $79,000 Tax on taxable income $14,220.00 Low income tax offset $0.00 Small business income tax offset $576.00 Medicare levy $1,580.00 Total tax, levies and repayment $15,224.00 Less the same on the wages alone $9,285.00 Tax to set aside for the business $5,939.00 Total to set aside for the year $5,939.00 Each quarter $1,484.75 Each month $494.92 Each week $114.21 Share of each invoice to set aside 27.00% From an invoice of $1,000.00, set aside $269.95 As a PAYG instalment rate, 27.00% of business income excluding GST covers this year’s tax on it. This meets 2 PAYG instalment entry tests, $4,000 of business income and $1,000 of tax; the ATO works out the third, $500 of notional tax. This assumes the wages’ withholding covers the tax on the wages alone.
 
 ## How the sole trader tax set-aside calculator works
 
-The calculator takes a year’s business income and expenses, any wages from a job and any tax agent fees, gifts or personal super contributions you claim, and works out the year’s income tax, the offsets, the Medicare levy, any Medicare levy surcharge and any study or training loan repayment. It then works the same on the wages alone. The difference is the tax the business adds, which nobody withholds, so it is the amount to set aside from business income.
+The calculator takes a year’s business income and expenses, any wages from a job and any tax agent fees, gifts or personal super contributions you claim. It works out the year’s income tax, the offsets, the Medicare levy, any Medicare levy surcharge and any study or training loan repayment. It then works the same on the wages alone. The difference is the tax the business adds, which nobody withholds, so it is the amount to set aside from business income.
 
 The small business income tax offset is worked as section 328-360 sets it: 16% of the share of the tax on taxable income that the business profit makes up. On arrival the example shows it below its $1,000 cap: $20,000 of profit is 20/79 of $79,000 of taxable income, so the offset is 16% of 20/79 of $14,220, which is $576.00. The business also costs the low income tax offset the wages alone would have had, $115.00, which the difference picks up.
 
