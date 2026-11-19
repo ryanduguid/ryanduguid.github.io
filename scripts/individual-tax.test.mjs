@@ -11,8 +11,9 @@ import { CONCESSIONAL_CAP, division293, takeHomePay, SUPER_GUARANTEE } from '../
 import { taxEstimate } from '../assets/tax-estimate.mjs';
 import { withholding } from '../assets/payg-withholding.mjs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
+import { incomeTests, INCOME_TEST_PARTS } from '../assets/income-tests.mjs';
 
-const engines = { taxEstimate, takeHomePay, studyLoanRepayment };
+const engines = { taxEstimate, takeHomePay, studyLoanRepayment, incomeTests };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -23,6 +24,12 @@ const PERIOD = { year: 'a year', month: 'a month', fortnight: 'a fortnight', wee
 const parts = (r) => PARTS.filter(([key]) => key === 'taxable' || r[key] !== '0').map(([key, label]) => `${label} ${whole(r[key])}`)
   .join(', ');
 const settle = (value) => `${value < 0 ? 'owing' : 'refund'} ${dollars(Math.abs(value))}`;
+const INCOME_TEST_LABELS = { taxable: 'taxable', fhss: 'FHSS', familyTrust: 'family trust', fringe57a: 'section 57A fringe',
+  fringeOther: 'other fringe', employerSuper: 'employer super', personalSuper: 'personal super',
+  excessConcessional: 'excess concessional', financialLoss: 'financial loss', rentalLoss: 'rental loss', pensions: 'pensions',
+  targetForeign: 'target foreign', exemptForeign: 'exempt foreign', childSupport: 'child support', assessable: 'assessable',
+  businessDeductions: 'business deductions' };
+const signed = (value) => (value < 0 ? `-${whole(-value)}` : whole(value));
 
 // How each row's call reads on the page and how its result reads, so neither can drift from the engine.
 const INPUTS = {
@@ -34,6 +41,9 @@ const INPUTS = {
     + `${p.includesSuper ? 'including' : 'plus'} super${p.sacrifice === '0' ? '' : `, ${whole(p.sacrifice)} sacrificed`}`
     + `${p.studyLoan ? ', study loan' : ''}${p.hospitalCover ? '' : ', no hospital cover'}`,
   studyLoanRepayment: (r, year) => `${year}: ${parts(r)}`,
+  incomeTests: (p) => `${p.resident ? 'Resident' : 'Not resident'} all year, `
+    + INCOME_TEST_PARTS.filter((key) => key === 'taxable' || p[key] !== '0').map((key) => `${INCOME_TEST_LABELS[key]} ${whole(p[key])}`)
+      .join(', '),
 };
 const OUTPUTS = {
   taxEstimate: (r, call) => `Tax ${dollars(r.tax)}, offset ${dollars(r.offset)}`
@@ -44,6 +54,9 @@ const OUTPUTS = {
     + `${r.withheld ? `; withheld ${dollars(r.withheld.total)} a pay, ${settle(r.withheld.refund)}` : ''}`
     + `${r.overCap ? `; ${dollars(r.overCap)} over the cap` : ''}${r.division293 ? `; Division 293 on ${dollars(r.division293)}` : ''}`,
   studyLoanRepayment: (r) => `Repayment income ${dollars(r.repaymentIncome)}, repayment ${dollars(r.repayment)}`,
+  incomeTests: (r) => `Surcharge ${whole(r.surchargeIncome)}, Division 293 ${whole(r.division293Income)}, `
+    + `rebate ${whole(r.rebateIncome)}, repayment ${whole(r.repaymentIncome)}, adjusted taxable ${signed(r.adjustedTaxableIncome)}, `
+    + `co-contribution ${signed(r.coContributionIncome)}`,
 };
 
 test('each individual tax page has its boundary cases', () => {
@@ -82,6 +95,8 @@ const FORM_CALLS = {
     includesSuper: f.super === 'included', sacrifice: f.sacrifice, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes' }],
   studyLoanRepayment: (f) => [{ taxable: f.taxable, fringe: f.fringe, losses: f.losses, super: f.super, foreign: f.foreign }, f.year],
+  incomeTests: (f) => [{ resident: f.resident === 'yes', ...Object.fromEntries(INCOME_TEST_PARTS
+    .map((key) => [key, f[key.replace(/[A-Z0-9]+/g, (part) => `-${part.toLowerCase()}`)]])) }],
 };
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the worked example`, () => {
@@ -467,5 +482,107 @@ for (const page of Object.keys(shownCases)) {
 test('a form that is not an individual tax calculator gets no result, whatever its name', () => {
   for (const kind of ['gst', 'constructor', 'toString', '__proto__']) {
     assert.equal(individualResult(kind, () => '0', String), undefined, kind);
+  }
+});
+
+// Income tests. Read 19 November 2026: ITAA 1997 s 995-1 and s 293-20 (Compilation No. 268), ITAA 1936 s 6(1),
+// HESA s 154-5(1), the Co-contribution Act s 8 and the Family Assistance Act Sch 3 cls 2 and 4 (Compilation No. 124).
+const tests = (given, resident = true) => incomeTests({ resident,
+  ...Object.fromEntries(INCOME_TEST_PARTS.map((key) => [key, '0'])), ...given });
+
+// ATO, 'When you must repay your loan' (last updated 13 October 2026): $50,420 + $1,250 + $4,560 + $2,580 +
+// $15,000 = $73,810. 'Study and training loan repayment thresholds and rates' (last updated 30 June 2026), example
+// 1: $60,470 + $5,400 + $1,330 + $16,500 + $2,680 = $86,380. 'Medicare levy surcharge income, thresholds and rates'
+// (last updated 22 June 2026): Tom's $90,000 and $27,000 give $117,000. All read 19 November 2026.
+test('income tests give the ATO’s repayment income and income for surcharge purposes', () => {
+  assert.equal(tests({ taxable: '50420', financialLoss: '1250', fringeOther: '4560', exemptForeign: '2580',
+    targetForeign: '2580', employerSuper: '15000', assessable: '50420' }).repaymentIncome, 73810);
+  assert.equal(tests({ taxable: '60470', fringeOther: '5400', rentalLoss: '1330', employerSuper: '16500',
+    exemptForeign: '2680', targetForeign: '2680', assessable: '60470' }).repaymentIncome, 86380);
+  assert.equal(tests({ taxable: '90000', fringeOther: '27000', assessable: '90000' }).surchargeIncome, 117000);
+});
+
+// The ATO's 'Rebate income 2026' worksheet (last updated 30 May 2026, read 19 November 2026): 'question IT1 – label N
+// in your tax return multiplied by 0.53 and rounded down to the nearest dollar', plus label W. $4,567 x 0.53 =
+// $2,420.51, so $2,420; $1 x 0.53 is nil; $100 x 0.53 is $53 exactly.
+test('section 57A fringe benefits count at 53%, rounded down, in rebate and adjusted taxable income only', () => {
+  const r = tests({ taxable: '40000', fringe57a: '4567', fringeOther: '1000', assessable: '40000' });
+  assert.deepEqual([r.fringeTotal, r.adjustedFringe, r.rebateIncome, r.adjustedTaxableIncome, r.surchargeIncome,
+    r.repaymentIncome, r.coContributionIncome], [5567, 3420, 43420, 43420, 45567, 45567, 45567]);
+  assert.equal(tests({ fringe57a: '1' }).adjustedFringe, 0);
+  assert.equal(tests({ fringe57a: '100' }).adjustedFringe, 53);
+});
+
+// Each measure's own list: s 995-1 'income for surcharge purposes' (a) adds the family trust distribution amounts
+// Sch 2F s 271-105(1) kept out; Sch 3 cl 2(1) adds tax-free pensions and target foreign income less child support,
+// with no floor; s 293-20(1)(a) leaves out reportable super contributions; s 8(2) takes off business deductions.
+test('each income measure adds only the parts its definition names', () => {
+  const trust = tests({ taxable: '100000', familyTrust: '20000', assessable: '100000' });
+  assert.deepEqual([trust.surchargeIncome, trust.division293Income, trust.rebateIncome, trust.repaymentIncome,
+    trust.adjustedTaxableIncome, trust.coContributionIncome], [120000, 120000, 100000, 100000, 100000, 100000]);
+  const family = tests({ taxable: '20000', pensions: '5000', targetForeign: '3000', childSupport: '8000', assessable: '20000' });
+  assert.deepEqual([family.adjustedTaxableIncome, family.rebateIncome, family.surchargeIncome], [20000, 20000, 20000]);
+  assert.equal(tests({ childSupport: '1000' }).adjustedTaxableIncome, -1000);
+  const business = tests({ taxable: '35000', fringeOther: '2000', employerSuper: '1000', businessDeductions: '5000',
+    assessable: '40000' });
+  assert.deepEqual([business.coContributionIncome, business.division293Income, business.surchargeIncome], [38000, 37000, 38000]);
+});
+
+// s 995-1 'reportable superannuation contributions' and the Co-contribution Act s 8(1A): 'reduced (but not below
+// zero)' by excess concessional contributions. $10,000 + $5,000 - $3,000 = $12,000; $10,000 - $3,000 = $7,000.
+test('excess concessional contributions reduce the contributions, but not below nil', () => {
+  const some = tests({ taxable: '60000', employerSuper: '10000', personalSuper: '5000', excessConcessional: '3000',
+    assessable: '63000' });
+  assert.deepEqual([some.contributions, some.coEmployer, some.coContributionIncome], [12000, 7000, 70000]);
+  const all = tests({ taxable: '60000', employerSuper: '10000', personalSuper: '5000', excessConcessional: '20000',
+    assessable: '63000' });
+  assert.deepEqual([all.contributions, all.coEmployer, all.rebateIncome], [0, 0, 60000]);
+});
+
+// Each measure disregards the assessable FHSS released amount; more than taxable income leaves none (ITAA 1997
+// s 4-15(1)). The co-contribution takes it from assessable income (s 8(1)(a)).
+test('the FHSS released amount comes out of every measure', () => {
+  const part = tests({ taxable: '30000', fhss: '10000', assessable: '45000' });
+  assert.deepEqual([part.taxableWithoutFhss, part.rebateIncome, part.coContributionIncome], [20000, 20000, 35000]);
+  const all = tests({ taxable: '30000', fhss: '40000', assessable: '50000' });
+  assert.deepEqual([all.taxableWithoutFhss, all.repaymentIncome, all.coContributionIncome], [0, 0, 10000]);
+});
+
+test('income tests name where the ATO’s surcharge page adds exempt foreign employment income', () => {
+  assert.equal(tests({ taxable: '50420', exemptForeign: '2580', targetForeign: '2580', assessable: '50420' }).exemptForeignDiffers, true);
+  assert.equal(tests({ exemptForeign: '2580', targetForeign: '2580' }).exemptForeignDiffers, false);
+  assert.equal(tests({ taxable: '50420', assessable: '50420' }).exemptForeignDiffers, false);
+});
+
+test('income tests refuse a part larger than its whole, cents, residency they do not cover and missing parts', () => {
+  for (const [given, message] of [
+    [{ taxable: '50421', assessable: '50420' }, 'Taxable income cannot exceed assessable income: it is assessable income less deductions.'],
+    [{ fhss: '2', assessable: '1' }, 'The assessable FHSS released amount cannot exceed assessable income, which includes it.'],
+    [{ excessConcessional: '2', assessable: '1' }, 'Excess concessional contributions cannot exceed assessable income, which includes them.'],
+    [{ exemptForeign: '2581', targetForeign: '2580' }, 'Exempt foreign employment income cannot exceed target foreign income, which includes it.'],
+    [{ taxable: '1.50' }, 'Enter each amount in whole dollars, 0 if none.'],
+    [{ rentalLoss: '-1' }, 'Enter each amount in whole dollars, 0 if none.'],
+    [{ pensions: '1000000001' }, 'Enter a whole number between 0 and 1000000000.'],
+    [{ childSupport: undefined }, 'Enter each amount in whole dollars, 0 if none.'],
+  ]) {
+    assert.throws(() => tests(given), { message }, JSON.stringify(given));
+  }
+  assert.throws(() => tests({}, false), { message: 'This calculator works the measures only for a person resident in Australia for the whole year.' });
+  assert.throws(() => tests({}, 'yes'), { message: 'Say whether the person was an Australian resident all year.' });
+});
+
+// australian-tax-calculators 1.0.0, the release the page ports: see the fixture's engine line.
+test('income tests agree with the australian-accounting engine on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./income-tests-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 240);
+  assert.ok(cases.filter((c) => c.refused).length > 10);
+  for (const { source, call, amounts, warns, refused } of cases) {
+    if (refused) {
+      assert.throws(() => incomeTests(call), Error, `${source}: the engine refused, ${refused}`);
+      continue;
+    }
+    const result = incomeTests(call);
+    assert.deepEqual(Object.fromEntries(Object.keys(amounts).map((key) => [key, result[key].toFixed(2)])), amounts, source);
+    assert.equal(result.exemptForeignDiffers, warns, source);
   }
 });
