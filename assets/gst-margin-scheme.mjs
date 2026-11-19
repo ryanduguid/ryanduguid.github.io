@@ -103,15 +103,16 @@ export function gstMarginSchemeResult(input, aud) {
     ['Agreed in writing with the buyer (subsections 75-5(1) and (1A))', r.conditions.agreed ? 'Condition met' : 'Condition not met'],
     [MARGIN_ACQUISITIONS[input.acquired], r.conditions.eligible ? 'Condition met' : 'Condition not met']];
   if (!r.applies) {
-    return { inputs, rows: [...conditions, ['The margin scheme', 'Cannot apply: GST is worked out on the whole price'],
-      ['Consideration for the sale, GST-inclusive', aud(r.basicConsideration)],
+    return { inputs, rows: [['Consideration for the sale, GST-inclusive', aud(r.basicConsideration)], ...conditions,
+      ['The margin scheme', 'Cannot apply: GST is worked out on the whole price'],
       ['GST on the sale, 1/11 of the GST-inclusive price', aud(r.gst)]], principal: conditions.length + 2,
     note: 'Without the margin scheme a registered buyer can claim an input tax credit for the GST, given a tax invoice' };
   }
-  return { inputs, rows: [...conditions, ['The margin scheme', 'Can apply: section 75-5 is met'],
+  // The sale's price leads, so the first row of every example is an amount.
+  return { inputs, rows: [['Consideration for the sale, GST-inclusive', aud(r.consideration)], ...conditions,
+    ['The margin scheme', 'Can apply: section 75-5 is met'],
     [`${valuation ? 'Approved valuation' : 'Consideration for the acquisition'}${part ? ', this part’s share (section 75-15)' : ''}`,
       aud(r.share)],
-    ['Consideration for the sale, GST-inclusive', aud(r.consideration)],
     [`Margin (subsection 75-10(${valuation ? '3' : '2'}))`, aud(r.margin)],
     ['GST under the margin scheme, 1/11 of the margin', aud(r.schemeGst)],
     ['GST without the margin scheme, 1/11 of the GST-inclusive price', aud(r.basicGst)],
