@@ -680,6 +680,7 @@ const NOVATED_LEASE_DESCRIPTION = 'A novated car lease in AUD for one year again
  *   division293Tax: typeof import('./division-293.mjs').division293Tax,
  *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[],
  *   soleTraderYears: string[], division293Years: string[],
+ *   bonusWithholding: typeof import('./bonus-withholding.mjs').bonusWithholding,
  *   salaryPackaging: typeof import('./salary-packaging.mjs').salaryPackaging,
  *   novatedLease: typeof import('./novated-lease.mjs').novatedLease, packagingYears: string[],
  *   novatedYears: string[]}} engines
