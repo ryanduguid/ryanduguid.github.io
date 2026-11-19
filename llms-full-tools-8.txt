@@ -95,13 +95,13 @@ Source: https://duguid.com.au/tools/individual-tax/income-tests/
 
 # Income tests calculator
 
-Income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution income from one tax return, 2024-25 to 2026-27.
+The 6 income measures one resident's tax return feeds, for 2024-25 to 2026-27.
 
 Published 19 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Income test amounts for one person and one income year, 2024-25 to 2026-27
+Income test amounts for one income year
 
 Was the person an Australian resident for the whole income year? Yes No Taxable income, including any assessable FHSS released amount (whole dollars) Assessable income, before deductions (whole dollars) Assessable first home super saver (FHSS) released amount (whole dollars) Amounts on which family trust distribution tax was paid (whole dollars) Reportable fringe benefits from employers exempt under section 57A, IT1 label N (whole dollars) Reportable fringe benefits from other employers, IT1 label W (whole dollars) Reportable employer super contributions, IT2 (whole dollars) Personal super contributions you deduct, D12 (whole dollars) Excess concessional contributions for the year (whole dollars) Net financial investment loss, IT5 (whole dollars) Net rental property loss, IT6 (whole dollars) Tax-free government pensions or benefits, IT3 (whole dollars) Target foreign income, including exempt foreign employment income, IT4 (whole dollars) Exempt foreign employment income, less the costs of earning it (whole dollars) Child support you paid, IT7 (whole dollars) Deductions from carrying on a business (whole dollars)
 
