@@ -25,8 +25,10 @@ than a live fetch ever could. 3. Every other http(s) link resolves (2xx after re
 transport failures and HTTP 5xx responses are retried up to five times; HTTP
 429 also retries with Retry-After or exponential backoff, capped at 30 seconds
 of total waiting per fetch. Other HTTP 4xx responses do not retry. HTTP 403
-from exact allow-listed source URLs and HTTP 999 from the LinkedIn profile are
-accepted. Exact external URLs require manual verification in GitHub Actions
+from a .gov.au host, whose firewalls refuse automated requests, and LinkedIn's
+HTTP 999 are reported as "refused the runner" and listed for a check in a
+browser, not failed; a 403 from any other host, a 404, 410 or any other 4xx
+fails. Exact external URLs require manual verification in GitHub Actions
 when runner access is unavailable; local runs still fetch them. A server error
 on a ryanduguid GitHub file view switches subsequent attempts to the exact
 public raw file, preserving its ref and path. A successful raw fetch validates
