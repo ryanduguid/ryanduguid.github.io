@@ -112,7 +112,7 @@ function studyLoanResult(value, aud) {
 }
 
 /** The earlier years the catch-up form asks about, from 2018-19 to the year before the latest it works. */
-const CATCH_UP_EARLIER = Object.keys(CAP).filter((year) => year < '2026-27').sort();
+const CATCH_UP_EARLIER = Object.keys(CAP).filter((year) => year < '2026-27').sort((a, b) => a.localeCompare(b));
 
 /** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
 function catchUpResult(value, aud) {
