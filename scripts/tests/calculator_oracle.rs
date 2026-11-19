@@ -85,6 +85,9 @@
 //! engine multiplies the daily growth factors; and the quarterly shortfall and interest are
 //! worked from the old Act's formulas in their own units.
 //!
+//! A further 200 seeded GST margin scheme sales work the GST on a GST-exclusive price as 1/11 of
+//! the exact margin on the price it makes, where the engine takes a tenth of the price less the cost.
+//!
 //! A further 200 seeded company tax cases test 80% passive income as 4/5 of assessable income
 //! and take the maximum franking credit as 1/3 or 3/7 of the dividend, where the engine works
 //! in hundredths of 1% from the rate. 200 seeded foreign purchaser surcharges type each
@@ -5943,4 +5946,121 @@ fn the_company_tax_and_surcharge_engines_agree_with_the_oracles_on_every_seeded_
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
+}
+
+/// Runs the GST margin scheme engine, as `HARNESS` runs the others.
+const MARGIN_SCHEME_HARNESS: &str = r"
+import { gstMarginScheme } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const keys = ['applies', 'share', 'consideration', 'margin', 'schemeGst', 'basicGst', 'saving', 'gst'];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  const r = gstMarginScheme(one);
+  return Object.fromEntries(keys.map((key) => [key, String(r[key])]));
+})));
+";
+
+const MARGIN_SCHEME_CASES: usize = 200;
+/// The largest price or cost the margin scheme fields accept, $1,000,000,000,000.00, in cents.
+const MAX_MARGIN_CENTS: u64 = 100_000_000_000_000;
+
+/// The margin scheme in tenths of a cent, by subsections 75-10(1) and (2) and section 75-15. The
+/// part's share of the cost is `part` / `whole` of it, half up to the cent. On a GST-inclusive price
+/// P the margin is P less the share, or nil, and its GST 1/11 of it. On a GST-exclusive price E the
+/// price the buyer pays is E plus a GST that is 1/11 of the margin on that price, so the margin is
+/// worked exactly in tenths of a cent, 10E plus (E less the share) less 10 times the share, and the
+/// GST is 1/110 of it, where the engine takes one tenth of E less the share. Without the margin scheme the GST is 1/11 of P or
+/// 1/10 of E. Each GST rounds half up to the cent (section 9-90). The scheme applies only for
+/// freehold, a stratum unit or a long-term lease, with a written agreement, and not to property
+/// bought with GST on the whole price (section 75-5).
+#[allow(clippy::too_many_arguments)]
+fn margin_scheme_oracle(
+    interest: &str,
+    agreed: bool,
+    acquired: &str,
+    exclusive: bool,
+    price: u64,
+    cost: u64,
+    part: u64,
+    whole: u64,
+) -> Value {
+    let (price, cost) = (u128::from(price), u128::from(cost));
+    let share = exact_half_up(cost * u128::from(part), u128::from(whole));
+    let excess = price.saturating_sub(share);
+    let (scheme, consideration, basic) = if exclusive {
+        // The margin on E plus its exact GST, in tenths of a cent: 10E + (E - share) - 10 share.
+        let scheme = exact_half_up(11 * excess, 110);
+        (scheme, price + scheme, exact_half_up(price, 10))
+    } else {
+        (exact_half_up(excess, 11), price, exact_half_up(price, 11))
+    };
+    let applies = interest != "other" && agreed && acquired != "full-gst";
+    let cents = |value: u128| shown(u64::try_from(value).unwrap());
+    json!({
+        "applies": applies.to_string(),
+        "share": cents(share),
+        "consideration": cents(consideration),
+        "margin": cents(consideration.saturating_sub(share)),
+        "schemeGst": cents(scheme),
+        "basicGst": cents(basic),
+        "saving": cents(basic - scheme),
+        "gst": cents(if applies { scheme } else { basic }),
+    })
+}
+
+/// A sale the margin scheme can be worked for, with every condition and both price bases as often
+/// as each other, a cost either side of the price, and the whole or a part of the land.
+fn margin_scheme_case(rng: &mut Seeded) -> (Value, Value) {
+    let interest = rng.pick(&["freehold", "stratum", "lease", "other"]);
+    let agreed = rng.below(4) != 0;
+    let acquired = rng.pick(&["margin", "untaxed", "before-2000", "full-gst"]);
+    let method = if acquired == "before-2000" {
+        rng.pick(&["consideration", "valuation"])
+    } else {
+        "consideration"
+    };
+    let exclusive = rng.below(2) == 0;
+    let price = rng.cents(MAX_MARGIN_CENTS / 2);
+    let any_cost = rng.cents(MAX_MARGIN_CENTS);
+    let cost = rng.pick(&[any_cost, price, price.saturating_sub(1), price + 1, 0]);
+    let whole = 1 + rng.cents(MAX_MARGIN_CENTS - 1);
+    let any_part = 1 + rng.below(whole);
+    let part = rng.pick(&[whole, any_part]);
+    let measure = |hundredths: u64| format!("{}.{:02}", hundredths / 100, hundredths % 100);
+    (
+        json!({
+            "interest": interest, "taxable": true, "agreed": agreed, "acquired": acquired, "associate": false,
+            "method": method, "price": dollars(price), "basis": if exclusive { "exclusive" } else { "inclusive" },
+            "cost": dollars(cost), "part": measure(part), "whole": measure(whole),
+        }),
+        margin_scheme_oracle(interest, agreed, acquired, exclusive, price, cost, part, whole),
+    )
+}
+
+#[test]
+fn the_margin_scheme_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1119_0000_75A5);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..MARGIN_SCHEME_CASES)
+        .map(|_| margin_scheme_case(&mut rng))
+        .unzip();
+    let actual = run_node(MARGIN_SCHEME_HARNESS, &cases);
+    assert_eq!(actual.len(), MARGIN_SCHEME_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// GSTR 2006/8 Examples 3, 4, 6 and 14 (paragraphs 56, 63, 67 and 145), worked by the oracle.
+#[test]
+fn the_margin_scheme_oracle_gives_the_rulings_examples() {
+    let gst = |exclusive, price, cost, part, whole| {
+        margin_scheme_oracle("freehold", true, "margin", exclusive, price, cost, part, whole)["schemeGst"].clone()
+    };
+    assert_eq!(gst(false, 40_000_000, 18_000_000, 1, 1), "20000");
+    assert_eq!(gst(false, 14_000_000, 24_000_000, 800, 2000), "4000");
+    assert_eq!(gst(false, 19_000_000, 40_000_000, 200_000, 2_000_000), "13636.36");
+    assert_eq!(gst(true, 9_636_400, 6_000_000, 1, 1), "3636.4");
 }

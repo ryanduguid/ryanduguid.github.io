@@ -38,7 +38,7 @@ pub const CI_MANUAL_URLS: [&str; 20] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 219] = [
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026",
     "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "https://nt.gov.au/nt-public-holidays",
@@ -192,6 +192,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20263%2FNAT%2FATO%2F00001",
     "https://www.ato.gov.au/law/view/document?docid=COG/PCG20183/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=COG/PCG20214/NAT/ATO/00001",
+    "https://www.ato.gov.au/law/view/document?docid=GST/GSTR20068/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=LCD/LCTD20231/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=MTR/MT2024/NAT/ATO/00001",
     "https://www.ato.gov.au/law/view/document?docid=OPS/LI202520/00001",
@@ -209,6 +210,15 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 209] = [
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/67-25",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19970038/995-1",
     "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/69-10",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/195-1",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-10",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-12",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-14",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-15",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-20",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-30",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-5",
+    "https://www.ato.gov.au/law/view/document?docid=PAC/19990055/9-90",
     "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00003",
     "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008",
     "https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009",

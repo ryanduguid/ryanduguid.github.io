@@ -940,6 +940,30 @@ test('company tax and franking works Dillmore Manufacture offline and refuses im
   await expect(output).toHaveText('Base rate entity passive income cannot be more than assessable income.');
 });
 
+// GSTR 2006/8 Example 14: a GST-exclusive price of $96,364 on land acquired for $60,000 comes to $100,000.40
+// GST-inclusive, a margin of $40,000.40 and GST of $3,636.40; a sale to an associate is refused.
+test('GST margin scheme works GSTR 2006/8 Example 14 offline and refuses a sale to an associate', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/gst-margin-scheme/');
+  const form = page.locator('#gst-margin-scheme form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('Price for the sale (AUD)', { exact: true }).fill('96364');
+  await form.getByRole('group', { name: 'Does the price include GST?' }).getByLabel('No, GST-exclusive: work out the GST to add').check();
+  await form.getByLabel('Consideration paid for the acquisition, or the approved valuation, for the whole of what you acquired (AUD)',
+    { exact: true }).fill('60000');
+  await form.getByLabel('This sale’s part, by area, lots or anticipated price', { exact: true }).fill('1');
+  await form.getByLabel('The whole, in the same measure', { exact: true }).fill('1');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const output = form.locator('output');
+  await expect(output).toContainText('Consideration for the sale, GST-inclusive: $100,000.40.');
+  await expect(output).toContainText('Margin (subsection 75-10(2)): $40,000.40.');
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$3,636.40');
+  await form.getByRole('group', { name: 'Is the buyer your associate?' }).getByLabel('Yes').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText('On a sale to your associate the consideration is the GST-inclusive market value (section 75-13): '
+    + 'this calculator does not work out that value.');
+});
+
 // SRO Victoria's Clara: a fixed trust holding $1,000,000 of land, half for absentee beneficiaries, pays
 // $20,000 of absentee owner surcharge; at 50% foreign it is not a foreign purchaser for duty.
 test('foreign purchaser surcharges work SRO Victoria’s fixed trust offline and refuse an exemption', async ({ page, context }) => {
@@ -997,7 +1021,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday'];
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'gst-margin-scheme'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

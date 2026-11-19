@@ -527,6 +527,13 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
               dividend: value('dividend'), franking: value('franking'), marginal: value('marginal') }, aud);
             break;
           }
+          case 'gst-margin-scheme': {
+            const yes = name => value(name) === 'yes';
+            result = calculate.gstMarginSchemeResult({ interest: value('interest'), taxable: yes('taxable'), agreed: yes('agreed'),
+              acquired: value('acquired'), associate: yes('associate'), method: value('method'), price: value('price'), basis: value('basis'),
+              cost: value('cost'), part: value('part'), whole: value('whole') }, aud);
+            break;
+          }
           case 'foreign-surcharge': {
             // The chosen jurisdiction's radio carries its general transfer duty scale, as the transfer duty page's does.
             const place = form.querySelector('input[name="jurisdiction"]:checked');
