@@ -6,7 +6,8 @@ import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
 const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
-  'sole-trader': '$5,939.00', 'income-tests': '$73,810.00', 'concessional-catch-up': '$97,500.00',
+  'sole-trader': '$5,939.00', 'lump-sum-arrears': '$1,688.25', 'income-tests': '$73,810.00',
+  'concessional-catch-up': '$97,500.00',
   'super-projection': '$539,266.80' };
 
 test.describe('before any script runs', () => {
@@ -44,6 +45,26 @@ for (const id of Object.keys(CALCULATORS)) {
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
+
+test('lump sum in arrears gives no offset below the 10% test and refuses a non-resident or a termination payment offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/lump-sum-arrears/');
+  const form = page.locator('#lump-sum-arrears form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel(/^Taxable income of that year/).fill('1000000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('10% of normal taxable income less the arrears')).toHaveText('$98,900.00');
+  await expect(row('Lump sum payment in arrears tax offset')).toHaveText('$0.00');
+  await form.locator('[name="resident"][value="no"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('This calculator works the offset only for a person resident in Australia for the '
+    + 'whole of the year of receipt and each recent accrual year, taxed at the resident rates with the full tax-free threshold.');
+  await form.locator('[name="resident"][value="yes"]').check();
+  await form.locator('[name="other"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('This calculator does not work the offset when an employment termination payment');
+});
 
 test('catch-up carries nothing forward at a $500,000 balance and refuses a defined benefit interest offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/concessional-catch-up/');
