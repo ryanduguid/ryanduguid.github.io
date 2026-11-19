@@ -1,0 +1,64 @@
+# FBT property calculator: in-house and external property benefits
+
+Source: https://duguid.com.au/tools/business-calculators/fbt-property/
+
+> A property fringe benefit’s taxable value for the FBT year ending 31 March 2027, in-house or external, with the otherwise deductible rule and in-house reduction.
+
+# FBT property calculator
+
+A property fringe benefit’s taxable value by the in-house or external rules, the otherwise deductible rule and the $1,000 in-house reduction.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Inputs for one property fringe benefit, FBT year ending 31 March 2027
+
+Valuation rule In-house under salary packaging: the notional value In-house goods you make and sell to the trade: the lowest arm’s length price In-house goods you make and sell to the public: 75% of the lowest public price In-house goods you make, otherwise, such as seconds: 75% of the notional value In-house goods you buy for the business: the lesser of their arm’s length price and notional value Other in-house property: 75% of the notional value External, bought at arm’s length at about the time: the cost price External, from a third party paid at arm’s length: that expenditure Other external property: the notional value Price rules only: the lowest price, arm’s length price, cost price or expenditure, with GST (AUD) Notional value: what the employee would pay at arm’s length (AUD) Employee contribution paid for the property (AUD) Share of use giving the employee a once-only deduction (%) Deduction the employee could claim for their contribution (AUD) In-house rules other than salary packaging: the employee’s $1,000 in-house reduction left this year (AUD)
+
+Each rule reads only its own price or notional value. Enter 0% income use for a depreciating asset costing $301 or more, a benefit to an associate, or without the employee’s declaration where paragraph 44(1)(c) needs one.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: in-house made and sold to the public, 75% of the lowest public price, lowest public price $900.00, employee contribution $500.00, 0% income use, deduction for the contribution $0.00, in-house reduction left $0.00. Value before the contribution $675.00 Employee contribution applied $500.00 Excess contribution $0.00 Value after the contribution $175.00 Gross deduction $0.00 Deduction for the contribution applied $0.00 Notional deduction $0.00 Otherwise deductible reduction $0.00 In-house reduction, section 62 $0.00 Taxable value $175.00 The $1,000 in-house reduction in section 62 is for all of the employee’s in-house fringe benefits in the year together.
+
+## How the FBT property calculator works
+
+The FBT property calculator values one property fringe benefit, goods or other property you give an employee in the FBT year from 1 April 2026 to 31 March 2027. An in-house benefit is goods identical or similar to those you, or an associate, sell in the ordinary course of business; any other property is an external benefit. Choose the rule that applies to the property. Under a salary packaging arrangement an in-house benefit takes the notional value. Goods you make take the lowest arm’s length price where you sell identical goods to the trade, 75% of the lowest public price where you sell them to the public, and otherwise 75% of the notional value. Goods you buy for your business take the lesser of the arm’s length purchase price and the notional value. The calculator takes the employee’s contribution off, never below nil, and shows any excess, which does not reduce another benefit.
+
+Where the employee would have had a once-only income tax deduction had they bought the property themselves, the otherwise deductible rule reduces the value. The gross deduction is the value before the contribution × the share of use that would be deductible; the notional deduction is that less the deduction for the contribution. For an in-house benefit outside salary packaging, the calculator then takes off the part of the employee’s $1,000 in-house reduction for the year that their other in-house benefits have not used.
+
+This page opens on the desk example in section 17.3 of the ATO’s guide for employers: a desk you make and sell to the public for at least $900, which an employee buys for $500, has a taxable value of 75% × $900 − $500 = $175. The tests also hold the guide’s other section 17.3 and 17.5 examples.
+
+## What the FBT property calculator does not cover
+
+The calculator does not decide whether a property fringe benefit arises or whether property is in-house. Nor does it apply an exemption, such as property consumed on your premises on a working day (section 41), a minor benefit (section 58P) or an eligible work-related item such as a portable electronic device (section 58X). It does not value airline transport (paragraph 42(1)(ab)), a car property benefit, whose otherwise deductible amount follows the car substantiation rules, a benefit provided jointly to an employee and an associate, whose reduction is limited to the employee’s interest, or an expense payment, which has its own calculator. It does not check the declaration the otherwise deductible rule needs (paragraph 44(1)(c)) or work out the employee’s deduction. It values one benefit: the $1,000 in-house reduction is for all of an employee’s in-house fringe benefits in the year, so enter what the others have not used. It stops at the taxable value and does not gross it up or work out FBT. Confirm the figures with the ATO’s guide or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: FBT property calculator
+
+Case | Inputs | Result
+The guide’s section 17.3 desk: 75% of the $900 public price less the $500 paid | in-house-public-price, price $900.00, notional value $0.00, contribution $500.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $675.00, contribution applied $500.00, value after the contribution $175.00, in-house reduction $0.00, taxable value $175.00
+The same desk with the employee’s $1,000 in-house reduction unused: nil | in-house-public-price, price $900.00, notional value $0.00, contribution $500.00, income use 0%, deduction $0.00, in-house reduction left $1,000.00 | In-house reduction $175.00, taxable value $0.00
+The guide’s early payment discount: the lowest arm’s length trade price, $950 | in-house-trade-price, price $950.00, notional value $0.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $950.00, taxable value $950.00
+The guide’s damaged racquet: 75% of its $30 notional value less $5 | in-house-produced-other, price $0.00, notional value $30.00, contribution $5.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $22.50, taxable value $17.50
+The guide’s television bought for $500, retailed at $750, sold for $400 | in-house-acquired, price $500.00, notional value $750.00, contribution $400.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $500.00, taxable value $100.00
+The guide’s section 17.5: $500 of goods, $250 paid, 80% work use, RD $200 | external-notional-value, price $0.00, notional value $500.00, contribution $250.00, income use 80%, deduction $200.00, in-house reduction left $0.00 | Value after the contribution $250.00, gross deduction $400.00, notional deduction $200.00, reduction $200.00, taxable value $50.00
+The guide’s section 17.5, the contribution set for the use: RD $150, nil | external-notional-value, price $0.00, notional value $500.00, contribution $250.00, income use 80%, deduction $150.00, in-house reduction left $0.00 | Notional deduction $250.00, reduction $250.00, taxable value $0.00
+Salary packaging takes the notional value and no in-house reduction | in-house-salary-packaging, price $0.00, notional value $2,000.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $1,000.00 | Value before contributions $2,000.00, taxable value $2,000.00
+A contribution above the value leaves nil and an excess that reduces nothing else | in-house-other, price $0.00, notional value $100.00, contribution $200.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $75.00, contribution applied $75.00, excess contribution $125.00, taxable value $0.00
+75% of 6 cents is 4.5 cents, rounded half up to 5 | in-house-public-price, price $0.06, notional value $0.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $0.05, taxable value $0.05
+A deduction for the contribution above the contribution is refused | external-cost-price, price $100.00, notional value $0.00, contribution $10.00, income use 0%, deduction $10.01, in-house reduction left $0.00 | Refused: the deduction for the employee’s contribution cannot be more than the contribution
+More than the $1,000 in-house reduction is refused | in-house-other, price $0.00, notional value $100.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $1,000.01 | Refused: enter an amount between 0 and 1000
+
+One of the forty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00018
+- forty business calculators: https://duguid.com.au/tools/business-calculators/

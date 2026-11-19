@@ -1,11 +1,13 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-// Taxable values of 3 fringe benefits under the Fringe Benefits Tax Assessment Act 1986
+// Taxable values of 5 fringe benefits under the Fringe Benefits Tax Assessment Act 1986
 // (Compilation No. 97, 1 July 2026): a loan (Division 4), meal entertainment (Division 9A)
-// and car parking (Division 10A). Ported from the fbt-loan, fbt-meal-entertainment and
+// and car parking (Division 10A), ported from the fbt-loan, fbt-meal-entertainment and
 // fbt-car-parking worksheets of ryanduguid/australian-accounting's
-// australian-tax-calculators at 376607610d73c4e13a3dbc8ea316bc4490fbb19a. Amounts work in
+// australian-tax-calculators at 376607610d73c4e13a3dbc8ea316bc4490fbb19a; an expense payment
+// (Division 5) and property (Division 11), ported from its fbt-expense-payment and
+// fbt-property worksheets at 60e834aa9d9580ddd7a3c5065dde430fadd82c47. Amounts work in
 // integer cents; a fraction of a cent rounds half up, as the worksheets round. The year's
 // rate, threshold and days come from the caller, which reads them from its page.
 
@@ -202,4 +204,137 @@ export function fbtCarParking(p, year) {
   else if (p.method === 'spaces') value = spacesMethod(p, yearDays);
   else value = feeMethod(p);
   return benefit ? { benefit, ...value } : { benefit, gross: 0, taxableValue: 0 };
+}
+
+/** @param {bigint} value */
+const quarters = (value) => ratioCents(value * 3n, 4n);
+
+/**
+ * @typedef {'in-house-salary-packaging' | 'in-house-trade-price' | 'in-house-public-price' | 'in-house-produced-other'
+ *   | 'in-house-acquired' | 'in-house-other'} InHouseMethod
+ * @typedef {InHouseMethod | 'external-cost-price' | 'external-expenditure' | 'external-notional-value'} PropertyMethod
+ * @typedef {'external' | InHouseMethod | 'in-house-residual-salary-packaging' | 'in-house-residual-public-price'
+ *   | 'in-house-residual-other'} ExpensePaymentMethod
+ * @typedef {{method: PropertyMethod, price: string, notional: string, contribution: string, incomeUse: string,
+ *   contributionDeduction: string, available: string}} FbtProperty
+ * @typedef {{method: ExpensePaymentMethod, expenditure: string, paid: string, contribution: string, incomeUse: string,
+ *   portionDeduction: string, price: string, notional: string, available: string}} FbtExpensePayment
+ * @typedef {{gross: number, recipientsPortion?: number, contributionApplied: number, excess: number,
+ *   valueAfterContribution: number, grossDeduction?: number, deductionApplied?: number,
+ *   notionalDeduction?: number, reduction?: number, inHouseReduction?: number, taxableValue: number}} BenefitValue
+ * @typedef {(p: {price: string, notional: string}) => bigint} Valuation
+ * @typedef {{reduction: bigint, figures: Record<string, number>}} Deductible
+ */
+
+/** The property valuation rules by method, each giving the value before any contribution from
+ * `price` or `notional`, the notional value (s 136(1)). The first 6 are the in-house rules of
+ * s 42(1), the last 3 the external rules of s 43. Airline transport (s 42(1)(ab)) is left out.
+ * @type {Record<string, Valuation>} */
+const PROPERTY_RULES = {
+  'in-house-salary-packaging': (p) => money(p.notional), // s 42(1)(aa)
+  'in-house-trade-price': (p) => money(p.price), // s 42(1)(a)(i)
+  'in-house-public-price': (p) => quarters(money(p.price)), // s 42(1)(a)(ii)
+  'in-house-produced-other': (p) => quarters(money(p.notional)), // s 42(1)(a)(iii)
+  'in-house-acquired': (p) => least(money(p.price), money(p.notional)), // s 42(1)(b) and (2)
+  'in-house-other': (p) => quarters(money(p.notional)), // s 42(1)(c)
+  'external-cost-price': (p) => money(p.price), // s 43(a)
+  'external-expenditure': (p) => money(p.price), // s 43(b)
+  'external-notional-value': (p) => money(p.notional), // s 43(c)
+};
+
+/** The in-house residual rules an in-house residual expense payment takes (s 22A(2), with
+ * s 22A(3) for a period benefit): paragraphs (aa), (a) and (b) of ss 48 and 49. Airline
+ * transport is left out.
+ * @type {Record<string, Valuation>} */
+const RESIDUAL_RULES = {
+  'in-house-residual-salary-packaging': PROPERTY_RULES['in-house-salary-packaging'],
+  'in-house-residual-public-price': PROPERTY_RULES['in-house-public-price'],
+  'in-house-residual-other': PROPERTY_RULES['in-house-other'],
+};
+
+/** The rule `method` names in `rules`.
+ * @param {Record<string, Valuation>} rules @param {string} method */
+function valuation(rules, method) {
+  if (!Object.hasOwn(rules, method)) throw new Error('Choose a valuation rule.');
+  return rules[method];
+}
+
+/** `paid` against `gross`, never taking it below nil, then the otherwise deductible rule's
+ * reduction where `deductible` gives one, then s 62 for an in-house rule other than salary
+ * packaging (s 62(2)): the part of the employee's $1,000 in-house reduction for the year that
+ * their other in-house benefits have left, `available`.
+ * @param {string} method @param {bigint} gross @param {bigint} paid @param {string} available
+ * @param {(value: bigint) => Deductible} [deductible]
+ * @returns {BenefitValue} */
+function benefitValue(method, gross, paid, available, deductible) {
+  const applied = least(paid, gross);
+  const value = gross - applied;
+  const rule = deductible ? deductible(value) : { reduction: 0n, figures: {} };
+  const reduces = method.startsWith('in-house-') && !method.endsWith('-salary-packaging');
+  const inHouse = reduces ? least(money(available, 1000), value - rule.reduction) : 0n;
+  return { gross: dollars(gross), contributionApplied: dollars(applied), excess: dollars(paid - applied),
+    valueAfterContribution: dollars(value), ...rule.figures, ...(reduces ? { inHouseReduction: dollars(inHouse) } : {}),
+    taxableValue: dollars(value - rule.reduction - inHouse) };
+}
+
+/** The otherwise deductible rule (ss 24(1) and 44(1)): the gross deduction, `base` × the income
+ * use share, less RD, `rd` up to that deduction, is the notional deduction, which comes off the
+ * value after the contribution, never below nil.
+ * @param {bigint} base @param {string} incomeUse @param {bigint} rd
+ * @returns {(value: bigint) => Deductible} */
+function otherwiseDeductible(base, incomeUse, rd) {
+  const gd = ratioCents(base * hundredths(incomeUse), 10000n);
+  const applied = least(rd, gd);
+  return (value) => {
+    const reduction = least(gd - applied, value);
+    return { reduction, figures: { grossDeduction: dollars(gd), deductionApplied: dollars(applied),
+      notionalDeduction: dollars(gd - applied), reduction: dollars(reduction) } };
+  };
+}
+
+/** A property fringe benefit's taxable value (Division 11): the in-house (s 42(1)) or external
+ * (s 43) value less the employee's contribution, reduced by the otherwise deductible rule (s 44(1)),
+ * its gross deduction on the value before the contribution, and for an in-house benefit by s 62.
+ * @param {FbtProperty} p the rule, the price or notional value it takes, the contribution, the
+ *   income use percentage, the deduction for the contribution and the s 62 reduction left
+ * @returns {BenefitValue} */
+export function fbtProperty(p) {
+  const gross = valuation(PROPERTY_RULES, p.method)(p);
+  const contribution = money(p.contribution);
+  const rd = money(p.contributionDeduction);
+  if (rd > contribution) throw new Error('The deduction for the employee’s contribution cannot be more than the contribution.');
+  return benefitValue(p.method, gross, contribution, p.available, otherwiseDeductible(gross, p.incomeUse, rd));
+}
+
+/** An expense payment fringe benefit's taxable value (Division 5). External (s 23): the payment
+ * or reimbursement less the employee's contribution to a payment, reduced by the otherwise
+ * deductible rule on the employee's expenditure (s 24(1)), RD being the deduction for the
+ * recipient's portion. In-house (s 22A(1) or (2)): the in-house property or residual value less
+ * the recipient's portion, the expenditure less the payment net of the contribution, then s 62.
+ * The otherwise deductible rule for an in-house payment (s 24(1)(b)(i)) is refused, not applied.
+ * @param {FbtExpensePayment} e the method, the expenditure, the payment or reimbursement, the
+ *   contribution, the otherwise deductible inputs or the in-house rule's inputs
+ * @returns {BenefitValue} */
+export function fbtExpensePayment(e) {
+  const rule = e.method === 'external' ? undefined
+    : valuation({ ...PROPERTY_RULES, ...RESIDUAL_RULES }, e.method.startsWith('in-house-') ? e.method : '');
+  const expenditure = money(e.expenditure);
+  const paid = money(e.paid);
+  const contribution = money(e.contribution);
+  if (paid > expenditure) throw new Error('The payment or reimbursement cannot be more than the employee’s expenditure (section 20).');
+  // s 136(1): the recipient's portion is the expenditure less the payment net of the contribution.
+  const portion = expenditure - paid + contribution;
+  const rd = money(e.portionDeduction);
+  if (!rule) {
+    if (rd > portion) {
+      throw new Error('The deduction for the recipient’s portion cannot be more than that portion, the expenditure less '
+        + 'the payment net of the contribution.');
+    }
+    return benefitValue(e.method, paid, contribution, '0', otherwiseDeductible(expenditure, e.incomeUse, rd));
+  }
+  if (hundredths(e.incomeUse) > 0n || rd > 0n) {
+    throw new Error('This calculator does not apply the otherwise deductible rule to an in-house expense payment '
+      + '(subparagraph 24(1)(b)(i)): enter 0% income use and no deduction.');
+  }
+  return { recipientsPortion: dollars(portion), ...benefitValue(e.method, rule(e), portion, e.available) };
 }

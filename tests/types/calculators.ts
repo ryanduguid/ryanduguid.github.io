@@ -109,6 +109,17 @@ calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
 const operatingValue: number = calculate.fbtCar(car, fbtYear).operating;
 void fbt;
 void operatingValue;
+const ev = { vehicle: 'battery', currentEmployee: true, firstUsed: '2026-04-01', firstSale: '2026-04-01', lctValue: '60000',
+  otherSupply: false } as const;
+const evExempt: boolean = calculate.fbtEvExemption(ev, { ended: '2027' }).exempt;
+// @ts-expect-error A current employee is a boolean, as the form passes it.
+calculate.fbtEvExemption({ ...ev, currentEmployee: 'yes' }, { ended: '2027' });
+// @ts-expect-error The vehicle is one of the 3 kinds the exemption can reach.
+calculate.fbtEvExemption({ ...ev, vehicle: 'diesel' }, { ended: '2027' });
+// @ts-expect-error The threshold is whole dollars, a number, or null for a first retail sale after the FBT year.
+const evThreshold: string = calculate.fbtEvExemption(ev, { ended: '2027' }).threshold;
+void evExempt;
+void evThreshold;
 const terms = { solve: 'payment', amount: '60000', rate: '7.5', payments: '60', payment: '', balloon: '18000',
   balloonKind: 'amount', frequency: 'monthly', timing: 'advance', start: '2026-07-01' } as const;
 const lastPayment: number = calculate.financeSchedule(terms).finalPayment;
@@ -151,9 +162,23 @@ const meal = { method: 'register', expenses: '900', registerBenefits: '1000', re
 const mealValue: number = calculate.fbtMealEntertainment({ ...meal, earlier: [] }, { ended: '2027' }).taxableValue;
 // @ts-expect-error Earlier years' expenses are a list of decimal strings.
 calculate.fbtMealEntertainment({ ...meal, earlier: '1000' }, { ended: '2027' });
+const property = { method: 'in-house-public-price', price: '900', notional: '0', contribution: '500', incomeUse: '0',
+  contributionDeduction: '0', available: '0' } as const;
+const propertyValue: number = calculate.fbtProperty(property).taxableValue;
+const inHouseReduction: number | undefined = calculate.fbtProperty(property).inHouseReduction;
+// @ts-expect-error Airline transport is not one of the property rules.
+calculate.fbtProperty({ ...property, method: 'in-house-airline' });
+const expense = { method: 'external', expenditure: '500', paid: '250', contribution: '0', incomeUse: '80', portionDeduction: '200',
+  price: '0', notional: '0', available: '0' } as const;
+const expenseValue: number = calculate.fbtExpensePayment(expense).taxableValue;
+// @ts-expect-error An external property rule does not value an expense payment.
+calculate.fbtExpensePayment({ ...expense, method: 'external-cost-price' });
 void parkingValue;
 void loanValue;
 void mealValue;
+void propertyValue;
+void inHouseReduction;
+void expenseValue;
 const landTax: number = calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess', surcharge: '0,0,2,0,excess' },
   { foreign: true, surchargeValue: '400000' }).total;
 // @ts-expect-error A land value is a decimal string, as the form field gives it.
@@ -251,3 +276,33 @@ calculate.longServiceLeave({ ...leaveInput, pay: 1500 });
 // @ts-expect-error The reason is one of the form's 10 reasons.
 calculate.longServiceLeave({ ...leaveInput, reason: 'sacked' });
 void leaveWeeks;
+const ftcInput = { year: '2026-27', lines: [{ fuel: 'diesel', use: 'other_business', acquired: '2026-09-15', quantity: '2000' }] };
+const ftcTotal: number = calculate.fuelTaxCredits(ftcInput).total;
+// @ts-expect-error The income year is a string such as '2026-27', as the form's select gives it.
+calculate.fuelTaxCredits({ ...ftcInput, year: 2026 });
+// @ts-expect-error Label 7D is whole dollars as a number, not text.
+const ftcLabel: string = calculate.fuelTaxCredits(ftcInput).label7d;
+void ftcTotal;
+void ftcLabel;
+const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
+  loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;
+const leaveWithheld: number = calculate.unusedLeave(leavePay).withholding;
+const leaveType: 'R' | 'T' = calculate.unusedLeave(leavePay).lumpSumAType;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.unusedLeave({ ...leavePay, annual: 0 });
+// @ts-expect-error The reason is one of the 4 the form offers; death is out of scope.
+calculate.unusedLeave({ ...leavePay, reason: 'death' });
+// @ts-expect-error A working holiday maker is not a payee choice: Schedule 15 covers them.
+calculate.unusedLeave({ ...leavePay, payee: 'working-holiday-maker' });
+void leaveWithheld;
+void leaveType;
+const premiumInput = { place: 'AU-SA', wages: '450000', rate: '2', apprentice: '0', actual: '', group: 'no', dust: '', reward: '0',
+  vicEmployer: 'new', days: '365', buyout: 'no', qldStart: 'q1', firstYear: 'no', claims: '0' } as const;
+const premiumTotal: number = calculate.workersCompensation(premiumInput).total;
+// @ts-expect-error The place is a state or territory code, as the form's radios carry it.
+calculate.workersCompensation({ ...premiumInput, place: 'SA' });
+// @ts-expect-error Wages are a decimal string, as the form passes them.
+calculate.workersCompensation({ ...premiumInput, wages: 450000 });
+// @ts-expect-error The Queensland start is one of the form's 5 choices.
+calculate.workersCompensation({ ...premiumInput, qldStart: 'q5' });
+void premiumTotal;
