@@ -368,7 +368,8 @@ const FTC_LINE = record({
     + 'to split litres of diesel by publicRoadKm or totalKm and rigidTruckGrossWeightTonnes or litresPerKm.'),
   fuel: choice(['diesel', 'petrol', 'b5', 'b20', 'e10', 'e85', 'lpg', 'lng_cng', 'b100'], 'The eligible fuel; the basic method takes "diesel" only.'),
   use: choice(['heavy_vehicle_public_road', 'other_business', 'light_vehicle_public_road'], 'The fuel\'s use: a vehicle over 4.5 tonnes GVM on a '
-    + 'public road, every other business use, or a vehicle of 4.5 tonnes or less on a public road (nil). Not with the basic method.'),
+    + 'public road (including a bus\'s or coach\'s passenger air-conditioning), every other business use, or a vehicle of 4.5 tonnes or less on a '
+    + 'public road (nil). Not with the basic method.'),
   acquired: text('date', 'Day the fuel was acquired, YYYY-MM-DD, inside the income year and no later than 2027-01-31.'),
   quantity: text('quantity', 'Litres (kilograms for "lng_cng") with at most 4 decimal places, for a line by quantity.'),
   cost: text('cost', 'GST inclusive cost in AUD with at most 2 decimal places, with "litres_from_cost".'),
@@ -396,7 +397,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
     year: choice(['2022-23', '2023-24', '2024-25', '2025-26', '2026-27'], 'Income year the fuel was acquired in.'),
     lines: { type: 'array', maxItems: 50, items: FTC_LINE, description: 'From 1 to 50 fuel lines.' },
     smallClaimant: { type: 'boolean', description: 'Required with a simplified method or ratePeriod: true when the credits were $10,000 or less in '
-      + 'the previous 12 months and are expected to be in the current 12 months.' },
+      + 'the previous 12 months and are expected to be in the current 12 months (for the basic method alone, no claim in the previous 12 months also '
+      + 'counts: PCG 2021/2 footnote 3).' },
     ratePeriod: record({ start: text('date', 'Tax period\'s first day, YYYY-MM-DD.'), end: text('date', 'Tax period\'s last day, YYYY-MM-DD.') },
       ['start', 'end']),
     returnDate: text('date', 'Day the activity statement is given, YYYY-MM-DD, to list lines acquired more than 4 years before it (subsection 47-5(2)).'),

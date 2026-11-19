@@ -12680,19 +12680,19 @@ Line 4 (optional) FuelNo line Diesel Petrol B5 B20 E10 E85 LPG LNG or CNG (kilog
 
 ## Small claimant methods
 
-A small claimant had fuel tax credits of $10,000 or less in the previous 12 months and expects the same in the current 12 months (PCG 2016/2).
+A small claimant had fuel tax credits of $10,000 or less in the previous 12 months and expects the same in the current 12 months (PCG 2016/2). For the basic method alone, a business that claimed none in the previous 12 months need only expect $10,000 or less (PCG 2021/2 footnote 3).
 
 Is the business a small claimant? No Yes: a small claimant, who may use the cost, the basic method and the rate at the period’s end Optional: one heavy vehicle’s diesel by the basic method Day acquired Litres of eligible diesel Kilometres on public roads Or the total kilometres, 98.4% taken as on public roads Rigid truck’s gross weight (tonnes) Or its engine report’s ‘driving fuel’ litres a kilometre
 
 Optional: every line at the rate on the tax period’s last day Tax period’s first day Tax period’s last day
 
-For the average price, read the Australian Institute of Petroleum’s weekly average retail (pump) prices: the unleaded petrol or diesel series, in cents a litre including GST, for the location or state the business operates in, and average the weeks of the tax period. The Institute reserves all rights in its figures, so this page holds none of them.
+For the average price, read the Australian Institute of Petroleum’s weekly average retail (pump) prices: the unleaded petrol or diesel series, in cents a litre including GST, for the location or state the business operates in, and average the weeks of the tax period. The Institute reserves all rights in its figures, so this page holds none of them: the prices in its examples are made up.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; line 1: 10,000 litres of diesel acquired 15 September 2026, heavy vehicle on a public road; line 2: 2,000 litres of diesel acquired 15 September 2026, other business use. Line 1: 10,000 litres, heavy vehicle on a public road, at 21.3 cents a litre from 3 August 2026 $2,130.00 Line 2: 2,000 litres, other business use, at 53.7 cents a litre from 3 August 2026 $1,074.00 Fuel tax credits $3,204.00 Label 7D on the BAS, in whole dollars $3,204.00
 
 ## How the fuel tax credit calculator works
 
-The fuel tax credit calculator works out a business’s fuel tax credits for fuel acquired in one income year from 2022-23 to 2026-27. Each line takes the rate the ATO published for the day the fuel was acquired, for its fuel and its use: a heavy vehicle travelling on a public road takes the rate net of the road user charge, every other business use takes the full rate, and a light vehicle on a public road gets nothing. The page adds the lines and gives the whole dollar amount for label 7D on the business activity statement, with the rate, its period and its ATO page for each line.
+The fuel tax credit calculator works out a business’s fuel tax credits for fuel acquired in one income year from 2022-23 to 2026-27. Each line takes the rate the ATO published for the day the fuel was acquired, for its fuel and its use: a heavy vehicle travelling on a public road (fuel for a bus’s or coach’s passenger air-conditioning included) takes the rate net of the road user charge, every other business use takes the full rate, and a light vehicle on a public road gets nothing. The page adds the lines and gives the whole dollar amount for label 7D on the business activity statement, with the rate, its period and its ATO page for each line.
 
 A small claimant can also enter a line by its cost and the average pump price instead of its litres, split one heavy vehicle’s diesel between public roads and other use by the basic method, and take every line at the rate on the last day of a tax period that spans only an indexation change. Rates for every period since 1 July 2022 are held here, so an earlier period’s credits can be worked out for an amendment.
 

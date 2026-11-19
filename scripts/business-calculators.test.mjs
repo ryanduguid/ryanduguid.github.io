@@ -3616,6 +3616,8 @@ test('a line acquired more than 4 years before the return is flagged under subse
   const late = ftc('2022-23', lines, { return_date: '2026-11-20' });
   assert.deepEqual([late.timeLimitLines, late.total], [[1], 92]);
   assert.match(late.warnings.join(' '), /subsection 47-5\(2\).*Linfox/);
+  // Section 47-10 relieves only subsection 47-5(1), so it is no exception to this warning.
+  assert.doesNotMatch(late.warnings.join(' '), /47-10/);
   assert.equal(ftcCode({ year: '2022-23', lines, return_date: '2022-11-18' }), 'fuel_tax_credits.fact_conflict');
 });
 

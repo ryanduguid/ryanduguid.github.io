@@ -788,8 +788,6 @@ test('unused leave page works Schedule 7’s example, a no-TFN payment and a ref
   await expect(form.locator('output')).toHaveText('The leave accrued from 1 January 1980, so none of it is long service leave for the period before 16 August 1978: enter 0 or leave it blank.');
 });
 
-// Western Australia's Anastasia (serious misconduct after 12 years and 1 month: the 8 2/3 weeks accrued), the same
-// service still employed, and the Northern Territory death under 10 years the page refuses.
 // The fuel tax credit page's example, its second line by the cost and average price (PCG 2016/2 Method 1), and fuel
 // acquired after the last rate the page holds.
 test('fuel tax credit page works its example, a line from its cost and a refusal offline', async ({ page, context }) => {
@@ -811,6 +809,8 @@ test('fuel tax credit page works its example, a line from its cost and a refusal
   await expect(form.locator('output')).toContainText('Line 1: no published rate is held for fuel acquired after 31 January 2027');
 });
 
+// Western Australia's Anastasia (serious misconduct after 12 years and 1 month: the 8 2/3 weeks accrued), the same
+// service still employed, and the Northern Territory death under 10 years the page refuses.
 test('long service leave page works a Western Australian example, the leave still to come and a refusal offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/long-service-leave/');
   const form = page.locator('#long-service-leave form');

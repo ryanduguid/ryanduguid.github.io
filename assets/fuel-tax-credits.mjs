@@ -328,8 +328,8 @@ function timeLimited(returned, lines, warnings) {
   if (late.length) {
     warnings.push(`Fuel Tax Act 2006 subsection 47-5(2): the entitlement for line ${late.join(', ')} ceases unless a return taking it into `
       + `account is given within 4 years after the day of acquisition, and the return is given on ${plainDate(isoOf(day))}. That does not apply to `
-      + 'a credit already taken into account in an assessment (Linfox Australia Pty Ltd v Commissioner of Taxation [2019] FCAFC 131; MT 2024/1) '
-      + 'or to the section 47-10 exception; otherwise leave those lines out.');
+      + 'a credit already taken into account in an assessment (Linfox Australia Pty Ltd v Commissioner of Taxation [2019] FCAFC 131; MT 2024/1); '
+      + 'otherwise leave those lines out.');
   }
   return late;
 }
