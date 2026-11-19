@@ -1032,6 +1032,7 @@ test('the electric cars exemption refuses facts it cannot decide or that contrad
   refuses({ firstUsed: '2026-04-01', firstSale: '2026-04-02', lctValue: '91661.01' }, 'Luxury car tax on a first retail sale within the FBT year, '
     + 'after the car was first held and used, does not affect a benefit provided before the sale (section 8A(1)(c)), so this calculator '
     + 'cannot give one result for the year.');
+  refuses({ firstUsed: '2025-01-01', firstSale: '2026-04-01', lctValue: '200000' }, /^Luxury car tax on a first retail sale within the FBT year/);
   refuses({ firstSale: '2012-06-30' }, 'This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
   refuses({ vehicle: 'plug-in-hybrid', firstUsed: '2025-04-01', hybrid: { committed: true, newCommitment: false, exemptBefore: true } },
     'A car first held and used from 1 April 2025 cannot have given an exempt car benefit before that day.');

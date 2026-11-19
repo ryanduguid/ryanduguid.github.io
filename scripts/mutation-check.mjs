@@ -140,6 +140,7 @@ const MUTATIONS = [
   { ...evExemption, name: 'EV exemption: luxury car tax on another supply is ignored', find: "['other-supply', !otherSupply]", replace: "['other-supply', true]" },
   { ...evExemption, name: 'EV exemption: a former employee is exempt', find: "['current-employee', current]", replace: "['current-employee', true]" },
   { ...evExemption, name: 'EV exemption: a taxed sale within the year after first use gives one result', find: 'firstSale > firstUsed && firstSale >=', replace: 'false && firstSale >=' },
+  { ...evExemption, name: 'EV exemption: a taxed sale on 1 April after first use precedes the year', find: "firstSale >= `${ended - 1}-04-01`", replace: "firstSale > `${ended - 1}-04-01`" },
   { ...evExemption, name: 'EV exemption: a taxed sale on the day of first use is refused', find: 'firstSale > firstUsed &&', replace: 'firstSale >= firstUsed &&' },
   { ...evExemption, name: 'EV exemption: one condition met is enough', find: 'conditions.every((c) => c.met)', replace: 'conditions.some((c) => c.met)' },
   { ...evExemption, name: 'EV exemption: a first retail sale after the FBT year counts its luxury car tax', find: 'const afterYear = firstSale > yearEnd;', replace: 'const afterYear = false;' },
