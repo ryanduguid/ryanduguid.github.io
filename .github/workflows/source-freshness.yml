@@ -19,6 +19,9 @@ name: source-freshness
 # limit. The stamp job builds and runs site-tools with read-only access; the
 # publish job, which can write, applies the stamp job's patch and runs no tools.
 
+# No push trigger (decided 19 November 2026): a merge here moves only this
+# repository's own card stamp, which the Monday run refreshes, and a push trigger
+# would open a stamp pull request after almost every merge.
 on:
   schedule:
     - cron: "0 6 * * 1"

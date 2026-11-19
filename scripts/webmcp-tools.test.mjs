@@ -405,3 +405,14 @@ test('super projection tool gives the page’s worked example and refuses what t
   await assert.rejects(tool.execute({ age: 30, balance: 50000, salary: 80000 }), /balance/);
   assert.match(tool.description, /not a prediction or a recommendation/);
 });
+
+test('llms.txt and the agent tooling notes name every calculator tool', () => {
+  const names = [...Object.values(tools), declineInValue, levy, ...Object.values(individual)].map(t => t.name);
+  const llms = readFileSync(new URL('../llms.txt', import.meta.url), 'utf8');
+  const notes = readFileSync(new URL('../docs/agent-tooling.md', import.meta.url), 'utf8').replace(/\s+/g, ' ');
+  assert.ok(llms.includes(`${names.length} read-only calculator tools`), `llms.txt should count ${names.length} tools`);
+  for (const name of names) {
+    assert.ok(llms.includes(`\`${name}\``), `llms.txt ${name}`);
+    assert.ok(notes.includes(`\`${name}\``), `docs/agent-tooling.md ${name}`);
+  }
+});
