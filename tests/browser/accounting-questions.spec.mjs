@@ -537,6 +537,25 @@ test('hire purchase totals interest by income year and sets out the journal', as
   await expect(form.locator('table[data-results="journal"] tbody tr').last()).toHaveText('Total$1,000.00$20.07$1,020.07');
 });
 
+test('CGT concessions give Janet’s 40% interest the 15-year exemption and refuse a share offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/cgt-concessions/');
+  const form = page.locator('#cgt-concessions form');
+  const output = form.locator('output');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  // The ATO's 15-year exemption page: Janet sells land she bought on 1 December 2002 on her 60th birthday, and retires.
+  const fields = { acquired: '2002-12-01', event: '2020-12-15', born: '1960-12-15', active: '6590', choice: '2021-05-01' };
+  for (const [name, value] of Object.entries(fields)) await form.locator(`[name="${name}"]`).fill(value);
+  await form.locator('[name="retiring"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('15-year exemption (Division 152)');
+  await expect(output).toContainText('Active for 6,590 of the 6,590 days from 1 December 2002 to 15 December 2020');
+  await expect(output).toContainText('Not needed: the 15-year exemption disregards the whole gain (section 152-330)');
+  await form.locator('[name="asset"][value="share"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('subsection 152-10(2)');
+});
+
 test('Division 7A takes the chosen year’s rate from the table and works the repayment offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/div7a/');
   const form = page.locator('#div7a form');
@@ -996,7 +1015,7 @@ test('business days skip Melbourne Cup Day in Victoria offline and refuse a date
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'hire-purchase', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
-  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
+  'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday'];
 
 test.describe('before any script runs', () => {

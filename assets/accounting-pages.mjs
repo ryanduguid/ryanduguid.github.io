@@ -409,6 +409,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'psi-determination':
             result = calculate.psiDeterminationResult(value, (name) => form.elements.namedItem(name).checked, aud);
             break;
+          case 'cgt-concessions':
+            result = calculate.cgtConcessionsResult(value, aud);
+            break;
           case 'staff': {
             const r = calculate.staffCost(value('wages'), value('super'), value('other'));
             result = { inputs: `wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}`, principal: 0,

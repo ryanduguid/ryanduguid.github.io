@@ -6,6 +6,7 @@ export { fbtCarParking, fbtLoan, fbtMealEntertainment } from './fbt-benefits.mjs
 export { landTaxYear } from './land-tax.mjs';
 export { vehicleClass } from './vehicle-class.mjs';
 export { pcgRisk, pcgAllocation, pcgAllocationResult } from './pcg-2021-4.mjs';
+export { cgtConcessions, cgtConcessionsAnswersOf, cgtConcessionsResult } from './cgt-concessions.mjs';
 export { psiDetermination, psiDeterminationResult } from './psi-determination.mjs';
 export { CALENDAR_END, NON_BUSINESS_WEEKDAYS, compoundedEarnings, paydaySuperDue, paydaySuperCharge, quarterlySgCharge, sgcPaydayResult }
   from './sgc-payday.mjs';
