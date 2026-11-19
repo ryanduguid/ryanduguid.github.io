@@ -171,7 +171,7 @@
       "e3de2d186fb139dd4197a71b00171daff2f218a2ca2dda7c9188f891a7f6a1aa"
     ],
     "tools/business-calculators/gst-margin-scheme/index.html": [
-      "0c0b0012ac11e62aefad269efc59da95502158b3101e0aecd8eb0a83f56b499c"
+      "f17ddd47426b0af26020684efc5189eba8f36aa74f7493e59cd308e6eee7fc02"
     ],
     "tools/business-calculators/gst/index.html": [
       "22416c01f7ec1fdbfc3f1870cbb7ac7715321d1430e3c2878ef2b7824c04f948"
@@ -316,7 +316,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "b5025b50e8ad2e5248685af192d2d473187c6f660251dafd9556848f7a6edea1",
+    "llms.txt": "48e1f575f6989ed7dab1e61bc450e075c7bcd5e2e90d2bf992cdabd1c34baf03",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "725360ff152235a91b12802dfc370c31798f9dc371f2bd9de4528e8d83e022f4"
   },
