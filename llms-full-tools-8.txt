@@ -346,6 +346,85 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# Division 293 tax calculator 2021-22 to 2026-27
+
+Source: https://duguid.com.au/tools/individual-tax/division-293/
+
+> Division 293 tax on super contributions above the $250,000 threshold for 2021-22 to 2026-27, with excess contributions and carry-forward cap, cited.
+
+# Division 293 tax calculator
+
+The extra 15% tax on concessional super contributions when income and contributions exceed $250,000, for 2021-22 to 2026-27, each step shown.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Division 293 tax inputs for one income year
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Your super interests this year Accumulation interests only A defined benefit interest, a constitutionally protected fund or a Commonwealth judges’ pension scheme
+
+Taxable income, including any excess concessional contributions assessed (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, financial and rental (whole dollars) Income on which family trust distribution tax was paid (whole dollars) Assessable first home super saver released amount in taxable income (whole dollars) Super lump sum taxed at 0%, received from preservation age to under 60, to 2023-24 only (whole dollars) Concessional contributions for the financial year: employer, super guarantee, salary sacrifice and personal contributions you deduct (dollars and cents) Unused concessional cap from the previous 5 years not yet applied (dollars and cents) Total super balance just before the year began $500,000 or more Under $500,000, so unused cap carries forward
+
+Enter 0 for any part you do not have. Your tax return gives the income parts and your super fund’s statements the contributions; your ATO online account shows unused cap and your total super balance. Leave out contributions made under the super guarantee amnesty.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, accumulation interests only, taxable income $240,000.00, reportable fringe benefits $0.00, total net investment loss $0.00, family trust distribution tax income $0.00, assessable FHSS released amount $0.00, zero-rate super lump sum $0.00, concessional contributions $15,000.00, unused cap carried forward $0.00. Division 293 income: income for surcharge purposes less reportable super contributions $240,000.00 Concessional contributions $15,000.00 Concessional contributions cap for 2026-27 $32,500.00 Excess concessional contributions $0.00 Low tax contributions: the contributions less the excess $15,000.00 Division 293 income plus low tax contributions $255,000.00 Amount over the $250,000 threshold $5,000.00 Taxable contributions: the lesser of the low tax contributions and that amount $5,000.00 Division 293 tax at 15% $750.00 The ATO assesses it on a separate notice, payable 21 days after it is given (section 293-65).
+
+## How the Division 293 tax calculator works
+
+The Division 293 tax calculator works out the extra 15% tax on concessional super contributions for one income year when income and contributions together exceed $250,000. It adds up Division 293 income, the income measure used for the Medicare levy surcharge without reportable super contributions, then takes the contributions less any excess over the year’s cap, raised by unused cap carried forward when your total super balance allows it. Those are the low tax contributions. The taxable contributions are the lesser of the low tax contributions and the amount by which they and Division 293 income exceed $250,000, so only the part above the threshold is taxed, and never more than the contributions. Each step is shown, with the room left under the threshold when you are below it.
+
+Excess concessional contributions are not taxed by Division 293: they are added to your assessable income and taxed at your marginal rate less a 15% offset instead. A one-off event, such as a capital gain, an employment termination payment or back pay, can take you over the threshold for a single year. The ATO assesses Division 293 tax on its own notice once it has your return and your fund’s contribution reports. It is payable 21 days after the notice, and you can elect within 60 days to have it released from super.
+
+## What the Division 293 tax calculator does not compute
+
+The calculator covers 2021-22 to 2026-27, for contributions to accumulation interests. It does not compute:
+
+- defined benefit interests, whose defined benefit contributions the regulations work out and whose tax is deferred to a debt account (Subdivision 293-D), or the rules for State higher level office holders with constitutionally protected funds and for Commonwealth justices and judges (Subdivisions 293-E and 293-F);
+- contributions the Commissioner has disregarded or reallocated to another year, which stay in low tax contributions, or which contributions count: enter them as your fund reports them;
+- contributions that count differently for Division 293 than for the cap: a super guarantee amnesty amount the Commissioner paid to your fund, which is not a low tax contribution (section 293-30(4)(c)), and a contribution refunded under section 99G(6) of the Superannuation Industry (Supervision) Act 1993, which is not a concessional contribution (section 291-25(2)(e));
+- each part of Division 293 income, the unused cap or your total super balance, which you enter;
+- 2027-28 and later years, whose cap is not yet known, or years before 2021-22;
+- the refund for a former temporary resident who receives a departing Australia superannuation payment, interest, or the release from super itself.
+
+Confirm the figures with your Division 293 notice from the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Division 293 tax calculator
+
+Case | Inputs | Result
+The ATO’s example: Jan’s $240,000 and $15,000 give $5,000 taxed | 2026-27: taxable income $240,000; contributions $15,000.00 | Division 293 income $240,000.00, low tax contributions $15,000.00, taxable contributions $5,000.00, tax $750.00
+Below the threshold: $30,000 of room left | 2026-27: taxable income $200,000; contributions $20,000.00 | Division 293 income $200,000.00, low tax contributions $20,000.00, taxable contributions $0.00, tax $0.00
+Income alone over $250,000: all the contributions are taxed | 2026-27: taxable income $300,000; contributions $25,000.00 | Division 293 income $300,000.00, low tax contributions $25,000.00, taxable contributions $25,000.00, tax $3,750.00
+No low tax contributions, so no taxable contributions (s 293-20(2)) | 2026-27: taxable income $400,000; contributions $0.00 | Division 293 income $400,000.00, low tax contributions $0.00, taxable contributions $0.00, tax $0.00
+Exactly $250,000 does not exceed the threshold | 2026-27: taxable income $235,000; contributions $15,000.00 | Division 293 income $235,000.00, low tax contributions $15,000.00, taxable contributions $0.00, tax $0.00
+One cent over: 15% of a cent rounds to nil | 2026-27: taxable income $235,000; contributions $15,000.01 | Division 293 income $235,000.00, low tax contributions $15,000.01, taxable contributions $0.01, tax $0.00
+Ten cents over: 1.5 cents rounds half up to 2 | 2026-27: taxable income $235,000; contributions $15,000.10 | Division 293 income $235,000.00, low tax contributions $15,000.10, taxable contributions $0.10, tax $0.02
+Excess concessional contributions are left out | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00 | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
+Unused cap carried forward covers the excess, so all of it counts | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance under | Division 293 income $243,000.00, low tax contributions $45,000.00, taxable contributions $38,000.00, tax $5,700.00
+Unused cap does not carry forward with a balance of $500,000 or more | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance $500,000 or more | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
+Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $5,000.00, balance under | Division 293 income $243,000.00, low tax contributions $37,500.00 after $7,500.00 excess, taxable contributions $30,500.00, tax $4,575.00
+2025-26, cap $30,000 | 2025-26: taxable income $230,000; contributions $35,000.00 | Division 293 income $230,000.00, low tax contributions $30,000.00 after $5,000.00 excess, taxable contributions $10,000.00, tax $1,500.00
+2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
+2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
+
+One of the eight individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- eight individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
 # Income tests calculator: rebate, repayment and surcharge income
 
 Source: https://duguid.com.au/tools/individual-tax/income-tests/
@@ -582,104 +661,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
 - GIC table: https://duguid.com.au/rates/general-interest-charge/
-- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Long service leave calculator for every state and territory
-
-Source: https://duguid.com.au/tools/business-calculators/long-service-leave/
-
-> Long service leave in all 8 states and territories: qualifying periods, accrual, pro rata on termination by reason and the payment, each cited to its Act.
-
-# Long service leave calculator
-
-Long service leave under the Act of any Australian state or territory: the leave to take now, or what is paid when employment ends and why, each step cited.
-
-Published 19 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Long service leave inputs for one employee
-
-State or territory whose Act applies New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory First day of service Last day of employment, or the day to work it out at Days that do not count as service Employment Ends on the last day Continues: leave the employee can take now Why employment ends Resignation Resignation because of illness, incapacity, or a domestic or other pressing necessity Resignation without the notice the contract requires Retirement at or after the retiring age Redundancy, or another dismissal not about conduct, capacity or performance Dismissal because of illness or injury Dismissal for conduct, capacity or performance short of serious misconduct (serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory) Dismissal for serious misconduct (serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory) A fixed term ended Death of the employee Long service leave already taken or paid (weeks) Ordinary pay a week (AUD)
-
-Count each calendar day of an absence that keeps service continuous but does not count towards it, such as unpaid leave, as the Act you choose defines it. Each Act sets which pay is ordinary pay and how varied hours are averaged: enter the weekly figure that gives. Tax withheld from a payment on termination is worked out separately, from the termination payment calculator’s page.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, Long Service Leave Act 1955 (NSW), service from 1 February 2014 to 31 July 2026, employment ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, no leave already taken or paid, ordinary pay $1,500.00 a week. Service counted 12 years, 6 months and 0 days (4,564 days) Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii) 10.8333 weeks Weeks to pay on termination 10.8333 weeks Payment at $1,500.00 a week $16,250.00
-
-## How the long service leave calculator works
-
-Long service leave comes from each state and territory’s own Act, not the National Employment Standards. The calculator measures the service from the first day to the last, less the days you exclude, and applies the Act you choose. While employment continues, it gives the leave the employee can take now and when the next amount becomes available. When employment ends, it decides from the length of service and the reason whether the Act pays anything, works out the weeks it pays, deducts leave already taken or paid, and values the rest at the weekly ordinary pay. Each step names its provision. Victoria and the Australian Capital Territory give full leave after 7 years and the other states and territories after 10; New South Wales and the Australian Capital Territory can pay a pro rata amount from 5 years, the others from 7, and Victoria not before 7 years at all.
-
-## What the long service leave calculator does not cover
-
-The calculator gives an estimate under one Act for one employee, and no legal advice. It does not cover:
-
-- which Act applies to employment in more than one state or territory, and whether an award, enterprise agreement or contract gives a better entitlement, including the long service leave terms of a pre-2010 award or agreement that section 113 of the Fair Work Act 2009 preserves;
-- portable schemes, such as building and construction, contract cleaning, community services and security, and the black coal mining industry, Commonwealth and state public servants, Queensland seasonal employees in the sugar industry and meat works and other seasonal employees, and Tasmanian mining employees, who have their own rules;
-- whether a break keeps service continuous, which absences count, and whether a reason for leaving qualifies, such as a pressing necessity or serious misconduct: you decide those;
-- averaging pay for varied hours, casual or part-time work, commission or piece rates;
-- leave taken in advance of the entitlement, cashing out, and service before 23 June 1990, which some Acts count under earlier rules;
-- tax withheld from the payment.
-
-The figures follow each Act as read on 19 November 2026; a future date assumes it is unchanged. Confirm the result with the state or territory’s long service leave regulator or a lawyer before relying on it.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Long service leave calculator
-
-Case | Inputs | Result
-Redundancy after 12 years and 6 months in New South Wales: a proportion on 3 months for 15 years | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii), 10.8333 weeks, payment $16,250.00
-NSW Industrial Relations’ Dean: 5 years and 6 months, his store closed (its calculator shows 4.76 weeks) | New South Wales, 1 November 2009 to 30 April 2015, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subparagraph 4(2)(a)(iii), 4.7667 weeks, payment $7,150.00
-New South Wales, a day short of 5 years: nothing | New South Wales, 1 January 2016 to 30 December 2020, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Under 5 years: nothing is payable, 0.0000 weeks, payment $0.00
-New South Wales, a resignation a day short of 10 years: nothing | New South Wales, 1 January 2016 to 30 December 2025, ends by resignation, pay $1,500.00 a week | Under 10 years, resignation does not qualify for pro rata leave, subparagraph 4(2)(a)(iii), 0.0000 weeks, payment $0.00
-New South Wales, a resignation at 10 years: any reason qualifies | New South Wales, 1 January 2016 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii), 8.6667 weeks, payment $13,000.00
-New South Wales, serious misconduct after 15 years and 6 months: each completed year | New South Wales, 1 January 2010 to 30 June 2025, ends by dismissal for serious and wilful misconduct, pay $1,500.00 a week | Each completed year at 2 months for 10 years, any reason, subparagraph 4(2)(a)(i), 13.0000 weeks, payment $19,500.00
-New South Wales, still employed after 12 years and 6 months: 2 months to take | New South Wales, 1 February 2014 to 31 July 2026, still employed, pay $1,500.00 a week | 8 2/3 weeks for 10 years and 4 1/3 weeks for each completed 5 years after, subparagraph 4(2)(a)(i), 8.6667 weeks, payment $13,000.00
-New South Wales, 30 days excluded leave 10 years a month short | New South Wales, 1 January 2016 to 31 December 2025, 30 days excluded, still employed, pay $1,500.00 a week | Under 10 years: no leave to take yet, 0.0000 weeks, payment $0.00
-Victoria, death a day short of 7 years: nothing | Victoria, 1 January 2019 to 30 December 2025, ends by the employee’s death, pay $1,500.00 a week | Under 7 years: nothing is payable, 0.0000 weeks, payment $0.00
-Victoria, a resignation at 7 years: 1/60th of 2,557 days | Victoria, 1 January 2019 to 31 December 2025, ends by resignation, pay $1,500.00 a week | 1/60th of the period of continuous employment, any reason, sections 6, 9 and 10, 6.0881 weeks, payment $9,132.14
-Queensland, a resignation at 9 years: nothing | Queensland, 1 January 2017 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Under 10 years, resignation does not qualify for pro rata leave, subsection 95(4), 0.0000 weeks, payment $0.00
-Queensland, a dismissal for performance at 9 years: nothing | Queensland, 1 January 2017 to 31 December 2025, ends by dismissal for conduct, capacity or performance short of serious misconduct, pay $1,500.00 a week | Under 10 years, dismissal for conduct, capacity or performance short of serious misconduct does not qualify for pro rata leave, subsection 95(4), unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide, 0.0000 weeks, payment $0.00
-Queensland, a fixed term ending at 9 years | Queensland, 1 January 2017 to 31 December 2025, ends by the end of a fixed term, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subsection 95(4), if the employee reasonably expected to complete 10 years and was prepared to stay, 7.8000 weeks, payment $11,700.00
-Business Queensland: 18 years, 3 months, 2 weeks and 2 days, 15.8548 weeks | Queensland, 1 January 2007 to 16 April 2025, still employed, pay $1,500.00 a week | 8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2), 15.8548 weeks, payment $23,782.14
-Queensland, still employed after 16 years and 6 months: the proportion for the further period | Queensland, 1 January 2010 to 30 June 2026, still employed, pay $1,500.00 a week | 8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2), 14.3000 weeks, payment $21,450.00
-Western Australia’s Lee: redundancy after 12 years, 10.4 weeks | Western Australia, 1 January 2014 to 31 December 2025, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Each completed year at 8 2/3 weeks for 10 years, subsection 8(2), 10.4000 weeks, payment $15,600.00
-Western Australia’s Anastasia: serious misconduct after 12 years and 1 month, the 8.667 weeks accrued | Western Australia, 1 January 2014 to 31 January 2026, ends by dismissal for serious misconduct, pay $1,500.00 a week | Leave already accrued only, after dismissal for serious misconduct, subsection 8(2), 8.6667 weeks, payment $13,000.00
-Western Australia, a resignation at 8 years: pro rata | Western Australia, 1 January 2018 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subsection 8(3), 6.9333 weeks, payment $10,400.00
-Western Australia, serious misconduct at 8 years: nothing | Western Australia, 1 January 2018 to 31 December 2025, ends by dismissal for serious misconduct, pay $1,500.00 a week | Under 10 years, dismissal for serious misconduct does not qualify for pro rata leave, subsection 8(3), 0.0000 weeks, payment $0.00
-SafeWork SA’s Aisha: a resignation after 8 years and 6 months, 10.4 weeks | South Australia, 1 January 2017 to 30 June 2025, ends by resignation, pay $1,500.00 a week | 1.3 weeks for each completed year, subsections 5(3) and (4), 10.4000 weeks, payment $15,600.00
-SafeWork SA’s Ajay: 7 years and 6 months, left without the required notice, nothing | South Australia, 1 January 2018 to 30 June 2025, ends by resignation without the notice the contract requires, pay $1,500.00 a week | Under 10 years, resignation without the notice the contract requires does not qualify for pro rata leave, subsections 5(3) and (4), as SafeWork SA reads leaving without the required notice as an unlawful termination by the worker: if the employer waived the notice, choose resignation, 0.0000 weeks, payment $0.00
-SafeWork SA’s Liam: 13 years, 10 weeks taken, 6.9 weeks left | South Australia, 1 January 2013 to 31 December 2025, still employed, 10 weeks taken, pay $1,500.00 a week | 13 weeks for 10 years and 1.3 weeks for each completed year after, section 5, 16.9000 weeks, 6.9000 weeks left, payment $10,350.00
-SafeWork SA: 12 years and 6 months, 15.6 weeks for any reason | South Australia, 1 January 2013 to 30 June 2025, ends by dismissal for serious and wilful misconduct, pay $1,500.00 a week | 13 weeks for 10 years and 1.3 weeks for each completed year after, any reason, section 5, 15.6000 weeks, payment $23,400.00
-WorkSafe Tasmania’s example 1: exactly 9 years, left because of ill health (7.8003 at a rounded rate) | Tasmania, 1 January 2017 to 31 December 2025, ends by resignation because of illness, incapacity, or a domestic or other pressing necessity, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subsection 8(3), 7.8000 weeks, payment $11,700.00
-WorkSafe Tasmania’s example 2: 13 years, 6 months and 14 days, 13.5383 years (11.7336 at a rounded rate) | Tasmania, 1 January 2012 to 14 July 2025, ends by resignation, pay $1,500.00 a week | Leave accrued and a proportion of 8 2/3 weeks for the years since, any reason, paragraph 8(2)(a), 11.7332 weeks, payment $17,599.83
-Tasmania, a resignation at 8 years: nothing | Tasmania, 1 January 2018 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Under 10 years, resignation does not qualify for pro rata leave, subsection 8(3), 0.0000 weeks, payment $0.00
-Tasmania, death at 9 years: 1/60th of the employment | Tasmania, 1 January 2017 to 31 December 2025, ends by the employee’s death, pay $1,500.00 a week | 1/60th of the period of continuous employment, paragraph 9(2)(b), 7.8262 weeks, payment $11,739.29
-Tasmania, death at 12 years: 8 2/3 weeks and 1/60th of the 2 years since | Tasmania, 1 January 2014 to 31 December 2025, ends by the employee’s death, pay $1,500.00 a week | Leave accrued and 1/60th of the employment since, paragraph 9(2)(a), 10.4071 weeks, payment $15,610.71
-WorkSafe ACT’s full-time employee: 7 years, 6.0667 weeks at $560 a week | Australian Capital Territory, 1 January 2019 to 31 December 2025, still employed, pay $560.00 a week | 1/5 of a month for each completed year, sections 3 and 4, 6.0667 weeks, payment $3,397.33
-Australian Capital Territory, redundancy at 6 years and 6 months: completed months count | Australian Capital Territory, 1 January 2019 to 30 June 2025, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Pro rata on 2 months for 10 years, completed years and months, subsection 11C(2), 5.6333 weeks, payment $8,450.00
-Australian Capital Territory, a resignation at 6 years: nothing | Australian Capital Territory, 1 January 2020 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Under 7 years, resignation does not qualify for pro rata leave, subsection 11C(1), 0.0000 weeks, payment $0.00
-Northern Territory, redundancy at 9 years: 1.3 weeks a completed year | Northern Territory, 1 January 2017 to 31 December 2025, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | 1.3 weeks for each completed year, subsection 10(2), 11.7000 weeks, payment $17,550.00
-Northern Territory, serious misconduct at 12 years: the completed 10 years only | Northern Territory, 1 January 2014 to 31 December 2025, ends by dismissal for serious misconduct, pay $1,500.00 a week | The completed 10 and 5-year periods only, after serious misconduct, subsection 10(1A), 13.0000 weeks, payment $19,500.00
-Northern Territory, death at 9 years is refused: choose the reason that would have applied | Northern Territory, 1 January 2017 to 31 December 2025, ends by the employee’s death, pay $1,500.00 a week | Refused: under 10 years, the NT Act pays on death what the employee would have been paid for leaving that day for a reason in subsection 10(2) (subsection 10(3)): choose that reason instead
-New South Wales, a fixed term ending at 7 years is refused | New South Wales, 1 January 2019 to 31 December 2025, ends by the end of a fixed term, pay $1,500.00 a week | Refused: the NSW Act pays pro rata leave under 10 years when the employer ends the employment, and does not say whether a fixed term ending is that: this calculator does not decide it
-Service before 23 June 1990 is refused | New South Wales, 22 June 1990 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: enter the first day of service from 23 June 1990 to 31 December 2099
-A last day before the first is refused | New South Wales, 1 August 2026 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: the last day must be on or after the first day of service
-Excluded days that use up the service are refused | New South Wales, 1 July 2026 to 31 July 2026, 31 days excluded, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: excluded days must be fewer than the days from the first day to the last
-More leave taken than the entitlement is refused | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, 11 weeks taken, pay $1,500.00 a week | Refused: leave taken or paid is more than this entitlement: the Acts treat leave taken in advance differently, and this calculator does not cover it
-
-One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- termination payment calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
-- black coal mining industry: https://duguid.com.au/tools/coal-lsl-levy/
 - thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
