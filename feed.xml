@@ -8,6 +8,13 @@
   <updated>2026-11-19T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new individual tax calculator works out the tax offset for lump sum payments…</title>
+    <link href="https://duguid.com.au/changelog/#entry-721cef5df5d68fb4" />
+    <id>https://duguid.com.au/changelog/#entry-721cef5df5d68fb4</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A new individual tax calculator works out the tax offset for lump sum payments in arrears for a resident who received them in 2024-25, 2025-26 or 2026-27: the 10% threshold test, the tax the arrears add in the year of receipt, the tax they would have added in the 2 latest years they accrued in and, for earlier years, the average of those years’ rates, rounded as section 159ZRD of the Income Tax Assessment Act 1936 directs. The Act and the ATO’s resident rates from 2012-13, with the 2014-15 to 2016-17 budget repair levy, were read on 19 November 2026, and the page opens on the ATO’s example of Yan’s arrears from 2 employers for 6 earlier years.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>
     <link href="https://duguid.com.au/changelog/#entry-806ecf6f51665308" />
     <id>https://duguid.com.au/changelog/#entry-806ecf6f51665308</id>
