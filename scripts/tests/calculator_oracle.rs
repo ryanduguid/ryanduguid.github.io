@@ -4435,7 +4435,13 @@ fn fbt_expense_case(rng: &mut Seeded) -> (Value, Value) {
         )
     } else {
         // Most in-house cases leave the otherwise deductible inputs at nil; the rest are refused.
-        rng.pick(&[(0, 0), (0, 0), (0, 0), (any_use.max(1), 0), (0, any_rd.max(1))])
+        rng.pick(&[
+            (0, 0),
+            (0, 0),
+            (0, 0),
+            (any_use.max(1), 0),
+            (0, any_rd.max(1)),
+        ])
     };
     let inputs = json!({"method": method, "expenditure": dollars(expenditure), "paid": dollars(paid),
         "contribution": dollars(contribution), "incomeUse": hundredths_field(income_use),
@@ -4486,13 +4492,33 @@ fn the_fbt_property_oracle_works_the_guides_examples_by_hand() {
     assert_eq!(value("in-house-produced-other", 0, 3_000, 500), "17.5");
     assert_eq!(value("in-house-acquired", 50_000, 75_000, 40_000), "100");
     // Guide 17.5: $500 of goods, $250 paid, 80% work use, RD $200 then $150.
-    let deductible = |rd| taxable(fbt_benefit_figures(50_000, 25_000, Some((50_000, 8_000, rd)), None));
+    let deductible = |rd| {
+        taxable(fbt_benefit_figures(
+            50_000,
+            25_000,
+            Some((50_000, 8_000, rd)),
+            None,
+        ))
+    };
     assert_eq!([deductible(20_000), deductible(15_000)], ["50", "0"]);
     // Guide 9.3: petroleum the retailer bought for $800, $1,000 spent, $250 reimbursed.
-    assert_eq!(taxable(fbt_benefit_figures(80_000, 75_000, None, Some(0))), "50");
+    assert_eq!(
+        taxable(fbt_benefit_figures(80_000, 75_000, None, Some(0))),
+        "50"
+    );
     // Guide 9.4: $500 spent, 80% for work, $250 reimbursed and RD $200; $350 and RD $50.
-    let external = |paid, rd| taxable(fbt_benefit_figures(paid, 0, Some((50_000, 8_000, rd)), None));
-    assert_eq!([external(25_000, 20_000), external(35_000, 5_000)], ["50", "0"]);
+    let external = |paid, rd| {
+        taxable(fbt_benefit_figures(
+            paid,
+            0,
+            Some((50_000, 8_000, rd)),
+            None,
+        ))
+    };
+    assert_eq!(
+        [external(25_000, 20_000), external(35_000, 5_000)],
+        ["50", "0"]
+    );
 }
 
 #[test]
