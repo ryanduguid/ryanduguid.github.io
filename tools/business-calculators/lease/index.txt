@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/lease/
 
-> AASB 16 lease liability and right-of-use asset with interest, depreciation and journals by income year, and a lease, hire purchase or buy comparison after GST and tax.
+> AASB 16 lease liability and right-of-use asset by income year, with interest, depreciation, journals and a lease, hire purchase or buy comparison.
 
 # AASB 16 lease calculator
 
