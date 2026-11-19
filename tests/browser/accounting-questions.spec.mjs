@@ -876,6 +876,27 @@ test('unused leave page works Schedule 7’s example, a no-TFN payment and a ref
   await expect(form.locator('output')).toHaveText('The leave accrued from 1 January 1980, so none of it is long service leave for the period before 16 August 1978: enter 0 or leave it blank.');
 });
 
+// The fuel tax credit page's example, its second line by the cost and average price (PCG 2016/2 Method 1), and fuel
+// acquired after the last rate the page holds.
+test('fuel tax credit page works its example, a line from its cost and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fuel-tax-credits/');
+  const form = page.locator('#fuel-tax-credits form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Label 7D on the BAS, in whole dollars: $3,204.00.');
+  await form.locator('[name="quantity-2"]').fill('');
+  await form.locator('[name="cost-2"]').fill('2459');
+  await form.locator('[name="price-2"]').fill('245.9');
+  await form.locator('input[name="small-claimant"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Line 2: 1,000.0000 litres worked out from the cost (PCG 2016/2 Method 1), other business use, at 53.7 cents a litre from 3 August 2026: $537.00.');
+  await expect(form.locator('output .result-row--principal')).toHaveText('Label 7D on the BAS, in whole dollars: $2,667.00.');
+  await form.locator('[name="acquired-1"]').fill('2027-02-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Line 1: no published rate is held for fuel acquired after 31 January 2027');
+});
+
 // Western Australia's Anastasia (serious misconduct after 12 years and 1 month: the 8 2/3 weeks accrued), the same
 // service still employed, and the Northern Territory death under 10 years the page refuses.
 test('long service leave page works a Western Australian example, the leave still to come and a refusal offline', async ({ page, context }) => {
@@ -1159,7 +1180,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
   'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave',
-  'workers-compensation'];
+  'workers-compensation', 'fuel-tax-credits'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

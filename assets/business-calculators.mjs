@@ -11,6 +11,7 @@ export { psiDetermination, psiDeterminationResult } from './psi-determination.mj
 export { CALENDAR_END, NON_BUSINESS_WEEKDAYS, compoundedEarnings, paydaySuperDue, paydaySuperCharge, quarterlySgCharge, sgcPaydayResult }
   from './sgc-payday.mjs';
 export { LSL_ACTS, LSL_REASONS, longServiceLeave, longServiceLeaveResult, lslReasonText } from './long-service-leave.mjs';
+export { FTC_FUELS, FTC_PERIODS, FTC_USES, fuelFormInput, fuelInputsText, fuelTaxCredits, fuelTaxCreditsResult } from './fuel-tax-credits.mjs';
 export { unusedLeave, unusedLeaveResult } from './unused-leave.mjs';
 export { WC_SCHEMES, workersCompensation, workersCompensationResult } from './workers-compensation.mjs';
 
