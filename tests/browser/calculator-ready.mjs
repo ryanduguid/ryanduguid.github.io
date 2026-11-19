@@ -13,3 +13,14 @@ import { expect } from '@playwright/test';
 export async function waitForCalculator(form) {
   await expect(form.locator('input, select').first()).toBeEnabled();
 }
+
+/**
+ * Waits until any calculators on the page have loaded their modules. The calculator
+ * engines are imported after the page's load event, so a test that moves to the next
+ * page sooner cancels those requests, and a health check reports each as
+ * net::ERR_ABORTED. One wait covers every form: accounting-pages.mjs enables them together.
+ */
+export async function waitForCalculators(page) {
+  const form = page.locator('form[data-calculator]').first();
+  if (await form.count()) await waitForCalculator(form);
+}

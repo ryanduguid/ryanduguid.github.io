@@ -529,6 +529,35 @@ fn malformed_records_and_incomplete_pagination_fail() {
     }
 }
 
+/// Rerunning only a failed deploy job raises the run attempt but keeps the artifact the
+/// first attempt uploaded, so the upload, the download and the deploy name it by SHA alone,
+/// and a rerun of the packaging job replaces it.
+#[test]
+fn the_pages_artifact_survives_a_rerun_of_only_the_failed_jobs() {
+    let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let workflow =
+        std::fs::read_to_string(repository.join(".github/workflows/checks.yml")).unwrap();
+    let names: Vec<&str> = workflow
+        .lines()
+        .map(str::trim)
+        .filter(|line| line.contains("github-pages-"))
+        .collect();
+    assert_eq!(
+        names,
+        [
+            "name: github-pages-${{ github.sha }}",
+            "name: github-pages-${{ github.sha }}",
+            "artifact_name: github-pages-${{ github.sha }}",
+        ]
+    );
+    let upload = workflow
+        .split("- name: Upload this run's validated Pages artifact")
+        .nth(1)
+        .and_then(|rest| rest.split("\n\n").next())
+        .unwrap();
+    assert!(upload.contains("overwrite: true"), "{upload}");
+}
+
 /// Fuzzing never runs on pull requests, and a fuzz finding after merge must not hold
 /// back an unrelated deployment. `publication` runs after the aggregate, on main
 /// pushes only. check_gates.py stays Python (shared with other repositories), so its
