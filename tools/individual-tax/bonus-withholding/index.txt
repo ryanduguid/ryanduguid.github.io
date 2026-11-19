@@ -30,7 +30,7 @@ Earlier pays this year it covers (0 for none) Back payment for each of those pay
 
 ## Method B(ii): other additional payments
 
-Normal earnings this year to date, with this pay and B(i) back payments made in earlier pays (dollars and cents) Pays this year to date, with this pay Earlier additional payments this year worked by B(ii) (dollars and cents) Withheld from those earlier payments (dollars and cents)
+Normal earnings this year to date, with this pay and B(i) back payments made in earlier pays (dollars and cents) Pays this year to date, with this pay Earlier B(ii) payments this year (dollars and cents) Withheld from those earlier payments (dollars and cents)
 
 For a payment made from 1 July 2026 to 30 June 2027 to an employee who has given a tax file number declaration. Method A needs only the first fields. Split a back payment for this year and earlier years between B(i) and the additional payment. A bonus for work in this pay alone is not a Schedule 5 payment: add it to this pay’s earnings in the take-home pay calculator.
 
