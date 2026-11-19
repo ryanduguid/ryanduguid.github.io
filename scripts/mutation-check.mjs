@@ -486,7 +486,7 @@ const MUTATIONS = [
   { ...cgt, name: 'CGT moving in late counts only when practicable', find: "if (home.practicable === 'no') main.fill", replace: "if (home.practicable === 'yes') main.fill" },
   { ...cgt, name: 'CGT section 118-192 ignores days before the first use', find: 'const mainBefore = first > 0 && main.subarray(0, first).every(Boolean);', replace: 'const mainBefore = first > 0;' },
   { ...cgt, name: 'CGT section 118-192 applies from 20 August 1996 inclusive', find: "start + first < dayOf('1996-08-20')", replace: "start + first < dayOf('1996-08-19')" },
-  { ...cgt, name: 'CGT section 118-192 keeps the original ownership period', find: 'return { ...count(main, first, part, start), part, incomeTime', replace: 'return { ...count(main, 0, part, start), part, incomeTime' },
+  { ...cgt, name: 'CGT section 118-192 keeps the original ownership period', find: 'return { ...count(main, first, part, start), part, capped, incomeTime', replace: 'return { ...count(main, 0, part, start), part, capped, incomeTime' },
   { ...cgt, name: 'CGT section 118-192 keeps costs spent before the first use', find: 'if (improvement && !(incomeTime && improvement.date < incomeTime)) {', replace: 'if (improvement) {' },
   { ...cgt, name: 'CGT capital works on an asset bought before 13 May 1997 and improved after June 1999 stay in the cost base', find: "if (deducted && acquired < '1997-05-13' && improvedAfterJune1999) {", replace: 'if (false) {' },
   { ...cgt, name: 'CGT indexation is open for an asset bought on 21 September 1999', find: "if (acquired === '1999-09-21') {", replace: 'if (false) {' },
