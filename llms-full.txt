@@ -3181,7 +3181,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 34 business planning calculators, 5 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 34 business planning calculators, 7 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3399,7 +3399,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 34 business planning calculators: https://duguid.com.au/tools/business-calculators/
-- 5 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 7 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -5556,6 +5556,7 @@ Date | Change
 19 November 2026 | A new business calculator works out one employee’s long service leave under the Act of any of the 8 states and territories, from the service dates and the days that do not count: the leave to take now and when more becomes available, or, when employment ends, whether the reason qualifies for a pro rata payment, the weeks payable less leave already taken, and their value at the weekly pay. Each step names its provision, and it refuses the cases an Act leaves unsettled.
 19 November 2026 | A new individual tax calculator works out the concessional contributions cap for 2024-25, 2025-26 or 2026-27 with the unused cap of earlier years carried forward: each year’s shortfall below its cap from 2018-19, applied earliest year first below a $500,000 balance, with any excess, how far a proposed contribution goes and the year each amount lapses. Section 291-20 of the Income Tax Assessment Act 1997 and the ATO’s caps were read on 19 November 2026, and the page opens on the ATO’s example of Sam’s $97,500 cap for 2024-25. It does not cover a defined benefit interest.
 19 November 2026 | A new sole trader tax set-aside calculator, for 2021-22 to 2026-27, works out the income tax, Medicare levy, any surcharge and study loan repayment that business profit adds to any wages, after the small business income tax offset worked as section 328-360 sets it, as the profit’s share of the tax and not a flat 16%, adds the GST less GST credits when the business is registered, and gives one share to keep from every invoice and the amount each quarter, month and week. It refuses a business loss.
+19 November 2026 | A new individual tax calculator works out the tax offset for lump sum payments in arrears for a resident who received them in 2024-25, 2025-26 or 2026-27: the 10% threshold test, the tax the arrears add in the year of receipt, the tax they would have added in the 2 latest years they accrued in and, for earlier years, the average of those years’ rates, rounded as section 159ZRD of the Income Tax Assessment Act 1936 directs. The Act and the ATO’s resident rates from 2012-13, with the 2014-15 to 2016-17 budget repair levy, were read on 19 November 2026, and the page opens on the ATO’s example of Yan’s arrears from 2 employers for 6 earlier years.
 19 November 2026 | The tool pages, changelog and release record name the releases of 18 and 19 November: Ozzit v3.7.0, which adds PAYG withholding, and aus-accounting-mcp/v0.10.0, whose tax worksheets need a separately installed calculators executable. The Ozzit page still documents v3.6.0 and its worked examples, and the MCP guide’s Adopt section still describes v0.9.0.
 18 November 2026 | The loan calculator now sets out every payment, weekly, fortnightly, monthly, quarterly or yearly, in arrears or in advance, with a balloon as an amount or a percentage, and works out whichever of the payment, the amount financed, the number of payments or the rate is missing; the schedule downloads as CSV. Each period’s interest is rounded to the cent and the last payment takes what rounding leaves, so the schedule closes on the balloon exactly. A new hire purchase and chattel mortgage calculator gives the same schedule with the interest by income year and a journal for each payment, citing Division 240 of the Income Tax Assessment Act 1997 and the ATO’s GST guidance, read on 18 November 2026. It does not account for leases under AASB 16.
 18 November 2026 | Three new business calculators. The company tax and franking calculator applies the base rate entity test for a 25% or 30% rate, finds the rate for franking from the previous year and works out the maximum franking credit and a shareholder’s top-up tax or refund; it agrees with the ATO’s base rate entity examples and gives Dillmore Manufacture’s exact credit of $42,857.14. The foreign purchaser surcharge calculator applies each state and territory’s own test of a foreign buyer, company or trust, then works out the duty surcharge and the land tax surcharge for a full year; it refuses exemptions, which each Commissioner decides, and states where none is charged. The business days calculator counts business days between 2 dates, or finds a date a number of business days on or back, with each government’s public holidays for 2026 and 2027, and refuses dates outside them. Sources were read on 18 November 2026.
@@ -11662,7 +11663,7 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Six calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Seven calculators for one person’s tax year, each on its own page, with every rate and threshold cited to its Act and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
 Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay and a sole trader’s set-aside from 2021-22. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11674,6 +11675,7 @@ Published 17 November 2026. Last checked 19 November 2026, the newest of the cal
 - Take-home pay calculator What is left of a salary each year, month, fortnight and week after salary sacrifice to super, tax, levies and any study loan repayment, with the employer’s super guarantee and the PAYG withheld from each pay under that year’s schedules.
 - Study and training loan calculator The compulsory HELP, VSL, SSL or AASL repayment from repayment income, by the marginal system from 2025-26.
 - Sole trader tax set-aside calculator How much of each invoice and each quarter a sole trader keeps for income tax, the Medicare levy, any study loan repayment and GST, after the small business income tax offset, on top of any wages.
+- Lump sum in arrears tax offset calculator The tax offset for back pay received as a lump sum, with the 10% test and the tax the arrears would have cost in each year they accrued.
 - Income tests calculator Income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution income, from the amounts in one tax return.
 - Concessional catch-up calculator The concessional contributions cap with unused cap carried forward from the previous 5 years, earliest year first, and the year each amount lapses.
 
@@ -11687,6 +11689,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
 - Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
+- Lump sum in arrears tax offset calculator: https://duguid.com.au/tools/individual-tax/lump-sum-arrears/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - business calculators: https://duguid.com.au/tools/business-calculators/
@@ -11757,7 +11760,7 @@ A balance a cent below $500,000 still carries forward | 2024-25, balance $499,99
 At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
 2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
 
-One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11765,7 +11768,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -11857,7 +11860,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11867,7 +11870,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -11953,7 +11956,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11965,7 +11968,82 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Lump sum in arrears tax offset calculator (LSPIA)
+
+Source: https://duguid.com.au/tools/individual-tax/lump-sum-arrears/
+
+> The lump sum payment in arrears tax offset under ITAA 1936 ss 159ZR to 159ZRD for a resident, with the 10% test and each accrual year's tax, for 2024-25 to 2026-27.
+
+# Lump sum in arrears tax offset calculator
+
+The tax offset on back pay received as a lump sum, for 2024-25 to 2026-27.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Lump sum payments in arrears received in one income year
+
+Year you received the arrears 2026-27 2025-26 2024-25 Taxable income of that year, including the arrears (whole dollars) Net capital gain included in it (whole dollars) Were you an Australian resident for the whole of that year and of the 2 latest accrual years, with the full tax-free threshold? Yes No Did those years include a termination payment, unused leave, a super benefit, special professional income or primary producer averaging? No Yes The latest year in which part of the arrears accrued Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, only with 3 or more accrual years (whole dollars) If you got this offset for it: its total arrears amount (whole dollars) Arrears of an earlier offset year that accrued in it (whole dollars)
+
+The accrual year before it, if any Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, only with 3 or more accrual years (whole dollars) If you got this offset for it: its total arrears amount (whole dollars) Arrears of an earlier offset year that accrued in it (whole dollars)
+
+Earlier accrual years, every payer’s arrears together.
+
+Year | Income year | Arrears (whole dollars)
+1 | |
+2 | |
+3 | |
+4 | |
+
+Leave unused rows blank; over 6 accrual years, put the oldest years’ total in row 4.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, taxable income $100,000.00, net capital gain $0.00, accrual years 2023-24 $3,000.00 on taxable income $30,000.00, 2022-23 $2,500.00 on taxable income $17,000.00, 2021-22 $1,400.00, 2020-21 $1,700.00, 2019-20 $1,400.00, 2018-19 $1,000.00. Total arrears amount $11,000.00 Normal taxable income $100,000.00 10% of normal taxable income less the arrears $8,900.00 Tax on arrears in 2025-26 $3,300.00 Notional tax for 2023-24 $570.00 Notional tax for 2022-23 $247.00 Notional tax for the distant years $794.75 Notional tax on arrears $1,611.75 Lump sum payment in arrears tax offset $1,688.25 The distant years 2021-22, 2020-21, 2019-20 and 2018-19 take the average rate on recent arrears, 14.45%: 19% for 2023-24 and 9.9% for 2022-23.
+
+## How the lump sum in arrears calculator works
+
+Salary, wages or a Centrelink or compensation payment that you receive as a lump sum, for earlier years, is taxed in the year you receive it, often at a higher rate than it would have been in the years it was for. The tax offset gives back the difference. The calculator first tests whether the arrears are at least 10% of the rest of your normal taxable income for the year. If they are, it works out the tax the arrears add this year and the tax they would have added in the years they accrued in, and the offset is the amount by which the first exceeds the second.
+
+For the 2 latest accrual years it adds the arrears to that year’s taxable income at that year’s resident rates. Arrears from any earlier years are taxed at the average of those 2 years’ rates, so the oldest years’ arrears can share one row. Where a recent year was itself a year you got this offset for, or arrears of such a year accrued in it, its income is adjusted as the Act directs.
+
+The ATO’s page on lump sum payments in arrears works Yan’s breakdown of arrears by year, received in 2025-26. The calculator opens on it; the ATO does not give Yan’s taxable incomes, so the $100,000, $30,000 and $17,000 are fictional. Anthony’s, Sudeep’s and Heather’s examples are among the boundary cases.
+
+## What the lump sum in arrears calculator does not cover
+
+The calculator works the offset for a person resident in Australia for the whole of the year of receipt and of each recent accrual year, entitled to the full tax-free threshold, for a year of receipt of 2024-25, 2025-26 or 2026-27. It does not decide what is a lump sum in arrears: it takes the arrears you enter as eligible income that accrued more than 12 months before you received it. It refuses an employment termination payment, unused leave paid on termination, a super lump sum or income stream, above-average special professional income or primary producer averaging in the year of receipt or a recent accrual year, and does not cover a minor’s income or a trustee.
+
+It does not work out the Medicare levy or surcharge on the arrears, which have their own rules, or apply the offset against your tax. The ATO works the offset when you lodge with the amounts for each year; confirm the figures with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Lump sum in arrears tax offset calculator
+
+Case | Inputs | Result
+ATO example: Yan’s 4 distant years take the average of the recent years’ rates | 2025-26, taxable $100,000.00; 2023-24 $3,000.00 on $30,000.00, 2022-23 $2,500.00 on $17,000.00, 2021-22 $1,400.00, 2020-21 $1,700.00, 2019-20 $1,400.00, 2018-19 $1,000.00 | Tax on arrears $3,300.00, notional tax $1,611.75, offset $1,688.25
+ATO example: Anthony’s 2016-17 arrears at 37% against 45% in 2025-26 | 2025-26, taxable $314,166.00, net capital gain $111,231.00; 2016-17 $43,979.00 on $100,000.00 | Tax on arrears $19,790.55, notional tax $16,272.23, offset $3,518.32
+ATO example: Sudeep’s $3,500 is less than 10% of $49,500, so no offset | 2025-26, taxable $53,000.00; 2023-24 $3,500.00 on $50,000.00 | Arrears $3,500.00 below $4,950.00, offset $0.00
+ATO example: Heather meets the test but paid less tax in 2025-26 | 2025-26, taxable $34,000.00; 2022-23 $4,000.00 on $28,000.00, 2023-24 $4,500.00 on $30,000.00 | Tax on arrears $1,360.00, notional tax $1,615.00, offset $0.00
+A rate of exactly 0.0985 rises to 0.099, and 0.0984 stays 0.098 | 2025-26, taxable $40,000.00; 2023-24 $3,800.00 on $16,370.00, 2022-23 $3,800.00 on $16,368.00, 2021-22 $1,000.00 | Tax on arrears $1,376.00, notional tax $846.72, offset $529.28
+The distant years’ rate uses normal taxable income, without the net capital gain | 2025-26, taxable $60,000.00; 2023-24 $3,000.00 on $50,000.00 with a gain of $10,000.00, 2022-23 $2,500.00 on $17,000.00, 2021-22 $1,000.00 | Tax on arrears $1,950.00, notional tax $1,366.50, offset $583.50
+A recent year that was a rebate year itself is adjusted both ways | 2025-26, taxable $30,000.00; 2023-24 $3,000.00 on $46,000.00, less $4,000.00 as a rebate year, plus $1,000.00 of an earlier one | Tax on arrears $480.00, notional tax $705.00, offset $0.00
+2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
+2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
+
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12036,7 +12114,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12046,7 +12124,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12122,7 +12200,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12132,7 +12210,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12196,7 +12274,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12206,7 +12284,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
