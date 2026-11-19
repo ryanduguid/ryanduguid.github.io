@@ -358,7 +358,7 @@ const individual = individualTaxTools(individualEngines);
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
   assert.deepEqual(Object.values(individual).map(t => t.name), ['calculate_income_tests', 'estimate_income_tax',
-    'calculate_take_home_pay']);
+    'calculate_take_home_pay', 'calculate_sole_trader_set_aside']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -443,6 +443,37 @@ test('individual tax tools refuse a year they do not offer, cents of taxable inc
     /no more than the salary/);
   await assert.rejects(pay.execute({ incomeYear: '2026-27', residency: 'resident', salary: '1', payPeriod: 'quarter' }),
     /payPeriod does not match/);
+});
+
+test('sole trader tool returns the page worked example and the GST share of each invoice', async () => {
+  const tool = individual['sole-trader'];
+  const r = await tool.execute({ incomeYear: '2026-27', businessIncome: '22000', businessExpenses: '2000', wages: '60000',
+    invoice: '1000' });
+  assert.deepEqual([r.taxableIncome, r.smallBusinessIncomeTaxOffset, r.businessTax, r.setAsideQuarter, r.invoiceSharePercent,
+    r.setAsideFromInvoice], ['79000.00', '576.00', '5939.00', '1484.75', '27.00', '269.95']);
+  const gst = await tool.execute({ incomeYear: '2026-27', businessIncome: '90000', businessExpenses: '15000',
+    registeredForGst: true, gstCredits: '1200', invoice: '1100' });
+  assert.deepEqual([gst.gst, gst.setAsideYear, gst.invoiceSharePercent, gst.setAsideFromInvoice],
+    ['7800.00', '21320.00', '21.54', '236.89']);
+  const none = await tool.execute({ incomeYear: '2026-27', businessIncome: '22000', smallBusinessOffset: false });
+  assert.equal(none.smallBusinessIncomeTaxOffset, '0.00');
+  // The unit test's 2025-26 case: $10,000 of contributions joins repayment and surcharge income.
+  const contributions = await tool.execute({ incomeYear: '2025-26', businessIncome: '110000',
+    personalSuperContributions: '10000', studyLoan: true, privateHospitalCover: false });
+  assert.deepEqual([contributions.taxableIncome, contributions.businessTax], ['100000.00', '29238.00']);
+  for (const limit of [/refuses a business loss/, /all sales are taxable supplies/, /at most \$1,000/]) {
+    assert.match(tool.description, limit);
+  }
+});
+
+test('sole trader tool refuses a year it does not offer, a loss, a number for an amount and an unknown input', async () => {
+  const tool = individual['sole-trader'];
+  await assert.rejects(tool.execute({ incomeYear: '2020-21', businessIncome: '1' }), /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', businessIncome: '1', businessExpenses: '2' }), /a loss is not worked here/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', businessIncome: 1 }), /businessIncome does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', businessIncome: '1', residency: 'resident' }),
+    /residency is not an input of this tool/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', businessIncome: '1', gstCredits: '1' }), /not registered for GST/);
 });
 
 test('llms.txt and the agent tooling notes name every calculator tool', () => {
