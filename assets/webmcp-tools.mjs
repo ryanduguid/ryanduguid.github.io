@@ -509,8 +509,9 @@ const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full i
   + 'person\'s with no dependants, and the study loan repayment assumes the debt is at least the repayment. For a '
   + 'weekly, fortnightly or monthly pay of a resident (scale 2, tax-free threshold claimed) or a foreign resident '
   + '(scale 3) it also gives the PAYG withheld each pay under the year\'s Schedules 1 and 8 and the refund or amount '
-  + 'owing over the year; for a working holiday maker it gives none. For 2025-26 the study loan component is the one '
-  + 'from 24 September 2025, with the one before it beside it. '
+  + 'owing over the year; for a working holiday maker it gives none. For 2025-26 every pay takes the study loan '
+  + 'component from 24 September 2025, and so do the year\'s withholding and the refund or amount owing; the component '
+  + 'before that date is given beside it and not mixed in. '
   + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
   + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
 

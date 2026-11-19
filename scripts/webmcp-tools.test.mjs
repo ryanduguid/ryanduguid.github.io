@@ -371,6 +371,8 @@ test('take-home pay tool gives PAYG withholding for a pay in any year and none f
     salary: '3000', payPeriod: 'fortnight' });
   assert.equal(holiday.paygWithholding, null);
   assert.match(individual['take-home-pay'].description, /for a working holiday maker it gives none/);
+  assert.match(individual['take-home-pay'].description,
+    /For 2025-26 every pay takes the study loan component from 24 September 2025, and so do the year's withholding/);
   for (const limit of [/first home super saver/, /family trust distribution tax/, /super lump sum/, /debt still owed/,
     /Medicare levy exemption/, /working holiday maker who is an Australian resident or has other income/]) {
     assert.match(individual['income-tax'].description, limit);
