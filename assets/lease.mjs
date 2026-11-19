@@ -137,7 +137,7 @@ export function lease(terms) {
     const year = yearLabel(yearStarting(row.date));
     paidYears.set(year, (paidYears.get(year) ?? 0n) + row.payment);
   }
-  const labels = [...new Set([...depreciation.keys(), ...Object.keys(interestYears), ...paidYears.keys()])].sort();
+  const labels = [...new Set([...depreciation.keys(), ...Object.keys(interestYears), ...paidYears.keys()])].sort((a, b) => a.localeCompare(b));
   let [owed, carried] = [liability, cost];
   const years = labels.map((year) => {
     const interest = BigInt(Math.round((interestYears[year] ?? 0) * 100));
