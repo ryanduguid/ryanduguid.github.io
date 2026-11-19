@@ -145,6 +145,10 @@ const blocks = (s) => BigInt(Math.floor((s.years - 10) / 5));
 /** The leave accrued in the first 10 years and each completed 5 years after. @param {Service} s @returns {Fraction} */
 const blockWeeks = (s) => twoMonths([10n + 5n * blocks(s), 1n]);
 
+/** The provision for leave in 10 and 5-year blocks. @type {Partial<Record<LslPlace, string>>} */
+const BLOCK_PROVISIONS = { 'AU-NSW': 'subparagraph 4(2)(a)(i)', 'AU-WA': 'paragraphs 8(2)(a) and (b)',
+  'AU-TAS': 'subparagraphs 8(2)(a)(i) and (ii)' };
+
 /** The leave an employee still employed can take now under each Act.
  * @param {LslPlace} place @param {Service} s @returns {Outcome} */
 function available(place, s) {
@@ -157,8 +161,7 @@ function available(place, s) {
     case 'AU-SA': return { weeks: thirteen(completedYears(s)), rule: '13 weeks for 10 years and 1.3 weeks for each completed year after, section 5' };
     case 'AU-ACT': return { weeks: twoMonths(completedYears(s)), rule: '1/5 of a month for each completed year, sections 3 and 4' };
     case 'AU-NT': return { weeks: thirteen([10n + 5n * blocks(s), 1n]), rule: '1.3 weeks a year for 10 years and each completed 5 years after, section 8' };
-    default: return { weeks: blockWeeks(s), rule: `8 2/3 weeks for 10 years and 4 1/3 weeks for each completed 5 years after, ${{
-      'AU-NSW': 'subparagraph 4(2)(a)(i)', 'AU-WA': 'paragraphs 8(2)(a) and (b)', 'AU-TAS': 'subparagraphs 8(2)(a)(i) and (ii)' }[place]}` };
+    default: return { weeks: blockWeeks(s), rule: `8 2/3 weeks for 10 years and 4 1/3 weeks for each completed 5 years after, ${BLOCK_PROVISIONS[place]}` };
   }
 }
 
@@ -168,25 +171,36 @@ function available(place, s) {
 function onEnding(place, s, reason, until, start) {
   const { full, early } = LSL_ACTS[place];
   if (s.years < early) return { weeks: [0n, 1n], rule: `Under ${early} years: nothing is payable` };
-  if (s.years < full) {
-    const unsettled = UNSETTLED[place]?.[reason];
-    if (unsettled) throw new Error(unsettled);
-    const [reasons, provision] = /** @type {[string[], string]} */ (EARLY[place]);
-    if (!reasons.includes(reason)) {
-      return { weeks: [0n, 1n], rule: `Under ${full} years, ${LSL_REASONS[reason]} does not qualify for pro rata leave, ${provision}` };
-    }
-    if (place === 'AU-SA' || place === 'AU-NT') {
-      return { weeks: thirteen(completedYears(s)), rule: `1.3 weeks for each completed year, ${provision}` };
-    }
-    if (place === 'AU-ACT') {
-      return { weeks: twoMonths(completedMonths(s)), rule: 'Pro rata on 2 months for 10 years, completed years and months, subsection 11C(2)' };
-    }
-    if (place === 'AU-TAS' && reason === 'death') {
-      return { weeks: sixtieth(s.total), rule: '1/60th of the period of continuous employment, paragraph 9(2)(b)' };
-    }
-    return { weeks: twoMonths(exactYears(s)), rule: `Pro rata on 8 2/3 weeks for 10 years, ${provision}`
-      + `${place === 'AU-QLD' && reason === 'fixed-term' ? ', if the employee reasonably expected to complete 10 years and was prepared to stay' : ''}` };
+  return s.years < full ? proRata(place, s, reason) : afterFull(place, s, reason, until, start);
+}
+
+/** What an Act pays between its pro rata and full qualifying periods.
+ * @param {LslPlace} place @param {Service} s @param {LslReason} reason @returns {Outcome} */
+function proRata(place, s, reason) {
+  const { full } = LSL_ACTS[place];
+  const unsettled = UNSETTLED[place]?.[reason];
+  if (unsettled) throw new Error(unsettled);
+  const [reasons, provision] = /** @type {[string[], string]} */ (EARLY[place]);
+  if (!reasons.includes(reason)) {
+    return { weeks: [0n, 1n], rule: `Under ${full} years, ${LSL_REASONS[reason]} does not qualify for pro rata leave, ${provision}` };
   }
+  if (place === 'AU-SA' || place === 'AU-NT') {
+    return { weeks: thirteen(completedYears(s)), rule: `1.3 weeks for each completed year, ${provision}` };
+  }
+  if (place === 'AU-ACT') {
+    return { weeks: twoMonths(completedMonths(s)), rule: 'Pro rata on 2 months for 10 years, completed years and months, subsection 11C(2)' };
+  }
+  if (place === 'AU-TAS' && reason === 'death') {
+    return { weeks: sixtieth(s.total), rule: '1/60th of the period of continuous employment, paragraph 9(2)(b)' };
+  }
+  return { weeks: twoMonths(exactYears(s)), rule: `Pro rata on 8 2/3 weeks for 10 years, ${provision}`
+    + `${place === 'AU-QLD' && reason === 'fixed-term' ? ', if the employee reasonably expected to complete 10 years and was prepared to stay' : ''}` };
+}
+
+/** What an Act pays after its full qualifying period.
+ * @param {LslPlace} place @param {Service} s @param {LslReason} reason @param {number} until the day after service
+ * @param {number} start @returns {Outcome} */
+function afterFull(place, s, reason, until, start) {
   switch (place) {
     case 'AU-NSW': return s.years < 15 ? { weeks: twoMonths(exactYears(s)), rule: 'Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii)' }
       : { weeks: twoMonths(completedYears(s)), rule: 'Each completed year at 2 months for 10 years, any reason, subparagraph 4(2)(a)(i)' };
@@ -220,9 +234,8 @@ function nextMilestone(place, s) {
 /** Weeks to 4 decimal places in ten-thousandths, half up. @param {Fraction} weeks */
 const tenThousandths = ([n, d]) => (2n * n * 10000n + d) / (2n * d);
 
-/** One employee's long service leave under the general Act of a state or territory.
- * @param {LslInput} input */
-export function longServiceLeave(input) {
+/** The input's fields, refused unless each is usable. @param {LslInput} input */
+function checked(input) {
   const place = input.place;
   if (!Object.hasOwn(LSL_ACTS, place)) throw new Error('Choose the state or territory whose Act applies.');
   if (input.mode !== 'employed' && input.mode !== 'ends') throw new Error('Choose whether the employee is still employed or employment ends.');
@@ -236,6 +249,13 @@ export function longServiceLeave(input) {
   const taken = BigInt(Math.round(number(input.taken, { max: 1000, places: 4 }) * 10000));
   const pay = BigInt(cents(input.pay));
   if (pay > 100000000n) throw new Error('Enter weekly pay of no more than $1,000,000.');
+  return { place, start, excluded, until, taken, pay };
+}
+
+/** One employee's long service leave under the general Act of a state or territory.
+ * @param {LslInput} input */
+export function longServiceLeave(input) {
+  const { place, start, excluded, until, taken, pay } = checked(input);
   const service = measure(start, until);
   const outcome = input.mode === 'ends' ? onEnding(place, service, input.reason, until, start) : available(place, service);
   const weeks = tenThousandths(outcome.weeks);
