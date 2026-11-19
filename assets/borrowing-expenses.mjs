@@ -28,7 +28,7 @@ const FACTS = ['borrowing_expenses', 'loan_start', 'loan_term_end', 'repaid_on',
 const REQUIRED = FACTS.slice(0, 6);
 const ACCOUNTING_FACTS = ['amount', 'annual_rate', 'payments', 'balloon_percent', 'qualifying_asset', 'same_lender', 'lender_fees'];
 
-export const BORROWING_S26_50 = 'Section 26-50 denies deductions for a leisure facility, such as a holiday home, unless s 26-50(3) applies at all times in the income year; part-year use under s 26-50(4) is out of scope.';
+export const BORROWING_S26_50 = 'Section 26-50(1) denies deductions for a leisure facility, such as a holiday home, unless an exception applies. This page works only s 26-50(3) applying at all times in the income year: part-year use under s 26-50(4) and a fringe benefit under s 26-50(8) are out of scope.';
 const S26_155 = 'From 2027-28 ITAA 1997 s 26-155(1) may quarantine this deduction where the money is used for a residential dwelling held for rent: the amounts here are s 25-25’s before s 26-155, which this page neither applies nor decides the exceptions to.';
 const PROJECTED = 'A row marked projected is after 2027-28, the last income year read: it applies s 25-25 as read on 19 November 2026, and a later amendment would change it.';
 
