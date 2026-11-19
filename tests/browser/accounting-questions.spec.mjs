@@ -666,11 +666,12 @@ test('FBT car exempts an eligible electric car and keeps its value reportable of
     + 'First held and used on or after 1 July 2022, Schedule 1 item 7(2): met. '
     + 'No luxury car tax payable on the first retail sale before the benefit, s 8A(1)(c): met. '
     + 'No luxury car tax payable on another sale or an import before the benefit, s 8A(1)(c): met. Electric cars exemption, section 8A: applies. '
-    + 'Base value: $60,000.00. Statutory formula taxable value: $4,983.56. Taxable value before the exemption, reportable: $4,983.56. '
+    + 'Base value: $60,000.00. Statutory formula taxable value: $4,983.56. Taxable value before the exemption, for reporting: $4,983.56. '
     + 'Taxable value: $0.00. Grossed-up taxable value: $0.00. FBT at 47%: $0.00. '
     + 'The taxable value before the exemption still counts in the employee’s reportable fringe benefits amount (subsection 135P(3)), '
-    + 'reported when the employee’s total for the year is more than $2,000. The car’s registration, insurance, repairs, maintenance '
-    + 'and fuel, electricity included, are exempt too (subsection 53(1)); a home charging station is not.');
+    + 'reported when the employee’s total for the year is more than $2,000, unless the car is a pooled or shared car, whose benefit is '
+    + 'excluded. The car’s registration, insurance, repairs, maintenance and fuel, electricity included, are exempt too (subsection 53(1)) '
+    + 'and not reported; a home charging station is not a car expense under that exemption.');
   // A plug-in hybrid with no commitment from before 1 April 2025 is not exempt, so FBT is due.
   await form.getByLabel('Plug-in hybrid electric').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();

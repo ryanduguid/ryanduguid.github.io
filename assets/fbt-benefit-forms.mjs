@@ -111,8 +111,8 @@ function meal(form, calculate, { aud, value, money }) {
 const EV_CONDITIONS = {
   'current-employee': 'Provided to a current employee, s 8A(1)(a)',
   'zero-or-low-emissions': 'A battery electric or hydrogen fuel cell electric car, s 8A(1)(b)',
-  'hybrid-committed': 'Committed before 1 April 2025 for a period including the benefit, Schedule 2 item 5(2)(b)',
-  'hybrid-no-new-commitment': 'No new commitment from 1 April 2025, Schedule 2 item 5(2)(c)',
+  'hybrid-committed': 'Committed before 1 April 2025 for a period that began before then and includes the benefit, Schedule 2 item 5(2)(b)',
+  'hybrid-no-new-commitment': 'No new commitment from 1 April 2025 for a period including the benefit, Schedule 2 item 5(2)(c)',
   'hybrid-exempt-before': 'An exempt car benefit with the car before 1 April 2025, Schedule 2 item 5(2)(d) and (e)',
   'first-held-and-used': 'First held and used on or after 1 July 2022, Schedule 1 item 7(2)',
   'first-sale': 'No luxury car tax payable on the first retail sale before the benefit, s 8A(1)(c)',
@@ -122,8 +122,9 @@ const EV_KINDS = { battery: 'battery electric', 'fuel-cell': 'hydrogen fuel cell
 const longDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 export const EV_EXEMPT_NOTE = 'The taxable value before the exemption still counts in the employee’s reportable fringe benefits amount '
-  + '(subsection 135P(3)), reported when the employee’s total for the year is more than $2,000. The car’s registration, insurance, '
-  + 'repairs, maintenance and fuel, electricity included, are exempt too (subsection 53(1)); a home charging station is not';
+  + '(subsection 135P(3)), reported when the employee’s total for the year is more than $2,000, unless the car is a pooled or shared '
+  + 'car, whose benefit is excluded. The car’s registration, insurance, repairs, maintenance and fuel, electricity included, are exempt '
+  + 'too (subsection 53(1)) and not reported; a home charging station is not a car expense under that exemption';
 
 /** The electric cars exemption for the FBT car form: its inputs, a row for each condition and the
  * verdict, or null for a car it cannot reach.

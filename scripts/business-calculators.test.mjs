@@ -1009,7 +1009,14 @@ test('the fuel-efficient threshold is the ATO table’s for the financial year o
     assert.equal(later.exempt, true, firstSale);
     assert.equal(later.threshold, null, firstSale);
   }
-  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '200000', firstSale: '2027-03-31' }), evYear).exempt, false);
+  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '200000', firstUsed: '2027-03-31', firstSale: '2027-03-31' }), evYear).exempt, false);
+  // An after-year sale settles only that sale: luxury car tax on an earlier supply or import still fails s 8A(1)(c).
+  assert.deepEqual(unmet(calculations.fbtEvExemption(evFacts({ firstSale: '2027-04-01', otherSupply: true }), evYear)), ['other-supply']);
+  // No benefit comes before the car is first held and used, so a sale before the year, or on or before that day, precedes them all.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2025-01-01', firstSale: '2026-03-31', lctValue: '200000' }), evYear).exempt, false);
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2026-07-01', firstSale: '2026-07-01', lctValue: '200000' }), evYear).exempt, false);
+  // A sale within the year after that day may fall between benefits; under the threshold it fails nothing.
+  assert.equal(calculations.fbtEvExemption(evFacts({ firstUsed: '2026-04-01', firstSale: '2026-07-01', lctValue: '91661' }), evYear).exempt, true);
 });
 
 test('the electric cars exemption refuses facts it cannot decide or that contradict the year', () => {
@@ -1022,6 +1029,9 @@ test('the electric cars exemption refuses facts it cannot decide or that contrad
   refuses({ firstUsed: '2026-02-30' }, 'Enter the date the car was first held and used as a calendar date.');
   refuses({ firstSale: '1 July 2026' }, 'Enter the date of the car’s first retail sale as a calendar date.');
   refuses({ firstUsed: '2027-04-01' }, 'The car was first held and used after 31 March 2027, so it gave no car benefit in the FBT year.');
+  refuses({ firstUsed: '2026-04-01', firstSale: '2026-04-02', lctValue: '91661.01' }, 'Luxury car tax on a first retail sale within the FBT year, '
+    + 'after the car was first held and used, does not affect a benefit provided before the sale (section 8A(1)(c)), so this calculator '
+    + 'cannot give one result for the year.');
   refuses({ firstSale: '2012-06-30' }, 'This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
   refuses({ vehicle: 'plug-in-hybrid', firstUsed: '2025-04-01', hybrid: { committed: true, newCommitment: false, exemptBefore: true } },
     'A car first held and used from 1 April 2025 cannot have given an exempt car benefit before that day.');
@@ -1041,11 +1051,11 @@ test('the FBT car form passes the electric car facts and says what an exempt car
   assert.match(result().inputs, /^battery electric car for a current employee, first held and used 1 July 2026, first sold at retail 1 July 2026 /);
   fields.kind = 'plug-in-hybrid';
   assert.deepEqual(result().rows.filter(([, met]) => met === 'not met').map(([label]) => label),
-    ['Committed before 1 April 2025 for a period including the benefit, Schedule 2 item 5(2)(b)',
+    ['Committed before 1 April 2025 for a period that began before then and includes the benefit, Schedule 2 item 5(2)(b)',
       'An exempt car benefit with the car before 1 April 2025, Schedule 2 item 5(2)(d) and (e)']);
   fields.kind = 'other';
   assert.equal(result(), null);
-  assert.match(EV_EXEMPT_NOTE, /subsection 135P\(3\)\), reported when the employee’s total for the year is more than \$2,000/);
+  assert.match(EV_EXEMPT_NOTE, /subsection 135P\(3\)\), reported when the employee’s total for the year is more than \$2,000, unless the car is a pooled or shared car/);
   const html = readFileSync(new URL('../_includes/calculators/fbt-car.html', import.meta.url), 'utf8');
   assert.ok(html.includes('data-year-ended="2027"'));
   for (const name of Object.keys(fields)) assert.match(html, new RegExp(`name="${name}"`), name);

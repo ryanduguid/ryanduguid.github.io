@@ -312,7 +312,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
               + `${ev ? `, ${ev.inputs}` : ''}`,
             rows: [...(ev?.rows ?? []), ['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
               ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []),
-              ...(exempt ? [['Taxable value before the exemption, reportable', aud(r.taxableValue)]] : []),
+              ...(exempt ? [['Taxable value before the exemption, for reporting', aud(r.taxableValue)]] : []),
               ['Taxable value', aud(exempt ? 0 : r.taxableValue)], ['Grossed-up taxable value', aud(exempt ? 0 : r.grossedUp)],
               [`FBT at ${form.dataset.fbtRate}%`, aud(exempt ? 0 : r.fbt)]],
             note: [exempt && fbtForms.EV_EXEMPT_NOTE, operating && r.statutory < r.operating

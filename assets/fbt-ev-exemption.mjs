@@ -60,8 +60,11 @@ const yesNo = (value) => {
  * on or after 1 July 2022 (Schedule 1 item 7(2)); and no luxury car tax payable on any supply or
  * importation before the benefit is provided (s 8A(1)(c)), at the first retail sale read as a luxury
  * car tax value not above that year's fuel-efficient threshold (A New Tax System (Luxury Car Tax) Act
- * 1999 s 25-1). A first retail sale after the FBT year comes after every benefit in it, so its luxury
- * car tax cannot fail s 8A(1)(c) and no threshold applies (`threshold` is null).
+ * 1999 s 25-1). A car benefit needs the car held and used or available, so no benefit comes before the
+ * car was first held and used. A first retail sale after the FBT year comes after every benefit in it,
+ * so its luxury car tax cannot fail s 8A(1)(c) and no threshold applies (`threshold` is null). A sale
+ * within the year after the car was first held and used may come between the year's benefits, so one
+ * on which luxury car tax was payable is refused.
  * @param {EvFacts} e the car's facts as entered
  * @param {{ended: string}} year the year the FBT year ends, 31 March
  * @returns {EvExemption} */
@@ -86,6 +89,10 @@ export function fbtEvExemption(e, year) {
     throw new Error('This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
   }
   const threshold = afterYear ? null : FUEL_EFFICIENT_THRESHOLDS[saleYear];
+  if (threshold !== null && value > threshold * 100 && firstSale > firstUsed && firstSale >= `${ended - 1}-04-01`) {
+    throw new Error('Luxury car tax on a first retail sale within the FBT year, after the car was first held and used, '
+      + 'does not affect a benefit provided before the sale (section 8A(1)(c)), so this calculator cannot give one result for the year.');
+  }
   // Item 5(2)(d): a car first held and used from 1 April 2025 gave no car benefit before that day.
   if (facts[2] && firstUsed >= '2025-04-01') {
     throw new Error('A car first held and used from 1 April 2025 cannot have given an exempt car benefit before that day.');
