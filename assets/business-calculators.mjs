@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 import { number, cents, ratioCents, ratioMoney, ratioPercent } from './money.mjs';
-export { fbtCarParking, fbtLoan, fbtMealEntertainment } from './fbt-benefits.mjs';
+export { fbtCarParking, fbtExpensePayment, fbtLoan, fbtMealEntertainment, fbtProperty } from './fbt-benefits.mjs';
 export { landTaxYear } from './land-tax.mjs';
 export { vehicleClass } from './vehicle-class.mjs';
 export { pcgRisk, pcgAllocation, pcgAllocationResult } from './pcg-2021-4.mjs';

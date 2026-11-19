@@ -3872,10 +3872,11 @@ fn the_vehicle_engine_agrees_with_the_oracle_on_every_seeded_case() {
 
 /// Runs the FBT benefit engines, as `HARNESS` runs the others.
 const FBT_BENEFIT_HARNESS: &str = r"
-import { fbtLoan, fbtMealEntertainment, fbtCarParking } from './assets/business-calculators.mjs';
+import { fbtLoan, fbtMealEntertainment, fbtCarParking, fbtProperty, fbtExpensePayment } from './assets/business-calculators.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
-const engines = { loan: fbtLoan, meal: fbtMealEntertainment, parking: fbtCarParking };
+const engines = { loan: fbtLoan, meal: fbtMealEntertainment, parking: fbtCarParking, property: fbtProperty,
+  expense: fbtExpensePayment };
 const run = ({ kind, inputs, year }) => {
   try {
     return Object.fromEntries(Object.entries(engines[kind](inputs, year))
@@ -4278,6 +4279,235 @@ fn the_fbt_benefit_engines_agree_with_the_oracle_on_every_seeded_case() {
             0 => fbt_loan_case(&mut rng),
             1 => fbt_meal_case(&mut rng),
             _ => fbt_parking_case(&mut rng),
+        })
+        .unzip();
+    let actual = run_node(FBT_BENEFIT_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+// FBT property (Division 11) and expense payment (Division 5) benefits, FBTAA 1986 Compilation
+// No. 97, read 19 November 2026. The oracle takes 75% of a value as 75/100 of it, works the
+// otherwise deductible rule (ss 24(1) and 44(1)) as TV - ND floored at nil, where the engine caps
+// the reduction at the value, and takes s 62's reduction last, capped at what is left. The
+// conventions are shared: 75% of a value and the gross deduction round half up to the cent.
+
+const FBT_PROPERTY_CASES: usize = 240;
+const PROPERTY_METHODS: [&str; 9] = [
+    "in-house-salary-packaging",
+    "in-house-trade-price",
+    "in-house-public-price",
+    "in-house-produced-other",
+    "in-house-acquired",
+    "in-house-other",
+    "external-cost-price",
+    "external-expenditure",
+    "external-notional-value",
+];
+const RESIDUAL_METHODS: [&str; 3] = [
+    "in-house-residual-salary-packaging",
+    "in-house-residual-public-price",
+    "in-house-residual-other",
+];
+
+/// The value `method` gives before any contribution, in cents: ss 42(1), 43, 48 and 49.
+fn fbt_rule_value(method: &str, price: u64, notional: u64) -> u64 {
+    let three_quarters = |cents: u64| exact_half_up(u128::from(cents) * 75, 100) as u64;
+    match method {
+        "in-house-salary-packaging"
+        | "in-house-residual-salary-packaging"
+        | "external-notional-value" => notional,
+        "in-house-trade-price" | "external-cost-price" | "external-expenditure" => price,
+        "in-house-public-price" | "in-house-residual-public-price" => three_quarters(price),
+        "in-house-acquired" => price.min(notional),
+        _ => three_quarters(notional),
+    }
+}
+
+/// Whether s 62 reduces a benefit under `method`: an in-house rule, not salary packaging.
+fn fbt_reduces(method: &str) -> bool {
+    method.starts_with("in-house-") && !method.ends_with("-salary-packaging")
+}
+
+/// A benefit's figures from `gross`: `paid` against it, the otherwise deductible rule where
+/// `deductible` holds (the gross deduction's base, the use in hundredths of 1%, RD), and s 62
+/// where `available` holds.
+fn fbt_benefit_figures(
+    gross: u64,
+    paid: u64,
+    deductible: Option<(u64, u64, u64)>,
+    available: Option<u64>,
+) -> serde_json::Map<String, Value> {
+    let applied = paid.min(gross);
+    let value = gross - applied;
+    let mut figures = vec![
+        ("gross", gross),
+        ("contributionApplied", applied),
+        ("excess", paid - applied),
+        ("valueAfterContribution", value),
+    ];
+    let mut taxable = value;
+    if let Some((base, income_use, rd)) = deductible {
+        let gd = exact_half_up(u128::from(base) * u128::from(income_use), 10_000) as u64;
+        let notional = gd - rd.min(gd);
+        taxable = value.saturating_sub(notional);
+        figures.extend([
+            ("grossDeduction", gd),
+            ("deductionApplied", rd.min(gd)),
+            ("notionalDeduction", notional),
+            ("reduction", value - taxable),
+        ]);
+    }
+    if let Some(available) = available {
+        let s62 = available.min(taxable);
+        taxable -= s62;
+        figures.push(("inHouseReduction", s62));
+    }
+    figures.push(("taxableValue", taxable));
+    figures
+        .into_iter()
+        .map(|(name, cents)| (name.to_owned(), shown(cents).into()))
+        .collect()
+}
+
+/// A percentage in hundredths of 1% as a form field holds it.
+fn hundredths_field(hundredths: u64) -> String {
+    format!("{}.{:02}", hundredths / 100, hundredths % 100)
+}
+
+fn fbt_property_case(rng: &mut Seeded) -> (Value, Value) {
+    let method = rng.pick(&PROPERTY_METHODS);
+    let (price, notional) = (rng.cents(500_000), rng.cents(500_000));
+    let gross = fbt_rule_value(method, price, notional);
+    let any_contribution = rng.below(gross + 2);
+    let large_contribution = rng.cents(500_000);
+    let contribution = rng.pick(&[0, gross, any_contribution, large_contribution]);
+    let any_use = rng.below(10_001);
+    let income_use = rng.pick(&[0, 5_000, 10_000, any_use]);
+    let any_rd = rng.below(contribution + 1);
+    let rd = rng.pick(&[0, contribution, any_rd, any_rd, contribution + 1]);
+    let any_available = rng.below(100_001);
+    let available = rng.pick(&[0, 100_000, any_available]);
+    let inputs = json!({"method": method, "price": dollars(price), "notional": dollars(notional),
+        "contribution": dollars(contribution), "incomeUse": hundredths_field(income_use),
+        "contributionDeduction": dollars(rd), "available": dollars(available)});
+    let expected = if rd > contribution {
+        json!({"refused": "The deduction for the employee’s contribution cannot be more than the contribution."})
+    } else {
+        Value::Object(fbt_benefit_figures(
+            gross,
+            contribution,
+            Some((gross, income_use, rd)),
+            fbt_reduces(method).then_some(available),
+        ))
+    };
+    (json!({"kind": "property", "inputs": inputs}), expected)
+}
+
+fn fbt_expense_case(rng: &mut Seeded) -> (Value, Value) {
+    let in_house: Vec<&str> = PROPERTY_METHODS[..6]
+        .iter()
+        .chain(&RESIDUAL_METHODS)
+        .copied()
+        .collect();
+    let method = if rng.below(3) == 0 {
+        "external"
+    } else {
+        rng.pick(&in_house)
+    };
+    let expenditure = rng.cents(500_000);
+    let any_paid = rng.below(expenditure + 1);
+    let paid = rng.pick(&[0, expenditure, any_paid, any_paid, expenditure + 1]);
+    let any_contribution = rng.below(paid + 1);
+    let contribution = rng.pick(&[0, any_contribution]);
+    let portion = (expenditure + contribution).saturating_sub(paid);
+    let (price, notional) = (rng.cents(500_000), rng.cents(500_000));
+    let any_available = rng.below(100_001);
+    let available = rng.pick(&[0, 100_000, any_available]);
+    let any_use = rng.below(10_001);
+    let any_rd = rng.below(portion + 1);
+    let (income_use, rd) = if method == "external" {
+        (
+            rng.pick(&[0, 8_000, 10_000, any_use]),
+            rng.pick(&[0, portion, any_rd, portion + 1]),
+        )
+    } else {
+        // Most in-house cases leave the otherwise deductible inputs at nil; the rest are refused.
+        rng.pick(&[(0, 0), (0, 0), (0, 0), (any_use.max(1), 0), (0, any_rd.max(1))])
+    };
+    let inputs = json!({"method": method, "expenditure": dollars(expenditure), "paid": dollars(paid),
+        "contribution": dollars(contribution), "incomeUse": hundredths_field(income_use),
+        "portionDeduction": dollars(rd), "price": dollars(price), "notional": dollars(notional),
+        "available": dollars(available)});
+    let expected = if paid > expenditure {
+        json!({"refused": "The payment or reimbursement cannot be more than the employee’s expenditure (section 20)."})
+    } else if method == "external" && rd > portion {
+        json!({"refused": "The deduction for the recipient’s portion cannot be more than that portion, the expenditure \
+            less the payment net of the contribution."})
+    } else if method == "external" {
+        Value::Object(fbt_benefit_figures(
+            paid,
+            contribution,
+            Some((expenditure, income_use, rd)),
+            None,
+        ))
+    } else if income_use > 0 || rd > 0 {
+        json!({"refused": "This calculator does not apply the otherwise deductible rule to an in-house expense \
+            payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction."})
+    } else {
+        let mut figures = fbt_benefit_figures(
+            fbt_rule_value(method, price, notional),
+            portion,
+            None,
+            fbt_reduces(method).then_some(available),
+        );
+        figures.insert("recipientsPortion".to_owned(), shown(portion).into());
+        Value::Object(figures)
+    };
+    (json!({"kind": "expense", "inputs": inputs}), expected)
+}
+
+#[test]
+fn the_fbt_property_oracle_works_the_guides_examples_by_hand() {
+    // Guide 17.3: 75% of $900 less $500; $950; 75% of $30 less $5; the lesser of $500 and $750 less $400.
+    let taxable = |figures: serde_json::Map<String, Value>| figures["taxableValue"].clone();
+    let value = |method, price, notional, paid| {
+        taxable(fbt_benefit_figures(
+            fbt_rule_value(method, price, notional),
+            paid,
+            None,
+            None,
+        ))
+    };
+    assert_eq!(value("in-house-public-price", 90_000, 0, 50_000), "175");
+    assert_eq!(value("in-house-trade-price", 95_000, 0, 0), "950");
+    assert_eq!(value("in-house-produced-other", 0, 3_000, 500), "17.5");
+    assert_eq!(value("in-house-acquired", 50_000, 75_000, 40_000), "100");
+    // Guide 17.5: $500 of goods, $250 paid, 80% work use, RD $200 then $150.
+    let deductible = |rd| taxable(fbt_benefit_figures(50_000, 25_000, Some((50_000, 8_000, rd)), None));
+    assert_eq!([deductible(20_000), deductible(15_000)], ["50", "0"]);
+    // Guide 9.3: petroleum the retailer bought for $800, $1,000 spent, $250 reimbursed.
+    assert_eq!(taxable(fbt_benefit_figures(80_000, 75_000, None, Some(0))), "50");
+    // Guide 9.4: $500 spent, 80% for work, $250 reimbursed and RD $200; $350 and RD $50.
+    let external = |paid, rd| taxable(fbt_benefit_figures(paid, 0, Some((50_000, 8_000, rd)), None));
+    assert_eq!([external(25_000, 20_000), external(35_000, 5_000)], ["50", "0"]);
+}
+
+#[test]
+fn the_fbt_property_and_expense_payment_engines_agree_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1119_0F8B_0042);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..FBT_PROPERTY_CASES)
+        .map(|index| {
+            if index % 2 == 0 {
+                fbt_property_case(&mut rng)
+            } else {
+                fbt_expense_case(&mut rng)
+            }
         })
         .unzip();
     let actual = run_node(FBT_BENEFIT_HARNESS, &cases);

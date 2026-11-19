@@ -702,7 +702,17 @@ Object.assign(INPUTS, {
     spaces: `Spaces, ${p.spaces} at ${dollars(p.rate)} for ${p.spaceDays} days, employees ${p.employeesStart} and `
       + `${p.employeesEnd}, spaces ${p.spacesStart} and ${p.spacesEnd}` }[p.method]}`
     + `${p.method === 'register' ? '' : `, contributions ${dollars(p.contribution)}`}; fee ${dollars(p.fee)} against ${dollars(y.threshold)}`,
+  fbtProperty: (p) => `${p.method}, price ${dollars(p.price)}, notional value ${dollars(p.notional)}, contribution `
+    + `${dollars(p.contribution)}, income use ${p.incomeUse}%, deduction ${dollars(p.contributionDeduction)}, in-house reduction `
+    + `left ${dollars(p.available)}`,
+  fbtExpensePayment: (e) => `${e.method}, expenditure ${dollars(e.expenditure)}, paid ${dollars(e.paid)}, contribution `
+    + `${dollars(e.contribution)}, income use ${e.incomeUse}%, deduction ${dollars(e.portionDeduction)}, price ${dollars(e.price)}, `
+    + `notional value ${dollars(e.notional)}, in-house reduction left ${dollars(e.available)}`,
 });
+const BENEFIT_LABELS = { gross: 'value before contributions', recipientsPortion: 'recipient’s portion',
+  contributionApplied: 'contribution applied', excess: 'excess contribution', valueAfterContribution: 'value after the contribution',
+  grossDeduction: 'gross deduction', deductionApplied: 'deduction applied', notionalDeduction: 'notional deduction',
+  reduction: 'reduction', inHouseReduction: 'in-house reduction' };
 Object.assign(ENGINE_LABELS, {
   fbtLoan: { notional: 'notional interest', gross: 'gross taxable value', grossDeduction: 'gross deduction',
     notionalDeduction: 'notional deduction', reduction: 'reduction' },
@@ -710,6 +720,8 @@ Object.assign(ENGINE_LABELS, {
   fbtCarParking: { benefit: (v) => (v ? 'benefit arises' : 'no benefit arises'), gross: 'gross taxable value',
     contributionApplied: 'contributions applied', excess: 'excess contributions', average: 'average cost',
     annual: 'annual value', statutoryBenefit: 'total statutory benefit' },
+  fbtProperty: BENEFIT_LABELS,
+  fbtExpensePayment: BENEFIT_LABELS,
 });
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
@@ -1021,6 +1033,10 @@ Object.assign(FORM_CALLS, {
     return [{ method: f.method, expenses: f.expenses, registerBenefits: f['register-benefits'], registerTotal: f['register-total'],
       firstYear: f['first-year'], earlier }, { ended: yearEnded }];
   },
+  fbtProperty: (f) => [{ method: f.method, price: f.price, notional: f.notional, contribution: f.contribution,
+    incomeUse: f['income-use'], contributionDeduction: f['contribution-deduction'], available: f.available }],
+  fbtExpensePayment: (f) => [{ method: f.method, expenditure: f.expenditure, paid: f.paid, contribution: f.contribution,
+    incomeUse: f['income-use'], portionDeduction: f['portion-deduction'], price: f.price, notional: f.notional, available: f.available }],
 });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
@@ -2116,6 +2132,40 @@ test('FBT loan agrees with the guide’s worked examples at their 5.65% rate', (
   assert.equal(at('2000', '60', '282.50').taxableValue, 0);
 });
 
+// FBTAA ss 42(1), 44(1) and 62, Compilation No. 97, read 19 November 2026: '75% of the lowest price at which
+// that property was so sold to a member of the public'; s 62(1) reduces an employee's in-house total by
+// '$1,000'; s 62(2) 'does not apply to an in-house fringe benefit provided under a salary packaging
+// arrangement'. The forms name only the figures the chosen rule reads and the notes the result rests on.
+test('FBT property and expense payment forms show the rule’s figures and the notes they rest on', () => {
+  const run = (calculator, fields) => {
+    const value = (name) => fields[name] ?? '0';
+    return fbtBenefitResult({ dataset: { calculator } }, calculations, { aud: String, value, money: (name) => `$${value(name)}` });
+  };
+  const desk = run('fbt-property', { method: 'in-house-public-price', price: '900', contribution: '500', available: '1000' });
+  assert.equal(desk.inputs, 'in-house made and sold to the public, 75% of the lowest public price, lowest public price $900, '
+    + 'employee contribution $500, 0% income use, deduction for the contribution $0, in-house reduction left $1000');
+  assert.deepEqual(desk.rows.slice(-2), [['In-house reduction, section 62', '175'], ['Taxable value', '0']]);
+  assert.equal(desk.principal, desk.rows.length - 1);
+  assert.match(desk.note, /^The \$1,000 in-house reduction in section 62 is for all of the employee’s in-house fringe benefits/);
+  const packaged = run('fbt-property', { method: 'in-house-salary-packaging', notional: '2000', available: '1000', 'income-use': '50' });
+  assert.equal(packaged.inputs.startsWith('in-house under salary packaging, the notional value, notional value $2000, employee'), true);
+  assert.equal(packaged.rows.some(([label]) => label.startsWith('In-house reduction')), false);
+  assert.match(packaged.note, /^The otherwise deductible reduction needs the employee’s declaration .*\(paragraph 44\(1\)\(c\)\)/);
+  assert.equal(run('fbt-property', { method: 'external-cost-price', price: '50' }).note, undefined);
+  const bought = run('fbt-property', { method: 'in-house-acquired', price: '500', notional: '750' });
+  assert.match(bought.inputs, /arm’s length purchase price \$500, notional value \$750, employee contribution \$0, .*, in-house reduction left \$0$/);
+  const petrol = run('fbt-expense-payment', { method: 'in-house-trade-price', expenditure: '1000', paid: '250', price: '800' });
+  assert.deepEqual(petrol.rows.map(([label]) => label), ['In-house value', 'Recipient’s portion', 'Recipient’s portion applied',
+    'Excess portion', 'Value after the portion', 'In-house reduction, section 62', 'Taxable value']);
+  assert.equal(petrol.rows.at(-1)[1], '50');
+  const reimbursed = run('fbt-expense-payment', { method: 'external', expenditure: '500', paid: '250', 'income-use': '80',
+    'portion-deduction': '200' });
+  assert.equal(reimbursed.rows.at(-1)[1], '50');
+  assert.match(reimbursed.note, /documentary evidence .*\(paragraphs 24\(1\)\(c\) and \(e\)\)$/);
+  assert.throws(() => run('fbt-property', { method: 'in-house-airline' }), { message: 'Choose a valuation rule.' });
+  assert.throws(() => run('fbt-expense-payment', { method: 'external-cost-price' }), { message: 'Choose a valuation rule.' });
+});
+
 // s 19(1)(ba): RD above GD leaves no notional deduction, so the value is not increased. Worked by hand at
 // 8.27%: notional interest $4,135.00 less $4,000.00 accrued is $135.00; GD is 10% of $4,135.00, $413.50.
 test('FBT loan: a deduction for accrued interest above the gross deduction adds nothing', () => {
@@ -2194,8 +2244,10 @@ test('FBT benefits refuse inputs they cannot work', () => {
 
 // The engines the FBT pages port, run on the same cases: see the fixture's engine line.
 test('FBT benefits agree with the australian-accounting engines on every differential case', () => {
-  const { cases } = JSON.parse(readFileSync(new URL('./fbt-engine-differential.json', import.meta.url), 'utf8'));
-  assert.ok(cases.length > 150);
+  const fixture = (file) => JSON.parse(readFileSync(new URL(file, import.meta.url), 'utf8')).cases;
+  const cases = [...fixture('./fbt-engine-differential.json'), ...fixture('./fbt-property-expense-engine-differential.json')];
+  assert.ok(cases.length > 330);
+  for (const name of ['fbtProperty', 'fbtExpensePayment']) assert.ok(cases.filter((c) => c.name === name).length > 75, name);
   for (const { name, source, call, amounts, refused } of cases) {
     if (refused) {
       assert.throws(() => calculations[name](...call), Error, `${source}: the engine refused, ${refused}`);
