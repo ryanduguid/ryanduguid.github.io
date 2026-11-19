@@ -80,11 +80,11 @@ test('a GST-registered sole trader with no job keeps one share of each invoice f
   const form = page.locator('#sole-trader form');
   await waitForCalculator(form);
   await form.getByLabel(/^Business income for the year/).fill('90000');
-  await form.getByLabel(/^Business expenses you can deduct/).fill('15000');
-  await form.getByLabel(/^Salary and wages from a job/).fill('0');
+  await form.getByLabel(/^Deductible business expenses/).fill('15000');
+  await form.getByLabel(/^Wages from a job/).fill('0');
   await form.locator('input[name="gst"][value="yes"]').check();
-  await form.getByLabel(/^GST credits on business purchases/).fill('1200');
-  await form.getByLabel(/^One invoice as you charge it/).fill('1100');
+  await form.getByLabel(/^GST credits for the year/).fill('1200');
+  await form.getByLabel(/^One invoice, GST included/).fill('1100');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
   await expect(row('Small business income tax offset')).toHaveText('$1,000.00');

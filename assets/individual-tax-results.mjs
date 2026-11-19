@@ -135,11 +135,11 @@ function soleTraderResult(value, aud) {
     ['Each month', aud(r.monthly)], ['Each week', aud(r.weekly)],
     [`Share of each invoice${yes('gst') ? ', GST included,' : ''} to set aside`, `${r.invoiceShare.toFixed(2)}%`],
     [`From an invoice of ${aud(r.invoice.amount)}, set aside`, aud(r.invoice.setAside)]);
-  const notes = [`The tax is ${r.taxShare.toFixed(2)}% of the business income excluding GST, which as a PAYG instalment `
-    + 'rate would cover this year’s tax on it'];
+  const notes = [`As a PAYG instalment rate, ${r.taxShare.toFixed(2)}% of business income excluding GST covers this `
+    + 'year’s tax on it'];
   if (r.instalments) {
-    notes.push('A return like this meets 2 of the 3 tests for automatic entry to PAYG instalments, business income of '
-      + '$4,000 or more and tax of $1,000 or more; the third, notional tax of $500 or more, the ATO works out');
+    notes.push('This meets 2 PAYG instalment entry tests, $4,000 of business income and $1,000 of tax; the ATO works out '
+      + 'the third, $500 of notional tax');
   }
   if (r.mustRegister) notes.push('Business income of $75,000 or more a year means the business must register for GST');
   if (wages) notes.push('This assumes the tax withheld from the wages covers the tax on the wages alone');
