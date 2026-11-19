@@ -40,12 +40,12 @@ export function division293Income({ taxable, fhss, trust, fringe, losses, lumpSu
  * lump sum taxed at 0% (s 301-20), so nobody from 2024-25, when preservation age is 60 for everyone
  * under 60. @param {Division293} d */
 const income = (d) => {
-  const lumpSum = wholeDollars(d.lumpSum);
-  if (lumpSum && d.year >= '2024-25') {
+  const parts = { taxable: wholeDollars(d.taxable), fhss: wholeDollars(d.fhss), trust: wholeDollars(d.trust),
+    fringe: wholeDollars(d.fringe), losses: wholeDollars(d.losses), lumpSum: wholeDollars(d.lumpSum) };
+  if (parts.lumpSum && d.year >= '2024-25') {
     throw new Error('From 2024-25 nobody under 60 has reached preservation age, so no super lump sum is taxed at 0% (section 301-20).');
   }
-  return division293Income({ taxable: wholeDollars(d.taxable), fhss: wholeDollars(d.fhss), trust: wholeDollars(d.trust),
-    fringe: wholeDollars(d.fringe), losses: wholeDollars(d.losses), lumpSum }) * 100;
+  return division293Income(parts) * 100;
 };
 
 /** Division 293 tax for an individual whose contributions are all to accumulation interests. Low
