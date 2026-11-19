@@ -7,7 +7,9 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 import { incomeTests } from './income-tests.mjs';
+import { CAP, concessionalCatchUp } from './concessional-catch-up.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
 
@@ -117,6 +119,87 @@ function studyLoanResult(value, aud) {
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
 }
 
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function soleTraderResult(value, aud) {
+  const yes = (/** @type {string} */ name) => value(name) === 'yes';
+  const year = value('year');
+  const r = soleTraderSetAside({ year, income: value('income'), expenses: value('expenses'), wages: value('wages'),
+    deductions: value('deductions'), super: value('super'), offset: yes('offset'), studyLoan: yes('study-loan'),
+    hospitalCover: yes('cover'), gst: yes('gst'), credits: value('credits'), invoice: value('invoice') });
+  const wages = Number(value('wages')) > 0;
+  const rows = [['Business profit', aud(r.profit)]];
+  if (r.deduction) rows.push(['Standard deduction on the wages', aud(r.deduction)]);
+  rows.push(['Taxable income', whole(r.taxable)], ['Tax on taxable income', aud(r.tax)], ['Low income tax offset', aud(r.offset)]);
+  if (year === '2021-22') rows.push(['Low and middle income tax offset', aud(r.lmito)]);
+  rows.push(['Small business income tax offset', aud(r.smallBusinessOffset)], ['Medicare levy', aud(r.medicare)]);
+  if (!yes('cover')) rows.push(['Medicare levy surcharge', aud(r.surcharge)]);
+  if (yes('study-loan')) rows.push(['Study and training loan repayment', aud(r.studyLoan)]);
+  rows.push(['Total tax, levies and repayment', aud(r.total)]);
+  if (wages) rows.push(['Less the same on the wages alone', aud(r.wagesTax)]);
+  rows.push(['Tax to set aside for the business', aud(r.businessTax)]);
+  if (yes('gst')) rows.push(['GST on the business income', aud(r.gstOnIncome)], ['Less GST credits', aud(r.credits)]);
+  const principal = rows.length;
+  rows.push(['Total to set aside for the year', aud(r.setAside)], ['Each quarter', aud(r.quarterly)],
+    ['Each month', aud(r.monthly)], ['Each week', aud(r.weekly)],
+    [`Share of each invoice${yes('gst') ? ', GST included,' : ''} to set aside`, `${r.invoiceShare.toFixed(2)}%`],
+    [`From an invoice of ${aud(r.invoice.amount)}, set aside`, aud(r.invoice.setAside)]);
+  const notes = [`As a PAYG instalment rate, ${r.taxShare.toFixed(2)}% of business income excluding GST covers this `
+    + 'year’s tax on it'];
+  if (r.instalments) {
+    notes.push('A return like this meets 2 of the 3 PAYG instalment entry tests; the ATO works out the third, '
+      + 'notional tax, and decides entry');
+  }
+  if (r.mustRegister) {
+    notes.push('Business income of $75,000 or more a year means the business must register for GST, within 21 days of '
+      + 'its turnover over 12 months reaching $75,000');
+  }
+  if (wages) {
+    notes.push('This assumes the wages’ withholding covers the tax, levy and any study loan repayment on the wages '
+      + 'alone');
+  }
+  return { inputs: `${year}, business income ${aud(Number(value('income')))} and expenses ${aud(Number(value('expenses')))} `
+    + `excluding GST, wages ${aud(Number(value('wages')))}, other deductions ${aud(Number(value('deductions')))}, `
+    + `${Number(value('super')) > 0 ? `personal super contributions ${aud(Number(value('super')))}, ` : ''}`
+    + `${yes('offset') ? 'qualifies' : 'does not qualify'} for the small business income tax offset, `
+    + `${yes('study-loan') ? 'with a' : 'no'} study or training loan, ${yes('cover') ? 'with' : 'no'} private hospital cover, `
+    + `${yes('gst') ? `registered for GST with credits of ${aud(Number(value('credits')))}` : 'not registered for GST'}, `
+    + `invoice ${aud(Number(value('invoice')))}`, principal, rows, note: notes.join('. ') };
+}
+
+/** The earlier years the catch-up form asks about, from 2018-19 to the year before the latest it works. */
+const CATCH_UP_EARLIER = Object.keys(CAP).filter((year) => year < '2026-27').sort((a, b) => a.localeCompare(b));
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function catchUpResult(value, aud) {
+  const earlier = [];
+  for (const year of CATCH_UP_EARLIER) {
+    const [contributions, balance] = [value(`contributions-${year}`).trim(), value(`balance-${year}`).trim()];
+    if (contributions === '' && balance !== '') throw new Error(`Enter ${year}’s concessional contributions, or clear its balance.`);
+    if (contributions !== '') earlier.push({ year, contributions, ...(balance === '' ? {} : { balance }) });
+  }
+  const proposed = value('proposed').trim();
+  const year = value('year');
+  const r = concessionalCatchUp({ year, balance: value('balance'), concessional: value('concessional'),
+    ...(proposed === '' ? {} : { proposed }), definedBenefit: value('defined-benefit') === 'yes', earlier });
+  const rows = [['General concessional cap', aud(r.cap)], ['Unused cap from the previous 5 years', aud(r.unusedCarried)],
+    ['Concessional cap available', aud(r.available)], ['Carried-forward cap applied', aud(r.carryForwardApplied)],
+    ['Cap left after this year’s contributions', aud(r.remaining)], ['Excess concessional contributions', aud(r.excess)]];
+  if (r.withProposal !== null) {
+    rows.push(['Contributions with the proposed one', aud(r.withProposal)],
+      ['Excess with the proposed contribution', aud(/** @type {number} */ (r.excessWithProposal))]);
+  }
+  for (const row of r.years) rows.push([`${row.year} unused cap left, lapses after ${row.expiresAtEndOf}`, aud(row.remaining)]);
+  const notes = Object.entries(r.earlierApplied).map(([to, from]) => `${to}’s excess used `
+    + Object.entries(from).map(([source, amount]) => `${aud(amount)} of ${source}’s unused cap`).join(' and '));
+  notes.push(r.carriesForward ? 'Unused cap applies earliest year first, and only to contributions above the general cap'
+    : 'With a total super balance of $500,000 or more on 30 June before the year, no unused cap increases this year’s; '
+      + 'the unused amounts still lapse after 5 years');
+  return { inputs: `${year}, total super balance ${aud(Number(value('balance')))}, concessional contributions `
+    + `${aud(Number(value('concessional')))}${proposed === '' ? '' : `, proposed ${aud(Number(proposed))}`}, earlier years `
+    + earlier.map((e) => `${e.year} ${aud(Number(e.contributions))}`).join(', '), principal: 2, rows,
+  note: notes.join('. ') };
+}
+
 /** Each income test part's form field and how the inputs sentence names it. */
 const INCOME_TEST_FIELDS = /** @type {const} */ ([['taxable', 'taxable', 'taxable income'],
   ['fhss', 'fhss', 'assessable FHSS released amount'], ['familyTrust', 'family-trust', 'family trust distribution amounts'],
@@ -149,7 +232,7 @@ function incomeTestsResult(value, aud) {
 }
 
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
-  ['income-tests', incomeTestsResult]]);
+  ['sole-trader', soleTraderResult], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -159,5 +242,5 @@ export function individualResult(kind, value, aud) {
 }
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
-export const engines = { taxEstimate, takeHomePay, incomeTests, incomeYears: INCOME_TAX_YEARS,
-  payYears: Object.keys(SUPER_GUARANTEE) };
+export const engines = { taxEstimate, takeHomePay, soleTraderSetAside, incomeTests, incomeYears: INCOME_TAX_YEARS,
+  payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS };

@@ -6,7 +6,7 @@ import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
 const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
-  'income-tests': '$73,810.00' };
+  'sole-trader': '$5,939.00', 'income-tests': '$73,810.00', 'concessional-catch-up': '$97,500.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -43,6 +43,24 @@ for (const id of Object.keys(CALCULATORS)) {
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
+
+test('catch-up carries nothing forward at a $500,000 balance and refuses a defined benefit interest offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/concessional-catch-up/');
+  const form = page.locator('#concessional-catch-up form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel(/^Total super balance on 30 June before the year/).fill('500000');
+  await form.getByLabel(/^Concessional contributions for the year so far/).fill('40000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Concessional cap available')).toHaveText('$30,000.00');
+  await expect(row('Excess concessional contributions')).toHaveText('$10,000.00');
+  await expect(row('2019-20 unused cap left, lapses after 2024-25')).toHaveText('$14,000.00');
+  await form.locator('[name="defined-benefit"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(
+    'A defined benefit interest changes what counts as concessional contributions (ITAA 1997 Subdivision 291-C); this calculator does not cover it.');
+});
 
 test('a foreign resident pays no Medicare levy or surcharge and gets no offset', async ({ page }) => {
   await page.goto('/tools/individual-tax/income-tax/');
@@ -91,6 +109,25 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('a GST-registered sole trader with no job keeps one share of each invoice for tax and GST', async ({ page }) => {
+  await page.goto('/tools/individual-tax/sole-trader/');
+  const form = page.locator('#sole-trader form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Business income for the year/).fill('90000');
+  await form.getByLabel(/^Deductible business expenses/).fill('15000');
+  await form.getByLabel(/^Wages from a job/).fill('0');
+  await form.locator('input[name="gst"][value="yes"]').check();
+  await form.getByLabel(/^GST credits for the year/).fill('1200');
+  await form.getByLabel(/^One invoice, GST included/).fill('1100');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Small business income tax offset')).toHaveText('$1,000.00');
+  await expect(row('GST on the business income')).toHaveText('$9,000.00');
+  await expect(row('Share of each invoice, GST included, to set aside')).toHaveText('21.54%');
+  await expect(row('From an invoice of $1,100.00, set aside')).toHaveText('$236.89');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$21,320.00');
+});
+
 test('a 2025-26 fortnightly pay with a loan shows both Schedule 8 components', async ({ page }) => {
   await page.goto('/tools/individual-tax/take-home-pay/');
   const form = page.locator('#take-home-pay form');
@@ -110,6 +147,8 @@ for (const [id, name, input, expected] of [
     reportableFringeBenefits: 27000, daysWithoutHospitalCover: 365, taxWithheld: '21000' }, { refund: '510.00' }],
   ['take-home-pay', 'calculate_take_home_pay', { incomeYear: '2025-26', residency: 'resident', salary: '75000' },
     { takeHomeYear: '60212.00' }],
+  ['sole-trader', 'calculate_sole_trader_set_aside', { incomeYear: '2026-27', businessIncome: '22000', businessExpenses: '2000',
+    wages: '60000', invoice: '1000' }, { setAsideYear: '5939.00' }],
   ['income-tests', 'calculate_income_tests', { taxableIncome: 90000, reportableFringeBenefitsOther: 27000, assessableIncome: 90000 },
     { incomeForSurchargePurposes: '117000.00' }],
 ]) {
