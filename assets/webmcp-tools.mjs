@@ -608,73 +608,85 @@ export function individualTaxTools({ taxEstimate, takeHomePay, salaryPackaging, 
         };
       },
     }),
-    'salary-packaging': tool({
-      name: 'calculate_salary_packaging',
-      title: 'Salary packaging calculator',
-      description: SALARY_PACKAGING_DESCRIPTION,
-      inputSchema: record({
-        incomeYear: choice(packagingYears, `Income year, ${packagingYears.at(-1)} to ${packagingYears[0]}.`),
-        residency: choice(['resident', 'foreign'], 'Residency for tax purposes all year.'),
-        employer: choice(['charity', 'hospital'], 'charity: public benevolent institution or health promotion charity; '
-          + 'hospital: public or not-for-profit hospital, or public ambulance service for an employee predominantly in or '
-          + 'supporting its ambulance services.'),
-        salary: whole(0, 1e9, 'Salary for the year before packaging, without super, in whole AUD.'),
-        typeTwoBenefits: text('amount', 'Benefits the employer gets no GST credit for, at taxable value in AUD; "0" when omitted.'),
-        typeOneBenefits: text('amount', 'Benefits the employer claims a GST credit for, at taxable value in AUD; "0" when omitted.'),
-        mealEntertainment: text('amount', 'Salary packaged meal entertainment and venue hire in AUD; "0" when omitted.'),
-        mealEntertainmentTypeOne: { type: 'boolean', description: 'true when the employer claims GST credits on it; true when omitted.' },
-        studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
-        privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
-      }, ['incomeYear', 'residency', 'employer', 'salary']),
-      run({ incomeYear, residency, employer, salary, typeTwoBenefits = '0', typeOneBenefits = '0', mealEntertainment = '0',
-        mealEntertainmentTypeOne = true, studyLoan = false, privateHospitalCover = true }) {
-        const r = salaryPackaging({ year: incomeYear, residency, employer, salary: String(salary), typeTwo: typeTwoBenefits,
-          typeOne: typeOneBenefits, meals: mealEntertainment, mealsTypeOne: mealEntertainmentTypeOne, studyLoan,
-          hospitalCover: privateHospitalCover });
-        return {
-          packaged: dollars(r.packaged), grossedUp: dollars(r.grossed), cap: dollars(r.cap), mealEntertainmentAllowed: dollars(r.mealAllowance),
-          liableToFbt: dollars(r.excess), fbt: dollars(r.fbt), reportableFringeBenefits: dollars(r.reportable),
-          owedWithout: dollars(r.owedBefore), owedWith: dollars(r.owedAfter), taxSaved: dollars(r.saved), gainAfterFbt: dollars(r.gain),
-          roomUnderCapTypeTwo: dollars(r.roomTypeTwo), currency: 'AUD', source: `${INDIVIDUAL}salary-packaging/`,
-        };
-      },
-    }),
-    'novated-lease': tool({
-      name: 'calculate_novated_lease',
-      title: 'Novated lease calculator',
-      description: NOVATED_LEASE_DESCRIPTION,
-      inputSchema: record({
-        incomeYear: choice(novatedYears, `Income year, ${novatedYears.at(-1)} to ${novatedYears[0]}.`),
-        residency: choice(['resident', 'foreign'], 'Residency for tax purposes all year.'),
-        salary: whole(0, 1e9, 'Salary for the year before the lease, without super, in whole AUD.'),
-        car: choice(['bev', 'fcev', 'phev', 'other'], 'bev: battery electric; fcev: hydrogen fuel cell; phev: plug-in hybrid; other.'),
-        firstHeldAndUsedFrom1July2022: { type: 'boolean', description: 'true when the car was first held and used on or after 1 July 2022.' },
-        phevCommitment: { type: 'boolean', description: 'Plug-in hybrid: true when its use was exempt before 1 April 2025 under a commitment still unchanged; false when omitted.' },
-        firstSaleYear: choice(['2026-27', '2025-26', '2024-25', '2023-24', '2022-23', '2021-22'], 'Financial year of the car\'s first retail sale.'),
-        costPrice: text('amount', 'Cost price with GST and dealer-fitted options, without registration and stamp duty, in AUD.'),
-        heldOverFourYears: { type: 'boolean', description: 'true when the lessor held the car more than 4 years before the FBT year; false when omitted.' },
-        daysAvailable: whole(0, 366, 'Days in the year the car is available for private use.'),
-        costsWithGst: text('amount', 'Yearly lease payments and running costs that include GST, in AUD.'),
-        costsWithoutGst: text('amount', 'Yearly costs without GST, such as registration, in AUD; "0" when omitted.'),
-        studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
-        privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
-      }, ['incomeYear', 'residency', 'salary', 'car', 'firstHeldAndUsedFrom1July2022', 'firstSaleYear', 'costPrice', 'daysAvailable',
-        'costsWithGst']),
-      run({ incomeYear, residency, salary, car, firstHeldAndUsedFrom1July2022, phevCommitment = false, firstSaleYear, costPrice,
-        heldOverFourYears = false, daysAvailable, costsWithGst, costsWithoutGst = '0', studyLoan = false, privateHospitalCover = true }) {
-        const r = novatedLease({ year: incomeYear, residency, salary: String(salary), studyLoan, hospitalCover: privateHospitalCover,
-          kind: car, firstUsed: firstHeldAndUsedFrom1July2022 ? 'after' : 'before', commitment: phevCommitment, saleYear: firstSaleYear,
-          price: costPrice, reduced: heldOverFourYears, days: String(daysAvailable), gstCosts: costsWithGst, otherCosts: costsWithoutGst });
-        const way = (/** @type {{preTax: number, postTax: number, reportable: number, owed: number, saving: number} | null} */ c) => (c
-          ? { preTax: dollars(c.preTax), postTax: dollars(c.postTax), reportableFringeBenefits: dollars(c.reportable), owed: dollars(c.owed),
-            saving: dollars(c.saving) } : null);
-        return {
-          exempt: r.exempt, reasonNotExempt: r.reason, statutoryValue: dollars(r.taxableValue), luxuryCarTaxThreshold: dollars(r.threshold),
-          costs: dollars(r.costs), costsLessGstCredits: dollars(r.netCosts), owedPayingAfterTax: dollars(r.owedWithout),
-          exemptCase: way(r.exemptCase), employeeContributionMethod: way(r.contribution), currency: 'AUD',
-          source: `${INDIVIDUAL}novated-lease/`,
-        };
-      },
-    }),
+    'salary-packaging': salaryPackagingTool(salaryPackaging, packagingYears),
+    'novated-lease': novatedLeaseTool(novatedLease, novatedYears),
   };
+}
+
+/** The WebMCP descriptor for the salary packaging calculator.
+ * @param {typeof import('./salary-packaging.mjs').salaryPackaging} salaryPackaging @param {string[]} packagingYears */
+function salaryPackagingTool(salaryPackaging, packagingYears) {
+  return tool({
+    name: 'calculate_salary_packaging',
+    title: 'Salary packaging calculator',
+    description: SALARY_PACKAGING_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(packagingYears, `Income year, ${packagingYears.at(-1)} to ${packagingYears[0]}.`),
+      residency: choice(['resident', 'foreign'], 'Residency for tax purposes all year.'),
+      employer: choice(['charity', 'hospital'], 'charity: public benevolent institution or health promotion charity; '
+        + 'hospital: public or not-for-profit hospital, or public ambulance service for an employee predominantly in or '
+        + 'supporting its ambulance services.'),
+      salary: whole(0, 1e9, 'Salary for the year before packaging, without super, in whole AUD.'),
+      typeTwoBenefits: text('amount', 'Benefits the employer gets no GST credit for, at taxable value in AUD; "0" when omitted.'),
+      typeOneBenefits: text('amount', 'Benefits the employer claims a GST credit for, at taxable value in AUD; "0" when omitted.'),
+      mealEntertainment: text('amount', 'Salary packaged meal entertainment and venue hire in AUD; "0" when omitted.'),
+      mealEntertainmentTypeOne: { type: 'boolean', description: 'true when the employer claims GST credits on it; true when omitted.' },
+      studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+      privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+    }, ['incomeYear', 'residency', 'employer', 'salary']),
+    run({ incomeYear, residency, employer, salary, typeTwoBenefits = '0', typeOneBenefits = '0', mealEntertainment = '0',
+      mealEntertainmentTypeOne = true, studyLoan = false, privateHospitalCover = true }) {
+      const r = salaryPackaging({ year: incomeYear, residency, employer, salary: String(salary), typeTwo: typeTwoBenefits,
+        typeOne: typeOneBenefits, meals: mealEntertainment, mealsTypeOne: mealEntertainmentTypeOne, studyLoan,
+        hospitalCover: privateHospitalCover });
+      return {
+        packaged: dollars(r.packaged), grossedUp: dollars(r.grossed), cap: dollars(r.cap), mealEntertainmentAllowed: dollars(r.mealAllowance),
+        liableToFbt: dollars(r.excess), fbt: dollars(r.fbt), reportableFringeBenefits: dollars(r.reportable),
+        owedWithout: dollars(r.owedBefore), owedWith: dollars(r.owedAfter), taxSaved: dollars(r.saved), gainAfterFbt: dollars(r.gain),
+        roomUnderCapTypeTwo: dollars(r.roomTypeTwo), currency: 'AUD', source: `${INDIVIDUAL}salary-packaging/`,
+      };
+    },
+  });
+}
+
+/** The WebMCP descriptor for the novated lease calculator.
+ * @param {typeof import('./novated-lease.mjs').novatedLease} novatedLease @param {string[]} novatedYears */
+function novatedLeaseTool(novatedLease, novatedYears) {
+  return tool({
+    name: 'calculate_novated_lease',
+    title: 'Novated lease calculator',
+    description: NOVATED_LEASE_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(novatedYears, `Income year, ${novatedYears.at(-1)} to ${novatedYears[0]}.`),
+      residency: choice(['resident', 'foreign'], 'Residency for tax purposes all year.'),
+      salary: whole(0, 1e9, 'Salary for the year before the lease, without super, in whole AUD.'),
+      car: choice(['bev', 'fcev', 'phev', 'other'], 'bev: battery electric; fcev: hydrogen fuel cell; phev: plug-in hybrid; other.'),
+      firstHeldAndUsedFrom1July2022: { type: 'boolean', description: 'true when the car was first held and used on or after 1 July 2022.' },
+      phevCommitment: { type: 'boolean', description: 'Plug-in hybrid: true when its use was exempt before 1 April 2025 under a commitment still unchanged; false when omitted.' },
+      firstSaleYear: choice(['2026-27', '2025-26', '2024-25', '2023-24', '2022-23', '2021-22'], 'Financial year of the car\'s first retail sale.'),
+      costPrice: text('amount', 'Cost price with GST and dealer-fitted options, without registration and stamp duty, in AUD.'),
+      heldOverFourYears: { type: 'boolean', description: 'true when the lessor held the car more than 4 years before the FBT year; false when omitted.' },
+      daysAvailable: whole(0, 366, 'Days in the year the car is available for private use.'),
+      costsWithGst: text('amount', 'Yearly lease payments and running costs that include GST, in AUD.'),
+      costsWithoutGst: text('amount', 'Yearly costs without GST, such as registration, in AUD; "0" when omitted.'),
+      studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+      privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+    }, ['incomeYear', 'residency', 'salary', 'car', 'firstHeldAndUsedFrom1July2022', 'firstSaleYear', 'costPrice', 'daysAvailable',
+      'costsWithGst']),
+    run({ incomeYear, residency, salary, car, firstHeldAndUsedFrom1July2022, phevCommitment = false, firstSaleYear, costPrice,
+      heldOverFourYears = false, daysAvailable, costsWithGst, costsWithoutGst = '0', studyLoan = false, privateHospitalCover = true }) {
+      const r = novatedLease({ year: incomeYear, residency, salary: String(salary), studyLoan, hospitalCover: privateHospitalCover,
+        kind: car, firstUsed: firstHeldAndUsedFrom1July2022 ? 'after' : 'before', commitment: phevCommitment, saleYear: firstSaleYear,
+        price: costPrice, reduced: heldOverFourYears, days: String(daysAvailable), gstCosts: costsWithGst, otherCosts: costsWithoutGst });
+      const way = (/** @type {{preTax: number, postTax: number, reportable: number, owed: number, saving: number} | null} */ c) => (c
+        ? { preTax: dollars(c.preTax), postTax: dollars(c.postTax), reportableFringeBenefits: dollars(c.reportable), owed: dollars(c.owed),
+          saving: dollars(c.saving) } : null);
+      return {
+        exempt: r.exempt, reasonNotExempt: r.reason, statutoryValue: dollars(r.taxableValue), luxuryCarTaxThreshold: dollars(r.threshold),
+        costs: dollars(r.costs), costsLessGstCredits: dollars(r.netCosts), owedPayingAfterTax: dollars(r.owedWithout),
+        exemptCase: way(r.exemptCase), employeeContributionMethod: way(r.contribution), currency: 'AUD',
+        source: `${INDIVIDUAL}novated-lease/`,
+      };
+    },
+  });
 }
