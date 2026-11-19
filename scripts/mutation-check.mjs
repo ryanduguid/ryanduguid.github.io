@@ -42,6 +42,7 @@ const evExemption = { ...business, file: 'assets/fbt-ev-exemption.mjs' };
 const landTax = { ...business, file: 'assets/land-tax.mjs' };
 const pcg = { ...business, file: 'assets/pcg-2021-4.mjs' };
 const psi = { ...business, file: 'assets/psi-determination.mjs' };
+const concessions = { ...business, file: 'assets/cgt-concessions.mjs' };
 const vehicle = { ...business, file: 'assets/vehicle-class.mjs' };
 const payroll = { ...business, file: 'assets/payroll-tax.mjs' };
 const companyTax = { ...business, file: 'assets/company-tax.mjs' };
@@ -230,6 +231,32 @@ const MUTATIONS = [
   { ...psi, name: 'PSI applies Division 85 to an entity', find: 'entity ? \'Division 86 applies\' : \'Division 85 applies\'', replace: '\'Division 85 applies\'' },
   { ...psi, name: 'PSI accepts others’ work worth more than the PSI', find: 'if (others > total)', replace: 'if (false)' },
   { ...psi, name: 'PSI accepts more than $1,000,000,000', find: 'if (total > 100_000_000_000)', replace: 'if (false)' },
+  { ...concessions, name: 'CGT concessions use the $10 million turnover', find: 'const TURNOVER = 200_000_000;', replace: 'const TURNOVER = 1_000_000_000;' },
+  { ...concessions, name: 'CGT concessions count a previous turnover of $2 million', find: "previous < TURNOVER) rule = 'subparagraph 328-110(1)(b)(i)'", replace: "previous <= TURNOVER) rule = 'subparagraph 328-110(1)(b)(i)'" },
+  { ...concessions, name: 'CGT concessions drop the 2-year bar on likely turnover', find: 'likely < TURNOVER && !barred', replace: 'likely < TURNOVER' },
+  { ...concessions, name: 'CGT concessions ignore the turnover at the end of the year', find: 'else if (actual < TURNOVER)', replace: 'else if (actual < 0)' },
+  { ...concessions, name: 'CGT concessions treat no business as a small business entity', find: "if (x.business !== 'no') {", replace: 'if (true) {' },
+  { ...concessions, name: 'CGT concessions fail net assets of exactly $6 million', find: 'netValue <= NET_ASSETS', replace: 'netValue < NET_ASSETS' },
+  { ...concessions, name: 'CGT concessions allow 2 years after the business ceased', find: "ceased >= yearsLater(event, -1) || x.extension === 'yes'", replace: "ceased >= yearsLater(event, -2) || x.extension === 'yes'" },
+  { ...concessions, name: 'CGT concessions count the 12 months on from the cessation', find: 'ceased >= yearsLater(event, -1)', replace: 'yearsLater(ceased, 1) >= event' },
+  { ...concessions, name: 'CGT concessions ignore a longer period the Commissioner allows', find: "|| x.extension === 'yes') to = ceased", replace: '|| false) to = ceased' },
+  { ...concessions, name: 'CGT concessions count the test period without its first day', find: 'dayOf(to) - dayOf(acquired) + 1', replace: 'dayOf(to) - dayOf(acquired)' },
+  { ...concessions, name: 'CGT concessions need more than half the test period', find: '2 * activeDays >= testDays', replace: '2 * activeDays > testDays' },
+  { ...concessions, name: 'CGT concessions apply the half test to an asset owned more than 15 years', find: 'const over15 = yearsLater(acquired, 15) < event;', replace: 'const over15 = yearsLater(acquired, 15) > event;' },
+  { ...concessions, name: 'CGT concessions need more than 7.5 years', find: 'activeDays >= SEVEN_AND_A_HALF.longest', replace: 'activeDays > SEVEN_AND_A_HALF.longest' },
+  { ...concessions, name: 'CGT concessions need 14 years for the 15-year exemption', find: 'yearsLater(acquired, 15) < event, retires', replace: 'yearsLater(acquired, 14) < event, retires' },
+  { ...concessions, name: 'CGT concessions are not 55 on the 55th birthday', find: 'fiftyFifth <= event', replace: 'fiftyFifth < event' },
+  { ...concessions, name: 'CGT concessions test age 55 at the sale for the super contribution', find: 'under55: fiftyFifth > choice', replace: 'under55: fiftyFifth > event' },
+  { ...concessions, name: 'CGT concessions ignore permanent incapacity', find: "|| x.incapacitated === 'yes'", replace: '|| false' },
+  { ...concessions, name: 'CGT concessions skip the 15 years with a significant individual', find: 'unmet.push(`a significant individual for a total of 15 years of ownership (${at}(c))`);', replace: 'void at;' },
+  { ...concessions, name: 'CGT concessions skip the significant individual just before the sale', find: "if (x.significant !== 'yes') unmet.push", replace: 'if (false) unmet.push' },
+  { ...concessions, name: 'CGT concessions let a passively held asset through beside your own business', find: "if (x.passive !== 'none' && x.business !== 'no') {", replace: 'if (false) {' },
+  { ...concessions, name: 'CGT concessions ignore a passively held asset', find: "const passive = x.passive !== 'none';", replace: 'const passive = false;' },
+  { ...concessions, name: 'CGT concessions take the basic conditions without the active asset test', find: '(business.smallBusiness || netAssets || passive) && active.activeAsset', replace: '(business.smallBusiness || netAssets || passive) || active.activeAsset' },
+  { ...concessions, name: 'CGT concessions let a trust without a significant individual choose the retirement exemption', find: "const significant = x.entity === 'individual' || x.significant === 'yes';", replace: 'const significant = true;' },
+  { ...concessions, name: 'CGT concessions allow the retirement exemption once the limit is used', find: 'used < RETIREMENT_LIMIT', replace: 'used <= RETIREMENT_LIMIT' },
+  { ...concessions, name: 'CGT concessions end the replacement asset period after 1 year', find: "-02-28` : yearsLater(event, 2) };", replace: "-02-28` : yearsLater(event, 1) };" },
+  { ...concessions, name: 'CGT concessions end a replacement period from 29 February on 1 March', find: "event.endsWith('-02-29') ? `", replace: "false ? `" },
   { ...business, name: 'an activity statement figure rounds its cents', find: 'Math.floor(value / 100)', replace: 'Math.round(value / 100)' },
   { ...business, name: 'a varied amount takes a fifth of estimated tax a quarter', find: 'BigInt(instalment), 4n', replace: 'BigInt(instalment), 5n' },
   { ...business, name: 'credits claimed are not added back', find: 'return earlier - credits;', replace: 'return earlier;' },

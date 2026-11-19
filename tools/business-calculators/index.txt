@@ -44,6 +44,10 @@ Published 11 September 2026. Last checked 20 November 2026, the newest of the ca
 - PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
 - Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
 
+## Capital gains tax
+
+- Small business CGT concessions checker Which of the 4 small business CGT concessions in Division 152 are open for one capital gain, each with the provision that decides it.
+
 ## Staff and cash
 
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
@@ -94,6 +98,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
+- Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
