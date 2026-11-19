@@ -673,10 +673,13 @@ test('leaving a calculator page once its modules load aborts no request', async 
 
 // One test per width: all four in one test made 260 navigations, which took
 // 22 to 35 seconds on a Windows CI runner against the 30-second test limit.
-// Each route loads once per width for every check below.
+// Each route loads once per width for every check below. Waiting for each calculator
+// page's modules took a width from about 15 to 20 seconds on that runner (19 November
+// 2026), and every calculator page added makes it longer, so a width has 60 seconds.
 for (const width of [320, 390, 768, 1440]) {
   test(`public pages do not overflow at the ${width}px refinement acceptance width`, async ({ page }, testInfo) => {
     test.skip(projectKind(testInfo) !== 'desktop', 'width matrix runs once');
+    test.setTimeout(60_000);
     const health = observePageHealth(page);
     await page.setViewportSize({ width, height: 844 });
     const cueSupported = await supportsCue(page);
