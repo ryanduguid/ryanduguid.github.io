@@ -140,6 +140,9 @@
     "tools/business-calculators/cash/index.html": [
       "f39459d528bd96610d20b36c8914bbb34e3d7a9ffa3a6d7a4c13f8b914217496"
     ],
+    "tools/business-calculators/cgt-concessions/index.html": [
+      "924871e8fc07407e0d5afb5ce82dc94fd6a252508ae5bc0e4420d262db46f67a"
+    ],
     "tools/business-calculators/company-tax/index.html": [
       "b3b965f4611802ef5b3553ac3d4fa1d4b100c8743eaf59b677cd66ad0422563b"
     ],
@@ -358,9 +361,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "fb59a8e6a1ac59818fca06749941bc056b4f9a328a5e55caefa864ad94d0e987",
+    "llms.txt": "0768c00ed496955eb289139aa619906f7bb65e41945194157ae1669aad8ccdbe",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "ea47de3968d54b306fdb0140c3ca19ebaadd76a1d13671b542181bd62fdd1fee"
+    "sitemap.xml": "4ac2190c23fe43a62bbac76c4c65fb7e129ec03a9438d7b674bea97adb48644a"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -420,7 +423,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7788,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7789,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
