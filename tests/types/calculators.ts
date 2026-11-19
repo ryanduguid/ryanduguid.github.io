@@ -255,6 +255,19 @@ const sgcDue: number = calculate.paydaySuperDue(sgcPay).due;
 calculate.quarterlySgCharge({ year: '2026-27', quarter: '1', wages: '1', ote: '1', contributions: '0', lodged: '2026-11-20' });
 void sgcCharge;
 void sgcDue;
+const cgtHome = { purchased: '', sold: '', movedIn: '', practicable: 'yes', exclusions: 'none',
+  away: [{ from: '', to: '', rented: false, choose: false }], partPercent: '0', partFrom: '', partTo: '', market: '0' };
+const cgtSale = { entity: 'individual', resident: 'yes', kind: 'investment', acquired: '1997-07-01', event: '2026-02-01', proceeds: '496000',
+  price: '144000', buying: { amount: '20000', date: '1997-07-01' }, improvements: [{ amount: '0', date: '' }], selling: '12500', owning: '0',
+  works: '255', currentLosses: '0', priorLosses: '0', income: '90000', home: cgtHome } as const;
+const cgtNet: number = calculate.capitalGain(cgtSale).net;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.capitalGain({ ...cgtSale, proceeds: 496000 });
+// @ts-expect-error The entity is an individual, a trust, a complying super fund or a company.
+calculate.capitalGain({ ...cgtSale, entity: 'partnership' });
+// @ts-expect-error An absence's rented and chosen marks are checkbox states.
+calculate.capitalGain({ ...cgtSale, home: { ...cgtHome, away: [{ from: '', to: '', rented: 'yes', choose: false }] } });
+void cgtNet;
 const concessionAnswers = { entity: 'individual', partnership: 'no', asset: 'business', acquired: '2014-03-03', event: '2026-02-02',
   business: 'yes', previousBusiness: 'yes', previous: '2150000', earlierBusiness: 'yes', earlier: '1900000', likely: '2100000',
   actual: '1950000', netAssets: '6200000', passive: 'none', ceased: '', extension: 'no', active: '3000', born: '1975-08-14',

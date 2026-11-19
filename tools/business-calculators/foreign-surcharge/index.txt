@@ -83,7 +83,7 @@ Commercial property in New South Wales bears neither surcharge | New South Wales
 An exemption is refused: each Commissioner decides it | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia, exemption sought; residential property $1,000,000.00, land $1,000,000.00 | Refused: exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, so this page does not work them out
 A partner or retirement visa holder is refused | New South Wales, individual, partner or retirement visa, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Refused: this page does not decide the status of a partner (provisional) or retirement visa holder: each revenue office treats them differently
 
-One of the forty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -94,4 +94,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- forty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-two business calculators: https://duguid.com.au/tools/business-calculators/

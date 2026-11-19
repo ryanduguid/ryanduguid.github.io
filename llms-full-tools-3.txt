@@ -342,6 +342,7 @@ Published 11 September 2026. Last checked 20 November 2026, the newest of the ca
 
 ## Capital gains tax
 
+- Capital gains tax calculator The capital gain or loss on one sale to 30 June 2027: discount or indexation, losses, and the main residence and 6-year rules, each step cited.
 - Small business CGT concessions checker Which of the 4 small business CGT concessions in Division 152 are open for one capital gain, each with the provision that decides it.
 
 ## Staff and cash
@@ -395,6 +396,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
+- Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/

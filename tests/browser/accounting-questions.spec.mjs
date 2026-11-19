@@ -591,6 +591,30 @@ test('Division 296 works both tiers and a death by 30 June 2027 offline', async 
   await expect(output).toContainText('Not liable: died on or before 30 June 2027');
 });
 
+test('CGT works a rented home under section 118-192 and refuses a foreign resident offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/cgt/');
+  const form = page.locator('#cgt form');
+  const output = form.locator('output');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  // The ATO's example 72: Roya rents out her apartment from 29 September 1997 and chooses to treat it as her main residence.
+  const fields = { acquired: '1995-08-15', event: '2024-07-15', proceeds: '555000', price: '280000', buying: '0', 'buying-date': '',
+    'improvement-1': '0', 'improvement-1-date': '', selling: '15000', works: '0', purchased: '1995-09-15', sold: '2024-09-29',
+    'moved-in': '1995-09-15', 'away-1-from': '1997-09-29', 'away-1-to': '2024-09-29', market: '340000' };
+  await form.locator('[name="kind"][value="home"]').check();
+  for (const [name, value] of Object.entries(fields)) await form.locator(`[name="${name}"]`).fill(value);
+  await form.locator('[name="away-1-rented"]').check();
+  await form.locator('[name="away-1-choose"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('9,863 days, 7,671 not the main residence');
+  await expect(output).toContainText('Applies: taken to be acquired on 29 September 1997 for $340,000.00');
+  await expect(output).toContainText('Total current year capital gains (label H): $155,551.05');
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$77,775.53');
+  await form.locator('[name="resident"][value="no"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('This page works out residents only');
+});
+
 test('Division 7A schedule lists each year, stops at a shortfall and refuses an interposed loan offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/div7a-schedule/');
   const form = page.locator('#div7a-schedule form');
@@ -1217,7 +1241,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits'];
 
 test.describe('before any script runs', () => {

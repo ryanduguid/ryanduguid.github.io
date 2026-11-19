@@ -120,6 +120,13 @@
     <summary>A new business calculator checks which of the 4 small business CGT concessions in Division 152 are open for one capital gain on a sale contract from 1 July 2020 to 30 June 2027: the basic conditions (a CGT small business entity under $2 million of aggregated turnover, the $6 million net asset value test or a passively held asset, and the active asset test), the 15-year exemption, the 50% active asset reduction, the retirement exemption with its $500,000 limit and the roll-over with its replacement asset period. Each result names its provision, and the page refuses shares and trust interests, sales from 1 July 2027 and totals within the days that 7.5 years can span.</summary>
   </entry>
   <entry>
+    <title>A new business calculator works out the capital gain or capital loss from one…</title>
+    <link href="https://duguid.com.au/changelog/#entry-812a713b8a4d6ba9" />
+    <id>https://duguid.com.au/changelog/#entry-812a713b8a4d6ba9</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A new business calculator works out the capital gain or capital loss from one sale with a contract from 1 July 2020 to 30 June 2027, for a resident individual, trust, complying super fund or company: the cost base and reduced cost base, the 50% or 33 1/3% discount, indexation to the September 1999 quarter, capital losses before the discount, and the main residence exemption from settlement to settlement with the 6-year absence rule, part use and the market value rule of section 118-192, with the question 18 labels and an individual’s extra tax. It gives the figures of examples 9, 10, 12 to 15, 54, 63, 64, 67 to 72 and 77 in the ATO’s Guide to capital gains tax 2026, read on 19 November 2026; example 80 counts a day fewer in the 6 years, so its figure differs. Sale contracts from 1 July 2027, under Schedule 1 to the Treasury Laws Amendment (Tax Reform No. 1) Act 2026, are refused.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>
     <link href="https://duguid.com.au/changelog/#entry-806ecf6f51665308" />
     <id>https://duguid.com.au/changelog/#entry-806ecf6f51665308</id>
