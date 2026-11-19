@@ -1,0 +1,73 @@
+# Concessional catch-up calculator: carry-forward super cap
+
+Source: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
+
+> Unused concessional cap carried forward under section 291-20, applied earliest year first, with the excess and the year each amount lapses, for 2024-25 to 2026-27.
+
+# Concessional catch-up calculator
+
+The concessional cap with the previous 5 years' unused cap carried forward, for 2024-25 to 2026-27.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Concessional contributions for one income year
+
+Income year 2026-27 2025-26 2024-25 Total super balance on 30 June before the year (dollars and cents) Concessional contributions for the year so far (dollars and cents) A further concessional contribution you are considering, if any (dollars and cents) Does the person have a defined benefit interest in any fund? No Yes
+
+Earlier years: each year from 5 before the income year to the year before it, and any earlier years back to 2018-19 without a gap. Leave a year blank if it is not one of those.
+
+Year | Concessional contributions (AUD) | Total super balance on the 30 June before it, if contributions exceeded the cap (AUD)
+2018-19 | |
+2019-20 | |
+2020-21 | |
+2021-22 | |
+2022-23 | |
+2023-24 | |
+2024-25 | |
+2025-26 | |
+
+Concessional contributions are your employer’s contributions, including salary sacrifice, and personal contributions you claim a deduction for, as your fund reports them on ATO online services.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2024-25, total super balance $450,000.00, concessional contributions $97,500.00, earlier years 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00. General concessional cap $30,000.00 Unused cap from the previous 5 years $67,500.00 Concessional cap available $97,500.00 Carried-forward cap applied $67,500.00 Cap left after this year’s contributions $0.00 Excess concessional contributions $0.00 2019-20 unused cap left, lapses after 2024-25 $0.00 2020-21 unused cap left, lapses after 2025-26 $0.00 2021-22 unused cap left, lapses after 2026-27 $0.00 2022-23 unused cap left, lapses after 2027-28 $0.00 2023-24 unused cap left, lapses after 2028-29 $0.00 2024-25 unused cap left, lapses after 2029-30 $0.00 Unused cap applies earliest year first, and only to contributions above the general cap.
+
+## How the concessional catch-up calculator works
+
+The concessional catch-up calculator works out each earlier year’s unused concessional contributions cap, the shortfall of that year’s contributions below its general cap, from 2018-19. Where an earlier year’s contributions went over its cap and the balance just before it was under $500,000, it applies the unused cap of the 5 years before that one, earliest first, as subsections 291-20(4) and (5) required for that year. What is left of the previous 5 years’ unused cap is carried into the year you choose.
+
+With a total super balance under $500,000 on 30 June before the year, the cap available is the general cap plus that carried amount. The calculator shows how much of it this year’s contributions use, any excess, and what is left of each year’s amount with the year after which it lapses. A proposed contribution is added to the contributions so far, so you can see how far it goes before it becomes excess.
+
+The ATO’s concessional contributions cap page works Sam’s example: unused cap of $14,000, $13,000, $14,500, $13,500 and $12,500 from 2019-20 to 2023-24 gives $67,500, so his 2024-25 cap is $97,500, and contributions of $97,500 use it all with no excess. The calculator opens on his figures; the ATO says only that his balance was below $500,000, so the $450,000 is fictional.
+
+## What the concessional catch-up calculator does not cover
+
+The calculator works the cap only. It does not decide what counts as a concessional contribution, in which year a contribution counts, or whether a deduction notice is valid, and it does not work out the tax on excess contributions or Division 293 tax. It does not cover a defined benefit interest, or non-concessional contributions and their bring-forward. It covers 2024-25, 2025-26 and 2026-27.
+
+Your carry-forward amounts are on ATO online services (Super, then Information, then Carry forward concessional contributions), which use the contributions your funds have reported. Confirm the figures there or with a registered tax agent before you contribute.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Concessional catch-up calculator
+
+Case | Inputs | Result
+ATO example: Sam’s $97,500 cap in 2024-25 uses all $67,500 carried forward | 2024-25, balance $450,000.00, contributions $97,500.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $97,500.00 with $67,500.00 unused from the previous 5 years, $67,500.00 applied, $0.00 excess; $0.00 lapses
+Sam’s $40,000 proposal applies 2019-20, 2020-21 and then $13,000 of 2021-22 | 2024-25, balance $450,000.00, contributions $30,000.00, proposed $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $97,500.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $0.00 excess; with the proposal $0.00 excess; $0.00 lapses
+ATO Table 2: unused amounts accrue from 2018-19, and 2019-20’s lapses after 2024-25 | 2024-25, balance $450,000.00, contributions $0.00; earlier 2018-19 $3,000.00, 2019-20 $3,000.00, 2020-21 $0.00, 2021-22 $0.00, 2022-23 $0.00, 2023-24 $0.00 | Cap $159,500.00 with $129,500.00 unused from the previous 5 years, $0.00 applied, $0.00 excess; $22,000.00 lapses
+2022-23’s excess used 2018-19 first, then $2,500 of 2020-21 | 2025-26, balance $400,000.00, contributions $40,000.00; earlier 2018-19 $5,000.00, 2019-20 $25,000.00, 2020-21 $15,000.00, 2021-22 $27,500.00, 2022-23 $50,000.00 at $300,000.00, 2023-24 $7,500.00, 2024-25 $30,000.00 | Cap $57,500.00 with $27,500.00 unused from the previous 5 years, $10,000.00 applied, $0.00 excess; $0.00 lapses
+A 6-year chain: no increase at $600,000, and 2020-21’s $5,000 lapses after 2025-26 | 2025-26, balance $450,000.00, contributions $30,000.00; earlier 2019-20 $10,000.00, 2020-21 $20,000.00, 2021-22 $40,000.00 at $600,000.00, 2022-23 $20,000.00, 2023-24 $27,500.00, 2024-25 $35,000.00 at $450,000.00 | Cap $42,500.00 with $12,500.00 unused from the previous 5 years, $0.00 applied, $0.00 excess; $5,000.00 lapses
+A balance a cent below $500,000 still carries forward | 2024-25, balance $499,999.99, contributions $40,000.00; earlier 2018-19 $25,000.00, 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $40,000.00 at $499,999.99, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $70,500.00 with $40,500.00 unused from the previous 5 years, $10,000.00 applied, $0.00 excess; $0.00 lapses
+At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
+2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
+
+One of the six individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- six individual tax calculators: https://duguid.com.au/tools/individual-tax/
