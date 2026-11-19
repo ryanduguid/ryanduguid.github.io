@@ -421,7 +421,7 @@ test('novated lease tool tests the electric car exemption and refuses what the p
   const phev = await tool.execute({ ...car, car: 'phev' });
   assert.deepEqual([phev.exempt, phev.exemptCase], [false, null]);
   assert.match(phev.reasonNotExempt, /commitment/);
-  assert.equal((await tool.execute({ ...car, car: 'phev', phevCommitment: true })).exempt, true);
+  assert.equal((await tool.execute({ ...car, car: 'phev', phevCommitment: true, firstSaleYear: '2024-25' })).exempt, true);
   await assert.rejects(tool.execute({ ...car, car: 'diesel' }), /car does not match/);
   await assert.rejects(tool.execute({ ...car, costPrice: undefined }), /costPrice/);
   assert.match(tool.description, /employee contribution method/);

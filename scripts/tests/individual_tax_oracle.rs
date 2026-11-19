@@ -1040,11 +1040,13 @@ fn the_novated_lease_engine_agrees_with_the_oracle_on_every_seeded_case() {
             } else {
                 1 + rng.below(15_000_000)
             };
+            let kind = rng.pick(&["bev", "fcev", "phev", "other"]);
             let l = Lease {
                 year,
-                kind: rng.pick(&["bev", "fcev", "phev", "other"]),
+                kind,
                 after: rng.below(5) != 0,
-                commitment: rng.below(2) == 0,
+                // A plug-in hybrid under a commitment from before 1 April 2025 was sold by 2024-25.
+                commitment: rng.below(2) == 0 && (kind != "phev" || sale_year <= "2024-25"),
                 sale_year,
                 price,
                 reduced: rng.below(4) == 0,

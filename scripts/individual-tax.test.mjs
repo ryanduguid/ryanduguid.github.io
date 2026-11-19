@@ -500,7 +500,9 @@ test('novated lease tests each condition of the electric car exemption', () => {
   assert.equal(lease({ kind: 'fcev' }).exempt, true);
   assert.equal(lease({ kind: 'other' }).reason, 'it is not a battery electric or hydrogen fuel cell car');
   assert.match(lease({ kind: 'phev' }).reason, /only under a commitment/);
-  assert.equal(lease({ kind: 'phev', commitment: true }).exempt, true);
+  assert.equal(lease({ kind: 'phev', commitment: true, saleYear: '2024-25' }).exempt, true);
+  // A plug-in hybrid in use before 1 April 2025 cannot have been first sold after 2024-25.
+  assert.throws(() => lease({ kind: 'phev', commitment: true, saleYear: '2025-26' }), /first sold by 2024-25/);
   assert.equal(lease({ kind: 'phev', year: '2024-25', saleYear: '2024-25' }).exempt, true);
   assert.equal(lease({ firstUsed: 'before', saleYear: '2021-22' }).reason, 'it was first held and used before 1 July 2022');
   assert.equal(lease({ price: '91661', gstCosts: '25000' }).exempt, true);

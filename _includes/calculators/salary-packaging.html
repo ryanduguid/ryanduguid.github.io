@@ -1,6 +1,6 @@
 <section class="business-calculator" id="salary-packaging">
 <form class="calculator-split" data-calculator="salary-packaging">
-<fieldset disabled><legend>Salary packaging inputs for one year with an FBT-exempt employer</legend><div class="form-grid"><fieldset><legend>Income year, with the FBT year ending 31 March in it</legend>
+<fieldset disabled><legend>Salary packaging inputs for one year</legend><div class="form-grid"><fieldset><legend>Income year</legend>
 <label><input type="radio" name="year" value="2026-27" checked /> 2026-27</label>
 <label><input type="radio" name="year" value="2025-26" /> 2025-26</label>
 <label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
@@ -32,7 +32,7 @@
 <label><input type="radio" name="cover" value="no" /> No</label>
 </fieldset>
 </div>
-<p class="field-note">Enter each benefit at its taxable value for the FBT year, usually what your employer pays for it. The calculator takes the salary as your only income and the benefits as paid from it evenly through the year.</p>
+<p class="field-note">Each income year takes the FBT year ending 31 March in it. Enter each benefit at its taxable value for that FBT year, usually what your employer pays for it. The calculator takes the salary as your only income and the benefits as paid from it evenly through the year.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="2026-27, Australian resident employed by a public benevolent institution or health promotion charity, salary $70,000.00, Type 2 benefits $15,899.93, Type 1 benefits $0.00, salary packaged meal entertainment $0.00 (Type 1), no study loan, with private hospital cover" rows="Benefits packaged, at their taxable value|$15,899.93;Type 2 benefits grossed up at 1.8868, to the dollar|$30,000.00;Cap for a charity|$30,000.00;Grossed-up amount liable to FBT|$0.00;FBT on it at 47%|$0.00;Reportable fringe benefits amount|$29,999.00;Tax, levies and study loan without packaging|$12,600.00;Tax, levies and study loan with packaging|$7,308.50;Tax saved|$5,291.50;Gain after the FBT, if your employer passes it on|$5,291.50" principal="9" note="Your income statement shows $29,999.00 of reportable fringe benefits: it is not taxed, but it counts for the Medicare levy surcharge, study loan repayments and other income tests" %}
 <div class="sources-applied" hidden>
@@ -54,6 +54,7 @@
 <li>rebatable employers, such as other registered charities, whose FBT is reduced by a rebate of 47% up to a $30,000 cap, or ordinary employers, who pay full FBT on packaged benefits;</li>
 <li>benefits outside the cap, such as car parking and meal entertainment that is not salary packaged, exempt benefits such as portable electronic devices, or a novated car lease, which the <a href="/tools/individual-tax/novated-lease/">novated lease calculator</a> works;</li>
 <li>package fees, the cost of the benefits themselves, or whether a benefit is Type 1 or Type 2, which your employer decides;</li>
+<li>excluded fringe benefits, such as remote area housing, which count towards the cap but are not reportable: entered here, they would raise the reportable amount;</li>
 <li>salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge;</li>
 <li>how the FBT year from 1 April to 31 March lines up with the income year from 1 July: the benefits are taken as packaged evenly in the income year.</li>
 </ul>

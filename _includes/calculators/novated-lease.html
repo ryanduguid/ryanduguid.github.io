@@ -1,6 +1,6 @@
 <section class="business-calculator" id="novated-lease">
 <form class="calculator-split" data-calculator="novated-lease">
-<fieldset disabled><legend>Novated lease inputs for one year</legend><div class="form-grid"><fieldset><legend>Income year, with the FBT year ending 31 March in it</legend>
+<fieldset disabled><legend>Novated lease inputs for one year</legend><div class="form-grid"><fieldset><legend>Income year</legend>
 <label><input type="radio" name="year" value="2026-27" checked /> 2026-27</label>
 <label><input type="radio" name="year" value="2025-26" /> 2025-26</label>
 <label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
@@ -11,7 +11,9 @@
 <label><input type="radio" name="residency" value="foreign" /> Foreign resident</label>
 </fieldset>
 <label class="field" for="novated-lease-salary">Salary for the year before the lease, without super (whole dollars)<input id="novated-lease-salary" name="salary" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="100000" required /></label>
-<fieldset><legend>The car</legend>
+</div>
+<h2>The car</h2>
+<div class="form-grid"><fieldset><legend>Kind of car</legend>
 <label><input type="radio" name="kind" value="bev" checked /> Battery electric</label>
 <label><input type="radio" name="kind" value="fcev" /> Hydrogen fuel cell electric</label>
 <label><input type="radio" name="kind" value="phev" /> Plug-in hybrid</label>
@@ -38,7 +40,9 @@
 <label><input type="radio" name="reduced" value="no" checked /> No</label>
 <label><input type="radio" name="reduced" value="yes" /> Yes: two-thirds of the cost price counts</label>
 </fieldset>
-<label class="field" for="novated-lease-days">Days in the year the car is available for your private use<input id="novated-lease-days" name="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="365" required /></label>
+</div>
+<h2>Use, costs and your tax</h2>
+<div class="form-grid"><label class="field" for="novated-lease-days">Days in the year the car is available for your private use<input id="novated-lease-days" name="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="365" required /></label>
 <label class="field" for="novated-lease-gst-costs">Yearly lease payments and running costs that include GST, such as charging or fuel, servicing, tyres and insurance (dollars and cents)<input id="novated-lease-gst-costs" name="gst-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="15000" required /></label>
 <label class="field" for="novated-lease-other-costs">Yearly costs without GST, such as registration (dollars and cents)<input id="novated-lease-other-costs" name="other-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
 <fieldset><legend>Do you have a study or training loan, such as HELP?</legend>
@@ -50,7 +54,7 @@
 <label><input type="radio" name="cover" value="no" /> No</label>
 </fieldset>
 </div>
-<p class="field-note">Take the yearly costs from your lease quote. The calculator compares the lease with paying the same costs from after-tax pay, takes the salary as your only income and the employer as registered for GST.</p>
+<p class="field-note">Each income year takes the FBT year ending 31 March in it. Take the yearly costs from your lease quote. The calculator compares the lease with paying the same costs from after-tax pay, takes the salary as your only income and the employer as registered for GST.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="2026-27, Australian resident, salary $100,000.00, battery electric car first held and used on or after 1 July 2022, first sold in 2026-27 for $60,000.00, available 365 days, costs with GST $15,000.00 and without $1,000.00, no study loan, with private hospital cover" rows="Statutory formula value for 365 days|$12,000.00;Luxury car tax threshold for fuel-efficient cars, 2026-27|$91,661.00;Electric car exemption|applies;Yearly car costs|$16,000.00;The same less the GST credits your employer claims|$14,636.36;Tax, levies and study loan paying the costs from after-tax pay|$22,200.00;Exempt: all from pre-tax salary|$14,636.36;Exempt: reportable fringe benefits amount|$22,641.00;Exempt: tax, levies and study loan|$17,516.16;Exempt: saving|$6,047.48;Were it not exempt: after-tax contribution|$12,000.00;Were it not exempt: from pre-tax salary|$3,727.27;Were it not exempt: tax, levies and study loan|$21,007.04;Were it not exempt: saving|$1,465.69" principal="9" note="The exempt car’s $22,641.00 reportable amount is not taxed, but it counts for the Medicare levy surcharge, study loan repayments and other income tests" %}
 <div class="sources-applied" hidden>
@@ -73,6 +77,7 @@
 <ul>
 <li>the lease payments themselves, the residual value, interest or fees, which come from your lease quote;</li>
 <li>the operating cost method, FBT left over when the costs are less than the taxable value, or an employer that does not claim GST credits;</li>
+<li>a vehicle designed to carry a tonne or more or 9 or more passengers, which is not a car for FBT and so not covered by the exemption;</li>
 <li>a car on which luxury car tax was paid at a later sale, a car with a value at first sale different from its cost price, or a home charger;</li>
 <li>the end of the lease, when you pay the residual or refinance;</li>
 <li>salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge.</li>

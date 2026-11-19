@@ -89,7 +89,7 @@ test('salary packaging works the ATO’s FBT example and the hospital cap', asyn
   await calculate.click();
   await expect(row('Grossed-up amount liable to FBT')).toHaveText('$4,226.00');
   await expect(row('FBT on it at 47%')).toHaveText('$1,986.22');
-  await form.getByLabel(/^A public or not-for-profit hospital/).check();
+  await form.getByLabel('A public or not-for-profit hospital').check();
   await calculate.click();
   await expect(row('Cap for a hospital or ambulance service')).toHaveText('$17,000.00');
   await expect(row('FBT on it at 47%')).toHaveText('$8,096.22');
@@ -100,6 +100,7 @@ test('novated lease names the exemption condition a plug-in hybrid fails, then a
   const form = page.locator('#novated-lease form');
   await waitForCalculator(form);
   await form.getByLabel('Plug-in hybrid', { exact: true }).check();
+  await form.getByRole('group', { name: /first retail sale/ }).getByLabel('2024-25').check();
   const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
   const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
   await calculate.click();

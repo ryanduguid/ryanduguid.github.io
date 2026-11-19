@@ -63,6 +63,9 @@ export function novatedLease(n) {
   for (const flag of ['commitment', 'reduced', 'studyLoan', 'hospitalCover']) {
     if (typeof n[/** @type {'commitment'} */ (flag)] !== 'boolean') throw new Error('Answer each yes or no question.');
   }
+  if (n.kind === 'phev' && n.commitment && n.saleYear > '2024-25') {
+    throw new Error('A plug-in hybrid in use before 1 April 2025 was first sold by 2024-25: choose that year of first sale.');
+  }
   const salary = wholeDollars(n.salary) * 100;
   const price = cents(n.price);
   const yearDays = daysInYear(n.year);
