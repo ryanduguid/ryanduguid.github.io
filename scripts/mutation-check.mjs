@@ -26,6 +26,7 @@ const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
 const projection = { file: 'assets/super-projection.mjs', test: individualTest };
+const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
 const incomeTests = { file: 'assets/income-tests.mjs', test: individualTest };
 const catchUp = { file: 'assets/concessional-catch-up.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
@@ -320,6 +321,24 @@ const MUTATIONS = [
   { ...projection, name: 'super projection allows retirement before 60', find: 'const PRESERVATION_AGE = 60;', replace: 'const PRESERVATION_AGE = 55;' },
   { ...projection, name: 'super projection accepts concessional contributions over the cap', find: 'if (first.concessional > BigInt', replace: 'if (false && first.concessional > BigInt' },
   { ...projection, name: 'super projection leaves the percentage fee out', find: 'const fees = y.fee + y.insurance + percentFee;', replace: 'const fees = y.fee + y.insurance;' },
+  { ...soleTrader, name: 'the small business offset is 13%', find: 'const OFFSET_RATE = 16;', replace: 'const OFFSET_RATE = 13;' },
+  { ...soleTrader, name: 'the small business offset has no $1,000 cap', find: 'Math.min(share, OFFSET_CAP, tax - offset - lmito)', replace: 'Math.min(share, tax - offset - lmito)' },
+  { ...soleTrader, name: 'the small business offset can take the tax below nil', find: 'Math.min(share, OFFSET_CAP, tax - offset - lmito)', replace: 'Math.min(share, OFFSET_CAP)' },
+  { ...soleTrader, name: 'the offset’s share is not capped at taxable income', find: 'Math.min(business, taxable) * tax', replace: 'business * tax' },
+  { ...soleTrader, name: 'the offset is 16% of the whole tax', find: 'Math.min(business, taxable) * tax', replace: 'taxable * tax' },
+  { ...soleTrader, name: 'the standard deduction also takes the profit', find: 'Math.min(100000, wages) : 0', replace: 'Math.min(100000, wages + profit) : 0' },
+  { ...soleTrader, name: 'the tax on the wages alone is not taken off', find: 'const businessTax = all.total - alone.total;', replace: 'const businessTax = all.total;' },
+  { ...soleTrader, name: 'the wages alone keep the other deductions off', find: 'Math.max(0, wages - deduction - deductions)', replace: 'Math.max(0, wages - deduction)' },
+  { ...soleTrader, name: 'GST is an eleventh of the GST-exclusive income', find: 'const GST_TENTHS = 10;', replace: 'const GST_TENTHS = 11;' },
+  { ...soleTrader, name: 'GST credits are not taken off', find: 'const gst = gstOnIncome - credits;', replace: 'const gst = gstOnIncome;' },
+  { ...soleTrader, name: 'the invoice share leaves the GST out of the invoices', find: 'const invoiced = income + gstOnIncome;', replace: 'const invoiced = income;' },
+  { ...soleTrader, name: 'a quarter is a third', find: 'nearest(setAside, 4)', replace: 'nearest(setAside, 3)' },
+  { ...soleTrader, name: 'GST registration at more than $75,000 only', find: 'income >= GST_THRESHOLD', replace: 'income > GST_THRESHOLD' },
+  { ...soleTrader, name: 'PAYG instalment entry at more than $4,000 only', find: 'income >= INSTALMENT_INCOME', replace: 'income > INSTALMENT_INCOME' },
+  { ...soleTrader, name: 'the surcharge is left out', find: 'const surcharge = hospitalCover ? 0 :', replace: 'const surcharge = true ? 0 :' },
+  { ...soleTrader, name: 'super contributions are left out of repayment and surcharge income', find: 'const reported = Math.floor(contributions / 100);', replace: 'const reported = 0;' },
+  { ...soleTrader, name: 'the wages alone report contributions they cannot absorb', find: 'Math.floor(aloneContributions / 100));', replace: 'reported);' },
+  { ...soleTrader, name: 'a business loss is worked', find: 'if (expenses > income) {', replace: 'if (false) {' },
   { ...div7a, name: 'Division 7A schedule counts the remaining term from the year made', find: 'const remainingTerm = term - k + 1;', replace: 'const remainingTerm = term - k + 2;' },
   { ...div7a, name: 'Division 7A schedule drops unpaid interest from the loan', find: 'const principal = repayment - interest;', replace: 'const principal = repayment > interest ? repayment - interest : 0n;' },
   { ...div7a, name: 'Division 7A schedule runs on past a shortfall', find: 'if (shortfall > 0n || opening === 0n) break;', replace: 'if (opening === 0n) break;' },
