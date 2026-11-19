@@ -106,8 +106,12 @@ export function soleTraderSetAside(s) {
   const taxable = Math.floor((profit + wages - deduction - deductions - contributions) / 100);
   const reported = Math.floor(contributions / 100);
   const all = assess(s.year, taxable, s.offset ? Math.floor(profit / 100) : 0, s.studyLoan, s.hospitalCover, reported);
-  const alone = assess(s.year, Math.floor(Math.max(0, wages - deduction - deductions - contributions) / 100), 0,
-    s.studyLoan, s.hospitalCover, reported);
+  // On the wages alone, only the contributions the wages left after the other deductions can absorb are
+  // deducted, so only they are reported.
+  const room = Math.max(0, wages - deduction - deductions);
+  const aloneContributions = Math.min(contributions, room);
+  const alone = assess(s.year, Math.floor((room - aloneContributions) / 100), 0, s.studyLoan, s.hospitalCover,
+    Math.floor(aloneContributions / 100));
   const businessTax = all.total - alone.total;
   const gst = gstOnIncome - credits;
   const setAside = businessTax + gst;

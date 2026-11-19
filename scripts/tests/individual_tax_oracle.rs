@@ -792,10 +792,10 @@ struct Sole<'a> {
 /// offset' page: with total net small business income at or above taxable income, 16% of the basic
 /// income tax liability; otherwise 16% of the liability's share in that income's proportion; at most
 /// $1,000 and no more than the tax the other offsets leave.
-fn sole_year(s: &Sole, taxable: u64, business: u64) -> [u64; 8] {
-    // Deductible personal super contributions are reportable super contributions: they join
-    // income for surcharge purposes and repayment income (HESA s 154-5(1); ATO 'Income tests').
-    let reported = s.contributions / 100;
+/// `reported` whole dollars of deductible personal super contributions are reportable super
+/// contributions: they join income for surcharge purposes and repayment income (HESA s 154-5(1);
+/// ATO 'Income tests').
+fn sole_year(s: &Sole, taxable: u64, business: u64, reported: u64) -> [u64; 8] {
     let t = tax_oracle(taxable, s.year, "resident");
     let get = |key: &str| t[key].as_u64().unwrap();
     let (tax, offset, lmito, levy) = (get("tax"), get("offset"), get("lmito"), get("medicare"));
@@ -839,12 +839,11 @@ fn sole_oracle(s: &Sole) -> Value {
     };
     let taxable = (profit + s.wages - deduction - s.deductions - s.contributions) / 100;
     let business = if s.offset { profit / 100 } else { 0 };
-    let all = sole_year(s, taxable, business);
-    let alone = sole_year(
-        s,
-        (s.wages - deduction).saturating_sub(s.deductions + s.contributions) / 100,
-        0,
-    );
+    let all = sole_year(s, taxable, business, s.contributions / 100);
+    // The wages alone deduct, and so report, only the contributions they can absorb.
+    let room = (s.wages - deduction).saturating_sub(s.deductions);
+    let absorbed = s.contributions.min(room);
+    let alone = sole_year(s, (room - absorbed) / 100, 0, absorbed / 100);
     let business_tax = i64::try_from(all[7]).unwrap() - i64::try_from(alone[7]).unwrap();
     assert!(
         business_tax >= 0,

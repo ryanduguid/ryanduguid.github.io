@@ -547,6 +547,16 @@ test('personal super contributions reduce taxable income but join repayment and 
     419.52);
 });
 
+test('on the wages alone, contributions count only up to the wages they can be deducted from', () => {
+  // $80,000 of contributions against $20,000 of wages: the wages alone deduct and report $20,000, so their
+  // repayment income is $20,000, under the 2025-26 threshold of $67,000, and nothing is due on them.
+  // Reporting all $80,000 would put $1,950 (15% of $13,000) of repayment on the wages alone.
+  const r = sole({ year: '2025-26', income: '150000', expenses: '0', wages: '20000', super: '80000', studyLoan: true });
+  assert.equal(r.taxable, 90000);
+  assert.equal(r.wagesTax, 0);
+  assert.equal(r.businessTax, r.total);
+});
+
 test('a GST-registered business sets aside GST less credits, and one share of each invoice covers both', () => {
   const r = sole({ income: '90000', expenses: '15000', wages: '0', gst: true, credits: '1200', invoice: '1100' });
   assert.deepEqual([r.gstOnIncome, r.gst, r.businessTax, r.setAside], [9000, 7800, 13520, 21320]);
