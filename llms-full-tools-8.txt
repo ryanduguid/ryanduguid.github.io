@@ -34,7 +34,7 @@ Year | Income year | Arrears (whole dollars)
 3 | |
 4 | |
 
-Each year’s amount is on your income statement or the payer’s letter; leave unused years blank.
+Leave unused rows blank; over 6 accrual years, put the oldest years’ total in row 4.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, taxable income $100,000.00, net capital gain $0.00, accrual years 2023-24 $3,000.00 on taxable income $30,000.00, 2022-23 $2,500.00 on taxable income $17,000.00, 2021-22 $1,400.00, 2020-21 $1,700.00, 2019-20 $1,400.00, 2018-19 $1,000.00. Total arrears amount $11,000.00 Normal taxable income $100,000.00 10% of normal taxable income less the arrears $8,900.00 Tax on arrears in 2025-26 $3,300.00 Notional tax for 2023-24 $570.00 Notional tax for 2022-23 $247.00 Notional tax for the distant years $794.75 Notional tax on arrears $1,611.75 Lump sum payment in arrears tax offset $1,688.25 The distant years 2021-22, 2020-21, 2019-20 and 2018-19 take the average rate on recent arrears, 14.45%: 19% for 2023-24 and 9.9% for 2022-23.
 
@@ -42,7 +42,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 Salary, wages or a Centrelink or compensation payment that you receive as a lump sum, for earlier years, is taxed in the year you receive it, often at a higher rate than it would have been in the years it was for. The tax offset gives back the difference. The calculator first tests whether the arrears are at least 10% of the rest of your normal taxable income for the year. If they are, it works out the tax the arrears add this year and the tax they would have added in the years they accrued in, and the offset is the amount by which the first exceeds the second.
 
-For the 2 latest accrual years it adds the arrears to that year’s taxable income at that year’s resident rates. Arrears from any earlier years are taxed at the average of those 2 years’ rates. Where a recent year was itself a year you got this offset for, or arrears of such a year accrued in it, its income is adjusted as the Act directs.
+For the 2 latest accrual years it adds the arrears to that year’s taxable income at that year’s resident rates. Arrears from any earlier years are taxed at the average of those 2 years’ rates, so the oldest years’ arrears can share one row. Where a recent year was itself a year you got this offset for, or arrears of such a year accrued in it, its income is adjusted as the Act directs.
 
 The ATO’s page on lump sum payments in arrears works Yan’s breakdown of arrears by year, received in 2025-26. The calculator opens on it; the ATO does not give Yan’s taxable incomes, so the $100,000, $30,000 and $17,000 are fictional. Anthony’s, Sudeep’s and Heather’s examples are among the boundary cases.
 

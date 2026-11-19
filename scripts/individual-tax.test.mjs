@@ -458,6 +458,19 @@ test('Yan’s distant years take the average of the 2 recent years’ rates, eac
   assert.deepEqual([fourth.rates.mostRecent, fourth.rates.secondMostRecent, fourth.distant.amount], [0.099, 0.098, 98.5]);
 });
 
+// s 159ZRD(1): every distant year takes the same average rate, so the form's note to put the oldest years' total in
+// its last row, when there are more than 6 accrual years, gives the offset the years entered one by one give.
+test('distant years entered together give the offset they give one by one', () => {
+  const recent = [['2023-24', '3000', '30000'], ['2022-23', '2500', '17000']];
+  const apart = arrears('2025-26', '100000', [...recent, ['2021-22', '1400'], ['2020-21', '1700'], ['2019-20', '1400'],
+    ['2018-19', '1000'], ['2017-18', '800']]);
+  const together = arrears('2025-26', '100000', [...recent, ['2021-22', '1400'], ['2020-21', '1700'], ['2019-20', '1400'],
+    ['2018-19', '1800']]);
+  assert.deepEqual([together.distant.amount, together.offset], [apart.distant.amount, apart.offset]);
+  // 11,800 at 30% is 3,540, less 570, 247 and 6,300 at 0.1445 (910.35).
+  assert.equal(apart.offset, 1812.65);
+});
+
 test('recent years use taxable income and the distant years’ rate normal taxable income', () => {
   const r = arrears('2025-26', '60000', [['2023-24', '3000', '50000', { gain: '10000' }], ['2022-23', '2500', '17000'],
     ['2021-22', '1000']]);
