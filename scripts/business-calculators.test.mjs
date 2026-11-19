@@ -3320,6 +3320,12 @@ test('long service leave words each Act’s misconduct test and states the condi
     assert.ok(!ends(place, 'misconduct').rule.includes('wilful'), place);
     assert.ok(shown(place, 'misconduct').includes('ends by dismissal for serious misconduct,'), place);
   }
+  // The form's labels, shared by all 8 Acts, carry the same distinction.
+  const wilful = '(serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory)</label>';
+  for (const label of [`value="performance" /> Dismissal for conduct, capacity or performance short of serious misconduct ${wilful}`,
+    `value="misconduct" /> Dismissal for serious misconduct ${wilful}`]) {
+    assert.ok(lslHtml.includes(label), label);
+  }
   // SA s 5(4)(b): leaving without the required notice is an unlawful termination only where the notice was required.
   assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
