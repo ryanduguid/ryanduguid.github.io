@@ -905,6 +905,7 @@ struct Lease<'a> {
     commitment: bool,
     sale_year: &'a str,
     price: u64,
+    other_supply: bool,
     reduced: bool,
     days: u64,
     gst_costs: u64,
@@ -943,6 +944,10 @@ fn lease_oracle(l: &Lease) -> Value {
         (
             l.price > lct_threshold(l.sale_year) * 100,
             "luxury car tax was payable on its first retail sale",
+        ),
+        (
+            l.other_supply,
+            "luxury car tax became payable on another supply or an importation of it",
         ),
     ];
     let reason = failures
@@ -987,6 +992,7 @@ fn the_oracle_works_the_novated_lease_examples_by_hand() {
         commitment: false,
         sale_year: "2026-27",
         price: 6_000_000,
+        other_supply: false,
         reduced: false,
         days: 365,
         gst_costs: 1_500_000,
@@ -1049,6 +1055,7 @@ fn the_novated_lease_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 commitment: rng.below(2) == 0 && (kind != "phev" || sale_year <= "2024-25"),
                 sale_year,
                 price,
+                other_supply: rng.below(8) == 0,
                 reduced: rng.below(4) == 0,
                 days: if rng.below(2) == 0 { days_in(year) } else { rng.below(days_in(year) + 1) },
                 gst_costs: rng.below(4_000_001),
@@ -1057,7 +1064,7 @@ fn the_novated_lease_engine_agrees_with_the_oracle_on_every_seeded_case() {
             let input = json!({"year": year, "residency": if rng.below(4) == 0 { "foreign" } else { "resident" },
                 "salary": "400000", "studyLoan": rng.below(2) == 0, "hospitalCover": rng.below(2) == 0, "kind": l.kind,
                 "firstUsed": if l.after { "after" } else { "before" }, "commitment": l.commitment, "saleYear": sale_year,
-                "price": money(price), "reduced": l.reduced, "days": l.days.to_string(), "gstCosts": money(l.gst_costs),
+                "price": money(price), "otherSupply": l.other_supply, "reduced": l.reduced, "days": l.days.to_string(), "gstCosts": money(l.gst_costs),
                 "otherCosts": money(l.other_costs)});
             (json!({"kind": "lease", "lease": input}), lease_oracle(&l))
         })

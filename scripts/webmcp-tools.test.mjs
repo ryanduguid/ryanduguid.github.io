@@ -408,6 +408,7 @@ test('salary packaging tool gives the ATO’s FBT example and refuses what the p
     /incomeYear does not match/);
   await assert.rejects(tool.execute({ incomeYear: '2026-27', residency: 'resident', employer: 'charity' }), /salary/);
   assert.match(tool.description, /rebatable or ordinary employers/);
+  assert.match(tool.inputSchema.properties.employer.description, /predominantly in or supporting its ambulance services/);
 });
 
 test('novated lease tool tests the electric car exemption and refuses what the page refuses', async () => {
@@ -422,6 +423,7 @@ test('novated lease tool tests the electric car exemption and refuses what the p
   assert.deepEqual([phev.exempt, phev.exemptCase], [false, null]);
   assert.match(phev.reasonNotExempt, /commitment/);
   assert.equal((await tool.execute({ ...car, car: 'phev', phevCommitment: true, firstSaleYear: '2024-25' })).exempt, true);
+  assert.match((await tool.execute({ ...car, luxuryCarTaxOnOtherSupply: true })).reasonNotExempt, /another supply or an importation/);
   await assert.rejects(tool.execute({ ...car, car: 'diesel' }), /car does not match/);
   await assert.rejects(tool.execute({ ...car, costPrice: undefined }), /costPrice/);
   assert.match(tool.description, /employee contribution method/);

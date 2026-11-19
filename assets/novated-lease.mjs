@@ -24,12 +24,14 @@ export const FUEL_EFFICIENT_THRESHOLD = /** @type {Record<string, number>} */ ({
 
 /**
  * @typedef {{year: string, residency: string, salary: string, studyLoan: boolean, hospitalCover: boolean, kind: string,
- *   firstUsed: string, commitment: boolean, saleYear: string, price: string, reduced: boolean, days: string,
- *   gstCosts: string, otherCosts: string}} Lease
+ *   firstUsed: string, commitment: boolean, saleYear: string, price: string, otherSupply: boolean, reduced: boolean,
+ *   days: string, gstCosts: string, otherCosts: string}} Lease
  */
 
-/** Why s 8A does not exempt the car's benefits, or null when it does. A plug-in hybrid stopped being
- * a zero or low emissions vehicle on 1 April 2025 (s 8A(2)); the ATO's 'FBT on plug-in hybrid
+/** Why s 8A does not exempt the car's benefits, or null when it does, the payee being a current employee
+ * (s 8A(1)(a)). Luxury car tax payable on any supply or importation fails s 8A(1)(c): at the first retail
+ * sale read from the cost price, at any other supply or importation from `otherSupply`. A plug-in hybrid
+ * stopped being a zero or low emissions vehicle on 1 April 2025 (s 8A(2)); the ATO's 'FBT on plug-in hybrid
  * electric vehicles' (last updated 14 March 2025) keeps the exemption where it applied to the car's
  * use before that date under a financially binding commitment that continues unchanged.
  * @param {Lease} n @param {number} price cents */
@@ -40,6 +42,7 @@ function notExempt(n, price) {
   }
   if (n.firstUsed !== 'after') return 'it was first held and used before 1 July 2022';
   if (price > FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100) return 'luxury car tax was payable on its first retail sale';
+  if (n.otherSupply) return 'luxury car tax became payable on another supply or an importation of it';
   return null;
 }
 
@@ -60,7 +63,7 @@ export function novatedLease(n) {
   if (!Object.hasOwn(FUEL_EFFICIENT_THRESHOLD, n.saleYear) || n.saleYear > n.year) {
     throw new Error('Choose the year of the car’s first retail sale, from 2021-22 to the income year.');
   }
-  for (const flag of ['commitment', 'reduced', 'studyLoan', 'hospitalCover']) {
+  for (const flag of ['commitment', 'otherSupply', 'reduced', 'studyLoan', 'hospitalCover']) {
     if (typeof n[/** @type {'commitment'} */ (flag)] !== 'boolean') throw new Error('Answer each yes or no question.');
   }
   if (n.kind === 'phev' && n.commitment && n.saleYear > '2024-25') {

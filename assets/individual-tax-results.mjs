@@ -156,8 +156,8 @@ function novatedLeaseResult(value, aud) {
   const flag = (/** @type {string} */ name) => value(name) === 'yes';
   const r = novatedLease({ year: value('year'), residency: value('residency'), salary: value('salary'), studyLoan: flag('study-loan'),
     hospitalCover: flag('cover'), kind: value('kind'), firstUsed: value('first-used'), commitment: flag('commitment'),
-    saleYear: value('sale-year'), price: value('price'), reduced: flag('reduced'), days: value('days'),
-    gstCosts: value('gst-costs'), otherCosts: value('other-costs') });
+    saleYear: value('sale-year'), price: value('price'), otherSupply: flag('other-supply'), reduced: flag('reduced'),
+    days: value('days'), gstCosts: value('gst-costs'), otherCosts: value('other-costs') });
   const rows = [[`Statutory formula value for ${value('days')} days`, aud(r.taxableValue)],
     [`Luxury car tax threshold for fuel-efficient cars, ${value('sale-year')}`, aud(r.threshold)],
     ['Electric car exemption', r.exempt ? 'applies' : `does not apply: ${r.reason}`],
@@ -184,7 +184,8 @@ function novatedLeaseResult(value, aud) {
   return { inputs: `${r.year}, ${value('residency') === 'resident' ? 'Australian resident' : 'foreign resident'}, salary `
     + `${aud(Number(value('salary')))}, ${CAR[value('kind')]} first held and used ${value('first-used') === 'after' ? 'on or after' : 'before'} `
     + `1 July 2022${value('kind') === 'phev' ? `, ${flag('commitment') ? 'with' : 'without'} a commitment from before 1 April 2025` : ''}, `
-    + `first sold in ${value('sale-year')} for ${aud(Number(value('price')))}, ${flag('reduced') ? 'held over 4 years, ' : ''}`
+    + `first sold in ${value('sale-year')} for ${aud(Number(value('price')))}, `
+    + `${flag('other-supply') ? 'luxury car tax payable at another sale or importation, ' : ''}${flag('reduced') ? 'held over 4 years, ' : ''}`
     + `available ${value('days')} days, costs with GST ${aud(Number(value('gst-costs')))} and without ${aud(Number(value('other-costs')))}, `
     + `${flag('study-loan') ? 'with' : 'no'} study loan, ${flag('cover') ? 'with' : 'without'} private hospital cover`, rows, principal, note };
 }

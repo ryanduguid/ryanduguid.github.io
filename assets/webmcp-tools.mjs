@@ -523,8 +523,9 @@ const SALARY_PACKAGING_DESCRIPTION = 'Salary packaging in AUD for one employee o
   + `package fees, other income or a spouse. Sources on ${INDIVIDUAL}salary-packaging/.`;
 const NOVATED_LEASE_DESCRIPTION = 'A novated car lease in AUD for one year against paying the same costs from after-tax pay. '
   + 'The electric car exemption (FBTAA s 8A) applies to a battery electric or hydrogen fuel cell car first held and used '
-  + 'on or after 1 July 2022 with no luxury car tax payable (cost price at or under the fuel-efficient threshold for its '
-  + 'first sale year), and to a plug-in hybrid from 1 April 2025 only under an earlier unchanged commitment. An exempt car '
+  + 'on or after 1 July 2022, for a current employee, with no luxury car tax payable on any supply or importation (cost '
+  + 'price at or under the fuel-efficient threshold for its first sale year), and to a plug-in hybrid from 1 April 2025 '
+  + 'only under an earlier unchanged commitment. An exempt car '
   + 'is packaged wholly from pre-tax salary and its statutory formula value is reportable; otherwise the employee '
   + 'contribution method pays the taxable value after tax, ten elevenths of it towards the costs. Costs with GST are '
   + 'taken less the employer\'s GST credit. It does not compute lease payments, the residual, the operating cost method '
@@ -665,6 +666,8 @@ function novatedLeaseTool(novatedLease, novatedYears) {
       phevCommitment: { type: 'boolean', description: 'Plug-in hybrid: true when its use was exempt before 1 April 2025 under a commitment still unchanged; false when omitted.' },
       firstSaleYear: choice(['2026-27', '2025-26', '2024-25', '2023-24', '2022-23', '2021-22'], 'Financial year of the car\'s first retail sale.'),
       costPrice: text('amount', 'Cost price with GST and dealer-fitted options, without registration and stamp duty, in AUD.'),
+      luxuryCarTaxOnOtherSupply: { type: 'boolean', description: 'true when luxury car tax became payable on a sale other '
+        + 'than the first retail sale, or on an importation; false when omitted.' },
       heldOverFourYears: { type: 'boolean', description: 'true when the lessor held the car more than 4 years before the FBT year; false when omitted.' },
       daysAvailable: whole(0, 366, 'Days in the year the car is available for private use.'),
       costsWithGst: text('amount', 'Yearly lease payments and running costs that include GST, in AUD.'),
@@ -674,10 +677,12 @@ function novatedLeaseTool(novatedLease, novatedYears) {
     }, ['incomeYear', 'residency', 'salary', 'car', 'firstHeldAndUsedFrom1July2022', 'firstSaleYear', 'costPrice', 'daysAvailable',
       'costsWithGst']),
     run({ incomeYear, residency, salary, car, firstHeldAndUsedFrom1July2022, phevCommitment = false, firstSaleYear, costPrice,
-      heldOverFourYears = false, daysAvailable, costsWithGst, costsWithoutGst = '0', studyLoan = false, privateHospitalCover = true }) {
+      luxuryCarTaxOnOtherSupply = false, heldOverFourYears = false, daysAvailable, costsWithGst, costsWithoutGst = '0', studyLoan = false,
+      privateHospitalCover = true }) {
       const r = novatedLease({ year: incomeYear, residency, salary: String(salary), studyLoan, hospitalCover: privateHospitalCover,
         kind: car, firstUsed: firstHeldAndUsedFrom1July2022 ? 'after' : 'before', commitment: phevCommitment, saleYear: firstSaleYear,
-        price: costPrice, reduced: heldOverFourYears, days: String(daysAvailable), gstCosts: costsWithGst, otherCosts: costsWithoutGst });
+        price: costPrice, otherSupply: luxuryCarTaxOnOtherSupply, reduced: heldOverFourYears, days: String(daysAvailable),
+        gstCosts: costsWithGst, otherCosts: costsWithoutGst });
       const way = (/** @type {{preTax: number, postTax: number, reportable: number, owed: number, saving: number} | null} */ c) => (c
         ? { preTax: dollars(c.preTax), postTax: dollars(c.postTax), reportableFringeBenefits: dollars(c.reportable), owed: dollars(c.owed),
           saving: dollars(c.saving) } : null);

@@ -41,7 +41,8 @@ const INPUTS = {
     + `${p.typeOne === '0' ? '' : `, Type 1 ${dollars(p.typeOne)}`}`
     + `${p.meals === '0' ? '' : `, meal entertainment ${dollars(p.meals)} (Type ${p.mealsTypeOne ? 1 : 2})`}${flags(p)}`,
   novatedLease: (n) => `${n.year}, ${n.kind}, first held and used ${n.firstUsed} 1 July 2022`
-    + `${n.commitment ? ', earlier commitment' : ''}, sold ${n.saleYear} at ${dollars(n.price)}${n.reduced ? ', held over 4 years' : ''}, `
+    + `${n.commitment ? ', earlier commitment' : ''}, sold ${n.saleYear} at ${dollars(n.price)}${n.otherSupply ? ', luxury car tax at another supply' : ''}`
+    + `${n.reduced ? ', held over 4 years' : ''}, `
     + `${n.days} days, costs ${dollars(n.gstCosts)} with GST and ${dollars(n.otherCosts)} without, salary ${whole(n.salary)}${flags(n)}`,
 };
 const OUTPUTS = {
@@ -101,8 +102,8 @@ const FORM_CALLS = {
     hospitalCover: f.cover === 'yes' }],
   novatedLease: (f) => [{ year: f.year, residency: f.residency, salary: f.salary, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes', kind: f.kind, firstUsed: f['first-used'], commitment: f.commitment === 'yes',
-    saleYear: f['sale-year'], price: f.price, reduced: f.reduced === 'yes', days: f.days, gstCosts: f['gst-costs'],
-    otherCosts: f['other-costs'] }],
+    saleYear: f['sale-year'], price: f.price, otherSupply: f['other-supply'] === 'yes', reduced: f.reduced === 'yes', days: f.days,
+    gstCosts: f['gst-costs'], otherCosts: f['other-costs'] }],
 };
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the worked example`, () => {
@@ -491,8 +492,8 @@ test('salary packaging refuses what it does not compute', () => {
 });
 
 const LEASE = { year: '2026-27', residency: 'resident', salary: '100000', studyLoan: false, hospitalCover: true, kind: 'bev',
-  firstUsed: 'after', commitment: false, saleYear: '2026-27', price: '60000', reduced: false, days: '365', gstCosts: '15000',
-  otherCosts: '1000' };
+  firstUsed: 'after', commitment: false, saleYear: '2026-27', price: '60000', otherSupply: false, reduced: false, days: '365',
+  gstCosts: '15000', otherCosts: '1000' };
 const lease = (fields) => novatedLease({ ...LEASE, ...fields });
 
 test('novated lease tests each condition of the electric car exemption', () => {
@@ -509,6 +510,7 @@ test('novated lease tests each condition of the electric car exemption', () => {
   assert.equal(lease({ price: '91661.01', gstCosts: '25000' }).reason, 'luxury car tax was payable on its first retail sale');
   assert.equal(lease({ saleYear: '2025-26', price: '91387.01', gstCosts: '25000' }).exempt, false);
   assert.equal(lease({ saleYear: '2025-26', price: '91387', gstCosts: '25000' }).exempt, true);
+  assert.equal(lease({ otherSupply: true }).reason, 'luxury car tax became payable on another supply or an importation of it');
 });
 
 // The ATO's Luxury car tax rate and thresholds (last updated 1 June 2026, read 19 November 2026).
@@ -546,5 +548,6 @@ test('novated lease refuses what it does not compute', () => {
   assert.throws(() => lease({ salary: '10000', gstCosts: '15000' }), { message: 'The car’s costs cannot exceed the salary.' });
   assert.throws(() => lease({ kind: 'other', gstCosts: '1000' }), /cannot cover it/);
   assert.throws(() => lease({ commitment: 'no' }), { message: 'Answer each yes or no question.' });
+  assert.throws(() => lease({ otherSupply: undefined }), { message: 'Answer each yes or no question.' });
   assert.throws(() => lease({ days: '367' }), /between 0/);
 });
