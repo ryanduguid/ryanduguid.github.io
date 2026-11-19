@@ -882,18 +882,35 @@ fn the_oracle_works_the_schedule_5_examples_by_hand() {
         to_date: (0, 1, 0, 0),
     };
     // Example 1, Jarrod: $1,400 a week and a $900 bonus with HELP, $641 in all.
-    let jarrod = bonus_oracle(&Bonus { earnings: 140_000, additional: 90_000, ..pay("week", true, true) });
+    let jarrod = bonus_oracle(&Bonus {
+        earnings: 140_000,
+        additional: 90_000,
+        ..pay("week", true, true)
+    });
     assert_eq!(jarrod["total"], 64_100);
     // Example 2, Robyn: 8 weeks of $100 back pay on $1,600, $331 and $40 withheld then, $794 now.
-    let robyn = bonus_oracle(&Bonus { earnings: 170_000, back: (8, 160_000, 10_000, 37_100), ..pay("week", true, false) });
+    let robyn = bonus_oracle(&Bonus {
+        earnings: 170_000,
+        back: (8, 160_000, 10_000, 37_100),
+        ..pay("week", true, false)
+    });
     assert_eq!(robyn["total"], 79_400);
     // Example 3, Laura: $2,480 of arrears, $18,000 over 10 fortnights, $992.
-    let laura = bonus_oracle(&Bonus { earnings: 180_000, additional: 248_000, to_date: (1_800_000, 10, 0, 0),
-        ..pay("fortnight", false, false) });
+    let laura = bonus_oracle(&Bonus {
+        earnings: 180_000,
+        additional: 248_000,
+        to_date: (1_800_000, 10, 0, 0),
+        ..pay("fortnight", false, false)
+    });
     assert_eq!(laura["total"], 99_200);
     // Example 4, Bradley: $1,600 by B(i) and $8,800 by B(ii) with a Financial Supplement debt, $6,492.
-    let bradley = bonus_oracle(&Bonus { earnings: 700_000, additional: 880_000, back: (2, 620_000, 80_000, 125_700),
-        to_date: (1_940_000, 3, 0, 0), ..pay("month", true, false) });
+    let bradley = bonus_oracle(&Bonus {
+        earnings: 700_000,
+        additional: 880_000,
+        back: (2, 620_000, 80_000, 125_700),
+        to_date: (1_940_000, 3, 0, 0),
+        ..pay("month", true, false)
+    });
     assert_eq!(bradley["total"], 649_200);
 }
 
