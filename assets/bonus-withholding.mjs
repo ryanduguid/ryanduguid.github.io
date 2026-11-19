@@ -78,7 +78,7 @@ export function bonusWithholding(b) {
       return Math.round(r.salary * 100) - Math.round(r.net * 100);
     };
     const year = earnings * pays;
-    return { method: 'A', spread, step1: step1 / 100, step2, step3: step3 / 100, step4: (step1 + step3) / 100, step5, step7,
+    return { method: /** @type {'A'} */ ('A'), spread, step1: step1 / 100, step2, step3: step3 / 100, step4: (step1 + step3) / 100, step5, step7,
       limit: Math.floor((additional * 47) / 100) / 100, onAdditional, onEarnings: step2.total,
       total: step2.total + onAdditional, yearTax: (owed(year + additional) - owed(year)) / 100 };
   }
@@ -111,6 +111,6 @@ export function bonusWithholding(b) {
       step8: step8 / 100, limit: Math.floor((additional * 47) / 100) / 100, onAdditional: limited(step8, additional) };
   }
   const onAdditional = Math.round(((methodBi?.onBackPayment ?? 0) * 100 + (methodBii?.onAdditional ?? 0) * 100)) / 100;
-  return { method: 'B', base, methodBi, methodBii, onEarnings: base.total, onAdditional,
+  return { method: /** @type {'B'} */ ('B'), base, methodBi, methodBii, onEarnings: base.total, onAdditional,
     total: Math.round(base.total * 100 + onAdditional * 100) / 100 };
 }

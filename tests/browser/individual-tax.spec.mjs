@@ -81,11 +81,11 @@ test('Method B works a back payment over 2 years by B(i) and B(ii), as the ATOâ€
   await waitForCalculator(form);
   await form.getByLabel('Monthly').check();
   await form.getByLabel(/^Gross earnings this pay/).fill('7000');
-  await form.getByLabel(/^Method B:/).check();
+  await form.getByLabel('Method B: B(i) for back pay').check();
   await form.getByLabel(/^Bonus, commission or other additional payment/).fill('8800');
-  for (const [label, amount] of [[/^Method B\(i\): earlier pays/, '2'], [/^Method B\(i\): back payment for each/, '800'],
-    [/^Method B\(i\): earnings each/, '6200'], [/^Method B\(i\): amount withheld/, '1257'],
-    [/^Method B\(ii\): normal earnings/, '19400'], [/^Method B\(ii\): pays this year/, '3']]) {
+  for (const [label, amount] of [[/^Earlier pays this year it covers/, '2'], [/^Back payment for each/, '800'],
+    [/^Earnings each of those pays/, '6200'], [/^Withheld from each of those pays/, '1257'],
+    [/^Normal earnings this year to date/, '19400'], [/^Pays this year to date/, '3']]) {
     await form.getByLabel(label).fill(amount);
   }
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
