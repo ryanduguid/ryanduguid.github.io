@@ -183,118 +183,126 @@ function distribution(x, n, f) {
   return { date, amount, allocated, permitted };
 }
 
-/** ss 202-60, 202-65, 203-30 and 203-50: each distribution's credit and percentage, the benchmark of its
- * franking period and what the benchmark rule makes of it. */
-function benchmarkRule(/** @type {ReturnType<typeof distribution>[]} */ dists, /** @type {ReturnType<typeof facts>} */ f) {
+/** @typedef {ReturnType<typeof facts>} Facts */
+/** @typedef {{start: string, end: string, benchmark: Q | null}} Period */
+/** @typedef {{maximum: Q, credit: Q, pct: Q, period: number, reference: Q | null, over: Q, under: Q}} Worked */
+/** @typedef {{date: string, item: string, credit: boolean, cls: 'credit' | 'trigger' | 'refund' | 'other', amount: Q}} Line */
+/** @typedef {{before: Q, forward: Q, earlier: boolean | null}} IncomeTax */
+
+/** ss 202-60, 202-65 and 203-50: one distribution's credit and percentage, and what the benchmark of its
+ * franking period, set by the first (s 203-30), makes of it.
+ * @param {ReturnType<typeof distribution>} dist @param {number} i @param {Period[]} periods @param {Facts} f
+ * @returns {Worked} */
+function workDistribution(dist, i, periods, f) {
+  const maximum = div(dist.amount, f.grossUp);
+  const credit = min(dist.allocated, maximum);
+  const pct = min(mul(div(dist.allocated, maximum), q(100n)), q(100n));
+  const period = periods.findIndex((p) => dist.date >= p.start && dist.date <= p.end);
+  let reference = /** @type {Q | null} */ (null);
+  let differential = ZERO;
+  const set = periods[period].benchmark;
+  if (!set) {
+    if (dist.permitted) {
+      throw new Error(`Distribution ${i + 1}: a permitted percentage is for a distribution after the first in its franking period, whose franking percentage sets the benchmark (s 203-30).`);
+    }
+    periods[period].benchmark = pct;
+  } else if (!f.exempt) {
+    reference = dist.permitted ?? set;
+    differential = sub(pct, reference);
+  }
+  const consequence = div(mul(dist.amount, differential.n < 0n ? neg(differential) : differential), mul(q(100n), f.grossUp));
+  return { maximum, credit, pct, period, reference, over: differential.n > 0n ? consequence : ZERO,
+    under: differential.n < 0n ? consequence : ZERO };
+}
+
+/** Each distribution under the benchmark rule, in its franking period.
+ * @param {ReturnType<typeof distribution>[]} dists @param {Facts} f */
+function benchmarkRule(dists, f) {
   const second = addMonths(f.start, 6);
   // s 203-45: a private company's franking period is its income year; otherwise each half (s 203-40(2)).
-  const periods = f.private ? [{ start: f.start, end: f.end, benchmark: /** @type {Q | null} */ (null) }]
-    : [{ start: f.start, end: isoOf(dayOf(second) - 1), benchmark: /** @type {Q | null} */ (null) },
-      { start: second, end: f.end, benchmark: /** @type {Q | null} */ (null) }];
-  const worked = dists.map((dist, i) => {
-    const maximum = div(dist.amount, f.grossUp);
-    const credit = min(dist.allocated, maximum);
-    const pct = min(mul(div(dist.allocated, maximum), q(100n)), q(100n));
-    const period = periods.findIndex((p) => dist.date >= p.start && dist.date <= p.end);
-    let reference = /** @type {Q | null} */ (null);
-    let differential = ZERO;
-    const set = periods[period].benchmark;
-    if (!set) {
-      if (dist.permitted) {
-        throw new Error(`Distribution ${i + 1}: a permitted percentage is for a distribution after the first in its franking period, whose franking percentage sets the benchmark (s 203-30).`);
-      }
-      periods[period].benchmark = pct;
-    } else if (!f.exempt) {
-      reference = dist.permitted ?? set;
-      differential = sub(pct, reference);
-    }
-    const consequence = div(mul(dist.amount, differential.n < 0n ? neg(differential) : differential), mul(q(100n), f.grossUp));
-    return { maximum, credit, pct, period, reference, over: differential.n > 0n ? consequence : ZERO,
-      under: differential.n < 0n ? consequence : ZERO };
-  });
+  /** @type {Period[]} */
+  const periods = f.private ? [{ start: f.start, end: f.end, benchmark: null }]
+    : [{ start: f.start, end: isoOf(dayOf(second) - 1), benchmark: null }, { start: second, end: f.end, benchmark: null }];
+  const worked = dists.map((dist, i) => workDistribution(dist, i, periods, f));
   return { periods, worked };
 }
 
 /** The sum of the credits less the debits, from `opening`. @param {Q} opening @param {{credit: boolean, amount: Q}[]} lines */
 const balanceOf = (opening, lines) => lines.reduce((sum, l) => (l.credit ? add(sum, l.amount) : sub(sum, l.amount)), opening);
 
-/**
- * The franking account for one income year: its lines and balance, franking deficit tax and its offset, the
- * benchmark rule's over-franking tax and debits, the significant variation test and the franking return's
- * amounts and due date.
- * @param {FrankingInput} input money and percentages as decimal strings, dates as YYYY-MM-DD
- * @returns {FrankingResult} money in AUD
- */
-export function frankingAccount(input) {
-  const f = facts(input);
-  const opening = money('Opening balance', input.opening, -1e12);
-  let rdPool = money('R&D deferral brought forward', input.rdForward);
-  let last = /** @type {{pct: Q, since: number} | null} */ (null);
-  if (input.lastBenchmark.trim() !== '') {
-    const since = Number(input.periodsSince);
-    if (!/^\d+$/.test(input.periodsSince.trim()) || since < 1 || since > 1000) {
-      throw new Error('Enter the franking periods from the one after the last benchmark’s to this year’s first, counted: a whole number from 1.');
-    }
-    last = { pct: percentage('Last benchmark', input.lastBenchmark), since };
+/** The earlier benchmark, if one was given. @param {FrankingInput} input */
+function lastBenchmark(input) {
+  if (input.lastBenchmark.trim() === '') return null;
+  const since = Number(input.periodsSince);
+  if (!/^\d+$/.test(input.periodsSince.trim()) || since < 1 || since > 1000) {
+    throw new Error('Enter the franking periods from the one after the last benchmark’s to this year’s first, counted: a whole number from 1.');
   }
-  const events = input.events.map((e, i) => event(e, i + 1, f));
-  const dists = input.distributions.map((x, i) => distribution(x, i + 1, f));
-  for (let i = 1; i < dists.length; i += 1) {
-    if (dists[i].date < dists[i - 1].date) {
-      throw new Error(`Distribution ${i + 1}: enter the distributions in date order; the first in a franking period sets its benchmark (s 203-30).`);
-    }
-  }
-  const taxGiven = [input.taxBefore, input.offsetForward].some((t) => t.trim() !== '');
-  let tax = /** @type {{before: Q, forward: Q, earlier: boolean | null} | null} */ (null);
-  if (taxGiven) {
-    const before = money('Income tax before this offset', input.taxBefore);
-    const forward = money('Offset brought forward', input.offsetForward);
-    if (f.private && !['yes', 'no'].includes(input.earlierLiability)) {
-      throw new Error('Say whether the private company had an income tax liability for an earlier income year (s 205-70(5)(c)).');
-    }
-    tax = { before, forward, earlier: f.private ? input.earlierLiability === 'yes' : null };
-  }
-  const { periods, worked } = benchmarkRule(dists, f);
+  return { pct: percentage('Last benchmark', input.lastBenchmark), since };
+}
 
-  // The year's lines in date order (on one day, events as given, then distributions), opening with the
-  // credit for last year's franking deficit tax when the year opens in deficit.
-  /** @type {{date: string, item: string, credit: boolean, cls: 'credit' | 'trigger' | 'refund' | 'other', amount: Q}[]} */
+/** The income tax facts s 205-70 applies the offset to, if any were given.
+ * @param {FrankingInput} input @param {Facts} f @returns {IncomeTax | null} */
+function incomeTax(input, f) {
+  if (![input.taxBefore, input.offsetForward].some((t) => t.trim() !== '')) return null;
+  const before = money('Income tax before this offset', input.taxBefore);
+  const forward = money('Offset brought forward', input.offsetForward);
+  if (f.private && !['yes', 'no'].includes(input.earlierLiability)) {
+    throw new Error('Say whether the private company had an income tax liability for an earlier income year (s 205-70(5)(c)).');
+  }
+  return { before, forward, earlier: f.private ? input.earlierLiability === 'yes' : null };
+}
+
+/** One event's line, with the R&D deferral applied: s 205-15(4) reduces a PAYG instalment or income tax
+ * paid by the deferral left, and under s 205-30(2)(b) a refund's R&D part debits nothing and joins it.
+ * @param {ReturnType<typeof event>} e @param {Q} rdPool @returns {{line: Line, rdPool: Q}} */
+function eventLine(e, rdPool) {
+  let { amount } = e;
+  let item = `${e.kind.item}: ${e.kind.label}`;
+  if (['payg_instalment', 'income_tax_paid'].includes(e.type) && rdPool.n) {
+    const reduction = min(rdPool, amount);
+    amount = sub(amount, reduction);
+    rdPool = sub(rdPool, reduction);
+    item += `, less ${aud(reduction).toFixed(2)} under s 205-15(4)`;
+  }
+  if (e.type === 'income_tax_refund') {
+    amount = sub(amount, e.rdPart);
+    rdPool = add(rdPool, e.rdPart);
+    if (e.rdPart.n) item += `, less its R&D part ${aud(e.rdPart).toFixed(2)} under s 205-30(2)(b)`;
+  }
+  const cls = e.kind.credit ? 'credit' : e.type === 'income_tax_refund' ? 'refund'
+    : ['linked_distribution', 'tax_exempt_bonus_shares'].includes(e.type) ? 'trigger' : 'other';
+  return { line: { date: e.date, item, credit: e.kind.credit, cls, amount }, rdPool };
+}
+
+/** The year's lines in date order (on one day, events as given, then distributions), opening with the
+ * credit for last year's franking deficit tax when the year opens in deficit.
+ * @param {Q} opening @param {ReturnType<typeof event>[]} events @param {ReturnType<typeof distribution>[]} dists
+ * @param {Worked[]} worked @param {Facts} f @param {Q} rdPool */
+function yearLines(opening, events, dists, worked, f, rdPool) {
+  /** @type {Line[]} */
   const lines = [];
   if (opening.n < 0n) lines.push({ date: f.start, item: FDT_CREDIT, credit: true, cls: 'credit', amount: neg(opening) });
   const order = [...events.map((e, i) => ({ date: e.date, group: 0, i })).filter((o) => o.date <= f.end),
     ...dists.map((x, i) => ({ date: x.date, group: 1, i }))]
     .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : a.group - b.group || a.i - b.i));
   for (const { date, group, i } of order) {
-    if (group === 1) {
-      const w = worked[i];
-      if (w.credit.n) lines.push({ date, item: DIST_DEBIT, credit: false, cls: 'trigger', amount: w.credit });
-      if (w.under.n) lines.push({ date, item: UNDER_FRANKING, credit: false, cls: 'trigger', amount: w.under });
+    if (group === 0) {
+      const next = eventLine(events[i], rdPool);
+      rdPool = next.rdPool;
+      lines.push(next.line);
       continue;
     }
-    const e = events[i];
-    let { amount } = e;
-    let item = `${e.kind.item}: ${e.kind.label}`;
-    // s 205-15(4): the R&D deferral left reduces a PAYG instalment or income tax paid; s 205-30(2)(b): a
-    // refund's R&D part debits nothing and joins the deferral.
-    if (['payg_instalment', 'income_tax_paid'].includes(e.type) && rdPool.n) {
-      const reduction = min(rdPool, amount);
-      amount = sub(amount, reduction);
-      rdPool = sub(rdPool, reduction);
-      item += `, less ${aud(reduction).toFixed(2)} under s 205-15(4)`;
-    }
-    if (e.type === 'income_tax_refund') {
-      amount = sub(amount, e.rdPart);
-      rdPool = add(rdPool, e.rdPart);
-      if (e.rdPart.n) item += `, less its R&D part ${aud(e.rdPart).toFixed(2)} under s 205-30(2)(b)`;
-    }
-    const cls = e.kind.credit ? 'credit' : e.type === 'income_tax_refund' ? 'refund'
-      : ['linked_distribution', 'tax_exempt_bonus_shares'].includes(e.type) ? 'trigger' : 'other';
-    lines.push({ date: e.date, item, credit: e.kind.credit, cls, amount });
+    const w = worked[i];
+    if (w.credit.n) lines.push({ date, item: DIST_DEBIT, credit: false, cls: 'trigger', amount: w.credit });
+    if (w.under.n) lines.push({ date, item: UNDER_FRANKING, credit: false, cls: 'trigger', amount: w.under });
   }
-  const beforeRefunds = deficit(balanceOf(opening, lines));
+  return { lines, rdPool };
+}
 
-  // s 205-50(2): each refund received in the 3 months after the year's end, in date order, is taken to be
-  // received just before it when it would put the account into deficit or further into it.
+/** s 205-50(2): each refund received in the 3 months after the year's end, in date order, is taken to be
+ * received just before it when it would put the account into deficit or further into it. Adds those to `lines`.
+ * @param {Q} opening @param {Line[]} lines @param {ReturnType<typeof event>[]} events @param {Facts} f @param {Q} rdPool */
+function lateRefunds(opening, lines, events, f, rdPool) {
   /** @type {FrankingRefund[]} */
   const refunds = [];
   /** @type {{date: string, added: Q}[]} */
@@ -312,19 +320,14 @@ export function frankingAccount(input) {
       credit: false, cls: 'refund', amount: debit });
     taken.push({ date: e.date, added: sub(deficit(after), deficit(before)) });
   }
+  return { refunds, taken, rdPool };
+}
 
-  const trigger = lines.some((l) => l.cls === 'trigger' && l.amount.n);
-  const sum = (/** @type {(l: typeof lines[number]) => boolean} */ keep) => lines.filter(keep).reduce((t, l) => add(t, l.amount), ZERO);
-  const credits = sum((l) => l.credit);
-  const debits = sum((l) => !l.credit);
-  const attributable = sum((l) => l.cls === 'trigger' || l.cls === 'refund');
-  const labelK = sum((l) => l.cls === 'other' || (!trigger && l.cls === 'refund'));
-  const closing = balanceOf(opening, lines);
-  const fdt = deficit(closing);
-
-  // s 205-70(2) step 1 by the ATO's method: the tax less 30% of the part attributable to item 1, 2, 3, 5 and
-  // 6 debits when that part exceeds 10% of the year's credits; whole without an item 1, 3, 5 or 6 debit
-  // (code F), for a private company meeting s 205-70(5) (code P) or under a Commissioner's determination.
+/** s 205-70(2) step 1 by the ATO's method: the tax less 30% of the part attributable to item 1, 2, 3, 5 and
+ * 6 debits when that part exceeds 10% of the year's credits; whole without an item 1, 3, 5 or 6 debit
+ * (code F), for a private company meeting s 205-70(5) (code P) or under a Commissioner's determination.
+ * @param {{fdt: Q, trigger: boolean, opening: Q, credits: Q, attributable: Q, determination: boolean, f: Facts, tax: IncomeTax | null}} a */
+function currentOffset({ fdt, trigger, opening, credits, attributable, determination, f, tax }) {
   let reduction = ZERO;
   let code = /** @type {'F' | 'P' | null} */ (null);
   let authority;
@@ -337,7 +340,7 @@ export function frankingAccount(input) {
     const part = deficit(sub(add(opening.n > 0n ? opening : ZERO, credits), attributable));
     if (cmp(part, mul(credits, q(1n, 10n))) <= 0) {
       authority = 'The part of the deficit attributable to item 1, 2, 3, 5 and 6 debits is not more than 10% of the year’s credits, so the offset is not reduced (s 205-70(2) step 1)';
-    } else if (input.determination) {
+    } else if (determination) {
       authority = 'The Commissioner determined the excess was due to events outside the entity’s control, so the offset is not reduced (s 205-70(6))';
     } else if (f.private && !tax) {
       throw new Error('The offset reduction applies unless section 205-70(5) does, which turns on the private company’s income tax: enter its income tax before this offset, the offset brought forward and whether it had an earlier liability.');
@@ -349,14 +352,18 @@ export function frankingAccount(input) {
       authority = 'The part of the deficit attributable to item 1, 2, 3, 5 and 6 debits exceeds 10% of the year’s credits, so 30% of it comes off the offset (s 205-70(2) step 1)';
     }
   }
-  const offset = sub(fdt, reduction);
-  const oft = worked.reduce((t, w) => add(t, w.over), ZERO);
+  return { reduction, code, authority };
+}
 
-  // s 204-70(1): each benchmark against the last, by more than 20 points for each franking period after
-  // that one up to and including this one; s 204-70(2) leaves out an entity the rule does not apply to.
+/** s 204-70(1): each benchmark against the last, by more than 20 points for each franking period after
+ * that one up to and including this one; s 204-70(2) leaves out an entity the rule does not apply to.
+ * @param {Period[]} periods @param {{pct: Q, since: number} | null} last @param {Facts} f */
+function variations(periods, last, f) {
   let variation = false;
   let previous = last ? { pct: last.pct, at: -last.since } : null;
-  const periodRows = periods.map((p, k) => {
+  /** @type {FrankingPeriod[]} */
+  const rows = [];
+  for (const [k, p] of periods.entries()) {
     /** @type {FrankingPeriod} */
     const row = { start: p.start, end: p.end, benchmark: p.benchmark ? twoPlaces(p.benchmark) : null, comparedWith: null, threshold: null, varies: false };
     if (p.benchmark) {
@@ -369,8 +376,65 @@ export function frankingAccount(input) {
       }
       previous = { pct: p.benchmark, at: k };
     }
-    return row;
+    rows.push(row);
+  }
+  return { variation, rows };
+}
+
+/** The account line by line with its running balance. @param {Q} opening @param {Line[]} lines @returns {FrankingLine[]} */
+function ledgerRows(opening, lines) {
+  let running = opening;
+  return lines.map((l) => {
+    running = l.credit ? add(running, l.amount) : sub(running, l.amount);
+    return { date: l.date, item: l.item, credit: l.credit ? aud(l.amount) : null, debit: l.credit ? null : aud(l.amount), balance: aud(running) };
   });
+}
+
+/** Each distribution's working, in AUD.
+ * @param {ReturnType<typeof distribution>[]} dists @param {Worked[]} worked @param {Period[]} periods @returns {FrankingWorked[]} */
+function distributionRows(dists, worked, periods) {
+  return dists.map((x, i) => ({ date: x.date, amount: aud(x.amount), allocated: aud(x.allocated), maximum: aud(worked[i].maximum),
+    credit: aud(worked[i].credit), percentage: twoPlaces(worked[i].pct), period: periods[worked[i].period].start,
+    comparedWith: worked[i].reference ? twoPlaces(/** @type {Q} */ (worked[i].reference)) : null,
+    overFrankingTax: aud(worked[i].over), underFrankingDebit: aud(worked[i].under) }));
+}
+
+/**
+ * The franking account for one income year: its lines and balance, franking deficit tax and its offset, the
+ * benchmark rule's over-franking tax and debits, the significant variation test and the franking return's
+ * amounts and due date.
+ * @param {FrankingInput} input money and percentages as decimal strings, dates as YYYY-MM-DD
+ * @returns {FrankingResult} money in AUD
+ */
+export function frankingAccount(input) {
+  const f = facts(input);
+  const opening = money('Opening balance', input.opening, -1e12);
+  const last = lastBenchmark(input);
+  const events = input.events.map((e, i) => event(e, i + 1, f));
+  const dists = input.distributions.map((x, i) => distribution(x, i + 1, f));
+  for (let i = 1; i < dists.length; i += 1) {
+    if (dists[i].date < dists[i - 1].date) {
+      throw new Error(`Distribution ${i + 1}: enter the distributions in date order; the first in a franking period sets its benchmark (s 203-30).`);
+    }
+  }
+  const tax = incomeTax(input, f);
+  const { periods, worked } = benchmarkRule(dists, f);
+  const year = yearLines(opening, events, dists, worked, f, money('R&D deferral brought forward', input.rdForward));
+  const { lines } = year;
+  const beforeRefunds = deficit(balanceOf(opening, lines));
+  const { refunds, taken, rdPool } = lateRefunds(opening, lines, events, f, year.rdPool);
+
+  const trigger = lines.some((l) => l.cls === 'trigger' && l.amount.n);
+  const sum = (/** @type {(l: Line) => boolean} */ keep) => lines.filter(keep).reduce((t, l) => add(t, l.amount), ZERO);
+  const credits = sum((l) => l.credit);
+  const attributable = sum((l) => l.cls === 'trigger' || l.cls === 'refund');
+  const labelK = sum((l) => l.cls === 'other' || (!trigger && l.cls === 'refund'));
+  const closing = balanceOf(opening, lines);
+  const fdt = deficit(closing);
+  const { reduction, code, authority } = currentOffset({ fdt, trigger, opening, credits, attributable, determination: input.determination, f, tax });
+  const offset = sub(fdt, reduction);
+  const oft = worked.reduce((t, w) => add(t, w.over), ZERO);
+  const { variation, rows } = variations(periods, last, f);
 
   const required = Boolean(fdt.n || oft.n || variation);
   // s 214-150(1): the last day of the month after the year's end.
@@ -382,25 +446,15 @@ export function frankingAccount(input) {
       dueOtherwise: isoOf(dayOf(t.date) + 14) });
   }
   refunds.sort((a, b) => Number(b.taken) - Number(a.taken));
-  let running = opening;
-  const ledger = lines.map((l) => {
-    running = l.credit ? add(running, l.amount) : sub(running, l.amount);
-    return { date: l.date, item: l.item, credit: l.credit ? aud(l.amount) : null, debit: l.credit ? null : aud(l.amount), balance: aud(running) };
-  });
   const total = tax ? add(offset, tax.forward) : null;
   const used = tax && total ? min(total, tax.before) : null;
   return {
-    credits: aud(credits), debits: aud(debits), closing: aud(closing), fdt: aud(fdt), fdtFromRefunds: aud(sub(fdt, beforeRefunds)),
+    credits: aud(credits), debits: aud(sum((l) => !l.credit)), closing: aud(closing), fdt: aud(fdt), fdtFromRefunds: aud(sub(fdt, beforeRefunds)),
     reduction: aud(reduction), offset: aud(offset), labelK: aud(labelK), oft: aud(oft), payable: aud(add(fdt, oft)), rdCarried: aud(rdPool),
     offsetTotal: total ? aud(total) : null, offsetUsed: used ? aud(used) : null, offsetCarried: total && used ? aud(sub(total, used)) : null,
     grossUp: (Number((f.grossUp.n * 10000n * 2n + f.grossUp.d) / (2n * f.grossUp.d)) / 10000).toFixed(4),
     balanceCode: closing.n < 0n ? 'D' : 'S', offsetCode: code, authority, variation, required, due: required ? due : null,
-    ledger,
-    distributions: dists.map((x, i) => ({ date: x.date, amount: aud(x.amount), allocated: aud(x.allocated), maximum: aud(worked[i].maximum),
-      credit: aud(worked[i].credit), percentage: twoPlaces(worked[i].pct), period: periods[worked[i].period].start,
-      comparedWith: worked[i].reference ? twoPlaces(/** @type {Q} */ (worked[i].reference)) : null,
-      overFrankingTax: aud(worked[i].over), underFrankingDebit: aud(worked[i].under) })),
-    periods: periodRows, refunds,
+    ledger: ledgerRows(opening, lines), distributions: distributionRows(dists, worked, periods), periods: rows, refunds,
   };
 }
 
