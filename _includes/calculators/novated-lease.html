@@ -41,11 +41,8 @@
 <label><input type="radio" name="reduced" value="yes" /> Yes: two-thirds of the cost price counts</label>
 </fieldset>
 </div>
-<h2>Use, costs and your tax</h2>
-<div class="form-grid"><label class="field" for="novated-lease-days">Days in the year the car is available for your private use<input id="novated-lease-days" name="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="365" required /></label>
-<label class="field" for="novated-lease-gst-costs">Yearly lease payments and running costs that include GST, such as charging or fuel, servicing, tyres and insurance (dollars and cents)<input id="novated-lease-gst-costs" name="gst-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="15000" required /></label>
-<label class="field" for="novated-lease-other-costs">Yearly costs without GST, such as registration (dollars and cents)<input id="novated-lease-other-costs" name="other-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
-<fieldset><legend>Do you have a study or training loan, such as HELP?</legend>
+<h2>Your tax, use and costs</h2>
+<div class="form-grid"><fieldset><legend>Do you have a study or training loan, such as HELP?</legend>
 <label><input type="radio" name="study-loan" value="no" checked /> No</label>
 <label><input type="radio" name="study-loan" value="yes" /> Yes</label>
 </fieldset>
@@ -53,6 +50,9 @@
 <label><input type="radio" name="cover" value="yes" checked /> Yes</label>
 <label><input type="radio" name="cover" value="no" /> No</label>
 </fieldset>
+<label class="field" for="novated-lease-days">Days in the year the car is available for your private use<input id="novated-lease-days" name="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="365" required /></label>
+<label class="field" for="novated-lease-gst-costs">Yearly lease payments and running costs that include GST, such as charging or fuel, servicing, tyres and insurance (dollars and cents)<input id="novated-lease-gst-costs" name="gst-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="15000" required /></label>
+<label class="field" for="novated-lease-other-costs">Yearly costs without GST, such as registration (dollars and cents)<input id="novated-lease-other-costs" name="other-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
 </div>
 <p class="field-note">Each income year takes the FBT year ending 31 March in it. Take the yearly costs from your lease quote. The calculator compares the lease with paying the same costs from after-tax pay, takes the salary as your only income and the employer as registered for GST.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
