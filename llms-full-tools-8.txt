@@ -88,7 +88,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -100,7 +100,82 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Lump sum in arrears tax offset calculator (LSPIA)
+
+Source: https://duguid.com.au/tools/individual-tax/lump-sum-arrears/
+
+> The lump sum payment in arrears tax offset under ITAA 1936 ss 159ZR to 159ZRD for a resident, with the 10% test and each accrual year's tax, for 2024-25 to 2026-27.
+
+# Lump sum in arrears tax offset calculator
+
+The tax offset on back pay received as a lump sum, for 2024-25 to 2026-27.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Lump sum payments in arrears received in one income year
+
+Year you received the arrears 2026-27 2025-26 2024-25 Taxable income of that year, including the arrears (whole dollars) Net capital gain included in it (whole dollars) Were you an Australian resident for the whole of that year and of the 2 latest accrual years, with the full tax-free threshold? Yes No Did those years include a termination payment, unused leave, a super benefit, special professional income or primary producer averaging? No Yes The latest year in which part of the arrears accrued Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, only with 3 or more accrual years (whole dollars) If you got this offset for it: its total arrears amount (whole dollars) Arrears of an earlier offset year that accrued in it (whole dollars)
+
+The accrual year before it, if any Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, only with 3 or more accrual years (whole dollars) If you got this offset for it: its total arrears amount (whole dollars) Arrears of an earlier offset year that accrued in it (whole dollars)
+
+Earlier accrual years, every payer’s arrears together.
+
+Year | Income year | Arrears (whole dollars)
+1 | |
+2 | |
+3 | |
+4 | |
+
+Leave unused rows blank; over 6 accrual years, put the oldest years’ total in row 4.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, taxable income $100,000.00, net capital gain $0.00, accrual years 2023-24 $3,000.00 on taxable income $30,000.00, 2022-23 $2,500.00 on taxable income $17,000.00, 2021-22 $1,400.00, 2020-21 $1,700.00, 2019-20 $1,400.00, 2018-19 $1,000.00. Total arrears amount $11,000.00 Normal taxable income $100,000.00 10% of normal taxable income less the arrears $8,900.00 Tax on arrears in 2025-26 $3,300.00 Notional tax for 2023-24 $570.00 Notional tax for 2022-23 $247.00 Notional tax for the distant years $794.75 Notional tax on arrears $1,611.75 Lump sum payment in arrears tax offset $1,688.25 The distant years 2021-22, 2020-21, 2019-20 and 2018-19 take the average rate on recent arrears, 14.45%: 19% for 2023-24 and 9.9% for 2022-23.
+
+## How the lump sum in arrears calculator works
+
+Salary, wages or a Centrelink or compensation payment that you receive as a lump sum, for earlier years, is taxed in the year you receive it, often at a higher rate than it would have been in the years it was for. The tax offset gives back the difference. The calculator first tests whether the arrears are at least 10% of the rest of your normal taxable income for the year. If they are, it works out the tax the arrears add this year and the tax they would have added in the years they accrued in, and the offset is the amount by which the first exceeds the second.
+
+For the 2 latest accrual years it adds the arrears to that year’s taxable income at that year’s resident rates. Arrears from any earlier years are taxed at the average of those 2 years’ rates, so the oldest years’ arrears can share one row. Where a recent year was itself a year you got this offset for, or arrears of such a year accrued in it, its income is adjusted as the Act directs.
+
+The ATO’s page on lump sum payments in arrears works Yan’s breakdown of arrears by year, received in 2025-26. The calculator opens on it; the ATO does not give Yan’s taxable incomes, so the $100,000, $30,000 and $17,000 are fictional. Anthony’s, Sudeep’s and Heather’s examples are among the boundary cases.
+
+## What the lump sum in arrears calculator does not cover
+
+The calculator works the offset for a person resident in Australia for the whole of the year of receipt and of each recent accrual year, entitled to the full tax-free threshold, for a year of receipt of 2024-25, 2025-26 or 2026-27. It does not decide what is a lump sum in arrears: it takes the arrears you enter as eligible income that accrued more than 12 months before you received it. It refuses an employment termination payment, unused leave paid on termination, a super lump sum or income stream, above-average special professional income or primary producer averaging in the year of receipt or a recent accrual year, and does not cover a minor’s income or a trustee.
+
+It does not work out the Medicare levy or surcharge on the arrears, which have their own rules, or apply the offset against your tax. The ATO works the offset when you lodge with the amounts for each year; confirm the figures with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Lump sum in arrears tax offset calculator
+
+Case | Inputs | Result
+ATO example: Yan’s 4 distant years take the average of the recent years’ rates | 2025-26, taxable $100,000.00; 2023-24 $3,000.00 on $30,000.00, 2022-23 $2,500.00 on $17,000.00, 2021-22 $1,400.00, 2020-21 $1,700.00, 2019-20 $1,400.00, 2018-19 $1,000.00 | Tax on arrears $3,300.00, notional tax $1,611.75, offset $1,688.25
+ATO example: Anthony’s 2016-17 arrears at 37% against 45% in 2025-26 | 2025-26, taxable $314,166.00, net capital gain $111,231.00; 2016-17 $43,979.00 on $100,000.00 | Tax on arrears $19,790.55, notional tax $16,272.23, offset $3,518.32
+ATO example: Sudeep’s $3,500 is less than 10% of $49,500, so no offset | 2025-26, taxable $53,000.00; 2023-24 $3,500.00 on $50,000.00 | Arrears $3,500.00 below $4,950.00, offset $0.00
+ATO example: Heather meets the test but paid less tax in 2025-26 | 2025-26, taxable $34,000.00; 2022-23 $4,000.00 on $28,000.00, 2023-24 $4,500.00 on $30,000.00 | Tax on arrears $1,360.00, notional tax $1,615.00, offset $0.00
+A rate of exactly 0.0985 rises to 0.099, and 0.0984 stays 0.098 | 2025-26, taxable $40,000.00; 2023-24 $3,800.00 on $16,370.00, 2022-23 $3,800.00 on $16,368.00, 2021-22 $1,000.00 | Tax on arrears $1,376.00, notional tax $846.72, offset $529.28
+The distant years’ rate uses normal taxable income, without the net capital gain | 2025-26, taxable $60,000.00; 2023-24 $3,000.00 on $50,000.00 with a gain of $10,000.00, 2022-23 $2,500.00 on $17,000.00, 2021-22 $1,000.00 | Tax on arrears $1,950.00, notional tax $1,366.50, offset $583.50
+A recent year that was a rebate year itself is adjusted both ways | 2025-26, taxable $30,000.00; 2023-24 $3,000.00 on $46,000.00, less $4,000.00 as a rebate year, plus $1,000.00 of an earlier one | Tax on arrears $480.00, notional tax $705.00, offset $0.00
+2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
+2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
+
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -171,7 +246,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -181,7 +256,93 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Sole trader tax set-aside calculator for 2026-27: tax and GST
+
+Source: https://duguid.com.au/tools/individual-tax/sole-trader/
+
+> Tax to set aside from sole trader income on top of a job: income tax, the small business income tax offset, Medicare levy, HELP and GST, per invoice and period.
+
+# Sole trader tax set-aside calculator
+
+How much of each invoice a sole trader keeps for tax, Medicare levy, study loan and GST from 2021-22, after the small business income tax offset.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Sole trader inputs for one full income year
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Business income for the year, excluding GST (dollars and cents) Deductible business expenses, excluding GST (dollars and cents) Wages from a job for the year, before tax (dollars and cents) Tax agent fees and gifts claimed (dollars and cents) Personal super contributions claimed (dollars and cents) Does the business qualify for the small business income tax offset? Yes: aggregated turnover under $5 million, not personal services income No
+
+Do you have a study or training loan, such as HELP? No Yes
+
+Did you have private patient hospital cover all year? Yes No
+
+Is the business registered for GST? No Yes
+
+GST credits for the year, if registered (dollars and cents) One invoice, GST included if registered (dollars and cents)
+
+For a resident aged 18 or over, single, all year; every sale is a taxable supply.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, business income $22,000.00 and expenses $2,000.00 excluding GST, wages $60,000.00, other deductions $0.00, qualifies for the small business income tax offset, no study or training loan, with private hospital cover, not registered for GST, invoice $1,000.00. Business profit $20,000.00 Standard deduction on the wages $1,000.00 Taxable income $79,000 Tax on taxable income $14,220.00 Low income tax offset $0.00 Small business income tax offset $576.00 Medicare levy $1,580.00 Total tax, levies and repayment $15,224.00 Less the same on the wages alone $9,285.00 Tax to set aside for the business $5,939.00 Total to set aside for the year $5,939.00 Each quarter $1,484.75 Each month $494.92 Each week $114.21 Share of each invoice to set aside 27.00% From an invoice of $1,000.00, set aside $269.95 As a PAYG instalment rate, 27.00% of business income excluding GST covers this year’s tax on it. A return like this meets 2 of the 3 PAYG instalment entry tests; the ATO works out the third, notional tax, and decides entry. This assumes the wages’ withholding covers the tax, levy and any study loan repayment on the wages alone.
+
+## How the sole trader tax set-aside calculator works
+
+The calculator takes a year’s business income and expenses, any wages from a job and any tax agent fees, gifts or personal super contributions you claim. It works out the year’s income tax, the offsets, the Medicare levy, any Medicare levy surcharge and any study or training loan repayment. It then works the same on the wages alone. The difference is the tax the business adds, which nobody withholds, so it is the amount to set aside from business income.
+
+The small business income tax offset is worked as section 328-360 sets it: 16% of the share of the tax on taxable income that the business profit makes up. On arrival the example shows it below its $1,000 cap: $20,000 of profit is 20/79 of $79,000 of taxable income, so the offset is 16% of 20/79 of $14,220, which is $576.00. The business also costs the low income tax offset the wages alone would have had, $115.00, which the difference picks up.
+
+A business registered for GST also sets aside the GST on its income less its GST credits, paid with each activity statement. The calculator gives one share to keep from every invoice, covering both, and the year’s amount split by quarter, month and week. It also gives the tax as a share of the business income excluding GST, which as a PAYG instalment rate would cover this year’s tax on it.
+
+## What the sole trader tax set-aside calculator does not compute
+
+The calculator is for an Australian resident aged 18 or over with one business as a sole trader, a full year of income and no dependants. It does not compute:
+
+- a business loss, which the non-commercial loss rules in Division 35 may defer, or losses carried forward;
+- personal services income rules, which can deny deductions: see the PSI rules checker;
+- GST-free or input-taxed sales, GST on a cash or accruals basis by period, or a GST refund when credits exceed the GST on income;
+- other income such as interest, dividends, rent or capital gains, or partnership and trust distributions, which change both the tax and the offset’s share, or reportable fringe benefits and salary sacrificed to super from the job, which count in repayment income and income for surcharge purposes;
+- work-related deductions against the wages, which reduce the standard deduction from 2026-27, or a job withheld from at the wrong rate;
+- super guarantee, which a sole trader does not pay for themselves, or personal super contributions beyond entering them as a deduction;
+- a family’s Medicare levy, levy reduction or surcharge, or the seniors and pensioners tax offset;
+- notional tax or the instalment rate the ATO sets, or when each instalment and activity statement is due;
+- a study loan debt smaller than the repayment, which section 154-20(1)(c) of the Higher Education Support Act 2003 caps at what is still owed;
+- 2027-28, whose working Australians tax offset (Subdivision 61-E, added by Act No. 49 of 2026) applies from that year.
+
+Confirm the figures with the ATO’s calculators and tools or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Sole trader tax set-aside calculator
+
+Case | Inputs | Result
+$20,000 of profit on top of $60,000 of wages in 2026-27: the offset is 20/79 of 16% of the tax | 2026-27, business $22,000 less $2,000, wages $60,000, invoice $1,000.00 | Offset $576.00, business tax $5,939.00; set aside $5,939.00 a year, $1,484.75 a quarter, 27.00% of each invoice
+No job, registered for GST: the offset reaches its $1,000 cap | 2026-27, business $90,000 less $15,000, GST registered, credits $1,200, invoice $1,100.00 | Offset $1,000.00, business tax $13,520.00, GST $7,800.00; set aside $21,320.00 a year, $5,330.00 a quarter, 21.54% of each invoice
+No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare levy | 2026-27, business $20,000 less $0, wages $70,000, no offset, invoice $1,000.00 | Offset $0.00, business tax $6,400.00; set aside $6,400.00 a year, $1,600.00 a quarter, 32.00% of each invoice
+2024-25, $29,000 of profit on $131,584 of wages: 16% of $7,359.76 is above the cap | 2024-25, business $29,000 less $0, wages $131,584, invoice $1,000.00 | Offset $1,000.00, business tax $10,070.88; set aside $10,070.88 a year, $2,517.72 a quarter, 34.73% of each invoice
+2025-26 with a study loan and no hospital cover: the repayment and surcharge join the set-aside | 2025-26, business $130,000 less $10,000, study loan, no hospital cover, invoice $1,000.00 | Offset $1,000.00, business tax $37,638.00; set aside $37,638.00 a year, $9,409.50 a quarter, 28.95% of each invoice
+2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
+2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
+
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- calculators and tools: https://www.ato.gov.au/calculators-and-tools
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -245,7 +406,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the five individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seven individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -255,7 +416,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- five individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seven individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -521,158 +682,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - termination payment calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - black coal mining industry: https://duguid.com.au/tools/coal-lsl-levy/
-- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Unused leave on termination withholding calculator for 2026-27
-
-Source: https://duguid.com.au/tools/business-calculators/unused-leave/
-
-> Schedule 7 withholding from unused annual leave, leave loading and long service leave paid on termination, with the 30% cap, the 5% pre-1978 share and STP labels.
-
-# Unused leave on termination
-
-Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.
-
-Published 19 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Unused leave paid to one employee on termination
-
-Unused annual leave (AUD) Leave loading on it (AUD) Unused long service leave (AUD) Leave began to accrue Why the employment ended Normal termination: resignation, dismissal or retirement Genuine redundancy Early retirement scheme Invalidity Annual leave for employment before 18 August 1993 (AUD) Leave loading for employment before 18 August 1993 (AUD) Long service leave for the period before 16 August 1978 (AUD) Long service leave for 16 August 1978 to 17 August 1993 (AUD) Tax file number TFN given, tax-free threshold claimed TFN given, foreign resident No TFN given No TFN given, foreign resident Normal gross earnings for one pay (AUD) Pay period Weekly Fortnightly Monthly
-
-Leave the parts blank when the leave began to accrue after their dates. A genuine redundancy, early retirement scheme or invalidity needs only the part before 16 August 1978. Earnings and the pay period are not needed without a TFN.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: annual leave $0.00, leave loading $0.00, long service leave $22,020.00, accrued from 1 January 1977, a normal termination, TFN given, tax-free threshold claimed (scale 2), normal gross earnings $1,155.00 a week. Capped at 30%: lump sum A, type T $6,420.00 Long service leave before 16 August 1978: lump sum B $780.00 5% of it, assessable at marginal rates $39.00 At marginal rates: unused leave on termination (paid leave type U) $14,820.00 Assessable income $21,279.00 Withheld at 32% from lump sum A, to the nearest dollar $2,054.00 Withheld from $14,859.00 at marginal rates $4,732.00 Total to withhold from the leave $6,786.00 Marginal rate calculation: $14,859.00 over 52 pays is $285.00 a pay with cents ignored; Schedule 1 withholds $188.00 from $1,155.00 and $279.00 with it added, so $91.00 × 52 is $4,732.00.
-
-This is the payer’s withholding under Schedule 7 and the labels for the employee’s income statement; it does not estimate the tax assessed on their return.
-
-## How the unused leave calculator works
-
-When employment ends, unused annual leave, leave loading and long service leave are taxed by when the leave accrued and why the employment ended. Leave for employment before 18 August 1993, and all of it from 16 August 1978 on a genuine redundancy, early retirement scheme or invalidity, is capped at 30% and withheld at 32%; it is lump sum A. Only 5% of long service leave for the period before 16 August 1978 is assessable; the whole amount is lump sum B. The rest goes through Schedule 7’s marginal rate calculation with that 5%, spread over a year of pays and withheld at the employee’s Schedule 1 rate, and is reported as unused leave on termination.
-
-## What the unused leave calculator does not cover
-
-The calculator gives an estimate for one employee’s unused leave paid on termination from 1 July 2026 to 30 June 2027, and no advice. It does not cover:
-
-- splitting a payment between the periods by days of service under sections 83-95 to 83-115: enter each part;
-- whether a termination is a genuine redundancy, an early retirement scheme or invalidity;
-- unused leave paid after an employee’s death;
-- a working holiday maker, whose payments Schedule 15 covers;
-- an employee who has not claimed the tax-free threshold, or claims a Medicare levy variation or the seniors and pensioners offset (scales 1, 5 and 6), or has a withholding variation;
-- a post-17 August 1993 payment under $300 with long service leave from before 16 August 1978, where Schedule 7 does not say how its limit applies;
-- employment termination payments, which the redundancy and ETP withholding calculator covers.
-
-Confirm the figures with Schedule 7 or a registered tax agent before relying on them.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Unused leave on termination
-
-Case | Inputs | Result
-Schedule 7’s example: Norman retires with $780, $6,420 and $14,820 of long service leave, $6,786 withheld | Annual leave $0.00, loading $0.00, long service leave $22,020.00 ($780.00 before 16 August 1978) ($6,420.00 16 August 1978 to 17 August 1993), accrued from 1 January 1977, normal termination, TFN, scale 2, $1,155.00 a week | Lump sum A $6,420.00, type T, lump sum B $780.00, paid leave type U $14,820.00, assessable $21,279.00, 32% part $2,054.00, marginal rate part $4,732.00, withhold $6,786.00
-ATO example 1: Greg leaves through invalidity, all $2,680 at 32%, $858 (the 2020 page disregarded the cents) | Annual leave $2,260.00, loading $420.00, long service leave $0.00, accrued from 1 January 2000, invalidity, TFN, scale 2, $1,155.00 a week | Lump sum A $2,680.00, type R, lump sum B $0.00, paid leave type U $0.00, assessable $2,680.00, 32% part $858.00, marginal rate part $0.00, withhold $858.00
-ATO example 7: Robyn’s $8,000 of long service leave on a genuine redundancy, $2,560 at 32% | Annual leave $0.00, loading $0.00, long service leave $8,000.00, accrued from 1 January 2005, genuine redundancy, TFN, scale 2, $1,000.00 a week | Lump sum A $8,000.00, type R, lump sum B $0.00, paid leave type U $0.00, assessable $8,000.00, 32% part $2,560.00, marginal rate part $0.00, withhold $2,560.00
-ATO example 2’s split: Helen’s $3,533 of $85,000 before 18 August 1993 at 32%, the rest at marginal rates on $1,500 a week | Annual leave $85,000.00 ($3,533.00 before 18 August 1993), loading $0.00, long service leave $0.00, accrued from 18 September 1992, normal termination, TFN, scale 2, $1,500.00 a week | Lump sum A $3,533.00, type T, lump sum B $0.00, paid leave type U $81,467.00, assessable $85,000.00, 32% part $1,131.00, marginal rate part $27,768.00, withhold $28,899.00
-ATO example 4: Mark’s $4,000 after 17 August 1993 is $76 a week on $1,000 a week | Annual leave $4,000.00, loading $0.00, long service leave $0.00, accrued from 1 January 2000, normal termination, TFN, scale 2, $1,000.00 a week | Lump sum A $0.00, type T, lump sum B $0.00, paid leave type U $4,000.00, assessable $4,000.00, 32% part $0.00, marginal rate part $1,248.00, withhold $1,248.00
-ATO example 9: Sali’s $16,000, all before 16 August 1978, puts 5% ($800) through the marginal rate calculation | Annual leave $0.00, loading $0.00, long service leave $16,000.00 ($16,000.00 before 16 August 1978) ($0.00 16 August 1978 to 17 August 1993), accrued from 1 January 1972, normal termination, TFN, scale 2, $2,400.00 a week | Lump sum A $0.00, type T, lump sum B $16,000.00, paid leave type U $0.00, assessable $800.00, 32% part $0.00, marginal rate part $208.00, withhold $208.00
-Leave loading before 18 August 1993 is capped with its annual leave | Annual leave $5,000.00 ($1,200.00 before 18 August 1993), loading $875.00 ($210.00 before 18 August 1993), long service leave $0.00, accrued from 1 March 1990, normal termination, TFN, scale 2, $1,155.00 a week | Lump sum A $1,410.00, type T, lump sum B $0.00, paid leave type U $4,465.00, assessable $5,875.00, 32% part $451.00, marginal rate part $1,404.00, withhold $1,855.00
-A normal post-17 August 1993 payment under $300: the lesser of the marginal rate amount and 32% | Annual leave $299.99, loading $0.00, long service leave $0.00, accrued from 1 January 2000, normal termination, TFN, scale 2, $3,000.00 a week | Lump sum A $0.00, type T, lump sum B $0.00, paid leave type U $299.99, assessable $299.99, 32% part $0.00, marginal rate part $96.00, withhold $96.00
-At $300 the limit no longer applies | Annual leave $300.00, loading $0.00, long service leave $0.00, accrued from 1 January 2000, normal termination, TFN, scale 2, $3,000.00 a week | Lump sum A $0.00, type T, lump sum B $0.00, paid leave type U $300.00, assessable $300.00, 32% part $0.00, marginal rate part $104.00, withhold $104.00
-Fortnightly pay: 26 pays in the marginal rate calculation | Annual leave $9,250.40, loading $1,618.82, long service leave $0.00, accrued from 1 January 2000, normal termination, TFN, scale 2, $2,310.00 a fortnight | Lump sum A $0.00, type T, lump sum B $0.00, paid leave type U $10,869.22, assessable $10,869.22, 32% part $0.00, marginal rate part $3,484.00, withhold $3,484.00
-Monthly pay: 12 pays in the marginal rate calculation | Annual leave $12,000.00, loading $0.00, long service leave $18,000.00, accrued from 1 January 2000, normal termination, TFN, scale 2, $7,500.00 a month | Lump sum A $0.00, type T, lump sum B $0.00, paid leave type U $30,000.00, assessable $30,000.00, 32% part $0.00, marginal rate part $9,624.00, withhold $9,624.00
-A foreign resident with a TFN: Norman’s leave on scale 3 | Annual leave $0.00, loading $0.00, long service leave $22,020.00 ($780.00 before 16 August 1978) ($6,420.00 16 August 1978 to 17 August 1993), accrued from 1 January 1977, normal termination, foreign resident with a TFN, scale 3, $1,155.00 a week | Lump sum A $6,420.00, type T, lump sum B $780.00, paid leave type U $14,820.00, assessable $21,279.00, 32% part $2,054.00, marginal rate part $4,472.00, withhold $6,526.00
-No TFN: 47% of the whole payment, cents ignored, $1,002 is $470 | Annual leave $1,002.00, loading $0.00, long service leave $0.00, accrued from 1 January 2000, normal termination, no TFN | Lump sum A $0.00, type T, lump sum B $0.00, paid leave type U $1,002.00, assessable $1,002.00, withhold $470.00
-No TFN, foreign resident: 45%, the 95% of pre-16 August 1978 leave included | Annual leave $0.00, loading $0.00, long service leave $22,020.00 ($780.00 before 16 August 1978) ($6,420.00 16 August 1978 to 17 August 1993), accrued from 1 January 1977, normal termination, foreign resident with no TFN | Lump sum A $6,420.00, type T, lump sum B $780.00, paid leave type U $14,820.00, assessable $21,279.00, withhold $9,909.00
-A genuine redundancy needs only the pre-16 August 1978 part | Annual leave $20,000.00, loading $0.00, long service leave $30,000.00 ($2,000.00 before 16 August 1978), accrued from 1 July 1975, genuine redundancy, TFN, scale 2, $1,800.00 a week | Lump sum A $48,000.00, type R, lump sum B $2,000.00, paid leave type U $0.00, assessable $48,100.00, 32% part $15,360.00, marginal rate part $0.00, withhold $15,360.00
-A normal termination with leave from before 18 August 1993 needs its part | Annual leave $6,000.00, loading $0.00, long service leave $0.00, accrued from 17 August 1993, normal termination, TFN, scale 2, $1,155.00 a week | Refused: enter the annual leave for employment before 18 August 1993: the leave accrued from 17 August 1993, so that part is taxed differently. Enter 0 if none of it is
-A part for a period before the accrual start is refused | Annual leave $6,000.00 ($100.00 before 18 August 1993), loading $0.00, long service leave $0.00, accrued from 18 August 1993, normal termination, TFN, scale 2, $1,155.00 a week | Refused: the leave accrued from 18 August 1993, so none of it is annual leave for employment before 18 August 1993: enter 0 or leave it blank
-A part above its total is refused | Annual leave $0.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $5,000.00 ($5,000.01 16 August 1978 to 17 August 1993), accrued from 1 January 1985, normal termination, TFN, scale 2, $1,155.00 a week | Refused: the long service leave for 16 August 1978 to 17 August 1993 is more than the long service leave it is part of
-Under $300 with pre-16 August 1978 leave is refused | Annual leave $100.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $1,000.00 ($1,000.00 before 16 August 1978) ($0.00 16 August 1978 to 17 August 1993), accrued from 1 January 1970, normal termination, TFN, scale 2, $1,155.00 a week | Refused: a post-17 August 1993 payment under $300 has at most 32% of it withheld, and Schedule 7 does not say how to apply that limit when pre-16 August 1978 long service leave joins it in the marginal rate calculation
-
-One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
-- Schedule 7: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-7-tax-table-for-unused-leave-payments-on-termination-of-employment
-- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Company tax and franking credit calculator: base rate entity test
-
-Source: https://duguid.com.au/tools/business-calculators/company-tax/
-
-> Base rate entity test, 25% or 30% company tax, the corporate tax rate for imputation purposes, the maximum franking credit and a shareholder's top-up tax or refund.
-
-# Company tax and franking calculator
-
-A company’s 25% or 30% rate, its rate for franking, the maximum franking credit and a shareholder’s tax or refund.
-
-Published 18 November 2026. Last checked 18 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Company tax and franking inputs for one income year from 2021-22
-
-Aggregated turnover for the year (AUD) Assessable income for the year (AUD) Base rate entity passive income in it, franking credits included (AUD) Taxable income for the year (AUD) Did the company exist in the previous income year? Yes No Previous year’s aggregated turnover (AUD) Previous year’s assessable income (AUD) Previous year’s base rate entity passive income (AUD) Dividend paid this year (AUD) Franking percentage (%) Shareholder’s marginal tax rate, with any Medicare levy (%)
-
-Aggregated turnover includes that of connected entities and affiliates. The previous year’s figures set the rate for franking dividends; when the company did not exist then, they are not used. The shareholder is an Australian resident individual.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: this year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00, taxable income $104,000.00; previous year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00; dividend $30,000.00 franked at 100%, shareholder’s marginal rate 30%. Company tax rate: 25% A base rate entity (section 23AA), with passive income 3.85% of assessable income Tax on taxable income $26,000.00 Corporate tax rate for imputation purposes: 25% A base rate entity (section 23AA) Maximum franking credit on the dividend $10,000.00 Franking credit at 100% $10,000.00 Grossed-up dividend in the shareholder’s assessable income $40,000.00 Shareholder’s tax at 30% on it $12,000.00 Franking tax offset $10,000.00 Tax left to pay on the dividend $2,000.00 Franking credits round down to the cent, so the credit stated never exceeds the maximum (section 202-65).
-
-## How the company tax and franking calculator works
-
-The calculator applies the base rate entity test of section 23AA of the Income Tax Rates Act 1986 to this year’s figures: aggregated turnover under $50 million, and base rate entity passive income of no more than 80% of assessable income. A base rate entity pays 25% of its taxable income, and any other company 30% (subsection 23(2)).
-
-The rate for franking a dividend comes from a second test. Section 995-1 of the Income Tax Assessment Act 1997 runs the base rate entity test on the previous year’s turnover, passive income and assessable income, so a company can pay tax at 30% and frank at 25%, or the reverse; a company that did not exist in the previous year franks at 25%. The maximum franking credit is the dividend times 1 over the gross-up rate, which is 100% less that rate, over that rate (section 202-60): one third of the dividend at 25% and three sevenths at 30%. A credit above the maximum is taken to be the maximum (section 202-65).
-
-The shareholder includes the dividend and its franking credit in assessable income and gets a tax offset equal to the credit (section 207-20). Tax at the marginal rate you enter, less the offset, is the extra tax the dividend brings; where the offset is larger, an individual gets the excess refunded (section 67-25).
-
-The calculator reproduces the outcome of each ATO example: Happy Feet (3.8% passive income, 25%), Coffee and Cake (28.6%, 25%), Best Equity (100%, 30%), SoftDev (85%, 30%) and Hats 4 Cats ($170 million of aggregated turnover, 30%). For Dillmore Manufacture’s $100,000 dividend franked at 30% it gives $42,857.14, the exact credit; the ATO rounds the gross-up rate to 2.3333 and shows $42,857.75, which is more than the section 202-60 maximum.
-
-## What the company tax and franking calculator does not cover
-
-The calculator does not work out aggregated turnover, assessable income or base rate entity passive income: enter figures you have established, with the turnover of connected entities and affiliates included, as the ATO’s Hats 4 Cats example shows. Taxable income gives the tax before offsets, PAYG instalments and other credits.
-
-Not covered: the rates of RSA providers and pooled development funds (subsections 23(3) to (5)), life insurance companies (section 23A), not-for-profit companies and credit unions; corporate unit trusts and public trading trusts; and income years before 2021-22, when the base rate was 27.5% or 26%. A shareholder that is a company, trust, super fund or non-resident is outside its scope; a company shareholder cannot have excess franking credits refunded (section 67-25). Franking account balances, franking deficit tax, the benchmark rule and the holding period rule are not tested: the company tax and franking worksheets track the franking account and the benchmark rule. Have a registered tax agent confirm the figures and the result.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Company tax and franking calculator
-
-Case | Inputs | Result
-Happy Feet’s income from the ATO’s example: 3.85% passive, so 25% | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $30,000.00 franked 100%, marginal rate 30% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $10,000.00, franking credit $10,000.00, tax left to pay $2,000.00
-Coffee and Cake’s income from the ATO’s example: 28.57% passive, so 25% | Turnover $700,000.00, passive income $200,000.00 of $700,000.00, taxable income $700,000.00; last year turnover $700,000.00, passive income $200,000.00 of $700,000.00; dividend $70,000.00 franked 100%, marginal rate 47% | Tax rate 25%, tax $175,000.00, franking rate 25%, maximum franking credit $23,333.33, franking credit $23,333.33, tax left to pay $20,533.34
-Best Equity’s income from the ATO’s example: all passive, so 30%, and a refund at a 0% marginal rate | Turnover $5,000,000.00, passive income $5,000,000.00 of $5,000,000.00, taxable income $5,000,000.00; last year turnover $5,000,000.00, passive income $5,000,000.00 of $5,000,000.00; dividend $100,000.00 franked 100%, marginal rate 0% | Tax rate 30%, tax $1,500,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, refund $42,857.14
-SoftDev’s income from the ATO’s example: 85% passive, so 30% | Turnover $1,000,000.00, passive income $850,000.00 of $1,000,000.00, taxable income $1,000,000.00; last year turnover $1,000,000.00, passive income $850,000.00 of $1,000,000.00; dividend $100,000.00 franked 100%, marginal rate 45% | Tax rate 30%, tax $300,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, tax left to pay $21,428.57
-Hats 4 Cats’ aggregated turnover from the ATO’s example: $170 million, so 30% | Turnover $170,000,000.00, passive income $0.00 of $20,000,000.00, taxable income $20,000,000.00; last year turnover $170,000,000.00, passive income $0.00 of $20,000,000.00; dividend $1,000,000.00 franked 100%, marginal rate 45% | Tax rate 30%, tax $6,000,000.00, franking rate 30%, maximum franking credit $428,571.42, franking credit $428,571.42, tax left to pay $214,285.72
-Dillmore Manufacture: taxed at 25% but franking at 30% after a $52 million year, the exact credit on $100,000 | Turnover $45,000,000.00, passive income $0.00 of $45,000,000.00, taxable income $4,500,000.00; last year turnover $52,000,000.00, passive income $0.00 of $52,000,000.00; dividend $100,000.00 franked 100%, marginal rate 45% | Tax rate 25%, tax $1,125,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, tax left to pay $21,428.57
-Exactly 80% passive income is still a base rate entity | Turnover $100,000.00, passive income $80,000.00 of $100,000.00, taxable income $100,000.00; last year turnover $100,000.00, passive income $80,000.00 of $100,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 25%, tax $25,000.00, franking rate 25%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
-One cent over 80% passive income is not | Turnover $100,000.00, passive income $80,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $100,000.00, passive income $80,000.01 of $100,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 30%, tax $30,000.00, franking rate 30%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
-Aggregated turnover of exactly $50 million is not under the threshold | Turnover $50,000,000.00, passive income $0.00 of $1,000,000.00, taxable income $1,000,000.00; last year turnover $49,999,999.99, passive income $0.00 of $1,000,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 30%, tax $300,000.00, franking rate 25%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
-A company new this year franks at 25% whatever its own year | Turnover $60,000,000.00, passive income $0.00 of $1,000,000.00, taxable income $1,000,000.00; no previous year; dividend $75,000.00 franked 50%, marginal rate 30% | Tax rate 30%, tax $300,000.00, franking rate 25%, maximum franking credit $25,000.00, franking credit $12,500.00, tax left to pay $13,750.00
-Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
-Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
-
-One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
 - thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
