@@ -379,7 +379,8 @@ const individual = individualTaxTools(individualEngines);
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
   assert.deepEqual(Object.values(individual).map(t => t.name), ['calculate_income_tests', 'estimate_income_tax',
     'calculate_take_home_pay', 'calculate_sole_trader_set_aside', 'calculate_division_293_tax',
-    'calculate_bonus_withholding']);
+    'calculate_bonus_withholding', 'calculate_salary_packaging',
+    'calculate_novated_lease']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -464,6 +465,42 @@ test('individual tax tools refuse a year they do not offer, cents of taxable inc
     /no more than the salary/);
   await assert.rejects(pay.execute({ incomeYear: '2026-27', residency: 'resident', salary: '1', payPeriod: 'quarter' }),
     /payPeriod does not match/);
+});
+
+test('salary packaging tool gives the ATO’s FBT example and refuses what the page refuses', async () => {
+  const tool = individual['salary-packaging'];
+  const ato = await tool.execute({ incomeYear: '2026-27', residency: 'resident', employer: 'charity', salary: 80000,
+    typeOneBenefits: '7700', typeTwoBenefits: '9000', mealEntertainment: '3300', mealEntertainmentTypeOne: false });
+  assert.deepEqual([ato.grossedUp, ato.mealEntertainmentAllowed, ato.liableToFbt, ato.fbt, ato.reportableFringeBenefits, ato.source],
+    ['39226.00', '5000.00', '4226.00', '1986.22', '37735.00', 'https://duguid.com.au/tools/individual-tax/salary-packaging/']);
+  const filled = await tool.execute({ incomeYear: '2026-27', residency: 'resident', employer: 'charity', salary: 70000,
+    typeTwoBenefits: '15899.93' });
+  assert.deepEqual([filled.fbt, filled.gainAfterFbt], ['0.00', '5291.50']);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', residency: 'resident', employer: 'rebatable', salary: 1 }),
+    /employer does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2021-22', residency: 'resident', employer: 'charity', salary: 1 }),
+    /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', residency: 'resident', employer: 'charity' }), /salary/);
+  assert.match(tool.description, /rebatable or ordinary employers/);
+  assert.match(tool.inputSchema.properties.employer.description, /predominantly in or supporting its ambulance services/);
+});
+
+test('novated lease tool tests the electric car exemption and refuses what the page refuses', async () => {
+  const tool = individual['novated-lease'];
+  const car = { incomeYear: '2026-27', residency: 'resident', salary: 100000, car: 'bev', firstHeldAndUsedFrom1July2022: true,
+    firstSaleYear: '2026-27', costPrice: '60000', daysAvailable: 365, costsWithGst: '15000', costsWithoutGst: '1000' };
+  const bev = await tool.execute(car);
+  assert.deepEqual([bev.exempt, bev.statutoryValue, bev.exemptCase.saving, bev.exemptCase.reportableFringeBenefits,
+    bev.employeeContributionMethod.saving, bev.source],
+    [true, '12000.00', '6047.48', '22641.00', '1465.69', 'https://duguid.com.au/tools/individual-tax/novated-lease/']);
+  const phev = await tool.execute({ ...car, car: 'phev' });
+  assert.deepEqual([phev.exempt, phev.exemptCase], [false, null]);
+  assert.match(phev.reasonNotExempt, /commitment/);
+  assert.equal((await tool.execute({ ...car, car: 'phev', phevCommitment: true, firstSaleYear: '2024-25' })).exempt, true);
+  assert.match((await tool.execute({ ...car, luxuryCarTaxOnOtherSupply: true })).reasonNotExempt, /another supply or an importation/);
+  await assert.rejects(tool.execute({ ...car, car: 'diesel' }), /car does not match/);
+  await assert.rejects(tool.execute({ ...car, costPrice: undefined }), /costPrice/);
+  assert.match(tool.description, /employee contribution method/);
 });
 
 test('bonus withholding tool gives the ATO’s Schedule 5 examples and refuses what the page refuses', async () => {

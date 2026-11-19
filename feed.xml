@@ -8,6 +8,13 @@
   <updated>2026-11-19T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Two new individual tax calculators. The salary packaging calculator works what…</title>
+    <link href="https://duguid.com.au/changelog/#entry-d2546bf724f9e6d3" />
+    <id>https://duguid.com.au/changelog/#entry-d2546bf724f9e6d3</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>Two new individual tax calculators. The salary packaging calculator works what packaging saves an employee of a public benevolent institution, health promotion charity, hospital or ambulance service for 2022-23 to 2026-27: the benefits grossed up against the $30,000 or $17,000 cap, the $5,000 allowance for meal entertainment, FBT on any excess, the reportable fringe benefits amount and the tax with and without packaging; it gives the $1,986.22 of FBT in the ATO’s example. The novated lease calculator tests a car against each condition of the electric car exemption and compares a year of the lease with paying from after-tax pay, both exempt and under the employee contribution method, for 2023-24 to 2026-27.</summary>
+  </entry>
+  <entry>
     <title>A new individual tax calculator works out the PAYG withheld from a 2026-27 pay…</title>
     <link href="https://duguid.com.au/changelog/#entry-972cc20721efc0b7" />
     <id>https://duguid.com.au/changelog/#entry-972cc20721efc0b7</id>
@@ -90,6 +97,13 @@
     <id>https://duguid.com.au/changelog/#entry-130a727f04c6a2aa</id>
     <updated>2026-11-19T00:00:00Z</updated>
     <summary>The FBT car calculator now checks the electric cars exemption, one condition to a row, for a battery electric, hydrogen fuel cell electric or plug-in hybrid car: a current employee, the car first held and used on or after 1 July 2022, no luxury car tax at its first retail sale against the fuel-efficient threshold for that year from 2012-13, none on any other sale or import, and for a plug-in hybrid the commitments that keep it exempt from 1 April 2025. An exempt car’s FBT is nil, and the result shows its value before the exemption, which still counts for reporting unless the car is pooled or shared. It cites section 8A of the Fringe Benefits Tax Assessment Act 1986 and the Treasury Laws Amendment (Electric Car Discount) Act 2022, read on 19 November 2026, and its boundary cases include the ATO’s 5 worked examples.</summary>
+  </entry>
+  <entry>
+    <title>Two FBT calculators: FBT property values a property fringe benefit by the…</title>
+    <link href="https://duguid.com.au/changelog/#entry-3b09cf500f199472" />
+    <id>https://duguid.com.au/changelog/#entry-3b09cf500f199472</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>Two FBT calculators: FBT property values a property fringe benefit by the in-house or external rules of sections 42 and 43, and FBT expense payment values a payment or reimbursement of an employee’s expenditure, external under section 23 or in-house under section 22A. Both apply the otherwise deductible rule, except to an in-house expense payment, and the $1,000 in-house reduction in section 62 outside salary packaging, and are tested against the ATO guide’s chapter 9 and 17 examples.</summary>
   </entry>
   <entry>
     <title>The tool pages, changelog and release record name the releases of 18 and 19…</title>

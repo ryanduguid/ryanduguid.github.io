@@ -25,6 +25,8 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const packaging = { file: 'assets/salary-packaging.mjs', test: individualTest };
+const lease = { file: 'assets/novated-lease.mjs', test: individualTest };
 const bonus = { file: 'assets/bonus-withholding.mjs', test: individualTest };
 const d293 = { file: 'assets/division-293.mjs', test: individualTest };
 const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
@@ -153,6 +155,23 @@ const MUTATIONS = [
   { ...evExemption, name: 'EV exemption: a first retail sale after the FBT year counts its luxury car tax', find: 'const afterYear = firstSale > yearEnd;', replace: 'const afterYear = false;' },
   { ...evExemption, name: 'EV exemption: an exempt plug-in hybrid benefit before 1 April 2025 needs no earlier use', find: "facts[2] && firstUsed >= '2025-04-01'", replace: "facts[2] && firstUsed > '2025-04-01'" },
   { ...fbt, name: 'FBT car parking contributions take the value below nil', find: 'least(contribution, gross)', replace: 'contribution' },
+  { ...fbt, name: 'FBT property 75% rules take the whole price', find: 'ratioCents(value * 3n, 4n)', replace: 'value' },
+  { ...fbt, name: 'FBT property bought goods take the notional value', find: 'least(money(p.price), money(p.notional))', replace: 'money(p.notional)' },
+  { ...fbt, name: 'FBT in-house reduction applies under salary packaging', find: "&& !method.endsWith('-salary-packaging')", replace: '' },
+  { ...fbt, name: 'FBT in-house reduction takes the value below nil', find: 'least(money(available, 1000), value - rule.reduction)', replace: 'money(available, 1000)' },
+  { ...fbt, name: 'FBT in-house reduction accepts more than $1,000', find: 'money(available, 1000)', replace: 'money(available)' },
+  { ...fbt, name: 'FBT in-house reduction applies to external benefits', find: "method.startsWith('in-house-') && !", replace: '!' },
+  { ...fbt, name: 'FBT otherwise deductible reduction takes the value below nil', find: 'least(gd - applied, value)', replace: 'gd - applied' },
+  { ...fbt, name: 'FBT otherwise deductible RD can exceed GD', find: 'least(rd, gd)', replace: 'rd' },
+  { ...fbt, name: 'FBT property gross deduction on the value after the contribution', find: 'otherwiseDeductible(gross, p.incomeUse, rd)', replace: 'otherwiseDeductible(gross - least(contribution, gross), p.incomeUse, rd)' },
+  { ...fbt, name: 'FBT property accepts RD above the contribution', find: 'if (rd > contribution)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT property contribution takes the value below nil', find: 'const applied = least(paid, gross);', replace: 'const applied = paid;' },
+  { ...fbt, name: 'FBT expense payment gross deduction on the payment', find: 'otherwiseDeductible(expenditure, e.incomeUse, rd)', replace: 'otherwiseDeductible(paid, e.incomeUse, rd)' },
+  { ...fbt, name: 'FBT expense payment portion ignores the contribution', find: 'expenditure - paid + contribution', replace: 'expenditure - paid' },
+  { ...fbt, name: 'FBT expense payment accepts a payment above the expenditure', find: 'if (paid > expenditure)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT expense payment accepts RD above the portion', find: 'if (rd > portion)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT in-house expense payment takes the otherwise deductible inputs', find: 'if (hundredths(e.incomeUse) > 0n || rd > 0n)', replace: 'if (false)' },
+  { ...fbt, name: 'FBT expense payment takes an external property rule', find: "e.method.startsWith('in-house-') ? e.method : ''", replace: 'e.method' },
   { ...pcg, name: 'PCG 2021/4 puts exactly 50% returned in the band below', find: '[50, true]', replace: '[50, false]' },
   { ...pcg, name: 'PCG 2021/4 puts an exactly 30% tax rate in the band below', find: '[30, true]', replace: '[30, false]' },
   { ...pcg, name: 'PCG 2021/4 puts exactly 100% of the benchmark in the band above', find: '[100, false]', replace: '[100, true]' },
@@ -340,6 +359,30 @@ const MUTATIONS = [
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
   { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
   { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
+  { ...packaging, name: 'salary packaging puts meal entertainment in the other type', find: 'grossUp(typeOne + (p.mealsTypeOne ? meals : 0), TYPE_1)', replace: 'grossUp(typeOne + (p.mealsTypeOne ? 0 : meals), TYPE_1)' },
+  { ...packaging, name: 'salary packaging grosses Type 2 benefits up at the Type 1 rate', find: 'typeTwo: grossUp(typeTwo + (p.mealsTypeOne ? 0 : meals), TYPE_2)', replace: 'typeTwo: grossUp(typeTwo + (p.mealsTypeOne ? 0 : meals), TYPE_1)' },
+  { ...packaging, name: 'salary packaging rounds the gross-up down', find: '+ 1000000n) / 2000000n', replace: ') / 2000000n' },
+  { ...packaging, name: 'salary packaging gives a charity the hospital cap', find: 'charity: 30000, hospital: 17000', replace: 'charity: 17000, hospital: 17000' },
+  { ...packaging, name: 'salary packaging allows no meal entertainment over the cap', find: 'const excess = overCap - mealAllowance;', replace: 'const excess = overCap;' },
+  { ...packaging, name: 'salary packaging allows meal entertainment beyond $5,000', find: 'Math.min(MEAL_ALLOWANCE, grossed.meals, overCap)', replace: 'Math.min(grossed.meals, overCap)' },
+  { ...packaging, name: 'salary packaging taxes the excess at 45%', find: 'const fbt = excess * 47;', replace: 'const fbt = excess * 45;' },
+  { ...packaging, name: 'salary packaging reports benefits of exactly $2,000', find: 'packaged > REPORTING_THRESHOLD', replace: 'packaged >= REPORTING_THRESHOLD' },
+  { ...packaging, name: 'salary packaging reports the taxable value without the gross-up', find: 'Math.floor(packaged / 53)', replace: 'Math.floor(packaged / 100)' },
+  { ...packaging, name: 'salary packaging leaves the reportable amount out of the tax', find: 'owed(p, salary - packaged, reportable)', replace: 'owed(p, salary - packaged, 0)' },
+  { ...packaging, name: 'salary packaging takes the standard deduction before 2026-27', find: 'p.year >= STANDARD_DEDUCTION_FROM && ', replace: '' },
+  { ...lease, name: 'novated lease exempts a petrol car', find: "if (n.kind === 'other') return", replace: 'if (false) return' },
+  { ...lease, name: 'novated lease exempts a plug-in hybrid without a commitment', find: '&& !n.commitment) {', replace: '&& false) {' },
+  { ...lease, name: 'novated lease takes a plug-in hybrid commitment with a sale after 2024-25', find: "n.saleYear > '2024-25'", replace: "n.saleYear > '2026-27'" },
+  { ...lease, name: 'novated lease exempts a car first used before 1 July 2022', find: "if (n.firstUsed !== 'after') return", replace: 'if (false) return' },
+  { ...lease, name: 'novated lease finds luxury car tax payable at the threshold', find: 'price > FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100', replace: 'price >= FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100' },
+  { ...lease, name: 'novated lease ignores luxury car tax at another supply or importation', find: 'if (n.otherSupply) return', replace: 'if (false) return' },
+  { ...lease, name: 'novated lease takes the income year’s luxury car tax threshold', find: 'FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100)', replace: 'FUEL_EFFICIENT_THRESHOLD[n.year] * 100)' },
+  { ...lease, name: 'novated lease ignores the reduction after 4 years', find: '(n.reduced ? 2n : 3n)', replace: '3n' },
+  { ...lease, name: 'novated lease counts every day of the year', find: '* BigInt(days), 300n', replace: '* BigInt(yearDays), 300n' },
+  { ...lease, name: 'novated lease takes no GST credit on the costs', find: 'ratioCents(BigInt(gstCosts) * 10n, 11n)', replace: 'BigInt(gstCosts)' },
+  { ...lease, name: 'novated lease charges no GST on the contribution', find: 'ratioCents(BigInt(taxableValue) * 10n, 11n)', replace: 'BigInt(taxableValue)' },
+  { ...lease, name: 'novated lease reports nothing for an exempt car', find: 'taxableValue > 200000 ? Math.floor(taxableValue / 53) : 0', replace: '0' },
+  { ...lease, name: 'novated lease saving leaves out the after-tax contribution', find: '- pre - post + costs', replace: '- pre + costs' },
   { ...bonus, name: 'Schedule 5 limits withholding to 45%', find: '(additional * 47) / 100)) / 100);', replace: '(additional * 45) / 100)) / 100);' },
   { ...bonus, name: 'Schedule 5 limit leaves out the study loan component', find: 'limited(step7.total * 100, additional)', replace: 'limited(step7.tax * 100, additional)' },
   { ...bonus, name: 'Schedule 5 Method A keeps the earnings’ cents', find: 'const step1 = dollarsOnly(earnings);', replace: 'const step1 = earnings;' },
@@ -605,7 +648,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }

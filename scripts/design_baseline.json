@@ -158,11 +158,17 @@
     "tools/business-calculators/fbt-car/index.html": [
       "cc13654c944a00876a7cc5dd846eabae044a9ae41ccfb7faeb9ef8d5f407196d"
     ],
+    "tools/business-calculators/fbt-expense-payment/index.html": [
+      "4ec78a9362509e86c570e15e8da2d6ba99024202915968707639130f085205b0"
+    ],
     "tools/business-calculators/fbt-loan/index.html": [
       "34ec7682bf66270bb43e736e946b42c37f2a3f2d476b986a0583e59787d6c9dd"
     ],
     "tools/business-calculators/fbt-meal-entertainment/index.html": [
       "020300cbea395aba3084478889fedbdef53b6291b4decadd343de032daa8edbc"
+    ],
+    "tools/business-calculators/fbt-property/index.html": [
+      "a570bd8e129b5a50f357ac9f20010fbef74d0aa0166fa4d25c625f349b3b9384"
     ],
     "tools/business-calculators/fixed-fee/index.html": [
       "92a8a36828e952b98e007144bffcb72766b67b31256bbdc8524917a09fc53ccf"
@@ -272,6 +278,12 @@
     "tools/individual-tax/lump-sum-arrears/index.html": [
       "143cbd7d34d37340ed6005cc963f555e12f2636465af1fac2c29de193d24883f"
     ],
+    "tools/individual-tax/novated-lease/index.html": [
+      "6da01e4fff78ce0ccbb04b4fb916091860db698ef405e946a9678b498e2ea502"
+    ],
+    "tools/individual-tax/salary-packaging/index.html": [
+      "d5a69d84bd08addbbcb8ece932d752f080b550f4e673bca7597f467849611666"
+    ],
     "tools/individual-tax/sole-trader/index.html": [
       "b650bd8e9a1e227fa343ce6186661a16b07af6816ff0be1915c8ca747b12ee74"
     ],
@@ -343,9 +355,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "7dfd73d1620efd289ae47760ae498cb524e483d68f828e5d80cfdf29a770af21",
+    "llms.txt": "8a5994b69f8a95cb2f1d855d3f48821e6f4d4ce2200d68485029148a67a74215",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "18521ff85410f71fa5c14d75bcffa162372ffd59f62f009a59966689a28b1c6e"
+    "sitemap.xml": "b206dc81fffd0e8aae286a15c0322c1752769992926cd1baf78832c277c82998"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -405,7 +417,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7783,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7787,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
