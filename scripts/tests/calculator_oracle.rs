@@ -6622,7 +6622,6 @@ fn the_cgt_oracle_works_the_atos_examples() {
     );
 }
 
-#[test]
 const LSL_CASES: usize = 300;
 const LSL_REASONS: [&str; 10] = [
     "resign",
