@@ -399,7 +399,7 @@ const individual = individualTaxTools(individualEngines);
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
   assert.deepEqual(Object.values(individual).map(t => t.name), ['calculate_income_tests', 'estimate_income_tax',
-    'calculate_take_home_pay', 'calculate_sole_trader_set_aside', 'calculate_division_293_tax',
+    'calculate_take_home_pay', 'project_super_balance', 'calculate_sole_trader_set_aside', 'calculate_division_293_tax',
     'calculate_bonus_withholding', 'calculate_salary_packaging',
     'calculate_novated_lease']);
   for (const [key, t] of Object.entries(individual)) {
@@ -486,6 +486,20 @@ test('individual tax tools refuse a year they do not offer, cents of taxable inc
     /no more than the salary/);
   await assert.rejects(pay.execute({ incomeYear: '2026-27', residency: 'resident', salary: '1', payPeriod: 'quarter' }),
     /payPeriod does not match/);
+});
+
+test('super projection tool gives the page’s worked example and refuses what the page refuses', async () => {
+  const tool = individual['super-projection'];
+  const r = await tool.execute({ age: 30, balance: '50000', salary: 80000 });
+  assert.deepEqual([r.yearsProjected, r.balanceAtRetirement, r.presentValue, r.source],
+    [37, '2068319.69', '539266.80', 'https://duguid.com.au/tools/individual-tax/super-projection/']);
+  const year = await tool.execute({ age: 66, balance: '50000', salary: 80000 });
+  assert.deepEqual([year.employerContributionsFirstYear, year.balanceAtRetirement], ['9600.00', '60829.25']);
+  assert.equal((await tool.execute({ age: 30, retirementAge: 59, balance: '50000', salary: 80000 })).retirementAge, 60);
+  await assert.rejects(tool.execute({ age: 30, retirementAge: 76, balance: '50000', salary: 80000 }), /retirementAge/);
+  await assert.rejects(tool.execute({ age: 30, balance: '50000', salary: 80000, salarySacrifice: '30000' }), /\$32,500 cap/);
+  await assert.rejects(tool.execute({ age: 30, balance: 50000, salary: 80000 }), /balance/);
+  assert.match(tool.description, /not a prediction or a recommendation/);
 });
 
 test('salary packaging tool gives the ATO’s FBT example and refuses what the page refuses', async () => {

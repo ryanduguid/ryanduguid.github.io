@@ -8,7 +8,8 @@ import { waitForCalculator } from './calculator-ready.mjs';
 const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
   'sole-trader': '$5,939.00', 'lump-sum-arrears': '$1,688.25', 'division-293': '$750.00', 'income-tests': '$73,810.00',
   'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
-  'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48' };
+  'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
+  'super-projection': '$539,266.80' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -129,6 +130,22 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(row('Pay after withholding each fortnight')).toHaveText('$2,246.00');
   await expect(row('Amount owing estimate')).toHaveText('$212.80');
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
+});
+
+test('super projection works one year and refuses salary sacrifice over the cap', async ({ page }) => {
+  await page.goto('/tools/individual-tax/super-projection/');
+  const form = page.locator('#super-projection form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Your age now/).fill('66');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Balance at 67 in future dollars')).toHaveText('$60,829.25');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,658.87');
+  await expect(form.locator('output')).toContainText('not intended to be relied on');
+  await form.getByLabel(/^Salary sacrifice/).fill('25000');
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('above the $32,500 cap');
 });
 
 test('salary packaging works the ATO’s FBT example and the hospital cap', async ({ page }) => {
@@ -266,6 +283,7 @@ for (const [id, name, input, expected] of [
     concessionalContributions: '25000' }, { division293Tax: '3750.00' }],
   ['income-tests', 'calculate_income_tests', { taxableIncome: 90000, reportableFringeBenefitsOther: 27000, assessableIncome: 90000 },
     { incomeForSurchargePurposes: '117000.00' }],
+  ['super-projection', 'project_super_balance', { age: 66, balance: '50000', salary: 80000 }, { balanceAtRetirement: '60829.25' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {
