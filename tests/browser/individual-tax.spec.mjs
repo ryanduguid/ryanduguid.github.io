@@ -44,7 +44,7 @@ for (const id of Object.keys(CALCULATORS)) {
   });
 }
 
-test('lump sum in arrears gives no offset below the 10% test and refuses a non-resident offline', async ({ page, context }) => {
+test('lump sum in arrears gives no offset below the 10% test and refuses a non-resident or a termination payment offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/lump-sum-arrears/');
   const form = page.locator('#lump-sum-arrears form');
   await waitForCalculator(form);
@@ -58,6 +58,10 @@ test('lump sum in arrears gives no offset below the 10% test and refuses a non-r
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toHaveText('This calculator works the offset only for a person resident in Australia for the '
     + 'whole of the year of receipt and each recent accrual year, taxed at the resident rates with the full tax-free threshold.');
+  await form.locator('[name="resident"][value="yes"]').check();
+  await form.locator('[name="other"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('This calculator does not work the offset when an employment termination payment');
 });
 
 test('a foreign resident pays no Medicare levy or surcharge and gets no offset', async ({ page }) => {

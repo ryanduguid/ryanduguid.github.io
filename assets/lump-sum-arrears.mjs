@@ -28,7 +28,14 @@ const LEVY_YEARS = ['2014-15', '2015-16', '2016-17'];
 
 /** @typedef {{year: string, arrears: string, taxable?: string, gain?: string, rebateYearArrears?: string,
  *   earlierRebateArrears?: string}} AccrualYear
- * @typedef {{year: string, resident: boolean, taxable: string, gain: string, accrual: AccrualYear[]}} ArrearsInput */
+ * @typedef {{year: string, resident: boolean, otherAmounts: boolean, taxable: string, gain: string,
+ *   accrual: AccrualYear[]}} ArrearsInput */
+
+/** The amounts s 159ZR(1) leaves out of normal taxable income besides a net capital gain (ITAA 1997 Divisions 82, 301
+ * and 302, ss 83-10, 83-80 and 405-15, and Division 82 of the transitional Act), whose offsets rebated tax allows, and
+ * primary producer averaging, whose offset it also allows (s 392-35(2)). */
+const OTHER_AMOUNTS = 'an employment termination payment, unused leave paid on termination, a super benefit, '
+  + 'above-average special professional income or primary producer averaging';
 
 /** The optional facts of a recent accrual year, with how a message names them. */
 const FACTS = /** @type {const} */ ([['taxable', 'taxable income'], ['gain', 'net capital gain'],
@@ -122,6 +129,13 @@ export function lumpSumArrears(input) {
   if (!input.resident) {
     throw new Error('This calculator works the offset only for a person resident in Australia for the whole of the year of '
       + 'receipt and each recent accrual year, taxed at the resident rates with the full tax-free threshold.');
+  }
+  // s 159ZR(1): normal taxable income leaves these out and rebated tax is after their offsets; the form asks only
+  // for the net capital gain.
+  if (typeof input.otherAmounts !== 'boolean') throw new Error(`Say whether ${OTHER_AMOUNTS} is in any of those years.`);
+  if (input.otherAmounts) {
+    throw new Error(`This calculator does not work the offset when ${OTHER_AMOUNTS} is in the year of receipt or a recent `
+      + 'accrual year: normal taxable income leaves them out and the tax is worked after their offsets.');
   }
   const taxable = dollars(input.taxable, 'taxable income');
   const gain = dollars(input.gain, 'the net capital gain');

@@ -90,7 +90,7 @@ const FORM_CALLS = {
     includesSuper: f.super === 'included', sacrifice: f.sacrifice, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes' }],
   studyLoanRepayment: (f) => [{ taxable: f.taxable, fringe: f.fringe, losses: f.losses, super: f.super, foreign: f.foreign }, f.year],
-  lumpSumArrears: (f) => [{ year: f.year, resident: f.resident === 'yes', taxable: f.taxable, gain: f.gain,
+  lumpSumArrears: (f) => [{ year: f.year, resident: f.resident === 'yes', otherAmounts: f.other === 'yes', taxable: f.taxable, gain: f.gain,
     accrual: ['latest', 'before', 'earlier-1', 'earlier-2', 'earlier-3', 'earlier-4'].filter((slot) => f[`${slot}-year`])
       .map((slot) => Object.fromEntries([['year', 'year'], ['arrears', 'arrears'], ['taxable', 'taxable'], ['gain', 'gain'],
         ['rebateYearArrears', 'rebate-year'], ['earlierRebateArrears', 'earlier-rebate']]
@@ -428,7 +428,7 @@ test('a form that is not an individual tax calculator gets no result, whatever i
   }
 });
 
-const arrears = (year, taxable, accrual, gain = '0') => lumpSumArrears({ year, resident: true, taxable, gain,
+const arrears = (year, taxable, accrual, gain = '0') => lumpSumArrears({ year, resident: true, otherAmounts: false, taxable, gain,
   accrual: accrual.map(([y, amount, income, more]) => ({ year: y, arrears: amount, ...(income ? { taxable: income } : {}),
     ...more })) });
 
@@ -489,7 +489,11 @@ test('lump sum in arrears refuses what it cannot work', () => {
   for (const [call, message] of [
     [() => lumpSumArrears({ year: '2023-24', resident: true, taxable: '1', gain: '0', accrual: [] }), 'Choose 2024-25, 2025-26, 2026-27.'],
     [() => lumpSumArrears({ year: '2025-26', resident: false, taxable: '1', gain: '0', accrual: [] }), /only for a person resident/],
-    [() => lumpSumArrears({ year: '2025-26', resident: 'yes', taxable: '1', gain: '0', accrual: [] }), /Say whether/],
+    [() => lumpSumArrears({ year: '2025-26', resident: 'yes', taxable: '1', gain: '0', accrual: [] }), /Say whether the person/],
+    [() => lumpSumArrears({ year: '2025-26', resident: true, taxable: '1', gain: '0', accrual: [] }),
+      /Say whether an employment termination payment, unused leave paid on termination, a super benefit/],
+    [() => lumpSumArrears({ year: '2025-26', resident: true, otherAmounts: true, taxable: '1', gain: '0', accrual: [] }),
+      /does not work the offset when an employment termination payment.* is in the year of receipt or a recent accrual year/],
     [() => arrears('2025-26', '1.5', ok), 'Enter taxable income in whole dollars, from 0 to 1000000000.'],
     [() => arrears('2025-26', '1000', []), 'Give each earlier income year in which part of the arrears accrued.'],
     [() => arrears('2025-26', '1000', [['2023-2024', '1', '1']]), /such as 2023-24/],

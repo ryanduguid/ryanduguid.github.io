@@ -130,7 +130,8 @@ function lumpSumArrearsResult(value, aud) {
     accrual.push({ year: field('year'), arrears: field('arrears'), ...Object.fromEntries(facts) });
   }
   const year = value('year');
-  const r = lumpSumArrears({ year, resident: value('resident') === 'yes', taxable: value('taxable'), gain: value('gain'),
+  const r = lumpSumArrears({ year, resident: value('resident') === 'yes',
+    otherAmounts: value('other') !== 'no', taxable: value('taxable'), gain: value('gain'),
     accrual });
   const rows = [['Total arrears amount', aud(r.total)], ['Normal taxable income', aud(r.normal)],
     ['10% of normal taxable income less the arrears', aud(r.tenPercent)]];
