@@ -173,6 +173,11 @@ function fifteenYearUnmet(x, basic, owned15, retires) {
 export function cgtConcessions(x) {
   const { acquired, event } = checkScope(x);
   const business = smallBusiness(x);
+  if (x.passive !== 'none' && x.business !== 'no') {
+    throw new Error('A passively held asset is one used in another entity\u2019s business while you carry on none yourself, '
+      + 'other than in partnership (paragraphs 152-10(1A)(b) and (1B)(c)): answer No to a business carried on, or No to '
+      + 'passively held.');
+  }
   const netValue = cents(x.netAssets);
   const netAssets = netValue <= NET_ASSETS;
   const passive = x.passive !== 'none';
@@ -254,7 +259,10 @@ function retirementOf(r, company) {
   if (!r.significant) return 'Not available: no significant individual just before the CGT event (paragraph 152-305(2)(b))';
   if (!r.retirement) return 'Not available: the $500,000 limit is used up (section 152-320)';
   const limit = `$${r.retirementLimit.toLocaleString('en-AU', { minimumFractionDigits: 2 })}`;
-  const parts = [`Available: up to ${limit} of the gain left after the 50% reduction${company ? ' for this stakeholder' : ''} (section 152-320)`];
+  const parts = [company
+    ? `Available: up to ${limit} for this stakeholder, counted as their percentage of what the company or trust disregards `
+      + '(subsections 152-320(1) and (2))'
+    : `Available: up to ${limit} of the gain left after the 50% reduction (section 152-320)`];
   if (company) {
     parts.push('paid to its CGT concession stakeholders within 7 days of the later of the choice and receiving the proceeds '
       + '(subsection 152-325(4))');

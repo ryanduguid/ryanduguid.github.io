@@ -207,6 +207,7 @@ const MUTATIONS = [
   { ...concessions, name: 'CGT concessions ignore permanent incapacity', find: "|| x.incapacitated === 'yes'", replace: '|| false' },
   { ...concessions, name: 'CGT concessions skip the 15 years with a significant individual', find: 'unmet.push(`a significant individual for a total of 15 years of ownership (${at}(c))`);', replace: 'void at;' },
   { ...concessions, name: 'CGT concessions skip the significant individual just before the sale', find: "if (x.significant !== 'yes') unmet.push", replace: 'if (false) unmet.push' },
+  { ...concessions, name: 'CGT concessions let a passively held asset through beside your own business', find: "if (x.passive !== 'none' && x.business !== 'no') {", replace: 'if (false) {' },
   { ...concessions, name: 'CGT concessions ignore a passively held asset', find: "const passive = x.passive !== 'none';", replace: 'const passive = false;' },
   { ...concessions, name: 'CGT concessions take the basic conditions without the active asset test', find: '(business.smallBusiness || netAssets || passive) && active.activeAsset', replace: '(business.smallBusiness || netAssets || passive) || active.activeAsset' },
   { ...concessions, name: 'CGT concessions let a trust without a significant individual choose the retirement exemption', find: "const significant = x.entity === 'individual' || x.significant === 'yes';", replace: 'const significant = true;' },

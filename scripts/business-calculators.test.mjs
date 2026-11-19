@@ -3262,7 +3262,8 @@ test('the retirement exemption row gives each entity its conditions and the limi
     + '(section 152-320), with the exempt amount paid into a complying super fund or RSA, as the individual is under 55 just '
     + 'before the choice (paragraph 152-305(1)(b))');
   assert.equal(concessionRow({ entity: 'company', significant: 'yes', used: '125000.50' }, 'Retirement exemption'),
-    'Available: up to $374,999.50 of the gain left after the 50% reduction for this stakeholder (section 152-320), paid to its CGT '
+    'Available: up to $374,999.50 for this stakeholder, counted as their percentage of what the company or trust disregards '
+    + '(subsections 152-320(1) and (2)), paid to its CGT '
     + 'concession stakeholders within 7 days of the later of the choice and receiving the proceeds (subsection 152-325(4)), with '
     + 'the exempt amount paid into a complying super fund or RSA, as the individual is under 55 just before the payment '
     + '(subsection 152-325(7))');
@@ -3282,6 +3283,8 @@ test('the concessions engine refuses malformed answers with a reason', () => {
   refuses({ entity: 'partnership' }, 'Choose who made the capital gain.');
   refuses({ partnership: 'yes', passive: 'affiliate' }, 'Subsections 152-10(1A) and (1B) are for an asset that is not your interest in '
     + 'an asset of a partnership you are a partner in: choose one or the other.');
+  refuses({ passive: 'affiliate' }, /paragraphs 152-10\(1A\)\(b\) and \(1B\)\(c\)/);
+  refuses({ passive: 'partnership', business: 'winding-up' }, /answer No to a business carried on/);
   refuses({ event: '2020-06-30' }, 'Enter a sale contract from 1 July 2020 to 30 June 2027.');
   refuses({ acquired: '2026-02-02' }, 'The sale contract must come after the purchase contract.');
   refuses({ acquired: '2026-02-30' }, 'Enter the date of the purchase contract as a date.');
