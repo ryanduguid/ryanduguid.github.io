@@ -120,7 +120,7 @@ The income tests calculator adds up the 6 income measures that the income tests 
 - Adjusted taxable income, for the dependant (invalid and invalid carer) tax offset, adds adjusted fringe benefits, target foreign income, investment losses, tax-free pensions and super contributions, less child support paid.
 - Co-contribution total income starts from assessable income instead, adds fringe benefits and employer contributions and takes off business deductions.
 
-The ATO’s page on when to repay a study loan, last updated 13 October 2026, works Christina’s repayment income: taxable income of $50,420, a $1,250 net investment loss, $4,560 of reportable fringe benefits, $2,580 of exempt foreign employment income and $15,000 of reportable super contributions give $73,810. The calculator opens on her figures, with her loss taken as a financial investment loss, the benefits from an employer that pays FBT, the contributions from her employer, her target foreign income as the exempt income alone and assessable income equal to taxable income; those splits are fictional. Tom’s income for surcharge purposes of $117,000, from the ATO’s surcharge page, is among the boundary cases.
+The ATO’s page When you must repay your loan, last updated 13 October 2026 and read 19 November 2026, works Christina’s repayment income: taxable income of $50,420, a $1,250 net investment loss, $4,560 of reportable fringe benefits, $2,580 of exempt foreign employment income and $15,000 of reportable super contributions give $73,810. The calculator opens on her figures, with her loss taken as a financial investment loss, the benefits from an employer that pays FBT, the contributions from her employer, her target foreign income as the exempt income alone and assessable income equal to taxable income; those splits are fictional. Tom’s income for surcharge purposes of $117,000, from the ATO’s surcharge page, is among the boundary cases.
 
 ## What the income tests calculator does not cover
 
@@ -155,6 +155,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - four individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
