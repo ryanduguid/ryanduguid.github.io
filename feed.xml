@@ -22,6 +22,13 @@
     <summary>A new individual tax calculator works out the 6 income measures that the income tests section of a tax return feeds, for a person resident all year in 2024-25 to 2026-27: income for surcharge purposes, Division 293 income, rebate income, repayment income, adjusted taxable income and co-contribution total income. Each definition was read on 19 November 2026 in the Income Tax Assessment Acts 1936 and 1997, the Higher Education Support Act 2003, the Family Assistance Act and the co-contribution Act, and the page opens on the ATO’s worked example of Christina’s $73,810 of repayment income. It works the measures, not the offsets, surcharge or repayments they decide.</summary>
   </entry>
   <entry>
+    <title>A new business calculator estimates a 2026-27 workers compensation premium…</title>
+    <link href="https://duguid.com.au/changelog/#entry-c390e35790fafdb5" />
+    <id>https://duguid.com.au/changelog/#entry-c390e35790fafdb5</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A new business calculator estimates a 2026-27 workers compensation premium under the scheme of any of the 8 states and territories, from the wages each scheme counts and the rate the insurer sets: icare’s small employer premium with the Safe Employer Reward and dust diseases contribution, WorkSafe Victoria’s premium for a new or small employer, WorkCover Queensland’s premium for a policy commencing in 2026-27 with its duty, ReturnToWorkSA’s discount and claims costs, and the rate times wages that private insurers set elsewhere, each with GST and the adjustment to actual wages. Each formula was read on 19 November 2026 from the regulator or insurer. It holds no rate table and refuses the premiums only an insurer sets, such as an experience-rated one.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator works out one employee’s long service leave under the…</title>
     <link href="https://duguid.com.au/changelog/#entry-1ee1f0ba04abd34a" />
     <id>https://duguid.com.au/changelog/#entry-1ee1f0ba04abd34a</id>
