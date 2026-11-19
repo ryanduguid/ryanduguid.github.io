@@ -352,7 +352,7 @@ Published 11 September 2026. Last checked 19 November 2026, the newest of the ca
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
-- Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign.
+- Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
