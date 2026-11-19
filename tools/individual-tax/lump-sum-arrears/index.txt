@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/individual-tax/lump-sum-arrears/
 
 # Lump sum in arrears tax offset calculator
 
-The offset for back pay received as a lump sum, from each accrual year's tax, for 2024-25 to 2026-27.
+The tax offset on back pay received as a lump sum, for 2024-25 to 2026-27.
 
 Published 19 November 2026. Last checked 19 November 2026.
 
@@ -14,9 +14,9 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Lump sum payments in arrears received in one income year
 
-Year you received the arrears 2026-27 2025-26 2024-25 Taxable income of that year, including the arrears (whole dollars) Net capital gain included in it (whole dollars) Were you an Australian resident for the whole of that year and of the 2 latest accrual years, with the full tax-free threshold? Yes No The latest year in which part of the arrears accrued Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, with 3 or more accrual years (whole dollars, blank if none) If you got this offset for it: its own total arrears amount (whole dollars) Arrears of an earlier year you got this offset for that accrued in it (whole dollars)
+Year you received the arrears 2026-27 2025-26 2024-25 Taxable income of that year, including the arrears (whole dollars) Net capital gain included in it (whole dollars) Were you an Australian resident for the whole of that year and of the 2 latest accrual years, with the full tax-free threshold? Yes No Did those years include a termination payment, unused leave, a super benefit, special professional income or primary producer averaging? No Yes The latest year in which part of the arrears accrued Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, only with 3 or more accrual years (whole dollars) If you got this offset for it: its total arrears amount (whole dollars) Arrears of an earlier offset year that accrued in it (whole dollars)
 
-The accrual year before it, if any Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, with 3 or more accrual years (whole dollars, blank if none) If you got this offset for it: its own total arrears amount (whole dollars) Arrears of an earlier year you got this offset for that accrued in it (whole dollars)
+The accrual year before it, if any Income year, such as 2023-24 Arrears that accrued in it (whole dollars) Its taxable income, without these arrears (whole dollars) Its net capital gain, only with 3 or more accrual years (whole dollars) If you got this offset for it: its total arrears amount (whole dollars) Arrears of an earlier offset year that accrued in it (whole dollars)
 
 Earlier accrual years, every payer’s arrears together.
 
@@ -40,7 +40,7 @@ The ATO’s page on lump sum payments in arrears works Yan’s breakdown of arre
 
 ## What the lump sum in arrears calculator does not cover
 
-The calculator works the offset for a person resident in Australia for the whole of the year of receipt and of each recent accrual year, entitled to the full tax-free threshold, for a year of receipt of 2024-25, 2025-26 or 2026-27. It does not decide what is a lump sum in arrears: it takes the arrears you enter as eligible income that accrued more than 12 months before you received it. It does not cover an employment termination payment, a super lump sum, unused leave, above-average special professional income or primary producer averaging in any of the years, a minor’s income or a trustee.
+The calculator works the offset for a person resident in Australia for the whole of the year of receipt and of each recent accrual year, entitled to the full tax-free threshold, for a year of receipt of 2024-25, 2025-26 or 2026-27. It does not decide what is a lump sum in arrears: it takes the arrears you enter as eligible income that accrued more than 12 months before you received it. It refuses an employment termination payment, unused leave paid on termination, a super lump sum or income stream, above-average special professional income or primary producer averaging in the year of receipt or a recent accrual year, and does not cover a minor’s income or a trustee.
 
 It does not work out the Medicare levy or surcharge on the arrears, which have their own rules, or apply the offset against your tax. The ATO works the offset when you lodge with the amounts for each year; confirm the figures with the ATO or a registered tax agent.
 
