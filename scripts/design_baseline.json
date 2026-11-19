@@ -331,9 +331,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "c3beef2cb99d0aaab04236da5f73b3d881c166cb8d60e13c07cb14d99e4b9235",
+    "llms.txt": "7a410df42945710bcc60cc835424230e1647c97423d1d0bbcb84cad0290c1f50",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "6d4d4ca616b7c9cea45dce98ab4c946fe01c56400a523a8f2554a96ec0671175"
+    "sitemap.xml": "49431e41a0cefa87f9452a49a1a57eb59f55e4661cf5e3cbcd2099db8d4f7a3c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -393,7 +393,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7778,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7779,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
