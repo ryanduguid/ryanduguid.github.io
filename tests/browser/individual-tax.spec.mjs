@@ -6,7 +6,7 @@ import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
 const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
-  'sole-trader': '$5,939.00', 'income-tests': '$73,810.00' };
+  'sole-trader': '$5,939.00', 'income-tests': '$73,810.00', 'concessional-catch-up': '$97,500.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -43,6 +43,24 @@ for (const id of Object.keys(CALCULATORS)) {
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
+
+test('catch-up carries nothing forward at a $500,000 balance and refuses a defined benefit interest offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/concessional-catch-up/');
+  const form = page.locator('#concessional-catch-up form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel(/^Total super balance on 30 June before the year/).fill('500000');
+  await form.getByLabel(/^Concessional contributions for the year so far/).fill('40000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Concessional cap available')).toHaveText('$30,000.00');
+  await expect(row('Excess concessional contributions')).toHaveText('$10,000.00');
+  await expect(row('2019-20 unused cap left, lapses after 2024-25')).toHaveText('$14,000.00');
+  await form.locator('[name="defined-benefit"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(
+    'A defined benefit interest changes what counts as concessional contributions (ITAA 1997 Subdivision 291-C); this calculator does not cover it.');
+});
 
 test('a foreign resident pays no Medicare levy or surcharge and gets no offset', async ({ page }) => {
   await page.goto('/tools/individual-tax/income-tax/');
