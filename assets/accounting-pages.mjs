@@ -521,6 +521,8 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'long-service-leave':
             result = calculate.longServiceLeaveResult(value, aud);
             break;
+          case 'unused-leave':
+            result = calculate.unusedLeaveResult(value, aud);
           case 'workers-compensation':
             result = calculate.workersCompensationResult(value, aud);
             break;

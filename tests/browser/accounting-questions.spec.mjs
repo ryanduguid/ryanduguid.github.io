@@ -765,6 +765,24 @@ test('SGC page works a Payday Super charge, an old-law quarter and a refusal off
   await expect(form.locator('output .result-row--principal')).toHaveText('SG charge for the quarter: $1,519.18.');
 });
 
+test('unused leave page works Schedule 7’s example, a no-TFN payment and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/unused-leave/');
+  const form = page.locator('#unused-leave form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  // Norman, Schedule 7's example, is the form's default.
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Total to withhold from the leave: $6,786.00.');
+  // Without a TFN, 47% of the whole $22,020, cents ignored.
+  await form.getByLabel('No TFN given', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('To withhold: 47% of the payment, cents ignored: $10,349.00.');
+  // Leave that began to accrue after 16 August 1978 has no part before it.
+  await form.getByLabel('Leave began to accrue').fill('1980-01-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('The leave accrued from 1 January 1980, so none of it is long service leave for the period before 16 August 1978: enter 0 or leave it blank.');
+});
+
 // Western Australia's Anastasia (serious misconduct after 12 years and 1 month: the 8 2/3 weeks accrued), the same
 // service still employed, and the Northern Territory death under 10 years the page refuses.
 test('long service leave page works a Western Australian example, the leave still to come and a refusal offline', async ({ page, context }) => {
@@ -1047,7 +1065,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave',
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave',
   'workers-compensation'];
 
 test.describe('before any script runs', () => {
