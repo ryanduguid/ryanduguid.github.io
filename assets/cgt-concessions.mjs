@@ -30,7 +30,7 @@ const TURNOVER = 200_000_000;
 const NET_ASSETS = 600_000_000;
 /** Subsection 152-320(1), in cents. */
 const RETIREMENT_LIMIT = 50_000_000;
-/** The shortest and longest 7½ years in days: 7 years with 1 leap day and the shortest 6 months
+/** The shortest and longest 7.5 years in days: 7 years with 1 leap day and the shortest 6 months
  * (2,556 + 181), and 7 years with 2 leap days and the longest 6 months (2,557 + 184). */
 const SEVEN_AND_A_HALF = { shortest: 2737, longest: 2741 };
 
@@ -131,8 +131,8 @@ function activeAsset(x, acquired, event) {
   if (activeDays > testDays) throw new Error(`The days active cannot exceed the ${testDays.toLocaleString('en-AU')} days of the test period.`);
   const over15 = yearsLater(acquired, 15) < event;
   if (over15 && activeDays >= SEVEN_AND_A_HALF.shortest && activeDays < SEVEN_AND_A_HALF.longest) {
-    throw new Error('A total of 7½ years is 2,737 to 2,741 days, depending on the leap days and months it spans: count '
-      + 'the active periods in years and months to see whether they reach 7½ years (paragraph 152-35(1)(b)).');
+    throw new Error('A total of 7.5 years is 2,737 to 2,741 days, depending on the leap days and months it spans: count '
+      + 'the active periods in years and months to see whether they reach 7.5 years (paragraph 152-35(1)(b)).');
   }
   const met = over15 ? activeDays >= SEVEN_AND_A_HALF.longest : 2 * activeDays >= testDays;
   return { activeAsset: met, over15, testFrom: acquired, testTo: to, testDays, activeDays };
@@ -149,7 +149,7 @@ function individualOf(x, event) {
   chosen(x.retiring, YES_NO, 'Choose whether the sale is in connection with retirement.');
   chosen(x.incapacitated, YES_NO, 'Choose whether the individual is permanently incapacitated.');
   const fiftyFifth = yearsLater(born, 55);
-  return { retires: (fiftyFifth <= event && x.retiring === 'yes') || x.incapacitated === 'yes', under55: choice < fiftyFifth };
+  return { retires: (fiftyFifth <= event && x.retiring === 'yes') || x.incapacitated === 'yes', under55: fiftyFifth > choice };
 }
 
 /** Subdivision 152-B: the paragraphs of section 152-105 or subsection 152-110(1) not met.
@@ -309,7 +309,7 @@ export function cgtConcessionsResult(value, aud) {
       + `$6,000,000: ${verdict(r.netAssets)}`],
     ['Passively held asset (subsection 152-10(1A) or (1B))', `${r.passive ? 'Yes' : 'No'}, as you answered`],
     ['Active asset test (section 152-35)', `Active for ${days(r.activeDays)} of the ${days(r.testDays)} days from `
-      + `${longDate(r.testFrom)} to ${longDate(r.testTo)}, ${r.over15 ? 'against the 7½ years needed for an asset owned more than 15 years'
+      + `${longDate(r.testFrom)} to ${longDate(r.testTo)}, ${r.over15 ? 'against the 7.5 years needed for an asset owned more than 15 years'
         : 'against the half needed for an asset owned 15 years or less'}: ${verdict(r.activeAsset)}`],
     ...concessionRows(r, x),
   ];
