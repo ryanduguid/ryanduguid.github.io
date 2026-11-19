@@ -1091,6 +1091,22 @@ fn a_malformed_commit_date_stops_the_write_with_exit_2() {
     );
 }
 
+#[test]
+fn a_commit_late_in_a_utc_day_is_stamped_with_its_sydney_date() {
+    let (root, _, mut host) = cli_fixture(&[]);
+    // 01:30 on 19 November 2026 in Sydney (AEDT), still 18 November in UTC.
+    host.answer = Box::new(|_| Ok("2026-11-18T14:30:00Z\n".into()));
+    assert_eq!(
+        main_with(root.path(), &["--write".to_owned()], &mut host),
+        0
+    );
+    let updated = site_tools::read(&root.path().join("tools/index.html")).unwrap();
+    assert!(
+        updated.contains(r#"<time datetime="2026-11-19">19 November 2026</time>"#),
+        "{updated}"
+    );
+}
+
 /// The repository files a tool release refresh reads and writes.
 const REFRESHED: [&str; 6] = [
     "_data/tools.json",
