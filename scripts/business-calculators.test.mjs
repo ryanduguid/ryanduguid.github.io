@@ -954,6 +954,8 @@ test('FBT car page dates the review of the ATO guide chapter it applies', () => 
 // give the worked examples: Shelly's car first used on 1 April 2022 is not exempt; John's, held from 15 June 2022
 // and first used on 5 July 2022, is; GHI Co's $85,000 car was above 2022-23's threshold; Simon's plug-in hybrid
 // lease from 1 April 2024 to 31 March 2027 stays exempt; Tony's break in the novation is a new commitment.
+// The boundary cases' Cleancut example is a published FBT worked example (¶3-045, reviewed 30 June 2026): a $72,000
+// car before GST, $79,200 with it, first held and used on 1 July 2025, under 2025-26's $91,387 threshold, is exempt.
 const evFacts = (fields) => ({ vehicle: 'battery', currentEmployee: true, firstUsed: '2026-04-01', firstSale: '2026-04-01',
   lctValue: '60000', otherSupply: false, ...fields });
 const evYear = { ended: '2027' };
