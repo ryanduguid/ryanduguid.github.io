@@ -616,7 +616,8 @@ export function individualTaxTools({ taxEstimate, takeHomePay, salaryPackaging, 
         incomeYear: choice(packagingYears, `Income year, ${packagingYears.at(-1)} to ${packagingYears[0]}.`),
         residency: choice(['resident', 'foreign'], 'Residency for tax purposes all year.'),
         employer: choice(['charity', 'hospital'], 'charity: public benevolent institution or health promotion charity; '
-          + 'hospital: public or not-for-profit hospital or public ambulance service.'),
+          + 'hospital: public or not-for-profit hospital, or public ambulance service for an employee predominantly in or '
+          + 'supporting its ambulance services.'),
         salary: whole(0, 1e9, 'Salary for the year before packaging, without super, in whole AUD.'),
         typeTwoBenefits: text('amount', 'Benefits the employer gets no GST credit for, at taxable value in AUD; "0" when omitted.'),
         typeOneBenefits: text('amount', 'Benefits the employer claims a GST credit for, at taxable value in AUD; "0" when omitted.'),
