@@ -734,12 +734,15 @@ fn pay_oracle(p: &Pay) -> Value {
         .min(concessional);
     let withheld = if p.residency != "working-holiday" && period != "year" {
         let earnings = half_up(paid, pays);
-        let (scale_2, scale_3): (&[(u64, i64, i64)], &[(u64, i64, i64)]) = match p.year {
-            "2026-27" => (&SCALE_2, &SCALE_3),
-            "2025-26" | "2024-25" => (&SCALE_2_2024, &SCALE_3_2024),
-            _ => (&SCALE_2_2020, &SCALE_3_2020),
+        let scale: &[(u64, i64, i64)] = match (p.year, resident) {
+            ("2026-27", true) => &SCALE_2,
+            ("2026-27", false) => &SCALE_3,
+            ("2025-26" | "2024-25", true) => &SCALE_2_2024,
+            ("2025-26" | "2024-25", false) => &SCALE_3_2024,
+            (_, true) => &SCALE_2_2020,
+            (_, false) => &SCALE_3_2020,
         };
-        let each = withheld(earnings, period, if resident { scale_2 } else { scale_3 });
+        let each = withheld(earnings, period, scale);
         let loan = match (p.loan, p.year) {
             (false, _) => 0,
             (true, "2026-27") => withheld(earnings, period, &SCHEDULE_8),
