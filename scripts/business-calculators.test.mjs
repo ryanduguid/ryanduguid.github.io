@@ -3234,6 +3234,8 @@ test('the concessions page opens on a cited example whose rows the example tag c
   assert.equal(view.rows[0].join('|'), 'Concessions open|50% active asset reduction, retirement exemption and roll-over (Division 152)');
   assert.match(concessionsHtml, /Compilation No\. 264\), read 19 November 2026/);
   assert.match(concessionsHtml, /Schedule 1 item 82/);
+  // The explanation gives the band the engine refuses, as the 2,735 and 2,746 day cases bound it.
+  assert.match(concessionsHtml, /7\.5 years is 2,736 to 2,746 days, [^<]*a total from 2,736 to 2,745 is refused/);
 });
 
 // Subsection 152-10(1AA) and section 328-110 (Compilation No. 264, read 19 November 2026): each
