@@ -426,7 +426,7 @@
     ]
   },
   "foreign-surcharge": {
-    "checked": "2026-11-18",
+    "checked": "2026-11-19",
     "function": "foreignSurcharge",
     "rows": [
       {"case":"Revenue NSW’s examples: 9% of $1,000,000 and 5% of $1,200,000 of land","input":"New South Wales, individual, temporary visa or none, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,200,000.00","call":[{"type":"individual","status":"other","daysBefore":"0","daysDecember":"0","nzResident":false,"resides":false,"absent":false,"home":false,"overseas":false,"largest":"0","combined":"0","absentee":"0","capital":"0","amendable":false,"control":false,"named":false,"defaults":"0","exemption":false},{"place":"AU-NSW","use":"residential","value":"1000000","share":"1000000","land":"1200000"}],"result":{"dutyRate":9,"duty":90000,"land":60000},"output":"Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $60,000.00"},
