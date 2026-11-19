@@ -3208,6 +3208,12 @@ const LEASE_TERMS = FORM_CALLS.lease(formDefaults(leaseHtml))[0];
 const leaseOf = (changes = {}) => calculations.lease({ ...LEASE_TERMS, ...changes });
 const PURCHASE = { price: '50000', gst: 'credit', hpRate: '7.5', life: '8', method: 'diminishing-value', taxRate: '25', car: 'no' };
 const compare = (terms = {}, purchase = {}) => calculations.leaseComparison({ ...LEASE_TERMS, ...terms }, { ...PURCHASE, ...purchase });
+// A calculation the test expects to work: a refusal fails the assertion, not the test run.
+const worked = (run) => {
+  let result;
+  assert.doesNotThrow(() => { result = run(); });
+  return result;
+};
 
 test('the lease page opens on the result its calculation gives for the form’s inputs', () => {
   const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
@@ -3223,7 +3229,7 @@ test('the lease engine reproduces IFRS 16 Example 13 to the currency unit, year 
   // Illustrative Examples accompanying IFRS 16, Example 13 (IE5 as amended in 2020): CU50,000 a year
   // in advance for 10 years at 5%, initial direct costs CU20,000, an incentive CU5,000. The example
   // rounds each year to the whole CU; the engine rounds to the cent, so each figure is within 1 CU.
-  const r = leaseOf({ payment: '50000', payments: '10', frequency: 'annual', timing: 'advance', rate: '5', incentives: '5000', direct: '20000' });
+  const r = worked(() => leaseOf({ payment: '50000', payments: '10', frequency: 'annual', timing: 'advance', rate: '5', incentives: '5000', direct: '20000' }));
   assert.deepEqual([r.liability, r.cost], [355391.08, 420391.08]);
   const ie = [[17770, 373161, 378352], [16158, 339319, 336313], [14466, 303785, 294274], [12689, 266474, 252235],
     [10823, 227297, 210196], [8865, 186162, 168157]];
@@ -3236,6 +3242,13 @@ test('the lease engine reproduces IFRS 16 Example 13 to the currency unit, year 
   // Over the whole term the depreciation is the cost and the liability closes on nil.
   assert.equal(Math.round(r.years.reduce((sum, year) => sum + year.depreciation * 100, 0)), 42039108);
   assert.equal(r.years.at(-1).liability, 0);
+});
+
+test('a residual on a lease paid in advance falls a period after the last payment', () => {
+  // Paid monthly in advance from 1 July 2026, the 60th payment falls on 1 June 2031 and the residual at the end of the term.
+  const r = worked(() => leaseOf({ timing: 'advance', residual: '10000' }));
+  assert.deepEqual(r.rows.slice(-2).map(({ date, payment }) => [date, payment]), [['2031-06-01', 1000], ['2031-07-01', 10000]]);
+  assert.equal(r.end, '2031-07-01');
 });
 
 test('the lease engine depreciates over the useful life when ownership transfers or the life is shorter', () => {
@@ -3257,11 +3270,11 @@ test('the lease comparison times each GST credit as the ATO’s hire purchase an
   // ATO, GST and hire purchase and leasing: a $220 monthly lease payment carries a $20 credit in the
   // period it is paid; a hire purchase entered into after 1 July 2012 gives one-eleventh of all its
   // payments as a credit in the period of the first payment.
-  const melinda = compare({ payment: '200', payments: '36' }, { price: '6000' });
+  const melinda = worked(() => compare({ payment: '200', payments: '36' }, { price: '6000' }));
   // Paid monthly in arrears from 1 July 2026: 11 payments in 2026-27 and the 36th on 1 July 2029.
   assert.deepEqual(melinda.lease.years.map((y) => y.credits), [220, 240, 240, 20]);
   assert.deepEqual(melinda.lease.years.map((y) => y.cash), [2420, 2640, 2640, 220]);
-  const c = compare();
+  const c = worked(() => compare());
   assert.equal(c.hirePurchase.years[0].credits, Math.round(c.hirePurchase.cash * 100 / 11) / 100);
   assert.ok(c.hirePurchase.years.slice(1).every((y) => y.credits === 0));
   assert.deepEqual([c.buy.years[0].cash, c.buy.years[0].credits], [55000, 5000]);
