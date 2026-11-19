@@ -191,6 +191,9 @@
     "tools/business-calculators/loan/index.html": [
       "ae4b492b58d76e770fd168a2a59cd246d6851b4673116a2601fb20e965bb3531"
     ],
+    "tools/business-calculators/long-service-leave/index.html": [
+      "a2819929d6a29592a36dc68bdd074299aa65bb698d837297f7cfac4606e86a2c"
+    ],
     "tools/business-calculators/margin/index.html": [
       "d03a1db0e3f831d4e7bf0c732357b3a42114c678b134c1a34dc1b51df26b0c2b"
     ],
@@ -319,9 +322,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "80fb54b6b039ab6f7b8a1b4a69e58c2764480d735b48772b47f7a484f3b43f78",
+    "llms.txt": "9ab08f1f709c1a8ed88de2ff4b3254538b10889c1d7442c7c90140a9ba45e2f4",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "828ad875f1ad717bdcf94d6be75930f186e49f2d2a574dc030bc291b391c0ab5"
+    "sitemap.xml": "fc8fbc502c99eae22c28cf3a1d225b95577c3336accc037f1cc7c1acfa034e7f"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -381,7 +384,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7775,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7776,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

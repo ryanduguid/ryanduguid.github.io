@@ -226,7 +226,7 @@ The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 
 Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
 Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -235,7 +235,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -313,7 +313,7 @@ Interest across 29 February 2024 | Quarter 3 of 2023-24; salary or wages $12,000
 Contributions with no ordinary time earnings | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $0.00; contributions $100.00; lodged 20 November 2025 | Refused: enter the ordinary time earnings for the quarter: contributions reduce the charge percentage in proportion to them
 A statement lodged by the contribution due date | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 28 October 2025 | Refused: enter the day the statement was or will be lodged from 29 October 2025 to 30 June 2031
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -323,7 +323,107 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
 - GIC table: https://duguid.com.au/rates/general-interest-charge/
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Long service leave calculator for every state and territory
+
+Source: https://duguid.com.au/tools/business-calculators/long-service-leave/
+
+> Long service leave in all 8 states and territories: qualifying periods, accrual, pro rata on termination by reason and the payment, each cited to its Act.
+
+# Long service leave calculator
+
+Long service leave under the Act of any Australian state or territory: the leave to take now, or what is paid when employment ends and why, each step cited.
+
+Published 19 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Long service leave inputs for one employee
+
+State or territory whose Act applies New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory First day of service Last day of employment, or the day to work it out at Days that do not count as service Employment Ends on the last day Continues: leave the employee can take now Why employment ends Resignation Resignation because of illness, incapacity, or a domestic or other pressing necessity Resignation without the notice the contract requires Retirement at or after the retiring age Redundancy, or another dismissal not about conduct, capacity or performance Dismissal because of illness or injury Dismissal for conduct, capacity or performance short of serious misconduct (serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory) Dismissal for serious misconduct (serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory) A fixed term ended Death of the employee Long service leave already taken or paid (weeks) Ordinary pay a week (AUD)
+
+Count each calendar day of an absence that keeps service continuous but does not count towards it, such as unpaid leave, as the Act you choose defines it. Each Act sets which pay is ordinary pay and how varied hours are averaged: enter the weekly figure that gives. Tax withheld from a payment on termination is worked out separately, from the termination payment calculator’s page.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, Long Service Leave Act 1955 (NSW), service from 1 February 2014 to 31 July 2026, employment ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, no leave already taken or paid, ordinary pay $1,500.00 a week. Service counted 12 years, 6 months and 0 days (4,564 days) Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii) 10.8333 weeks Weeks to pay on termination 10.8333 weeks Payment at $1,500.00 a week $16,250.00
+
+## How the long service leave calculator works
+
+Long service leave comes from each state and territory’s own Act, not the National Employment Standards. The calculator measures the service from the first day to the last, less the days you exclude, and applies the Act you choose. While employment continues, it gives the leave the employee can take now and when the next amount becomes available. When employment ends, it decides from the length of service and the reason whether the Act pays anything, works out the weeks it pays, deducts leave already taken or paid, and values the rest at the weekly ordinary pay. Each step names its provision. Victoria and the Australian Capital Territory give full leave after 7 years and the other states and territories after 10; New South Wales and the Australian Capital Territory can pay a pro rata amount from 5 years, the others from 7, and Victoria not before 7 years at all.
+
+## What the long service leave calculator does not cover
+
+The calculator gives an estimate under one Act for one employee, and no legal advice. It does not cover:
+
+- which Act applies to employment in more than one state or territory, and whether an award, enterprise agreement or contract gives a better entitlement, including the long service leave terms of a pre-2010 award or agreement that section 113 of the Fair Work Act 2009 preserves;
+- portable schemes, such as building and construction, contract cleaning, community services and security, and the black coal mining industry, Commonwealth and state public servants, Queensland seasonal employees in the sugar industry and meat works and other seasonal employees, and Tasmanian mining employees, who have their own rules;
+- whether a break keeps service continuous, which absences count, and whether a reason for leaving qualifies, such as a pressing necessity or serious misconduct: you decide those;
+- averaging pay for varied hours, casual or part-time work, commission or piece rates;
+- leave taken in advance of the entitlement, cashing out, and service before 23 June 1990, which some Acts count under earlier rules;
+- tax withheld from the payment.
+
+The figures follow each Act as read on 19 November 2026; a future date assumes it is unchanged. Confirm the result with the state or territory’s long service leave regulator or a lawyer before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Long service leave calculator
+
+Case | Inputs | Result
+Redundancy after 12 years and 6 months in New South Wales: a proportion on 3 months for 15 years | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii), 10.8333 weeks, payment $16,250.00
+NSW Industrial Relations’ Dean: 5 years and 6 months, his store closed (its calculator shows 4.76 weeks) | New South Wales, 1 November 2009 to 30 April 2015, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subparagraph 4(2)(a)(iii), 4.7667 weeks, payment $7,150.00
+New South Wales, a day short of 5 years: nothing | New South Wales, 1 January 2016 to 30 December 2020, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Under 5 years: nothing is payable, 0.0000 weeks, payment $0.00
+New South Wales, a resignation a day short of 10 years: nothing | New South Wales, 1 January 2016 to 30 December 2025, ends by resignation, pay $1,500.00 a week | Under 10 years, resignation does not qualify for pro rata leave, subparagraph 4(2)(a)(iii), 0.0000 weeks, payment $0.00
+New South Wales, a resignation at 10 years: any reason qualifies | New South Wales, 1 January 2016 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii), 8.6667 weeks, payment $13,000.00
+New South Wales, serious misconduct after 15 years and 6 months: each completed year | New South Wales, 1 January 2010 to 30 June 2025, ends by dismissal for serious and wilful misconduct, pay $1,500.00 a week | Each completed year at 2 months for 10 years, any reason, subparagraph 4(2)(a)(i), 13.0000 weeks, payment $19,500.00
+New South Wales, still employed after 12 years and 6 months: 2 months to take | New South Wales, 1 February 2014 to 31 July 2026, still employed, pay $1,500.00 a week | 8 2/3 weeks for 10 years and 4 1/3 weeks for each completed 5 years after, subparagraph 4(2)(a)(i), 8.6667 weeks, payment $13,000.00
+New South Wales, 30 days excluded leave 10 years a month short | New South Wales, 1 January 2016 to 31 December 2025, 30 days excluded, still employed, pay $1,500.00 a week | Under 10 years: no leave to take yet, 0.0000 weeks, payment $0.00
+Victoria, death a day short of 7 years: nothing | Victoria, 1 January 2019 to 30 December 2025, ends by the employee’s death, pay $1,500.00 a week | Under 7 years: nothing is payable, 0.0000 weeks, payment $0.00
+Victoria, a resignation at 7 years: 1/60th of 2,557 days | Victoria, 1 January 2019 to 31 December 2025, ends by resignation, pay $1,500.00 a week | 1/60th of the period of continuous employment, any reason, sections 6, 9 and 10, 6.0881 weeks, payment $9,132.14
+Queensland, a resignation at 9 years: nothing | Queensland, 1 January 2017 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Under 10 years, resignation does not qualify for pro rata leave, subsection 95(4), 0.0000 weeks, payment $0.00
+Queensland, a dismissal for performance at 9 years: nothing | Queensland, 1 January 2017 to 31 December 2025, ends by dismissal for conduct, capacity or performance short of serious misconduct, pay $1,500.00 a week | Under 10 years, dismissal for conduct, capacity or performance short of serious misconduct does not qualify for pro rata leave, subsection 95(4), unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide, 0.0000 weeks, payment $0.00
+Queensland, a fixed term ending at 9 years | Queensland, 1 January 2017 to 31 December 2025, ends by the end of a fixed term, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subsection 95(4), if the employee reasonably expected to complete 10 years and was prepared to stay, 7.8000 weeks, payment $11,700.00
+Business Queensland: 18 years, 3 months, 2 weeks and 2 days, 15.8548 weeks | Queensland, 1 January 2007 to 16 April 2025, still employed, pay $1,500.00 a week | 8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2), 15.8548 weeks, payment $23,782.14
+Queensland, still employed after 16 years and 6 months: the proportion for the further period | Queensland, 1 January 2010 to 30 June 2026, still employed, pay $1,500.00 a week | 8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2), 14.3000 weeks, payment $21,450.00
+Western Australia’s Lee: redundancy after 12 years, 10.4 weeks | Western Australia, 1 January 2014 to 31 December 2025, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Each completed year at 8 2/3 weeks for 10 years, subsection 8(2), 10.4000 weeks, payment $15,600.00
+Western Australia’s Anastasia: serious misconduct after 12 years and 1 month, the 8.667 weeks accrued | Western Australia, 1 January 2014 to 31 January 2026, ends by dismissal for serious misconduct, pay $1,500.00 a week | Leave already accrued only, after dismissal for serious misconduct, subsection 8(2), 8.6667 weeks, payment $13,000.00
+Western Australia, a resignation at 8 years: pro rata | Western Australia, 1 January 2018 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subsection 8(3), 6.9333 weeks, payment $10,400.00
+Western Australia, serious misconduct at 8 years: nothing | Western Australia, 1 January 2018 to 31 December 2025, ends by dismissal for serious misconduct, pay $1,500.00 a week | Under 10 years, dismissal for serious misconduct does not qualify for pro rata leave, subsection 8(3), 0.0000 weeks, payment $0.00
+SafeWork SA’s Aisha: a resignation after 8 years and 6 months, 10.4 weeks | South Australia, 1 January 2017 to 30 June 2025, ends by resignation, pay $1,500.00 a week | 1.3 weeks for each completed year, subsections 5(3) and (4), 10.4000 weeks, payment $15,600.00
+SafeWork SA’s Ajay: 7 years and 6 months, left without the required notice, nothing | South Australia, 1 January 2018 to 30 June 2025, ends by resignation without the notice the contract requires, pay $1,500.00 a week | Under 10 years, resignation without the notice the contract requires does not qualify for pro rata leave, subsections 5(3) and (4), as SafeWork SA reads leaving without the required notice as an unlawful termination by the worker: if the employer waived the notice, choose resignation, 0.0000 weeks, payment $0.00
+SafeWork SA’s Liam: 13 years, 10 weeks taken, 6.9 weeks left | South Australia, 1 January 2013 to 31 December 2025, still employed, 10 weeks taken, pay $1,500.00 a week | 13 weeks for 10 years and 1.3 weeks for each completed year after, section 5, 16.9000 weeks, 6.9000 weeks left, payment $10,350.00
+SafeWork SA: 12 years and 6 months, 15.6 weeks for any reason | South Australia, 1 January 2013 to 30 June 2025, ends by dismissal for serious and wilful misconduct, pay $1,500.00 a week | 13 weeks for 10 years and 1.3 weeks for each completed year after, any reason, section 5, 15.6000 weeks, payment $23,400.00
+WorkSafe Tasmania’s example 1: exactly 9 years, left because of ill health (7.8003 at a rounded rate) | Tasmania, 1 January 2017 to 31 December 2025, ends by resignation because of illness, incapacity, or a domestic or other pressing necessity, pay $1,500.00 a week | Pro rata on 8 2/3 weeks for 10 years, subsection 8(3), 7.8000 weeks, payment $11,700.00
+WorkSafe Tasmania’s example 2: 13 years, 6 months and 14 days, 13.5383 years (11.7336 at a rounded rate) | Tasmania, 1 January 2012 to 14 July 2025, ends by resignation, pay $1,500.00 a week | Leave accrued and a proportion of 8 2/3 weeks for the years since, any reason, paragraph 8(2)(a), 11.7332 weeks, payment $17,599.83
+Tasmania, a resignation at 8 years: nothing | Tasmania, 1 January 2018 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Under 10 years, resignation does not qualify for pro rata leave, subsection 8(3), 0.0000 weeks, payment $0.00
+Tasmania, death at 9 years: 1/60th of the employment | Tasmania, 1 January 2017 to 31 December 2025, ends by the employee’s death, pay $1,500.00 a week | 1/60th of the period of continuous employment, paragraph 9(2)(b), 7.8262 weeks, payment $11,739.29
+Tasmania, death at 12 years: 8 2/3 weeks and 1/60th of the 2 years since | Tasmania, 1 January 2014 to 31 December 2025, ends by the employee’s death, pay $1,500.00 a week | Leave accrued and 1/60th of the employment since, paragraph 9(2)(a), 10.4071 weeks, payment $15,610.71
+WorkSafe ACT’s full-time employee: 7 years, 6.0667 weeks at $560 a week | Australian Capital Territory, 1 January 2019 to 31 December 2025, still employed, pay $560.00 a week | 1/5 of a month for each completed year, sections 3 and 4, 6.0667 weeks, payment $3,397.33
+Australian Capital Territory, redundancy at 6 years and 6 months: completed months count | Australian Capital Territory, 1 January 2019 to 30 June 2025, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Pro rata on 2 months for 10 years, completed years and months, subsection 11C(2), 5.6333 weeks, payment $8,450.00
+Australian Capital Territory, a resignation at 6 years: nothing | Australian Capital Territory, 1 January 2020 to 31 December 2025, ends by resignation, pay $1,500.00 a week | Under 7 years, resignation does not qualify for pro rata leave, subsection 11C(1), 0.0000 weeks, payment $0.00
+Northern Territory, redundancy at 9 years: 1.3 weeks a completed year | Northern Territory, 1 January 2017 to 31 December 2025, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | 1.3 weeks for each completed year, subsection 10(2), 11.7000 weeks, payment $17,550.00
+Northern Territory, serious misconduct at 12 years: the completed 10 years only | Northern Territory, 1 January 2014 to 31 December 2025, ends by dismissal for serious misconduct, pay $1,500.00 a week | The completed 10 and 5-year periods only, after serious misconduct, subsection 10(1A), 13.0000 weeks, payment $19,500.00
+Northern Territory, death at 9 years is refused: choose the reason that would have applied | Northern Territory, 1 January 2017 to 31 December 2025, ends by the employee’s death, pay $1,500.00 a week | Refused: under 10 years, the NT Act pays on death what the employee would have been paid for leaving that day for a reason in subsection 10(2) (subsection 10(3)): choose that reason instead
+New South Wales, a fixed term ending at 7 years is refused | New South Wales, 1 January 2019 to 31 December 2025, ends by the end of a fixed term, pay $1,500.00 a week | Refused: the NSW Act pays pro rata leave under 10 years when the employer ends the employment, and does not say whether a fixed term ending is that: this calculator does not decide it
+Service before 23 June 1990 is refused | New South Wales, 22 June 1990 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: enter the first day of service from 23 June 1990 to 31 December 2099
+A last day before the first is refused | New South Wales, 1 August 2026 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: the last day must be on or after the first day of service
+Excluded days that use up the service are refused | New South Wales, 1 July 2026 to 31 July 2026, 31 days excluded, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: excluded days must be fewer than the days from the first day to the last
+More leave taken than the entitlement is refused | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, 11 weeks taken, pay $1,500.00 a week | Refused: leave taken or paid is more than this entitlement: the Acts treat leave taken in advance differently, and this calculator does not cover it
+
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- termination payment calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
+- black coal mining industry: https://duguid.com.au/tools/coal-lsl-levy/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -385,7 +485,7 @@ A company new this year franks at 25% whatever its own year | Turnover $60,000,0
 Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
 Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
 
@@ -394,7 +494,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -483,7 +583,7 @@ Commercial property in New South Wales bears neither surcharge | New South Wales
 An exemption is refused: each Commissioner decides it | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia, exemption sought; residential property $1,000,000.00, land $1,000,000.00 | Refused: exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, so this page does not work them out
 A partner or retirement visa holder is refused | New South Wales, individual, partner or retirement visa, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Refused: this page does not decide the status of a partner (provisional) or retirement visa holder: each revenue office treats them differently
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -494,7 +594,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -552,7 +652,7 @@ An end before the start is refused | New South Wales, Wednesday 18 November 2026
 A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -560,80 +660,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# GST margin scheme calculator: eligibility, margin and GST saved
-
-Source: https://duguid.com.au/tools/business-calculators/gst-margin-scheme/
-
-> GST margin scheme conditions under section 75-5, the margin by consideration or approved valuation, subdivided lots, a GST-exclusive price and the GST saved.
-
-# GST margin scheme calculator
-
-Whether the margin scheme can apply to a sale of land, a stratum unit or a long-term lease, the margin and its GST, and the GST it saves.
-
-Published 19 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-GST margin scheme inputs for one sale of real property
-
-What is sold? A freehold interest in land A stratum unit A lease of 50 years or more Something else Is the sale a taxable supply? Yes No Have you and the buyer agreed in writing to use the margin scheme? Yes No How did you acquire it? Bought under the margin scheme Bought without GST, such as from an unregistered seller Held since before 1 July 2000 Bought with GST on the whole price Inherited, or from a GST group, joint venture or associate, or a GST-free going concern or farm land Is the buyer your associate? No Yes Price for the sale (AUD) Does the price include GST? Yes, GST-inclusive No, GST-exclusive Work out the margin from The consideration you paid An approved valuation (held since before 1 July 2000) Consideration or approved valuation for the whole (AUD) This sale’s part, by area, lots or anticipated price The whole, in the same measure
-
-Land only: no building costs, duty or fees (section 75-14) and nothing unpaid (section 75-12). For a whole sale, enter the same part and whole.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: A freehold interest in land (paragraph 75-5(1)(a)); agreed in writing: yes; acquired under the margin scheme; price $190,000.00 GST-inclusive; consideration $400,000.00 for 200,000 of 2,000,000. A freehold interest in land (paragraph 75-5(1)(a)) Condition met Agreed in writing with the buyer (subsections 75-5(1) and (1A)) Condition met Acquired under the margin scheme Condition met The margin scheme Can apply: section 75-5 is met Consideration for the acquisition, this part’s share (section 75-15) $40,000.00 Consideration for the sale, GST-inclusive $190,000.00 Margin (subsection 75-10(2)) $150,000.00 GST under the margin scheme, 1/11 of the margin $13,636.36 GST without the margin scheme, 1/11 of the GST-inclusive price $17,272.73 GST the margin scheme saves $3,636.37 The buyer cannot claim an input tax credit (section 75-20) and needs no tax invoice (section 75-30).
-
-## How the GST margin scheme calculator works
-
-The GST margin scheme calculator first checks the conditions of section 75-5 of the GST Act that it can decide: what is sold, a written agreement with the buyer, and how you acquired the property. The sale must be a taxable sale (you are registered for GST, you sell in the course of your enterprise, and the sale is not GST-free or input taxed) of a freehold interest in land, a stratum unit or a lease of at least 50 years, and you must not have acquired it with GST on the whole price. The written agreement is made on or before the sale, or within a further period the Commissioner allows.
-
-Under the margin scheme the GST is 1/11 of the margin, the GST-inclusive price less the consideration you paid for the land (subsection 75-10(2)), or less an approved valuation for property held since before 1 July 2000 (subsection 75-10(3)), as at 1 July 2000 or, if you registered after then, the date of effect of your registration or the earlier day you applied. A margin that is not more than nil gives no GST. Building and development costs are left out of the consideration (section 75-14); you claim input tax credits for them instead. For one lot of a subdivision, only the lot’s share of the consideration counts (section 75-15), by any fair and reasonable measure such as area, number of lots or anticipated selling price (GSTR 2006/8, paragraphs 58 to 61).
-
-From a GST-exclusive price the calculator adds GST of one tenth of the price less the consideration, which is 1/11 of the margin on the resulting price (GSTR 2006/8, paragraph 145). Beside the margin scheme it gives the GST without it, 1/11 of the GST-inclusive price, and the difference. Each GST rounds to the nearest cent, half a cent up (section 9-90). The buyer cannot claim an input tax credit on a margin scheme sale (section 75-20), so the scheme suits a buyer who could not claim one anyway.
-
-The calculator reproduces GSTR 2006/8’s worked examples: $20,000 on Bob’s house and land (Example 3), $4,000 on Josine’s 800 square metre lot (Example 4), $13,636.36 on Adam’s Lot 1 (Example 6) and a $100,000 GST-inclusive price from Example 14’s $96,364, here $100,000.40 to the cent.
-
-## What the GST margin scheme calculator does not cover
-
-The GST margin scheme calculator refuses a sale to your associate, because section 75-13 takes the GST-inclusive market value as the price. It also refuses property inherited, acquired within a GST group or joint venture, as a GST-free going concern or farm land, or from an associate: paragraphs 75-5(3)(b) to (g) and section 75-11 set their own tests and margins.
-
-Not covered: the increasing adjustment where only part of the property was acquired in a sale that was ineligible (section 75-22), adjustments for bad debts and for consideration paid later (sections 75-25 and 75-27), the valuation dates for government land and leases under items 2A and 4 of subsection 75-10(3), and whether the sale is taxable in the first place, such as whether residential premises are new. The calculator takes your valuation as given and does not check that it meets the Commissioner’s requirements for an approved valuation (section 75-35). Have a registered tax agent confirm eligibility and the result before you settle.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: GST margin scheme calculator
-
-Case | Inputs | Result
-GSTR 2006/8 Example 6: Adam’s Lot 1, its anticipated price $200,000 of $2,000,000 | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 200,000 of 2,000,000 | margin scheme can apply, cost share $40,000.00, GST-inclusive price $190,000.00, margin $150,000.00, margin scheme GST $13,636.36, GST on the whole price $17,272.73, saved $3,636.37, GST payable $13,636.36
-GSTR 2006/8 Example 3: Bob’s house and land, the building cost left out | Freehold, bought under the margin scheme; price $400,000.00 GST-inclusive, cost $180,000.00 | margin scheme can apply, cost share $180,000.00, GST-inclusive price $400,000.00, margin $220,000.00, margin scheme GST $20,000.00, GST on the whole price $36,363.64, saved $16,363.64, GST payable $20,000.00
-GSTR 2006/8 Example 4: Josine’s 800 square metre lot of 2,000 | Freehold, bought under the margin scheme; price $140,000.00 GST-inclusive, cost $240,000.00, 800 of 2,000 | margin scheme can apply, cost share $96,000.00, GST-inclusive price $140,000.00, margin $44,000.00, margin scheme GST $4,000.00, GST on the whole price $12,727.27, saved $8,727.27, GST payable $4,000.00
-GSTR 2006/8 Example 14: a GST-exclusive price of $96,364 | Freehold, bought under the margin scheme; price $96,364.00 GST-exclusive, cost $60,000.00 | margin scheme can apply, cost share $60,000.00, GST-inclusive price $100,000.40, margin $40,000.40, margin scheme GST $3,636.40, GST on the whole price $9,636.40, saved $6,000.00, GST payable $3,636.40
-A stratum unit’s anticipated price share, GST rounded to the nearest cent | Stratum unit, bought under the margin scheme; price $610,000.00 GST-inclusive, cost $400,000.00, 600,000 of 2,400,000 | margin scheme can apply, cost share $100,000.00, GST-inclusive price $610,000.00, margin $510,000.00, margin scheme GST $46,363.64, GST on the whole price $55,454.55, saved $9,090.91, GST payable $46,363.64
-Held since before 1 July 2000: an approved valuation of $100,000 | Freehold, held since before 1 July 2000; price $144,000.00 GST-inclusive, valuation $100,000.00 | margin scheme can apply, cost share $100,000.00, GST-inclusive price $144,000.00, margin $44,000.00, margin scheme GST $4,000.00, GST on the whole price $13,090.91, saved $9,090.91, GST payable $4,000.00
-Held since before 1 July 2000: the consideration paid instead | Freehold, held since before 1 July 2000; price $144,000.00 GST-inclusive, cost $75,000.00 | margin scheme can apply, cost share $75,000.00, GST-inclusive price $144,000.00, margin $69,000.00, margin scheme GST $6,272.73, GST on the whole price $13,090.91, saved $6,818.18, GST payable $6,272.73
-A long-term lease bought in a sale not taxable | Long-term lease, bought in a sale not taxable; price $550,000.00 GST-inclusive, cost $330,000.00 | margin scheme can apply, cost share $330,000.00, GST-inclusive price $550,000.00, margin $220,000.00, margin scheme GST $20,000.00, GST on the whole price $50,000.00, saved $30,000.00, GST payable $20,000.00
-A sale for less than the cost has a nil margin and no GST | Freehold, bought under the margin scheme; price $100,000.00 GST-inclusive, cost $120,000.00 | margin scheme can apply, cost share $120,000.00, GST-inclusive price $100,000.00, margin $0.00, margin scheme GST $0.00, GST on the whole price $9,090.91, saved $9,090.91, GST payable $0.00
-Half a cent of GST from a GST-exclusive price rounds up | Freehold, bought under the margin scheme; price $100,000.05 GST-exclusive, cost $100,000.00 | margin scheme can apply, cost share $100,000.00, GST-inclusive price $100,000.06, margin $0.06, margin scheme GST $0.01, GST on the whole price $10,000.01, saved $10,000.00, GST payable $0.01
-Bought with GST on the whole price: ineligible | Freehold, bought with GST on the whole price; price $100,000.00 GST-inclusive, cost $50,000.00 | margin scheme cannot apply, GST on the whole price $9,090.91, GST payable $9,090.91
-No written agreement: GST on the whole price | Freehold, no written agreement, bought under the margin scheme; price $100,000.00 GST-inclusive, cost $50,000.00 | margin scheme cannot apply, GST on the whole price $9,090.91, GST payable $9,090.91
-A short lease is not real property the margin scheme covers | Not land, a unit or a long-term lease, bought under the margin scheme; price $100,000.00 GST-inclusive, cost $50,000.00 | margin scheme cannot apply, GST on the whole price $9,090.91, GST payable $9,090.91
-A sale that is not taxable is refused | Freehold, not a taxable sale, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 200,000 of 2,000,000 | Refused: the margin scheme works out the GST on a taxable sale (subsection 75-5(1)); a sale that is not taxable, such as one of established residential premises or one that is GST-free, has no GST to work out
-An inherited property is refused | Freehold, acquired under section 75-11; price $190,000.00 GST-inclusive, cost $400,000.00, 200,000 of 2,000,000 | Refused: property inherited, acquired within a GST group or joint venture, as a GST-free going concern or farm land, or from an associate, has its own eligibility tests (paragraphs 75-5(3)(b) to (g)) and margins (section 75-11): this calculator does not work them out
-A sale to an associate is refused | Freehold, bought under the margin scheme, sold to an associate; price $190,000.00 GST-inclusive, cost $400,000.00, 200,000 of 2,000,000 | Refused: on a sale to your associate the consideration is the GST-inclusive market value (section 75-13): this calculator does not work out that value
-A valuation for property acquired after 1 July 2000 is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, valuation $400,000.00, 200,000 of 2,000,000 | Refused: an approved valuation sets the margin only for property held since before 1 July 2000 (subsection 75-10(3)); use the consideration you paid for property acquired later
-A part larger than the whole is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 2,000,001 of 2,000,000 | Refused: this sale’s part cannot be more than the whole it is part of
-
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- thirty-five business calculators: https://duguid.com.au/tools/business-calculators/
