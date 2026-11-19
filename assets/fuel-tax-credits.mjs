@@ -195,7 +195,7 @@ function parseLine(value, n) {
   }
   if (!Object.hasOwn(fields, 'acquired')) refuse('input.missing_field', `Line ${n}: enter the day the fuel was acquired.`);
   const acquired = dateOf(fields.acquired, `line ${n}’s acquisition day`);
-  const line = { n, fuel, acquired, method, ...FTC_FUELS[fuel] };
+  const line = { n, fuel, acquired, method: /** @type {FtcLine['method']} */ (method), ...FTC_FUELS[fuel] };
   if (method === 'basic_heavy_vehicle') {
     const litres = quantity(fields, n, 'litres', 'the litres of diesel', 4);
     // Kilometres in ten-millionths, so 98.4% of a kilometre to 4 places stays exact.
@@ -252,7 +252,14 @@ function periodEnd(given, year, lines) {
   return end;
 }
 
-/** One line's credit in cents and how it was worked. @param {FtcLine} line @param {number} rateDay */
+/** A worked line: the fields every method gives, then each method's own.
+ * @typedef {{line: number, fuel: keyof typeof FTC_FUELS, unit: string, acquired: string, rateDay: string,
+ *   period: {from: string, to: string, page: string, table: string}, method: FtcLine['method'], cents: bigint, use?: string,
+ *   quantity?: string, rateCents?: string, cost?: number, averagePrice?: string, litres?: string, publicRoadKm?: string,
+ *   kmBasis?: string, litresPerKm?: string, rateBasis?: string, publicRoadLitres?: string, otherLitres?: string,
+ *   publicRoadRate?: string, otherRate?: string, publicRoadCredit?: number, otherCredit?: number}} FtcWorked */
+
+/** One line's credit in cents and how it was worked. @param {FtcLine} line @param {number} rateDay @returns {FtcWorked} */
 function workLine(line, rateDay) {
   const period = periodOn(rateDay);
   const heavy = period.heavy[line.row];
@@ -290,6 +297,43 @@ function workLine(line, rateDay) {
 
 /** @typedef {{year: string, lines: unknown, small_claimant?: unknown, rate_at_period_end?: unknown, return_date?: unknown}} FtcInput */
 
+/** The small claimant answer, required with a simplified method and refused without one.
+ * @param {FtcInput} input @param {FtcLine[]} lines */
+function checkSmallClaimant(input, lines) {
+  const simplified = lines.some((l) => l.method !== 'quantity') || input.rate_at_period_end !== undefined;
+  if (simplified && input.small_claimant === undefined) {
+    refuse('input.missing_field', 'Say whether the business is a small claimant: the basic method and Methods 1 and 2 are for small claimants only.');
+  }
+  if (input.small_claimant !== undefined) {
+    if (!simplified) refuse('input.field_unknown', 'The small claimant answer is an input only with the basic method or Method 1 or 2.');
+    if (typeof input.small_claimant !== 'boolean') refuse('input.flag_invalid', 'Answer the small claimant question yes or no.');
+    if (!input.small_claimant) {
+      refuse('fuel_tax_credits.simplified_method_unavailable', 'The simplified methods are for a business whose fuel tax credits were $10,000 or less '
+        + 'in the previous 12 months and are expected to be in the current 12 months (PCG 2016/2 paragraph 4; PCG 2021/2 paragraph 6).');
+    }
+  }
+}
+
+/** The lines acquired more than 4 years before the return is given, with their warning (subsection 47-5(2)).
+ * @param {unknown} returned @param {FtcLine[]} lines @param {string[]} warnings */
+function timeLimited(returned, lines, warnings) {
+  const day = dateOf(returned, 'the day the return is given');
+  /** @type {number[]} */
+  const late = [];
+  for (const line of lines) {
+    if (day < line.acquired) refuse('fuel_tax_credits.fact_conflict', `Line ${line.n}: the return is given before the fuel was acquired.`);
+    const acquired = isoOf(line.acquired);
+    if (day > dayOf(`${Number(acquired.slice(0, 4)) + 4}${acquired.slice(4)}`)) late.push(line.n);
+  }
+  if (late.length) {
+    warnings.push(`Fuel Tax Act 2006 subsection 47-5(2): the entitlement for line ${late.join(', ')} ceases unless a return taking it into `
+      + `account is given within 4 years after the day of acquisition, and the return is given on ${plainDate(isoOf(day))}. That does not apply to `
+      + 'a credit already taken into account in an assessment (Linfox Australia Pty Ltd v Commissioner of Taxation [2019] FCAFC 131; MT 2024/1) '
+      + 'or to the section 47-10 exception; otherwise leave those lines out.');
+  }
+  return late;
+}
+
 /** The fuel tax credits for one income year's fuel lines, as the `fuel-tax-credits` command works them.
  * @param {FtcInput} input */
 export function fuelTaxCredits(input) {
@@ -311,18 +355,7 @@ export function fuelTaxCredits(input) {
         + `the rates change at the February 2027 indexation and were not published when this page was checked on ${plainDate(FTC_RATES_READ)}.`);
     }
   }
-  const simplified = lines.some((l) => l.method !== 'quantity') || input.rate_at_period_end !== undefined;
-  if (simplified && input.small_claimant === undefined) {
-    refuse('input.missing_field', 'Say whether the business is a small claimant: the basic method and Methods 1 and 2 are for small claimants only.');
-  }
-  if (input.small_claimant !== undefined) {
-    if (!simplified) refuse('input.field_unknown', 'The small claimant answer is an input only with the basic method or Method 1 or 2.');
-    if (typeof input.small_claimant !== 'boolean') refuse('input.flag_invalid', 'Answer the small claimant question yes or no.');
-    if (!input.small_claimant) {
-      refuse('fuel_tax_credits.simplified_method_unavailable', 'The simplified methods are for a business whose fuel tax credits were $10,000 or less '
-        + 'in the previous 12 months and are expected to be in the current 12 months (PCG 2016/2 paragraph 4; PCG 2021/2 paragraph 6).');
-    }
-  }
+  checkSmallClaimant(input, lines);
   const end = input.rate_at_period_end === undefined ? null : periodEnd(input.rate_at_period_end, year, lines);
   const worked = lines.map((line) => workLine(line, end ?? line.acquired));
   const cents = worked.reduce((sum, line) => sum + line.cents, 0n);
@@ -331,23 +364,7 @@ export function fuelTaxCredits(input) {
   if (lines.some((line) => line.acquired > dayOf(FTC_RATES_READ))) {
     warnings.push(`Some fuel was acquired after ${plainDate(FTC_RATES_READ)}, when the rates were last read: check the ATO’s fuel tax credit rates for business for a change since.`);
   }
-  /** @type {number[] | null} */
-  let timeLimitLines = null;
-  if (input.return_date !== undefined) {
-    const day = dateOf(input.return_date, 'the day the return is given');
-    timeLimitLines = [];
-    for (const line of lines) {
-      if (day < line.acquired) refuse('fuel_tax_credits.fact_conflict', `Line ${line.n}: the return is given before the fuel was acquired.`);
-      const acquired = isoOf(line.acquired);
-      if (day > dayOf(`${Number(acquired.slice(0, 4)) + 4}${acquired.slice(4)}`)) timeLimitLines.push(line.n);
-    }
-    if (timeLimitLines.length) {
-      warnings.push(`Fuel Tax Act 2006 subsection 47-5(2): the entitlement for line ${timeLimitLines.join(', ')} ceases unless a return taking it into `
-        + `account is given within 4 years after the day of acquisition, and the return is given on ${plainDate(isoOf(day))}. That does not apply to `
-        + 'a credit already taken into account in an assessment (Linfox Australia Pty Ltd v Commissioner of Taxation [2019] FCAFC 131; MT 2024/1) '
-        + 'or to the section 47-10 exception; otherwise leave those lines out.');
-    }
-  }
+  const timeLimitLines = input.return_date === undefined ? null : timeLimited(input.return_date, lines, warnings);
   return { lines: worked.map(({ cents: c, ...line }) => ({ ...line, credit: Number(c) / 100 })), total: Number(cents) / 100,
     label7d: Number(cents / 100n), warnings, timeLimitLines };
 }

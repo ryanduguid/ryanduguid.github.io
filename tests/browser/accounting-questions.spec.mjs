@@ -779,7 +779,7 @@ test('fuel tax credit page works its example, a line from its cost and a refusal
   await form.locator('[name="quantity-2"]').fill('');
   await form.locator('[name="cost-2"]').fill('2459');
   await form.locator('[name="price-2"]').fill('245.9');
-  await form.getByLabel(/^Yes: a small claimant/).check();
+  await form.locator('input[name="small-claimant"][value="yes"]').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('Line 2: 1,000.0000 litres worked out from the cost (PCG 2016/2 Method 1), other business use, at 53.7 cents a litre from 3 August 2026: $537.00.');
   await expect(form.locator('output .result-row--principal')).toHaveText('Label 7D on the BAS, in whole dollars: $2,667.00.');
