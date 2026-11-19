@@ -7,6 +7,8 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { PACKAGING_YEARS, salaryPackaging } from './salary-packaging.mjs';
+import { NOVATED_YEARS, novatedLease } from './novated-lease.mjs';
 import { BONUS_YEAR, bonusWithholding } from './bonus-withholding.mjs';
 import { PAYS } from './payg-withholding.mjs';
 import { DIVISION_293_YEARS, division293Tax } from './division-293.mjs';
@@ -121,6 +123,84 @@ function studyLoanResult(value, aud) {
     + `total net investment loss ${aud(Number(parts.losses))}, reportable super contributions ${aud(Number(parts.super))}, `
     + `exempt foreign employment income ${aud(Number(parts.foreign))}`, principal: 1,
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
+}
+
+const EMPLOYER = /** @type {Record<string, string>} */ ({ charity: 'a public benevolent institution or health promotion charity',
+  hospital: 'a public or not-for-profit hospital or public ambulance service' });
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function salaryPackagingResult(value, aud) {
+  const flag = (/** @type {string} */ name) => value(name) === 'yes';
+  const r = salaryPackaging({ year: value('year'), residency: value('residency'), employer: value('employer'),
+    salary: value('salary'), typeTwo: value('type-two'), typeOne: value('type-one'), meals: value('meals'),
+    mealsTypeOne: flag('meals-type-one'), studyLoan: flag('study-loan'), hospitalCover: flag('cover') });
+  const rows = [['Benefits packaged, at their taxable value', aud(r.packaged)]];
+  if (r.grossedTypeOne) rows.push(['Type 1 benefits grossed up at 2.0802, to the dollar', aud(r.grossedTypeOne)]);
+  rows.push(['Type 2 benefits grossed up at 1.8868, to the dollar', aud(r.grossedTypeTwo)],
+    [`Cap for ${value('employer') === 'charity' ? 'a charity' : 'a hospital or ambulance service'}`, aud(r.cap)]);
+  if (r.grossedMeals) rows.push(['Meal entertainment allowed above the cap, up to $5,000', aud(r.mealAllowance)]);
+  rows.push(['Grossed-up amount liable to FBT', aud(r.excess)], ['FBT on it at 47%', aud(r.fbt)],
+    ['Reportable fringe benefits amount', aud(r.reportable)],
+    ['Tax, levies and study loan without packaging', aud(r.owedBefore)],
+    ['Tax, levies and study loan with packaging', aud(r.owedAfter)], ['Tax saved', aud(r.saved)],
+    ['Gain after the FBT, if your employer passes it on', aud(r.gain)]);
+  const principal = rows.length - 1;
+  if (r.room) rows.push(['Room left under the cap, as Type 2 benefits', aud(r.roomTypeTwo)]);
+  const notes = [];
+  if (r.reportable) {
+    notes.push(`Your income statement shows ${aud(r.reportable)} of reportable fringe benefits: it is not taxed, but it counts `
+      + 'for the Medicare levy surcharge, study loan repayments and other income tests');
+  }
+  if (!r.reportable && r.packaged) notes.push('Benefits of $2,000 or less are not reportable');
+  const flagText = (/** @type {string} */ name, /** @type {string} */ yes, /** @type {string} */ no) => (flag(name) ? yes : no);
+  return { inputs: `${r.year}, ${value('residency') === 'resident' ? 'Australian resident' : 'foreign resident'} employed by `
+    + `${EMPLOYER[value('employer')]}, salary ${aud(Number(value('salary')))}, Type 2 benefits ${aud(Number(value('type-two')))}, `
+    + `Type 1 benefits ${aud(Number(value('type-one')))}, salary packaged meal entertainment ${aud(Number(value('meals')))} `
+    + `(${flagText('meals-type-one', 'Type 1', 'Type 2')}), ${flagText('study-loan', 'with', 'no')} study loan, `
+    + `${flagText('cover', 'with', 'without')} private hospital cover`, rows, principal,
+  note: notes.length ? notes.join('. ') : undefined };
+}
+
+const CAR = /** @type {Record<string, string>} */ ({ bev: 'battery electric car', fcev: 'hydrogen fuel cell car',
+  phev: 'plug-in hybrid', other: 'petrol, diesel or hybrid car' });
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function novatedLeaseResult(value, aud) {
+  const flag = (/** @type {string} */ name) => value(name) === 'yes';
+  const r = novatedLease({ year: value('year'), residency: value('residency'), salary: value('salary'), studyLoan: flag('study-loan'),
+    hospitalCover: flag('cover'), kind: value('kind'), firstUsed: value('first-used'), commitment: flag('commitment'),
+    saleYear: value('sale-year'), price: value('price'), otherSupply: flag('other-supply'), reduced: flag('reduced'),
+    days: value('days'), gstCosts: value('gst-costs'), otherCosts: value('other-costs') });
+  const rows = [[`Statutory formula value for ${value('days')} days`, aud(r.taxableValue)],
+    [`Luxury car tax threshold for fuel-efficient cars, ${value('sale-year')}`, aud(r.threshold)],
+    ['Electric car exemption', r.exempt ? 'applies' : `does not apply: ${r.reason}`],
+    ['Yearly car costs', aud(r.costs)], ['The same less the GST credits your employer claims', aud(r.netCosts)],
+    ['Tax, levies and study loan paying the costs from after-tax pay', aud(r.owedWithout)]];
+  let principal = 0;
+  if (r.exemptCase) {
+    rows.push(['Exempt: all from pre-tax salary', aud(r.exemptCase.preTax)],
+      ['Exempt: reportable fringe benefits amount', aud(r.exemptCase.reportable)],
+      ['Exempt: tax, levies and study loan', aud(r.exemptCase.owed)], ['Exempt: saving', aud(r.exemptCase.saving)]);
+    principal = rows.length - 1;
+  }
+  if (r.contribution) {
+    rows.push([`${r.exempt ? 'Were it not exempt' : 'Employee contribution method'}: after-tax contribution`, aud(r.contribution.postTax)],
+      [`${r.exempt ? 'Were it not exempt' : 'Employee contribution method'}: from pre-tax salary`, aud(r.contribution.preTax)],
+      [`${r.exempt ? 'Were it not exempt' : 'Employee contribution method'}: tax, levies and study loan`, aud(r.contribution.owed)],
+      [`${r.exempt ? 'Were it not exempt' : 'Employee contribution method'}: saving`, aud(r.contribution.saving)]);
+    if (!r.exempt) principal = rows.length - 1;
+  }
+  const note = r.exemptCase?.reportable
+    ? `The exempt car’s ${aud(r.exemptCase.reportable)} reportable amount is not taxed, but it counts for the Medicare levy `
+      + 'surcharge, study loan repayments and other income tests'
+    : undefined;
+  return { inputs: `${r.year}, ${value('residency') === 'resident' ? 'Australian resident' : 'foreign resident'}, salary `
+    + `${aud(Number(value('salary')))}, ${CAR[value('kind')]} first held and used ${value('first-used') === 'after' ? 'on or after' : 'before'} `
+    + `1 July 2022${value('kind') === 'phev' ? `, ${flag('commitment') ? 'with' : 'without'} a commitment from before 1 April 2025` : ''}, `
+    + `first sold in ${value('sale-year')} for ${aud(Number(value('price')))}, `
+    + `${flag('other-supply') ? 'luxury car tax payable at another supply or importation, ' : ''}${flag('reduced') ? 'held over 4 years, ' : ''}`
+    + `available ${value('days')} days, costs with GST ${aud(Number(value('gst-costs')))} and without ${aud(Number(value('other-costs')))}, `
+    + `${flag('study-loan') ? 'with' : 'no'} study loan, ${flag('cover') ? 'with' : 'without'} private hospital cover`, rows, principal, note };
 }
 
 const PAY_NAME = /** @type {Record<string, string>} */ ({ week: 'weekly', fortnight: 'fortnightly', month: 'monthly' });
@@ -386,7 +466,7 @@ function incomeTestsResult(value, aud) {
 
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
   ['sole-trader', soleTraderResult], ['lump-sum-arrears', lumpSumArrearsResult], ['division-293', division293Result], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult],
-  ['bonus-withholding', bonusResult]]);
+  ['bonus-withholding', bonusResult], ['salary-packaging', salaryPackagingResult], ['novated-lease', novatedLeaseResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -398,4 +478,4 @@ export function individualResult(kind, value, aud) {
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
 export const engines = { taxEstimate, takeHomePay, soleTraderSetAside, division293Tax, incomeTests, incomeYears: INCOME_TAX_YEARS,
   payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS,
-  bonusWithholding };
+  bonusWithholding, salaryPackaging, novatedLease, packagingYears: PACKAGING_YEARS, novatedYears: NOVATED_YEARS };
