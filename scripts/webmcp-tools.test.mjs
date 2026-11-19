@@ -358,7 +358,8 @@ const individual = individualTaxTools(individualEngines);
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
   assert.deepEqual(Object.values(individual).map(t => t.name), ['calculate_income_tests', 'estimate_income_tax',
-    'calculate_take_home_pay', 'calculate_sole_trader_set_aside', 'calculate_division_293_tax']);
+    'calculate_take_home_pay', 'calculate_sole_trader_set_aside', 'calculate_division_293_tax',
+    'calculate_bonus_withholding']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -443,6 +444,24 @@ test('individual tax tools refuse a year they do not offer, cents of taxable inc
     /no more than the salary/);
   await assert.rejects(pay.execute({ incomeYear: '2026-27', residency: 'resident', salary: '1', payPeriod: 'quarter' }),
     /payPeriod does not match/);
+});
+
+test('bonus withholding tool gives the ATO’s Schedule 5 examples and refuses what the page refuses', async () => {
+  const tool = individual['bonus-withholding'];
+  const jarrod = await tool.execute({ payPeriod: 'week', residency: 'resident', studyLoan: true, method: 'A', earnings: '1400',
+    additionalPayment: '900' });
+  assert.deepEqual([jarrod.withheldOnEarnings, jarrod.beforeLimit, jarrod.limit, jarrod.withheldOnAdditionalPayment,
+    jarrod.totalWithheld], ['277.00', '364.00', '423.00', '364.00', '641.00']);
+  const bradley = await tool.execute({ payPeriod: 'month', residency: 'resident', studyLoan: true, method: 'B', earnings: '7000',
+    backPayPays: 2, backPayEach: '800', backPayPayEarnings: '6200', backPayPayWithheld: '1257', additionalPayment: '8800',
+    earningsToDate: '19400', paysToDate: 3 });
+  assert.deepEqual([bradley.methodBi, bradley.methodBii, bradley.totalWithheld], ['754.00', '4104.00', '6492.00']);
+  await assert.rejects(tool.execute({ payPeriod: 'year', residency: 'resident', method: 'A', earnings: '1' }), /payPeriod does not match/);
+  await assert.rejects(tool.execute({ payPeriod: 'week', residency: 'working-holiday', method: 'A', earnings: '1' }),
+    /residency does not match/);
+  await assert.rejects(tool.execute({ payPeriod: 'month', residency: 'resident', method: 'A', earnings: '1', additionalPayment: '1',
+    spreadOverPays: 13 }), /between 2 and 12/);
+  assert.match(tool.description, /does not compute scales 1, 5 or 6, a payee without a tax file number, a working holiday maker/);
 });
 
 test('Division 293 tool gives the ATO’s example and refuses what the page refuses', async () => {

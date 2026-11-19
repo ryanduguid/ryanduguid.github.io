@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const bonus = { file: 'assets/bonus-withholding.mjs', test: individualTest };
 const d293 = { file: 'assets/division-293.mjs', test: individualTest };
 const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
 const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
@@ -338,6 +339,17 @@ const MUTATIONS = [
   { ...estimate, name: 'a refund reads as an amount owing', find: '(withheld - total) / 100', replace: '(total - withheld) / 100' },
   { ...estimate, name: 'foreign residents pay the surcharge', find: "r.residency === 'resident' ? days : 0", replace: 'days' },
   { ...estimate, name: 'the study loan is left out of the total', find: 'cents(loan?.repayment ?? 0)', replace: '0' },
+  { ...bonus, name: 'Schedule 5 limits withholding to 45%', find: '(additional * 47) / 100)) / 100);', replace: '(additional * 45) / 100)) / 100);' },
+  { ...bonus, name: 'Schedule 5 limit leaves out the study loan component', find: 'limited(step7.total * 100, additional)', replace: 'limited(step7.tax * 100, additional)' },
+  { ...bonus, name: 'Schedule 5 Method A keeps the earnings’ cents', find: 'const step1 = dollarsOnly(earnings);', replace: 'const step1 = earnings;' },
+  { ...bonus, name: 'Schedule 5 Method A keeps the share’s cents', find: 'const step3 = dollarsOnly(additional / spread);', replace: 'const step3 = Math.round(additional / spread);' },
+  { ...bonus, name: 'Schedule 5 Method A always spreads over the year', find: 'step7 = extra(step5, step2, spread);', replace: 'step7 = extra(step5, step2, pays);' },
+  { ...bonus, name: 'Schedule 5 B(i) keeps a negative result', find: 'Math.max(0, each * backPays) / 100', replace: '(each * backPays) / 100' },
+  { ...bonus, name: 'Schedule 5 B(i) ignores what was withheld before', find: 'recalculated.total * 100 - cents(b.backWithheld)', replace: 'recalculated.total * 100' },
+  { ...bonus, name: 'Schedule 5 B(ii) averages without this pay’s B(i) back payment', find: 'dollarsOnly((toDate + backPayment) / paysToDate)', replace: 'dollarsOnly(toDate / paysToDate)' },
+  { ...bonus, name: 'Schedule 5 B(ii) leaves out earlier B(ii) payments', find: 'dollarsOnly((cents(b.earlierAdditional) + additional) / pays)', replace: 'dollarsOnly(additional / pays)' },
+  { ...bonus, name: 'Schedule 5 B(ii) keeps what earlier B(ii) payments withheld', find: 'step7.total * 100 - cents(b.earlierWithheld)', replace: 'step7.total * 100' },
+  { ...bonus, name: 'Schedule 5 Method A year tax ignores the payment', find: 'owed(year + additional) - owed(year)', replace: 'owed(year) - owed(year)' },
   { ...d293, name: 'Division 293 taxes the excess contributions too', find: 'const low = concessional - excess;', replace: 'const low = concessional;' },
   { ...d293, name: 'Division 293 carries unused cap forward whatever the balance', find: 'd.balanceUnder ? Math.min(unused, overCap) : 0', replace: 'Math.min(unused, overCap)' },
   { ...d293, name: 'Division 293 carries forward more than the excess', find: 'Math.min(unused, overCap)', replace: 'unused' },
