@@ -303,13 +303,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const r = calculate.fbtCar({ method: value('method'), cost: value('cost'), accessories: value('accessories'), reduced,
               days: value('days'), costs: value('costs'), businessUse: value('business-use'), contribution: value('contribution') },
             { days: form.dataset.yearDays, grossUp: type.dataset.grossUp, fbtRate: form.dataset.fbtRate });
+            // An exempt electric car's taxable value is nil (s 8A); its value before the exemption is still reportable.
+            const ev = fbtForms.fbtEvResult(form, calculate, { aud, value, money });
+            const exempt = ev?.exempt === true;
             result = { inputs: `${operating ? 'operating cost method' : 'statutory formula'}, cost price ${money('cost')}, later non-business accessories ${money('accessories')}, `
               + `first held ${reduced ? 'before' : 'on or after'} 1 April 2022, ${count(value('days'), 'day')} of ${form.dataset.yearDays} available for private use, `
-              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up ${type.dataset.grossUp}`,
-            rows: [['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
-              ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []), ['Taxable value', aud(r.taxableValue)],
-              ['Grossed-up taxable value', aud(r.grossedUp)], [`FBT at ${form.dataset.fbtRate}%`, aud(r.fbt)]],
-            note: operating && r.statutory < r.operating ? 'The statutory formula value is lower, so it applies under subsection 10(5)' : undefined };
+              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up ${type.dataset.grossUp}`
+              + `${ev ? `, ${ev.inputs}` : ''}`,
+            rows: [...(ev?.rows ?? []), ['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
+              ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []),
+              ...(exempt ? [['Taxable value before the exemption, for reporting', aud(r.taxableValue)]] : []),
+              ['Taxable value', aud(exempt ? 0 : r.taxableValue)], ['Grossed-up taxable value', aud(exempt ? 0 : r.grossedUp)],
+              [`FBT at ${form.dataset.fbtRate}%`, aud(exempt ? 0 : r.fbt)]],
+            note: [exempt && fbtForms.EV_EXEMPT_NOTE, operating && r.statutory < r.operating
+              && 'The statutory formula value is lower, so it applies under subsection 10(5)'].filter(Boolean).join('. ') || undefined };
             result.principal = result.rows.length - 1;
             break;
           }
