@@ -807,7 +807,7 @@ function division293Tool({ division293Tax, division293Years }) {
 function bonusWithholdingTool(bonusWithholding) {
   return tool({
     name: 'calculate_bonus_withholding',
-    title: 'Bonus and back payment withholding calculator',
+    title: 'Bonus withholding calculator',
     description: BONUS_WITHHOLDING_DESCRIPTION,
     inputSchema: record({
       payPeriod: choice(['week', 'fortnight', 'month'], 'How often the payee is paid.'),

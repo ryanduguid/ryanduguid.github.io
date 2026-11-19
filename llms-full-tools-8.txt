@@ -505,7 +505,7 @@ Source: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 
 > PAYG withholding on a bonus, commission or back payment for 2026-27 by the ATO's Schedule 5 methods, with study loans and the 47% limit, each step cited.
 
-# Bonus and back payment withholding calculator
+# Bonus withholding calculator
 
 PAYG withheld from a 2026-27 pay that includes a bonus, commission or back payment, by Schedule 5's Method A, B(i) or B(ii), each step shown.
 
@@ -564,7 +564,7 @@ Confirm the figures with the ATO’s tax withheld calculator or a registered tax
 
 Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Bonus and back payment withholding calculator
+Boundary cases: Bonus withholding calculator
 
 Case | Inputs | Result
 ATO example 1: Jarrod’s $900 bonus by Method A, with HELP | weekly, scale 2, study loan, $1,400.00 this pay; Method A: $900.00 over 52 pays | Withheld $641.00: $277.00 on earnings, $364.00 on the payment (limit $423.00); adds $423.00 to a year
