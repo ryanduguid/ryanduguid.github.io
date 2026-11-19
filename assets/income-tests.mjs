@@ -9,6 +9,8 @@
 // Earners) Act 2003 s 8 and the A New Tax System (Family Assistance) Act 1999 Sch 3 cls 2 to 8
 // (Compilation No. 124, 1 July 2026). The definitions read the same for 2024-25 to 2026-27.
 
+import { division293Income } from './division-293.mjs';
+
 /** The amounts each measure is built from, in the order the page asks for them. */
 export const INCOME_TEST_PARTS = /** @type {const} */ (['taxable', 'fhss', 'familyTrust', 'fringe57a', 'fringeOther',
   'employerSuper', 'personalSuper', 'excessConcessional', 'financialLoss', 'rentalLoss', 'pensions', 'targetForeign',
@@ -65,8 +67,9 @@ export function incomeTests(parts) {
   return {
     taxableWithoutFhss: taxable, fringeTotal: fringe, adjustedFringe, losses, contributions,
     surchargeIncome: surcharge,
-    // ITAA 1997 s 293-20(1)(a): disregarding reportable superannuation contributions.
-    division293Income: surcharge - contributions,
+    // ITAA 1997 s 293-20(1)(a): disregarding reportable superannuation contributions, worked by the Division 293
+    // tax calculator's function so the 2 pages cannot disagree; the s 301-20(3) amount is nil from 2024-25.
+    division293Income: division293Income({ taxable: p.taxable, fhss: p.fhss, trust: p.familyTrust, fringe, losses, lumpSum: 0 }),
     // ITAA 1936 s 6(1) 'rebate income' (a) to (d).
     rebateIncome: taxable + contributions + losses + adjustedFringe,
     // HESA s 154-5(1) (a) to (e).

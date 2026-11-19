@@ -1,0 +1,56 @@
+<section class="business-calculator" id="division-293">
+<form class="calculator-split" data-calculator="division-293">
+<fieldset disabled><legend>Division 293 tax inputs for one income year</legend><div class="form-grid"><fieldset><legend>Income year</legend>
+<label><input type="radio" name="year" value="2026-27" checked /> 2026-27</label>
+<label><input type="radio" name="year" value="2025-26" /> 2025-26</label>
+<label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
+<label><input type="radio" name="year" value="2023-24" /> 2023-24</label>
+<label><input type="radio" name="year" value="2022-23" /> 2022-23</label>
+<label><input type="radio" name="year" value="2021-22" /> 2021-22</label>
+</fieldset>
+<fieldset><legend>Your super interests this year</legend>
+<label><input type="radio" name="interests" value="accumulation" checked /> Accumulation interests only</label>
+<label><input type="radio" name="interests" value="other" /> A defined benefit interest, a constitutionally protected fund or a Commonwealth judges’ pension scheme</label>
+</fieldset>
+<label class="field" for="division-293-taxable">Taxable income, including any excess concessional contributions assessed (whole dollars)<input id="division-293-taxable" name="taxable" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="240000" required /></label>
+<label class="field" for="division-293-fringe">Reportable fringe benefits total (whole dollars)<input id="division-293-fringe" name="fringe" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="0" required /></label>
+<label class="field" for="division-293-losses">Total net investment loss, financial and rental (whole dollars)<input id="division-293-losses" name="losses" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="0" required /></label>
+<label class="field" for="division-293-trust">Income on which family trust distribution tax was paid (whole dollars)<input id="division-293-trust" name="trust" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="0" required /></label>
+<label class="field" for="division-293-fhss">Assessable first home super saver released amount in taxable income (whole dollars)<input id="division-293-fhss" name="fhss" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="0" required /></label>
+<label class="field" for="division-293-lump-sum">Super lump sum taxed at 0%, received from preservation age to under 60, to 2023-24 only (whole dollars)<input id="division-293-lump-sum" name="lump-sum" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="0" required /></label>
+<label class="field" for="division-293-concessional">Concessional contributions for the financial year: employer, super guarantee, salary sacrifice and personal contributions you deduct (dollars and cents)<input id="division-293-concessional" name="concessional" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="15000" required /></label>
+<label class="field" for="division-293-unused">Unused concessional cap from the previous 5 years not yet applied (dollars and cents)<input id="division-293-unused" name="unused" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<fieldset><legend>Total super balance just before the year began</legend>
+<label><input type="radio" name="balance-under" value="no" checked /> $500,000 or more</label>
+<label><input type="radio" name="balance-under" value="yes" /> Under $500,000, so unused cap carries forward</label>
+</fieldset>
+</div>
+<p class="field-note">Enter 0 for any part you do not have. Your tax return gives the income parts and your super fund’s statements the contributions; your ATO online account shows unused cap and your total super balance. Leave out contributions made under the super guarantee amnesty.</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+{% include calculator-example.html inputs="2026-27, accumulation interests only, taxable income $240,000.00, reportable fringe benefits $0.00, total net investment loss $0.00, family trust distribution tax income $0.00, assessable FHSS released amount $0.00, zero-rate super lump sum $0.00, concessional contributions $15,000.00, unused cap carried forward $0.00" rows="Division 293 income: income for surcharge purposes less reportable super contributions|$240,000.00;Concessional contributions|$15,000.00;Concessional contributions cap for 2026-27|$32,500.00;Excess concessional contributions|$0.00;Low tax contributions: the contributions less the excess|$15,000.00;Division 293 income plus low tax contributions|$255,000.00;Amount over the $250,000 threshold|$5,000.00;Taxable contributions: the lesser of the low tax contributions and that amount|$5,000.00;Division 293 tax at 15%|$750.00" principal="8" note="The ATO assesses it on a separate notice, payable 21 days after it is given (section 293-65)" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>Taxable contributions and the $250,000 threshold: sections 293-15, 293-20, 293-25 and 293-30 of the <a href="https://www.legislation.gov.au/C2004A05138/latest/text">Income Tax Assessment Act 1997</a> (Compilation No. 268, 1 October 2026), read 19 November 2026. Its endnotes show sections 291-20, 293-20 and 293-25 last amended by Act No. 81, 2016, for 2017-18, so the same rules apply to every year here. Section 293-30, which says which contributions count, lost paragraph (4)(d) from 1 July 2026 (Treasury Laws Amendment (Payday Superannuation) Act 2025, item 94); the calculator takes the contributions as your fund reports them.</li>
+<li>The 15% rate: section 5 of the <a href="https://www.legislation.gov.au/C2013A00087/latest/text">Superannuation (Sustaining the Superannuation Contribution Concession) Imposition Act 2013</a>, read 19 November 2026. Neither Act prescribes rounding; the tax is rounded to the nearest cent.</li>
+<li>Division 293 income: ‘income for surcharge purposes’ and ‘total net investment loss’ in section 995-1 of the 1997 Act, read in the same compilation: taxable income without an assessable FHSS released amount (nil where that is more) and with income on which family trust distribution tax was paid, plus the reportable fringe benefits total and total net investment loss, less the section 301-20(3) amount, a lump sum taxed at 0% for a person from preservation age to under 60, so nobody from 2024-25; section 293-20(1)(a) disregards reportable super contributions.</li>
+<li>Excess concessional contributions and carry forward: section 291-20 of the same Act: the excess over the year’s cap, which unapplied unused cap from the previous 5 years raises, by no more than the excess, when the total super balance just before the year is under $500,000. Section 291-15 puts the excess in assessable income instead.</li>
+<li>The caps: $32,500 for 2026-27, $30,000 for 2024-25 and 2025-26 and $27,500 for 2021-22 to 2023-24, from the ATO’s <a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/contributions-caps">Contributions caps</a> (Table 1.1, last updated 11 September 2026), read 19 November 2026.</li>
+<li>Test case: the ATO’s example on <a href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/growing-and-keeping-track-of-your-super/caps-limits-and-tax-on-super-contributions/division-293-tax-on-concessional-contributions-by-high-income-earners">Division 293 tax on concessional contributions by high-income earners</a> (last updated 24 August 2026), read 19 November 2026: Division 293 income of $240,000 and contributions of $15,000 give $5,000 of taxable contributions and $750 of tax. The same page lists the income parts and says contributions under a cap raised by carried-forward amounts count.</li>
+<li>Supplied by you: the year, your super interests, each part of Division 293 income, the contributions, unused cap and whether your total super balance was under $500,000.</li>
+</ul>
+</div>
+</form>
+<h2>How the Division 293 tax calculator works</h2><p>The Division 293 tax calculator works out the extra 15% tax on concessional super contributions for one income year when income and contributions together exceed $250,000. It adds up Division 293 income, the income measure used for the Medicare levy surcharge without reportable super contributions, then takes the contributions less any excess over the year’s cap, raised by unused cap carried forward when your total super balance allows it. Those are the low tax contributions. The taxable contributions are the lesser of the low tax contributions and the amount by which they and Division 293 income exceed $250,000, so only the part above the threshold is taxed, and never more than the contributions. Each step is shown, with the room left under the threshold when you are below it.</p>
+<p>Excess concessional contributions are not taxed by Division 293: they are added to your assessable income and taxed at your marginal rate less a 15% offset instead. A one-off event, such as a capital gain, an employment termination payment or back pay, can take you over the threshold for a single year. The ATO assesses Division 293 tax on its own notice once it has your return and your fund’s contribution reports. It is payable 21 days after the notice, and you can elect within 60 days to have it released from super.</p>
+<h2>What the Division 293 tax calculator does not compute</h2><p>The calculator covers 2021-22 to 2026-27, for contributions to accumulation interests. It does not compute:</p>
+<ul>
+<li>defined benefit interests, whose defined benefit contributions the regulations work out and whose tax is deferred to a debt account (Subdivision 293-D), or the rules for State higher level office holders with constitutionally protected funds and for Commonwealth justices and judges (Subdivisions 293-E and 293-F);</li>
+<li>contributions the Commissioner has disregarded or reallocated to another year, which stay in low tax contributions, or which contributions count: enter them as your fund reports them;</li>
+<li>contributions that count differently for Division 293 than for the cap: a super guarantee amnesty amount the Commissioner paid to your fund, which is not a low tax contribution (section 293-30(4)(c)), and a contribution refunded under section 99G(6) of the Superannuation Industry (Supervision) Act 1993, which is not a concessional contribution (section 291-25(2)(e));</li>
+<li>each part of Division 293 income, the unused cap or your total super balance, which you enter;</li>
+<li>2027-28 and later years, whose cap is not yet known, or years before 2021-22;</li>
+<li>the refund for a former temporary resident who receives a departing Australia superannuation payment, interest, or the release from super itself.</li>
+</ul>
+<p>Confirm the figures with your Division 293 notice from the ATO or a registered tax agent.</p>
+</section>

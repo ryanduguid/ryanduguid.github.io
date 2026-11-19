@@ -489,7 +489,8 @@ export function borrowingFormInput(value) {
     /** @type {Record<string, unknown>} */
     const loan = { borrowing_expenses: value(`expenses-${n}`), loan_start: value(`start-${n}`), loan_term_end: optional(`term-end-${n}`),
       repaid_on: optional(`repaid-${n}`), income_use: percentFraction(value(`use-${n}`), `Loan ${n}`), section_26_50_applies: leisure };
-    const refinances = value(`refinances-${n}`);
+    // Loan 1 has no earlier loan to refinance, so the form gives it no such field.
+    const refinances = n === 1 ? '' : value(`refinances-${n}`);
     if (refinances) loan.refinances = Number(refinances);
     loans.push(loan);
     years.push(blank(value(`use-by-year-${n}`)) ? null : byYear(value(`use-by-year-${n}`), n));

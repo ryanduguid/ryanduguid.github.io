@@ -783,7 +783,7 @@ test('unused leave page works Schedule 7’s example, a no-TFN payment and a ref
   await expect(form.locator('output')).toHaveText('The leave accrued from 1 January 1980, so none of it is long service leave for the period before 16 August 1978: enter 0 or leave it blank.');
 });
 
-// The ATO's Peter and Fiona and Max in 2024-25, the accounting column beside them, and a loan before 2017-18.
+// The ATO's Peter and Fiona and Max in 2024-25, the accounting column beside them, and a loan first drawn after the year.
 test('borrowing expenses page works its example, the accounting column and a refusal offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/borrowing-expenses/');
   const form = page.locator('#borrowing-expenses form');
@@ -797,9 +797,9 @@ test('borrowing expenses page works its example, the accounting column and a ref
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('Loan 1: effective interest rate (AASB 9): 6.2274% a year.');
   await expect(form.locator('table[data-results="accounting"]')).toBeVisible();
-  await form.locator('[name="start-1"]').fill('2017-06-30');
+  await form.locator('[name="start-1"]').fill('2025-08-01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(form.locator('output')).toContainText(/loan 1: a loan first drawn before 1 July 2017 is out of scope/i);
+  await expect(form.locator('output')).toContainText(/loan 1: loan_start must not be after the 2024-25 income year ended/i);
 });
 
 // Western Australia's Anastasia (serious misconduct after 12 years and 1 month: the 8 2/3 weeks accrued), the same

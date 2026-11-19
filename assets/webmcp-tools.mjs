@@ -676,37 +676,31 @@ const INCOME_TEST_INPUTS = /** @type {const} */ ([['taxableIncome', 'taxable', '
   ['assessableIncome', 'assessable', 'Assessable income, at least the taxable income.'],
   ['businessDeductions', 'businessDeductions', 'Deductions from carrying on a business.']]);
 
+const DIVISION_293_DESCRIPTION = 'Division 293 tax in AUD for one individual and income year (ITAA 1997 Division 293), '
+  + 'for contributions to accumulation interests only. Division 293 income is taxable income less any assessable first '
+  + 'home super saver released amount, plus income on which family trust distribution tax was paid, the reportable '
+  + 'fringe benefits total and total net investment loss, less a super lump sum taxed element at the zero rate. Low tax '
+  + 'contributions are the concessional contributions less excess concessional contributions over the year\'s cap, '
+  + 'raised by unused cap carried forward when the total super balance just before the year was under $500,000. '
+  + 'Taxable contributions are the lesser of the low tax contributions and the amount by which they plus Division 293 '
+  + 'income exceed $250,000; the tax is 15% of them. It does not compute defined benefit interests, constitutionally '
+  + 'protected funds, Commonwealth judges\' pensions, contributions the Commissioner disregarded or reallocated, or '
+  + `interest, deferral or release from super. Sources on ${INDIVIDUAL}division-293/.`;
+
 /**
- * WebMCP descriptors for the income tax estimate, take-home pay, sole trader set-aside and income tests
- * calculators, keyed by the `data-calculator` name of the form whose page registers them.
+ * WebMCP descriptors for the income tax estimate, take-home pay, sole trader set-aside, Division 293 and income
+ * tests calculators, keyed by the `data-calculator` name of the form whose page registers them.
  * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
  *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay,
  *   soleTraderSetAside: typeof import('./sole-trader.mjs').soleTraderSetAside,
+ *   division293Tax: typeof import('./division-293.mjs').division293Tax,
  *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[],
- *   soleTraderYears: string[]}} engines
+ *   soleTraderYears: string[], division293Years: string[]}} engines
  */
-export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAside, incomeTests, incomeYears, payYears,
-  soleTraderYears }) {
+export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAside, division293Tax, incomeTests, incomeYears,
+  payYears, soleTraderYears, division293Years }) {
   return {
-    'income-tests': tool({
-      name: 'calculate_income_tests',
-      title: 'Income tests calculator',
-      description: INCOME_TESTS_DESCRIPTION,
-      inputSchema: record(Object.fromEntries(INCOME_TEST_INPUTS.map(([name, , description]) => [name, dollarsOnly(description)])),
-        ['taxableIncome']),
-      run(input) {
-        const parts = Object.fromEntries(INCOME_TEST_INPUTS.map(([name, key]) => [key, String(input[name] ?? 0)]));
-        const r = incomeTests(/** @type {import('./income-tests.mjs').IncomeTestParts} */ ({ ...parts, resident: true }));
-        return {
-          incomeForSurchargePurposes: dollars(r.surchargeIncome), division293Income: dollars(r.division293Income),
-          rebateIncome: dollars(r.rebateIncome), repaymentIncome: dollars(r.repaymentIncome),
-          adjustedTaxableIncome: dollars(r.adjustedTaxableIncome), coContributionTotalIncome: dollars(r.coContributionIncome),
-          reportableFringeBenefitsTotal: dollars(r.fringeTotal), adjustedFringeBenefitsTotal: dollars(r.adjustedFringe),
-          totalNetInvestmentLoss: dollars(r.losses), reportableSuperContributions: dollars(r.contributions),
-          currency: 'AUD', source: `${INDIVIDUAL}income-tests/`,
-        };
-      },
-    }),
+    'income-tests': incomeTestsTool(incomeTests),
     'income-tax': tool({
       name: 'estimate_income_tax',
       title: 'Income tax and refund estimate',
@@ -776,5 +770,67 @@ export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAsid
       },
     }),
     'sole-trader': soleTraderTool(soleTraderSetAside, soleTraderYears),
+    'division-293': division293Tool({ division293Tax, division293Years }),
   };
+}
+
+/** The WebMCP descriptor for the income tests calculator.
+ * @param {typeof import('./income-tests.mjs').incomeTests} incomeTests */
+function incomeTestsTool(incomeTests) {
+  return tool({
+    name: 'calculate_income_tests',
+    title: 'Income tests calculator',
+    description: INCOME_TESTS_DESCRIPTION,
+    inputSchema: record(Object.fromEntries(INCOME_TEST_INPUTS.map(([name, , description]) => [name, dollarsOnly(description)])),
+      ['taxableIncome']),
+    run(input) {
+      const parts = Object.fromEntries(INCOME_TEST_INPUTS.map(([name, key]) => [key, String(input[name] ?? 0)]));
+      const r = incomeTests(/** @type {import('./income-tests.mjs').IncomeTestParts} */ ({ ...parts, resident: true }));
+      return {
+        incomeForSurchargePurposes: dollars(r.surchargeIncome), division293Income: dollars(r.division293Income),
+        rebateIncome: dollars(r.rebateIncome), repaymentIncome: dollars(r.repaymentIncome),
+        adjustedTaxableIncome: dollars(r.adjustedTaxableIncome), coContributionTotalIncome: dollars(r.coContributionIncome),
+        reportableFringeBenefitsTotal: dollars(r.fringeTotal), adjustedFringeBenefitsTotal: dollars(r.adjustedFringe),
+        totalNetInvestmentLoss: dollars(r.losses), reportableSuperContributions: dollars(r.contributions),
+        currency: 'AUD', source: `${INDIVIDUAL}income-tests/`,
+      };
+    },
+  });
+}
+
+/** The WebMCP descriptor for the Division 293 tax calculator.
+ * @param {{division293Tax: typeof import('./division-293.mjs').division293Tax, division293Years: string[]}} engines */
+function division293Tool({ division293Tax, division293Years }) {
+  return tool({
+    name: 'calculate_division_293_tax',
+    title: 'Division 293 tax calculator',
+    description: DIVISION_293_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(division293Years, `Income year, ${division293Years.at(-1)} to ${division293Years[0]}.`),
+      accumulationOnly: { type: 'boolean', description: 'true when every contribution is to an accumulation interest; false refuses.' },
+      taxableIncome: whole(0, 1e9, 'Taxable income in whole AUD, including any excess concessional contributions assessed.'),
+      reportableFringeBenefits: dollarsOnly('Reportable fringe benefits total.'),
+      totalNetInvestmentLoss: dollarsOnly('Total net investment loss, financial and rental.'),
+      familyTrustDistributionIncome: dollarsOnly('Income on which family trust distribution tax was paid.'),
+      assessableFhssReleasedAmount: dollarsOnly('Assessable first home super saver released amount in taxable income.'),
+      zeroRateLumpSum: dollarsOnly('Taxable component of a super lump sum taxed at 0% (s 301-20(3)), received from preservation age to under 60: 2023-24 and earlier only.'),
+      concessionalContributions: text('amount', 'Concessional contributions for the financial year in AUD with at most 2 decimal places.'),
+      unusedCapCarriedForward: text('amount', 'Unapplied unused concessional cap from the previous 5 years in AUD; "0" when omitted.'),
+      totalSuperBalanceUnder500k: { type: 'boolean', description: 'true when the total super balance just before the year was under $500,000; false when omitted.' },
+    }, ['incomeYear', 'accumulationOnly', 'taxableIncome', 'concessionalContributions']),
+    run({ incomeYear, accumulationOnly, taxableIncome, reportableFringeBenefits = 0, totalNetInvestmentLoss = 0,
+      familyTrustDistributionIncome = 0, assessableFhssReleasedAmount = 0, zeroRateLumpSum = 0, concessionalContributions,
+      unusedCapCarriedForward = '0', totalSuperBalanceUnder500k = false }) {
+      const r = division293Tax({ year: incomeYear, interests: accumulationOnly ? 'accumulation' : 'other',
+        taxable: String(taxableIncome), fringe: String(reportableFringeBenefits), losses: String(totalNetInvestmentLoss),
+        trust: String(familyTrustDistributionIncome), fhss: String(assessableFhssReleasedAmount), lumpSum: String(zeroRateLumpSum),
+        concessional: concessionalContributions, unused: unusedCapCarriedForward, balanceUnder: totalSuperBalanceUnder500k });
+      return {
+        division293Income: dollars(r.income), concessionalContributionsCap: dollars(r.cap), unusedCapApplied: dollars(r.carried),
+        excessConcessionalContributions: dollars(r.excess), lowTaxContributions: dollars(r.low), overThreshold: dollars(r.over),
+        taxableContributions: dollars(r.taxable), division293Tax: dollars(r.tax), roomUnderThreshold: dollars(r.room),
+        currency: 'AUD', source: `${INDIVIDUAL}division-293/`,
+      };
+    },
+  });
 }
