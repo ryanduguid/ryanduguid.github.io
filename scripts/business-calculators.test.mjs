@@ -3207,7 +3207,7 @@ test('the long service leave page opens on the result its calculation gives, and
   const result = calculations.longServiceLeaveResult((name) => fields[name], aud);
   assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
   for (const cited of ['(version for 1 July 2025 to date), read 19 November 2026', '(Authorised Version No. 006, as at 12 December 2025), read 19 November 2026',
-    '(current version), read 19 November 2026', '(official version 04-m0-00, as at 31 January 2025), read 19 November 2026',
+    '(reprint current from 1 January 2026), read 19 November 2026','(official version 04-m0-00, as at 31 January 2025), read 19 November 2026',
     '(version of 1 July 2017), read 19 November 2026', '(version current from 10 December 2018), read 19 November 2026',
     '(republication R29, effective 19 November 2025), read 19 November 2026', '(reprint as in force at 14 October 2015), read 19 November 2026',
     '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read the same day']) {
@@ -3286,4 +3286,18 @@ test('long service leave keeps the fixed amounts and exclusions the Acts state',
   // South Australia, subsection 5(4): nothing under 10 years after dismissal for serious and wilful misconduct.
   assert.equal(lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-12-31', mode: 'ends', reason: 'misconduct' }).weeks, 0);
   assert.equal(lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-12-31', mode: 'ends', reason: 'performance' }).weeks, 10.4);
+});
+
+test('Queensland counts a part year’s days over 364 and flags an unfair dismissal under 10 years', () => {
+  // Business Queensland: 18 years, 3 months, 2 weeks and 2 days is 15.8548 weeks (16/364 of a year, not 16/365.25).
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16' }).weeks, 15.8548);
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16', mode: 'ends', reason: 'resign' }).weeks, 15.8548);
+  // Other Acts keep days over 365.25: WorkSafe Tasmania's 13 years, 6 months and 14 days is 13.5383 years.
+  assert.equal(lsl({ place: 'AU-TAS', start: '2012-01-01', end: '2025-07-14', mode: 'ends', reason: 'resign' }).weeks, 11.7332);
+  // Subparagraph 95(4)(c)(iii) pays for an unfair dismissal, which the calculator cannot decide: the row says so.
+  for (const reason of ['performance', 'misconduct']) {
+    const r = lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason });
+    assert.deepEqual([r.weeks, r.rule.endsWith('unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide')], [0, true], reason);
+  }
+  assert.ok(!lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason: 'resign' }).rule.includes('unfair'));
 });

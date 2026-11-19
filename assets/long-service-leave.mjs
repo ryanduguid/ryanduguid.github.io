@@ -6,7 +6,7 @@ import { cents, number } from './money.mjs';
 // Long service leave under each state and territory's general Act, read 19 November 2026:
 // - NSW: Long Service Leave Act 1955, version for 1 July 2025 to date, s 4(2)(a) and (a3) (a month is 4 1/3 weeks).
 // - Vic: Long Service Leave Act 2018, Authorised Version No. 006 (12 December 2025), ss 6, 9 and 10.
-// - Qld: Industrial Relations Act 2016, current version, s 95.
+// - Qld: Industrial Relations Act 2016, reprint current from 1 January 2026, s 95 (not seasonal employees, ss 106 to 109).
 // - WA: Long Service Leave Act 1958, official version 04-m0-00 (31 January 2025), s 8(2) and (3).
 // - SA: Long Service Leave Act 1987, version of 1 July 2017, s 5.
 // - Tas: Long Service Leave Act 1976, version current from 10 December 2018, ss 8 and 9 (not mining employees, s 8A).
@@ -17,7 +17,8 @@ import { cents, number } from './money.mjs';
 // Service runs from the first day to the end of the last day, less the excluded days, and is
 // measured in completed years, then completed months, then days. A part year is the months
 // over 12 plus the days over 365.25, as WorkSafe Tasmania's example 2 works 13 years 6 months
-// and 14 days as 13.5383 years. Where an Act counts completed years or months only, the rest
+// and 14 days as 13.5383 years; in Queensland the days are over 364, as Business Queensland's
+// tables give 18 years, 3 months and 16 days as 15.8548 weeks. Where an Act counts completed years or months only, the rest
 // is dropped. Weeks show rounded half up to 4 decimal places; the payment is the exact weeks
 // times the weekly pay, rounded half up to the cent once, so 8 2/3 weeks at $1,500 is $13,000.00.
 
@@ -125,9 +126,12 @@ function measure(start, until) {
 }
 
 /** @typedef {ReturnType<typeof measure>} Service */
-/** Years of service with the part year as months over 12 and days over 365.25.
- * @param {Service} s @returns {Fraction} */
-const exactYears = (s) => [BigInt(s.years * 438300 + s.months * 36525 + s.days * 1200), 438300n];
+/** Years of service with the part year as months over 12 and days over 365.25, or, in
+ * Queensland, days over 364, as Business Queensland's tables count a 52-week year.
+ * @param {Service} s @param {LslPlace} place @returns {Fraction} */
+const exactYears = (s, place) => (place === 'AU-QLD'
+  ? [BigInt(s.years * 1092 + s.months * 91 + s.days * 3), 1092n]
+  : [BigInt(s.years * 438300 + s.months * 36525 + s.days * 1200), 438300n]);
 /** @param {Service} s @returns {Fraction} */
 const completedYears = (s) => [BigInt(s.years), 1n];
 /** @param {Service} s @returns {Fraction} */
@@ -161,7 +165,7 @@ function available(place, s) {
   switch (place) {
     case 'AU-VIC': return outcomeOf(sixtieth(s.total), '1/60th of the period of continuous employment, section 6');
     case 'AU-QLD': if (s.years < 15) return outcomeOf([26n, 3n], '8.6667 weeks for 10 years, paragraph 95(2)(a)');
-      return outcomeOf(twoMonths(exactYears(s)), '8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2)');
+      return outcomeOf(twoMonths(exactYears(s, place)), '8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2)');
     case 'AU-SA': return outcomeOf(thirteen(completedYears(s)), '13 weeks for 10 years and 1.3 weeks for each completed year after, section 5');
     case 'AU-ACT': return outcomeOf(twoMonths(completedYears(s)), '1/5 of a month for each completed year, sections 3 and 4');
     case 'AU-NT': return outcomeOf(thirteen([10n + 5n * blocks(s), 1n]), '1.3 weeks a year for 10 years and each completed 5 years after, section 8');
@@ -186,7 +190,9 @@ function proRata(place, s, reason) {
   if (unsettled) throw new Error(unsettled);
   const [reasons, provision] = /** @type {[LslReason[], string]} */ (EARLY[place]);
   if (!reasons.includes(reason)) {
-    return outcomeOf([0n, 1n], `Under ${full} years, ${LSL_REASONS[reason]} does not qualify for pro rata leave, ${provision}`);
+    const unfair = place === 'AU-QLD' && (reason === 'performance' || reason === 'misconduct')
+      ? ', unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide' : '';
+    return outcomeOf([0n, 1n], `Under ${full} years, ${LSL_REASONS[reason]} does not qualify for pro rata leave, ${provision}${unfair}`);
   }
   if (place === 'AU-SA' || place === 'AU-NT') {
     return outcomeOf(thirteen(completedYears(s)), `1.3 weeks for each completed year, ${provision}`);
@@ -197,7 +203,7 @@ function proRata(place, s, reason) {
   if (place === 'AU-TAS' && reason === 'death') {
     return outcomeOf(sixtieth(s.total), '1/60th of the period of continuous employment, paragraph 9(2)(b)');
   }
-  return outcomeOf(twoMonths(exactYears(s)), `Pro rata on 8 2/3 weeks for 10 years, ${provision}`
+  return outcomeOf(twoMonths(exactYears(s, place)), `Pro rata on 8 2/3 weeks for 10 years, ${provision}`
     + `${place === 'AU-QLD' && reason === 'fixed-term' ? ', if the employee reasonably expected to complete 10 years and was prepared to stay' : ''}`);
 }
 
@@ -206,15 +212,15 @@ function proRata(place, s, reason) {
  * @param {number} start @returns {Outcome} */
 function afterFull(place, s, reason, until, start) {
   switch (place) {
-    case 'AU-NSW': if (s.years < 15) return outcomeOf(twoMonths(exactYears(s)), 'Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii)');
+    case 'AU-NSW': if (s.years < 15) return outcomeOf(twoMonths(exactYears(s, place)),'Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii)');
       return outcomeOf(twoMonths(completedYears(s)), 'Each completed year at 2 months for 10 years, any reason, subparagraph 4(2)(a)(i)');
     case 'AU-VIC': return outcomeOf(sixtieth(s.total), '1/60th of the period of continuous employment, any reason, sections 6, 9 and 10');
-    case 'AU-QLD': return outcomeOf(twoMonths(exactYears(s)), 'Proportionate payment on 8.6667 weeks for 10 years, any reason, subsection 95(3)');
+    case 'AU-QLD': return outcomeOf(twoMonths(exactYears(s, place)),'Proportionate payment on 8.6667 weeks for 10 years, any reason, subsection 95(3)');
     case 'AU-WA': if (reason === 'misconduct') return outcomeOf(blockWeeks(s), 'Leave already accrued only, after dismissal for serious misconduct, subsection 8(2)');
       return outcomeOf(twoMonths(completedYears(s)), 'Each completed year at 8 2/3 weeks for 10 years, subsection 8(2)');
     case 'AU-SA': return outcomeOf(thirteen(completedYears(s)), '13 weeks for 10 years and 1.3 weeks for each completed year after, any reason, section 5');
     case 'AU-TAS': {
-      if (reason !== 'death') return outcomeOf(twoMonths(exactYears(s)), 'Leave accrued and a proportion of 8 2/3 weeks for the years since, any reason, paragraph 8(2)(a)');
+      if (reason !== 'death') return outcomeOf(twoMonths(exactYears(s, place)),'Leave accrued and a proportion of 8 2/3 weeks for the years since, any reason, paragraph 8(2)(a)');
       const since = until - anniversary(start, 10 + 5 * Number(blocks(s)));
       return outcomeOf(plus(blockWeeks(s), sixtieth(since)), 'Leave accrued and 1/60th of the employment since, paragraph 9(2)(a)');
     }
