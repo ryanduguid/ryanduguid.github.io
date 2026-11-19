@@ -6,15 +6,15 @@ Source: https://duguid.com.au/tools/individual-tax/salary-packaging/
 
 # Salary packaging calculator
 
-What packaging saves an employee of a charity, hospital or ambulance service, with the FBT cap, the FBT on any excess and the reportable amount, for 2022-23 to 2026-27.
+Tax saved by salary packaging with a charity, hospital or ambulance service, with the FBT cap and reportable amount, 2022-23 to 2026-27.
 
 Published 19 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Salary packaging inputs for one year with an FBT-exempt employer
+Salary packaging inputs for one year
 
-Income year, with the FBT year ending 31 March in it 2026-27 2025-26 2024-25 2023-24 2022-23
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23
 
 Your employer A public benevolent institution or health promotion charity ($30,000 cap) A public or not-for-profit hospital or a public ambulance service ($17,000 cap)
 
@@ -26,7 +26,7 @@ Do you have a study or training loan, such as HELP? No Yes
 
 Private patient hospital cover all year? Yes No
 
-Enter each benefit at its taxable value for the FBT year, usually what your employer pays for it. The calculator takes the salary as your only income and the benefits as paid from it evenly through the year.
+Each income year takes the FBT year ending 31 March in it. Enter each benefit at its taxable value for that FBT year, usually what your employer pays for it. The calculator takes the salary as your only income and the benefits as paid from it evenly through the year.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, Australian resident employed by a public benevolent institution or health promotion charity, salary $70,000.00, Type 2 benefits $15,899.93, Type 1 benefits $0.00, salary packaged meal entertainment $0.00 (Type 1), no study loan, with private hospital cover. Benefits packaged, at their taxable value $15,899.93 Type 2 benefits grossed up at 1.8868, to the dollar $30,000.00 Cap for a charity $30,000.00 Grossed-up amount liable to FBT $0.00 FBT on it at 47% $0.00 Reportable fringe benefits amount $29,999.00 Tax, levies and study loan without packaging $12,600.00 Tax, levies and study loan with packaging $7,308.50 Tax saved $5,291.50 Gain after the FBT, if your employer passes it on $5,291.50 Your income statement shows $29,999.00 of reportable fringe benefits: it is not taxed, but it counts for the Medicare levy surcharge, study loan repayments and other income tests.
 
@@ -43,6 +43,7 @@ The calculator covers the FBT years ending 31 March 2023 to 2027, for one employ
 - rebatable employers, such as other registered charities, whose FBT is reduced by a rebate of 47% up to a $30,000 cap, or ordinary employers, who pay full FBT on packaged benefits;
 - benefits outside the cap, such as car parking and meal entertainment that is not salary packaged, exempt benefits such as portable electronic devices, or a novated car lease, which the novated lease calculator works;
 - package fees, the cost of the benefits themselves, or whether a benefit is Type 1 or Type 2, which your employer decides;
+- excluded fringe benefits, such as remote area housing, which count towards the cap but are not reportable: entered here, they would raise the reportable amount;
 - salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge;
 - how the FBT year from 1 April to 31 March lines up with the income year from 1 July: the benefits are taken as packaged evenly in the income year.
 
