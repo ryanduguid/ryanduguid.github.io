@@ -238,8 +238,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           }
           case 'loan':
-          case 'hire-purchase': {
-            result = calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
+          case 'hire-purchase':
+          case 'lease': {
+            result = form.dataset.calculator === 'lease' ? calculate.leaseResult(value, aud) : calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
               payment: value('payment'), balloon: value('balloon'), balloonKind: value('balloon-kind'), frequency: value('frequency'),
               timing: value('timing'), start: value('start') }, aud, form.dataset.calculator === 'loan' ? null : value('agreement'));
             showTables(result.tables);

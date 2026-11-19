@@ -106,6 +106,12 @@
 //! up to 4 places, the value from the exact weeks) are the engine's, so the oracle cannot show
 //! them.
 //!
+//! A further 160 seeded AASB 16 leases, from their own seed, take the lease liability as the
+//! payments not paid at commencement and the residual discounted one period at a time, and all
+//! the interest as what is paid after commencement less the liability, where the engine adds each
+//! period's; the depreciation must add up to the right-of-use asset's cost and the liability
+//! close on nil.
+//!
 //! A further 300 seeded workers compensation premiums, from their own seed, a third of the New
 //! South Wales and South Australian ones a cent either side of the $30,000 average performance
 //! premium or a discount band, type each scheme's thresholds, minimums and duty here from its
@@ -7680,6 +7686,205 @@ fn the_wc_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let (cases, expected): (Vec<_>, Vec<_>) = (0..WC_CASES).map(|_| wc_case(&mut rng)).unzip();
     let actual = run_node(WC_HARNESS, &cases);
     assert_eq!(actual.len(), WC_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// The AASB 16 lease engine, run alone: it reads no rendered page.
+const LEASE_HARNESS: &str = r"
+import { lease } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const cents = (value) => Math.round(value * 100);
+const run = ({ terms }) => {
+  try {
+    const r = lease(terms);
+    return { liability: String(r.liability), cost: String(r.cost), totalInterest: String(r.totalInterest),
+      depreciation: String(r.years.reduce((sum, year) => sum + cents(year.depreciation), 0) / 100),
+      closing: String(r.years.at(-1).liability) };
+  } catch (error) {
+    return { refused: error.message };
+  }
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+const LEASE_CASES: usize = 160;
+const NO_COST: &str = "The incentives received are as much as the rest of the right-of-use asset’s cost, which leaves it nothing to depreciate.";
+const NEGATIVE_LAST: &str = "Rounding each period’s interest to the cent leaves the last period with negative interest. Use a larger payment or fewer payments.";
+
+/// A lessee's lease: the payments as finance schedule terms worked for their present value, the
+/// residual as the balloon, and the amounts the right-of-use asset's cost adds, in cents.
+struct LeaseCase {
+    terms: Terms,
+    prepaid: u64,
+    incentives: u64,
+    direct: u64,
+    restoration: u64,
+}
+
+impl LeaseCase {
+    fn case(&self) -> Value {
+        let t = &self.terms;
+        json!({ "terms": {
+            "payment": dollars(t.payment),
+            "payments": t.periods.to_string(),
+            "frequency": t.frequency.name,
+            "timing": if t.advance { "advance" } else { "arrears" },
+            "rate": format!("{}.{:04}", t.rate / 10_000, t.rate % 10_000),
+            "start": "2026-07-01",
+            "residual": dollars(t.balloon),
+            "prepaid": dollars(self.prepaid),
+            "incentives": dollars(self.incentives),
+            "direct": dollars(self.direct),
+            "restoration": dollars(self.restoration),
+            "ownership": "no",
+            "life": "",
+        } })
+    }
+}
+
+/// What the lease engine must return. The liability is the payments not paid at commencement
+/// and the residual, discounted one period at a time (paragraph 26); the asset's cost adds what
+/// paragraph 24 lists. All interest is what is paid after commencement less the liability, where
+/// the engine adds each period's; and the depreciation adds up to the cost, the liability to nil.
+fn lease_oracle(case: &LeaseCase) -> Value {
+    let refused = |message: &str| json!({ "refused": message });
+    let t = &case.terms;
+    // The engine finds the present value with the finance schedule, so its refusals come first.
+    if let Some(message) = finance_oracle(t).get("refused") {
+        return json!({ "refused": message });
+    }
+    let at_start = if t.advance { t.payment } else { 0 };
+    let liability = amount_oracle(t) - at_start;
+    let cost = i128::from(liability + case.prepaid + at_start + case.direct + case.restoration)
+        - i128::from(case.incentives);
+    if cost <= 0 {
+        return refused(NO_COST);
+    }
+    let cost = u64::try_from(cost).unwrap();
+    let after = u64::from(t.periods - u32::from(t.advance));
+    let paid = t.payment * after + t.balloon;
+    // The last period's interest is what is left once every earlier one is rounded.
+    let (rate, scale) = (u128::from(t.rate), u128::from(t.scale()));
+    let mut balance = u128::from(liability);
+    let events = after + u64::from(t.advance && t.balloon > 0);
+    for event in 1..events {
+        let interest = (2 * balance * rate + scale) / (2 * scale);
+        let due = if event <= after {
+            u128::from(t.payment)
+        } else {
+            0
+        };
+        balance = balance + interest - due;
+    }
+    if events > 0 {
+        let last = if t.advance && t.balloon > 0 {
+            u128::from(t.balloon)
+        } else {
+            u128::from(t.payment + t.balloon)
+        };
+        if last < balance {
+            return refused(NEGATIVE_LAST);
+        }
+    }
+    json!({
+        "liability": shown(liability),
+        "cost": shown(cost),
+        "totalInterest": shown(paid - liability),
+        "depreciation": shown(cost),
+        "closing": "0",
+    })
+}
+
+/// A seeded lease: any frequency and timing, a residual or none, and payments before
+/// commencement, incentives, initial direct costs and restoration, some incentives too large.
+fn lease_case(rng: &mut Seeded) -> LeaseCase {
+    let frequency = rng.pick(&FREQUENCIES);
+    let any_rate = rng.below(300_001);
+    let rate = rng.pick(&[0, 1, 75_000, any_rate, any_rate]);
+    let any_term = 1 + rng.below(u64::from(frequency.most)) as u32;
+    let periods = rng.pick(&[1, 2, frequency.most, any_term, any_term]);
+    let payment = 1 + rng.cents(10_000_000 - 1);
+    let any_residual = rng.below(payment * u64::from(periods) / 4 + 1);
+    let balloon = rng.pick(&[0, 0, payment, any_residual]);
+    let small = |rng: &mut Seeded| {
+        let any = rng.cents(payment * 2);
+        rng.pick(&[0, 0, any])
+    };
+    let (prepaid, direct, restoration) = (small(rng), small(rng), small(rng));
+    let (some, any_incentive) = (small(rng), rng.cents(payment * u64::from(periods)));
+    let incentives = rng.pick(&[0, 0, some, any_incentive]);
+    LeaseCase {
+        terms: Terms {
+            solve: "amount",
+            amount: 1,
+            rate,
+            periods,
+            payment,
+            balloon,
+            share: None,
+            frequency,
+            advance: rng.below(2) == 1,
+        },
+        prepaid,
+        incentives,
+        direct,
+        restoration,
+    }
+}
+
+#[test]
+fn the_lease_oracle_works_example_13_by_hand() {
+    // Illustrative Examples accompanying IFRS 16, Example 13: 10 yearly payments of CU50,000 in
+    // advance at 5%, initial direct costs of CU20,000 and an incentive of CU5,000. The liability is
+    // nine payments discounted, CU355,391, and the asset CU420,391.
+    let case = LeaseCase {
+        terms: Terms {
+            solve: "amount",
+            amount: 1,
+            rate: 50_000,
+            periods: 10,
+            payment: 5_000_000,
+            balloon: 0,
+            share: None,
+            frequency: FREQUENCIES[4],
+            advance: true,
+        },
+        prepaid: 0,
+        incentives: 500_000,
+        direct: 2_000_000,
+        restoration: 0,
+    };
+    let want = lease_oracle(&case);
+    assert_eq!(want["liability"], "355391.08");
+    assert_eq!(want["cost"], "420391.08");
+    assert_eq!(want["totalInterest"], "94608.92");
+}
+
+#[test]
+fn the_engine_agrees_with_the_oracle_on_every_seeded_lease() {
+    let mut rng = Seeded(0x2026_1119_1EA5_E016);
+    let seeded: Vec<LeaseCase> = (0..LEASE_CASES).map(|_| lease_case(&mut rng)).collect();
+    let cases: Vec<Value> = seeded.iter().map(LeaseCase::case).collect();
+    let expected: Vec<Value> = seeded.iter().map(lease_oracle).collect();
+    assert!(
+        seeded
+            .iter()
+            .any(|one| one.terms.advance && one.terms.balloon > 0)
+    );
+    assert!(seeded.iter().any(|one| one.terms.rate == 0));
+    assert!(expected.iter().any(|want| want["refused"] == NO_COST));
+    assert!(
+        expected
+            .iter()
+            .filter(|want| want.get("refused").is_none())
+            .count()
+            > LEASE_CASES / 2
+    );
+    let actual = run_node(LEASE_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
