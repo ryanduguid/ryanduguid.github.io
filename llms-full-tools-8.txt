@@ -111,9 +111,17 @@ Has the payee told you of a study or training loan, such as HELP? No Yes
 
 Gross earnings this pay, without the bonus or back payment (dollars and cents) Schedule 5 method Method A: the payment spread over the pays in a year Method B: B(i) for back pay of earlier pays this year, B(ii) for the rest
 
-Bonus, commission or other additional payment; under Method B, the part not taken by B(i) (dollars and cents) Method A: pays to spread it over, the pays in a year or fewer for a payment for a shorter defined period Method B(i): earlier pays this year the back payment covers (0 for none) Method B(i): back payment for each of those pays (dollars and cents) Method B(i): earnings each of those pays had before it (dollars and cents) Method B(i): amount withheld from each of those pays, with any study loan component (dollars and cents) Method B(ii): normal earnings paid this year to date, with this pay and any earlier B(i) back payments (dollars and cents) Method B(ii): pays this year to date, with this pay Method B(ii): earlier additional payments this year worked by B(ii) (dollars and cents) Method B(ii): amount withheld from those earlier payments (dollars and cents)
+Bonus, commission or other additional payment, without a B(i) back payment (dollars and cents) Method A: pays to spread it over, the pays in a year or fewer for a shorter defined period
 
-For a payment made from 1 July 2026 to 30 June 2027 to an employee who has given a tax file number declaration. Method A needs only the fields above the B(i) ones. Method B takes a back payment for earlier pays this year by B(i) and the additional payment field by B(ii); a back payment covering this year and earlier years is split between them. A bonus for work in this pay alone is not a Schedule 5 payment: add it to this pay’s earnings in the take-home pay calculator.
+## Method B(i): back payment of earlier pays this year
+
+Earlier pays this year it covers (0 for none) Back payment for each of those pays (dollars and cents) Earnings each of those pays had before it (dollars and cents) Withheld from each of those pays, with any study loan component (dollars and cents)
+
+## Method B(ii): other additional payments
+
+Normal earnings this year to date, with this pay and earlier B(i) back payments (dollars and cents) Pays this year to date, with this pay Earlier additional payments this year worked by B(ii) (dollars and cents) Withheld from those earlier payments (dollars and cents)
+
+For a payment made from 1 July 2026 to 30 June 2027 to an employee who has given a tax file number declaration. Method A needs only the first fields. Split a back payment for this year and earlier years between B(i) and the additional payment. A bonus for work in this pay alone is not a Schedule 5 payment: add it to this pay’s earnings in the take-home pay calculator.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, weekly pay, Australian resident claiming the tax-free threshold (scale 2), with a study or training loan, earnings $1,400.00 this pay, Method A: additional payment $900.00 spread over 52 pays. Earnings this pay, cents ignored (step 1) $1,400.00 Withheld from those earnings (step 2) $277.00 The payment divided by 52, cents ignored (step 3) $17.00 Withheld from earnings of $1,417 (steps 4 and 5) $284.00 The difference, times 52 (steps 6 and 7) $364.00 47% of the payment, the limit (step 8) $423.00 Withheld from the payment, the lesser (step 9) $364.00 Total withheld this pay (step 10) $641.00 Tax and study loan repayment the payment adds to a year of this pay $423.00 Each amount withheld includes the Schedule 8 study loan component: $10 of the $277 on this pay’s earnings and $104 of the $364 on the payment. The last row is the payment’s effect on the year’s assessment, were every pay this pay; the withholding schedules do not aim to match it.
 
