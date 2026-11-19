@@ -12,7 +12,14 @@
 <label><input type="radio" name="partnership" value="yes" /> Yes: enter the partnership’s business and turnover below</label></fieldset>
 <label class="field" for="cgt-concessions-acquired">Purchase contract date<input id="cgt-concessions-acquired" name="acquired" type="date" min="1985-01-01" max="2027-06-30" value="2014-03-03" required /></label>
 <label class="field" for="cgt-concessions-event">Sale contract date<input id="cgt-concessions-event" name="event" type="date" min="2020-07-01" max="2027-06-30" value="2026-02-02" required /></label>
+<fieldset class="field"><legend>Company or trust: a significant individual, with at least 20%, just before the sale (section 152-50)?</legend>
+<label><input type="radio" name="significant" value="no" checked /> No</label>
+<label><input type="radio" name="significant" value="yes" /> Yes</label></fieldset>
+<fieldset class="field"><legend>Company or trust: a significant individual for a total of 15 years of its ownership?</legend>
+<label><input type="radio" name="fifteen" value="no" checked /> No</label>
+<label><input type="radio" name="fifteen" value="yes" /> Yes</label></fieldset>
 </div>
+<h2>Turnover, net assets and the active asset test</h2>
 <fieldset class="field"><legend>CGT small business entity: aggregated turnover, with affiliates and connected entities (section 328-110 at $2 million)</legend><div class="form-grid">
 <fieldset class="field"><legend>A business carried on in the income year of the sale?</legend>
 <label><input type="radio" name="business" value="yes" checked /> Yes</label>
@@ -40,6 +47,7 @@
 <label><input type="radio" name="extension" value="no" checked /> No</label>
 <label><input type="radio" name="extension" value="yes" /> Yes</label></fieldset>
 </div>
+<h2>Age, retirement and the retirement exemption choice</h2>
 <fieldset class="field"><legend>The individual: you, or for a company or trust its significant individual</legend><div class="form-grid">
 <label class="field" for="cgt-concessions-born">Date of birth<input id="cgt-concessions-born" name="born" type="date" min="1900-01-01" max="2027-06-30" value="1975-08-14" required /></label>
 <fieldset class="field"><legend>The sale is in connection with their retirement?</legend>
@@ -48,17 +56,11 @@
 <fieldset class="field"><legend>Permanently incapacitated at the sale?</legend>
 <label><input type="radio" name="incapacitated" value="no" checked /> No</label>
 <label><input type="radio" name="incapacitated" value="yes" /> Yes</label></fieldset>
-<fieldset class="field"><legend>Company or trust: a significant individual, with at least 20%, just before the sale (section 152-50)?</legend>
-<label><input type="radio" name="significant" value="no" checked /> No</label>
-<label><input type="radio" name="significant" value="yes" /> Yes</label></fieldset>
-<fieldset class="field"><legend>Company or trust: a significant individual for a total of 15 years of its ownership?</legend>
-<label><input type="radio" name="fifteen" value="no" checked /> No</label>
-<label><input type="radio" name="fifteen" value="yes" /> Yes</label></fieldset>
 <label class="field" for="cgt-concessions-choice">Day of the retirement exemption choice, or for a company or trust its payment<input id="cgt-concessions-choice" name="choice" type="date" min="2020-07-01" max="2029-12-31" value="2026-10-31" required /></label>
 <label class="field" for="cgt-concessions-used">CGT exempt amounts already chosen by or for the individual (AUD)<input id="cgt-concessions-used" name="used" type="number" inputmode="decimal" min="0" max="500000" step=".01" value="0" required /></label>
 </div></fieldset>
 <button type="submit" class="button">Calculate</button></fieldset>
-{% include calculator-example.html inputs="An individual, bought 3 March 2014, sold 2 February 2026; a business carried on; turnover $2,150,000.00 the previous year, $1,900,000.00 the year before, $2,100,000.00 likely and $1,950,000.00 actual this year; net value of CGT assets $6,200,000.00, not passively held; active for 3,000 days; born 14 August 1975; choice on 31 October 2026, $0.00 of the retirement limit used" rows="Concessions open|50% active asset reduction, retirement exemption and roll-over (Division 152);Basic conditions (subsection 152-10(1))|Met;CGT small business entity (subsection 152-10(1AA) and section 328-110 at $2 million)|Aggregated turnover for the year, at its end, $1,950,000.00, under $2,000,000 (subsection 328-110(4)): met;Maximum net asset value test (section 152-15)|$6,200,000.00, more than $6,000,000: not met;Passively held asset (subsection 152-10(1A) or (1B))|No, as you answered;Active asset test (section 152-35)|Active for 3,000 of the 4,355 days from 3 March 2014 to 2 February 2026, against the half needed for an asset owned 15 years or less: met;15-year exemption (Subdivision 152-B)|Not available, as these are not met: continuous ownership for the 15 years before the CGT event (paragraph 152-105(b)) and aged 55 or over and retiring, or permanently incapacitated (paragraph 152-105(d));50% active asset reduction (Subdivision 152-C)|Applies: the gain left after losses and any CGT discount is halved, unless you choose otherwise (sections 152-205 and 152-220);Retirement exemption (Subdivision 152-D)|Available: up to $500,000.00 of the gain left after the 50% reduction (section 152-320), with the exempt amount paid into a complying super fund or RSA, as the individual is under 55 just before the choice (paragraph 152-305(1)(b));Roll-over (Subdivision 152-E)|Available: a replacement active asset or capital improvement from 2 February 2025 to 2 February 2028 (subsection 104-190(1A))" principal="0" note="The concessions apply in the order the method statement in subsection 102-5(1) sets: the 15-year exemption, then losses, the CGT discount and the 50% reduction, then the retirement exemption and roll-over in either order (section 152-210)" %}
+{% include calculator-example.html inputs="An individual, bought 3 March 2014, sold 2 February 2026; a business carried on; turnover $2,150,000.00 the previous year, $1,900,000.00 the year before, $2,100,000.00 likely and $1,950,000.00 actual this year; net value of CGT assets $6,200,000.00, not passively held; active for 3,000 days; born 14 August 1975; choice on 31 October 2026, $0.00 of the retirement limit used" rows="Concessions open|50% active asset reduction, retirement exemption and roll-over (Division 152);Basic conditions (subsection 152-10(1))|Met;CGT small business entity (subsection 152-10(1AA) and section 328-110 at $2 million)|Aggregated turnover for the year, at its end, $1,950,000.00, under $2,000,000 (subsection 328-110(4)): met;Maximum net asset value test (section 152-15)|$6,200,000.00, more than $6,000,000: not met;Passively held asset (subsection 152-10(1A) or (1B))|No, as you answered;Active asset test (section 152-35)|Active for 3,000 of the 4,355 days from 3 March 2014 to 2 February 2026, against the half needed for an asset owned 15 years or less: met;15-year exemption (Subdivision 152-B)|Not available, as these are not met: continuous ownership for the 15 years before the CGT event (paragraph 152-105(b)) and aged 55 or over and retiring, or permanently incapacitated (paragraph 152-105(d));50% active asset reduction (Subdivision 152-C)|Applies: the gain left after losses and any CGT discount is halved, unless you choose otherwise (sections 152-205 and 152-220);Retirement exemption (Subdivision 152-D)|Available: up to $500,000.00 of the gain left after the 50% reduction (section 152-320), with the exempt amount paid into a complying super fund or RSA, as the individual is under 55 just before the choice (paragraph 152-305(1)(b));Roll-over (Subdivision 152-E)|Available: a replacement active asset or capital improvement from 2 February 2025 to 2 February 2028 (subsection 104-190(1A))" principal="0" note="They apply in the order of subsection 102-5(1): the 15-year exemption, then losses, the CGT discount and the 50% reduction, then the retirement exemption and roll-over in either order (section 152-210)" %}
 <div class="sources-applied" hidden>
 <h2>Sources applied</h2>
 <ul class="sources">

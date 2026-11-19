@@ -314,7 +314,6 @@ export function cgtConcessionsResult(value, aud) {
     ...concessionRows(r, x),
   ];
   return { inputs: inputsOf(x, money), rows, principal: 0,
-    note: 'The concessions apply in the order the method statement in subsection 102-5(1) sets: the 15-year exemption, '
-      + 'then losses, the CGT discount and the 50% reduction, then the retirement exemption and roll-over in either order '
-      + '(section 152-210)' };
+    note: 'They apply in the order of subsection 102-5(1): the 15-year exemption, then losses, the CGT discount and the '
+      + '50% reduction, then the retirement exemption and roll-over in either order (section 152-210)' };
 }
