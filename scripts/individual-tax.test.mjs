@@ -11,8 +11,9 @@ import { CONCESSIONAL_CAP, division293, takeHomePay, SUPER_GUARANTEE } from '../
 import { taxEstimate } from '../assets/tax-estimate.mjs';
 import { withholding } from '../assets/payg-withholding.mjs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
+import { lumpSumArrears } from '../assets/lump-sum-arrears.mjs';
 
-const engines = { taxEstimate, takeHomePay, studyLoanRepayment };
+const engines = { taxEstimate, takeHomePay, studyLoanRepayment, lumpSumArrears };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -34,6 +35,11 @@ const INPUTS = {
     + `${p.includesSuper ? 'including' : 'plus'} super${p.sacrifice === '0' ? '' : `, ${whole(p.sacrifice)} sacrificed`}`
     + `${p.studyLoan ? ', study loan' : ''}${p.hospitalCover ? '' : ', no hospital cover'}`,
   studyLoanRepayment: (r, year) => `${year}: ${parts(r)}`,
+  lumpSumArrears: (c) => `${c.year}, taxable ${dollars(c.taxable)}${c.gain === '0' ? '' : `, net capital gain ${dollars(c.gain)}`}; `
+    + c.accrual.map((r) => `${r.year} ${dollars(r.arrears)}${r.taxable === undefined ? '' : ` on ${dollars(r.taxable)}`}`
+      + `${r.gain === undefined ? '' : ` with a gain of ${dollars(r.gain)}`}`
+      + `${r.rebateYearArrears === undefined ? '' : `, less ${dollars(r.rebateYearArrears)} as a rebate year`}`
+      + `${r.earlierRebateArrears === undefined ? '' : `, plus ${dollars(r.earlierRebateArrears)} of an earlier one`}`).join(', '),
 };
 const OUTPUTS = {
   taxEstimate: (r, call) => `Tax ${dollars(r.tax)}, offset ${dollars(r.offset)}`
@@ -44,6 +50,8 @@ const OUTPUTS = {
     + `${r.withheld ? `; withheld ${dollars(r.withheld.total)} a pay, ${settle(r.withheld.refund)}` : ''}`
     + `${r.overCap ? `; ${dollars(r.overCap)} over the cap` : ''}${r.division293 ? `; Division 293 on ${dollars(r.division293)}` : ''}`,
   studyLoanRepayment: (r) => `Repayment income ${dollars(r.repaymentIncome)}, repayment ${dollars(r.repayment)}`,
+  lumpSumArrears: (r) => (r.met ? `Tax on arrears ${dollars(r.taxOnArrears)}, notional tax ${dollars(r.notionalTotal)}, `
+    + `offset ${dollars(r.offset)}` : `Arrears ${dollars(r.total)} below ${dollars(r.tenPercent)}, offset ${dollars(r.offset)}`),
 };
 
 test('each individual tax page has its boundary cases', () => {
@@ -82,6 +90,11 @@ const FORM_CALLS = {
     includesSuper: f.super === 'included', sacrifice: f.sacrifice, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes' }],
   studyLoanRepayment: (f) => [{ taxable: f.taxable, fringe: f.fringe, losses: f.losses, super: f.super, foreign: f.foreign }, f.year],
+  lumpSumArrears: (f) => [{ year: f.year, resident: f.resident === 'yes', taxable: f.taxable, gain: f.gain,
+    accrual: ['latest', 'before', 'earlier-1', 'earlier-2', 'earlier-3', 'earlier-4'].filter((slot) => f[`${slot}-year`])
+      .map((slot) => Object.fromEntries([['year', 'year'], ['arrears', 'arrears'], ['taxable', 'taxable'], ['gain', 'gain'],
+        ['rebateYearArrears', 'rebate-year'], ['earlierRebateArrears', 'earlier-rebate']]
+        .map(([key, name]) => [key, f[`${slot}-${name}`]]).filter(([, value]) => value))) }],
 };
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the worked example`, () => {
@@ -408,5 +421,118 @@ for (const page of Object.keys(shownCases)) {
 test('a form that is not an individual tax calculator gets no result, whatever its name', () => {
   for (const kind of ['gst', 'constructor', 'toString', '__proto__']) {
     assert.equal(individualResult(kind, () => '0', String), undefined, kind);
+  }
+});
+
+const arrears = (year, taxable, accrual, gain = '0') => lumpSumArrears({ year, resident: true, taxable, gain,
+  accrual: accrual.map(([y, amount, income, more]) => ({ year: y, arrears: amount, ...(income ? { taxable: income } : {}),
+    ...more })) });
+
+// ATO, 'Lump sum payment in arrears' (last updated 8 June 2026, read 19 November 2026): the ATO names a year by its
+// end, so its 2017 is 2016-17. Anthony's 2016-17 taxable income is not given: $100,000 keeps it in the 37% band.
+test('Anthony’s offset is his arrears at 45% in 2025-26 less 37% in 2016-17', () => {
+  const r = arrears('2025-26', '314166', [['2016-17', '43979', '100000']], '111231');
+  assert.deepEqual([r.testIncome, r.tenPercent, r.met], [158956, 15895.6, true]);
+  assert.deepEqual([r.taxOnArrears, r.notional[0].amount, r.offset], [19790.55, 16272.23, 3518.32]);
+});
+
+test('Sudeep’s arrears below 10% of the rest of his income get no offset, and exactly 10% does', () => {
+  const sudeep = arrears('2025-26', '53000', [['2023-24', '3500', '50000']]);
+  assert.deepEqual([sudeep.tenPercent, sudeep.met, sudeep.offset, sudeep.taxOnArrears], [4950, false, 0, null]);
+  // $5,000 of arrears on $55,000 leaves $50,000, whose 10% is $5,000: the test is met.
+  assert.equal(arrears('2025-26', '55000', [['2023-24', '5000', '50000']]).met, true);
+  assert.equal(arrears('2025-26', '55001', [['2023-24', '5000', '50000']]).met, false);
+});
+
+test('Yan’s distant years take the average of the 2 recent years’ rates, each rounded as s 159ZRD says', () => {
+  const r = arrears('2025-26', '100000', [['2023-24', '3000', '30000'], ['2022-23', '2500', '17000'], ['2021-22', '1400'],
+    ['2020-21', '1700'], ['2019-20', '1400'], ['2018-19', '1000']]);
+  assert.deepEqual(r.rates, { mostRecent: 0.19, secondMostRecent: 0.099, average: 0.1445 });
+  assert.deepEqual([r.distant.amount, r.notionalTotal, r.offset], [794.75, 1611.75, 1688.25]);
+  // 0.0985 rises to 0.099 and 0.0984 stays 0.098 (s 159ZRD(2) and (3)).
+  const fourth = arrears('2025-26', '40000', [['2023-24', '3800', '16370'], ['2022-23', '3800', '16368'], ['2021-22', '1000']]);
+  assert.deepEqual([fourth.rates.mostRecent, fourth.rates.secondMostRecent, fourth.distant.amount], [0.099, 0.098, 98.5]);
+});
+
+test('recent years use taxable income and the distant years’ rate normal taxable income', () => {
+  const r = arrears('2025-26', '60000', [['2023-24', '3000', '50000', { gain: '10000' }], ['2022-23', '2500', '17000'],
+    ['2021-22', '1000']]);
+  assert.deepEqual([r.notional[0].amount, r.rates.mostRecent, r.distant.amount, r.offset], [975, 0.19, 144.5, 583.5]);
+});
+
+test('a recent rebate year is adjusted both ways, and the repair levy adds 2% above $180,000 in 2016-17 only', () => {
+  const rebate = arrears('2025-26', '30000', [['2023-24', '3000', '46000', { rebateYearArrears: '4000', earlierRebateArrears: '1000' }]]);
+  assert.equal(rebate.notional[0].amount, 705);
+  assert.equal(arrears('2025-26', '100000', [['2016-17', '10000', '200000']]).notional[0].amount, 4700);
+  assert.equal(arrears('2025-26', '100000', [['2017-18', '10000', '200000']]).notional[0].amount, 4500);
+  assert.equal(arrears('2025-26', '100000', [['2014-15', '10000', '175000']]).notional[0].amount, 4200);
+});
+
+test('the earlier scales are the ATO’s resident tables from 2012-13', () => {
+  const top = (year, income) => arrears('2025-26', '1', [[year, '1', String(income - 1)]]).notional[0].amount;
+  for (const [year, bands] of [['2012-13', [37000, 80000]], ['2015-16', [37000, 80000]], ['2017-18', [37000, 87000]],
+    ['2019-20', [37000, 90000]], ['2020-21', [45000, 120000]]]) {
+    assert.equal(top(year, bands[0]), 0.19, year);
+    assert.equal(top(year, bands[0] + 1), 0.33, year);
+    assert.equal(top(year, bands[1]), 0.33, year);
+    assert.equal(top(year, bands[1] + 1), 0.37, year);
+  }
+  assert.equal(top('2018-19', 18200), 0);
+});
+
+test('lump sum in arrears refuses what it cannot work', () => {
+  const ok = [['2023-24', '3000', '30000']];
+  for (const [call, message] of [
+    [() => lumpSumArrears({ year: '2023-24', resident: true, taxable: '1', gain: '0', accrual: [] }), 'Choose 2024-25, 2025-26, 2026-27.'],
+    [() => lumpSumArrears({ year: '2025-26', resident: false, taxable: '1', gain: '0', accrual: [] }), /only for a person resident/],
+    [() => lumpSumArrears({ year: '2025-26', resident: 'yes', taxable: '1', gain: '0', accrual: [] }), /Say whether/],
+    [() => arrears('2025-26', '1.5', ok), 'Enter taxable income in whole dollars, from 0 to 1000000000.'],
+    [() => arrears('2025-26', '1000', []), 'Give each earlier income year in which part of the arrears accrued.'],
+    [() => arrears('2025-26', '1000', [['2023-2024', '1', '1']]), /such as 2023-24/],
+    [() => arrears('2025-26', '1000', [['2025-26', '1', '1']]), /2025-26 is not before the year of receipt/],
+    [() => arrears('2025-26', '1000', [['2023-24', '0', '1']]), 'Leave out 2023-24: no arrears accrued in it.'],
+    [() => arrears('2025-26', '1000', [['2023-24', '1', '1'], ['2023-24', '1', '1']]), /given more than once/],
+    [() => arrears('2025-26', '1000', [['2023-24', '1']]), 'Enter 2023-24’s taxable income: it is a recent accrual year.'],
+    [() => arrears('2025-26', '1000', [['2023-24', '1', '1', { gain: '1' }]]), /Leave out 2023-24’s net capital gain/],
+    [() => arrears('2025-26', '1000', [['2023-24', '1', '1'], ['2022-23', '1', '1'], ['2021-22', '1', '1']]),
+      /2021-22 is a distant accrual year/],
+    [() => arrears('2025-26', '1000', [['2011-12', '1000', '1']]), /holds resident rates from 2012-13 only/],
+  ]) {
+    assert.throws(call, { message }, String(message));
+  }
+  // Below the 10% test the rates of a recent year before 2012-13 are not needed.
+  assert.equal(arrears('2025-26', '100000', [['2005-06', '1000', '1']]).offset, 0);
+});
+
+test('the lump sum in arrears form needs a year for each slot it fills', () => {
+  const fields = { year: '2025-26', resident: 'yes', taxable: '1000', gain: '0', 'earlier-2-arrears': '5' };
+  assert.throws(() => individualResult('lump-sum-arrears', (name) => fields[name] ?? '', String),
+    { message: 'Enter the income year of each accrual year you fill in, such as 2023-24.' });
+});
+
+// australian-tax-calculators 1.0.0, the release the page ports: see the fixture's engine line.
+test('lump sum in arrears agrees with the australian-accounting engine on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./lump-sum-arrears-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 240);
+  assert.ok(cases.filter((c) => c.refused).length > 20);
+  for (const { source, call, amounts, rates, refused } of cases) {
+    if (refused) {
+      assert.throws(() => lumpSumArrears(call), Error, `${source}: the engine refused, ${refused}`);
+      continue;
+    }
+    const r = lumpSumArrears(call);
+    const mine = { total_arrears_amount: r.total, normal_taxable_income: r.normal, threshold_test_income: r.testIncome,
+      ten_percent_of_threshold_test_income: r.tenPercent, lump_sum_arrears_tax_offset: r.offset };
+    if (r.met) {
+      Object.assign(mine, { tax_on_arrears: r.taxOnArrears, notional_tax_on_arrears: r.notionalTotal,
+        notional_tax_most_recent_year: r.notional[0].amount });
+      if (r.notional[1]) mine.notional_tax_second_most_recent_year = r.notional[1].amount;
+      if (r.distant) mine.notional_tax_distant_accrual_years = r.distant.amount;
+    }
+    assert.deepEqual(Object.fromEntries(Object.entries(mine).map(([key, value]) => [key, value.toFixed(2)])), amounts, source);
+    const wanted = r.rates ? [r.rates.mostRecent, r.rates.secondMostRecent, r.rates.average] : [];
+    const given = ['tax_rate_on_arrears_most_recent_year', 'tax_rate_on_arrears_second_most_recent_year',
+      'average_tax_rate_on_recent_arrears'].filter((key) => key in rates).map((key) => Number(rates[key]));
+    assert.deepEqual(wanted, given, source);
   }
 });

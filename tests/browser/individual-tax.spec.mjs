@@ -5,7 +5,8 @@ import { test, expect } from '@playwright/test';
 import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
-const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80' };
+const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
+  'lump-sum-arrears': '$1,688.25' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -42,6 +43,22 @@ for (const id of Object.keys(CALCULATORS)) {
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
+
+test('lump sum in arrears gives no offset below the 10% test and refuses a non-resident offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/lump-sum-arrears/');
+  const form = page.locator('#lump-sum-arrears form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel(/^Taxable income of that year/).fill('1000000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('10% of normal taxable income less the arrears')).toHaveText('$98,900.00');
+  await expect(row('Lump sum payment in arrears tax offset')).toHaveText('$0.00');
+  await form.locator('[name="resident"][value="no"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('This calculator works the offset only for a person resident in Australia for the '
+    + 'whole of the year of receipt and each recent accrual year, taxed at the resident rates with the full tax-free threshold.');
+});
 
 test('a foreign resident pays no Medicare levy or surcharge and gets no offset', async ({ page }) => {
   await page.goto('/tools/individual-tax/income-tax/');

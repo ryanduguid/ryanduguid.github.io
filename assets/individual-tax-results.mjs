@@ -7,6 +7,7 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { lumpSumArrears } from './lump-sum-arrears.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
 
@@ -110,7 +111,51 @@ function studyLoanResult(value, aud) {
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
 }
 
-const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult]]);
+/** The form's accrual year slots: the 2 that take each recent year's taxable income and adjustments, then the rest. */
+const ARREARS_SLOTS = ['latest', 'before', 'earlier-1', 'earlier-2', 'earlier-3', 'earlier-4'];
+const ARREARS_FACTS = /** @type {const} */ ([['taxable', 'taxable'], ['gain', 'gain'], ['rebateYearArrears', 'rebate-year'],
+  ['earlierRebateArrears', 'earlier-rebate']]);
+const percent = (/** @type {number} */ rate) => `${Number((rate * 100).toFixed(2))}%`;
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function lumpSumArrearsResult(value, aud) {
+  const accrual = [];
+  for (const slot of ARREARS_SLOTS) {
+    const field = (/** @type {string} */ name) => (value(`${slot}-${name}`) ?? '').trim();
+    const facts = ARREARS_FACTS.map(([key, name]) => [key, field(name)]).filter(([, text]) => text !== '');
+    if (field('year') === '' && field('arrears') === '' && facts.length === 0) continue;
+    if (field('year') === '') throw new Error('Enter the income year of each accrual year you fill in, such as 2023-24.');
+    accrual.push({ year: field('year'), arrears: field('arrears'), ...Object.fromEntries(facts) });
+  }
+  const year = value('year');
+  const r = lumpSumArrears({ year, resident: value('resident') === 'yes', taxable: value('taxable'), gain: value('gain'),
+    accrual });
+  const rows = [['Total arrears amount', aud(r.total)], ['Normal taxable income', aud(r.normal)],
+    ['10% of normal taxable income less the arrears', aud(r.tenPercent)]];
+  let note = 'No offset: the total arrears amount is less than 10% of normal taxable income less it';
+  if (r.met) {
+    rows.push([`Tax on arrears in ${year}`, aud(/** @type {number} */ (r.taxOnArrears))],
+      ...(r.notional ?? []).map(({ year: accrued, amount }) => [`Notional tax for ${accrued}`, aud(amount)]));
+    if (r.distant) rows.push(['Notional tax for the distant years', aud(r.distant.amount)]);
+    rows.push(['Notional tax on arrears', aud(/** @type {number} */ (r.notionalTotal))]);
+    const [latest, before] = r.notional ?? [];
+    const distant = r.distant?.years ?? [];
+    const listed = distant.length > 1 ? `${distant.slice(0, -1).join(', ')} and ${distant.at(-1)}` : distant[0];
+    note = r.distant && r.rates ? `${distant.length > 1 ? 'The distant years' : 'The distant year'} ${listed} `
+      + `${distant.length > 1 ? 'take' : 'takes'} the average rate on recent arrears, `
+      + `${percent(r.rates.average)}: ${percent(r.rates.mostRecent)} for ${latest.year} and ${percent(r.rates.secondMostRecent)} `
+      + `for ${before.year}` : 'The notional tax is what the arrears would have added to the tax of the years they accrued in';
+    if (r.offset === 0) note += '. Nil: the notional tax is not less than the tax on arrears';
+  }
+  rows.push(['Lump sum payment in arrears tax offset', aud(r.offset)]);
+  const accrued = accrual.map((a) => `${a.year} ${aud(Number(a.arrears))}`
+    + `${a.taxable === undefined ? '' : ` on taxable income ${aud(Number(a.taxable))}`}`).join(', ');
+  return { inputs: `${year}, taxable income ${aud(Number(value('taxable')))}, net capital gain ${aud(Number(value('gain')))}, `
+    + `accrual years ${accrued}`, principal: rows.length - 1, rows, note };
+}
+
+const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
+  ['lump-sum-arrears', lumpSumArrearsResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
