@@ -115,8 +115,8 @@ const EV_CONDITIONS = {
   'hybrid-no-new-commitment': 'No new commitment from 1 April 2025, Schedule 2 item 5(2)(c)',
   'hybrid-exempt-before': 'An exempt car benefit with the car before 1 April 2025, Schedule 2 item 5(2)(d) and (e)',
   'first-held-and-used': 'First held and used on or after 1 July 2022, Schedule 1 item 7(2)',
-  'first-sale': 'No luxury car tax at the first retail sale, s 8A(1)(c)',
-  'other-supply': 'No luxury car tax on another sale or an import, s 8A(1)(c)',
+  'first-sale': 'No luxury car tax payable on the first retail sale before the benefit, s 8A(1)(c)',
+  'other-supply': 'No luxury car tax payable on another sale or an import before the benefit, s 8A(1)(c)',
 };
 const EV_KINDS = { battery: 'battery electric', 'fuel-cell': 'hydrogen fuel cell electric', 'plug-in-hybrid': 'plug-in hybrid electric' };
 const longDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -142,9 +142,10 @@ export function fbtEvResult(form, calculate, { aud, value, money }) {
     + `commitment since, ${hybrid.exemptBefore ? 'an' : 'no'} exempt car benefit before 1 April 2025` : '';
   return { exempt: e.exempt,
     inputs: `${EV_KINDS[kind]} car for a ${yes('current-employee') ? 'current' : 'former or future'} employee, first held and used `
-      + `${longDate(value('first-used'))}, first sold at retail ${longDate(value('first-sale'))} at a luxury car tax value of `
-      + `${money('lct-value')} against the ${e.saleYear} fuel-efficient threshold of ${aud(e.threshold)}, `
-      + `${yes('other-supply') ? '' : 'no '}luxury car tax on another sale or an import${commitments}`,
+      + `${longDate(value('first-used'))}, first sold at retail ${longDate(value('first-sale'))} `
+      + `${e.threshold === null ? 'after the FBT year, so after every benefit in it'
+        : `at a luxury car tax value of ${money('lct-value')} against the ${e.saleYear} fuel-efficient threshold of ${aud(e.threshold)}`}, `
+      + `${yes('other-supply') ? '' : 'no '}luxury car tax on another sale or an import before the benefit${commitments}`,
     rows: [...e.conditions.map(({ condition, met }) => [EV_CONDITIONS[condition], met ? 'met' : 'not met']),
       ['Electric cars exemption, section 8A', e.exempt ? 'applies' : 'does not apply']] };
 }

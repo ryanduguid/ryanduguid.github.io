@@ -116,7 +116,7 @@ const evExempt: boolean = calculate.fbtEvExemption(ev, { ended: '2027' }).exempt
 calculate.fbtEvExemption({ ...ev, currentEmployee: 'yes' }, { ended: '2027' });
 // @ts-expect-error The vehicle is one of the 3 kinds the exemption can reach.
 calculate.fbtEvExemption({ ...ev, vehicle: 'diesel' }, { ended: '2027' });
-// @ts-expect-error The threshold is whole dollars, a number.
+// @ts-expect-error The threshold is whole dollars, a number, or null for a first retail sale after the FBT year.
 const evThreshold: string = calculate.fbtEvExemption(ev, { ended: '2027' }).threshold;
 void evExempt;
 void evThreshold;

@@ -720,7 +720,8 @@ Object.assign(INPUTS, {
     + `${e.hybrid ? `, ${e.hybrid.committed ? 'committed' : 'not committed'} before 1 April 2025, ${e.hybrid.newCommitment ? 'a' : 'no'} new commitment, `
       + `${e.hybrid.exemptBefore ? 'an' : 'no'} exempt benefit before 1 April 2025` : ''}; FBT year ending 31 March ${y.ended}`,
 });
-ENGINE_LABELS.fbtEvExemption = { exempt: (v) => (v ? 'exempt' : 'not exempt'), saleYear: (v) => `sale in ${v}`, threshold: 'threshold' };
+ENGINE_LABELS.fbtEvExemption = { exempt: (v) => (v ? 'exempt' : 'not exempt'), saleYear: (v) => `sale in ${v}`,
+  threshold: (v) => (v === null ? 'after the FBT year' : `threshold ${dollars(v)}`) };
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -1001,6 +1002,14 @@ test('the fuel-efficient threshold is the ATO table’s for the financial year o
   // LCT Act s 25-1(1): luxury car tax falls on a value above the threshold, so the threshold itself pays none.
   assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '91387.00', firstSale: '2025-07-01' }), evYear).exempt, true);
   assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '91387.01', firstSale: '2025-07-01' }), evYear).exempt, false);
+  // s 8A(1)(c) counts luxury car tax payable before the benefit: a first retail sale after the FBT year,
+  // in 2026-27 or a later year the table does not hold, comes after every benefit in it.
+  for (const firstSale of ['2027-04-01', '2027-07-01']) {
+    const later = calculations.fbtEvExemption(evFacts({ lctValue: '200000', firstSale }), evYear);
+    assert.equal(later.exempt, true, firstSale);
+    assert.equal(later.threshold, null, firstSale);
+  }
+  assert.equal(calculations.fbtEvExemption(evFacts({ lctValue: '200000', firstSale: '2027-03-31' }), evYear).exempt, false);
 });
 
 test('the electric cars exemption refuses facts it cannot decide or that contradict the year', () => {
@@ -1013,7 +1022,6 @@ test('the electric cars exemption refuses facts it cannot decide or that contrad
   refuses({ firstUsed: '2026-02-30' }, 'Enter the date the car was first held and used as a calendar date.');
   refuses({ firstSale: '1 July 2026' }, 'Enter the date of the car’s first retail sale as a calendar date.');
   refuses({ firstUsed: '2027-04-01' }, 'The car was first held and used after 31 March 2027, so it gave no car benefit in the FBT year.');
-  refuses({ firstSale: '2027-04-01' }, 'This calculator takes a car first sold at retail by 31 March 2027, the end of the FBT year.');
   refuses({ firstSale: '2012-06-30' }, 'This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
   refuses({ vehicle: 'plug-in-hybrid', firstUsed: '2025-04-01', hybrid: { committed: true, newCommitment: false, exemptBefore: true } },
     'A car first held and used from 1 April 2025 cannot have given an exempt car benefit before that day.');

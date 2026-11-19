@@ -7,7 +7,8 @@
 // Schedule 1 item 7 and Schedule 2 item 5, both read 19 November 2026. It mirrors
 // fbt_ev_exemption_check in ryanduguid/australian-accounting's australian-tax-calculators
 // (pull request 732 at 1097c436b89607aa606a667e9c549f7c96398419), except that it takes the date of
-// the first retail sale, not its financial year, and refuses one after the FBT year ends.
+// the first retail sale, not its financial year, and reads one after the FBT year ends as coming after
+// every benefit in it.
 
 import { cents, number } from './money.mjs';
 
@@ -24,7 +25,7 @@ export const FUEL_EFFICIENT_THRESHOLDS = /** @type {Record<string, number>} */ (
  * @typedef {{vehicle: 'battery' | 'fuel-cell' | 'plug-in-hybrid', currentEmployee: boolean, firstUsed: string,
  *   firstSale: string, lctValue: string, otherSupply: boolean, hybrid?: PlugInHybrid}} EvFacts
  * @typedef {{condition: string, met: boolean}} EvCondition
- * @typedef {{exempt: boolean, conditions: EvCondition[], saleYear: string, threshold: number}} EvExemption
+ * @typedef {{exempt: boolean, conditions: EvCondition[], saleYear: string, threshold: number | null}} EvExemption
  */
 
 /** A calendar date as YYYY-MM-DD, or a refusal naming the field.
@@ -57,8 +58,10 @@ const yesNo = (value) => {
  * before 1 April 2025 for a period that began before then and includes the benefit, no new commitment
  * since, and an exempt car benefit with the car before 1 April 2025; the car first both held and used
  * on or after 1 July 2022 (Schedule 1 item 7(2)); and no luxury car tax payable on any supply or
- * importation (s 8A(1)(c)), at the first retail sale read as a luxury car tax value not above that
- * year's fuel-efficient threshold (A New Tax System (Luxury Car Tax) Act 1999 s 25-1).
+ * importation before the benefit is provided (s 8A(1)(c)), at the first retail sale read as a luxury
+ * car tax value not above that year's fuel-efficient threshold (A New Tax System (Luxury Car Tax) Act
+ * 1999 s 25-1). A first retail sale after the FBT year comes after every benefit in it, so its luxury
+ * car tax cannot fail s 8A(1)(c) and no threshold applies (`threshold` is null).
  * @param {EvFacts} e the car's facts as entered
  * @param {{ended: string}} year the year the FBT year ends, 31 March
  * @returns {EvExemption} */
@@ -77,12 +80,12 @@ export function fbtEvExemption(e, year) {
   const value = cents(e.lctValue);
   const yearEnd = `${ended}-03-31`;
   if (firstUsed > yearEnd) throw new Error(`The car was first held and used after 31 March ${ended}, so it gave no car benefit in the FBT year.`);
-  if (firstSale > yearEnd) throw new Error(`This calculator takes a car first sold at retail by 31 March ${ended}, the end of the FBT year.`);
+  const afterYear = firstSale > yearEnd;
   const saleYear = financialYear(firstSale);
-  if (!Object.hasOwn(FUEL_EFFICIENT_THRESHOLDS, saleYear)) {
+  if (!afterYear && !Object.hasOwn(FUEL_EFFICIENT_THRESHOLDS, saleYear)) {
     throw new Error('This calculator takes a first retail sale from 1 July 2012, the years the ATO’s luxury car tax table lists.');
   }
-  const threshold = FUEL_EFFICIENT_THRESHOLDS[saleYear];
+  const threshold = afterYear ? null : FUEL_EFFICIENT_THRESHOLDS[saleYear];
   // Item 5(2)(d): a car first held and used from 1 April 2025 gave no car benefit before that day.
   if (facts[2] && firstUsed >= '2025-04-01') {
     throw new Error('A car first held and used from 1 April 2025 cannot have given an exempt car benefit before that day.');
@@ -91,7 +94,7 @@ export function fbtEvExemption(e, year) {
     ? [['hybrid-committed', facts[0]], ['hybrid-no-new-commitment', !facts[1]], ['hybrid-exempt-before', facts[2]]]
     : [['zero-or-low-emissions', true]];
   const conditions = [['current-employee', current], ...vehicle, ['first-held-and-used', firstUsed >= '2022-07-01'],
-    ['first-sale', value <= threshold * 100], ['other-supply', !otherSupply]]
+    ['first-sale', threshold === null || value <= threshold * 100], ['other-supply', !otherSupply]]
     .map(([condition, met]) => ({ condition: /** @type {string} */ (condition), met: /** @type {boolean} */ (met) }));
   return { exempt: conditions.every((c) => c.met), conditions, saleYear, threshold };
 }
