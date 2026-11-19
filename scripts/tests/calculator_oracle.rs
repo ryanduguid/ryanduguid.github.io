@@ -6012,7 +6012,7 @@ fn margin_scheme_oracle(
         "applies": applies.to_string(),
         "share": cents(share),
         "consideration": cents(consideration),
-        "margin": cents(consideration.saturating_sub(share)),
+        "margin": cents(exact_half_up((consideration * whole).saturating_sub(cost * part), whole)),
         "schemeGst": cents(scheme),
         "basicGst": cents(basic),
         "saving": cents(basic - scheme),

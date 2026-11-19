@@ -2883,6 +2883,9 @@ test('the margin scheme GST on a lot is worked from the exact share and rounded 
   assert.deepEqual([inclusive.share, inclusive.schemeGst], [128105.97, 66819.87]);
   const exclusive = calculations.gstMarginScheme({ ...input, basis: 'exclusive', price: '684719.36', cost: '80630.34', part: '781', whole: '4306' });
   assert.deepEqual([exclusive.share, exclusive.schemeGst], [14624.31, 67009.5]);
+  // The margin shown is the exact one rounded: $1.00 less half of 1 cent is $0.995, so $1.00, not $1.00 less a rounded cent.
+  const tiny = calculations.gstMarginScheme({ ...input, basis: 'inclusive', price: '1', cost: '0.01', part: '1', whole: '2' });
+  assert.deepEqual([tiny.share, tiny.margin, tiny.schemeGst], [0.01, 1, 0.09]);
 });
 
 test('the margin scheme leaves the buyer without an input tax credit and says so', () => {

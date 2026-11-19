@@ -85,7 +85,7 @@ export function gstMarginScheme(input) {
   const applies = conditions.interest && conditions.agreed && conditions.eligible;
   const dollars = (/** @type {bigint} */ value) => Number(value) / 100;
   return { conditions, applies, share: dollars(share), consideration: dollars(consideration),
-    margin: dollars(nil(consideration - share)), schemeGst: dollars(schemeGst),
+    margin: dollars(ratioCents(nil(consideration * whole - cost * part), whole)), schemeGst: dollars(schemeGst),
     basicConsideration: dollars(exclusive ? price + basic : price), basicGst: dollars(basic),
     saving: dollars(basic - schemeGst), gst: dollars(applies ? schemeGst : basic) };
 }
