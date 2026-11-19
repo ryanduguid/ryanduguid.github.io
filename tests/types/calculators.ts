@@ -252,3 +252,15 @@ calculate.unusedLeave({ ...leavePay, reason: 'death' });
 calculate.unusedLeave({ ...leavePay, payee: 'working-holiday-maker' });
 void leaveWithheld;
 void leaveType;
+const frankingInput = { year: '2025-26', entity: 'public', rate: '30', opening: '10000', rdForward: '0', lastBenchmark: '', periodsSince: '',
+  determination: false, taxBefore: '', offsetForward: '', earlierLiability: '',
+  events: [{ date: '2025-10-28', type: 'payg_instalment', amount: '125000', rdPart: '' }],
+  distributions: [{ date: '2025-09-30', amount: '1190000', credit: '510000', permitted: '' }] } as const;
+const frankingOffset: number = calculate.frankingAccount(frankingInput).offset;
+const frankingCode: 'F' | 'P' | null = calculate.frankingAccount(frankingInput).offsetCode;
+// @ts-expect-error The entity is one of the form's 3 kinds; a trust has no franking account here.
+calculate.frankingAccount({ ...frankingInput, entity: 'trust' });
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.frankingAccount({ ...frankingInput, opening: 10000 });
+void frankingOffset;
+void frankingCode;

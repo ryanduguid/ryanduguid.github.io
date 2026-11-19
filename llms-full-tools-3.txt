@@ -301,7 +301,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Thirty-five calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Thirty-six calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
@@ -335,6 +335,7 @@ Published 11 September 2026. Last checked 19 November 2026, the newest of the ca
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
 - Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 - PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+- Franking account calculator A company’s franking account for 2025-26 or 2026-27: franking deficit tax and its offset, the benchmark rule and the franking return’s labels and due date.
 - Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
 
 ## Staff and cash
@@ -382,6 +383,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- Franking account calculator: https://duguid.com.au/tools/business-calculators/franking-account/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/

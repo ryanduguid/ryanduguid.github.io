@@ -765,6 +765,25 @@ test('SGC page works a Payday Super charge, an old-law quarter and a refusal off
   await expect(form.locator('output .result-row--principal')).toHaveText('SG charge for the quarter: $1,519.18.');
 });
 
+test('franking account page works EKW Ltd’s example, shows the ledger and refuses a private company without its income tax offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/franking-account/');
+  const form = page.locator('#franking-account form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  // EKW Ltd, the ATO's example 4, is the form's default.
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Franking tax payable (label E), due 31 July 2026: $80,000.00.');
+  await expect(form.locator('output')).toContainText('Franking deficit tax offset (label C): $62,000.00.');
+  const ledger = form.locator('table[data-results="ledger"]');
+  await expect(ledger).toBeVisible();
+  await expect(ledger.locator('tbody tr')).toHaveCount(6);
+  await expect(ledger.locator('tbody tr').last().locator('td').last()).toHaveText('−$80,000.00');
+  // A private company whose offset would be reduced needs its income tax for s 205-70(5).
+  await form.getByLabel('A private company', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(/^The offset reduction applies unless section 205-70\(5\) does/);
+});
+
 test('unused leave page works Schedule 7’s example, a no-TFN payment and a refusal offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/unused-leave/');
   const form = page.locator('#unused-leave form');
@@ -1044,7 +1063,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave'];
+  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'long-service-leave', 'unused-leave', 'franking-account'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
