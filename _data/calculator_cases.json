@@ -581,7 +581,7 @@
     ]
   },
   "workers-compensation": {
-    "checked": "2026-11-19",
+    "checked": "2026-11-20",
     "function": "workersCompensation",
     "rows": [
       {"case":"NT WorkSafe’s builder: $400,000 estimated at 3.50%, $500,000 actual, $3,850 more to pay","input":"Northern Territory, wages $400,000.00 at 3.5%, actual wages $500,000.00","call":[{"place":"AU-NT","wages":"400000","rate":"3.5","apprentice":"0","actual":"500000","group":"no","dust":"","reward":"0","vicEmployer":"new","days":"365","buyout":"no","qldStart":"q1","firstYear":"no","claims":"0"}],"result":{"premium":14000,"gst":1400,"total":15400,"actualTotal":19250,"adjustment":3850},"output":"premium before GST $14,000.00, GST $1,400.00, payable $15,400.00, payable on actual wages $19,250.00, adjustment $3,850.00"},

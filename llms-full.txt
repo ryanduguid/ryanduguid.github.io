@@ -6307,7 +6307,7 @@ Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last checked 19 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 20 November 2026, the newest of the calculators’ source checks.
 
 ## Pricing, planning and loans
 
@@ -12737,7 +12737,7 @@ Source: https://duguid.com.au/tools/business-calculators/workers-compensation/
 
 A 2026-27 workers compensation premium in any state or territory, from your wages and your insurer’s rate.
 
-Published 19 November 2026. Last checked 19 November 2026.
+Published 19 November 2026. Last checked 20 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
