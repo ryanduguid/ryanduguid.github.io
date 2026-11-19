@@ -17,13 +17,22 @@
 //! it sees every conflict with Git's markers, as when the driver is missing. The site
 //! checks still compare the built files with a fresh build, so a resolution that
 //! differs from one fails them.
+//!
+//! With `--generated` it is the driver for the files the site's builders write, which
+//! every pull request that adds a page rewrites (`llms-full.txt` and its parts, the
+//! `index.txt` copies, `.well-known/llms.txt`): it keeps the current side, and
+//! `build_llms_full --write` and `check_design --update-baseline` rebuild them, as
+//! their `--check` runs insist. Two such files also hold hand-kept text, which it
+//! merges: `llms.txt` outside its generated part index, and the keys of
+//! `scripts/design_baseline.json`, whose values the baseline update derives again.
 use crate::feed::parse_date;
+use crate::pyjson::{self, Dump, Json};
 use jiff::civil::Date;
 use regex::Regex;
 use std::process::Command;
 use std::sync::LazyLock;
 
-const USAGE: &str = "usage: site-tools merge_driver <base> <current> <incoming>\n\nGit runs this as the changelog-rows merge driver (CONTRIBUTING.md). It merges\n<incoming> into <current> in place, or exits 1 and leaves <current> unchanged when\na conflict it does not resolve remains.\n";
+const USAGE: &str = "usage: site-tools merge_driver <base> <current> <incoming>\n       site-tools merge_driver --generated <base> <current> <incoming> <path>\n\nGit runs this as the changelog-rows and generated merge drivers (CONTRIBUTING.md).\nIt merges <incoming> into <current> in place, or exits 1 and leaves <current>\nunchanged when a conflict it does not resolve remains.\n";
 // Wider than any marker a file here holds; the driver's markers never reach a person.
 const MARKER_SIZE: usize = 40;
 
@@ -270,18 +279,8 @@ pub fn resolve_conflicts(merged: &str, size: usize) -> Option<String> {
     Some(out)
 }
 
-pub fn run(args: &[String]) -> Result<u8, String> {
-    let [base, current, incoming] = args else {
-        crate::print_text(USAGE, true).map_err(|e| e.to_string())?;
-        return Ok(2);
-    };
-    // A file holding marker-like lines could be misread, so it is left to Git.
-    for path in [base, current, incoming] {
-        match std::fs::read_to_string(path) {
-            Ok(text) if !holds_markers(&text, MARKER_SIZE) => {}
-            _ => return Ok(1),
-        }
-    }
+/// `git merge-file --stdout --diff3` of three files: the number of conflicts and the text.
+fn merge_file(current: &str, base: &str, incoming: &str) -> Result<(i32, String), String> {
     let output = Command::new("git")
         .args([
             "merge-file",
@@ -300,6 +299,179 @@ pub fn run(args: &[String]) -> Result<u8, String> {
             String::from_utf8_lossy(&output.stderr).trim()
         ));
     };
+    Ok((conflicts, merged))
+}
+
+/// llms.txt split around its part index: up to and including the heading line, the
+/// generated list under it, and the sections after it.
+fn split_part_index(text: &str) -> Option<(&str, &str, &str)> {
+    static HEADING: LazyLock<Regex> = LazyLock::new(|| {
+        let heading = regex::escape(crate::llms_full::PART_INDEX_HEADING);
+        Regex::new(&format!(r"(?m)^{heading}\r?\n")).unwrap()
+    });
+    static NEXT: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"(?m)^## ").unwrap());
+    let heading = HEADING.find(text)?;
+    let end = NEXT
+        .find_at(text, heading.end())
+        .map_or(text.len(), |m| m.start());
+    Some((
+        &text[..heading.end()],
+        &text[heading.end()..end],
+        &text[end..],
+    ))
+}
+
+/// llms.txt merged by Git without its part index, then given the current side's
+/// part index, which `build_llms_full --write` rebuilds. None leaves it to a person.
+pub fn merge_llms_index(
+    base: &str,
+    current: &str,
+    incoming: &str,
+) -> Result<Option<String>, String> {
+    let sides = [current, base, incoming].map(split_part_index);
+    let [Some(ours), Some(old), Some(theirs)] = sides else {
+        return Ok(None);
+    };
+    let dir = tempfile::tempdir().map_err(|e| format!("merge_driver: {e}"))?;
+    let mut paths = Vec::new();
+    for (name, (head, _, tail)) in [("current", ours), ("base", old), ("incoming", theirs)] {
+        let path = dir.path().join(name);
+        std::fs::write(&path, format!("{head}{tail}")).map_err(|e| format!("merge_driver: {e}"))?;
+        paths.push(path.to_string_lossy().into_owned());
+    }
+    let (conflicts, merged) = merge_file(&paths[0], &paths[1], &paths[2])?;
+    let Some((head, "", tail)) = split_part_index(&merged).filter(|_| conflicts == 0) else {
+        return Ok(None);
+    };
+    Ok(Some(format!("{head}{}{tail}", ours.1)))
+}
+
+type Pairs = Vec<(String, Json)>;
+
+/// Applies `incoming`'s changes since `base` to `out`, a copy of the current side. A
+/// key added on one side is kept, in sorted place where the keys are sorted. A value
+/// both sides changed goes to `both`; None leaves the file to a person.
+fn merge_pairs(
+    base: &Pairs,
+    out: &mut Pairs,
+    incoming: &Pairs,
+    both: &dyn Fn(&Json, &Json, &Json) -> Option<Json>,
+) -> Option<()> {
+    let get = |pairs: &Pairs, key: &str| pairs.iter().position(|(k, _)| k == key);
+    for (key, old) in base {
+        if get(incoming, key).is_none() {
+            match get(out, key) {
+                // Incoming removed a value the current side changed.
+                Some(i) if out[i].1 != *old => return None,
+                Some(i) => {
+                    out.remove(i);
+                }
+                None => {}
+            }
+        }
+    }
+    for (key, theirs) in incoming {
+        let old = base.iter().find(|(k, _)| k == key).map(|(_, v)| v);
+        match (old, get(out, key)) {
+            (Some(old), Some(i)) if out[i].1 == *old => out[i].1 = theirs.clone(),
+            (Some(old), Some(i)) if theirs != old => out[i].1 = both(old, &out[i].1, theirs)?,
+            (None, Some(i)) if out[i].1 != *theirs => {
+                out[i].1 = both(&Json::Null, &out[i].1, theirs)?;
+            }
+            (_, Some(_)) => {}
+            // The current side removed a value incoming changed.
+            (Some(old), None) if theirs != old => return None,
+            (Some(_), None) => {}
+            (None, None) => {
+                let sorted = out.is_sorted_by(|a, b| a.0 <= b.0);
+                let at = if sorted {
+                    out.partition_point(|(k, _)| k < key)
+                } else {
+                    out.len()
+                };
+                out.insert(at, (key.clone(), theirs.clone()));
+            }
+        }
+    }
+    Some(())
+}
+
+/// scripts/design_baseline.json with both sides' keys. `check_design
+/// --update-baseline` derives every digest and count again, so a value both sides
+/// changed keeps the current side's. None leaves the file to a person.
+pub fn merge_baseline(base: &str, current: &str, incoming: &str) -> Option<String> {
+    let parse = |text: &str| match pyjson::loads_unique(text).ok()? {
+        Json::Object(sections) => Some(sections),
+        _ => None,
+    };
+    let (old, mut out, theirs) = (parse(base)?, parse(current)?, parse(incoming)?);
+    let section = |old: &Json, ours: &Json, theirs: &Json| {
+        let (Json::Object(ours), Json::Object(theirs)) = (ours, theirs) else {
+            return None;
+        };
+        let old = match old {
+            Json::Object(old) => old.clone(),
+            _ => Vec::new(),
+        };
+        let mut merged = ours.clone();
+        merge_pairs(&old, &mut merged, theirs, &|_, ours, _| Some(ours.clone()))?;
+        Some(Json::Object(merged))
+    };
+    merge_pairs(&old, &mut out, &theirs, &section)?;
+    let text = pyjson::dumps(
+        &Json::Object(out),
+        Dump {
+            indent: Some(2),
+            ensure_ascii: false,
+            ..Default::default()
+        },
+    ) + "\n";
+    Some(if current.contains("\r\n") {
+        text.replace('\n', "\r\n")
+    } else {
+        text
+    })
+}
+
+/// The `--generated` driver: keep <current>, or merge the hand-kept part of llms.txt
+/// and the design baseline. <path> is the file's path in the repository.
+fn generated(args: &[String]) -> Result<u8, String> {
+    let [base, current, incoming, path] = args else {
+        crate::print_text(USAGE, true).map_err(|e| e.to_string())?;
+        return Ok(2);
+    };
+    let read = |p: &str| std::fs::read_to_string(p).map_err(|e| format!("merge_driver: {p}: {e}"));
+    let merged = match path.as_str() {
+        "llms.txt" => merge_llms_index(&read(base)?, &read(current)?, &read(incoming)?)?,
+        "scripts/design_baseline.json" => {
+            merge_baseline(&read(base)?, &read(current)?, &read(incoming)?)
+        }
+        _ => return Ok(0),
+    };
+    match merged {
+        Some(text) => replace(current, &text),
+        None => Ok(1),
+    }
+}
+
+pub fn run(args: &[String]) -> Result<u8, String> {
+    if let Some((flag, rest)) = args.split_first()
+        && flag == "--generated"
+    {
+        return generated(rest);
+    }
+    let [base, current, incoming] = args else {
+        crate::print_text(USAGE, true).map_err(|e| e.to_string())?;
+        return Ok(2);
+    };
+    // A file holding marker-like lines could be misread, so it is left to Git.
+    for path in [base, current, incoming] {
+        match std::fs::read_to_string(path) {
+            Ok(text) if !holds_markers(&text, MARKER_SIZE) => {}
+            _ => return Ok(1),
+        }
+    }
+    let (conflicts, merged) = merge_file(current, base, incoming)?;
     let text = if conflicts == 0 {
         merged
     } else if let Some(text) = resolve_conflicts(&merged, MARKER_SIZE) {
@@ -307,7 +479,11 @@ pub fn run(args: &[String]) -> Result<u8, String> {
     } else {
         return Ok(1);
     };
-    // Replace <current> only once the whole result is written: the fallback reads it.
+    replace(current, &text)
+}
+
+/// Replaces <current> only once the whole result is written: the fallback reads it.
+fn replace(current: &str, text: &str) -> Result<u8, String> {
     let target = std::path::Path::new(current);
     let dir = target
         .parent()

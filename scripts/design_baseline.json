@@ -243,7 +243,7 @@
       "aed04320a1e984625737411e6688f860dd30308e78cf544b438f407c0cbf2037"
     ],
     "tools/individual-tax/index.html": [
-      "fe3980829b8e788e736896dd303886e127bf71d5d743cc78e777e661a1b9c458"
+      "095fbe24d680773871d1b5b157fe447fd1d2746ca217452e29c61ad4a202f088"
     ],
     "tools/individual-tax/lump-sum-arrears/index.html": [
       "143cbd7d34d37340ed6005cc963f555e12f2636465af1fac2c29de193d24883f"
@@ -252,7 +252,7 @@
       "e097fdd02619bd0715a3d91bb3455b08912994564bdbc0e0807df76c91cc5cea"
     ],
     "tools/individual-tax/take-home-pay/index.html": [
-      "637a2eb7aebf613f8e4cd0e47638caa3fa6b1f9bb8db8b2bbb6a460734e96b76"
+      "70b6d4498a6e9ea18382da96ebaef855657d615de6bb0f1480257c14a3d3c828"
     ],
     "tools/limitations/index.html": [
       "3d85de7054154595c228acc7da3d1acfa7316401cf6cfad0a929e4aed6ad6c24"
@@ -316,9 +316,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "4a722ebbc5a6af7b6f0ecc3056c15c1f0335c3413a0364dc2957201ee6578c61",
+    "llms.txt": "9fe2cdcfda102e9f93bfcfbe24b5c79284becbc16a4279f74e5fe0fab4908e21",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "e0772aa5fa448f4915b1a206e92d2af57dc6c0a5015498890eb32ade7950f52e"
+    "sitemap.xml": "a5577a9b868f8ff151b8fbe370dfa77ebc4d454b44ae2f850241060b9d93b6e2"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
