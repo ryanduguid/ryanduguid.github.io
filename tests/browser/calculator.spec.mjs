@@ -930,6 +930,8 @@ for (const [path, name, input, expected] of [
   ['/tools/business-calculators/lease/', 'calculate_lease_schedule',
     { payment: '1000', payments: 60, annualRate: '7.5', startDate: '2026-07-01', initialDirectCosts: '500' },
     { leaseLiability: '49905.31', rightOfUseAsset: '50405.31' }],
+  ['/tools/business-calculators/fuel-tax-credits/', 'calculate_fuel_tax_credits',
+    { year: '2026-27', lines: [{ fuel: 'diesel', use: 'other_business', acquired: '2026-09-15', quantity: '2000' }] }, { fuelTaxCredits: '1074.00' }],
   ['/tools/depreciation-rates/', 'calculate_decline_in_value',
     { cost: '1500', effectiveLife: '5', startDate: '2025-07-01', incomeYearEnding: 2026, method: 'prime-cost' }, { rate: '20.00%' }],
   ['/tools/coal-lsl-levy/', 'calculate_coal_lsl_levy',
