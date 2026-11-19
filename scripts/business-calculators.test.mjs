@@ -3896,7 +3896,14 @@ test('a refinancing with the same lender takes the 10% test, and under 10% is re
   // Para B3.3.6 counts only fees between the borrower and the lender: at 4.75% the $900 paid to the
   // lender leaves the terms 9.86% apart, but paid to a broker it is left out and they are 10.18% apart.
   assert.throws(() => account('2048-03-14', facts('290000', '4.75', '300', true)), { message: /differ by 9\.86%, under 10%/ });
-  assert.equal(account('2048-03-14', facts('290000', '4.75', '300', true, '0'))[1].test.change.toFixed(4), '0.1018');
+  const change = (fees) => {
+    try {
+      return account('2048-03-14', facts('290000', '4.75', '300', true, fees))[1].test.change.toFixed(4);
+    } catch (error) {
+      return error.code;
+    }
+  };
+  assert.deepEqual([change('0'), change('450')], ['0.1018', '0.1002']);
   for (const fees of [null, '900.01']) {
     assert.throws(() => account('2048-03-14', facts('290000', '4.6', '300', true, fees)), { code: 'accounting.lender_fees_invalid' });
   }
