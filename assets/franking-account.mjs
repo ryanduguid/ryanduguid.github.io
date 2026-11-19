@@ -504,7 +504,7 @@ export function frankingAccountResult(value, audText) {
     + `${audText(aud(exact(input.opening)))}, ${count(events.length, 'event')}, ${count(distributions.length, 'distribution')}`;
   const rows = [['Franking credits for the year (label A)', audText(r.credits)], ['Franking debits for the year', audText(r.debits)],
     [`Closing balance, code ${r.balanceCode}`, audText(r.closing)], ['Franking deficit tax (label B)', audText(r.fdt)]];
-  if (r.fdtFromRefunds) rows.push(['Of it, from refunds after the year’s end (label F)', audText(r.fdtFromRefunds)]);
+  if (r.fdtFromRefunds) rows.push(['Of it, from refunds after the year’s end (label F, on a further return only)', audText(r.fdtFromRefunds)]);
   rows.push([`Franking deficit tax offset (label C)${r.offsetCode ? `, code ${r.offsetCode}` : ''}`, audText(r.offset)]);
   if (r.reduction) rows.push(['Offset reduction, 30% of the attributable part', audText(r.reduction)]);
   if (r.labelK) rows.push(['Debits not subject to the reduction (label K)', audText(r.labelK)]);
