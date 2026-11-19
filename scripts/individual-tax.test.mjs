@@ -11,12 +11,13 @@ import { CONCESSIONAL_CAP, division293, takeHomePay, SUPER_GUARANTEE } from '../
 import { taxEstimate } from '../assets/tax-estimate.mjs';
 import { withholding } from '../assets/payg-withholding.mjs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
+import { division293Tax } from '../assets/division-293.mjs';
 import { lumpSumArrears } from '../assets/lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from '../assets/sole-trader.mjs';
 import { incomeTests, INCOME_TEST_PARTS } from '../assets/income-tests.mjs';
 import { CAP, concessionalCatchUp } from '../assets/concessional-catch-up.mjs';
 
-const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, incomeTests, concessionalCatchUp };
+const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -27,6 +28,8 @@ const PERIOD = { year: 'a year', month: 'a month', fortnight: 'a fortnight', wee
 const parts = (r) => PARTS.filter(([key]) => key === 'taxable' || r[key] !== '0').map(([key, label]) => `${label} ${whole(r[key])}`)
   .join(', ');
 const settle = (value) => `${value < 0 ? 'owing' : 'refund'} ${dollars(Math.abs(value))}`;
+const DIVISION_293_PARTS = [['fringe', 'fringe benefits'], ['losses', 'net investment loss'],
+  ['trust', 'family trust distribution tax income'], ['fhss', 'less FHSS'], ['lumpSum', 'less zero-rate lump sum']];
 const INCOME_TEST_LABELS = { taxable: 'taxable', fhss: 'FHSS', familyTrust: 'family trust', fringe57a: 'section 57A fringe',
   fringeOther: 'other fringe', employerSuper: 'employer super', personalSuper: 'personal super',
   excessConcessional: 'excess concessional', financialLoss: 'financial loss', rentalLoss: 'rental loss', pensions: 'pensions',
@@ -44,6 +47,10 @@ const INPUTS = {
     + `${p.includesSuper ? 'including' : 'plus'} super${p.sacrifice === '0' ? '' : `, ${whole(p.sacrifice)} sacrificed`}`
     + `${p.studyLoan ? ', study loan' : ''}${p.hospitalCover ? '' : ', no hospital cover'}`,
   studyLoanRepayment: (r, year) => `${year}: ${parts(r)}`,
+  division293Tax: (d) => `${d.year}: taxable income ${whole(d.taxable)}`
+    + DIVISION_293_PARTS.filter(([key]) => d[key] !== '0').map(([key, label]) => `, ${label} ${whole(d[key])}`).join('')
+    + `; contributions ${dollars(d.concessional)}`
+    + (d.unused === '0' ? '' : `, unused cap ${dollars(d.unused)}, balance ${d.balanceUnder ? 'under' : '$500,000 or more'}`),
   soleTraderSetAside: (s) => `${s.year}, business ${whole(s.income)} less ${whole(s.expenses)}`
     + `${s.wages === '0' ? '' : `, wages ${whole(s.wages)}`}${s.deductions === '0' ? '' : `, other deductions ${whole(s.deductions)}`}`
     + `${s.super === '0' ? '' : `, super contributions ${whole(s.super)}`}`
@@ -71,6 +78,8 @@ const OUTPUTS = {
     + `${r.withheld ? `; withheld ${dollars(r.withheld.total)} a pay, ${settle(r.withheld.refund)}` : ''}`
     + `${r.overCap ? `; ${dollars(r.overCap)} over the cap` : ''}${r.division293 ? `; Division 293 on ${dollars(r.division293)}` : ''}`,
   studyLoanRepayment: (r) => `Repayment income ${dollars(r.repaymentIncome)}, repayment ${dollars(r.repayment)}`,
+  division293Tax: (r) => `Division 293 income ${dollars(r.income)}, low tax contributions ${dollars(r.low)}`
+    + `${r.excess ? ` after ${dollars(r.excess)} excess` : ''}, taxable contributions ${dollars(r.taxable)}, tax ${dollars(r.tax)}`,
   soleTraderSetAside: (r, s) => `Offset ${dollars(r.smallBusinessOffset)}, business tax ${dollars(r.businessTax)}`
     + `${s.gst ? `, GST ${dollars(r.gst)}` : ''}; set aside ${dollars(r.setAside)} a year, ${dollars(r.quarterly)} a quarter, `
     + `${r.invoiceShare.toFixed(2)}% of each invoice`,
@@ -120,6 +129,9 @@ const FORM_CALLS = {
     includesSuper: f.super === 'included', sacrifice: f.sacrifice, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes' }],
   studyLoanRepayment: (f) => [{ taxable: f.taxable, fringe: f.fringe, losses: f.losses, super: f.super, foreign: f.foreign }, f.year],
+  division293Tax: (f) => [{ year: f.year, interests: f.interests, taxable: f.taxable, fringe: f.fringe, losses: f.losses,
+    trust: f.trust, fhss: f.fhss, lumpSum: f['lump-sum'], concessional: f.concessional, unused: f.unused,
+    balanceUnder: f['balance-under'] === 'yes' }],
   soleTraderSetAside: (f) => [{ year: f.year, income: f.income, expenses: f.expenses, wages: f.wages, deductions: f.deductions,
     super: f.super, offset: f.offset === 'yes', studyLoan: f['study-loan'] === 'yes', hospitalCover: f.cover === 'yes', gst: f.gst === 'yes',
     credits: f.credits, invoice: f.invoice }],
@@ -526,6 +538,61 @@ test('a form that is not an individual tax calculator gets no result, whatever i
   }
 });
 
+const D293 = { year: '2026-27', interests: 'accumulation', taxable: '0', fringe: '0', losses: '0', trust: '0', fhss: '0', lumpSum: '0',
+  concessional: '0', unused: '0', balanceUnder: false };
+const d293 = (fields) => division293Tax({ ...D293, ...fields });
+
+// ATO, 'Division 293 tax on concessional contributions by high-income earners' (last updated 24 August 2026), read 19 November 2026.
+test('Division 293 gives the ATO’s example: Jan’s $255,000 is $5,000 over, taxed at 15%', () => {
+  const r = d293({ taxable: '240000', concessional: '15000' });
+  assert.deepEqual([r.combined, r.over, r.taxable, r.tax], [255000, 5000, 5000, 750]);
+});
+
+test('Division 293 income adds the surcharge measure’s parts without reportable super contributions', () => {
+  // s 995-1: taxable income less FHSS, plus family trust distribution tax income, fringe benefits and net investment loss,
+  // less a zero-rate lump sum.
+  const r = d293({ year: '2023-24', taxable: '200000', fringe: '10000', losses: '15000', trust: '20000', fhss: '5000',
+    lumpSum: '3000' });
+  assert.equal(r.income, 237000);
+  // Taxable income without an FHSS amount larger than it is nil, as the income tests page takes it.
+  assert.equal(d293({ taxable: '1000', fhss: '1500', fringe: '300' }).income, 300);
+  assert.throws(() => d293({ year: '2023-24', taxable: '1000', fhss: '600', lumpSum: '401' }), /cannot exceed taxable income less/);
+  // s 301-20 taxes a lump sum at 0% only from preservation age to under 60: nobody from 2024-25.
+  assert.equal(d293({ year: '2023-24', taxable: '1000', lumpSum: '1000' }).income, 0);
+  assert.throws(() => d293({ year: '2024-25', taxable: '1000', lumpSum: '1' }), /From 2024-25 nobody under 60/);
+});
+
+test('Division 293 leaves out the excess over the cap unless unused cap carried forward covers it', () => {
+  const plain = d293({ taxable: '210000', fringe: '33000', concessional: '45000' });
+  assert.deepEqual([plain.cap, plain.excess, plain.low, plain.taxable, plain.tax], [32500, 12500, 32500, 25500, 3825]);
+  // s 291-20(3) and (4): only with a balance under $500,000, and by no more than the excess.
+  const carried = d293({ taxable: '210000', fringe: '33000', concessional: '45000', unused: '20000', balanceUnder: true });
+  assert.deepEqual([carried.carried, carried.excess, carried.low, carried.tax], [12500, 0, 45000, 5700]);
+  assert.equal(d293({ taxable: '210000', fringe: '33000', concessional: '45000', unused: '20000' }).tax, 3825);
+  assert.equal(d293({ taxable: '100000', concessional: '20000', unused: '20000', balanceUnder: true }).carried, 0);
+  assert.equal(d293({ year: '2021-22', concessional: '30000' }).excess, 2500);
+});
+
+test('Division 293 taxes only what exceeds $250,000 and nothing without low tax contributions', () => {
+  const at = d293({ taxable: '235000', concessional: '15000' });
+  assert.deepEqual([at.taxable, at.room], [0, 0]);
+  assert.equal(d293({ taxable: '200000', concessional: '20000' }).room, 30000);
+  assert.equal(d293({ taxable: '300000', concessional: '25000' }).taxable, 25000);
+  assert.equal(d293({ taxable: '400000' }).tax, 0);
+  // Only the part within the cap is a low tax contribution.
+  assert.equal(d293({ taxable: '400000', concessional: '40000', year: '2025-26' }).taxable, 30000);
+});
+
+test('the Division 293 calculator refuses what it does not cover', () => {
+  assert.throws(() => d293({ year: '2027-28' }), { message: 'Choose an income year from 2021-22 to 2026-27.' });
+  assert.throws(() => d293({ year: '2020-21' }), { message: 'Choose an income year from 2021-22 to 2026-27.' });
+  assert.throws(() => d293({ interests: 'other' }), /Subdivisions 293-D to 293-F/);
+  assert.throws(() => d293({ balanceUnder: 'yes' }), { message: 'Say whether your total super balance was under $500,000.' });
+  assert.throws(() => d293({ taxable: '1.5' }), /whole number/);
+  assert.throws(() => d293({ concessional: '-1' }), /between 0/);
+  assert.throws(() => d293({ unused: 'x' }), /digits only/);
+});
+
 const arrears = (year, taxable, accrual, gain = '0') => lumpSumArrears({ year, resident: true, otherAmounts: false, taxable, gain,
   accrual: accrual.map(([y, amount, income, more]) => ({ year: y, arrears: amount, ...(income ? { taxable: income } : {}),
     ...more })) });
@@ -875,6 +942,21 @@ test('income tests agree with the australian-accounting engine on every differen
     const result = incomeTests(call);
     assert.deepEqual(Object.fromEntries(Object.keys(amounts).map((key) => [key, result[key].toFixed(2)])), amounts, source);
     assert.equal(result.exemptForeignDiffers, warns, source);
+  }
+});
+
+// The income tests page works Division 293 income with the Division 293 calculator's own function.
+test('the income tests and Division 293 pages give the same Division 293 income', () => {
+  for (const given of [
+    { taxable: '200000', fringeOther: '20000', financialLoss: '5000', employerSuper: '20000', assessable: '200000' },
+    { taxable: '30000', fhss: '40000', familyTrust: '1000', fringe57a: '3000', assessable: '50000' },
+    { taxable: '260000', familyTrust: '20000', rentalLoss: '7000', personalSuper: '10000', excessConcessional: '2000',
+      assessable: '262000' },
+  ]) {
+    const t = tests(given);
+    const d = d293({ taxable: given.taxable, fhss: given.fhss ?? '0', trust: given.familyTrust ?? '0',
+      fringe: String(t.fringeTotal), losses: String(t.losses) });
+    assert.equal(d.income, t.division293Income, JSON.stringify(given));
   }
 });
 
