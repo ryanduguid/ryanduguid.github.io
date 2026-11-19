@@ -48,7 +48,7 @@ const given = (value) => value !== undefined && value !== null && String(value).
 /** The first calendar year of an income year written like 2023-24, or NaN. @param {unknown} text */
 function startOf(text) {
   const match = /^(\d{4})-(\d{2})$/.exec(typeof text === 'string' ? text.trim() : '');
-  return match && Number(match[2]) === (Number(match[1]) + 1) % 100 ? Number(match[1]) : NaN;
+  return match && Number(match[2]) === (Number(match[1]) + 1) % 100 ? Number(match[1]) : Number.NaN;
 }
 
 /** The tax in 2,000ths of a dollar on `income` whole dollars at `year`'s rates, with its levy.
