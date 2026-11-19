@@ -523,6 +523,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'unused-leave':
             result = calculate.unusedLeaveResult(value, aud);
+            break;
           case 'workers-compensation':
             result = calculate.workersCompensationResult(value, aud);
             break;
