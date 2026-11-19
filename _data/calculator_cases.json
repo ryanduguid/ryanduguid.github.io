@@ -507,7 +507,7 @@
     ]
   },
   "sgc-payday": {
-    "checked": "2026-11-18",
+    "checked": "2026-11-19",
     "function": "paydaySuperCharge",
     "rows": [
       {"case": "ATO’s 30 July 2026 payday, due a day later for NT Picnic Day, and paid 14 days late", "input": "Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 25 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure", "call": [{"payday": "2026-07-30", "timing": "standard", "nextPayday": "2026-07-30", "determination": "2026-07-30", "earnings": "1000", "earlier": "0", "onTime": "0", "late": "120", "received": "2026-08-25", "assessment": "2026-12-01", "assessed": "no", "disclosure": "none", "lodged": "2026-07-30", "assumedRate": "11.51"}], "result": {"due": "2026-08-11", "days": 14, "notional": 0.53, "upliftPercent": 40, "uplift": 0.21, "charge": 0.74}, "output": "Due Tuesday 11 August 2026, 14 days of notional earnings, notional earnings $0.53, uplift 40%, uplift $0.21, SG charge $0.74"},
