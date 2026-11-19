@@ -12,9 +12,10 @@ import { taxEstimate } from '../assets/tax-estimate.mjs';
 import { withholding } from '../assets/payg-withholding.mjs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
 import { incomeTests, INCOME_TEST_PARTS } from '../assets/income-tests.mjs';
+import { CAP, concessionalCatchUp } from '../assets/concessional-catch-up.mjs';
 import { superProjection } from '../assets/super-projection.mjs';
 
-const engines = { taxEstimate, takeHomePay, studyLoanRepayment, incomeTests, superProjection };
+const engines = { taxEstimate, takeHomePay, studyLoanRepayment, incomeTests, concessionalCatchUp, superProjection };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -50,6 +51,10 @@ const INPUTS = {
   incomeTests: (p) => `${p.resident ? 'Resident' : 'Not resident'} all year, `
     + INCOME_TEST_PARTS.filter((key) => key === 'taxable' || p[key] !== '0').map((key) => `${INCOME_TEST_LABELS[key]} ${whole(p[key])}`)
       .join(', '),
+  concessionalCatchUp: (c) => `${c.year}, balance ${dollars(c.balance)}, contributions ${dollars(c.concessional)}`
+    + `${c.proposed === undefined ? '' : `, proposed ${dollars(c.proposed)}`}; earlier `
+    + c.earlier.map((r) => `${r.year} ${dollars(r.contributions)}${r.balance === undefined ? '' : ` at ${dollars(r.balance)}`}`)
+      .join(', '),
 };
 const OUTPUTS = {
   taxEstimate: (r, call) => `Tax ${dollars(r.tax)}, offset ${dollars(r.offset)}`
@@ -64,6 +69,9 @@ const OUTPUTS = {
   incomeTests: (r) => `Surcharge ${whole(r.surchargeIncome)}, Division 293 ${whole(r.division293Income)}, `
     + `rebate ${whole(r.rebateIncome)}, repayment ${whole(r.repaymentIncome)}, adjusted taxable ${signed(r.adjustedTaxableIncome)}, `
     + `co-contribution ${signed(r.coContributionIncome)}`,
+  concessionalCatchUp: (r) => `Cap ${dollars(r.available)} with ${dollars(r.unusedCarried)} unused from the previous 5 years, `
+    + `${dollars(r.carryForwardApplied)} applied, ${dollars(r.excess)} excess`
+    + `${r.withProposal === null ? '' : `; with the proposal ${dollars(r.excessWithProposal)} excess`}; ${dollars(r.expiring)} lapses`,
 };
 
 test('each individual tax page has its boundary cases', () => {
@@ -107,6 +115,10 @@ const FORM_CALLS = {
     insurance: f.insurance, growth: f.growth, discount: f.discount }],
   incomeTests: (f) => [{ resident: f.resident === 'yes', ...Object.fromEntries(INCOME_TEST_PARTS
     .map((key) => [key, f[key.replace(/[A-Z0-9]+/g, (part) => `-${part.toLowerCase()}`)]])) }],
+  concessionalCatchUp: (f) => [{ year: f.year, balance: f.balance, concessional: f.concessional,
+    ...(f.proposed ? { proposed: f.proposed } : {}), definedBenefit: f['defined-benefit'] === 'yes',
+    earlier: Object.keys(CAP).sort().filter((year) => f[`contributions-${year}`]).map((year) => ({ year,
+      contributions: f[`contributions-${year}`], ...(f[`balance-${year}`] ? { balance: f[`balance-${year}`] } : {}) })) }],
 };
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the worked example`, () => {
@@ -655,5 +667,111 @@ test('income tests agree with the australian-accounting engine on every differen
     const result = incomeTests(call);
     assert.deepEqual(Object.fromEntries(Object.keys(amounts).map((key) => [key, result[key].toFixed(2)])), amounts, source);
     assert.equal(result.exemptForeignDiffers, warns, source);
+  }
+});
+
+const SAM = [['2019-20', '11000'], ['2020-21', '12000'], ['2021-22', '13000'], ['2022-23', '14000'], ['2023-24', '15000']]
+  .map(([year, contributions]) => ({ year, contributions }));
+const catchUp = (given) => concessionalCatchUp({ year: '2024-25', balance: '450000', concessional: '97500',
+  definedBenefit: false, earlier: SAM, ...given });
+
+// ATO, 'Concessional contributions cap' (last updated 2 July 2026, read 19 November 2026): Sam's table 1.
+test('Sam’s unused cap of 2019-20 to 2023-24 makes his 2024-25 cap $97,500, used earliest year first', () => {
+  const r = catchUp({});
+  assert.deepEqual([r.cap, r.unusedCarried, r.available, r.carryForwardApplied, r.excess], [30000, 67500, 97500, 67500, 0]);
+  assert.deepEqual(r.applied, { '2019-20': 14000, '2020-21': 13000, '2021-22': 14500, '2022-23': 13500, '2023-24': 12500 });
+  // $1 more is excess, and $1 less leaves $1 of 2023-24's amount; no more than the carried $67,500 is applied.
+  assert.deepEqual([catchUp({ concessional: '120000' }).carryForwardApplied, catchUp({ concessional: '120000' }).excess],
+    [67500, 22500]);
+  assert.equal(catchUp({ concessional: '97501' }).excess, 1);
+  assert.deepEqual(catchUp({ concessional: '97499' }).years.at(-2), { year: '2023-24', remaining: 1, expiresAtEndOf: '2028-29' });
+});
+
+test('the caps are the ATO’s Table 1.1, from 2018-19', () => {
+  assert.deepEqual(CAP, { '2018-19': 25000, '2019-20': 25000, '2020-21': 25000, '2021-22': 27500, '2022-23': 27500,
+    '2023-24': 27500, '2024-25': 30000, '2025-26': 30000, '2026-27': 32500 });
+  assert.equal(concessionalCatchUp({ year: '2026-27', balance: '0', concessional: '32500', definedBenefit: false,
+    earlier: ['2021-22', '2022-23', '2023-24', '2024-25', '2025-26'].map((year) => ({ year, contributions: '0' })) })
+    .carryForwardApplied, 0);
+});
+
+test('a balance of $500,000 stops the increase, a cent less does not, and the amounts age either way', () => {
+  const at = catchUp({ balance: '500000', concessional: '40000' });
+  assert.deepEqual([at.available, at.carryForwardApplied, at.excess, at.expiring, at.carriesForward], [30000, 0, 10000, 14000, false]);
+  const below = catchUp({ balance: '499999.99', concessional: '40000' });
+  assert.deepEqual([below.available, below.carryForwardApplied, below.excess, below.expiring], [97500, 10000, 0, 4000]);
+  // An earlier year over its cap at $500,000 applied nothing, so the years before it are not needed.
+  const earlier = SAM.map((row) => (row.year === '2021-22' ? { ...row, contributions: '40000', balance: '500000' } : row));
+  let atLimit;
+  assert.doesNotThrow(() => { atLimit = catchUp({ concessional: '0', earlier }); });
+  assert.deepEqual(atLimit.earlierApplied, {});
+});
+
+test('an earlier year over its cap takes the unused cap of the 5 years before it, earliest first', () => {
+  const earlier = [['2018-19', '5000'], ['2019-20', '25000'], ['2020-21', '15000'], ['2021-22', '27500'],
+    ['2022-23', '50000', '300000'], ['2023-24', '7500'], ['2024-25', '30000']]
+    .map(([year, contributions, balance]) => ({ year, contributions, ...(balance ? { balance } : {}) }));
+  const r = concessionalCatchUp({ year: '2025-26', balance: '400000', concessional: '40000', definedBenefit: false, earlier });
+  assert.deepEqual(r.earlierApplied, { '2022-23': { '2018-19': 20000, '2020-21': 2500 } });
+  assert.deepEqual([r.unusedCarried, r.carryForwardApplied], [27500, 10000]);
+  assert.deepEqual(r.applied, { '2020-21': 7500, '2023-24': 2500 });
+  const proposed = concessionalCatchUp({ year: '2025-26', balance: '400000', concessional: '40000', proposed: '20000',
+    definedBenefit: false, earlier });
+  assert.deepEqual([proposed.withProposal, proposed.excessWithProposal, proposed.remaining], [60000, 2500, 17500]);
+});
+
+test('catch-up refuses what it cannot work', () => {
+  const sixth = SAM.map((row) => (row.year === '2020-21' ? { ...row, contributions: '40000', balance: '1' } : row));
+  for (const [given, message] of [
+    [{ year: '2023-24' }, 'Choose 2024-25, 2025-26, 2026-27.'],
+    [{ definedBenefit: true }, /defined benefit interest changes what counts/],
+    [{ definedBenefit: 'no' }, 'Say whether the person has a defined benefit interest.'],
+    [{ earlier: SAM.slice(1) }, /from 2019-20 to 2023-24, and of any years before them back to 2018-19 without a gap/],
+    [{ earlier: [...SAM, { year: '2024-25', contributions: '0' }] }, /give none for 2024-25 or later/],
+    [{ earlier: SAM.filter((row) => row.year !== '2021-22') }, /without a gap/],
+    [{ earlier: [{ year: '2017-18', contributions: '0' }, ...SAM] }, /back to 2018-19/],
+    [{ earlier: SAM.map((row) => (row.year === '2022-23' ? { ...row, contributions: '30000' } : row)) },
+      /2022-23’s concessional contributions exceed its \$27,500 cap: give its total super balance/],
+    [{ earlier: sixth }, /2020-21’s concessional contributions exceed its cap, so unused cap from 2018-19 onwards/],
+    [{ balance: '-1' }, /^Total super balance on 30 June before the year: Enter an amount between 0/],
+    [{ proposed: '1.001' }, /^Proposed contribution: Enter a number with no more than 2 decimal places/],
+    [{ earlier: SAM.map((row) => ({ ...row, balance: 'x' })) }, /^2019-20 total super balance: Enter a number/],
+  ]) {
+    assert.throws(() => catchUp(given), { message }, JSON.stringify(given));
+  }
+  // A blank proposal or earlier balance is not given.
+  assert.equal(catchUp({ proposed: ' ', earlier: SAM.map((row) => ({ ...row, balance: '' })) }).withProposal, null);
+});
+
+test('the catch-up form refuses a balance for a year without contributions', () => {
+  const fields = { year: '2024-25', balance: '0', concessional: '0', proposed: '', 'defined-benefit': 'no' };
+  const value = (name) => fields[name] ?? (name === 'balance-2018-19' ? '1' : '');
+  assert.throws(() => individualResult('concessional-catch-up', value, String), {
+    message: 'Enter 2018-19’s concessional contributions, or clear its balance.' });
+});
+
+// australian-tax-calculators 1.0.0, the release the page ports: see the fixture's engine line.
+test('catch-up agrees with the australian-accounting engine on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./concessional-catch-up-engine-differential.json', import.meta.url), 'utf8'));
+  const tag = (year) => year.replace('-', '_');
+  assert.ok(cases.length > 240);
+  assert.ok(cases.filter((c) => c.refused).length > 40);
+  for (const { source, call, amounts, expiry, refused } of cases) {
+    if (refused) {
+      assert.throws(() => concessionalCatchUp(call), Error, `${source}: the engine refused, ${refused}`);
+      continue;
+    }
+    const r = concessionalCatchUp(call);
+    const mine = { unused_concessional_cap: r.unusedCarried, concessional_available: r.available,
+      carry_forward_applied: r.carryForwardApplied, concessional_remaining: r.remaining, excess_concessional: r.excess,
+      unused_cap_expiring: r.expiring,
+      ...(r.withProposal === null ? {} : { contributions_with_proposal: r.withProposal,
+        excess_with_proposal: r.excessWithProposal }) };
+    for (const [to, from] of Object.entries(r.earlierApplied)) {
+      for (const [year, value] of Object.entries(from)) mine[`applied_${tag(year)}_in_${tag(to)}`] = value;
+    }
+    for (const [year, value] of Object.entries(r.applied)) mine[`applied_${tag(year)}_in_${tag(call.year)}`] = value;
+    assert.deepEqual(Object.fromEntries(Object.entries(mine).map(([key, value]) => [key, value.toFixed(2)])), amounts, source);
+    assert.deepEqual(r.years.map((row) => ({ ...row, remaining: row.remaining.toFixed(2) })), expiry, source);
   }
 });
