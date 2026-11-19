@@ -558,6 +558,53 @@ const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full i
   + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
   + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
 
+const SOLE_TRADER_DESCRIPTION = 'What an Australian resident sole trader sets aside in AUD for a full income year: the income '
+  + 'tax, Medicare levy, any Medicare levy surcharge and study loan repayment that the business profit adds to any wages, '
+  + 'after the small business income tax offset (16% of the share of basic income tax liability on net small business '
+  + 'income, at most $1,000), plus the GST on the business income less GST credits when registered, as a share of each '
+  + 'invoice and an amount each quarter, month and week, each rounded half up to the cent. It assumes all sales are '
+  + 'taxable supplies, the wages were withheld from as though they were the only income, a single person with no '
+  + 'dependants, an adult, and a study loan debt at least the repayment; it refuses a business loss and GST credits '
+  + `above the GST on income. Sources on ${INDIVIDUAL}sole-trader/.`;
+
+/** @param {typeof import('./sole-trader.mjs').soleTraderSetAside} soleTraderSetAside @param {string[]} years */
+const soleTraderTool = (soleTraderSetAside, years) => tool({
+  name: 'calculate_sole_trader_set_aside',
+  title: 'Sole trader tax set-aside calculator',
+  description: SOLE_TRADER_DESCRIPTION,
+  inputSchema: record({
+    incomeYear: choice(years, `Income year, ${years.at(-1)} to ${years[0]}.`),
+    businessIncome: text('amount', 'Business income for the year excluding GST, in AUD with at most 2 decimal places.'),
+    businessExpenses: text('amount', 'Deductible business expenses for the year excluding GST, in AUD; "0" when omitted.'),
+    wages: text('amount', 'Salary and wages from a job for the year before tax, in AUD; "0" when omitted.'),
+    otherDeductions: text('amount', 'Tax agent fees and gifts claimed, in AUD; "0" when omitted.'),
+    personalSuperContributions: text('amount', 'Personal super contributions claimed as a deduction, in AUD; they also '
+      + 'count in study loan repayment income and income for surcharge purposes; "0" when omitted.'),
+    smallBusinessOffset: { type: 'boolean', description: 'false when the business does not qualify for the small business '
+      + 'income tax offset (aggregated turnover of $5 million or more, or personal services income outside a personal '
+      + 'services business); true when omitted.' },
+    studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+    privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+    registeredForGst: { type: 'boolean', description: 'true when the business is registered for GST; false when omitted.' },
+    gstCredits: text('amount', 'GST credits on business purchases for the year, in AUD; "0" when omitted.'),
+    invoice: text('amount', 'One invoice as charged, GST included when registered, in AUD; "0" when omitted.'),
+  }, ['incomeYear', 'businessIncome']),
+  run({ incomeYear, businessIncome, businessExpenses = '0', wages = '0', otherDeductions = '0',
+    personalSuperContributions = '0', smallBusinessOffset = true, studyLoan = false, privateHospitalCover = true,
+    registeredForGst = false, gstCredits = '0', invoice = '0' }) {
+    const r = soleTraderSetAside({ year: incomeYear, income: businessIncome, expenses: businessExpenses, wages,
+      deductions: otherDeductions, super: personalSuperContributions, offset: smallBusinessOffset, studyLoan,
+      hospitalCover: privateHospitalCover, gst: registeredForGst, credits: gstCredits, invoice });
+    return {
+      businessProfit: dollars(r.profit), taxableIncome: dollars(r.taxable), smallBusinessIncomeTaxOffset: dollars(r.smallBusinessOffset),
+      totalTaxLeviesAndRepayment: dollars(r.total), onWagesAlone: dollars(r.wagesTax), businessTax: dollars(r.businessTax),
+      gst: dollars(r.gst), setAsideYear: dollars(r.setAside), setAsideQuarter: dollars(r.quarterly),
+      setAsideMonth: dollars(r.monthly), setAsideWeek: dollars(r.weekly), invoiceSharePercent: r.invoiceShare.toFixed(2),
+      setAsideFromInvoice: dollars(r.invoice.setAside), currency: 'AUD', source: `${INDIVIDUAL}sole-trader/`,
+    };
+  },
+});
+
 const INCOME_TESTS_DESCRIPTION = 'The income measures that the tax return of one person resident in Australia all year feeds, '
   + 'for 2024-25 to 2026-27, in '
   + 'whole AUD: income for surcharge purposes (Medicare levy surcharge), Division 293 income, rebate income (seniors and '
@@ -586,13 +633,16 @@ const INCOME_TEST_INPUTS = /** @type {const} */ ([['taxableIncome', 'taxable', '
   ['businessDeductions', 'businessDeductions', 'Deductions from carrying on a business.']]);
 
 /**
- * WebMCP descriptors for the income tax estimate, take-home pay and income tests calculators, keyed by
- * the `data-calculator` name of the form whose page registers them.
+ * WebMCP descriptors for the income tax estimate, take-home pay, sole trader set-aside and income tests
+ * calculators, keyed by the `data-calculator` name of the form whose page registers them.
  * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
  *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay,
- *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[]}} engines
+ *   soleTraderSetAside: typeof import('./sole-trader.mjs').soleTraderSetAside,
+ *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[],
+ *   soleTraderYears: string[]}} engines
  */
-export function individualTaxTools({ taxEstimate, takeHomePay, incomeTests, incomeYears, payYears }) {
+export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAside, incomeTests, incomeYears, payYears,
+  soleTraderYears }) {
   return {
     'income-tests': tool({
       name: 'calculate_income_tests',
@@ -681,5 +731,6 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeTests, inco
         };
       },
     }),
+    'sole-trader': soleTraderTool(soleTraderSetAside, soleTraderYears),
   };
 }
