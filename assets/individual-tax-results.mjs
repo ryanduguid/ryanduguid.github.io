@@ -126,7 +126,7 @@ function catchUpResult(value, aud) {
   const year = value('year');
   const r = concessionalCatchUp({ year, balance: value('balance'), concessional: value('concessional'),
     ...(proposed === '' ? {} : { proposed }), definedBenefit: value('defined-benefit') === 'yes', earlier });
-  const rows = [['General concessional cap', aud(r.cap)], ['Unused cap carried in from the previous 5 years', aud(r.unusedCarried)],
+  const rows = [['General concessional cap', aud(r.cap)], ['Unused cap from the previous 5 years', aud(r.unusedCarried)],
     ['Concessional cap available', aud(r.available)], ['Carried-forward cap applied', aud(r.carryForwardApplied)],
     ['Cap left after this year’s contributions', aud(r.remaining)], ['Excess concessional contributions', aud(r.excess)]];
   if (r.withProposal !== null) {
