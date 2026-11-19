@@ -517,7 +517,7 @@ const BONUS_WITHHOLDING_DESCRIPTION = 'PAYG withholding in AUD from one 2026-27 
   + 'back payment, commission, bonus or similar payment, by the methods of the ATO\'s Schedule 5 for payments made from '
   + '1 July 2026, on scale 2 (resident claiming the tax-free threshold) or scale 3 (foreign resident), with the Schedule 8 '
   + 'study loan component when the payee has one. Method A spreads the payment over the pays in a year, or fewer for a '
-  + 'payment for a shorter defined period, and limits it to 47%. Method B works a back payment for earlier pays this year '
+  + 'commission or bonus for a defined period under 12 months, and limits it to 47%. Method B works a back payment for earlier pays this year '
   + 'by B(i), each pay with the same earnings, back payment and earlier withholding, and any other payment by B(ii) on '
   + 'the average earnings to date, limited to 47%. Method A also gives the tax and study loan repayment the payment adds '
   + 'to a year of this pay. It does not compute scales 1, 5 or 6, a payee without a tax file number, a working holiday '
@@ -611,13 +611,14 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payY
         earnings: text('amount', 'Gross earnings this pay without any additional payment, in AUD.'),
         additionalPayment: text('amount', 'The bonus, commission or other additional payment in AUD; under Method B, the part '
           + 'worked by B(ii). "0" when omitted.'),
-        spreadOverPays: whole(2, 52, 'Method A: pays to spread the payment over, at most the pays in a year; the pays in a year when omitted.'),
+        spreadOverPays: whole(2, 52, 'Method A: pays to spread the payment over: the pays in a year, or for a commission or bonus '
+          + 'for a defined period under 12 months, the pays it covers; the pays in a year when omitted.'),
         backPayPays: whole(0, 52, 'Method B(i): earlier pays this year the back payment covers; 0 when omitted.'),
         backPayEach: text('amount', 'Method B(i): back payment for each of those pays in AUD; "0" when omitted.'),
         backPayPayEarnings: text('amount', 'Method B(i): earnings each of those pays had before it in AUD; "0" when omitted.'),
         backPayPayWithheld: text('amount', 'Method B(i): amount withheld from each of those pays in AUD; "0" when omitted.'),
-        earningsToDate: text('amount', 'Method B(ii): normal earnings this year to date, with this pay and earlier B(i) back '
-          + 'payments, in AUD; "0" when omitted.'),
+        earningsToDate: text('amount', 'Method B(ii): normal earnings this year to date, with this pay and B(i) back payments '
+          + 'made in earlier pays (not this pay’s), in AUD; "0" when omitted.'),
         paysToDate: whole(1, 53, 'Method B(ii): pays this year to date, with this pay; 1 when omitted.'),
         earlierAdditionalPayments: text('amount', 'Method B(ii): earlier additional payments this year worked by B(ii), in AUD; '
           + '"0" when omitted.'),
