@@ -510,7 +510,16 @@ export function frankingAccountResult(value, audText) {
   if (r.labelK) rows.push(['Debits not subject to the reduction (label K)', audText(r.labelK)]);
   rows.push(['Over-franking tax (label D)', audText(r.oft)]);
   const principal = rows.length;
-  rows.push([r.required ? `Franking tax payable (label E), due ${plainDay(/** @type {string} */ (r.due))}` : 'Franking tax payable (label E)', audText(r.payable)]);
+  // s 214-150(4): tax from a refund s 205-50(2) takes into the year has its own due date.
+  const taken = r.refunds.filter((x) => x.taken);
+  const annual = Math.round((r.payable - r.fdtFromRefunds) * 100) !== 0;
+  const due = r.required && (annual || !taken.length) ? `, due ${plainDay(/** @type {string} */ (r.due))}${taken.length ? ' but for the refund tax below' : ''}` : '';
+  rows.push([`Franking tax payable (label E)${due}`, audText(r.payable)]);
+  for (const x of taken) {
+    const withReturn = x.dueWithReturn ? `${plainDay(x.dueWithReturn)} if in the outstanding return, otherwise ` : '';
+    rows.push([`Of it, from the refund received ${plainDay(x.date)}, due ${withReturn}${plainDay(/** @type {string} */ (x.dueOtherwise))} (s 214-150(4))`,
+      audText(/** @type {number} */ (x.fdtAdded))]);
+  }
   if (r.offsetUsed !== null) {
     rows.push(['Offset used against this year’s income tax', audText(r.offsetUsed)],
       ['Offset carried forward', audText(/** @type {number} */ (r.offsetCarried))]);

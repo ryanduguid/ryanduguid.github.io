@@ -3634,6 +3634,27 @@ test('the franking account page opens on EKW Ltd’s result and cites each sourc
   assert.deepEqual(offered, Object.keys(calculations.FRANKING_EVENTS));
 });
 
+test('the franking account page dates tax from a refund after the year’s end under s 214-150(4)', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const blank = Object.fromEntries([3, 4, 5].flatMap((i) => ['date', 'amount', 'rd'].map((k) => [`event-${i}-${k}`, ''])));
+  const page = (overrides) => {
+    const fields = { ...formDefaults(frankingHtml), ...blank, opening: '0', 'event-1-type': 'payg_instalment', 'event-1-date': '2025-10-28',
+      'event-1-amount': '5000', 'event-1-rd': '', 'event-2-type': 'income_tax_refund', 'event-2-amount': '20000', 'event-2-rd': '',
+      'distribution-1-date': '', 'distribution-1-amount': '', 'distribution-1-credit': '', 'distribution-1-permitted': '', ...overrides };
+    return calculations.frankingAccountResult((name) => fields[name], aud).rows.map((row) => row.join('|'));
+  };
+  // No return outstanding: the whole tax is the refund's, due 14 days after it.
+  const late = page({ 'event-2-date': '2026-08-15' });
+  assert.ok(late.includes('Franking tax payable (label E)|$15,000.00'), late.join('\n'));
+  assert.ok(late.includes('Of it, from the refund received 15 August 2026, due 29 August 2026 (s 214-150(4))|$15,000.00'), late.join('\n'));
+  // A deficit before the refund leaves a return outstanding, whose due date the refund's tax may take.
+  const outstanding = page({ 'event-2-date': '2026-07-15', 'distribution-1-date': '2025-09-30', 'distribution-1-amount': '14000',
+    'distribution-1-credit': '6000' });
+  assert.ok(outstanding.includes('Franking tax payable (label E), due 31 July 2026 but for the refund tax below|$21,000.00'), outstanding.join('\n'));
+  assert.ok(outstanding.includes('Of it, from the refund received 15 July 2026, due 31 July 2026 if in the outstanding return, otherwise 29 July 2026 (s 214-150(4))|$20,000.00'),
+    outstanding.join('\n'));
+});
+
 // ATO Key superannuation rates and thresholds, Table 21, read 19 November 2026: Norfolk Island's
 // transitional rate is 11% for 2026-27 and 7% to 10% for 2022-23 to 2025-26.
 test('the SGC page refuses Norfolk Island salary or wages under either law rather than apply the general rate', () => {
