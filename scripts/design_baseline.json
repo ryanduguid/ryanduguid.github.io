@@ -216,7 +216,7 @@
       "48d9efcea35f393ed85e18c36550a81325c64291ad8b8292addb5b662017de4e"
     ],
     "tools/business-calculators/sgc-payday/index.html": [
-      "7239480ac9b3d488803ae616c4a77491c297acb75d02af1b0b59b0983887c926"
+      "8b98d1ee6c37ababb245fc0a72470e3e800ba166dc7505248d396cc3f313092d"
     ],
     "tools/business-calculators/staff/index.html": [
       "18cb2ea2bdf64673742c95515d6085dac73f05327d8f54c68bd7c2879d0dc2fe"
@@ -339,7 +339,7 @@
   "protected_files": {
     "llms.txt": "061874423436838ba0d156820adf6c1d8c40ab127acd3757914a6fea5c4c0134",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "ce7b2b1d7d70283492c273b635aa0ab7eaaeb9ac0b287a4a9d882d377c5d4940"
+    "sitemap.xml": "8479d071de3078fe7327d4006af21f6d49ab81e36881ea3c8c2b5f9f41f2e311"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
