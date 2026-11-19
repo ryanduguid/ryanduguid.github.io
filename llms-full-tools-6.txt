@@ -158,7 +158,7 @@ Kind of expense payment External: the payment or reimbursement, with the otherwi
 
 Where your payment ignored the business share, the employee’s deduction for their part is (expenditure − payment) × the share; where it covered that share, expenditure × the share − payment, never below nil.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: external, expenditure $500.00, paid or reimbursed $250.00, employee contribution $0.00, 80% income use, deduction for the recipient’s portion $200.00. Payment or reimbursement $250.00 Employee contribution applied $0.00 Excess contribution $0.00 Value after the contribution $250.00 Gross deduction $400.00 Deduction for the recipient’s portion applied $200.00 Notional deduction $200.00 Otherwise deductible reduction $200.00 Taxable value $50.00
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: external, expenditure $500.00, paid or reimbursed $250.00, employee contribution $0.00, 80% income use, deduction for the recipient’s portion $200.00. Payment or reimbursement $250.00 Employee contribution applied $0.00 Excess contribution $0.00 Value after the contribution $250.00 Gross deduction $400.00 Deduction for the recipient’s portion applied $200.00 Notional deduction $200.00 Otherwise deductible reduction $200.00 Taxable value $50.00 The otherwise deductible reduction needs documentary evidence of the expenditure and, for most payments, the employee’s declaration before the declaration date (paragraphs 24(1)(c) and (e)).
 
 ## How the FBT expense payment calculator works
 
@@ -347,7 +347,7 @@ Valuation rule In-house under salary packaging: the notional value In-house good
 
 Each rule reads only its own price or notional value. Enter 0% income use for a depreciating asset costing $301 or more, a benefit to an associate, or without the employee’s declaration.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: in-house made and sold to the public, 75% of the lowest public price, lowest public price $900.00, employee contribution $500.00, 0% income use, deduction for the contribution $0.00, in-house reduction left $0.00. Value before the contribution $675.00 Employee contribution applied $500.00 Excess contribution $0.00 Value after the contribution $175.00 Gross deduction $0.00 Deduction for the contribution applied $0.00 Notional deduction $0.00 Otherwise deductible reduction $0.00 In-house reduction, section 62 $0.00 Taxable value $175.00
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: in-house made and sold to the public, 75% of the lowest public price, lowest public price $900.00, employee contribution $500.00, 0% income use, deduction for the contribution $0.00, in-house reduction left $0.00. Value before the contribution $675.00 Employee contribution applied $500.00 Excess contribution $0.00 Value after the contribution $175.00 Gross deduction $0.00 Deduction for the contribution applied $0.00 Notional deduction $0.00 Otherwise deductible reduction $0.00 In-house reduction, section 62 $0.00 Taxable value $175.00 The $1,000 in-house reduction in section 62 is for all of the employee’s in-house fringe benefits in the year together.
 
 ## How the FBT property calculator works
 

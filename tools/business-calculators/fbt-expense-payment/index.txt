@@ -18,7 +18,7 @@ Kind of expense payment External: the payment or reimbursement, with the otherwi
 
 Where your payment ignored the business share, the employee’s deduction for their part is (expenditure − payment) × the share; where it covered that share, expenditure × the share − payment, never below nil.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: external, expenditure $500.00, paid or reimbursed $250.00, employee contribution $0.00, 80% income use, deduction for the recipient’s portion $200.00. Payment or reimbursement $250.00 Employee contribution applied $0.00 Excess contribution $0.00 Value after the contribution $250.00 Gross deduction $400.00 Deduction for the recipient’s portion applied $200.00 Notional deduction $200.00 Otherwise deductible reduction $200.00 Taxable value $50.00
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: external, expenditure $500.00, paid or reimbursed $250.00, employee contribution $0.00, 80% income use, deduction for the recipient’s portion $200.00. Payment or reimbursement $250.00 Employee contribution applied $0.00 Excess contribution $0.00 Value after the contribution $250.00 Gross deduction $400.00 Deduction for the recipient’s portion applied $200.00 Notional deduction $200.00 Otherwise deductible reduction $200.00 Taxable value $50.00 The otherwise deductible reduction needs documentary evidence of the expenditure and, for most payments, the employee’s declaration before the declaration date (paragraphs 24(1)(c) and (e)).
 
 ## How the FBT expense payment calculator works
 
