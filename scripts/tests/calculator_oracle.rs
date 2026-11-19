@@ -6462,7 +6462,12 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             if app > 3_000_000 || premium < 24_000 {
                 return None;
             }
-            Some([premium, gst(premium), 0, premium + gst(premium) + cents_at(wages, c.dust)])
+            Some([
+                premium,
+                gst(premium),
+                0,
+                premium + gst(premium) + cents_at(wages, c.dust),
+            ])
         }
         "AU-VIC" => {
             if c.vic_employer == "other" {
@@ -6495,7 +6500,12 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             let premium = cents_at(wages, c.rate) - cents_at(c.apprentice, c.rate);
             // Duties Act 2001 (Qld) s 362(3): 5% of the premium, its GST included.
             let duty = wc_half((premium + gst(premium)) * 5, 100);
-            Some([premium, gst(premium), duty, (premium + gst(premium) + duty).max(minimum)])
+            Some([
+                premium,
+                gst(premium),
+                duty,
+                (premium + gst(premium) + duty).max(minimum),
+            ])
         }
         "AU-SA" => {
             // ReturnToWorkSA: BP × (1 − D) + C − A, D by the base premium's band in dollars,
@@ -6504,10 +6514,16 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             let d = if c.first_year {
                 0
             } else {
-                [(10_000, 5), (50_000, 10), (100_000, 15), (500_000, 20), (1_000_000, 25)]
-                    .iter()
-                    .find(|(dollars, _)| wages * c.rate < dollars * 100_000_000)
-                    .map_or(30, |&(_, d)| d)
+                [
+                    (10_000, 5),
+                    (50_000, 10),
+                    (100_000, 15),
+                    (500_000, 20),
+                    (1_000_000, 25),
+                ]
+                .iter()
+                .find(|(dollars, _)| wages * c.rate < dollars * 100_000_000)
+                .map_or(30, |&(_, d)| d)
             };
             let base = wages * c.rate * 100;
             let claims = if c.first_year {
@@ -6571,8 +6587,9 @@ fn wc_case(rng: &mut Seeded) -> (Value, Value) {
         (0, false) if rng.below(4) == 0 => 1 + i128::from(rng.below(1_000_000)),
         _ => 0,
     };
-    let actual = (rng.below(3) == 0)
-        .then(|| (wages * i128::from(80 + rng.below(41)) / 100 + i128::from(rng.below(100))).min(most));
+    let actual = (rng.below(3) == 0).then(|| {
+        (wages * i128::from(80 + rng.below(41)) / 100 + i128::from(rng.below(100))).min(most)
+    });
     let c = WcCase {
         place,
         wages,
@@ -6638,7 +6655,14 @@ fn the_wc_oracle_works_the_published_examples_by_hand() {
     );
     // ReturnToWorkSA's 3 examples: $8,550, $9,900 and $56,000 before GST.
     let sa = |wages, rate, claims| {
-        wc_premium(&WcCase { claims, ..case("AU-SA", wages, rate) }, wages).unwrap()[0]
+        wc_premium(
+            &WcCase {
+                claims,
+                ..case("AU-SA", wages, rate)
+            },
+            wages,
+        )
+        .unwrap()[0]
     };
     assert_eq!(
         [

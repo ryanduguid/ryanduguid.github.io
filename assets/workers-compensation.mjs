@@ -289,14 +289,18 @@ export function workersCompensationResult(value, aud) {
       [r.adjustment < 0 ? 'Adjustment: a credit, actual less estimate' : 'Adjustment: more to pay, actual less estimate', aud(Math.abs(r.adjustment))]);
   }
   const scheme = WC_SCHEMES[x.place];
-  const extra = { 'AU-SA': ', before the work health and safety fee, which carries no GST' }[x.place] ?? '';
+  /** @type {Partial<Record<WcPlace, string>>} */
+  const extras = { 'AU-SA': ', before the work health and safety fee, which carries no GST' };
+  const extra = extras[x.place] ?? '';
   const apprentices = r.apprentice ? `, apprentice wages ${aud(r.apprentice)}` : '';
-  const facts = {
+  /** @type {Partial<Record<WcPlace, string>>} */
+  const schemeFacts = {
     'AU-NSW': `${apprentices}, dust diseases rate ${x.dust}%, Safe Employer Reward ${x.reward}%`,
     'AU-VIC': `, ${x.vicEmployer === 'new' ? 'a new' : 'a small'} employer registered ${x.days} days${x.buyout === 'yes' ? ', excess bought out' : ''}`,
     'AU-QLD': `, policy commencing ${QLD_STARTS[/** @type {keyof typeof QLD_MINIMUM} */ (x.qldStart)]}${apprentices}`,
     'AU-SA': `${x.firstYear === 'yes' ? ', first full financial year registered' : `, claims costs ${aud(r.claims)}`}${apprentices}`,
-  }[x.place] ?? '';
+  };
+  const facts = schemeFacts[x.place] ?? '';
   return { inputs: `${scheme.name}, estimated wages ${aud(r.wages)}, rate ${value('rate')}%${facts}`
     + `${r.actualWages === null ? '' : `, actual wages ${aud(r.actualWages)}`}`,
   rows, principal, note: [...r.notes, `An estimate for a 2026-27 policy${extra}; ${scheme.insurer}’s notice is the premium`].join('. ') };
