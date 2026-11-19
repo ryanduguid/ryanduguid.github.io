@@ -3191,7 +3191,7 @@ test('the SGC page opens on the result its calculation gives for the form’s in
 const lslHtml = readFileSync(new URL('../_includes/calculators/long-service-leave.html', import.meta.url), 'utf8');
 Object.assign(INPUTS, { longServiceLeave: (x) => `${PLACES[x.place]}, ${plainDate(x.start)} to ${plainDate(x.end)}`
   + `${x.excluded === '0' ? '' : `, ${x.excluded} days excluded`}, `
-  + `${x.mode === 'ends' ? `ends by ${calculations.LSL_REASONS[x.reason]}` : 'still employed'}${x.taken === '0' ? '' : `, ${x.taken} weeks taken`}, `
+  + `${x.mode === 'ends' ? `ends by ${calculations.lslReasonText(x.place, x.reason)}` : 'still employed'}${x.taken === '0' ? '' : `, ${x.taken} weeks taken`}, `
   + `pay ${dollars(Number(x.pay))} a week` });
 Object.assign(FORM_CALLS, { longServiceLeave: (f) => [{ place: f.jurisdiction, start: f.start, end: f.end, excluded: f.excluded,
   taken: f.taken, mode: f.mode, reason: f.reason, pay: f.pay }] });
@@ -3302,18 +3302,24 @@ test('Queensland counts a part year’s days over 364 and flags an unfair dismis
   assert.ok(!lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason: 'resign' }).rule.includes('unfair'));
 });
 
-test('long service leave states the conditions an Act puts on a reason that does not qualify before the full period', () => {
+test('long service leave words each Act’s misconduct test and states the conditions it cannot decide', () => {
   // 9 years of service, or 6 in the ACT, whose full period is 7 years.
   const ends = (place, reason) => lsl({ place, start: place === 'AU-ACT' ? '2020-01-01' : '2017-01-01', end: '2025-12-31', mode: 'ends', reason });
-  // NSW s 4(2)(a)(iii), SA s 5(4)(a), Tas s 8(3)(d) and ACT s 11C(1)(a)(iv) withhold pro rata only for serious and wilful misconduct.
+  const shown = (place, reason) => calculations.longServiceLeaveResult((name) => ({ jurisdiction: place, start: '2017-01-01', end: '2025-12-31',
+    excluded: '0', taken: '0', mode: 'ends', reason, pay: '1500' })[name], String).inputs;
+  // NSW s 4(2)(a)(iii), SA s 5(4)(a), Tas s 8(3)(d) and ACT s 11C(1)(a)(iv) withhold pro rata only for serious and wilful
+  // misconduct, so a serious but not wilful dismissal is the dismissal short of it, which pays.
   for (const place of ['AU-NSW', 'AU-SA', 'AU-TAS', 'AU-ACT']) {
-    const r = ends(place, 'misconduct');
-    assert.deepEqual([r.weeks, r.rule.endsWith('only if the misconduct was serious and wilful: otherwise choose the dismissal short of serious misconduct, which qualifies')],
-      [0, true], place);
+    assert.deepEqual([ends(place, 'misconduct').weeks, ends(place, 'misconduct').rule.startsWith(
+      `Under ${calculations.LSL_ACTS[place].full} years, dismissal for serious and wilful misconduct does not qualify`)], [0, true], place);
     assert.ok(ends(place, 'performance').weeks > 0, place);
+    assert.ok(shown(place, 'performance').includes('ends by dismissal for conduct, capacity or performance short of serious and wilful misconduct,'), place);
   }
   // WA s 8(3) and NT s 10(2) say serious misconduct, without 'wilful'.
-  for (const place of ['AU-WA', 'AU-NT']) assert.ok(!ends(place, 'misconduct').rule.includes('wilful'), place);
+  for (const place of ['AU-WA', 'AU-NT']) {
+    assert.ok(!ends(place, 'misconduct').rule.includes('wilful'), place);
+    assert.ok(shown(place, 'misconduct').includes('ends by dismissal for serious misconduct,'), place);
+  }
   // SA s 5(4)(b): leaving without the required notice is an unlawful termination only where the notice was required.
   assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
   assert.ok(ends('AU-SA', 'resign').weeks > 0);

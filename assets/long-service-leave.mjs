@@ -60,6 +60,13 @@ export const LSL_REASONS = {
   death: 'the employee’s death',
 };
 
+/** The Acts that withhold pro rata leave for serious and wilful misconduct, not serious misconduct alone:
+ * NSW s 4(2)(a)(iii), SA s 5(4)(a), Tas s 8(3)(d) and ACT s 11C(1)(a)(iv). */
+const WILFUL = ['AU-NSW', 'AU-SA', 'AU-TAS', 'AU-ACT'];
+/** A reason in the words of the Act chosen. @param {LslPlace} place @param {LslReason} reason */
+export const lslReasonText = (place, reason) => (WILFUL.includes(place) && (reason === 'misconduct' || reason === 'performance')
+  ? LSL_REASONS[reason].replace('serious misconduct', 'serious and wilful misconduct') : LSL_REASONS[reason]);
+
 /** The reasons each Act pays a pro rata amount for before the full qualifying period, with the
  * provision. Victoria pays nothing before 7 years on any ground.
  * @type {Partial<Record<LslPlace, [LslReason[], string]>>} */
@@ -84,17 +91,13 @@ const UNSETTLED = {
     death: 'Under 10 years, the NT Act pays on death what the employee would have been paid for leaving that day for a reason in subsection 10(2) (subsection 10(3)): choose that reason instead.' },
 };
 
-const WILFUL = ', only if the misconduct was serious and wilful: otherwise choose the dismissal short of serious misconduct, which qualifies';
 const UNFAIR = ', unless the dismissal was unfair, which subparagraph 95(4)(c)(iii) pays for and this calculator does not decide';
 /** Conditions an Act puts on a reason that does not qualify before the full qualifying period,
  * stated in the row because the calculator cannot decide them.
  * @type {Partial<Record<LslPlace, Partial<Record<LslReason, string>>>>} */
 const CONDITIONS = {
-  'AU-NSW': { misconduct: WILFUL },
   'AU-QLD': { performance: UNFAIR, misconduct: UNFAIR },
-  'AU-SA': { misconduct: WILFUL, 'no-notice': ', as SafeWork SA reads leaving without the required notice as an unlawful termination by the worker: if the employer waived the notice, choose resignation' },
-  'AU-TAS': { misconduct: WILFUL },
-  'AU-ACT': { misconduct: WILFUL },
+  'AU-SA': { 'no-notice': ', as SafeWork SA reads leaving without the required notice as an unlawful termination by the worker: if the employer waived the notice, choose resignation' },
 };
 
 const DAY = 86400000;
@@ -203,7 +206,7 @@ function proRata(place, s, reason) {
   if (unsettled) throw new Error(unsettled);
   const [reasons, provision] = /** @type {[LslReason[], string]} */ (EARLY[place]);
   if (!reasons.includes(reason)) {
-    return outcomeOf([0n, 1n], `Under ${full} years, ${LSL_REASONS[reason]} does not qualify for pro rata leave, ${provision}`
+    return outcomeOf([0n, 1n], `Under ${full} years, ${lslReasonText(place, reason)} does not qualify for pro rata leave, ${provision}`
       + `${CONDITIONS[place]?.[reason] ?? ''}`);
   }
   if (place === 'AU-SA' || place === 'AU-NT') {
@@ -320,7 +323,7 @@ export function longServiceLeaveResult(value, aud) {
   const note = r.next ? `${count(r.next.years, 'year')} of service completes on ${plainDay(dayOf(r.next.date))}, when the leave to take becomes ${weeksText(r.next.weeks)}, if no more days are excluded`
     : ends ? undefined : `Leave accrues continuously from here under the ${act.act}`;
   return { inputs: `${act.name}, ${act.act}, service from ${plainDay(dayOf(input.start))} to ${plainDay(dayOf(input.end))}${excluded}, `
-    + `${ends ? `employment ends by ${LSL_REASONS[input.reason]}` : 'still employed'}, `
+    + `${ends ? `employment ends by ${lslReasonText(input.place, input.reason)}` : 'still employed'}, `
     + `${r.taken ? weeksText(r.taken) : 'no leave'} already taken or paid, ordinary pay ${aud(Number(cents(input.pay)) / 100)} a week`,
   rows, principal: rows.length - 1, note };
 }

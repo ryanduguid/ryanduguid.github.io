@@ -339,7 +339,8 @@ const longServiceLeaveTool = (longServiceLeave) => tool({
     reason: choice(LSL_REASON_CODES, 'Why employment ends, required when employment is "ends": "resign", "pressing" (resignation for illness, '
       + 'incapacity or a domestic or other pressing necessity), "no-notice" (resignation without the notice the contract requires), "retire" '
       + '(at or after the retiring age), "redundancy" (or another dismissal not about conduct, capacity or performance), "illness-dismissal", '
-      + '"performance" (dismissal for conduct, capacity or performance short of serious misconduct), "misconduct" (serious misconduct), '
+      + '"performance" (dismissal for conduct, capacity or performance short of serious misconduct, or of serious and wilful misconduct in NSW, '
+      + 'SA, Tasmania and the ACT), "misconduct" (serious misconduct, or serious and wilful misconduct in NSW, SA, Tasmania and the ACT), '
       + '"fixed-term" or "death".'),
     takenWeeks: text('rate', 'Weeks of long service leave already taken or paid, with at most 4 decimal places; "0" when omitted.'),
     weeklyPay: text('amount', 'Ordinary pay a week in AUD with at most 2 decimal places, no more than 1000000.'),
