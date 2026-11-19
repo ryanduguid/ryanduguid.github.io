@@ -6033,7 +6033,9 @@ fn margin_scheme_case(rng: &mut Seeded) -> (Value, Value) {
             "method": method, "price": dollars(price), "basis": if exclusive { "exclusive" } else { "inclusive" },
             "cost": dollars(cost), "part": measure(part), "whole": measure(whole),
         }),
-        margin_scheme_oracle(interest, agreed, acquired, exclusive, price, cost, part, whole),
+        margin_scheme_oracle(
+            interest, agreed, acquired, exclusive, price, cost, part, whole,
+        ),
     )
 }
 
@@ -6057,10 +6059,16 @@ fn the_margin_scheme_engine_agrees_with_the_oracle_on_every_seeded_case() {
 #[test]
 fn the_margin_scheme_oracle_gives_the_rulings_examples() {
     let gst = |exclusive, price, cost, part, whole| {
-        margin_scheme_oracle("freehold", true, "margin", exclusive, price, cost, part, whole)["schemeGst"].clone()
+        margin_scheme_oracle(
+            "freehold", true, "margin", exclusive, price, cost, part, whole,
+        )["schemeGst"]
+            .clone()
     };
     assert_eq!(gst(false, 40_000_000, 18_000_000, 1, 1), "20000");
     assert_eq!(gst(false, 14_000_000, 24_000_000, 800, 2000), "4000");
-    assert_eq!(gst(false, 19_000_000, 40_000_000, 200_000, 2_000_000), "13636.36");
+    assert_eq!(
+        gst(false, 19_000_000, 40_000_000, 200_000, 2_000_000),
+        "13636.36"
+    );
     assert_eq!(gst(true, 9_636_400, 6_000_000, 1, 1), "3636.4");
 }
