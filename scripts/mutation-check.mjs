@@ -25,6 +25,7 @@ const studyLoan = { file: 'assets/study-loan.mjs', test: individualTest };
 const takeHome = { file: 'assets/take-home-pay.mjs', test: individualTest };
 const withholding = { file: 'assets/payg-withholding.mjs', test: individualTest };
 const estimate = { file: 'assets/tax-estimate.mjs', test: individualTest };
+const incomeTests = { file: 'assets/income-tests.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -39,6 +40,7 @@ const companyTax = { ...business, file: 'assets/company-tax.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
+const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 
 const MUTATIONS = [
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
@@ -218,6 +220,17 @@ const MUTATIONS = [
   { ...division296, name: 'Division 296 shows a negative component as nil', find: 'component: shown(component, 10000n)', replace: 'component: shown(component < 0n ? 0n : component, 10000n)' },
   { ...division296, name: 'Division 296 accepts an exception answered with text', find: "typeof flag !== 'boolean'", replace: 'false' },
 
+  { ...incomeTests, name: 'income tests round section 57A benefits to the nearest dollar', find: 'Math.floor((p.fringe57a * 53) / 100)', replace: 'Math.round((p.fringe57a * 53) / 100)' },
+  { ...incomeTests, name: 'income tests count section 57A benefits in full where adjusted', find: 'Math.floor((p.fringe57a * 53) / 100)', replace: 'p.fringe57a' },
+  { ...incomeTests, name: 'income tests take reportable super contributions below nil', find: 'Math.max(0, p.employerSuper + p.personalSuper - p.excessConcessional)', replace: 'p.employerSuper + p.personalSuper - p.excessConcessional' },
+  { ...incomeTests, name: 'income tests keep the FHSS released amount', find: 'Math.max(0, p.taxable - p.fhss)', replace: 'p.taxable' },
+  { ...incomeTests, name: 'Division 293 income keeps reportable super contributions', find: 'division293Income: surcharge - contributions', replace: 'division293Income: surcharge' },
+  { ...incomeTests, name: 'rebate income adds family trust distribution amounts', find: 'rebateIncome: taxable + contributions', replace: 'rebateIncome: taxable + p.familyTrust + contributions' },
+  { ...incomeTests, name: 'adjusted taxable income ignores child support', find: '+ contributions - p.childSupport,', replace: '+ contributions,' },
+  { ...incomeTests, name: 'repayment income takes the adjusted fringe benefits total', find: 'repaymentIncome: taxable + losses + fringe', replace: 'repaymentIncome: taxable + losses + adjustedFringe' },
+  { ...incomeTests, name: 'co-contribution income keeps business deductions', find: '+ coEmployer - p.businessDeductions,', replace: '+ coEmployer,' },
+  { ...incomeTests, name: 'income tests accept a part larger than its whole', find: 'if (p[part] > p[whole]) throw', replace: 'if (false) throw' },
+  { ...incomeTests, name: 'income tests accept a person not resident all year', find: 'if (!parts.resident) throw', replace: 'if (false) throw' },
   { ...incomeTax, name: '2026-27 starts at 16%', find: "'2026-27': [[18200, 15]", replace: "'2026-27': [[18200, 16]" },
   { ...incomeTax, name: 'foreign residents reach 37% at $120,000', find: '[[0, 30], [135000, 37]', replace: '[[0, 30], [120000, 37]' },
   { ...incomeTax, name: 'working holiday makers reach 30% at $37,000', find: '[[0, 15], [45000, 30]', replace: '[[0, 15], [37000, 30]' },
@@ -411,6 +424,33 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC quarterly administration applies with no shortfall', find: 'shortfall > 0 ? 2000 : 0', replace: '2000' },
   { ...sgc, name: 'SGC quarterly lodgment day is the 28th of the next month', find: 'Date.UTC(first, month + 4, 28)', replace: 'Date.UTC(first, month + 3, 28)' },
   { ...sgc, name: 'SGC quarterly 29 February is not refused', find: "if (isoOf(day).endsWith('-02-29')) {", replace: 'if (false) {' },
+  { ...lsl, name: 'LSL NSW pro rata from 4 years', find: "(NSW)', full: 10, early: 5", replace: "(NSW)', full: 10, early: 4" },
+  { ...lsl, name: 'LSL Victoria needs 10 years', find: "(Vic)', full: 7, early: 7", replace: "(Vic)', full: 10, early: 7" },
+  { ...lsl, name: 'LSL service leaves out the last day', find: 'const until = end + 1 - excluded;', replace: 'const until = end - excluded;' },
+  { ...lsl, name: 'LSL a year completes a day early', find: 'while (anniversary(start, years + 1) <= until)', replace: 'while (anniversary(start, years + 1) <= until + 1)' },
+  { ...lsl, name: 'LSL a period from 29 February or the 31st ends a day early', find: 'Date.UTC(year, inYear + 1, 1)', replace: 'Date.UTC(year, inYear, last)' },
+  { ...lsl, name: 'LSL part years drop the days', find: '+ s.days * 1200)', replace: '+ 0)' },
+  { ...lsl, name: 'LSL 8 2/3 weeks become 8 1/8', find: 'at(years, 13n, 15n)', replace: 'at(years, 13n, 16n)' },
+  { ...lsl, name: 'LSL 1.3 weeks a year become 1.2', find: 'at(years, 13n, 10n)', replace: 'at(years, 12n, 10n)' },
+  { ...lsl, name: 'LSL 1/60th of the period is taken over 365 days', find: '[BigInt(days), 420n]', replace: '[BigInt(days), 365n]' },
+  { ...lsl, name: 'LSL NSW a resignation under 10 years pays', find: "'AU-NSW': [['redundancy',", replace: "'AU-NSW': [['resign', 'redundancy'," },
+  { ...lsl, name: 'LSL SA serious misconduct under 10 years pays', find: "'performance', 'fixed-term', 'death'], 'subsections", replace: "'performance', 'misconduct', 'fixed-term', 'death'], 'subsections" },
+  { ...lsl, name: 'LSL an unsettled reason is guessed', find: 'if (unsettled) throw new Error(unsettled);', replace: 'if (false) throw new Error(unsettled);' },
+  { ...lsl, name: 'LSL ACT pro rata drops the completed months', find: 'twoMonths(completedMonths(s))', replace: 'twoMonths(completedYears(s))' },
+  { ...lsl, name: 'LSL NSW after 15 years keeps the part year', find: "case 'AU-NSW': if (s.years < 15)", replace: "case 'AU-NSW': if (s.years < 99)" },
+  { ...lsl, name: 'LSL WA serious misconduct after 10 years pays each completed year', find: "case 'AU-WA': if (reason === 'misconduct')", replace: "case 'AU-WA': if (reason === 'none')" },
+  { ...lsl, name: 'LSL NT serious misconduct after 10 years pays each completed year', find: "default: if (reason === 'misconduct')", replace: "default: if (reason === 'none')" },
+  { ...lsl, name: 'LSL Tasmania death after 10 years drops the time since', find: 'outcomeOf(plus(blockWeeks(s), sixtieth(since))', replace: 'outcomeOf(blockWeeks(s)' },
+  { ...lsl, name: 'LSL Queensland 10 to 15 years gives the exact proportion to take', find: 'if (s.years < 15) return outcomeOf([26n, 3n]', replace: 'if (s.years < 10) return outcomeOf([26n, 3n]' },
+  { ...lsl, name: 'LSL Queensland part years take days over 365.25', find: "(place === 'AU-QLD'\n", replace: "(place === 'none'\n" },
+  { ...lsl, name: 'LSL drops the conditions on a reason that does not qualify', find: "+ `${CONDITIONS[place]?.[reason] ?? ''}`", replace: "+ ''" },
+  { ...lsl, name: 'LSL weeks truncate',find: '(2n * n * 10000n + d) / (2n * d)', replace: '(n * 10000n) / d' },
+  { ...lsl, name: 'LSL payment multiplies the rounded weeks', find: 'value: Number((2n * (n * 10000n - taken * d) * pay + d * 10000n) / (2n * d * 10000n)) / 100',
+    replace: 'value: Number((2n * balance * pay + 10000n) / 20000n) / 100' },
+  { ...lsl, name: 'LSL payment ignores leave taken', find: '(n * 10000n - taken * d)', replace: '(n * 10000n)' },
+  { ...lsl, name: 'LSL more leave taken than the entitlement passes', find: 'if (taken > weeks) {', replace: 'if (taken > weeks + 10000000n) {' },
+  { ...lsl, name: 'LSL next date ignores excluded days', find: 'anniversary(start, next) - 1 + excluded;', replace: 'anniversary(start, next) - 1;' },
+  { ...lsl, name: 'LSL service before 23 June 1990 passes', find: 'value < LSL_EARLIEST_START', replace: "value < '1900-01-01'" },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -432,7 +472,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/income-tests-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }

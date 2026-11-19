@@ -318,9 +318,51 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
   },
 });
 
+const LSL_REASON_CODES = ['resign', 'pressing', 'no-notice', 'retire', 'redundancy', 'illness-dismissal', 'performance', 'misconduct',
+  'fixed-term', 'death'];
+
+/** @param {typeof import('./business-calculators.mjs').longServiceLeave} longServiceLeave */
+const longServiceLeaveTool = (longServiceLeave) => tool({
+  name: 'calculate_long_service_leave',
+  title: 'Long service leave calculator',
+  description: 'One employee\'s long service leave under the general Act of an Australian state or territory: the service counted, '
+    + 'the weeks the employee can take while employment continues or the weeks payable when it ends for a given reason, less leave '
+    + 'already taken or paid, and their value in AUD at the weekly ordinary pay, with the provision applied. Service runs from the '
+    + 'first day to the end of the last day, less the excluded days. It refuses a reason an Act leaves unsettled, and does not '
+    + 'decide which Act or award applies, continuity of service, ordinary pay averaging, portable schemes or tax.',
+  inputSchema: record({
+    place: choice(SURCHARGE_PLACES, 'State or territory whose Act applies, for example "AU-NSW".'),
+    firstDay: text('date', 'First day of service, YYYY-MM-DD, from 1990-06-23 to 2099-12-31.'),
+    lastDay: text('date', 'Last day of employment, or the day to work the leave out at while it continues, YYYY-MM-DD, no earlier than firstDay.'),
+    excludedDays: whole(0, 36500, 'Calendar days inside the service that do not count towards it, such as unpaid leave; 0 when omitted.'),
+    employment: choice(['ends', 'employed'], '"ends" when employment ends on lastDay, or "employed" for the leave the employee can take now.'),
+    reason: choice(LSL_REASON_CODES, 'Why employment ends, required when employment is "ends": "resign", "pressing" (resignation for illness, '
+      + 'incapacity or a domestic or other pressing necessity), "no-notice" (resignation without the notice the contract requires), "retire" '
+      + '(at or after the retiring age), "redundancy" (or another dismissal not about conduct, capacity or performance), "illness-dismissal", '
+      + '"performance" (dismissal for conduct, capacity or performance short of serious misconduct, or of serious and wilful misconduct in NSW, '
+      + 'SA, Tasmania and the ACT), "misconduct" (serious misconduct, or serious and wilful misconduct in NSW, SA, Tasmania and the ACT), '
+      + '"fixed-term" or "death".'),
+    takenWeeks: text('rate', 'Weeks of long service leave already taken or paid, with at most 4 decimal places; "0" when omitted.'),
+    weeklyPay: text('amount', 'Ordinary pay a week in AUD with at most 2 decimal places, no more than 1000000.'),
+  }, ['place', 'firstDay', 'lastDay', 'employment', 'weeklyPay']),
+  run(input) {
+    if (input.employment === 'ends' && input.reason === undefined) throw new Error('reason is required when employment ends.');
+    const r = longServiceLeave({ place: input.place, start: input.firstDay, end: input.lastDay, excluded: String(input.excludedDays ?? 0),
+      taken: input.takenWeeks ?? '0', mode: input.employment, reason: input.reason ?? 'redundancy', pay: input.weeklyPay });
+    return {
+      years: r.years, months: r.months, days: r.days, daysCounted: r.counted, rule: r.rule, weeks: r.weeks.toFixed(4),
+      takenWeeks: r.taken.toFixed(4), weeksLeft: r.balance.toFixed(4), value: dollars(r.value), currency: 'AUD',
+      next: r.next && { years: r.next.years, date: r.next.date, weeks: r.next.weeks.toFixed(4) },
+      basis: 'Each state and territory\'s general long service leave Act as read 19 November 2026. Weeks round half up to 4 decimal places; '
+        + 'the value is the exact weeks times the pay, rounded half up to the cent.',
+      source: `${CALCULATORS}long-service-leave/`,
+    };
+  },
+});
+
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
  * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
- *   | 'breakEven' | 'companyTax' | 'foreignSurcharge'>} calculate */
+ *   | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'longServiceLeave'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -330,6 +372,7 @@ export function calculatorTools(calculate) {
     'break-even': breakEvenTool(calculate.breakEven),
     'company-tax': companyTaxTool(calculate.companyTax),
     'foreign-surcharge': foreignSurchargeTool(calculate.foreignSurcharge),
+    'long-service-leave': longServiceLeaveTool(calculate.longServiceLeave),
   };
 }
 
@@ -515,14 +558,61 @@ const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full i
   + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
   + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
 
+const INCOME_TESTS_DESCRIPTION = 'The income measures that the tax return of one person resident in Australia all year feeds, '
+  + 'for 2024-25 to 2026-27, in '
+  + 'whole AUD: income for surcharge purposes (Medicare levy surcharge), Division 293 income, rebate income (seniors and '
+  + 'pensioners tax offset), repayment income (study and training loans), adjusted taxable income (dependant offsets) and '
+  + 'the super co-contribution’s total income, with the reportable fringe benefits total, the adjusted fringe benefits '
+  + 'total (section 57A amounts times 0.53, rounded down), total net investment loss and reportable super contributions. '
+  + 'Every amount is whole dollars and 0 when omitted. It works the measures only; it does not decide the offsets, '
+  + 'surcharge, repayment or co-contribution, a part-year or foreign resident, or the Services Australia income tests. '
+  + `Sources on ${INDIVIDUAL}income-tests/.`;
+/** The income tests tool's inputs and the engine's names for them. */
+const INCOME_TEST_INPUTS = /** @type {const} */ ([['taxableIncome', 'taxable', 'Taxable income, including any assessable FHSS released amount.'],
+  ['assessableFhssReleasedAmount', 'fhss', 'Assessable first home super saver released amount (ITAA 1997 s 313-20).'],
+  ['familyTrustDistributionAmounts', 'familyTrust', 'Amounts on which family trust distribution tax was paid.'],
+  ['reportableFringeBenefitsSection57a', 'fringe57a', 'Reportable fringe benefits from FBTAA s 57A exempt employers (IT1 label N).'],
+  ['reportableFringeBenefitsOther', 'fringeOther', 'Reportable fringe benefits from other employers (IT1 label W).'],
+  ['reportableEmployerSuperContributions', 'employerSuper', 'Reportable employer super contributions (IT2).'],
+  ['deductiblePersonalSuperContributions', 'personalSuper', 'Personal super contributions deducted (D12).'],
+  ['excessConcessionalContributions', 'excessConcessional', 'Excess concessional contributions for the year.'],
+  ['netFinancialInvestmentLoss', 'financialLoss', 'Net financial investment loss (IT5).'],
+  ['netRentalPropertyLoss', 'rentalLoss', 'Net rental property loss (IT6).'],
+  ['taxFreeGovernmentPensions', 'pensions', 'Tax-free government pensions or benefits (IT3).'],
+  ['targetForeignIncome', 'targetForeign', 'Target foreign income, including exempt foreign employment income (IT4).'],
+  ['exemptForeignEmploymentIncome', 'exemptForeign', 'Exempt foreign employment income, net of the costs of earning it.'],
+  ['childSupportPaid', 'childSupport', 'Child support paid (IT7).'],
+  ['assessableIncome', 'assessable', 'Assessable income, at least the taxable income.'],
+  ['businessDeductions', 'businessDeductions', 'Deductions from carrying on a business.']]);
+
 /**
- * WebMCP descriptors for the income tax estimate and take-home pay calculators, keyed by the
- * `data-calculator` name of the form whose page registers them.
+ * WebMCP descriptors for the income tax estimate, take-home pay and income tests calculators, keyed by
+ * the `data-calculator` name of the form whose page registers them.
  * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
- *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay, incomeYears: string[], payYears: string[]}} engines
+ *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay,
+ *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[]}} engines
  */
-export function individualTaxTools({ taxEstimate, takeHomePay, incomeYears, payYears }) {
+export function individualTaxTools({ taxEstimate, takeHomePay, incomeTests, incomeYears, payYears }) {
   return {
+    'income-tests': tool({
+      name: 'calculate_income_tests',
+      title: 'Income tests calculator',
+      description: INCOME_TESTS_DESCRIPTION,
+      inputSchema: record(Object.fromEntries(INCOME_TEST_INPUTS.map(([name, , description]) => [name, dollarsOnly(description)])),
+        ['taxableIncome']),
+      run(input) {
+        const parts = Object.fromEntries(INCOME_TEST_INPUTS.map(([name, key]) => [key, String(input[name] ?? 0)]));
+        const r = incomeTests(/** @type {import('./income-tests.mjs').IncomeTestParts} */ ({ ...parts, resident: true }));
+        return {
+          incomeForSurchargePurposes: dollars(r.surchargeIncome), division293Income: dollars(r.division293Income),
+          rebateIncome: dollars(r.rebateIncome), repaymentIncome: dollars(r.repaymentIncome),
+          adjustedTaxableIncome: dollars(r.adjustedTaxableIncome), coContributionTotalIncome: dollars(r.coContributionIncome),
+          reportableFringeBenefitsTotal: dollars(r.fringeTotal), adjustedFringeBenefitsTotal: dollars(r.adjustedFringe),
+          totalNetInvestmentLoss: dollars(r.losses), reportableSuperContributions: dollars(r.contributions),
+          currency: 'AUD', source: `${INDIVIDUAL}income-tests/`,
+        };
+      },
+    }),
     'income-tax': tool({
       name: 'estimate_income_tax',
       title: 'Income tax and refund estimate',
