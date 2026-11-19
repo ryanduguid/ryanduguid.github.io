@@ -1,4 +1,4 @@
-# AASB 16 lease calculator: lease liability, right-of-use asset, lease or buy
+# AASB 16 lease calculator: liability, asset and lease or buy
 
 Source: https://duguid.com.au/tools/business-calculators/lease/
 
@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/lease/
 
 # AASB 16 lease calculator
 
-A lessee’s lease liability and right-of-use asset under AASB 16, by income year, beside hire purchase and buying outright after GST and tax.
+Lease liability and right-of-use asset by income year, beside hire purchase and buying, after GST and tax.
 
 Published 19 November 2026. Last checked 19 November 2026.
 
