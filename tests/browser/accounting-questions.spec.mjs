@@ -904,7 +904,7 @@ test('SGC page works a Payday Super charge, an old-law quarter and a refusal off
   await form.getByLabel('Late receipt date').fill('2026-09-02');
   await form.getByLabel('Assessment date').fill('2026-12-10');
   await form.getByLabel('Yes', { exact: true }).check();
-  await form.getByLabel('Lodged', { exact: true }).check();
+  await form.getByLabel('Lodged in the approved form', { exact: true }).check();
   await form.getByLabel('Disclosure date').fill('2026-09-04');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('SG charge for the payday, before any choice loading: $322.16.');

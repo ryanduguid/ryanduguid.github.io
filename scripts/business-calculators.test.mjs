@@ -3385,6 +3385,16 @@ test('notional earnings and the uplift round per employee as LCR 2026/3’s Empl
   assert.deepEqual([ella.due, ella.base, ella.final, ella.days], ['2026-08-11', 460, 0, 19]);
 });
 
+test('the Payday Super form identifies the statutory facts needed for its inputs', () => {
+  const html = calculatorInclude('sgc-payday');
+  assert.match(html, /Next scheduled payday \(only if regular qualifying earnings were paid that day\)/);
+  assert.match(html, /if the employer actually paid regular qualifying earnings that day/);
+  assert.match(html, /positive assessment still in force on payday/);
+  assert.match(html, /positive, unrevoked SGC estimate/);
+  assert.match(html, /initiated by the ATO or prompted by an invalid section 33 disclosure/);
+  assert.match(html, /Approved voluntary disclosure before the assessment day/);
+});
+
 // Regulation 13D counts from the payday: the 30-day period starting on it ends on day 29. Earnings
 // of $6,500 on 6 August 2026 give an SG amount of $780, due 17 August; $540 arrived on 2 September.
 test('the administrative uplift falls by the regulation 13C and 13D points, to nil at most', () => {
@@ -3402,9 +3412,9 @@ test('the administrative uplift falls by the regulation 13C and 13D points, to n
   assert.equal(r.uplift, Math.round((r.final + r.notional) * 40) / 100);
   assert.equal(r.charge, Math.round((r.final + r.notional + r.uplift) * 100) / 100);
   assert.throws(() => calculations.paydaySuperCharge({ ...base, assessed: 'maybe' }),
-    { message: 'Choose whether the ATO assessed or estimated SG charge for this employer from 1 July 2026 to the payday.' });
+    { message: 'Choose whether a disqualifying ATO assessment or estimate applies for this payday.' });
   assert.throws(() => calculations.paydaySuperCharge({ ...base, disclosure: 'yes' }),
-    { message: 'Choose whether a voluntary disclosure statement was lodged.' });
+    { message: 'Choose whether an approved voluntary disclosure statement was lodged before the assessment day.' });
 });
 
 test('the SGC page refuses malformed, nil and out-of-range money instead of reading it as nil', () => {
