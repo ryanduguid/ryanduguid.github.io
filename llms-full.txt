@@ -1450,7 +1450,7 @@ The ATO summary lists 8 selected measures as TBD, one as Various and 6 with a bi
 
 Source checked
 
-4 November 2026 for pending measures and 13 November 2026 for legislated measures
+13 November 2026 for legislated measures and 20 November 2026 for pending measures
 
 Scope
 
@@ -1826,9 +1826,9 @@ Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD 
 
 TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Published 20 September 2026. Last reviewed 5 November 2026. Source checked 4 November 2026 for pending measures. Source checked 13 November 2026 for legislated measures. Reform provisions reviewed 22 September 2026.
+Published 20 September 2026. Last reviewed 5 November 2026. Source checked 13 November 2026 for legislated measures. Source checked 20 November 2026 for pending measures. Reform provisions reviewed 22 September 2026.
 
-Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the first table on 4 November 2026, after the ATO’s update of 2 November 2026, and the legislated tables on 13 November 2026, after its update of 9 November 2026. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
+Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the pending measures on 20 November 2026 and the legislated measures on 13 November 2026, both after the ATO’s 9 November 2026 update. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
 ## Not yet legislated in the ATO summary
 
@@ -1853,9 +1853,9 @@ OECD Crypto Asset Reporting Framework and domestic reporting | MYEFO 2025-26 | 1
 Tax treaties with Ukraine and Croatia | MYEFO 2025-26 | To be determined | TBD | No bill identified in the material checked
 Supporting philanthropy | MYEFO 2025-26 | Various | Various | Components not identified; legislative stage not established
 
-The stage column was read on 14 November 2026 from each bill’s page on the Parliament website, the Federal Register and Treasury’s consultation pages; the CSV’s stage_source_url column links each source. On 20 November 2026, the parliamentary records were rechecked for the 4 measures in the Tax Reform No. 4 Bill and for both discretionary trust bills. ‘No bill identified in the material checked’ means none was found in the titles of the 127 bills before Parliament that day, the schedule headings of the Tax Reform No. 3 and No. 4 Bills or the titles of Acts made since 1 September 2026; it does not establish that no bill exists. A bill can still change or lapse; check its page before relying on a stage.
+The stage column was read on 14 November 2026 from each bill’s page on the Parliament website, the Federal Register and Treasury’s consultation pages; the CSV’s stage_source_url column links each source. On 20 November 2026, the parliamentary records were rechecked for the 4 measures in the Tax Reform No. 4 Bill and for both discretionary trust bills. ‘No bill identified in the material checked’ means none was found in the titles of the 127 bills before Parliament on 14 November 2026, the schedule headings of the Tax Reform No. 3 and No. 4 Bills or the titles of Acts made since 1 September 2026; it does not establish that no bill exists. A bill can still change or lapse; check its page before relying on a stage.
 
-Later report for the foreign resident CGT row: the ATO measure page, updated 9 October 2026, says the Treasury Laws Amendment (Strengthening Accountability for Tax Adviser Misconduct and Other Measures) Act 2026 is law and the changes commenced on 1 October 2026. The Federal Register gives assent on 15 September 2026. The ATO summary, last updated 2 November 2026, still showed TBD when checked on 4 November 2026, so the row repeats it.
+Later report for the foreign resident CGT row: the ATO measure page, updated 9 October 2026, says the Treasury Laws Amendment (Strengthening Accountability for Tax Adviser Misconduct and Other Measures) Act 2026 is law and the changes commenced on 1 October 2026. The Federal Register gives assent on 15 September 2026. The ATO summary still showed TBD when checked on 20 November 2026, so the row repeats it.
 
 Left out on purpose: the Budget and MYEFO rows that fund administration rather than change tax or super law (child support systems, the foreign investment framework, the Consumer Data Right, ABN authentication and lookup services, Digital ID, the counter-fraud and NDIS taskforces, director identification number linking and the wind-down of cheques).
 
