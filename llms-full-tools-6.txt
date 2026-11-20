@@ -915,13 +915,13 @@ Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan c
 
 Leave the borrowing expenses blank to skip loan 2.
 
-Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender Accounting: of the borrowing expenses, fees paid to the same lender (AUD)
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender Accounting: fees paid to the same lender or on its behalf (AUD) Accounting: fees received from the same lender or paid by it on your behalf (AUD, optional)
 
 ## Loan 3 (optional)
 
 Leave the borrowing expenses blank to skip loan 3.
 
-Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Loan 2 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender Accounting: of the borrowing expenses, fees paid to the same lender (AUD)
+Borrowing expenses (AUD) Day the money was first borrowed Last day of the loan contract (optional) Day repaid or refinanced (optional) Income use (%) Or use by year, such as 2025-26 50 (optional) RefinancesNo other loan Loan 1 Loan 2 Accounting: amount borrowed (AUD) Accounting: annual interest rate (%) Accounting: monthly payments over the expected life Accounting: balloon (% of the amount, 100 for interest only) Accounting: funds a qualifying asset (AASB 123)?No Yes Accounting: refinanced withAnother lender The same lender Accounting: fees paid to the same lender or on its behalf (AUD) Accounting: fees received from the same lender or paid by it on your behalf (AUD, optional)
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2024-25; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use; loan 2: $1,670.00 of borrowing expenses from 17 July 2020, contract to 16 July 2040, 81.3397% income use. Borrowing expenses, all loans $3,270.00 Maximum deduction for 2024-25 $653.65 Still to deduct after 2024-25 $16.38 Deduction for 2024-25 $591.36
 
@@ -932,6 +932,8 @@ The borrowing expenses calculator works out the deduction for costs of borrowing
 A loan repaid early ends its period that day, so that year deducts what is left. A loan that refinances an earlier one spreads its own expenses from its own first day. When everything incurred for borrowing in a year comes to $100 or less of income use, it is deducted that year instead.
 
 The optional accounting column sets the same expenses against the loan under AASB 9: the effective interest rate that discounts the loan’s monthly payments to the amount borrowed less the expenses, the expenses recognised each year by that rate, the write-off when a loan is extinguished, the 10% test for a refinancing with the same lender, and the amortised cost at 30 June. Beside each year’s tax deduction it shows the difference, and what tax and accounting each still carry at 30 June.
+
+For the same-lender test, enter the part of the borrowing expenses paid to the lender or on its behalf. Enter zero if there were none. Leave fees received blank if there were none. Exclude fees paid to third parties for your own account from the 10% test.
 
 ## What the borrowing expenses calculator does not cover
 
