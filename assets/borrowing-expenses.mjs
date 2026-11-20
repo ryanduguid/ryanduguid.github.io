@@ -12,7 +12,7 @@ import { ratioCents } from './money.mjs';
 // 'Borrowing expenses' page (QC103910, last updated 22 May 2026) and the Acts Interpretation Act
 // 1901 ss 2G(2) and 36(1).
 //
-// The optional accounting column applies AASB 9 (compilation 6) and AASB 123 (compilation 2)
+// The optional accounting column applies AASB 9 (compilations 6 and 7) and AASB 123 (compilation 2)
 // to the same loans: the borrowing expenses as transaction costs at initial recognition (AASB 9
 // para 5.1.1), amortised by the effective interest method (Appendix A; paras B5.4.1 to B5.4.4),
 // written off when the loan is extinguished (paras 3.3.1 to 3.3.3), and the 10% test of para
