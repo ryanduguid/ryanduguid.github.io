@@ -4762,8 +4762,11 @@ test('the borrowing expenses page opens on the result its calculation gives, and
   const result = calculations.borrowingResult((name) => fields[name] ?? '', borrowAud);
   assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
   for (const cited of ['section 25-25</a> of the Income Tax Assessment Act 1997 at the ATO’s legal database, read 19 November 2026',
-    '(last updated 22 May 2026), read 19 November 2026', 'section 26-155</a>, read 19 November 2026', '(compilation 6, 31 December 2025)',
-    '(compilation 2, 30 June 2021)']) {
+    '(last updated 22 May 2026), read 19 November 2026', 'section 26-155</a>, read 19 November 2026',
+    '/aasb-9-feb-2025">compilation 6</a> covers periods beginning from January to June 2026',
+    '/aasb-9-feb-2025-0">Compilation 7</a>, checked on 20 November 2026, covers periods beginning from July to December 2026',
+    'AASB’s list of versions and amendments</a> for your reporting period',
+    '/aasb-123-mar-2020">AASB 123 Borrowing Costs</a> (compilation 2)']) {
     assert.ok(borrowHtml.includes(cited), cited);
   }
 });
