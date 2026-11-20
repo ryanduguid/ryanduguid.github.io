@@ -3484,13 +3484,21 @@ test('the foreign surcharge page compares every jurisdiction and adds the FIRB f
   // Without an application there is no fee row and the total is the duty and surcharge.
   const none = result('none');
   assert.equal(none.rows.some(([label]) => label.startsWith('FIRB')), false);
-  assert.deepEqual(none.rows.find(([label]) => label.startsWith('Upfront total')), ['Upfront total: general duty, duty surcharge and FIRB fee', '$129,187.00']);
+  assert.deepEqual(none.rows.find(([label]) => label.startsWith('Upfront total')), ['Upfront total: general duty and duty surcharge', '$129,187.00']);
   // An established dwelling's fee is tripled, and the result names the ban.
   const established = result('established');
   assert.deepEqual(established.rows.find(([label]) => label.startsWith('FIRB')), ['FIRB application fee for 2026-27 on the buyer’s share', '$46,800.00']);
   assert.match(established.note, /From 1 April 2025 to 30 June 2029 foreign persons are generally banned from buying established dwellings/);
-  // The fee is on the buyer's share.
-  assert.equal(result('vacant', { share: '2500000', value: '5000000' }).rows.find(([label]) => label.startsWith('FIRB'))[1], '$62,600.00');
+  // A buyer of a share pays that share of the fee on the whole property (Guidance Note 10, tenants in
+  // common rule): half of $125,200 on $5 million, and half of $31,300 on $1.2 million, not the $15,600
+  // a $600,000 purchase alone would pay.
+  const firbOn = (share, value) => result('vacant', { share, value }).rows.find(([label]) => label.startsWith('FIRB'))[1];
+  assert.equal(firbOn('2500000', '5000000'), '$62,600.00');
+  assert.equal(firbOn('600000', '1200000'), '$15,650.00');
+  assert.equal(firbOn('1', '3'), '$1,533.33');
+  // Joint tenants share one fee on the whole, which the note names; a buyer of the whole gets no such note.
+  assert.match(result('vacant', { share: '600000', value: '1200000' }).note, /joint tenants pay one fee of \$31,300\.00 on the whole property/);
+  assert.doesNotMatch(vacant.note, /joint tenants/);
   // Not residential: no general duty, no comparison, and no residential land fee.
   const generals = Object.fromEntries(Object.keys(PLACES).map((place) => [place, null]));
   const other = calculations.foreignSurchargeResult(buyer, { ...purchase, use: 'other' }, generals, 'none', aud);

@@ -286,7 +286,11 @@ const FIRB_KINDS = { none: 'no FIRB application', vacant: 'FIRB application for 
  * @param {'none' | 'vacant' | 'established'} firb @param {(value: number) => string} aud */
 export function foreignSurchargeResult(buyer, purchase, generals, firb, aud) {
   const r = foreignSurcharge(buyer, purchase);
-  const { fee } = firbFee(firb, purchase.share);
+  // A buyer of a share, as a tenant in common, pays that share of the fee on the whole property
+  // (Guidance Note 10, 'Tenants in common rule'); a buyer of the whole pays all of it.
+  const [share, value] = [purchase.share, purchase.value].map((amount) => BigInt(number(amount, { min: 1, max: 1e9, integer: true, money: true })));
+  const whole = firbFee(firb, purchase.value).fee;
+  const fee = Number(ratioCents(BigInt(whole) * 100n * share, value)) / 100;
   if (firb !== 'none' && purchase.use !== 'residential') {
     throw new Error('The FIRB fee here is for residential land; agricultural and commercial land have their own fee steps.');
   }
@@ -300,11 +304,17 @@ export function foreignSurchargeResult(buyer, purchase, generals, firb, aud) {
   if (firb !== 'none') rows.push([`FIRB application fee for ${FIRB_FEES.year} on the buyer’s share`, aud(fee)]);
   /** Cents of the upfront amounts, added exactly. @param {number[]} amounts */
   const sum = (amounts) => amounts.reduce((total, amount) => total + Math.round(amount * 100), 0) / 100;
-  if (general !== null) rows.push(['Upfront total: general duty, duty surcharge and FIRB fee', aud(sum([general, r.duty, fee]))]);
+  if (general !== null) {
+    rows.push([firb === 'none' ? 'Upfront total: general duty and duty surcharge' : 'Upfront total: general duty, duty surcharge and FIRB fee',
+      aud(sum([general, r.duty, fee]))]);
+  }
   rows.push(['Land tax surcharge for a full year', aud(r.land)], ['Land tax surcharge test', r.landTest]);
   const notes = ['Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign'];
   if (firb === 'established') {
     notes.push('From 1 April 2025 to 30 June 2029 foreign persons are generally banned from buying established dwellings, with limited exceptions');
+  }
+  if (firb !== 'none' && share < value) {
+    notes.push(`The FIRB fee shown is a tenant in common’s share; joint tenants pay one fee of ${aud(whole)} on the whole property, each liable for all of it until it is paid`);
   }
   /** @type {Record<string, string[][]>} */
   const tables = {};
