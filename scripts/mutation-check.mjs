@@ -772,7 +772,7 @@ const MUTATIONS = [
   { ...borrow, name: 'borrowing refinancing on another day passes', find: '&& loans[k - 1].loan.repaid === facts.loan.start;', replace: ';' },
   { ...borrow, name: 'borrowing s 26-155 flag from 2028-29', find: 'section_26_155: first >= 2027, projected: first > LAST_YEAR }));', replace: 'section_26_155: first >= 2028, projected: first > LAST_YEAR }));' },
   { ...borrow, name: 'borrowing 10% test at 5%', find: 'if (change < 0.1) {', replace: 'if (change < 0.05) {' },
-  { ...borrow, name: 'borrowing 10% test counts fees paid to others', find: '+ Number(lenderFees) / 100;', replace: '+ Number(t.borrowingExpenses) / 100;' },
+  { ...borrow, name: 'borrowing 10% test counts fees paid to others', find: '+ Number(paid - received) / 100;', replace: '+ Number(BigInt(t.borrowingExpenses) - received) / 100;' },
   { ...borrow, name: 'borrowing early repayment is not an extinguishment', find: 'return { cost, balances, writtenOff: stop };', replace: 'return { cost, balances, writtenOff: null };' },
   { ...wc, name: 'WC an NSW premium of exactly $30,000 is refused', find: 'if (app > NSW_SMALL_LIMIT) {', replace: 'if (app >= NSW_SMALL_LIMIT) {' },
   { ...wc, name: 'WC an NSW premium of exactly $240 is refused', find: 'if (premium < NSW_MINIMUM) {', replace: 'if (premium <= NSW_MINIMUM) {' },
